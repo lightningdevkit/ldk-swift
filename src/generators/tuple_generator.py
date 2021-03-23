@@ -2,43 +2,42 @@ import re
 import os
 
 
-class OpaqueStructGenerator:
+class TupleGenerator:
 
 	def __init__(self) -> None:
 		super().__init__()
-		template_path = f'{os.path.dirname(__file__)}/../../templates/OpaqueStructTemplate.swift'
+		template_path = f'{os.path.dirname(__file__)}/../../templates/TupleTemplate.swift'
 		with open(template_path, 'r') as template_handle:
 			template = template_handle.read()
 			self.template = template
 
-	def generate_opaque_struct(self, struct_name, struct_details):
+	def generate_tuple(self, tuple_name, tuple_details):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
-		swift_struct_name = struct_name[3:]
+		swift_tuple_name = tuple_name[3:]
 
 		method_template_regex = re.compile(
-			"(\/\* STRUCT_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* STRUCT_METHODS_END \*\/)",
+			"(\/\* TUPLE_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* TUPLE_METHODS_END \*\/)",
 			flags=re.MULTILINE | re.DOTALL)
 		method_template = method_template_regex.search(self.template).group(2)
 
-		method_prefix = swift_struct_name + '_'
-		struct_methods = ''
+		method_prefix = swift_tuple_name + '_'
+		tuple_methods = ''
 
 		# fill templates
-		for current_method_details in struct_details.methods:
+		for current_method_details in tuple_details.methods:
 			current_native_method_name = current_method_details['name']['native']
 			current_method_name = current_method_details['name']['swift']
-			# current_method_name = current_native_method_name[len(method_prefix):]
 
 			current_replacement = method_template
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
-			current_replacement = current_replacement.replace('OpaqueStructType_methodName(',
+			current_replacement = current_replacement.replace('TupleType_methodName(',
 															  f'{current_native_method_name}(')
 
 			# replace arguments
 			swift_arguments = []
-			native_arguments = ['self.cOpaqueStruct']
+			native_arguments = ['self.cTuple']
 			native_call_prep = ''
 			for current_argument_details in current_method_details['argument_types']:
 				argument_name = current_argument_details.var_name
@@ -54,7 +53,7 @@ class OpaqueStructGenerator:
 					# }
 					# the \n\t will add a bunch of extra lines, but this file will be easier to read
 					current_prep = f'''
-						\n\t	let {passed_argument_name} = withUnsafePointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: UnsafePointer<{current_argument_details.rust_obj}>) in
+						\n\t	let {passed_argument_name} = withUnsafePointer(to: {argument_name}.cTuple!) {{ (pointer: UnsafePointer<{current_argument_details.rust_obj}>) in
 							\n\t\t	pointer
 						\n\t	}}
 					'''
@@ -67,20 +66,20 @@ class OpaqueStructGenerator:
 			current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments))
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
 
-			struct_methods += '\n' + current_replacement + '\n'
+			tuple_methods += '\n' + current_replacement + '\n'
 
-		opaque_struct_file = self.template.replace('class OpaqueStructName {', f'class {swift_struct_name} {{')
-		opaque_struct_file = opaque_struct_file.replace('var cOpaqueStruct: OpaqueStructType?',
-														f'var cOpaqueStruct: {struct_name}?')
-		opaque_struct_file = opaque_struct_file.replace('self.cOpaqueStruct = OpaqueStructType()',
-														f'self.cOpaqueStruct = {struct_name}_new()')
-		opaque_struct_file = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', opaque_struct_file)
+		tuple_file = self.template.replace('class TupleName {', f'class {swift_tuple_name} {{')
+		tuple_file = tuple_file.replace('var cTuple: TupleType?',
+														f'var cTuple: {tuple_name}?')
+		tuple_file = tuple_file.replace('self.cTuple = TupleType()',
+														f'self.cTuple = {tuple_name}_new()')
+		tuple_file = method_template_regex.sub(f'\g<1>{tuple_methods}\g<3>', tuple_file)
 
 		# store the output
-		output_path = f'{os.path.dirname(__file__)}/../../output/LDK/structs/{swift_struct_name}.swift'
+		output_path = f'{os.path.dirname(__file__)}/../../output/LDK/tuples/{swift_tuple_name}.swift'
 		output_directory = os.path.dirname(output_path)
 		if not os.path.exists(output_directory):
 			os.makedirs(output_directory)
 		with open(output_path, "w") as f:
-			f.write(opaque_struct_file)
+			f.write(tuple_file)
 		pass

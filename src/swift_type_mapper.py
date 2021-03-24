@@ -101,13 +101,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		if is_ptr:
 			res.pass_by_ref = True
 		if res.is_native_primitive or res.passed_as_ptr:
-			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=res.swift_type + "[]",
+			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]',
 							c_ty=res.c_ty + "Array", passed_as_ptr=False,
 							is_ptr=is_ptr, is_const=is_const,
 							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
 							is_native_primitive=False)
 		else:
-			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=res.swift_type + "[]",
+			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]',
 							c_ty=language_constants.ptr_arr,
 							passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const,
 							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
@@ -120,41 +120,35 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	if fn_arg.startswith("void"):
 		java_ty = "Void"
 		c_ty = "void"
-		fn_ty_arg = "V"
 		fn_arg = fn_arg[4:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("bool"):
 		java_ty = "boolean"
 		c_ty = "jboolean"
-		fn_ty_arg = "Z"
 		fn_arg = fn_arg[4:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("uint8_t"):
 		mapped_type = language_constants.c_type_map['uint8_t']
 		java_ty = mapped_type[0]
 		c_ty = "int8_t"
-		fn_ty_arg = "B"
 		fn_arg = fn_arg[7:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("uint16_t"):
 		mapped_type = language_constants.c_type_map['uint16_t']
 		java_ty = mapped_type[0]
 		c_ty = "int16_t"
-		fn_ty_arg = "S"
 		fn_arg = fn_arg[8:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("uint32_t"):
 		mapped_type = language_constants.c_type_map['uint32_t']
 		java_ty = mapped_type[0]
 		c_ty = "int32_t"
-		fn_ty_arg = "I"
 		fn_arg = fn_arg[8:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("uint64_t") or fn_arg.startswith("uintptr_t"):
 		# TODO: uintptr_t is arch-dependent :(
 		mapped_type = language_constants.c_type_map['uint64_t']
 		java_ty = mapped_type[0]
-		fn_ty_arg = "J"
 		if fn_arg.startswith("uint64_t"):
 			c_ty = "int64_t"
 			fn_arg = fn_arg[8:].strip()
@@ -166,12 +160,10 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	elif is_const and fn_arg.startswith("char *"):
 		java_ty = "String"
 		c_ty = "const char*"
-		fn_ty_arg = "Ljava/lang/String;"
 		fn_arg = fn_arg[6:].strip()
 	elif fn_arg.startswith("LDKStr"):
 		java_ty = "String"
 		c_ty = "jstring"
-		fn_ty_arg = "Ljava/lang/String;"
 		fn_arg = fn_arg[6:].strip()
 		arr_access = "chars"
 		arr_len = "len"
@@ -182,7 +174,6 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		if type_match in unitary_enums:
 			java_ty = type_match
 			c_ty = language_constants.result_c_ty
-			fn_ty_arg = "Lorg/ldk/enums/" + type_match + ";"
 			fn_arg = name_match
 			rust_obj = type_match
 		elif type_match.startswith("LDKC2Tuple"):
@@ -203,7 +194,6 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 				else:
 					swift_type = swift_type + ty_info.swift_type
 			swift_type = swift_type + ">"
-			fn_ty_arg = "J"
 			fn_arg = name_match
 			rust_obj = type_match
 			take_by_ptr = True
@@ -225,7 +215,6 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 				else:
 					swift_type = swift_type + ty_info.swift_type
 			swift_type = swift_type + ">"
-			fn_ty_arg = "J"
 			fn_arg = name_match
 			rust_obj = type_match
 			take_by_ptr = True
@@ -233,7 +222,6 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 			c_ty = language_constants.ptr_c_ty
 			java_ty = language_constants.ptr_native_ty
 			swift_type = type_match.replace("LDKCResult", "Result").replace("LDK", "")
-			fn_ty_arg = "J"
 			fn_arg = name_match
 			rust_obj = type_match
 			take_by_ptr = True
@@ -243,7 +231,6 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		is_ptr = True
 		c_ty = language_constants.ptr_c_ty
 		java_ty = language_constants.ptr_native_ty
-		fn_ty_arg = "J"
 
 	# TODO: remove java_hu_type vs java_type duality artifact
 	var_is_arr = var_is_arr_regex.match(fn_arg)
@@ -254,7 +241,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		if len(mapped_type) == 2:
 			java_ty = mapped_type[1]
 		else:
-			java_ty = java_ty + "[]"
+			java_ty = '[' + java_ty + ']'
 		c_ty = c_ty + "Array"
 		if var_is_arr is not None:
 			if var_is_arr.group(1) == "":

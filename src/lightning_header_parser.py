@@ -29,9 +29,9 @@ class LightningHeaderParser():
 
 	@classmethod
 	def get_file(cls) -> str:
-		header_path = f'{os.path.dirname(__file__)}/../input/lightning.h'
+		# header_path = f'{os.path.dirname(__file__)}/../input/lightning.h'
 		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_opaque_struct.h'
-		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_tuple.h'
+		header_path = f'{os.path.dirname(__file__)}/../input/minimal_tuple.h'
 		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_ping.h'
 		with open(header_path, 'r') as lightning_header_handle:
 			lightning_header = lightning_header_handle.read()

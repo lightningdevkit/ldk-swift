@@ -21,6 +21,8 @@ class TypeDetails:
 		self.type = CTypes.OPAQUE_STRUCT
 		self.fields = []
 		self.methods = []
+		self.constructor_method = None
+		self.free_method = None
 
 
 class LightningHeaderParser():
@@ -29,7 +31,8 @@ class LightningHeaderParser():
 	def get_file(cls) -> str:
 		# header_path = f'{os.path.dirname(__file__)}/../input/lightning.h'
 		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_opaque_struct.h'
-		header_path = f'{os.path.dirname(__file__)}/../input/minimal_tuple.h'
+		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_tuple.h'
+		header_path = f'{os.path.dirname(__file__)}/../input/minimal_ping.h'
 		with open(header_path, 'r') as lightning_header_handle:
 			lightning_header = lightning_header_handle.read()
 			return lightning_header
@@ -71,14 +74,15 @@ class LightningHeaderParser():
 				else:
 					java_c_type_arguments = {
 						"tuple_types": self.tuple_types,
-						"var_is_arr_regex": var_is_arr_regex,
+						# "var_is_arr_regex": var_is_arr_regex,
 						"java_c_types_none_allowed": java_c_types_none_allowed,
-						"var_ty_regex": var_ty_regex,
+						# "var_ty_regex": var_ty_regex,
 						"unitary_enums": self.unitary_enums,
 						"language_constants": self.language_constants
 					}
-					rty = java_type_mapper.java_c_types(reg_fn.group(1), None, **java_c_type_arguments)
-					if rty is not None and not rty.is_native_primitive and reg_fn.group(2) == rty.java_hu_ty + "_new":
+					# rty = java_type_mapper.java_c_types(reg_fn.group(1), None, **java_c_type_arguments)
+					rty = swift_type_mapper.map_types_to_swift(reg_fn.group(1), None, **java_c_type_arguments)
+					if rty is not None and not rty.is_native_primitive and reg_fn.group(2) == rty.swift_type + "_new":
 						self.constructor_fns[rty.rust_obj] = reg_fn.group(3)
 				continue
 			arr_fn = fn_ret_arr_regex.match(current_line)
@@ -303,7 +307,13 @@ class LightningHeaderParser():
 				if method_details is not None:
 					if method_details['belongs_to_struct'] or method_details['belongs_to_tuple']:
 						associated_type_name = method_details['associated_type_name']['native']
-						self.type_details[associated_type_name].methods.append(method_details)
+						if method_details['is_free']:
+							self.type_details[associated_type_name].free_method = method_details
+						elif method_details['is_constructor']:
+							# TODO: handle case for multiple constructors
+							self.type_details[associated_type_name].constructor_method = method_details
+						else:
+							self.type_details[associated_type_name].methods.append(method_details)
 					else:
 						# self.global_methods.add(method_details)
 						pass
@@ -314,6 +324,8 @@ class LightningHeaderParser():
 		method_comma_separated_arguments = re_match.group(3)
 		method_arguments = method_comma_separated_arguments.split(',')
 
+		is_constructor = False
+		is_clone = False
 		is_free = method_name.endswith("_free")
 		inferred_struct_name = method_name.split("_")[0]
 		inferred_tuple_name = '_'.join(method_name.split('_')[:-1])
@@ -334,7 +346,7 @@ class LightningHeaderParser():
 			argument_conversion_info = swift_type_mapper.map_types_to_swift(argument, None, False,
 																			self.tuple_types,
 																			self.unitary_enums, self.language_constants)
-			if argument_index == 0 and argument_conversion_info.java_hu_ty == inferred_struct_name:
+			if argument_index == 0 and argument_conversion_info.swift_type == inferred_struct_name:
 				takes_self = True
 
 			# TODO: deal with implied move semantics later
@@ -358,6 +370,12 @@ class LightningHeaderParser():
 			argument_types.append(argument_conversion_info)
 			pass
 
+		if return_type_info.swift_type == inferred_struct_name:
+			if takes_self:
+				is_clone = True
+			else:
+				is_constructor = True
+
 		if is_free:
 			assert len(argument_types) == 1
 			assert return_type_info.c_ty == "void"
@@ -368,14 +386,16 @@ class LightningHeaderParser():
 		associated_type_name = None
 		native_struct_name = "LDK" + inferred_struct_name
 		native_tuple_name = "LDK" + inferred_tuple_name
-		if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs) and not is_free:
+		# if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs) and not is_free:
+		if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs): # don't care if it's a free
 			# belongs to struct
 			belongs_to_struct = True
 			associated_type_name = inferred_struct_name
 		elif method_name.startswith("C2Tuple_") and method_name.endswith("_read"):
 			# belongs in utility methods
 			inferred_struct_name = method_name.rsplit("_", 1)[0]
-		elif (native_tuple_name in self.tuple_types) and not is_free:
+		# elif (native_tuple_name in self.tuple_types) and not is_free:
+		elif (native_tuple_name in self.tuple_types): # don't care if it's a free
 			associated_type_name = inferred_tuple_name
 			belongs_to_tuple = True
 		if out_java_struct is not None:
@@ -392,7 +412,8 @@ class LightningHeaderParser():
 				'swift': associated_type_name
 			},
 			'is_free': is_free,
-			'is_constructor': False,
+			'is_constructor': is_constructor,
+			'is_clone': is_clone,
 			'takes_self': takes_self,
 			'name': {
 				'native': method_name,

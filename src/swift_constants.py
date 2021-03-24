@@ -10,10 +10,10 @@ class Consts:
         self.target = target
         self.c_array_class_caches = set()
         self.c_type_map = dict(
-            uint8_t = ['byte'],
-            uint16_t = ['short'],
-            uint32_t = ['int'],
-            uint64_t = ['long'],
+            uint8_t = ['UInt8'],
+            uint16_t = ['UInt16'],
+            uint32_t = ['UInt32'],
+            uint64_t = ['UInt64'],
         )
 
         self.to_hu_conv_templates = dict(

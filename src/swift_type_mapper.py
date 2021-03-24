@@ -101,14 +101,14 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		if is_ptr:
 			res.pass_by_ref = True
 		if res.is_native_primitive or res.passed_as_ptr:
-			return TypeInfo(rust_obj=fn_arg.split(" ")[0], java_ty=res.java_ty + "[]", java_hu_ty=res.java_hu_ty + "[]",
-							java_fn_ty_arg="[" + res.java_fn_ty_arg, c_ty=res.c_ty + "Array", passed_as_ptr=False,
+			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=res.swift_type + "[]",
+							c_ty=res.c_ty + "Array", passed_as_ptr=False,
 							is_ptr=is_ptr, is_const=is_const,
 							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
 							is_native_primitive=False)
 		else:
-			return TypeInfo(rust_obj=fn_arg.split(" ")[0], java_ty=res.java_ty + "[]", java_hu_ty=res.java_hu_ty + "[]",
-							java_fn_ty_arg="[" + res.java_fn_ty_arg, c_ty=language_constants.ptr_arr,
+			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=res.swift_type + "[]",
+							c_ty=language_constants.ptr_arr,
 							passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const,
 							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
 							is_native_primitive=False)
@@ -196,12 +196,12 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 				if idx != 0:
 					swift_type = swift_type + ", "
 				if ty_info.is_native_primitive:
-					if ty_info.java_hu_ty == "int":
+					if ty_info.swift_type == "int":
 						swift_type = swift_type + "Integer"  # Java concrete integer type is Integer, not Int
 					else:
-						swift_type = swift_type + ty_info.java_hu_ty.title()  # If we're a primitive, capitalize the first letter
+						swift_type = swift_type + ty_info.swift_type.title()  # If we're a primitive, capitalize the first letter
 				else:
-					swift_type = swift_type + ty_info.java_hu_ty
+					swift_type = swift_type + ty_info.swift_type
 			swift_type = swift_type + ">"
 			fn_ty_arg = "J"
 			fn_arg = name_match
@@ -223,7 +223,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 					else:
 						swift_type = swift_type + ty_info.java_hu_ty.title()  # If we're a primitive, capitalize the first letter
 				else:
-					swift_type = swift_type + ty_info.java_hu_ty
+					swift_type = swift_type + ty_info.swift_type
 			swift_type = swift_type + ">"
 			fn_ty_arg = "J"
 			fn_arg = name_match

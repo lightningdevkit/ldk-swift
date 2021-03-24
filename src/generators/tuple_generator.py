@@ -59,7 +59,7 @@ class TupleGenerator:
 					'''
 					native_call_prep += current_prep
 
-				swift_arguments.append(f'{current_argument_details.java_hu_ty} {argument_name}')
+				swift_arguments.append(f'{current_argument_details.swift_type} {argument_name}')
 				native_arguments.append(f'{passed_argument_name}')
 
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))

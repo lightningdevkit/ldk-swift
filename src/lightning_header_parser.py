@@ -10,7 +10,8 @@ import swift_type_mapper
 class CTypes(enum.Enum):
 	OPAQUE_STRUCT = 1,
 	TUPLE = 2,
-	UNITARY_ENUM = 3
+	UNITARY_ENUM = 3,
+	VECTOR = 4
 
 
 class TypeDetails:
@@ -23,6 +24,8 @@ class TypeDetails:
 		self.methods = []
 		self.constructor_method = None
 		self.free_method = None
+		self.is_primitive = False
+		self.primitive_swift_counterpart = None
 
 
 class LightningHeaderParser():
@@ -101,6 +104,7 @@ class LightningHeaderParser():
 
 		self.trait_structs = set()
 		self.result_types = set()
+		self.vec_types = set()
 
 		fn_ptr_regex = re.compile("^extern const ([A-Za-z_0-9\* ]*) \(\*(.*)\)\((.*)\);$")
 		fn_ret_arr_regex = re.compile("(.*) \(\*(.*)\((.*)\)\)\[([0-9]*)\];$")
@@ -252,6 +256,18 @@ class LightningHeaderParser():
 						pass
 					elif vec_ty is not None:
 						# TODO: vector type (each one needs to be mapped)
+						self.vec_types.add(struct_name)
+						vector_type_details = None
+						if vec_ty in self.type_details:
+							vector_type_details = self.type_details[vec_ty]
+						else:
+							# it's a primitive
+							vector_type_details = TypeDetails()
+							vector_type_details.name = vec_ty
+							vector_type_details.type = CTypes.VECTOR
+							vector_type_details.is_primitive = True
+							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[vec_ty]
+						self.type_details[struct_name] = vector_type_details
 						pass
 					elif is_union_enum:
 						assert (struct_name.endswith("_Tag"))

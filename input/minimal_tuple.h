@@ -37,6 +37,12 @@ typedef struct LDKCVec_u8Z {
    uintptr_t datalen;
 } LDKCVec_u8Z;
 
+typedef struct LDKCVec_u16Z {
+   uint16_t *data;
+    // void *data;
+   uintptr_t datalen;
+} LDKCVec_u16Z;
+
 typedef struct LDKC2Tuple_u32ScriptZ {
    uint32_t a;
    struct LDKCVec_u8Z b;

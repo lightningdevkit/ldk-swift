@@ -180,4 +180,3 @@ class OpaqueStructGenerator:
 			os.makedirs(output_directory)
 		with open(output_path, "w") as f:
 			f.write(mutating_output_file_contents)
-		pass

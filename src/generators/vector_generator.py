@@ -30,7 +30,7 @@ class VectorGenerator:
 														 self.bindings_template)
 
 		# store the output
-		output_path = f'{os.path.dirname(__file__)}/../../output/LDK/Bindings.swift'
+		output_path = f'{os.path.dirname(__file__)}/../../bindings/LDK/Bindings.swift'
 		output_directory = os.path.dirname(output_path)
 		if not os.path.exists(output_directory):
 			os.makedirs(output_directory)

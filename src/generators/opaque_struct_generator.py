@@ -174,7 +174,7 @@ class OpaqueStructGenerator:
 
 
 		# store the output
-		output_path = f'{os.path.dirname(__file__)}/../../output/LDK/structs/{swift_struct_name}.swift'
+		output_path = f'{os.path.dirname(__file__)}/../../bindings/LDK/structs/{swift_struct_name}.swift'
 		output_directory = os.path.dirname(output_path)
 		if not os.path.exists(output_directory):
 			os.makedirs(output_directory)

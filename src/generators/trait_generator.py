@@ -77,7 +77,7 @@ class TraitGenerator:
 		opaque_struct_file = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', opaque_struct_file)
 
 		# store the output
-		output_path = f'{os.path.dirname(__file__)}/../../output/LDK/traits/{swift_struct_name}.swift'
+		output_path = f'{os.path.dirname(__file__)}/../../bindings/LDK/traits/{swift_struct_name}.swift'
 		output_directory = os.path.dirname(output_path)
 		if not os.path.exists(output_directory):
 			os.makedirs(output_directory)

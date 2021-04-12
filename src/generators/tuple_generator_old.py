@@ -76,7 +76,7 @@ class TupleGenerator:
 		tuple_file = method_template_regex.sub(f'\g<1>{tuple_methods}\g<3>', tuple_file)
 
 		# store the output
-		output_path = f'{os.path.dirname(__file__)}/../../output/LDK/tuples/{swift_tuple_name}.swift'
+		output_path = f'{os.path.dirname(__file__)}/../../bindings/LDK/tuples/{swift_tuple_name}.swift'
 		output_directory = os.path.dirname(output_path)
 		if not os.path.exists(output_directory):
 			os.makedirs(output_directory)

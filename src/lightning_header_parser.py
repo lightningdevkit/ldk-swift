@@ -1,6 +1,7 @@
 import enum
 import os
 import re
+from config import Config
 import java_type_mapper
 import swift_constants
 import type_mapping_generator
@@ -11,7 +12,8 @@ class CTypes(enum.Enum):
 	OPAQUE_STRUCT = 1,
 	TUPLE = 2,
 	UNITARY_ENUM = 3,
-	VECTOR = 4
+	VECTOR = 4,
+	BYTE_ARRAY = 5
 
 
 class TypeDetails:
@@ -32,10 +34,7 @@ class LightningHeaderParser():
 
 	@classmethod
 	def get_file(cls) -> str:
-		header_path = f'{os.path.dirname(__file__)}/../input/lightning.h'
-		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_opaque_struct.h'
-		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_tuple.h'
-		# header_path = f'{os.path.dirname(__file__)}/../input/minimal_ping.h'
+		header_path = Config.HEADER_FILE_PATH
 		with open(header_path, 'r') as lightning_header_handle:
 			lightning_header = lightning_header_handle.read()
 			return lightning_header
@@ -46,8 +45,7 @@ class LightningHeaderParser():
 		self.language_constants = swift_constants.Consts(False, swift_constants.Target.ANDROID)
 
 		self.gather_types()
-		type_details = self.populate_type_details()
-		return type_details
+		self.populate_type_details()
 
 	def gather_types(self):
 		self.unitary_enums = set()
@@ -105,6 +103,7 @@ class LightningHeaderParser():
 		self.trait_structs = set()
 		self.result_types = set()
 		self.vec_types = set()
+		self.byte_arrays = set()
 
 		fn_ptr_regex = re.compile("^extern const ([A-Za-z_0-9\* ]*) \(\*(.*)\)\((.*)\);$")
 		fn_ret_arr_regex = re.compile("(.*) \(\*(.*)\((.*)\)\)\[([0-9]*)\];$")
@@ -223,13 +222,13 @@ class LightningHeaderParser():
 					if is_opaque:
 						self.type_details[struct_name].type = CTypes.OPAQUE_STRUCT
 						self.opaque_structs.add(struct_name)
-						# with open(f"{sys.argv[3]}/structs/{struct_name.replace('LDK', '')}{consts.file_ext}", "w") as out_java_struct:
-						#     out_opaque_struct_human = consts.map_opaque_struct(struct_name)
-						#     out_java_struct.write(out_opaque_struct_human)
+					# with open(f"{sys.argv[3]}/structs/{struct_name.replace('LDK', '')}{consts.file_ext}", "w") as out_java_struct:
+					#     out_opaque_struct_human = consts.map_opaque_struct(struct_name)
+					#     out_java_struct.write(out_opaque_struct_human)
 					elif result_contents is not None:
 						assert result_contents in result_ptr_struct_items
 						res_ty, err_ty = result_ptr_struct_items[result_contents]
-						# map_result(struct_name, res_ty, err_ty)
+					# map_result(struct_name, res_ty, err_ty)
 					elif struct_name.startswith("LDKCResult_") and struct_name.endswith("ZPtr"):
 						for current_line in field_lines:
 							if current_line.endswith("*result;"):
@@ -285,12 +284,26 @@ class LightningHeaderParser():
 						pass
 					elif len(trait_fn_lines) > 0:
 						self.trait_structs.add(struct_name)
-						# TODO: trait
+					# TODO: trait
 					elif struct_name == "LDKTxOut":
 						# TODO: why is this even a special case? It's Swift, we dgaf
 						pass
 					else:
-						pass  # Everything remaining is a byte[] or some form
+						if len(field_lines) != 3:
+							print('irregular byte array struct type:', struct_name)
+							continue
+
+						self.byte_arrays.add(struct_name)
+						self.type_details[struct_name].type = CTypes.BYTE_ARRAY
+
+						assert len(field_lines) == 3
+						byte_array_line = field_lines[1].strip(';')
+						custom_line = 'uint8_t[32] data'
+						byte_array_info = swift_type_mapper.map_types_to_swift(byte_array_line, None, True,
+																			   self.tuple_types, self.unitary_enums,
+																			   self.language_constants)
+
+						self.type_details[struct_name].fields.append(byte_array_info)
 			else:
 				# there is no block-scoped object currently being parsed
 				fn_ptr = fn_ptr_regex.match(current_line)
@@ -395,15 +408,16 @@ class LightningHeaderParser():
 		if is_free:
 			assert len(argument_types) == 1
 			assert return_type_info.c_ty == "void"
-			# assert len(method_arguments) == 1
-			# assert method_return_type.strip() == 'void'
+		# assert len(method_arguments) == 1
+		# assert method_return_type.strip() == 'void'
 
 		out_java_struct = None
 		associated_type_name = None
 		native_struct_name = "LDK" + inferred_struct_name
 		native_tuple_name = "LDK" + inferred_tuple_name
 		# if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs) and not is_free:
-		if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs): # don't care if it's a free
+		if (
+			native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs):  # don't care if it's a free
 			# belongs to struct
 			belongs_to_struct = True
 			associated_type_name = inferred_struct_name
@@ -411,7 +425,7 @@ class LightningHeaderParser():
 			# belongs in utility methods
 			inferred_struct_name = method_name.rsplit("_", 1)[0]
 		# elif (native_tuple_name in self.tuple_types) and not is_free:
-		elif (native_tuple_name in self.tuple_types): # don't care if it's a free
+		elif (native_tuple_name in self.tuple_types):  # don't care if it's a free
 			associated_type_name = inferred_tuple_name
 			belongs_to_tuple = True
 		if out_java_struct is not None:
@@ -419,7 +433,7 @@ class LightningHeaderParser():
 
 		clean_method_name = method_name
 		if associated_type_name is not None and method_name.startswith(associated_type_name):
-			clean_method_name = method_name[len(associated_type_name)+1:]
+			clean_method_name = method_name[len(associated_type_name) + 1:]
 
 		return {
 			'struct_method': inferred_struct_name,

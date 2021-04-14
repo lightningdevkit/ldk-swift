@@ -1,6 +1,7 @@
 import re
 import os
 
+from config import Config
 
 class TupleGenerator:
 
@@ -174,7 +175,7 @@ class TupleGenerator:
 
 
 		# store the output
-		output_path = f'{os.path.dirname(__file__)}/../../bindings/LDK/tuples/{swift_tuple_name}.swift'
+		output_path = f'{Config.OUTPUT_DIRECTORY_PATH}/tuples/{swift_tuple_name}.swift'
 		output_directory = os.path.dirname(output_path)
 		if not os.path.exists(output_directory):
 			os.makedirs(output_directory)

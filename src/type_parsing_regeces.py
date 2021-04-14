@@ -4,6 +4,7 @@ class TypeParsingRegeces:
 
     # variable mapping
     IS_VARIABLE_AN_ARRAY_REGEX = re.compile("\(\*([A-za-z0-9_]*)\)\[([a-z0-9]*)\]")
+    IS_VARIABLE_A_FIXED_SIZE_ARRAY_REGEX = re.compile("[a-zA-Z0-9_]+ ([a-zA-Z0-9_]+)\[([1-9][0-9]*)\]")
     VARIABLE_TYPE_REGEX = re.compile("([A-za-z_0-9]*)(.*)")
 
     # function mapping

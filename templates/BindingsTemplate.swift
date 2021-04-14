@@ -9,6 +9,18 @@ import Foundation
 
 class Bindings{
 
+	/* BYTE_ARRAY_METHODS_START */
+	static func new_LDKByteType(array: [UInt8]) -> LDKByteType {
+		let byteType = LDKByteType(fieldName: (tupleArguments))
+		return byteType
+	}
+
+	static func LDKByteType_to_array(byteType: LDKByteType) -> [UInt8] {
+		let array = [tupleReads]
+		return array
+	}
+	/* BYTE_ARRAY_METHODS_END */
+
 	/* VECTOR_METHODS_START */
 	static func new_LDKCVec_rust_primitive(array: [SwiftPrimitive]) -> LDKCVec_rust_primitive {
 

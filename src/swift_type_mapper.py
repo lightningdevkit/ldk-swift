@@ -6,6 +6,7 @@ var_ty_regex = TypeParsingRegeces.VARIABLE_TYPE_REGEX
 
 
 def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_types, unitary_enums, language_constants):
+	unaltered_function_argument = fn_arg # if necessary
 	fn_arg = fn_arg.strip()
 	if fn_arg.startswith("MUST_USE_RES "):
 		fn_arg = fn_arg[13:]
@@ -18,6 +19,8 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	if fn_arg.startswith("enum "):
 		fn_arg = fn_arg[5:]
 	fn_arg = fn_arg.replace("NONNULL_PTR", "")
+
+	stripped_function_argument = fn_arg
 
 	is_ptr = False
 	take_by_ptr = False
@@ -231,6 +234,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		is_ptr = True
 		c_ty = language_constants.ptr_c_ty
 		java_ty = language_constants.ptr_native_ty
+
+	is_constant_size_array = TypeParsingRegeces.IS_VARIABLE_A_FIXED_SIZE_ARRAY_REGEX.match(stripped_function_argument)
+	if is_constant_size_array is not None:
+		fn_arg = is_constant_size_array.group(1)
+		array_size = int(is_constant_size_array.group(2))
+		arr_len = array_size
+		swift_type = f'({",".join([mapped_type] * array_size)})'
 
 	# TODO: remove java_hu_type vs java_type duality artifact
 	var_is_arr = var_is_arr_regex.match(fn_arg)

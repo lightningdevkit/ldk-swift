@@ -1,7 +1,8 @@
 from lightning_header_parser import LightningHeaderParser
 from generators.opaque_struct_generator import OpaqueStructGenerator
 from generators.tuple_generator import TupleGenerator
-from generators.vector_generator import VectorGenerator
+from generators.util_generators.vector_generator import VectorGenerator
+from generators.util_generators.byte_array_generator import ByteArrayGenerator
 
 
 def parse_header() -> LightningHeaderParser:
@@ -14,13 +15,21 @@ def parse_header() -> LightningHeaderParser:
 
 def generate_binding_methods(parser: LightningHeaderParser):
 	# firstly, let's generate the vector utilities
+	byte_array_generator = ByteArrayGenerator()
 	vector_generator = VectorGenerator()
+
+	byte_arrays = parser.byte_arrays
+	for current_byte_array_type in byte_arrays:
+		byte_array_details = parser.type_details[current_byte_array_type]
+		byte_array_generator.generate_byte_array(current_byte_array_type, byte_array_details)
+	byte_array_generator.finalize()
 
 	vectors = parser.vec_types
 	for current_vector in vectors:
 		vector_type_details = parser.type_details[current_vector]
 		vector_generator.generate_vector(current_vector, vector_type_details)
 	vector_generator.finalize()
+
 
 def generate_opaque_struct_wrappers(parser: LightningHeaderParser):
 	opaque_struct_generator = OpaqueStructGenerator()

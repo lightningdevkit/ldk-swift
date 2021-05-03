@@ -288,11 +288,15 @@ class LightningHeaderParser():
 					elif struct_name == "LDKTxOut":
 						# TODO: why is this even a special case? It's Swift, we dgaf
 						pass
+					elif struct_name == 'LDKu5':
+						# TODO: add LDKu5 conversion
+						pass
 					else:
 						if len(field_lines) != 3:
 							print('irregular byte array struct type:', struct_name)
 							continue
 
+						print('byte array struct:', struct_name)
 						self.byte_arrays.add(struct_name)
 						self.type_details[struct_name].type = CTypes.BYTE_ARRAY
 

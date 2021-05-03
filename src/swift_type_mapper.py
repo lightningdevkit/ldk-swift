@@ -57,15 +57,20 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKFourBytes"
 		arr_access = "data"
+	elif fn_arg.startswith("LDKTenBytes"):
+		fn_arg = "uint8_t (*" + fn_arg[12:] + ")[10]"
+		assert var_is_arr_regex.match(fn_arg[8:])
+		rust_obj = "LDKTenBytes"
+		arr_access = "data"
 	elif fn_arg.startswith("LDKSixteenBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[16:] + ")[16]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKSixteenBytes"
 		arr_access = "data"
-	elif fn_arg.startswith("LDKTenBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[12:] + ")[10]"
+	elif fn_arg.startswith("LDKTwentyBytes"):
+		fn_arg = "uint8_t (*" + fn_arg[15:] + ")[20]"
 		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKTenBytes"
+		rust_obj = "LDKTwentyBytes"
 		arr_access = "data"
 	elif fn_arg.startswith("LDKu8slice"):
 		fn_arg = "uint8_t (*" + fn_arg[11:] + ")[datalen]"
@@ -77,7 +82,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		rust_obj = "LDKCVec_u8Z"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		arr_access = "data"
-	elif fn_arg.startswith("LDKTransaction"):
+	elif fn_arg.startswith("LDKTransaction ") or fn_arg == "LDKTransaction":
 		fn_arg = "uint8_t (*" + fn_arg[15:] + ")[datalen]"
 		rust_obj = "LDKTransaction"
 		assert var_is_arr_regex.match(fn_arg[8:])
@@ -118,7 +123,6 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 
 	is_primitive = False
 	arr_len = None
-	mapped_type = []
 	java_type_plural = None
 	if fn_arg.startswith("void"):
 		java_ty = "Void"
@@ -132,26 +136,32 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		is_primitive = True
 	elif fn_arg.startswith("uint8_t"):
 		mapped_type = language_constants.c_type_map['uint8_t']
-		java_ty = mapped_type[0]
+		java_ty = mapped_type
 		c_ty = "int8_t"
 		fn_arg = fn_arg[7:].strip()
 		is_primitive = True
+	elif fn_arg.startswith("LDKu5"):
+		mapped_type = language_constants.c_type_map['uint8_t']
+		java_ty = mapped_type
+		c_ty = "int8_t"
+		fn_arg = fn_arg[6:].strip()
+		is_primitive = True
 	elif fn_arg.startswith("uint16_t"):
 		mapped_type = language_constants.c_type_map['uint16_t']
-		java_ty = mapped_type[0]
+		java_ty = mapped_type
 		c_ty = "int16_t"
 		fn_arg = fn_arg[8:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("uint32_t"):
 		mapped_type = language_constants.c_type_map['uint32_t']
-		java_ty = mapped_type[0]
+		java_ty = mapped_type
 		c_ty = "int32_t"
 		fn_arg = fn_arg[8:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("uint64_t") or fn_arg.startswith("uintptr_t"):
 		# TODO: uintptr_t is arch-dependent :(
 		mapped_type = language_constants.c_type_map['uint64_t']
-		java_ty = mapped_type[0]
+		java_ty = mapped_type
 		if fn_arg.startswith("uint64_t"):
 			c_ty = "int64_t"
 			fn_arg = fn_arg[8:].strip()
@@ -248,10 +258,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		assert (not take_by_ptr)
 		assert (not is_ptr)
 		# is there a special case for plurals?
-		if len(mapped_type) == 2:
-			java_ty = mapped_type[1]
-		else:
-			java_ty = '[' + java_ty + ']'
+		java_ty = '[' + java_ty + ']'
 		c_ty = c_ty + "Array"
 		if var_is_arr is not None:
 			if var_is_arr.group(1) == "":

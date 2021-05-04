@@ -77,10 +77,11 @@ class TraitGenerator:
 			swift_callbacks += '\n' + current_swift_callback_replacement + '\n'
 
 		trait_file = self.template.replace('class TraitName {', f'class {swift_struct_name} {{')
-		trait_file = trait_file.replace('var cTrait: TraitType?',
-														f'var cTrait: {struct_name}?')
-		trait_file = trait_file.replace('self.cTrait = TraitType(',
-														f'self.cTrait = {struct_name}(')
+		trait_file = trait_file.replace('init(pointer: TraitType', f'init(pointer: {struct_name}')
+		trait_file = trait_file.replace('var cOpaqueStruct: TraitType?',
+														f'var cOpaqueStruct: {struct_name}?')
+		trait_file = trait_file.replace('self.cOpaqueStruct = TraitType(',
+														f'self.cOpaqueStruct = {struct_name}(')
 		trait_file = trait_file.replace('native_callback_instantiation_arguments', ', '.join(instantiation_arguments))
 		trait_file = native_callback_template_regex.sub(f'\g<1>{native_callbacks}\g<3>', trait_file)
 		trait_file = swift_callback_template_regex.sub(f'\g<1>{swift_callbacks}\g<3>', trait_file)

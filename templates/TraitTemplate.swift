@@ -1,6 +1,6 @@
 class TraitName {
 
-    var cTrait: TraitType?;
+    var cOpaqueStruct: TraitType?;
 
     init() {
 
@@ -12,8 +12,12 @@ class TraitName {
 		}
 		/* NATIVE_CALLBACKS_END */
 
-        self.cTrait = TraitType(this_arg: Bindings.instanceToPointer(instance: self), native_callback_instantiation_arguments)
+        self.cOpaqueStruct = TraitType(this_arg: Bindings.instanceToPointer(instance: self), native_callback_instantiation_arguments)
     }
+
+    init(pointer: TraitType){
+		self.cOpaqueStruct = pointer
+	}
 
     /* SWIFT_CALLBACKS_START */
     func methodName(swift_arguments) -> Void {

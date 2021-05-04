@@ -28,6 +28,7 @@ class Sign {
 
         self.cOpaqueStruct = LDKSign(this_arg: Bindings.instanceToPointer(instance: self), 
 			BaseSign: LDKBaseSign(),
+			BaseSign_clone: nil,
 			write: writeCallback,
 			clone: cloneCallback,
 			free: freeCallback)

@@ -78,6 +78,7 @@ class BaseSign {
 			get_per_commitment_point: get_per_commitment_pointCallback,
 			release_commitment_secret: release_commitment_secretCallback,
 			pubkeys: LDKChannelPublicKeys(),
+			set_pubkeys: nil,
 			channel_keys_id: channel_keys_idCallback,
 			sign_counterparty_commitment: sign_counterparty_commitmentCallback,
 			sign_holder_commitment_and_htlcs: sign_holder_commitment_and_htlcsCallback,

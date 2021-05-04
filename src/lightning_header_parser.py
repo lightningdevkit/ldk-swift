@@ -124,6 +124,12 @@ class LightningHeaderParser():
 		line_indicates_opaque_regex = re.compile("^bool is_owned;$")
 		line_indicates_trait_regex = re.compile(
 			"^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?void \*this_arg(.*)\);$")
+
+		# for the oddball cases that aren't real trait lambdas, but ones without the this_arg
+		line_indicates_instance_agnostic_trait_method_regex = re.compile("^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?(.*)\);$")
+		assert(line_indicates_instance_agnostic_trait_method_regex.match('void (*set_pubkeys)(const struct LDKBaseSign*NONNULL_PTR );'))
+		assert(line_indicates_instance_agnostic_trait_method_regex.match('struct LDKBaseSign (*BaseSign_clone)(const struct LDKBaseSign *NONNULL_PTR orig_BaseSign);'))
+
 		assert (line_indicates_trait_regex.match(
 			"uintptr_t (*send_data)(void *this_arg, LDKu8slice data, bool resume_read);"))
 		assert (line_indicates_trait_regex.match(
@@ -204,6 +210,10 @@ class LightningHeaderParser():
 						if field_var_match is not None:
 							field_var_lines.append(field_var_match)
 							ordered_interpreted_lines.append({"type": "field", "value": field_var_match})
+						if trait_fn_match is None and field_var_match is None:
+							instance_agnostic_trait_fn_match = line_indicates_instance_agnostic_trait_method_regex.match(struct_line)
+							if instance_agnostic_trait_fn_match:
+								ordered_interpreted_lines.append({"type": "instance_agnostic_lambda", "value": instance_agnostic_trait_fn_match})
 						field_lines.append(struct_line)
 
 					assert (struct_name is not None)
@@ -397,6 +407,13 @@ class LightningHeaderParser():
 						'field_details': mapped,
 						'is_lambda': False
 					})
+			elif current_interpreted_line['type'] == 'instance_agnostic_lambda':
+				fn_line = current_interpreted_line['value']
+				lambdas.append({
+					'name': fn_line.group(3),
+					'is_lambda': True,
+					'is_instance_agnostic': True
+				})
 			elif current_interpreted_line['type'] == 'lambda':
 				fn_line = current_interpreted_line['value']
 				ret_ty_info = swift_type_mapper.map_types_to_swift(fn_line.group(2).strip() + " ret", None, False,
@@ -416,6 +433,7 @@ class LightningHeaderParser():
 				lambdas.append({
 					'name': fn_line.group(3),
 					'is_lambda': True,
+					'is_instance_agnostic': False,
 					'is_constant': is_const,
 					'return_type': ret_ty_info,
 					'argument_types': arg_tys

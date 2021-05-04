@@ -46,6 +46,10 @@ class TraitGenerator:
 				instantiation_arguments.append(f'{current_lambda_name}: {current_rust_type}()')
 				continue
 
+			if current_lambda['is_instance_agnostic']:
+				instantiation_arguments.append(f'{current_lambda_name}: nil')
+				continue
+
 			current_swift_callback_replacement = swift_callback_template
 			current_swift_callback_replacement = current_swift_callback_replacement.replace('func methodName(',
 																							f'func {current_lambda_name}(')

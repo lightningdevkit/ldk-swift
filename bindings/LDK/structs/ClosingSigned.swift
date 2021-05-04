@@ -2,18 +2,22 @@ class ClosingSigned {
 
     var cOpaqueStruct: LDKClosingSigned?;
 
-    init(channel_id_arg: [U], fee_satoshis_arg: U, signature_arg: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = ClosingSigned_new(channel_id_arg, fee_satoshis_arg, signature_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channel_id_arg: [UInt8], fee_satoshis_arg: UInt64, signature_arg: [UInt8]) {
+    	
+		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
+		let converted_signature_arg = Bindings.new_LDKSignature(array: signature_arg)
+        self.cOpaqueStruct = ClosingSigned_new(converted_channel_id_arg, fee_satoshis_arg, converted_signature_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKClosingSigned){
+    init(pointer: LDKClosingSigned){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> [U] {
+    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKClosingSigned>) in
@@ -22,10 +26,10 @@ class ClosingSigned {
 						
 		}
 					
-        return ClosingSigned_get_channel_id(this_ptrPointer);
+        return ClosingSigned_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [U]) -> Void {
+    func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKClosingSigned>) in
@@ -34,10 +38,10 @@ class ClosingSigned {
 						
 		}
 					
-        return ClosingSigned_set_channel_id(this_ptrPointer, val);
+        return ClosingSigned_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_fee_satoshis() -> U {
+    func get_fee_satoshis() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKClosingSigned>) in
@@ -49,7 +53,7 @@ class ClosingSigned {
         return ClosingSigned_get_fee_satoshis(this_ptrPointer);
     }
 
-    func set_fee_satoshis(val: U) -> Void {
+    func set_fee_satoshis(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKClosingSigned>) in
@@ -61,7 +65,7 @@ class ClosingSigned {
         return ClosingSigned_set_fee_satoshis(this_ptrPointer, val);
     }
 
-    func get_signature() -> [U] {
+    func get_signature() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKClosingSigned>) in
@@ -70,10 +74,10 @@ class ClosingSigned {
 						
 		}
 					
-        return ClosingSigned_get_signature(this_ptrPointer);
+        return Bindings.LDKSignature_to_array(nativeType: ClosingSigned_get_signature(this_ptrPointer));
     }
 
-    func set_signature(val: [U]) -> Void {
+    func set_signature(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKClosingSigned>) in
@@ -82,7 +86,7 @@ class ClosingSigned {
 						
 		}
 					
-        return ClosingSigned_set_signature(this_ptrPointer, val);
+        return ClosingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     func clone(orig: ClosingSigned) -> ClosingSigned {
@@ -97,7 +101,7 @@ class ClosingSigned {
         return ClosingSigned(pointer: ClosingSigned_clone(origPointer));
     }
 
-    func write(obj: ClosingSigned) -> [U] {
+    func write(obj: ClosingSigned) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKClosingSigned>) in
@@ -106,12 +110,12 @@ class ClosingSigned {
 						
 		}
 					
-        return ClosingSigned_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ClosingSigned_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_ClosingSignedDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ClosingSignedDecodeErrorZ {
     	
-        return ClosingSigned_read(ser);
+        return Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

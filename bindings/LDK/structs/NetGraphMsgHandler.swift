@@ -2,12 +2,21 @@ class NetGraphMsgHandler {
 
     var cOpaqueStruct: LDKNetGraphMsgHandler?;
 
+	/* DEFAULT_CONSTRUCTOR_START */
     init(chain_access: Access, logger: Logger, network_graph: NetworkGraph) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = NetGraphMsgHandler_from_net_graph(chain_access, logger, network_graph)
+    	
+							
+		let chain_accessPointer = withUnsafeMutablePointer(to: &chain_access.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKAccess>) in
+								
+			pointer
+							
+		}
+						
+        self.cOpaqueStruct = NetGraphMsgHandler_from_net_graph(chain_accessPointer, logger.cOpaqueStruct!, network_graph.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKNetGraphMsgHandler){
+    init(pointer: LDKNetGraphMsgHandler){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -41,7 +50,7 @@ class NetGraphMsgHandler {
 						
 		}
 					
-        return NetGraphMsgHandler_read_locked_graph(this_argPointer);
+        return LockedNetworkGraph(pointer: NetGraphMsgHandler_read_locked_graph(this_argPointer));
     }
 
     func as_RoutingMessageHandler(this_arg: NetGraphMsgHandler) -> RoutingMessageHandler {
@@ -53,7 +62,7 @@ class NetGraphMsgHandler {
 						
 		}
 					
-        return NetGraphMsgHandler_as_RoutingMessageHandler(this_argPointer);
+        return RoutingMessageHandler(pointer: NetGraphMsgHandler_as_RoutingMessageHandler(this_argPointer));
     }
 
     func as_MessageSendEventsProvider(this_arg: NetGraphMsgHandler) -> MessageSendEventsProvider {
@@ -65,7 +74,7 @@ class NetGraphMsgHandler {
 						
 		}
 					
-        return NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer);
+        return MessageSendEventsProvider(pointer: NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer));
     }
 
 				

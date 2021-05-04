@@ -2,18 +2,20 @@ class ChannelHandshakeLimits {
 
     var cOpaqueStruct: LDKChannelHandshakeLimits?;
 
-    init(: Void) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init() {
+    	
         self.cOpaqueStruct = ChannelHandshakeLimits_default()
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKChannelHandshakeLimits){
+    init(pointer: LDKChannelHandshakeLimits){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_min_funding_satoshis() -> U {
+    func get_min_funding_satoshis() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -25,7 +27,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_min_funding_satoshis(this_ptrPointer);
     }
 
-    func set_min_funding_satoshis(val: U) -> Void {
+    func set_min_funding_satoshis(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -37,7 +39,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_min_funding_satoshis(this_ptrPointer, val);
     }
 
-    func get_max_htlc_minimum_msat() -> U {
+    func get_max_htlc_minimum_msat() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -49,7 +51,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_max_htlc_minimum_msat(this_ptrPointer);
     }
 
-    func set_max_htlc_minimum_msat(val: U) -> Void {
+    func set_max_htlc_minimum_msat(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -61,7 +63,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_max_htlc_minimum_msat(this_ptrPointer, val);
     }
 
-    func get_min_max_htlc_value_in_flight_msat() -> U {
+    func get_min_max_htlc_value_in_flight_msat() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -73,7 +75,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_min_max_htlc_value_in_flight_msat(this_ptrPointer);
     }
 
-    func set_min_max_htlc_value_in_flight_msat(val: U) -> Void {
+    func set_min_max_htlc_value_in_flight_msat(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -85,7 +87,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_min_max_htlc_value_in_flight_msat(this_ptrPointer, val);
     }
 
-    func get_max_channel_reserve_satoshis() -> U {
+    func get_max_channel_reserve_satoshis() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -97,7 +99,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_max_channel_reserve_satoshis(this_ptrPointer);
     }
 
-    func set_max_channel_reserve_satoshis(val: U) -> Void {
+    func set_max_channel_reserve_satoshis(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -109,7 +111,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_max_channel_reserve_satoshis(this_ptrPointer, val);
     }
 
-    func get_min_max_accepted_htlcs() -> U {
+    func get_min_max_accepted_htlcs() -> UInt16 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -121,7 +123,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_min_max_accepted_htlcs(this_ptrPointer);
     }
 
-    func set_min_max_accepted_htlcs(val: U) -> Void {
+    func set_min_max_accepted_htlcs(val: UInt16) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -133,7 +135,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_min_max_accepted_htlcs(this_ptrPointer, val);
     }
 
-    func get_min_dust_limit_satoshis() -> U {
+    func get_min_dust_limit_satoshis() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -145,7 +147,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_min_dust_limit_satoshis(this_ptrPointer);
     }
 
-    func set_min_dust_limit_satoshis(val: U) -> Void {
+    func set_min_dust_limit_satoshis(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -157,7 +159,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_min_dust_limit_satoshis(this_ptrPointer, val);
     }
 
-    func get_max_dust_limit_satoshis() -> U {
+    func get_max_dust_limit_satoshis() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -169,7 +171,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_max_dust_limit_satoshis(this_ptrPointer);
     }
 
-    func set_max_dust_limit_satoshis(val: U) -> Void {
+    func set_max_dust_limit_satoshis(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -181,7 +183,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_max_dust_limit_satoshis(this_ptrPointer, val);
     }
 
-    func get_max_minimum_depth() -> U {
+    func get_max_minimum_depth() -> UInt32 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -193,7 +195,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_max_minimum_depth(this_ptrPointer);
     }
 
-    func set_max_minimum_depth(val: U) -> Void {
+    func set_max_minimum_depth(val: UInt32) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -205,7 +207,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_max_minimum_depth(this_ptrPointer, val);
     }
 
-    func get_force_announced_channel_preference() -> boolean {
+    func get_force_announced_channel_preference() -> Bool {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -217,7 +219,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_force_announced_channel_preference(this_ptrPointer);
     }
 
-    func set_force_announced_channel_preference(val: boolean) -> Void {
+    func set_force_announced_channel_preference(val: Bool) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in
@@ -229,7 +231,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_set_force_announced_channel_preference(this_ptrPointer, val);
     }
 
-    func get_their_to_self_delay() -> U {
+    func get_their_to_self_delay() -> UInt16 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -241,7 +243,7 @@ class ChannelHandshakeLimits {
         return ChannelHandshakeLimits_get_their_to_self_delay(this_ptrPointer);
     }
 
-    func set_their_to_self_delay(val: U) -> Void {
+    func set_their_to_self_delay(val: UInt16) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeLimits>) in

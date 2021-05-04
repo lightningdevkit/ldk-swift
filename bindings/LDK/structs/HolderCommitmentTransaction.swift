@@ -2,18 +2,24 @@ class HolderCommitmentTransaction {
 
     var cOpaqueStruct: LDKHolderCommitmentTransaction?;
 
-    init(commitment_tx: CommitmentTransaction, counterparty_sig: [U], counterparty_htlc_sigs: [[U]], holder_funding_key: [U], counterparty_funding_key: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx, counterparty_sig, counterparty_htlc_sigs, holder_funding_key, counterparty_funding_key)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(commitment_tx: CommitmentTransaction, counterparty_sig: [UInt8], counterparty_htlc_sigs: [[UInt8]], holder_funding_key: [UInt8], counterparty_funding_key: [UInt8]) {
+    	
+		let converted_counterparty_sig = Bindings.new_LDKSignature(array: counterparty_sig)
+		let converted_counterparty_htlc_sigs = Bindings.new_LDKCVec_SignatureZ(array: counterparty_htlc_sigs)
+		let converted_holder_funding_key = Bindings.new_LDKPublicKey(array: holder_funding_key)
+		let converted_counterparty_funding_key = Bindings.new_LDKPublicKey(array: counterparty_funding_key)
+        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.cOpaqueStruct!, converted_counterparty_sig, converted_counterparty_htlc_sigs, converted_holder_funding_key, converted_counterparty_funding_key)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKHolderCommitmentTransaction){
+    init(pointer: LDKHolderCommitmentTransaction){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_counterparty_sig() -> [U] {
+    func get_counterparty_sig() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
@@ -22,10 +28,10 @@ class HolderCommitmentTransaction {
 						
 		}
 					
-        return HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer);
+        return Bindings.LDKSignature_to_array(nativeType: HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer));
     }
 
-    func set_counterparty_sig(val: [U]) -> Void {
+    func set_counterparty_sig(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKHolderCommitmentTransaction>) in
@@ -34,10 +40,10 @@ class HolderCommitmentTransaction {
 						
 		}
 					
-        return HolderCommitmentTransaction_set_counterparty_sig(this_ptrPointer, val);
+        return HolderCommitmentTransaction_set_counterparty_sig(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    func set_counterparty_htlc_sigs(val: [[U]]) -> Void {
+    func set_counterparty_htlc_sigs(val: [[UInt8]]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKHolderCommitmentTransaction>) in
@@ -46,7 +52,7 @@ class HolderCommitmentTransaction {
 						
 		}
 					
-        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, val);
+        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
     }
 
     func clone(orig: HolderCommitmentTransaction) -> HolderCommitmentTransaction {
@@ -61,7 +67,7 @@ class HolderCommitmentTransaction {
         return HolderCommitmentTransaction(pointer: HolderCommitmentTransaction_clone(origPointer));
     }
 
-    func write(obj: HolderCommitmentTransaction) -> [U] {
+    func write(obj: HolderCommitmentTransaction) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
@@ -70,12 +76,12 @@ class HolderCommitmentTransaction {
 						
 		}
 					
-        return HolderCommitmentTransaction_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: HolderCommitmentTransaction_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
     	
-        return HolderCommitmentTransaction_read(ser);
+        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

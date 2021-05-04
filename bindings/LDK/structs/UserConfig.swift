@@ -2,12 +2,14 @@ class UserConfig {
 
     var cOpaqueStruct: LDKUserConfig?;
 
-    init(: Void) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init() {
+    	
         self.cOpaqueStruct = UserConfig_default()
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKUserConfig){
+    init(pointer: LDKUserConfig){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +24,7 @@ class UserConfig {
 						
 		}
 					
-        return UserConfig_get_own_channel_config(this_ptrPointer);
+        return ChannelHandshakeConfig(pointer: UserConfig_get_own_channel_config(this_ptrPointer));
     }
 
     func set_own_channel_config(val: ChannelHandshakeConfig) -> Void {
@@ -34,7 +36,7 @@ class UserConfig {
 						
 		}
 					
-        return UserConfig_set_own_channel_config(this_ptrPointer, val);
+        return UserConfig_set_own_channel_config(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_peer_channel_config_limits() -> ChannelHandshakeLimits {
@@ -46,7 +48,7 @@ class UserConfig {
 						
 		}
 					
-        return UserConfig_get_peer_channel_config_limits(this_ptrPointer);
+        return ChannelHandshakeLimits(pointer: UserConfig_get_peer_channel_config_limits(this_ptrPointer));
     }
 
     func set_peer_channel_config_limits(val: ChannelHandshakeLimits) -> Void {
@@ -58,7 +60,7 @@ class UserConfig {
 						
 		}
 					
-        return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val);
+        return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_channel_options() -> ChannelConfig {
@@ -70,7 +72,7 @@ class UserConfig {
 						
 		}
 					
-        return UserConfig_get_channel_options(this_ptrPointer);
+        return ChannelConfig(pointer: UserConfig_get_channel_options(this_ptrPointer));
     }
 
     func set_channel_options(val: ChannelConfig) -> Void {
@@ -82,7 +84,7 @@ class UserConfig {
 						
 		}
 					
-        return UserConfig_set_channel_options(this_ptrPointer, val);
+        return UserConfig_set_channel_options(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func clone(orig: UserConfig) -> UserConfig {

@@ -2,12 +2,9 @@ class UnsignedChannelAnnouncement {
 
     var cOpaqueStruct: LDKUnsignedChannelAnnouncement?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
-    }
+	
 
-    private init(pointer: LDKUnsignedChannelAnnouncement){
+    init(pointer: LDKUnsignedChannelAnnouncement){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +19,7 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_get_features(this_ptrPointer);
+        return ChannelFeatures(pointer: UnsignedChannelAnnouncement_get_features(this_ptrPointer));
     }
 
     func set_features(val: ChannelFeatures) -> Void {
@@ -34,10 +31,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val);
+        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    func get_chain_hash() -> [U] {
+    func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
@@ -46,10 +43,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_get_chain_hash(this_ptrPointer);
+        return UnsignedChannelAnnouncement_get_chain_hash(this_ptrPointer).pointee;
     }
 
-    func set_chain_hash(val: [U]) -> Void {
+    func set_chain_hash(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
@@ -58,10 +55,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_set_chain_hash(this_ptrPointer, val);
+        return UnsignedChannelAnnouncement_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_short_channel_id() -> U {
+    func get_short_channel_id() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
@@ -73,7 +70,7 @@ class UnsignedChannelAnnouncement {
         return UnsignedChannelAnnouncement_get_short_channel_id(this_ptrPointer);
     }
 
-    func set_short_channel_id(val: U) -> Void {
+    func set_short_channel_id(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
@@ -85,7 +82,7 @@ class UnsignedChannelAnnouncement {
         return UnsignedChannelAnnouncement_set_short_channel_id(this_ptrPointer, val);
     }
 
-    func get_node_id_1() -> [U] {
+    func get_node_id_1() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
@@ -94,10 +91,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_get_node_id_1(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: UnsignedChannelAnnouncement_get_node_id_1(this_ptrPointer));
     }
 
-    func set_node_id_1(val: [U]) -> Void {
+    func set_node_id_1(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
@@ -106,10 +103,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_set_node_id_1(this_ptrPointer, val);
+        return UnsignedChannelAnnouncement_set_node_id_1(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_node_id_2() -> [U] {
+    func get_node_id_2() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
@@ -118,10 +115,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_get_node_id_2(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: UnsignedChannelAnnouncement_get_node_id_2(this_ptrPointer));
     }
 
-    func set_node_id_2(val: [U]) -> Void {
+    func set_node_id_2(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
@@ -130,10 +127,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_set_node_id_2(this_ptrPointer, val);
+        return UnsignedChannelAnnouncement_set_node_id_2(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_bitcoin_key_1() -> [U] {
+    func get_bitcoin_key_1() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
@@ -142,10 +139,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_get_bitcoin_key_1(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: UnsignedChannelAnnouncement_get_bitcoin_key_1(this_ptrPointer));
     }
 
-    func set_bitcoin_key_1(val: [U]) -> Void {
+    func set_bitcoin_key_1(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
@@ -154,10 +151,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_set_bitcoin_key_1(this_ptrPointer, val);
+        return UnsignedChannelAnnouncement_set_bitcoin_key_1(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_bitcoin_key_2() -> [U] {
+    func get_bitcoin_key_2() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
@@ -166,10 +163,10 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_get_bitcoin_key_2(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: UnsignedChannelAnnouncement_get_bitcoin_key_2(this_ptrPointer));
     }
 
-    func set_bitcoin_key_2(val: [U]) -> Void {
+    func set_bitcoin_key_2(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
@@ -178,7 +175,7 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_set_bitcoin_key_2(this_ptrPointer, val);
+        return UnsignedChannelAnnouncement_set_bitcoin_key_2(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
     func clone(orig: UnsignedChannelAnnouncement) -> UnsignedChannelAnnouncement {
@@ -193,7 +190,7 @@ class UnsignedChannelAnnouncement {
         return UnsignedChannelAnnouncement(pointer: UnsignedChannelAnnouncement_clone(origPointer));
     }
 
-    func write(obj: UnsignedChannelAnnouncement) -> [U] {
+    func write(obj: UnsignedChannelAnnouncement) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
@@ -202,12 +199,12 @@ class UnsignedChannelAnnouncement {
 						
 		}
 					
-        return UnsignedChannelAnnouncement_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: UnsignedChannelAnnouncement_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
     	
-        return UnsignedChannelAnnouncement_read(ser);
+        return Result_UnsignedChannelAnnouncementDecodeErrorZ(pointer: UnsignedChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

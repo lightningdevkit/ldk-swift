@@ -2,18 +2,21 @@ class NodeAnnouncement {
 
     var cOpaqueStruct: LDKNodeAnnouncement?;
 
-    init(signature_arg: [U], contents_arg: UnsignedNodeAnnouncement) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = NodeAnnouncement_new(signature_arg, contents_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(signature_arg: [UInt8], contents_arg: UnsignedNodeAnnouncement) {
+    	
+		let converted_signature_arg = Bindings.new_LDKSignature(array: signature_arg)
+        self.cOpaqueStruct = NodeAnnouncement_new(converted_signature_arg, contents_arg.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKNodeAnnouncement){
+    init(pointer: LDKNodeAnnouncement){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_signature() -> [U] {
+    func get_signature() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNodeAnnouncement>) in
@@ -22,10 +25,10 @@ class NodeAnnouncement {
 						
 		}
 					
-        return NodeAnnouncement_get_signature(this_ptrPointer);
+        return Bindings.LDKSignature_to_array(nativeType: NodeAnnouncement_get_signature(this_ptrPointer));
     }
 
-    func set_signature(val: [U]) -> Void {
+    func set_signature(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNodeAnnouncement>) in
@@ -34,7 +37,7 @@ class NodeAnnouncement {
 						
 		}
 					
-        return NodeAnnouncement_set_signature(this_ptrPointer, val);
+        return NodeAnnouncement_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     func get_contents() -> UnsignedNodeAnnouncement {
@@ -46,7 +49,7 @@ class NodeAnnouncement {
 						
 		}
 					
-        return NodeAnnouncement_get_contents(this_ptrPointer);
+        return UnsignedNodeAnnouncement(pointer: NodeAnnouncement_get_contents(this_ptrPointer));
     }
 
     func set_contents(val: UnsignedNodeAnnouncement) -> Void {
@@ -58,7 +61,7 @@ class NodeAnnouncement {
 						
 		}
 					
-        return NodeAnnouncement_set_contents(this_ptrPointer, val);
+        return NodeAnnouncement_set_contents(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func clone(orig: NodeAnnouncement) -> NodeAnnouncement {
@@ -73,7 +76,7 @@ class NodeAnnouncement {
         return NodeAnnouncement(pointer: NodeAnnouncement_clone(origPointer));
     }
 
-    func write(obj: NodeAnnouncement) -> [U] {
+    func write(obj: NodeAnnouncement) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNodeAnnouncement>) in
@@ -82,12 +85,12 @@ class NodeAnnouncement {
 						
 		}
 					
-        return NodeAnnouncement_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: NodeAnnouncement_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_NodeAnnouncementDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {
     	
-        return NodeAnnouncement_read(ser);
+        return Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

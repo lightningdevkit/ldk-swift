@@ -2,12 +2,15 @@ class Route {
 
     var cOpaqueStruct: LDKRoute?;
 
+	/* DEFAULT_CONSTRUCTOR_START */
     init(paths_arg: [[RouteHop]]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = Route_new(paths_arg)
+    	
+		let converted_paths_arg = Bindings.new_LDKCVec_CVec_RouteHopZZ(array: paths_arg)
+        self.cOpaqueStruct = Route_new(converted_paths_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKRoute){
+    init(pointer: LDKRoute){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +25,7 @@ class Route {
 						
 		}
 					
-        return Route_set_paths(this_ptrPointer, val);
+        return Route_set_paths(this_ptrPointer, Bindings.new_LDKCVec_CVec_RouteHopZZ(array: val));
     }
 
     func clone(orig: Route) -> Route {
@@ -37,7 +40,7 @@ class Route {
         return Route(pointer: Route_clone(origPointer));
     }
 
-    func write(obj: Route) -> [U] {
+    func write(obj: Route) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRoute>) in
@@ -46,12 +49,12 @@ class Route {
 						
 		}
 					
-        return Route_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: Route_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_RouteDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
     	
-        return Route_read(ser);
+        return Result_RouteDecodeErrorZ(pointer: Route_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

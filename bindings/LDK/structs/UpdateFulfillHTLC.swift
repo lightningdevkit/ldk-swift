@@ -2,18 +2,22 @@ class UpdateFulfillHTLC {
 
     var cOpaqueStruct: LDKUpdateFulfillHTLC?;
 
-    init(channel_id_arg: [U], htlc_id_arg: U, payment_preimage_arg: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = UpdateFulfillHTLC_new(channel_id_arg, htlc_id_arg, payment_preimage_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channel_id_arg: [UInt8], htlc_id_arg: UInt64, payment_preimage_arg: [UInt8]) {
+    	
+		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
+		let converted_payment_preimage_arg = Bindings.new_LDKThirtyTwoBytes(array: payment_preimage_arg)
+        self.cOpaqueStruct = UpdateFulfillHTLC_new(converted_channel_id_arg, htlc_id_arg, converted_payment_preimage_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKUpdateFulfillHTLC){
+    init(pointer: LDKUpdateFulfillHTLC){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> [U] {
+    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
@@ -22,10 +26,10 @@ class UpdateFulfillHTLC {
 						
 		}
 					
-        return UpdateFulfillHTLC_get_channel_id(this_ptrPointer);
+        return UpdateFulfillHTLC_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [U]) -> Void {
+    func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUpdateFulfillHTLC>) in
@@ -34,10 +38,10 @@ class UpdateFulfillHTLC {
 						
 		}
 					
-        return UpdateFulfillHTLC_set_channel_id(this_ptrPointer, val);
+        return UpdateFulfillHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_htlc_id() -> U {
+    func get_htlc_id() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
@@ -49,7 +53,7 @@ class UpdateFulfillHTLC {
         return UpdateFulfillHTLC_get_htlc_id(this_ptrPointer);
     }
 
-    func set_htlc_id(val: U) -> Void {
+    func set_htlc_id(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUpdateFulfillHTLC>) in
@@ -61,7 +65,7 @@ class UpdateFulfillHTLC {
         return UpdateFulfillHTLC_set_htlc_id(this_ptrPointer, val);
     }
 
-    func get_payment_preimage() -> [U] {
+    func get_payment_preimage() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
@@ -70,10 +74,10 @@ class UpdateFulfillHTLC {
 						
 		}
 					
-        return UpdateFulfillHTLC_get_payment_preimage(this_ptrPointer);
+        return UpdateFulfillHTLC_get_payment_preimage(this_ptrPointer).pointee;
     }
 
-    func set_payment_preimage(val: [U]) -> Void {
+    func set_payment_preimage(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUpdateFulfillHTLC>) in
@@ -82,7 +86,7 @@ class UpdateFulfillHTLC {
 						
 		}
 					
-        return UpdateFulfillHTLC_set_payment_preimage(this_ptrPointer, val);
+        return UpdateFulfillHTLC_set_payment_preimage(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     func clone(orig: UpdateFulfillHTLC) -> UpdateFulfillHTLC {
@@ -97,7 +101,7 @@ class UpdateFulfillHTLC {
         return UpdateFulfillHTLC(pointer: UpdateFulfillHTLC_clone(origPointer));
     }
 
-    func write(obj: UpdateFulfillHTLC) -> [U] {
+    func write(obj: UpdateFulfillHTLC) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
@@ -106,12 +110,12 @@ class UpdateFulfillHTLC {
 						
 		}
 					
-        return UpdateFulfillHTLC_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: UpdateFulfillHTLC_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_UpdateFulfillHTLCDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_UpdateFulfillHTLCDecodeErrorZ {
     	
-        return UpdateFulfillHTLC_read(ser);
+        return Result_UpdateFulfillHTLCDecodeErrorZ(pointer: UpdateFulfillHTLC_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

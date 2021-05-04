@@ -2,12 +2,15 @@ class ChannelManagerReadArgs {
 
     var cOpaqueStruct: LDKChannelManagerReadArgs?;
 
+	/* DEFAULT_CONSTRUCTOR_START */
     init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [ChannelMonitor]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager, fee_estimator, chain_monitor, tx_broadcaster, logger, default_config, channel_monitors)
+    	
+		let converted_channel_monitors = Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors)
+        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.cOpaqueStruct!, converted_channel_monitors)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKChannelManagerReadArgs){
+    init(pointer: LDKChannelManagerReadArgs){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +25,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_get_keys_manager(this_ptrPointer);
+        return KeysInterface(pointer: ChannelManagerReadArgs_get_keys_manager(this_ptrPointer).pointee);
     }
 
     func set_keys_manager(val: KeysInterface) -> Void {
@@ -34,7 +37,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_set_keys_manager(this_ptrPointer, val);
+        return ChannelManagerReadArgs_set_keys_manager(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_fee_estimator() -> FeeEstimator {
@@ -46,7 +49,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer);
+        return FeeEstimator(pointer: ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer).pointee);
     }
 
     func set_fee_estimator(val: FeeEstimator) -> Void {
@@ -58,7 +61,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_set_fee_estimator(this_ptrPointer, val);
+        return ChannelManagerReadArgs_set_fee_estimator(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_chain_monitor() -> Watch {
@@ -70,7 +73,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer);
+        return Watch(pointer: ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer).pointee);
     }
 
     func set_chain_monitor(val: Watch) -> Void {
@@ -82,7 +85,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_set_chain_monitor(this_ptrPointer, val);
+        return ChannelManagerReadArgs_set_chain_monitor(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_tx_broadcaster() -> BroadcasterInterface {
@@ -94,7 +97,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer);
+        return BroadcasterInterface(pointer: ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer).pointee);
     }
 
     func set_tx_broadcaster(val: BroadcasterInterface) -> Void {
@@ -106,7 +109,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_set_tx_broadcaster(this_ptrPointer, val);
+        return ChannelManagerReadArgs_set_tx_broadcaster(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_logger() -> Logger {
@@ -118,7 +121,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_get_logger(this_ptrPointer);
+        return Logger(pointer: ChannelManagerReadArgs_get_logger(this_ptrPointer).pointee);
     }
 
     func set_logger(val: Logger) -> Void {
@@ -130,7 +133,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_set_logger(this_ptrPointer, val);
+        return ChannelManagerReadArgs_set_logger(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_default_config() -> UserConfig {
@@ -142,7 +145,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_get_default_config(this_ptrPointer);
+        return UserConfig(pointer: ChannelManagerReadArgs_get_default_config(this_ptrPointer));
     }
 
     func set_default_config(val: UserConfig) -> Void {
@@ -154,7 +157,7 @@ class ChannelManagerReadArgs {
 						
 		}
 					
-        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val);
+        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.cOpaqueStruct!);
     }
 
 				

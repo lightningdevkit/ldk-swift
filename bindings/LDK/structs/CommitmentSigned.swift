@@ -2,18 +2,23 @@ class CommitmentSigned {
 
     var cOpaqueStruct: LDKCommitmentSigned?;
 
-    init(channel_id_arg: [U], signature_arg: [U], htlc_signatures_arg: [[U]]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = CommitmentSigned_new(channel_id_arg, signature_arg, htlc_signatures_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channel_id_arg: [UInt8], signature_arg: [UInt8], htlc_signatures_arg: [[UInt8]]) {
+    	
+		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
+		let converted_signature_arg = Bindings.new_LDKSignature(array: signature_arg)
+		let converted_htlc_signatures_arg = Bindings.new_LDKCVec_SignatureZ(array: htlc_signatures_arg)
+        self.cOpaqueStruct = CommitmentSigned_new(converted_channel_id_arg, converted_signature_arg, converted_htlc_signatures_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKCommitmentSigned){
+    init(pointer: LDKCommitmentSigned){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> [U] {
+    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKCommitmentSigned>) in
@@ -22,10 +27,10 @@ class CommitmentSigned {
 						
 		}
 					
-        return CommitmentSigned_get_channel_id(this_ptrPointer);
+        return CommitmentSigned_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [U]) -> Void {
+    func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentSigned>) in
@@ -34,10 +39,10 @@ class CommitmentSigned {
 						
 		}
 					
-        return CommitmentSigned_set_channel_id(this_ptrPointer, val);
+        return CommitmentSigned_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_signature() -> [U] {
+    func get_signature() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKCommitmentSigned>) in
@@ -46,10 +51,10 @@ class CommitmentSigned {
 						
 		}
 					
-        return CommitmentSigned_get_signature(this_ptrPointer);
+        return Bindings.LDKSignature_to_array(nativeType: CommitmentSigned_get_signature(this_ptrPointer));
     }
 
-    func set_signature(val: [U]) -> Void {
+    func set_signature(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentSigned>) in
@@ -58,10 +63,10 @@ class CommitmentSigned {
 						
 		}
 					
-        return CommitmentSigned_set_signature(this_ptrPointer, val);
+        return CommitmentSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    func set_htlc_signatures(val: [[U]]) -> Void {
+    func set_htlc_signatures(val: [[UInt8]]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentSigned>) in
@@ -70,7 +75,7 @@ class CommitmentSigned {
 						
 		}
 					
-        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, val);
+        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
     }
 
     func clone(orig: CommitmentSigned) -> CommitmentSigned {
@@ -85,7 +90,7 @@ class CommitmentSigned {
         return CommitmentSigned(pointer: CommitmentSigned_clone(origPointer));
     }
 
-    func write(obj: CommitmentSigned) -> [U] {
+    func write(obj: CommitmentSigned) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKCommitmentSigned>) in
@@ -94,12 +99,12 @@ class CommitmentSigned {
 						
 		}
 					
-        return CommitmentSigned_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: CommitmentSigned_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_CommitmentSignedDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
     	
-        return CommitmentSigned_read(ser);
+        return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

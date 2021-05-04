@@ -2,18 +2,27 @@ class InMemorySigner {
 
     var cOpaqueStruct: LDKInMemorySigner?;
 
-    init(funding_key: [U], revocation_base_key: [U], payment_key: [U], delayed_payment_base_key: [U], htlc_base_key: [U], commitment_seed: [U], channel_value_satoshis: U, channel_keys_id: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = InMemorySigner_new(funding_key, revocation_base_key, payment_key, delayed_payment_base_key, htlc_base_key, commitment_seed, channel_value_satoshis, channel_keys_id)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(funding_key: [UInt8], revocation_base_key: [UInt8], payment_key: [UInt8], delayed_payment_base_key: [UInt8], htlc_base_key: [UInt8], commitment_seed: [UInt8], channel_value_satoshis: UInt64, channel_keys_id: [UInt8]) {
+    	
+		let converted_funding_key = Bindings.new_LDKSecretKey(array: funding_key)
+		let converted_revocation_base_key = Bindings.new_LDKSecretKey(array: revocation_base_key)
+		let converted_payment_key = Bindings.new_LDKSecretKey(array: payment_key)
+		let converted_delayed_payment_base_key = Bindings.new_LDKSecretKey(array: delayed_payment_base_key)
+		let converted_htlc_base_key = Bindings.new_LDKSecretKey(array: htlc_base_key)
+		let converted_commitment_seed = Bindings.new_LDKThirtyTwoBytes(array: commitment_seed)
+		let converted_channel_keys_id = Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id)
+        self.cOpaqueStruct = InMemorySigner_new(converted_funding_key, converted_revocation_base_key, converted_payment_key, converted_delayed_payment_base_key, converted_htlc_base_key, converted_commitment_seed, channel_value_satoshis, converted_channel_keys_id)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKInMemorySigner){
+    init(pointer: LDKInMemorySigner){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_funding_key() -> [U] {
+    func get_funding_key() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -22,10 +31,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_get_funding_key(this_ptrPointer);
+        return InMemorySigner_get_funding_key(this_ptrPointer).pointee;
     }
 
-    func set_funding_key(val: [U]) -> Void {
+    func set_funding_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKInMemorySigner>) in
@@ -34,10 +43,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_set_funding_key(this_ptrPointer, val);
+        return InMemorySigner_set_funding_key(this_ptrPointer, Bindings.new_LDKSecretKey(array: val));
     }
 
-    func get_revocation_base_key() -> [U] {
+    func get_revocation_base_key() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -46,10 +55,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_get_revocation_base_key(this_ptrPointer);
+        return InMemorySigner_get_revocation_base_key(this_ptrPointer).pointee;
     }
 
-    func set_revocation_base_key(val: [U]) -> Void {
+    func set_revocation_base_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKInMemorySigner>) in
@@ -58,10 +67,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_set_revocation_base_key(this_ptrPointer, val);
+        return InMemorySigner_set_revocation_base_key(this_ptrPointer, Bindings.new_LDKSecretKey(array: val));
     }
 
-    func get_payment_key() -> [U] {
+    func get_payment_key() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -70,10 +79,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_get_payment_key(this_ptrPointer);
+        return InMemorySigner_get_payment_key(this_ptrPointer).pointee;
     }
 
-    func set_payment_key(val: [U]) -> Void {
+    func set_payment_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKInMemorySigner>) in
@@ -82,10 +91,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_set_payment_key(this_ptrPointer, val);
+        return InMemorySigner_set_payment_key(this_ptrPointer, Bindings.new_LDKSecretKey(array: val));
     }
 
-    func get_delayed_payment_base_key() -> [U] {
+    func get_delayed_payment_base_key() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -94,10 +103,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_get_delayed_payment_base_key(this_ptrPointer);
+        return InMemorySigner_get_delayed_payment_base_key(this_ptrPointer).pointee;
     }
 
-    func set_delayed_payment_base_key(val: [U]) -> Void {
+    func set_delayed_payment_base_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKInMemorySigner>) in
@@ -106,10 +115,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_set_delayed_payment_base_key(this_ptrPointer, val);
+        return InMemorySigner_set_delayed_payment_base_key(this_ptrPointer, Bindings.new_LDKSecretKey(array: val));
     }
 
-    func get_htlc_base_key() -> [U] {
+    func get_htlc_base_key() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -118,10 +127,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_get_htlc_base_key(this_ptrPointer);
+        return InMemorySigner_get_htlc_base_key(this_ptrPointer).pointee;
     }
 
-    func set_htlc_base_key(val: [U]) -> Void {
+    func set_htlc_base_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKInMemorySigner>) in
@@ -130,10 +139,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_set_htlc_base_key(this_ptrPointer, val);
+        return InMemorySigner_set_htlc_base_key(this_ptrPointer, Bindings.new_LDKSecretKey(array: val));
     }
 
-    func get_commitment_seed() -> [U] {
+    func get_commitment_seed() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -142,10 +151,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_get_commitment_seed(this_ptrPointer);
+        return InMemorySigner_get_commitment_seed(this_ptrPointer).pointee;
     }
 
-    func set_commitment_seed(val: [U]) -> Void {
+    func set_commitment_seed(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKInMemorySigner>) in
@@ -154,7 +163,7 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_set_commitment_seed(this_ptrPointer, val);
+        return InMemorySigner_set_commitment_seed(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     func clone(orig: InMemorySigner) -> InMemorySigner {
@@ -178,10 +187,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_counterparty_pubkeys(this_argPointer);
+        return ChannelPublicKeys(pointer: InMemorySigner_counterparty_pubkeys(this_argPointer));
     }
 
-    func counterparty_selected_contest_delay(this_arg: InMemorySigner) -> U {
+    func counterparty_selected_contest_delay(this_arg: InMemorySigner) -> UInt16 {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -193,7 +202,7 @@ class InMemorySigner {
         return InMemorySigner_counterparty_selected_contest_delay(this_argPointer);
     }
 
-    func holder_selected_contest_delay(this_arg: InMemorySigner) -> U {
+    func holder_selected_contest_delay(this_arg: InMemorySigner) -> UInt16 {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -205,7 +214,7 @@ class InMemorySigner {
         return InMemorySigner_holder_selected_contest_delay(this_argPointer);
     }
 
-    func is_outbound(this_arg: InMemorySigner) -> boolean {
+    func is_outbound(this_arg: InMemorySigner) -> Bool {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -226,7 +235,7 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_funding_outpoint(this_argPointer);
+        return OutPoint(pointer: InMemorySigner_funding_outpoint(this_argPointer));
     }
 
     func get_channel_parameters(this_arg: InMemorySigner) -> ChannelTransactionParameters {
@@ -238,10 +247,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_get_channel_parameters(this_argPointer);
+        return ChannelTransactionParameters(pointer: InMemorySigner_get_channel_parameters(this_argPointer));
     }
 
-    func sign_counterparty_payment_input(this_arg: InMemorySigner, spend_tx: [U], input_idx: U, descriptor: StaticPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
+    func sign_counterparty_payment_input(this_arg: InMemorySigner, spend_tx: [UInt8], input_idx: UInt, descriptor: StaticPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -257,10 +266,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_sign_counterparty_payment_input(this_argPointer, spend_tx, input_idx, descriptorPointer);
+        return Result_CVec_CVec_u8ZZNoneZ(pointer: InMemorySigner_sign_counterparty_payment_input(this_argPointer, Bindings.new_LDKTransaction(array: spend_tx), input_idx, descriptorPointer));
     }
 
-    func sign_dynamic_p2wsh_input(this_arg: InMemorySigner, spend_tx: [U], input_idx: U, descriptor: DelayedPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
+    func sign_dynamic_p2wsh_input(this_arg: InMemorySigner, spend_tx: [UInt8], input_idx: UInt, descriptor: DelayedPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -276,7 +285,19 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, spend_tx, input_idx, descriptorPointer);
+        return Result_CVec_CVec_u8ZZNoneZ(pointer: InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, Bindings.new_LDKTransaction(array: spend_tx), input_idx, descriptorPointer));
+    }
+
+    func as_BaseSign(this_arg: InMemorySigner) -> BaseSign {
+    	
+						
+		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
+							
+			pointer
+						
+		}
+					
+        return BaseSign(pointer: InMemorySigner_as_BaseSign(this_argPointer));
     }
 
     func as_Sign(this_arg: InMemorySigner) -> Sign {
@@ -288,10 +309,10 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_as_Sign(this_argPointer);
+        return Sign(pointer: InMemorySigner_as_Sign(this_argPointer));
     }
 
-    func write(obj: InMemorySigner) -> [U] {
+    func write(obj: InMemorySigner) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInMemorySigner>) in
@@ -300,12 +321,12 @@ class InMemorySigner {
 						
 		}
 					
-        return InMemorySigner_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: InMemorySigner_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_InMemorySignerDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
     	
-        return InMemorySigner_read(ser);
+        return Result_InMemorySignerDecodeErrorZ(pointer: InMemorySigner_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

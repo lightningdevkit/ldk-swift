@@ -2,18 +2,20 @@ class Pong {
 
     var cOpaqueStruct: LDKPong?;
 
-    init(byteslen_arg: U) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(byteslen_arg: UInt16) {
+    	
         self.cOpaqueStruct = Pong_new(byteslen_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKPong){
+    init(pointer: LDKPong){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_byteslen() -> U {
+    func get_byteslen() -> UInt16 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPong>) in
@@ -25,7 +27,7 @@ class Pong {
         return Pong_get_byteslen(this_ptrPointer);
     }
 
-    func set_byteslen(val: U) -> Void {
+    func set_byteslen(val: UInt16) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKPong>) in
@@ -49,7 +51,7 @@ class Pong {
         return Pong(pointer: Pong_clone(origPointer));
     }
 
-    func write(obj: Pong) -> [U] {
+    func write(obj: Pong) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPong>) in
@@ -58,12 +60,12 @@ class Pong {
 						
 		}
 					
-        return Pong_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: Pong_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_PongDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_PongDecodeErrorZ {
     	
-        return Pong_read(ser);
+        return Result_PongDecodeErrorZ(pointer: Pong_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

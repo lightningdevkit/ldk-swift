@@ -1,0 +1,76 @@
+class FilesystemPersister {
+
+    var cOpaqueStruct: LDKFilesystemPersister?;
+
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(path_to_channel_data: String) {
+    	
+        self.cOpaqueStruct = FilesystemPersister_new(path_to_channel_data)
+    }
+    /* DEFAULT_CONSTRUCTOR_END */
+
+    init(pointer: LDKFilesystemPersister){
+		self.cOpaqueStruct = pointer
+	}
+
+    /* STRUCT_METHODS_START */
+
+    func get_data_dir(this_arg: FilesystemPersister) -> String {
+    	
+						
+		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFilesystemPersister>) in
+							
+			pointer
+						
+		}
+					
+        return FilesystemPersister_get_data_dir(this_argPointer);
+    }
+
+    func persist_manager(data_dir: String, manager: ChannelManager) -> Result_NoneErrorZ {
+    	
+						
+		let managerPointer = withUnsafePointer(to: manager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) in
+							
+			pointer
+						
+		}
+					
+        return Result_NoneErrorZ(pointer: FilesystemPersister_persist_manager(data_dir, managerPointer));
+    }
+
+    func read_channelmonitors(this_arg: FilesystemPersister, keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    	
+						
+		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFilesystemPersister>) in
+							
+			pointer
+						
+		}
+					
+        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueStruct!));
+    }
+
+    func as_Persist(this_arg: FilesystemPersister) -> Persist {
+    	
+						
+		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFilesystemPersister>) in
+							
+			pointer
+						
+		}
+					
+        return Persist(pointer: FilesystemPersister_as_Persist(this_argPointer));
+    }
+
+				
+	deinit {
+					
+					
+		FilesystemPersister_free(self.cOpaqueStruct!)
+				
+	}
+			
+    /* STRUCT_METHODS_END */
+
+}

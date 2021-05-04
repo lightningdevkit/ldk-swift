@@ -2,18 +2,20 @@ class Ping {
 
     var cOpaqueStruct: LDKPing?;
 
-    init(ponglen_arg: U, byteslen_arg: U) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(ponglen_arg: UInt16, byteslen_arg: UInt16) {
+    	
         self.cOpaqueStruct = Ping_new(ponglen_arg, byteslen_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKPing){
+    init(pointer: LDKPing){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_ponglen() -> U {
+    func get_ponglen() -> UInt16 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPing>) in
@@ -25,7 +27,7 @@ class Ping {
         return Ping_get_ponglen(this_ptrPointer);
     }
 
-    func set_ponglen(val: U) -> Void {
+    func set_ponglen(val: UInt16) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKPing>) in
@@ -37,7 +39,7 @@ class Ping {
         return Ping_set_ponglen(this_ptrPointer, val);
     }
 
-    func get_byteslen() -> U {
+    func get_byteslen() -> UInt16 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPing>) in
@@ -49,7 +51,7 @@ class Ping {
         return Ping_get_byteslen(this_ptrPointer);
     }
 
-    func set_byteslen(val: U) -> Void {
+    func set_byteslen(val: UInt16) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKPing>) in
@@ -73,7 +75,7 @@ class Ping {
         return Ping(pointer: Ping_clone(origPointer));
     }
 
-    func write(obj: Ping) -> [U] {
+    func write(obj: Ping) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPing>) in
@@ -82,12 +84,12 @@ class Ping {
 						
 		}
 					
-        return Ping_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: Ping_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_PingDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_PingDecodeErrorZ {
     	
-        return Ping_read(ser);
+        return Result_PingDecodeErrorZ(pointer: Ping_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

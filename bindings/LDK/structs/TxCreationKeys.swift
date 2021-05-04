@@ -2,18 +2,25 @@ class TxCreationKeys {
 
     var cOpaqueStruct: LDKTxCreationKeys?;
 
-    init(per_commitment_point_arg: [U], revocation_key_arg: [U], broadcaster_htlc_key_arg: [U], countersignatory_htlc_key_arg: [U], broadcaster_delayed_payment_key_arg: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = TxCreationKeys_new(per_commitment_point_arg, revocation_key_arg, broadcaster_htlc_key_arg, countersignatory_htlc_key_arg, broadcaster_delayed_payment_key_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(per_commitment_point_arg: [UInt8], revocation_key_arg: [UInt8], broadcaster_htlc_key_arg: [UInt8], countersignatory_htlc_key_arg: [UInt8], broadcaster_delayed_payment_key_arg: [UInt8]) {
+    	
+		let converted_per_commitment_point_arg = Bindings.new_LDKPublicKey(array: per_commitment_point_arg)
+		let converted_revocation_key_arg = Bindings.new_LDKPublicKey(array: revocation_key_arg)
+		let converted_broadcaster_htlc_key_arg = Bindings.new_LDKPublicKey(array: broadcaster_htlc_key_arg)
+		let converted_countersignatory_htlc_key_arg = Bindings.new_LDKPublicKey(array: countersignatory_htlc_key_arg)
+		let converted_broadcaster_delayed_payment_key_arg = Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key_arg)
+        self.cOpaqueStruct = TxCreationKeys_new(converted_per_commitment_point_arg, converted_revocation_key_arg, converted_broadcaster_htlc_key_arg, converted_countersignatory_htlc_key_arg, converted_broadcaster_delayed_payment_key_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKTxCreationKeys){
+    init(pointer: LDKTxCreationKeys){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_per_commitment_point() -> [U] {
+    func get_per_commitment_point() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTxCreationKeys>) in
@@ -22,10 +29,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_get_per_commitment_point(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: TxCreationKeys_get_per_commitment_point(this_ptrPointer));
     }
 
-    func set_per_commitment_point(val: [U]) -> Void {
+    func set_per_commitment_point(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
@@ -34,10 +41,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_set_per_commitment_point(this_ptrPointer, val);
+        return TxCreationKeys_set_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_revocation_key() -> [U] {
+    func get_revocation_key() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTxCreationKeys>) in
@@ -46,10 +53,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_get_revocation_key(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: TxCreationKeys_get_revocation_key(this_ptrPointer));
     }
 
-    func set_revocation_key(val: [U]) -> Void {
+    func set_revocation_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
@@ -58,10 +65,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_set_revocation_key(this_ptrPointer, val);
+        return TxCreationKeys_set_revocation_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_broadcaster_htlc_key() -> [U] {
+    func get_broadcaster_htlc_key() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTxCreationKeys>) in
@@ -70,10 +77,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_get_broadcaster_htlc_key(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: TxCreationKeys_get_broadcaster_htlc_key(this_ptrPointer));
     }
 
-    func set_broadcaster_htlc_key(val: [U]) -> Void {
+    func set_broadcaster_htlc_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
@@ -82,10 +89,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_set_broadcaster_htlc_key(this_ptrPointer, val);
+        return TxCreationKeys_set_broadcaster_htlc_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_countersignatory_htlc_key() -> [U] {
+    func get_countersignatory_htlc_key() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTxCreationKeys>) in
@@ -94,10 +101,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_get_countersignatory_htlc_key(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: TxCreationKeys_get_countersignatory_htlc_key(this_ptrPointer));
     }
 
-    func set_countersignatory_htlc_key(val: [U]) -> Void {
+    func set_countersignatory_htlc_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
@@ -106,10 +113,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_set_countersignatory_htlc_key(this_ptrPointer, val);
+        return TxCreationKeys_set_countersignatory_htlc_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_broadcaster_delayed_payment_key() -> [U] {
+    func get_broadcaster_delayed_payment_key() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTxCreationKeys>) in
@@ -118,10 +125,10 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_get_broadcaster_delayed_payment_key(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: TxCreationKeys_get_broadcaster_delayed_payment_key(this_ptrPointer));
     }
 
-    func set_broadcaster_delayed_payment_key(val: [U]) -> Void {
+    func set_broadcaster_delayed_payment_key(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
@@ -130,7 +137,7 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_set_broadcaster_delayed_payment_key(this_ptrPointer, val);
+        return TxCreationKeys_set_broadcaster_delayed_payment_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
     func clone(orig: TxCreationKeys) -> TxCreationKeys {
@@ -145,7 +152,7 @@ class TxCreationKeys {
         return TxCreationKeys(pointer: TxCreationKeys_clone(origPointer));
     }
 
-    func write(obj: TxCreationKeys) -> [U] {
+    func write(obj: TxCreationKeys) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTxCreationKeys>) in
@@ -154,20 +161,20 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: TxCreationKeys_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_TxCreationKeysDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_TxCreationKeysDecodeErrorZ {
     	
-        return TxCreationKeys_read(ser);
+        return Result_TxCreationKeysDecodeErrorZ(pointer: TxCreationKeys_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    func derive_new(per_commitment_point: [U], broadcaster_delayed_payment_base: [U], broadcaster_htlc_base: [U], countersignatory_revocation_base: [U], countersignatory_htlc_base: [U]) -> Result_TxCreationKeysErrorZ {
+    func derive_new(per_commitment_point: [UInt8], broadcaster_delayed_payment_base: [UInt8], broadcaster_htlc_base: [UInt8], countersignatory_revocation_base: [UInt8], countersignatory_htlc_base: [UInt8]) -> Result_TxCreationKeysErrorZ {
     	
-        return TxCreationKeys_derive_new(per_commitment_point, broadcaster_delayed_payment_base, broadcaster_htlc_base, countersignatory_revocation_base, countersignatory_htlc_base);
+        return Result_TxCreationKeysErrorZ(pointer: TxCreationKeys_derive_new(Bindings.new_LDKPublicKey(array: per_commitment_point), Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_base), Bindings.new_LDKPublicKey(array: broadcaster_htlc_base), Bindings.new_LDKPublicKey(array: countersignatory_revocation_base), Bindings.new_LDKPublicKey(array: countersignatory_htlc_base)));
     }
 
-    func from_channel_static_keys(per_commitment_point: [U], broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) -> Result_TxCreationKeysErrorZ {
+    func from_channel_static_keys(per_commitment_point: [UInt8], broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) -> Result_TxCreationKeysErrorZ {
     	
 						
 		let broadcaster_keysPointer = withUnsafePointer(to: broadcaster_keys.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -183,7 +190,7 @@ class TxCreationKeys {
 						
 		}
 					
-        return TxCreationKeys_from_channel_static_keys(per_commitment_point, broadcaster_keysPointer, countersignatory_keysPointer);
+        return Result_TxCreationKeysErrorZ(pointer: TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_commitment_point), broadcaster_keysPointer, countersignatory_keysPointer));
     }
 
 				

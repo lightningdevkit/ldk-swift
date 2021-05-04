@@ -2,12 +2,16 @@ class ChannelInfo {
 
     var cOpaqueStruct: LDKChannelInfo?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(features_arg: ChannelFeatures, node_one_arg: [UInt8], one_to_two_arg: DirectionalChannelInfo, node_two_arg: [UInt8], two_to_one_arg: DirectionalChannelInfo, capacity_sats_arg: Option_u64Z, announcement_message_arg: ChannelAnnouncement) {
+    	
+		let converted_node_one_arg = Bindings.new_LDKPublicKey(array: node_one_arg)
+		let converted_node_two_arg = Bindings.new_LDKPublicKey(array: node_two_arg)
+        self.cOpaqueStruct = ChannelInfo_new(features_arg.cOpaqueStruct!, converted_node_one_arg, one_to_two_arg.cOpaqueStruct!, converted_node_two_arg, two_to_one_arg.cOpaqueStruct!, capacity_sats_arg.cOpaqueStruct!, announcement_message_arg.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKChannelInfo){
+    init(pointer: LDKChannelInfo){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +26,7 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_get_features(this_ptrPointer);
+        return ChannelFeatures(pointer: ChannelInfo_get_features(this_ptrPointer));
     }
 
     func set_features(val: ChannelFeatures) -> Void {
@@ -34,10 +38,10 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_set_features(this_ptrPointer, val);
+        return ChannelInfo_set_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    func get_node_one() -> [U] {
+    func get_node_one() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
@@ -46,10 +50,10 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_get_node_one(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: ChannelInfo_get_node_one(this_ptrPointer));
     }
 
-    func set_node_one(val: [U]) -> Void {
+    func set_node_one(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
@@ -58,7 +62,7 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_set_node_one(this_ptrPointer, val);
+        return ChannelInfo_set_node_one(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
     func get_one_to_two() -> DirectionalChannelInfo {
@@ -70,7 +74,7 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_get_one_to_two(this_ptrPointer);
+        return DirectionalChannelInfo(pointer: ChannelInfo_get_one_to_two(this_ptrPointer));
     }
 
     func set_one_to_two(val: DirectionalChannelInfo) -> Void {
@@ -82,10 +86,10 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_set_one_to_two(this_ptrPointer, val);
+        return ChannelInfo_set_one_to_two(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    func get_node_two() -> [U] {
+    func get_node_two() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
@@ -94,10 +98,10 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_get_node_two(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: ChannelInfo_get_node_two(this_ptrPointer));
     }
 
-    func set_node_two(val: [U]) -> Void {
+    func set_node_two(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
@@ -106,7 +110,7 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_set_node_two(this_ptrPointer, val);
+        return ChannelInfo_set_node_two(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
     func get_two_to_one() -> DirectionalChannelInfo {
@@ -118,7 +122,7 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_get_two_to_one(this_ptrPointer);
+        return DirectionalChannelInfo(pointer: ChannelInfo_get_two_to_one(this_ptrPointer));
     }
 
     func set_two_to_one(val: DirectionalChannelInfo) -> Void {
@@ -130,7 +134,31 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_set_two_to_one(this_ptrPointer, val);
+        return ChannelInfo_set_two_to_one(this_ptrPointer, val.cOpaqueStruct!);
+    }
+
+    func get_capacity_sats() -> Option_u64Z {
+    	
+						
+		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
+							
+			pointer
+						
+		}
+					
+        return Option_u64Z(pointer: ChannelInfo_get_capacity_sats(this_ptrPointer));
+    }
+
+    func set_capacity_sats(val: Option_u64Z) -> Void {
+    	
+						
+		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
+							
+			pointer
+						
+		}
+					
+        return ChannelInfo_set_capacity_sats(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_announcement_message() -> ChannelAnnouncement {
@@ -142,7 +170,7 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_get_announcement_message(this_ptrPointer);
+        return ChannelAnnouncement(pointer: ChannelInfo_get_announcement_message(this_ptrPointer));
     }
 
     func set_announcement_message(val: ChannelAnnouncement) -> Void {
@@ -154,7 +182,7 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_set_announcement_message(this_ptrPointer, val);
+        return ChannelInfo_set_announcement_message(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func clone(orig: ChannelInfo) -> ChannelInfo {
@@ -169,7 +197,7 @@ class ChannelInfo {
         return ChannelInfo(pointer: ChannelInfo_clone(origPointer));
     }
 
-    func write(obj: ChannelInfo) -> [U] {
+    func write(obj: ChannelInfo) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
@@ -178,12 +206,12 @@ class ChannelInfo {
 						
 		}
 					
-        return ChannelInfo_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelInfo_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_ChannelInfoDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {
     	
-        return ChannelInfo_read(ser);
+        return Result_ChannelInfoDecodeErrorZ(pointer: ChannelInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

@@ -2,18 +2,15 @@ class ChannelMonitorUpdate {
 
     var cOpaqueStruct: LDKChannelMonitorUpdate?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
-    }
+	
 
-    private init(pointer: LDKChannelMonitorUpdate){
+    init(pointer: LDKChannelMonitorUpdate){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_update_id() -> U {
+    func get_update_id() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelMonitorUpdate>) in
@@ -25,7 +22,7 @@ class ChannelMonitorUpdate {
         return ChannelMonitorUpdate_get_update_id(this_ptrPointer);
     }
 
-    func set_update_id(val: U) -> Void {
+    func set_update_id(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelMonitorUpdate>) in
@@ -49,7 +46,7 @@ class ChannelMonitorUpdate {
         return ChannelMonitorUpdate(pointer: ChannelMonitorUpdate_clone(origPointer));
     }
 
-    func write(obj: ChannelMonitorUpdate) -> [U] {
+    func write(obj: ChannelMonitorUpdate) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelMonitorUpdate>) in
@@ -58,12 +55,12 @@ class ChannelMonitorUpdate {
 						
 		}
 					
-        return ChannelMonitorUpdate_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelMonitorUpdate_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_ChannelMonitorUpdateDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ChannelMonitorUpdateDecodeErrorZ {
     	
-        return ChannelMonitorUpdate_read(ser);
+        return Result_ChannelMonitorUpdateDecodeErrorZ(pointer: ChannelMonitorUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

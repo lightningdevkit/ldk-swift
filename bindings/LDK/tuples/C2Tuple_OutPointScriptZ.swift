@@ -1,40 +1,35 @@
 class C2Tuple_OutPointScriptZ {
 
-    var cTuple: LDKC2Tuple_OutPointScriptZ?;
+    var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cTuple = TupleType(native_constructor_arguments)
-    }
-
-    private init(pointer: LDKC2Tuple_OutPointScriptZ){
-		self.cTuple = pointer
+    init(pointer: LDKC2Tuple_OutPointScriptZ){
+		self.cOpaqueStruct = pointer
 	}
 
     /* TUPLE_METHODS_START */
 
-    func clone(orig: TwoTuple<OutPoint>) -> TwoTuple<OutPoint> {
+    func clone(orig: C2Tuple_OutPointScriptZ) -> C2Tuple_OutPointScriptZ {
     	
 						
-		let origPointer = withUnsafePointer(to: orig.cTuple!) { (pointer: UnsafePointer<LDKC2Tuple_OutPointScriptZ>) in
+		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKC2Tuple_OutPointScriptZ>) in
 							
 			pointer
 						
 		}
 					
-        return C2Tuple_OutPointScriptZ_clone(origPointer);
+        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_clone(origPointer));
     }
 
-    func new(a: OutPoint, b: [U]) -> TwoTuple<OutPoint> {
+    func new(a: OutPoint, b: [UInt8]) -> C2Tuple_OutPointScriptZ {
     	
-        return C2Tuple_OutPointScriptZ_new(a, b);
+        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
     }
 
 				
 	deinit {
 					
 					
-		C2Tuple_OutPointScriptZ_free(_res)
+		C2Tuple_OutPointScriptZ_free(self.cOpaqueStruct!)
 				
 	}
 			

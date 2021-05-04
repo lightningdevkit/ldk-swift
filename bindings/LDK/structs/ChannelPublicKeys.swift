@@ -2,18 +2,25 @@ class ChannelPublicKeys {
 
     var cOpaqueStruct: LDKChannelPublicKeys?;
 
-    init(funding_pubkey_arg: [U], revocation_basepoint_arg: [U], payment_point_arg: [U], delayed_payment_basepoint_arg: [U], htlc_basepoint_arg: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = ChannelPublicKeys_new(funding_pubkey_arg, revocation_basepoint_arg, payment_point_arg, delayed_payment_basepoint_arg, htlc_basepoint_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(funding_pubkey_arg: [UInt8], revocation_basepoint_arg: [UInt8], payment_point_arg: [UInt8], delayed_payment_basepoint_arg: [UInt8], htlc_basepoint_arg: [UInt8]) {
+    	
+		let converted_funding_pubkey_arg = Bindings.new_LDKPublicKey(array: funding_pubkey_arg)
+		let converted_revocation_basepoint_arg = Bindings.new_LDKPublicKey(array: revocation_basepoint_arg)
+		let converted_payment_point_arg = Bindings.new_LDKPublicKey(array: payment_point_arg)
+		let converted_delayed_payment_basepoint_arg = Bindings.new_LDKPublicKey(array: delayed_payment_basepoint_arg)
+		let converted_htlc_basepoint_arg = Bindings.new_LDKPublicKey(array: htlc_basepoint_arg)
+        self.cOpaqueStruct = ChannelPublicKeys_new(converted_funding_pubkey_arg, converted_revocation_basepoint_arg, converted_payment_point_arg, converted_delayed_payment_basepoint_arg, converted_htlc_basepoint_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKChannelPublicKeys){
+    init(pointer: LDKChannelPublicKeys){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_funding_pubkey() -> [U] {
+    func get_funding_pubkey() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -22,10 +29,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_get_funding_pubkey(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: ChannelPublicKeys_get_funding_pubkey(this_ptrPointer));
     }
 
-    func set_funding_pubkey(val: [U]) -> Void {
+    func set_funding_pubkey(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
@@ -34,10 +41,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_set_funding_pubkey(this_ptrPointer, val);
+        return ChannelPublicKeys_set_funding_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_revocation_basepoint() -> [U] {
+    func get_revocation_basepoint() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -46,10 +53,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_get_revocation_basepoint(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: ChannelPublicKeys_get_revocation_basepoint(this_ptrPointer));
     }
 
-    func set_revocation_basepoint(val: [U]) -> Void {
+    func set_revocation_basepoint(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
@@ -58,10 +65,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_set_revocation_basepoint(this_ptrPointer, val);
+        return ChannelPublicKeys_set_revocation_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_payment_point() -> [U] {
+    func get_payment_point() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -70,10 +77,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_get_payment_point(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: ChannelPublicKeys_get_payment_point(this_ptrPointer));
     }
 
-    func set_payment_point(val: [U]) -> Void {
+    func set_payment_point(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
@@ -82,10 +89,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_set_payment_point(this_ptrPointer, val);
+        return ChannelPublicKeys_set_payment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_delayed_payment_basepoint() -> [U] {
+    func get_delayed_payment_basepoint() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -94,10 +101,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_get_delayed_payment_basepoint(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: ChannelPublicKeys_get_delayed_payment_basepoint(this_ptrPointer));
     }
 
-    func set_delayed_payment_basepoint(val: [U]) -> Void {
+    func set_delayed_payment_basepoint(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
@@ -106,10 +113,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_set_delayed_payment_basepoint(this_ptrPointer, val);
+        return ChannelPublicKeys_set_delayed_payment_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func get_htlc_basepoint() -> [U] {
+    func get_htlc_basepoint() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -118,10 +125,10 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_get_htlc_basepoint(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: ChannelPublicKeys_get_htlc_basepoint(this_ptrPointer));
     }
 
-    func set_htlc_basepoint(val: [U]) -> Void {
+    func set_htlc_basepoint(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
@@ -130,7 +137,7 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_set_htlc_basepoint(this_ptrPointer, val);
+        return ChannelPublicKeys_set_htlc_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
     func clone(orig: ChannelPublicKeys) -> ChannelPublicKeys {
@@ -145,7 +152,7 @@ class ChannelPublicKeys {
         return ChannelPublicKeys(pointer: ChannelPublicKeys_clone(origPointer));
     }
 
-    func write(obj: ChannelPublicKeys) -> [U] {
+    func write(obj: ChannelPublicKeys) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -154,12 +161,12 @@ class ChannelPublicKeys {
 						
 		}
 					
-        return ChannelPublicKeys_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelPublicKeys_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_ChannelPublicKeysDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ChannelPublicKeysDecodeErrorZ {
     	
-        return ChannelPublicKeys_read(ser);
+        return Result_ChannelPublicKeysDecodeErrorZ(pointer: ChannelPublicKeys_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

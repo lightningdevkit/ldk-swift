@@ -2,12 +2,9 @@ class LockedNetworkGraph {
 
     var cOpaqueStruct: LDKLockedNetworkGraph?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
-    }
+	
 
-    private init(pointer: LDKLockedNetworkGraph){
+    init(pointer: LDKLockedNetworkGraph){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +19,7 @@ class LockedNetworkGraph {
 						
 		}
 					
-        return LockedNetworkGraph_graph(this_argPointer);
+        return NetworkGraph(pointer: LockedNetworkGraph_graph(this_argPointer));
     }
 
 				

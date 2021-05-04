@@ -2,18 +2,21 @@ class ReplyShortChannelIdsEnd {
 
     var cOpaqueStruct: LDKReplyShortChannelIdsEnd?;
 
-    init(chain_hash_arg: [U], full_information_arg: boolean) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = ReplyShortChannelIdsEnd_new(chain_hash_arg, full_information_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(chain_hash_arg: [UInt8], full_information_arg: Bool) {
+    	
+		let converted_chain_hash_arg = Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg)
+        self.cOpaqueStruct = ReplyShortChannelIdsEnd_new(converted_chain_hash_arg, full_information_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKReplyShortChannelIdsEnd){
+    init(pointer: LDKReplyShortChannelIdsEnd){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_chain_hash() -> [U] {
+    func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
@@ -22,10 +25,10 @@ class ReplyShortChannelIdsEnd {
 						
 		}
 					
-        return ReplyShortChannelIdsEnd_get_chain_hash(this_ptrPointer);
+        return ReplyShortChannelIdsEnd_get_chain_hash(this_ptrPointer).pointee;
     }
 
-    func set_chain_hash(val: [U]) -> Void {
+    func set_chain_hash(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKReplyShortChannelIdsEnd>) in
@@ -34,10 +37,10 @@ class ReplyShortChannelIdsEnd {
 						
 		}
 					
-        return ReplyShortChannelIdsEnd_set_chain_hash(this_ptrPointer, val);
+        return ReplyShortChannelIdsEnd_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_full_information() -> boolean {
+    func get_full_information() -> Bool {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
@@ -49,7 +52,7 @@ class ReplyShortChannelIdsEnd {
         return ReplyShortChannelIdsEnd_get_full_information(this_ptrPointer);
     }
 
-    func set_full_information(val: boolean) -> Void {
+    func set_full_information(val: Bool) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKReplyShortChannelIdsEnd>) in
@@ -73,12 +76,12 @@ class ReplyShortChannelIdsEnd {
         return ReplyShortChannelIdsEnd(pointer: ReplyShortChannelIdsEnd_clone(origPointer));
     }
 
-    func read(ser: [U]) -> Result_ReplyShortChannelIdsEndDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ReplyShortChannelIdsEndDecodeErrorZ {
     	
-        return ReplyShortChannelIdsEnd_read(ser);
+        return Result_ReplyShortChannelIdsEndDecodeErrorZ(pointer: ReplyShortChannelIdsEnd_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    func write(obj: ReplyShortChannelIdsEnd) -> [U] {
+    func write(obj: ReplyShortChannelIdsEnd) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
@@ -87,7 +90,7 @@ class ReplyShortChannelIdsEnd {
 						
 		}
 					
-        return ReplyShortChannelIdsEnd_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ReplyShortChannelIdsEnd_write(objPointer));
     }
 
 				

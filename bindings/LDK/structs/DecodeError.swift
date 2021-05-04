@@ -2,12 +2,9 @@ class DecodeError {
 
     var cOpaqueStruct: LDKDecodeError?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
-    }
+	
 
-    private init(pointer: LDKDecodeError){
+    init(pointer: LDKDecodeError){
 		self.cOpaqueStruct = pointer
 	}
 

@@ -2,12 +2,9 @@ class MonitorUpdateError {
 
     var cOpaqueStruct: LDKMonitorUpdateError?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
-    }
+	
 
-    private init(pointer: LDKMonitorUpdateError){
+    init(pointer: LDKMonitorUpdateError){
 		self.cOpaqueStruct = pointer
 	}
 

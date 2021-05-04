@@ -2,12 +2,14 @@ class ChannelFeatures {
 
     var cOpaqueStruct: LDKChannelFeatures?;
 
-    init(: Void) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init() {
+    	
         self.cOpaqueStruct = ChannelFeatures_known()
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKChannelFeatures){
+    init(pointer: LDKChannelFeatures){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -25,7 +27,7 @@ class ChannelFeatures {
         return ChannelFeatures(pointer: ChannelFeatures_clone(origPointer));
     }
 
-    func write(obj: ChannelFeatures) -> [U] {
+    func write(obj: ChannelFeatures) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelFeatures>) in
@@ -34,12 +36,12 @@ class ChannelFeatures {
 						
 		}
 					
-        return ChannelFeatures_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelFeatures_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_ChannelFeaturesDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ChannelFeaturesDecodeErrorZ {
     	
-        return ChannelFeatures_read(ser);
+        return Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

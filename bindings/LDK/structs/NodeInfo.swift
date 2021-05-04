@@ -2,18 +2,21 @@ class NodeInfo {
 
     var cOpaqueStruct: LDKNodeInfo?;
 
-    init(channels_arg: [U], lowest_inbound_channel_fees_arg: RoutingFees, announcement_info_arg: NodeAnnouncementInfo) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = NodeInfo_new(channels_arg, lowest_inbound_channel_fees_arg, announcement_info_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channels_arg: [UInt64], lowest_inbound_channel_fees_arg: RoutingFees, announcement_info_arg: NodeAnnouncementInfo) {
+    	
+		let converted_channels_arg = Bindings.new_LDKCVec_u64Z(array: channels_arg)
+        self.cOpaqueStruct = NodeInfo_new(converted_channels_arg, lowest_inbound_channel_fees_arg.cOpaqueStruct!, announcement_info_arg.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKNodeInfo){
+    init(pointer: LDKNodeInfo){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func set_channels(val: [U]) -> Void {
+    func set_channels(val: [UInt64]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNodeInfo>) in
@@ -22,7 +25,7 @@ class NodeInfo {
 						
 		}
 					
-        return NodeInfo_set_channels(this_ptrPointer, val);
+        return NodeInfo_set_channels(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val));
     }
 
     func get_lowest_inbound_channel_fees() -> RoutingFees {
@@ -34,7 +37,7 @@ class NodeInfo {
 						
 		}
 					
-        return NodeInfo_get_lowest_inbound_channel_fees(this_ptrPointer);
+        return RoutingFees(pointer: NodeInfo_get_lowest_inbound_channel_fees(this_ptrPointer));
     }
 
     func set_lowest_inbound_channel_fees(val: RoutingFees) -> Void {
@@ -46,7 +49,7 @@ class NodeInfo {
 						
 		}
 					
-        return NodeInfo_set_lowest_inbound_channel_fees(this_ptrPointer, val);
+        return NodeInfo_set_lowest_inbound_channel_fees(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_announcement_info() -> NodeAnnouncementInfo {
@@ -58,7 +61,7 @@ class NodeInfo {
 						
 		}
 					
-        return NodeInfo_get_announcement_info(this_ptrPointer);
+        return NodeAnnouncementInfo(pointer: NodeInfo_get_announcement_info(this_ptrPointer));
     }
 
     func set_announcement_info(val: NodeAnnouncementInfo) -> Void {
@@ -70,7 +73,7 @@ class NodeInfo {
 						
 		}
 					
-        return NodeInfo_set_announcement_info(this_ptrPointer, val);
+        return NodeInfo_set_announcement_info(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func clone(orig: NodeInfo) -> NodeInfo {
@@ -85,7 +88,7 @@ class NodeInfo {
         return NodeInfo(pointer: NodeInfo_clone(origPointer));
     }
 
-    func write(obj: NodeInfo) -> [U] {
+    func write(obj: NodeInfo) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNodeInfo>) in
@@ -94,12 +97,12 @@ class NodeInfo {
 						
 		}
 					
-        return NodeInfo_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: NodeInfo_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_NodeInfoDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {
     	
-        return NodeInfo_read(ser);
+        return Result_NodeInfoDecodeErrorZ(pointer: NodeInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

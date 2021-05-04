@@ -2,12 +2,14 @@ class LightningError {
 
     var cOpaqueStruct: LDKLightningError?;
 
-    init(err_arg: [U], action_arg: ErrorAction) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = LightningError_new(err_arg, action_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(err_arg: String, action_arg: ErrorAction) {
+    	
+        self.cOpaqueStruct = LightningError_new(err_arg, action_arg.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKLightningError){
+    init(pointer: LDKLightningError){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -25,7 +27,7 @@ class LightningError {
         return LightningError_get_err(this_ptrPointer);
     }
 
-    func set_err(val: [U]) -> Void {
+    func set_err(val: String) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKLightningError>) in
@@ -46,7 +48,7 @@ class LightningError {
 						
 		}
 					
-        return LightningError_get_action(this_ptrPointer);
+        return ErrorAction(pointer: LightningError_get_action(this_ptrPointer));
     }
 
     func set_action(val: ErrorAction) -> Void {
@@ -58,7 +60,7 @@ class LightningError {
 						
 		}
 					
-        return LightningError_set_action(this_ptrPointer, val);
+        return LightningError_set_action(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func clone(orig: LightningError) -> LightningError {

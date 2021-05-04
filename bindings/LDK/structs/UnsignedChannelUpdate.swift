@@ -2,18 +2,15 @@ class UnsignedChannelUpdate {
 
     var cOpaqueStruct: LDKUnsignedChannelUpdate?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
-    }
+	
 
-    private init(pointer: LDKUnsignedChannelUpdate){
+    init(pointer: LDKUnsignedChannelUpdate){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_chain_hash() -> [U] {
+    func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -22,10 +19,10 @@ class UnsignedChannelUpdate {
 						
 		}
 					
-        return UnsignedChannelUpdate_get_chain_hash(this_ptrPointer);
+        return UnsignedChannelUpdate_get_chain_hash(this_ptrPointer).pointee;
     }
 
-    func set_chain_hash(val: [U]) -> Void {
+    func set_chain_hash(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -34,10 +31,10 @@ class UnsignedChannelUpdate {
 						
 		}
 					
-        return UnsignedChannelUpdate_set_chain_hash(this_ptrPointer, val);
+        return UnsignedChannelUpdate_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_short_channel_id() -> U {
+    func get_short_channel_id() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -49,7 +46,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_get_short_channel_id(this_ptrPointer);
     }
 
-    func set_short_channel_id(val: U) -> Void {
+    func set_short_channel_id(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -61,7 +58,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_set_short_channel_id(this_ptrPointer, val);
     }
 
-    func get_timestamp() -> U {
+    func get_timestamp() -> UInt32 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -73,7 +70,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_get_timestamp(this_ptrPointer);
     }
 
-    func set_timestamp(val: U) -> Void {
+    func set_timestamp(val: UInt32) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -85,7 +82,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_set_timestamp(this_ptrPointer, val);
     }
 
-    func get_flags() -> U {
+    func get_flags() -> UInt8 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -97,7 +94,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_get_flags(this_ptrPointer);
     }
 
-    func set_flags(val: U) -> Void {
+    func set_flags(val: UInt8) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -109,7 +106,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_set_flags(this_ptrPointer, val);
     }
 
-    func get_cltv_expiry_delta() -> U {
+    func get_cltv_expiry_delta() -> UInt16 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -121,7 +118,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_get_cltv_expiry_delta(this_ptrPointer);
     }
 
-    func set_cltv_expiry_delta(val: U) -> Void {
+    func set_cltv_expiry_delta(val: UInt16) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -133,7 +130,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 
-    func get_htlc_minimum_msat() -> U {
+    func get_htlc_minimum_msat() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -145,7 +142,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_get_htlc_minimum_msat(this_ptrPointer);
     }
 
-    func set_htlc_minimum_msat(val: U) -> Void {
+    func set_htlc_minimum_msat(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -157,7 +154,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_set_htlc_minimum_msat(this_ptrPointer, val);
     }
 
-    func get_fee_base_msat() -> U {
+    func get_fee_base_msat() -> UInt32 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -169,7 +166,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_get_fee_base_msat(this_ptrPointer);
     }
 
-    func set_fee_base_msat(val: U) -> Void {
+    func set_fee_base_msat(val: UInt32) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -181,7 +178,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_set_fee_base_msat(this_ptrPointer, val);
     }
 
-    func get_fee_proportional_millionths() -> U {
+    func get_fee_proportional_millionths() -> UInt32 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -193,7 +190,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer);
     }
 
-    func set_fee_proportional_millionths(val: U) -> Void {
+    func set_fee_proportional_millionths(val: UInt32) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedChannelUpdate>) in
@@ -217,7 +214,7 @@ class UnsignedChannelUpdate {
         return UnsignedChannelUpdate(pointer: UnsignedChannelUpdate_clone(origPointer));
     }
 
-    func write(obj: UnsignedChannelUpdate) -> [U] {
+    func write(obj: UnsignedChannelUpdate) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -226,12 +223,12 @@ class UnsignedChannelUpdate {
 						
 		}
 					
-        return UnsignedChannelUpdate_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: UnsignedChannelUpdate_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_UnsignedChannelUpdateDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_UnsignedChannelUpdateDecodeErrorZ {
     	
-        return UnsignedChannelUpdate_read(ser);
+        return Result_UnsignedChannelUpdateDecodeErrorZ(pointer: UnsignedChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

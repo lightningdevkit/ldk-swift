@@ -2,18 +2,21 @@ class UpdateFee {
 
     var cOpaqueStruct: LDKUpdateFee?;
 
-    init(channel_id_arg: [U], feerate_per_kw_arg: U) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = UpdateFee_new(channel_id_arg, feerate_per_kw_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channel_id_arg: [UInt8], feerate_per_kw_arg: UInt32) {
+    	
+		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
+        self.cOpaqueStruct = UpdateFee_new(converted_channel_id_arg, feerate_per_kw_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKUpdateFee){
+    init(pointer: LDKUpdateFee){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> [U] {
+    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFee>) in
@@ -22,10 +25,10 @@ class UpdateFee {
 						
 		}
 					
-        return UpdateFee_get_channel_id(this_ptrPointer);
+        return UpdateFee_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [U]) -> Void {
+    func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUpdateFee>) in
@@ -34,10 +37,10 @@ class UpdateFee {
 						
 		}
 					
-        return UpdateFee_set_channel_id(this_ptrPointer, val);
+        return UpdateFee_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_feerate_per_kw() -> U {
+    func get_feerate_per_kw() -> UInt32 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFee>) in
@@ -49,7 +52,7 @@ class UpdateFee {
         return UpdateFee_get_feerate_per_kw(this_ptrPointer);
     }
 
-    func set_feerate_per_kw(val: U) -> Void {
+    func set_feerate_per_kw(val: UInt32) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUpdateFee>) in
@@ -73,7 +76,7 @@ class UpdateFee {
         return UpdateFee(pointer: UpdateFee_clone(origPointer));
     }
 
-    func write(obj: UpdateFee) -> [U] {
+    func write(obj: UpdateFee) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFee>) in
@@ -82,12 +85,12 @@ class UpdateFee {
 						
 		}
 					
-        return UpdateFee_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: UpdateFee_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_UpdateFeeDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_UpdateFeeDecodeErrorZ {
     	
-        return UpdateFee_read(ser);
+        return Result_UpdateFeeDecodeErrorZ(pointer: UpdateFee_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

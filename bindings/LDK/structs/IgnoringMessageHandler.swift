@@ -2,12 +2,14 @@ class IgnoringMessageHandler {
 
     var cOpaqueStruct: LDKIgnoringMessageHandler?;
 
-    init(: Void) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init() {
+    	
         self.cOpaqueStruct = IgnoringMessageHandler_new()
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKIgnoringMessageHandler){
+    init(pointer: LDKIgnoringMessageHandler){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +24,7 @@ class IgnoringMessageHandler {
 						
 		}
 					
-        return IgnoringMessageHandler_as_MessageSendEventsProvider(this_argPointer);
+        return MessageSendEventsProvider(pointer: IgnoringMessageHandler_as_MessageSendEventsProvider(this_argPointer));
     }
 
     func as_RoutingMessageHandler(this_arg: IgnoringMessageHandler) -> RoutingMessageHandler {
@@ -34,7 +36,7 @@ class IgnoringMessageHandler {
 						
 		}
 					
-        return IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer);
+        return RoutingMessageHandler(pointer: IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer));
     }
 
 				

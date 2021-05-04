@@ -2,12 +2,15 @@ class StaticPaymentOutputDescriptor {
 
     var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?;
 
-    init(outpoint_arg: OutPoint, output_arg: TxOut, channel_keys_id_arg: [U], channel_value_satoshis_arg: U) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg, output_arg, channel_keys_id_arg, channel_value_satoshis_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(outpoint_arg: OutPoint, output_arg: TxOut, channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
+    	
+		let converted_channel_keys_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg)
+        self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.cOpaqueStruct!, output_arg.cOpaqueStruct!, converted_channel_keys_id_arg, channel_value_satoshis_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKStaticPaymentOutputDescriptor){
+    init(pointer: LDKStaticPaymentOutputDescriptor){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +25,7 @@ class StaticPaymentOutputDescriptor {
 						
 		}
 					
-        return StaticPaymentOutputDescriptor_get_outpoint(this_ptrPointer);
+        return OutPoint(pointer: StaticPaymentOutputDescriptor_get_outpoint(this_ptrPointer));
     }
 
     func set_outpoint(val: OutPoint) -> Void {
@@ -34,7 +37,7 @@ class StaticPaymentOutputDescriptor {
 						
 		}
 					
-        return StaticPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val);
+        return StaticPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func set_output(val: TxOut) -> Void {
@@ -46,10 +49,10 @@ class StaticPaymentOutputDescriptor {
 						
 		}
 					
-        return StaticPaymentOutputDescriptor_set_output(this_ptrPointer, val);
+        return StaticPaymentOutputDescriptor_set_output(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    func get_channel_keys_id() -> [U] {
+    func get_channel_keys_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
@@ -58,10 +61,10 @@ class StaticPaymentOutputDescriptor {
 						
 		}
 					
-        return StaticPaymentOutputDescriptor_get_channel_keys_id(this_ptrPointer);
+        return StaticPaymentOutputDescriptor_get_channel_keys_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_keys_id(val: [U]) -> Void {
+    func set_channel_keys_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
@@ -70,10 +73,10 @@ class StaticPaymentOutputDescriptor {
 						
 		}
 					
-        return StaticPaymentOutputDescriptor_set_channel_keys_id(this_ptrPointer, val);
+        return StaticPaymentOutputDescriptor_set_channel_keys_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_channel_value_satoshis() -> U {
+    func get_channel_value_satoshis() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
@@ -85,7 +88,7 @@ class StaticPaymentOutputDescriptor {
         return StaticPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer);
     }
 
-    func set_channel_value_satoshis(val: U) -> Void {
+    func set_channel_value_satoshis(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in

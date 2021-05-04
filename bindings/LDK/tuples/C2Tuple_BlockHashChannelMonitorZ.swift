@@ -1,28 +1,23 @@
 class C2Tuple_BlockHashChannelMonitorZ {
 
-    var cTuple: LDKC2Tuple_BlockHashChannelMonitorZ?;
+    var cOpaqueStruct: LDKC2Tuple_BlockHashChannelMonitorZ?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cTuple = TupleType(native_constructor_arguments)
-    }
-
-    private init(pointer: LDKC2Tuple_BlockHashChannelMonitorZ){
-		self.cTuple = pointer
+    init(pointer: LDKC2Tuple_BlockHashChannelMonitorZ){
+		self.cOpaqueStruct = pointer
 	}
 
     /* TUPLE_METHODS_START */
 
-    func new(a: [U], b: ChannelMonitor) -> TwoTuple<[U]> {
+    func new(a: [UInt8], b: ChannelMonitor) -> C2Tuple_BlockHashChannelMonitorZ {
     	
-        return C2Tuple_BlockHashChannelMonitorZ_new(a, b);
+        return C2Tuple_BlockHashChannelMonitorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
     }
 
 				
 	deinit {
 					
 					
-		C2Tuple_BlockHashChannelMonitorZ_free(_res)
+		C2Tuple_BlockHashChannelMonitorZ_free(self.cOpaqueStruct!)
 				
 	}
 			

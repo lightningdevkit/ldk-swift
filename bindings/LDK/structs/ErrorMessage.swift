@@ -2,18 +2,21 @@ class ErrorMessage {
 
     var cOpaqueStruct: LDKErrorMessage?;
 
-    init(channel_id_arg: [U], data_arg: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = ErrorMessage_new(channel_id_arg, data_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channel_id_arg: [UInt8], data_arg: String) {
+    	
+		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
+        self.cOpaqueStruct = ErrorMessage_new(converted_channel_id_arg, data_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKErrorMessage){
+    init(pointer: LDKErrorMessage){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> [U] {
+    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKErrorMessage>) in
@@ -22,10 +25,10 @@ class ErrorMessage {
 						
 		}
 					
-        return ErrorMessage_get_channel_id(this_ptrPointer);
+        return ErrorMessage_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [U]) -> Void {
+    func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKErrorMessage>) in
@@ -34,7 +37,7 @@ class ErrorMessage {
 						
 		}
 					
-        return ErrorMessage_set_channel_id(this_ptrPointer, val);
+        return ErrorMessage_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     func get_data() -> String {
@@ -49,7 +52,7 @@ class ErrorMessage {
         return ErrorMessage_get_data(this_ptrPointer);
     }
 
-    func set_data(val: [U]) -> Void {
+    func set_data(val: String) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKErrorMessage>) in
@@ -73,7 +76,7 @@ class ErrorMessage {
         return ErrorMessage(pointer: ErrorMessage_clone(origPointer));
     }
 
-    func write(obj: ErrorMessage) -> [U] {
+    func write(obj: ErrorMessage) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKErrorMessage>) in
@@ -82,12 +85,12 @@ class ErrorMessage {
 						
 		}
 					
-        return ErrorMessage_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ErrorMessage_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_ErrorMessageDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ErrorMessageDecodeErrorZ {
     	
-        return ErrorMessage_read(ser);
+        return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

@@ -2,18 +2,23 @@ class RevokeAndACK {
 
     var cOpaqueStruct: LDKRevokeAndACK?;
 
-    init(channel_id_arg: [U], per_commitment_secret_arg: [U], next_per_commitment_point_arg: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = RevokeAndACK_new(channel_id_arg, per_commitment_secret_arg, next_per_commitment_point_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channel_id_arg: [UInt8], per_commitment_secret_arg: [UInt8], next_per_commitment_point_arg: [UInt8]) {
+    	
+		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
+		let converted_per_commitment_secret_arg = Bindings.new_LDKThirtyTwoBytes(array: per_commitment_secret_arg)
+		let converted_next_per_commitment_point_arg = Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg)
+        self.cOpaqueStruct = RevokeAndACK_new(converted_channel_id_arg, converted_per_commitment_secret_arg, converted_next_per_commitment_point_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKRevokeAndACK){
+    init(pointer: LDKRevokeAndACK){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> [U] {
+    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRevokeAndACK>) in
@@ -22,10 +27,10 @@ class RevokeAndACK {
 						
 		}
 					
-        return RevokeAndACK_get_channel_id(this_ptrPointer);
+        return RevokeAndACK_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [U]) -> Void {
+    func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKRevokeAndACK>) in
@@ -34,10 +39,10 @@ class RevokeAndACK {
 						
 		}
 					
-        return RevokeAndACK_set_channel_id(this_ptrPointer, val);
+        return RevokeAndACK_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_per_commitment_secret() -> [U] {
+    func get_per_commitment_secret() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRevokeAndACK>) in
@@ -46,10 +51,10 @@ class RevokeAndACK {
 						
 		}
 					
-        return RevokeAndACK_get_per_commitment_secret(this_ptrPointer);
+        return RevokeAndACK_get_per_commitment_secret(this_ptrPointer).pointee;
     }
 
-    func set_per_commitment_secret(val: [U]) -> Void {
+    func set_per_commitment_secret(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKRevokeAndACK>) in
@@ -58,10 +63,10 @@ class RevokeAndACK {
 						
 		}
 					
-        return RevokeAndACK_set_per_commitment_secret(this_ptrPointer, val);
+        return RevokeAndACK_set_per_commitment_secret(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_next_per_commitment_point() -> [U] {
+    func get_next_per_commitment_point() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRevokeAndACK>) in
@@ -70,10 +75,10 @@ class RevokeAndACK {
 						
 		}
 					
-        return RevokeAndACK_get_next_per_commitment_point(this_ptrPointer);
+        return Bindings.LDKPublicKey_to_array(nativeType: RevokeAndACK_get_next_per_commitment_point(this_ptrPointer));
     }
 
-    func set_next_per_commitment_point(val: [U]) -> Void {
+    func set_next_per_commitment_point(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKRevokeAndACK>) in
@@ -82,7 +87,7 @@ class RevokeAndACK {
 						
 		}
 					
-        return RevokeAndACK_set_next_per_commitment_point(this_ptrPointer, val);
+        return RevokeAndACK_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
     func clone(orig: RevokeAndACK) -> RevokeAndACK {
@@ -97,7 +102,7 @@ class RevokeAndACK {
         return RevokeAndACK(pointer: RevokeAndACK_clone(origPointer));
     }
 
-    func write(obj: RevokeAndACK) -> [U] {
+    func write(obj: RevokeAndACK) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRevokeAndACK>) in
@@ -106,12 +111,12 @@ class RevokeAndACK {
 						
 		}
 					
-        return RevokeAndACK_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: RevokeAndACK_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_RevokeAndACKDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return RevokeAndACK_read(ser);
+        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

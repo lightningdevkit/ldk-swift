@@ -2,18 +2,21 @@ class ChannelUpdate {
 
     var cOpaqueStruct: LDKChannelUpdate?;
 
-    init(signature_arg: [U], contents_arg: UnsignedChannelUpdate) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = ChannelUpdate_new(signature_arg, contents_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(signature_arg: [UInt8], contents_arg: UnsignedChannelUpdate) {
+    	
+		let converted_signature_arg = Bindings.new_LDKSignature(array: signature_arg)
+        self.cOpaqueStruct = ChannelUpdate_new(converted_signature_arg, contents_arg.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKChannelUpdate){
+    init(pointer: LDKChannelUpdate){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_signature() -> [U] {
+    func get_signature() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelUpdate>) in
@@ -22,10 +25,10 @@ class ChannelUpdate {
 						
 		}
 					
-        return ChannelUpdate_get_signature(this_ptrPointer);
+        return Bindings.LDKSignature_to_array(nativeType: ChannelUpdate_get_signature(this_ptrPointer));
     }
 
-    func set_signature(val: [U]) -> Void {
+    func set_signature(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelUpdate>) in
@@ -34,7 +37,7 @@ class ChannelUpdate {
 						
 		}
 					
-        return ChannelUpdate_set_signature(this_ptrPointer, val);
+        return ChannelUpdate_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     func get_contents() -> UnsignedChannelUpdate {
@@ -46,7 +49,7 @@ class ChannelUpdate {
 						
 		}
 					
-        return ChannelUpdate_get_contents(this_ptrPointer);
+        return UnsignedChannelUpdate(pointer: ChannelUpdate_get_contents(this_ptrPointer));
     }
 
     func set_contents(val: UnsignedChannelUpdate) -> Void {
@@ -58,7 +61,7 @@ class ChannelUpdate {
 						
 		}
 					
-        return ChannelUpdate_set_contents(this_ptrPointer, val);
+        return ChannelUpdate_set_contents(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func clone(orig: ChannelUpdate) -> ChannelUpdate {
@@ -73,7 +76,7 @@ class ChannelUpdate {
         return ChannelUpdate(pointer: ChannelUpdate_clone(origPointer));
     }
 
-    func write(obj: ChannelUpdate) -> [U] {
+    func write(obj: ChannelUpdate) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelUpdate>) in
@@ -82,12 +85,12 @@ class ChannelUpdate {
 						
 		}
 					
-        return ChannelUpdate_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelUpdate_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_ChannelUpdateDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_ChannelUpdateDecodeErrorZ {
     	
-        return ChannelUpdate_read(ser);
+        return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

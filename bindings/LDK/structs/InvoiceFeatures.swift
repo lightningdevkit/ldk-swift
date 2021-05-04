@@ -2,12 +2,14 @@ class InvoiceFeatures {
 
     var cOpaqueStruct: LDKInvoiceFeatures?;
 
-    init(: Void) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init() {
+    	
         self.cOpaqueStruct = InvoiceFeatures_known()
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKInvoiceFeatures){
+    init(pointer: LDKInvoiceFeatures){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -25,7 +27,7 @@ class InvoiceFeatures {
         return InvoiceFeatures(pointer: InvoiceFeatures_clone(origPointer));
     }
 
-    func write(obj: InvoiceFeatures) -> [U] {
+    func write(obj: InvoiceFeatures) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInvoiceFeatures>) in
@@ -34,12 +36,12 @@ class InvoiceFeatures {
 						
 		}
 					
-        return InvoiceFeatures_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: InvoiceFeatures_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_InvoiceFeaturesDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_InvoiceFeaturesDecodeErrorZ {
     	
-        return InvoiceFeatures_read(ser);
+        return Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

@@ -2,12 +2,14 @@ class ErroringMessageHandler {
 
     var cOpaqueStruct: LDKErroringMessageHandler?;
 
-    init(: Void) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init() {
+    	
         self.cOpaqueStruct = ErroringMessageHandler_new()
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKErroringMessageHandler){
+    init(pointer: LDKErroringMessageHandler){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +24,7 @@ class ErroringMessageHandler {
 						
 		}
 					
-        return ErroringMessageHandler_as_MessageSendEventsProvider(this_argPointer);
+        return MessageSendEventsProvider(pointer: ErroringMessageHandler_as_MessageSendEventsProvider(this_argPointer));
     }
 
     func as_ChannelMessageHandler(this_arg: ErroringMessageHandler) -> ChannelMessageHandler {
@@ -34,7 +36,7 @@ class ErroringMessageHandler {
 						
 		}
 					
-        return ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer);
+        return ChannelMessageHandler(pointer: ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer));
     }
 
 				

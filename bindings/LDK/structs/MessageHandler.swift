@@ -2,12 +2,14 @@ class MessageHandler {
 
     var cOpaqueStruct: LDKMessageHandler?;
 
+	/* DEFAULT_CONSTRUCTOR_START */
     init(chan_handler_arg: ChannelMessageHandler, route_handler_arg: RoutingMessageHandler) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = MessageHandler_new(chan_handler_arg, route_handler_arg)
+    	
+        self.cOpaqueStruct = MessageHandler_new(chan_handler_arg.cOpaqueStruct!, route_handler_arg.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKMessageHandler){
+    init(pointer: LDKMessageHandler){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +24,7 @@ class MessageHandler {
 						
 		}
 					
-        return MessageHandler_get_chan_handler(this_ptrPointer);
+        return ChannelMessageHandler(pointer: MessageHandler_get_chan_handler(this_ptrPointer).pointee);
     }
 
     func set_chan_handler(val: ChannelMessageHandler) -> Void {
@@ -34,7 +36,7 @@ class MessageHandler {
 						
 		}
 					
-        return MessageHandler_set_chan_handler(this_ptrPointer, val);
+        return MessageHandler_set_chan_handler(this_ptrPointer, val.cOpaqueStruct!);
     }
 
     func get_route_handler() -> RoutingMessageHandler {
@@ -46,7 +48,7 @@ class MessageHandler {
 						
 		}
 					
-        return MessageHandler_get_route_handler(this_ptrPointer);
+        return RoutingMessageHandler(pointer: MessageHandler_get_route_handler(this_ptrPointer).pointee);
     }
 
     func set_route_handler(val: RoutingMessageHandler) -> Void {
@@ -58,7 +60,7 @@ class MessageHandler {
 						
 		}
 					
-        return MessageHandler_set_route_handler(this_ptrPointer, val);
+        return MessageHandler_set_route_handler(this_ptrPointer, val.cOpaqueStruct!);
     }
 
 				

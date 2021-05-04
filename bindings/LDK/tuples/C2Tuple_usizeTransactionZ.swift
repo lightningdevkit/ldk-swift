@@ -1,28 +1,23 @@
 class C2Tuple_usizeTransactionZ {
 
-    var cTuple: LDKC2Tuple_usizeTransactionZ?;
+    var cOpaqueStruct: LDKC2Tuple_usizeTransactionZ?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cTuple = TupleType(native_constructor_arguments)
-    }
-
-    private init(pointer: LDKC2Tuple_usizeTransactionZ){
-		self.cTuple = pointer
+    init(pointer: LDKC2Tuple_usizeTransactionZ){
+		self.cOpaqueStruct = pointer
 	}
 
     /* TUPLE_METHODS_START */
 
-    func new(a: U, b: [U]) -> TwoTuple<U> {
+    func new(a: UInt, b: [UInt8]) -> C2Tuple_usizeTransactionZ {
     	
-        return C2Tuple_usizeTransactionZ_new(a, b);
+        return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, Bindings.new_LDKTransaction(array: b)));
     }
 
 				
 	deinit {
 					
 					
-		C2Tuple_usizeTransactionZ_free(_res)
+		C2Tuple_usizeTransactionZ_free(self.cOpaqueStruct!)
 				
 	}
 			

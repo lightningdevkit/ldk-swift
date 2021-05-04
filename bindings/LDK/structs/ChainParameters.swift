@@ -2,18 +2,20 @@ class ChainParameters {
 
     var cOpaqueStruct: LDKChainParameters?;
 
-    init(network_arg: Network, latest_hash_arg: [U], latest_height_arg: U) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = ChainParameters_new(network_arg, latest_hash_arg, latest_height_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(network_arg: LDKNetwork, best_block_arg: BestBlock) {
+    	
+        self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.cOpaqueStruct!)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKChainParameters){
+    init(pointer: LDKChainParameters){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_network() -> Network {
+    func get_network() -> LDKNetwork {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainParameters>) in
@@ -25,7 +27,7 @@ class ChainParameters {
         return ChainParameters_get_network(this_ptrPointer);
     }
 
-    func set_network(val: Network) -> Void {
+    func set_network(val: LDKNetwork) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChainParameters>) in
@@ -37,7 +39,7 @@ class ChainParameters {
         return ChainParameters_set_network(this_ptrPointer, val);
     }
 
-    func get_latest_hash() -> [U] {
+    func get_best_block() -> BestBlock {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainParameters>) in
@@ -46,10 +48,10 @@ class ChainParameters {
 						
 		}
 					
-        return ChainParameters_get_latest_hash(this_ptrPointer);
+        return BestBlock(pointer: ChainParameters_get_best_block(this_ptrPointer));
     }
 
-    func set_latest_hash(val: [U]) -> Void {
+    func set_best_block(val: BestBlock) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChainParameters>) in
@@ -58,31 +60,7 @@ class ChainParameters {
 						
 		}
 					
-        return ChainParameters_set_latest_hash(this_ptrPointer, val);
-    }
-
-    func get_latest_height() -> U {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainParameters>) in
-							
-			pointer
-						
-		}
-					
-        return ChainParameters_get_latest_height(this_ptrPointer);
-    }
-
-    func set_latest_height(val: U) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChainParameters>) in
-							
-			pointer
-						
-		}
-					
-        return ChainParameters_set_latest_height(this_ptrPointer, val);
+        return ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!);
     }
 
 				

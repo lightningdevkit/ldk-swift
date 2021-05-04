@@ -2,18 +2,23 @@ class AnnouncementSignatures {
 
     var cOpaqueStruct: LDKAnnouncementSignatures?;
 
-    init(channel_id_arg: [U], short_channel_id_arg: U, node_signature_arg: [U], bitcoin_signature_arg: [U]) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = AnnouncementSignatures_new(channel_id_arg, short_channel_id_arg, node_signature_arg, bitcoin_signature_arg)
+	/* DEFAULT_CONSTRUCTOR_START */
+    init(channel_id_arg: [UInt8], short_channel_id_arg: UInt64, node_signature_arg: [UInt8], bitcoin_signature_arg: [UInt8]) {
+    	
+		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
+		let converted_node_signature_arg = Bindings.new_LDKSignature(array: node_signature_arg)
+		let converted_bitcoin_signature_arg = Bindings.new_LDKSignature(array: bitcoin_signature_arg)
+        self.cOpaqueStruct = AnnouncementSignatures_new(converted_channel_id_arg, short_channel_id_arg, converted_node_signature_arg, converted_bitcoin_signature_arg)
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKAnnouncementSignatures){
+    init(pointer: LDKAnnouncementSignatures){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> [U] {
+    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKAnnouncementSignatures>) in
@@ -22,10 +27,10 @@ class AnnouncementSignatures {
 						
 		}
 					
-        return AnnouncementSignatures_get_channel_id(this_ptrPointer);
+        return AnnouncementSignatures_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [U]) -> Void {
+    func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKAnnouncementSignatures>) in
@@ -34,10 +39,10 @@ class AnnouncementSignatures {
 						
 		}
 					
-        return AnnouncementSignatures_set_channel_id(this_ptrPointer, val);
+        return AnnouncementSignatures_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_short_channel_id() -> U {
+    func get_short_channel_id() -> UInt64 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKAnnouncementSignatures>) in
@@ -49,7 +54,7 @@ class AnnouncementSignatures {
         return AnnouncementSignatures_get_short_channel_id(this_ptrPointer);
     }
 
-    func set_short_channel_id(val: U) -> Void {
+    func set_short_channel_id(val: UInt64) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKAnnouncementSignatures>) in
@@ -61,7 +66,7 @@ class AnnouncementSignatures {
         return AnnouncementSignatures_set_short_channel_id(this_ptrPointer, val);
     }
 
-    func get_node_signature() -> [U] {
+    func get_node_signature() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKAnnouncementSignatures>) in
@@ -70,10 +75,10 @@ class AnnouncementSignatures {
 						
 		}
 					
-        return AnnouncementSignatures_get_node_signature(this_ptrPointer);
+        return Bindings.LDKSignature_to_array(nativeType: AnnouncementSignatures_get_node_signature(this_ptrPointer));
     }
 
-    func set_node_signature(val: [U]) -> Void {
+    func set_node_signature(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKAnnouncementSignatures>) in
@@ -82,10 +87,10 @@ class AnnouncementSignatures {
 						
 		}
 					
-        return AnnouncementSignatures_set_node_signature(this_ptrPointer, val);
+        return AnnouncementSignatures_set_node_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    func get_bitcoin_signature() -> [U] {
+    func get_bitcoin_signature() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKAnnouncementSignatures>) in
@@ -94,10 +99,10 @@ class AnnouncementSignatures {
 						
 		}
 					
-        return AnnouncementSignatures_get_bitcoin_signature(this_ptrPointer);
+        return Bindings.LDKSignature_to_array(nativeType: AnnouncementSignatures_get_bitcoin_signature(this_ptrPointer));
     }
 
-    func set_bitcoin_signature(val: [U]) -> Void {
+    func set_bitcoin_signature(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKAnnouncementSignatures>) in
@@ -106,7 +111,7 @@ class AnnouncementSignatures {
 						
 		}
 					
-        return AnnouncementSignatures_set_bitcoin_signature(this_ptrPointer, val);
+        return AnnouncementSignatures_set_bitcoin_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     func clone(orig: AnnouncementSignatures) -> AnnouncementSignatures {
@@ -121,7 +126,7 @@ class AnnouncementSignatures {
         return AnnouncementSignatures(pointer: AnnouncementSignatures_clone(origPointer));
     }
 
-    func write(obj: AnnouncementSignatures) -> [U] {
+    func write(obj: AnnouncementSignatures) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKAnnouncementSignatures>) in
@@ -130,12 +135,12 @@ class AnnouncementSignatures {
 						
 		}
 					
-        return AnnouncementSignatures_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: AnnouncementSignatures_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_AnnouncementSignaturesDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_AnnouncementSignaturesDecodeErrorZ {
     	
-        return AnnouncementSignatures_read(ser);
+        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: AnnouncementSignatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

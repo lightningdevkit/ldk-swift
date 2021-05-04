@@ -1,28 +1,23 @@
 class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
 
-    var cTuple: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?;
+    var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cTuple = TupleType(native_constructor_arguments)
-    }
-
-    private init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ){
-		self.cTuple = pointer
+    init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ){
+		self.cOpaqueStruct = pointer
 	}
 
     /* TUPLE_METHODS_START */
 
-    func new(a: [U], b: [TwoTuple<U>]) -> TwoTuple<[U]> {
+    func new(a: [UInt8], b: [C2Tuple_u32ScriptZ]) -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
     	
-        return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_new(a, b);
+        return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKCVec_C2Tuple_u32ScriptZZ(array: b)));
     }
 
 				
 	deinit {
 					
 					
-		C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_free(_res)
+		C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_free(self.cOpaqueStruct!)
 				
 	}
 			

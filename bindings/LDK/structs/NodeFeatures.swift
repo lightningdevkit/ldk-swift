@@ -2,12 +2,14 @@ class NodeFeatures {
 
     var cOpaqueStruct: LDKNodeFeatures?;
 
-    init(: Void) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
+	/* DEFAULT_CONSTRUCTOR_START */
+    init() {
+    	
         self.cOpaqueStruct = NodeFeatures_known()
     }
+    /* DEFAULT_CONSTRUCTOR_END */
 
-    private init(pointer: LDKNodeFeatures){
+    init(pointer: LDKNodeFeatures){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -25,7 +27,7 @@ class NodeFeatures {
         return NodeFeatures(pointer: NodeFeatures_clone(origPointer));
     }
 
-    func write(obj: NodeFeatures) -> [U] {
+    func write(obj: NodeFeatures) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNodeFeatures>) in
@@ -34,12 +36,12 @@ class NodeFeatures {
 						
 		}
 					
-        return NodeFeatures_write(objPointer);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: NodeFeatures_write(objPointer));
     }
 
-    func read(ser: [U]) -> Result_NodeFeaturesDecodeErrorZ {
+    func read(ser: [UInt8]) -> Result_NodeFeaturesDecodeErrorZ {
     	
-        return NodeFeatures_read(ser);
+        return Result_NodeFeaturesDecodeErrorZ(pointer: NodeFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

@@ -2,12 +2,9 @@ class DirectedChannelTransactionParameters {
 
     var cOpaqueStruct: LDKDirectedChannelTransactionParameters?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
-    }
+	
 
-    private init(pointer: LDKDirectedChannelTransactionParameters){
+    init(pointer: LDKDirectedChannelTransactionParameters){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -22,7 +19,7 @@ class DirectedChannelTransactionParameters {
 						
 		}
 					
-        return DirectedChannelTransactionParameters_broadcaster_pubkeys(this_argPointer);
+        return ChannelPublicKeys(pointer: DirectedChannelTransactionParameters_broadcaster_pubkeys(this_argPointer));
     }
 
     func countersignatory_pubkeys(this_arg: DirectedChannelTransactionParameters) -> ChannelPublicKeys {
@@ -34,10 +31,10 @@ class DirectedChannelTransactionParameters {
 						
 		}
 					
-        return DirectedChannelTransactionParameters_countersignatory_pubkeys(this_argPointer);
+        return ChannelPublicKeys(pointer: DirectedChannelTransactionParameters_countersignatory_pubkeys(this_argPointer));
     }
 
-    func contest_delay(this_arg: DirectedChannelTransactionParameters) -> U {
+    func contest_delay(this_arg: DirectedChannelTransactionParameters) -> UInt16 {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
@@ -49,7 +46,7 @@ class DirectedChannelTransactionParameters {
         return DirectedChannelTransactionParameters_contest_delay(this_argPointer);
     }
 
-    func is_outbound(this_arg: DirectedChannelTransactionParameters) -> boolean {
+    func is_outbound(this_arg: DirectedChannelTransactionParameters) -> Bool {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
@@ -70,7 +67,7 @@ class DirectedChannelTransactionParameters {
 						
 		}
 					
-        return DirectedChannelTransactionParameters_funding_outpoint(this_argPointer);
+        return OutPoint(pointer: DirectedChannelTransactionParameters_funding_outpoint(this_argPointer));
     }
 
 				

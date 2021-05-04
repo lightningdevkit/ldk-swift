@@ -59,6 +59,8 @@ class OpaqueStructGenerator:
 					constructor_argument_prep += current_prep
 				elif current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type:
 					passed_argument_name += '.cOpaqueStruct!'
+				elif current_argument_details.rust_obj == 'LDKC' + current_argument_details.swift_type:
+					passed_argument_name += '.cOpaqueStruct!'
 
 				swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
 				native_arguments.append(f'{passed_argument_name}')
@@ -134,6 +136,9 @@ class OpaqueStructGenerator:
 			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
 				current_swift_return_type = current_return_type.swift_raw_type
 
+			if current_return_type.swift_type.startswith('[') and not current_return_type.is_native_primitive and not current_return_type.swift_type.startswith('[UInt'):
+				current_swift_return_type = current_return_type.swift_raw_type.replace('[', '[LDK')
+
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 			if is_clone_method:
@@ -180,6 +185,8 @@ class OpaqueStructGenerator:
 
 				# native_arguments.append(f'{passed_argument_name}')
 				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:
+					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
+				elif current_argument_details.rust_obj == 'LDKC' + current_argument_details.swift_type and not current_argument_details.is_ptr:
 					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
 				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
 					'LDK') and current_argument_details.swift_type.startswith('['):

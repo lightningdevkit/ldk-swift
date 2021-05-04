@@ -258,7 +258,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		else:
 			c_ty = language_constants.ptr_c_ty
 			java_ty = language_constants.ptr_native_ty
-			swift_type = type_match.replace("LDKCResult", "Result").replace("LDK", "")
+			swift_type = type_match.replace("LDKCResult", "Result").replace("LDKCOption", "Option").replace("LDK", "")
 			fn_arg = name_match
 			rust_obj = type_match
 			take_by_ptr = True

@@ -37,46 +37,55 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		fn_arg = "uint8_t (*" + fn_arg[18:] + ")[32]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKThirtyTwoBytes"
+		swift_raw_type = rust_obj
 		arr_access = "data"
 	elif fn_arg.startswith("LDKPublicKey"):
 		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[33]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKPublicKey"
+		swift_raw_type = rust_obj
 		arr_access = "compressed_form"
 	elif fn_arg.startswith("LDKSecretKey"):
 		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[32]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKSecretKey"
+		swift_raw_type = rust_obj
 		arr_access = "bytes"
 	elif fn_arg.startswith("LDKSignature"):
 		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[64]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKSignature"
+		swift_raw_type = rust_obj
 		arr_access = "compact_form"
 	elif fn_arg.startswith("LDKThreeBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[14:] + ")[3]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKThreeBytes"
+		swift_raw_type = rust_obj
 		arr_access = "data"
 	elif fn_arg.startswith("LDKFourBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[4]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKFourBytes"
+		swift_raw_type = rust_obj
 		arr_access = "data"
 	elif fn_arg.startswith("LDKTenBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[12:] + ")[10]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKTenBytes"
+		swift_raw_type = rust_obj
 		arr_access = "data"
 	elif fn_arg.startswith("LDKSixteenBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[16:] + ")[16]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKSixteenBytes"
+		swift_raw_type = rust_obj
 		arr_access = "data"
 	elif fn_arg.startswith("LDKTwentyBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[15:] + ")[20]"
 		assert var_is_arr_regex.match(fn_arg[8:])
 		rust_obj = "LDKTwentyBytes"
+		swift_raw_type = rust_obj
 		arr_access = "data"
 	elif fn_arg.startswith("LDKu8slice"):
 		fn_arg = "uint8_t (*" + fn_arg[11:] + ")[datalen]"
@@ -86,11 +95,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	elif fn_arg.startswith("LDKCVec_u8Z"):
 		fn_arg = "uint8_t (*" + fn_arg[12:] + ")[datalen]"
 		rust_obj = "LDKCVec_u8Z"
+		swift_raw_type = rust_obj
 		assert var_is_arr_regex.match(fn_arg[8:])
 		arr_access = "data"
 	elif fn_arg.startswith("LDKTransaction ") or fn_arg == "LDKTransaction":
 		fn_arg = "uint8_t (*" + fn_arg[15:] + ")[datalen]"
 		rust_obj = "LDKTransaction"
+		swift_raw_type = rust_obj
 		assert var_is_arr_regex.match(fn_arg[8:])
 		arr_access = "data"
 	elif fn_arg.startswith("LDKCVec_"):
@@ -263,7 +274,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		fn_arg = is_constant_size_array.group(1)
 		array_size = int(is_constant_size_array.group(2))
 		arr_len = array_size
-		swift_type = f'({",".join([mapped_type] * array_size)})'
+		swift_raw_type = f'({",".join([mapped_type] * array_size)})'
 
 	# TODO: remove java_hu_type vs java_type duality artifact
 	var_is_arr = var_is_arr_regex.match(fn_arg)
@@ -273,7 +284,14 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		# is there a special case for plurals?
 		java_ty = '[' + java_ty + ']'
 		c_ty = c_ty + "Array"
+		if ret_arr_len is not None and ret_arr_len.isnumeric():
+			array_size = int(ret_arr_len)
+			swift_raw_type = f'({",".join([mapped_type] * array_size)})'
 		if var_is_arr is not None:
+			array_size = var_is_arr.group(2)
+			if array_size.isnumeric():
+				array_size = int(var_is_arr.group(2))
+				swift_raw_type = f'({",".join([mapped_type] * array_size)})'
 			if var_is_arr.group(1) == "":
 				return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const,
 								passed_as_ptr=False, is_ptr=False, var_name="arg", arr_len=var_is_arr.group(2),

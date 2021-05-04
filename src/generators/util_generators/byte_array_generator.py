@@ -22,10 +22,10 @@ class ByteArrayGenerator(UtilGenerator):
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('fieldName:',
 																						  f'{byte_array_field.var_name}:')
 		tupleArguments = 'array[0]'
-		tupleReads = f'byteType.{byte_array_field.var_name}.0'
+		tupleReads = f'nativeType.{byte_array_field.var_name}.0'
 		for i in range(1, array_length):
 			tupleArguments += f', array[{i}]'
-			tupleReads += f', byteType.{byte_array_field.var_name}.{i}'
+			tupleReads += f', nativeType.{byte_array_field.var_name}.{i}'
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleArguments',
 																						  tupleArguments)
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleReads',

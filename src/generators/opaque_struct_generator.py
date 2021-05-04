@@ -40,7 +40,7 @@ class OpaqueStructGenerator:
 				if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
 					'LDK') and current_argument_details.swift_type.startswith('['):
 					constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_{current_argument_details.rust_obj}(array: {argument_name})'
-					constructor_argument_prep += constructor_argument_conversion_method
+					constructor_argument_prep += '\n\t\t'+constructor_argument_conversion_method
 					passed_argument_name = f'converted_{argument_name}'
 				elif current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type:
 					passed_argument_name += '.cOpaqueStruct!'
@@ -78,7 +78,8 @@ class OpaqueStructGenerator:
 		for current_method_details in struct_details.methods:
 			current_native_method_name = current_method_details['name']['native']
 			current_method_name = current_method_details['name']['swift']
-			current_return_type = current_method_details['return_type'].swift_type
+			current_return_type = current_method_details['return_type']
+			current_swift_return_type = current_return_type.swift_type
 			# current_rust_return_type = current_method_details['return_type'].rust_obj
 
 			# if current_rust_return_type in all_type_details and all_type_details[current_rust_return_type].type.name == 'UNITARY_ENUM':
@@ -88,21 +89,34 @@ class OpaqueStructGenerator:
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 
-			if current_method_details['return_type'].rust_obj is not None and current_method_details[
-				'return_type'].rust_obj.startswith('LDK') and current_method_details[
-				'return_type'].swift_type.startswith('['):
-				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(byteType: '
+			if current_return_type.rust_obj is not None and current_return_type.rust_obj.startswith('LDK') and current_return_type.swift_type.startswith('['):
+				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(nativeType: '
 				return_type_wrapper_suffix = ')'
 				current_replacement = current_replacement.replace(
 					'return OpaqueStructType_methodName(native_arguments)',
 					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
-			elif current_method_details['return_type'].rust_obj == 'LDK' + current_method_details[
-				'return_type'].swift_type and not is_clone_method:
+			elif current_return_type.rust_obj == 'LDK' + current_return_type.swift_type and not is_clone_method:
 				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
+				# return_type_wrapper_suffix = '.pointee)'
 				return_type_wrapper_suffix = ')'
 				current_replacement = current_replacement.replace(
 					'return OpaqueStructType_methodName(native_arguments)',
 					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
+			elif current_return_type.rust_obj == 'LDKC' + current_return_type.swift_type and not is_clone_method:
+				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
+				# return_type_wrapper_suffix = '.pointee)'
+				return_type_wrapper_suffix = ')'
+				current_replacement = current_replacement.replace(
+					'return OpaqueStructType_methodName(native_arguments)',
+					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
+
+			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
+				current_replacement = current_replacement.replace(
+					'OpaqueStructType_methodName(native_arguments)',
+					'OpaqueStructType_methodName(native_arguments).pointee')
+
+			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
+				current_swift_return_type = current_return_type.swift_raw_type
 
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
@@ -151,8 +165,13 @@ class OpaqueStructGenerator:
 				# native_arguments.append(f'{passed_argument_name}')
 				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:
 					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
+				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
+					'LDK') and current_argument_details.swift_type.startswith('['):
+					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 				else:
 					native_arguments.append(f'{passed_argument_name}')
+
+
 
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
 			if is_clone_method:
@@ -161,7 +180,7 @@ class OpaqueStructGenerator:
 			else:
 				current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments))
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
-			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
+			current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
 
 			struct_methods += '\n' + current_replacement + '\n'
 

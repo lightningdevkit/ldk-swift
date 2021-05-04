@@ -15,7 +15,7 @@ class Bindings{
 		return byteType
 	}
 
-	static func LDKByteType_to_array(byteType: LDKByteType) -> [UInt8] {
+	static func LDKByteType_to_array(nativeType: LDKByteType) -> [UInt8] {
 		let array = [tupleReads]
 		return array
 	}
@@ -37,10 +37,10 @@ class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    static func LDKCVec_rust_primitive_to_array(vector: LDKCVec_rust_primitive) -> [SwiftPrimitive] {
+    static func LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive) -> [SwiftPrimitive] {
 		var array = [SwiftPrimitive]()
-		for index in 0..<Int(vector.datalen) {
-			let currentEntry = vector.data[index]
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(convertedEntry)
 		}
@@ -55,6 +55,25 @@ class Bindings{
 
 	static func pointerToInstance<T: AnyObject>(pointer: UnsafeRawPointer) -> T{
 		Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
+	}
+
+	static func new_LDKu8slice(array: [UInt8]) -> LDKu8slice {
+		let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
+			let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
+			return mutablePointer
+		}
+
+		let vector = LDKu8slice(data: dataContainer, datalen: UInt(array.count))
+		return vector
+	}
+
+	static func LDKu8slice_to_array(nativeType: LDKu8slice) -> [UInt8] {
+		var array = [UInt8]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			array.append(currentEntry)
+		}
+		return array
 	}
 
 }

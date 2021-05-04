@@ -17,7 +17,7 @@ class ResultGenerator:
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
-		swift_struct_name = struct_name[3:]
+		swift_struct_name = struct_name[4:]
 
 		mutating_output_file_contents = self.template
 
@@ -88,7 +88,7 @@ class ResultGenerator:
 			if current_method_details['return_type'].rust_obj is not None and current_method_details[
 				'return_type'].rust_obj.startswith('LDK') and current_method_details[
 				'return_type'].swift_type.startswith('['):
-				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(byteType: '
+				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(nativeType: '
 				return_type_wrapper_suffix = ')'
 				current_replacement = current_replacement.replace(
 					'return ResultType_methodName(native_arguments)',

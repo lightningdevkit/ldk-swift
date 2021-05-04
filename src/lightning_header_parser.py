@@ -170,6 +170,8 @@ class LightningHeaderParser():
 					trait_fn_lines = []
 					field_var_lines = []
 
+					ordered_interpreted_lines = []
+
 					for idx, struct_line in enumerate(obj_lines):
 						struct_name_match = struct_name_regex.match(struct_line)
 						if struct_name_match is not None:
@@ -196,9 +198,11 @@ class LightningHeaderParser():
 						trait_fn_match = line_indicates_trait_regex.match(struct_line)
 						if trait_fn_match is not None:
 							trait_fn_lines.append(trait_fn_match)
+							ordered_interpreted_lines.append({"type": "lambda", "value": trait_fn_match})
 						field_var_match = line_field_var_regex.match(struct_line)
 						if field_var_match is not None:
 							field_var_lines.append(field_var_match)
+							ordered_interpreted_lines.append({"type": "field", "value": field_var_match})
 						field_lines.append(struct_line)
 
 					assert (struct_name is not None)
@@ -259,7 +263,7 @@ class LightningHeaderParser():
 						# TODO: vector type (each one needs to be mapped)
 						self.vec_types.add(struct_name)
 						# vector_type_details = None
-						vector_type_details = TypeDetails() # iterator type
+						vector_type_details = TypeDetails()  # iterator type
 						vector_type_details.type = CTypes.VECTOR
 						vector_type_details.name = struct_name
 
@@ -273,7 +277,7 @@ class LightningHeaderParser():
 							vector_type_details.is_primitive = True
 							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[vec_ty]
 						self.type_details[struct_name] = vector_type_details
-						# pass
+					# pass
 					elif is_union_enum:
 						assert (struct_name.endswith("_Tag"))
 						struct_name = struct_name[:-4]
@@ -291,7 +295,7 @@ class LightningHeaderParser():
 						pass
 					elif len(trait_fn_lines) > 0:
 						self.trait_structs.add(struct_name)
-						lambdas = self.parse_lambda_details(trait_fn_lines)
+						lambdas = self.parse_lambda_details(ordered_interpreted_lines)
 						current_type_detail.lambdas = lambdas
 					elif struct_name == "LDKTxOut":
 						# TODO: why is this even a special case? It's Swift, we dgaf
@@ -359,28 +363,57 @@ class LightningHeaderParser():
 						# self.global_methods.add(method_details)
 						pass
 
-	def parse_lambda_details(self, trait_fn_lines):
-		lambdas = []
-		for fn_line in trait_fn_lines:
-			ret_ty_info = swift_type_mapper.map_types_to_swift(fn_line.group(2).strip() + " ret", None, False,
-															   self.tuple_types, self.unitary_enums,
-															   self.language_constants)
-			is_const = fn_line.group(4) is not None
+	def parse_lambda_details(self, ordered_interpreted_lines):
+		field_var_convs = []
+		flattened_field_var_convs = []
 
-			arg_tys = []
-			for idx, arg in enumerate(fn_line.group(5).split(',')):
-				if arg == "":
-					continue
-				arg_conv_info = swift_type_mapper.map_types_to_swift(arg, None, False, self.tuple_types,
-																	 self.unitary_enums,
-																	 self.language_constants)
-				arg_tys.append(arg_conv_info)
-			lambdas.append({
-				'name': fn_line.group(3),
-				'is_constant': is_const,
-				'return_type': ret_ty_info,
-				'argument_types': arg_tys
-			})
+		lambdas = []
+
+		for current_interpreted_line in ordered_interpreted_lines:
+			if current_interpreted_line['type'] == 'field':
+				var_line = current_interpreted_line['value']
+				current_field_type = var_line.group(1)
+				current_field_name = var_line.group(2)
+				if False and current_field_type in self.trait_structs:
+					lambdas.append({
+						'name': current_field_name,
+						'field_details': self.type_details[current_field_type],
+						'is_lambda': False
+					})
+				# flattened_field_var_convs.extend(self.type_details[current_field_type])
+				else:
+					mapped = swift_type_mapper.map_types_to_swift(current_field_type + " " + current_field_name, None, False,
+																  self.tuple_types, self.unitary_enums,
+																  self.language_constants)
+					lambdas.append({
+						'name': current_field_name,
+						'field_details': mapped,
+						'is_lambda': False
+					})
+			elif current_interpreted_line['type'] == 'lambda':
+				fn_line = current_interpreted_line['value']
+				ret_ty_info = swift_type_mapper.map_types_to_swift(fn_line.group(2).strip() + " ret", None, False,
+																   self.tuple_types, self.unitary_enums,
+																   self.language_constants)
+				is_const = fn_line.group(4) is not None
+
+				arg_tys = []
+				for idx, arg in enumerate(fn_line.group(5).split(',')):
+					if arg == "":
+						continue
+					arg_conv_info = swift_type_mapper.map_types_to_swift(arg, None, False, self.tuple_types,
+																		 self.unitary_enums,
+																		 self.language_constants)
+					arg_tys.append(arg_conv_info)
+
+				lambdas.append({
+					'name': fn_line.group(3),
+					'is_lambda': True,
+					'is_constant': is_const,
+					'return_type': ret_ty_info,
+					'argument_types': arg_tys
+				})
+
 		return lambdas
 
 	def parse_function_details(self, line, re_match, ret_arr_len, c_call_string):

@@ -30,7 +30,7 @@ class VectorGenerator(UtilGenerator):
 				dimensions -= 1
 				swift_primitive = deepest_iteratee.name
 			if dimensions > 1:
-				conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(vector: currentEntry)'
+				conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry)'
 
 		mutating_current_vector_methods = self.template
 		for dim_delta in range(1, dimensions):

@@ -30,7 +30,7 @@ class SocketDescriptor {
 			return instance.hash();
 		}
 
-		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer {
+		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!)
 			/* SWIFT_CALLBACK_PREP */
 			return instance.clone();

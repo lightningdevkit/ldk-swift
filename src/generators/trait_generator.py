@@ -94,7 +94,7 @@ class TraitGenerator:
 			if swift_return_type.startswith('Bool'):
 				swift_default_return = 'return false'
 			if swift_return_type.startswith('UnsafeMutableRawPointer'):
-				# swift_raw_return_type += '?'
+				swift_raw_return_type += '?'
 				swift_default_return = 'return UnsafeMutableRawPointer(bitPattern: 0)!'
 			elif swift_return_type.startswith('['):
 				swift_default_return = f'return {swift_return_type}()'

@@ -12,7 +12,7 @@ class Sign {
 			return Bindings.new_LDKCVec_u8Z(array: instance.write());
 		}
 
-		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer {
+		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {
 			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!)
 			/* SWIFT_CALLBACK_PREP */
 			return instance.clone();

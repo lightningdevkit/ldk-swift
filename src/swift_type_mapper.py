@@ -26,7 +26,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	take_by_ptr = False
 	rust_obj = None
 	arr_access = None
+
+	# the way that a type is represented in Swift, typically for humans and machines
 	swift_type = None
+
+	# the way that Swift automatically maps C types when divergent from what people use, like const char * not being a String
+	swift_raw_type = None
+
 	if fn_arg.startswith("LDKThirtyTwoBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[18:] + ")[32]"
 		assert var_is_arr_regex.match(fn_arg[8:])
@@ -132,6 +138,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	elif fn_arg.startswith("bool"):
 		java_ty = "boolean"
 		c_ty = "jboolean"
+		swift_type = 'Bool'
 		fn_arg = fn_arg[4:].strip()
 		is_primitive = True
 	elif fn_arg.startswith("uint8_t"):
@@ -173,6 +180,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	elif is_const and fn_arg.startswith("char *"):
 		java_ty = "String"
 		c_ty = "const char*"
+		swift_raw_type = 'UnsafePointer<Int8>'
 		fn_arg = fn_arg[6:].strip()
 	elif fn_arg.startswith("LDKStr"):
 		java_ty = "String"
@@ -187,6 +195,8 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		if type_match in unitary_enums:
 			java_ty = type_match
 			c_ty = language_constants.result_c_ty
+			swift_type = type_match
+			swift_raw_type = type_match
 			fn_arg = name_match
 			rust_obj = type_match
 		elif type_match.startswith("LDKC2Tuple"):
@@ -264,13 +274,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 			if var_is_arr.group(1) == "":
 				return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const,
 								passed_as_ptr=False, is_ptr=False, var_name="arg", arr_len=var_is_arr.group(2),
-								arr_access=arr_access, is_native_primitive=False)
+								arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type)
 			return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const,
 							passed_as_ptr=False, is_ptr=False, var_name=var_is_arr.group(1),
-							arr_len=var_is_arr.group(2), arr_access=arr_access, is_native_primitive=False)
+							arr_len=var_is_arr.group(2), arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type)
 
 	if swift_type is None:
 		swift_type = java_ty
 	return TypeInfo(rust_obj=rust_obj, swift_type=swift_type, c_ty=c_ty, passed_as_ptr=is_ptr or take_by_ptr,
 					is_const=is_const, is_ptr=is_ptr, var_name=fn_arg, arr_len=arr_len, arr_access=arr_access,
-					is_native_primitive=is_primitive)
+					is_native_primitive=is_primitive, swift_raw_type=swift_raw_type)

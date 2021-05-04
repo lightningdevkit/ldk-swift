@@ -24,10 +24,12 @@ class TypeDetails:
 		self.type = CTypes.OPAQUE_STRUCT
 		self.fields = []
 		self.methods = []
+		self.lambdas = []
 		self.constructor_method = None
 		self.free_method = None
 		self.is_primitive = False
 		self.primitive_swift_counterpart = None
+		self.iteratee = None
 
 
 class LightningHeaderParser():
@@ -256,18 +258,22 @@ class LightningHeaderParser():
 					elif vec_ty is not None:
 						# TODO: vector type (each one needs to be mapped)
 						self.vec_types.add(struct_name)
-						vector_type_details = None
+						# vector_type_details = None
+						vector_type_details = TypeDetails() # iterator type
+						vector_type_details.type = CTypes.VECTOR
+						vector_type_details.name = struct_name
+
 						if vec_ty in self.type_details:
-							vector_type_details = self.type_details[vec_ty]
+							vectored_type_details = self.type_details[vec_ty]
+							# vector_type_details.name = struct_name
+							vector_type_details.is_primitive = False
+							vector_type_details.iteratee = vectored_type_details
 						else:
 							# it's a primitive
-							vector_type_details = TypeDetails()
-							vector_type_details.name = vec_ty
-							vector_type_details.type = CTypes.VECTOR
 							vector_type_details.is_primitive = True
 							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[vec_ty]
 						self.type_details[struct_name] = vector_type_details
-						pass
+						# pass
 					elif is_union_enum:
 						assert (struct_name.endswith("_Tag"))
 						struct_name = struct_name[:-4]
@@ -280,11 +286,13 @@ class LightningHeaderParser():
 						pass
 					elif is_unitary_enum:
 						self.type_details[struct_name].type = CTypes.UNITARY_ENUM
-						# TODO: unitary enum
+						self.unitary_enums.add(struct_name)
+						# todo: unitary enums are to be used as is
 						pass
 					elif len(trait_fn_lines) > 0:
 						self.trait_structs.add(struct_name)
-					# TODO: trait
+						lambdas = self.parse_lambda_details(trait_fn_lines)
+						current_type_detail.lambdas = lambdas
 					elif struct_name == "LDKTxOut":
 						# TODO: why is this even a special case? It's Swift, we dgaf
 						pass
@@ -296,7 +304,7 @@ class LightningHeaderParser():
 							print('irregular byte array struct type:', struct_name)
 							continue
 
-						print('byte array struct:', struct_name)
+						# print('byte array struct:', struct_name)
 						self.byte_arrays.add(struct_name)
 						self.type_details[struct_name].type = CTypes.BYTE_ARRAY
 
@@ -350,6 +358,30 @@ class LightningHeaderParser():
 					else:
 						# self.global_methods.add(method_details)
 						pass
+
+	def parse_lambda_details(self, trait_fn_lines):
+		lambdas = []
+		for fn_line in trait_fn_lines:
+			ret_ty_info = swift_type_mapper.map_types_to_swift(fn_line.group(2).strip() + " ret", None, False,
+															   self.tuple_types, self.unitary_enums,
+															   self.language_constants)
+			is_const = fn_line.group(4) is not None
+
+			arg_tys = []
+			for idx, arg in enumerate(fn_line.group(5).split(',')):
+				if arg == "":
+					continue
+				arg_conv_info = swift_type_mapper.map_types_to_swift(arg, None, False, self.tuple_types,
+																	 self.unitary_enums,
+																	 self.language_constants)
+				arg_tys.append(arg_conv_info)
+			lambdas.append({
+				'name': fn_line.group(3),
+				'is_constant': is_const,
+				'return_type': ret_ty_info,
+				'argument_types': arg_tys
+			})
+		return lambdas
 
 	def parse_function_details(self, line, re_match, ret_arr_len, c_call_string):
 		method_return_type = re_match.group(1)

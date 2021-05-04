@@ -7,7 +7,7 @@ class OpaqueStructName {
         self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
     }
 
-    private init(pointer: OpaqueStructType){
+    init(pointer: OpaqueStructType){
 		self.cOpaqueStruct = pointer
 	}
 

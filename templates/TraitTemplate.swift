@@ -5,14 +5,14 @@ class TraitName {
     init() {
 
     	/* NATIVE_CALLBACKS_START */
-		func methodName(pointer: UnsafeRawPointer?, native_arguments) -> Void {
-			let instance: TraitName = RawLDKTypes.pointerToInstance(pointer: pointer!)
+		func methodNameCallback(pointer: UnsafeRawPointer?, native_arguments) -> Void {
+			let instance: TraitName = Bindings.pointerToInstance(pointer: pointer!)
 			/* SWIFT_CALLBACK_PREP */
 			instance.callbackName(swift_callback_arguments);
 		}
 		/* NATIVE_CALLBACKS_END */
 
-        self.cTrait = TraitType(this_arg: RawLDKTypes.instanceToPointer(instance: self), native_callback_instantiation_arguments)
+        self.cTrait = TraitType(this_arg: Bindings.instanceToPointer(instance: self), native_callback_instantiation_arguments)
     }
 
     /* SWIFT_CALLBACKS_START */

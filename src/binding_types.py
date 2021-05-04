@@ -1,12 +1,13 @@
 class TypeInfo:
 	def __init__(self, is_native_primitive, rust_obj, swift_type, c_ty, is_const, passed_as_ptr, is_ptr, var_name,
-				 arr_len, arr_access, subty=None):
+				 arr_len, arr_access, subty=None, swift_raw_type=None):
 		self.is_native_primitive = is_native_primitive
 		self.rust_obj = rust_obj
 		# self.java_ty = java_ty
 		# self.java_hu_ty = java_hu_ty
 		# self.java_fn_ty_arg = java_fn_ty_arg
 		self.swift_type = swift_type
+		self.swift_raw_type = swift_raw_type if swift_raw_type is not None else swift_type
 		self.c_ty = c_ty
 		self.is_const = is_const
 		self.passed_as_ptr = passed_as_ptr

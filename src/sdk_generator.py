@@ -1,6 +1,7 @@
 from lightning_header_parser import LightningHeaderParser
 from generators.opaque_struct_generator import OpaqueStructGenerator
 from generators.tuple_generator import TupleGenerator
+from generators.trait_generator import TraitGenerator
 from generators.util_generators.vector_generator import VectorGenerator
 from generators.util_generators.byte_array_generator import ByteArrayGenerator
 
@@ -37,7 +38,7 @@ def generate_opaque_struct_wrappers(parser: LightningHeaderParser):
 	opaque_structs = parser.opaque_structs
 	for current_struct in opaque_structs:
 		current_struct_details = parser.type_details[current_struct]
-		opaque_struct_generator.generate_opaque_struct(current_struct, current_struct_details)
+		opaque_struct_generator.generate_opaque_struct(current_struct, current_struct_details, all_type_details=parser.type_details)
 
 
 def generate_tuple_wrappers(parser: LightningHeaderParser):
@@ -49,11 +50,21 @@ def generate_tuple_wrappers(parser: LightningHeaderParser):
 		tuple_generator.generate_tuple(current_tuple, current_tuple_details)
 
 
+def generate_trait_placeholders(parser: LightningHeaderParser):
+	trait_generator = TraitGenerator()
+
+	traits = parser.trait_structs
+	for current_trait in traits:
+		current_trait_details = parser.type_details[current_trait]
+		trait_generator.generate_trait(current_trait, current_trait_details)
+
+
 def generate_sdk():
 	parser = parse_header()
 	generate_binding_methods(parser)
 	generate_opaque_struct_wrappers(parser)
 	generate_tuple_wrappers(parser)
+	generate_trait_placeholders(parser)
 
 
 generate_sdk()

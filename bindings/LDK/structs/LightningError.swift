@@ -5,7 +5,8 @@ class LightningError {
 	/* DEFAULT_CONSTRUCTOR_START */
     init(err_arg: String, action_arg: ErrorAction) {
     	
-        self.cOpaqueStruct = LightningError_new(err_arg, action_arg.cOpaqueStruct!)
+		let converted_err_arg = Bindings.new_LDKStr(string: err_arg)
+        self.cOpaqueStruct = LightningError_new(converted_err_arg, action_arg.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -24,7 +25,7 @@ class LightningError {
 						
 		}
 					
-        return LightningError_get_err(this_ptrPointer);
+        return Bindings.LDKStr_to_string(nativeType: LightningError_get_err(this_ptrPointer));
     }
 
     func set_err(val: String) -> Void {
@@ -36,7 +37,7 @@ class LightningError {
 						
 		}
 					
-        return LightningError_set_err(this_ptrPointer, val);
+        return LightningError_set_err(this_ptrPointer, Bindings.new_LDKStr(string: val));
     }
 
     func get_action() -> ErrorAction {

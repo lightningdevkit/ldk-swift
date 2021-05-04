@@ -178,7 +178,7 @@ class Invoice {
 
     func from_str(s: String) -> Result_InvoiceNoneZ {
     	
-        return Result_InvoiceNoneZ(pointer: Invoice_from_str(s));
+        return Result_InvoiceNoneZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
     }
 
     func to_str(o: Invoice) -> String {
@@ -190,7 +190,7 @@ class Invoice {
 						
 		}
 					
-        return Invoice_to_str(oPointer);
+        return Bindings.LDKStr_to_string(nativeType: Invoice_to_str(oPointer));
     }
 
 				

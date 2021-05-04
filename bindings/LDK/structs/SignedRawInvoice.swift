@@ -89,7 +89,7 @@ class SignedRawInvoice {
 
     func from_str(s: String) -> Result_SignedRawInvoiceNoneZ {
     	
-        return Result_SignedRawInvoiceNoneZ(pointer: SignedRawInvoice_from_str(s));
+        return Result_SignedRawInvoiceNoneZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s)));
     }
 
     func to_str(o: SignedRawInvoice) -> String {
@@ -101,7 +101,7 @@ class SignedRawInvoice {
 						
 		}
 					
-        return SignedRawInvoice_to_str(oPointer);
+        return Bindings.LDKStr_to_string(nativeType: SignedRawInvoice_to_str(oPointer));
     }
 
 				

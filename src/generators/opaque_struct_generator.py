@@ -35,14 +35,35 @@ class OpaqueStructGenerator:
 				passed_argument_name = argument_name
 				constructor_argument_conversion_method = None
 
-				if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(constructor_details['argument_types']) == 1:
+				swift_argument_type = current_argument_details.swift_type
+				if (argument_name == '' or argument_name is None) and swift_argument_type == 'Void' and len(constructor_details['argument_types']) == 1:
 					break
 
+				if swift_argument_type == 'TxOut':
+					swift_argument_type = 'LDKTxOut'
+
 				if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
-					'LDK') and current_argument_details.swift_type.startswith('['):
+					'LDK') and swift_argument_type.startswith('['):
 					constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_{current_argument_details.rust_obj}(array: {argument_name})'
 					constructor_argument_prep += '\n\t\t'+constructor_argument_conversion_method
 					passed_argument_name = f'converted_{argument_name}'
+				elif swift_argument_type == 'String':
+					constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_LDKStr(string: {argument_name})'
+					constructor_argument_prep += '\n\t\t'+constructor_argument_conversion_method
+					passed_argument_name = f'converted_{argument_name}'
+				elif swift_argument_type == '[UInt8]' and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
+					if current_argument_details.is_const:
+						passed_argument_name = argument_name + 'Pointer'
+						current_prep = f'''
+							\n\t	let {passed_argument_name} = withUnsafePointer(to: Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})) {{ (pointer: UnsafePointer<{current_argument_details.swift_raw_type}>) in
+								\n\t\t	pointer
+							\n\t	}}
+						'''
+						constructor_argument_prep += current_prep
+					else:
+						constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})'
+						constructor_argument_prep += '\n\t\t'+constructor_argument_conversion_method
+						passed_argument_name = f'converted_{argument_name}'
 				elif current_argument_details.is_ptr:
 					passed_argument_name = argument_name + 'Pointer'
 					requires_mutability = not current_argument_details.is_const
@@ -58,12 +79,11 @@ class OpaqueStructGenerator:
 							\n\t	}}
 						'''
 					constructor_argument_prep += current_prep
-				elif current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type:
+				elif current_argument_details.rust_obj == 'LDK' + swift_argument_type:
 					passed_argument_name += '.cOpaqueStruct!'
-				elif current_argument_details.rust_obj == 'LDKC' + current_argument_details.swift_type:
+				elif current_argument_details.rust_obj == 'LDKC' + swift_argument_type:
 					passed_argument_name += '.cOpaqueStruct!'
 
-				swift_argument_type = current_argument_details.swift_type
 				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
 					swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
 				swift_arguments.append(f'{argument_name}: {swift_argument_type}')
@@ -131,6 +151,10 @@ class OpaqueStructGenerator:
 				current_replacement = current_replacement.replace(
 					'return OpaqueStructType_methodName(native_arguments)',
 					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
+			elif current_return_type.swift_type == 'String':
+				current_replacement = current_replacement.replace(
+					'return OpaqueStructType_methodName(native_arguments)',
+					'return Bindings.LDKStr_to_string(nativeType: OpaqueStructType_methodName(native_arguments))')
 
 			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
 				current_replacement = current_replacement.replace(
@@ -191,20 +215,25 @@ class OpaqueStructGenerator:
 					'''
 					native_call_prep += current_prep
 
+				swift_argument_type = current_argument_details.swift_type
 				if not pass_instance:
-					swift_argument_type = current_argument_details.swift_type
+					if swift_argument_type == 'TxOut':
+						swift_argument_type = 'LDKTxOut'
+
 					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
 						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
 					swift_arguments.append(f'{argument_name}: {swift_argument_type}')
 
 				# native_arguments.append(f'{passed_argument_name}')
-				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:
+				if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:
 					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
-				elif current_argument_details.rust_obj == 'LDKC' + current_argument_details.swift_type and not current_argument_details.is_ptr:
+				elif current_argument_details.rust_obj == 'LDKC' + swift_argument_type and not current_argument_details.is_ptr:
 					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
 				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
-					'LDK') and current_argument_details.swift_type.startswith('['):
+					'LDK') and swift_argument_type.startswith('['):
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
+				elif swift_argument_type == 'String':
+					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name})')
 				elif current_argument_details.rust_obj is None and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
 					if current_argument_details.is_const:
 						passed_argument_name = argument_name + 'Pointer'

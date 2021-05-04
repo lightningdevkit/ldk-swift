@@ -5,7 +5,8 @@ class FilesystemPersister {
 	/* DEFAULT_CONSTRUCTOR_START */
     init(path_to_channel_data: String) {
     	
-        self.cOpaqueStruct = FilesystemPersister_new(path_to_channel_data)
+		let converted_path_to_channel_data = Bindings.new_LDKStr(string: path_to_channel_data)
+        self.cOpaqueStruct = FilesystemPersister_new(converted_path_to_channel_data)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -24,7 +25,7 @@ class FilesystemPersister {
 						
 		}
 					
-        return FilesystemPersister_get_data_dir(this_argPointer);
+        return Bindings.LDKStr_to_string(nativeType: FilesystemPersister_get_data_dir(this_argPointer));
     }
 
     func persist_manager(data_dir: String, manager: ChannelManager) -> Result_NoneErrorZ {
@@ -36,7 +37,7 @@ class FilesystemPersister {
 						
 		}
 					
-        return Result_NoneErrorZ(pointer: FilesystemPersister_persist_manager(data_dir, managerPointer));
+        return Result_NoneErrorZ(pointer: FilesystemPersister_persist_manager(Bindings.new_LDKStr(string: data_dir), managerPointer));
     }
 
     func read_channelmonitors(this_arg: FilesystemPersister, keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {

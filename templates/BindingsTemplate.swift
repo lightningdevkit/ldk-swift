@@ -99,4 +99,20 @@ class Bindings{
         return array
     }
 
+    static func LDKStr_to_string(nativeType: LDKStr) -> String {
+        let string = String(cString: nativeType.chars)
+        assert(string.count == nativeType.len)
+        return string
+    }
+
+    static func new_LDKStr(string: String) -> LDKStr {
+        let stringData = string.data(using: .utf8)
+        let dataMutablePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: string.count)
+        stringData?.copyBytes(to: dataMutablePointer, count: string.count)
+
+        let nativeType = UnsafePointer<UInt8>(dataMutablePointer)
+
+        return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: false)
+    }
+
 }

@@ -6,7 +6,14 @@ class PeerManager {
     init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger) {
     	
 		let converted_our_node_secret = Bindings.new_LDKSecretKey(array: our_node_secret)
-        self.cOpaqueStruct = PeerManager_new(message_handler.cOpaqueStruct!, converted_our_node_secret, ephemeral_random_data, logger.cOpaqueStruct!)
+							
+		let ephemeral_random_dataPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: ephemeral_random_data)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        self.cOpaqueStruct = PeerManager_new(message_handler.cOpaqueStruct!, converted_our_node_secret, ephemeral_random_dataPointer, logger.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

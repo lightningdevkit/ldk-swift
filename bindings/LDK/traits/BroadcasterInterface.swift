@@ -9,18 +9,19 @@ class BroadcasterInterface {
 		func broadcast_transactionCallback(pointer: UnsafeRawPointer?, tx: LDKTransaction) -> Void {
 			let instance: BroadcasterInterface = Bindings.pointerToInstance(pointer: pointer!)
 			/* SWIFT_CALLBACK_PREP */
-			instance.broadcast_transaction(tx: tx);
+			return instance.broadcast_transaction(tx: tx);
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: BroadcasterInterface = Bindings.pointerToInstance(pointer: pointer!)
 			/* SWIFT_CALLBACK_PREP */
-			instance.free();
+			return instance.free();
 		}
 
 		/* NATIVE_CALLBACKS_END */
 
-        self.cOpaqueStruct = LDKBroadcasterInterface(this_arg: Bindings.instanceToPointer(instance: self), broadcast_transaction: broadcast_transactionCallback,
+        self.cOpaqueStruct = LDKBroadcasterInterface(this_arg: Bindings.instanceToPointer(instance: self), 
+			broadcast_transaction: broadcast_transactionCallback,
 			free: freeCallback)
     }
 
@@ -32,10 +33,12 @@ class BroadcasterInterface {
 
     func broadcast_transaction(tx: LDKTransaction) -> Void {
     	/* EDIT ME */
+		
     }
 
     func free() -> Void {
     	/* EDIT ME */
+		
     }
 
     /* SWIFT_CALLBACKS_END */

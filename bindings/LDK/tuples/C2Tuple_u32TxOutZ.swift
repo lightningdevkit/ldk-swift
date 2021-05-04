@@ -20,9 +20,9 @@ class C2Tuple_u32TxOutZ {
         return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_clone(origPointer));
     }
 
-    func new(a: UInt32, b: TxOut) -> C2Tuple_u32TxOutZ {
+    func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
     	
-        return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b.cOpaqueStruct!));
+        return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b));
     }
 
 				

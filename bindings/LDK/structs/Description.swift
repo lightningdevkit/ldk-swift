@@ -24,12 +24,12 @@ class Description {
 
     func new(description: String) -> Result_DescriptionCreationErrorZ {
     	
-        return Result_DescriptionCreationErrorZ(pointer: Description_new(description));
+        return Result_DescriptionCreationErrorZ(pointer: Description_new(Bindings.new_LDKStr(string: description)));
     }
 
     func into_inner(this_arg: Description) -> String {
     	
-        return Description_into_inner(this_arg.cOpaqueStruct!);
+        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(this_arg.cOpaqueStruct!));
     }
 
 				

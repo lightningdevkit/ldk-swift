@@ -98,16 +98,18 @@ class TupleGenerator:
 					'''
 					native_call_prep += current_prep
 
+				swift_argument_type = current_argument_details.swift_type
 				if not pass_instance:
-					swift_argument_type = current_argument_details.swift_type
+					if swift_argument_type == 'TxOut':
+						swift_argument_type = 'LDKTxOut'
 					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
 						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
 					swift_arguments.append(f'{argument_name}: {swift_argument_type}')
 
 				# native_arguments.append(f'{passed_argument_name}')
-				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:
+				if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:
 					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
-				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and current_argument_details.swift_type.startswith('['):
+				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and swift_argument_type.startswith('['):
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 				else:
 					native_arguments.append(f'{passed_argument_name}')

@@ -3,12 +3,12 @@ class DelayedPaymentOutputDescriptor {
     var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(outpoint_arg: OutPoint, per_commitment_point_arg: [UInt8], to_self_delay_arg: UInt16, output_arg: TxOut, revocation_pubkey_arg: [UInt8], channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
+    init(outpoint_arg: OutPoint, per_commitment_point_arg: [UInt8], to_self_delay_arg: UInt16, output_arg: LDKTxOut, revocation_pubkey_arg: [UInt8], channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
     	
 		let converted_per_commitment_point_arg = Bindings.new_LDKPublicKey(array: per_commitment_point_arg)
 		let converted_revocation_pubkey_arg = Bindings.new_LDKPublicKey(array: revocation_pubkey_arg)
 		let converted_channel_keys_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg)
-        self.cOpaqueStruct = DelayedPaymentOutputDescriptor_new(outpoint_arg.cOpaqueStruct!, converted_per_commitment_point_arg, to_self_delay_arg, output_arg.cOpaqueStruct!, converted_revocation_pubkey_arg, converted_channel_keys_id_arg, channel_value_satoshis_arg)
+        self.cOpaqueStruct = DelayedPaymentOutputDescriptor_new(outpoint_arg.cOpaqueStruct!, converted_per_commitment_point_arg, to_self_delay_arg, output_arg, converted_revocation_pubkey_arg, converted_channel_keys_id_arg, channel_value_satoshis_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -90,7 +90,7 @@ class DelayedPaymentOutputDescriptor {
         return DelayedPaymentOutputDescriptor_set_to_self_delay(this_ptrPointer, val);
     }
 
-    func set_output(val: TxOut) -> Void {
+    func set_output(val: LDKTxOut) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>) in
@@ -99,7 +99,7 @@ class DelayedPaymentOutputDescriptor {
 						
 		}
 					
-        return DelayedPaymentOutputDescriptor_set_output(this_ptrPointer, val.cOpaqueStruct!);
+        return DelayedPaymentOutputDescriptor_set_output(this_ptrPointer, val);
     }
 
     func get_revocation_pubkey() -> [UInt8] {

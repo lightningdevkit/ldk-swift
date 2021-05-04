@@ -5,7 +5,14 @@ class KeysManager {
 	/* DEFAULT_CONSTRUCTOR_START */
     init(seed: [UInt8], starting_time_secs: UInt64, starting_time_nanos: UInt32) {
     	
-        self.cOpaqueStruct = KeysManager_new(seed, starting_time_secs, starting_time_nanos)
+							
+		let seedPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: seed)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        self.cOpaqueStruct = KeysManager_new(seedPointer, starting_time_secs, starting_time_nanos)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

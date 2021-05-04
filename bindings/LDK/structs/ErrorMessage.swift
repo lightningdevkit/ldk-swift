@@ -6,7 +6,8 @@ class ErrorMessage {
     init(channel_id_arg: [UInt8], data_arg: String) {
     	
 		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
-        self.cOpaqueStruct = ErrorMessage_new(converted_channel_id_arg, data_arg)
+		let converted_data_arg = Bindings.new_LDKStr(string: data_arg)
+        self.cOpaqueStruct = ErrorMessage_new(converted_channel_id_arg, converted_data_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -49,7 +50,7 @@ class ErrorMessage {
 						
 		}
 					
-        return ErrorMessage_get_data(this_ptrPointer);
+        return Bindings.LDKStr_to_string(nativeType: ErrorMessage_get_data(this_ptrPointer));
     }
 
     func set_data(val: String) -> Void {
@@ -61,7 +62,7 @@ class ErrorMessage {
 						
 		}
 					
-        return ErrorMessage_set_data(this_ptrPointer, val);
+        return ErrorMessage_set_data(this_ptrPointer, Bindings.new_LDKStr(string: val));
     }
 
     func clone(orig: ErrorMessage) -> ErrorMessage {

@@ -175,6 +175,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		else:
 			c_ty = "int64_t"
 			rust_obj = "uintptr_t"
+			swift_type = 'UInt'
 			fn_arg = fn_arg[9:].strip()
 		is_primitive = True
 	elif is_const and fn_arg.startswith("char *"):
@@ -202,42 +203,44 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		elif type_match.startswith("LDKC2Tuple"):
 			c_ty = language_constants.ptr_c_ty
 			java_ty = language_constants.ptr_native_ty
-			swift_type = "TwoTuple<"
-			if not type_match in tuple_types:
-				assert java_c_types_none_allowed
-				return None
-			for idx, ty_info in enumerate(tuple_types[type_match][0]):
-				if idx != 0:
-					swift_type = swift_type + ", "
-				if ty_info.is_native_primitive:
-					if ty_info.swift_type == "int":
-						swift_type = swift_type + "Integer"  # Java concrete integer type is Integer, not Int
-					else:
-						swift_type = swift_type + ty_info.swift_type.title()  # If we're a primitive, capitalize the first letter
-				else:
-					swift_type = swift_type + ty_info.swift_type
-			swift_type = swift_type + ">"
+			swift_type = type_match[3:]
+			# swift_type = "TwoTuple<"
+			# if not type_match in tuple_types:
+			# 	assert java_c_types_none_allowed
+			# 	return None
+			# for idx, ty_info in enumerate(tuple_types[type_match][0]):
+			# 	if idx != 0:
+			# 		swift_type = swift_type + ", "
+			# 	if ty_info.is_native_primitive:
+			# 		if ty_info.swift_type == "int":
+			# 			swift_type = swift_type + "Integer"  # Java concrete integer type is Integer, not Int
+			# 		else:
+			# 			swift_type = swift_type + ty_info.swift_type.title()  # If we're a primitive, capitalize the first letter
+			# 	else:
+			# 		swift_type = swift_type + ty_info.swift_type
+			# swift_type = swift_type + ">"
 			fn_arg = name_match
 			rust_obj = type_match
 			take_by_ptr = True
 		elif type_match.startswith("LDKC3Tuple"):
 			c_ty = language_constants.ptr_c_ty
 			java_ty = language_constants.ptr_native_ty
-			swift_type = "ThreeTuple<"
-			if not type_match in tuple_types:
-				assert java_c_types_none_allowed
-				return None
-			for idx, ty_info in enumerate(tuple_types[type_match][0]):
-				if idx != 0:
-					swift_type = swift_type + ", "
-				if ty_info.is_native_primitive:
-					if ty_info.java_hu_ty == "int":
-						swift_type = swift_type + "Integer"  # Java concrete integer type is Integer, not Int
-					else:
-						swift_type = swift_type + ty_info.java_hu_ty.title()  # If we're a primitive, capitalize the first letter
-				else:
-					swift_type = swift_type + ty_info.swift_type
-			swift_type = swift_type + ">"
+			swift_type = type_match[3:]
+			# swift_type = "ThreeTuple<"
+			# if not type_match in tuple_types:
+			# 	assert java_c_types_none_allowed
+			# 	return None
+			# for idx, ty_info in enumerate(tuple_types[type_match][0]):
+			# 	if idx != 0:
+			# 		swift_type = swift_type + ", "
+			# 	if ty_info.is_native_primitive:
+			# 		if ty_info.java_hu_ty == "int":
+			# 			swift_type = swift_type + "Integer"  # Java concrete integer type is Integer, not Int
+			# 		else:
+			# 			swift_type = swift_type + ty_info.java_hu_ty.title()  # If we're a primitive, capitalize the first letter
+			# 	else:
+			# 		swift_type = swift_type + ty_info.swift_type
+			# swift_type = swift_type + ">"
 			fn_arg = name_match
 			rust_obj = type_match
 			take_by_ptr = True

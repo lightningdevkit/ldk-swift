@@ -47,7 +47,7 @@ def generate_tuple_wrappers(parser: LightningHeaderParser):
 	tuples = parser.tuple_types
 	for current_tuple in tuples:
 		current_tuple_details = parser.type_details[current_tuple]
-		tuple_generator.generate_tuple(current_tuple, current_tuple_details)
+		tuple_generator.generate_tuple(current_tuple, current_tuple_details, all_type_details=parser.type_details)
 
 
 def generate_trait_placeholders(parser: LightningHeaderParser):

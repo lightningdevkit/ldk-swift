@@ -3,6 +3,7 @@ import os
 
 from config import Config
 
+# Tuples have only new, optionally clone, and free methods
 class TupleGenerator:
 
 	def __init__(self) -> None:
@@ -12,35 +13,13 @@ class TupleGenerator:
 			template = template_handle.read()
 			self.template = template
 
-	def generate_tuple(self, tuple_name, tuple_details):
+	def generate_tuple(self, struct_name, struct_details, all_type_details = {}):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
-		print(tuple_name)
-		swift_tuple_name = tuple_name[3:]
+
+		swift_tuple_name = struct_name[3:]
 
 		mutating_output_file_contents = self.template
-
-		# CONSTRUCTOR START
-		if tuple_details.constructor_method is not None:
-			# fill constructor details
-			constructor_details = tuple_details.constructor_method
-			constructor_native_name = constructor_details['name']['native']
-			swift_arguments = []
-			native_arguments = []
-			for current_argument_details in constructor_details['argument_types']:
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-
-				swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
-				native_arguments.append(f'{passed_argument_name}')
-
-			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments',
-																				  ', '.join(swift_arguments))
-			mutating_output_file_contents = mutating_output_file_contents.replace('native_constructor_arguments',
-																				  ', '.join(native_arguments))
-			mutating_output_file_contents = mutating_output_file_contents.replace(
-				'self.cTuple = TupleType(',
-				f'self.cTuple = {constructor_native_name}(')
 
 
 		# REGULAR METHODS START
@@ -51,16 +30,31 @@ class TupleGenerator:
 		method_template = method_template_regex.search(mutating_output_file_contents).group(2)
 
 		method_prefix = swift_tuple_name + '_'
-		tuple_methods = ''
+		struct_methods = ''
 
 		# fill templates
-		for current_method_details in tuple_details.methods:
+		for current_method_details in struct_details.methods:
 			current_native_method_name = current_method_details['name']['native']
 			current_method_name = current_method_details['name']['swift']
 			current_return_type = current_method_details['return_type'].swift_type
-			# current_method_name = current_native_method_name[len(method_prefix):]
+			current_return_type = swift_tuple_name
+			# current_rust_return_type = current_method_details['return_type'].rust_obj
+
+			# if current_rust_return_type in all_type_details and all_type_details[current_rust_return_type].type.name == 'UNITARY_ENUM':
+			# 	current_return_type = current_rust_return_type
+			current_method_name = current_native_method_name[len(method_prefix):]
 
 			current_replacement = method_template
+
+			if current_method_details['return_type'].rust_obj is not None and current_method_details['return_type'].rust_obj.startswith('LDK') and current_method_details['return_type'].swift_type.startswith('['):
+				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(byteType: '
+				return_type_wrapper_suffix = ')'
+				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)', f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
+			elif current_method_details['return_type'].rust_obj == 'LDK' + current_method_details['return_type'].swift_type:
+				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
+				return_type_wrapper_suffix = ')'
+				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)', f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
+
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 			is_clone_method = current_method_details['is_clone']
@@ -97,7 +91,7 @@ class TupleGenerator:
 					# }
 					# the \n\t will add a bunch of extra lines, but this file will be easier to read
 					current_prep = f'''
-						\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cTuple!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
+						\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
 							\n\t\t	pointer
 						\n\t	}}
 					'''
@@ -105,7 +99,14 @@ class TupleGenerator:
 
 				if not pass_instance:
 					swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
-				native_arguments.append(f'{passed_argument_name}')
+
+				# native_arguments.append(f'{passed_argument_name}')
+				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:
+					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
+				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and current_argument_details.swift_type.startswith('['):
+					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
+				else:
+					native_arguments.append(f'{passed_argument_name}')
 
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
 			if is_clone_method:
@@ -116,13 +117,13 @@ class TupleGenerator:
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
 
-			tuple_methods += '\n' + current_replacement + '\n'
+			struct_methods += '\n' + current_replacement + '\n'
 
 
 		# DESTRUCTOR START
-		if tuple_details.free_method is not None:
+		if struct_details.free_method is not None:
 			# fill constructor details
-			free_method_details = tuple_details.free_method
+			free_method_details = struct_details.free_method
 			free_native_name = free_method_details['name']['native']
 			native_call_prep = ''
 			native_arguments = []
@@ -146,17 +147,20 @@ class TupleGenerator:
 						mutability_infix = 'Mutable'
 
 					current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cTuple!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
+							\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
 								\n\t\t	pointer
 							\n\t	}}
 						'''
 					native_call_prep += current_prep
 				elif pass_instance:
-					passed_argument_name = 'self.cTuple!'
+					passed_argument_name = 'self.cOpaqueStruct!'
 				native_arguments.append(f'{passed_argument_name}')
 
+				# always overwrite the weird _res variable
+				native_arguments = ['self.cOpaqueStruct!']
 
-			tuple_methods += f'''
+
+			struct_methods += f'''
 				\n\tdeinit {{
 					{native_call_prep}
 					\n\t	{free_native_name}({', '.join(native_arguments)})
@@ -167,10 +171,10 @@ class TupleGenerator:
 		mutating_output_file_contents = mutating_output_file_contents.replace('class TupleName {',
 																			  f'class {swift_tuple_name} {{')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: TupleType',
-																			  f'init(pointer: {tuple_name}')
-		mutating_output_file_contents = mutating_output_file_contents.replace('var cTuple: TupleType?',
-																			  f'var cTuple: {tuple_name}?')
-		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{tuple_methods}\g<3>',
+																			  f'init(pointer: {struct_name}')
+		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: TupleType?',
+																			  f'var cOpaqueStruct: {struct_name}?')
+		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>',
 																  mutating_output_file_contents)
 
 
@@ -181,4 +185,3 @@ class TupleGenerator:
 			os.makedirs(output_directory)
 		with open(output_path, "w") as f:
 			f.write(mutating_output_file_contents)
-		pass

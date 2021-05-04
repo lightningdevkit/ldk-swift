@@ -1,14 +1,9 @@
 class TupleName {
 
-    var cTuple: TupleType?;
+    var cOpaqueStruct: TupleType?;
 
-    init(swift_constructor_arguments) {
-    	/* NATIVE_CONSTRUCTOR_PREP */
-        self.cTuple = TupleType(native_constructor_arguments)
-    }
-
-    private init(pointer: TupleType){
-		self.cTuple = pointer
+    init(pointer: TupleType){
+		self.cOpaqueStruct = pointer
 	}
 
     /* TUPLE_METHODS_START */

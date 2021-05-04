@@ -26,7 +26,7 @@ class Consts:
         self.file_ext = ".java"
         self.ptr_c_ty = "int64_t"
         # self.ptr_native_ty = "long"
-        self.ptr_native_ty = "UInt64" # TODO: verify that all target architectures are 64 bit
+        self.ptr_native_ty = "UInt" # TODO: verify that all target architectures are 64 bit
         self.result_c_ty = "jclass"
         self.ptr_arr = "jobjectArray"
         self.get_native_arr_len_call = ("(*env)->GetArrayLength(env, ", ")")

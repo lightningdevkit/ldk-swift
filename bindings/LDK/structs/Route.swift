@@ -3,7 +3,7 @@ class Route {
     var cOpaqueStruct: LDKRoute?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(paths_arg: [[RouteHop]]) {
+    init(paths_arg: [[LDKRouteHop]]) {
     	
 		let converted_paths_arg = Bindings.new_LDKCVec_CVec_RouteHopZZ(array: paths_arg)
         self.cOpaqueStruct = Route_new(converted_paths_arg)
@@ -16,7 +16,7 @@ class Route {
 
     /* STRUCT_METHODS_START */
 
-    func set_paths(val: [[RouteHop]]) -> Void {
+    func set_paths(val: [[LDKRouteHop]]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKRoute>) in

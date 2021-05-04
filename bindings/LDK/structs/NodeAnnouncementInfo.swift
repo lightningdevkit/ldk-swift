@@ -3,7 +3,7 @@ class NodeAnnouncementInfo {
     var cOpaqueStruct: LDKNodeAnnouncementInfo?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: [UInt8], addresses_arg: [NetAddress], announcement_message_arg: NodeAnnouncement) {
+    init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: [UInt8], addresses_arg: [LDKNetAddress], announcement_message_arg: NodeAnnouncement) {
     	
 		let converted_rgb_arg = Bindings.new_LDKThreeBytes(array: rgb_arg)
 		let converted_alias_arg = Bindings.new_LDKThirtyTwoBytes(array: alias_arg)
@@ -114,7 +114,7 @@ class NodeAnnouncementInfo {
         return NodeAnnouncementInfo_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func set_addresses(val: [NetAddress]) -> Void {
+    func set_addresses(val: [LDKNetAddress]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in

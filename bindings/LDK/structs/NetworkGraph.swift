@@ -45,7 +45,7 @@ class NetworkGraph {
         return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    func update_node_from_announcement(&this_arg: NetworkGraph, msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {
+    func update_node_from_announcement(this_arg: NetworkGraph, msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -64,7 +64,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_node_from_announcement(this_argPointer, msgPointer));
     }
 
-    func update_node_from_unsigned_announcement(&this_arg: NetworkGraph, msg: UnsignedNodeAnnouncement) -> Result_NoneLightningErrorZ {
+    func update_node_from_unsigned_announcement(this_arg: NetworkGraph, msg: UnsignedNodeAnnouncement) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -83,7 +83,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_node_from_unsigned_announcement(this_argPointer, msgPointer));
     }
 
-    func update_channel_from_announcement(&this_arg: NetworkGraph, msg: ChannelAnnouncement, &chain_access: Access) -> Result_NoneLightningErrorZ {
+    func update_channel_from_announcement(this_arg: NetworkGraph, msg: ChannelAnnouncement, chain_access: Access) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -109,7 +109,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_channel_from_announcement(this_argPointer, msgPointer, chain_accessPointer));
     }
 
-    func update_channel_from_unsigned_announcement(&this_arg: NetworkGraph, msg: UnsignedChannelAnnouncement, &chain_access: Access) -> Result_NoneLightningErrorZ {
+    func update_channel_from_unsigned_announcement(this_arg: NetworkGraph, msg: UnsignedChannelAnnouncement, chain_access: Access) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -135,7 +135,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_channel_from_unsigned_announcement(this_argPointer, msgPointer, chain_accessPointer));
     }
 
-    func close_channel_from_update(&this_arg: NetworkGraph, short_channel_id: UInt64, is_permanent: Bool) -> Void {
+    func close_channel_from_update(this_arg: NetworkGraph, short_channel_id: UInt64, is_permanent: Bool) -> Void {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -147,7 +147,7 @@ class NetworkGraph {
         return NetworkGraph_close_channel_from_update(this_argPointer, short_channel_id, is_permanent);
     }
 
-    func update_channel(&this_arg: NetworkGraph, msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
+    func update_channel(this_arg: NetworkGraph, msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -166,7 +166,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_channel(this_argPointer, msgPointer));
     }
 
-    func update_channel_unsigned(&this_arg: NetworkGraph, msg: UnsignedChannelUpdate) -> Result_NoneLightningErrorZ {
+    func update_channel_unsigned(this_arg: NetworkGraph, msg: UnsignedChannelUpdate) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in

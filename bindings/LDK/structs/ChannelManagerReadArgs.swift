@@ -3,7 +3,7 @@ class ChannelManagerReadArgs {
     var cOpaqueStruct: LDKChannelManagerReadArgs?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [ChannelMonitor]) {
+    init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
     	
 		let converted_channel_monitors = Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors)
         self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.cOpaqueStruct!, converted_channel_monitors)

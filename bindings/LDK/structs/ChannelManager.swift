@@ -72,7 +72,14 @@ class ChannelManager {
 						
 		}
 					
-        return Result_NoneAPIErrorZ(pointer: ChannelManager_close_channel(this_argPointer, Bindings.array_to_tuple32(array: channel_id)));
+							
+		let channel_idPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return Result_NoneAPIErrorZ(pointer: ChannelManager_close_channel(this_argPointer, channel_idPointer));
     }
 
     func force_close_channel(this_arg: ChannelManager, channel_id: [UInt8]) -> Result_NoneAPIErrorZ {
@@ -84,7 +91,14 @@ class ChannelManager {
 						
 		}
 					
-        return Result_NoneAPIErrorZ(pointer: ChannelManager_force_close_channel(this_argPointer, Bindings.array_to_tuple32(array: channel_id)));
+							
+		let channel_idPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return Result_NoneAPIErrorZ(pointer: ChannelManager_force_close_channel(this_argPointer, channel_idPointer));
     }
 
     func force_close_all_channels(this_arg: ChannelManager) -> Void {
@@ -127,10 +141,17 @@ class ChannelManager {
 						
 		}
 					
-        return Result_NoneAPIErrorZ(pointer: ChannelManager_funding_transaction_generated(this_argPointer, Bindings.array_to_tuple32(array: temporary_channel_id), Bindings.new_LDKTransaction(array: funding_transaction)));
+							
+		let temporary_channel_idPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: temporary_channel_id)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return Result_NoneAPIErrorZ(pointer: ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_idPointer, Bindings.new_LDKTransaction(array: funding_transaction)));
     }
 
-    func broadcast_node_announcement(this_arg: ChannelManager, rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) -> Void {
+    func broadcast_node_announcement(this_arg: ChannelManager, rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) in
@@ -175,7 +196,14 @@ class ChannelManager {
 						
 		}
 					
-        return ChannelManager_fail_htlc_backwards(this_argPointer, Bindings.array_to_tuple32(array: payment_hash));
+							
+		let payment_hashPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: payment_hash)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return ChannelManager_fail_htlc_backwards(this_argPointer, payment_hashPointer);
     }
 
     func claim_funds(this_arg: ChannelManager, payment_preimage: [UInt8]) -> Bool {

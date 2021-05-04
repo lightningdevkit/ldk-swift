@@ -7,6 +7,9 @@
 
 import Foundation
 
+typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
+typealias LDKTxid = LDKThirtyTwoBytes
+
 class Bindings{
 
 	/* BYTE_ARRAY_METHODS_START */
@@ -24,6 +27,7 @@ class Bindings{
 	/* VECTOR_METHODS_START */
 	/* SWIFT_TO_RUST_START */
 	static func new_LDKCVec_rust_primitive(array: [SwiftPrimitive]) -> LDKCVec_rust_primitive {
+		/* DIMENSION_REDUCTION_PREP */
 
         let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<SwiftPrimitive>) -> UnsafeMutablePointer<SwiftPrimitive> in
             let mutablePointer = UnsafeMutablePointer<SwiftPrimitive>(mutating: pointer.baseAddress!)

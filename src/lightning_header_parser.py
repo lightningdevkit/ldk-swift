@@ -268,7 +268,15 @@ class LightningHeaderParser():
 						vector_type_details.type = CTypes.VECTOR
 						vector_type_details.name = struct_name
 
-						if vec_ty in self.type_details:
+						# if 'LDKTransaction' not in self.type_details:
+						if vec_ty in ['LDKTransaction', 'LDKSignature', 'LdKu8slice']:
+							vectored_type_details = TypeDetails()
+							vectored_type_details.type = CTypes.VECTOR
+							vectored_type_details.name = vec_ty
+							vectored_type_details.is_primitive = True
+							vectored_type_details.primitive_swift_counterpart = 'UInt8'
+							vector_type_details.iteratee = vectored_type_details
+						elif vec_ty in self.type_details:
 							vectored_type_details = self.type_details[vec_ty]
 							# vector_type_details.name = struct_name
 							vector_type_details.is_primitive = False

@@ -22,7 +22,7 @@ class NetGraphMsgHandler {
 
     /* STRUCT_METHODS_START */
 
-    func add_chain_access(&this_arg: NetGraphMsgHandler, &chain_access: Access) -> Void {
+    func add_chain_access(this_arg: NetGraphMsgHandler, chain_access: Access) -> Void {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetGraphMsgHandler>) in

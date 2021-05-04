@@ -24,10 +24,17 @@ class KeysManager {
 						
 		}
 					
-        return InMemorySigner(pointer: KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, Bindings.array_to_tuple32(array: params)));
+							
+		let paramsPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: params)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return InMemorySigner(pointer: KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, paramsPointer));
     }
 
-    func spend_spendable_outputs(this_arg: KeysManager, descriptors: [SpendableOutputDescriptor], outputs: [TxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
+    func spend_spendable_outputs(this_arg: KeysManager, descriptors: [LDKSpendableOutputDescriptor], outputs: [LDKTxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKKeysManager>) in

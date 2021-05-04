@@ -73,8 +73,9 @@ class TraitGenerator:
 				if current_argument.rust_obj is not None and current_argument.rust_obj.startswith('LDK'):
 					passed_raw_type = current_argument.rust_obj
 				if current_argument.is_const:
-					passed_raw_type = f'UnsafePointer<{passed_raw_type}>'
-					if(current_argument.swift_type.startswith('[')):
+					if not passed_raw_type.startswith('Unsafe'):
+						passed_raw_type = f'UnsafePointer<{passed_raw_type}>'
+					if current_argument.swift_type.startswith('[') or current_argument.swift_type == 'String':
 						passed_raw_type += '?' # TODO: figure out when tf it actually becomes nullable!
 				# if current_argument.passed_as_ptr:
 				# 	passed_raw_type += '?'

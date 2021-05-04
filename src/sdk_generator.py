@@ -25,6 +25,7 @@ def generate_binding_methods(parser: LightningHeaderParser):
 	for current_byte_array_type in byte_arrays:
 		byte_array_details = parser.type_details[current_byte_array_type]
 		byte_array_generator.generate_byte_array(current_byte_array_type, byte_array_details)
+	byte_array_generator.generate_tuple_converter(80)
 	byte_array_generator.finalize()
 
 	vectors = parser.vec_types

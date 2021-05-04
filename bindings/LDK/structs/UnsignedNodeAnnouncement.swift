@@ -130,7 +130,7 @@ class UnsignedNodeAnnouncement {
         return UnsignedNodeAnnouncement_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func set_addresses(val: [NetAddress]) -> Void {
+    func set_addresses(val: [LDKNetAddress]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>) in

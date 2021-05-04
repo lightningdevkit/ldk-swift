@@ -6,7 +6,7 @@ class Logger {
 
     	/* NATIVE_CALLBACKS_START */
 
-		func logCallback(pointer: UnsafeRawPointer?, record: UnsafePointer<UnsafePointer<Int8>>) -> Void {
+		func logCallback(pointer: UnsafeRawPointer?, record: UnsafePointer<Int8>?) -> Void {
 			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!)
 			/* SWIFT_CALLBACK_PREP */
 			instance.log(record: record);
@@ -30,7 +30,7 @@ class Logger {
 
     /* SWIFT_CALLBACKS_START */
 
-    func log(record: UnsafePointer<UnsafePointer<Int8>>) -> Void {
+    func log(record: UnsafePointer<Int8>?) -> Void {
     	/* EDIT ME */
     }
 

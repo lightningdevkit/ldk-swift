@@ -3,7 +3,7 @@ class CommitmentUpdate {
     var cOpaqueStruct: LDKCommitmentUpdate?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(update_add_htlcs_arg: [UpdateAddHTLC], update_fulfill_htlcs_arg: [UpdateFulfillHTLC], update_fail_htlcs_arg: [UpdateFailHTLC], update_fail_malformed_htlcs_arg: [UpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned) {
+    init(update_add_htlcs_arg: [LDKUpdateAddHTLC], update_fulfill_htlcs_arg: [LDKUpdateFulfillHTLC], update_fail_htlcs_arg: [LDKUpdateFailHTLC], update_fail_malformed_htlcs_arg: [LDKUpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned) {
     	
 		let converted_update_add_htlcs_arg = Bindings.new_LDKCVec_UpdateAddHTLCZ(array: update_add_htlcs_arg)
 		let converted_update_fulfill_htlcs_arg = Bindings.new_LDKCVec_UpdateFulfillHTLCZ(array: update_fulfill_htlcs_arg)
@@ -19,7 +19,7 @@ class CommitmentUpdate {
 
     /* STRUCT_METHODS_START */
 
-    func set_update_add_htlcs(val: [UpdateAddHTLC]) -> Void {
+    func set_update_add_htlcs(val: [LDKUpdateAddHTLC]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
@@ -31,7 +31,7 @@ class CommitmentUpdate {
         return CommitmentUpdate_set_update_add_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateAddHTLCZ(array: val));
     }
 
-    func set_update_fulfill_htlcs(val: [UpdateFulfillHTLC]) -> Void {
+    func set_update_fulfill_htlcs(val: [LDKUpdateFulfillHTLC]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
@@ -43,7 +43,7 @@ class CommitmentUpdate {
         return CommitmentUpdate_set_update_fulfill_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFulfillHTLCZ(array: val));
     }
 
-    func set_update_fail_htlcs(val: [UpdateFailHTLC]) -> Void {
+    func set_update_fail_htlcs(val: [LDKUpdateFailHTLC]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
@@ -55,7 +55,7 @@ class CommitmentUpdate {
         return CommitmentUpdate_set_update_fail_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFailHTLCZ(array: val));
     }
 
-    func set_update_fail_malformed_htlcs(val: [UpdateFailMalformedHTLC]) -> Void {
+    func set_update_fail_malformed_htlcs(val: [LDKUpdateFailMalformedHTLC]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in

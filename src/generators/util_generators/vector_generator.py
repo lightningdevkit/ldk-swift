@@ -14,7 +14,9 @@ class VectorGenerator(UtilGenerator):
 	def generate_vector(self, vector_name, vector_type_details):
 		dimensions = 1
 		conversion_call = None
+		dimension_reduction_prep = None
 		is_primitive = vector_type_details.is_primitive
+		pointerTypeName = 'UInt8'
 
 		if is_primitive:
 			swift_primitive = vector_type_details.primitive_swift_counterpart
@@ -31,6 +33,14 @@ class VectorGenerator(UtilGenerator):
 				swift_primitive = deepest_iteratee.name
 			if dimensions > 1:
 				conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry)'
+				pointerTypeName = shallowmost_iteratee.name
+				dimension_reduction_prep = f'''
+					var lowerDimension = [{shallowmost_iteratee.name}]()
+					for currentEntry in array {{
+						let convertedEntry = new_{shallowmost_iteratee.name}(array: currentEntry)
+						lowerDimension.append(convertedEntry)
+					}}
+				'''
 
 		mutating_current_vector_methods = self.template
 		for dim_delta in range(1, dimensions):
@@ -41,6 +51,11 @@ class VectorGenerator(UtilGenerator):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* CONVERSION_PREP */', conversion_call)
 		else:
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('(convertedEntry)', '(currentEntry)')
+
+		if dimension_reduction_prep is not None:
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* DIMENSION_REDUCTION_PREP */', dimension_reduction_prep)
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('array.withUnsafeBufferPointer', 'lowerDimension.withUnsafeBufferPointer')
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('<SwiftPrimitive>', f'<{pointerTypeName}>')
 
 		if not is_primitive and dimensions > 2 or is_primitive and dimensions > 3:
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_START */', '/* SWIFT_TO_RUST_START ')

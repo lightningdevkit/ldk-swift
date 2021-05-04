@@ -22,7 +22,7 @@ class RouteHint {
         return RouteHint(pointer: RouteHint_clone(origPointer));
     }
 
-    func new(hops: [RouteHintHop]) -> Result_RouteHintCreationErrorZ {
+    func new(hops: [LDKRouteHintHop]) -> Result_RouteHintCreationErrorZ {
     	
         return Result_RouteHintCreationErrorZ(pointer: RouteHint_new(Bindings.new_LDKCVec_RouteHintHopZ(array: hops)));
     }

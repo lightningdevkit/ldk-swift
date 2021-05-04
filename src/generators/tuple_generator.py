@@ -2,6 +2,7 @@ import re
 import os
 
 from config import Config
+from type_parsing_regeces import TypeParsingRegeces
 
 # Tuples have only new, optionally clone, and free methods
 class TupleGenerator:
@@ -98,7 +99,10 @@ class TupleGenerator:
 					native_call_prep += current_prep
 
 				if not pass_instance:
-					swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
+					swift_argument_type = current_argument_details.swift_type
+					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
+						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
+					swift_arguments.append(f'{argument_name}: {swift_argument_type}')
 
 				# native_arguments.append(f'{passed_argument_name}')
 				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:

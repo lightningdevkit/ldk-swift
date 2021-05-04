@@ -55,6 +55,13 @@ class TrustedCommitmentTransaction {
 						
 		}
 					
+							
+		let htlc_base_keyPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: htlc_base_key)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
 						
 		let channel_parametersPointer = withUnsafePointer(to: channel_parameters.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
 							
@@ -62,7 +69,7 @@ class TrustedCommitmentTransaction {
 						
 		}
 					
-        return Result_CVec_SignatureZNoneZ(pointer: TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, Bindings.array_to_tuple32(array: htlc_base_key), channel_parametersPointer));
+        return Result_CVec_SignatureZNoneZ(pointer: TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer, channel_parametersPointer));
     }
 
 				

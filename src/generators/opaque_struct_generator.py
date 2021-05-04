@@ -2,6 +2,7 @@ import re
 import os
 
 from config import Config
+from type_parsing_regeces import TypeParsingRegeces
 
 
 class OpaqueStructGenerator:
@@ -62,7 +63,10 @@ class OpaqueStructGenerator:
 				elif current_argument_details.rust_obj == 'LDKC' + current_argument_details.swift_type:
 					passed_argument_name += '.cOpaqueStruct!'
 
-				swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
+				swift_argument_type = current_argument_details.swift_type
+				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
+					swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
+				swift_arguments.append(f'{argument_name}: {swift_argument_type}')
 				native_arguments.append(f'{passed_argument_name}')
 
 			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments',
@@ -136,8 +140,13 @@ class OpaqueStructGenerator:
 			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
 				current_swift_return_type = current_return_type.swift_raw_type
 
-			if current_return_type.swift_type.startswith('[') and not current_return_type.is_native_primitive and not current_return_type.swift_type.startswith('[UInt'):
-				current_swift_return_type = current_return_type.swift_raw_type.replace('[', '[LDK')
+			# if current_swift_return_type == '[TransactionOutputs]':
+			# 	current_swift_return_type = '[LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]'
+			# elif current_swift_return_type == '[Txid]':
+			# 	current_swift_return_type = '[LDKThirtyTwoBytes]'
+
+			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(current_swift_return_type):
+				current_swift_return_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', current_swift_return_type)
 
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
@@ -162,26 +171,31 @@ class OpaqueStructGenerator:
 					passed_argument_name = argument_name + 'Pointer'
 					requires_mutability = not current_argument_details.is_const
 
+					reference_prefix = ''
 					mutability_infix = ''
 
 					if pass_instance:
 						argument_name = 'self'
 					if requires_mutability:
-						argument_name = '&' + argument_name
+						# argument_name = '&' + argument_name
+						reference_prefix = '&'
 						mutability_infix = 'Mutable'
 					# let managerPointer = withUnsafePointer(to: self.cChannelManager!) { (pointer: UnsafePointer<LDKChannelManager>) in
 					# 	pointer
 					# }
 					# the \n\t will add a bunch of extra lines, but this file will be easier to read
 					current_prep = f'''
-						\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
+						\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
 							\n\t\t	pointer
 						\n\t	}}
 					'''
 					native_call_prep += current_prep
 
 				if not pass_instance:
-					swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
+					swift_argument_type = current_argument_details.swift_type
+					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
+						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
+					swift_arguments.append(f'{argument_name}: {swift_argument_type}')
 
 				# native_arguments.append(f'{passed_argument_name}')
 				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:
@@ -192,7 +206,17 @@ class OpaqueStructGenerator:
 					'LDK') and current_argument_details.swift_type.startswith('['):
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 				elif current_argument_details.rust_obj is None and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
-					native_arguments.append(f'Bindings.array_to_tuple{current_argument_details.arr_len}(array: {passed_argument_name})')
+					if current_argument_details.is_const:
+						passed_argument_name = argument_name + 'Pointer'
+						current_prep = f'''
+							\n\t	let {passed_argument_name} = withUnsafePointer(to: Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})) {{ (pointer: UnsafePointer<{current_argument_details.swift_raw_type}>) in
+								\n\t\t	pointer
+							\n\t	}}
+						'''
+						native_call_prep += current_prep
+						native_arguments.append(passed_argument_name)
+					else:
+						native_arguments.append(f'Bindings.array_to_tuple{current_argument_details.arr_len}(array: {passed_argument_name})')
 				else:
 					native_arguments.append(f'{passed_argument_name}')
 

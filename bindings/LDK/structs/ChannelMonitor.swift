@@ -153,7 +153,7 @@ class ChannelMonitor {
         return Bindings.LDKCVec_EventZ_to_array(nativeType: ChannelMonitor_get_and_clear_pending_events(this_argPointer));
     }
 
-    func get_latest_holder_commitment_txn(this_arg: ChannelMonitor, logger: Logger) -> [LDK[LDKUInt8]] {
+    func get_latest_holder_commitment_txn(this_arg: ChannelMonitor, logger: Logger) -> [[UInt8]] {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelMonitor>) in
@@ -172,7 +172,7 @@ class ChannelMonitor {
         return Bindings.LDKCVec_TransactionZ_to_array(nativeType: ChannelMonitor_get_latest_holder_commitment_txn(this_argPointer, loggerPointer));
     }
 
-    func block_connected(this_arg: ChannelMonitor, header: [UInt8], txdata: [C2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
+    func block_connected(this_arg: ChannelMonitor, header: [UInt8], txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelMonitor>) in
@@ -181,7 +181,14 @@ class ChannelMonitor {
 						
 		}
 					
-        return Bindings.LDKCVec_TransactionOutputsZ_to_array(nativeType: ChannelMonitor_block_connected(this_argPointer, Bindings.array_to_tuple80(array: header), Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZ(array: txdata), height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!));
+							
+		let headerPointer = withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return Bindings.LDKCVec_TransactionOutputsZ_to_array(nativeType: ChannelMonitor_block_connected(this_argPointer, headerPointer, Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZ(array: txdata), height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!));
     }
 
     func block_disconnected(this_arg: ChannelMonitor, header: [UInt8], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> Void {
@@ -193,10 +200,17 @@ class ChannelMonitor {
 						
 		}
 					
-        return ChannelMonitor_block_disconnected(this_argPointer, Bindings.array_to_tuple80(array: header), height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!);
+							
+		let headerPointer = withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return ChannelMonitor_block_disconnected(this_argPointer, headerPointer, height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!);
     }
 
-    func transactions_confirmed(this_arg: ChannelMonitor, header: [UInt8], txdata: [C2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
+    func transactions_confirmed(this_arg: ChannelMonitor, header: [UInt8], txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelMonitor>) in
@@ -205,7 +219,14 @@ class ChannelMonitor {
 						
 		}
 					
-        return Bindings.LDKCVec_TransactionOutputsZ_to_array(nativeType: ChannelMonitor_transactions_confirmed(this_argPointer, Bindings.array_to_tuple80(array: header), Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZ(array: txdata), height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!));
+							
+		let headerPointer = withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return Bindings.LDKCVec_TransactionOutputsZ_to_array(nativeType: ChannelMonitor_transactions_confirmed(this_argPointer, headerPointer, Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZ(array: txdata), height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!));
     }
 
     func transaction_unconfirmed(this_arg: ChannelMonitor, txid: [UInt8], broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> Void {
@@ -217,7 +238,14 @@ class ChannelMonitor {
 						
 		}
 					
-        return ChannelMonitor_transaction_unconfirmed(this_argPointer, Bindings.array_to_tuple32(array: txid), broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!);
+							
+		let txidPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: txid)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return ChannelMonitor_transaction_unconfirmed(this_argPointer, txidPointer, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!);
     }
 
     func best_block_updated(this_arg: ChannelMonitor, header: [UInt8], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
@@ -229,7 +257,14 @@ class ChannelMonitor {
 						
 		}
 					
-        return Bindings.LDKCVec_TransactionOutputsZ_to_array(nativeType: ChannelMonitor_best_block_updated(this_argPointer, Bindings.array_to_tuple80(array: header), height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!));
+							
+		let headerPointer = withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return Bindings.LDKCVec_TransactionOutputsZ_to_array(nativeType: ChannelMonitor_best_block_updated(this_argPointer, headerPointer, height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!));
     }
 
     func get_relevant_txids(this_arg: ChannelMonitor) -> [LDKTxid] {

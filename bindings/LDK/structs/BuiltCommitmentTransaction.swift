@@ -115,7 +115,14 @@ class BuiltCommitmentTransaction {
 						
 		}
 					
-        return Bindings.LDKSignature_to_array(nativeType: BuiltCommitmentTransaction_sign(this_argPointer, Bindings.array_to_tuple32(array: funding_key), Bindings.new_LDKu8slice(array: funding_redeemscript), channel_value_satoshis));
+							
+		let funding_keyPointer = withUnsafePointer(to: Bindings.array_to_tuple32(array: funding_key)) { (pointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+								
+			pointer
+							
+		}
+						
+        return Bindings.LDKSignature_to_array(nativeType: BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, Bindings.new_LDKu8slice(array: funding_redeemscript), channel_value_satoshis));
     }
 
 				

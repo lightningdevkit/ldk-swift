@@ -104,6 +104,7 @@ class LightningHeaderParser():
 
 		self.trait_structs = set()
 		self.result_types = set()
+		self.option_types = set()
 		self.vec_types = set()
 		self.byte_arrays = set()
 
@@ -286,12 +287,10 @@ class LightningHeaderParser():
 						enum_var_name = struct_name.split("_")
 						union_enum_items[enum_var_name[0]][enum_var_name[1]] = field_lines
 					elif struct_name in union_enum_items:
-						# TODO: complex enum
-						pass
+						self.option_types.add(struct_name)
 					elif is_unitary_enum:
 						self.type_details[struct_name].type = CTypes.UNITARY_ENUM
 						self.unitary_enums.add(struct_name)
-						# todo: unitary enums are to be used as is
 						pass
 					elif len(trait_fn_lines) > 0:
 						self.trait_structs.add(struct_name)

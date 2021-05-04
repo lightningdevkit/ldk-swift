@@ -11,6 +11,7 @@ class ByteArrayGenerator(UtilGenerator):
 			"(\/\* BYTE_ARRAY_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* BYTE_ARRAY_METHODS_END \*\/)",
 			flags=re.MULTILINE | re.DOTALL)
 		self.loadTemplate()
+		self.raw_tuple_generators = {}
 
 	def generate_byte_array(self, byte_array_type_name, byte_array_type_details):
 		assert len(byte_array_type_details.fields) == 1
@@ -23,13 +24,31 @@ class ByteArrayGenerator(UtilGenerator):
 																						  f'{byte_array_field.var_name}:')
 		tupleArguments = 'array[0]'
 		tupleReads = f'nativeType.{byte_array_field.var_name}.0'
+		rawTupleReads = f'nativeType.0'
 		for i in range(1, array_length):
 			tupleArguments += f', array[{i}]'
 			tupleReads += f', nativeType.{byte_array_field.var_name}.{i}'
+			rawTupleReads += f', nativeType.{i}'
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleArguments',
 																						  tupleArguments)
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleReads',
 																						  tupleReads)
 		self.filled_template += "\n" + mutating_current_byte_array_methods + "\n"
+
+		if not array_length in self.raw_tuple_generators:
+			self.raw_tuple_generators[array_length] = True
+			current_generator = f"""
+			static func array_to_tuple{array_length}(array: [UInt8]) -> {byte_array_field.swift_raw_type} {{
+        		return ({tupleArguments})
+			}}
+
+    		static func tuple{array_length}_to_array(nativeType: {byte_array_field.swift_raw_type}) -> [UInt8] {{
+				let array = [{rawTupleReads}]
+				return array
+			}}
+			"""
+
+			self.filled_template += current_generator + "\n"
+
 
 

@@ -59,6 +59,8 @@ class TraitGenerator:
 			swift_raw_return_type = current_lambda['return_type'].swift_raw_type
 			if current_lambda['return_type'].rust_obj is not None and current_lambda['return_type'].rust_obj.startswith('LDK'):
 				swift_raw_return_type = current_lambda['return_type'].rust_obj
+			elif current_lambda['return_type'].pass_by_ref and current_lambda_name == 'clone':
+				swift_raw_return_type = 'UnsafeMutableRawPointer'
 
 			current_native_callback_replacement = current_native_callback_replacement.replace(') -> Void {', f') -> {swift_raw_return_type} {{')
 

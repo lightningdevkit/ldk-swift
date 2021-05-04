@@ -42,9 +42,10 @@ class VectorGenerator(UtilGenerator):
 		else:
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('(convertedEntry)', '(currentEntry)')
 
-		if not is_primitive:
+		if not is_primitive and dimensions > 2 or is_primitive and dimensions > 3:
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_START */', '/* SWIFT_TO_RUST_START ')
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_END */', 'SWIFT_TO_RUST_END */')
+			# pass
 
 		mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive',
 																				  swift_primitive)

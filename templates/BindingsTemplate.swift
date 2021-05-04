@@ -76,4 +76,23 @@ class Bindings{
 		return array
 	}
 
+	static func new_LDKTransaction(array: [UInt8]) -> LDKTransaction {
+        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
+            let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+
+        let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: false)
+        return vector
+    }
+
+    static func LDKTransaction_to_array(nativeType: LDKTransaction) -> [UInt8] {
+        var array = [UInt8]()
+        for index in 0..<Int(nativeType.datalen) {
+            let currentEntry = nativeType.data[index]
+            array.append(currentEntry)
+        }
+        return array
+    }
+
 }

@@ -2,6 +2,7 @@ from lightning_header_parser import LightningHeaderParser
 from generators.opaque_struct_generator import OpaqueStructGenerator
 from generators.tuple_generator import TupleGenerator
 from generators.result_generator import ResultGenerator
+from generators.option_generator import OptionGenerator
 from generators.trait_generator import TraitGenerator
 from generators.util_generators.vector_generator import VectorGenerator
 from generators.util_generators.byte_array_generator import ByteArrayGenerator
@@ -59,6 +60,15 @@ def generate_result_wrappers(parser: LightningHeaderParser):
 		result_generator.generate_result(current_result, current_result_details, all_type_details=parser.type_details)
 
 
+def generate_option_wrappers(parser: LightningHeaderParser):
+	option_generator = OptionGenerator()
+
+	options = parser.option_types
+	for current_option in options:
+		current_option_details = parser.type_details[current_option]
+		option_generator.generate_option(current_option, current_option_details, all_type_details=parser.type_details)
+
+
 def generate_trait_placeholders(parser: LightningHeaderParser):
 	trait_generator = TraitGenerator()
 
@@ -74,6 +84,7 @@ def generate_sdk():
 	generate_opaque_struct_wrappers(parser)
 	generate_tuple_wrappers(parser)
 	generate_result_wrappers(parser)
+	generate_option_wrappers(parser)
 	generate_trait_placeholders(parser)
 
 

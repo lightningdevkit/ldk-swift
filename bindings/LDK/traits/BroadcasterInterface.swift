@@ -1,4 +1,4 @@
-class BroadcasterInterface {
+public class BroadcasterInterface {
 
     var cOpaqueStruct: LDKBroadcasterInterface?;
 
@@ -31,12 +31,12 @@ class BroadcasterInterface {
 
     /* SWIFT_CALLBACKS_START */
 
-    func broadcast_transaction(tx: LDKTransaction) -> Void {
+    public func broadcast_transaction(tx: LDKTransaction) -> Void {
     	/* EDIT ME */
 		
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

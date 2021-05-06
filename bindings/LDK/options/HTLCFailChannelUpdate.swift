@@ -1,4 +1,4 @@
-class HTLCFailChannelUpdate {
+public class HTLCFailChannelUpdate {
 
     var cOpaqueStruct: LDKHTLCFailChannelUpdate?;
 

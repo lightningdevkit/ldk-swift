@@ -1,4 +1,4 @@
-class TupleName {
+public class TupleName {
 
     var cOpaqueStruct: TupleType?;
 
@@ -7,7 +7,7 @@ class TupleName {
 	}
 
     /* TUPLE_METHODS_START */
-    func methodName(swift_arguments) -> Void {
+    public func methodName(swift_arguments) -> Void {
     	/* NATIVE_CALL_PREP */
         return TupleType_methodName(native_arguments);
     }

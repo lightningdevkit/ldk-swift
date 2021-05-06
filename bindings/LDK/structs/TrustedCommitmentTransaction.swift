@@ -1,16 +1,16 @@
-class TrustedCommitmentTransaction {
+public class TrustedCommitmentTransaction {
 
     var cOpaqueStruct: LDKTrustedCommitmentTransaction?;
 
 	
 
-    init(pointer: LDKTrustedCommitmentTransaction){
+    public init(pointer: LDKTrustedCommitmentTransaction){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func txid(this_arg: TrustedCommitmentTransaction) -> [UInt8] {
+    public func txid(this_arg: TrustedCommitmentTransaction) -> [UInt8] {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
@@ -22,7 +22,7 @@ class TrustedCommitmentTransaction {
         return Bindings.LDKThirtyTwoBytes_to_array(nativeType: TrustedCommitmentTransaction_txid(this_argPointer));
     }
 
-    func built_transaction(this_arg: TrustedCommitmentTransaction) -> BuiltCommitmentTransaction {
+    public func built_transaction(this_arg: TrustedCommitmentTransaction) -> BuiltCommitmentTransaction {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
@@ -34,7 +34,7 @@ class TrustedCommitmentTransaction {
         return BuiltCommitmentTransaction(pointer: TrustedCommitmentTransaction_built_transaction(this_argPointer));
     }
 
-    func keys(this_arg: TrustedCommitmentTransaction) -> TxCreationKeys {
+    public func keys(this_arg: TrustedCommitmentTransaction) -> TxCreationKeys {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
@@ -46,7 +46,7 @@ class TrustedCommitmentTransaction {
         return TxCreationKeys(pointer: TrustedCommitmentTransaction_keys(this_argPointer));
     }
 
-    func get_htlc_sigs(this_arg: TrustedCommitmentTransaction, htlc_base_key: [UInt8], channel_parameters: DirectedChannelTransactionParameters) -> Result_CVec_SignatureZNoneZ {
+    public func get_htlc_sigs(this_arg: TrustedCommitmentTransaction, htlc_base_key: [UInt8], channel_parameters: DirectedChannelTransactionParameters) -> Result_CVec_SignatureZNoneZ {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in

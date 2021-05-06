@@ -1,4 +1,4 @@
-class Result_PingDecodeErrorZ {
+public class Result_PingDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_PingDecodeErrorZ?;
 

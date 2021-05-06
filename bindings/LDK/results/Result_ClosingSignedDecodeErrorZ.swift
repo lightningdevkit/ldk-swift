@@ -1,4 +1,4 @@
-class Result_ClosingSignedDecodeErrorZ {
+public class Result_ClosingSignedDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_ClosingSignedDecodeErrorZ?;
 

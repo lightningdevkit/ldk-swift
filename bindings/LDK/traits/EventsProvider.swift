@@ -1,4 +1,4 @@
-class EventsProvider {
+public class EventsProvider {
 
     var cOpaqueStruct: LDKEventsProvider?;
 
@@ -31,12 +31,12 @@ class EventsProvider {
 
     /* SWIFT_CALLBACKS_START */
 
-    func get_and_clear_pending_events() -> [LDKEvent] {
+    public func get_and_clear_pending_events() -> [LDKEvent] {
     	/* EDIT ME */
 		return [LDKEvent]()
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

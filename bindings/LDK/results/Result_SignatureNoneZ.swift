@@ -1,4 +1,4 @@
-class Result_SignatureNoneZ {
+public class Result_SignatureNoneZ {
 
     var cOpaqueStruct: LDKCResult_SignatureNoneZ?;
 

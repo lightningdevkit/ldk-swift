@@ -1,4 +1,4 @@
-class Result_ReplyShortChannelIdsEndDecodeErrorZ {
+public class Result_ReplyShortChannelIdsEndDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_ReplyShortChannelIdsEndDecodeErrorZ?;
 

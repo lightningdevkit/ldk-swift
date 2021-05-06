@@ -1,4 +1,4 @@
-class Result_RouteHintCreationErrorZ {
+public class Result_RouteHintCreationErrorZ {
 
     var cOpaqueStruct: LDKCResult_RouteHintCreationErrorZ?;
 

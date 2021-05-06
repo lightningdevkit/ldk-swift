@@ -1,4 +1,4 @@
-class Result_PongDecodeErrorZ {
+public class Result_PongDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_PongDecodeErrorZ?;
 

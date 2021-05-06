@@ -1,4 +1,4 @@
-class Result_SecretKeyErrorZ {
+public class Result_SecretKeyErrorZ {
 
     var cOpaqueStruct: LDKCResult_SecretKeyErrorZ?;
 

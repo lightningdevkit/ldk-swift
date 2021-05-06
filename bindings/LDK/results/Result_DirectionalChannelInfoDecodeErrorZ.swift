@@ -1,4 +1,4 @@
-class Result_DirectionalChannelInfoDecodeErrorZ {
+public class Result_DirectionalChannelInfoDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_DirectionalChannelInfoDecodeErrorZ?;
 

@@ -1,16 +1,16 @@
-class HTLCUpdate {
+public class HTLCUpdate {
 
     var cOpaqueStruct: LDKHTLCUpdate?;
 
 	
 
-    init(pointer: LDKHTLCUpdate){
+    public init(pointer: LDKHTLCUpdate){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func clone(orig: HTLCUpdate) -> HTLCUpdate {
+    public func clone(orig: HTLCUpdate) -> HTLCUpdate {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKHTLCUpdate>) in
@@ -22,7 +22,7 @@ class HTLCUpdate {
         return HTLCUpdate(pointer: HTLCUpdate_clone(origPointer));
     }
 
-    func write(obj: HTLCUpdate) -> [UInt8] {
+    public func write(obj: HTLCUpdate) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKHTLCUpdate>) in
@@ -34,7 +34,7 @@ class HTLCUpdate {
         return Bindings.LDKCVec_u8Z_to_array(nativeType: HTLCUpdate_write(objPointer));
     }
 
-    func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
+    public func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
     	
         return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }

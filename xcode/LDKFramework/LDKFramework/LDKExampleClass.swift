@@ -9,8 +9,12 @@ import Foundation
 
 public class LDKExampleClass {
     
-    static func printSomething() -> Void {
+    public class func printSomething() -> Void {
         print("hello world!")
+    }
+    
+    public func printInstance() -> Void {
+        print("instance print")
     }
     
 }

@@ -1,22 +1,22 @@
-class NetworkGraph {
+public class NetworkGraph {
 
     var cOpaqueStruct: LDKNetworkGraph?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(genesis_hash: [UInt8]) {
+    public init(genesis_hash: [UInt8]) {
     	
 		let converted_genesis_hash = Bindings.new_LDKThirtyTwoBytes(array: genesis_hash)
         self.cOpaqueStruct = NetworkGraph_new(converted_genesis_hash)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKNetworkGraph){
+    public init(pointer: LDKNetworkGraph){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func clone(orig: NetworkGraph) -> NetworkGraph {
+    public func clone(orig: NetworkGraph) -> NetworkGraph {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNetworkGraph>) in
@@ -28,7 +28,7 @@ class NetworkGraph {
         return NetworkGraph(pointer: NetworkGraph_clone(origPointer));
     }
 
-    func write(obj: NetworkGraph) -> [UInt8] {
+    public func write(obj: NetworkGraph) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNetworkGraph>) in
@@ -40,12 +40,12 @@ class NetworkGraph {
         return Bindings.LDKCVec_u8Z_to_array(nativeType: NetworkGraph_write(objPointer));
     }
 
-    func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
+    public func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
     	
         return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    func update_node_from_announcement(this_arg: NetworkGraph, msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {
+    public func update_node_from_announcement(this_arg: NetworkGraph, msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -64,7 +64,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_node_from_announcement(this_argPointer, msgPointer));
     }
 
-    func update_node_from_unsigned_announcement(this_arg: NetworkGraph, msg: UnsignedNodeAnnouncement) -> Result_NoneLightningErrorZ {
+    public func update_node_from_unsigned_announcement(this_arg: NetworkGraph, msg: UnsignedNodeAnnouncement) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -83,7 +83,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_node_from_unsigned_announcement(this_argPointer, msgPointer));
     }
 
-    func update_channel_from_announcement(this_arg: NetworkGraph, msg: ChannelAnnouncement, chain_access: Access) -> Result_NoneLightningErrorZ {
+    public func update_channel_from_announcement(this_arg: NetworkGraph, msg: ChannelAnnouncement, chain_access: Access) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -109,7 +109,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_channel_from_announcement(this_argPointer, msgPointer, chain_accessPointer));
     }
 
-    func update_channel_from_unsigned_announcement(this_arg: NetworkGraph, msg: UnsignedChannelAnnouncement, chain_access: Access) -> Result_NoneLightningErrorZ {
+    public func update_channel_from_unsigned_announcement(this_arg: NetworkGraph, msg: UnsignedChannelAnnouncement, chain_access: Access) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -135,7 +135,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_channel_from_unsigned_announcement(this_argPointer, msgPointer, chain_accessPointer));
     }
 
-    func close_channel_from_update(this_arg: NetworkGraph, short_channel_id: UInt64, is_permanent: Bool) -> Void {
+    public func close_channel_from_update(this_arg: NetworkGraph, short_channel_id: UInt64, is_permanent: Bool) -> Void {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -147,7 +147,7 @@ class NetworkGraph {
         return NetworkGraph_close_channel_from_update(this_argPointer, short_channel_id, is_permanent);
     }
 
-    func update_channel(this_arg: NetworkGraph, msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
+    public func update_channel(this_arg: NetworkGraph, msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in
@@ -166,7 +166,7 @@ class NetworkGraph {
         return Result_NoneLightningErrorZ(pointer: NetworkGraph_update_channel(this_argPointer, msgPointer));
     }
 
-    func update_channel_unsigned(this_arg: NetworkGraph, msg: UnsignedChannelUpdate) -> Result_NoneLightningErrorZ {
+    public func update_channel_unsigned(this_arg: NetworkGraph, msg: UnsignedChannelUpdate) -> Result_NoneLightningErrorZ {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetworkGraph>) in

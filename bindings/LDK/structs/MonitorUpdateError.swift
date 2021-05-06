@@ -1,16 +1,16 @@
-class MonitorUpdateError {
+public class MonitorUpdateError {
 
     var cOpaqueStruct: LDKMonitorUpdateError?;
 
 	
 
-    init(pointer: LDKMonitorUpdateError){
+    public init(pointer: LDKMonitorUpdateError){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func clone(orig: MonitorUpdateError) -> MonitorUpdateError {
+    public func clone(orig: MonitorUpdateError) -> MonitorUpdateError {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKMonitorUpdateError>) in

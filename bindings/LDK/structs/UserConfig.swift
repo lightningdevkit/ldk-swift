@@ -1,21 +1,21 @@
-class UserConfig {
+public class UserConfig {
 
     var cOpaqueStruct: LDKUserConfig?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init() {
+    public init() {
     	
         self.cOpaqueStruct = UserConfig_default()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKUserConfig){
+    public init(pointer: LDKUserConfig){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_own_channel_config() -> ChannelHandshakeConfig {
+    public func get_own_channel_config() -> ChannelHandshakeConfig {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUserConfig>) in
@@ -27,7 +27,7 @@ class UserConfig {
         return ChannelHandshakeConfig(pointer: UserConfig_get_own_channel_config(this_ptrPointer));
     }
 
-    func set_own_channel_config(val: ChannelHandshakeConfig) -> Void {
+    public func set_own_channel_config(val: ChannelHandshakeConfig) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUserConfig>) in
@@ -39,7 +39,7 @@ class UserConfig {
         return UserConfig_set_own_channel_config(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    func get_peer_channel_config_limits() -> ChannelHandshakeLimits {
+    public func get_peer_channel_config_limits() -> ChannelHandshakeLimits {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUserConfig>) in
@@ -51,7 +51,7 @@ class UserConfig {
         return ChannelHandshakeLimits(pointer: UserConfig_get_peer_channel_config_limits(this_ptrPointer));
     }
 
-    func set_peer_channel_config_limits(val: ChannelHandshakeLimits) -> Void {
+    public func set_peer_channel_config_limits(val: ChannelHandshakeLimits) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUserConfig>) in
@@ -63,7 +63,7 @@ class UserConfig {
         return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    func get_channel_options() -> ChannelConfig {
+    public func get_channel_options() -> ChannelConfig {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUserConfig>) in
@@ -75,7 +75,7 @@ class UserConfig {
         return ChannelConfig(pointer: UserConfig_get_channel_options(this_ptrPointer));
     }
 
-    func set_channel_options(val: ChannelConfig) -> Void {
+    public func set_channel_options(val: ChannelConfig) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUserConfig>) in
@@ -87,7 +87,7 @@ class UserConfig {
         return UserConfig_set_channel_options(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    func clone(orig: UserConfig) -> UserConfig {
+    public func clone(orig: UserConfig) -> UserConfig {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUserConfig>) in

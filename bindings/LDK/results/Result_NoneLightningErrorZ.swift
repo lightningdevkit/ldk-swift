@@ -1,4 +1,4 @@
-class Result_NoneLightningErrorZ {
+public class Result_NoneLightningErrorZ {
 
     var cOpaqueStruct: LDKCResult_NoneLightningErrorZ?;
 

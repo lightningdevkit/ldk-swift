@@ -1,4 +1,4 @@
-class Result_SpendableOutputDescriptorDecodeErrorZ {
+public class Result_SpendableOutputDescriptorDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_SpendableOutputDescriptorDecodeErrorZ?;
 

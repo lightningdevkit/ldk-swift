@@ -1,4 +1,4 @@
-class Result_NoneErrorZ {
+public class Result_NoneErrorZ {
 
     var cOpaqueStruct: LDKCResult_NoneErrorZ?;
 

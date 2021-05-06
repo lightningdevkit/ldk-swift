@@ -1,4 +1,4 @@
-class Result_TxCreationKeysErrorZ {
+public class Result_TxCreationKeysErrorZ {
 
     var cOpaqueStruct: LDKCResult_TxCreationKeysErrorZ?;
 

@@ -1,4 +1,4 @@
-class MonitorEvent {
+public class MonitorEvent {
 
     var cOpaqueStruct: LDKMonitorEvent?;
 

@@ -1,4 +1,4 @@
-class Result_ErrorMessageDecodeErrorZ {
+public class Result_ErrorMessageDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_ErrorMessageDecodeErrorZ?;
 

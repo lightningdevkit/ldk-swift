@@ -1,4 +1,4 @@
-class Result_HTLCOutputInCommitmentDecodeErrorZ {
+public class Result_HTLCOutputInCommitmentDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ?;
 

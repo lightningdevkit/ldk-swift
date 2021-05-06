@@ -1,4 +1,4 @@
-class Result_TxOutAccessErrorZ {
+public class Result_TxOutAccessErrorZ {
 
     var cOpaqueStruct: LDKCResult_TxOutAccessErrorZ?;
 

@@ -1,4 +1,4 @@
-class Event {
+public class Event {
 
     var cOpaqueStruct: LDKEvent?;
 

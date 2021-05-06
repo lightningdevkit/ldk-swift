@@ -1,4 +1,4 @@
-class NetAddress {
+public class NetAddress {
 
     var cOpaqueStruct: LDKNetAddress?;
 

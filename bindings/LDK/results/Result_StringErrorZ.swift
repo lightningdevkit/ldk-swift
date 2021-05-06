@@ -1,4 +1,4 @@
-class Result_StringErrorZ {
+public class Result_StringErrorZ {
 
     var cOpaqueStruct: LDKCResult_StringErrorZ?;
 

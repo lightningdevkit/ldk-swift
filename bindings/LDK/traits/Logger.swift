@@ -1,4 +1,4 @@
-class Logger {
+public class Logger {
 
     var cOpaqueStruct: LDKLogger?;
 
@@ -31,12 +31,12 @@ class Logger {
 
     /* SWIFT_CALLBACKS_START */
 
-    func log(record: UnsafePointer<Int8>?) -> Void {
+    public func log(record: UnsafePointer<Int8>?) -> Void {
     	/* EDIT ME */
 		
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

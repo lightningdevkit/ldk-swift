@@ -1,4 +1,4 @@
-class Option_C2Tuple_usizeTransactionZZ {
+public class Option_C2Tuple_usizeTransactionZZ {
 
     var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?;
 

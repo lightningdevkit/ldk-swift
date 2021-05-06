@@ -1,4 +1,4 @@
-class Result_AnnouncementSignaturesDecodeErrorZ {
+public class Result_AnnouncementSignaturesDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_AnnouncementSignaturesDecodeErrorZ?;
 

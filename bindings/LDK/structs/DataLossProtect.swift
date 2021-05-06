@@ -1,9 +1,9 @@
-class DataLossProtect {
+public class DataLossProtect {
 
     var cOpaqueStruct: LDKDataLossProtect?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(your_last_per_commitment_secret_arg: [UInt8], my_current_per_commitment_point_arg: [UInt8]) {
+    public init(your_last_per_commitment_secret_arg: [UInt8], my_current_per_commitment_point_arg: [UInt8]) {
     	
 		let converted_your_last_per_commitment_secret_arg = Bindings.new_LDKThirtyTwoBytes(array: your_last_per_commitment_secret_arg)
 		let converted_my_current_per_commitment_point_arg = Bindings.new_LDKPublicKey(array: my_current_per_commitment_point_arg)
@@ -11,13 +11,13 @@ class DataLossProtect {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKDataLossProtect){
+    public init(pointer: LDKDataLossProtect){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_your_last_per_commitment_secret() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_your_last_per_commitment_secret() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDataLossProtect>) in
@@ -29,7 +29,7 @@ class DataLossProtect {
         return DataLossProtect_get_your_last_per_commitment_secret(this_ptrPointer).pointee;
     }
 
-    func set_your_last_per_commitment_secret(val: [UInt8]) -> Void {
+    public func set_your_last_per_commitment_secret(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKDataLossProtect>) in
@@ -41,7 +41,7 @@ class DataLossProtect {
         return DataLossProtect_set_your_last_per_commitment_secret(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_my_current_per_commitment_point() -> [UInt8] {
+    public func get_my_current_per_commitment_point() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDataLossProtect>) in
@@ -53,7 +53,7 @@ class DataLossProtect {
         return Bindings.LDKPublicKey_to_array(nativeType: DataLossProtect_get_my_current_per_commitment_point(this_ptrPointer));
     }
 
-    func set_my_current_per_commitment_point(val: [UInt8]) -> Void {
+    public func set_my_current_per_commitment_point(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKDataLossProtect>) in
@@ -65,7 +65,7 @@ class DataLossProtect {
         return DataLossProtect_set_my_current_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    func clone(orig: DataLossProtect) -> DataLossProtect {
+    public func clone(orig: DataLossProtect) -> DataLossProtect {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDataLossProtect>) in

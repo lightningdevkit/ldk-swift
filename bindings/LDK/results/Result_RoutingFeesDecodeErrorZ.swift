@@ -1,4 +1,4 @@
-class Result_RoutingFeesDecodeErrorZ {
+public class Result_RoutingFeesDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_RoutingFeesDecodeErrorZ?;
 

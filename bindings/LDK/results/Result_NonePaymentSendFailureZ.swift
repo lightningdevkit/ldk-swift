@@ -1,4 +1,4 @@
-class Result_NonePaymentSendFailureZ {
+public class Result_NonePaymentSendFailureZ {
 
     var cOpaqueStruct: LDKCResult_NonePaymentSendFailureZ?;
 

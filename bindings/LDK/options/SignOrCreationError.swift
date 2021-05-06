@@ -1,4 +1,4 @@
-class SignOrCreationError {
+public class SignOrCreationError {
 
     var cOpaqueStruct: LDKSignOrCreationError?;
 

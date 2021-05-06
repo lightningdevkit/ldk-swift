@@ -1,4 +1,4 @@
-class Result_NonePeerHandleErrorZ {
+public class Result_NonePeerHandleErrorZ {
 
     var cOpaqueStruct: LDKCResult_NonePeerHandleErrorZ?;
 

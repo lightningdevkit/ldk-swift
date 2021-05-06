@@ -1,4 +1,4 @@
-class Result_NoneSemanticErrorZ {
+public class Result_NoneSemanticErrorZ {
 
     var cOpaqueStruct: LDKCResult_NoneSemanticErrorZ?;
 

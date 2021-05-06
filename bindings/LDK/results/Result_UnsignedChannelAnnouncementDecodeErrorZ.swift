@@ -1,4 +1,4 @@
-class Result_UnsignedChannelAnnouncementDecodeErrorZ {
+public class Result_UnsignedChannelAnnouncementDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_UnsignedChannelAnnouncementDecodeErrorZ?;
 

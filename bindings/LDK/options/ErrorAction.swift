@@ -1,4 +1,4 @@
-class ErrorAction {
+public class ErrorAction {
 
     var cOpaqueStruct: LDKErrorAction?;
 

@@ -1,16 +1,16 @@
-class PayeePubKey {
+public class PayeePubKey {
 
     var cOpaqueStruct: LDKPayeePubKey?;
 
 	
 
-    init(pointer: LDKPayeePubKey){
+    public init(pointer: LDKPayeePubKey){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func clone(orig: PayeePubKey) -> PayeePubKey {
+    public func clone(orig: PayeePubKey) -> PayeePubKey {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPayeePubKey>) in

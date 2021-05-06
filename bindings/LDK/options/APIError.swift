@@ -1,4 +1,4 @@
-class APIError {
+public class APIError {
 
     var cOpaqueStruct: LDKAPIError?;
 

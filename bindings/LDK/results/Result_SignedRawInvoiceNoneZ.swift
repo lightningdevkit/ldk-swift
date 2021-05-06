@@ -1,4 +1,4 @@
-class Result_SignedRawInvoiceNoneZ {
+public class Result_SignedRawInvoiceNoneZ {
 
     var cOpaqueStruct: LDKCResult_SignedRawInvoiceNoneZ?;
 

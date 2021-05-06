@@ -1,4 +1,4 @@
-class Result_RouteLightningErrorZ {
+public class Result_RouteLightningErrorZ {
 
     var cOpaqueStruct: LDKCResult_RouteLightningErrorZ?;
 

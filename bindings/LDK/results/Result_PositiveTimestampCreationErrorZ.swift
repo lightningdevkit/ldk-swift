@@ -1,4 +1,4 @@
-class Result_PositiveTimestampCreationErrorZ {
+public class Result_PositiveTimestampCreationErrorZ {
 
     var cOpaqueStruct: LDKCResult_PositiveTimestampCreationErrorZ?;
 

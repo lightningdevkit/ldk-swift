@@ -1,9 +1,9 @@
-class NetGraphMsgHandler {
+public class NetGraphMsgHandler {
 
     var cOpaqueStruct: LDKNetGraphMsgHandler?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(chain_access: Access, logger: Logger, network_graph: NetworkGraph) {
+    public init(chain_access: Access, logger: Logger, network_graph: NetworkGraph) {
     	
 							
 		let chain_accessPointer = withUnsafeMutablePointer(to: &chain_access.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKAccess>) in
@@ -16,13 +16,13 @@ class NetGraphMsgHandler {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKNetGraphMsgHandler){
+    public init(pointer: LDKNetGraphMsgHandler){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func add_chain_access(this_arg: NetGraphMsgHandler, chain_access: Access) -> Void {
+    public func add_chain_access(this_arg: NetGraphMsgHandler, chain_access: Access) -> Void {
     	
 						
 		let this_argPointer = withUnsafeMutablePointer(to: &this_arg.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKNetGraphMsgHandler>) in
@@ -41,7 +41,7 @@ class NetGraphMsgHandler {
         return NetGraphMsgHandler_add_chain_access(this_argPointer, chain_accessPointer);
     }
 
-    func read_locked_graph(this_arg: NetGraphMsgHandler) -> LockedNetworkGraph {
+    public func read_locked_graph(this_arg: NetGraphMsgHandler) -> LockedNetworkGraph {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNetGraphMsgHandler>) in
@@ -53,7 +53,7 @@ class NetGraphMsgHandler {
         return LockedNetworkGraph(pointer: NetGraphMsgHandler_read_locked_graph(this_argPointer));
     }
 
-    func as_RoutingMessageHandler(this_arg: NetGraphMsgHandler) -> RoutingMessageHandler {
+    public func as_RoutingMessageHandler(this_arg: NetGraphMsgHandler) -> RoutingMessageHandler {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNetGraphMsgHandler>) in
@@ -65,7 +65,7 @@ class NetGraphMsgHandler {
         return RoutingMessageHandler(pointer: NetGraphMsgHandler_as_RoutingMessageHandler(this_argPointer));
     }
 
-    func as_MessageSendEventsProvider(this_arg: NetGraphMsgHandler) -> MessageSendEventsProvider {
+    public func as_MessageSendEventsProvider(this_arg: NetGraphMsgHandler) -> MessageSendEventsProvider {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKNetGraphMsgHandler>) in

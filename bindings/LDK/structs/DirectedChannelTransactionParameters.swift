@@ -1,16 +1,16 @@
-class DirectedChannelTransactionParameters {
+public class DirectedChannelTransactionParameters {
 
     var cOpaqueStruct: LDKDirectedChannelTransactionParameters?;
 
 	
 
-    init(pointer: LDKDirectedChannelTransactionParameters){
+    public init(pointer: LDKDirectedChannelTransactionParameters){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func broadcaster_pubkeys(this_arg: DirectedChannelTransactionParameters) -> ChannelPublicKeys {
+    public func broadcaster_pubkeys(this_arg: DirectedChannelTransactionParameters) -> ChannelPublicKeys {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
@@ -22,7 +22,7 @@ class DirectedChannelTransactionParameters {
         return ChannelPublicKeys(pointer: DirectedChannelTransactionParameters_broadcaster_pubkeys(this_argPointer));
     }
 
-    func countersignatory_pubkeys(this_arg: DirectedChannelTransactionParameters) -> ChannelPublicKeys {
+    public func countersignatory_pubkeys(this_arg: DirectedChannelTransactionParameters) -> ChannelPublicKeys {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
@@ -34,7 +34,7 @@ class DirectedChannelTransactionParameters {
         return ChannelPublicKeys(pointer: DirectedChannelTransactionParameters_countersignatory_pubkeys(this_argPointer));
     }
 
-    func contest_delay(this_arg: DirectedChannelTransactionParameters) -> UInt16 {
+    public func contest_delay(this_arg: DirectedChannelTransactionParameters) -> UInt16 {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
@@ -46,7 +46,7 @@ class DirectedChannelTransactionParameters {
         return DirectedChannelTransactionParameters_contest_delay(this_argPointer);
     }
 
-    func is_outbound(this_arg: DirectedChannelTransactionParameters) -> Bool {
+    public func is_outbound(this_arg: DirectedChannelTransactionParameters) -> Bool {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
@@ -58,7 +58,7 @@ class DirectedChannelTransactionParameters {
         return DirectedChannelTransactionParameters_is_outbound(this_argPointer);
     }
 
-    func funding_outpoint(this_arg: DirectedChannelTransactionParameters) -> OutPoint {
+    public func funding_outpoint(this_arg: DirectedChannelTransactionParameters) -> OutPoint {
     	
 						
 		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in

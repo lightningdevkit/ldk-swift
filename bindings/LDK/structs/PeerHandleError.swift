@@ -1,21 +1,21 @@
-class PeerHandleError {
+public class PeerHandleError {
 
     var cOpaqueStruct: LDKPeerHandleError?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(no_connection_possible_arg: Bool) {
+    public init(no_connection_possible_arg: Bool) {
     	
         self.cOpaqueStruct = PeerHandleError_new(no_connection_possible_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKPeerHandleError){
+    public init(pointer: LDKPeerHandleError){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_no_connection_possible() -> Bool {
+    public func get_no_connection_possible() -> Bool {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPeerHandleError>) in
@@ -27,7 +27,7 @@ class PeerHandleError {
         return PeerHandleError_get_no_connection_possible(this_ptrPointer);
     }
 
-    func set_no_connection_possible(val: Bool) -> Void {
+    public func set_no_connection_possible(val: Bool) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKPeerHandleError>) in
@@ -39,7 +39,7 @@ class PeerHandleError {
         return PeerHandleError_set_no_connection_possible(this_ptrPointer, val);
     }
 
-    func clone(orig: PeerHandleError) -> PeerHandleError {
+    public func clone(orig: PeerHandleError) -> PeerHandleError {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPeerHandleError>) in

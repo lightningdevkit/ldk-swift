@@ -1,4 +1,4 @@
-class Result_RecoverableSignatureNoneZ {
+public class Result_RecoverableSignatureNoneZ {
 
     var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?;
 

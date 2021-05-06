@@ -1,4 +1,4 @@
-class Result_InvoiceSignOrCreationErrorZ {
+public class Result_InvoiceSignOrCreationErrorZ {
 
     var cOpaqueStruct: LDKCResult_InvoiceSignOrCreationErrorZ?;
 

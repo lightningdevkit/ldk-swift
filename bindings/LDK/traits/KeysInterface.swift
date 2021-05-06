@@ -1,4 +1,4 @@
-class KeysInterface {
+public class KeysInterface {
 
     var cOpaqueStruct: LDKKeysInterface?;
 
@@ -73,42 +73,42 @@ class KeysInterface {
 
     /* SWIFT_CALLBACKS_START */
 
-    func get_node_secret() -> [UInt8] {
+    public func get_node_secret() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func get_destination_script() -> [UInt8] {
+    public func get_destination_script() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func get_shutdown_pubkey() -> [UInt8] {
+    public func get_shutdown_pubkey() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
+    public func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
     	/* EDIT ME */
 		return Sign(pointer: LDKSign())
     }
 
-    func get_secure_random_bytes() -> [UInt8] {
+    public func get_secure_random_bytes() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func read_chan_signer(reader: LDKu8slice) -> Result_SignDecodeErrorZ {
+    public func read_chan_signer(reader: LDKu8slice) -> Result_SignDecodeErrorZ {
     	/* EDIT ME */
 		return Result_SignDecodeErrorZ(pointer: LDKCResult_SignDecodeErrorZ())
     }
 
-    func sign_invoice(invoice_preimage: LDKCVec_u8Z) -> Result_RecoverableSignatureNoneZ {
+    public func sign_invoice(invoice_preimage: LDKCVec_u8Z) -> Result_RecoverableSignatureNoneZ {
     	/* EDIT ME */
 		return Result_RecoverableSignatureNoneZ(pointer: LDKCResult_RecoverableSignatureNoneZ())
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

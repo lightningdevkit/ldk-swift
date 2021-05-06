@@ -1,4 +1,4 @@
-class Result_HTLCUpdateDecodeErrorZ {
+public class Result_HTLCUpdateDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_HTLCUpdateDecodeErrorZ?;
 

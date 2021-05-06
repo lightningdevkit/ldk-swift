@@ -1,4 +1,4 @@
-class Result_InvoiceNoneZ {
+public class Result_InvoiceNoneZ {
 
     var cOpaqueStruct: LDKCResult_InvoiceNoneZ?;
 

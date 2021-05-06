@@ -1,9 +1,9 @@
-class Shutdown {
+public class Shutdown {
 
     var cOpaqueStruct: LDKShutdown?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(channel_id_arg: [UInt8], scriptpubkey_arg: [UInt8]) {
+    public init(channel_id_arg: [UInt8], scriptpubkey_arg: [UInt8]) {
     	
 		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
 		let converted_scriptpubkey_arg = Bindings.new_LDKCVec_u8Z(array: scriptpubkey_arg)
@@ -11,13 +11,13 @@ class Shutdown {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKShutdown){
+    public init(pointer: LDKShutdown){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKShutdown>) in
@@ -29,7 +29,7 @@ class Shutdown {
         return Shutdown_get_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_channel_id(val: [UInt8]) -> Void {
+    public func set_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKShutdown>) in
@@ -41,7 +41,7 @@ class Shutdown {
         return Shutdown_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_scriptpubkey() -> [UInt8] {
+    public func get_scriptpubkey() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKShutdown>) in
@@ -53,7 +53,7 @@ class Shutdown {
         return Bindings.LDKu8slice_to_array(nativeType: Shutdown_get_scriptpubkey(this_ptrPointer));
     }
 
-    func set_scriptpubkey(val: [UInt8]) -> Void {
+    public func set_scriptpubkey(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKShutdown>) in
@@ -65,7 +65,7 @@ class Shutdown {
         return Shutdown_set_scriptpubkey(this_ptrPointer, Bindings.new_LDKCVec_u8Z(array: val));
     }
 
-    func clone(orig: Shutdown) -> Shutdown {
+    public func clone(orig: Shutdown) -> Shutdown {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKShutdown>) in
@@ -77,7 +77,7 @@ class Shutdown {
         return Shutdown(pointer: Shutdown_clone(origPointer));
     }
 
-    func write(obj: Shutdown) -> [UInt8] {
+    public func write(obj: Shutdown) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKShutdown>) in
@@ -89,7 +89,7 @@ class Shutdown {
         return Bindings.LDKCVec_u8Z_to_array(nativeType: Shutdown_write(objPointer));
     }
 
-    func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
+    public func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
     	
         return Result_ShutdownDecodeErrorZ(pointer: Shutdown_read(Bindings.new_LDKu8slice(array: ser)));
     }

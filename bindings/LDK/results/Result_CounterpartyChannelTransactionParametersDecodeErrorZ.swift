@@ -1,4 +1,4 @@
-class Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
+public class Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_CounterpartyChannelTransactionParametersDecodeErrorZ?;
 

@@ -1,4 +1,4 @@
-class Result_SiPrefixNoneZ {
+public class Result_SiPrefixNoneZ {
 
     var cOpaqueStruct: LDKCResult_SiPrefixNoneZ?;
 

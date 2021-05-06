@@ -1,9 +1,9 @@
-class FundingCreated {
+public class FundingCreated {
 
     var cOpaqueStruct: LDKFundingCreated?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(temporary_channel_id_arg: [UInt8], funding_txid_arg: [UInt8], funding_output_index_arg: UInt16, signature_arg: [UInt8]) {
+    public init(temporary_channel_id_arg: [UInt8], funding_txid_arg: [UInt8], funding_output_index_arg: UInt16, signature_arg: [UInt8]) {
     	
 		let converted_temporary_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id_arg)
 		let converted_funding_txid_arg = Bindings.new_LDKThirtyTwoBytes(array: funding_txid_arg)
@@ -12,13 +12,13 @@ class FundingCreated {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKFundingCreated){
+    public init(pointer: LDKFundingCreated){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_temporary_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_temporary_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFundingCreated>) in
@@ -30,7 +30,7 @@ class FundingCreated {
         return FundingCreated_get_temporary_channel_id(this_ptrPointer).pointee;
     }
 
-    func set_temporary_channel_id(val: [UInt8]) -> Void {
+    public func set_temporary_channel_id(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKFundingCreated>) in
@@ -42,7 +42,7 @@ class FundingCreated {
         return FundingCreated_set_temporary_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_funding_txid() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_funding_txid() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFundingCreated>) in
@@ -54,7 +54,7 @@ class FundingCreated {
         return FundingCreated_get_funding_txid(this_ptrPointer).pointee;
     }
 
-    func set_funding_txid(val: [UInt8]) -> Void {
+    public func set_funding_txid(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKFundingCreated>) in
@@ -66,7 +66,7 @@ class FundingCreated {
         return FundingCreated_set_funding_txid(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    func get_funding_output_index() -> UInt16 {
+    public func get_funding_output_index() -> UInt16 {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFundingCreated>) in
@@ -78,7 +78,7 @@ class FundingCreated {
         return FundingCreated_get_funding_output_index(this_ptrPointer);
     }
 
-    func set_funding_output_index(val: UInt16) -> Void {
+    public func set_funding_output_index(val: UInt16) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKFundingCreated>) in
@@ -90,7 +90,7 @@ class FundingCreated {
         return FundingCreated_set_funding_output_index(this_ptrPointer, val);
     }
 
-    func get_signature() -> [UInt8] {
+    public func get_signature() -> [UInt8] {
     	
 						
 		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFundingCreated>) in
@@ -102,7 +102,7 @@ class FundingCreated {
         return Bindings.LDKSignature_to_array(nativeType: FundingCreated_get_signature(this_ptrPointer));
     }
 
-    func set_signature(val: [UInt8]) -> Void {
+    public func set_signature(val: [UInt8]) -> Void {
     	
 						
 		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKFundingCreated>) in
@@ -114,7 +114,7 @@ class FundingCreated {
         return FundingCreated_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    func clone(orig: FundingCreated) -> FundingCreated {
+    public func clone(orig: FundingCreated) -> FundingCreated {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFundingCreated>) in
@@ -126,7 +126,7 @@ class FundingCreated {
         return FundingCreated(pointer: FundingCreated_clone(origPointer));
     }
 
-    func write(obj: FundingCreated) -> [UInt8] {
+    public func write(obj: FundingCreated) -> [UInt8] {
     	
 						
 		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFundingCreated>) in
@@ -138,7 +138,7 @@ class FundingCreated {
         return Bindings.LDKCVec_u8Z_to_array(nativeType: FundingCreated_write(objPointer));
     }
 
-    func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
+    public func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
     	
         return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(Bindings.new_LDKu8slice(array: ser)));
     }

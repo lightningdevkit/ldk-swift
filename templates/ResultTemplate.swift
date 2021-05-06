@@ -1,4 +1,4 @@
-class ResultName {
+public class ResultName {
 
     var cOpaqueStruct: ResultType?;
 

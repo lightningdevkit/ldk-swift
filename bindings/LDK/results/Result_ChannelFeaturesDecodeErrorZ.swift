@@ -1,4 +1,4 @@
-class Result_ChannelFeaturesDecodeErrorZ {
+public class Result_ChannelFeaturesDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_ChannelFeaturesDecodeErrorZ?;
 

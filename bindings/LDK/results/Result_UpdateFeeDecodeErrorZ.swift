@@ -1,4 +1,4 @@
-class Result_UpdateFeeDecodeErrorZ {
+public class Result_UpdateFeeDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_UpdateFeeDecodeErrorZ?;
 

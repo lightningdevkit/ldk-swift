@@ -11,15 +11,10 @@ public class Sha256 {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: Sha256) -> Sha256 {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKSha256>) in
-							
-			pointer
-						
-		}
-					
-        return Sha256(pointer: Sha256_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
+Sha256(pointer: Sha256_clone(origPointer))
+};
     }
 
 				

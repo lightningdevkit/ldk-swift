@@ -16,31 +16,21 @@ public class ChannelFeatures {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: ChannelFeatures) -> ChannelFeatures {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelFeatures>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelFeatures(pointer: ChannelFeatures_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelFeatures>) in
+ChannelFeatures(pointer: ChannelFeatures_clone(origPointer))
+};
     }
 
     public func write(obj: ChannelFeatures) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelFeatures>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelFeatures_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelFeatures>) in
+ChannelFeatures_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_ChannelFeaturesDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

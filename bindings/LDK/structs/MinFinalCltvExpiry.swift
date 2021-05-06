@@ -11,15 +11,10 @@ public class MinFinalCltvExpiry {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: MinFinalCltvExpiry) -> MinFinalCltvExpiry {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-							
-			pointer
-						
-		}
-					
-        return MinFinalCltvExpiry(pointer: MinFinalCltvExpiry_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+MinFinalCltvExpiry(pointer: MinFinalCltvExpiry_clone(origPointer))
+};
     }
 
 				

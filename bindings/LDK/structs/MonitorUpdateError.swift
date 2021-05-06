@@ -11,15 +11,10 @@ public class MonitorUpdateError {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: MonitorUpdateError) -> MonitorUpdateError {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKMonitorUpdateError>) in
-							
-			pointer
-						
-		}
-					
-        return MonitorUpdateError(pointer: MonitorUpdateError_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMonitorUpdateError>) in
+MonitorUpdateError(pointer: MonitorUpdateError_clone(origPointer))
+};
     }
 
 				

@@ -11,15 +11,10 @@ public class LockedNetworkGraph {
     /* STRUCT_METHODS_START */
 
     public func graph(this_arg: LockedNetworkGraph) -> NetworkGraph {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKLockedNetworkGraph>) in
-							
-			pointer
-						
-		}
-					
-        return NetworkGraph(pointer: LockedNetworkGraph_graph(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return NetworkGraph(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKLockedNetworkGraph>) in
+LockedNetworkGraph_graph(this_argPointer)
+});
     }
 
 				

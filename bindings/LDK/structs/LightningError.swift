@@ -17,63 +17,38 @@ public class LightningError {
     /* STRUCT_METHODS_START */
 
     public func get_err() -> String {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKLightningError>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKStr_to_string(nativeType: LightningError_get_err(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKLightningError>) in
+LightningError_get_err(this_ptrPointer)
+});
     }
 
     public func set_err(val: String) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKLightningError>) in
-							
-			pointer
-						
-		}
-					
-        return LightningError_set_err(this_ptrPointer, Bindings.new_LDKStr(string: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKLightningError>) in
+LightningError_set_err(this_ptrPointer, Bindings.new_LDKStr(string: val))
+};
     }
 
     public func get_action() -> ErrorAction {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKLightningError>) in
-							
-			pointer
-						
-		}
-					
-        return ErrorAction(pointer: LightningError_get_action(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return ErrorAction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKLightningError>) in
+LightningError_get_action(this_ptrPointer)
+});
     }
 
     public func set_action(val: ErrorAction) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKLightningError>) in
-							
-			pointer
-						
-		}
-					
-        return LightningError_set_action(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKLightningError>) in
+LightningError_set_action(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func clone(orig: LightningError) -> LightningError {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKLightningError>) in
-							
-			pointer
-						
-		}
-					
-        return LightningError(pointer: LightningError_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKLightningError>) in
+LightningError(pointer: LightningError_clone(origPointer))
+};
     }
 
 				

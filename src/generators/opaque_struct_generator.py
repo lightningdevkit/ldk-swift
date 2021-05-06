@@ -3,6 +3,7 @@ import os
 
 from config import Config
 from type_parsing_regeces import TypeParsingRegeces
+from conversion_helper import ConversionHelper
 
 
 class OpaqueStructGenerator:
@@ -174,91 +175,28 @@ class OpaqueStructGenerator:
 
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
+			# replace arguments
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'])
+			swift_arguments = prepared_arguments["swift_arguments"]
+			native_arguments = prepared_arguments['native_arguments']
+			native_call_prefix = prepared_arguments['native_call_prefix']
+			native_call_suffix = prepared_arguments['native_call_suffix']
+
+			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
+			if is_clone_method:
+				# add closing parenthesis that could not be added further up in the clone initializer
+				current_replacement = current_replacement.replace('OpaqueStructType_methodName(native_arguments)', native_call_prefix + 'OpaqueStructType_methodName(' + ', '.join(native_arguments) + '))' + native_call_suffix)
+			else:
+				current_replacement = current_replacement.replace('OpaqueStructType_methodName(native_arguments)', native_call_prefix + 'OpaqueStructType_methodName(' + ', '.join(native_arguments) + ')' + native_call_suffix)
+			# current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
+			current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
+
 			if is_clone_method:
 				current_replacement = current_replacement.replace('OpaqueStructType_methodName(',
 																  f'{swift_struct_name}(pointer: {current_native_method_name}(')
 			else:
 				current_replacement = current_replacement.replace('OpaqueStructType_methodName(',
 																  f'{current_native_method_name}(')
-			# replace arguments
-			swift_arguments = []
-			native_arguments = []
-			native_call_prep = ''
-			for current_argument_details in current_method_details['argument_types']:
-				pass_instance = False
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				if argument_name == 'this_ptr':
-					pass_instance = True
-
-				if current_argument_details.is_ptr:
-					passed_argument_name = argument_name + 'Pointer'
-					requires_mutability = not current_argument_details.is_const
-
-					reference_prefix = ''
-					mutability_infix = ''
-
-					if pass_instance:
-						argument_name = 'self'
-					if requires_mutability:
-						# argument_name = '&' + argument_name
-						reference_prefix = '&'
-						mutability_infix = 'Mutable'
-					# let managerPointer = withUnsafePointer(to: self.cChannelManager!) { (pointer: UnsafePointer<LDKChannelManager>) in
-					# 	pointer
-					# }
-					# the \n\t will add a bunch of extra lines, but this file will be easier to read
-					current_prep = f'''
-						\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
-							\n\t\t	pointer
-						\n\t	}}
-					'''
-					native_call_prep += current_prep
-
-				swift_argument_type = current_argument_details.swift_type
-				if not pass_instance:
-					if swift_argument_type == 'TxOut':
-						swift_argument_type = 'LDKTxOut'
-
-					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
-						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
-					swift_arguments.append(f'{argument_name}: {swift_argument_type}')
-
-				# native_arguments.append(f'{passed_argument_name}')
-				if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:
-					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
-				elif current_argument_details.rust_obj == 'LDKC' + swift_argument_type and not current_argument_details.is_ptr:
-					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
-				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
-					'LDK') and swift_argument_type.startswith('['):
-					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
-				elif swift_argument_type == 'String':
-					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name})')
-				elif current_argument_details.rust_obj is None and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
-					if current_argument_details.is_const:
-						passed_argument_name = argument_name + 'Pointer'
-						current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafePointer(to: Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})) {{ (pointer: UnsafePointer<{current_argument_details.swift_raw_type}>) in
-								\n\t\t	pointer
-							\n\t	}}
-						'''
-						native_call_prep += current_prep
-						native_arguments.append(passed_argument_name)
-					else:
-						native_arguments.append(f'Bindings.array_to_tuple{current_argument_details.arr_len}(array: {passed_argument_name})')
-				else:
-					native_arguments.append(f'{passed_argument_name}')
-
-
-
-			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
-			if is_clone_method:
-				# add closing parenthesis that could not be added further up in the clone initializer
-				current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments) + ')')
-			else:
-				current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments))
-			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
-			current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
 
 			struct_methods += '\n' + current_replacement + '\n'
 

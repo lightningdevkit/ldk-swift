@@ -11,15 +11,10 @@ public class InvoiceSignature {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: InvoiceSignature) -> InvoiceSignature {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInvoiceSignature>) in
-							
-			pointer
-						
-		}
-					
-        return InvoiceSignature(pointer: InvoiceSignature_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceSignature>) in
+InvoiceSignature(pointer: InvoiceSignature_clone(origPointer))
+};
     }
 
 				

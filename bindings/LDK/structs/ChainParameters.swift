@@ -16,51 +16,31 @@ public class ChainParameters {
     /* STRUCT_METHODS_START */
 
     public func get_network() -> LDKNetwork {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainParameters>) in
-							
-			pointer
-						
-		}
-					
-        return ChainParameters_get_network(this_ptrPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChainParameters>) in
+ChainParameters_get_network(this_ptrPointer)
+};
     }
 
     public func set_network(val: LDKNetwork) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChainParameters>) in
-							
-			pointer
-						
-		}
-					
-        return ChainParameters_set_network(this_ptrPointer, val);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChainParameters>) in
+ChainParameters_set_network(this_ptrPointer, val)
+};
     }
 
     public func get_best_block() -> BestBlock {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainParameters>) in
-							
-			pointer
-						
-		}
-					
-        return BestBlock(pointer: ChainParameters_get_best_block(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return BestBlock(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChainParameters>) in
+ChainParameters_get_best_block(this_ptrPointer)
+});
     }
 
     public func set_best_block(val: BestBlock) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChainParameters>) in
-							
-			pointer
-						
-		}
-					
-        return ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChainParameters>) in
+ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
 				

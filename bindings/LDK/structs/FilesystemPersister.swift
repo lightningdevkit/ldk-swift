@@ -17,51 +17,31 @@ public class FilesystemPersister {
     /* STRUCT_METHODS_START */
 
     public func get_data_dir(this_arg: FilesystemPersister) -> String {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFilesystemPersister>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKStr_to_string(nativeType: FilesystemPersister_get_data_dir(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+FilesystemPersister_get_data_dir(this_argPointer)
+});
     }
 
     public func persist_manager(data_dir: String, manager: ChannelManager) -> Result_NoneErrorZ {
-    	
-						
-		let managerPointer = withUnsafePointer(to: manager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) in
-							
-			pointer
-						
-		}
-					
-        return Result_NoneErrorZ(pointer: FilesystemPersister_persist_manager(Bindings.new_LDKStr(string: data_dir), managerPointer));
+    	/* NATIVE_CALL_PREP */
+        return Result_NoneErrorZ(pointer: withUnsafePointer(to: manager.cOpaqueStruct!) { (managerPointer: UnsafePointer<LDKChannelManager>) in
+FilesystemPersister_persist_manager(Bindings.new_LDKStr(string: data_dir), managerPointer)
+});
     }
 
     public func read_channelmonitors(this_arg: FilesystemPersister, keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFilesystemPersister>) in
-							
-			pointer
-						
-		}
-					
-        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueStruct!));
+    	/* NATIVE_CALL_PREP */
+        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueStruct!)
+});
     }
 
     public func as_Persist(this_arg: FilesystemPersister) -> Persist {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKFilesystemPersister>) in
-							
-			pointer
-						
-		}
-					
-        return Persist(pointer: FilesystemPersister_as_Persist(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return Persist(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+FilesystemPersister_as_Persist(this_argPointer)
+});
     }
 
 				

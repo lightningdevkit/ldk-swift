@@ -16,55 +16,35 @@ public class Init {
     /* STRUCT_METHODS_START */
 
     public func get_features() -> InitFeatures {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInit>) in
-							
-			pointer
-						
-		}
-					
-        return InitFeatures(pointer: Init_get_features(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return InitFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKInit>) in
+Init_get_features(this_ptrPointer)
+});
     }
 
     public func set_features(val: InitFeatures) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKInit>) in
-							
-			pointer
-						
-		}
-					
-        return Init_set_features(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKInit>) in
+Init_set_features(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func clone(orig: Init) -> Init {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInit>) in
-							
-			pointer
-						
-		}
-					
-        return Init(pointer: Init_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInit>) in
+Init(pointer: Init_clone(origPointer))
+};
     }
 
     public func write(obj: Init) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInit>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: Init_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInit>) in
+Init_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_InitDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_InitDecodeErrorZ(pointer: Init_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

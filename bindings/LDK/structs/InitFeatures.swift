@@ -16,31 +16,21 @@ public class InitFeatures {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: InitFeatures) -> InitFeatures {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInitFeatures>) in
-							
-			pointer
-						
-		}
-					
-        return InitFeatures(pointer: InitFeatures_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures(pointer: InitFeatures_clone(origPointer))
+};
     }
 
     public func write(obj: InitFeatures) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInitFeatures>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: InitFeatures_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_InitFeaturesDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_InitFeaturesDecodeErrorZ(pointer: InitFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

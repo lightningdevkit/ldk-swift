@@ -17,104 +17,64 @@ public class GossipTimestampFilter {
     /* STRUCT_METHODS_START */
 
     public func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return GossipTimestampFilter_get_chain_hash(this_ptrPointer).pointee;
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_get_chain_hash(this_ptrPointer)
+}.pointee;
     }
 
     public func set_chain_hash(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return GossipTimestampFilter_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val))
+};
     }
 
     public func get_first_timestamp() -> UInt32 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return GossipTimestampFilter_get_first_timestamp(this_ptrPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_get_first_timestamp(this_ptrPointer)
+};
     }
 
     public func set_first_timestamp(val: UInt32) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return GossipTimestampFilter_set_first_timestamp(this_ptrPointer, val);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_set_first_timestamp(this_ptrPointer, val)
+};
     }
 
     public func get_timestamp_range() -> UInt32 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return GossipTimestampFilter_get_timestamp_range(this_ptrPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_get_timestamp_range(this_ptrPointer)
+};
     }
 
     public func set_timestamp_range(val: UInt32) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return GossipTimestampFilter_set_timestamp_range(this_ptrPointer, val);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_set_timestamp_range(this_ptrPointer, val)
+};
     }
 
     public func clone(orig: GossipTimestampFilter) -> GossipTimestampFilter {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return GossipTimestampFilter(pointer: GossipTimestampFilter_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter(pointer: GossipTimestampFilter_clone(origPointer))
+};
     }
 
     public func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     public func write(obj: GossipTimestampFilter) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKGossipTimestampFilter>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: GossipTimestampFilter_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_write(objPointer)
+});
     }
 
 				

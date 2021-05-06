@@ -11,15 +11,10 @@ public class PayeePubKey {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: PayeePubKey) -> PayeePubKey {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPayeePubKey>) in
-							
-			pointer
-						
-		}
-					
-        return PayeePubKey(pointer: PayeePubKey_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPayeePubKey>) in
+PayeePubKey(pointer: PayeePubKey_clone(origPointer))
+};
     }
 
 				

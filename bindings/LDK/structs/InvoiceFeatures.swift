@@ -16,31 +16,21 @@ public class InvoiceFeatures {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: InvoiceFeatures) -> InvoiceFeatures {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInvoiceFeatures>) in
-							
-			pointer
-						
-		}
-					
-        return InvoiceFeatures(pointer: InvoiceFeatures_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures(pointer: InvoiceFeatures_clone(origPointer))
+};
     }
 
     public func write(obj: InvoiceFeatures) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInvoiceFeatures>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: InvoiceFeatures_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_InvoiceFeaturesDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

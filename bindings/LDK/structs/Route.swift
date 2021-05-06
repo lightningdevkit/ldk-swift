@@ -17,43 +17,28 @@ public class Route {
     /* STRUCT_METHODS_START */
 
     public func set_paths(val: [[LDKRouteHop]]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKRoute>) in
-							
-			pointer
-						
-		}
-					
-        return Route_set_paths(this_ptrPointer, Bindings.new_LDKCVec_CVec_RouteHopZZ(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKRoute>) in
+Route_set_paths(this_ptrPointer, Bindings.new_LDKCVec_CVec_RouteHopZZ(array: val))
+};
     }
 
     public func clone(orig: Route) -> Route {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRoute>) in
-							
-			pointer
-						
-		}
-					
-        return Route(pointer: Route_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoute>) in
+Route(pointer: Route_clone(origPointer))
+};
     }
 
     public func write(obj: Route) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRoute>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: Route_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoute>) in
+Route_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_RouteDecodeErrorZ(pointer: Route_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

@@ -16,27 +16,17 @@ public class IgnoringMessageHandler {
     /* STRUCT_METHODS_START */
 
     public func as_MessageSendEventsProvider(this_arg: IgnoringMessageHandler) -> MessageSendEventsProvider {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKIgnoringMessageHandler>) in
-							
-			pointer
-						
-		}
-					
-        return MessageSendEventsProvider(pointer: IgnoringMessageHandler_as_MessageSendEventsProvider(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return MessageSendEventsProvider(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+IgnoringMessageHandler_as_MessageSendEventsProvider(this_argPointer)
+});
     }
 
     public func as_RoutingMessageHandler(this_arg: IgnoringMessageHandler) -> RoutingMessageHandler {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKIgnoringMessageHandler>) in
-							
-			pointer
-						
-		}
-					
-        return RoutingMessageHandler(pointer: IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return RoutingMessageHandler(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
+});
     }
 
 				

@@ -23,51 +23,31 @@ public class ChainMonitor {
     /* STRUCT_METHODS_START */
 
     public func as_Listen(this_arg: ChainMonitor) -> Listen {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainMonitor>) in
-							
-			pointer
-						
-		}
-					
-        return Listen(pointer: ChainMonitor_as_Listen(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return Listen(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_as_Listen(this_argPointer)
+});
     }
 
     public func as_Confirm(this_arg: ChainMonitor) -> Confirm {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainMonitor>) in
-							
-			pointer
-						
-		}
-					
-        return Confirm(pointer: ChainMonitor_as_Confirm(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return Confirm(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_as_Confirm(this_argPointer)
+});
     }
 
     public func as_Watch(this_arg: ChainMonitor) -> Watch {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainMonitor>) in
-							
-			pointer
-						
-		}
-					
-        return Watch(pointer: ChainMonitor_as_Watch(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return Watch(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_as_Watch(this_argPointer)
+});
     }
 
     public func as_EventsProvider(this_arg: ChainMonitor) -> EventsProvider {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChainMonitor>) in
-							
-			pointer
-						
-		}
-					
-        return EventsProvider(pointer: ChainMonitor_as_EventsProvider(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return EventsProvider(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_as_EventsProvider(this_argPointer)
+});
     }
 
 				

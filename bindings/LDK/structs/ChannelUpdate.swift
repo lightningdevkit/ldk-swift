@@ -17,79 +17,49 @@ public class ChannelUpdate {
     /* STRUCT_METHODS_START */
 
     public func get_signature() -> [UInt8] {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKSignature_to_array(nativeType: ChannelUpdate_get_signature(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKSignature_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelUpdate>) in
+ChannelUpdate_get_signature(this_ptrPointer)
+});
     }
 
     public func set_signature(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelUpdate_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelUpdate>) in
+ChannelUpdate_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val))
+};
     }
 
     public func get_contents() -> UnsignedChannelUpdate {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return UnsignedChannelUpdate(pointer: ChannelUpdate_get_contents(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return UnsignedChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelUpdate>) in
+ChannelUpdate_get_contents(this_ptrPointer)
+});
     }
 
     public func set_contents(val: UnsignedChannelUpdate) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelUpdate_set_contents(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelUpdate>) in
+ChannelUpdate_set_contents(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func clone(orig: ChannelUpdate) -> ChannelUpdate {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelUpdate(pointer: ChannelUpdate_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelUpdate>) in
+ChannelUpdate(pointer: ChannelUpdate_clone(origPointer))
+};
     }
 
     public func write(obj: ChannelUpdate) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelUpdate_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelUpdate>) in
+ChannelUpdate_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_ChannelUpdateDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

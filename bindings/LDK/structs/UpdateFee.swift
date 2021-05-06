@@ -17,79 +17,49 @@ public class UpdateFee {
     /* STRUCT_METHODS_START */
 
     public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFee>) in
-							
-			pointer
-						
-		}
-					
-        return UpdateFee_get_channel_id(this_ptrPointer).pointee;
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateFee>) in
+UpdateFee_get_channel_id(this_ptrPointer)
+}.pointee;
     }
 
     public func set_channel_id(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUpdateFee>) in
-							
-			pointer
-						
-		}
-					
-        return UpdateFee_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKUpdateFee>) in
+UpdateFee_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val))
+};
     }
 
     public func get_feerate_per_kw() -> UInt32 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFee>) in
-							
-			pointer
-						
-		}
-					
-        return UpdateFee_get_feerate_per_kw(this_ptrPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateFee>) in
+UpdateFee_get_feerate_per_kw(this_ptrPointer)
+};
     }
 
     public func set_feerate_per_kw(val: UInt32) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKUpdateFee>) in
-							
-			pointer
-						
-		}
-					
-        return UpdateFee_set_feerate_per_kw(this_ptrPointer, val);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKUpdateFee>) in
+UpdateFee_set_feerate_per_kw(this_ptrPointer, val)
+};
     }
 
     public func clone(orig: UpdateFee) -> UpdateFee {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFee>) in
-							
-			pointer
-						
-		}
-					
-        return UpdateFee(pointer: UpdateFee_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFee>) in
+UpdateFee(pointer: UpdateFee_clone(origPointer))
+};
     }
 
     public func write(obj: UpdateFee) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKUpdateFee>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: UpdateFee_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFee>) in
+UpdateFee_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_UpdateFeeDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_UpdateFeeDecodeErrorZ(pointer: UpdateFee_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

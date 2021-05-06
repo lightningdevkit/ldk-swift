@@ -17,39 +17,24 @@ public class BestBlock {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: BestBlock) -> BestBlock {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKBestBlock>) in
-							
-			pointer
-						
-		}
-					
-        return BestBlock(pointer: BestBlock_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBestBlock>) in
+BestBlock(pointer: BestBlock_clone(origPointer))
+};
     }
 
     public func block_hash(this_arg: BestBlock) -> [UInt8] {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKBestBlock>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: BestBlock_block_hash(this_argPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in
+BestBlock_block_hash(this_argPointer)
+});
     }
 
     public func height(this_arg: BestBlock) -> UInt32 {
-    	
-						
-		let this_argPointer = withUnsafePointer(to: this_arg.cOpaqueStruct!) { (pointer: UnsafePointer<LDKBestBlock>) in
-							
-			pointer
-						
-		}
-					
-        return BestBlock_height(this_argPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in
+BestBlock_height(this_argPointer)
+};
     }
 
 				

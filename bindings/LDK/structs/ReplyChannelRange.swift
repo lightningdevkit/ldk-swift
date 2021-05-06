@@ -18,140 +18,85 @@ public class ReplyChannelRange {
     /* STRUCT_METHODS_START */
 
     public func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_get_chain_hash(this_ptrPointer).pointee;
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_get_chain_hash(this_ptrPointer)
+}.pointee;
     }
 
     public func set_chain_hash(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val))
+};
     }
 
     public func get_first_blocknum() -> UInt32 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_get_first_blocknum(this_ptrPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_get_first_blocknum(this_ptrPointer)
+};
     }
 
     public func set_first_blocknum(val: UInt32) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_set_first_blocknum(this_ptrPointer, val);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_set_first_blocknum(this_ptrPointer, val)
+};
     }
 
     public func get_number_of_blocks() -> UInt32 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_get_number_of_blocks(this_ptrPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_get_number_of_blocks(this_ptrPointer)
+};
     }
 
     public func set_number_of_blocks(val: UInt32) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_set_number_of_blocks(this_ptrPointer, val);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_set_number_of_blocks(this_ptrPointer, val)
+};
     }
 
     public func get_sync_complete() -> Bool {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_get_sync_complete(this_ptrPointer);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_get_sync_complete(this_ptrPointer)
+};
     }
 
     public func set_sync_complete(val: Bool) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_set_sync_complete(this_ptrPointer, val);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_set_sync_complete(this_ptrPointer, val)
+};
     }
 
     public func set_short_channel_ids(val: [UInt64]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val))
+};
     }
 
     public func clone(orig: ReplyChannelRange) -> ReplyChannelRange {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return ReplyChannelRange(pointer: ReplyChannelRange_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange(pointer: ReplyChannelRange_clone(origPointer))
+};
     }
 
     public func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_ReplyChannelRangeDecodeErrorZ(pointer: ReplyChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     public func write(obj: ReplyChannelRange) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKReplyChannelRange>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: ReplyChannelRange_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_write(objPointer)
+});
     }
 
 				

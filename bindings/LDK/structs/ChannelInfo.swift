@@ -18,199 +18,119 @@ public class ChannelInfo {
     /* STRUCT_METHODS_START */
 
     public func get_features() -> ChannelFeatures {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelFeatures(pointer: ChannelInfo_get_features(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return ChannelFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_features(this_ptrPointer)
+});
     }
 
     public func set_features(val: ChannelFeatures) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo_set_features(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+ChannelInfo_set_features(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func get_node_one() -> [UInt8] {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKPublicKey_to_array(nativeType: ChannelInfo_get_node_one(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_node_one(this_ptrPointer)
+});
     }
 
     public func set_node_one(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo_set_node_one(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+ChannelInfo_set_node_one(this_ptrPointer, Bindings.new_LDKPublicKey(array: val))
+};
     }
 
     public func get_one_to_two() -> DirectionalChannelInfo {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return DirectionalChannelInfo(pointer: ChannelInfo_get_one_to_two(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return DirectionalChannelInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_one_to_two(this_ptrPointer)
+});
     }
 
     public func set_one_to_two(val: DirectionalChannelInfo) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo_set_one_to_two(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+ChannelInfo_set_one_to_two(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func get_node_two() -> [UInt8] {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKPublicKey_to_array(nativeType: ChannelInfo_get_node_two(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_node_two(this_ptrPointer)
+});
     }
 
     public func set_node_two(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo_set_node_two(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+ChannelInfo_set_node_two(this_ptrPointer, Bindings.new_LDKPublicKey(array: val))
+};
     }
 
     public func get_two_to_one() -> DirectionalChannelInfo {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return DirectionalChannelInfo(pointer: ChannelInfo_get_two_to_one(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return DirectionalChannelInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_two_to_one(this_ptrPointer)
+});
     }
 
     public func set_two_to_one(val: DirectionalChannelInfo) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo_set_two_to_one(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+ChannelInfo_set_two_to_one(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func get_capacity_sats() -> Option_u64Z {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return Option_u64Z(pointer: ChannelInfo_get_capacity_sats(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_capacity_sats(this_ptrPointer)
+});
     }
 
     public func set_capacity_sats(val: Option_u64Z) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo_set_capacity_sats(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+ChannelInfo_set_capacity_sats(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func get_announcement_message() -> ChannelAnnouncement {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelAnnouncement(pointer: ChannelInfo_get_announcement_message(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return ChannelAnnouncement(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_announcement_message(this_ptrPointer)
+});
     }
 
     public func set_announcement_message(val: ChannelAnnouncement) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo_set_announcement_message(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelInfo>) in
+ChannelInfo_set_announcement_message(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func clone(orig: ChannelInfo) -> ChannelInfo {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelInfo(pointer: ChannelInfo_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo(pointer: ChannelInfo_clone(origPointer))
+};
     }
 
     public func write(obj: ChannelInfo) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelInfo>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: ChannelInfo_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_ChannelInfoDecodeErrorZ(pointer: ChannelInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

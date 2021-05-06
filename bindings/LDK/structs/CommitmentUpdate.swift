@@ -20,111 +20,66 @@ public class CommitmentUpdate {
     /* STRUCT_METHODS_START */
 
     public func set_update_add_htlcs(val: [LDKUpdateAddHTLC]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentUpdate_set_update_add_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateAddHTLCZ(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_set_update_add_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateAddHTLCZ(array: val))
+};
     }
 
     public func set_update_fulfill_htlcs(val: [LDKUpdateFulfillHTLC]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentUpdate_set_update_fulfill_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFulfillHTLCZ(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_set_update_fulfill_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFulfillHTLCZ(array: val))
+};
     }
 
     public func set_update_fail_htlcs(val: [LDKUpdateFailHTLC]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentUpdate_set_update_fail_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFailHTLCZ(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_set_update_fail_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFailHTLCZ(array: val))
+};
     }
 
     public func set_update_fail_malformed_htlcs(val: [LDKUpdateFailMalformedHTLC]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentUpdate_set_update_fail_malformed_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFailMalformedHTLCZ(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_set_update_fail_malformed_htlcs(this_ptrPointer, Bindings.new_LDKCVec_UpdateFailMalformedHTLCZ(array: val))
+};
     }
 
     public func get_update_fee() -> UpdateFee {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return UpdateFee(pointer: CommitmentUpdate_get_update_fee(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return UpdateFee(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_get_update_fee(this_ptrPointer)
+});
     }
 
     public func set_update_fee(val: UpdateFee) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentUpdate_set_update_fee(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_set_update_fee(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func get_commitment_signed() -> CommitmentSigned {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentSigned(pointer: CommitmentUpdate_get_commitment_signed(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return CommitmentSigned(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_get_commitment_signed(this_ptrPointer)
+});
     }
 
     public func set_commitment_signed(val: CommitmentSigned) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentUpdate_set_commitment_signed(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_set_commitment_signed(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func clone(orig: CommitmentUpdate) -> CommitmentUpdate {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKCommitmentUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return CommitmentUpdate(pointer: CommitmentUpdate_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate(pointer: CommitmentUpdate_clone(origPointer))
+};
     }
 
 				

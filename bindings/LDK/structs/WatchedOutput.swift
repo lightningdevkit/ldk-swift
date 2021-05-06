@@ -18,75 +18,45 @@ public class WatchedOutput {
     /* STRUCT_METHODS_START */
 
     public func get_block_hash() -> [UInt8] {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKWatchedOutput>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: WatchedOutput_get_block_hash(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
+WatchedOutput_get_block_hash(this_ptrPointer)
+});
     }
 
     public func set_block_hash(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKWatchedOutput>) in
-							
-			pointer
-						
-		}
-					
-        return WatchedOutput_set_block_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKWatchedOutput>) in
+WatchedOutput_set_block_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val))
+};
     }
 
     public func get_outpoint() -> OutPoint {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKWatchedOutput>) in
-							
-			pointer
-						
-		}
-					
-        return OutPoint(pointer: WatchedOutput_get_outpoint(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
+WatchedOutput_get_outpoint(this_ptrPointer)
+});
     }
 
     public func set_outpoint(val: OutPoint) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKWatchedOutput>) in
-							
-			pointer
-						
-		}
-					
-        return WatchedOutput_set_outpoint(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKWatchedOutput>) in
+WatchedOutput_set_outpoint(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func get_script_pubkey() -> [UInt8] {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKWatchedOutput>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKu8slice_to_array(nativeType: WatchedOutput_get_script_pubkey(this_ptrPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKu8slice_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
+WatchedOutput_get_script_pubkey(this_ptrPointer)
+});
     }
 
     public func set_script_pubkey(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKWatchedOutput>) in
-							
-			pointer
-						
-		}
-					
-        return WatchedOutput_set_script_pubkey(this_ptrPointer, Bindings.new_LDKCVec_u8Z(array: val));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKWatchedOutput>) in
+WatchedOutput_set_script_pubkey(this_ptrPointer, Bindings.new_LDKCVec_u8Z(array: val))
+};
     }
 
 				

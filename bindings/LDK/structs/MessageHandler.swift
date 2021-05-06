@@ -16,51 +16,31 @@ public class MessageHandler {
     /* STRUCT_METHODS_START */
 
     public func get_chan_handler() -> ChannelMessageHandler {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKMessageHandler>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelMessageHandler(pointer: MessageHandler_get_chan_handler(this_ptrPointer).pointee);
+    	/* NATIVE_CALL_PREP */
+        return ChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
+MessageHandler_get_chan_handler(this_ptrPointer)
+}.pointee);
     }
 
     public func set_chan_handler(val: ChannelMessageHandler) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKMessageHandler>) in
-							
-			pointer
-						
-		}
-					
-        return MessageHandler_set_chan_handler(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKMessageHandler>) in
+MessageHandler_set_chan_handler(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
     public func get_route_handler() -> RoutingMessageHandler {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKMessageHandler>) in
-							
-			pointer
-						
-		}
-					
-        return RoutingMessageHandler(pointer: MessageHandler_get_route_handler(this_ptrPointer).pointee);
+    	/* NATIVE_CALL_PREP */
+        return RoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
+MessageHandler_get_route_handler(this_ptrPointer)
+}.pointee);
     }
 
     public func set_route_handler(val: RoutingMessageHandler) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKMessageHandler>) in
-							
-			pointer
-						
-		}
-					
-        return MessageHandler_set_route_handler(this_ptrPointer, val.cOpaqueStruct!);
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKMessageHandler>) in
+MessageHandler_set_route_handler(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
 				

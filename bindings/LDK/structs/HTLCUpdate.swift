@@ -11,31 +11,21 @@ public class HTLCUpdate {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: HTLCUpdate) -> HTLCUpdate {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKHTLCUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return HTLCUpdate(pointer: HTLCUpdate_clone(origPointer));
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
+HTLCUpdate(pointer: HTLCUpdate_clone(origPointer))
+};
     }
 
     public func write(obj: HTLCUpdate) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKHTLCUpdate>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: HTLCUpdate_write(objPointer));
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
+HTLCUpdate_write(objPointer)
+});
     }
 
     public func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
-    	
+    	/* NATIVE_CALL_PREP */
         return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

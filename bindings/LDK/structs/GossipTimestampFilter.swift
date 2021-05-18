@@ -15,11 +15,11 @@ public class GossipTimestampFilter {
 
     /* STRUCT_METHODS_START */
 
-    public func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_chain_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKGossipTimestampFilter>) in
 GossipTimestampFilter_get_chain_hash(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_chain_hash(val: [UInt8]) -> Void {
@@ -81,9 +81,13 @@ GossipTimestampFilter_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		GossipTimestampFilter_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

@@ -87,6 +87,14 @@ class OpaqueStructGenerator:
 				current_replacement = current_replacement.replace(
 					'return OpaqueStructType_methodName(native_arguments)',
 					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
+			elif current_return_type.swift_raw_type.startswith('(UInt8'):
+				# TODO: get array length
+				array_length = current_return_type.arr_len
+				return_type_wrapper_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
+				return_type_wrapper_suffix = ')'
+				current_replacement = current_replacement.replace(
+					'return OpaqueStructType_methodName(native_arguments)',
+					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
 			elif current_return_type.rust_obj == 'LDK' + current_return_type.swift_type and not is_clone_method:
 				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
 				return_type_wrapper_suffix = ')'
@@ -113,7 +121,8 @@ class OpaqueStructGenerator:
 					'OpaqueStructType_methodName(native_arguments).pointee')
 
 			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
-				current_swift_return_type = current_return_type.swift_raw_type
+				# current_swift_return_type = current_return_type.swift_raw_type
+				pass
 
 			# if current_swift_return_type == '[TransactionOutputs]':
 			# 	current_swift_return_type = '[LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]'
@@ -158,6 +167,14 @@ class OpaqueStructGenerator:
 			free_native_name = free_method_details['name']['native']
 			native_call_prep = ''
 			native_arguments = []
+
+			ownability_check_prefix = ''
+			ownability_check_suffix = ''
+
+			if struct_details.is_ownable:
+				ownability_check_prefix = f'if self.cOpaqueStruct?.is_owned == false {{\n'
+				ownability_check_suffix = f'\n}}'
+
 			for current_argument_details in free_method_details['argument_types']:
 				pass_instance = False
 				argument_name = current_argument_details.var_name
@@ -189,8 +206,10 @@ class OpaqueStructGenerator:
 
 			struct_methods += f'''
 				\n\tdeinit {{
+					{ownability_check_prefix}
 					{native_call_prep}
 					\n\t	{free_native_name}({', '.join(native_arguments)})
+					{ownability_check_suffix}
 				\n\t}}
 			'''
 

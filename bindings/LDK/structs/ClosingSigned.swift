@@ -15,11 +15,11 @@ public class ClosingSigned {
 
     /* STRUCT_METHODS_START */
 
-    public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKClosingSigned>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKClosingSigned>) in
 ClosingSigned_get_channel_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_channel_id(val: [UInt8]) -> Void {
@@ -81,9 +81,13 @@ ClosingSigned_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ClosingSigned_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

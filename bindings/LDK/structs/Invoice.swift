@@ -17,14 +17,14 @@ Invoice(pointer: Invoice_clone(origPointer))
 };
     }
 
-    public func into_signed_raw(this_arg: Invoice) -> SignedRawInvoice {
+    public func into_signed_raw() -> SignedRawInvoice {
     	
-        return SignedRawInvoice(pointer: Invoice_into_signed_raw(this_arg.cOpaqueStruct!));
+        return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.cOpaqueStruct!));
     }
 
-    public func check_signature(this_arg: Invoice) -> Result_NoneSemanticErrorZ {
+    public func check_signature() -> Result_NoneSemanticErrorZ {
     	
-        return Result_NoneSemanticErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Result_NoneSemanticErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_check_signature(this_argPointer)
 });
     }
@@ -34,79 +34,79 @@ Invoice_check_signature(this_argPointer)
         return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.cOpaqueStruct!));
     }
 
-    public func timestamp(this_arg: Invoice) -> UInt64 {
+    public func timestamp() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_timestamp(this_argPointer)
 };
     }
 
-    public func payment_hash(this_arg: Invoice) -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func payment_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_payment_hash(this_argPointer)
-}.pointee;
+}.pointee);
     }
 
-    public func payee_pub_key(this_arg: Invoice) -> [UInt8] {
+    public func payee_pub_key() -> [UInt8] {
     	
-        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_payee_pub_key(this_argPointer)
 });
     }
 
-    public func payment_secret(this_arg: Invoice) -> [UInt8] {
+    public func payment_secret() -> [UInt8] {
     	
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_payment_secret(this_argPointer)
 });
     }
 
-    public func features(this_arg: Invoice) -> InvoiceFeatures {
+    public func features() -> InvoiceFeatures {
     	
-        return InvoiceFeatures(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return InvoiceFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_features(this_argPointer)
 });
     }
 
-    public func recover_payee_pub_key(this_arg: Invoice) -> [UInt8] {
+    public func recover_payee_pub_key() -> [UInt8] {
     	
-        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_recover_payee_pub_key(this_argPointer)
 });
     }
 
-    public func expiry_time(this_arg: Invoice) -> UInt64 {
+    public func expiry_time() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_expiry_time(this_argPointer)
 };
     }
 
-    public func min_final_cltv_expiry(this_arg: Invoice) -> UInt64 {
+    public func min_final_cltv_expiry() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_min_final_cltv_expiry(this_argPointer)
 };
     }
 
-    public func routes(this_arg: Invoice) -> [LDKRouteHint] {
+    public func routes() -> [LDKRouteHint] {
     	
-        return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_routes(this_argPointer)
 });
     }
 
-    public func currency(this_arg: Invoice) -> LDKCurrency {
+    public func currency() -> LDKCurrency {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_currency(this_argPointer)
 };
     }
 
-    public func amount_pico_btc(this_arg: Invoice) -> Option_u64Z {
+    public func amount_pico_btc() -> Option_u64Z {
     	
-        return Option_u64Z(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_amount_pico_btc(this_argPointer)
 });
     }
@@ -125,9 +125,13 @@ Invoice_to_str(oPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		Invoice_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

@@ -27,25 +27,29 @@ ExpiryTime(pointer: ExpiryTime_clone(origPointer))
         return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_duration(duration));
     }
 
-    public func as_seconds(this_arg: ExpiryTime) -> UInt64 {
+    public func as_seconds() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKExpiryTime>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKExpiryTime>) in
 ExpiryTime_as_seconds(this_argPointer)
 };
     }
 
-    public func as_duration(this_arg: ExpiryTime) -> UInt64 {
+    public func as_duration() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKExpiryTime>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKExpiryTime>) in
 ExpiryTime_as_duration(this_argPointer)
 };
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ExpiryTime_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

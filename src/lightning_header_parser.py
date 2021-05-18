@@ -30,6 +30,7 @@ class TypeDetails:
 		self.constructor_method = None
 		self.free_method = None
 		self.is_primitive = False
+		self.is_ownable = False
 		self.primitive_swift_counterpart = None
 		self.iteratee = None
 		self.option_tuple_variants = None
@@ -189,6 +190,7 @@ class LightningHeaderParser():
 					is_tuple = False
 					trait_fn_lines = []
 					field_var_lines = []
+					is_ownable = False
 
 					ordered_interpreted_lines = []
 
@@ -227,6 +229,8 @@ class LightningHeaderParser():
 							instance_agnostic_trait_fn_match = line_indicates_instance_agnostic_trait_method_regex.match(struct_line)
 							if instance_agnostic_trait_fn_match:
 								ordered_interpreted_lines.append({"type": "instance_agnostic_lambda", "value": instance_agnostic_trait_fn_match})
+						if struct_line == 'bool is_owned;':
+							is_ownable = True
 						field_lines.append(struct_line)
 
 					assert (struct_name is not None)
@@ -247,6 +251,7 @@ class LightningHeaderParser():
 
 					current_type_detail = TypeDetails()
 					current_type_detail.name = struct_name
+					current_type_detail.is_ownable = is_ownable
 					self.type_details[struct_name] = current_type_detail
 
 					if is_opaque:

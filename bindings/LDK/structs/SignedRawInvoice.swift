@@ -17,42 +17,42 @@ SignedRawInvoice(pointer: SignedRawInvoice_clone(origPointer))
 };
     }
 
-    public func into_parts(this_arg: SignedRawInvoice) -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+    public func into_parts() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
     	
-        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: SignedRawInvoice_into_parts(this_arg.cOpaqueStruct!));
+        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: SignedRawInvoice_into_parts(self.cOpaqueStruct!));
     }
 
-    public func raw_invoice(this_arg: SignedRawInvoice) -> RawInvoice {
+    public func raw_invoice() -> RawInvoice {
     	
-        return RawInvoice(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return RawInvoice(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_raw_invoice(this_argPointer)
 });
     }
 
-    public func hash(this_arg: SignedRawInvoice) -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_hash(this_argPointer)
-}.pointee;
+}.pointee);
     }
 
-    public func signature(this_arg: SignedRawInvoice) -> InvoiceSignature {
+    public func signature() -> InvoiceSignature {
     	
-        return InvoiceSignature(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return InvoiceSignature(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_signature(this_argPointer)
 });
     }
 
-    public func recover_payee_pub_key(this_arg: SignedRawInvoice) -> Result_PayeePubKeyErrorZ {
+    public func recover_payee_pub_key() -> Result_PayeePubKeyErrorZ {
     	
-        return Result_PayeePubKeyErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return Result_PayeePubKeyErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_recover_payee_pub_key(this_argPointer)
 });
     }
 
-    public func check_signature(this_arg: SignedRawInvoice) -> Bool {
+    public func check_signature() -> Bool {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_check_signature(this_argPointer)
 };
     }
@@ -71,9 +71,13 @@ SignedRawInvoice_to_str(oPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		SignedRawInvoice_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

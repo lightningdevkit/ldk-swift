@@ -19,9 +19,13 @@ DecodeError(pointer: DecodeError_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		DecodeError_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

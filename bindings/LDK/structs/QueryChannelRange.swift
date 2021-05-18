@@ -15,11 +15,11 @@ public class QueryChannelRange {
 
     /* STRUCT_METHODS_START */
 
-    public func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_chain_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKQueryChannelRange>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKQueryChannelRange>) in
 QueryChannelRange_get_chain_hash(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_chain_hash(val: [UInt8]) -> Void {
@@ -67,9 +67,9 @@ QueryChannelRange(pointer: QueryChannelRange_clone(origPointer))
 };
     }
 
-    public func end_blocknum(this_arg: QueryChannelRange) -> UInt32 {
+    public func end_blocknum() -> UInt32 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKQueryChannelRange>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKQueryChannelRange>) in
 QueryChannelRange_end_blocknum(this_argPointer)
 };
     }
@@ -88,9 +88,13 @@ QueryChannelRange_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		QueryChannelRange_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

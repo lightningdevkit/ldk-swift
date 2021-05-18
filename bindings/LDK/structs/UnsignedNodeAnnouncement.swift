@@ -55,11 +55,11 @@ UnsignedNodeAnnouncement_get_node_id(this_ptrPointer)
         return UnsignedNodeAnnouncement_set_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func get_rgb() -> (UInt8,UInt8,UInt8) {
+    public func get_rgb() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+        return Bindings.tuple3_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement_get_rgb(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_rgb(val: [UInt8]) -> Void {
@@ -70,11 +70,11 @@ UnsignedNodeAnnouncement_get_rgb(this_ptrPointer)
         return UnsignedNodeAnnouncement_set_rgb(this_ptrPointer, Bindings.new_LDKThreeBytes(array: val));
     }
 
-    public func get_alias() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_alias() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_alias(val: [UInt8]) -> Void {
@@ -114,9 +114,13 @@ UnsignedNodeAnnouncement_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		UnsignedNodeAnnouncement_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

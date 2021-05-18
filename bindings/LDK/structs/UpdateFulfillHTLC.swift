@@ -15,11 +15,11 @@ public class UpdateFulfillHTLC {
 
     /* STRUCT_METHODS_START */
 
-    public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
 UpdateFulfillHTLC_get_channel_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_channel_id(val: [UInt8]) -> Void {
@@ -45,11 +45,11 @@ UpdateFulfillHTLC_get_htlc_id(this_ptrPointer)
         return UpdateFulfillHTLC_set_htlc_id(this_ptrPointer, val);
     }
 
-    public func get_payment_preimage() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_payment_preimage() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
 UpdateFulfillHTLC_get_payment_preimage(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_payment_preimage(val: [UInt8]) -> Void {
@@ -81,9 +81,13 @@ UpdateFulfillHTLC_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		UpdateFulfillHTLC_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

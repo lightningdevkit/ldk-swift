@@ -62,9 +62,13 @@ WatchedOutput_get_script_pubkey(this_ptrPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		WatchedOutput_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

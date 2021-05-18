@@ -10,11 +10,11 @@ public class ChannelReestablish {
 
     /* STRUCT_METHODS_START */
 
-    public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelReestablish>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelReestablish>) in
 ChannelReestablish_get_channel_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_channel_id(val: [UInt8]) -> Void {
@@ -76,9 +76,13 @@ ChannelReestablish_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ChannelReestablish_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

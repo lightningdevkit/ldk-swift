@@ -97,23 +97,23 @@ ChannelTransactionParameters(pointer: ChannelTransactionParameters_clone(origPoi
 };
     }
 
-    public func is_populated(this_arg: ChannelTransactionParameters) -> Bool {
+    public func is_populated() -> Bool {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters_is_populated(this_argPointer)
 };
     }
 
-    public func as_holder_broadcastable(this_arg: ChannelTransactionParameters) -> DirectedChannelTransactionParameters {
+    public func as_holder_broadcastable() -> DirectedChannelTransactionParameters {
     	
-        return DirectedChannelTransactionParameters(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return DirectedChannelTransactionParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters_as_holder_broadcastable(this_argPointer)
 });
     }
 
-    public func as_counterparty_broadcastable(this_arg: ChannelTransactionParameters) -> DirectedChannelTransactionParameters {
+    public func as_counterparty_broadcastable() -> DirectedChannelTransactionParameters {
     	
-        return DirectedChannelTransactionParameters(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return DirectedChannelTransactionParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters_as_counterparty_broadcastable(this_argPointer)
 });
     }
@@ -132,9 +132,13 @@ ChannelTransactionParameters_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ChannelTransactionParameters_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

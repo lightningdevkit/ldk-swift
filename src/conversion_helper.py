@@ -17,8 +17,9 @@ class ConversionHelper:
 			if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(argument_types) == 1:
 				break
 
-			if argument_name == 'this_ptr':
+			if argument_name == 'this_ptr' or argument_name == 'this_arg':
 				pass_instance = True
+				passed_argument_name = 'self'
 
 			if current_argument_details.is_ptr:
 				passed_argument_name = argument_name + 'Pointer'

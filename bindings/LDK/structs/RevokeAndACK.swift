@@ -15,11 +15,11 @@ public class RevokeAndACK {
 
     /* STRUCT_METHODS_START */
 
-    public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRevokeAndACK>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRevokeAndACK>) in
 RevokeAndACK_get_channel_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_channel_id(val: [UInt8]) -> Void {
@@ -30,11 +30,11 @@ RevokeAndACK_get_channel_id(this_ptrPointer)
         return RevokeAndACK_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    public func get_per_commitment_secret() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_per_commitment_secret() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRevokeAndACK>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRevokeAndACK>) in
 RevokeAndACK_get_per_commitment_secret(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_per_commitment_secret(val: [UInt8]) -> Void {
@@ -81,9 +81,13 @@ RevokeAndACK_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		RevokeAndACK_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

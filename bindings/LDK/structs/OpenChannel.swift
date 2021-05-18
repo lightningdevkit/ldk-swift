@@ -10,11 +10,11 @@ public class OpenChannel {
 
     /* STRUCT_METHODS_START */
 
-    public func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_chain_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKOpenChannel>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKOpenChannel>) in
 OpenChannel_get_chain_hash(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_chain_hash(val: [UInt8]) -> Void {
@@ -25,11 +25,11 @@ OpenChannel_get_chain_hash(this_ptrPointer)
         return OpenChannel_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    public func get_temporary_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_temporary_channel_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKOpenChannel>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKOpenChannel>) in
 OpenChannel_get_temporary_channel_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_temporary_channel_id(val: [UInt8]) -> Void {
@@ -301,9 +301,13 @@ OpenChannel_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		OpenChannel_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

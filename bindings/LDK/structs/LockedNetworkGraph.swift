@@ -10,18 +10,22 @@ public class LockedNetworkGraph {
 
     /* STRUCT_METHODS_START */
 
-    public func graph(this_arg: LockedNetworkGraph) -> NetworkGraph {
+    public func graph() -> NetworkGraph {
     	
-        return NetworkGraph(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKLockedNetworkGraph>) in
+        return NetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKLockedNetworkGraph>) in
 LockedNetworkGraph_graph(this_argPointer)
 });
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		LockedNetworkGraph_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

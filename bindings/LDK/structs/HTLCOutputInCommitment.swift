@@ -60,11 +60,11 @@ HTLCOutputInCommitment_get_cltv_expiry(this_ptrPointer)
         return HTLCOutputInCommitment_set_cltv_expiry(this_ptrPointer, val);
     }
 
-    public func get_payment_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_payment_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_get_payment_hash(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_payment_hash(val: [UInt8]) -> Void {
@@ -111,9 +111,13 @@ HTLCOutputInCommitment_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		HTLCOutputInCommitment_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

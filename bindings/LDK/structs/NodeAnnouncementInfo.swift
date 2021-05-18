@@ -45,11 +45,11 @@ NodeAnnouncementInfo_get_last_update(this_ptrPointer)
         return NodeAnnouncementInfo_set_last_update(this_ptrPointer, val);
     }
 
-    public func get_rgb() -> (UInt8,UInt8,UInt8) {
+    public func get_rgb() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+        return Bindings.tuple3_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
 NodeAnnouncementInfo_get_rgb(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_rgb(val: [UInt8]) -> Void {
@@ -60,11 +60,11 @@ NodeAnnouncementInfo_get_rgb(this_ptrPointer)
         return NodeAnnouncementInfo_set_rgb(this_ptrPointer, Bindings.new_LDKThreeBytes(array: val));
     }
 
-    public func get_alias() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_alias() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
 NodeAnnouncementInfo_get_alias(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_alias(val: [UInt8]) -> Void {
@@ -119,9 +119,13 @@ NodeAnnouncementInfo_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		NodeAnnouncementInfo_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

@@ -22,25 +22,29 @@ BestBlock(pointer: BestBlock_clone(origPointer))
 };
     }
 
-    public func block_hash(this_arg: BestBlock) -> [UInt8] {
+    public func block_hash() -> [UInt8] {
     	
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in
+        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in
 BestBlock_block_hash(this_argPointer)
 });
     }
 
-    public func height(this_arg: BestBlock) -> UInt32 {
+    public func height() -> UInt32 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in
 BestBlock_height(this_argPointer)
 };
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		BestBlock_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

@@ -22,16 +22,20 @@ Description(pointer: Description_clone(origPointer))
         return Result_DescriptionCreationErrorZ(pointer: Description_new(Bindings.new_LDKStr(string: description)));
     }
 
-    public func into_inner(this_arg: Description) -> String {
+    public func into_inner() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(this_arg.cOpaqueStruct!));
+        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.cOpaqueStruct!));
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		Description_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

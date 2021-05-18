@@ -15,11 +15,11 @@ public class DataLossProtect {
 
     /* STRUCT_METHODS_START */
 
-    public func get_your_last_per_commitment_secret() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_your_last_per_commitment_secret() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDataLossProtect>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDataLossProtect>) in
 DataLossProtect_get_your_last_per_commitment_secret(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_your_last_per_commitment_secret(val: [UInt8]) -> Void {
@@ -54,9 +54,13 @@ DataLossProtect(pointer: DataLossProtect_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		DataLossProtect_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

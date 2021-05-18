@@ -141,9 +141,13 @@ DirectionalChannelInfo_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		DirectionalChannelInfo_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

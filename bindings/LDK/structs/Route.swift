@@ -44,9 +44,13 @@ Route_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		Route_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

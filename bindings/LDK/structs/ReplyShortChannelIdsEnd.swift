@@ -15,11 +15,11 @@ public class ReplyShortChannelIdsEnd {
 
     /* STRUCT_METHODS_START */
 
-    public func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_chain_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
 ReplyShortChannelIdsEnd_get_chain_hash(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_chain_hash(val: [UInt8]) -> Void {
@@ -66,9 +66,13 @@ ReplyShortChannelIdsEnd_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ReplyShortChannelIdsEnd_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

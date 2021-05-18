@@ -32,95 +32,99 @@ RawInvoice(pointer: RawInvoice_clone(origPointer))
 };
     }
 
-    public func hash(this_arg: RawInvoice) -> [UInt8] {
+    public func hash() -> [UInt8] {
     	
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_hash(this_argPointer)
 });
     }
 
-    public func payment_hash(this_arg: RawInvoice) -> Sha256 {
+    public func payment_hash() -> Sha256 {
     	
-        return Sha256(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return Sha256(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_payment_hash(this_argPointer)
 });
     }
 
-    public func description(this_arg: RawInvoice) -> Description {
+    public func description() -> Description {
     	
-        return Description(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return Description(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_description(this_argPointer)
 });
     }
 
-    public func payee_pub_key(this_arg: RawInvoice) -> PayeePubKey {
+    public func payee_pub_key() -> PayeePubKey {
     	
-        return PayeePubKey(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return PayeePubKey(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_payee_pub_key(this_argPointer)
 });
     }
 
-    public func description_hash(this_arg: RawInvoice) -> Sha256 {
+    public func description_hash() -> Sha256 {
     	
-        return Sha256(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return Sha256(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_description_hash(this_argPointer)
 });
     }
 
-    public func expiry_time(this_arg: RawInvoice) -> ExpiryTime {
+    public func expiry_time() -> ExpiryTime {
     	
-        return ExpiryTime(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return ExpiryTime(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_expiry_time(this_argPointer)
 });
     }
 
-    public func min_final_cltv_expiry(this_arg: RawInvoice) -> MinFinalCltvExpiry {
+    public func min_final_cltv_expiry() -> MinFinalCltvExpiry {
     	
-        return MinFinalCltvExpiry(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return MinFinalCltvExpiry(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_min_final_cltv_expiry(this_argPointer)
 });
     }
 
-    public func payment_secret(this_arg: RawInvoice) -> [UInt8] {
+    public func payment_secret() -> [UInt8] {
     	
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_payment_secret(this_argPointer)
 });
     }
 
-    public func features(this_arg: RawInvoice) -> InvoiceFeatures {
+    public func features() -> InvoiceFeatures {
     	
-        return InvoiceFeatures(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return InvoiceFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_features(this_argPointer)
 });
     }
 
-    public func routes(this_arg: RawInvoice) -> [LDKRouteHint] {
+    public func routes() -> [LDKRouteHint] {
     	
-        return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_routes(this_argPointer)
 });
     }
 
-    public func amount_pico_btc(this_arg: RawInvoice) -> Option_u64Z {
+    public func amount_pico_btc() -> Option_u64Z {
     	
-        return Option_u64Z(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_amount_pico_btc(this_argPointer)
 });
     }
 
-    public func currency(this_arg: RawInvoice) -> LDKCurrency {
+    public func currency() -> LDKCurrency {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_currency(this_argPointer)
 };
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		RawInvoice_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

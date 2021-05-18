@@ -286,6 +286,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		c_ty = c_ty + "Array"
 		if ret_arr_len is not None and ret_arr_len.isnumeric():
 			array_size = int(ret_arr_len)
+			arr_len = array_size
 			swift_raw_type = f'({",".join([mapped_type] * array_size)})'
 		if var_is_arr is not None:
 			array_size = var_is_arr.group(2)

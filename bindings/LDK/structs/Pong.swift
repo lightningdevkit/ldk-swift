@@ -51,9 +51,13 @@ Pong_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		Pong_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

@@ -83,11 +83,11 @@ DelayedPaymentOutputDescriptor_get_revocation_pubkey(this_ptrPointer)
         return DelayedPaymentOutputDescriptor_set_revocation_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func get_channel_keys_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_keys_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_channel_keys_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_channel_keys_id(val: [UInt8]) -> Void {
@@ -122,9 +122,13 @@ DelayedPaymentOutputDescriptor(pointer: DelayedPaymentOutputDescriptor_clone(ori
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

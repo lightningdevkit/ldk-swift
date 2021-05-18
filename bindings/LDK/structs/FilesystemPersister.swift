@@ -15,9 +15,9 @@ public class FilesystemPersister {
 
     /* STRUCT_METHODS_START */
 
-    public func get_data_dir(this_arg: FilesystemPersister) -> String {
+    public func get_data_dir() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_get_data_dir(this_argPointer)
 });
     }
@@ -29,25 +29,29 @@ FilesystemPersister_persist_manager(Bindings.new_LDKStr(string: data_dir), manag
 });
     }
 
-    public func read_channelmonitors(this_arg: FilesystemPersister, keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    public func read_channelmonitors(keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
-        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueStruct!)
 });
     }
 
-    public func as_Persist(this_arg: FilesystemPersister) -> Persist {
+    public func as_Persist() -> Persist {
     	
-        return Persist(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+        return Persist(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_as_Persist(this_argPointer)
 });
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		FilesystemPersister_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

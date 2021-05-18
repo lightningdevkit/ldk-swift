@@ -161,7 +161,7 @@ class MyFilter: Filter {
     override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
         let scriptPubkeyBytes = output.get_script_pubkey()
         let outpoint = output.get_outpoint()
-        let txidBytes = Bindings.tuple32_to_array(nativeType: outpoint.get_txid())
+        let txid = outpoint.get_txid()
         let outputIndex = outpoint.get_index()
         
         // watch for any transactions that spend this output on-chain
@@ -230,5 +230,5 @@ Finally, we can proceed by instantiating the ChannelManager.
 ```swift
 // main context (continued)
 
-let channelManager = ChannelManager.init(fee_est: feeEstimator, chain_monitor: chainMonitor.as_Watch(this_arg: chainMonitor), tx_broadcaster: broadcaster, logger: logger, keys_manager: keysManager.as_KeysInterface(this_arg: keysManager), config: userConfig, params: chainParameters)
+let channelManager = ChannelManager.init(fee_est: feeEstimator, chain_monitor: chainMonitor.as_Watch(), tx_broadcaster: broadcaster, logger: logger, keys_manager: keysManager.as_KeysInterface(), config: userConfig, params: chainParameters)
 ```

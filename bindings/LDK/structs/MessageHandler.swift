@@ -47,9 +47,13 @@ MessageHandler_get_route_handler(this_ptrPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		MessageHandler_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

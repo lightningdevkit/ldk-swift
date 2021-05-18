@@ -19,9 +19,13 @@ MinFinalCltvExpiry(pointer: MinFinalCltvExpiry_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		MinFinalCltvExpiry_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

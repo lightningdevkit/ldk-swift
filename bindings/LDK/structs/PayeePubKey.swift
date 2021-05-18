@@ -19,9 +19,13 @@ PayeePubKey(pointer: PayeePubKey_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		PayeePubKey_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

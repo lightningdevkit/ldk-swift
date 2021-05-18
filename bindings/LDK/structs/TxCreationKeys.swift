@@ -125,9 +125,13 @@ TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_com
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		TxCreationKeys_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

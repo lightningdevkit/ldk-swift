@@ -29,44 +29,44 @@ CommitmentTransaction_write(objPointer)
         return Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    public func commitment_number(this_arg: CommitmentTransaction) -> UInt64 {
+    public func commitment_number() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction_commitment_number(this_argPointer)
 };
     }
 
-    public func to_broadcaster_value_sat(this_arg: CommitmentTransaction) -> UInt64 {
+    public func to_broadcaster_value_sat() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction_to_broadcaster_value_sat(this_argPointer)
 };
     }
 
-    public func to_countersignatory_value_sat(this_arg: CommitmentTransaction) -> UInt64 {
+    public func to_countersignatory_value_sat() -> UInt64 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction_to_countersignatory_value_sat(this_argPointer)
 };
     }
 
-    public func feerate_per_kw(this_arg: CommitmentTransaction) -> UInt32 {
+    public func feerate_per_kw() -> UInt32 {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction_feerate_per_kw(this_argPointer)
 };
     }
 
-    public func trust(this_arg: CommitmentTransaction) -> TrustedCommitmentTransaction {
+    public func trust() -> TrustedCommitmentTransaction {
     	
-        return TrustedCommitmentTransaction(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return TrustedCommitmentTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction_trust(this_argPointer)
 });
     }
 
-    public func verify(this_arg: CommitmentTransaction, channel_parameters: DirectedChannelTransactionParameters, broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) -> Result_TrustedCommitmentTransactionNoneZ {
+    public func verify(channel_parameters: DirectedChannelTransactionParameters, broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) -> Result_TrustedCommitmentTransactionNoneZ {
     	
-        return Result_TrustedCommitmentTransactionNoneZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return Result_TrustedCommitmentTransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
 withUnsafePointer(to: channel_parameters.cOpaqueStruct!) { (channel_parametersPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
 withUnsafePointer(to: broadcaster_keys.cOpaqueStruct!) { (broadcaster_keysPointer: UnsafePointer<LDKChannelPublicKeys>) in
 withUnsafePointer(to: countersignatory_keys.cOpaqueStruct!) { (countersignatory_keysPointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -79,9 +79,13 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		CommitmentTransaction_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

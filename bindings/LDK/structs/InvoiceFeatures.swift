@@ -36,9 +36,13 @@ InvoiceFeatures_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		InvoiceFeatures_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

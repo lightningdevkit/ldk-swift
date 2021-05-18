@@ -107,9 +107,13 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ChannelManagerReadArgs_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

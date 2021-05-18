@@ -10,11 +10,11 @@ public class UpdateAddHTLC {
 
     /* STRUCT_METHODS_START */
 
-    public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateAddHTLC>) in
 UpdateAddHTLC_get_channel_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_channel_id(val: [UInt8]) -> Void {
@@ -55,11 +55,11 @@ UpdateAddHTLC_get_amount_msat(this_ptrPointer)
         return UpdateAddHTLC_set_amount_msat(this_ptrPointer, val);
     }
 
-    public func get_payment_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_payment_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUpdateAddHTLC>) in
 UpdateAddHTLC_get_payment_hash(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_payment_hash(val: [UInt8]) -> Void {
@@ -106,9 +106,13 @@ UpdateAddHTLC_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		UpdateAddHTLC_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

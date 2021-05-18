@@ -66,9 +66,13 @@ CounterpartyChannelTransactionParameters_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		CounterpartyChannelTransactionParameters_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

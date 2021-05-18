@@ -96,9 +96,13 @@ ChannelConfig_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ChannelConfig_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

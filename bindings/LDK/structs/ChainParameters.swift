@@ -47,9 +47,13 @@ ChainParameters_get_best_block(this_ptrPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ChainParameters_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

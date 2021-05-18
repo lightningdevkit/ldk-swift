@@ -114,9 +114,13 @@ RouteHintHop(pointer: RouteHintHop_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		RouteHintHop_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

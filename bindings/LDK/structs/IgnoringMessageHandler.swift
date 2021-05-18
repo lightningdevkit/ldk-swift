@@ -15,25 +15,29 @@ public class IgnoringMessageHandler {
 
     /* STRUCT_METHODS_START */
 
-    public func as_MessageSendEventsProvider(this_arg: IgnoringMessageHandler) -> MessageSendEventsProvider {
+    public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
     	
-        return MessageSendEventsProvider(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+        return MessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
 IgnoringMessageHandler_as_MessageSendEventsProvider(this_argPointer)
 });
     }
 
-    public func as_RoutingMessageHandler(this_arg: IgnoringMessageHandler) -> RoutingMessageHandler {
+    public func as_RoutingMessageHandler() -> RoutingMessageHandler {
     	
-        return RoutingMessageHandler(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+        return RoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
 IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
 });
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		IgnoringMessageHandler_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

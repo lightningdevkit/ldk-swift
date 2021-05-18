@@ -15,25 +15,29 @@ public class ErroringMessageHandler {
 
     /* STRUCT_METHODS_START */
 
-    public func as_MessageSendEventsProvider(this_arg: ErroringMessageHandler) -> MessageSendEventsProvider {
+    public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
     	
-        return MessageSendEventsProvider(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
+        return MessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_MessageSendEventsProvider(this_argPointer)
 });
     }
 
-    public func as_ChannelMessageHandler(this_arg: ErroringMessageHandler) -> ChannelMessageHandler {
+    public func as_ChannelMessageHandler() -> ChannelMessageHandler {
     	
-        return ChannelMessageHandler(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
+        return ChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 });
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ErroringMessageHandler_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

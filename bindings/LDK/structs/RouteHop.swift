@@ -114,9 +114,13 @@ RouteHop(pointer: RouteHop_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		RouteHop_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

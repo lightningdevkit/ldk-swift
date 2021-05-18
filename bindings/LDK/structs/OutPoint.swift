@@ -15,11 +15,11 @@ public class OutPoint {
 
     /* STRUCT_METHODS_START */
 
-    public func get_txid() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_txid() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKOutPoint>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKOutPoint>) in
 OutPoint_get_txid(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_txid(val: [UInt8]) -> Void {
@@ -52,9 +52,9 @@ OutPoint(pointer: OutPoint_clone(origPointer))
 };
     }
 
-    public func to_channel_id(this_arg: OutPoint) -> [UInt8] {
+    public func to_channel_id() -> [UInt8] {
     	
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKOutPoint>) in
+        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKOutPoint>) in
 OutPoint_to_channel_id(this_argPointer)
 });
     }
@@ -73,9 +73,13 @@ OutPoint_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		OutPoint_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

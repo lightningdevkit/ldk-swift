@@ -38,11 +38,11 @@ StaticPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
         return StaticPaymentOutputDescriptor_set_output(this_ptrPointer, val);
     }
 
-    public func get_channel_keys_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_channel_keys_id() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
 StaticPaymentOutputDescriptor_get_channel_keys_id(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_channel_keys_id(val: [UInt8]) -> Void {
@@ -77,9 +77,13 @@ StaticPaymentOutputDescriptor(pointer: StaticPaymentOutputDescriptor_clone(origP
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		StaticPaymentOutputDescriptor_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

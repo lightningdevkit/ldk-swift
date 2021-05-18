@@ -25,11 +25,11 @@ UnsignedChannelAnnouncement_get_features(this_ptrPointer)
         return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func get_chain_hash() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    public func get_chain_hash() -> [UInt8] {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
 UnsignedChannelAnnouncement_get_chain_hash(this_ptrPointer)
-}.pointee;
+}.pointee);
     }
 
     public func set_chain_hash(val: [UInt8]) -> Void {
@@ -136,9 +136,13 @@ UnsignedChannelAnnouncement_write(objPointer)
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		UnsignedChannelAnnouncement_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

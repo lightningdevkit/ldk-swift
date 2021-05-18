@@ -34,9 +34,13 @@ RawDataPart(pointer: RawDataPart_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		RawDataPart_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

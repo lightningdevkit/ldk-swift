@@ -17,82 +17,86 @@ PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array:
 
     /* STRUCT_METHODS_START */
 
-    public func get_peer_node_ids(this_arg: PeerManager) -> [[UInt8]] {
+    public func get_peer_node_ids() -> [[UInt8]] {
     	
-        return Bindings.LDKCVec_PublicKeyZ_to_array(nativeType: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return Bindings.LDKCVec_PublicKeyZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_get_peer_node_ids(this_argPointer)
 });
     }
 
-    public func new_outbound_connection(this_arg: PeerManager, their_node_id: [UInt8], descriptor: SocketDescriptor) -> Result_CVec_u8ZPeerHandleErrorZ {
+    public func new_outbound_connection(their_node_id: [UInt8], descriptor: SocketDescriptor) -> Result_CVec_u8ZPeerHandleErrorZ {
     	
-        return Result_CVec_u8ZPeerHandleErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return Result_CVec_u8ZPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_new_outbound_connection(this_argPointer, Bindings.new_LDKPublicKey(array: their_node_id), descriptor.cOpaqueStruct!)
 });
     }
 
-    public func new_inbound_connection(this_arg: PeerManager, descriptor: SocketDescriptor) -> Result_NonePeerHandleErrorZ {
+    public func new_inbound_connection(descriptor: SocketDescriptor) -> Result_NonePeerHandleErrorZ {
     	
-        return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_new_inbound_connection(this_argPointer, descriptor.cOpaqueStruct!)
 });
     }
 
-    public func write_buffer_space_avail(this_arg: PeerManager, descriptor: SocketDescriptor) -> Result_NonePeerHandleErrorZ {
+    public func write_buffer_space_avail(descriptor: SocketDescriptor) -> Result_NonePeerHandleErrorZ {
     	
 						let descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
 						descriptorPointer.initialize(to: descriptor.cOpaqueStruct!)
 					
-        return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_write_buffer_space_avail(this_argPointer, descriptorPointer)
 });
     }
 
-    public func read_event(this_arg: PeerManager, peer_descriptor: SocketDescriptor, data: [UInt8]) -> Result_boolPeerHandleErrorZ {
+    public func read_event(peer_descriptor: SocketDescriptor, data: [UInt8]) -> Result_boolPeerHandleErrorZ {
     	
 						let peer_descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
 						peer_descriptorPointer.initialize(to: peer_descriptor.cOpaqueStruct!)
 					
-        return Result_boolPeerHandleErrorZ(pointer: withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return Result_boolPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_read_event(this_argPointer, peer_descriptorPointer, Bindings.new_LDKu8slice(array: data))
 });
     }
 
-    public func process_events(this_arg: PeerManager) -> Void {
+    public func process_events() -> Void {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_process_events(this_argPointer)
 };
     }
 
-    public func socket_disconnected(this_arg: PeerManager, descriptor: SocketDescriptor) -> Void {
+    public func socket_disconnected(descriptor: SocketDescriptor) -> Void {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKSocketDescriptor>) in
 PeerManager_socket_disconnected(this_argPointer, descriptorPointer)
 }
 };
     }
 
-    public func disconnect_by_node_id(this_arg: PeerManager, node_id: [UInt8], no_connection_possible: Bool) -> Void {
+    public func disconnect_by_node_id(node_id: [UInt8], no_connection_possible: Bool) -> Void {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_disconnect_by_node_id(this_argPointer, Bindings.new_LDKPublicKey(array: node_id), no_connection_possible)
 };
     }
 
-    public func timer_tick_occurred(this_arg: PeerManager) -> Void {
+    public func timer_tick_occurred() -> Void {
     	
-        return withUnsafePointer(to: this_arg.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_timer_tick_occurred(this_argPointer)
 };
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		PeerManager_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

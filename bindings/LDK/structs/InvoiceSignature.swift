@@ -19,9 +19,13 @@ InvoiceSignature(pointer: InvoiceSignature_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		InvoiceSignature_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

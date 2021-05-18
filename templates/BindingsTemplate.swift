@@ -105,6 +105,11 @@ public class Bindings{
         return string
     }
 
+    static func UnsafeIntPointer_to_string(nativeType: UnsafePointer<Int8>) -> String {
+		let string = String(cString: nativeType)
+		return string
+	}
+
     static func new_LDKStr(string: String) -> LDKStr {
         let stringData = string.data(using: .utf8)
         let dataMutablePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: string.count)

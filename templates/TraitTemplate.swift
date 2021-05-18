@@ -20,7 +20,7 @@ public class TraitName {
 	}
 
     /* SWIFT_CALLBACKS_START */
-    public func methodName(swift_arguments) -> Void {
+    public func methodName(public_swift_argument_list) -> Void {
     	/* EDIT ME */
     }
     /* SWIFT_CALLBACKS_END */

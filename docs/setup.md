@@ -182,6 +182,24 @@ Instantiate it:
 let filter = MyFilter()
 ```
 
+### KeysInterface
+
+Define the subclass:
+
+```swift
+//  MyKeysInterface.swift
+
+import Foundation
+
+class MyKeysInterface: KeysInterface {
+    override func get_node_secret() -> [UInt8] {
+        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
+    }
+}
+```
+
+We won't be instantiating it directly, but we will need the keys interface later on.
+
 ## Phase 2: Initializations
 
 ### ChainMonitor
@@ -207,6 +225,14 @@ let timestamp_nanos = UInt32.init(truncating: NSNumber(value: timestamp_seconds 
 let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
 ```
 
+We will keep needing to pass around a keysInterface instance, so let's prepare it right here:
+
+```swift
+let keysInterface = MyKeysInterface(pointer: keysManager.as_KeysInterface().cOpaqueStruct!)
+```
+
+This is a bit inelegant, but we will be providing simpler casting methods for user-provided types shortly.
+
 ### ChannelManager
 
 To instantiate the channel manager, we need a couple minor prerequisites.
@@ -230,5 +256,51 @@ Finally, we can proceed by instantiating the ChannelManager.
 ```swift
 // main context (continued)
 
-let channelManager = ChannelManager.init(fee_est: feeEstimator, chain_monitor: chainMonitor.as_Watch(), tx_broadcaster: broadcaster, logger: logger, keys_manager: keysManager.as_KeysInterface(), config: userConfig, params: chainParameters)
+let channelManager = ChannelManager.init(fee_est: feeEstimator, chain_monitor: chainMonitor.as_Watch(), tx_broadcaster: broadcaster, logger: logger, keys_manager: keysInterface, config: userConfig, params: chainParameters)
 ```
+
+### NetGraphMsgHandler
+
+If you intend to use the LDK's built-in routing algorithm, you will need to instantiate
+a graph message handler:
+
+```swift
+// main context (continued)
+
+let networkGraph = NetworkGraph(genesis_hash: [UInt8](Data(base64Encoded: "AAAAAAAZ1micCFrhZYMek0/3Y65GoqbBcrPxtgqM4m8=")!))
+let router = NetGraphMsgHandler(chain_access: nil, logger: logger, network_graph: networkGraph)
+```
+
+Note that a network graph instance needs to be provided upon initialization, which in turn requires the genesis block hash.
+
+### PeerHandler
+
+Finally, let's instantiate the peer handler. It requires a seed for ephemeral key generation,
+as well as a hybrid message handler for routing and channel events.
+
+Let's first set up the seed:
+
+```swift
+var keyData2 = Data(count: 32)
+keyData2.withUnsafeMutableBytes {
+	SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+}
+let peerManagerSeed = [UInt8](keyData2)
+```
+
+Next, let's prepare the combined message handler:
+
+```swift
+let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
+```
+
+And finally, let's instantiate the peer manager itself:
+
+```swift
+// main context (continued)
+
+let peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keysInterface.get_node_secret(), ephemeral_random_data: peerManagerSeed, logger: logger)
+```
+
+Now, all that remains is setting up the actual syscalls that are necessary within
+the host environment, and route them to the appropriate LDK objects.

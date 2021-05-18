@@ -60,11 +60,8 @@ import Foundation
 
 class MyLogger: Logger {
     
-    override func log(record: UnsafePointer<Int8>?) {
-        if let record = record {
-            let string = Bindings.UnsafeIntPointer_to_string(nativeType: record)
-            print("record: \(string)")
-        }
+    override func log(record: String?) {
+        print("record: \(record)")
     }
     
 }
@@ -89,8 +86,7 @@ import Foundation
 
 class MyBroadcasterInterface: BroadcasterInterface {
     
-    override func broadcast_transaction(tx: LDKTransaction) {
-        let txBytes: [UInt8] = Bindings.LDKTransaction_to_array(nativeType: tx)
+    override func broadcast_transaction(tx: [UInt8]) {
         // insert code to broadcast transaction
     }
     
@@ -116,27 +112,23 @@ import Foundation
 
 class MyPersister: Persist {
     
-    override func persist_new_channel(id: LDKOutPoint, data: UnsafePointer<LDKChannelMonitor>) -> Result_NoneChannelMonitorUpdateErrZ {
-        let outPoint = OutPoint(pointer: id)
-        let idBytes: [UInt8] = outPoint.write(obj: outPoint)
-        
-        let channelMonitor = ChannelMonitor(pointer: data.pointee)
-        let monitorBytes: [UInt8] = channelMonitor.write(obj: channelMonitor)
+    override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+        let idBytes: [UInt8] = id.write(obj: id)
+        let monitorBytes: [UInt8] = data.write(obj: data)
         
         // persist monitorBytes to disk, keyed by idBytes
         
+        // simplified result instantiation calls coming shortly!
         return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
     }
     
-    override func update_persisted_channel(id: LDKOutPoint, update: UnsafePointer<LDKChannelMonitorUpdate>, data: UnsafePointer<LDKChannelMonitor>) -> Result_NoneChannelMonitorUpdateErrZ {
-        let outPoint = OutPoint(pointer: id)
-        let idBytes: [UInt8] = outPoint.write(obj: outPoint)
-        
-        let channelMonitor = ChannelMonitor(pointer: data.pointee)
-        let monitorBytes: [UInt8] = channelMonitor.write(obj: channelMonitor)
+    override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+        let idBytes: [UInt8] = id.write(obj: id)
+        let monitorBytes: [UInt8] = data.write(obj: data)
         
         // modify persisted monitorBytes keyed by idBytes on disk
         
+        // simplified result instantiation calls coming shortly!
         return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
     }
     
@@ -161,26 +153,23 @@ Define the subclass:
 import Foundation
 
 class MyFilter: Filter {
-    override func register_tx(txid: UnsafePointer<(UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8)>?, script_pubkey: LDKu8slice) {
-        let txidBytes = Bindings.tuple32_to_array(nativeType: txid!.pointee)
-        let scriptPubkeyBytes = Bindings.LDKu8slice_to_array(nativeType: script_pubkey)
-        
+    
+    override func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) {
         // watch this transaction on-chain
     }
     
-    override func register_output(output: LDKWatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
-        let watchedOutput = WatchedOutput(pointer: output)
-        let scriptPubkeyBytes = watchedOutput.get_script_pubkey()
-        let outpoint = watchedOutput.get_outpoint()
+    override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+        let scriptPubkeyBytes = output.get_script_pubkey()
+        let outpoint = output.get_outpoint()
         let txidBytes = Bindings.tuple32_to_array(nativeType: outpoint.get_txid())
         let outputIndex = outpoint.get_index()
         
         // watch for any transactions that spend this output on-chain
         
-        let blockHashBytes = watchedOutput.get_block_hash()
-        // TODO: if block hash bytes are not null, return any transaction spending the output that is found in the corresponding block along with its index
+        let blockHashBytes = output.get_block_hash()
+        // if block hash bytes are not null, return any transaction spending the output that is found in the corresponding block along with its index
         
-        return Option_C2Tuple_usizeTransactionZZ(pointer: LDKCOption_C2Tuple_usizeTransactionZZ())
+        return Option_C2Tuple_usizeTransactionZZ(value: nil)
     }
 }
 ```
@@ -201,4 +190,45 @@ let filter = MyFilter()
 // main context (continued)
 
 let chainMonitor = ChainMonitor.init(chain_source: filter, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
+```
+
+### KeysManager
+
+```swift
+// main context (continued)
+
+var keyData = Data(count: 32)
+keyData.withUnsafeMutableBytes {
+	SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+}
+let seed = [UInt8](keyData)
+let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
+let timestamp_nanos = UInt32.init(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
+let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+```
+
+### ChannelManager
+
+To instantiate the channel manager, we need a couple minor prerequisites.
+
+First, we need the current block height and hash. For the sake of this example, we'll just use
+a random block at a height that does not exist at the time of this writing.
+
+```swift
+let bestBlock = BestBlock(block_hash: [UInt8](Data(base64Encoded: "AAAAAAAAAAAABe5Xh25D12zkQuLAJQbBeLoF1tEQqR8=")!), height: 700123)
+let chainParameters = ChainParameters(network_arg: LDKNetwork_Bitcoin, best_block_arg: bestBlock)
+```
+
+Second, we also need to initialize a default user config, which we simply do like this:
+
+```swift
+let userConfig = UserConfig.init()
+```
+
+Finally, we can proceed by instantiating the ChannelManager.
+
+```swift
+// main context (continued)
+
+let channelManager = ChannelManager.init(fee_est: feeEstimator, chain_monitor: chainMonitor.as_Watch(this_arg: chainMonitor), tx_broadcaster: broadcaster, logger: logger, keys_manager: keysManager.as_KeysInterface(this_arg: keysManager), config: userConfig, params: chainParameters)
 ```

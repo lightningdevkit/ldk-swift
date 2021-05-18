@@ -24,9 +24,9 @@ RouteHintHop_get_src_node_id(this_ptrPointer)
 
     public func set_src_node_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHintHop_set_src_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -39,9 +39,9 @@ RouteHintHop_get_short_channel_id(this_ptrPointer)
 
     public func set_short_channel_id(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHintHop_set_short_channel_id(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ RouteHintHop_get_fees(this_ptrPointer)
 
     public func set_fees(val: RoutingFees) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHintHop_set_fees(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -69,9 +69,9 @@ RouteHintHop_get_cltv_expiry_delta(this_ptrPointer)
 
     public func set_cltv_expiry_delta(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHintHop_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 
@@ -84,9 +84,9 @@ RouteHintHop_get_htlc_minimum_msat(this_ptrPointer)
 
     public func set_htlc_minimum_msat(val: Option_u64Z) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHintHop_set_htlc_minimum_msat(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -99,9 +99,9 @@ RouteHintHop_get_htlc_maximum_msat(this_ptrPointer)
 
     public func set_htlc_maximum_msat(val: Option_u64Z) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHintHop_set_htlc_maximum_msat(this_ptrPointer, val.cOpaqueStruct!);
     }
 

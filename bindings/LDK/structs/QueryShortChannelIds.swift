@@ -24,17 +24,17 @@ QueryShortChannelIds_get_chain_hash(this_ptrPointer)
 
     public func set_chain_hash(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKQueryShortChannelIds>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKQueryShortChannelIds>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return QueryShortChannelIds_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func set_short_channel_ids(val: [UInt64]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKQueryShortChannelIds>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKQueryShortChannelIds>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return QueryShortChannelIds_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val));
     }
 

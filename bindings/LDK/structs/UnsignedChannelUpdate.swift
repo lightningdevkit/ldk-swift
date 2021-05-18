@@ -19,9 +19,9 @@ UnsignedChannelUpdate_get_chain_hash(this_ptrPointer)
 
     public func set_chain_hash(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -34,9 +34,9 @@ UnsignedChannelUpdate_get_short_channel_id(this_ptrPointer)
 
     public func set_short_channel_id(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_short_channel_id(this_ptrPointer, val);
     }
 
@@ -49,9 +49,9 @@ UnsignedChannelUpdate_get_timestamp(this_ptrPointer)
 
     public func set_timestamp(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_timestamp(this_ptrPointer, val);
     }
 
@@ -64,9 +64,9 @@ UnsignedChannelUpdate_get_flags(this_ptrPointer)
 
     public func set_flags(val: UInt8) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_flags(this_ptrPointer, val);
     }
 
@@ -79,9 +79,9 @@ UnsignedChannelUpdate_get_cltv_expiry_delta(this_ptrPointer)
 
     public func set_cltv_expiry_delta(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 
@@ -94,9 +94,9 @@ UnsignedChannelUpdate_get_htlc_minimum_msat(this_ptrPointer)
 
     public func set_htlc_minimum_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_htlc_minimum_msat(this_ptrPointer, val);
     }
 
@@ -109,9 +109,9 @@ UnsignedChannelUpdate_get_fee_base_msat(this_ptrPointer)
 
     public func set_fee_base_msat(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_fee_base_msat(this_ptrPointer, val);
     }
 
@@ -124,9 +124,9 @@ UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer)
 
     public func set_fee_proportional_millionths(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UnsignedChannelUpdate_set_fee_proportional_millionths(this_ptrPointer, val);
     }
 

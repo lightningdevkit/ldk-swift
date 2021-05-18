@@ -24,9 +24,9 @@ FundingCreated_get_temporary_channel_id(this_ptrPointer)
 
     public func set_temporary_channel_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return FundingCreated_set_temporary_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -39,9 +39,9 @@ FundingCreated_get_funding_txid(this_ptrPointer)
 
     public func set_funding_txid(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return FundingCreated_set_funding_txid(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -54,9 +54,9 @@ FundingCreated_get_funding_output_index(this_ptrPointer)
 
     public func set_funding_output_index(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return FundingCreated_set_funding_output_index(this_ptrPointer, val);
     }
 
@@ -69,9 +69,9 @@ FundingCreated_get_signature(this_ptrPointer)
 
     public func set_signature(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return FundingCreated_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 

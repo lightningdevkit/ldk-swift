@@ -24,9 +24,9 @@ Ping_get_ponglen(this_ptrPointer)
 
     public func set_ponglen(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKPing>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKPing>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return Ping_set_ponglen(this_ptrPointer, val);
     }
 
@@ -39,9 +39,9 @@ Ping_get_byteslen(this_ptrPointer)
 
     public func set_byteslen(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKPing>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKPing>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return Ping_set_byteslen(this_ptrPointer, val);
     }
 

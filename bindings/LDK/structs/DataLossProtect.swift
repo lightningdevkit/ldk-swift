@@ -24,9 +24,9 @@ DataLossProtect_get_your_last_per_commitment_secret(this_ptrPointer)
 
     public func set_your_last_per_commitment_secret(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKDataLossProtect>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKDataLossProtect>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return DataLossProtect_set_your_last_per_commitment_secret(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -39,9 +39,9 @@ DataLossProtect_get_my_current_per_commitment_point(this_ptrPointer)
 
     public func set_my_current_per_commitment_point(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKDataLossProtect>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKDataLossProtect>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return DataLossProtect_set_my_current_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 

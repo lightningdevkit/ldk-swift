@@ -19,9 +19,9 @@ ChannelReestablish_get_channel_id(this_ptrPointer)
 
     public func set_channel_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelReestablish>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelReestablish>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelReestablish_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -34,9 +34,9 @@ ChannelReestablish_get_next_local_commitment_number(this_ptrPointer)
 
     public func set_next_local_commitment_number(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelReestablish>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelReestablish>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelReestablish_set_next_local_commitment_number(this_ptrPointer, val);
     }
 
@@ -49,9 +49,9 @@ ChannelReestablish_get_next_remote_commitment_number(this_ptrPointer)
 
     public func set_next_remote_commitment_number(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelReestablish>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelReestablish>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelReestablish_set_next_remote_commitment_number(this_ptrPointer, val);
     }
 

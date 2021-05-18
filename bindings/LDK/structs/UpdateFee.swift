@@ -24,9 +24,9 @@ UpdateFee_get_channel_id(this_ptrPointer)
 
     public func set_channel_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFee>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFee>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UpdateFee_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -39,9 +39,9 @@ UpdateFee_get_feerate_per_kw(this_ptrPointer)
 
     public func set_feerate_per_kw(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFee>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFee>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UpdateFee_set_feerate_per_kw(this_ptrPointer, val);
     }
 

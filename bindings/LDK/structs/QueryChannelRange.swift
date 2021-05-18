@@ -24,9 +24,9 @@ QueryChannelRange_get_chain_hash(this_ptrPointer)
 
     public func set_chain_hash(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKQueryChannelRange>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKQueryChannelRange>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return QueryChannelRange_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -39,9 +39,9 @@ QueryChannelRange_get_first_blocknum(this_ptrPointer)
 
     public func set_first_blocknum(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKQueryChannelRange>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKQueryChannelRange>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return QueryChannelRange_set_first_blocknum(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ QueryChannelRange_get_number_of_blocks(this_ptrPointer)
 
     public func set_number_of_blocks(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKQueryChannelRange>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKQueryChannelRange>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return QueryChannelRange_set_number_of_blocks(this_ptrPointer, val);
     }
 

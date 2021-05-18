@@ -24,9 +24,9 @@ CounterpartyChannelTransactionParameters_get_pubkeys(this_ptrPointer)
 
     public func set_pubkeys(val: ChannelPublicKeys) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKCounterpartyChannelTransactionParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKCounterpartyChannelTransactionParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return CounterpartyChannelTransactionParameters_set_pubkeys(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -39,9 +39,9 @@ CounterpartyChannelTransactionParameters_get_selected_contest_delay(this_ptrPoin
 
     public func set_selected_contest_delay(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKCounterpartyChannelTransactionParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKCounterpartyChannelTransactionParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return CounterpartyChannelTransactionParameters_set_selected_contest_delay(this_ptrPointer, val);
     }
 

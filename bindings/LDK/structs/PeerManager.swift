@@ -40,9 +40,9 @@ PeerManager_new_inbound_connection(this_argPointer, descriptor.cOpaqueStruct!)
 
     public func write_buffer_space_avail(descriptor: SocketDescriptor) -> Result_NonePeerHandleErrorZ {
     	
-						let descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
-						descriptorPointer.initialize(to: descriptor.cOpaqueStruct!)
-					
+							let descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
+							descriptorPointer.initialize(to: descriptor.cOpaqueStruct!)
+						
         return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_write_buffer_space_avail(this_argPointer, descriptorPointer)
 });
@@ -50,9 +50,9 @@ PeerManager_write_buffer_space_avail(this_argPointer, descriptorPointer)
 
     public func read_event(peer_descriptor: SocketDescriptor, data: [UInt8]) -> Result_boolPeerHandleErrorZ {
     	
-						let peer_descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
-						peer_descriptorPointer.initialize(to: peer_descriptor.cOpaqueStruct!)
-					
+							let peer_descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
+							peer_descriptorPointer.initialize(to: peer_descriptor.cOpaqueStruct!)
+						
         return Result_boolPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_read_event(this_argPointer, peer_descriptorPointer, Bindings.new_LDKu8slice(array: data))
 });

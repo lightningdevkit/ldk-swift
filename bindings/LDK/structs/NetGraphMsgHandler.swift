@@ -3,11 +3,14 @@ public class NetGraphMsgHandler {
     var cOpaqueStruct: LDKNetGraphMsgHandler?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(chain_access: Access, logger: Logger, network_graph: NetworkGraph) {
+    public init(chain_access: Access?, logger: Logger, network_graph: NetworkGraph) {
     	
-						let chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
-						chain_accessPointer.initialize(to: chain_access.cOpaqueStruct!)
-					
+							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
+							if let chain_accessUnwrapped = chain_access {
+								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
+								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
+							}
+						
         self.cOpaqueStruct = NetGraphMsgHandler_from_net_graph(chain_accessPointer, logger.cOpaqueStruct!, network_graph.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
@@ -18,14 +21,17 @@ public class NetGraphMsgHandler {
 
     /* STRUCT_METHODS_START */
 
-    public func add_chain_access(chain_access: Access) -> Void {
+    public func add_chain_access(chain_access: Access?) -> Void {
     	
-						let this_argPointer = UnsafeMutablePointer<LDKNetGraphMsgHandler>.allocate(capacity: 1)
-						this_argPointer.initialize(to: self.cOpaqueStruct!)
-					
-						let chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
-						chain_accessPointer.initialize(to: chain_access.cOpaqueStruct!)
-					
+							let this_argPointer = UnsafeMutablePointer<LDKNetGraphMsgHandler>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
+							if let chain_accessUnwrapped = chain_access {
+								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
+								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
+							}
+						
         return NetGraphMsgHandler_add_chain_access(this_argPointer, chain_accessPointer);
     }
 

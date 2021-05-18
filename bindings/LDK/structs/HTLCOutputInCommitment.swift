@@ -24,9 +24,9 @@ HTLCOutputInCommitment_get_offered(this_ptrPointer)
 
     public func set_offered(val: Bool) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return HTLCOutputInCommitment_set_offered(this_ptrPointer, val);
     }
 
@@ -39,9 +39,9 @@ HTLCOutputInCommitment_get_amount_msat(this_ptrPointer)
 
     public func set_amount_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return HTLCOutputInCommitment_set_amount_msat(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ HTLCOutputInCommitment_get_cltv_expiry(this_ptrPointer)
 
     public func set_cltv_expiry(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return HTLCOutputInCommitment_set_cltv_expiry(this_ptrPointer, val);
     }
 
@@ -69,9 +69,9 @@ HTLCOutputInCommitment_get_payment_hash(this_ptrPointer)
 
     public func set_payment_hash(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return HTLCOutputInCommitment_set_payment_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -84,9 +84,9 @@ HTLCOutputInCommitment_get_transaction_output_index(this_ptrPointer)
 
     public func set_transaction_output_index(val: Option_u32Z) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.cOpaqueStruct!);
     }
 

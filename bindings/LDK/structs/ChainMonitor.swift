@@ -3,11 +3,14 @@ public class ChainMonitor {
     var cOpaqueStruct: LDKChainMonitor?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(chain_source: Filter, broadcaster: BroadcasterInterface, logger: Logger, feeest: FeeEstimator, persister: Persist) {
+    public init(chain_source: Filter?, broadcaster: BroadcasterInterface, logger: Logger, feeest: FeeEstimator, persister: Persist) {
     	
-						let chain_sourcePointer = UnsafeMutablePointer<LDKFilter>.allocate(capacity: 1)
-						chain_sourcePointer.initialize(to: chain_source.cOpaqueStruct!)
-					
+							var chain_sourcePointer: UnsafeMutablePointer<LDKFilter>? = nil
+							if let chain_sourceUnwrapped = chain_source {
+								chain_sourcePointer = UnsafeMutablePointer<LDKFilter>.allocate(capacity: 1)
+								chain_sourcePointer!.initialize(to: chain_sourceUnwrapped.cOpaqueStruct!)
+							}
+						
         self.cOpaqueStruct = ChainMonitor_new(chain_sourcePointer, broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, feeest.cOpaqueStruct!, persister.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */

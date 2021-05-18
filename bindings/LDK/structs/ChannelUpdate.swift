@@ -24,9 +24,9 @@ ChannelUpdate_get_signature(this_ptrPointer)
 
     public func set_signature(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelUpdate_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
@@ -39,9 +39,9 @@ ChannelUpdate_get_contents(this_ptrPointer)
 
     public func set_contents(val: UnsignedChannelUpdate) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelUpdate_set_contents(this_ptrPointer, val.cOpaqueStruct!);
     }
 

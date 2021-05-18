@@ -24,9 +24,9 @@ ReplyShortChannelIdsEnd_get_chain_hash(this_ptrPointer)
 
     public func set_chain_hash(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKReplyShortChannelIdsEnd>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKReplyShortChannelIdsEnd>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ReplyShortChannelIdsEnd_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -39,9 +39,9 @@ ReplyShortChannelIdsEnd_get_full_information(this_ptrPointer)
 
     public func set_full_information(val: Bool) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKReplyShortChannelIdsEnd>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKReplyShortChannelIdsEnd>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ReplyShortChannelIdsEnd_set_full_information(this_ptrPointer, val);
     }
 

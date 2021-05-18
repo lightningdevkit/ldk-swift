@@ -19,9 +19,9 @@ ChannelDetails_get_channel_id(this_ptrPointer)
 
     public func set_channel_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -34,9 +34,9 @@ ChannelDetails_get_short_channel_id(this_ptrPointer)
 
     public func set_short_channel_id(val: Option_u64Z) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_short_channel_id(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -49,9 +49,9 @@ ChannelDetails_get_remote_network_id(this_ptrPointer)
 
     public func set_remote_network_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_remote_network_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -64,9 +64,9 @@ ChannelDetails_get_counterparty_features(this_ptrPointer)
 
     public func set_counterparty_features(val: InitFeatures) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_counterparty_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -79,9 +79,9 @@ ChannelDetails_get_channel_value_satoshis(this_ptrPointer)
 
     public func set_channel_value_satoshis(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_channel_value_satoshis(this_ptrPointer, val);
     }
 
@@ -94,9 +94,9 @@ ChannelDetails_get_user_id(this_ptrPointer)
 
     public func set_user_id(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_user_id(this_ptrPointer, val);
     }
 
@@ -109,9 +109,9 @@ ChannelDetails_get_outbound_capacity_msat(this_ptrPointer)
 
     public func set_outbound_capacity_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_outbound_capacity_msat(this_ptrPointer, val);
     }
 
@@ -124,9 +124,9 @@ ChannelDetails_get_inbound_capacity_msat(this_ptrPointer)
 
     public func set_inbound_capacity_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_inbound_capacity_msat(this_ptrPointer, val);
     }
 
@@ -139,9 +139,9 @@ ChannelDetails_get_is_live(this_ptrPointer)
 
     public func set_is_live(val: Bool) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelDetails_set_is_live(this_ptrPointer, val);
     }
 

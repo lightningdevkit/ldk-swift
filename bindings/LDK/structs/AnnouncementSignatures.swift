@@ -24,9 +24,9 @@ AnnouncementSignatures_get_channel_id(this_ptrPointer)
 
     public func set_channel_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return AnnouncementSignatures_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -39,9 +39,9 @@ AnnouncementSignatures_get_short_channel_id(this_ptrPointer)
 
     public func set_short_channel_id(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return AnnouncementSignatures_set_short_channel_id(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ AnnouncementSignatures_get_node_signature(this_ptrPointer)
 
     public func set_node_signature(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return AnnouncementSignatures_set_node_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
@@ -69,9 +69,9 @@ AnnouncementSignatures_get_bitcoin_signature(this_ptrPointer)
 
     public func set_bitcoin_signature(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKAnnouncementSignatures>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return AnnouncementSignatures_set_bitcoin_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 

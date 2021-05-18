@@ -14,6 +14,8 @@ class ConversionHelper:
 			argument_name = current_argument_details.var_name
 			passed_argument_name = argument_name
 
+			mutabilityIndicatorSuffix = ''
+
 			if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(argument_types) == 1:
 				break
 
@@ -28,22 +30,36 @@ class ConversionHelper:
 				reference_prefix = ''
 				mutability_infix = ''
 
+				non_nullable = current_argument_details.non_nullable
+
 				if pass_instance:
 					argument_name = 'self'
 				if requires_mutability:
 					# argument_name = '&' + argument_name
 					reference_prefix = '&'
 					mutability_infix = 'Mutable'
+					if not pass_instance and not non_nullable:
+						mutabilityIndicatorSuffix = '?'
 				# let managerPointer = withUnsafePointer(to: self.cChannelManager!) { (pointer: UnsafePointer<LDKChannelManager>) in
 				# 	pointer
 				# }
 				# the \n\t will add a bunch of extra lines, but this file will be easier to read
 
 				if requires_mutability:
-					native_call_prep += f'''
-						let {passed_argument_name} = UnsafeMutablePointer<{current_argument_details.rust_obj}>.allocate(capacity: 1)
-						{passed_argument_name}.initialize(to: {argument_name}.cOpaqueStruct!)
-					'''
+					if pass_instance or non_nullable:
+						native_call_prep += f'''
+							let {passed_argument_name} = UnsafeMutablePointer<{current_argument_details.rust_obj}>.allocate(capacity: 1)
+							{passed_argument_name}.initialize(to: {argument_name}.cOpaqueStruct!)
+						'''
+					else:
+						native_call_prep += f'''
+							var {passed_argument_name}: UnsafeMutablePointer<{current_argument_details.rust_obj}>? = nil
+							if let {argument_name}Unwrapped = {argument_name} {{
+								{passed_argument_name} = UnsafeMutablePointer<{current_argument_details.rust_obj}>.allocate(capacity: 1)
+								{passed_argument_name}!.initialize(to: {argument_name}Unwrapped.cOpaqueStruct!)
+							}}
+						'''
+						print('optional argument:', argument_name, passed_argument_name)
 				else:
 					wrapper_return_prefix = '' if pointer_wrapping_depth == 0 else 'return '
 					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
@@ -57,7 +73,7 @@ class ConversionHelper:
 
 				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
 					swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
-				swift_arguments.append(f'{argument_name}: {swift_argument_type}')
+				swift_arguments.append(f'{argument_name}: {swift_argument_type}{mutabilityIndicatorSuffix}')
 
 			# native_arguments.append(f'{passed_argument_name}')
 			if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:

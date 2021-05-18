@@ -24,9 +24,9 @@ Init_get_features(this_ptrPointer)
 
     public func set_features(val: InitFeatures) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKInit>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKInit>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return Init_set_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 

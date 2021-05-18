@@ -24,9 +24,9 @@ ChannelHandshakeConfig_get_minimum_depth(this_ptrPointer)
 
     public func set_minimum_depth(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelHandshakeConfig_set_minimum_depth(this_ptrPointer, val);
     }
 
@@ -39,9 +39,9 @@ ChannelHandshakeConfig_get_our_to_self_delay(this_ptrPointer)
 
     public func set_our_to_self_delay(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelHandshakeConfig_set_our_to_self_delay(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ ChannelHandshakeConfig_get_our_htlc_minimum_msat(this_ptrPointer)
 
     public func set_our_htlc_minimum_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelHandshakeConfig_set_our_htlc_minimum_msat(this_ptrPointer, val);
     }
 

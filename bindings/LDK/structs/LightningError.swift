@@ -24,9 +24,9 @@ LightningError_get_err(this_ptrPointer)
 
     public func set_err(val: String) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKLightningError>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKLightningError>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return LightningError_set_err(this_ptrPointer, Bindings.new_LDKStr(string: val));
     }
 
@@ -39,9 +39,9 @@ LightningError_get_action(this_ptrPointer)
 
     public func set_action(val: ErrorAction) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKLightningError>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKLightningError>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return LightningError_set_action(this_ptrPointer, val.cOpaqueStruct!);
     }
 

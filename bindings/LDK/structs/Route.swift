@@ -17,9 +17,9 @@ public class Route {
 
     public func set_paths(val: [[LDKRouteHop]]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return Route_set_paths(this_ptrPointer, Bindings.new_LDKCVec_CVec_RouteHopZZ(array: val));
     }
 

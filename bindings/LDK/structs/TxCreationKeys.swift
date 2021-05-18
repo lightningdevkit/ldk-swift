@@ -24,9 +24,9 @@ TxCreationKeys_get_per_commitment_point(this_ptrPointer)
 
     public func set_per_commitment_point(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return TxCreationKeys_set_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -39,9 +39,9 @@ TxCreationKeys_get_revocation_key(this_ptrPointer)
 
     public func set_revocation_key(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return TxCreationKeys_set_revocation_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -54,9 +54,9 @@ TxCreationKeys_get_broadcaster_htlc_key(this_ptrPointer)
 
     public func set_broadcaster_htlc_key(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return TxCreationKeys_set_broadcaster_htlc_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -69,9 +69,9 @@ TxCreationKeys_get_countersignatory_htlc_key(this_ptrPointer)
 
     public func set_countersignatory_htlc_key(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return TxCreationKeys_set_countersignatory_htlc_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -84,9 +84,9 @@ TxCreationKeys_get_broadcaster_delayed_payment_key(this_ptrPointer)
 
     public func set_broadcaster_delayed_payment_key(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKTxCreationKeys>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return TxCreationKeys_set_broadcaster_delayed_payment_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 

@@ -24,9 +24,9 @@ GossipTimestampFilter_get_chain_hash(this_ptrPointer)
 
     public func set_chain_hash(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKGossipTimestampFilter>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKGossipTimestampFilter>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return GossipTimestampFilter_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -39,9 +39,9 @@ GossipTimestampFilter_get_first_timestamp(this_ptrPointer)
 
     public func set_first_timestamp(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKGossipTimestampFilter>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKGossipTimestampFilter>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return GossipTimestampFilter_set_first_timestamp(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ GossipTimestampFilter_get_timestamp_range(this_ptrPointer)
 
     public func set_timestamp_range(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKGossipTimestampFilter>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKGossipTimestampFilter>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return GossipTimestampFilter_set_timestamp_range(this_ptrPointer, val);
     }
 

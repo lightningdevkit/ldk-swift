@@ -19,9 +19,9 @@ UpdateFailMalformedHTLC_get_channel_id(this_ptrPointer)
 
     public func set_channel_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailMalformedHTLC>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailMalformedHTLC>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UpdateFailMalformedHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -34,9 +34,9 @@ UpdateFailMalformedHTLC_get_htlc_id(this_ptrPointer)
 
     public func set_htlc_id(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailMalformedHTLC>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailMalformedHTLC>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UpdateFailMalformedHTLC_set_htlc_id(this_ptrPointer, val);
     }
 
@@ -49,9 +49,9 @@ UpdateFailMalformedHTLC_get_failure_code(this_ptrPointer)
 
     public func set_failure_code(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailMalformedHTLC>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailMalformedHTLC>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return UpdateFailMalformedHTLC_set_failure_code(this_ptrPointer, val);
     }
 

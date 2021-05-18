@@ -24,9 +24,9 @@ PeerHandleError_get_no_connection_possible(this_ptrPointer)
 
     public func set_no_connection_possible(val: Bool) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKPeerHandleError>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKPeerHandleError>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return PeerHandleError_set_no_connection_possible(this_ptrPointer, val);
     }
 

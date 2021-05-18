@@ -19,9 +19,9 @@ RawDataPart_get_timestamp(this_ptrPointer)
 
     public func set_timestamp(val: PositiveTimestamp) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRawDataPart>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRawDataPart>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RawDataPart_set_timestamp(this_ptrPointer, val.cOpaqueStruct!);
     }
 

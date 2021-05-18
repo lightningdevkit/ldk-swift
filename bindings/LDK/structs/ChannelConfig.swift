@@ -24,9 +24,9 @@ ChannelConfig_get_fee_proportional_millionths(this_ptrPointer)
 
     public func set_fee_proportional_millionths(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelConfig_set_fee_proportional_millionths(this_ptrPointer, val);
     }
 
@@ -39,9 +39,9 @@ ChannelConfig_get_cltv_expiry_delta(this_ptrPointer)
 
     public func set_cltv_expiry_delta(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelConfig_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ ChannelConfig_get_announced_channel(this_ptrPointer)
 
     public func set_announced_channel(val: Bool) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelConfig_set_announced_channel(this_ptrPointer, val);
     }
 
@@ -69,9 +69,9 @@ ChannelConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
 
     public func set_commit_upfront_shutdown_pubkey(val: Bool) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelConfig_set_commit_upfront_shutdown_pubkey(this_ptrPointer, val);
     }
 

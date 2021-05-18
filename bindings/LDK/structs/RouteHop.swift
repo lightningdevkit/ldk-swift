@@ -24,9 +24,9 @@ RouteHop_get_pubkey(this_ptrPointer)
 
     public func set_pubkey(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHop_set_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -39,9 +39,9 @@ RouteHop_get_node_features(this_ptrPointer)
 
     public func set_node_features(val: NodeFeatures) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHop_set_node_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -54,9 +54,9 @@ RouteHop_get_short_channel_id(this_ptrPointer)
 
     public func set_short_channel_id(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHop_set_short_channel_id(this_ptrPointer, val);
     }
 
@@ -69,9 +69,9 @@ RouteHop_get_channel_features(this_ptrPointer)
 
     public func set_channel_features(val: ChannelFeatures) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHop_set_channel_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -84,9 +84,9 @@ RouteHop_get_fee_msat(this_ptrPointer)
 
     public func set_fee_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHop_set_fee_msat(this_ptrPointer, val);
     }
 
@@ -99,9 +99,9 @@ RouteHop_get_cltv_expiry_delta(this_ptrPointer)
 
     public func set_cltv_expiry_delta(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RouteHop_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 

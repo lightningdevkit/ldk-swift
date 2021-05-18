@@ -24,9 +24,9 @@ Pong_get_byteslen(this_ptrPointer)
 
     public func set_byteslen(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKPong>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKPong>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return Pong_set_byteslen(this_ptrPointer, val);
     }
 

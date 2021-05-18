@@ -19,9 +19,9 @@ OpenChannel_get_chain_hash(this_ptrPointer)
 
     public func set_chain_hash(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -34,9 +34,9 @@ OpenChannel_get_temporary_channel_id(this_ptrPointer)
 
     public func set_temporary_channel_id(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_temporary_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
@@ -49,9 +49,9 @@ OpenChannel_get_funding_satoshis(this_ptrPointer)
 
     public func set_funding_satoshis(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_funding_satoshis(this_ptrPointer, val);
     }
 
@@ -64,9 +64,9 @@ OpenChannel_get_push_msat(this_ptrPointer)
 
     public func set_push_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_push_msat(this_ptrPointer, val);
     }
 
@@ -79,9 +79,9 @@ OpenChannel_get_dust_limit_satoshis(this_ptrPointer)
 
     public func set_dust_limit_satoshis(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_dust_limit_satoshis(this_ptrPointer, val);
     }
 
@@ -94,9 +94,9 @@ OpenChannel_get_max_htlc_value_in_flight_msat(this_ptrPointer)
 
     public func set_max_htlc_value_in_flight_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_max_htlc_value_in_flight_msat(this_ptrPointer, val);
     }
 
@@ -109,9 +109,9 @@ OpenChannel_get_channel_reserve_satoshis(this_ptrPointer)
 
     public func set_channel_reserve_satoshis(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_channel_reserve_satoshis(this_ptrPointer, val);
     }
 
@@ -124,9 +124,9 @@ OpenChannel_get_htlc_minimum_msat(this_ptrPointer)
 
     public func set_htlc_minimum_msat(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_htlc_minimum_msat(this_ptrPointer, val);
     }
 
@@ -139,9 +139,9 @@ OpenChannel_get_feerate_per_kw(this_ptrPointer)
 
     public func set_feerate_per_kw(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_feerate_per_kw(this_ptrPointer, val);
     }
 
@@ -154,9 +154,9 @@ OpenChannel_get_to_self_delay(this_ptrPointer)
 
     public func set_to_self_delay(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_to_self_delay(this_ptrPointer, val);
     }
 
@@ -169,9 +169,9 @@ OpenChannel_get_max_accepted_htlcs(this_ptrPointer)
 
     public func set_max_accepted_htlcs(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_max_accepted_htlcs(this_ptrPointer, val);
     }
 
@@ -184,9 +184,9 @@ OpenChannel_get_funding_pubkey(this_ptrPointer)
 
     public func set_funding_pubkey(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_funding_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -199,9 +199,9 @@ OpenChannel_get_revocation_basepoint(this_ptrPointer)
 
     public func set_revocation_basepoint(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_revocation_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -214,9 +214,9 @@ OpenChannel_get_payment_point(this_ptrPointer)
 
     public func set_payment_point(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_payment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -229,9 +229,9 @@ OpenChannel_get_delayed_payment_basepoint(this_ptrPointer)
 
     public func set_delayed_payment_basepoint(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_delayed_payment_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -244,9 +244,9 @@ OpenChannel_get_htlc_basepoint(this_ptrPointer)
 
     public func set_htlc_basepoint(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_htlc_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -259,9 +259,9 @@ OpenChannel_get_first_per_commitment_point(this_ptrPointer)
 
     public func set_first_per_commitment_point(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_first_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -274,9 +274,9 @@ OpenChannel_get_channel_flags(this_ptrPointer)
 
     public func set_channel_flags(val: UInt8) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return OpenChannel_set_channel_flags(this_ptrPointer, val);
     }
 

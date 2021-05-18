@@ -24,9 +24,9 @@ ChannelInfo_get_features(this_ptrPointer)
 
     public func set_features(val: ChannelFeatures) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelInfo_set_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -39,9 +39,9 @@ ChannelInfo_get_node_one(this_ptrPointer)
 
     public func set_node_one(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelInfo_set_node_one(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -54,9 +54,9 @@ ChannelInfo_get_one_to_two(this_ptrPointer)
 
     public func set_one_to_two(val: DirectionalChannelInfo) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelInfo_set_one_to_two(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -69,9 +69,9 @@ ChannelInfo_get_node_two(this_ptrPointer)
 
     public func set_node_two(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelInfo_set_node_two(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
@@ -84,9 +84,9 @@ ChannelInfo_get_two_to_one(this_ptrPointer)
 
     public func set_two_to_one(val: DirectionalChannelInfo) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelInfo_set_two_to_one(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -99,9 +99,9 @@ ChannelInfo_get_capacity_sats(this_ptrPointer)
 
     public func set_capacity_sats(val: Option_u64Z) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelInfo_set_capacity_sats(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -114,9 +114,9 @@ ChannelInfo_get_announcement_message(this_ptrPointer)
 
     public func set_announcement_message(val: ChannelAnnouncement) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelInfo_set_announcement_message(this_ptrPointer, val.cOpaqueStruct!);
     }
 

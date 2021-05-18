@@ -24,9 +24,9 @@ ChainParameters_get_network(this_ptrPointer)
 
     public func set_network(val: LDKNetwork) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChainParameters_set_network(this_ptrPointer, val);
     }
 
@@ -39,9 +39,9 @@ ChainParameters_get_best_block(this_ptrPointer)
 
     public func set_best_block(val: BestBlock) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!);
     }
 

@@ -24,9 +24,9 @@ MessageHandler_get_chan_handler(this_ptrPointer)
 
     public func set_chan_handler(val: ChannelMessageHandler) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKMessageHandler>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKMessageHandler>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return MessageHandler_set_chan_handler(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -39,9 +39,9 @@ MessageHandler_get_route_handler(this_ptrPointer)
 
     public func set_route_handler(val: RoutingMessageHandler) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKMessageHandler>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKMessageHandler>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return MessageHandler_set_route_handler(this_ptrPointer, val.cOpaqueStruct!);
     }
 

@@ -24,9 +24,9 @@ NodeAnnouncement_get_signature(this_ptrPointer)
 
     public func set_signature(val: [UInt8]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return NodeAnnouncement_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
@@ -39,9 +39,9 @@ NodeAnnouncement_get_contents(this_ptrPointer)
 
     public func set_contents(val: UnsignedNodeAnnouncement) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return NodeAnnouncement_set_contents(this_ptrPointer, val.cOpaqueStruct!);
     }
 

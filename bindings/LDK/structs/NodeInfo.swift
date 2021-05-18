@@ -17,9 +17,9 @@ public class NodeInfo {
 
     public func set_channels(val: [UInt64]) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return NodeInfo_set_channels(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val));
     }
 
@@ -32,9 +32,9 @@ NodeInfo_get_lowest_inbound_channel_fees(this_ptrPointer)
 
     public func set_lowest_inbound_channel_fees(val: RoutingFees) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return NodeInfo_set_lowest_inbound_channel_fees(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -47,9 +47,9 @@ NodeInfo_get_announcement_info(this_ptrPointer)
 
     public func set_announcement_info(val: NodeAnnouncementInfo) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return NodeInfo_set_announcement_info(this_ptrPointer, val.cOpaqueStruct!);
     }
 

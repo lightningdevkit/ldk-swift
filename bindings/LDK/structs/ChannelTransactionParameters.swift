@@ -24,9 +24,9 @@ ChannelTransactionParameters_get_holder_pubkeys(this_ptrPointer)
 
     public func set_holder_pubkeys(val: ChannelPublicKeys) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelTransactionParameters_set_holder_pubkeys(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -39,9 +39,9 @@ ChannelTransactionParameters_get_holder_selected_contest_delay(this_ptrPointer)
 
     public func set_holder_selected_contest_delay(val: UInt16) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelTransactionParameters_set_holder_selected_contest_delay(this_ptrPointer, val);
     }
 
@@ -54,9 +54,9 @@ ChannelTransactionParameters_get_is_outbound_from_holder(this_ptrPointer)
 
     public func set_is_outbound_from_holder(val: Bool) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelTransactionParameters_set_is_outbound_from_holder(this_ptrPointer, val);
     }
 
@@ -69,9 +69,9 @@ ChannelTransactionParameters_get_counterparty_parameters(this_ptrPointer)
 
     public func set_counterparty_parameters(val: CounterpartyChannelTransactionParameters) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.cOpaqueStruct!);
     }
 
@@ -84,9 +84,9 @@ ChannelTransactionParameters_get_funding_outpoint(this_ptrPointer)
 
     public func set_funding_outpoint(val: OutPoint) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.cOpaqueStruct!);
     }
 

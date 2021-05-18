@@ -19,9 +19,9 @@ ChannelMonitorUpdate_get_update_id(this_ptrPointer)
 
     public func set_update_id(val: UInt64) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKChannelMonitorUpdate>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelMonitorUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return ChannelMonitorUpdate_set_update_id(this_ptrPointer, val);
     }
 

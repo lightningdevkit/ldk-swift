@@ -24,9 +24,9 @@ RoutingFees_get_base_msat(this_ptrPointer)
 
     public func set_base_msat(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRoutingFees>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRoutingFees>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RoutingFees_set_base_msat(this_ptrPointer, val);
     }
 
@@ -39,9 +39,9 @@ RoutingFees_get_proportional_millionths(this_ptrPointer)
 
     public func set_proportional_millionths(val: UInt32) -> Void {
     	
-						let this_ptrPointer = UnsafeMutablePointer<LDKRoutingFees>.allocate(capacity: 1)
-						this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-					
+							let this_ptrPointer = UnsafeMutablePointer<LDKRoutingFees>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
         return RoutingFees_set_proportional_millionths(this_ptrPointer, val);
     }
 

@@ -1,0 +1,15 @@
+public class Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
+
+    var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ?;
+
+	
+
+    init(pointer: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ){
+		self.cOpaqueStruct = pointer
+	}
+
+    /* RESULT_METHODS_START */
+
+    /* RESULT_METHODS_END */
+
+}

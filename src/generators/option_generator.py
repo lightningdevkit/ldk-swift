@@ -18,50 +18,55 @@ class OptionGenerator:
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
 		swift_struct_name = struct_name[3:]
+		is_binary_option = False
 		if swift_struct_name.startswith('COption'):
+			is_binary_option = True
 			swift_struct_name = struct_name[4:]
+
+		option_value_details = struct_details.option_value_type
 
 		mutating_output_file_contents = self.template
 
 		# CONSTRUCTOR START
-		if struct_details.constructor_method is not None:
-			# fill constructor details
-			constructor_details = struct_details.constructor_method
-			constructor_native_name = constructor_details['name']['native']
-			swift_arguments = []
-			native_arguments = []
-			constructor_argument_prep = ''
-			for current_argument_details in constructor_details['argument_types']:
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				constructor_argument_conversion_method = None
+		if not is_binary_option:
+			if struct_details.constructor_method is not None:
+				# fill constructor details
+				constructor_details = struct_details.constructor_method
+				constructor_native_name = constructor_details['name']['native']
+				swift_arguments = []
+				native_arguments = []
+				constructor_argument_prep = ''
+				for current_argument_details in constructor_details['argument_types']:
+					argument_name = current_argument_details.var_name
+					passed_argument_name = argument_name
+					constructor_argument_conversion_method = None
 
-				if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
-					'LDK') and current_argument_details.swift_type.startswith('['):
-					constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_{current_argument_details.rust_obj}(array: {argument_name})'
-					constructor_argument_prep += constructor_argument_conversion_method
-					passed_argument_name = f'converted_{argument_name}'
-				elif current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type:
-					passed_argument_name += '.cOpaqueStruct!'
+					if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
+						'LDK') and current_argument_details.swift_type.startswith('['):
+						constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_{current_argument_details.rust_obj}(array: {argument_name})'
+						constructor_argument_prep += constructor_argument_conversion_method
+						passed_argument_name = f'converted_{argument_name}'
+					elif current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type:
+						passed_argument_name += '.cOpaqueStruct!'
 
-				swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
-				native_arguments.append(f'{passed_argument_name}')
+					swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
+					native_arguments.append(f'{passed_argument_name}')
 
-			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments',
-																				  ', '.join(swift_arguments))
-			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */',
-																				  constructor_argument_prep)
-			mutating_output_file_contents = mutating_output_file_contents.replace('native_constructor_arguments',
-																				  ', '.join(native_arguments))
-			mutating_output_file_contents = mutating_output_file_contents.replace(
-				'self.cOpaqueStruct = OptionType(',
-				f'self.cOpaqueStruct = {constructor_native_name}(')
-		else:
-			# remove the default constructor template
-			constructor_template_regex = re.compile(
-				"(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)",
-				flags=re.MULTILINE | re.DOTALL)
-			mutating_output_file_contents = constructor_template_regex.sub('', mutating_output_file_contents)
+				mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments',
+																					  ', '.join(swift_arguments))
+				mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */',
+																					  constructor_argument_prep)
+				mutating_output_file_contents = mutating_output_file_contents.replace('native_constructor_arguments',
+																					  ', '.join(native_arguments))
+				mutating_output_file_contents = mutating_output_file_contents.replace(
+					'self.cOpaqueStruct = OptionType(',
+					f'self.cOpaqueStruct = {constructor_native_name}(')
+			else:
+				# remove the default constructor template
+				constructor_template_regex = re.compile(
+					"(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)",
+					flags=re.MULTILINE | re.DOTALL)
+				mutating_output_file_contents = constructor_template_regex.sub('', mutating_output_file_contents)
 
 		# REGULAR METHODS START
 
@@ -72,6 +77,69 @@ class OptionGenerator:
 
 		method_prefix = swift_struct_name + '_'
 		struct_methods = ''
+
+		if is_binary_option:
+			current_method_name = 'getValue'
+
+			# TODO: make some/none-ordering-agnostic!
+			some_variant_name = option_value_details[0].var_name
+			none_variant_name = option_value_details[1].var_name
+			field_details = option_value_details[0].fields[0]
+
+			assert field_details.var_name == 'some'
+
+			raw_rust_type = field_details.rust_obj
+			swift_type = field_details.swift_type
+			nullable_swift_type = swift_type + '?'
+
+			native_conversion_prefix = ''
+			native_conversion_suffix = ''
+			swift_local_conversion_prefix = ''
+			swift_local_conversion_suffix = ''
+
+			if raw_rust_type == 'LDK' + swift_type:
+				native_conversion_prefix = ''
+				native_conversion_suffix = '.cOpaqueStruct!'
+				swift_local_conversion_prefix = f'{swift_type}(pointer: '
+				swift_local_conversion_suffix = ')'
+
+
+			# DEFAULT CONSTRUCTOR
+
+			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', f'value: {nullable_swift_type}')
+			mutating_output_file_contents = mutating_output_file_contents.replace('self.cOpaqueStruct = OptionType(native_constructor_arguments)', '')
+			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */', f'''
+				self.cOpaqueStruct = {struct_name}()
+				if let value = value {{
+					self.cOpaqueStruct!.tag = {some_variant_name}
+					self.cOpaqueStruct!.some = {native_conversion_prefix}value{native_conversion_suffix}
+				}} else {{
+					self.cOpaqueStruct!.tag = {none_variant_name}
+				}}
+			''')
+
+
+			# GET VALUE METHOD
+			current_replacement = method_template
+			current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments);', '')
+			current_replacement = current_replacement.replace('methodName', current_method_name)
+			current_replacement = current_replacement.replace('swift_arguments', '')
+			current_replacement = current_replacement.replace('-> Void', '-> '+nullable_swift_type)
+			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', f'''
+			
+				if self.cOpaqueStruct!.tag == {none_variant_name} {{
+						return nil
+				}}
+				if self.cOpaqueStruct!.tag == {some_variant_name} {{
+					return {swift_local_conversion_prefix}self.cOpaqueStruct!.some{swift_local_conversion_suffix}
+				}}
+				assert(false, "invalid option enum value")
+				return nil
+			''')
+
+			struct_methods += '\n' + current_replacement + '\n'
+
+
 
 		# fill templates
 		for current_method_details in struct_details.methods:

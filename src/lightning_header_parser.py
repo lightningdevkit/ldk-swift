@@ -13,7 +13,9 @@ class CTypes(enum.Enum):
 	TUPLE = 2,
 	UNITARY_ENUM = 3,
 	VECTOR = 4,
-	BYTE_ARRAY = 5
+	BYTE_ARRAY = 5,
+	OPTION = 6,
+	RESULT = 7
 
 
 class TypeDetails:
@@ -30,6 +32,17 @@ class TypeDetails:
 		self.is_primitive = False
 		self.primitive_swift_counterpart = None
 		self.iteratee = None
+		self.option_tuple_variants = None
+		self.option_tag_field_lines = None
+		self.option_tag_type = None
+		self.option_value_type = None
+
+
+class ComplexEnumVariantInfo:
+	def __init__(self, var_name, fields, tuple_variant):
+		self.var_name = var_name
+		self.fields = fields
+		self.tuple_variant = tuple_variant
 
 
 class LightningHeaderParser():
@@ -107,6 +120,7 @@ class LightningHeaderParser():
 		self.option_types = set()
 		self.vec_types = set()
 		self.byte_arrays = set()
+		self.union_enum_items = {}
 
 		fn_ptr_regex = re.compile("^extern const ([A-Za-z_0-9\* ]*) \(\*(.*)\)\((.*)\);$")
 		fn_ret_arr_regex = re.compile("(.*) \(\*(.*)\((.*)\)\)\[([0-9]*)\];$")
@@ -143,7 +157,6 @@ class LightningHeaderParser():
 		assert (struct_name_regex.match("typedef struct LDKCVec_u8Z {"))
 		assert (struct_name_regex.match("typedef enum LDKNetwork {"))
 
-		union_enum_items = {}
 		result_ptr_struct_items = {}
 
 		# SECOND PASS
@@ -300,11 +313,20 @@ class LightningHeaderParser():
 					elif is_union_enum:
 						assert (struct_name.endswith("_Tag"))
 						struct_name = struct_name[:-4]
-						union_enum_items[struct_name] = {"field_lines": field_lines}
-					elif struct_name.endswith("_Body") and struct_name.split("_")[0] in union_enum_items:
+						self.union_enum_items[struct_name] = {"field_lines": field_lines}
+					elif struct_name.endswith("_Body") and struct_name.split("_")[0] in self.union_enum_items:
 						enum_var_name = struct_name.split("_")
-						union_enum_items[enum_var_name[0]][enum_var_name[1]] = field_lines
-					elif struct_name in union_enum_items:
+						self.union_enum_items[enum_var_name[0]][enum_var_name[1]] = field_lines
+					elif struct_name in self.union_enum_items:
+						self.type_details[struct_name].type = CTypes.OPTION
+
+						tag_field_lines = self.union_enum_items[struct_name]['field_lines']
+						option_field_lines = field_lines
+						option_details = self.parse_option_details(struct_name, option_field_lines, tag_field_lines)
+
+						self.type_details[struct_name].option_value_type = option_details
+						self.type_details[struct_name].option_tag_field_lines = tag_field_lines
+
 						self.option_types.add(struct_name)
 					elif is_unitary_enum:
 						self.type_details[struct_name].type = CTypes.UNITARY_ENUM
@@ -379,6 +401,59 @@ class LightningHeaderParser():
 					else:
 						# self.global_methods.add(method_details)
 						pass
+
+	def parse_option_details(self, struct_name, option_field_lines, tag_field_lines):
+		tuple_variants = {}
+		elem_items = -1
+		for current_option_line in option_field_lines:
+			if current_option_line == "struct {":
+				elem_items = 0
+			elif current_option_line == "};":
+				elem_items = -1
+			elif elem_items > -1:
+				current_option_line = current_option_line.strip()
+				if current_option_line.startswith("struct "):
+					current_option_line = current_option_line[7:]
+				elif current_option_line.startswith("enum "):
+					current_option_line = current_option_line[5:]
+				split = current_option_line.split(" ")
+				assert len(split) == 2
+				tuple_variants[split[1].strip(";")] = split[0]
+				elem_items += 1
+				if elem_items > 1:
+					# We don't currently support tuple variant with more than one element
+					assert False
+
+		enum_variants = []
+		inline_enum_variants = tuple_variants
+		for idx, struct_line in enumerate(tag_field_lines):
+			if idx == 0:
+				assert(struct_line == "typedef enum %s_Tag {" % struct_name)
+			elif idx == len(tag_field_lines) - 2:
+				assert(struct_line.endswith("_Sentinel,"))
+			elif idx == len(tag_field_lines) - 1:
+				assert(struct_line == "} %s_Tag;" % struct_name)
+			elif idx == len(tag_field_lines) - 0: # unreachable
+				assert(struct_line == "")
+			else:
+				raw_variant_name = struct_line.strip(' ,')
+				variant_name = raw_variant_name[len(struct_name) + 1:]
+				snaked_case_variant_name = self.camel_to_snake(variant_name)
+				fields = []
+				if "LDK" + variant_name in self.union_enum_items:
+					enum_var_lines = self.union_enum_items["LDK" + variant_name]
+					for idx, field in enumerate(enum_var_lines):
+						if idx != 0 and idx < len(enum_var_lines) - 2 and field.strip() != "":
+							fields.append(swift_type_mapper.map_types_to_swift(field.strip(' ;'), None, False, self.tuple_types, self.unitary_enums,
+																			   self.language_constants))
+					enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, False))
+				elif snaked_case_variant_name in inline_enum_variants:
+					fields.append(swift_type_mapper.map_types_to_swift(inline_enum_variants[snaked_case_variant_name] + " " + snaked_case_variant_name, None, False, self.tuple_types, self.unitary_enums,
+																	   self.language_constants))
+					enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, True))
+				else:
+					enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, True))
+		return enum_variants
 
 	def parse_lambda_details(self, ordered_interpreted_lines):
 		field_var_convs = []
@@ -550,3 +625,30 @@ class LightningHeaderParser():
 			'belongs_to_struct': belongs_to_struct,
 			'belongs_to_tuple': belongs_to_tuple
 		}
+
+	@staticmethod
+	def camel_to_snake(s):
+		# Convert camel case to snake case, in a way that appears to match cbindgen
+		con = "_"
+		ret = ""
+		lastchar = ""
+		lastund = False
+		for char in s:
+			if lastchar.isupper():
+				if not char.isupper() and not lastund:
+					ret = ret + "_"
+					lastund = True
+				else:
+					lastund = False
+				ret = ret + lastchar.lower()
+			else:
+				ret = ret + lastchar
+				if char.isupper() and not lastund:
+					ret = ret + "_"
+					lastund = True
+				else:
+					lastund = False
+			lastchar = char
+			if char.isnumeric():
+				lastund = True
+		return (ret + lastchar.lower()).strip("_")

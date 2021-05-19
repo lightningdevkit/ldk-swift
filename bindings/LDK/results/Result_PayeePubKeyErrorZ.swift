@@ -4,7 +4,7 @@ public class Result_PayeePubKeyErrorZ {
 
 	
 
-    init(pointer: LDKCResult_PayeePubKeyErrorZ){
+    public init(pointer: LDKCResult_PayeePubKeyErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

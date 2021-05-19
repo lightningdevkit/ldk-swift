@@ -4,7 +4,7 @@ public class Result_SignatureNoneZ {
 
 	
 
-    init(pointer: LDKCResult_SignatureNoneZ){
+    public init(pointer: LDKCResult_SignatureNoneZ){
 		self.cOpaqueStruct = pointer
 	}
 

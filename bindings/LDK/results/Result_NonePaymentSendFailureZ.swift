@@ -4,7 +4,7 @@ public class Result_NonePaymentSendFailureZ {
 
 	
 
-    init(pointer: LDKCResult_NonePaymentSendFailureZ){
+    public init(pointer: LDKCResult_NonePaymentSendFailureZ){
 		self.cOpaqueStruct = pointer
 	}
 

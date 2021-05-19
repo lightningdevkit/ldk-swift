@@ -1,8 +1,8 @@
-public class ChannelMessageHandler {
+open class ChannelMessageHandler {
 
-    var cOpaqueStruct: LDKChannelMessageHandler?;
+    public var cOpaqueStruct: LDKChannelMessageHandler?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -179,113 +179,113 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 			free: freeCallback)
     }
 
-    init(pointer: LDKChannelMessageHandler){
+    public init(pointer: LDKChannelMessageHandler){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func handle_open_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: OpenChannel) -> Void {
+    open func handle_open_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: OpenChannel) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_accept_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: AcceptChannel) -> Void {
+    open func handle_accept_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: AcceptChannel) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_funding_created(their_node_id: [UInt8], msg: FundingCreated) -> Void {
+    open func handle_funding_created(their_node_id: [UInt8], msg: FundingCreated) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_funding_signed(their_node_id: [UInt8], msg: FundingSigned) -> Void {
+    open func handle_funding_signed(their_node_id: [UInt8], msg: FundingSigned) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_funding_locked(their_node_id: [UInt8], msg: FundingLocked) -> Void {
+    open func handle_funding_locked(their_node_id: [UInt8], msg: FundingLocked) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_shutdown(their_node_id: [UInt8], their_features: InitFeatures, msg: Shutdown) -> Void {
+    open func handle_shutdown(their_node_id: [UInt8], their_features: InitFeatures, msg: Shutdown) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_closing_signed(their_node_id: [UInt8], msg: ClosingSigned) -> Void {
+    open func handle_closing_signed(their_node_id: [UInt8], msg: ClosingSigned) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_update_add_htlc(their_node_id: [UInt8], msg: UpdateAddHTLC) -> Void {
+    open func handle_update_add_htlc(their_node_id: [UInt8], msg: UpdateAddHTLC) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_update_fulfill_htlc(their_node_id: [UInt8], msg: UpdateFulfillHTLC) -> Void {
+    open func handle_update_fulfill_htlc(their_node_id: [UInt8], msg: UpdateFulfillHTLC) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_update_fail_htlc(their_node_id: [UInt8], msg: UpdateFailHTLC) -> Void {
+    open func handle_update_fail_htlc(their_node_id: [UInt8], msg: UpdateFailHTLC) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_update_fail_malformed_htlc(their_node_id: [UInt8], msg: UpdateFailMalformedHTLC) -> Void {
+    open func handle_update_fail_malformed_htlc(their_node_id: [UInt8], msg: UpdateFailMalformedHTLC) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_commitment_signed(their_node_id: [UInt8], msg: CommitmentSigned) -> Void {
+    open func handle_commitment_signed(their_node_id: [UInt8], msg: CommitmentSigned) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_revoke_and_ack(their_node_id: [UInt8], msg: RevokeAndACK) -> Void {
+    open func handle_revoke_and_ack(their_node_id: [UInt8], msg: RevokeAndACK) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_update_fee(their_node_id: [UInt8], msg: UpdateFee) -> Void {
+    open func handle_update_fee(their_node_id: [UInt8], msg: UpdateFee) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_announcement_signatures(their_node_id: [UInt8], msg: AnnouncementSignatures) -> Void {
+    open func handle_announcement_signatures(their_node_id: [UInt8], msg: AnnouncementSignatures) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func peer_disconnected(their_node_id: [UInt8], no_connection_possible: Bool) -> Void {
+    open func peer_disconnected(their_node_id: [UInt8], no_connection_possible: Bool) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func peer_connected(their_node_id: [UInt8], msg: Init) -> Void {
+    open func peer_connected(their_node_id: [UInt8], msg: Init) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_channel_reestablish(their_node_id: [UInt8], msg: ChannelReestablish) -> Void {
+    open func handle_channel_reestablish(their_node_id: [UInt8], msg: ChannelReestablish) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_channel_update(their_node_id: [UInt8], msg: ChannelUpdate) -> Void {
+    open func handle_channel_update(their_node_id: [UInt8], msg: ChannelUpdate) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_error(their_node_id: [UInt8], msg: ErrorMessage) -> Void {
+    open func handle_error(their_node_id: [UInt8], msg: ErrorMessage) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

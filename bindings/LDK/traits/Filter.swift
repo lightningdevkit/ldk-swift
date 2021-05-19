@@ -1,8 +1,8 @@
-public class Filter {
+open class Filter {
 
-    var cOpaqueStruct: LDKFilter?;
+    public var cOpaqueStruct: LDKFilter?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -37,23 +37,23 @@ public class Filter {
 			free: freeCallback)
     }
 
-    init(pointer: LDKFilter){
+    public init(pointer: LDKFilter){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
+    open func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+    open func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
     	/* EDIT ME */
 		return Option_C2Tuple_usizeTransactionZZ(pointer: LDKCOption_C2Tuple_usizeTransactionZZ())
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

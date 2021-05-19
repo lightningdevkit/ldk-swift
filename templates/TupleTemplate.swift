@@ -2,7 +2,7 @@ public class TupleName {
 
     var cOpaqueStruct: TupleType?;
 
-    init(pointer: TupleType){
+    public init(pointer: TupleType){
 		self.cOpaqueStruct = pointer
 	}
 

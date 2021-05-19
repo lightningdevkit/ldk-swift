@@ -1,8 +1,8 @@
-public class Listen {
+open class Listen {
 
-    var cOpaqueStruct: LDKListen?;
+    public var cOpaqueStruct: LDKListen?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -37,23 +37,23 @@ public class Listen {
 			free: freeCallback)
     }
 
-    init(pointer: LDKListen){
+    public init(pointer: LDKListen){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func block_connected(block: [UInt8], height: UInt32) -> Void {
+    open func block_connected(block: [UInt8], height: UInt32) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
+    open func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

@@ -4,7 +4,7 @@ public class Result_TransactionNoneZ {
 
 	
 
-    init(pointer: LDKCResult_TransactionNoneZ){
+    public init(pointer: LDKCResult_TransactionNoneZ){
 		self.cOpaqueStruct = pointer
 	}
 

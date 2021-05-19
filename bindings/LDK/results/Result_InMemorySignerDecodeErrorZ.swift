@@ -4,7 +4,7 @@ public class Result_InMemorySignerDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_InMemorySignerDecodeErrorZ){
+    public init(pointer: LDKCResult_InMemorySignerDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

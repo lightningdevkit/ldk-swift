@@ -1,8 +1,8 @@
-public class BroadcasterInterface {
+open class BroadcasterInterface {
 
-    var cOpaqueStruct: LDKBroadcasterInterface?;
+    public var cOpaqueStruct: LDKBroadcasterInterface?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -25,18 +25,18 @@ public class BroadcasterInterface {
 			free: freeCallback)
     }
 
-    init(pointer: LDKBroadcasterInterface){
+    public init(pointer: LDKBroadcasterInterface){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func broadcast_transaction(tx: [UInt8]) -> Void {
+    open func broadcast_transaction(tx: [UInt8]) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

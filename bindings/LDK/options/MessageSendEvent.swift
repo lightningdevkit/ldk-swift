@@ -4,7 +4,7 @@ public class MessageSendEvent {
 
 	
 
-    init(pointer: LDKMessageSendEvent){
+    public init(pointer: LDKMessageSendEvent){
 		self.cOpaqueStruct = pointer
 	}
 

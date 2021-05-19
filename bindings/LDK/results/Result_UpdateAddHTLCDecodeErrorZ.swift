@@ -4,7 +4,7 @@ public class Result_UpdateAddHTLCDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_UpdateAddHTLCDecodeErrorZ){
+    public init(pointer: LDKCResult_UpdateAddHTLCDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

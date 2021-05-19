@@ -4,7 +4,7 @@ public class Result_RouteHintCreationErrorZ {
 
 	
 
-    init(pointer: LDKCResult_RouteHintCreationErrorZ){
+    public init(pointer: LDKCResult_RouteHintCreationErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

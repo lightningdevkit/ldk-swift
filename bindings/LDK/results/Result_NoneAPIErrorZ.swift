@@ -4,7 +4,7 @@ public class Result_NoneAPIErrorZ {
 
 	
 
-    init(pointer: LDKCResult_NoneAPIErrorZ){
+    public init(pointer: LDKCResult_NoneAPIErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

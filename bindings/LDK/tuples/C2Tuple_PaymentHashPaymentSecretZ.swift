@@ -2,7 +2,7 @@ public class C2Tuple_PaymentHashPaymentSecretZ {
 
     var cOpaqueStruct: LDKC2Tuple_PaymentHashPaymentSecretZ?;
 
-    init(pointer: LDKC2Tuple_PaymentHashPaymentSecretZ){
+    public init(pointer: LDKC2Tuple_PaymentHashPaymentSecretZ){
 		self.cOpaqueStruct = pointer
 	}
 

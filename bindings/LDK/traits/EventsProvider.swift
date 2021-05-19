@@ -1,8 +1,8 @@
-public class EventsProvider {
+open class EventsProvider {
 
-    var cOpaqueStruct: LDKEventsProvider?;
+    public var cOpaqueStruct: LDKEventsProvider?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -25,18 +25,18 @@ public class EventsProvider {
 			free: freeCallback)
     }
 
-    init(pointer: LDKEventsProvider){
+    public init(pointer: LDKEventsProvider){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func get_and_clear_pending_events() -> [LDKEvent] {
+    open func get_and_clear_pending_events() -> [LDKEvent] {
     	/* EDIT ME */
 		return [LDKEvent]()
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

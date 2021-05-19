@@ -4,7 +4,7 @@ public class Result_UpdateFeeDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_UpdateFeeDecodeErrorZ){
+    public init(pointer: LDKCResult_UpdateFeeDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

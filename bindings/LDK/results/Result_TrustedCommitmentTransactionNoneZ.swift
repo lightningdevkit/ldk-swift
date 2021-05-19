@@ -4,7 +4,7 @@ public class Result_TrustedCommitmentTransactionNoneZ {
 
 	
 
-    init(pointer: LDKCResult_TrustedCommitmentTransactionNoneZ){
+    public init(pointer: LDKCResult_TrustedCommitmentTransactionNoneZ){
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,8 +1,8 @@
-public class MessageSendEventsProvider {
+open class MessageSendEventsProvider {
 
-    var cOpaqueStruct: LDKMessageSendEventsProvider?;
+    public var cOpaqueStruct: LDKMessageSendEventsProvider?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -25,18 +25,18 @@ public class MessageSendEventsProvider {
 			free: freeCallback)
     }
 
-    init(pointer: LDKMessageSendEventsProvider){
+    public init(pointer: LDKMessageSendEventsProvider){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
+    open func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
     	/* EDIT ME */
 		return [LDKMessageSendEvent]()
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

@@ -2,7 +2,7 @@ public class C2Tuple_OutPointScriptZ {
 
     var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?;
 
-    init(pointer: LDKC2Tuple_OutPointScriptZ){
+    public init(pointer: LDKC2Tuple_OutPointScriptZ){
 		self.cOpaqueStruct = pointer
 	}
 

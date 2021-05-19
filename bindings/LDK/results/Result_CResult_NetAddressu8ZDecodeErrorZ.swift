@@ -4,7 +4,7 @@ public class Result_CResult_NetAddressu8ZDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_CResult_NetAddressu8ZDecodeErrorZ){
+    public init(pointer: LDKCResult_CResult_NetAddressu8ZDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

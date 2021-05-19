@@ -4,7 +4,7 @@ public class PaymentSendFailure {
 
 	
 
-    init(pointer: LDKPaymentSendFailure){
+    public init(pointer: LDKPaymentSendFailure){
 		self.cOpaqueStruct = pointer
 	}
 

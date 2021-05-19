@@ -2,7 +2,7 @@ public class C2Tuple_usizeTransactionZ {
 
     var cOpaqueStruct: LDKC2Tuple_usizeTransactionZ?;
 
-    init(pointer: LDKC2Tuple_usizeTransactionZ){
+    public init(pointer: LDKC2Tuple_usizeTransactionZ){
 		self.cOpaqueStruct = pointer
 	}
 

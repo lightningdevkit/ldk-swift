@@ -4,7 +4,7 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 
 	
 
-    init(pointer: LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ){
+    public init(pointer: LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

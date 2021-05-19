@@ -1,8 +1,8 @@
-public class Sign {
+open class Sign {
 
-    var cOpaqueStruct: LDKSign?;
+    public var cOpaqueStruct: LDKSign?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -34,23 +34,23 @@ public class Sign {
 			free: freeCallback)
     }
 
-    init(pointer: LDKSign){
+    public init(pointer: LDKSign){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func write() -> [UInt8] {
+    open func write() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    public func clone() -> UnsafeMutableRawPointer {
+    open func clone() -> UnsafeMutableRawPointer {
     	/* EDIT ME */
 		return UnsafeMutableRawPointer(bitPattern: 0)!
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

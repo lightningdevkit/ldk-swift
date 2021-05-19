@@ -1,8 +1,8 @@
-public class Confirm {
+open class Confirm {
 
-    var cOpaqueStruct: LDKConfirm?;
+    public var cOpaqueStruct: LDKConfirm?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -61,33 +61,33 @@ public class Confirm {
 			free: freeCallback)
     }
 
-    init(pointer: LDKConfirm){
+    public init(pointer: LDKConfirm){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
+    open func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func transaction_unconfirmed(txid: [UInt8]?) -> Void {
+    open func transaction_unconfirmed(txid: [UInt8]?) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func best_block_updated(header: [UInt8]?, height: UInt32) -> Void {
+    open func best_block_updated(header: [UInt8]?, height: UInt32) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func get_relevant_txids() -> [LDKTxid] {
+    open func get_relevant_txids() -> [LDKTxid] {
     	/* EDIT ME */
 		return [LDKTxid]()
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

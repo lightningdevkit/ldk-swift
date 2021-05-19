@@ -4,7 +4,7 @@ public class Fallback {
 
 	
 
-    init(pointer: LDKFallback){
+    public init(pointer: LDKFallback){
 		self.cOpaqueStruct = pointer
 	}
 

@@ -4,7 +4,7 @@ public class Result_boolPeerHandleErrorZ {
 
 	
 
-    init(pointer: LDKCResult_boolPeerHandleErrorZ){
+    public init(pointer: LDKCResult_boolPeerHandleErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

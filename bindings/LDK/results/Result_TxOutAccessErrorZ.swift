@@ -4,7 +4,7 @@ public class Result_TxOutAccessErrorZ {
 
 	
 
-    init(pointer: LDKCResult_TxOutAccessErrorZ){
+    public init(pointer: LDKCResult_TxOutAccessErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

@@ -4,7 +4,7 @@ public class Result_FundingCreatedDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_FundingCreatedDecodeErrorZ){
+    public init(pointer: LDKCResult_FundingCreatedDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

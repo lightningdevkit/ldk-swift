@@ -4,7 +4,7 @@ public class Result_boolLightningErrorZ {
 
 	
 
-    init(pointer: LDKCResult_boolLightningErrorZ){
+    public init(pointer: LDKCResult_boolLightningErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

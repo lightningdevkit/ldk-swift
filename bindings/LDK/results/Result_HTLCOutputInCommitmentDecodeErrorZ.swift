@@ -4,7 +4,7 @@ public class Result_HTLCOutputInCommitmentDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ){
+    public init(pointer: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

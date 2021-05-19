@@ -4,7 +4,7 @@ public class HTLCFailChannelUpdate {
 
 	
 
-    init(pointer: LDKHTLCFailChannelUpdate){
+    public init(pointer: LDKHTLCFailChannelUpdate){
 		self.cOpaqueStruct = pointer
 	}
 

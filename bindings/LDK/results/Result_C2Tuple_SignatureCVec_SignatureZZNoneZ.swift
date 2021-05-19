@@ -4,7 +4,7 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 
 	
 
-    init(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ){
+    public init(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ){
 		self.cOpaqueStruct = pointer
 	}
 

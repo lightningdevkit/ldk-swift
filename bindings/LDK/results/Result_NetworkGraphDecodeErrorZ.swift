@@ -4,7 +4,7 @@ public class Result_NetworkGraphDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_NetworkGraphDecodeErrorZ){
+    public init(pointer: LDKCResult_NetworkGraphDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

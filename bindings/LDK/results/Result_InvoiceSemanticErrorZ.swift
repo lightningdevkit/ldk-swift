@@ -4,7 +4,7 @@ public class Result_InvoiceSemanticErrorZ {
 
 	
 
-    init(pointer: LDKCResult_InvoiceSemanticErrorZ){
+    public init(pointer: LDKCResult_InvoiceSemanticErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

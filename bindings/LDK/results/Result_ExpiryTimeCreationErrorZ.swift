@@ -4,7 +4,7 @@ public class Result_ExpiryTimeCreationErrorZ {
 
 	
 
-    init(pointer: LDKCResult_ExpiryTimeCreationErrorZ){
+    public init(pointer: LDKCResult_ExpiryTimeCreationErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

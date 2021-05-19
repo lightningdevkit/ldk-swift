@@ -4,7 +4,7 @@ public class Result_CVec_CVec_u8ZZNoneZ {
 
 	
 
-    init(pointer: LDKCResult_CVec_CVec_u8ZZNoneZ){
+    public init(pointer: LDKCResult_CVec_CVec_u8ZZNoneZ){
 		self.cOpaqueStruct = pointer
 	}
 

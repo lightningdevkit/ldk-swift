@@ -4,7 +4,7 @@ public class SpendableOutputDescriptor {
 
 	
 
-    init(pointer: LDKSpendableOutputDescriptor){
+    public init(pointer: LDKSpendableOutputDescriptor){
 		self.cOpaqueStruct = pointer
 	}
 

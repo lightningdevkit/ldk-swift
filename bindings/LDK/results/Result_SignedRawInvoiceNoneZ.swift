@@ -4,7 +4,7 @@ public class Result_SignedRawInvoiceNoneZ {
 
 	
 
-    init(pointer: LDKCResult_SignedRawInvoiceNoneZ){
+    public init(pointer: LDKCResult_SignedRawInvoiceNoneZ){
 		self.cOpaqueStruct = pointer
 	}
 

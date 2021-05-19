@@ -4,7 +4,7 @@ public class Result_TxCreationKeysDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_TxCreationKeysDecodeErrorZ){
+    public init(pointer: LDKCResult_TxCreationKeysDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

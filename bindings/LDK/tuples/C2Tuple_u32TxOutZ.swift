@@ -2,7 +2,7 @@ public class C2Tuple_u32TxOutZ {
 
     var cOpaqueStruct: LDKC2Tuple_u32TxOutZ?;
 
-    init(pointer: LDKC2Tuple_u32TxOutZ){
+    public init(pointer: LDKC2Tuple_u32TxOutZ){
 		self.cOpaqueStruct = pointer
 	}
 

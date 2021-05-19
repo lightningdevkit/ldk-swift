@@ -2,7 +2,7 @@ public class C2Tuple_SignatureCVec_SignatureZZ {
 
     var cOpaqueStruct: LDKC2Tuple_SignatureCVec_SignatureZZ?;
 
-    init(pointer: LDKC2Tuple_SignatureCVec_SignatureZZ){
+    public init(pointer: LDKC2Tuple_SignatureCVec_SignatureZZ){
 		self.cOpaqueStruct = pointer
 	}
 

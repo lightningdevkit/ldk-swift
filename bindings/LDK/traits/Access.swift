@@ -1,8 +1,8 @@
-public class Access {
+open class Access {
 
-    var cOpaqueStruct: LDKAccess?;
+    public var cOpaqueStruct: LDKAccess?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -30,18 +30,18 @@ public class Access {
 			free: freeCallback)
     }
 
-    init(pointer: LDKAccess){
+    public init(pointer: LDKAccess){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
+    open func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
     	/* EDIT ME */
 		return Result_TxOutAccessErrorZ(pointer: LDKCResult_TxOutAccessErrorZ())
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

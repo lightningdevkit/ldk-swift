@@ -4,7 +4,7 @@ public class MonitorEvent {
 
 	
 
-    init(pointer: LDKMonitorEvent){
+    public init(pointer: LDKMonitorEvent){
 		self.cOpaqueStruct = pointer
 	}
 

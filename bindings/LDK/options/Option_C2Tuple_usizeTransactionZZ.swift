@@ -3,7 +3,7 @@ public class Option_C2Tuple_usizeTransactionZZ {
     var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(value: C2Tuple_usizeTransactionZ?) {
+    public init(value: C2Tuple_usizeTransactionZ?) {
     	
 				self.cOpaqueStruct = LDKCOption_C2Tuple_usizeTransactionZZ()
 				if let value = value {
@@ -17,13 +17,13 @@ public class Option_C2Tuple_usizeTransactionZZ {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKCOption_C2Tuple_usizeTransactionZZ){
+    public init(pointer: LDKCOption_C2Tuple_usizeTransactionZZ){
 		self.cOpaqueStruct = pointer
 	}
 
     /* OPTION_METHODS_START */
 
-    func getValue() -> C2Tuple_usizeTransactionZ? {
+    public func getValue() -> C2Tuple_usizeTransactionZ? {
     	
 			
 				if self.cOpaqueStruct!.tag == LDKCOption_C2Tuple_usizeTransactionZZ_None {

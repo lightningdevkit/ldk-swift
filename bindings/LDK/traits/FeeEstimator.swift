@@ -1,8 +1,8 @@
-public class FeeEstimator {
+open class FeeEstimator {
 
-    var cOpaqueStruct: LDKFeeEstimator?;
+    public var cOpaqueStruct: LDKFeeEstimator?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -25,18 +25,18 @@ public class FeeEstimator {
 			free: freeCallback)
     }
 
-    init(pointer: LDKFeeEstimator){
+    public init(pointer: LDKFeeEstimator){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
+    open func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
     	/* EDIT ME */
 		return 0
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

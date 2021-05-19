@@ -4,7 +4,7 @@ public class Result_SecretKeyErrorZ {
 
 	
 
-    init(pointer: LDKCResult_SecretKeyErrorZ){
+    public init(pointer: LDKCResult_SecretKeyErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

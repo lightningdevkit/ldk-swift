@@ -4,7 +4,7 @@ public class Result_ChannelUpdateDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_ChannelUpdateDecodeErrorZ){
+    public init(pointer: LDKCResult_ChannelUpdateDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

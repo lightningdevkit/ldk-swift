@@ -2,7 +2,7 @@ public class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
 
     var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?;
 
-    init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ){
+    public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ){
 		self.cOpaqueStruct = pointer
 	}
 

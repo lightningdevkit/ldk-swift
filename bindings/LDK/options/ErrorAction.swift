@@ -4,7 +4,7 @@ public class ErrorAction {
 
 	
 
-    init(pointer: LDKErrorAction){
+    public init(pointer: LDKErrorAction){
 		self.cOpaqueStruct = pointer
 	}
 

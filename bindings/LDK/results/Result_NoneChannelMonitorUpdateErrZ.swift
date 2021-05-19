@@ -4,7 +4,7 @@ public class Result_NoneChannelMonitorUpdateErrZ {
 
 	
 
-    init(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ){
+    public init(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ){
 		self.cOpaqueStruct = pointer
 	}
 

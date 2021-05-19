@@ -4,7 +4,7 @@ public class Result_InvoiceFeaturesDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_InvoiceFeaturesDecodeErrorZ){
+    public init(pointer: LDKCResult_InvoiceFeaturesDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

@@ -3,7 +3,7 @@ public class Option_u64Z {
     var cOpaqueStruct: LDKCOption_u64Z?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(value: UInt64?) {
+    public init(value: UInt64?) {
     	
 				self.cOpaqueStruct = LDKCOption_u64Z()
 				if let value = value {
@@ -17,13 +17,13 @@ public class Option_u64Z {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKCOption_u64Z){
+    public init(pointer: LDKCOption_u64Z){
 		self.cOpaqueStruct = pointer
 	}
 
     /* OPTION_METHODS_START */
 
-    func getValue() -> UInt64? {
+    public func getValue() -> UInt64? {
     	
 			
 				if self.cOpaqueStruct!.tag == LDKCOption_u64Z_None {

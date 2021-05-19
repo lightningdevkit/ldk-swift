@@ -4,7 +4,7 @@ public class Result_InvoiceSignOrCreationErrorZ {
 
 	
 
-    init(pointer: LDKCResult_InvoiceSignOrCreationErrorZ){
+    public init(pointer: LDKCResult_InvoiceSignOrCreationErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

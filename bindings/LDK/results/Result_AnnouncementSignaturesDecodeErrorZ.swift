@@ -4,7 +4,7 @@ public class Result_AnnouncementSignaturesDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_AnnouncementSignaturesDecodeErrorZ){
+    public init(pointer: LDKCResult_AnnouncementSignaturesDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

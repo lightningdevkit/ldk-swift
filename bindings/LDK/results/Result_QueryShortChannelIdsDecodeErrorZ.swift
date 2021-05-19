@@ -4,7 +4,7 @@ public class Result_QueryShortChannelIdsDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_QueryShortChannelIdsDecodeErrorZ){
+    public init(pointer: LDKCResult_QueryShortChannelIdsDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

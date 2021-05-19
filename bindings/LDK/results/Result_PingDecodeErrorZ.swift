@@ -4,7 +4,7 @@ public class Result_PingDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_PingDecodeErrorZ){
+    public init(pointer: LDKCResult_PingDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

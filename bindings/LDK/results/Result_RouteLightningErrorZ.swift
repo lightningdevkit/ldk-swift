@@ -4,7 +4,7 @@ public class Result_RouteLightningErrorZ {
 
 	
 
-    init(pointer: LDKCResult_RouteLightningErrorZ){
+    public init(pointer: LDKCResult_RouteLightningErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

@@ -4,7 +4,7 @@ public class Result_PaymentSecretAPIErrorZ {
 
 	
 
-    init(pointer: LDKCResult_PaymentSecretAPIErrorZ){
+    public init(pointer: LDKCResult_PaymentSecretAPIErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

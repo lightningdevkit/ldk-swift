@@ -4,7 +4,7 @@ public class Result_ChannelTransactionParametersDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_ChannelTransactionParametersDecodeErrorZ){
+    public init(pointer: LDKCResult_ChannelTransactionParametersDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

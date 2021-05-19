@@ -4,7 +4,7 @@ public class Result_GossipTimestampFilterDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_GossipTimestampFilterDecodeErrorZ){
+    public init(pointer: LDKCResult_GossipTimestampFilterDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

@@ -4,7 +4,7 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_SpendableOutputDescriptorDecodeErrorZ){
+    public init(pointer: LDKCResult_SpendableOutputDescriptorDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

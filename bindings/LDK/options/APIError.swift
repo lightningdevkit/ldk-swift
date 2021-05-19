@@ -4,7 +4,7 @@ public class APIError {
 
 	
 
-    init(pointer: LDKAPIError){
+    public init(pointer: LDKAPIError){
 		self.cOpaqueStruct = pointer
 	}
 

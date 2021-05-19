@@ -4,7 +4,7 @@ public class Result_NoneSemanticErrorZ {
 
 	
 
-    init(pointer: LDKCResult_NoneSemanticErrorZ){
+    public init(pointer: LDKCResult_NoneSemanticErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

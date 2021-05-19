@@ -4,7 +4,7 @@ public class Result_PositiveTimestampCreationErrorZ {
 
 	
 
-    init(pointer: LDKCResult_PositiveTimestampCreationErrorZ){
+    public init(pointer: LDKCResult_PositiveTimestampCreationErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

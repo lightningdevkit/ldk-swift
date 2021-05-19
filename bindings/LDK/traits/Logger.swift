@@ -1,8 +1,8 @@
-public class Logger {
+open class Logger {
 
-    var cOpaqueStruct: LDKLogger?;
+    public var cOpaqueStruct: LDKLogger?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -30,18 +30,18 @@ public class Logger {
 			free: freeCallback)
     }
 
-    init(pointer: LDKLogger){
+    public init(pointer: LDKLogger){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func log(record: String?) -> Void {
+    open func log(record: String?) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

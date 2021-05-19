@@ -4,7 +4,7 @@ public class SignOrCreationError {
 
 	
 
-    init(pointer: LDKSignOrCreationError){
+    public init(pointer: LDKSignOrCreationError){
 		self.cOpaqueStruct = pointer
 	}
 

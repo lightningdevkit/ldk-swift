@@ -4,7 +4,7 @@ public class Result_DescriptionCreationErrorZ {
 
 	
 
-    init(pointer: LDKCResult_DescriptionCreationErrorZ){
+    public init(pointer: LDKCResult_DescriptionCreationErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

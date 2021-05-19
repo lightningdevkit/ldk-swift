@@ -4,7 +4,7 @@ public class Result_BuiltCommitmentTransactionDecodeErrorZ {
 
 	
 
-    init(pointer: LDKCResult_BuiltCommitmentTransactionDecodeErrorZ){
+    public init(pointer: LDKCResult_BuiltCommitmentTransactionDecodeErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 

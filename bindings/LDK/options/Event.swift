@@ -4,7 +4,7 @@ public class Event {
 
 	
 
-    init(pointer: LDKEvent){
+    public init(pointer: LDKEvent){
 		self.cOpaqueStruct = pointer
 	}
 

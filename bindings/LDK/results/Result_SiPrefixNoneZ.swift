@@ -4,7 +4,7 @@ public class Result_SiPrefixNoneZ {
 
 	
 
-    init(pointer: LDKCResult_SiPrefixNoneZ){
+    public init(pointer: LDKCResult_SiPrefixNoneZ){
 		self.cOpaqueStruct = pointer
 	}
 

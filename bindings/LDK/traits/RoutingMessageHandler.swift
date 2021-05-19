@@ -1,8 +1,8 @@
-public class RoutingMessageHandler {
+open class RoutingMessageHandler {
 
-    var cOpaqueStruct: LDKRoutingMessageHandler?;
+    public var cOpaqueStruct: LDKRoutingMessageHandler?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -101,68 +101,68 @@ public class RoutingMessageHandler {
 			free: freeCallback)
     }
 
-    init(pointer: LDKRoutingMessageHandler){
+    public init(pointer: LDKRoutingMessageHandler){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func handle_node_announcement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
+    open func handle_node_announcement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
 		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
     }
 
-    public func handle_channel_announcement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
+    open func handle_channel_announcement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
 		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
     }
 
-    public func handle_channel_update(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
+    open func handle_channel_update(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
 		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
     }
 
-    public func handle_htlc_fail_channel_update(update: HTLCFailChannelUpdate) -> Void {
+    open func handle_htlc_fail_channel_update(update: HTLCFailChannelUpdate) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+    open func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
     	/* EDIT ME */
 		return [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
     }
 
-    public func get_next_node_announcements(starting_point: [UInt8], batch_amount: UInt8) -> [LDKNodeAnnouncement] {
+    open func get_next_node_announcements(starting_point: [UInt8], batch_amount: UInt8) -> [LDKNodeAnnouncement] {
     	/* EDIT ME */
 		return [LDKNodeAnnouncement]()
     }
 
-    public func sync_routing_table(their_node_id: [UInt8], initValue: Init) -> Void {
+    open func sync_routing_table(their_node_id: [UInt8], initValue: Init) -> Void {
     	/* EDIT ME */
 		
     }
 
-    public func handle_reply_channel_range(their_node_id: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
+    open func handle_reply_channel_range(their_node_id: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    public func handle_reply_short_channel_ids_end(their_node_id: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
+    open func handle_reply_short_channel_ids_end(their_node_id: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    public func handle_query_channel_range(their_node_id: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
+    open func handle_query_channel_range(their_node_id: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    public func handle_query_short_channel_ids(their_node_id: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
+    open func handle_query_short_channel_ids(their_node_id: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }

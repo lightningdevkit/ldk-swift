@@ -182,24 +182,6 @@ Instantiate it:
 let filter = MyFilter()
 ```
 
-### KeysInterface
-
-Define the subclass:
-
-```swift
-//  MyKeysInterface.swift
-
-import Foundation
-
-class MyKeysInterface: KeysInterface {
-    override func get_node_secret() -> [UInt8] {
-        return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31]
-    }
-}
-```
-
-We won't be instantiating it directly, but we will need the keys interface later on.
-
 ## Phase 2: Initializations
 
 ### ChainMonitor
@@ -225,10 +207,12 @@ let timestamp_nanos = UInt32.init(truncating: NSNumber(value: timestamp_seconds 
 let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
 ```
 
-We will keep needing to pass around a keysInterface instance, so let's prepare it right here:
+We will keep needing to pass around a keysInterface instance, and we will also need to 
+pass its node secret to the peer manager initialization, so let's prepare it right here:
 
 ```swift
-let keysInterface = MyKeysInterface(pointer: keysManager.as_KeysInterface().cOpaqueStruct!)
+let keysInterface = keysManager.as_KeysInterface()
+let nodeSecret = Bindings.LDKSecretKey_to_array(nativeType: keysInterface.cOpaqueStruct!.get_node_secret(keysInterface.cOpaqueStruct!.this_arg))
 ```
 
 This is a bit inelegant, but we will be providing simpler casting methods for user-provided types shortly.
@@ -299,7 +283,7 @@ And finally, let's instantiate the peer manager itself:
 ```swift
 // main context (continued)
 
-let peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keysInterface.get_node_secret(), ephemeral_random_data: peerManagerSeed, logger: logger)
+let peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, ephemeral_random_data: peerManagerSeed, logger: logger)
 ```
 
 Now, all that remains is setting up the actual syscalls that are necessary within

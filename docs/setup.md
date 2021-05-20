@@ -243,6 +243,24 @@ Finally, we can proceed by instantiating the ChannelManager.
 let channelManager = ChannelManager.init(fee_est: feeEstimator, chain_monitor: chainMonitor.as_Watch(), tx_broadcaster: broadcaster, logger: logger, keys_manager: keysInterface, config: userConfig, params: chainParameters)
 ```
 
+#### Serializing and restoring a ChannelManager
+
+If you need to serialize a channel manager, you can simply call its write method on itself:
+
+```swift
+let serializedChannelManager: [UInt8] = channelManager.write(obj: channelManager)
+```
+
+If you have a channel manager you previously serialized, you can restore it like this:
+
+```swift
+let serialized_channel_manager: [UInt8] = [2, 1, 111, 226, 140, 10, 182, 241, 179, 114, 193, 166, 162, 70, 174, 99, 247, 79, 147, 30, 131, 101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0, 0, 10, 174, 219, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 238, 87, 135, 110, 67, 215, 108, 228, 66, 226, 192, 37, 6, 193, 120, 186, 5, 214, 209, 16, 169, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // <insert bytes you would have written in following the later step "Persist channel manager">
+let serializedChannelMonitors: [[UInt8]] = []
+let channel_manager_constructor = try ChannelManagerConstructor(channel_manager_serialized: serialized_channel_manager, channel_monitors_serialized: serializedChannelMonitors, keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, filter: filter, tx_broadcaster: broadcaster, logger: logger)
+
+let channel_manager = channel_manager_constructor.channelManager;
+```
+
 ### NetGraphMsgHandler
 
 If you intend to use the LDK's built-in routing algorithm, you will need to instantiate

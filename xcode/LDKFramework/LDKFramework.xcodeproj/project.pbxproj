@@ -495,6 +495,10 @@
 		0734506026445915001CD90E /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 0734505D26445915001CD90E /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0734506126445915001CD90E /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0734505E26445915001CD90E /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0734506226445915001CD90E /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 0734505F26445915001CD90E /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0749F9C6265615CC00876C52 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C4265615CB00876C52 /* ChannelManagerConstructor.swift */; };
+		0749F9C7265615CC00876C52 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C4265615CB00876C52 /* ChannelManagerConstructor.swift */; };
+		0749F9C8265615CC00876C52 /* UtilMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C5265615CB00876C52 /* UtilMethods.swift */; };
+		0749F9C9265615CC00876C52 /* UtilMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C5265615CB00876C52 /* UtilMethods.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -759,6 +763,8 @@
 		0734505D26445915001CD90E /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightning.h; sourceTree = SOURCE_ROOT; };
 		0734505E26445915001CD90E /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_ver.h; sourceTree = SOURCE_ROOT; };
 		0734505F26445915001CD90E /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_rust_types.h; sourceTree = SOURCE_ROOT; };
+		0749F9C4265615CB00876C52 /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
+		0749F9C5265615CB00876C52 /* UtilMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilMethods.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -806,6 +812,7 @@
 			isa = PBXGroup;
 			children = (
 				07344FAC26428B09001CD90E /* headers */,
+				0749F9C3265615CB00876C52 /* batteries */,
 				07344CD02642882A001CD90E /* LDK */,
 				07344C57264277ED001CD90E /* LDKFramework.h */,
 				07344C58264277ED001CD90E /* Info.plist */,
@@ -1129,6 +1136,16 @@
 			path = ../../../bindings/headers;
 			sourceTree = "<group>";
 		};
+		0749F9C3265615CB00876C52 /* batteries */ = {
+			isa = PBXGroup;
+			children = (
+				0749F9C4265615CB00876C52 /* ChannelManagerConstructor.swift */,
+				0749F9C5265615CB00876C52 /* UtilMethods.swift */,
+			);
+			name = batteries;
+			path = ../../../bindings/batteries;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1268,6 +1285,7 @@
 				07344E092642882B001CD90E /* C2Tuple_BlockHashChannelManagerZ.swift in Sources */,
 				07344E0F2642882B001CD90E /* C2Tuple_PaymentHashPaymentSecretZ.swift in Sources */,
 				07344F612642882C001CD90E /* AnnouncementSignatures.swift in Sources */,
+				0749F9C6265615CC00876C52 /* ChannelManagerConstructor.swift in Sources */,
 				07344DE72642882B001CD90E /* Logger.swift in Sources */,
 				07344F8F2642882C001CD90E /* SignedRawInvoice.swift in Sources */,
 				07344ED52642882B001CD90E /* Result_NoneChannelMonitorUpdateErrZ.swift in Sources */,
@@ -1460,6 +1478,7 @@
 				07344E7B2642882B001CD90E /* Result_NetworkGraphDecodeErrorZ.swift in Sources */,
 				07344F712642882C001CD90E /* MinFinalCltvExpiry.swift in Sources */,
 				07344E4B2642882B001CD90E /* Result_UnsignedNodeAnnouncementDecodeErrorZ.swift in Sources */,
+				0749F9C8265615CC00876C52 /* UtilMethods.swift in Sources */,
 				07344F372642882C001CD90E /* PeerHandleError.swift in Sources */,
 				07344DF72642882B001CD90E /* ChannelMessageHandler.swift in Sources */,
 				07344F772642882C001CD90E /* RouteHop.swift in Sources */,
@@ -1630,7 +1649,9 @@
 				07344F342642882C001CD90E /* InMemorySigner.swift in Sources */,
 				07344F802642882C001CD90E /* InitFeatures.swift in Sources */,
 				07344EB62642882B001CD90E /* Result_ReplyChannelRangeDecodeErrorZ.swift in Sources */,
+				0749F9C7265615CC00876C52 /* ChannelManagerConstructor.swift in Sources */,
 				07344F082642882C001CD90E /* NetGraphMsgHandler.swift in Sources */,
+				0749F9C9265615CC00876C52 /* UtilMethods.swift in Sources */,
 				07344EC42642882B001CD90E /* Result_PayeePubKeyErrorZ.swift in Sources */,
 				07344F322642882C001CD90E /* HTLCUpdate.swift in Sources */,
 				07344F3C2642882C001CD90E /* CommitmentSigned.swift in Sources */,

@@ -11,7 +11,7 @@ enum InvalidSerializedDataError: Error {
     case runtimeError
 }
 
-class ChannelManagerConstructor {
+public class ChannelManagerConstructor {
 
     public let channelManager: ChannelManager
     /**

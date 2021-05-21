@@ -8,7 +8,8 @@
 import Foundation
 
 enum InvalidSerializedDataError: Error {
-    case runtimeError
+    case invalidSerializedChannelMonitor
+    case invalidSerializedChannelManager
 }
 
 public class ChannelManagerConstructor {
@@ -36,11 +37,12 @@ public class ChannelManagerConstructor {
         for currentSerializedChannelMonitor in channel_monitors_serialized {
             let res: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
             if res.cOpaqueStruct?.result_ok != true {
-                throw InvalidSerializedDataError.runtimeError
+                throw InvalidSerializedDataError.invalidSerializedChannelMonitor
             }
             let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = res.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
-            let b: LDKChannelMonitor = value.result!.pointee.b
+            var b: LDKChannelMonitor = value.result!.pointee.b
+            b.is_owned = false
             let currentChannelMonitor = ChannelMonitor(pointer: b)
             monitors.append(b)
             self.channel_monitors.append((currentChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
@@ -48,7 +50,7 @@ public class ChannelManagerConstructor {
 
         let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
         if res.cOpaqueStruct?.result_ok != true {
-            throw InvalidSerializedDataError.runtimeError
+            throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
         let channelManager = ChannelManager(pointer: res.cOpaqueStruct!.contents.result.pointee.b)

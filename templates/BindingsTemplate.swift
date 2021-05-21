@@ -29,10 +29,15 @@ public class Bindings{
 	public class func new_LDKCVec_rust_primitive(array: [SwiftPrimitive]) -> LDKCVec_rust_primitive {
 		/* DIMENSION_REDUCTION_PREP */
 
+		/*
         let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<SwiftPrimitive>) -> UnsafeMutablePointer<SwiftPrimitive> in
             let mutablePointer = UnsafeMutablePointer<SwiftPrimitive>(mutating: pointer.baseAddress!)
             return mutablePointer
         }
+        */
+
+        let dataContainer = UnsafeMutablePointer<SwiftPrimitive>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
 
         let vector = LDKCVec_rust_primitive(data: dataContainer, datalen: UInt(array.count))
         return vector
@@ -62,10 +67,15 @@ public class Bindings{
 	}
 
 	public class func new_LDKu8slice(array: [UInt8]) -> LDKu8slice {
+		/*
 		let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
 			let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
 			return mutablePointer
 		}
+        */
+
+        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
+        dataContainer.initialize(from: array, count: array.count)
 
 		let vector = LDKu8slice(data: dataContainer, datalen: UInt(array.count))
 		return vector
@@ -81,10 +91,15 @@ public class Bindings{
 	}
 
 	public class func new_LDKTransaction(array: [UInt8]) -> LDKTransaction {
+        /*
         let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
             let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
             return mutablePointer
         }
+        */
+
+        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
+        dataContainer.initialize(from: array, count: array.count)
 
         let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: false)
         return vector

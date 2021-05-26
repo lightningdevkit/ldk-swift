@@ -15,11 +15,13 @@ enum InvalidSerializedDataError: Error {
 public class ChannelManagerConstructor {
 
     public let channelManager: ChannelManager
+    
     /**
      * The latest block has the channel manager saw. If this is non-null it is a 32-byte block hash.
      * You should sync the blockchain starting with the block that builds on this block.
      */
     public let channel_manager_latest_block_hash: [UInt8]?
+    
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
      * starting with the block that builds on the hash given.
@@ -67,7 +69,7 @@ public class ChannelManagerConstructor {
 
     }
 
-    /*
+    /**
      * Constructs a channel manager from the given interface implementations
      */
     public init(network: LDKNetwork, config: UserConfig, current_blockchain_tip_hash: [UInt8], current_blockchain_tip_height: UInt32, keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, tx_broadcaster: BroadcasterInterface, logger: Logger) {
@@ -78,5 +80,84 @@ public class ChannelManagerConstructor {
         let chainParameters = ChainParameters(network_arg: network, best_block_arg: block)
         self.channelManager = ChannelManager(fee_est: fee_estimator, chain_monitor: chain_monitor.as_Watch(), tx_broadcaster: tx_broadcaster, logger: logger, keys_manager: keys_interface, config: config, params: chainParameters)
     }
+    
+    var persisterWorkItem: DispatchWorkItem?
+    var shutdown = false
+    
+    /**
+     * Utility which adds all of the deserialized ChannelMonitors to the chain watch so that further updates from the
+     * ChannelManager are processed as normal.
+     *
+     * This also spawns a background thread which will call the appropriate methods on the provided
+     * ChannelManagerPersister as required.
+     */
+    public func chain_sync_completed(persister: ChannelManagerPersister) {
+        if self.persisterWorkItem != nil {
+            return
+        }
+        
+        for (currentChannelMonitor, _) in self.channel_monitors {
+            let chainMonitorWatch = self.chain_monitor.as_Watch()
+            let fundingTxo = currentChannelMonitor.get_funding_txo()
+            let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a)
+            chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: currentChannelMonitor)
+        }
+        
+        self.persisterWorkItem = DispatchWorkItem {
+            var lastTimerTick = NSDate().timeIntervalSince1970
+            while !self.shutdown {
+                var needsPersist = self.channelManager.await_persistable_update_timeout(max_wait: 1)
+                
+                let rawManagerEvents = self.channelManager.as_EventsProvider().get_and_clear_pending_events()
+                let managerEvents = rawManagerEvents.map { (e: LDKEvent) -> Event in
+                    Event(pointer: e)
+                }
+                if managerEvents.count != 0 {
+                    persister.handle_events(events: managerEvents)
+                    needsPersist = true
+                }
+                
+                let rawMonitorEvents = self.chain_monitor.as_EventsProvider().get_and_clear_pending_events();
+                let monitorEvents = rawMonitorEvents.map { (e: LDKEvent) -> Event in
+                    Event(pointer: e)
+                }
+                if monitorEvents.count != 0 {
+                    persister.handle_events(events: monitorEvents)
+                    needsPersist = true
+                }
+                
+                if needsPersist {
+                    persister.persist_manager(channel_manager_bytes: self.channelManager.write(obj: self.channelManager))
+                }
+                
+                if self.shutdown {
+                    return
+                }
+                
+                let currentTimerTick = NSDate().timeIntervalSince1970
+                if lastTimerTick < (currentTimerTick-60) { // more than 60 seconds have passed since the last timer tick
+                    self.channelManager.timer_tick_occurred()
+                    lastTimerTick = currentTimerTick
+                }
+                
+                Thread.sleep(forTimeInterval: 1) // this should hopefully not suspend the main application
+            }
+        }
+        
+        let backgroundQueue = DispatchQueue(label: "org.ldk.ChannelManagerConstructor.persisterThread", qos: .background)
+        backgroundQueue.async(execute: self.persisterWorkItem!)
+    }
+    
+    public func interrupt() {
+        self.shutdown = true
+        if let workItem = self.persisterWorkItem {
+            workItem.wait()
+        }
+    }
 
+}
+
+public protocol ChannelManagerPersister {
+    func handle_events(events: [Event]) -> Void;
+    func persist_manager(channel_manager_bytes: [UInt8]) -> Void;
 }

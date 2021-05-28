@@ -136,3 +136,20 @@ public class Bindings{
     }
 
 }
+
+public class TxOut {
+
+	var cOpaqueStruct: LDKTxOut?;
+	init(pointer: LDKTxOut) {
+		self.cOpaqueStruct = pointer
+	}
+
+	public func getScriptPubkey() -> [UInt8] {
+		return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey)
+	}
+
+	public func getValue() -> UInt64 {
+		return self.cOpaqueStruct!.value
+	}
+
+}

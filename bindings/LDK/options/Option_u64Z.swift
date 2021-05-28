@@ -40,4 +40,5 @@ public class Option_u64Z {
 
     /* OPTION_METHODS_END */
 
+	/* TYPE_CLASSES */
 }

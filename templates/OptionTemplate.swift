@@ -20,4 +20,5 @@ public class OptionName {
     }
     /* OPTION_METHODS_END */
 
+	/* TYPE_CLASSES */
 }

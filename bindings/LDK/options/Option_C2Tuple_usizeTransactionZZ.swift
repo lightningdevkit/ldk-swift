@@ -40,4 +40,5 @@ public class Option_C2Tuple_usizeTransactionZZ {
 
     /* OPTION_METHODS_END */
 
+	/* TYPE_CLASSES */
 }

@@ -40,10 +40,12 @@ class TypeDetails:
 
 
 class ComplexEnumVariantInfo:
-	def __init__(self, var_name, fields, tuple_variant):
+	def __init__(self, var_name, fields, tuple_variant, container_type_name = '', tag_value = ''):
 		self.var_name = var_name
 		self.fields = fields
 		self.tuple_variant = tuple_variant
+		self.container_type_name  = container_type_name
+		self.tag_value = tag_value
 
 
 class LightningHeaderParser():
@@ -317,18 +319,21 @@ class LightningHeaderParser():
 					# pass
 					elif is_union_enum:
 						assert (struct_name.endswith("_Tag"))
+						tag_name = struct_name
 						struct_name = struct_name[:-4]
-						self.union_enum_items[struct_name] = {"field_lines": field_lines}
+						self.union_enum_items[struct_name] = {"tag_name": tag_name, "field_lines": field_lines}
 					elif struct_name.endswith("_Body") and struct_name.split("_")[0] in self.union_enum_items:
 						enum_var_name = struct_name.split("_")
 						self.union_enum_items[enum_var_name[0]][enum_var_name[1]] = field_lines
 					elif struct_name in self.union_enum_items:
 						self.type_details[struct_name].type = CTypes.OPTION
 
+						tag_name = self.union_enum_items[struct_name]['tag_name']
 						tag_field_lines = self.union_enum_items[struct_name]['field_lines']
 						option_field_lines = field_lines
 						option_details = self.parse_option_details(struct_name, option_field_lines, tag_field_lines)
 
+						self.type_details[struct_name].option_tag_type = tag_name
 						self.type_details[struct_name].option_value_type = option_details
 						self.type_details[struct_name].option_tag_field_lines = tag_field_lines
 
@@ -409,7 +414,11 @@ class LightningHeaderParser():
 
 	def parse_option_details(self, struct_name, option_field_lines, tag_field_lines):
 		tuple_variants = {}
+		complex_tuple_variant_list = []
+		complex_tuple_variants = {}
+		is_complex = False
 		elem_items = -1
+		relevant_union_enum_items = self.union_enum_items[struct_name]
 		for current_option_line in option_field_lines:
 			if current_option_line == "struct {":
 				elem_items = 0
@@ -430,6 +439,22 @@ class LightningHeaderParser():
 					assert False
 
 		enum_variants = []
+		if not bool(tuple_variants):
+			is_in_union = False
+			for current_option_line in option_field_lines:
+				if not is_in_union and current_option_line == 'union {':
+					is_in_union = True
+				elif is_in_union and current_option_line == '};':
+					is_in_union = False
+					break
+				elif is_in_union:
+					union_field_details = current_option_line.split(' ')
+					union_field_type = union_field_details[0]
+					union_field_name = union_field_details[1][:-1]
+					complex_tuple_variant_list.append({"type": union_field_type, "name": union_field_name})
+					complex_tuple_variants[union_field_name] = union_field_type
+					is_complex = True
+
 		inline_enum_variants = tuple_variants
 		for idx, struct_line in enumerate(tag_field_lines):
 			if idx == 0:
@@ -445,17 +470,55 @@ class LightningHeaderParser():
 				variant_name = raw_variant_name[len(struct_name) + 1:]
 				snaked_case_variant_name = self.camel_to_snake(variant_name)
 				fields = []
-				if "LDK" + variant_name in self.union_enum_items:
-					enum_var_lines = self.union_enum_items["LDK" + variant_name]
-					for idx, field in enumerate(enum_var_lines):
-						if idx != 0 and idx < len(enum_var_lines) - 2 and field.strip() != "":
-							fields.append(swift_type_mapper.map_types_to_swift(field.strip(' ;'), None, False, self.tuple_types, self.unitary_enums,
-																			   self.language_constants))
-					enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, False))
+				if "LDK" + variant_name in relevant_union_enum_items:
+					current_type_name = struct_name + '_LDK' + variant_name + '_Body'
+					enum_var_lines = relevant_union_enum_items["LDK" + variant_name]
+					# print("option union enum item:", struct_name, variant_name, "is complex?", is_complex)
+
+					# print('here')
+
+					# for idx, field in enumerate(enum_var_lines):
+					# 	if idx != 0 and idx < len(enum_var_lines) - 2 and field.strip() != "":
+					# 		fields.append(swift_type_mapper.map_types_to_swift(field.strip(' ;'), None, False, self.tuple_types, self.unitary_enums,
+					# 														   self.language_constants))
+
+					for current_body_line in enum_var_lines:
+						if current_body_line.startswith('typedef'):
+							continue
+						if current_body_line.startswith('}'):
+							break
+						if not current_body_line.endswith(';'):
+							continue
+						current_type_details = swift_type_mapper.map_types_to_swift(current_body_line.strip(';'), None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+						fields.append(current_type_details)
+
+
+					# enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, False))
+					enum_variants.append(ComplexEnumVariantInfo(snaked_case_variant_name, fields, False, current_type_name, raw_variant_name))
 				elif snaked_case_variant_name in inline_enum_variants:
-					fields.append(swift_type_mapper.map_types_to_swift(inline_enum_variants[snaked_case_variant_name] + " " + snaked_case_variant_name, None, False, self.tuple_types, self.unitary_enums,
+					current_type_name = inline_enum_variants[snaked_case_variant_name]
+					current_variable_simulation = current_type_name + " " + snaked_case_variant_name
+					fields.append(swift_type_mapper.map_types_to_swift(current_variable_simulation, None, False, self.tuple_types, self.unitary_enums,
 																	   self.language_constants))
-					enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, True))
+					# enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, True))
+					enum_variants.append(ComplexEnumVariantInfo(snaked_case_variant_name, fields, True, current_type_name, raw_variant_name))
+				elif is_complex and snaked_case_variant_name in complex_tuple_variants:
+					print('ENTERING COMPLEX-ONLY PROCESSING')
+					current_type_name = complex_tuple_variants[snaked_case_variant_name]
+					body_field_lines = relevant_union_enum_items['LDK' + variant_name]
+					for current_body_line in body_field_lines:
+						if current_body_line.startswith('typedef'):
+							continue
+						if current_body_line.startswith('}'):
+							break
+						if not current_body_line.endswith(';'):
+							continue
+						current_type_details = swift_type_mapper.map_types_to_swift(current_body_line.strip(';'), None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+						fields.append(current_type_details)
+					# current_variable_simulation = current_type_name + " " + snaked_case_variant_name
+					# current_type_details = swift_type_mapper.map_types_to_swift(current_variable_simulation, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+					# fields.append(current_type_details)
+					enum_variants.append(ComplexEnumVariantInfo(snaked_case_variant_name, fields, True, current_type_name, raw_variant_name))
 				else:
 					enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, True))
 		return enum_variants

@@ -1,6 +1,6 @@
 public class ErrorAction {
 
-    var cOpaqueStruct: LDKErrorAction?;
+    public internal(set) var cOpaqueStruct: LDKErrorAction?;
 
 	
 

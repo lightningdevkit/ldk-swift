@@ -1,6 +1,6 @@
 public class Result_NonePeerHandleErrorZ {
 
-    var cOpaqueStruct: LDKCResult_NonePeerHandleErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_NonePeerHandleErrorZ?;
 
 	
 

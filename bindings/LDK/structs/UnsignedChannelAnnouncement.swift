@@ -1,6 +1,6 @@
 public class UnsignedChannelAnnouncement {
 
-    var cOpaqueStruct: LDKUnsignedChannelAnnouncement?;
+    public internal(set) var cOpaqueStruct: LDKUnsignedChannelAnnouncement?;
 
 	
 

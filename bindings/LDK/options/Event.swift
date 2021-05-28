@@ -1,6 +1,6 @@
 public class Event {
 
-    var cOpaqueStruct: LDKEvent?;
+    public internal(set) var cOpaqueStruct: LDKEvent?;
 
 	
 

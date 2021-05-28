@@ -1,6 +1,6 @@
 public class Result_InMemorySignerDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_InMemorySignerDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_InMemorySignerDecodeErrorZ?;
 
 	
 

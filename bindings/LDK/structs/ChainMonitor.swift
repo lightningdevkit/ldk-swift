@@ -1,6 +1,6 @@
 public class ChainMonitor {
 
-    var cOpaqueStruct: LDKChainMonitor?;
+    public internal(set) var cOpaqueStruct: LDKChainMonitor?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_source: Filter?, broadcaster: BroadcasterInterface, logger: Logger, feeest: FeeEstimator, persister: Persist) {

@@ -1,6 +1,6 @@
 public class Result_NoneLightningErrorZ {
 
-    var cOpaqueStruct: LDKCResult_NoneLightningErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneLightningErrorZ?;
 
 	
 

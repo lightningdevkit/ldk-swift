@@ -1,6 +1,6 @@
 public class Sha256 {
 
-    var cOpaqueStruct: LDKSha256?;
+    public internal(set) var cOpaqueStruct: LDKSha256?;
 
 	
 

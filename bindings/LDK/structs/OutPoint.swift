@@ -1,6 +1,6 @@
 public class OutPoint {
 
-    var cOpaqueStruct: LDKOutPoint?;
+    public internal(set) var cOpaqueStruct: LDKOutPoint?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(txid_arg: [UInt8], index_arg: UInt16) {

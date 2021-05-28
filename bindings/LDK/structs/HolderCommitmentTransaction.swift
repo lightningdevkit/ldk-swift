@@ -1,6 +1,6 @@
 public class HolderCommitmentTransaction {
 
-    var cOpaqueStruct: LDKHolderCommitmentTransaction?;
+    public internal(set) var cOpaqueStruct: LDKHolderCommitmentTransaction?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(commitment_tx: CommitmentTransaction, counterparty_sig: [UInt8], counterparty_htlc_sigs: [[UInt8]], holder_funding_key: [UInt8], counterparty_funding_key: [UInt8]) {

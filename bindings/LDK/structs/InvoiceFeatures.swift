@@ -1,6 +1,6 @@
 public class InvoiceFeatures {
 
-    var cOpaqueStruct: LDKInvoiceFeatures?;
+    public internal(set) var cOpaqueStruct: LDKInvoiceFeatures?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

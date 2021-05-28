@@ -1,6 +1,6 @@
 public class OptionName {
 
-    var cOpaqueStruct: OptionType?;
+    public internal(set) var cOpaqueStruct: OptionType?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(swift_constructor_arguments) {

@@ -1,6 +1,6 @@
 public class CommitmentUpdate {
 
-    var cOpaqueStruct: LDKCommitmentUpdate?;
+    public internal(set) var cOpaqueStruct: LDKCommitmentUpdate?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(update_add_htlcs_arg: [LDKUpdateAddHTLC], update_fulfill_htlcs_arg: [LDKUpdateFulfillHTLC], update_fail_htlcs_arg: [LDKUpdateFailHTLC], update_fail_malformed_htlcs_arg: [LDKUpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned) {

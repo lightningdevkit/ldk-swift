@@ -1,6 +1,6 @@
 public class BuiltCommitmentTransaction {
 
-    var cOpaqueStruct: LDKBuiltCommitmentTransaction?;
+    public internal(set) var cOpaqueStruct: LDKBuiltCommitmentTransaction?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(transaction_arg: [UInt8], txid_arg: [UInt8]) {

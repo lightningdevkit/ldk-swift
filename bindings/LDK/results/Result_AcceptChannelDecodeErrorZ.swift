@@ -1,6 +1,6 @@
 public class Result_AcceptChannelDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_AcceptChannelDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_AcceptChannelDecodeErrorZ?;
 
 	
 

@@ -1,6 +1,6 @@
 public class InMemorySigner {
 
-    var cOpaqueStruct: LDKInMemorySigner?;
+    public internal(set) var cOpaqueStruct: LDKInMemorySigner?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(funding_key: [UInt8], revocation_base_key: [UInt8], payment_key: [UInt8], delayed_payment_base_key: [UInt8], htlc_base_key: [UInt8], commitment_seed: [UInt8], channel_value_satoshis: UInt64, channel_keys_id: [UInt8]) {

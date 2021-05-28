@@ -1,6 +1,6 @@
 public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 
-    var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?;
 
 	
 

@@ -1,6 +1,6 @@
 public class Result_HolderCommitmentTransactionDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_HolderCommitmentTransactionDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_HolderCommitmentTransactionDecodeErrorZ?;
 
 	
 

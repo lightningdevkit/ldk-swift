@@ -1,6 +1,6 @@
 public class ChannelTransactionParameters {
 
-    var cOpaqueStruct: LDKChannelTransactionParameters?;
+    public internal(set) var cOpaqueStruct: LDKChannelTransactionParameters?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(holder_pubkeys_arg: ChannelPublicKeys, holder_selected_contest_delay_arg: UInt16, is_outbound_from_holder_arg: Bool, counterparty_parameters_arg: CounterpartyChannelTransactionParameters, funding_outpoint_arg: OutPoint) {

@@ -1,6 +1,6 @@
 public class Pong {
 
-    var cOpaqueStruct: LDKPong?;
+    public internal(set) var cOpaqueStruct: LDKPong?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(byteslen_arg: UInt16) {

@@ -1,6 +1,6 @@
 public class AnnouncementSignatures {
 
-    var cOpaqueStruct: LDKAnnouncementSignatures?;
+    public internal(set) var cOpaqueStruct: LDKAnnouncementSignatures?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], short_channel_id_arg: UInt64, node_signature_arg: [UInt8], bitcoin_signature_arg: [UInt8]) {

@@ -1,6 +1,6 @@
 public class RawInvoice {
 
-    var cOpaqueStruct: LDKRawInvoice?;
+    public internal(set) var cOpaqueStruct: LDKRawInvoice?;
 
 	
 

@@ -1,6 +1,6 @@
 public class Result_ReplyChannelRangeDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_ReplyChannelRangeDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_ReplyChannelRangeDecodeErrorZ?;
 
 	
 

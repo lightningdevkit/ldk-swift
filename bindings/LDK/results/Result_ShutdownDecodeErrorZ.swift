@@ -1,6 +1,6 @@
 public class Result_ShutdownDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_ShutdownDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_ShutdownDecodeErrorZ?;
 
 	
 

@@ -1,6 +1,6 @@
 public class RoutingFees {
 
-    var cOpaqueStruct: LDKRoutingFees?;
+    public internal(set) var cOpaqueStruct: LDKRoutingFees?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(base_msat_arg: UInt32, proportional_millionths_arg: UInt32) {

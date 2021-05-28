@@ -1,6 +1,6 @@
 public class Result_SecretKeyErrorZ {
 
-    var cOpaqueStruct: LDKCResult_SecretKeyErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_SecretKeyErrorZ?;
 
 	
 

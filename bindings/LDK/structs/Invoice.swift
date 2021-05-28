@@ -1,6 +1,6 @@
 public class Invoice {
 
-    var cOpaqueStruct: LDKInvoice?;
+    public internal(set) var cOpaqueStruct: LDKInvoice?;
 
 	
 

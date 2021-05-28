@@ -1,6 +1,6 @@
 public class Result_NodeAnnouncementInfoDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_NodeAnnouncementInfoDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_NodeAnnouncementInfoDecodeErrorZ?;
 
 	
 

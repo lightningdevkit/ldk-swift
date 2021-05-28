@@ -1,6 +1,6 @@
 public class Result_TransactionNoneZ {
 
-    var cOpaqueStruct: LDKCResult_TransactionNoneZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_TransactionNoneZ?;
 
 	
 

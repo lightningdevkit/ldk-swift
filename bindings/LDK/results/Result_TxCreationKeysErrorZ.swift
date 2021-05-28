@@ -1,6 +1,6 @@
 public class Result_TxCreationKeysErrorZ {
 
-    var cOpaqueStruct: LDKCResult_TxCreationKeysErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_TxCreationKeysErrorZ?;
 
 	
 

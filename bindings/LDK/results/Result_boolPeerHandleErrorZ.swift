@@ -1,6 +1,6 @@
 public class Result_boolPeerHandleErrorZ {
 
-    var cOpaqueStruct: LDKCResult_boolPeerHandleErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_boolPeerHandleErrorZ?;
 
 	
 

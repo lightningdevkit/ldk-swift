@@ -1,6 +1,6 @@
 public class DataLossProtect {
 
-    var cOpaqueStruct: LDKDataLossProtect?;
+    public internal(set) var cOpaqueStruct: LDKDataLossProtect?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(your_last_per_commitment_secret_arg: [UInt8], my_current_per_commitment_point_arg: [UInt8]) {

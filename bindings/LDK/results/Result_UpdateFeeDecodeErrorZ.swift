@@ -1,6 +1,6 @@
 public class Result_UpdateFeeDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_UpdateFeeDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_UpdateFeeDecodeErrorZ?;
 
 	
 

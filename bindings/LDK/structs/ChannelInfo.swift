@@ -1,6 +1,6 @@
 public class ChannelInfo {
 
-    var cOpaqueStruct: LDKChannelInfo?;
+    public internal(set) var cOpaqueStruct: LDKChannelInfo?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(features_arg: ChannelFeatures, node_one_arg: [UInt8], one_to_two_arg: DirectionalChannelInfo, node_two_arg: [UInt8], two_to_one_arg: DirectionalChannelInfo, capacity_sats_arg: Option_u64Z, announcement_message_arg: ChannelAnnouncement) {

@@ -1,6 +1,6 @@
 public class Result_CVec_SignatureZNoneZ {
 
-    var cOpaqueStruct: LDKCResult_CVec_SignatureZNoneZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_CVec_SignatureZNoneZ?;
 
 	
 

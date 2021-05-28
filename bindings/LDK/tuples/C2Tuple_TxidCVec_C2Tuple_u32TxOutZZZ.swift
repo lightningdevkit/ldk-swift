@@ -1,6 +1,6 @@
 public class C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
 
-    var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ?;
+    public internal(set) var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ?;
 
     public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ){
 		self.cOpaqueStruct = pointer

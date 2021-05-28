@@ -1,6 +1,6 @@
 public class Option_C2Tuple_usizeTransactionZZ {
 
-    var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?;
+    public internal(set) var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(value: C2Tuple_usizeTransactionZ?) {

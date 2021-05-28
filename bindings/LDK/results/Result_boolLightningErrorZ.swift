@@ -1,6 +1,6 @@
 public class Result_boolLightningErrorZ {
 
-    var cOpaqueStruct: LDKCResult_boolLightningErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_boolLightningErrorZ?;
 
 	
 

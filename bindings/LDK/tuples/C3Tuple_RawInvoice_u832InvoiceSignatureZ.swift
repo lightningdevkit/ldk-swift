@@ -1,6 +1,6 @@
 public class C3Tuple_RawInvoice_u832InvoiceSignatureZ {
 
-    var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?;
+    public internal(set) var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?;
 
     public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ){
 		self.cOpaqueStruct = pointer

@@ -1,6 +1,6 @@
 public class RouteHint {
 
-    var cOpaqueStruct: LDKRouteHint?;
+    public internal(set) var cOpaqueStruct: LDKRouteHint?;
 
 	
 

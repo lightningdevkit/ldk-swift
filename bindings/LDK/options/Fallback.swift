@@ -1,6 +1,6 @@
 public class Fallback {
 
-    var cOpaqueStruct: LDKFallback?;
+    public internal(set) var cOpaqueStruct: LDKFallback?;
 
 	
 

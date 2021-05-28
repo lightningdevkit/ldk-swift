@@ -1,6 +1,6 @@
 public class Result_ChannelTransactionParametersDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_ChannelTransactionParametersDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_ChannelTransactionParametersDecodeErrorZ?;
 
 	
 

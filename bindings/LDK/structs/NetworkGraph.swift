@@ -1,6 +1,6 @@
 public class NetworkGraph {
 
-    var cOpaqueStruct: LDKNetworkGraph?;
+    public internal(set) var cOpaqueStruct: LDKNetworkGraph?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(genesis_hash: [UInt8]) {

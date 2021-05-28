@@ -1,6 +1,6 @@
 public class ChannelPublicKeys {
 
-    var cOpaqueStruct: LDKChannelPublicKeys?;
+    public internal(set) var cOpaqueStruct: LDKChannelPublicKeys?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(funding_pubkey_arg: [UInt8], revocation_basepoint_arg: [UInt8], payment_point_arg: [UInt8], delayed_payment_basepoint_arg: [UInt8], htlc_basepoint_arg: [UInt8]) {

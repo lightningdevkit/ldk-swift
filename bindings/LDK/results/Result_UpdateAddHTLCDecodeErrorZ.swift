@@ -1,6 +1,6 @@
 public class Result_UpdateAddHTLCDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_UpdateAddHTLCDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_UpdateAddHTLCDecodeErrorZ?;
 
 	
 

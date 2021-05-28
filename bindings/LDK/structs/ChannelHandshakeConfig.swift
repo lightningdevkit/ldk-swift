@@ -1,6 +1,6 @@
 public class ChannelHandshakeConfig {
 
-    var cOpaqueStruct: LDKChannelHandshakeConfig?;
+    public internal(set) var cOpaqueStruct: LDKChannelHandshakeConfig?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

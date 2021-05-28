@@ -1,6 +1,6 @@
 public class UnsignedNodeAnnouncement {
 
-    var cOpaqueStruct: LDKUnsignedNodeAnnouncement?;
+    public internal(set) var cOpaqueStruct: LDKUnsignedNodeAnnouncement?;
 
 	
 

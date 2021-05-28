@@ -1,6 +1,6 @@
 public class ReplyShortChannelIdsEnd {
 
-    var cOpaqueStruct: LDKReplyShortChannelIdsEnd?;
+    public internal(set) var cOpaqueStruct: LDKReplyShortChannelIdsEnd?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], full_information_arg: Bool) {

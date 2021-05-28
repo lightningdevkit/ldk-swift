@@ -1,6 +1,6 @@
 public class Result_RouteHintCreationErrorZ {
 
-    var cOpaqueStruct: LDKCResult_RouteHintCreationErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_RouteHintCreationErrorZ?;
 
 	
 

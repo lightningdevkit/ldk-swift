@@ -1,6 +1,6 @@
 public class NodeAnnouncement {
 
-    var cOpaqueStruct: LDKNodeAnnouncement?;
+    public internal(set) var cOpaqueStruct: LDKNodeAnnouncement?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedNodeAnnouncement) {

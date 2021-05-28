@@ -1,6 +1,6 @@
 public class Result_HTLCOutputInCommitmentDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ?;
 
 	
 

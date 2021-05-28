@@ -1,6 +1,6 @@
 public class UserConfig {
 
-    var cOpaqueStruct: LDKUserConfig?;
+    public internal(set) var cOpaqueStruct: LDKUserConfig?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

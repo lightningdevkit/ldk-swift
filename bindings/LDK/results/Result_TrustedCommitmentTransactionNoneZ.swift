@@ -1,6 +1,6 @@
 public class Result_TrustedCommitmentTransactionNoneZ {
 
-    var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?;
 
 	
 

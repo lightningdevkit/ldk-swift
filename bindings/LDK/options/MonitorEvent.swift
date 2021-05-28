@@ -1,6 +1,6 @@
 public class MonitorEvent {
 
-    var cOpaqueStruct: LDKMonitorEvent?;
+    public internal(set) var cOpaqueStruct: LDKMonitorEvent?;
 
 	
 

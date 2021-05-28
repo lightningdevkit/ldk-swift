@@ -1,6 +1,6 @@
 public class Result_PayeePubKeyErrorZ {
 
-    var cOpaqueStruct: LDKCResult_PayeePubKeyErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_PayeePubKeyErrorZ?;
 
 	
 

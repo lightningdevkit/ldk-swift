@@ -1,6 +1,6 @@
 public class ChannelConfig {
 
-    var cOpaqueStruct: LDKChannelConfig?;
+    public internal(set) var cOpaqueStruct: LDKChannelConfig?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

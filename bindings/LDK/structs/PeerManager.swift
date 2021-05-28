@@ -1,6 +1,6 @@
 public class PeerManager {
 
-    var cOpaqueStruct: LDKPeerManager?;
+    public internal(set) var cOpaqueStruct: LDKPeerManager?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger) {

@@ -1,6 +1,6 @@
 public class SignOrCreationError {
 
-    var cOpaqueStruct: LDKSignOrCreationError?;
+    public internal(set) var cOpaqueStruct: LDKSignOrCreationError?;
 
 	
 

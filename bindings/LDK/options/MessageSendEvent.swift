@@ -1,6 +1,6 @@
 public class MessageSendEvent {
 
-    var cOpaqueStruct: LDKMessageSendEvent?;
+    public internal(set) var cOpaqueStruct: LDKMessageSendEvent?;
 
 	
 

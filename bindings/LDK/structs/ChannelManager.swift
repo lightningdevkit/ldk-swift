@@ -1,6 +1,6 @@
 public class ChannelManager {
 
-    var cOpaqueStruct: LDKChannelManager?;
+    public internal(set) var cOpaqueStruct: LDKChannelManager?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(fee_est: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, keys_manager: KeysInterface, config: UserConfig, params: ChainParameters) {

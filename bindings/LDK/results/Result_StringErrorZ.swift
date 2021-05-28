@@ -1,6 +1,6 @@
 public class Result_StringErrorZ {
 
-    var cOpaqueStruct: LDKCResult_StringErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_StringErrorZ?;
 
 	
 

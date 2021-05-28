@@ -1,6 +1,6 @@
 public class ClosingSigned {
 
-    var cOpaqueStruct: LDKClosingSigned?;
+    public internal(set) var cOpaqueStruct: LDKClosingSigned?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], fee_satoshis_arg: UInt64, signature_arg: [UInt8]) {

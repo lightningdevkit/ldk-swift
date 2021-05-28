@@ -1,6 +1,6 @@
 public class Ping {
 
-    var cOpaqueStruct: LDKPing?;
+    public internal(set) var cOpaqueStruct: LDKPing?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(ponglen_arg: UInt16, byteslen_arg: UInt16) {

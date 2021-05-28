@@ -1,6 +1,6 @@
 public class Result_QueryShortChannelIdsDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_QueryShortChannelIdsDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_QueryShortChannelIdsDecodeErrorZ?;
 
 	
 

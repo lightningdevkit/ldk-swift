@@ -1,6 +1,6 @@
 public class StaticPaymentOutputDescriptor {
 
-    var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?;
+    public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(outpoint_arg: OutPoint, output_arg: LDKTxOut, channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {

@@ -1,6 +1,6 @@
 public class ExpiryTime {
 
-    var cOpaqueStruct: LDKExpiryTime?;
+    public internal(set) var cOpaqueStruct: LDKExpiryTime?;
 
 	
 

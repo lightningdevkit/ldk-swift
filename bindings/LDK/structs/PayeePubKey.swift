@@ -1,6 +1,6 @@
 public class PayeePubKey {
 
-    var cOpaqueStruct: LDKPayeePubKey?;
+    public internal(set) var cOpaqueStruct: LDKPayeePubKey?;
 
 	
 

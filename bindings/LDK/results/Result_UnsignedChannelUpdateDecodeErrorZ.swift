@@ -1,6 +1,6 @@
 public class Result_UnsignedChannelUpdateDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_UnsignedChannelUpdateDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_UnsignedChannelUpdateDecodeErrorZ?;
 
 	
 

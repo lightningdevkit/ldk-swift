@@ -1,6 +1,6 @@
 public class FundingCreated {
 
-    var cOpaqueStruct: LDKFundingCreated?;
+    public internal(set) var cOpaqueStruct: LDKFundingCreated?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(temporary_channel_id_arg: [UInt8], funding_txid_arg: [UInt8], funding_output_index_arg: UInt16, signature_arg: [UInt8]) {

@@ -1,6 +1,6 @@
 public class FundingSigned {
 
-    var cOpaqueStruct: LDKFundingSigned?;
+    public internal(set) var cOpaqueStruct: LDKFundingSigned?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], signature_arg: [UInt8]) {

@@ -1,6 +1,6 @@
 public class ErrorMessage {
 
-    var cOpaqueStruct: LDKErrorMessage?;
+    public internal(set) var cOpaqueStruct: LDKErrorMessage?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], data_arg: String) {

@@ -1,6 +1,6 @@
 public class QueryShortChannelIds {
 
-    var cOpaqueStruct: LDKQueryShortChannelIds?;
+    public internal(set) var cOpaqueStruct: LDKQueryShortChannelIds?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], short_channel_ids_arg: [UInt64]) {

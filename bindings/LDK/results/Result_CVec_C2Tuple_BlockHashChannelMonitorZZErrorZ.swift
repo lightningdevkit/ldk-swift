@@ -1,6 +1,6 @@
 public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 
-    var cOpaqueStruct: LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ?;
 
 	
 

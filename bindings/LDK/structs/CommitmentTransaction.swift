@@ -1,6 +1,6 @@
 public class CommitmentTransaction {
 
-    var cOpaqueStruct: LDKCommitmentTransaction?;
+    public internal(set) var cOpaqueStruct: LDKCommitmentTransaction?;
 
 	
 

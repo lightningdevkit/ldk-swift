@@ -1,6 +1,6 @@
 public class Result_FundingLockedDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_FundingLockedDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_FundingLockedDecodeErrorZ?;
 
 	
 

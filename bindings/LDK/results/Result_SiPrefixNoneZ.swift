@@ -1,6 +1,6 @@
 public class Result_SiPrefixNoneZ {
 
-    var cOpaqueStruct: LDKCResult_SiPrefixNoneZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_SiPrefixNoneZ?;
 
 	
 

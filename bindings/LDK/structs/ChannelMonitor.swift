@@ -1,6 +1,6 @@
 public class ChannelMonitor {
 
-    var cOpaqueStruct: LDKChannelMonitor?;
+    public internal(set) var cOpaqueStruct: LDKChannelMonitor?;
 
 	
 

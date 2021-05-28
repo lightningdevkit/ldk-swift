@@ -1,6 +1,6 @@
 public class Result_DirectionalChannelInfoDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_DirectionalChannelInfoDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_DirectionalChannelInfoDecodeErrorZ?;
 
 	
 

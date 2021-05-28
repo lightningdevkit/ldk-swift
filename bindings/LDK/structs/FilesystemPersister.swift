@@ -1,6 +1,6 @@
 public class FilesystemPersister {
 
-    var cOpaqueStruct: LDKFilesystemPersister?;
+    public internal(set) var cOpaqueStruct: LDKFilesystemPersister?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(path_to_channel_data: String) {

@@ -1,6 +1,6 @@
 public class ChannelManagerReadArgs {
 
-    var cOpaqueStruct: LDKChannelManagerReadArgs?;
+    public internal(set) var cOpaqueStruct: LDKChannelManagerReadArgs?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {

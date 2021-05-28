@@ -1,6 +1,6 @@
 public class Result_InitFeaturesDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_InitFeaturesDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_InitFeaturesDecodeErrorZ?;
 
 	
 

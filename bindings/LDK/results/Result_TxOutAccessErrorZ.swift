@@ -1,6 +1,6 @@
 public class Result_TxOutAccessErrorZ {
 
-    var cOpaqueStruct: LDKCResult_TxOutAccessErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_TxOutAccessErrorZ?;
 
 	
 

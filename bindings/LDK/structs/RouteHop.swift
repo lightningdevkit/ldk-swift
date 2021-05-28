@@ -1,6 +1,6 @@
 public class RouteHop {
 
-    var cOpaqueStruct: LDKRouteHop?;
+    public internal(set) var cOpaqueStruct: LDKRouteHop?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(pubkey_arg: [UInt8], node_features_arg: NodeFeatures, short_channel_id_arg: UInt64, channel_features_arg: ChannelFeatures, fee_msat_arg: UInt64, cltv_expiry_delta_arg: UInt32) {

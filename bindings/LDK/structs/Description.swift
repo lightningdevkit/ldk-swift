@@ -1,6 +1,6 @@
 public class Description {
 
-    var cOpaqueStruct: LDKDescription?;
+    public internal(set) var cOpaqueStruct: LDKDescription?;
 
 	
 

@@ -1,6 +1,6 @@
 public class HTLCUpdate {
 
-    var cOpaqueStruct: LDKHTLCUpdate?;
+    public internal(set) var cOpaqueStruct: LDKHTLCUpdate?;
 
 	
 

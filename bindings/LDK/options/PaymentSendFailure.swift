@@ -1,6 +1,6 @@
 public class PaymentSendFailure {
 
-    var cOpaqueStruct: LDKPaymentSendFailure?;
+    public internal(set) var cOpaqueStruct: LDKPaymentSendFailure?;
 
 	
 

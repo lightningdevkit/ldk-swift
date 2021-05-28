@@ -1,6 +1,6 @@
 public class NodeAnnouncementInfo {
 
-    var cOpaqueStruct: LDKNodeAnnouncementInfo?;
+    public internal(set) var cOpaqueStruct: LDKNodeAnnouncementInfo?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: [UInt8], addresses_arg: [LDKNetAddress], announcement_message_arg: NodeAnnouncement) {

@@ -1,6 +1,6 @@
 public class Result_CommitmentSignedDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_CommitmentSignedDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_CommitmentSignedDecodeErrorZ?;
 
 	
 

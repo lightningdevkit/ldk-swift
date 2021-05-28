@@ -1,6 +1,6 @@
 public class NetAddress {
 
-    var cOpaqueStruct: LDKNetAddress?;
+    public internal(set) var cOpaqueStruct: LDKNetAddress?;
 
 	
 

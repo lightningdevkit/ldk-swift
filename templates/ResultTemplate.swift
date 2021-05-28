@@ -1,6 +1,6 @@
 public class ResultName {
 
-    var cOpaqueStruct: ResultType?;
+    public internal(set) var cOpaqueStruct: ResultType?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(swift_constructor_arguments) {

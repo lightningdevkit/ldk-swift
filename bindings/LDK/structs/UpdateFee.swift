@@ -1,6 +1,6 @@
 public class UpdateFee {
 
-    var cOpaqueStruct: LDKUpdateFee?;
+    public internal(set) var cOpaqueStruct: LDKUpdateFee?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], feerate_per_kw_arg: UInt32) {

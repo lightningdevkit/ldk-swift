@@ -1,6 +1,6 @@
 public class HTLCFailChannelUpdate {
 
-    var cOpaqueStruct: LDKHTLCFailChannelUpdate?;
+    public internal(set) var cOpaqueStruct: LDKHTLCFailChannelUpdate?;
 
 	
 

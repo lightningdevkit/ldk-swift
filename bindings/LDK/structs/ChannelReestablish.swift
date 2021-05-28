@@ -1,6 +1,6 @@
 public class ChannelReestablish {
 
-    var cOpaqueStruct: LDKChannelReestablish?;
+    public internal(set) var cOpaqueStruct: LDKChannelReestablish?;
 
 	
 

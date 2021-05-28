@@ -1,6 +1,6 @@
 public class CounterpartyChannelTransactionParameters {
 
-    var cOpaqueStruct: LDKCounterpartyChannelTransactionParameters?;
+    public internal(set) var cOpaqueStruct: LDKCounterpartyChannelTransactionParameters?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(pubkeys_arg: ChannelPublicKeys, selected_contest_delay_arg: UInt16) {

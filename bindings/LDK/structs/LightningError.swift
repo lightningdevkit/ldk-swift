@@ -1,6 +1,6 @@
 public class LightningError {
 
-    var cOpaqueStruct: LDKLightningError?;
+    public internal(set) var cOpaqueStruct: LDKLightningError?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(err_arg: String, action_arg: ErrorAction) {

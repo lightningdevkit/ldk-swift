@@ -1,6 +1,6 @@
 public class Result_AnnouncementSignaturesDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_AnnouncementSignaturesDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_AnnouncementSignaturesDecodeErrorZ?;
 
 	
 

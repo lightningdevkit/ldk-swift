@@ -1,6 +1,6 @@
 public class Result_DescriptionCreationErrorZ {
 
-    var cOpaqueStruct: LDKCResult_DescriptionCreationErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_DescriptionCreationErrorZ?;
 
 	
 

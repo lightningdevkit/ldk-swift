@@ -1,6 +1,6 @@
 public class SignedRawInvoice {
 
-    var cOpaqueStruct: LDKSignedRawInvoice?;
+    public internal(set) var cOpaqueStruct: LDKSignedRawInvoice?;
 
 	
 

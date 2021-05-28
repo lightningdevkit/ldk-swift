@@ -1,6 +1,6 @@
 public class Result_UpdateFailMalformedHTLCDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_UpdateFailMalformedHTLCDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_UpdateFailMalformedHTLCDecodeErrorZ?;
 
 	
 

@@ -1,6 +1,6 @@
 public class ChannelDetails {
 
-    var cOpaqueStruct: LDKChannelDetails?;
+    public internal(set) var cOpaqueStruct: LDKChannelDetails?;
 
 	
 

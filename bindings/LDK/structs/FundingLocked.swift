@@ -1,6 +1,6 @@
 public class FundingLocked {
 
-    var cOpaqueStruct: LDKFundingLocked?;
+    public internal(set) var cOpaqueStruct: LDKFundingLocked?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], next_per_commitment_point_arg: [UInt8]) {

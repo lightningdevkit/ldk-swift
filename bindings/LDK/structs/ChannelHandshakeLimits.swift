@@ -1,6 +1,6 @@
 public class ChannelHandshakeLimits {
 
-    var cOpaqueStruct: LDKChannelHandshakeLimits?;
+    public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

@@ -1,6 +1,6 @@
 public class Result_InvoiceFeaturesDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_InvoiceFeaturesDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceFeaturesDecodeErrorZ?;
 
 	
 

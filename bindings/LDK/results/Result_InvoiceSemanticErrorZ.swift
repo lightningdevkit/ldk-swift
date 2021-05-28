@@ -1,6 +1,6 @@
 public class Result_InvoiceSemanticErrorZ {
 
-    var cOpaqueStruct: LDKCResult_InvoiceSemanticErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceSemanticErrorZ?;
 
 	
 

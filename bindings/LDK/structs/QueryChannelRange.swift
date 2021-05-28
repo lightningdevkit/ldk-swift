@@ -1,6 +1,6 @@
 public class QueryChannelRange {
 
-    var cOpaqueStruct: LDKQueryChannelRange?;
+    public internal(set) var cOpaqueStruct: LDKQueryChannelRange?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_blocknum_arg: UInt32, number_of_blocks_arg: UInt32) {

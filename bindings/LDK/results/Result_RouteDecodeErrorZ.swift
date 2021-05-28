@@ -1,6 +1,6 @@
 public class Result_RouteDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_RouteDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_RouteDecodeErrorZ?;
 
 	
 

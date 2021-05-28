@@ -1,6 +1,6 @@
 public class Shutdown {
 
-    var cOpaqueStruct: LDKShutdown?;
+    public internal(set) var cOpaqueStruct: LDKShutdown?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], scriptpubkey_arg: [UInt8]) {

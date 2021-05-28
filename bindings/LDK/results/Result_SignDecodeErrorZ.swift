@@ -1,6 +1,6 @@
 public class Result_SignDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_SignDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_SignDecodeErrorZ?;
 
 	
 

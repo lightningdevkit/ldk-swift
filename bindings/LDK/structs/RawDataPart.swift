@@ -1,6 +1,6 @@
 public class RawDataPart {
 
-    var cOpaqueStruct: LDKRawDataPart?;
+    public internal(set) var cOpaqueStruct: LDKRawDataPart?;
 
 	
 

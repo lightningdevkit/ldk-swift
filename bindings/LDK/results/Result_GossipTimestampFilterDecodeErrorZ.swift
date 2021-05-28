@@ -1,6 +1,6 @@
 public class Result_GossipTimestampFilterDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_GossipTimestampFilterDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_GossipTimestampFilterDecodeErrorZ?;
 
 	
 

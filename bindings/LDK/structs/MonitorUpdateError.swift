@@ -1,6 +1,6 @@
 public class MonitorUpdateError {
 
-    var cOpaqueStruct: LDKMonitorUpdateError?;
+    public internal(set) var cOpaqueStruct: LDKMonitorUpdateError?;
 
 	
 

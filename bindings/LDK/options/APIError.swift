@@ -1,6 +1,6 @@
 public class APIError {
 
-    var cOpaqueStruct: LDKAPIError?;
+    public internal(set) var cOpaqueStruct: LDKAPIError?;
 
 	
 

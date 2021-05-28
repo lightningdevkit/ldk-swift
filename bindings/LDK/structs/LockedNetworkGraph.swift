@@ -1,6 +1,6 @@
 public class LockedNetworkGraph {
 
-    var cOpaqueStruct: LDKLockedNetworkGraph?;
+    public internal(set) var cOpaqueStruct: LDKLockedNetworkGraph?;
 
 	
 

@@ -139,7 +139,7 @@ public class Bindings{
 
 public class TxOut {
 
-	var cOpaqueStruct: LDKTxOut?;
+	public internal(set) var cOpaqueStruct: LDKTxOut?;
 	init(pointer: LDKTxOut) {
 		self.cOpaqueStruct = pointer
 	}

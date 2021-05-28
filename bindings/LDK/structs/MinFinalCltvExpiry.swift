@@ -1,6 +1,6 @@
 public class MinFinalCltvExpiry {
 
-    var cOpaqueStruct: LDKMinFinalCltvExpiry?;
+    public internal(set) var cOpaqueStruct: LDKMinFinalCltvExpiry?;
 
 	
 

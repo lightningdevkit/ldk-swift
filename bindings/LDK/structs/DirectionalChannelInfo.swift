@@ -1,6 +1,6 @@
 public class DirectionalChannelInfo {
 
-    var cOpaqueStruct: LDKDirectionalChannelInfo?;
+    public internal(set) var cOpaqueStruct: LDKDirectionalChannelInfo?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(last_update_arg: UInt32, enabled_arg: Bool, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: UInt64, htlc_maximum_msat_arg: Option_u64Z, fees_arg: RoutingFees, last_update_message_arg: ChannelUpdate) {

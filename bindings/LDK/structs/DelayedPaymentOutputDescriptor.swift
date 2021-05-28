@@ -1,6 +1,6 @@
 public class DelayedPaymentOutputDescriptor {
 
-    var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?;
+    public internal(set) var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(outpoint_arg: OutPoint, per_commitment_point_arg: [UInt8], to_self_delay_arg: UInt16, output_arg: LDKTxOut, revocation_pubkey_arg: [UInt8], channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {

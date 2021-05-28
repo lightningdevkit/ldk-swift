@@ -1,6 +1,6 @@
 public class Result_NetworkGraphDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_NetworkGraphDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_NetworkGraphDecodeErrorZ?;
 
 	
 

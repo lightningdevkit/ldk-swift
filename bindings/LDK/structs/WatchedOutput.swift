@@ -1,6 +1,6 @@
 public class WatchedOutput {
 
-    var cOpaqueStruct: LDKWatchedOutput?;
+    public internal(set) var cOpaqueStruct: LDKWatchedOutput?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(block_hash_arg: [UInt8], outpoint_arg: OutPoint, script_pubkey_arg: [UInt8]) {

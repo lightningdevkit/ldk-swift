@@ -1,6 +1,6 @@
 public class IgnoringMessageHandler {
 
-    var cOpaqueStruct: LDKIgnoringMessageHandler?;
+    public internal(set) var cOpaqueStruct: LDKIgnoringMessageHandler?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

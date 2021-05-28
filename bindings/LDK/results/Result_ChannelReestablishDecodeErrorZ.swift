@@ -1,6 +1,6 @@
 public class Result_ChannelReestablishDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_ChannelReestablishDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_ChannelReestablishDecodeErrorZ?;
 
 	
 

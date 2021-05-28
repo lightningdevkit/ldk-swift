@@ -1,6 +1,6 @@
 public class Result_SpendableOutputDescriptorDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_SpendableOutputDescriptorDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_SpendableOutputDescriptorDecodeErrorZ?;
 
 	
 

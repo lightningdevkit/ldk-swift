@@ -1,6 +1,6 @@
 public class Result_RecoverableSignatureNoneZ {
 
-    var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?;
 
 	
 

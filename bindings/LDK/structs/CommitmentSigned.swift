@@ -1,6 +1,6 @@
 public class CommitmentSigned {
 
-    var cOpaqueStruct: LDKCommitmentSigned?;
+    public internal(set) var cOpaqueStruct: LDKCommitmentSigned?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], signature_arg: [UInt8], htlc_signatures_arg: [[UInt8]]) {

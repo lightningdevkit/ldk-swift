@@ -1,6 +1,6 @@
 public class TrustedCommitmentTransaction {
 
-    var cOpaqueStruct: LDKTrustedCommitmentTransaction?;
+    public internal(set) var cOpaqueStruct: LDKTrustedCommitmentTransaction?;
 
 	
 

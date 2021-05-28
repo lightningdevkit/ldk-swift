@@ -1,6 +1,6 @@
 public class ErroringMessageHandler {
 
-    var cOpaqueStruct: LDKErroringMessageHandler?;
+    public internal(set) var cOpaqueStruct: LDKErroringMessageHandler?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

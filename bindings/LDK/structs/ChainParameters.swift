@@ -1,6 +1,6 @@
 public class ChainParameters {
 
-    var cOpaqueStruct: LDKChainParameters?;
+    public internal(set) var cOpaqueStruct: LDKChainParameters?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(network_arg: LDKNetwork, best_block_arg: BestBlock) {

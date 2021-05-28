@@ -1,6 +1,6 @@
 public class BestBlock {
 
-    var cOpaqueStruct: LDKBestBlock?;
+    public internal(set) var cOpaqueStruct: LDKBestBlock?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(block_hash: [UInt8], height: UInt32) {

@@ -1,6 +1,6 @@
 public class Result_NoneMonitorUpdateErrorZ {
 
-    var cOpaqueStruct: LDKCResult_NoneMonitorUpdateErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneMonitorUpdateErrorZ?;
 
 	
 

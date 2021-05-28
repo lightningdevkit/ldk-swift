@@ -1,6 +1,6 @@
 public class Result_NoneErrorZ {
 
-    var cOpaqueStruct: LDKCResult_NoneErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneErrorZ?;
 
 	
 

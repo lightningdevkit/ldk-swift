@@ -1,6 +1,6 @@
 public class HTLCOutputInCommitment {
 
-    var cOpaqueStruct: LDKHTLCOutputInCommitment?;
+    public internal(set) var cOpaqueStruct: LDKHTLCOutputInCommitment?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(offered_arg: Bool, amount_msat_arg: UInt64, cltv_expiry_arg: UInt32, payment_hash_arg: [UInt8], transaction_output_index_arg: Option_u32Z) {

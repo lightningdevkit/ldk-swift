@@ -1,6 +1,6 @@
 public class GossipTimestampFilter {
 
-    var cOpaqueStruct: LDKGossipTimestampFilter?;
+    public internal(set) var cOpaqueStruct: LDKGossipTimestampFilter?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_timestamp_arg: UInt32, timestamp_range_arg: UInt32) {

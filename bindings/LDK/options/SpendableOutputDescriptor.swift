@@ -1,6 +1,6 @@
 public class SpendableOutputDescriptor {
 
-    var cOpaqueStruct: LDKSpendableOutputDescriptor?;
+    public internal(set) var cOpaqueStruct: LDKSpendableOutputDescriptor?;
 
 	
 

@@ -1,6 +1,6 @@
 public class Result_InvoiceSignOrCreationErrorZ {
 
-    var cOpaqueStruct: LDKCResult_InvoiceSignOrCreationErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceSignOrCreationErrorZ?;
 
 	
 

@@ -1,6 +1,6 @@
 public class DirectedChannelTransactionParameters {
 
-    var cOpaqueStruct: LDKDirectedChannelTransactionParameters?;
+    public internal(set) var cOpaqueStruct: LDKDirectedChannelTransactionParameters?;
 
 	
 

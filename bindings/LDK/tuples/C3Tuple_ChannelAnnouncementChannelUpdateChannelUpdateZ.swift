@@ -1,6 +1,6 @@
 public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 
-    var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?;
+    public internal(set) var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?;
 
     public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ){
 		self.cOpaqueStruct = pointer

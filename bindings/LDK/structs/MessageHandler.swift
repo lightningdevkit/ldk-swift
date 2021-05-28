@@ -1,6 +1,6 @@
 public class MessageHandler {
 
-    var cOpaqueStruct: LDKMessageHandler?;
+    public internal(set) var cOpaqueStruct: LDKMessageHandler?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chan_handler_arg: ChannelMessageHandler, route_handler_arg: RoutingMessageHandler) {

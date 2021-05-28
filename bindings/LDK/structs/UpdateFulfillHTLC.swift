@@ -1,6 +1,6 @@
 public class UpdateFulfillHTLC {
 
-    var cOpaqueStruct: LDKUpdateFulfillHTLC?;
+    public internal(set) var cOpaqueStruct: LDKUpdateFulfillHTLC?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], htlc_id_arg: UInt64, payment_preimage_arg: [UInt8]) {

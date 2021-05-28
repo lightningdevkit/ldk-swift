@@ -1,6 +1,6 @@
 public class UpdateFailHTLC {
 
-    var cOpaqueStruct: LDKUpdateFailHTLC?;
+    public internal(set) var cOpaqueStruct: LDKUpdateFailHTLC?;
 
 	
 

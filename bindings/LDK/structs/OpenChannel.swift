@@ -1,6 +1,6 @@
 public class OpenChannel {
 
-    var cOpaqueStruct: LDKOpenChannel?;
+    public internal(set) var cOpaqueStruct: LDKOpenChannel?;
 
 	
 

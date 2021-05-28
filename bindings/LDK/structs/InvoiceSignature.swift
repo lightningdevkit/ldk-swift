@@ -1,6 +1,6 @@
 public class InvoiceSignature {
 
-    var cOpaqueStruct: LDKInvoiceSignature?;
+    public internal(set) var cOpaqueStruct: LDKInvoiceSignature?;
 
 	
 

@@ -1,6 +1,6 @@
 public class AcceptChannel {
 
-    var cOpaqueStruct: LDKAcceptChannel?;
+    public internal(set) var cOpaqueStruct: LDKAcceptChannel?;
 
 	
 

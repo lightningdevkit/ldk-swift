@@ -1,6 +1,6 @@
 public class PositiveTimestamp {
 
-    var cOpaqueStruct: LDKPositiveTimestamp?;
+    public internal(set) var cOpaqueStruct: LDKPositiveTimestamp?;
 
 	
 

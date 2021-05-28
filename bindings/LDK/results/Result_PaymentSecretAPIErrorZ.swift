@@ -1,6 +1,6 @@
 public class Result_PaymentSecretAPIErrorZ {
 
-    var cOpaqueStruct: LDKCResult_PaymentSecretAPIErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_PaymentSecretAPIErrorZ?;
 
 	
 

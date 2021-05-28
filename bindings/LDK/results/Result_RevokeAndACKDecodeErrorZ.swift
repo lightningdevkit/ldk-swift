@@ -1,6 +1,6 @@
 public class Result_RevokeAndACKDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_RevokeAndACKDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_RevokeAndACKDecodeErrorZ?;
 
 	
 

@@ -1,6 +1,6 @@
 public class Result_RouteLightningErrorZ {
 
-    var cOpaqueStruct: LDKCResult_RouteLightningErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_RouteLightningErrorZ?;
 
 	
 

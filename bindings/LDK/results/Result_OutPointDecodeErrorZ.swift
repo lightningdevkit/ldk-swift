@@ -1,6 +1,6 @@
 public class Result_OutPointDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_OutPointDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_OutPointDecodeErrorZ?;
 
 	
 

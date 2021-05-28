@@ -1,6 +1,6 @@
 public class PeerHandleError {
 
-    var cOpaqueStruct: LDKPeerHandleError?;
+    public internal(set) var cOpaqueStruct: LDKPeerHandleError?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(no_connection_possible_arg: Bool) {

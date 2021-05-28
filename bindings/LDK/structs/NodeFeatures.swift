@@ -1,6 +1,6 @@
 public class NodeFeatures {
 
-    var cOpaqueStruct: LDKNodeFeatures?;
+    public internal(set) var cOpaqueStruct: LDKNodeFeatures?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {

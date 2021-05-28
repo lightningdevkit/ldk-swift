@@ -1,6 +1,6 @@
 public class ReplyChannelRange {
 
-    var cOpaqueStruct: LDKReplyChannelRange?;
+    public internal(set) var cOpaqueStruct: LDKReplyChannelRange?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_blocknum_arg: UInt32, number_of_blocks_arg: UInt32, sync_complete_arg: Bool, short_channel_ids_arg: [UInt64]) {

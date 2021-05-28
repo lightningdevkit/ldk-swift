@@ -1,6 +1,6 @@
 public class NetGraphMsgHandler {
 
-    var cOpaqueStruct: LDKNetGraphMsgHandler?;
+    public internal(set) var cOpaqueStruct: LDKNetGraphMsgHandler?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_access: Access?, logger: Logger, network_graph: NetworkGraph) {

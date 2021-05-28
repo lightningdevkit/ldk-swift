@@ -1,6 +1,6 @@
 public class Route {
 
-    var cOpaqueStruct: LDKRoute?;
+    public internal(set) var cOpaqueStruct: LDKRoute?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(paths_arg: [[LDKRouteHop]]) {

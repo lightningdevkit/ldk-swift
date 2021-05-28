@@ -1,6 +1,6 @@
 public class Result_ExpiryTimeCreationErrorZ {
 
-    var cOpaqueStruct: LDKCResult_ExpiryTimeCreationErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_ExpiryTimeCreationErrorZ?;
 
 	
 

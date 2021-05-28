@@ -1,6 +1,6 @@
 public class C2Tuple_BlockHashChannelManagerZ {
 
-    var cOpaqueStruct: LDKC2Tuple_BlockHashChannelManagerZ?;
+    public internal(set) var cOpaqueStruct: LDKC2Tuple_BlockHashChannelManagerZ?;
 
     public init(pointer: LDKC2Tuple_BlockHashChannelManagerZ){
 		self.cOpaqueStruct = pointer

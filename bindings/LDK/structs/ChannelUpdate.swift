@@ -1,6 +1,6 @@
 public class ChannelUpdate {
 
-    var cOpaqueStruct: LDKChannelUpdate?;
+    public internal(set) var cOpaqueStruct: LDKChannelUpdate?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedChannelUpdate) {

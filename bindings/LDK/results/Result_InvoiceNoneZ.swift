@@ -1,6 +1,6 @@
 public class Result_InvoiceNoneZ {
 
-    var cOpaqueStruct: LDKCResult_InvoiceNoneZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceNoneZ?;
 
 	
 

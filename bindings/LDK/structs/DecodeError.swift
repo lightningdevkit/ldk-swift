@@ -1,6 +1,6 @@
 public class DecodeError {
 
-    var cOpaqueStruct: LDKDecodeError?;
+    public internal(set) var cOpaqueStruct: LDKDecodeError?;
 
 	
 

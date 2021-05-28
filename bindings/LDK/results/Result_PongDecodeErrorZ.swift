@@ -1,6 +1,6 @@
 public class Result_PongDecodeErrorZ {
 
-    var cOpaqueStruct: LDKCResult_PongDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_PongDecodeErrorZ?;
 
 	
 

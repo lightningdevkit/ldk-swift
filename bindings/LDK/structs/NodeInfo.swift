@@ -1,6 +1,6 @@
 public class NodeInfo {
 
-    var cOpaqueStruct: LDKNodeInfo?;
+    public internal(set) var cOpaqueStruct: LDKNodeInfo?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channels_arg: [UInt64], lowest_inbound_channel_fees_arg: RoutingFees, announcement_info_arg: NodeAnnouncementInfo) {

@@ -1,6 +1,6 @@
 public class RouteHintHop {
 
-    var cOpaqueStruct: LDKRouteHintHop?;
+    public internal(set) var cOpaqueStruct: LDKRouteHintHop?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(src_node_id_arg: [UInt8], short_channel_id_arg: UInt64, fees_arg: RoutingFees, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: Option_u64Z, htlc_maximum_msat_arg: Option_u64Z) {

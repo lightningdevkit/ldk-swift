@@ -1,6 +1,6 @@
 public class KeysManager {
 
-    var cOpaqueStruct: LDKKeysManager?;
+    public internal(set) var cOpaqueStruct: LDKKeysManager?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(seed: [UInt8], starting_time_secs: UInt64, starting_time_nanos: UInt32) {

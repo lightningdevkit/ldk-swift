@@ -1,6 +1,6 @@
 public class Result_NoneSemanticErrorZ {
 
-    var cOpaqueStruct: LDKCResult_NoneSemanticErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneSemanticErrorZ?;
 
 	
 

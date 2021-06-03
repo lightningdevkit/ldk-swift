@@ -1382,6 +1382,17 @@ public class Bindings{
 
         return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: false)
     }
+    
+    public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrency, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
+        let nativeKeysManager = keysManager.cOpaqueStruct!
+        let amount = Option_u64Z(value: amountMsat)
+        let nativeAmount = amount.cOpaqueStruct!
+        let nativeDescription = Self.new_LDKStr(string: description)
+        return withUnsafePointer(to: channelManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) -> Result_InvoiceSignOrCreationErrorZ in
+            let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network, nativeAmount, nativeDescription)
+            return Result_InvoiceSignOrCreationErrorZ(pointer: nativeResult)
+        }
+    }
 
 }
 

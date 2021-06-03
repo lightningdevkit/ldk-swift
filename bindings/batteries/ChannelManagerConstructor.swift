@@ -100,7 +100,9 @@ public class ChannelManagerConstructor {
             let chainMonitorWatch = self.chain_monitor.as_Watch()
             let fundingTxo = currentChannelMonitor.get_funding_txo()
             let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a)
-            chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: currentChannelMonitor)
+            
+            chainMonitorWatch.cOpaqueStruct!.watch_channel(chainMonitorWatch.cOpaqueStruct!.this_arg, outPoint.cOpaqueStruct!, currentChannelMonitor.cOpaqueStruct!)
+            // chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: currentChannelMonitor)
         }
         
         self.persisterWorkItem = DispatchWorkItem {
@@ -108,7 +110,9 @@ public class ChannelManagerConstructor {
             while !self.shutdown {
                 var needsPersist = self.channelManager.await_persistable_update_timeout(max_wait: 1)
                 
-                let rawManagerEvents = self.channelManager.as_EventsProvider().get_and_clear_pending_events()
+                let nativeManagerEventsProvider = self.channelManager.as_EventsProvider().cOpaqueStruct!
+                let rawManagerEvents = Bindings.LDKCVec_EventZ_to_array(nativeType: nativeManagerEventsProvider.get_and_clear_pending_events(nativeManagerEventsProvider.this_arg))
+                
                 let managerEvents = rawManagerEvents.map { (e: LDKEvent) -> Event in
                     Event(pointer: e)
                 }
@@ -117,7 +121,9 @@ public class ChannelManagerConstructor {
                     needsPersist = true
                 }
                 
-                let rawMonitorEvents = self.chain_monitor.as_EventsProvider().get_and_clear_pending_events();
+                let nativeMonitorEventsProvider = self.chain_monitor.as_EventsProvider().cOpaqueStruct!
+                let rawMonitorEvents = Bindings.LDKCVec_EventZ_to_array(nativeType: nativeMonitorEventsProvider.get_and_clear_pending_events(nativeMonitorEventsProvider.this_arg))
+                
                 let monitorEvents = rawMonitorEvents.map { (e: LDKEvent) -> Event in
                     Event(pointer: e)
                 }

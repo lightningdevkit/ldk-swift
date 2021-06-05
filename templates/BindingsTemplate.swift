@@ -125,15 +125,26 @@ public class Bindings{
 		return string
 	}
 
-    public class func new_LDKStr(string: String) -> LDKStr {
-        let stringData = string.data(using: .utf8)
-        let dataMutablePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: string.count)
-        stringData?.copyBytes(to: dataMutablePointer, count: string.count)
+    public class func string_to_unsafe_int8_pointer(string: String) -> UnsafePointer<Int8> {
+		let count = string.utf8CString.count
+		let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
+		_ = result.initialize(from: string.utf8CString)
+		let mutablePointer = result.baseAddress!
+		return UnsafePointer<Int8>(mutablePointer)
+	}
 
-        let nativeType = UnsafePointer<UInt8>(dataMutablePointer)
+	public class func string_to_unsafe_uint8_pointer(string: String) -> UnsafePointer<UInt8> {
+		let stringData = string.data(using: .utf8)
+		let dataMutablePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: string.count)
+		stringData?.copyBytes(to: dataMutablePointer, count: string.count)
 
-        return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: false)
-    }
+		return UnsafePointer<UInt8>(dataMutablePointer)
+	}
+
+	public class func new_LDKStr(string: String) -> LDKStr {
+		let nativeType = Self.string_to_unsafe_uint8_pointer(string: string)
+		return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: false)
+	}
 
     public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrency, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
 		let nativeKeysManager = keysManager.cOpaqueStruct!

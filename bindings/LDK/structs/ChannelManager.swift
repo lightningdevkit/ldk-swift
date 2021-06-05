@@ -155,28 +155,28 @@ ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDK
 
     public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
     	
-        return MessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_MessageSendEventsProvider(this_argPointer)
 });
     }
 
     public func as_EventsProvider() -> EventsProvider {
     	
-        return EventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return NativelyImplementedEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_EventsProvider(this_argPointer)
 });
     }
 
     public func as_Listen() -> Listen {
     	
-        return Listen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Listen(this_argPointer)
 });
     }
 
     public func as_Confirm() -> Confirm {
     	
-        return Confirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return NativelyImplementedConfirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Confirm(this_argPointer)
 });
     }
@@ -197,7 +197,7 @@ ChannelManager_await_persistable_update(this_argPointer)
 
     public func as_ChannelMessageHandler() -> ChannelMessageHandler {
     	
-        return ChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_ChannelMessageHandler(this_argPointer)
 });
     }

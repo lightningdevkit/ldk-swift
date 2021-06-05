@@ -165,3 +165,112 @@ open class BaseSign {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedBaseSign: BaseSign {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func get_per_commitment_point(idx: UInt64) -> [UInt8] {
+		
+				return 
+				Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.get_per_commitment_point(self.cOpaqueStruct!.this_arg, idx))
+				
+			
+	}
+
+	public override func release_commitment_secret(idx: UInt64) -> [UInt8] {
+		
+				return 
+				Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.release_commitment_secret(self.cOpaqueStruct!.this_arg, idx))
+				
+			
+	}
+
+	public override func channel_keys_id() -> [UInt8] {
+		
+				return 
+				Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.channel_keys_id(self.cOpaqueStruct!.this_arg))
+				
+			
+	}
+
+	public override func sign_counterparty_commitment(commitment_tx: CommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+		
+				return withUnsafePointer(to: commitment_tx.cOpaqueStruct!) { (commitment_txPointer: UnsafePointer<LDKCommitmentTransaction>) in
+
+				Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_commitment(self.cOpaqueStruct!.this_arg, commitment_txPointer))
+				
+}
+			
+	}
+
+	public override func sign_holder_commitment_and_htlcs(commitment_tx: HolderCommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+		
+				return withUnsafePointer(to: commitment_tx.cOpaqueStruct!) { (commitment_txPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+
+				Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: self.cOpaqueStruct!.sign_holder_commitment_and_htlcs(self.cOpaqueStruct!.this_arg, commitment_txPointer))
+				
+}
+			
+	}
+
+	public override func sign_justice_transaction(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
+		
+				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: justice_tx), input, amount, per_commitment_keyPointer, htlcPointer))
+				
+}
+}
+			
+	}
+
+	public override func sign_counterparty_htlc_transaction(htlc_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_point: [UInt8], htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
+		
+				return withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_htlc_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: htlc_tx), input, amount, Bindings.new_LDKPublicKey(array: per_commitment_point), htlcPointer))
+				
+}
+			
+	}
+
+	public override func sign_closing_transaction(closing_tx: [UInt8]) -> Result_SignatureNoneZ {
+		
+				return 
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: closing_tx)))
+				
+			
+	}
+
+	public override func sign_channel_announcement(msg: UnsignedChannelAnnouncement) -> Result_SignatureNoneZ {
+		
+				return withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_channel_announcement(self.cOpaqueStruct!.this_arg, msgPointer))
+				
+}
+			
+	}
+
+	public override func ready_channel(channel_parameters: ChannelTransactionParameters) -> Void {
+		
+				withUnsafePointer(to: channel_parameters.cOpaqueStruct!) { (channel_parametersPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+
+				self.cOpaqueStruct!.ready_channel(self.cOpaqueStruct!.this_arg, channel_parametersPointer)
+				
+}
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

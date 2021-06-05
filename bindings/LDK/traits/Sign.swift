@@ -58,3 +58,26 @@ open class Sign {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedSign: Sign {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func write() -> [UInt8] {
+		
+				return 
+				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.write(self.cOpaqueStruct!.this_arg))
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

@@ -44,3 +44,26 @@ open class EventsProvider {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedEventsProvider: EventsProvider {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func get_and_clear_pending_events() -> [LDKEvent] {
+		
+				return 
+				Bindings.LDKCVec_EventZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_events(self.cOpaqueStruct!.this_arg))
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

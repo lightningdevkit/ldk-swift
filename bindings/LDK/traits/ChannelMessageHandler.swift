@@ -293,3 +293,218 @@ let msg = Shutdown(pointer: msgPointer.pointee);
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func handle_open_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: OpenChannel) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKOpenChannel>) in
+
+				self.cOpaqueStruct!.handle_open_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.cOpaqueStruct!, msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_accept_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: AcceptChannel) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKAcceptChannel>) in
+
+				self.cOpaqueStruct!.handle_accept_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.cOpaqueStruct!, msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_funding_created(their_node_id: [UInt8], msg: FundingCreated) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKFundingCreated>) in
+
+				self.cOpaqueStruct!.handle_funding_created(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_funding_signed(their_node_id: [UInt8], msg: FundingSigned) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKFundingSigned>) in
+
+				self.cOpaqueStruct!.handle_funding_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_funding_locked(their_node_id: [UInt8], msg: FundingLocked) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKFundingLocked>) in
+
+				self.cOpaqueStruct!.handle_funding_locked(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_shutdown(their_node_id: [UInt8], their_features: InitFeatures, msg: Shutdown) -> Void {
+		
+				withUnsafePointer(to: their_features.cOpaqueStruct!) { (their_featuresPointer: UnsafePointer<LDKInitFeatures>) in
+withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdown>) in
+
+				self.cOpaqueStruct!.handle_shutdown(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_featuresPointer, msgPointer)
+				
+}
+}
+			
+	}
+
+	public override func handle_closing_signed(their_node_id: [UInt8], msg: ClosingSigned) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKClosingSigned>) in
+
+				self.cOpaqueStruct!.handle_closing_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_update_add_htlc(their_node_id: [UInt8], msg: UpdateAddHTLC) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+
+				self.cOpaqueStruct!.handle_update_add_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_update_fulfill_htlc(their_node_id: [UInt8], msg: UpdateFulfillHTLC) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
+
+				self.cOpaqueStruct!.handle_update_fulfill_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_update_fail_htlc(their_node_id: [UInt8], msg: UpdateFailHTLC) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFailHTLC>) in
+
+				self.cOpaqueStruct!.handle_update_fail_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_update_fail_malformed_htlc(their_node_id: [UInt8], msg: UpdateFailMalformedHTLC) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
+
+				self.cOpaqueStruct!.handle_update_fail_malformed_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_commitment_signed(their_node_id: [UInt8], msg: CommitmentSigned) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKCommitmentSigned>) in
+
+				self.cOpaqueStruct!.handle_commitment_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_revoke_and_ack(their_node_id: [UInt8], msg: RevokeAndACK) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKRevokeAndACK>) in
+
+				self.cOpaqueStruct!.handle_revoke_and_ack(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_update_fee(their_node_id: [UInt8], msg: UpdateFee) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFee>) in
+
+				self.cOpaqueStruct!.handle_update_fee(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_announcement_signatures(their_node_id: [UInt8], msg: AnnouncementSignatures) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKAnnouncementSignatures>) in
+
+				self.cOpaqueStruct!.handle_announcement_signatures(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func peer_disconnected(their_node_id: [UInt8], no_connection_possible: Bool) -> Void {
+		
+				
+				self.cOpaqueStruct!.peer_disconnected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), no_connection_possible)
+				
+			
+	}
+
+	public override func peer_connected(their_node_id: [UInt8], msg: Init) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKInit>) in
+
+				self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_channel_reestablish(their_node_id: [UInt8], msg: ChannelReestablish) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelReestablish>) in
+
+				self.cOpaqueStruct!.handle_channel_reestablish(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_channel_update(their_node_id: [UInt8], msg: ChannelUpdate) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelUpdate>) in
+
+				self.cOpaqueStruct!.handle_channel_update(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func handle_error(their_node_id: [UInt8], msg: ErrorMessage) -> Void {
+		
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKErrorMessage>) in
+
+				self.cOpaqueStruct!.handle_error(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				
+}
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

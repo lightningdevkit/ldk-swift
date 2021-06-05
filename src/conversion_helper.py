@@ -2,7 +2,7 @@ from type_parsing_regeces import TypeParsingRegeces
 
 class ConversionHelper:
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types):
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback = False):
 		swift_arguments = []
 		native_arguments = []
 		pointer_wrapping_prefix = ''
@@ -13,6 +13,9 @@ class ConversionHelper:
 			pass_instance = False
 			argument_name = current_argument_details.var_name
 			passed_argument_name = argument_name
+
+			# if passed_argument_name == 'init': # illegal in swift
+			# 	passed_argument_name = 'initValue'
 
 			mutabilityIndicatorSuffix = ''
 
@@ -25,6 +28,9 @@ class ConversionHelper:
 
 			if current_argument_details.is_ptr:
 				passed_argument_name = argument_name + 'Pointer'
+				if argument_name == 'init':
+					argument_name = 'initValue'
+
 				requires_mutability = not current_argument_details.is_const
 
 				reference_prefix = ''
@@ -66,6 +72,10 @@ class ConversionHelper:
 					pointer_wrapping_suffix += '\n}'
 				# native_call_prep += current_prep
 
+			if is_trait_callback and current_argument_details.is_const:
+				if current_argument_details.swift_type.startswith('[') or current_argument_details.swift_type == 'String':
+					mutabilityIndicatorSuffix = '?'
+
 			swift_argument_type = current_argument_details.swift_type
 			if not pass_instance:
 				if swift_argument_type == 'TxOut':
@@ -74,6 +84,8 @@ class ConversionHelper:
 				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
 					swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
 				swift_arguments.append(f'{argument_name}: {swift_argument_type}{mutabilityIndicatorSuffix}')
+
+
 
 			# native_arguments.append(f'{passed_argument_name}')
 			if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:
@@ -84,17 +96,21 @@ class ConversionHelper:
 				'LDK') and swift_argument_type.startswith('['):
 				native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 			elif swift_argument_type == 'String':
-				native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name})')
+				if is_trait_callback and current_argument_details.swift_raw_type == 'UnsafePointer<Int8>':
+					force_unwrap_suffix = ''
+					if mutabilityIndicatorSuffix == '?' and is_trait_callback:
+						force_unwrap_suffix = '!'
+					native_arguments.append(f'Bindings.string_to_unsafe_int8_pointer(string: {passed_argument_name}{force_unwrap_suffix})')
+				else:
+					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name})')
 			elif current_argument_details.rust_obj is None and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
 				if current_argument_details.is_const:
+					force_unwrap_suffix = ''
+					if mutabilityIndicatorSuffix == '?' and is_trait_callback:
+						force_unwrap_suffix = '!'
 					passed_argument_name = argument_name + 'Pointer'
-					current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafePointer(to: Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})) {{ (pointer: UnsafePointer<{current_argument_details.swift_raw_type}>) in
-								\n\t\t	pointer
-							\n\t	}}
-						'''
 					wrapper_return_prefix = '' if pointer_wrapping_depth == 0 else 'return '
-					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafePointer(to: Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})) {{ ({passed_argument_name}: UnsafePointer<{current_argument_details.swift_raw_type}>) in\n'
+					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafePointer(to: Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name}{force_unwrap_suffix})) {{ ({passed_argument_name}: UnsafePointer<{current_argument_details.swift_raw_type}>) in\n'
 					pointer_wrapping_suffix += '\n}'
 					native_arguments.append(passed_argument_name)
 				else:
@@ -221,4 +237,40 @@ class ConversionHelper:
 			'swift_callback_arguments': swift_callback_arguments,
 			'public_swift_argument_list': public_swift_argument_list,
 			'swift_callback_prep': swift_callback_prep
+		}
+
+	@classmethod
+	def prepare_return_value(cls, return_type, is_clone_method = False):
+		rust_return_type = return_type.rust_obj
+		return_prefix = ''
+		return_suffix = ''
+
+		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type.swift_type.startswith('['):
+			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
+			return_suffix = ')'
+		elif return_type.swift_raw_type.startswith('(UInt8'):
+			# TODO: get array length
+			array_length = return_type.arr_len
+			return_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
+			return_suffix = ')'
+		elif rust_return_type == 'LDK' + return_type.swift_type and not is_clone_method:
+			return_prefix = f'{return_type.swift_type}(pointer: '
+			return_suffix = ')'
+			if return_type.is_const:
+				return_suffix = '.pointee)'
+		elif rust_return_type == 'LDKC' + return_type.swift_type and not is_clone_method:
+			return_prefix = f'{return_type.swift_type}(pointer: '
+			return_suffix = ')'
+		elif return_type.swift_type == 'String':
+			return_prefix = 'Bindings.LDKStr_to_string(nativeType: '
+			return_suffix = ')'
+		elif is_clone_method:
+			return_prefix = 'Self(pointer: ',
+			return_suffix = ')'
+		if rust_return_type is None and return_type.swift_type.startswith('['):
+			return_suffix = '.pointee'
+
+		return {
+			'prefix': return_prefix,
+			'suffix': return_suffix
 		}

@@ -17,7 +17,7 @@ public class ChannelManagerReadArgs {
 
     public func get_keys_manager() -> KeysInterface {
     	
-        return KeysInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+        return NativelyImplementedKeysInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
 }.pointee);
     }
@@ -32,7 +32,7 @@ ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
 
     public func get_fee_estimator() -> FeeEstimator {
     	
-        return FeeEstimator(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+        return NativelyImplementedFeeEstimator(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
 }.pointee);
     }
@@ -47,7 +47,7 @@ ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
 
     public func get_chain_monitor() -> Watch {
     	
-        return Watch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+        return NativelyImplementedWatch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
 }.pointee);
     }
@@ -62,7 +62,7 @@ ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
 
     public func get_tx_broadcaster() -> BroadcasterInterface {
     	
-        return BroadcasterInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+        return NativelyImplementedBroadcasterInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
 }.pointee);
     }
@@ -77,7 +77,7 @@ ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
 
     public func get_logger() -> Logger {
     	
-        return Logger(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+        return NativelyImplementedLogger(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_logger(this_ptrPointer)
 }.pointee);
     }

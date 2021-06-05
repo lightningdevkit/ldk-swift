@@ -44,3 +44,26 @@ open class BroadcasterInterface {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedBroadcasterInterface: BroadcasterInterface {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func broadcast_transaction(tx: [UInt8]) -> Void {
+		
+				
+				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: tx))
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

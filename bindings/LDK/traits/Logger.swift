@@ -49,3 +49,26 @@ open class Logger {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedLogger: Logger {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func log(record: String?) -> Void {
+		
+				
+				self.cOpaqueStruct!.log(self.cOpaqueStruct!.this_arg, Bindings.string_to_unsafe_int8_pointer(string: record!))
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

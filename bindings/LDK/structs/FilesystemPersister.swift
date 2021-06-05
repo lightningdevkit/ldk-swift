@@ -38,7 +38,7 @@ FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueSt
 
     public func as_Persist() -> Persist {
     	
-        return Persist(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+        return NativelyImplementedPersist(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_as_Persist(this_argPointer)
 });
     }

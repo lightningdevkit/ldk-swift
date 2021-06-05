@@ -44,3 +44,26 @@ open class MessageSendEventsProvider {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedMessageSendEventsProvider: MessageSendEventsProvider {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
+		
+				return 
+				Bindings.LDKCVec_MessageSendEventZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_msg_events(self.cOpaqueStruct!.this_arg))
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

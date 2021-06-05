@@ -44,3 +44,26 @@ open class FeeEstimator {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedFeeEstimator: FeeEstimator {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
+		
+				return 
+				self.cOpaqueStruct!.get_est_sat_per_1000_weight(self.cOpaqueStruct!.this_arg, confirmation_target)
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

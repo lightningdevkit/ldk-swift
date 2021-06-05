@@ -15,7 +15,7 @@ class OpaqueStructGenerator:
 			template = template_handle.read()
 			self.template = template
 
-	def generate_opaque_struct(self, struct_name, struct_details, all_type_details={}):
+	def generate_opaque_struct(self, struct_name, struct_details, all_type_details={}, trait_structs = set(), returned_trait_instances = set()):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
@@ -97,6 +97,11 @@ class OpaqueStructGenerator:
 					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
 			elif current_return_type.rust_obj == 'LDK' + current_return_type.swift_type and not is_clone_method:
 				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
+				if current_return_type.rust_obj in trait_structs:
+					trait_swift_type = current_method_details["return_type"].swift_type
+					actual_return_type = 'NativelyImplemented' + trait_swift_type
+					returned_trait_instances.add(trait_swift_type)
+					return_type_wrapper_prefix = f'{actual_return_type}(pointer: '
 				return_type_wrapper_suffix = ')'
 				if current_return_type.is_const:
 					return_type_wrapper_suffix = '.pointee)'

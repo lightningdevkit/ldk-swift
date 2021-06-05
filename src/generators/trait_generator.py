@@ -32,15 +32,23 @@ class TraitGenerator:
 			flags=re.MULTILINE | re.DOTALL)
 		swift_callback_template = swift_callback_template_regex.search(self.template).group(2)
 
+		natively_implemented_callback_template_regex = re.compile(
+			"(\/\* SWIFT_DEFAULT_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* SWIFT_DEFAULT_CALLBACKS_END \*\/)",
+			flags=re.MULTILINE | re.DOTALL)
+		natively_implemented_callback_template = natively_implemented_callback_template_regex.search(self.template).group(2)
+
 		method_prefix = swift_struct_name + '_'
 		native_callbacks = ''
 		swift_callbacks = ''
+		default_callbacks = ''
 
 		instantiation_arguments = []
 
 		# fill templates
 		for current_lambda in struct_details.lambdas:
 			current_lambda_name = current_lambda['name']
+			is_clone = current_lambda_name == 'clone'
+
 
 			if not current_lambda['is_lambda']:
 				current_field_details = current_lambda['field_details']
@@ -135,6 +143,31 @@ class TraitGenerator:
 				swift_argument_string = ', '.join(native_arguments)
 				native_arguments.insert(0, '')
 
+
+
+
+			# let's create a native default implementation
+			default_callback_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], True)
+			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone)
+			print('default callback prepared arguments')
+			current_default_callback_replacement = natively_implemented_callback_template
+			current_default_callback_replacement = current_default_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)
+			current_default_callback_replacement = current_default_callback_replacement.replace('-> Void {', f'-> {swift_return_type} {{')
+			current_default_callback_replacement = current_default_callback_replacement.replace('func methodName(', f'func {current_lambda_name}(')
+			default_native_call_arguments = default_callback_prepared_arguments['native_arguments']
+
+			default_native_call_arguments.insert(0, 'self.cOpaqueStruct!.this_arg')
+			default_return_prefix = 'return '
+			if current_lambda['return_type'].swift_type == 'Void':
+				default_return_prefix = ''
+
+			current_default_callback_replacement = current_default_callback_replacement.replace('/* SWIFT_DEFAULT_CALLBACK_BODY */', f'''
+				{default_return_prefix}{default_callback_prepared_arguments['native_call_prefix']}
+				{default_callback_return_wrappers['prefix']}self.cOpaqueStruct!.{current_lambda_name}({', '.join(default_native_call_arguments)}){default_callback_return_wrappers['suffix']}
+				{default_callback_prepared_arguments['native_call_suffix']}
+			''')
+
+
 			native_argument_string = ', '.join(native_arguments)
 
 			current_native_callback_replacement = current_native_callback_replacement.replace(', native_arguments',
@@ -158,7 +191,11 @@ class TraitGenerator:
 			native_callbacks += '\n' + current_native_callback_replacement + '\n'
 			swift_callbacks += '\n' + current_swift_callback_replacement + '\n'
 
+			if not is_clone: # TODO: add support for natively implemented cloning
+				default_callbacks += '\n' + current_default_callback_replacement + '\n'
+
 		trait_file = self.template.replace('class TraitName {', f'class {swift_struct_name} {{')
+		trait_file = trait_file.replace('class NativelyImplementedTraitName: TraitName {', f'class NativelyImplemented{swift_struct_name}: {swift_struct_name} {{')
 		trait_file = trait_file.replace('init(pointer: TraitType', f'init(pointer: {struct_name}')
 		trait_file = trait_file.replace('var cOpaqueStruct: TraitType?',
 										f'var cOpaqueStruct: {struct_name}?')
@@ -168,6 +205,7 @@ class TraitGenerator:
 										'\n\t\t\t'+',\n\t\t\t'.join(instantiation_arguments))
 		trait_file = native_callback_template_regex.sub(f'\g<1>{native_callbacks}\g<3>', trait_file)
 		trait_file = swift_callback_template_regex.sub(f'\g<1>{swift_callbacks}\g<3>', trait_file)
+		trait_file = natively_implemented_callback_template_regex.sub(f'\g<1>{default_callbacks}\g<3>', trait_file)
 
 		# store the output
 		output_path = f'{Config.OUTPUT_DIRECTORY_PATH}/traits/{swift_struct_name}.swift'

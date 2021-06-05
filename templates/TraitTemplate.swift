@@ -26,3 +26,12 @@ open class TraitName {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedTraitName: TraitName {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+	public override func methodName(public_swift_argument_list) -> Void {
+		/* SWIFT_DEFAULT_CALLBACK_BODY */
+	}
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

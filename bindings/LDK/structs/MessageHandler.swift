@@ -17,7 +17,7 @@ public class MessageHandler {
 
     public func get_chan_handler() -> ChannelMessageHandler {
     	
-        return ChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
+        return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
 MessageHandler_get_chan_handler(this_ptrPointer)
 }.pointee);
     }
@@ -32,7 +32,7 @@ MessageHandler_get_chan_handler(this_ptrPointer)
 
     public func get_route_handler() -> RoutingMessageHandler {
     	
-        return RoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
+        return NativelyImplementedRoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
 MessageHandler_get_route_handler(this_ptrPointer)
 }.pointee);
     }

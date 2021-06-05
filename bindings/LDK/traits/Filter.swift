@@ -61,3 +61,36 @@ open class Filter {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedFilter: Filter {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
+		
+				withUnsafePointer(to: Bindings.array_to_tuple32(array: txid!)) { (txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+
+				self.cOpaqueStruct!.register_tx(self.cOpaqueStruct!.this_arg, txidPointer, Bindings.new_LDKu8slice(array: script_pubkey))
+				
+}
+			
+	}
+
+	public override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+		
+				return 
+				Option_C2Tuple_usizeTransactionZZ(pointer: self.cOpaqueStruct!.register_output(self.cOpaqueStruct!.this_arg, output.cOpaqueStruct!))
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

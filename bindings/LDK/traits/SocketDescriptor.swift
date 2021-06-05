@@ -93,3 +93,52 @@ open class SocketDescriptor {
     /* SWIFT_CALLBACKS_END */
 
 }
+
+
+public class NativelyImplementedSocketDescriptor: SocketDescriptor {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func send_data(data: [UInt8], resume_read: Bool) -> UInt {
+		
+				return 
+				self.cOpaqueStruct!.send_data(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: data), resume_read)
+				
+			
+	}
+
+	public override func disconnect_socket() -> Void {
+		
+				
+				self.cOpaqueStruct!.disconnect_socket(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	public override func eq(other_arg: SocketDescriptor) -> Bool {
+		
+				return withUnsafePointer(to: other_arg.cOpaqueStruct!) { (other_argPointer: UnsafePointer<LDKSocketDescriptor>) in
+
+				self.cOpaqueStruct!.eq(self.cOpaqueStruct!.this_arg, other_argPointer)
+				
+}
+			
+	}
+
+	public override func hash() -> UInt64 {
+		
+				return 
+				self.cOpaqueStruct!.hash(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
+}

@@ -23,28 +23,28 @@ public class ChainMonitor {
 
     public func as_Listen() -> Listen {
     	
-        return Listen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+        return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Listen(this_argPointer)
 });
     }
 
     public func as_Confirm() -> Confirm {
     	
-        return Confirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+        return NativelyImplementedConfirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Confirm(this_argPointer)
 });
     }
 
     public func as_Watch() -> Watch {
     	
-        return Watch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+        return NativelyImplementedWatch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Watch(this_argPointer)
 });
     }
 
     public func as_EventsProvider() -> EventsProvider {
     	
-        return EventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+        return NativelyImplementedEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_EventsProvider(this_argPointer)
 });
     }

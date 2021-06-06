@@ -2,7 +2,7 @@ import re
 import os
 
 from config import Config
-
+from conversion_helper import ConversionHelper
 
 class ResultGenerator:
 
@@ -34,8 +34,7 @@ class ResultGenerator:
 				passed_argument_name = argument_name
 				constructor_argument_conversion_method = None
 
-				if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
-					'LDK') and current_argument_details.swift_type.startswith('['):
+				if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and current_argument_details.swift_type.startswith('['):
 					constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_{current_argument_details.rust_obj}(array: {argument_name})'
 					constructor_argument_prep += constructor_argument_conversion_method
 					passed_argument_name = f'converted_{argument_name}'
@@ -45,31 +44,39 @@ class ResultGenerator:
 				swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
 				native_arguments.append(f'{passed_argument_name}')
 
-			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments',
-																				  ', '.join(swift_arguments))
-			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */',
-																				  constructor_argument_prep)
-			mutating_output_file_contents = mutating_output_file_contents.replace('native_constructor_arguments',
-																				  ', '.join(native_arguments))
-			mutating_output_file_contents = mutating_output_file_contents.replace(
-				'self.cOpaqueStruct = ResultType(',
-				f'self.cOpaqueStruct = {constructor_native_name}(')
+			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', ', '.join(swift_arguments))
+			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */', constructor_argument_prep)
+			mutating_output_file_contents = mutating_output_file_contents.replace('native_constructor_arguments', ', '.join(native_arguments))
+			mutating_output_file_contents = mutating_output_file_contents.replace('self.cOpaqueStruct = ResultType(', f'self.cOpaqueStruct = {constructor_native_name}(')
 		else:
 			# remove the default constructor template
-			constructor_template_regex = re.compile(
-				"(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)",
-				flags=re.MULTILINE | re.DOTALL)
-			mutating_output_file_contents = constructor_template_regex.sub('', mutating_output_file_contents)
+			constructor_template_regex = re.compile("(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)", flags=re.MULTILINE | re.DOTALL)
+			constructor_body = f'''
+				public init() {{
+        			self.cOpaqueStruct = {struct_name}(contents: {struct_details.result_wrapper_type}(), result_ok: true)
+				}}
+			'''
+			mutating_output_file_contents = constructor_template_regex.sub(f'\g<1>{constructor_body}\g<3>', mutating_output_file_contents)
 
 		# REGULAR METHODS START
 
-		method_template_regex = re.compile(
-			"(\/\* RESULT_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* RESULT_METHODS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		method_template_regex = re.compile("(\/\* RESULT_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* RESULT_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		method_template = method_template_regex.search(mutating_output_file_contents).group(2)
 
 		method_prefix = swift_struct_name + '_'
 		struct_methods = ''
+
+		if struct_details.result_error_type.swift_type != 'Void':
+			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False)
+
+			struct_methods += f'''
+			public func getError() -> {struct_details.result_error_type.swift_type}? {{
+				if self.cOpaqueStruct?.result_ok == false {{
+					return {error_return_wrappers['prefix']}self.cOpaqueStruct!.contents.err.pointee{error_return_wrappers['suffix']}
+				}}
+				return nil
+			}}
+			'''
 
 		# fill templates
 		for current_method_details in struct_details.methods:
@@ -85,30 +92,24 @@ class ResultGenerator:
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 
-			if current_method_details['return_type'].rust_obj is not None and current_method_details[
-				'return_type'].rust_obj.startswith('LDK') and current_method_details[
+			if current_method_details['return_type'].rust_obj is not None and current_method_details['return_type'].rust_obj.startswith('LDK') and current_method_details[
 				'return_type'].swift_type.startswith('['):
 				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(nativeType: '
 				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace(
-					'return ResultType_methodName(native_arguments)',
+				current_replacement = current_replacement.replace('return ResultType_methodName(native_arguments)',
 					f'return {return_type_wrapper_prefix}ResultType_methodName(native_arguments){return_type_wrapper_suffix}')
-			elif current_method_details['return_type'].rust_obj == 'LDK' + current_method_details[
-				'return_type'].swift_type and not is_clone_method:
+			elif current_method_details['return_type'].rust_obj == 'LDK' + current_method_details['return_type'].swift_type and not is_clone_method:
 				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
 				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace(
-					'return ResultType_methodName(native_arguments)',
+				current_replacement = current_replacement.replace('return ResultType_methodName(native_arguments)',
 					f'return {return_type_wrapper_prefix}ResultType_methodName(native_arguments){return_type_wrapper_suffix}')
 
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 			if is_clone_method:
-				current_replacement = current_replacement.replace('ResultType_methodName(',
-																  f'{swift_struct_name}(pointer: {current_native_method_name}(')
+				current_replacement = current_replacement.replace('ResultType_methodName(', f'{swift_struct_name}(pointer: {current_native_method_name}(')
 			else:
-				current_replacement = current_replacement.replace('ResultType_methodName(',
-																  f'{current_native_method_name}(')
+				current_replacement = current_replacement.replace('ResultType_methodName(', f'{current_native_method_name}(')
 			# replace arguments
 			swift_arguments = []
 			native_arguments = []
@@ -205,14 +206,10 @@ class ResultGenerator:
 				\n\t}}
 			'''
 
-		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName {',
-																			  f'class {swift_struct_name} {{')
-		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: ResultType',
-																			  f'init(pointer: {struct_name}')
-		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: ResultType?',
-																			  f'var cOpaqueStruct: {struct_name}?')
-		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>',
-																  mutating_output_file_contents)
+		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName {', f'class {swift_struct_name} {{')
+		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: ResultType', f'init(pointer: {struct_name}')
+		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: ResultType?', f'var cOpaqueStruct: {struct_name}?')
+		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)
 
 		# store the output
 		output_path = f'{Config.OUTPUT_DIRECTORY_PATH}/results/{swift_struct_name}.swift'

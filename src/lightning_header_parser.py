@@ -37,14 +37,17 @@ class TypeDetails:
 		self.option_tag_field_lines = None
 		self.option_tag_type = None
 		self.option_value_type = None
+		self.result_wrapper_type = None
+		self.result_value_type = None
+		self.result_error_type = None
 
 
 class ComplexEnumVariantInfo:
-	def __init__(self, var_name, fields, tuple_variant, container_type_name = '', tag_value = ''):
+	def __init__(self, var_name, fields, tuple_variant, container_type_name='', tag_value=''):
 		self.var_name = var_name
 		self.fields = fields
 		self.tuple_variant = tuple_variant
-		self.container_type_name  = container_type_name
+		self.container_type_name = container_type_name
 		self.tag_value = tag_value
 
 
@@ -91,14 +94,9 @@ class LightningHeaderParser():
 				if reg_fn.group(2).endswith("_clone"):
 					self.clone_fns.add(reg_fn.group(2))
 				else:
-					java_c_type_arguments = {
-						"tuple_types": self.tuple_types,
-						# "var_is_arr_regex": var_is_arr_regex,
-						"java_c_types_none_allowed": java_c_types_none_allowed,
-						# "var_ty_regex": var_ty_regex,
-						"unitary_enums": self.unitary_enums,
-						"language_constants": self.language_constants
-					}
+					java_c_type_arguments = {"tuple_types": self.tuple_types, # "var_is_arr_regex": var_is_arr_regex,
+						"java_c_types_none_allowed": java_c_types_none_allowed, # "var_ty_regex": var_ty_regex,
+						"unitary_enums": self.unitary_enums, "language_constants": self.language_constants}
 					# rty = java_type_mapper.java_c_types(reg_fn.group(1), None, **java_c_type_arguments)
 					rty = swift_type_mapper.map_types_to_swift(reg_fn.group(1), None, **java_c_type_arguments)
 					if rty is not None and not rty.is_native_primitive and reg_fn.group(2) == rty.swift_type + "_new":
@@ -124,6 +122,7 @@ class LightningHeaderParser():
 		self.vec_types = set()
 		self.byte_arrays = set()
 		self.union_enum_items = {}
+		self.result_ptr_struct_items = {}
 
 		fn_ptr_regex = re.compile("^extern const ([A-Za-z_0-9\* ]*) \(\*(.*)\)\((.*)\);$")
 		fn_ret_arr_regex = re.compile("(.*) \(\*(.*)\((.*)\)\)\[([0-9]*)\];$")
@@ -139,18 +138,15 @@ class LightningHeaderParser():
 		line_indicates_result_regex = re.compile("^union (LDKCResult_[A-Za-z_0-9]*Ptr) contents;$")
 		line_indicates_vec_regex = re.compile("^(struct |enum |union )?([A-Za-z_0-9]*) \*data;$")
 		line_indicates_opaque_regex = re.compile("^bool is_owned;$")
-		line_indicates_trait_regex = re.compile(
-			"^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?void \*this_arg(.*)\);$")
+		line_indicates_trait_regex = re.compile("^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?void \*this_arg(.*)\);$")
 
 		# for the oddball cases that aren't real trait lambdas, but ones without the this_arg
 		line_indicates_instance_agnostic_trait_method_regex = re.compile("^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?(.*)\);$")
-		assert(line_indicates_instance_agnostic_trait_method_regex.match('void (*set_pubkeys)(const struct LDKBaseSign*NONNULL_PTR );'))
-		assert(line_indicates_instance_agnostic_trait_method_regex.match('struct LDKBaseSign (*BaseSign_clone)(const struct LDKBaseSign *NONNULL_PTR orig_BaseSign);'))
+		assert (line_indicates_instance_agnostic_trait_method_regex.match('void (*set_pubkeys)(const struct LDKBaseSign*NONNULL_PTR );'))
+		assert (line_indicates_instance_agnostic_trait_method_regex.match('struct LDKBaseSign (*BaseSign_clone)(const struct LDKBaseSign *NONNULL_PTR orig_BaseSign);'))
 
-		assert (line_indicates_trait_regex.match(
-			"uintptr_t (*send_data)(void *this_arg, LDKu8slice data, bool resume_read);"))
-		assert (line_indicates_trait_regex.match(
-			"struct LDKCVec_MessageSendEventZ (*get_and_clear_pending_msg_events)(const void *this_arg);"))
+		assert (line_indicates_trait_regex.match("uintptr_t (*send_data)(void *this_arg, LDKu8slice data, bool resume_read);"))
+		assert (line_indicates_trait_regex.match("struct LDKCVec_MessageSendEventZ (*get_and_clear_pending_msg_events)(const void *this_arg);"))
 		assert (line_indicates_trait_regex.match("void *(*clone)(const void *this_arg);"))
 		assert (line_indicates_trait_regex.match("struct LDKCVec_u8Z (*write)(const void *this_arg);"))
 		line_field_var_regex = re.compile("^struct ([A-Za-z_0-9]*) ([A-Za-z_0-9]*);$")
@@ -159,8 +155,6 @@ class LightningHeaderParser():
 		struct_name_regex = re.compile("^typedef (struct|enum|union) (MUST_USE_STRUCT )?(LDK[A-Za-z_0-9]*) {$")
 		assert (struct_name_regex.match("typedef struct LDKCVec_u8Z {"))
 		assert (struct_name_regex.match("typedef enum LDKNetwork {"))
-
-		result_ptr_struct_items = {}
 
 		# SECOND PASS
 		for line in self.header_file.splitlines():
@@ -236,20 +230,13 @@ class LightningHeaderParser():
 						field_lines.append(struct_line)
 
 					assert (struct_name is not None)
-					assert (len(trait_fn_lines) == 0 or not (
-						is_opaque or is_unitary_enum or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_opaque or not (len(
-						trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_unitary_enum or not (len(
-						trait_fn_lines) != 0 or is_opaque or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_union_enum or not (len(
-						trait_fn_lines) != 0 or is_unitary_enum or is_opaque or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_union or not (len(
-						trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or result_contents is not None or vec_ty is not None))
-					assert (result_contents is None or not (len(
-						trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or vec_ty is not None))
-					assert (vec_ty is None or not (len(
-						trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or result_contents is not None))
+					assert (len(trait_fn_lines) == 0 or not (is_opaque or is_unitary_enum or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
+					assert (not is_opaque or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
+					assert (not is_unitary_enum or not (len(trait_fn_lines) != 0 or is_opaque or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
+					assert (not is_union_enum or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_opaque or is_union or result_contents is not None or vec_ty is not None))
+					assert (not is_union or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or result_contents is not None or vec_ty is not None))
+					assert (result_contents is None or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or vec_ty is not None))
+					assert (vec_ty is None or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or result_contents is not None))
 
 					current_type_detail = TypeDetails()
 					current_type_detail.name = struct_name
@@ -263,8 +250,15 @@ class LightningHeaderParser():
 					#     out_opaque_struct_human = consts.map_opaque_struct(struct_name)
 					#     out_java_struct.write(out_opaque_struct_human)
 					elif result_contents is not None:
-						assert result_contents in result_ptr_struct_items
-						res_ty, err_ty = result_ptr_struct_items[result_contents]
+						assert result_contents in self.result_ptr_struct_items
+						self.type_details[struct_name].type = CTypes.RESULT
+						res_ty, err_ty, wrapper_type = self.result_ptr_struct_items[result_contents]
+						result_type_details = swift_type_mapper.map_types_to_swift(res_ty, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+						error_type_details = swift_type_mapper.map_types_to_swift(err_ty, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+						self.type_details[struct_name].result_wrapper_type = wrapper_type
+						self.type_details[struct_name].result_value_type = result_type_details
+						self.type_details[struct_name].result_error_type = error_type_details
+
 					# map_result(struct_name, res_ty, err_ty)
 					elif struct_name.startswith("LDKCResult_") and struct_name.endswith("ZPtr"):
 						for current_line in field_lines:
@@ -272,8 +266,10 @@ class LightningHeaderParser():
 								res_ty = current_line[:-8].strip()
 							elif current_line.endswith("*err;"):
 								err_ty = current_line[:-5].strip()
-						result_ptr_struct_items[struct_name] = (res_ty, err_ty)
-						self.result_types.add(struct_name[:-3])
+						self.result_ptr_struct_items[struct_name] = (res_ty, err_ty, struct_name)
+						related_result_type = struct_name[:-3]
+						self.result_types.add(
+							related_result_type)  # self.type_details[related_result_type].result_value_type = res_ty  # self.type_details[related_result_type].result_error_type = err_ty
 					elif is_tuple:
 						self.type_details[struct_name].type = CTypes.TUPLE
 
@@ -282,9 +278,7 @@ class LightningHeaderParser():
 							if idx != 0 and idx < len(field_lines) - 2:
 								# ty_info = java_c_types(line.strip(';'), None)
 								trimmed_tuple_line = current_tuple_line.strip(';')
-								ty_info = swift_type_mapper.map_types_to_swift(trimmed_tuple_line, None, True,
-																			   self.tuple_types, self.unitary_enums,
-																			   self.language_constants)
+								ty_info = swift_type_mapper.map_types_to_swift(trimmed_tuple_line, None, True, self.tuple_types, self.unitary_enums, self.language_constants)
 								ty_list.append(ty_info)
 
 						self.tuple_types[struct_name] = (ty_list, struct_name)
@@ -364,9 +358,7 @@ class LightningHeaderParser():
 						assert len(field_lines) == 3
 						byte_array_line = field_lines[1].strip(';')
 						custom_line = 'uint8_t[32] data'
-						byte_array_info = swift_type_mapper.map_types_to_swift(byte_array_line, None, True,
-																			   self.tuple_types, self.unitary_enums,
-																			   self.language_constants)
+						byte_array_info = swift_type_mapper.map_types_to_swift(byte_array_line, None, True, self.tuple_types, self.unitary_enums, self.language_constants)
 
 						self.type_details[struct_name].fields.append(byte_array_info)
 			else:
@@ -458,13 +450,13 @@ class LightningHeaderParser():
 		inline_enum_variants = tuple_variants
 		for idx, struct_line in enumerate(tag_field_lines):
 			if idx == 0:
-				assert(struct_line == "typedef enum %s_Tag {" % struct_name)
+				assert (struct_line == "typedef enum %s_Tag {" % struct_name)
 			elif idx == len(tag_field_lines) - 2:
-				assert(struct_line.endswith("_Sentinel,"))
+				assert (struct_line.endswith("_Sentinel,"))
 			elif idx == len(tag_field_lines) - 1:
-				assert(struct_line == "} %s_Tag;" % struct_name)
-			elif idx == len(tag_field_lines) - 0: # unreachable
-				assert(struct_line == "")
+				assert (struct_line == "} %s_Tag;" % struct_name)
+			elif idx == len(tag_field_lines) - 0:  # unreachable
+				assert (struct_line == "")
 			else:
 				raw_variant_name = struct_line.strip(' ,')
 				variant_name = raw_variant_name[len(struct_name) + 1:]
@@ -492,14 +484,12 @@ class LightningHeaderParser():
 						current_type_details = swift_type_mapper.map_types_to_swift(current_body_line.strip(';'), None, False, self.tuple_types, self.unitary_enums, self.language_constants)
 						fields.append(current_type_details)
 
-
 					# enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, False))
 					enum_variants.append(ComplexEnumVariantInfo(snaked_case_variant_name, fields, False, current_type_name, raw_variant_name))
 				elif snaked_case_variant_name in inline_enum_variants:
 					current_type_name = inline_enum_variants[snaked_case_variant_name]
 					current_variable_simulation = current_type_name + " " + snaked_case_variant_name
-					fields.append(swift_type_mapper.map_types_to_swift(current_variable_simulation, None, False, self.tuple_types, self.unitary_enums,
-																	   self.language_constants))
+					fields.append(swift_type_mapper.map_types_to_swift(current_variable_simulation, None, False, self.tuple_types, self.unitary_enums, self.language_constants))
 					# enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, True))
 					enum_variants.append(ComplexEnumVariantInfo(snaked_case_variant_name, fields, True, current_type_name, raw_variant_name))
 				elif is_complex and snaked_case_variant_name in complex_tuple_variants:
@@ -535,52 +525,27 @@ class LightningHeaderParser():
 				current_field_type = var_line.group(1)
 				current_field_name = var_line.group(2)
 				if False and current_field_type in self.trait_structs:
-					lambdas.append({
-						'name': current_field_name,
-						'field_details': self.type_details[current_field_type],
-						'is_lambda': False
-					})
+					lambdas.append({'name': current_field_name, 'field_details': self.type_details[current_field_type], 'is_lambda': False})
 				# flattened_field_var_convs.extend(self.type_details[current_field_type])
 				else:
-					mapped = swift_type_mapper.map_types_to_swift(current_field_type + " " + current_field_name, None, False,
-																  self.tuple_types, self.unitary_enums,
-																  self.language_constants)
-					lambdas.append({
-						'name': current_field_name,
-						'field_details': mapped,
-						'is_lambda': False
-					})
+					mapped = swift_type_mapper.map_types_to_swift(current_field_type + " " + current_field_name, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+					lambdas.append({'name': current_field_name, 'field_details': mapped, 'is_lambda': False})
 			elif current_interpreted_line['type'] == 'instance_agnostic_lambda':
 				fn_line = current_interpreted_line['value']
-				lambdas.append({
-					'name': fn_line.group(3),
-					'is_lambda': True,
-					'is_instance_agnostic': True
-				})
+				lambdas.append({'name': fn_line.group(3), 'is_lambda': True, 'is_instance_agnostic': True})
 			elif current_interpreted_line['type'] == 'lambda':
 				fn_line = current_interpreted_line['value']
-				ret_ty_info = swift_type_mapper.map_types_to_swift(fn_line.group(2).strip() + " ret", None, False,
-																   self.tuple_types, self.unitary_enums,
-																   self.language_constants)
+				ret_ty_info = swift_type_mapper.map_types_to_swift(fn_line.group(2).strip() + " ret", None, False, self.tuple_types, self.unitary_enums, self.language_constants)
 				is_const = fn_line.group(4) is not None
 
 				arg_tys = []
 				for idx, arg in enumerate(fn_line.group(5).split(',')):
 					if arg == "":
 						continue
-					arg_conv_info = swift_type_mapper.map_types_to_swift(arg, None, False, self.tuple_types,
-																		 self.unitary_enums,
-																		 self.language_constants)
+					arg_conv_info = swift_type_mapper.map_types_to_swift(arg, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
 					arg_tys.append(arg_conv_info)
 
-				lambdas.append({
-					'name': fn_line.group(3),
-					'is_lambda': True,
-					'is_instance_agnostic': False,
-					'is_constant': is_const,
-					'return_type': ret_ty_info,
-					'argument_types': arg_tys
-				})
+				lambdas.append({'name': fn_line.group(3), 'is_lambda': True, 'is_instance_agnostic': False, 'is_constant': is_const, 'return_type': ret_ty_info, 'argument_types': arg_tys})
 
 		return lambdas
 
@@ -599,8 +564,7 @@ class LightningHeaderParser():
 		belongs_to_tuple = False
 
 		# return_type_info = type_mapping_generator.map_type(method_return_type, True, ret_arr_len, False, False)
-		return_type_info = swift_type_mapper.map_types_to_swift(method_return_type, ret_arr_len, True, self.tuple_types,
-																self.unitary_enums, self.language_constants)
+		return_type_info = swift_type_mapper.map_types_to_swift(method_return_type, ret_arr_len, True, self.tuple_types, self.unitary_enums, self.language_constants)
 
 		argument_types = []
 		default_constructor_args = {}
@@ -609,9 +573,7 @@ class LightningHeaderParser():
 
 		for argument_index, argument in enumerate(method_arguments):
 			# argument_conversion_info = type_mapping_generator.map_type(argument, False, None, is_free, True)
-			argument_conversion_info = swift_type_mapper.map_types_to_swift(argument, None, False,
-																			self.tuple_types,
-																			self.unitary_enums, self.language_constants)
+			argument_conversion_info = swift_type_mapper.map_types_to_swift(argument, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
 			if argument_index == 0 and argument_conversion_info.swift_type == inferred_struct_name:
 				takes_self = True
 
@@ -653,8 +615,7 @@ class LightningHeaderParser():
 		native_struct_name = "LDK" + inferred_struct_name
 		native_tuple_name = "LDK" + inferred_tuple_name
 		# if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs) and not is_free:
-		if (
-			native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs):  # don't care if it's a free
+		if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs):  # don't care if it's a free
 			# belongs to struct
 			belongs_to_struct = True
 			associated_type_name = inferred_struct_name
@@ -672,27 +633,10 @@ class LightningHeaderParser():
 		if associated_type_name is not None and method_name.startswith(associated_type_name):
 			clean_method_name = method_name[len(associated_type_name) + 1:]
 
-		return {
-			'struct_method': inferred_struct_name,
-			'associated_type_name': None if associated_type_name is None else {
-				'native': 'LDK' + associated_type_name,
-				'swift': associated_type_name
-			},
-			'is_free': is_free,
-			'is_constructor': is_constructor,
-			'is_clone': is_clone,
-			'takes_self': takes_self,
-			'name': {
-				'native': method_name,
-				'swift': clean_method_name
-			},
-			'arguments': method_arguments,
-			'argument_types': argument_types,
-			'return_value': method_return_type,
-			'return_type': return_type_info,
-			'belongs_to_struct': belongs_to_struct,
-			'belongs_to_tuple': belongs_to_tuple
-		}
+		return {'struct_method': inferred_struct_name, 'associated_type_name': None if associated_type_name is None else {'native': 'LDK' + associated_type_name, 'swift': associated_type_name},
+			'is_free': is_free, 'is_constructor': is_constructor, 'is_clone': is_clone, 'takes_self': takes_self, 'name': {'native': method_name, 'swift': clean_method_name},
+			'arguments': method_arguments, 'argument_types': argument_types, 'return_value': method_return_type, 'return_type': return_type_info, 'belongs_to_struct': belongs_to_struct,
+			'belongs_to_tuple': belongs_to_tuple}
 
 	@staticmethod
 	def camel_to_snake(s):

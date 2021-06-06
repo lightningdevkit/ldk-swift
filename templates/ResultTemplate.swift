@@ -13,6 +13,10 @@ public class ResultName {
 		self.cOpaqueStruct = pointer
 	}
 
+	public func isOk() -> Bool {
+		return self.cOpaqueStruct?.result_ok == true
+	}
+
     /* RESULT_METHODS_START */
     public func methodName(swift_arguments) -> Void {
     	/* NATIVE_CALL_PREP */

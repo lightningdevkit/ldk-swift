@@ -17,6 +17,7 @@ public class C2Tuple_PaymentHashPaymentSecretZ {
 	deinit {
 					
 					
+					
 		C2Tuple_PaymentHashPaymentSecretZ_free(self.cOpaqueStruct!)
 				
 	}

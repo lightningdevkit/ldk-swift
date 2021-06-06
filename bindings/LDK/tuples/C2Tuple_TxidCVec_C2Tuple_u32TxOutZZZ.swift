@@ -17,6 +17,7 @@ public class C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
 	deinit {
 					
 					
+					
 		C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_free(self.cOpaqueStruct!)
 				
 	}

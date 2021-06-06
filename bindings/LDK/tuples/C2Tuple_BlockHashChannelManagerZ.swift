@@ -16,6 +16,11 @@ public class C2Tuple_BlockHashChannelManagerZ {
 				
 	deinit {
 					
+					if self.cOpaqueStruct?.b.is_owned == true {
+						return
+					}
+				
+					
 					
 		C2Tuple_BlockHashChannelManagerZ_free(self.cOpaqueStruct!)
 				

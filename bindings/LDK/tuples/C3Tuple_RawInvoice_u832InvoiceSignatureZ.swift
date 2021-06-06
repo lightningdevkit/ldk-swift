@@ -16,6 +16,15 @@ public class C3Tuple_RawInvoice_u832InvoiceSignatureZ {
 				
 	deinit {
 					
+					if self.cOpaqueStruct?.a.is_owned == true {
+						return
+					}
+				
+					if self.cOpaqueStruct?.c.is_owned == true {
+						return
+					}
+				
+					
 					
 		C3Tuple_RawInvoice_u832InvoiceSignatureZ_free(self.cOpaqueStruct!)
 				

@@ -17,6 +17,7 @@ public class C2Tuple_usizeTransactionZ {
 	deinit {
 					
 					
+					
 		C2Tuple_usizeTransactionZ_free(self.cOpaqueStruct!)
 				
 	}

@@ -28,6 +28,19 @@ public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 				
 	deinit {
 					
+					if self.cOpaqueStruct?.a.is_owned == true {
+						return
+					}
+				
+					if self.cOpaqueStruct?.b.is_owned == true {
+						return
+					}
+				
+					if self.cOpaqueStruct?.c.is_owned == true {
+						return
+					}
+				
+					
 					
 		C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!)
 				

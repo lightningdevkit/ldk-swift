@@ -29,6 +29,7 @@ public class C2Tuple_u32TxOutZ {
 	deinit {
 					
 					
+					
 		C2Tuple_u32TxOutZ_free(self.cOpaqueStruct!)
 				
 	}

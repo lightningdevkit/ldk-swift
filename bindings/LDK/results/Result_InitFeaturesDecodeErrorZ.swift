@@ -27,6 +27,13 @@ public class Result_InitFeaturesDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> InitFeatures? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return InitFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

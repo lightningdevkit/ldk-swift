@@ -27,6 +27,13 @@ public class Result_RouteHintCreationErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> RouteHint? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return RouteHint(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

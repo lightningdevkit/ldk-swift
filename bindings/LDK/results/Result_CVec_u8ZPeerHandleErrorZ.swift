@@ -27,6 +27,13 @@ public class Result_CVec_u8ZPeerHandleErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> [UInt8]? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

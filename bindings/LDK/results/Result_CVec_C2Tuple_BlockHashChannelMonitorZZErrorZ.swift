@@ -27,6 +27,13 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> [LDKC2Tuple_BlockHashChannelMonitorZ]? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Bindings.LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -27,6 +27,13 @@ public class Result_ChannelPublicKeysDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ChannelPublicKeys? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ChannelPublicKeys(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

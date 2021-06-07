@@ -27,6 +27,13 @@ public class Result_PayeePubKeyErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> PayeePubKey? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return PayeePubKey(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

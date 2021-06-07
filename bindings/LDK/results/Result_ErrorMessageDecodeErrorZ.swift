@@ -27,6 +27,13 @@ public class Result_ErrorMessageDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ErrorMessage? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ErrorMessage(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

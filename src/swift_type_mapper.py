@@ -90,6 +90,12 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		rust_obj = "LDKTwentyBytes"
 		swift_raw_type = rust_obj
 		arr_access = "data"
+	elif fn_arg.startswith("LDKRecoverableSignature"):
+		fn_arg = "uint8_t (*serialized_form)[68]"
+		assert var_is_arr_regex.match(fn_arg[8:])
+		rust_obj = "LDKRecoverableSignature"
+		swift_raw_type = rust_obj
+		arr_access = "serialized_form"
 	elif fn_arg.startswith("LDKu8slice"):
 		fn_arg = "uint8_t (*" + fn_arg[11:] + ")[datalen]"
 		assert var_is_arr_regex.match(fn_arg[8:])

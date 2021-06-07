@@ -27,6 +27,13 @@ public class Result_ReplyShortChannelIdsEndDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ReplyShortChannelIdsEnd? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ReplyShortChannelIdsEnd(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

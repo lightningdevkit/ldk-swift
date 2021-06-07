@@ -27,6 +27,13 @@ public class Result_boolLightningErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Bool? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return self.cOpaqueStruct!.contents.result.pointee
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -20,6 +20,13 @@ public class Result_SiPrefixNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> LDKSiPrefix? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return self.cOpaqueStruct!.contents.result.pointee
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

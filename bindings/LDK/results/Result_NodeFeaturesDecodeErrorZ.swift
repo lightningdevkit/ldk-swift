@@ -27,6 +27,13 @@ public class Result_NodeFeaturesDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> NodeFeatures? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return NodeFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

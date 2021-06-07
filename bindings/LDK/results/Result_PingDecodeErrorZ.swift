@@ -27,6 +27,13 @@ public class Result_PingDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Ping? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Ping(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -293,7 +293,7 @@ class LightningHeaderParser():
 						vector_type_details.name = struct_name
 
 						# if 'LDKTransaction' not in self.type_details:
-						if vec_ty in ['LDKTransaction', 'LDKSignature', 'LdKu8slice', 'LDKPublicKey']:
+						if vec_ty in ['LDKTransaction', 'LDKSignature', 'LDKu8slice', 'LDKPublicKey']:
 							vectored_type_details = TypeDetails()
 							vectored_type_details.type = CTypes.VECTOR
 							vectored_type_details.name = vec_ty

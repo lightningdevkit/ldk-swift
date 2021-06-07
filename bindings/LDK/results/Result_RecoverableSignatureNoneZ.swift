@@ -20,6 +20,13 @@ public class Result_RecoverableSignatureNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> [UInt8]? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Bindings.LDKRecoverableSignature_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

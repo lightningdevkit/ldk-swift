@@ -70,9 +70,21 @@ class ResultGenerator:
 			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False)
 
 			struct_methods += f'''
-			public func getError() -> {struct_details.result_error_type.swift_type}? {{
+			public func getError() -> {error_return_wrappers['swift_type']}? {{
 				if self.cOpaqueStruct?.result_ok == false {{
 					return {error_return_wrappers['prefix']}self.cOpaqueStruct!.contents.err.pointee{error_return_wrappers['suffix']}
+				}}
+				return nil
+			}}
+			'''
+
+		if struct_details.result_value_type.swift_type != 'Void':
+			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False)
+
+			struct_methods += f'''
+			public func getValue() -> {value_return_wrappers['swift_type']}? {{
+				if self.cOpaqueStruct?.result_ok == true {{
+					return {value_return_wrappers['prefix']}self.cOpaqueStruct!.contents.result.pointee{value_return_wrappers['suffix']}
 				}}
 				return nil
 			}}

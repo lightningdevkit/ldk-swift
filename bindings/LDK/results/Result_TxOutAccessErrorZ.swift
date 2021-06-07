@@ -27,6 +27,13 @@ public class Result_TxOutAccessErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> TxOut? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return TxOut(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

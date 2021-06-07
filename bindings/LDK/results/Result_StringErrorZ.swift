@@ -27,6 +27,13 @@ public class Result_StringErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> String? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

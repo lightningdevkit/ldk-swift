@@ -20,6 +20,13 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> C2Tuple_SignatureCVec_SignatureZZ? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return C2Tuple_SignatureCVec_SignatureZZ(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

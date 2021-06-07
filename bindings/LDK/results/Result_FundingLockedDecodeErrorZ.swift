@@ -27,6 +27,13 @@ public class Result_FundingLockedDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> FundingLocked? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return FundingLocked(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

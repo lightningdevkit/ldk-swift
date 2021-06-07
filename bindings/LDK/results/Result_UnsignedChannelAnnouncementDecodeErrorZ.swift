@@ -27,6 +27,13 @@ public class Result_UnsignedChannelAnnouncementDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> UnsignedChannelAnnouncement? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return UnsignedChannelAnnouncement(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -27,6 +27,13 @@ public class Result_PositiveTimestampCreationErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> PositiveTimestamp? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return PositiveTimestamp(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

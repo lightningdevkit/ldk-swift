@@ -27,6 +27,13 @@ public class Result_InitDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Init? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Init(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

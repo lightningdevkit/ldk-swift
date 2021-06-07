@@ -27,6 +27,13 @@ public class Result_ExpiryTimeCreationErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ExpiryTime? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ExpiryTime(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

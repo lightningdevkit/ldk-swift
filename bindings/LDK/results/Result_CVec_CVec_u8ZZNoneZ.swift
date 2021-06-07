@@ -20,6 +20,13 @@ public class Result_CVec_CVec_u8ZZNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> [[UInt8]]? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Bindings.LDKCVec_CVec_u8ZZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

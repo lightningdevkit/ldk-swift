@@ -27,6 +27,13 @@ public class Result_CResult_NetAddressu8ZDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Result_NetAddressu8Z? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Result_NetAddressu8Z(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

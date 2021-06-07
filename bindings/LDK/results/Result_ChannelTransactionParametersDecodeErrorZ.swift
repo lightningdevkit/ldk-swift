@@ -27,6 +27,13 @@ public class Result_ChannelTransactionParametersDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ChannelTransactionParameters? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ChannelTransactionParameters(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

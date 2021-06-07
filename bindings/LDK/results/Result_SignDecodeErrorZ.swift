@@ -27,6 +27,13 @@ public class Result_SignDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Sign? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Sign(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

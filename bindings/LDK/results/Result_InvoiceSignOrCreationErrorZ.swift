@@ -27,6 +27,13 @@ public class Result_InvoiceSignOrCreationErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Invoice? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -27,6 +27,13 @@ public class Result_RevokeAndACKDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> RevokeAndACK? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return RevokeAndACK(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

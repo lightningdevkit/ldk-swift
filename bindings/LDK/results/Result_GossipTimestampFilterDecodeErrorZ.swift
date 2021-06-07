@@ -27,6 +27,13 @@ public class Result_GossipTimestampFilterDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> GossipTimestampFilter? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return GossipTimestampFilter(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

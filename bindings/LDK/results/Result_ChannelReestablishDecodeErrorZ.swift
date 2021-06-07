@@ -27,6 +27,13 @@ public class Result_ChannelReestablishDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ChannelReestablish? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ChannelReestablish(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

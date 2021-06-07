@@ -27,6 +27,13 @@ public class Result_ChannelConfigDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ChannelConfig? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ChannelConfig(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -244,6 +244,7 @@ class ConversionHelper:
 		rust_return_type = return_type.rust_obj
 		return_prefix = ''
 		return_suffix = ''
+		return_type_string = return_type.swift_type
 
 		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type.swift_type.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
@@ -270,7 +271,11 @@ class ConversionHelper:
 		if rust_return_type is None and return_type.swift_type.startswith('['):
 			return_suffix = '.pointee'
 
+		if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type.swift_type):
+			return_type_string = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', return_type_string)
+
 		return {
 			'prefix': return_prefix,
-			'suffix': return_suffix
+			'suffix': return_suffix,
+			'swift_type': return_type_string
 		}

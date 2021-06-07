@@ -27,6 +27,13 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> SpendableOutputDescriptor? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return SpendableOutputDescriptor(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -20,6 +20,13 @@ public class Result_SignedRawInvoiceNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> SignedRawInvoice? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return SignedRawInvoice(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

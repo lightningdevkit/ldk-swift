@@ -27,6 +27,13 @@ public class Result_NodeAnnouncementDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> NodeAnnouncement? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return NodeAnnouncement(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

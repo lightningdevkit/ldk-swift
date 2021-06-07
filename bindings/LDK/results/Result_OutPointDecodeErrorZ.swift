@@ -27,6 +27,13 @@ public class Result_OutPointDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> OutPoint? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return OutPoint(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

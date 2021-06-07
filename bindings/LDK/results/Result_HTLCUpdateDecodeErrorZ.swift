@@ -27,6 +27,13 @@ public class Result_HTLCUpdateDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> HTLCUpdate? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return HTLCUpdate(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

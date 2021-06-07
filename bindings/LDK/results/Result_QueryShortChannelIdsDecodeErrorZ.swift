@@ -27,6 +27,13 @@ public class Result_QueryShortChannelIdsDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> QueryShortChannelIds? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return QueryShortChannelIds(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

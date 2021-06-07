@@ -27,6 +27,13 @@ public class Result_ShutdownDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Shutdown? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Shutdown(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

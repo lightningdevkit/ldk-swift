@@ -27,6 +27,13 @@ public class Result_CommitmentTransactionDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> CommitmentTransaction? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return CommitmentTransaction(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

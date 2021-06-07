@@ -27,6 +27,13 @@ public class Result_TxCreationKeysErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> TxCreationKeys? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return TxCreationKeys(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

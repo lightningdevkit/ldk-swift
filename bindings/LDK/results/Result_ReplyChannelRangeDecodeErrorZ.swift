@@ -27,6 +27,13 @@ public class Result_ReplyChannelRangeDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ReplyChannelRange? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ReplyChannelRange(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

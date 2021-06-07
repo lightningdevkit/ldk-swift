@@ -20,6 +20,13 @@ public class Result_InvoiceNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> Invoice? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

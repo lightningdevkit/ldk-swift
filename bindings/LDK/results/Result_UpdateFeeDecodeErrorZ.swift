@@ -27,6 +27,13 @@ public class Result_UpdateFeeDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> UpdateFee? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return UpdateFee(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

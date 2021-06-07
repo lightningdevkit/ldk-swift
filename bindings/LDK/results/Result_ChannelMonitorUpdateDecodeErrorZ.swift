@@ -27,6 +27,13 @@ public class Result_ChannelMonitorUpdateDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ChannelMonitorUpdate? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ChannelMonitorUpdate(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -20,6 +20,13 @@ public class Result_CVec_SignatureZNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> [[UInt8]]? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Bindings.LDKCVec_SignatureZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

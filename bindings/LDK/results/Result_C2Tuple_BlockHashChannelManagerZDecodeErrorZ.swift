@@ -27,6 +27,13 @@ public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> C2Tuple_BlockHashChannelManagerZ? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return C2Tuple_BlockHashChannelManagerZ(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

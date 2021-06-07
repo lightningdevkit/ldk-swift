@@ -27,6 +27,13 @@ public class Result_UpdateFulfillHTLCDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> UpdateFulfillHTLC? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return UpdateFulfillHTLC(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

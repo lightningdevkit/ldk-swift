@@ -27,6 +27,13 @@ public class Result_ClosingSignedDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> ClosingSigned? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ClosingSigned(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -27,6 +27,13 @@ public class Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> CounterpartyChannelTransactionParameters? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return CounterpartyChannelTransactionParameters(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

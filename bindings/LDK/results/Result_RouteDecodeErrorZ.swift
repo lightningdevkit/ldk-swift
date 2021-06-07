@@ -27,6 +27,13 @@ public class Result_RouteDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Route? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Route(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

@@ -27,6 +27,13 @@ public class Result_DescriptionCreationErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Description? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Description(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

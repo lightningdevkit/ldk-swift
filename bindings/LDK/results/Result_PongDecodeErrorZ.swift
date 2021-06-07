@@ -27,6 +27,13 @@ public class Result_PongDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> Pong? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return Pong(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

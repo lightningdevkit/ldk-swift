@@ -90,4 +90,4 @@ def generate_sdk():
 	generate_trait_placeholders(parser, returned_trait_instances)
 
 
-generate_sdk()
+

@@ -27,6 +27,13 @@ public class Result_AnnouncementSignaturesDecodeErrorZ {
 				return nil
 			}
 			
+			public func getValue() -> AnnouncementSignatures? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return AnnouncementSignatures(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

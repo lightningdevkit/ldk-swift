@@ -20,6 +20,13 @@ public class Result_TrustedCommitmentTransactionNoneZ {
 
     /* RESULT_METHODS_START */
 
+			public func getValue() -> TrustedCommitmentTransaction? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return TrustedCommitmentTransaction(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

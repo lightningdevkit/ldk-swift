@@ -10,6 +10,15 @@ public class Invoice {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: Invoice, b: Invoice) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoice>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInvoice>) in
+Invoice_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: Invoice) -> Invoice {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoice>) in

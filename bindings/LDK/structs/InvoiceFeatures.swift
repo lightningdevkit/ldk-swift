@@ -15,10 +15,26 @@ public class InvoiceFeatures {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: InvoiceFeatures, b: InvoiceFeatures) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoiceFeatures>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: InvoiceFeatures) -> InvoiceFeatures {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceFeatures>) in
 InvoiceFeatures(pointer: InvoiceFeatures_clone(origPointer))
+};
+    }
+
+    public func supports_payment_secret() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_supports_payment_secret(this_argPointer)
 };
     }
 

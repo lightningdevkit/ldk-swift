@@ -52,6 +52,22 @@ OutPoint(pointer: OutPoint_clone(origPointer))
 };
     }
 
+    public func eq(a: OutPoint, b: OutPoint) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKOutPoint>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKOutPoint>) in
+OutPoint_eq(aPointer, bPointer)
+}
+};
+    }
+
+    public func hash(o: OutPoint) -> UInt64 {
+    	
+        return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKOutPoint>) in
+OutPoint_hash(oPointer)
+};
+    }
+
     public func to_channel_id() -> [UInt8] {
     	
         return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKOutPoint>) in

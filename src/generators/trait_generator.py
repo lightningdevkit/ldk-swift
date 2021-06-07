@@ -149,7 +149,6 @@ class TraitGenerator:
 			# let's create a native default implementation
 			default_callback_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], True)
 			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone)
-			print('default callback prepared arguments')
 			current_default_callback_replacement = natively_implemented_callback_template
 			current_default_callback_replacement = current_default_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)
 			current_default_callback_replacement = current_default_callback_replacement.replace('-> Void {', f'-> {swift_return_type} {{')

@@ -15,10 +15,26 @@ public class NodeFeatures {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: NodeFeatures, b: NodeFeatures) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKNodeFeatures>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: NodeFeatures) -> NodeFeatures {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeFeatures>) in
 NodeFeatures(pointer: NodeFeatures_clone(origPointer))
+};
+    }
+
+    public func supports_payment_secret() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_supports_payment_secret(this_argPointer)
 };
     }
 

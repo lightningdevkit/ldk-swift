@@ -45,6 +45,15 @@ RoutingFees_get_proportional_millionths(this_ptrPointer)
         return RoutingFees_set_proportional_millionths(this_ptrPointer, val);
     }
 
+    public func eq(a: RoutingFees, b: RoutingFees) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRoutingFees>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRoutingFees>) in
+RoutingFees_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: RoutingFees) -> RoutingFees {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
@@ -52,16 +61,16 @@ RoutingFees(pointer: RoutingFees_clone(origPointer))
 };
     }
 
-    public func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
-    	
-        return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(Bindings.new_LDKu8slice(array: ser)));
-    }
-
     public func write(obj: RoutingFees) -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoutingFees>) in
 RoutingFees_write(objPointer)
 });
+    }
+
+    public func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
+    	
+        return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				

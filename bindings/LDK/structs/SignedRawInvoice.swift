@@ -10,6 +10,15 @@ public class SignedRawInvoice {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: SignedRawInvoice, b: SignedRawInvoice) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSignedRawInvoice>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSignedRawInvoice>) in
+SignedRawInvoice_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: SignedRawInvoice) -> SignedRawInvoice {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSignedRawInvoice>) in

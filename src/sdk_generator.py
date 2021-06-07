@@ -6,6 +6,7 @@ from generators.option_generator import OptionGenerator
 from generators.trait_generator import TraitGenerator
 from generators.util_generators.vector_generator import VectorGenerator
 from generators.util_generators.byte_array_generator import ByteArrayGenerator
+from generators.util_generators.static_method_generator import StaticMethodGenerator
 
 
 def parse_header() -> LightningHeaderParser:
@@ -20,6 +21,7 @@ def generate_binding_methods(parser: LightningHeaderParser):
 	# firstly, let's generate the vector utilities
 	byte_array_generator = ByteArrayGenerator()
 	vector_generator = VectorGenerator()
+	static_method_generator = StaticMethodGenerator()
 
 	byte_arrays = parser.byte_arrays
 	for current_byte_array_type in byte_arrays:
@@ -33,6 +35,9 @@ def generate_binding_methods(parser: LightningHeaderParser):
 		vector_type_details = parser.type_details[current_vector]
 		vector_generator.generate_vector(current_vector, vector_type_details)
 	vector_generator.finalize()
+
+	static_method_generator.generate_static_methods(parser.static_methods)
+	static_method_generator.finalize()
 
 
 def generate_opaque_struct_wrappers(parser: LightningHeaderParser, returned_trait_instances = set()):

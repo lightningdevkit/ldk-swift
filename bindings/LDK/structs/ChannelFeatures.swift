@@ -15,6 +15,15 @@ public class ChannelFeatures {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: ChannelFeatures, b: ChannelFeatures) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKChannelFeatures>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKChannelFeatures>) in
+ChannelFeatures_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: ChannelFeatures) -> ChannelFeatures {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelFeatures>) in

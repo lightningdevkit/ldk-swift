@@ -10,6 +10,15 @@ public class RouteHint {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: RouteHint, b: RouteHint) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHint>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHint>) in
+RouteHint_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: RouteHint) -> RouteHint {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHint>) in

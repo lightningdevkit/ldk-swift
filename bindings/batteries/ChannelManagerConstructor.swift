@@ -22,6 +22,11 @@ public class ChannelManagerConstructor {
      */
     public let channel_manager_latest_block_hash: [UInt8]?
 
+    let logger: Logger
+    fileprivate var customPersister: CustomChannelManagerPersister?
+    fileprivate var customEventHandler: CustomEventHandler?
+    public let peerManager: PeerManager
+
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
      * starting with the block that builds on the hash given.
@@ -32,7 +37,7 @@ public class ChannelManagerConstructor {
 
     private let chain_monitor: ChainMonitor
 
-    public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
+    public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, router: NetGraphMsgHandler?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
@@ -62,6 +67,16 @@ public class ChannelManagerConstructor {
         self.channelManager = channelManager
         self.channel_manager_latest_block_hash = latestBlockHash
         self.chain_monitor = chain_monitor
+        self.logger = logger
+
+        let random_data = keys_interface.get_secure_random_bytes();
+        if let router = router {
+            let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
+            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+        } else {
+            let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
+            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+        }
 
         if let filter = filter {
             for (currentMonitor, _) in self.channel_monitors {
@@ -74,16 +89,27 @@ public class ChannelManagerConstructor {
     /**
      * Constructs a channel manager from the given interface implementations
      */
-    public init(network: LDKNetwork, config: UserConfig, current_blockchain_tip_hash: [UInt8], current_blockchain_tip_height: UInt32, keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, tx_broadcaster: BroadcasterInterface, logger: Logger) {
+    public init(network: LDKNetwork, config: UserConfig, current_blockchain_tip_hash: [UInt8], current_blockchain_tip_height: UInt32, keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, router: NetGraphMsgHandler?, tx_broadcaster: BroadcasterInterface, logger: Logger) {
         self.channel_monitors = []
         self.channel_manager_latest_block_hash = nil
         self.chain_monitor = chain_monitor
         let block = BestBlock(block_hash: current_blockchain_tip_hash, height: current_blockchain_tip_height)
         let chainParameters = ChainParameters(network_arg: network, best_block_arg: block)
         self.channelManager = ChannelManager(fee_est: fee_estimator, chain_monitor: chain_monitor.as_Watch(), tx_broadcaster: tx_broadcaster, logger: logger, keys_manager: keys_interface, config: config, params: chainParameters)
+        self.logger = logger
+
+        let random_data = keys_interface.get_secure_random_bytes();
+        if let router = router {
+            let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
+            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+        } else {
+            let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
+            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+        }
     }
 
     var persisterWorkItem: DispatchWorkItem?
+    var backgroundProcessor: BackgroundProcessor?
     var shutdown = false
 
     /**
@@ -93,8 +119,9 @@ public class ChannelManagerConstructor {
      * This also spawns a background thread which will call the appropriate methods on the provided
      * ChannelManagerPersister as required.
      */
-    public func chain_sync_completed(persister: ChannelManagerPersister) {
-        if self.persisterWorkItem != nil {
+    public func chain_sync_completed(persister: ExtendedChannelManagerPersister) {
+
+        if self.backgroundProcessor != nil {
             return
         }
 
@@ -110,65 +137,50 @@ public class ChannelManagerConstructor {
             }
         }
 
-        self.persisterWorkItem = DispatchWorkItem {
-            var lastTimerTick = NSDate().timeIntervalSince1970
-            while !self.shutdown {
-                var needsPersist = self.channelManager.await_persistable_update_timeout(max_wait: 1)
+        self.customPersister = CustomChannelManagerPersister(handler: persister)
+        self.customEventHandler = CustomEventHandler(handler: persister)
+        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
 
-                let managerEventsProvider = self.channelManager.as_EventsProvider()
-                let rawManagerEvents = managerEventsProvider.get_and_clear_pending_events()
 
-                let managerEvents = rawManagerEvents.map { (e: LDKEvent) -> Event in
-                    Event(pointer: e)
-                }
-                if managerEvents.count != 0 {
-                    persister.handle_events(events: managerEvents)
-                    needsPersist = true
-                }
-
-                let monitorEventsProvider = self.chain_monitor.as_EventsProvider()
-                let rawMonitorEvents = monitorEventsProvider.get_and_clear_pending_events()
-
-                let monitorEvents = rawMonitorEvents.map { (e: LDKEvent) -> Event in
-                    Event(pointer: e)
-                }
-                if monitorEvents.count != 0 {
-                    persister.handle_events(events: monitorEvents)
-                    needsPersist = true
-                }
-
-                if needsPersist {
-                    persister.persist_manager(channel_manager_bytes: self.channelManager.write(obj: self.channelManager))
-                }
-
-                if self.shutdown {
-                    return
-                }
-
-                let currentTimerTick = NSDate().timeIntervalSince1970
-                if lastTimerTick < (currentTimerTick-60) { // more than 60 seconds have passed since the last timer tick
-                    self.channelManager.timer_tick_occurred()
-                    lastTimerTick = currentTimerTick
-                }
-
-                Thread.sleep(forTimeInterval: 1) // this should hopefully not suspend the main application
-            }
-        }
-
-        let backgroundQueue = DispatchQueue(label: "org.ldk.ChannelManagerConstructor.persisterThread", qos: .background)
-        backgroundQueue.async(execute: self.persisterWorkItem!)
     }
 
     public func interrupt() {
         self.shutdown = true
-        if let workItem = self.persisterWorkItem {
-            workItem.wait()
-        }
+        self.backgroundProcessor?.stop()
     }
 
 }
 
-public protocol ChannelManagerPersister {
-    func handle_events(events: [Event]) -> Void;
-    func persist_manager(channel_manager_bytes: [UInt8]) -> Void;
+fileprivate class CustomChannelManagerPersister: ChannelManagerPersister {
+
+    let handler: ExtendedChannelManagerPersister
+
+    init(handler: ExtendedChannelManagerPersister) {
+        self.handler = handler
+        super.init()
+    }
+
+    override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
+        return self.handler.persist_manager(channel_manager: channel_manager)
+    }
+}
+
+fileprivate class CustomEventHandler: EventHandler {
+
+    let handler: ExtendedChannelManagerPersister
+
+    init(handler: ExtendedChannelManagerPersister) {
+        self.handler = handler
+        super.init()
+    }
+
+    override func handle_event(event: Event) {
+        self.handler.handle_event(event: event)
+    }
+
+
+}
+
+public protocol ExtendedChannelManagerPersister: ChannelManagerPersister {
+    func handle_event(event: Event) -> Void;
 }

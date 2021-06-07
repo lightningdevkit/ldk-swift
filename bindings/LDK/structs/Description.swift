@@ -10,6 +10,15 @@ public class Description {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: Description, b: Description) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKDescription>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKDescription>) in
+Description_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: Description) -> Description {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in

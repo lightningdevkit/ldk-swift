@@ -10,6 +10,15 @@ public class PositiveTimestamp {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: PositiveTimestamp, b: PositiveTimestamp) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPositiveTimestamp>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPositiveTimestamp>) in
+PositiveTimestamp_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: PositiveTimestamp) -> PositiveTimestamp {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPositiveTimestamp>) in

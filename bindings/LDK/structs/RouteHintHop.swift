@@ -105,6 +105,15 @@ RouteHintHop_get_htlc_maximum_msat(this_ptrPointer)
         return RouteHintHop_set_htlc_maximum_msat(this_ptrPointer, val.cOpaqueStruct!);
     }
 
+    public func eq(a: RouteHintHop, b: RouteHintHop) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHintHop>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHintHop>) in
+RouteHintHop_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: RouteHintHop) -> RouteHintHop {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHintHop>) in

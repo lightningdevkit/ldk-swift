@@ -60,6 +60,20 @@ WatchedOutput_get_script_pubkey(this_ptrPointer)
         return WatchedOutput_set_script_pubkey(this_ptrPointer, Bindings.new_LDKCVec_u8Z(array: val));
     }
 
+    public func clone(orig: WatchedOutput) -> WatchedOutput {
+    	
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKWatchedOutput>) in
+WatchedOutput(pointer: WatchedOutput_clone(origPointer))
+};
+    }
+
+    public func hash(o: WatchedOutput) -> UInt64 {
+    	
+        return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKWatchedOutput>) in
+WatchedOutput_hash(oPointer)
+};
+    }
+
 				
 	deinit {
 					if self.cOpaqueStruct?.is_owned == false {

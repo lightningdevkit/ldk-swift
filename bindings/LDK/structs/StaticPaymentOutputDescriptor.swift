@@ -75,6 +75,18 @@ StaticPaymentOutputDescriptor(pointer: StaticPaymentOutputDescriptor_clone(origP
 };
     }
 
+    public func write(obj: StaticPaymentOutputDescriptor) -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+StaticPaymentOutputDescriptor_write(objPointer)
+});
+    }
+
+    public func read(ser: [UInt8]) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+    	
+        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: StaticPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
+    }
+
 				
 	deinit {
 					if self.cOpaqueStruct?.is_owned == false {

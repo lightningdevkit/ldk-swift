@@ -58,6 +58,12 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 	/* VECTOR_METHODS_END */
 
+	/* STATIC_METHODS_START */
+	public class func methodName(swift_arguments) -> Void {
+		/* STATIC_METHOD_BODY */
+	}
+	/* STATIC_METHODS_END */
+
 	public class func instanceToPointer(instance: AnyObject) -> UnsafeMutableRawPointer {
 		Unmanaged.passUnretained(instance).toOpaque()
 	}
@@ -154,6 +160,15 @@ public class Bindings{
 		return withUnsafePointer(to: channelManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) -> Result_InvoiceSignOrCreationErrorZ in
 			let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network, nativeAmount, nativeDescription)
 			return Result_InvoiceSignOrCreationErrorZ(pointer: nativeResult)
+		}
+	}
+
+	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHintHop], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
+		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
+			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops)
+			return withUnsafeMutablePointer(to: &mutableHops) { (first_hopsPointer) in
+				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintHopZ(array: last_hops), final_value_msat, final_cltv, logger.cOpaqueStruct!))
+			}
 		}
 	}
 

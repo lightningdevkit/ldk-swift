@@ -38,7 +38,18 @@ open class BaseSign {
 			return instance.sign_holder_commitment_and_htlcs(commitment_tx: commitment_tx).cOpaqueStruct!;
 		}
 
-		func sign_justice_transactionCallback(pointer: UnsafeRawPointer?, justice_tx: LDKTransaction, input: uintptr_t, amount: UInt64, per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) -> LDKCResult_SignatureNoneZ {
+		func sign_justice_revoked_outputCallback(pointer: UnsafeRawPointer?, justice_tx: LDKTransaction, input: uintptr_t, amount: UInt64, per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?) -> LDKCResult_SignatureNoneZ {
+			let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!)
+			
+								var per_commitment_key: [UInt8]? = nil
+								if let per_commitment_keyUnwrapped = per_commitment_keyPointer {
+									per_commitment_key = Bindings.tuple32_to_array(nativeType: per_commitment_keyUnwrapped.pointee)
+								}
+							
+			return instance.sign_justice_revoked_output(justice_tx: Bindings.LDKTransaction_to_array(nativeType: justice_tx), input: input, amount: amount, per_commitment_key: per_commitment_key).cOpaqueStruct!;
+		}
+
+		func sign_justice_revoked_htlcCallback(pointer: UnsafeRawPointer?, justice_tx: LDKTransaction, input: uintptr_t, amount: UInt64, per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) -> LDKCResult_SignatureNoneZ {
 			let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!)
 			
 								var per_commitment_key: [UInt8]? = nil
@@ -47,7 +58,7 @@ open class BaseSign {
 								}
 							let htlc = HTLCOutputInCommitment(pointer: htlcPointer.pointee);
 
-			return instance.sign_justice_transaction(justice_tx: Bindings.LDKTransaction_to_array(nativeType: justice_tx), input: input, amount: amount, per_commitment_key: per_commitment_key, htlc: htlc).cOpaqueStruct!;
+			return instance.sign_justice_revoked_htlc(justice_tx: Bindings.LDKTransaction_to_array(nativeType: justice_tx), input: input, amount: amount, per_commitment_key: per_commitment_key, htlc: htlc).cOpaqueStruct!;
 		}
 
 		func sign_counterparty_htlc_transactionCallback(pointer: UnsafeRawPointer?, htlc_tx: LDKTransaction, input: uintptr_t, amount: UInt64, per_commitment_point: LDKPublicKey, htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) -> LDKCResult_SignatureNoneZ {
@@ -93,7 +104,8 @@ open class BaseSign {
 			channel_keys_id: channel_keys_idCallback,
 			sign_counterparty_commitment: sign_counterparty_commitmentCallback,
 			sign_holder_commitment_and_htlcs: sign_holder_commitment_and_htlcsCallback,
-			sign_justice_transaction: sign_justice_transactionCallback,
+			sign_justice_revoked_output: sign_justice_revoked_outputCallback,
+			sign_justice_revoked_htlc: sign_justice_revoked_htlcCallback,
 			sign_counterparty_htlc_transaction: sign_counterparty_htlc_transactionCallback,
 			sign_closing_transaction: sign_closing_transactionCallback,
 			sign_channel_announcement: sign_channel_announcementCallback,
@@ -132,7 +144,12 @@ open class BaseSign {
 		return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ())
     }
 
-    open func sign_justice_transaction(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
+    open func sign_justice_revoked_output(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?) -> Result_SignatureNoneZ {
+    	/* EDIT ME */
+		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
+    }
+
+    open func sign_justice_revoked_htlc(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
     	/* EDIT ME */
 		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
     }
@@ -214,12 +231,22 @@ public class NativelyImplementedBaseSign: BaseSign {
 			
 	}
 
-	public override func sign_justice_transaction(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
+	public override func sign_justice_revoked_output(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?) -> Result_SignatureNoneZ {
+		
+				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_output(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: justice_tx), input, amount, per_commitment_keyPointer))
+				
+}
+			
+	}
+
+	public override func sign_justice_revoked_htlc(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 		
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: justice_tx), input, amount, per_commitment_keyPointer, htlcPointer))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: justice_tx), input, amount, per_commitment_keyPointer, htlcPointer))
 				
 }
 }

@@ -120,6 +120,18 @@ DelayedPaymentOutputDescriptor(pointer: DelayedPaymentOutputDescriptor_clone(ori
 };
     }
 
+    public func write(obj: DelayedPaymentOutputDescriptor) -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+DelayedPaymentOutputDescriptor_write(objPointer)
+});
+    }
+
+    public func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
+    	
+        return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
+    }
+
 				
 	deinit {
 					if self.cOpaqueStruct?.is_owned == false {

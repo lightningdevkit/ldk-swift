@@ -10,6 +10,15 @@ public class ExpiryTime {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: ExpiryTime, b: ExpiryTime) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKExpiryTime>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKExpiryTime>) in
+ExpiryTime_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: ExpiryTime) -> ExpiryTime {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKExpiryTime>) in

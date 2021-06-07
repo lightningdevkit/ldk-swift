@@ -123,6 +123,7 @@ class LightningHeaderParser():
 		self.byte_arrays = set()
 		self.union_enum_items = {}
 		self.result_ptr_struct_items = {}
+		self.static_methods = []
 
 		fn_ptr_regex = re.compile("^extern const ([A-Za-z_0-9\* ]*) \(\*(.*)\)\((.*)\);$")
 		fn_ret_arr_regex = re.compile("(.*) \(\*(.*)\((.*)\)\)\[([0-9]*)\];$")
@@ -401,8 +402,13 @@ class LightningHeaderParser():
 						else:
 							self.type_details[associated_type_name].methods.append(method_details)
 					else:
-						# self.global_methods.add(method_details)
-						pass
+						is_independent = method_details['is_independent']
+						native_method_name = method_details['name']['native']
+						if is_independent or native_method_name in ['C2Tuple_BlockHashChannelManagerZ_read', 'C2Tuple_BlockHashChannelMonitorZ_read', 'FilesystemPersister_persist_manager']:
+							print('native method:', native_method_name)
+							if native_method_name not in self.global_methods:
+								self.global_methods.add(native_method_name)
+								self.static_methods.append(method_details)
 
 	def parse_option_details(self, struct_name, option_field_lines, tag_field_lines):
 		tuple_variants = {}
@@ -562,6 +568,7 @@ class LightningHeaderParser():
 		inferred_tuple_name = '_'.join(method_name.split('_')[:-1])
 		belongs_to_struct = False
 		belongs_to_tuple = False
+		is_independent = False
 
 		# return_type_info = type_mapping_generator.map_type(method_return_type, True, ret_arr_len, False, False)
 		return_type_info = swift_type_mapper.map_types_to_swift(method_return_type, ret_arr_len, True, self.tuple_types, self.unitary_enums, self.language_constants)
@@ -615,7 +622,9 @@ class LightningHeaderParser():
 		native_struct_name = "LDK" + inferred_struct_name
 		native_tuple_name = "LDK" + inferred_tuple_name
 		# if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs) and not is_free:
-		if (native_struct_name in self.opaque_structs or native_struct_name in self.trait_structs):  # don't care if it's a free
+		if (native_struct_name not in self.type_details) and (native_tuple_name not in self.type_details):
+			is_independent = True
+		elif (native_struct_name in self.opaque_structs) or (native_struct_name in self.trait_structs):  # don't care if it's a free
 			# belongs to struct
 			belongs_to_struct = True
 			associated_type_name = inferred_struct_name
@@ -623,7 +632,7 @@ class LightningHeaderParser():
 			# belongs in utility methods
 			inferred_struct_name = method_name.rsplit("_", 1)[0]
 		# elif (native_tuple_name in self.tuple_types) and not is_free:
-		elif (native_tuple_name in self.tuple_types):  # don't care if it's a free
+		elif native_tuple_name in self.tuple_types:  # don't care if it's a free
 			associated_type_name = inferred_tuple_name
 			belongs_to_tuple = True
 		if out_java_struct is not None:
@@ -636,7 +645,7 @@ class LightningHeaderParser():
 		return {'struct_method': inferred_struct_name, 'associated_type_name': None if associated_type_name is None else {'native': 'LDK' + associated_type_name, 'swift': associated_type_name},
 			'is_free': is_free, 'is_constructor': is_constructor, 'is_clone': is_clone, 'takes_self': takes_self, 'name': {'native': method_name, 'swift': clean_method_name},
 			'arguments': method_arguments, 'argument_types': argument_types, 'return_value': method_return_type, 'return_type': return_type_info, 'belongs_to_struct': belongs_to_struct,
-			'belongs_to_tuple': belongs_to_tuple}
+			'belongs_to_tuple': belongs_to_tuple, 'is_independent': is_independent}
 
 	@staticmethod
 	def camel_to_snake(s):

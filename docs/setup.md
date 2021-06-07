@@ -119,7 +119,7 @@ class MyPersister: Persist {
         // persist monitorBytes to disk, keyed by idBytes
         
         // simplified result instantiation calls coming shortly!
-        return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
+        return Result_NoneChannelMonitorUpdateErrZ()
     }
     
     override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
@@ -129,7 +129,7 @@ class MyPersister: Persist {
         // modify persisted monitorBytes keyed by idBytes on disk
         
         // simplified result instantiation calls coming shortly!
-        return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
+        return Result_NoneChannelMonitorUpdateErrZ()
     }
     
 }
@@ -212,7 +212,7 @@ pass its node secret to the peer manager initialization, so let's prepare it rig
 
 ```swift
 let keysInterface = keysManager.as_KeysInterface()
-let nodeSecret = Bindings.LDKSecretKey_to_array(nativeType: keysInterface.cOpaqueStruct!.get_node_secret(keysInterface.cOpaqueStruct!.this_arg))
+let nodeSecret = self.keysInterface.get_node_secret()
 ```
 
 This is a bit inelegant, but we will be providing simpler casting methods for user-provided types shortly.

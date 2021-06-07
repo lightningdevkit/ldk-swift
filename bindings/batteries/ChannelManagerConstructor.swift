@@ -15,13 +15,13 @@ enum InvalidSerializedDataError: Error {
 public class ChannelManagerConstructor {
 
     public let channelManager: ChannelManager
-    
+
     /**
      * The latest block has the channel manager saw. If this is non-null it is a 32-byte block hash.
      * You should sync the blockchain starting with the block that builds on this block.
      */
     public let channel_manager_latest_block_hash: [UInt8]?
-    
+
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
      * starting with the block that builds on the hash given.
@@ -46,8 +46,10 @@ public class ChannelManagerConstructor {
             var b: LDKChannelMonitor = value.result!.pointee.b
             b.is_owned = false
             let currentChannelMonitor = ChannelMonitor(pointer: b)
-            monitors.append(b)
-            self.channel_monitors.append((currentChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
+            var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
+            clonedChannelMonitor.cOpaqueStruct?.is_owned = false
+            monitors.append(clonedChannelMonitor.cOpaqueStruct!)
+            self.channel_monitors.append((clonedChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
         }
 
         let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
@@ -80,10 +82,10 @@ public class ChannelManagerConstructor {
         let chainParameters = ChainParameters(network_arg: network, best_block_arg: block)
         self.channelManager = ChannelManager(fee_est: fee_estimator, chain_monitor: chain_monitor.as_Watch(), tx_broadcaster: tx_broadcaster, logger: logger, keys_manager: keys_interface, config: config, params: chainParameters)
     }
-    
+
     var persisterWorkItem: DispatchWorkItem?
     var shutdown = false
-    
+
     /**
      * Utility which adds all of the deserialized ChannelMonitors to the chain watch so that further updates from the
      * ChannelManager are processed as normal.
@@ -95,24 +97,27 @@ public class ChannelManagerConstructor {
         if self.persisterWorkItem != nil {
             return
         }
-        
+
         for (currentChannelMonitor, _) in self.channel_monitors {
             let chainMonitorWatch = self.chain_monitor.as_Watch()
-            let fundingTxo = currentChannelMonitor.get_funding_txo()
+            let monitorClone = currentChannelMonitor.clone(orig: currentChannelMonitor)
+            let fundingTxo = monitorClone.get_funding_txo()
             let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a)
-            
-            chainMonitorWatch.cOpaqueStruct!.watch_channel(chainMonitorWatch.cOpaqueStruct!.this_arg, outPoint.cOpaqueStruct!, currentChannelMonitor.cOpaqueStruct!)
-            // chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: currentChannelMonitor)
+
+            let monitorWatchResult = chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: monitorClone)
+            if !monitorWatchResult.isOk() {
+                print("Some error occurred with a chainMonitorWatch.watch_channel call")
+            }
         }
-        
+
         self.persisterWorkItem = DispatchWorkItem {
             var lastTimerTick = NSDate().timeIntervalSince1970
             while !self.shutdown {
                 var needsPersist = self.channelManager.await_persistable_update_timeout(max_wait: 1)
-                
-                let nativeManagerEventsProvider = self.channelManager.as_EventsProvider().cOpaqueStruct!
-                let rawManagerEvents = Bindings.LDKCVec_EventZ_to_array(nativeType: nativeManagerEventsProvider.get_and_clear_pending_events(nativeManagerEventsProvider.this_arg))
-                
+
+                let managerEventsProvider = self.channelManager.as_EventsProvider()
+                let rawManagerEvents = managerEventsProvider.get_and_clear_pending_events()
+
                 let managerEvents = rawManagerEvents.map { (e: LDKEvent) -> Event in
                     Event(pointer: e)
                 }
@@ -120,10 +125,10 @@ public class ChannelManagerConstructor {
                     persister.handle_events(events: managerEvents)
                     needsPersist = true
                 }
-                
-                let nativeMonitorEventsProvider = self.chain_monitor.as_EventsProvider().cOpaqueStruct!
-                let rawMonitorEvents = Bindings.LDKCVec_EventZ_to_array(nativeType: nativeMonitorEventsProvider.get_and_clear_pending_events(nativeMonitorEventsProvider.this_arg))
-                
+
+                let monitorEventsProvider = self.chain_monitor.as_EventsProvider()
+                let rawMonitorEvents = monitorEventsProvider.get_and_clear_pending_events()
+
                 let monitorEvents = rawMonitorEvents.map { (e: LDKEvent) -> Event in
                     Event(pointer: e)
                 }
@@ -131,29 +136,29 @@ public class ChannelManagerConstructor {
                     persister.handle_events(events: monitorEvents)
                     needsPersist = true
                 }
-                
+
                 if needsPersist {
                     persister.persist_manager(channel_manager_bytes: self.channelManager.write(obj: self.channelManager))
                 }
-                
+
                 if self.shutdown {
                     return
                 }
-                
+
                 let currentTimerTick = NSDate().timeIntervalSince1970
                 if lastTimerTick < (currentTimerTick-60) { // more than 60 seconds have passed since the last timer tick
                     self.channelManager.timer_tick_occurred()
                     lastTimerTick = currentTimerTick
                 }
-                
+
                 Thread.sleep(forTimeInterval: 1) // this should hopefully not suspend the main application
             }
         }
-        
+
         let backgroundQueue = DispatchQueue(label: "org.ldk.ChannelManagerConstructor.persisterThread", qos: .background)
         backgroundQueue.async(execute: self.persisterWorkItem!)
     }
-    
+
     public func interrupt() {
         self.shutdown = true
         if let workItem = self.persisterWorkItem {

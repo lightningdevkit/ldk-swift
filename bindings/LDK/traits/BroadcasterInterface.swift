@@ -7,13 +7,13 @@ open class BroadcasterInterface {
     	/* NATIVE_CALLBACKS_START */
 
 		func broadcast_transactionCallback(pointer: UnsafeRawPointer?, tx: LDKTransaction) -> Void {
-			let instance: BroadcasterInterface = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: BroadcasterInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BroadcasterInterface.swift::broadcast_transaction")
 			
 			return instance.broadcast_transaction(tx: Bindings.LDKTransaction_to_array(nativeType: tx));
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: BroadcasterInterface = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: BroadcasterInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BroadcasterInterface.swift::free")
 			
 			return instance.free();
 		}

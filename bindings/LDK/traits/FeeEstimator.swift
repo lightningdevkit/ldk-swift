@@ -7,13 +7,13 @@ open class FeeEstimator {
     	/* NATIVE_CALLBACKS_START */
 
 		func get_est_sat_per_1000_weightCallback(pointer: UnsafeRawPointer?, confirmation_target: LDKConfirmationTarget) -> UInt32 {
-			let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "FeeEstimator.swift::get_est_sat_per_1000_weight")
 			
 			return instance.get_est_sat_per_1000_weight(confirmation_target: confirmation_target);
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "FeeEstimator.swift::free")
 			
 			return instance.free();
 		}

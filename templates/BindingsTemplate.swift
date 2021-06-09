@@ -64,12 +64,23 @@ public class Bindings{
 	}
 	/* STATIC_METHODS_END */
 
+	static var nativelyExposedInstances = [String: AnyObject]()
+
 	public class func instanceToPointer(instance: AnyObject) -> UnsafeMutableRawPointer {
-		Unmanaged.passUnretained(instance).toOpaque()
+		let pointer = Unmanaged.passUnretained(instance).toOpaque()
+		Self.nativelyExposedInstances[pointer.debugDescription] = instance
+		return pointer
 	}
 
-	public class func pointerToInstance<T: AnyObject>(pointer: UnsafeRawPointer) -> T{
-		Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
+	public class func pointerToInstance<T: AnyObject>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
+
+		let callStack = Thread.callStackSymbols
+		let caller = sourceMarker ?? callStack[1]
+		print("Retrieving instance from pointer for caller: \(caller)")
+		// let value = Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
+		let value = Self.nativelyExposedInstances[pointer.debugDescription] as! T
+		print("Instance retrieved for caller: \(caller)")
+		return value
 	}
 
 	public class func new_LDKu8slice(array: [UInt8]) -> LDKu8slice {
@@ -188,5 +199,18 @@ public class TxOut {
 	public func getValue() -> UInt64 {
 		return self.cOpaqueStruct!.value
 	}
+
+}
+
+public class InstanceCrashSimulator {
+
+    public init() {
+
+    }
+
+    public func getPointer() -> UnsafeMutableRawPointer {
+        let pointer = Bindings.instanceToPointer(instance: self)
+        return pointer
+    }
 
 }

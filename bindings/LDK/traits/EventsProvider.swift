@@ -7,13 +7,13 @@ open class EventsProvider {
     	/* NATIVE_CALLBACKS_START */
 
 		func process_pending_eventsCallback(pointer: UnsafeRawPointer?, handler: LDKEventHandler) -> Void {
-			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::process_pending_events")
 			
 			return instance.process_pending_events(handler: EventHandler(pointer: handler));
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::free")
 			
 			return instance.free();
 		}

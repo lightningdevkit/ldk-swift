@@ -7,13 +7,13 @@ open class MessageSendEventsProvider {
     	/* NATIVE_CALLBACKS_START */
 
 		func get_and_clear_pending_msg_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_MessageSendEventZ {
-			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::get_and_clear_pending_msg_events")
 			
 			return Bindings.new_LDKCVec_MessageSendEventZ(array: instance.get_and_clear_pending_msg_events());
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::free")
 			
 			return instance.free();
 		}

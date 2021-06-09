@@ -7,7 +7,7 @@ open class Logger {
     	/* NATIVE_CALLBACKS_START */
 
 		func logCallback(pointer: UnsafeRawPointer?, recordPointer: UnsafePointer<Int8>?) -> Void {
-			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::log")
 			
 								var record: String? = nil
 								if let recordUnwrapped = recordPointer {
@@ -18,7 +18,7 @@ open class Logger {
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::free")
 			
 			return instance.free();
 		}

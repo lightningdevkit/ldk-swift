@@ -7,19 +7,19 @@ open class Sign {
     	/* NATIVE_CALLBACKS_START */
 
 		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
-			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::write")
 			
 			return Bindings.new_LDKCVec_u8Z(array: instance.write());
 		}
 
 		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {
-			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::clone")
 			
 			return instance.clone();
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::free")
 			
 			return instance.free();
 		}

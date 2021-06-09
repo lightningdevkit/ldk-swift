@@ -7,7 +7,7 @@ open class Filter {
     	/* NATIVE_CALLBACKS_START */
 
 		func register_txCallback(pointer: UnsafeRawPointer?, txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, script_pubkey: LDKu8slice) -> Void {
-			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::register_tx")
 			
 								var txid: [UInt8]? = nil
 								if let txidUnwrapped = txidPointer {
@@ -18,13 +18,13 @@ open class Filter {
 		}
 
 		func register_outputCallback(pointer: UnsafeRawPointer?, output: LDKWatchedOutput) -> LDKCOption_C2Tuple_usizeTransactionZZ {
-			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::register_output")
 			
 			return instance.register_output(output: WatchedOutput(pointer: output)).cOpaqueStruct!;
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!)
+			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::free")
 			
 			return instance.free();
 		}

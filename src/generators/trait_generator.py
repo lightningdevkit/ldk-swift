@@ -174,6 +174,7 @@ class TraitGenerator:
 			current_native_callback_replacement = current_native_callback_replacement.replace(
 				'swift_callback_arguments', ', '.join(swift_callback_arguments))
 			current_native_callback_replacement = current_native_callback_replacement.replace('/* SWIFT_CALLBACK_PREP */', swift_callback_prep)
+			current_native_callback_replacement = current_native_callback_replacement.replace('<sourceMarker>', f'"{swift_struct_name}.swift::{current_lambda_name}"')
 
 
 			current_swift_callback_replacement = current_swift_callback_replacement.replace('public_swift_argument_list',
@@ -205,6 +206,8 @@ class TraitGenerator:
 		trait_file = native_callback_template_regex.sub(f'\g<1>{native_callbacks}\g<3>', trait_file)
 		trait_file = swift_callback_template_regex.sub(f'\g<1>{swift_callbacks}\g<3>', trait_file)
 		trait_file = natively_implemented_callback_template_regex.sub(f'\g<1>{default_callbacks}\g<3>', trait_file)
+
+		# source_marker_regex =
 
 		# store the output
 		output_path = f'{Config.OUTPUT_DIRECTORY_PATH}/traits/{swift_struct_name}.swift'

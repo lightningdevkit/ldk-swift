@@ -1,6 +1,6 @@
 public class OpaqueStructName {
 
-    var cOpaqueStruct: OpaqueStructType?;
+    public internal(set) var cOpaqueStruct: OpaqueStructType?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(swift_constructor_arguments) {

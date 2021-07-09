@@ -3,3 +3,7 @@
 lib*.a
 .DS_Store
 __pycache__
+
+/xcode/LDKFramework/Build/
+/xcode/LDKFramework/LDKFramework.xcodeproj/project.xcworkspace/
+/xcode/LDKFramework/LDKFramework.xcodeproj/xcuserdata/

@@ -1,6 +1,6 @@
 public class HTLCUpdate {
 
-    var cOpaqueStruct: LDKHTLCUpdate?;
+    public internal(set) var cOpaqueStruct: LDKHTLCUpdate?;
 
 	
 
@@ -11,29 +11,33 @@ public class HTLCUpdate {
     /* STRUCT_METHODS_START */
 
     public func clone(orig: HTLCUpdate) -> HTLCUpdate {
-    	/* NATIVE_CALL_PREP */
+    	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
 HTLCUpdate(pointer: HTLCUpdate_clone(origPointer))
 };
     }
 
     public func write(obj: HTLCUpdate) -> [UInt8] {
-    	/* NATIVE_CALL_PREP */
+    	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
 HTLCUpdate_write(objPointer)
 });
     }
 
     public func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
-    	/* NATIVE_CALL_PREP */
+    	
         return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		HTLCUpdate_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

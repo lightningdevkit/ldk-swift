@@ -1,8 +1,8 @@
 public class C2Tuple_u32ScriptZ {
 
-    var cOpaqueStruct: LDKC2Tuple_u32ScriptZ?;
+    public internal(set) var cOpaqueStruct: LDKC2Tuple_u32ScriptZ?;
 
-    init(pointer: LDKC2Tuple_u32ScriptZ){
+    public init(pointer: LDKC2Tuple_u32ScriptZ){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -27,6 +27,7 @@ public class C2Tuple_u32ScriptZ {
 
 				
 	deinit {
+					
 					
 					
 		C2Tuple_u32ScriptZ_free(self.cOpaqueStruct!)

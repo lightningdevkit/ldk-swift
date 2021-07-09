@@ -15,7 +15,7 @@ class OpaqueStructGenerator:
 			template = template_handle.read()
 			self.template = template
 
-	def generate_opaque_struct(self, struct_name, struct_details, all_type_details={}):
+	def generate_opaque_struct(self, struct_name, struct_details, all_type_details={}, trait_structs = set(), returned_trait_instances = set()):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
@@ -31,74 +31,24 @@ class OpaqueStructGenerator:
 			swift_arguments = []
 			native_arguments = []
 			constructor_argument_prep = ''
-			for current_argument_details in constructor_details['argument_types']:
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				constructor_argument_conversion_method = None
 
-				swift_argument_type = current_argument_details.swift_type
-				if (argument_name == '' or argument_name is None) and swift_argument_type == 'Void' and len(constructor_details['argument_types']) == 1:
-					break
-
-				if swift_argument_type == 'TxOut':
-					swift_argument_type = 'LDKTxOut'
-
-				if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
-					'LDK') and swift_argument_type.startswith('['):
-					constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_{current_argument_details.rust_obj}(array: {argument_name})'
-					constructor_argument_prep += '\n\t\t'+constructor_argument_conversion_method
-					passed_argument_name = f'converted_{argument_name}'
-				elif swift_argument_type == 'String':
-					constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.new_LDKStr(string: {argument_name})'
-					constructor_argument_prep += '\n\t\t'+constructor_argument_conversion_method
-					passed_argument_name = f'converted_{argument_name}'
-				elif swift_argument_type == '[UInt8]' and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
-					if current_argument_details.is_const:
-						passed_argument_name = argument_name + 'Pointer'
-						current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafePointer(to: Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})) {{ (pointer: UnsafePointer<{current_argument_details.swift_raw_type}>) in
-								\n\t\t	pointer
-							\n\t	}}
-						'''
-						constructor_argument_prep += current_prep
-					else:
-						constructor_argument_conversion_method = f'let converted_{argument_name} = Bindings.array_to_tuple{current_argument_details.arr_len}(array: {argument_name})'
-						constructor_argument_prep += '\n\t\t'+constructor_argument_conversion_method
-						passed_argument_name = f'converted_{argument_name}'
-				elif current_argument_details.is_ptr:
-					passed_argument_name = argument_name + 'Pointer'
-					requires_mutability = not current_argument_details.is_const
-					mutability_infix = ''
-					reference_prefix = ''
-					if requires_mutability:
-						# argument_name = '&' + argument_name
-						reference_prefix = '&'
-						mutability_infix = 'Mutable'
-					current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
-								\n\t\t	pointer
-							\n\t	}}
-						'''
-					constructor_argument_prep += current_prep
-				elif current_argument_details.rust_obj == 'LDK' + swift_argument_type:
-					passed_argument_name += '.cOpaqueStruct!'
-				elif current_argument_details.rust_obj == 'LDKC' + swift_argument_type:
-					passed_argument_name += '.cOpaqueStruct!'
-
-				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
-					swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
-				swift_arguments.append(f'{argument_name}: {swift_argument_type}')
-				native_arguments.append(f'{passed_argument_name}')
+			constructor_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_details['argument_types'])
+			constructor_swift_arguments = constructor_prepared_arguments["swift_arguments"]
+			constructor_native_arguments = constructor_prepared_arguments['native_arguments']
+			constructor_native_call_prefix = constructor_prepared_arguments['native_call_prefix']
+			constructor_native_call_suffix = constructor_prepared_arguments['native_call_suffix']
+			constructor_native_call_prep = constructor_prepared_arguments['native_call_prep']
 
 			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments',
-																				  ', '.join(swift_arguments))
+																				  ', '.join(constructor_swift_arguments))
+			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)',
+																				  constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(constructor_native_arguments) + ')' + constructor_native_call_suffix)
+
 			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */',
-																				  constructor_argument_prep)
-			mutating_output_file_contents = mutating_output_file_contents.replace('native_constructor_arguments',
-																				  ', '.join(native_arguments))
+																				  constructor_native_call_prep)
 			mutating_output_file_contents = mutating_output_file_contents.replace(
-				'self.cOpaqueStruct = OpaqueStructType(',
-				f'self.cOpaqueStruct = {constructor_native_name}(')
+				'OpaqueStructType(',
+				f'{constructor_native_name}(')
 		else:
 			# remove the default constructor template
 			constructor_template_regex = re.compile(
@@ -137,8 +87,21 @@ class OpaqueStructGenerator:
 				current_replacement = current_replacement.replace(
 					'return OpaqueStructType_methodName(native_arguments)',
 					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
+			elif current_return_type.swift_raw_type.startswith('(UInt8'):
+				# TODO: get array length
+				array_length = current_return_type.arr_len
+				return_type_wrapper_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
+				return_type_wrapper_suffix = ')'
+				current_replacement = current_replacement.replace(
+					'return OpaqueStructType_methodName(native_arguments)',
+					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
 			elif current_return_type.rust_obj == 'LDK' + current_return_type.swift_type and not is_clone_method:
 				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
+				if current_return_type.rust_obj in trait_structs:
+					trait_swift_type = current_method_details["return_type"].swift_type
+					actual_return_type = 'NativelyImplemented' + trait_swift_type
+					returned_trait_instances.add(trait_swift_type)
+					return_type_wrapper_prefix = f'{actual_return_type}(pointer: '
 				return_type_wrapper_suffix = ')'
 				if current_return_type.is_const:
 					return_type_wrapper_suffix = '.pointee)'
@@ -163,7 +126,8 @@ class OpaqueStructGenerator:
 					'OpaqueStructType_methodName(native_arguments).pointee')
 
 			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
-				current_swift_return_type = current_return_type.swift_raw_type
+				# current_swift_return_type = current_return_type.swift_raw_type
+				pass
 
 			# if current_swift_return_type == '[TransactionOutputs]':
 			# 	current_swift_return_type = '[LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]'
@@ -181,6 +145,7 @@ class OpaqueStructGenerator:
 			native_arguments = prepared_arguments['native_arguments']
 			native_call_prefix = prepared_arguments['native_call_prefix']
 			native_call_suffix = prepared_arguments['native_call_suffix']
+			native_call_prep = prepared_arguments['native_call_prep']
 
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
 			if is_clone_method:
@@ -188,7 +153,7 @@ class OpaqueStructGenerator:
 				current_replacement = current_replacement.replace('OpaqueStructType_methodName(native_arguments)', native_call_prefix + 'OpaqueStructType_methodName(' + ', '.join(native_arguments) + '))' + native_call_suffix)
 			else:
 				current_replacement = current_replacement.replace('OpaqueStructType_methodName(native_arguments)', native_call_prefix + 'OpaqueStructType_methodName(' + ', '.join(native_arguments) + ')' + native_call_suffix)
-			# current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
+			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
 
 			if is_clone_method:
@@ -207,6 +172,14 @@ class OpaqueStructGenerator:
 			free_native_name = free_method_details['name']['native']
 			native_call_prep = ''
 			native_arguments = []
+
+			ownability_check_prefix = ''
+			ownability_check_suffix = ''
+
+			if struct_details.is_ownable:
+				ownability_check_prefix = f'if self.cOpaqueStruct?.is_owned == false {{\n'
+				ownability_check_suffix = f'\n}}'
+
 			for current_argument_details in free_method_details['argument_types']:
 				pass_instance = False
 				argument_name = current_argument_details.var_name
@@ -238,8 +211,10 @@ class OpaqueStructGenerator:
 
 			struct_methods += f'''
 				\n\tdeinit {{
+					{ownability_check_prefix}
 					{native_call_prep}
 					\n\t	{free_native_name}({', '.join(native_arguments)})
+					{ownability_check_suffix}
 				\n\t}}
 			'''
 

@@ -29,10 +29,15 @@ public class Bindings{
 	public class func new_LDKCVec_rust_primitive(array: [SwiftPrimitive]) -> LDKCVec_rust_primitive {
 		/* DIMENSION_REDUCTION_PREP */
 
+		/*
         let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<SwiftPrimitive>) -> UnsafeMutablePointer<SwiftPrimitive> in
             let mutablePointer = UnsafeMutablePointer<SwiftPrimitive>(mutating: pointer.baseAddress!)
             return mutablePointer
         }
+        */
+
+        let dataContainer = UnsafeMutablePointer<SwiftPrimitive>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
 
         let vector = LDKCVec_rust_primitive(data: dataContainer, datalen: UInt(array.count))
         return vector
@@ -53,19 +58,41 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 	/* VECTOR_METHODS_END */
 
+	/* STATIC_METHODS_START */
+	public class func methodName(swift_arguments) -> Void {
+		/* STATIC_METHOD_BODY */
+	}
+	/* STATIC_METHODS_END */
+
+	static var nativelyExposedInstances = [String: AnyObject]()
+
 	public class func instanceToPointer(instance: AnyObject) -> UnsafeMutableRawPointer {
-		Unmanaged.passUnretained(instance).toOpaque()
+		let pointer = Unmanaged.passUnretained(instance).toOpaque()
+		Self.nativelyExposedInstances[pointer.debugDescription] = instance
+		return pointer
 	}
 
-	public class func pointerToInstance<T: AnyObject>(pointer: UnsafeRawPointer) -> T{
-		Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
+	public class func pointerToInstance<T: AnyObject>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
+
+		let callStack = Thread.callStackSymbols
+		let caller = sourceMarker ?? callStack[1]
+		print("Retrieving instance from pointer for caller: \(caller)")
+		// let value = Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
+		let value = Self.nativelyExposedInstances[pointer.debugDescription] as! T
+		print("Instance retrieved for caller: \(caller)")
+		return value
 	}
 
 	public class func new_LDKu8slice(array: [UInt8]) -> LDKu8slice {
+		/*
 		let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
 			let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
 			return mutablePointer
 		}
+        */
+
+        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
+        dataContainer.initialize(from: array, count: array.count)
 
 		let vector = LDKu8slice(data: dataContainer, datalen: UInt(array.count))
 		return vector
@@ -81,10 +108,15 @@ public class Bindings{
 	}
 
 	public class func new_LDKTransaction(array: [UInt8]) -> LDKTransaction {
+        /*
         let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
             let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
             return mutablePointer
         }
+        */
+
+        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
+        dataContainer.initialize(from: array, count: array.count)
 
         let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: false)
         return vector
@@ -99,20 +131,86 @@ public class Bindings{
         return array
     }
 
-    static func LDKStr_to_string(nativeType: LDKStr) -> String {
+    public class func LDKStr_to_string(nativeType: LDKStr) -> String {
         let string = String(cString: nativeType.chars)
         assert(string.count == nativeType.len)
         return string
     }
 
-    static func new_LDKStr(string: String) -> LDKStr {
-        let stringData = string.data(using: .utf8)
-        let dataMutablePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: string.count)
-        stringData?.copyBytes(to: dataMutablePointer, count: string.count)
+    public class func UnsafeIntPointer_to_string(nativeType: UnsafePointer<Int8>) -> String {
+		let string = String(cString: nativeType)
+		return string
+	}
 
-        let nativeType = UnsafePointer<UInt8>(dataMutablePointer)
+    public class func string_to_unsafe_int8_pointer(string: String) -> UnsafePointer<Int8> {
+		let count = string.utf8CString.count
+		let result: UnsafeMutableBufferPointer<Int8> = UnsafeMutableBufferPointer<Int8>.allocate(capacity: count)
+		_ = result.initialize(from: string.utf8CString)
+		let mutablePointer = result.baseAddress!
+		return UnsafePointer<Int8>(mutablePointer)
+	}
 
-        return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: false)
+	public class func string_to_unsafe_uint8_pointer(string: String) -> UnsafePointer<UInt8> {
+		let stringData = string.data(using: .utf8)
+		let dataMutablePointer = UnsafeMutablePointer<UInt8>.allocate(capacity: string.count)
+		stringData?.copyBytes(to: dataMutablePointer, count: string.count)
+
+		return UnsafePointer<UInt8>(dataMutablePointer)
+	}
+
+	public class func new_LDKStr(string: String) -> LDKStr {
+		let nativeType = Self.string_to_unsafe_uint8_pointer(string: string)
+		return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: false)
+	}
+
+    public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrency, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
+		let nativeKeysManager = keysManager.cOpaqueStruct!
+		let amount = Option_u64Z(value: amountMsat)
+		let nativeAmount = amount.cOpaqueStruct!
+		let nativeDescription = Self.new_LDKStr(string: description)
+		return withUnsafePointer(to: channelManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) -> Result_InvoiceSignOrCreationErrorZ in
+			let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network, nativeAmount, nativeDescription)
+			return Result_InvoiceSignOrCreationErrorZ(pointer: nativeResult)
+		}
+	}
+
+	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHintHop], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
+		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
+			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops)
+			return withUnsafeMutablePointer(to: &mutableHops) { (first_hopsPointer) in
+				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintHopZ(array: last_hops), final_value_msat, final_cltv, logger.cOpaqueStruct!))
+			}
+		}
+	}
+
+}
+
+public class TxOut {
+
+	public internal(set) var cOpaqueStruct: LDKTxOut?;
+	init(pointer: LDKTxOut) {
+		self.cOpaqueStruct = pointer
+	}
+
+	public func getScriptPubkey() -> [UInt8] {
+		return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey)
+	}
+
+	public func getValue() -> UInt64 {
+		return self.cOpaqueStruct!.value
+	}
+
+}
+
+public class InstanceCrashSimulator {
+
+    public init() {
+
+    }
+
+    public func getPointer() -> UnsafeMutableRawPointer {
+        let pointer = Bindings.instanceToPointer(instance: self)
+        return pointer
     }
 
 }

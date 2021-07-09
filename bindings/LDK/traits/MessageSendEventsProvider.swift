@@ -1,20 +1,20 @@
-public class MessageSendEventsProvider {
+open class MessageSendEventsProvider {
 
-    var cOpaqueStruct: LDKMessageSendEventsProvider?;
+    public var cOpaqueStruct: LDKMessageSendEventsProvider?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
 		func get_and_clear_pending_msg_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_MessageSendEventZ {
-			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!)
-			/* SWIFT_CALLBACK_PREP */
+			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::get_and_clear_pending_msg_events")
+			
 			return Bindings.new_LDKCVec_MessageSendEventZ(array: instance.get_and_clear_pending_msg_events());
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!)
-			/* SWIFT_CALLBACK_PREP */
+			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::free")
+			
 			return instance.free();
 		}
 
@@ -25,22 +25,45 @@ public class MessageSendEventsProvider {
 			free: freeCallback)
     }
 
-    init(pointer: LDKMessageSendEventsProvider){
+    public init(pointer: LDKMessageSendEventsProvider){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
+    open func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
     	/* EDIT ME */
 		return [LDKMessageSendEvent]()
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }
 
     /* SWIFT_CALLBACKS_END */
 
+}
+
+
+public class NativelyImplementedMessageSendEventsProvider: MessageSendEventsProvider {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
+		
+				return 
+				Bindings.LDKCVec_MessageSendEventZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_msg_events(self.cOpaqueStruct!.this_arg))
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
 }

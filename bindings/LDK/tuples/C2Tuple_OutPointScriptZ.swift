@@ -1,8 +1,8 @@
 public class C2Tuple_OutPointScriptZ {
 
-    var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?;
+    public internal(set) var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?;
 
-    init(pointer: LDKC2Tuple_OutPointScriptZ){
+    public init(pointer: LDKC2Tuple_OutPointScriptZ){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -27,6 +27,11 @@ public class C2Tuple_OutPointScriptZ {
 
 				
 	deinit {
+					
+					if self.cOpaqueStruct?.a.is_owned == true {
+						return
+					}
+				
 					
 					
 		C2Tuple_OutPointScriptZ_free(self.cOpaqueStruct!)

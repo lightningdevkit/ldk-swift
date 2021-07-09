@@ -1,6 +1,6 @@
 public class ChainParameters {
 
-    var cOpaqueStruct: LDKChainParameters?;
+    public internal(set) var cOpaqueStruct: LDKChainParameters?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(network_arg: LDKNetwork, best_block_arg: BestBlock) {
@@ -16,38 +16,51 @@ public class ChainParameters {
     /* STRUCT_METHODS_START */
 
     public func get_network() -> LDKNetwork {
-    	/* NATIVE_CALL_PREP */
+    	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChainParameters>) in
 ChainParameters_get_network(this_ptrPointer)
 };
     }
 
     public func set_network(val: LDKNetwork) -> Void {
-    	/* NATIVE_CALL_PREP */
-        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChainParameters>) in
-ChainParameters_set_network(this_ptrPointer, val)
-};
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChainParameters_set_network(this_ptrPointer, val);
     }
 
     public func get_best_block() -> BestBlock {
-    	/* NATIVE_CALL_PREP */
+    	
         return BestBlock(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChainParameters>) in
 ChainParameters_get_best_block(this_ptrPointer)
 });
     }
 
     public func set_best_block(val: BestBlock) -> Void {
-    	/* NATIVE_CALL_PREP */
-        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChainParameters>) in
-ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!)
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!);
+    }
+
+    public func clone(orig: ChainParameters) -> ChainParameters {
+    	
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChainParameters>) in
+ChainParameters(pointer: ChainParameters_clone(origPointer))
 };
     }
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		ChainParameters_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

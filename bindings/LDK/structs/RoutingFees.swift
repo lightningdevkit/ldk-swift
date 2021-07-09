@@ -1,6 +1,6 @@
 public class RoutingFees {
 
-    var cOpaqueStruct: LDKRoutingFees?;
+    public internal(set) var cOpaqueStruct: LDKRoutingFees?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(base_msat_arg: UInt32, proportional_millionths_arg: UInt32) {
@@ -16,57 +16,72 @@ public class RoutingFees {
     /* STRUCT_METHODS_START */
 
     public func get_base_msat() -> UInt32 {
-    	/* NATIVE_CALL_PREP */
+    	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRoutingFees>) in
 RoutingFees_get_base_msat(this_ptrPointer)
 };
     }
 
     public func set_base_msat(val: UInt32) -> Void {
-    	/* NATIVE_CALL_PREP */
-        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKRoutingFees>) in
-RoutingFees_set_base_msat(this_ptrPointer, val)
-};
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKRoutingFees>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return RoutingFees_set_base_msat(this_ptrPointer, val);
     }
 
     public func get_proportional_millionths() -> UInt32 {
-    	/* NATIVE_CALL_PREP */
+    	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRoutingFees>) in
 RoutingFees_get_proportional_millionths(this_ptrPointer)
 };
     }
 
     public func set_proportional_millionths(val: UInt32) -> Void {
-    	/* NATIVE_CALL_PREP */
-        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKRoutingFees>) in
-RoutingFees_set_proportional_millionths(this_ptrPointer, val)
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKRoutingFees>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return RoutingFees_set_proportional_millionths(this_ptrPointer, val);
+    }
+
+    public func eq(a: RoutingFees, b: RoutingFees) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRoutingFees>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRoutingFees>) in
+RoutingFees_eq(aPointer, bPointer)
+}
 };
     }
 
     public func clone(orig: RoutingFees) -> RoutingFees {
-    	/* NATIVE_CALL_PREP */
+    	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
 RoutingFees(pointer: RoutingFees_clone(origPointer))
 };
     }
 
-    public func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
-    	/* NATIVE_CALL_PREP */
-        return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(Bindings.new_LDKu8slice(array: ser)));
-    }
-
     public func write(obj: RoutingFees) -> [UInt8] {
-    	/* NATIVE_CALL_PREP */
+    	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoutingFees>) in
 RoutingFees_write(objPointer)
 });
     }
 
+    public func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
+    	
+        return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(Bindings.new_LDKu8slice(array: ser)));
+    }
+
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		RoutingFees_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

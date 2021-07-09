@@ -64,11 +64,11 @@ class ByteArrayGenerator(UtilGenerator):
 			rawTupleReads += f', nativeType.{i}'
 
 		current_generator = f"""
-			static func array_to_tuple{array_length}(array: [UInt8]) -> {swift_raw_type} {{
+			public class func array_to_tuple{array_length}(array: [UInt8]) -> {swift_raw_type} {{
 				return ({tupleArguments})
 			}}
 	
-			static func tuple{array_length}_to_array(nativeType: {swift_raw_type}) -> [UInt8] {{
+			public class func tuple{array_length}_to_array(nativeType: {swift_raw_type}) -> [UInt8] {{
 				let array = [{rawTupleReads}]
 				return array
 			}}

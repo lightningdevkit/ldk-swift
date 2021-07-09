@@ -36,6 +36,10 @@ class TupleGenerator:
 		# fill templates
 		for current_method_details in struct_details.methods:
 			current_native_method_name = current_method_details['name']['native']
+			if current_native_method_name.endswith('_new') and struct_details.constructor_method is None:
+				struct_details.constructor_method = current_method_details
+				if len(struct_details.fields) == 0:
+					struct_details.fields = struct_details.constructor_method['argument_types']
 			current_method_name = current_method_details['name']['swift']
 			current_return_type = current_method_details['return_type'].swift_type
 			current_return_type = swift_tuple_name
@@ -133,6 +137,28 @@ class TupleGenerator:
 			free_native_name = free_method_details['name']['native']
 			native_call_prep = ''
 			native_arguments = []
+
+			ownability_checks = ''
+			if struct_details.is_ownable:
+				ownability_checks += f'''
+					if self.cOpaqueStruct?.is_owned == true {{
+						return
+					}}
+				'''
+			for current_field in struct_details.fields:
+				if current_field.rust_obj is None:
+					continue
+				if current_field.rust_obj not in all_type_details:
+					continue
+				rust_object_details = all_type_details[current_field.rust_obj]
+				if not rust_object_details.is_ownable:
+					continue
+				ownability_checks += f'''
+					if self.cOpaqueStruct?.{current_field.var_name}.is_owned == true {{
+						return
+					}}
+				'''
+
 			for current_argument_details in free_method_details['argument_types']:
 				pass_instance = False
 				argument_name = current_argument_details.var_name
@@ -168,6 +194,7 @@ class TupleGenerator:
 
 			struct_methods += f'''
 				\n\tdeinit {{
+					{ownability_checks}
 					{native_call_prep}
 					\n\t	{free_native_name}({', '.join(native_arguments)})
 				\n\t}}

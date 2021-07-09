@@ -8,6 +8,7 @@ var_ty_regex = TypeParsingRegeces.VARIABLE_TYPE_REGEX
 def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_types, unitary_enums, language_constants):
 	unaltered_function_argument = fn_arg # if necessary
 	fn_arg = fn_arg.strip()
+	non_nullable = False
 	if fn_arg.startswith("MUST_USE_RES "):
 		fn_arg = fn_arg[13:]
 	is_const = False
@@ -18,6 +19,8 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		fn_arg = fn_arg[7:]
 	if fn_arg.startswith("enum "):
 		fn_arg = fn_arg[5:]
+	if 'NONNULL_PTR' in fn_arg:
+		non_nullable = True
 	fn_arg = fn_arg.replace("NONNULL_PTR", "")
 
 	stripped_function_argument = fn_arg
@@ -87,6 +90,12 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		rust_obj = "LDKTwentyBytes"
 		swift_raw_type = rust_obj
 		arr_access = "data"
+	elif fn_arg.startswith("LDKRecoverableSignature"):
+		fn_arg = "uint8_t (*serialized_form)[68]"
+		assert var_is_arr_regex.match(fn_arg[8:])
+		rust_obj = "LDKRecoverableSignature"
+		swift_raw_type = rust_obj
+		arr_access = "serialized_form"
 	elif fn_arg.startswith("LDKu8slice"):
 		fn_arg = "uint8_t (*" + fn_arg[11:] + ")[datalen]"
 		assert var_is_arr_regex.match(fn_arg[8:])
@@ -130,13 +139,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 							c_ty=res.c_ty + "Array", passed_as_ptr=False,
 							is_ptr=is_ptr, is_const=is_const,
 							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
-							is_native_primitive=False)
+							is_native_primitive=False, non_nullable=non_nullable)
 		else:
 			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]',
 							c_ty=language_constants.ptr_arr,
 							passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const,
 							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
-							is_native_primitive=False)
+							is_native_primitive=False, non_nullable=non_nullable)
 
 	is_primitive = False
 	arr_len = None
@@ -286,6 +295,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		c_ty = c_ty + "Array"
 		if ret_arr_len is not None and ret_arr_len.isnumeric():
 			array_size = int(ret_arr_len)
+			arr_len = array_size
 			swift_raw_type = f'({",".join([mapped_type] * array_size)})'
 		if var_is_arr is not None:
 			array_size = var_is_arr.group(2)
@@ -295,13 +305,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 			if var_is_arr.group(1) == "":
 				return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const,
 								passed_as_ptr=False, is_ptr=False, var_name="arg", arr_len=var_is_arr.group(2),
-								arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type)
+								arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type, non_nullable=non_nullable)
 			return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const,
 							passed_as_ptr=False, is_ptr=False, var_name=var_is_arr.group(1),
-							arr_len=var_is_arr.group(2), arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type)
+							arr_len=var_is_arr.group(2), arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type, non_nullable=non_nullable)
 
 	if swift_type is None:
 		swift_type = java_ty
 	return TypeInfo(rust_obj=rust_obj, swift_type=swift_type, c_ty=c_ty, passed_as_ptr=is_ptr or take_by_ptr,
 					is_const=is_const, is_ptr=is_ptr, var_name=fn_arg, arr_len=arr_len, arr_access=arr_access,
-					is_native_primitive=is_primitive, swift_raw_type=swift_raw_type)
+					is_native_primitive=is_primitive, swift_raw_type=swift_raw_type, non_nullable=non_nullable)

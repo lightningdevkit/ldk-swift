@@ -1,8 +1,8 @@
 public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 
-    var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?;
+    public internal(set) var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?;
 
-    init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ){
+    public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -27,6 +27,19 @@ public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 
 				
 	deinit {
+					
+					if self.cOpaqueStruct?.a.is_owned == true {
+						return
+					}
+				
+					if self.cOpaqueStruct?.b.is_owned == true {
+						return
+					}
+				
+					if self.cOpaqueStruct?.c.is_owned == true {
+						return
+					}
+				
 					
 					
 		C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!)

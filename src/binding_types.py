@@ -1,6 +1,6 @@
 class TypeInfo:
 	def __init__(self, is_native_primitive, rust_obj, swift_type, c_ty, is_const, passed_as_ptr, is_ptr, var_name,
-				 arr_len, arr_access, subty=None, swift_raw_type=None):
+				 arr_len, arr_access, subty=None, swift_raw_type=None, non_nullable = False):
 		self.is_native_primitive = is_native_primitive
 		self.rust_obj = rust_obj
 		# self.java_ty = java_ty
@@ -18,6 +18,7 @@ class TypeInfo:
 		self.subty = subty
 		self.pass_by_ref = is_ptr
 		self.requires_clone = None
+		self.non_nullable = non_nullable
 
 	def get_full_rust_ty(self):
 		ret = ""

@@ -1,46 +1,69 @@
-public class EventsProvider {
+open class EventsProvider {
 
-    var cOpaqueStruct: LDKEventsProvider?;
+    public var cOpaqueStruct: LDKEventsProvider?;
 
-    init() {
+    public init() {
 
     	/* NATIVE_CALLBACKS_START */
 
-		func get_and_clear_pending_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_EventZ {
-			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!)
-			/* SWIFT_CALLBACK_PREP */
-			return Bindings.new_LDKCVec_EventZ(array: instance.get_and_clear_pending_events());
+		func process_pending_eventsCallback(pointer: UnsafeRawPointer?, handler: LDKEventHandler) -> Void {
+			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::process_pending_events")
+			
+			return instance.process_pending_events(handler: EventHandler(pointer: handler));
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!)
-			/* SWIFT_CALLBACK_PREP */
+			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::free")
+			
 			return instance.free();
 		}
 
 		/* NATIVE_CALLBACKS_END */
 
         self.cOpaqueStruct = LDKEventsProvider(this_arg: Bindings.instanceToPointer(instance: self), 
-			get_and_clear_pending_events: get_and_clear_pending_eventsCallback,
+			process_pending_events: process_pending_eventsCallback,
 			free: freeCallback)
     }
 
-    init(pointer: LDKEventsProvider){
+    public init(pointer: LDKEventsProvider){
 		self.cOpaqueStruct = pointer
 	}
 
     /* SWIFT_CALLBACKS_START */
 
-    public func get_and_clear_pending_events() -> [LDKEvent] {
+    open func process_pending_events(handler: EventHandler) -> Void {
     	/* EDIT ME */
-		return [LDKEvent]()
+		
     }
 
-    public func free() -> Void {
+    open func free() -> Void {
     	/* EDIT ME */
 		
     }
 
     /* SWIFT_CALLBACKS_END */
 
+}
+
+
+public class NativelyImplementedEventsProvider: EventsProvider {
+	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public override func process_pending_events(handler: EventHandler) -> Void {
+		
+				
+				self.cOpaqueStruct!.process_pending_events(self.cOpaqueStruct!.this_arg, handler.cOpaqueStruct!)
+				
+			
+	}
+
+	public override func free() -> Void {
+		
+				
+				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
+				
+			
+	}
+
+	/* SWIFT_DEFAULT_CALLBACKS_END */
 }

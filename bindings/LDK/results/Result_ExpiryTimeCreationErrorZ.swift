@@ -1,15 +1,39 @@
 public class Result_ExpiryTimeCreationErrorZ {
 
-    var cOpaqueStruct: LDKCResult_ExpiryTimeCreationErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_ExpiryTimeCreationErrorZ?;
 
-	
+	/* DEFAULT_CONSTRUCTOR_START */
 
-    init(pointer: LDKCResult_ExpiryTimeCreationErrorZ){
+				public init() {
+        			self.cOpaqueStruct = LDKCResult_ExpiryTimeCreationErrorZ(contents: LDKCResult_ExpiryTimeCreationErrorZPtr(), result_ok: true)
+				}
+			
+    /* DEFAULT_CONSTRUCTOR_END */
+
+    public init(pointer: LDKCResult_ExpiryTimeCreationErrorZ){
 		self.cOpaqueStruct = pointer
+	}
+
+	public func isOk() -> Bool {
+		return self.cOpaqueStruct?.result_ok == true
 	}
 
     /* RESULT_METHODS_START */
 
+			public func getError() -> LDKCreationError? {
+				if self.cOpaqueStruct?.result_ok == false {
+					return self.cOpaqueStruct!.contents.err.pointee
+				}
+				return nil
+			}
+			
+			public func getValue() -> ExpiryTime? {
+				if self.cOpaqueStruct?.result_ok == true {
+					return ExpiryTime(pointer: self.cOpaqueStruct!.contents.result.pointee)
+				}
+				return nil
+			}
+			
     /* RESULT_METHODS_END */
 
 }

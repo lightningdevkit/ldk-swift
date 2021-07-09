@@ -1,6 +1,6 @@
 public class InvoiceSignature {
 
-    var cOpaqueStruct: LDKInvoiceSignature?;
+    public internal(set) var cOpaqueStruct: LDKInvoiceSignature?;
 
 	
 
@@ -10,8 +10,17 @@ public class InvoiceSignature {
 
     /* STRUCT_METHODS_START */
 
+    public func eq(a: InvoiceSignature, b: InvoiceSignature) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoiceSignature>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInvoiceSignature>) in
+InvoiceSignature_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func clone(orig: InvoiceSignature) -> InvoiceSignature {
-    	/* NATIVE_CALL_PREP */
+    	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceSignature>) in
 InvoiceSignature(pointer: InvoiceSignature_clone(origPointer))
 };
@@ -19,9 +28,13 @@ InvoiceSignature(pointer: InvoiceSignature_clone(origPointer))
 
 				
 	deinit {
+					if self.cOpaqueStruct?.is_owned == false {
+
 					
 					
 		InvoiceSignature_free(self.cOpaqueStruct!)
+					
+}
 				
 	}
 			

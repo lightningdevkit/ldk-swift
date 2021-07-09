@@ -1,4 +1,4 @@
-class SpendableOutputDescriptor {
+public class SpendableOutputDescriptor {
 
     var cOpaqueStruct: LDKSpendableOutputDescriptor?;
 

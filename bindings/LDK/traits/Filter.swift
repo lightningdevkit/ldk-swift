@@ -1,4 +1,4 @@
-class Filter {
+public class Filter {
 
     var cOpaqueStruct: LDKFilter?;
 
@@ -38,17 +38,17 @@ class Filter {
 
     /* SWIFT_CALLBACKS_START */
 
-    func register_tx(txid: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, script_pubkey: LDKu8slice) -> Void {
+    public func register_tx(txid: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, script_pubkey: LDKu8slice) -> Void {
     	/* EDIT ME */
 		
     }
 
-    func register_output(output: LDKWatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+    public func register_output(output: LDKWatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
     	/* EDIT ME */
 		return Option_C2Tuple_usizeTransactionZZ(pointer: LDKCOption_C2Tuple_usizeTransactionZZ())
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

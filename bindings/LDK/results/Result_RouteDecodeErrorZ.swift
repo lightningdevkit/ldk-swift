@@ -1,4 +1,4 @@
-class Result_RouteDecodeErrorZ {
+public class Result_RouteDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_RouteDecodeErrorZ?;
 

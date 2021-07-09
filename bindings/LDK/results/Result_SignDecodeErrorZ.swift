@@ -1,4 +1,4 @@
-class Result_SignDecodeErrorZ {
+public class Result_SignDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_SignDecodeErrorZ?;
 

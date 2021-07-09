@@ -1,4 +1,4 @@
-class Sign {
+public class Sign {
 
     var cOpaqueStruct: LDKSign?;
 
@@ -40,17 +40,17 @@ class Sign {
 
     /* SWIFT_CALLBACKS_START */
 
-    func write() -> [UInt8] {
+    public func write() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func clone() -> UnsafeMutableRawPointer {
+    public func clone() -> UnsafeMutableRawPointer {
     	/* EDIT ME */
 		return UnsafeMutableRawPointer(bitPattern: 0)!
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

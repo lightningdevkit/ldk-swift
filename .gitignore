@@ -1,2 +1,5 @@
 .idea
 /output
+lib*.a
+.DS_Store
+__pycache__

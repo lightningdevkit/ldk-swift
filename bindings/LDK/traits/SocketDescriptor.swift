@@ -1,4 +1,4 @@
-class SocketDescriptor {
+public class SocketDescriptor {
 
     var cOpaqueStruct: LDKSocketDescriptor?;
 
@@ -59,32 +59,32 @@ class SocketDescriptor {
 
     /* SWIFT_CALLBACKS_START */
 
-    func send_data(data: LDKu8slice, resume_read: Bool) -> UInt {
+    public func send_data(data: LDKu8slice, resume_read: Bool) -> UInt {
     	/* EDIT ME */
 		return 0
     }
 
-    func disconnect_socket() -> Void {
+    public func disconnect_socket() -> Void {
     	/* EDIT ME */
 		
     }
 
-    func eq(other_arg: UnsafePointer<LDKSocketDescriptor>) -> Bool {
+    public func eq(other_arg: UnsafePointer<LDKSocketDescriptor>) -> Bool {
     	/* EDIT ME */
 		return false
     }
 
-    func hash() -> UInt64 {
+    public func hash() -> UInt64 {
     	/* EDIT ME */
 		return 0
     }
 
-    func clone() -> UnsafeMutableRawPointer {
+    public func clone() -> UnsafeMutableRawPointer {
     	/* EDIT ME */
 		return UnsafeMutableRawPointer(bitPattern: 0)!
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

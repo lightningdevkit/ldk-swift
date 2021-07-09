@@ -1,4 +1,4 @@
-class Result_RevokeAndACKDecodeErrorZ {
+public class Result_RevokeAndACKDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_RevokeAndACKDecodeErrorZ?;
 

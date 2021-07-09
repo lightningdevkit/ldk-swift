@@ -1,4 +1,4 @@
-class OptionName {
+public class OptionName {
 
     var cOpaqueStruct: OptionType?;
 

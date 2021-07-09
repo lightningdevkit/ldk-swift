@@ -1,4 +1,4 @@
-class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 
     var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?;
 
@@ -8,7 +8,7 @@ class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 
     /* TUPLE_METHODS_START */
 
-    func clone(orig: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+    public func clone(orig: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ>) in
@@ -20,7 +20,7 @@ class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
         return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer));
     }
 
-    func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+    public func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
     	
         return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.cOpaqueStruct!, b.cOpaqueStruct!, c.cOpaqueStruct!));
     }

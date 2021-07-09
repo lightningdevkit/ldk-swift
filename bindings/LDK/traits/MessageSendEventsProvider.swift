@@ -1,4 +1,4 @@
-class MessageSendEventsProvider {
+public class MessageSendEventsProvider {
 
     var cOpaqueStruct: LDKMessageSendEventsProvider?;
 
@@ -31,12 +31,12 @@ class MessageSendEventsProvider {
 
     /* SWIFT_CALLBACKS_START */
 
-    func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
+    public func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
     	/* EDIT ME */
 		return [LDKMessageSendEvent]()
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

@@ -1,4 +1,4 @@
-class Result_ShutdownDecodeErrorZ {
+public class Result_ShutdownDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_ShutdownDecodeErrorZ?;
 

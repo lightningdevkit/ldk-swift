@@ -1,4 +1,4 @@
-class Result_InvoiceSemanticErrorZ {
+public class Result_InvoiceSemanticErrorZ {
 
     var cOpaqueStruct: LDKCResult_InvoiceSemanticErrorZ?;
 

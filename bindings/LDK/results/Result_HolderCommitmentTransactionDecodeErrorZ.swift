@@ -1,4 +1,4 @@
-class Result_HolderCommitmentTransactionDecodeErrorZ {
+public class Result_HolderCommitmentTransactionDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_HolderCommitmentTransactionDecodeErrorZ?;
 

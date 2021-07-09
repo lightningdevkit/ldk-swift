@@ -1,4 +1,4 @@
-class C2Tuple_OutPointScriptZ {
+public class C2Tuple_OutPointScriptZ {
 
     var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?;
 
@@ -8,7 +8,7 @@ class C2Tuple_OutPointScriptZ {
 
     /* TUPLE_METHODS_START */
 
-    func clone(orig: C2Tuple_OutPointScriptZ) -> C2Tuple_OutPointScriptZ {
+    public func clone(orig: C2Tuple_OutPointScriptZ) -> C2Tuple_OutPointScriptZ {
     	
 						
 		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKC2Tuple_OutPointScriptZ>) in
@@ -20,7 +20,7 @@ class C2Tuple_OutPointScriptZ {
         return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_clone(origPointer));
     }
 
-    func new(a: OutPoint, b: [UInt8]) -> C2Tuple_OutPointScriptZ {
+    public func new(a: OutPoint, b: [UInt8]) -> C2Tuple_OutPointScriptZ {
     	
         return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
     }

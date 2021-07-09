@@ -1,4 +1,4 @@
-class Option_u64Z {
+public class Option_u64Z {
 
     var cOpaqueStruct: LDKCOption_u64Z?;
 

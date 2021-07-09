@@ -1,9 +1,9 @@
-class ErrorMessage {
+public class ErrorMessage {
 
     var cOpaqueStruct: LDKErrorMessage?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init(channel_id_arg: [UInt8], data_arg: String) {
+    public init(channel_id_arg: [UInt8], data_arg: String) {
     	
 		let converted_channel_id_arg = Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg)
 		let converted_data_arg = Bindings.new_LDKStr(string: data_arg)
@@ -11,86 +11,56 @@ class ErrorMessage {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKErrorMessage){
+    public init(pointer: LDKErrorMessage){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKErrorMessage>) in
-							
-			pointer
-						
-		}
-					
-        return ErrorMessage_get_channel_id(this_ptrPointer).pointee;
+    public func get_channel_id() -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKErrorMessage>) in
+ErrorMessage_get_channel_id(this_ptrPointer)
+}.pointee;
     }
 
-    func set_channel_id(val: [UInt8]) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKErrorMessage>) in
-							
-			pointer
-						
-		}
-					
-        return ErrorMessage_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+    public func set_channel_id(val: [UInt8]) -> Void {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKErrorMessage>) in
+ErrorMessage_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val))
+};
     }
 
-    func get_data() -> String {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKErrorMessage>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKStr_to_string(nativeType: ErrorMessage_get_data(this_ptrPointer));
+    public func get_data() -> String {
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKErrorMessage>) in
+ErrorMessage_get_data(this_ptrPointer)
+});
     }
 
-    func set_data(val: String) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKErrorMessage>) in
-							
-			pointer
-						
-		}
-					
-        return ErrorMessage_set_data(this_ptrPointer, Bindings.new_LDKStr(string: val));
+    public func set_data(val: String) -> Void {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKErrorMessage>) in
+ErrorMessage_set_data(this_ptrPointer, Bindings.new_LDKStr(string: val))
+};
     }
 
-    func clone(orig: ErrorMessage) -> ErrorMessage {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKErrorMessage>) in
-							
-			pointer
-						
-		}
-					
-        return ErrorMessage(pointer: ErrorMessage_clone(origPointer));
+    public func clone(orig: ErrorMessage) -> ErrorMessage {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKErrorMessage>) in
+ErrorMessage(pointer: ErrorMessage_clone(origPointer))
+};
     }
 
-    func write(obj: ErrorMessage) -> [UInt8] {
-    	
-						
-		let objPointer = withUnsafePointer(to: obj.cOpaqueStruct!) { (pointer: UnsafePointer<LDKErrorMessage>) in
-							
-			pointer
-						
-		}
-					
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: ErrorMessage_write(objPointer));
+    public func write(obj: ErrorMessage) -> [UInt8] {
+    	/* NATIVE_CALL_PREP */
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKErrorMessage>) in
+ErrorMessage_write(objPointer)
+});
     }
 
-    func read(ser: [UInt8]) -> Result_ErrorMessageDecodeErrorZ {
-    	
+    public func read(ser: [UInt8]) -> Result_ErrorMessageDecodeErrorZ {
+    	/* NATIVE_CALL_PREP */
         return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(Bindings.new_LDKu8slice(array: ser)));
     }
 

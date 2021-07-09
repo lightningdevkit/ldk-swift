@@ -1,25 +1,20 @@
-class InvoiceSignature {
+public class InvoiceSignature {
 
     var cOpaqueStruct: LDKInvoiceSignature?;
 
 	
 
-    init(pointer: LDKInvoiceSignature){
+    public init(pointer: LDKInvoiceSignature){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func clone(orig: InvoiceSignature) -> InvoiceSignature {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKInvoiceSignature>) in
-							
-			pointer
-						
-		}
-					
-        return InvoiceSignature(pointer: InvoiceSignature_clone(origPointer));
+    public func clone(orig: InvoiceSignature) -> InvoiceSignature {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceSignature>) in
+InvoiceSignature(pointer: InvoiceSignature_clone(origPointer))
+};
     }
 
 				

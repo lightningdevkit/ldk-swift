@@ -1,25 +1,20 @@
-class MinFinalCltvExpiry {
+public class MinFinalCltvExpiry {
 
     var cOpaqueStruct: LDKMinFinalCltvExpiry?;
 
 	
 
-    init(pointer: LDKMinFinalCltvExpiry){
+    public init(pointer: LDKMinFinalCltvExpiry){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func clone(orig: MinFinalCltvExpiry) -> MinFinalCltvExpiry {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-							
-			pointer
-						
-		}
-					
-        return MinFinalCltvExpiry(pointer: MinFinalCltvExpiry_clone(origPointer));
+    public func clone(orig: MinFinalCltvExpiry) -> MinFinalCltvExpiry {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+MinFinalCltvExpiry(pointer: MinFinalCltvExpiry_clone(origPointer))
+};
     }
 
 				

@@ -1,4 +1,4 @@
-class PaymentSendFailure {
+public class PaymentSendFailure {
 
     var cOpaqueStruct: LDKPaymentSendFailure?;
 

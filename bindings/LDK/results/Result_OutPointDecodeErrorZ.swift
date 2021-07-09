@@ -1,4 +1,4 @@
-class Result_OutPointDecodeErrorZ {
+public class Result_OutPointDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_OutPointDecodeErrorZ?;
 

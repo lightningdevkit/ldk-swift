@@ -1,4 +1,4 @@
-class Fallback {
+public class Fallback {
 
     var cOpaqueStruct: LDKFallback?;
 

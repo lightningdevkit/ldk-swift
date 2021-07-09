@@ -1,4 +1,4 @@
-class Result_InMemorySignerDecodeErrorZ {
+public class Result_InMemorySignerDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_InMemorySignerDecodeErrorZ?;
 

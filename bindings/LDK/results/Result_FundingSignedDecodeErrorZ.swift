@@ -1,4 +1,4 @@
-class Result_FundingSignedDecodeErrorZ {
+public class Result_FundingSignedDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_FundingSignedDecodeErrorZ?;
 

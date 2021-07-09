@@ -1,49 +1,34 @@
-class RawDataPart {
+public class RawDataPart {
 
     var cOpaqueStruct: LDKRawDataPart?;
 
 	
 
-    init(pointer: LDKRawDataPart){
+    public init(pointer: LDKRawDataPart){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_timestamp() -> PositiveTimestamp {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRawDataPart>) in
-							
-			pointer
-						
-		}
-					
-        return PositiveTimestamp(pointer: RawDataPart_get_timestamp(this_ptrPointer));
+    public func get_timestamp() -> PositiveTimestamp {
+    	/* NATIVE_CALL_PREP */
+        return PositiveTimestamp(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRawDataPart>) in
+RawDataPart_get_timestamp(this_ptrPointer)
+});
     }
 
-    func set_timestamp(val: PositiveTimestamp) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKRawDataPart>) in
-							
-			pointer
-						
-		}
-					
-        return RawDataPart_set_timestamp(this_ptrPointer, val.cOpaqueStruct!);
+    public func set_timestamp(val: PositiveTimestamp) -> Void {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKRawDataPart>) in
+RawDataPart_set_timestamp(this_ptrPointer, val.cOpaqueStruct!)
+};
     }
 
-    func clone(orig: RawDataPart) -> RawDataPart {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKRawDataPart>) in
-							
-			pointer
-						
-		}
-					
-        return RawDataPart(pointer: RawDataPart_clone(origPointer));
+    public func clone(orig: RawDataPart) -> RawDataPart {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawDataPart>) in
+RawDataPart(pointer: RawDataPart_clone(origPointer))
+};
     }
 
 				

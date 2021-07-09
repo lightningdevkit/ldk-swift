@@ -1,4 +1,4 @@
-class Result_ExpiryTimeCreationErrorZ {
+public class Result_ExpiryTimeCreationErrorZ {
 
     var cOpaqueStruct: LDKCResult_ExpiryTimeCreationErrorZ?;
 

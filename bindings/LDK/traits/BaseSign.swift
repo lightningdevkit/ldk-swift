@@ -1,4 +1,4 @@
-class BaseSign {
+public class BaseSign {
 
     var cOpaqueStruct: LDKBaseSign?;
 
@@ -96,57 +96,57 @@ class BaseSign {
 
     /* SWIFT_CALLBACKS_START */
 
-    func get_per_commitment_point(idx: UInt64) -> [UInt8] {
+    public func get_per_commitment_point(idx: UInt64) -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func release_commitment_secret(idx: UInt64) -> [UInt8] {
+    public func release_commitment_secret(idx: UInt64) -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func channel_keys_id() -> [UInt8] {
+    public func channel_keys_id() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
     }
 
-    func sign_counterparty_commitment(commitment_tx: UnsafePointer<LDKCommitmentTransaction>) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+    public func sign_counterparty_commitment(commitment_tx: UnsafePointer<LDKCommitmentTransaction>) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	/* EDIT ME */
 		return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ())
     }
 
-    func sign_holder_commitment_and_htlcs(commitment_tx: UnsafePointer<LDKHolderCommitmentTransaction>) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+    public func sign_holder_commitment_and_htlcs(commitment_tx: UnsafePointer<LDKHolderCommitmentTransaction>) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	/* EDIT ME */
 		return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ())
     }
 
-    func sign_justice_transaction(justice_tx: LDKTransaction, input: UInt, amount: UInt64, per_commitment_key: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, htlc: UnsafePointer<LDKHTLCOutputInCommitment>) -> Result_SignatureNoneZ {
+    public func sign_justice_transaction(justice_tx: LDKTransaction, input: UInt, amount: UInt64, per_commitment_key: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, htlc: UnsafePointer<LDKHTLCOutputInCommitment>) -> Result_SignatureNoneZ {
     	/* EDIT ME */
 		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
     }
 
-    func sign_counterparty_htlc_transaction(htlc_tx: LDKTransaction, input: UInt, amount: UInt64, per_commitment_point: LDKPublicKey, htlc: UnsafePointer<LDKHTLCOutputInCommitment>) -> Result_SignatureNoneZ {
+    public func sign_counterparty_htlc_transaction(htlc_tx: LDKTransaction, input: UInt, amount: UInt64, per_commitment_point: LDKPublicKey, htlc: UnsafePointer<LDKHTLCOutputInCommitment>) -> Result_SignatureNoneZ {
     	/* EDIT ME */
 		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
     }
 
-    func sign_closing_transaction(closing_tx: LDKTransaction) -> Result_SignatureNoneZ {
+    public func sign_closing_transaction(closing_tx: LDKTransaction) -> Result_SignatureNoneZ {
     	/* EDIT ME */
 		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
     }
 
-    func sign_channel_announcement(msg: UnsafePointer<LDKUnsignedChannelAnnouncement>) -> Result_SignatureNoneZ {
+    public func sign_channel_announcement(msg: UnsafePointer<LDKUnsignedChannelAnnouncement>) -> Result_SignatureNoneZ {
     	/* EDIT ME */
 		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
     }
 
-    func ready_channel(channel_parameters: UnsafePointer<LDKChannelTransactionParameters>) -> Void {
+    public func ready_channel(channel_parameters: UnsafePointer<LDKChannelTransactionParameters>) -> Void {
     	/* EDIT ME */
 		
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

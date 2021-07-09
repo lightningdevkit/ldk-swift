@@ -1,4 +1,4 @@
-class RoutingMessageHandler {
+public class RoutingMessageHandler {
 
     var cOpaqueStruct: LDKRoutingMessageHandler?;
 
@@ -102,62 +102,62 @@ class RoutingMessageHandler {
 
     /* SWIFT_CALLBACKS_START */
 
-    func handle_node_announcement(msg: UnsafePointer<LDKNodeAnnouncement>) -> Result_boolLightningErrorZ {
+    public func handle_node_announcement(msg: UnsafePointer<LDKNodeAnnouncement>) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
 		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
     }
 
-    func handle_channel_announcement(msg: UnsafePointer<LDKChannelAnnouncement>) -> Result_boolLightningErrorZ {
+    public func handle_channel_announcement(msg: UnsafePointer<LDKChannelAnnouncement>) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
 		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
     }
 
-    func handle_channel_update(msg: UnsafePointer<LDKChannelUpdate>) -> Result_boolLightningErrorZ {
+    public func handle_channel_update(msg: UnsafePointer<LDKChannelUpdate>) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
 		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
     }
 
-    func handle_htlc_fail_channel_update(update: UnsafePointer<LDKHTLCFailChannelUpdate>) -> Void {
+    public func handle_htlc_fail_channel_update(update: UnsafePointer<LDKHTLCFailChannelUpdate>) -> Void {
     	/* EDIT ME */
 		
     }
 
-    func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+    public func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
     	/* EDIT ME */
 		return [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
     }
 
-    func get_next_node_announcements(starting_point: LDKPublicKey, batch_amount: UInt8) -> [LDKNodeAnnouncement] {
+    public func get_next_node_announcements(starting_point: LDKPublicKey, batch_amount: UInt8) -> [LDKNodeAnnouncement] {
     	/* EDIT ME */
 		return [LDKNodeAnnouncement]()
     }
 
-    func sync_routing_table(their_node_id: LDKPublicKey, initValue: UnsafePointer<LDKInit>) -> Void {
+    public func sync_routing_table(their_node_id: LDKPublicKey, initValue: UnsafePointer<LDKInit>) -> Void {
     	/* EDIT ME */
 		
     }
 
-    func handle_reply_channel_range(their_node_id: LDKPublicKey, msg: LDKReplyChannelRange) -> Result_NoneLightningErrorZ {
+    public func handle_reply_channel_range(their_node_id: LDKPublicKey, msg: LDKReplyChannelRange) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    func handle_reply_short_channel_ids_end(their_node_id: LDKPublicKey, msg: LDKReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
+    public func handle_reply_short_channel_ids_end(their_node_id: LDKPublicKey, msg: LDKReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    func handle_query_channel_range(their_node_id: LDKPublicKey, msg: LDKQueryChannelRange) -> Result_NoneLightningErrorZ {
+    public func handle_query_channel_range(their_node_id: LDKPublicKey, msg: LDKQueryChannelRange) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    func handle_query_short_channel_ids(their_node_id: LDKPublicKey, msg: LDKQueryShortChannelIds) -> Result_NoneLightningErrorZ {
+    public func handle_query_short_channel_ids(their_node_id: LDKPublicKey, msg: LDKQueryShortChannelIds) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

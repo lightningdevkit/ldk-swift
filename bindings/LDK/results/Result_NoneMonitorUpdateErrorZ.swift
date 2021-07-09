@@ -1,4 +1,4 @@
-class Result_NoneMonitorUpdateErrorZ {
+public class Result_NoneMonitorUpdateErrorZ {
 
     var cOpaqueStruct: LDKCResult_NoneMonitorUpdateErrorZ?;
 

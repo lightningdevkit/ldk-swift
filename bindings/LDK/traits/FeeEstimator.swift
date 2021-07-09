@@ -1,4 +1,4 @@
-class FeeEstimator {
+public class FeeEstimator {
 
     var cOpaqueStruct: LDKFeeEstimator?;
 
@@ -31,12 +31,12 @@ class FeeEstimator {
 
     /* SWIFT_CALLBACKS_START */
 
-    func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
+    public func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
     	/* EDIT ME */
 		return 0
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

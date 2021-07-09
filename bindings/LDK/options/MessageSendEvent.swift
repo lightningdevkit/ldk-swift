@@ -1,4 +1,4 @@
-class MessageSendEvent {
+public class MessageSendEvent {
 
     var cOpaqueStruct: LDKMessageSendEvent?;
 

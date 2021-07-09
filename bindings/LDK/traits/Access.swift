@@ -1,4 +1,4 @@
-class Access {
+public class Access {
 
     var cOpaqueStruct: LDKAccess?;
 
@@ -31,12 +31,12 @@ class Access {
 
     /* SWIFT_CALLBACKS_START */
 
-    func get_utxo(genesis_hash: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
+    public func get_utxo(genesis_hash: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
     	/* EDIT ME */
 		return Result_TxOutAccessErrorZ(pointer: LDKCResult_TxOutAccessErrorZ())
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

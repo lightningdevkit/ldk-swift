@@ -1,4 +1,4 @@
-class Result_DescriptionCreationErrorZ {
+public class Result_DescriptionCreationErrorZ {
 
     var cOpaqueStruct: LDKCResult_DescriptionCreationErrorZ?;
 

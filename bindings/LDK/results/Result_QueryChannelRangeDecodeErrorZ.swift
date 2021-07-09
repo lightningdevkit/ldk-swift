@@ -1,4 +1,4 @@
-class Result_QueryChannelRangeDecodeErrorZ {
+public class Result_QueryChannelRangeDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_QueryChannelRangeDecodeErrorZ?;
 

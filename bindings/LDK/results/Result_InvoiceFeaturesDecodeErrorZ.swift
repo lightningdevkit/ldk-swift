@@ -1,4 +1,4 @@
-class Result_InvoiceFeaturesDecodeErrorZ {
+public class Result_InvoiceFeaturesDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_InvoiceFeaturesDecodeErrorZ?;
 

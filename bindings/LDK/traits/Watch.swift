@@ -1,4 +1,4 @@
-class Watch {
+public class Watch {
 
     var cOpaqueStruct: LDKWatch?;
 
@@ -45,22 +45,22 @@ class Watch {
 
     /* SWIFT_CALLBACKS_START */
 
-    func watch_channel(funding_txo: LDKOutPoint, monitor: LDKChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+    public func watch_channel(funding_txo: LDKOutPoint, monitor: LDKChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
 		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
     }
 
-    func update_channel(funding_txo: LDKOutPoint, update: LDKChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
+    public func update_channel(funding_txo: LDKOutPoint, update: LDKChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
 		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
     }
 
-    func release_pending_monitor_events() -> [LDKMonitorEvent] {
+    public func release_pending_monitor_events() -> [LDKMonitorEvent] {
     	/* EDIT ME */
 		return [LDKMonitorEvent]()
     }
 
-    func free() -> Void {
+    public func free() -> Void {
     	/* EDIT ME */
 		
     }

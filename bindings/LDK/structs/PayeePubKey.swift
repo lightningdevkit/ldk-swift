@@ -1,25 +1,20 @@
-class PayeePubKey {
+public class PayeePubKey {
 
     var cOpaqueStruct: LDKPayeePubKey?;
 
 	
 
-    init(pointer: LDKPayeePubKey){
+    public init(pointer: LDKPayeePubKey){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func clone(orig: PayeePubKey) -> PayeePubKey {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPayeePubKey>) in
-							
-			pointer
-						
-		}
-					
-        return PayeePubKey(pointer: PayeePubKey_clone(origPointer));
+    public func clone(orig: PayeePubKey) -> PayeePubKey {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPayeePubKey>) in
+PayeePubKey(pointer: PayeePubKey_clone(origPointer))
+};
     }
 
 				

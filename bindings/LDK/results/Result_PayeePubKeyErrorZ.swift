@@ -1,4 +1,4 @@
-class Result_PayeePubKeyErrorZ {
+public class Result_PayeePubKeyErrorZ {
 
     var cOpaqueStruct: LDKCResult_PayeePubKeyErrorZ?;
 

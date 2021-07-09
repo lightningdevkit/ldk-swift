@@ -1,4 +1,4 @@
-class Result_NetworkGraphDecodeErrorZ {
+public class Result_NetworkGraphDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_NetworkGraphDecodeErrorZ?;
 

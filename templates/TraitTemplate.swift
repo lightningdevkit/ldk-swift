@@ -1,4 +1,4 @@
-class TraitName {
+public class TraitName {
 
     var cOpaqueStruct: TraitType?;
 
@@ -20,7 +20,7 @@ class TraitName {
 	}
 
     /* SWIFT_CALLBACKS_START */
-    func methodName(swift_arguments) -> Void {
+    public func methodName(swift_arguments) -> Void {
     	/* EDIT ME */
     }
     /* SWIFT_CALLBACKS_END */

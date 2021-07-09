@@ -1,4 +1,4 @@
-class Result_NodeFeaturesDecodeErrorZ {
+public class Result_NodeFeaturesDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_NodeFeaturesDecodeErrorZ?;
 

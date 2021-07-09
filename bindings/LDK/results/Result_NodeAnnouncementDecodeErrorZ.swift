@@ -1,4 +1,4 @@
-class Result_NodeAnnouncementDecodeErrorZ {
+public class Result_NodeAnnouncementDecodeErrorZ {
 
     var cOpaqueStruct: LDKCResult_NodeAnnouncementDecodeErrorZ?;
 

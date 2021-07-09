@@ -1,102 +1,67 @@
-class ChannelHandshakeConfig {
+public class ChannelHandshakeConfig {
 
     var cOpaqueStruct: LDKChannelHandshakeConfig?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    init() {
+    public init() {
     	
         self.cOpaqueStruct = ChannelHandshakeConfig_default()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    init(pointer: LDKChannelHandshakeConfig){
+    public init(pointer: LDKChannelHandshakeConfig){
 		self.cOpaqueStruct = pointer
 	}
 
     /* STRUCT_METHODS_START */
 
-    func get_minimum_depth() -> UInt32 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeConfig>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelHandshakeConfig_get_minimum_depth(this_ptrPointer);
+    public func get_minimum_depth() -> UInt32 {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_minimum_depth(this_ptrPointer)
+};
     }
 
-    func set_minimum_depth(val: UInt32) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelHandshakeConfig_set_minimum_depth(this_ptrPointer, val);
+    public func set_minimum_depth(val: UInt32) -> Void {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_set_minimum_depth(this_ptrPointer, val)
+};
     }
 
-    func get_our_to_self_delay() -> UInt16 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeConfig>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelHandshakeConfig_get_our_to_self_delay(this_ptrPointer);
+    public func get_our_to_self_delay() -> UInt16 {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_our_to_self_delay(this_ptrPointer)
+};
     }
 
-    func set_our_to_self_delay(val: UInt16) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelHandshakeConfig_set_our_to_self_delay(this_ptrPointer, val);
+    public func set_our_to_self_delay(val: UInt16) -> Void {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_set_our_to_self_delay(this_ptrPointer, val)
+};
     }
 
-    func get_our_htlc_minimum_msat() -> UInt64 {
-    	
-						
-		let this_ptrPointer = withUnsafePointer(to: self.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeConfig>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelHandshakeConfig_get_our_htlc_minimum_msat(this_ptrPointer);
+    public func get_our_htlc_minimum_msat() -> UInt64 {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_our_htlc_minimum_msat(this_ptrPointer)
+};
     }
 
-    func set_our_htlc_minimum_msat(val: UInt64) -> Void {
-    	
-						
-		let this_ptrPointer = withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (pointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelHandshakeConfig_set_our_htlc_minimum_msat(this_ptrPointer, val);
+    public func set_our_htlc_minimum_msat(val: UInt64) -> Void {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafeMutablePointer(to: &self.cOpaqueStruct!) { (this_ptrPointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_set_our_htlc_minimum_msat(this_ptrPointer, val)
+};
     }
 
-    func clone(orig: ChannelHandshakeConfig) -> ChannelHandshakeConfig {
-    	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelHandshakeConfig>) in
-							
-			pointer
-						
-		}
-					
-        return ChannelHandshakeConfig(pointer: ChannelHandshakeConfig_clone(origPointer));
+    public func clone(orig: ChannelHandshakeConfig) -> ChannelHandshakeConfig {
+    	/* NATIVE_CALL_PREP */
+        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig(pointer: ChannelHandshakeConfig_clone(origPointer))
+};
     }
 
 				

@@ -1,4 +1,4 @@
-class Result_NoneAPIErrorZ {
+public class Result_NoneAPIErrorZ {
 
     var cOpaqueStruct: LDKCResult_NoneAPIErrorZ?;
 

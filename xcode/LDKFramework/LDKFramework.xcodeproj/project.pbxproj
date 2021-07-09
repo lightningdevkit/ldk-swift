@@ -14,18 +14,12 @@
 		07344C8826427F95001CD90E /* LDKExampleClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07344C8626427F95001CD90E /* LDKExampleClass.swift */; };
 		07344FE626429524001CD90E /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07344FE526429524001CD90E /* libldk.a */; };
 		07344FE926429536001CD90E /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07344FE526429524001CD90E /* libldk.a */; };
-		0734506026445915001CD90E /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 0734505D26445915001CD90E /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0734506126445915001CD90E /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0734505E26445915001CD90E /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0734506226445915001CD90E /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 0734505F26445915001CD90E /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0749F9C6265615CC00876C52 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C4265615CB00876C52 /* ChannelManagerConstructor.swift */; };
 		0749F9C7265615CC00876C52 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C4265615CB00876C52 /* ChannelManagerConstructor.swift */; };
 		0749F9C8265615CC00876C52 /* UtilMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C5265615CB00876C52 /* UtilMethods.swift */; };
 		0749F9C9265615CC00876C52 /* UtilMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0749F9C5265615CB00876C52 /* UtilMethods.swift */; };
 		0767CD292698B6B700BEB4CC /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CD282698B6B700BEB4CC /* TCPPeerHandler.swift */; };
 		0767CD2A2698B6B700BEB4CC /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CD282698B6B700BEB4CC /* TCPPeerHandler.swift */; };
-		0767CD332698B70900BEB4CC /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 0767CD312698B70800BEB4CC /* ldk_net.c */; };
-		0767CD342698B70900BEB4CC /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 0767CD312698B70800BEB4CC /* ldk_net.c */; };
-		0767CD352698B70900BEB4CC /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 0767CD322698B70800BEB4CC /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0767CE372698B82A00BEB4CC /* PaymentSendFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CD3C2698B82800BEB4CC /* PaymentSendFailure.swift */; };
 		0767CE382698B82A00BEB4CC /* PaymentSendFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CD3C2698B82800BEB4CC /* PaymentSendFailure.swift */; };
 		0767CE392698B82A00BEB4CC /* Option_u64Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CD3D2698B82800BEB4CC /* Option_u64Z.swift */; };
@@ -520,6 +514,12 @@
 		0767D0222698B82B00BEB4CC /* OutPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CE352698B82A00BEB4CC /* OutPoint.swift */; };
 		0767D0232698B82B00BEB4CC /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CE362698B82A00BEB4CC /* DelayedPaymentOutputDescriptor.swift */; };
 		0767D0242698B82B00BEB4CC /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0767CE362698B82A00BEB4CC /* DelayedPaymentOutputDescriptor.swift */; };
+		0767D03A2698BB9800BEB4CC /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 0767D0352698BB9700BEB4CC /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0767D03B2698BB9800BEB4CC /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 0767D0362698BB9700BEB4CC /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0767D03C2698BB9800BEB4CC /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 0767D0372698BB9700BEB4CC /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0767D03D2698BB9800BEB4CC /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 0767D0382698BB9700BEB4CC /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0767D03E2698BB9800BEB4CC /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 0767D0392698BB9800BEB4CC /* ldk_net.c */; };
+		0767D03F2698BB9800BEB4CC /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 0767D0392698BB9800BEB4CC /* ldk_net.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -542,14 +542,9 @@
 		07344C8626427F95001CD90E /* LDKExampleClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDKExampleClass.swift; sourceTree = "<group>"; };
 		07344FCD26428DD2001CD90E /* LDKFramework.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LDKFramework.modulemap; sourceTree = "<group>"; };
 		07344FE526429524001CD90E /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
-		0734505D26445915001CD90E /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightning.h; sourceTree = SOURCE_ROOT; };
-		0734505E26445915001CD90E /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_ver.h; sourceTree = SOURCE_ROOT; };
-		0734505F26445915001CD90E /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_rust_types.h; sourceTree = SOURCE_ROOT; };
 		0749F9C4265615CB00876C52 /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
 		0749F9C5265615CB00876C52 /* UtilMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilMethods.swift; sourceTree = "<group>"; };
 		0767CD282698B6B700BEB4CC /* TCPPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPPeerHandler.swift; sourceTree = "<group>"; };
-		0767CD312698B70800BEB4CC /* ldk_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldk_net.c; sourceTree = SOURCE_ROOT; };
-		0767CD322698B70800BEB4CC /* ldk_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_net.h; sourceTree = SOURCE_ROOT; };
 		0767CD3C2698B82800BEB4CC /* PaymentSendFailure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSendFailure.swift; sourceTree = "<group>"; };
 		0767CD3D2698B82800BEB4CC /* Option_u64Z.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Option_u64Z.swift; sourceTree = "<group>"; };
 		0767CD3E2698B82800BEB4CC /* Fallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fallback.swift; sourceTree = "<group>"; };
@@ -797,6 +792,12 @@
 		0767CE342698B82A00BEB4CC /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		0767CE352698B82A00BEB4CC /* OutPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutPoint.swift; sourceTree = "<group>"; };
 		0767CE362698B82A00BEB4CC /* DelayedPaymentOutputDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedPaymentOutputDescriptor.swift; sourceTree = "<group>"; };
+		0767D0322698BB9600BEB4CC /* LDKFrameworkTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LDKFrameworkTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		0767D0352698BB9700BEB4CC /* ldk_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_net.h; sourceTree = SOURCE_ROOT; };
+		0767D0362698BB9700BEB4CC /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightning.h; sourceTree = SOURCE_ROOT; };
+		0767D0372698BB9700BEB4CC /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_rust_types.h; sourceTree = SOURCE_ROOT; };
+		0767D0382698BB9700BEB4CC /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_ver.h; sourceTree = SOURCE_ROOT; };
+		0767D0392698BB9800BEB4CC /* ldk_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldk_net.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -843,8 +844,8 @@
 		07344C56264277EC001CD90E /* LDKFramework */ = {
 			isa = PBXGroup;
 			children = (
+				0767D0312698BB8800BEB4CC /* headers */,
 				0767CD3A2698B82800BEB4CC /* LDK */,
-				07344FAC26428B09001CD90E /* headers */,
 				0749F9C3265615CB00876C52 /* batteries */,
 				07344C57264277ED001CD90E /* LDKFramework.h */,
 				07344C58264277ED001CD90E /* Info.plist */,
@@ -868,19 +869,6 @@
 				07344FE526429524001CD90E /* libldk.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		07344FAC26428B09001CD90E /* headers */ = {
-			isa = PBXGroup;
-			children = (
-				0767CD312698B70800BEB4CC /* ldk_net.c */,
-				0767CD322698B70800BEB4CC /* ldk_net.h */,
-				0734505F26445915001CD90E /* ldk_rust_types.h */,
-				0734505E26445915001CD90E /* ldk_ver.h */,
-				0734505D26445915001CD90E /* lightning.h */,
-			);
-			name = headers;
-			path = ../../../bindings/headers;
 			sourceTree = "<group>";
 		};
 		0749F9C3265615CB00876C52 /* batteries */ = {
@@ -1189,6 +1177,19 @@
 			path = structs;
 			sourceTree = "<group>";
 		};
+		0767D0312698BB8800BEB4CC /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				0767D0392698BB9800BEB4CC /* ldk_net.c */,
+				0767D0352698BB9700BEB4CC /* ldk_net.h */,
+				0767D0372698BB9700BEB4CC /* ldk_rust_types.h */,
+				0767D0382698BB9700BEB4CC /* ldk_ver.h */,
+				0767D0362698BB9700BEB4CC /* lightning.h */,
+				0767D0322698BB9600BEB4CC /* LDKFrameworkTests-Bridging-Header.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1196,11 +1197,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0767D03B2698BB9800BEB4CC /* lightning.h in Headers */,
+				0767D03A2698BB9800BEB4CC /* ldk_net.h in Headers */,
+				0767D03C2698BB9800BEB4CC /* ldk_rust_types.h in Headers */,
 				07344C65264277ED001CD90E /* LDKFramework.h in Headers */,
-				0734506026445915001CD90E /* lightning.h in Headers */,
-				0734506226445915001CD90E /* ldk_rust_types.h in Headers */,
-				0767CD352698B70900BEB4CC /* ldk_net.h in Headers */,
-				0734506126445915001CD90E /* ldk_ver.h in Headers */,
+				0767D03D2698BB9800BEB4CC /* ldk_ver.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1314,6 +1315,7 @@
 				0767CF9F2698B82B00BEB4CC /* CounterpartyChannelTransactionParameters.swift in Sources */,
 				0767CEBF2698B82A00BEB4CC /* Result_AcceptChannelDecodeErrorZ.swift in Sources */,
 				0767CFF12698B82B00BEB4CC /* LightningError.swift in Sources */,
+				0767D03E2698BB9800BEB4CC /* ldk_net.c in Sources */,
 				0767CEAF2698B82A00BEB4CC /* Result_ChannelInfoDecodeErrorZ.swift in Sources */,
 				0767CE452698B82A00BEB4CC /* ErrorAction.swift in Sources */,
 				0767CE872698B82A00BEB4CC /* C2Tuple_u32TxOutZ.swift in Sources */,
@@ -1387,7 +1389,6 @@
 				0767CEB72698B82A00BEB4CC /* Result_PaymentSecretAPIErrorZ.swift in Sources */,
 				0767CFAF2698B82B00BEB4CC /* HTLCUpdate.swift in Sources */,
 				0767CF0B2698B82A00BEB4CC /* Result_InvoiceSemanticErrorZ.swift in Sources */,
-				0767CD332698B70900BEB4CC /* ldk_net.c in Sources */,
 				0767CE4B2698B82A00BEB4CC /* SignOrCreationError.swift in Sources */,
 				0767CE972698B82A00BEB4CC /* Result_QueryChannelRangeDecodeErrorZ.swift in Sources */,
 				0767CEE12698B82A00BEB4CC /* Result_boolLightningErrorZ.swift in Sources */,
@@ -1705,6 +1706,7 @@
 				0767CF182698B82A00BEB4CC /* Result_ChannelMonitorUpdateDecodeErrorZ.swift in Sources */,
 				0767CE702698B82A00BEB4CC /* Filter.swift in Sources */,
 				0767CE842698B82A00BEB4CC /* C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ.swift in Sources */,
+				0767D03F2698BB9800BEB4CC /* ldk_net.c in Sources */,
 				0767CD2A2698B6B700BEB4CC /* TCPPeerHandler.swift in Sources */,
 				0767CEDC2698B82A00BEB4CC /* Result_NoneLightningErrorZ.swift in Sources */,
 				0767CFBE2698B82B00BEB4CC /* RawInvoice.swift in Sources */,
@@ -1768,7 +1770,6 @@
 				0767CFA62698B82B00BEB4CC /* IgnoringMessageHandler.swift in Sources */,
 				0767CF7A2698B82B00BEB4CC /* HTLCOutputInCommitment.swift in Sources */,
 				0767CE3E2698B82A00BEB4CC /* Option_C2Tuple_usizeTransactionZZ.swift in Sources */,
-				0767CD342698B70900BEB4CC /* ldk_net.c in Sources */,
 				0767CF242698B82A00BEB4CC /* Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ.swift in Sources */,
 				0767CEEC2698B82A00BEB4CC /* Result_SiPrefixNoneZ.swift in Sources */,
 				0767CFE62698B82B00BEB4CC /* CommitmentUpdate.swift in Sources */,
@@ -2042,6 +2043,7 @@
 				MODULEMAP_PRIVATE_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.ldk.LDKFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LDKFramework/LDKFrameworkTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2069,6 +2071,7 @@
 				MODULEMAP_PRIVATE_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = org.ldk.LDKFrameworkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LDKFramework/LDKFrameworkTests-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

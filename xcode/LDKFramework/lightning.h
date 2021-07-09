@@ -164,9 +164,13 @@ typedef enum LDKCurrency {
     */
    LDKCurrency_Regtest,
    /**
-    * Bitcoin simnet/signet
+    * Bitcoin simnet
     */
    LDKCurrency_Simnet,
+   /**
+    * Bitcoin signet
+    */
+   LDKCurrency_Signet,
    /**
     * Must be last for serialization purposes
     */
@@ -206,29 +210,25 @@ typedef enum LDKIOError {
  */
 typedef enum LDKLevel {
    /**
-    *Designates logger being silent
+    * Designates very low priority, often extremely verbose, information
     */
-   LDKLevel_Off,
-   /**
-    * Designates very serious errors
-    */
-   LDKLevel_Error,
-   /**
-    * Designates hazardous situations
-    */
-   LDKLevel_Warn,
-   /**
-    * Designates useful information
-    */
-   LDKLevel_Info,
+   LDKLevel_Trace,
    /**
     * Designates lower priority information
     */
    LDKLevel_Debug,
    /**
-    * Designates very low priority, often extremely verbose, information
+    * Designates useful information
     */
-   LDKLevel_Trace,
+   LDKLevel_Info,
+   /**
+    * Designates hazardous situations
+    */
+   LDKLevel_Warn,
+   /**
+    * Designates very serious errors
+    */
+   LDKLevel_Error,
    /**
     * Must be last for serialization purposes
     */
@@ -1421,38 +1421,38 @@ typedef struct LDKCVec_ChannelDetailsZ {
 
 
 /**
- * A channel descriptor which provides a last-hop route to get_route
+ * A list of hops along a payment path terminating with a channel to the recipient.
  */
-typedef struct MUST_USE_STRUCT LDKRouteHintHop {
+typedef struct MUST_USE_STRUCT LDKRouteHint {
    /**
     * A pointer to the opaque Rust object.
     * Nearly everywhere, inner must be non-null, however in places where
     * the Rust equivalent takes an Option, it may be set to null to indicate None.
     */
-   LDKnativeRouteHintHop *inner;
+   LDKnativeRouteHint *inner;
    /**
     * Indicates that this is the only struct which contains the same pointer.
     * Rust functions which take ownership of an object provided via an argument require
     * this to be true and invalidate the object pointed to by inner.
     */
    bool is_owned;
-} LDKRouteHintHop;
+} LDKRouteHint;
 
 /**
- * A dynamically-allocated array of crate::lightning::routing::router::RouteHintHops of arbitrary size.
+ * A dynamically-allocated array of crate::lightning::routing::router::RouteHints of arbitrary size.
  * This corresponds to std::vector in C++
  */
-typedef struct LDKCVec_RouteHintHopZ {
+typedef struct LDKCVec_RouteHintZ {
    /**
     * The elements in the array.
     * If datalen is non-0 this must be a valid, non-NULL pointer allocated by malloc().
     */
-   struct LDKRouteHintHop *data;
+   struct LDKRouteHint *data;
    /**
     * The number of elements pointed to by `data`.
     */
    uintptr_t datalen;
-} LDKCVec_RouteHintHopZ;
+} LDKCVec_RouteHintZ;
 
 
 
@@ -2206,6 +2206,11 @@ typedef enum LDKErrorAction_Tag {
     */
    LDKErrorAction_IgnoreError,
    /**
+    * The peer did something harmless that we weren't able to meaningfully process.
+    * If the error is logged, log it at the given level.
+    */
+   LDKErrorAction_IgnoreAndLog,
+   /**
     * The peer did something incorrect. Tell them.
     */
    LDKErrorAction_SendErrorMessage,
@@ -2233,6 +2238,9 @@ typedef struct MUST_USE_STRUCT LDKErrorAction {
    LDKErrorAction_Tag tag;
    union {
       LDKErrorAction_LDKDisconnectPeer_Body disconnect_peer;
+      struct {
+         enum LDKLevel ignore_and_log;
+      };
       LDKErrorAction_LDKSendErrorMessage_Body send_error_message;
    };
 } LDKErrorAction;
@@ -4801,36 +4809,36 @@ typedef struct LDKCResult_PayeePubKeyErrorZ {
  * The encoded route has to be <1024 5bit characters long (<=639 bytes or <=12 hops)
  *
  */
-typedef struct MUST_USE_STRUCT LDKRouteHint {
+typedef struct MUST_USE_STRUCT LDKPrivateRoute {
    /**
     * A pointer to the opaque Rust object.
     * Nearly everywhere, inner must be non-null, however in places where
     * the Rust equivalent takes an Option, it may be set to null to indicate None.
     */
-   LDKnativeRouteHint *inner;
+   LDKnativePrivateRoute *inner;
    /**
     * Indicates that this is the only struct which contains the same pointer.
     * Rust functions which take ownership of an object provided via an argument require
     * this to be true and invalidate the object pointed to by inner.
     */
    bool is_owned;
-} LDKRouteHint;
+} LDKPrivateRoute;
 
 /**
- * A dynamically-allocated array of crate::lightning_invoice::RouteHints of arbitrary size.
+ * A dynamically-allocated array of crate::lightning_invoice::PrivateRoutes of arbitrary size.
  * This corresponds to std::vector in C++
  */
-typedef struct LDKCVec_RouteHintZ {
+typedef struct LDKCVec_PrivateRouteZ {
    /**
     * The elements in the array.
     * If datalen is non-0 this must be a valid, non-NULL pointer allocated by malloc().
     */
-   struct LDKRouteHint *data;
+   struct LDKPrivateRoute *data;
    /**
     * The number of elements pointed to by `data`.
     */
    uintptr_t datalen;
-} LDKCVec_RouteHintZ;
+} LDKCVec_PrivateRouteZ;
 
 
 
@@ -5071,37 +5079,37 @@ typedef struct LDKCResult_ExpiryTimeCreationErrorZ {
 } LDKCResult_ExpiryTimeCreationErrorZ;
 
 /**
- * The contents of CResult_RouteHintCreationErrorZ
+ * The contents of CResult_PrivateRouteCreationErrorZ
  */
-typedef union LDKCResult_RouteHintCreationErrorZPtr {
+typedef union LDKCResult_PrivateRouteCreationErrorZPtr {
    /**
     * A pointer to the contents in the success state.
     * Reading from this pointer when `result_ok` is not set is undefined.
     */
-   struct LDKRouteHint *result;
+   struct LDKPrivateRoute *result;
    /**
     * A pointer to the contents in the error state.
     * Reading from this pointer when `result_ok` is set is undefined.
     */
    enum LDKCreationError *err;
-} LDKCResult_RouteHintCreationErrorZPtr;
+} LDKCResult_PrivateRouteCreationErrorZPtr;
 
 /**
- * A CResult_RouteHintCreationErrorZ represents the result of a fallible operation,
- * containing a crate::lightning_invoice::RouteHint on success and a crate::lightning_invoice::CreationError on failure.
+ * A CResult_PrivateRouteCreationErrorZ represents the result of a fallible operation,
+ * containing a crate::lightning_invoice::PrivateRoute on success and a crate::lightning_invoice::CreationError on failure.
  * `result_ok` indicates the overall state, and the contents are provided via `contents`.
  */
-typedef struct LDKCResult_RouteHintCreationErrorZ {
+typedef struct LDKCResult_PrivateRouteCreationErrorZ {
    /**
-    * The contents of this CResult_RouteHintCreationErrorZ, accessible via either
+    * The contents of this CResult_PrivateRouteCreationErrorZ, accessible via either
     * `err` or `result` depending on the state of `result_ok`.
     */
-   union LDKCResult_RouteHintCreationErrorZPtr contents;
+   union LDKCResult_PrivateRouteCreationErrorZPtr contents;
    /**
-    * Whether this CResult_RouteHintCreationErrorZ represents a success state.
+    * Whether this CResult_PrivateRouteCreationErrorZ represents a success state.
     */
    bool result_ok;
-} LDKCResult_RouteHintCreationErrorZ;
+} LDKCResult_PrivateRouteCreationErrorZ;
 
 /**
  * The contents of CResult_StringErrorZ
@@ -5377,7 +5385,8 @@ typedef enum LDKEvent_Tag {
     */
    LDKEvent_PendingHTLCsForwardable,
    /**
-    * Used to indicate that an output was generated on-chain which you should know how to spend.
+    * Used to indicate that an output which you should know how to spend was confirmed on chain
+    * and is now spendable.
     * Such an output will *not* ever be spent by rust-lightning, and are not at risk of your
     * counterparty spending them due to some kind of timeout. Thus, you need to store them
     * somewhere and spend them when you create on-chain transactions.
@@ -8628,11 +8637,12 @@ typedef struct MUST_USE_STRUCT LDKMessageHandler {
  *
  * For efficiency, Clone should be relatively cheap for this type.
  *
- * You probably want to just extend an int and put a file descriptor in a struct and implement
- * send_data. Note that if you are using a higher-level net library that may call close() itself,
- * be careful to ensure you don't have races whereby you might register a new connection with an
- * fd which is the same as a previous one which has yet to be removed via
- * PeerManager::socket_disconnected().
+ * Two descriptors may compare equal (by [`cmp::Eq`] and [`hash::Hash`]) as long as the original
+ * has been disconnected, the [`PeerManager`] has been informed of the disconnection (either by it
+ * having triggered the disconnection or a call to [`PeerManager::socket_disconnected`]), and no
+ * further calls to the [`PeerManager`] related to the original socket occur. This allows you to
+ * use a file descriptor for your SocketDescriptor directly, however for simplicity you may wish
+ * to simply use another value which is guaranteed to be globally unique instead.
  */
 typedef struct LDKSocketDescriptor {
    /**
@@ -8644,25 +8654,27 @@ typedef struct LDKSocketDescriptor {
     * Attempts to send some data from the given slice to the peer.
     *
     * Returns the amount of data which was sent, possibly 0 if the socket has since disconnected.
-    * Note that in the disconnected case, socket_disconnected must still fire and further write
-    * attempts may occur until that time.
+    * Note that in the disconnected case, [`PeerManager::socket_disconnected`] must still be
+    * called and further write attempts may occur until that time.
     *
-    * If the returned size is smaller than data.len(), a write_available event must
-    * trigger the next time more data can be written. Additionally, until the a send_data event
-    * completes fully, no further read_events should trigger on the same peer!
+    * If the returned size is smaller than `data.len()`, a
+    * [`PeerManager::write_buffer_space_avail`] call must be made the next time more data can be
+    * written. Additionally, until a `send_data` event completes fully, no further
+    * [`PeerManager::read_event`] calls should be made for the same peer! Because this is to
+    * prevent denial-of-service issues, you should not read or buffer any data from the socket
+    * until then.
     *
-    * If a read_event on this descriptor had previously returned true (indicating that read
-    * events should be paused to prevent DoS in the send buffer), resume_read may be set
-    * indicating that read events on this descriptor should resume. A resume_read of false does
-    * *not* imply that further read events should be paused.
+    * If a [`PeerManager::read_event`] call on this descriptor had previously returned true
+    * (indicating that read events should be paused to prevent DoS in the send buffer),
+    * `resume_read` may be set indicating that read events on this descriptor should resume. A
+    * `resume_read` of false carries no meaning, and should not cause any action.
     */
    uintptr_t (*send_data)(void *this_arg, struct LDKu8slice data, bool resume_read);
    /**
-    * Disconnect the socket pointed to by this SocketDescriptor. Once this function returns, no
-    * more calls to write_buffer_space_avail, read_event or socket_disconnected may be made with
-    * this descriptor. No socket_disconnected call should be generated as a result of this call,
-    * though races may occur whereby disconnect_socket is called after a call to
-    * socket_disconnected but prior to socket_disconnected returning.
+    * Disconnect the socket pointed to by this SocketDescriptor.
+    *
+    * You do *not* need to call [`PeerManager::socket_disconnected`] with this socket after this
+    * call (doing so is a noop).
     */
    void (*disconnect_socket)(void *this_arg);
    /**
@@ -8690,14 +8702,25 @@ typedef struct LDKSocketDescriptor {
 
 
 /**
- * A PeerManager manages a set of peers, described by their SocketDescriptor and marshalls socket
- * events into messages which it passes on to its MessageHandlers.
+ * A PeerManager manages a set of peers, described by their [`SocketDescriptor`] and marshalls
+ * socket events into messages which it passes on to its [`MessageHandler`].
+ *
+ * Locks are taken internally, so you must never assume that reentrancy from a
+ * [`SocketDescriptor`] call back into [`PeerManager`] methods will not deadlock.
+ *
+ * Calls to [`read_event`] will decode relevant messages and pass them to the
+ * [`ChannelMessageHandler`], likely doing message processing in-line. Thus, the primary form of
+ * parallelism in Rust-Lightning is in calls to [`read_event`]. Note, however, that calls to any
+ * [`PeerManager`] functions related to the same connection must occur only in serial, making new
+ * calls only after previous ones have returned.
  *
  * Rather than using a plain PeerManager, it is preferable to use either a SimpleArcPeerManager
  * a SimpleRefPeerManager, for conciseness. See their documentation for more details, but
  * essentially you should default to using a SimpleRefPeerManager, and use a
  * SimpleArcPeerManager when you require a PeerManager with a static lifetime, such as when
  * you're using lightning-net-tokio.
+ *
+ * [`read_event`]: PeerManager::read_event
  */
 typedef struct MUST_USE_STRUCT LDKPeerManager {
    /**
@@ -8737,6 +8760,26 @@ typedef struct MUST_USE_STRUCT LDKDirectedChannelTransactionParameters {
     */
    bool is_owned;
 } LDKDirectedChannelTransactionParameters;
+
+
+
+/**
+ * A channel descriptor for a hop along a payment path.
+ */
+typedef struct MUST_USE_STRUCT LDKRouteHintHop {
+   /**
+    * A pointer to the opaque Rust object.
+    * Nearly everywhere, inner must be non-null, however in places where
+    * the Rust equivalent takes an Option, it may be set to null to indicate None.
+    */
+   LDKnativeRouteHintHop *inner;
+   /**
+    * Indicates that this is the only struct which contains the same pointer.
+    * Rust functions which take ownership of an object provided via an argument require
+    * this to be true and invalidate the object pointed to by inner.
+    */
+   bool is_owned;
+} LDKRouteHintHop;
 
 
 
@@ -8997,6 +9040,10 @@ extern const uint32_t MIN_FINAL_CLTV_EXPIRY;
 
 extern const uintptr_t REVOKEABLE_REDEEMSCRIPT_MAX_LENGTH;
 
+extern const uint64_t DEFAULT_EXPIRY_TIME;
+
+extern const uint64_t DEFAULT_MIN_FINAL_CLTV_EXPIRY;
+
 extern const uint8_t TAG_PAYMENT_HASH;
 
 extern const uint8_t TAG_DESCRIPTION;
@@ -9011,7 +9058,7 @@ extern const uint8_t TAG_MIN_FINAL_CLTV_EXPIRY;
 
 extern const uint8_t TAG_FALLBACK;
 
-extern const uint8_t TAG_ROUTE;
+extern const uint8_t TAG_PRIVATE_ROUTE;
 
 extern const uint8_t TAG_PAYMENT_SECRET;
 
@@ -9430,7 +9477,7 @@ void CVec_ChannelDetailsZ_free(struct LDKCVec_ChannelDetailsZ _res);
 /**
  * Frees the buffer pointed to by `data` if `datalen` is non-0.
  */
-void CVec_RouteHintHopZ_free(struct LDKCVec_RouteHintHopZ _res);
+void CVec_RouteHintZ_free(struct LDKCVec_RouteHintZ _res);
 
 /**
  * Creates a new CResult_RouteLightningErrorZ in the success state.
@@ -10157,7 +10204,7 @@ struct LDKCResult_PayeePubKeyErrorZ CResult_PayeePubKeyErrorZ_clone(const struct
 /**
  * Frees the buffer pointed to by `data` if `datalen` is non-0.
  */
-void CVec_RouteHintZ_free(struct LDKCVec_RouteHintZ _res);
+void CVec_PrivateRouteZ_free(struct LDKCVec_PrivateRouteZ _res);
 
 /**
  * Creates a new CResult_PositiveTimestampCreationErrorZ in the success state.
@@ -10265,25 +10312,25 @@ void CResult_ExpiryTimeCreationErrorZ_free(struct LDKCResult_ExpiryTimeCreationE
 struct LDKCResult_ExpiryTimeCreationErrorZ CResult_ExpiryTimeCreationErrorZ_clone(const struct LDKCResult_ExpiryTimeCreationErrorZ *NONNULL_PTR orig);
 
 /**
- * Creates a new CResult_RouteHintCreationErrorZ in the success state.
+ * Creates a new CResult_PrivateRouteCreationErrorZ in the success state.
  */
-struct LDKCResult_RouteHintCreationErrorZ CResult_RouteHintCreationErrorZ_ok(struct LDKRouteHint o);
+struct LDKCResult_PrivateRouteCreationErrorZ CResult_PrivateRouteCreationErrorZ_ok(struct LDKPrivateRoute o);
 
 /**
- * Creates a new CResult_RouteHintCreationErrorZ in the error state.
+ * Creates a new CResult_PrivateRouteCreationErrorZ in the error state.
  */
-struct LDKCResult_RouteHintCreationErrorZ CResult_RouteHintCreationErrorZ_err(enum LDKCreationError e);
+struct LDKCResult_PrivateRouteCreationErrorZ CResult_PrivateRouteCreationErrorZ_err(enum LDKCreationError e);
 
 /**
- * Frees any resources used by the CResult_RouteHintCreationErrorZ.
+ * Frees any resources used by the CResult_PrivateRouteCreationErrorZ.
  */
-void CResult_RouteHintCreationErrorZ_free(struct LDKCResult_RouteHintCreationErrorZ _res);
+void CResult_PrivateRouteCreationErrorZ_free(struct LDKCResult_PrivateRouteCreationErrorZ _res);
 
 /**
- * Creates a new CResult_RouteHintCreationErrorZ which has the same data as `orig`
+ * Creates a new CResult_PrivateRouteCreationErrorZ which has the same data as `orig`
  * but with all dynamically-allocated buffers duplicated in new buffers.
  */
-struct LDKCResult_RouteHintCreationErrorZ CResult_RouteHintCreationErrorZ_clone(const struct LDKCResult_RouteHintCreationErrorZ *NONNULL_PTR orig);
+struct LDKCResult_PrivateRouteCreationErrorZ CResult_PrivateRouteCreationErrorZ_clone(const struct LDKCResult_PrivateRouteCreationErrorZ *NONNULL_PTR orig);
 
 /**
  * Creates a new CResult_StringErrorZ in the success state.
@@ -11565,7 +11612,7 @@ struct LDKAPIError APIError_clone(const struct LDKAPIError *NONNULL_PTR orig);
  * A receiver knowing the PublicKey (e.g. the node's id) and the message can be sure that the signature was generated by the caller.
  * Signatures are EC recoverable, meaning that given the message and the signature the PublicKey of the signer can be extracted.
  */
-struct LDKCResult_StringErrorZ sign(struct LDKu8slice msg, struct LDKSecretKey sk);
+struct LDKCResult_StringErrorZ sign(struct LDKu8slice msg, const uint8_t (*sk)[32]);
 
 /**
  * Recovers the PublicKey of the signer of the message given the message and the signature.
@@ -13153,8 +13200,7 @@ void ChannelDetails_set_is_funding_locked(struct LDKChannelDetails *NONNULL_PTR 
 
 /**
  * True if the channel is (a) confirmed and funding_locked messages have been exchanged, (b)
- * the peer is connected, (c) no monitor update failure is pending resolution, and (d) the
- * channel is not currently negotiating a shutdown.
+ * the peer is connected, and (c) the channel is not currently negotiating a shutdown.
  *
  * This is a strict superset of `is_funding_locked`.
  */
@@ -13162,8 +13208,7 @@ bool ChannelDetails_get_is_usable(const struct LDKChannelDetails *NONNULL_PTR th
 
 /**
  * True if the channel is (a) confirmed and funding_locked messages have been exchanged, (b)
- * the peer is connected, (c) no monitor update failure is pending resolution, and (d) the
- * channel is not currently negotiating a shutdown.
+ * the peer is connected, and (c) the channel is not currently negotiating a shutdown.
  *
  * This is a strict superset of `is_funding_locked`.
  */
@@ -15883,25 +15928,35 @@ void MessageHandler_free(struct LDKMessageHandler this_obj);
 
 /**
  * A message handler which handles messages specific to channels. Usually this is just a
- * ChannelManager object or a ErroringMessageHandler.
+ * [`ChannelManager`] object or an [`ErroringMessageHandler`].
+ *
+ * [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
  */
 const struct LDKChannelMessageHandler *MessageHandler_get_chan_handler(const struct LDKMessageHandler *NONNULL_PTR this_ptr);
 
 /**
  * A message handler which handles messages specific to channels. Usually this is just a
- * ChannelManager object or a ErroringMessageHandler.
+ * [`ChannelManager`] object or an [`ErroringMessageHandler`].
+ *
+ * [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
  */
 void MessageHandler_set_chan_handler(struct LDKMessageHandler *NONNULL_PTR this_ptr, struct LDKChannelMessageHandler val);
 
 /**
  * A message handler which handles messages updating our knowledge of the network channel
- * graph. Usually this is just a NetGraphMsgHandlerMonitor object or an IgnoringMessageHandler.
+ * graph. Usually this is just a [`NetGraphMsgHandler`] object or an
+ * [`IgnoringMessageHandler`].
+ *
+ * [`NetGraphMsgHandler`]: crate::routing::network_graph::NetGraphMsgHandler
  */
 const struct LDKRoutingMessageHandler *MessageHandler_get_route_handler(const struct LDKMessageHandler *NONNULL_PTR this_ptr);
 
 /**
  * A message handler which handles messages updating our knowledge of the network channel
- * graph. Usually this is just a NetGraphMsgHandlerMonitor object or an IgnoringMessageHandler.
+ * graph. Usually this is just a [`NetGraphMsgHandler`] object or an
+ * [`IgnoringMessageHandler`].
+ *
+ * [`NetGraphMsgHandler`]: crate::routing::network_graph::NetGraphMsgHandler
  */
 void MessageHandler_set_route_handler(struct LDKMessageHandler *NONNULL_PTR this_ptr, struct LDKRoutingMessageHandler val);
 
@@ -15975,8 +16030,10 @@ MUST_USE_RES struct LDKCVec_PublicKeyZ PeerManager_get_peer_node_ids(const struc
  *
  * Returns a small number of bytes to send to the remote node (currently always 50).
  *
- * Panics if descriptor is duplicative with some other descriptor which has not yet had a
- * socket_disconnected().
+ * Panics if descriptor is duplicative with some other descriptor which has not yet been
+ * [`socket_disconnected()`].
+ *
+ * [`socket_disconnected()`]: PeerManager::socket_disconnected
  */
 MUST_USE_RES struct LDKCResult_CVec_u8ZPeerHandleErrorZ PeerManager_new_outbound_connection(const struct LDKPeerManager *NONNULL_PTR this_arg, struct LDKPublicKey their_node_id, struct LDKSocketDescriptor descriptor);
 
@@ -15988,8 +16045,10 @@ MUST_USE_RES struct LDKCResult_CVec_u8ZPeerHandleErrorZ PeerManager_new_outbound
  * call socket_disconnected for the new descriptor but must disconnect the connection
  * immediately.
  *
- * Panics if descriptor is duplicative with some other descriptor which has not yet had
- * socket_disconnected called.
+ * Panics if descriptor is duplicative with some other descriptor which has not yet been
+ * [`socket_disconnected()`].
+ *
+ * [`socket_disconnected()`]: PeerManager::socket_disconnected
  */
 MUST_USE_RES struct LDKCResult_NonePeerHandleErrorZ PeerManager_new_inbound_connection(const struct LDKPeerManager *NONNULL_PTR this_arg, struct LDKSocketDescriptor descriptor);
 
@@ -15998,12 +16057,14 @@ MUST_USE_RES struct LDKCResult_NonePeerHandleErrorZ PeerManager_new_inbound_conn
  *
  * May return an Err to indicate that the connection should be closed.
  *
- * Will most likely call send_data on the descriptor passed in (or the descriptor handed into
- * new_*\\_connection) before returning. Thus, be very careful with reentrancy issues! The
- * invariants around calling write_buffer_space_avail in case a write did not fully complete
- * must still hold - be ready to call write_buffer_space_avail again if a write call generated
- * here isn't sufficient! Panics if the descriptor was not previously registered in a
- * new_\\*_connection event.
+ * May call [`send_data`] on the descriptor passed in (or an equal descriptor) before
+ * returning. Thus, be very careful with reentrancy issues! The invariants around calling
+ * [`write_buffer_space_avail`] in case a write did not fully complete must still hold - be
+ * ready to call `[write_buffer_space_avail`] again if a write call generated here isn't
+ * sufficient!
+ *
+ * [`send_data`]: SocketDescriptor::send_data
+ * [`write_buffer_space_avail`]: PeerManager::write_buffer_space_avail
  */
 MUST_USE_RES struct LDKCResult_NonePeerHandleErrorZ PeerManager_write_buffer_space_avail(const struct LDKPeerManager *NONNULL_PTR this_arg, struct LDKSocketDescriptor *NONNULL_PTR descriptor);
 
@@ -16012,51 +16073,60 @@ MUST_USE_RES struct LDKCResult_NonePeerHandleErrorZ PeerManager_write_buffer_spa
  *
  * May return an Err to indicate that the connection should be closed.
  *
- * Will *not* call back into send_data on any descriptors to avoid reentrancy complexity.
- * Thus, however, you almost certainly want to call process_events() after any read_event to
- * generate send_data calls to handle responses.
+ * Will *not* call back into [`send_data`] on any descriptors to avoid reentrancy complexity.
+ * Thus, however, you should call [`process_events`] after any `read_event` to generate
+ * [`send_data`] calls to handle responses.
  *
- * If Ok(true) is returned, further read_events should not be triggered until a send_data call
- * on this file descriptor has resume_read set (preventing DoS issues in the send buffer).
+ * If `Ok(true)` is returned, further read_events should not be triggered until a
+ * [`send_data`] call on this descriptor has `resume_read` set (preventing DoS issues in the
+ * send buffer).
  *
- * Panics if the descriptor was not previously registered in a new_*_connection event.
+ * [`send_data`]: SocketDescriptor::send_data
+ * [`process_events`]: PeerManager::process_events
  */
 MUST_USE_RES struct LDKCResult_boolPeerHandleErrorZ PeerManager_read_event(const struct LDKPeerManager *NONNULL_PTR this_arg, struct LDKSocketDescriptor *NONNULL_PTR peer_descriptor, struct LDKu8slice data);
 
 /**
  * Checks for any events generated by our handlers and processes them. Includes sending most
  * response messages as well as messages generated by calls to handler functions directly (eg
- * functions like ChannelManager::process_pending_htlc_forward or send_payment).
+ * functions like [`ChannelManager::process_pending_htlc_forwards`] or [`send_payment`]).
+ *
+ * May call [`send_data`] on [`SocketDescriptor`]s. Thus, be very careful with reentrancy
+ * issues!
+ *
+ * [`send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
+ * [`ChannelManager::process_pending_htlc_forwards`]: crate::ln::channelmanager::ChannelManager::process_pending_htlc_forwards
+ * [`send_data`]: SocketDescriptor::send_data
  */
 void PeerManager_process_events(const struct LDKPeerManager *NONNULL_PTR this_arg);
 
 /**
  * Indicates that the given socket descriptor's connection is now closed.
- *
- * This must only be called if the socket has been disconnected by the peer or your own
- * decision to disconnect it and must NOT be called in any case where other parts of this
- * library (eg PeerHandleError, explicit disconnect_socket calls) instruct you to disconnect
- * the peer.
- *
- * Panics if the descriptor was not previously registered in a successful new_*_connection event.
  */
 void PeerManager_socket_disconnected(const struct LDKPeerManager *NONNULL_PTR this_arg, const struct LDKSocketDescriptor *NONNULL_PTR descriptor);
 
 /**
  * Disconnect a peer given its node id.
  *
- * Set no_connection_possible to true to prevent any further connection with this peer,
+ * Set `no_connection_possible` to true to prevent any further connection with this peer,
  * force-closing any channels we have with it.
  *
- * If a peer is connected, this will call `disconnect_socket` on the descriptor for the peer,
- * so be careful about reentrancy issues.
+ * If a peer is connected, this will call [`disconnect_socket`] on the descriptor for the
+ * peer. Thus, be very careful about reentrancy issues.
+ *
+ * [`disconnect_socket`]: SocketDescriptor::disconnect_socket
  */
 void PeerManager_disconnect_by_node_id(const struct LDKPeerManager *NONNULL_PTR this_arg, struct LDKPublicKey node_id, bool no_connection_possible);
 
 /**
  * This function should be called roughly once every 30 seconds.
- * It will send pings to each peer and disconnect those which did not respond to the last round of pings.
- * Will most likely call send_data on all of the registered descriptors, thus, be very careful with reentrancy issues!
+ * It will send pings to each peer and disconnect those which did not respond to the last
+ * round of pings.
+ *
+ * May call [`send_data`] on all [`SocketDescriptor`]s. Thus, be very careful with reentrancy
+ * issues!
+ *
+ * [`send_data`]: SocketDescriptor::send_data
  */
 void PeerManager_timer_tick_occurred(const struct LDKPeerManager *NONNULL_PTR this_arg);
 
@@ -16403,9 +16473,15 @@ struct LDKCVec_u8Z get_htlc_redeemscript(const struct LDKHTLCOutputInCommitment 
 struct LDKCVec_u8Z make_funding_redeemscript(struct LDKPublicKey broadcaster, struct LDKPublicKey countersignatory);
 
 /**
- * panics if htlc.transaction_output_index.is_none()!
+ * Builds an unsigned HTLC-Success or HTLC-Timeout transaction from the given channel and HTLC
+ * parameters. This is used by [`TrustedCommitmentTransaction::get_htlc_sigs`] to fetch the
+ * transaction which needs signing, and can be used to construct an HTLC transaction which is
+ * broadcastable given a counterparty HTLC signature.
+ *
+ * Panics if htlc.transaction_output_index.is_none() (as such HTLCs do not appear in the
+ * commitment transaction).
  */
-struct LDKTransaction build_htlc_transaction(const uint8_t (*prev_hash)[32], uint32_t feerate_per_kw, uint16_t contest_delay, const struct LDKHTLCOutputInCommitment *NONNULL_PTR htlc, struct LDKPublicKey broadcaster_delayed_payment_key, struct LDKPublicKey revocation_key);
+struct LDKTransaction build_htlc_transaction(const uint8_t (*commitment_txid)[32], uint32_t feerate_per_kw, uint16_t contest_delay, const struct LDKHTLCOutputInCommitment *NONNULL_PTR htlc, struct LDKPublicKey broadcaster_delayed_payment_key, struct LDKPublicKey revocation_key);
 
 /**
  * Frees any resources used by the ChannelTransactionParameters, if is_owned is set and inner is non-NULL.
@@ -16780,7 +16856,12 @@ MUST_USE_RES struct LDKTxCreationKeys TrustedCommitmentTransaction_keys(const st
 MUST_USE_RES struct LDKCResult_CVec_SignatureZNoneZ TrustedCommitmentTransaction_get_htlc_sigs(const struct LDKTrustedCommitmentTransaction *NONNULL_PTR this_arg, const uint8_t (*htlc_base_key)[32], const struct LDKDirectedChannelTransactionParameters *NONNULL_PTR channel_parameters);
 
 /**
- * Get the transaction number obscure factor
+ * Commitment transaction numbers which appear in the transactions themselves are XOR'd with a
+ * shared secret first. This prevents on-chain observers from discovering how many commitment
+ * transactions occurred in a channel before it was closed.
+ *
+ * This function gets the shared secret from relevant channel public keys and can be used to
+ * \"decrypt\" the commitment transaction number given a commitment transaction on-chain.
  */
 uint64_t get_commitment_transaction_number_obscure_factor(struct LDKPublicKey broadcaster_payment_basepoint, struct LDKPublicKey countersignatory_payment_basepoint, bool outbound_from_broadcaster);
 
@@ -17078,6 +17159,23 @@ struct LDKCVec_u8Z Route_write(const struct LDKRoute *NONNULL_PTR obj);
 struct LDKCResult_RouteDecodeErrorZ Route_read(struct LDKu8slice ser);
 
 /**
+ * Frees any resources used by the RouteHint, if is_owned is set and inner is non-NULL.
+ */
+void RouteHint_free(struct LDKRouteHint this_obj);
+
+/**
+ * Checks if two RouteHints contain equal inner contents.
+ * This ignores pointers and is_owned flags and looks at the values in fields.
+ * Two objects with NULL inner values will be considered "equal" here.
+ */
+bool RouteHint_eq(const struct LDKRouteHint *NONNULL_PTR a, const struct LDKRouteHint *NONNULL_PTR b);
+
+/**
+ * Creates a copy of the RouteHint
+ */
+struct LDKRouteHint RouteHint_clone(const struct LDKRouteHint *NONNULL_PTR orig);
+
+/**
  * Frees any resources used by the RouteHintHop, if is_owned is set and inner is non-NULL.
  */
 void RouteHintHop_free(struct LDKRouteHintHop this_obj);
@@ -17165,8 +17263,8 @@ struct LDKRouteHintHop RouteHintHop_clone(const struct LDKRouteHintHop *NONNULL_
  * If the payee provided features in their invoice, they should be provided via payee_features.
  * Without this, MPP will only be used if the payee's features are available in the network graph.
  *
- * Extra routing hops between known nodes and the target will be used if they are included in
- * last_hops.
+ * Private routing paths between a public node and the target may be included in `last_hops`.
+ * Currently, only the last hop in each path is considered.
  *
  * If some channels aren't announced, it may be useful to fill in a first_hops with the
  * results from a local ChannelManager::list_usable_channels() call. If it is filled in, our
@@ -17180,7 +17278,7 @@ struct LDKRouteHintHop RouteHintHop_clone(const struct LDKRouteHintHop *NONNULL_
  * equal), however the enabled/disabled bit on such channels as well as the
  * htlc_minimum_msat/htlc_maximum_msat *are* checked as they may change based on the receiving node.
  */
-struct LDKCResult_RouteLightningErrorZ get_route(struct LDKPublicKey our_node_id, const struct LDKNetworkGraph *NONNULL_PTR network, struct LDKPublicKey payee, struct LDKInvoiceFeatures payee_features, struct LDKCVec_ChannelDetailsZ *first_hops, struct LDKCVec_RouteHintHopZ last_hops, uint64_t final_value_msat, uint32_t final_cltv, struct LDKLogger logger);
+struct LDKCResult_RouteLightningErrorZ get_route(struct LDKPublicKey our_node_id, const struct LDKNetworkGraph *NONNULL_PTR network, struct LDKPublicKey payee, struct LDKInvoiceFeatures payee_features, struct LDKCVec_ChannelDetailsZ *first_hops, struct LDKCVec_RouteHintZ last_hops, uint64_t final_value_msat, uint32_t final_cltv, struct LDKLogger logger);
 
 /**
  * Frees any resources used by the NetworkGraph, if is_owned is set and inner is non-NULL.
@@ -18076,21 +18174,21 @@ bool InvoiceSignature_eq(const struct LDKInvoiceSignature *NONNULL_PTR a, const 
 struct LDKInvoiceSignature InvoiceSignature_clone(const struct LDKInvoiceSignature *NONNULL_PTR orig);
 
 /**
- * Frees any resources used by the RouteHint, if is_owned is set and inner is non-NULL.
+ * Frees any resources used by the PrivateRoute, if is_owned is set and inner is non-NULL.
  */
-void RouteHint_free(struct LDKRouteHint this_obj);
+void PrivateRoute_free(struct LDKPrivateRoute this_obj);
 
 /**
- * Checks if two RouteHints contain equal inner contents.
+ * Checks if two PrivateRoutes contain equal inner contents.
  * This ignores pointers and is_owned flags and looks at the values in fields.
  * Two objects with NULL inner values will be considered "equal" here.
  */
-bool RouteHint_eq(const struct LDKRouteHint *NONNULL_PTR a, const struct LDKRouteHint *NONNULL_PTR b);
+bool PrivateRoute_eq(const struct LDKPrivateRoute *NONNULL_PTR a, const struct LDKPrivateRoute *NONNULL_PTR b);
 
 /**
- * Creates a copy of the RouteHint
+ * Creates a copy of the PrivateRoute
  */
-struct LDKRouteHint RouteHint_clone(const struct LDKRouteHint *NONNULL_PTR orig);
+struct LDKPrivateRoute PrivateRoute_clone(const struct LDKPrivateRoute *NONNULL_PTR orig);
 
 /**
  * Disassembles the `SignedRawInvoice` into its three parts:
@@ -18147,7 +18245,7 @@ MUST_USE_RES struct LDKThirtyTwoBytes RawInvoice_payment_secret(const struct LDK
 
 MUST_USE_RES struct LDKInvoiceFeatures RawInvoice_features(const struct LDKRawInvoice *NONNULL_PTR this_arg);
 
-MUST_USE_RES struct LDKCVec_RouteHintZ RawInvoice_routes(const struct LDKRawInvoice *NONNULL_PTR this_arg);
+MUST_USE_RES struct LDKCVec_PrivateRouteZ RawInvoice_private_routes(const struct LDKRawInvoice *NONNULL_PTR this_arg);
 
 MUST_USE_RES struct LDKCOption_u64Z RawInvoice_amount_pico_btc(const struct LDKRawInvoice *NONNULL_PTR this_arg);
 
@@ -18188,7 +18286,7 @@ MUST_USE_RES struct LDKSignedRawInvoice Invoice_into_signed_raw(struct LDKInvoic
 MUST_USE_RES struct LDKCResult_NoneSemanticErrorZ Invoice_check_signature(const struct LDKInvoice *NONNULL_PTR this_arg);
 
 /**
- * Constructs an `Invoice` from a `SignedInvoice` by checking all its invariants.
+ * Constructs an `Invoice` from a `SignedRawInvoice` by checking all its invariants.
  * ```
  * use lightning_invoice::*;
  *
@@ -18248,7 +18346,12 @@ MUST_USE_RES uint64_t Invoice_min_final_cltv_expiry(const struct LDKInvoice *NON
 /**
  * Returns a list of all routes included in the invoice
  */
-MUST_USE_RES struct LDKCVec_RouteHintZ Invoice_routes(const struct LDKInvoice *NONNULL_PTR this_arg);
+MUST_USE_RES struct LDKCVec_PrivateRouteZ Invoice_private_routes(const struct LDKInvoice *NONNULL_PTR this_arg);
+
+/**
+ * Returns a list of all routes included in the invoice as the underlying hints
+ */
+MUST_USE_RES struct LDKCVec_RouteHintZ Invoice_route_hints(const struct LDKInvoice *NONNULL_PTR this_arg);
 
 /**
  * Returns the currency for which the invoice was issued
@@ -18298,14 +18401,14 @@ MUST_USE_RES uint64_t ExpiryTime_as_seconds(const struct LDKExpiryTime *NONNULL_
 MUST_USE_RES uint64_t ExpiryTime_as_duration(const struct LDKExpiryTime *NONNULL_PTR this_arg);
 
 /**
- * Create a new (partial) route from a list of hops
+ * Creates a new (partial) route from a list of hops
  */
-MUST_USE_RES struct LDKCResult_RouteHintCreationErrorZ RouteHint_new(struct LDKCVec_RouteHintHopZ hops);
+MUST_USE_RES struct LDKCResult_PrivateRouteCreationErrorZ PrivateRoute_new(struct LDKRouteHint hops);
 
 /**
- * Returrn the underlying vector of hops
+ * Returns the underlying list of hops
  */
-MUST_USE_RES struct LDKCVec_RouteHintHopZ RouteHint_into_inner(struct LDKRouteHint this_arg);
+MUST_USE_RES struct LDKRouteHint PrivateRoute_into_inner(struct LDKPrivateRoute this_arg);
 
 /**
  * Creates a copy of the CreationError

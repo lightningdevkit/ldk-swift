@@ -1,16 +1,16 @@
-public class Result_RouteHintCreationErrorZ {
+public class Result_PrivateRouteCreationErrorZ {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_RouteHintCreationErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_PrivateRouteCreationErrorZ?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
-        			self.cOpaqueStruct = LDKCResult_RouteHintCreationErrorZ(contents: LDKCResult_RouteHintCreationErrorZPtr(), result_ok: true)
+        			self.cOpaqueStruct = LDKCResult_PrivateRouteCreationErrorZ(contents: LDKCResult_PrivateRouteCreationErrorZPtr(), result_ok: true)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_RouteHintCreationErrorZ){
+    public init(pointer: LDKCResult_PrivateRouteCreationErrorZ){
 		self.cOpaqueStruct = pointer
 	}
 
@@ -27,9 +27,9 @@ public class Result_RouteHintCreationErrorZ {
 				return nil
 			}
 			
-			public func getValue() -> RouteHint? {
+			public func getValue() -> PrivateRoute? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return RouteHint(pointer: self.cOpaqueStruct!.contents.result.pointee)
+					return PrivateRoute(pointer: self.cOpaqueStruct!.contents.result.pointee)
 				}
 				return nil
 			}

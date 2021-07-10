@@ -99,10 +99,17 @@ Invoice_min_final_cltv_expiry(this_argPointer)
 };
     }
 
-    public func routes() -> [LDKRouteHint] {
+    public func private_routes() -> [LDKPrivateRoute] {
+    	
+        return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+Invoice_private_routes(this_argPointer)
+});
+    }
+
+    public func route_hints() -> [LDKRouteHint] {
     	
         return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
-Invoice_routes(this_argPointer)
+Invoice_route_hints(this_argPointer)
 });
     }
 

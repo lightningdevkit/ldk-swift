@@ -144,6 +144,13 @@ ChannelMonitor_get_relevant_txids(this_argPointer)
 });
     }
 
+    public func current_best_block() -> BestBlock {
+    	
+        return BestBlock(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
+ChannelMonitor_current_best_block(this_argPointer)
+});
+    }
+
 				
 	deinit {
 					if self.cOpaqueStruct?.is_owned == false {

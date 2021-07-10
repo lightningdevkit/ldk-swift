@@ -11,7 +11,7 @@ public class ErrorAction {
     /* OPTION_METHODS_START */
 
 				public enum ErrorActionValueType {
-					case DisconnectPeer, SendErrorMessage
+					case DisconnectPeer, IgnoreAndLog, SendErrorMessage
 				}
 				
 				public func getValueType() -> ErrorActionValueType? {
@@ -19,6 +19,8 @@ public class ErrorAction {
                     
 					case LDKErrorAction_DisconnectPeer:
 						return .DisconnectPeer
+					case LDKErrorAction_IgnoreAndLog:
+						return .IgnoreAndLog
 					case LDKErrorAction_SendErrorMessage:
 						return .SendErrorMessage
                     default:
@@ -32,6 +34,13 @@ public class ErrorAction {
 							return nil
 						}
 						return DisconnectPeer(pointer: self.cOpaqueStruct!.disconnect_peer)
+					}
+				
+					public func getValueAsIgnoreAndLog() -> LDKLevel? {
+						if self.cOpaqueStruct?.tag != LDKErrorAction_IgnoreAndLog {
+							return nil
+						}
+						return self.cOpaqueStruct!.ignore_and_log
 					}
 				
 					public func getValueAsSendErrorMessage() -> SendErrorMessage? {

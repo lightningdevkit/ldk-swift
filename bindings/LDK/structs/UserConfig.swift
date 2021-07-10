@@ -60,6 +60,21 @@ UserConfig_get_channel_options(this_ptrPointer)
         return UserConfig_set_channel_options(this_ptrPointer, val.cOpaqueStruct!);
     }
 
+    public func get_accept_forwards_to_priv_channels() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUserConfig>) in
+UserConfig_get_accept_forwards_to_priv_channels(this_ptrPointer)
+};
+    }
+
+    public func set_accept_forwards_to_priv_channels(val: Bool) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return UserConfig_set_accept_forwards_to_priv_channels(this_ptrPointer, val);
+    }
+
     public func clone(orig: UserConfig) -> UserConfig {
     	
         return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUserConfig>) in

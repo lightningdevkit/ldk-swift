@@ -195,6 +195,13 @@ ChannelManager_await_persistable_update(this_argPointer)
 };
     }
 
+    public func current_best_block() -> BestBlock {
+    	
+        return BestBlock(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_current_best_block(this_argPointer)
+});
+    }
+
     public func as_ChannelMessageHandler() -> ChannelMessageHandler {
     	
         return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in

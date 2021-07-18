@@ -7,13 +7,13 @@
 
 import Foundation
 
-public class TCPPeerHandler : ObservableObject {
+public class TCPPeerHandler {
     
     private let peerManager: PeerManager
     private let socketHandler: UnsafeMutableRawPointer?
     private var isBound = false
     
-    init(peerManager: PeerManager) {
+    public init(peerManager: PeerManager) {
         self.peerManager = peerManager
         let socketHandler = withUnsafePointer(to: self.peerManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPeerManager>) -> UnsafeMutableRawPointer? in
             let socketHandler = init_socket_handling(pointer)
@@ -22,9 +22,10 @@ public class TCPPeerHandler : ObservableObject {
         self.socketHandler = socketHandler
     }
     
-    public func bind(address: String, port: UInt16) {
+    public func bind(address: String, port: UInt16) -> Bool {
         if(self.isBound){
-            return
+            // already bound
+            return false
         }
         self.isBound = true
         var addressObject = sockaddr_in()
@@ -46,11 +47,14 @@ public class TCPPeerHandler : ObservableObject {
         })
         if result != 0 {
             // something failed
+            self.isBound = false
+            return false
         }
+        return true
         
     }
     
-    public func connect(address: String, port: UInt16, theirNodeId: [UInt8]) {
+    public func connect(address: String, port: UInt16, theirNodeId: [UInt8]) -> Bool {
         
         var addressObject = sockaddr_in()
         addressObject.sin_len = UInt8(MemoryLayout.size(ofValue: addressObject))
@@ -73,7 +77,10 @@ public class TCPPeerHandler : ObservableObject {
         
         if result != 0 {
             // something failed
+            return false
         }
+        return true
+        
     }
     
     public func interrupt() {

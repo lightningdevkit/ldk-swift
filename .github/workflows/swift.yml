@@ -50,6 +50,8 @@ jobs:
                     mkdir -p ci/LDKCHeaders/Headers/
                     cp ldk-c-bindings/lightning-c-bindings/include/*.h ci/LDKCHeaders/Headers/
                     cp ldk-c-bindings/ldk-net/ldk_net.h ci/LDKCHeaders/Headers/
+            -   name: Set up Python
+                uses: actions/setup-python@v2
             -   name: Fix header files
                 run: |
                     python ci/fix_header_includes.py

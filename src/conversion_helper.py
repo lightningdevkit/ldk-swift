@@ -13,6 +13,7 @@ class ConversionHelper:
 			pass_instance = False
 			argument_name = current_argument_details.var_name
 			passed_argument_name = argument_name
+			is_pointer_to_array = False
 
 			# if passed_argument_name == 'init': # illegal in swift
 			# 	passed_argument_name = 'initValue'
@@ -58,11 +59,26 @@ class ConversionHelper:
 							{passed_argument_name}.initialize(to: {argument_name}.cOpaqueStruct!)
 						'''
 					else:
+						# nullable pass by pointer
+
+						# var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
+						# if let first_hopsUnwrapped = first_hops {
+						# first_hopsPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
+						# first_hopsPointer!.initialize(to: new_LDKCVec_ChannelDetailsZ(array: first_hopsUnwrapped))
+						# }
+
+						initialization_target = f'{argument_name}Unwrapped.cOpaqueStruct!'
+
+						if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
+							'LDK') and current_argument_details.swift_type.startswith('['):
+								initialization_target = f'Bindings.new_{current_argument_details.rust_obj}(array: {argument_name}Unwrapped)'
+								is_pointer_to_array = True
+
 						native_call_prep += f'''
 							var {passed_argument_name}: UnsafeMutablePointer<{current_argument_details.rust_obj}>? = nil
 							if let {argument_name}Unwrapped = {argument_name} {{
 								{passed_argument_name} = UnsafeMutablePointer<{current_argument_details.rust_obj}>.allocate(capacity: 1)
-								{passed_argument_name}!.initialize(to: {argument_name}Unwrapped.cOpaqueStruct!)
+								{passed_argument_name}!.initialize(to: {initialization_target})
 							}}
 						'''
 						print('optional argument:', argument_name, passed_argument_name)
@@ -93,7 +109,7 @@ class ConversionHelper:
 			elif current_argument_details.rust_obj == 'LDKC' + swift_argument_type and not current_argument_details.is_ptr:
 				native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
 			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
-				'LDK') and swift_argument_type.startswith('['):
+				'LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
 				native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 			elif swift_argument_type == 'String':
 				if is_trait_callback and current_argument_details.swift_raw_type == 'UnsafePointer<Int8>':

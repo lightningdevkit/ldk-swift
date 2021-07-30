@@ -1,9 +1,9 @@
 import re
 import os
 
-from config import Config
-from type_parsing_regeces import TypeParsingRegeces
-from conversion_helper import ConversionHelper
+from src.config import Config
+from src.type_parsing_regeces import TypeParsingRegeces
+from src.conversion_helper import ConversionHelper
 
 
 class OpaqueStructGenerator:

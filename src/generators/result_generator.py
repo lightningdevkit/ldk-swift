@@ -1,8 +1,8 @@
 import re
 import os
 
-from config import Config
-from conversion_helper import ConversionHelper
+from src.config import Config
+from src.conversion_helper import ConversionHelper
 
 class ResultGenerator:
 

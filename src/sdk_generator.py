@@ -1,12 +1,12 @@
-from lightning_header_parser import LightningHeaderParser
-from generators.opaque_struct_generator import OpaqueStructGenerator
-from generators.tuple_generator import TupleGenerator
-from generators.result_generator import ResultGenerator
-from generators.option_generator import OptionGenerator
-from generators.trait_generator import TraitGenerator
-from generators.util_generators.vector_generator import VectorGenerator
-from generators.util_generators.byte_array_generator import ByteArrayGenerator
-from generators.util_generators.static_method_generator import StaticMethodGenerator
+from src.lightning_header_parser import LightningHeaderParser
+from src.generators.opaque_struct_generator import OpaqueStructGenerator
+from src.generators.tuple_generator import TupleGenerator
+from src.generators.result_generator import ResultGenerator
+from src.generators.option_generator import OptionGenerator
+from src.generators.trait_generator import TraitGenerator
+from src.generators.util_generators.vector_generator import VectorGenerator
+from src.generators.util_generators.byte_array_generator import ByteArrayGenerator
+from src.generators.util_generators.static_method_generator import StaticMethodGenerator
 
 
 def parse_header() -> LightningHeaderParser:

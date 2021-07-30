@@ -1,7 +1,7 @@
 import re
 
-from generators.util_generators import UtilGenerator
-from conversion_helper import ConversionHelper
+from src.generators.util_generators import UtilGenerator
+from src.conversion_helper import ConversionHelper
 
 
 class StaticMethodGenerator(UtilGenerator):

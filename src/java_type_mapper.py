@@ -1,4 +1,4 @@
-from binding_types import TypeInfo
+from src.binding_types import TypeInfo
 
 def java_c_types(fn_arg, ret_arr_len, var_is_arr_regex, java_c_types_none_allowed, tuple_types, var_ty_regex, unitary_enums, language_constants):
     fn_arg = fn_arg.strip()

@@ -1,11 +1,11 @@
 import enum
 import os
 import re
-from config import Config
-import java_type_mapper
-import swift_constants
-import type_mapping_generator
-import swift_type_mapper
+from src.config import Config
+from src import java_type_mapper
+from src import swift_constants
+from src import type_mapping_generator
+from src import swift_type_mapper
 
 
 class CTypes(enum.Enum):

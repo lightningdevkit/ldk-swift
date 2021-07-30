@@ -1,4 +1,4 @@
-from binding_types import *
+from src.binding_types import *
 from enum import Enum
 
 class Target(Enum):

@@ -1,8 +1,8 @@
 import re
 import os
 
-from config import Config
-from type_parsing_regeces import TypeParsingRegeces
+from src.config import Config
+from src.type_parsing_regeces import TypeParsingRegeces
 
 # Tuples have only new, optionally clone, and free methods
 class TupleGenerator:

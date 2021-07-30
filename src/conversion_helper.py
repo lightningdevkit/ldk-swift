@@ -1,4 +1,4 @@
-from type_parsing_regeces import TypeParsingRegeces
+from src.type_parsing_regeces import TypeParsingRegeces
 
 class ConversionHelper:
 	@classmethod

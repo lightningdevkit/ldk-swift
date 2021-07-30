@@ -10,13 +10,6 @@ public class ChannelMonitor {
 
     /* STRUCT_METHODS_START */
 
-    public func clone(orig: ChannelMonitor) -> ChannelMonitor {
-    	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitor>) in
-ChannelMonitor(pointer: ChannelMonitor_clone(origPointer))
-};
-    }
-
     public func write(obj: ChannelMonitor) -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitor>) in

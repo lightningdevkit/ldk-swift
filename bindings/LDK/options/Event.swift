@@ -126,20 +126,12 @@ public class Event {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_hash)
 					}
 				
-					public func getPayment_preimage() -> [UInt8] {
-						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_preimage)
-					}
-				
-					public func getPayment_secret() -> [UInt8] {
-						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_secret)
-					}
-				
 					public func getAmt() -> UInt64 {
 						return self.cOpaqueStruct!.amt
 					}
 				
-					public func getUser_payment_id() -> UInt64 {
-						return self.cOpaqueStruct!.user_payment_id
+					public func getPurpose() -> PaymentPurpose {
+						return PaymentPurpose(pointer: self.cOpaqueStruct!.purpose)
 					}
 				
 				

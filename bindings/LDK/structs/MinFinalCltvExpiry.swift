@@ -19,9 +19,9 @@ MinFinalCltvExpiry_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: MinFinalCltvExpiry) -> MinFinalCltvExpiry {
+    public func clone() -> MinFinalCltvExpiry {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
 MinFinalCltvExpiry(pointer: MinFinalCltvExpiry_clone(origPointer))
 };
     }

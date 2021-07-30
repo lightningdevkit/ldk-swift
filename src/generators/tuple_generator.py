@@ -3,6 +3,7 @@ import os
 
 from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
+from src.conversion_helper import ConversionHelper
 
 # Tuples have only new, optionally clone, and free methods
 class TupleGenerator:
@@ -62,69 +63,15 @@ class TupleGenerator:
 
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
-			is_clone_method = current_method_details['is_clone']
-			if is_clone_method:
-				current_replacement = current_replacement.replace('TupleType_methodName(',
-																  f'{swift_tuple_name}(pointer: {current_native_method_name}(')
-			else:
-				current_replacement = current_replacement.replace('TupleType_methodName(',
-																  f'{current_native_method_name}(')
-			# replace arguments
-			swift_arguments = []
-			native_arguments = []
-			native_call_prep = ''
-			for current_argument_details in current_method_details['argument_types']:
-				pass_instance = False
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				if argument_name == 'this_ptr':
-					pass_instance = True
 
-				if current_argument_details.is_ptr:
-					passed_argument_name = argument_name + 'Pointer'
-					requires_mutability = not current_argument_details.is_const
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'])
 
-					mutability_infix = ''
-
-					if pass_instance:
-						argument_name = 'self'
-					if requires_mutability:
-						argument_name = '&' + argument_name
-						mutability_infix = 'Mutable'
-					# let managerPointer = withUnsafePointer(to: self.cChannelManager!) { (pointer: UnsafePointer<LDKChannelManager>) in
-					# 	pointer
-					# }
-					# the \n\t will add a bunch of extra lines, but this file will be easier to read
-					current_prep = f'''
-						\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
-							\n\t\t	pointer
-						\n\t	}}
-					'''
-					native_call_prep += current_prep
-
-				swift_argument_type = current_argument_details.swift_type
-				if not pass_instance:
-					if swift_argument_type == 'TxOut':
-						swift_argument_type = 'LDKTxOut'
-					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
-						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
-					swift_arguments.append(f'{argument_name}: {swift_argument_type}')
-
-				# native_arguments.append(f'{passed_argument_name}')
-				if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:
-					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
-				elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and swift_argument_type.startswith('['):
-					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
-				else:
-					native_arguments.append(f'{passed_argument_name}')
-
-			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
-			if is_clone_method:
-				# add closing parenthesis that could not be added further up in the clone initializer
-				current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments) + ')')
-			else:
-				current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments))
-			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
+			current_replacement = current_replacement.replace('TupleType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'TupleType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
+			current_replacement = current_replacement.replace('TupleType_methodName(',
+															  f'{current_native_method_name}(')
+			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
+			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
+			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
 
 			struct_methods += '\n' + current_replacement + '\n'

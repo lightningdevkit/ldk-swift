@@ -40,16 +40,16 @@ UpdateFailHTLC_get_htlc_id(this_ptrPointer)
         return UpdateFailHTLC_set_htlc_id(this_ptrPointer, val);
     }
 
-    public func clone(orig: UpdateFailHTLC) -> UpdateFailHTLC {
+    public func clone() -> UpdateFailHTLC {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailHTLC>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailHTLC>) in
 UpdateFailHTLC(pointer: UpdateFailHTLC_clone(origPointer))
 };
     }
 
-    public func write(obj: UpdateFailHTLC) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFailHTLC>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFailHTLC>) in
 UpdateFailHTLC_write(objPointer)
 });
     }

@@ -113,16 +113,16 @@ DelayedPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer)
         return DelayedPaymentOutputDescriptor_set_channel_value_satoshis(this_ptrPointer, val);
     }
 
-    public func clone(orig: DelayedPaymentOutputDescriptor) -> DelayedPaymentOutputDescriptor {
+    public func clone() -> DelayedPaymentOutputDescriptor {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor(pointer: DelayedPaymentOutputDescriptor_clone(origPointer))
 };
     }
 
-    public func write(obj: DelayedPaymentOutputDescriptor) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_write(objPointer)
 });
     }

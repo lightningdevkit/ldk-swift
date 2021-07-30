@@ -130,16 +130,16 @@ UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer)
         return UnsignedChannelUpdate_set_fee_proportional_millionths(this_ptrPointer, val);
     }
 
-    public func clone(orig: UnsignedChannelUpdate) -> UnsignedChannelUpdate {
+    public func clone() -> UnsignedChannelUpdate {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
 UnsignedChannelUpdate(pointer: UnsignedChannelUpdate_clone(origPointer))
 };
     }
 
-    public func write(obj: UnsignedChannelUpdate) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
 UnsignedChannelUpdate_write(objPointer)
 });
     }

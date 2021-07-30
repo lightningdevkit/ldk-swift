@@ -218,9 +218,9 @@ ChannelManager_as_ChannelMessageHandler(this_argPointer)
 });
     }
 
-    public func write(obj: ChannelManager) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelManager>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_write(objPointer)
 });
     }

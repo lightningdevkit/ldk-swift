@@ -34,9 +34,9 @@ RawInvoice_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: RawInvoice) -> RawInvoice {
+    public func clone() -> RawInvoice {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice(pointer: RawInvoice_clone(origPointer))
 };
     }

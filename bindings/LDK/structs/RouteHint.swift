@@ -19,9 +19,9 @@ RouteHint_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: RouteHint) -> RouteHint {
+    public func clone() -> RouteHint {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHint>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHint>) in
 RouteHint(pointer: RouteHint_clone(origPointer))
 };
     }

@@ -19,9 +19,9 @@ SignedRawInvoice_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: SignedRawInvoice) -> SignedRawInvoice {
+    public func clone() -> SignedRawInvoice {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice(pointer: SignedRawInvoice_clone(origPointer))
 };
     }
@@ -71,9 +71,9 @@ SignedRawInvoice_check_signature(this_argPointer)
         return Result_SignedRawInvoiceNoneZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s)));
     }
 
-    public func to_str(o: SignedRawInvoice) -> String {
+    public func to_str() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_to_str(oPointer)
 });
     }

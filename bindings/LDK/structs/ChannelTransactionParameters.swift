@@ -90,9 +90,9 @@ ChannelTransactionParameters_get_funding_outpoint(this_ptrPointer)
         return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: ChannelTransactionParameters) -> ChannelTransactionParameters {
+    public func clone() -> ChannelTransactionParameters {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters(pointer: ChannelTransactionParameters_clone(origPointer))
 };
     }
@@ -118,9 +118,9 @@ ChannelTransactionParameters_as_counterparty_broadcastable(this_argPointer)
 });
     }
 
-    public func write(obj: ChannelTransactionParameters) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters_write(objPointer)
 });
     }

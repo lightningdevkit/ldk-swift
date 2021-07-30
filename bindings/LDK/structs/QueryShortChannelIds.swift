@@ -38,9 +38,9 @@ QueryShortChannelIds_get_chain_hash(this_ptrPointer)
         return QueryShortChannelIds_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val));
     }
 
-    public func clone(orig: QueryShortChannelIds) -> QueryShortChannelIds {
+    public func clone() -> QueryShortChannelIds {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryShortChannelIds>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryShortChannelIds>) in
 QueryShortChannelIds(pointer: QueryShortChannelIds_clone(origPointer))
 };
     }
@@ -50,9 +50,9 @@ QueryShortChannelIds(pointer: QueryShortChannelIds_clone(origPointer))
         return Result_QueryShortChannelIdsDecodeErrorZ(pointer: QueryShortChannelIds_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    public func write(obj: QueryShortChannelIds) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKQueryShortChannelIds>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKQueryShortChannelIds>) in
 QueryShortChannelIds_write(objPointer)
 });
     }

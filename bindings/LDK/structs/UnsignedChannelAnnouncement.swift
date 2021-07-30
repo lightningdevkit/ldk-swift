@@ -115,16 +115,16 @@ UnsignedChannelAnnouncement_get_bitcoin_key_2(this_ptrPointer)
         return UnsignedChannelAnnouncement_set_bitcoin_key_2(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: UnsignedChannelAnnouncement) -> UnsignedChannelAnnouncement {
+    public func clone() -> UnsignedChannelAnnouncement {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
 UnsignedChannelAnnouncement(pointer: UnsignedChannelAnnouncement_clone(origPointer))
 };
     }
 
-    public func write(obj: UnsignedChannelAnnouncement) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
 UnsignedChannelAnnouncement_write(objPointer)
 });
     }

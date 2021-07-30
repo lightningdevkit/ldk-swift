@@ -105,9 +105,9 @@ InMemorySigner_get_commitment_seed(this_ptrPointer)
         return InMemorySigner_set_commitment_seed(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    public func clone(orig: InMemorySigner) -> InMemorySigner {
+    public func clone() -> InMemorySigner {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInMemorySigner>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner(pointer: InMemorySigner_clone(origPointer))
 };
     }
@@ -186,9 +186,9 @@ InMemorySigner_as_Sign(this_argPointer)
 });
     }
 
-    public func write(obj: InMemorySigner) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInMemorySigner>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_write(objPointer)
 });
     }

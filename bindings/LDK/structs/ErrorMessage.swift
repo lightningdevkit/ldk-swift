@@ -45,16 +45,16 @@ ErrorMessage_get_data(this_ptrPointer)
         return ErrorMessage_set_data(this_ptrPointer, Bindings.new_LDKStr(string: val));
     }
 
-    public func clone(orig: ErrorMessage) -> ErrorMessage {
+    public func clone() -> ErrorMessage {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKErrorMessage>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKErrorMessage>) in
 ErrorMessage(pointer: ErrorMessage_clone(origPointer))
 };
     }
 
-    public func write(obj: ErrorMessage) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKErrorMessage>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKErrorMessage>) in
 ErrorMessage_write(objPointer)
 });
     }

@@ -135,9 +135,9 @@ ChannelHandshakeLimits_get_their_to_self_delay(this_ptrPointer)
         return ChannelHandshakeLimits_set_their_to_self_delay(this_ptrPointer, val);
     }
 
-    public func clone(orig: ChannelHandshakeLimits) -> ChannelHandshakeLimits {
+    public func clone() -> ChannelHandshakeLimits {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeLimits>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeLimits>) in
 ChannelHandshakeLimits(pointer: ChannelHandshakeLimits_clone(origPointer))
 };
     }

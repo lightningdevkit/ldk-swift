@@ -10,9 +10,9 @@ public class ChannelMonitor {
 
     /* STRUCT_METHODS_START */
 
-    public func write(obj: ChannelMonitor) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitor>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_write(objPointer)
 });
     }

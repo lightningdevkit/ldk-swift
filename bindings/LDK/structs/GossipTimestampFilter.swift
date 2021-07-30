@@ -60,9 +60,9 @@ GossipTimestampFilter_get_timestamp_range(this_ptrPointer)
         return GossipTimestampFilter_set_timestamp_range(this_ptrPointer, val);
     }
 
-    public func clone(orig: GossipTimestampFilter) -> GossipTimestampFilter {
+    public func clone() -> GossipTimestampFilter {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKGossipTimestampFilter>) in
 GossipTimestampFilter(pointer: GossipTimestampFilter_clone(origPointer))
 };
     }
@@ -72,9 +72,9 @@ GossipTimestampFilter(pointer: GossipTimestampFilter_clone(origPointer))
         return Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    public func write(obj: GossipTimestampFilter) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKGossipTimestampFilter>) in
 GossipTimestampFilter_write(objPointer)
 });
     }

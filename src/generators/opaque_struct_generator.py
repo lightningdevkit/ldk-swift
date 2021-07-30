@@ -78,6 +78,11 @@ class OpaqueStructGenerator:
 			# 	current_return_type = current_rust_return_type
 			current_method_name = current_native_method_name[len(method_prefix):]
 
+			force_pass_instance = False
+			if len(current_method_details['argument_types']) == 1:
+				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
+					force_pass_instance = True
+
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 
@@ -140,7 +145,7 @@ class OpaqueStructGenerator:
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 			# replace arguments
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'])
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
 			swift_arguments = prepared_arguments["swift_arguments"]
 			native_arguments = prepared_arguments['native_arguments']
 			native_call_prefix = prepared_arguments['native_call_prefix']

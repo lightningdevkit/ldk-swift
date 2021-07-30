@@ -38,16 +38,16 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
         return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
     }
 
-    public func clone(orig: HolderCommitmentTransaction) -> HolderCommitmentTransaction {
+    public func clone() -> HolderCommitmentTransaction {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
 HolderCommitmentTransaction(pointer: HolderCommitmentTransaction_clone(origPointer))
 };
     }
 
-    public func write(obj: HolderCommitmentTransaction) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
 HolderCommitmentTransaction_write(objPointer)
 });
     }

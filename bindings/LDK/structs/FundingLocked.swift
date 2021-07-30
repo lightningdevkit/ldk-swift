@@ -45,16 +45,16 @@ FundingLocked_get_next_per_commitment_point(this_ptrPointer)
         return FundingLocked_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: FundingLocked) -> FundingLocked {
+    public func clone() -> FundingLocked {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingLocked>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingLocked>) in
 FundingLocked(pointer: FundingLocked_clone(origPointer))
 };
     }
 
-    public func write(obj: FundingLocked) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingLocked>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingLocked>) in
 FundingLocked_write(objPointer)
 });
     }

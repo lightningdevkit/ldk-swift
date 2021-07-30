@@ -8,16 +8,11 @@ public class C2Tuple_u32ScriptZ {
 
     /* TUPLE_METHODS_START */
 
-    public func clone(orig: C2Tuple_u32ScriptZ) -> C2Tuple_u32ScriptZ {
+    public func clone() -> C2Tuple_u32ScriptZ {
     	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKC2Tuple_u32ScriptZ>) in
-							
-			pointer
-						
-		}
-					
-        return C2Tuple_u32ScriptZ(pointer: C2Tuple_u32ScriptZ_clone(origPointer));
+        return C2Tuple_u32ScriptZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_u32ScriptZ>) in
+C2Tuple_u32ScriptZ_clone(origPointer)
+});
     }
 
     public func new(a: UInt32, b: [UInt8]) -> C2Tuple_u32ScriptZ {

@@ -120,16 +120,16 @@ ChannelInfo_get_announcement_message(this_ptrPointer)
         return ChannelInfo_set_announcement_message(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: ChannelInfo) -> ChannelInfo {
+    public func clone() -> ChannelInfo {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelInfo>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelInfo>) in
 ChannelInfo(pointer: ChannelInfo_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelInfo) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelInfo>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelInfo>) in
 ChannelInfo_write(objPointer)
 });
     }

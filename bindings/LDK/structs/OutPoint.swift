@@ -45,9 +45,9 @@ OutPoint_get_index(this_ptrPointer)
         return OutPoint_set_index(this_ptrPointer, val);
     }
 
-    public func clone(orig: OutPoint) -> OutPoint {
+    public func clone() -> OutPoint {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOutPoint>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOutPoint>) in
 OutPoint(pointer: OutPoint_clone(origPointer))
 };
     }
@@ -61,9 +61,9 @@ OutPoint_eq(aPointer, bPointer)
 };
     }
 
-    public func hash(o: OutPoint) -> UInt64 {
+    public func hash() -> UInt64 {
     	
-        return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKOutPoint>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKOutPoint>) in
 OutPoint_hash(oPointer)
 };
     }
@@ -75,9 +75,9 @@ OutPoint_to_channel_id(this_argPointer)
 });
     }
 
-    public func write(obj: OutPoint) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOutPoint>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOutPoint>) in
 OutPoint_write(objPointer)
 });
     }

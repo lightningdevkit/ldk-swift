@@ -240,9 +240,9 @@ ChannelDetails_get_is_public(this_ptrPointer)
         return ChannelDetails_set_is_public(this_ptrPointer, val);
     }
 
-    public func clone(orig: ChannelDetails) -> ChannelDetails {
+    public func clone() -> ChannelDetails {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelDetails>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelDetails>) in
 ChannelDetails(pointer: ChannelDetails_clone(origPointer))
 };
     }

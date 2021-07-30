@@ -90,16 +90,16 @@ ChannelConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
         return ChannelConfig_set_commit_upfront_shutdown_pubkey(this_ptrPointer, val);
     }
 
-    public func clone(orig: ChannelConfig) -> ChannelConfig {
+    public func clone() -> ChannelConfig {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelConfig>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelConfig>) in
 ChannelConfig(pointer: ChannelConfig_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelConfig) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelConfig>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelConfig>) in
 ChannelConfig_write(objPointer)
 });
     }

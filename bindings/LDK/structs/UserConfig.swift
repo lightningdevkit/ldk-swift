@@ -75,9 +75,9 @@ UserConfig_get_accept_forwards_to_priv_channels(this_ptrPointer)
         return UserConfig_set_accept_forwards_to_priv_channels(this_ptrPointer, val);
     }
 
-    public func clone(orig: UserConfig) -> UserConfig {
+    public func clone() -> UserConfig {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUserConfig>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUserConfig>) in
 UserConfig(pointer: UserConfig_clone(origPointer))
 };
     }

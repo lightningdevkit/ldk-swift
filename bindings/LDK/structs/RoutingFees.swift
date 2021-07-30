@@ -54,16 +54,16 @@ RoutingFees_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: RoutingFees) -> RoutingFees {
+    public func clone() -> RoutingFees {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
 RoutingFees(pointer: RoutingFees_clone(origPointer))
 };
     }
 
-    public func write(obj: RoutingFees) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoutingFees>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoutingFees>) in
 RoutingFees_write(objPointer)
 });
     }

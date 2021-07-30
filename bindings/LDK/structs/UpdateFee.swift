@@ -45,16 +45,16 @@ UpdateFee_get_feerate_per_kw(this_ptrPointer)
         return UpdateFee_set_feerate_per_kw(this_ptrPointer, val);
     }
 
-    public func clone(orig: UpdateFee) -> UpdateFee {
+    public func clone() -> UpdateFee {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFee>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFee>) in
 UpdateFee(pointer: UpdateFee_clone(origPointer))
 };
     }
 
-    public func write(obj: UpdateFee) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFee>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFee>) in
 UpdateFee_write(objPointer)
 });
     }

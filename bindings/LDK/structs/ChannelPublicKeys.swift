@@ -90,16 +90,16 @@ ChannelPublicKeys_get_htlc_basepoint(this_ptrPointer)
         return ChannelPublicKeys_set_htlc_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: ChannelPublicKeys) -> ChannelPublicKeys {
+    public func clone() -> ChannelPublicKeys {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelPublicKeys>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelPublicKeys>) in
 ChannelPublicKeys(pointer: ChannelPublicKeys_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelPublicKeys) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelPublicKeys>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelPublicKeys>) in
 ChannelPublicKeys_write(objPointer)
 });
     }

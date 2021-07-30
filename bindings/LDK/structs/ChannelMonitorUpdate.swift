@@ -25,16 +25,16 @@ ChannelMonitorUpdate_get_update_id(this_ptrPointer)
         return ChannelMonitorUpdate_set_update_id(this_ptrPointer, val);
     }
 
-    public func clone(orig: ChannelMonitorUpdate) -> ChannelMonitorUpdate {
+    public func clone() -> ChannelMonitorUpdate {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 ChannelMonitorUpdate(pointer: ChannelMonitorUpdate_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelMonitorUpdate) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 ChannelMonitorUpdate_write(objPointer)
 });
     }

@@ -45,9 +45,9 @@ LightningError_get_action(this_ptrPointer)
         return LightningError_set_action(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: LightningError) -> LightningError {
+    public func clone() -> LightningError {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKLightningError>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKLightningError>) in
 LightningError(pointer: LightningError_clone(origPointer))
 };
     }

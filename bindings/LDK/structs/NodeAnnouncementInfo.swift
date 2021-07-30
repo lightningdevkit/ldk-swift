@@ -98,16 +98,16 @@ NodeAnnouncementInfo_get_announcement_message(this_ptrPointer)
         return NodeAnnouncementInfo_set_announcement_message(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: NodeAnnouncementInfo) -> NodeAnnouncementInfo {
+    public func clone() -> NodeAnnouncementInfo {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
 NodeAnnouncementInfo(pointer: NodeAnnouncementInfo_clone(origPointer))
 };
     }
 
-    public func write(obj: NodeAnnouncementInfo) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
 NodeAnnouncementInfo_write(objPointer)
 });
     }

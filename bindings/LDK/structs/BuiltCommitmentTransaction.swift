@@ -45,16 +45,16 @@ BuiltCommitmentTransaction_get_txid(this_ptrPointer)
         return BuiltCommitmentTransaction_set_txid(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    public func clone(orig: BuiltCommitmentTransaction) -> BuiltCommitmentTransaction {
+    public func clone() -> BuiltCommitmentTransaction {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
 BuiltCommitmentTransaction(pointer: BuiltCommitmentTransaction_clone(origPointer))
 };
     }
 
-    public func write(obj: BuiltCommitmentTransaction) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
 BuiltCommitmentTransaction_write(objPointer)
 });
     }

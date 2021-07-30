@@ -24,16 +24,16 @@ ChannelFeatures_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: ChannelFeatures) -> ChannelFeatures {
+    public func clone() -> ChannelFeatures {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelFeatures>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelFeatures>) in
 ChannelFeatures(pointer: ChannelFeatures_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelFeatures) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelFeatures>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelFeatures>) in
 ChannelFeatures_write(objPointer)
 });
     }

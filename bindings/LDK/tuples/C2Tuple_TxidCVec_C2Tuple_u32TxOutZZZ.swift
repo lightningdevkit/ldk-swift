@@ -8,16 +8,11 @@ public class C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
 
     /* TUPLE_METHODS_START */
 
-    public func clone(orig: C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ) -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
+    public func clone() -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
     	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ>) in
-							
-			pointer
-						
-		}
-					
-        return C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer));
+        return C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ>) in
+C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer)
+});
     }
 
     public func new(a: [UInt8], b: [LDKC2Tuple_u32TxOutZ]) -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {

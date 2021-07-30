@@ -15,9 +15,9 @@ public class BestBlock {
 
     /* STRUCT_METHODS_START */
 
-    public func clone(orig: BestBlock) -> BestBlock {
+    public func clone() -> BestBlock {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBestBlock>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBestBlock>) in
 BestBlock(pointer: BestBlock_clone(origPointer))
 };
     }

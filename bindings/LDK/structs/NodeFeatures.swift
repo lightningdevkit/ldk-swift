@@ -24,9 +24,9 @@ NodeFeatures_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: NodeFeatures) -> NodeFeatures {
+    public func clone() -> NodeFeatures {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeFeatures>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeFeatures>) in
 NodeFeatures(pointer: NodeFeatures_clone(origPointer))
 };
     }
@@ -38,9 +38,9 @@ NodeFeatures_supports_payment_secret(this_argPointer)
 };
     }
 
-    public func write(obj: NodeFeatures) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeFeatures>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeFeatures>) in
 NodeFeatures_write(objPointer)
 });
     }

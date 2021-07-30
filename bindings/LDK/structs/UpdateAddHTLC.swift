@@ -85,16 +85,16 @@ UpdateAddHTLC_get_cltv_expiry(this_ptrPointer)
         return UpdateAddHTLC_set_cltv_expiry(this_ptrPointer, val);
     }
 
-    public func clone(orig: UpdateAddHTLC) -> UpdateAddHTLC {
+    public func clone() -> UpdateAddHTLC {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
 UpdateAddHTLC(pointer: UpdateAddHTLC_clone(origPointer))
 };
     }
 
-    public func write(obj: UpdateAddHTLC) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateAddHTLC>) in
 UpdateAddHTLC_write(objPointer)
 });
     }

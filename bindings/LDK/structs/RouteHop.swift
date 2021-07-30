@@ -105,16 +105,16 @@ RouteHop_get_cltv_expiry_delta(this_ptrPointer)
         return RouteHop_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 
-    public func clone(orig: RouteHop) -> RouteHop {
+    public func clone() -> RouteHop {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
 RouteHop(pointer: RouteHop_clone(origPointer))
 };
     }
 
-    public func write(obj: RouteHop) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHop>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHop>) in
 RouteHop_write(objPointer)
 });
     }

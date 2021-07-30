@@ -90,16 +90,16 @@ TxCreationKeys_get_broadcaster_delayed_payment_key(this_ptrPointer)
         return TxCreationKeys_set_broadcaster_delayed_payment_key(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: TxCreationKeys) -> TxCreationKeys {
+    public func clone() -> TxCreationKeys {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKTxCreationKeys>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKTxCreationKeys>) in
 TxCreationKeys(pointer: TxCreationKeys_clone(origPointer))
 };
     }
 
-    public func write(obj: TxCreationKeys) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKTxCreationKeys>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKTxCreationKeys>) in
 TxCreationKeys_write(objPointer)
 });
     }

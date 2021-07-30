@@ -90,16 +90,16 @@ ChannelAnnouncement_get_contents(this_ptrPointer)
         return ChannelAnnouncement_set_contents(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: ChannelAnnouncement) -> ChannelAnnouncement {
+    public func clone() -> ChannelAnnouncement {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelAnnouncement>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelAnnouncement>) in
 ChannelAnnouncement(pointer: ChannelAnnouncement_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelAnnouncement) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelAnnouncement>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelAnnouncement>) in
 ChannelAnnouncement_write(objPointer)
 });
     }

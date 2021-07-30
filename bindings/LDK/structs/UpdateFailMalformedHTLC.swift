@@ -55,16 +55,16 @@ UpdateFailMalformedHTLC_get_failure_code(this_ptrPointer)
         return UpdateFailMalformedHTLC_set_failure_code(this_ptrPointer, val);
     }
 
-    public func clone(orig: UpdateFailMalformedHTLC) -> UpdateFailMalformedHTLC {
+    public func clone() -> UpdateFailMalformedHTLC {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
 UpdateFailMalformedHTLC(pointer: UpdateFailMalformedHTLC_clone(origPointer))
 };
     }
 
-    public func write(obj: UpdateFailMalformedHTLC) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
 UpdateFailMalformedHTLC_write(objPointer)
 });
     }

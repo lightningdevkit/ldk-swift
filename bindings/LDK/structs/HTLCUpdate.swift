@@ -10,16 +10,16 @@ public class HTLCUpdate {
 
     /* STRUCT_METHODS_START */
 
-    public func clone(orig: HTLCUpdate) -> HTLCUpdate {
+    public func clone() -> HTLCUpdate {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
 HTLCUpdate(pointer: HTLCUpdate_clone(origPointer))
 };
     }
 
-    public func write(obj: HTLCUpdate) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
 HTLCUpdate_write(objPointer)
 });
     }

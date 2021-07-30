@@ -19,9 +19,9 @@ Description_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: Description) -> Description {
+    public func clone() -> Description {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
 Description(pointer: Description_clone(origPointer))
 };
     }

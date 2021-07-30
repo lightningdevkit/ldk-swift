@@ -55,16 +55,16 @@ ChannelReestablish_get_next_remote_commitment_number(this_ptrPointer)
         return ChannelReestablish_set_next_remote_commitment_number(this_ptrPointer, val);
     }
 
-    public func clone(orig: ChannelReestablish) -> ChannelReestablish {
+    public func clone() -> ChannelReestablish {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelReestablish>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelReestablish>) in
 ChannelReestablish(pointer: ChannelReestablish_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelReestablish) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelReestablish>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelReestablish>) in
 ChannelReestablish_write(objPointer)
 });
     }

@@ -75,16 +75,16 @@ FundingCreated_get_signature(this_ptrPointer)
         return FundingCreated_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    public func clone(orig: FundingCreated) -> FundingCreated {
+    public func clone() -> FundingCreated {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
 FundingCreated(pointer: FundingCreated_clone(origPointer))
 };
     }
 
-    public func write(obj: FundingCreated) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingCreated>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingCreated>) in
 FundingCreated_write(objPointer)
 });
     }

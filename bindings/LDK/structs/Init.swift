@@ -30,16 +30,16 @@ Init_get_features(this_ptrPointer)
         return Init_set_features(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: Init) -> Init {
+    public func clone() -> Init {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInit>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInit>) in
 Init(pointer: Init_clone(origPointer))
 };
     }
 
-    public func write(obj: Init) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInit>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInit>) in
 Init_write(objPointer)
 });
     }

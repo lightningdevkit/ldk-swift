@@ -45,9 +45,9 @@ ChainParameters_get_best_block(this_ptrPointer)
         return ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: ChainParameters) -> ChainParameters {
+    public func clone() -> ChainParameters {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChainParameters>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChainParameters>) in
 ChainParameters(pointer: ChainParameters_clone(origPointer))
 };
     }

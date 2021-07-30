@@ -93,16 +93,16 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
         return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZ(array: val));
     }
 
-    public func clone(orig: UnsignedNodeAnnouncement) -> UnsignedNodeAnnouncement {
+    public func clone() -> UnsignedNodeAnnouncement {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement(pointer: UnsignedNodeAnnouncement_clone(origPointer))
 };
     }
 
-    public func write(obj: UnsignedNodeAnnouncement) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement_write(objPointer)
 });
     }

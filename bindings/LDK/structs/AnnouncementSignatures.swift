@@ -75,16 +75,16 @@ AnnouncementSignatures_get_bitcoin_signature(this_ptrPointer)
         return AnnouncementSignatures_set_bitcoin_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    public func clone(orig: AnnouncementSignatures) -> AnnouncementSignatures {
+    public func clone() -> AnnouncementSignatures {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAnnouncementSignatures>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAnnouncementSignatures>) in
 AnnouncementSignatures(pointer: AnnouncementSignatures_clone(origPointer))
 };
     }
 
-    public func write(obj: AnnouncementSignatures) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAnnouncementSignatures>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAnnouncementSignatures>) in
 AnnouncementSignatures_write(objPointer)
 });
     }

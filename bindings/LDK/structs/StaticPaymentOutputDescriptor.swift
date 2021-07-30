@@ -68,16 +68,16 @@ StaticPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer)
         return StaticPaymentOutputDescriptor_set_channel_value_satoshis(this_ptrPointer, val);
     }
 
-    public func clone(orig: StaticPaymentOutputDescriptor) -> StaticPaymentOutputDescriptor {
+    public func clone() -> StaticPaymentOutputDescriptor {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
 StaticPaymentOutputDescriptor(pointer: StaticPaymentOutputDescriptor_clone(origPointer))
 };
     }
 
-    public func write(obj: StaticPaymentOutputDescriptor) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
 StaticPaymentOutputDescriptor_write(objPointer)
 });
     }

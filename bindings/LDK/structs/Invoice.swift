@@ -19,9 +19,9 @@ Invoice_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: Invoice) -> Invoice {
+    public func clone() -> Invoice {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoice>) in
 Invoice(pointer: Invoice_clone(origPointer))
 };
     }
@@ -132,9 +132,9 @@ Invoice_amount_pico_btc(this_argPointer)
         return Result_InvoiceNoneZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
     }
 
-    public func to_str(o: Invoice) -> String {
+    public func to_str() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKInvoice>) in
 Invoice_to_str(oPointer)
 });
     }

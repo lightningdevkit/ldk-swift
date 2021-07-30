@@ -121,6 +121,7 @@ class LightningHeaderParser():
 		self.option_types = set()
 		self.vec_types = set()
 		self.byte_arrays = set()
+		self.cloneable_types = set()
 		self.union_enum_items = {}
 		self.result_ptr_struct_items = {}
 		self.static_methods = []
@@ -562,8 +563,9 @@ class LightningHeaderParser():
 		method_arguments = method_comma_separated_arguments.split(',')
 
 		is_constructor = False
-		is_clone = False
 		is_free = method_name.endswith("_free")
+		# is_clone = False
+		is_clone = method_name.endswith('_clone')
 		inferred_struct_name = method_name.split("_")[0]
 		inferred_tuple_name = '_'.join(method_name.split('_')[:-1])
 		belongs_to_struct = False
@@ -641,6 +643,16 @@ class LightningHeaderParser():
 		clean_method_name = method_name
 		if associated_type_name is not None and method_name.startswith(associated_type_name):
 			clean_method_name = method_name[len(associated_type_name) + 1:]
+			if clean_method_name != method_name:
+				# print(f'Method cleaning: "{method_name}" -> "{clean_method_name}"')
+				pass
+
+		if is_clone:
+			if inferred_struct_name != inferred_tuple_name:
+				print(f'unequal struct/tuple inference: "{inferred_struct_name}" vs. "{inferred_tuple_name}"')
+				self.cloneable_types.add(inferred_tuple_name)
+			else:
+				self.cloneable_types.add(inferred_struct_name)
 
 		return {'struct_method': inferred_struct_name, 'associated_type_name': None if associated_type_name is None else {'native': 'LDK' + associated_type_name, 'swift': associated_type_name},
 			'is_free': is_free, 'is_constructor': is_constructor, 'is_clone': is_clone, 'takes_self': takes_self, 'name': {'native': method_name, 'swift': clean_method_name},

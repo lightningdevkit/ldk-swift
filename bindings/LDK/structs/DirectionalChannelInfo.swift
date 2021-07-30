@@ -120,16 +120,16 @@ DirectionalChannelInfo_get_last_update_message(this_ptrPointer)
         return DirectionalChannelInfo_set_last_update_message(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: DirectionalChannelInfo) -> DirectionalChannelInfo {
+    public func clone() -> DirectionalChannelInfo {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
 DirectionalChannelInfo(pointer: DirectionalChannelInfo_clone(origPointer))
 };
     }
 
-    public func write(obj: DirectionalChannelInfo) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
 DirectionalChannelInfo_write(objPointer)
 });
     }

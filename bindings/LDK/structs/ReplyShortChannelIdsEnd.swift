@@ -45,9 +45,9 @@ ReplyShortChannelIdsEnd_get_full_information(this_ptrPointer)
         return ReplyShortChannelIdsEnd_set_full_information(this_ptrPointer, val);
     }
 
-    public func clone(orig: ReplyShortChannelIdsEnd) -> ReplyShortChannelIdsEnd {
+    public func clone() -> ReplyShortChannelIdsEnd {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
 ReplyShortChannelIdsEnd(pointer: ReplyShortChannelIdsEnd_clone(origPointer))
 };
     }
@@ -57,9 +57,9 @@ ReplyShortChannelIdsEnd(pointer: ReplyShortChannelIdsEnd_clone(origPointer))
         return Result_ReplyShortChannelIdsEndDecodeErrorZ(pointer: ReplyShortChannelIdsEnd_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    public func write(obj: ReplyShortChannelIdsEnd) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
 ReplyShortChannelIdsEnd_write(objPointer)
 });
     }

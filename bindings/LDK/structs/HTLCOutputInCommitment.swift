@@ -90,16 +90,16 @@ HTLCOutputInCommitment_get_transaction_output_index(this_ptrPointer)
         return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func clone(orig: HTLCOutputInCommitment) -> HTLCOutputInCommitment {
+    public func clone() -> HTLCOutputInCommitment {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment(pointer: HTLCOutputInCommitment_clone(origPointer))
 };
     }
 
-    public func write(obj: HTLCOutputInCommitment) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_write(objPointer)
 });
     }

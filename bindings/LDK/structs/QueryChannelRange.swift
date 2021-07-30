@@ -60,9 +60,9 @@ QueryChannelRange_get_number_of_blocks(this_ptrPointer)
         return QueryChannelRange_set_number_of_blocks(this_ptrPointer, val);
     }
 
-    public func clone(orig: QueryChannelRange) -> QueryChannelRange {
+    public func clone() -> QueryChannelRange {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryChannelRange>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryChannelRange>) in
 QueryChannelRange(pointer: QueryChannelRange_clone(origPointer))
 };
     }
@@ -79,9 +79,9 @@ QueryChannelRange_end_blocknum(this_argPointer)
         return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    public func write(obj: QueryChannelRange) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKQueryChannelRange>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKQueryChannelRange>) in
 QueryChannelRange_write(objPointer)
 });
     }

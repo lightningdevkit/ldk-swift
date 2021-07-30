@@ -60,16 +60,16 @@ ClosingSigned_get_signature(this_ptrPointer)
         return ClosingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    public func clone(orig: ClosingSigned) -> ClosingSigned {
+    public func clone() -> ClosingSigned {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKClosingSigned>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKClosingSigned>) in
 ClosingSigned(pointer: ClosingSigned_clone(origPointer))
 };
     }
 
-    public func write(obj: ClosingSigned) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKClosingSigned>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKClosingSigned>) in
 ClosingSigned_write(objPointer)
 });
     }

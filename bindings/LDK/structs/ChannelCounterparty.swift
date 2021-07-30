@@ -55,9 +55,9 @@ ChannelCounterparty_get_unspendable_punishment_reserve(this_ptrPointer)
         return ChannelCounterparty_set_unspendable_punishment_reserve(this_ptrPointer, val);
     }
 
-    public func clone(orig: ChannelCounterparty) -> ChannelCounterparty {
+    public func clone() -> ChannelCounterparty {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelCounterparty>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelCounterparty>) in
 ChannelCounterparty(pointer: ChannelCounterparty_clone(origPointer))
 };
     }

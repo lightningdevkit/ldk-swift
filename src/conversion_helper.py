@@ -2,7 +2,7 @@ from src.type_parsing_regeces import TypeParsingRegeces
 
 class ConversionHelper:
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback = False):
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback = False, force_pass_instance = False):
 		swift_arguments = []
 		native_arguments = []
 		pointer_wrapping_prefix = ''
@@ -23,7 +23,7 @@ class ConversionHelper:
 			if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(argument_types) == 1:
 				break
 
-			if argument_name == 'this_ptr' or argument_name == 'this_arg':
+			if argument_name == 'this_ptr' or argument_name == 'this_arg' or argument_name == 'orig' or force_pass_instance:
 				pass_instance = True
 				passed_argument_name = 'self'
 

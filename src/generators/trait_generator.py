@@ -197,8 +197,6 @@ class TraitGenerator:
 
 		for current_method_details in struct_details.methods:
 			current_native_method_name = current_method_details['name']['native']
-			current_return_type = current_method_details['return_type'].swift_type
-			current_method_name = current_native_method_name[len(method_prefix):]
 
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:

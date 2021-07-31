@@ -15,7 +15,7 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 });
     }
 
-    public func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+    public class func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
     	
         return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.clone().cOpaqueStruct!, b.clone().cOpaqueStruct!, c.clone().cOpaqueStruct!));
     }

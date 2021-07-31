@@ -34,6 +34,28 @@ public class Result_ClosingSignedDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: ClosingSigned) -> Result_ClosingSignedDecodeErrorZ {
+    	
+        return Result_ClosingSignedDecodeErrorZ(pointer: CResult_ClosingSignedDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_ClosingSignedDecodeErrorZ {
+    	
+        return Result_ClosingSignedDecodeErrorZ(pointer: CResult_ClosingSignedDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_ClosingSignedDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_ClosingSignedDecodeErrorZ {
+    	
+        return Result_ClosingSignedDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ClosingSignedDecodeErrorZ>) in
+CResult_ClosingSignedDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

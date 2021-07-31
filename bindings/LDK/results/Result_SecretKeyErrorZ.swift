@@ -34,6 +34,21 @@ public class Result_SecretKeyErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: [UInt8]) -> Result_SecretKeyErrorZ {
+    	
+        return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_ok(Bindings.new_LDKSecretKey(array: o)));
+    }
+
+    public class func err(e: LDKSecp256k1Error) -> Result_SecretKeyErrorZ {
+    	
+        return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_SecretKeyErrorZ_free(self.cOpaqueStruct!);
+    }
+
     /* RESULT_METHODS_END */
 
 }

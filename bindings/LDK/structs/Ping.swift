@@ -59,7 +59,7 @@ Ping_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_PingDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_PingDecodeErrorZ {
     	
         return Result_PingDecodeErrorZ(pointer: Ping_read(Bindings.new_LDKu8slice(array: ser)));
     }

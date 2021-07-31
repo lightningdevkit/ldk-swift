@@ -10,7 +10,7 @@ public class PayeePubKey {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: PayeePubKey, b: PayeePubKey) -> Bool {
+    public class func eq(a: PayeePubKey, b: PayeePubKey) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPayeePubKey>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPayeePubKey>) in

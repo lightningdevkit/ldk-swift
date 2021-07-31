@@ -69,6 +69,9 @@ class LightningHeaderParser():
 		self.gather_types()
 		self.populate_type_details()
 
+		# sanity check of cloneable types
+		print('\n\nCloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(self.cloneable_types)))), '\n\n')
+
 	def gather_types(self):
 		self.unitary_enums = set()
 		self.opaque_structs = set()
@@ -640,6 +643,8 @@ class LightningHeaderParser():
 			associated_type_name = inferred_struct_name
 		elif native_struct_name in self.option_types or native_struct_name in self.result_types:
 			associated_type_name = inferred_struct_name
+		elif native_tuple_name in self.option_types or native_tuple_name in self.result_types:
+			associated_type_name = inferred_tuple_name
 		elif method_name.startswith("C2Tuple_") and method_name.endswith("_read"):
 			# belongs in utility methods
 			inferred_struct_name = method_name.rsplit("_", 1)[0]
@@ -659,7 +664,7 @@ class LightningHeaderParser():
 
 		if is_clone:
 			if inferred_struct_name != inferred_tuple_name:
-				print(f'unequal struct/tuple inference: "{inferred_struct_name}" vs. "{inferred_tuple_name}"')
+				# print(f'unequal struct/tuple inference: "{inferred_struct_name}" vs. "{inferred_tuple_name}"')
 				src.conversion_helper.cloneable_types.add(inferred_tuple_name)
 				self.cloneable_types.add(inferred_tuple_name)
 			else:

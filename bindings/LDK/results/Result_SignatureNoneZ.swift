@@ -27,6 +27,28 @@ public class Result_SignatureNoneZ {
 				return nil
 			}
 			
+    public class func ok(o: [UInt8]) -> Result_SignatureNoneZ {
+    	
+        return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_ok(Bindings.new_LDKSignature(array: o)));
+    }
+
+    public class func err() -> Result_SignatureNoneZ {
+    	
+        return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_SignatureNoneZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_SignatureNoneZ {
+    	
+        return Result_SignatureNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SignatureNoneZ>) in
+CResult_SignatureNoneZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

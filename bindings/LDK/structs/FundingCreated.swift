@@ -89,7 +89,7 @@ FundingCreated_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
     	
         return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(Bindings.new_LDKu8slice(array: ser)));
     }

@@ -34,6 +34,21 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    	
+        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_ok(Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZ(array: o)));
+    }
+
+    public class func err(e: LDKIOError) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    	
+        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_free(self.cOpaqueStruct!);
+    }
+
     /* RESULT_METHODS_END */
 
 }

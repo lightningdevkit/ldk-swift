@@ -59,7 +59,7 @@ BuiltCommitmentTransaction_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_BuiltCommitmentTransactionDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_BuiltCommitmentTransactionDecodeErrorZ {
     	
         return Result_BuiltCommitmentTransactionDecodeErrorZ(pointer: BuiltCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
     }

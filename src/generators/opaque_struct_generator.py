@@ -142,7 +142,6 @@ class OpaqueStructGenerator:
 			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(current_swift_return_type):
 				current_swift_return_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', current_swift_return_type)
 
-			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 			# replace arguments
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
@@ -151,6 +150,9 @@ class OpaqueStructGenerator:
 			native_call_prefix = prepared_arguments['native_call_prefix']
 			native_call_suffix = prepared_arguments['native_call_suffix']
 			native_call_prep = prepared_arguments['native_call_prep']
+			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+
+			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
 			if is_clone_method:

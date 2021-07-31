@@ -10,7 +10,7 @@ public class InvoiceSignature {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: InvoiceSignature, b: InvoiceSignature) -> Bool {
+    public class func eq(a: InvoiceSignature, b: InvoiceSignature) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoiceSignature>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInvoiceSignature>) in

@@ -125,7 +125,7 @@ ChannelTransactionParameters_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ChannelTransactionParametersDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
         return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
     }

@@ -34,6 +34,28 @@ public class Result_RouteDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: Route) -> Result_RouteDecodeErrorZ {
+    	
+        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_RouteDecodeErrorZ {
+    	
+        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_RouteDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_RouteDecodeErrorZ {
+    	
+        return Result_RouteDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_RouteDecodeErrorZ>) in
+CResult_RouteDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

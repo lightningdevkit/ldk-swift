@@ -37,7 +37,7 @@ Route_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
     	
         return Result_RouteDecodeErrorZ(pointer: Route_read(Bindings.new_LDKu8slice(array: ser)));
     }

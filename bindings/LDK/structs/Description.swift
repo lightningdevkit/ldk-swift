@@ -10,7 +10,7 @@ public class Description {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: Description, b: Description) -> Bool {
+    public class func eq(a: Description, b: Description) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKDescription>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKDescription>) in
@@ -26,7 +26,7 @@ Description(pointer: Description_clone(origPointer))
 };
     }
 
-    public func new(description: String) -> Result_DescriptionCreationErrorZ {
+    public class func new(description: String) -> Result_DescriptionCreationErrorZ {
     	
         return Result_DescriptionCreationErrorZ(pointer: Description_new(Bindings.new_LDKStr(string: description)));
     }

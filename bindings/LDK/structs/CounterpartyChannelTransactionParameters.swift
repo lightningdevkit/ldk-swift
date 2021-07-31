@@ -59,7 +59,7 @@ CounterpartyChannelTransactionParameters_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
     	
         return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CounterpartyChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
     }

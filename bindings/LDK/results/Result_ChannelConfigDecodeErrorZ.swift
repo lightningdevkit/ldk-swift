@@ -34,6 +34,28 @@ public class Result_ChannelConfigDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: ChannelConfig) -> Result_ChannelConfigDecodeErrorZ {
+    	
+        return Result_ChannelConfigDecodeErrorZ(pointer: CResult_ChannelConfigDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_ChannelConfigDecodeErrorZ {
+    	
+        return Result_ChannelConfigDecodeErrorZ(pointer: CResult_ChannelConfigDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_ChannelConfigDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_ChannelConfigDecodeErrorZ {
+    	
+        return Result_ChannelConfigDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ChannelConfigDecodeErrorZ>) in
+CResult_ChannelConfigDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

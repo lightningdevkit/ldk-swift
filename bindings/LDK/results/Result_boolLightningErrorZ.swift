@@ -34,6 +34,28 @@ public class Result_boolLightningErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: Bool) -> Result_boolLightningErrorZ {
+    	
+        return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_ok(o));
+    }
+
+    public class func err(e: LightningError) -> Result_boolLightningErrorZ {
+    	
+        return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_boolLightningErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_boolLightningErrorZ {
+    	
+        return Result_boolLightningErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_boolLightningErrorZ>) in
+CResult_boolLightningErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

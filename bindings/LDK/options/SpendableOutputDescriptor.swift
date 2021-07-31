@@ -70,7 +70,7 @@ SpendableOutputDescriptor_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_SpendableOutputDescriptorDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
         return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
     }

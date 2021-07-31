@@ -34,6 +34,28 @@ public class Result_RouteLightningErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: Route) -> Result_RouteLightningErrorZ {
+    	
+        return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: LightningError) -> Result_RouteLightningErrorZ {
+    	
+        return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_RouteLightningErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_RouteLightningErrorZ {
+    	
+        return Result_RouteLightningErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_RouteLightningErrorZ>) in
+CResult_RouteLightningErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

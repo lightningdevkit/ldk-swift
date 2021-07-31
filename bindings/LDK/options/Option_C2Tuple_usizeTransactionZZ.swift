@@ -38,6 +38,28 @@ public class Option_C2Tuple_usizeTransactionZZ {
         
     }
 
+    public class func some(o: C2Tuple_usizeTransactionZ) -> Option_C2Tuple_usizeTransactionZZ {
+    	
+        return Option_C2Tuple_usizeTransactionZZ(pointer: COption_C2Tuple_usizeTransactionZZ_some(o.clone().cOpaqueStruct!));
+    }
+
+    public class func none() -> Option_C2Tuple_usizeTransactionZZ {
+    	
+        return Option_C2Tuple_usizeTransactionZZ(pointer: COption_C2Tuple_usizeTransactionZZ_none());
+    }
+
+    public func free() -> Void {
+    	
+        return COption_C2Tuple_usizeTransactionZZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Option_C2Tuple_usizeTransactionZZ {
+    	
+        return Option_C2Tuple_usizeTransactionZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCOption_C2Tuple_usizeTransactionZZ>) in
+COption_C2Tuple_usizeTransactionZZ_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	/* TYPE_CLASSES */

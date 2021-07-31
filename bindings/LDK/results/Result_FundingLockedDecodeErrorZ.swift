@@ -34,6 +34,28 @@ public class Result_FundingLockedDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: FundingLocked) -> Result_FundingLockedDecodeErrorZ {
+    	
+        return Result_FundingLockedDecodeErrorZ(pointer: CResult_FundingLockedDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_FundingLockedDecodeErrorZ {
+    	
+        return Result_FundingLockedDecodeErrorZ(pointer: CResult_FundingLockedDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_FundingLockedDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_FundingLockedDecodeErrorZ {
+    	
+        return Result_FundingLockedDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_FundingLockedDecodeErrorZ>) in
+CResult_FundingLockedDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

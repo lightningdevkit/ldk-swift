@@ -294,7 +294,7 @@ OpenChannel_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_OpenChannelDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_OpenChannelDecodeErrorZ {
     	
         return Result_OpenChannelDecodeErrorZ(pointer: OpenChannel_read(Bindings.new_LDKu8slice(array: ser)));
     }

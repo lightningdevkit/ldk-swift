@@ -129,7 +129,7 @@ UnsignedChannelAnnouncement_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
     	
         return Result_UnsignedChannelAnnouncementDecodeErrorZ(pointer: UnsignedChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }

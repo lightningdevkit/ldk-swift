@@ -34,6 +34,28 @@ public class Result_UpdateFeeDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: UpdateFee) -> Result_UpdateFeeDecodeErrorZ {
+    	
+        return Result_UpdateFeeDecodeErrorZ(pointer: CResult_UpdateFeeDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_UpdateFeeDecodeErrorZ {
+    	
+        return Result_UpdateFeeDecodeErrorZ(pointer: CResult_UpdateFeeDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_UpdateFeeDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_UpdateFeeDecodeErrorZ {
+    	
+        return Result_UpdateFeeDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_UpdateFeeDecodeErrorZ>) in
+CResult_UpdateFeeDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

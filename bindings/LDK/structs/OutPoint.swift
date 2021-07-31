@@ -52,7 +52,7 @@ OutPoint(pointer: OutPoint_clone(origPointer))
 };
     }
 
-    public func eq(a: OutPoint, b: OutPoint) -> Bool {
+    public class func eq(a: OutPoint, b: OutPoint) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKOutPoint>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKOutPoint>) in
@@ -82,7 +82,7 @@ OutPoint_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_OutPointDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_OutPointDecodeErrorZ {
     	
         return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(Bindings.new_LDKu8slice(array: ser)));
     }

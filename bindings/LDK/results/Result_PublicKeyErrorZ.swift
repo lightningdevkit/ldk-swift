@@ -34,6 +34,28 @@ public class Result_PublicKeyErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: [UInt8]) -> Result_PublicKeyErrorZ {
+    	
+        return Result_PublicKeyErrorZ(pointer: CResult_PublicKeyErrorZ_ok(Bindings.new_LDKPublicKey(array: o)));
+    }
+
+    public class func err(e: LDKSecp256k1Error) -> Result_PublicKeyErrorZ {
+    	
+        return Result_PublicKeyErrorZ(pointer: CResult_PublicKeyErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_PublicKeyErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_PublicKeyErrorZ {
+    	
+        return Result_PublicKeyErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PublicKeyErrorZ>) in
+CResult_PublicKeyErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

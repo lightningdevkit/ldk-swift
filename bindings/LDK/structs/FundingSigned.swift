@@ -59,7 +59,7 @@ FundingSigned_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_FundingSignedDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_FundingSignedDecodeErrorZ {
     	
         return Result_FundingSignedDecodeErrorZ(pointer: FundingSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }

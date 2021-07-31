@@ -59,7 +59,7 @@ FundingLocked_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_FundingLockedDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_FundingLockedDecodeErrorZ {
     	
         return Result_FundingLockedDecodeErrorZ(pointer: FundingLocked_read(Bindings.new_LDKu8slice(array: ser)));
     }

@@ -34,6 +34,28 @@ public class Result_StaticPaymentOutputDescriptorDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: StaticPaymentOutputDescriptor) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+    	
+        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_StaticPaymentOutputDescriptorDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+    	
+        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_StaticPaymentOutputDescriptorDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_StaticPaymentOutputDescriptorDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+    	
+        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ>) in
+CResult_StaticPaymentOutputDescriptorDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

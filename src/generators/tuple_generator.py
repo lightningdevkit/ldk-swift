@@ -61,11 +61,11 @@ class TupleGenerator:
 				return_type_wrapper_suffix = ')'
 				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)', f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
 
-			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'])
-
+			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('TupleType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'TupleType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
 			current_replacement = current_replacement.replace('TupleType_methodName(',
 															  f'{current_native_method_name}(')

@@ -25,7 +25,7 @@ RawInvoice_get_data(this_ptrPointer)
         return RawInvoice_set_data(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func eq(a: RawInvoice, b: RawInvoice) -> Bool {
+    public class func eq(a: RawInvoice, b: RawInvoice) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRawInvoice>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRawInvoice>) in

@@ -34,6 +34,28 @@ public class Result_PrivateRouteCreationErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: PrivateRoute) -> Result_PrivateRouteCreationErrorZ {
+    	
+        return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: LDKCreationError) -> Result_PrivateRouteCreationErrorZ {
+    	
+        return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_PrivateRouteCreationErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_PrivateRouteCreationErrorZ {
+    	
+        return Result_PrivateRouteCreationErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PrivateRouteCreationErrorZ>) in
+CResult_PrivateRouteCreationErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

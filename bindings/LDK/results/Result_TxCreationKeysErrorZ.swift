@@ -34,6 +34,28 @@ public class Result_TxCreationKeysErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: TxCreationKeys) -> Result_TxCreationKeysErrorZ {
+    	
+        return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: LDKSecp256k1Error) -> Result_TxCreationKeysErrorZ {
+    	
+        return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_TxCreationKeysErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_TxCreationKeysErrorZ {
+    	
+        return Result_TxCreationKeysErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_TxCreationKeysErrorZ>) in
+CResult_TxCreationKeysErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

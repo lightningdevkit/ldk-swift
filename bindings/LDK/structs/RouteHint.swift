@@ -10,7 +10,7 @@ public class RouteHint {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: RouteHint, b: RouteHint) -> Bool {
+    public class func eq(a: RouteHint, b: RouteHint) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHint>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHint>) in

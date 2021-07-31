@@ -34,6 +34,28 @@ public class Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: CounterpartyChannelTransactionParameters) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
+    	
+        return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CResult_CounterpartyChannelTransactionParametersDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
+    	
+        return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CResult_CounterpartyChannelTransactionParametersDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_CounterpartyChannelTransactionParametersDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
+    	
+        return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_CounterpartyChannelTransactionParametersDecodeErrorZ>) in
+CResult_CounterpartyChannelTransactionParametersDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

@@ -25,7 +25,7 @@ RawDataPart_get_timestamp(this_ptrPointer)
         return RawDataPart_set_timestamp(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func eq(a: RawDataPart, b: RawDataPart) -> Bool {
+    public class func eq(a: RawDataPart, b: RawDataPart) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRawDataPart>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRawDataPart>) in

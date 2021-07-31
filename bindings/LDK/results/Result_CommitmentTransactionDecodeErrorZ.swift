@@ -34,6 +34,28 @@ public class Result_CommitmentTransactionDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: CommitmentTransaction) -> Result_CommitmentTransactionDecodeErrorZ {
+    	
+        return Result_CommitmentTransactionDecodeErrorZ(pointer: CResult_CommitmentTransactionDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_CommitmentTransactionDecodeErrorZ {
+    	
+        return Result_CommitmentTransactionDecodeErrorZ(pointer: CResult_CommitmentTransactionDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_CommitmentTransactionDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_CommitmentTransactionDecodeErrorZ {
+    	
+        return Result_CommitmentTransactionDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_CommitmentTransactionDecodeErrorZ>) in
+CResult_CommitmentTransactionDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

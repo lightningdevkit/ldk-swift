@@ -10,7 +10,7 @@ public class Invoice {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: Invoice, b: Invoice) -> Bool {
+    public class func eq(a: Invoice, b: Invoice) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoice>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInvoice>) in
@@ -38,7 +38,7 @@ Invoice_check_signature(this_argPointer)
 });
     }
 
-    public func from_signed(signed_invoice: SignedRawInvoice) -> Result_InvoiceSemanticErrorZ {
+    public class func from_signed(signed_invoice: SignedRawInvoice) -> Result_InvoiceSemanticErrorZ {
     	
         return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.clone().cOpaqueStruct!));
     }
@@ -127,7 +127,7 @@ Invoice_amount_pico_btc(this_argPointer)
 });
     }
 
-    public func from_str(s: String) -> Result_InvoiceNoneZ {
+    public class func from_str(s: String) -> Result_InvoiceNoneZ {
     	
         return Result_InvoiceNoneZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
     }

@@ -15,7 +15,7 @@ public class InitFeatures {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: InitFeatures, b: InitFeatures) -> Bool {
+    public class func eq(a: InitFeatures, b: InitFeatures) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInitFeatures>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInitFeatures>) in
@@ -45,7 +45,7 @@ InitFeatures_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_InitFeaturesDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_InitFeaturesDecodeErrorZ {
     	
         return Result_InitFeaturesDecodeErrorZ(pointer: InitFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }

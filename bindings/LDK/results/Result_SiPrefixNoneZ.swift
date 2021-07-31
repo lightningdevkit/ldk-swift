@@ -27,6 +27,28 @@ public class Result_SiPrefixNoneZ {
 				return nil
 			}
 			
+    public class func ok(o: LDKSiPrefix) -> Result_SiPrefixNoneZ {
+    	
+        return Result_SiPrefixNoneZ(pointer: CResult_SiPrefixNoneZ_ok(o));
+    }
+
+    public class func err() -> Result_SiPrefixNoneZ {
+    	
+        return Result_SiPrefixNoneZ(pointer: CResult_SiPrefixNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_SiPrefixNoneZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_SiPrefixNoneZ {
+    	
+        return Result_SiPrefixNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SiPrefixNoneZ>) in
+CResult_SiPrefixNoneZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

@@ -54,7 +54,7 @@ UpdateFailHTLC_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_UpdateFailHTLCDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_UpdateFailHTLCDecodeErrorZ {
     	
         return Result_UpdateFailHTLCDecodeErrorZ(pointer: UpdateFailHTLC_read(Bindings.new_LDKu8slice(array: ser)));
     }

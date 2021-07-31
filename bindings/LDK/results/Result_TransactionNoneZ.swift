@@ -27,6 +27,28 @@ public class Result_TransactionNoneZ {
 				return nil
 			}
 			
+    public class func ok(o: [UInt8]) -> Result_TransactionNoneZ {
+    	
+        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(Bindings.new_LDKTransaction(array: o)));
+    }
+
+    public class func err() -> Result_TransactionNoneZ {
+    	
+        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_TransactionNoneZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_TransactionNoneZ {
+    	
+        return Result_TransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_TransactionNoneZ>) in
+CResult_TransactionNoneZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

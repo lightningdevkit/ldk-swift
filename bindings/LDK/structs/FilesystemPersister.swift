@@ -22,7 +22,7 @@ FilesystemPersister_get_data_dir(this_argPointer)
 });
     }
 
-    public func persist_manager(data_dir: String, manager: ChannelManager) -> Result_NoneErrorZ {
+    public class func persist_manager(data_dir: String, manager: ChannelManager) -> Result_NoneErrorZ {
     	
         return Result_NoneErrorZ(pointer: withUnsafePointer(to: manager.cOpaqueStruct!) { (managerPointer: UnsafePointer<LDKChannelManager>) in
 FilesystemPersister_persist_manager(Bindings.new_LDKStr(string: data_dir), managerPointer)

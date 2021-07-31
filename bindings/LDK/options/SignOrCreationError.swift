@@ -45,7 +45,7 @@ SignOrCreationError_clone(origPointer)
 });
     }
 
-    public func eq(a: SignOrCreationError, b: SignOrCreationError) -> Bool {
+    public class func eq(a: SignOrCreationError, b: SignOrCreationError) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSignOrCreationError>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSignOrCreationError>) in

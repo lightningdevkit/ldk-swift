@@ -29,7 +29,7 @@ NetworkGraph_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
     	
         return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser)));
     }

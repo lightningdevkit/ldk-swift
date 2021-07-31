@@ -34,6 +34,28 @@ public class Result_PingDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: Ping) -> Result_PingDecodeErrorZ {
+    	
+        return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_PingDecodeErrorZ {
+    	
+        return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_PingDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_PingDecodeErrorZ {
+    	
+        return Result_PingDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PingDecodeErrorZ>) in
+CResult_PingDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

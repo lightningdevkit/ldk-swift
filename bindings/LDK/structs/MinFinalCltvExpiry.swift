@@ -10,7 +10,7 @@ public class MinFinalCltvExpiry {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: MinFinalCltvExpiry, b: MinFinalCltvExpiry) -> Bool {
+    public class func eq(a: MinFinalCltvExpiry, b: MinFinalCltvExpiry) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in

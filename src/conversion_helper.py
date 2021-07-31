@@ -1,6 +1,7 @@
 from src.type_parsing_regeces import TypeParsingRegeces
 
 cloneable_types = set()
+detected_cloneable_types = set()
 
 class ConversionHelper:
 	@classmethod
@@ -11,6 +12,7 @@ class ConversionHelper:
 		pointer_wrapping_suffix = ''
 		native_call_prep = ''
 		pointer_wrapping_depth = 0
+		static_eligible = True
 		for current_argument_details in argument_types:
 			pass_instance = False
 			argument_name = current_argument_details.var_name
@@ -29,6 +31,7 @@ class ConversionHelper:
 			if argument_name == 'this_ptr' or argument_name == 'this_arg' or argument_name == 'orig' or force_pass_instance:
 				pass_instance = True
 				passed_argument_name = 'self'
+				static_eligible = False
 
 			if current_argument_details.is_ptr:
 				passed_argument_name = argument_name + 'Pointer'
@@ -90,9 +93,13 @@ class ConversionHelper:
 					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
 					pointer_wrapping_suffix += '\n}'
 				# native_call_prep += current_prep
-			elif current_argument_details.swift_type in cloneable_types:
+			elif current_argument_details.swift_type in cloneable_types or (current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDKC') and f'C{current_argument_details.swift_type}' in cloneable_types):
 				clone_infix = '.clone()'
-				print(f'Cloneable type detected: {current_argument_details.swift_type}')
+				# print(f'Cloneable type detected: {current_argument_details.swift_type}')
+				detected_cloneable_types.add(current_argument_details.swift_type)
+			elif current_argument_details.rust_obj is not None and ('Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith('['):
+				print('Potentially undetected cloneable type?', current_argument_details.rust_obj)
+				pass
 
 
 			if is_trait_callback and current_argument_details.is_const:
@@ -148,7 +155,8 @@ class ConversionHelper:
 			"native_arguments": native_arguments,
 			"native_call_prefix": pointer_wrapping_prefix,
 			"native_call_suffix": pointer_wrapping_suffix,
-			"native_call_prep": native_call_prep
+			"native_call_prep": native_call_prep,
+			"static_eligible": static_eligible
 		}
 
 	# the arguments that we receive from a native lambda, before they get passed on to a human consumer

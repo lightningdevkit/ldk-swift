@@ -74,7 +74,7 @@ ClosingSigned_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ClosingSignedDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ClosingSignedDecodeErrorZ {
     	
         return Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }

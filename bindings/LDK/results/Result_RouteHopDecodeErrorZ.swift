@@ -34,6 +34,28 @@ public class Result_RouteHopDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: RouteHop) -> Result_RouteHopDecodeErrorZ {
+    	
+        return Result_RouteHopDecodeErrorZ(pointer: CResult_RouteHopDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_RouteHopDecodeErrorZ {
+    	
+        return Result_RouteHopDecodeErrorZ(pointer: CResult_RouteHopDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_RouteHopDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_RouteHopDecodeErrorZ {
+    	
+        return Result_RouteHopDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_RouteHopDecodeErrorZ>) in
+CResult_RouteHopDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

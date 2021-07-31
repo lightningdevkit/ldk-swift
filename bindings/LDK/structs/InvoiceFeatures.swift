@@ -15,7 +15,7 @@ public class InvoiceFeatures {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: InvoiceFeatures, b: InvoiceFeatures) -> Bool {
+    public class func eq(a: InvoiceFeatures, b: InvoiceFeatures) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoiceFeatures>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInvoiceFeatures>) in
@@ -45,7 +45,7 @@ InvoiceFeatures_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_InvoiceFeaturesDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_InvoiceFeaturesDecodeErrorZ {
     	
         return Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }

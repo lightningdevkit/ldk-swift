@@ -8,7 +8,7 @@ public class C2Tuple_BlockHashChannelMonitorZ {
 
     /* TUPLE_METHODS_START */
 
-    public func new(a: [UInt8], b: ChannelMonitor) -> C2Tuple_BlockHashChannelMonitorZ {
+    public class func new(a: [UInt8], b: ChannelMonitor) -> C2Tuple_BlockHashChannelMonitorZ {
     	
         return C2Tuple_BlockHashChannelMonitorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
     }

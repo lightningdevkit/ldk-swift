@@ -59,7 +59,7 @@ Shutdown_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
     	
         return Result_ShutdownDecodeErrorZ(pointer: Shutdown_read(Bindings.new_LDKu8slice(array: ser)));
     }

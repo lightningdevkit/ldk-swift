@@ -151,14 +151,14 @@ ChannelManager_channel_monitor_updated(this_argPointer, funding_txoPointer, high
     public func create_inbound_payment(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32, user_payment_id: UInt64) -> C2Tuple_PaymentHashPaymentSecretZ {
     	
         return C2Tuple_PaymentHashPaymentSecretZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_inbound_payment(this_argPointer, min_value_msat.cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
+ChannelManager_create_inbound_payment(this_argPointer, min_value_msat.clone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
 });
     }
 
     public func create_inbound_payment_for_hash(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32, user_payment_id: UInt64) -> Result_PaymentSecretAPIErrorZ {
     	
         return Result_PaymentSecretAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
+ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.clone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
 });
     }
 

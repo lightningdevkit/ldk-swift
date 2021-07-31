@@ -15,7 +15,7 @@ C2Tuple_u32TxOutZ_clone(origPointer)
 });
     }
 
-    public func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
+    public class func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
     	
         return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b));
     }

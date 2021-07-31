@@ -24,7 +24,7 @@ HTLCUpdate_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
     	
         return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }

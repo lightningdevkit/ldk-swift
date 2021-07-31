@@ -10,7 +10,7 @@ public class SignedRawInvoice {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: SignedRawInvoice, b: SignedRawInvoice) -> Bool {
+    public class func eq(a: SignedRawInvoice, b: SignedRawInvoice) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSignedRawInvoice>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSignedRawInvoice>) in
@@ -66,7 +66,7 @@ SignedRawInvoice_check_signature(this_argPointer)
 };
     }
 
-    public func from_str(s: String) -> Result_SignedRawInvoiceNoneZ {
+    public class func from_str(s: String) -> Result_SignedRawInvoiceNoneZ {
     	
         return Result_SignedRawInvoiceNoneZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s)));
     }

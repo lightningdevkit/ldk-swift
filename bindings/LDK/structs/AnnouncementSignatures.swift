@@ -89,7 +89,7 @@ AnnouncementSignatures_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_AnnouncementSignaturesDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_AnnouncementSignaturesDecodeErrorZ {
     	
         return Result_AnnouncementSignaturesDecodeErrorZ(pointer: AnnouncementSignatures_read(Bindings.new_LDKu8slice(array: ser)));
     }

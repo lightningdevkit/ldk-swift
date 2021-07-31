@@ -5,7 +5,7 @@ public class ChannelInfo {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(features_arg: ChannelFeatures, node_one_arg: [UInt8], one_to_two_arg: DirectionalChannelInfo, node_two_arg: [UInt8], two_to_one_arg: DirectionalChannelInfo, capacity_sats_arg: Option_u64Z, announcement_message_arg: ChannelAnnouncement) {
     	
-        self.cOpaqueStruct = ChannelInfo_new(features_arg.clone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.clone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.clone().cOpaqueStruct!, capacity_sats_arg.cOpaqueStruct!, announcement_message_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelInfo_new(features_arg.clone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.clone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.clone().cOpaqueStruct!, capacity_sats_arg.clone().cOpaqueStruct!, announcement_message_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -102,7 +102,7 @@ ChannelInfo_get_capacity_sats(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_capacity_sats(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelInfo_set_capacity_sats(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_announcement_message() -> ChannelAnnouncement {
@@ -134,7 +134,7 @@ ChannelInfo_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {
     	
         return Result_ChannelInfoDecodeErrorZ(pointer: ChannelInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }

@@ -79,7 +79,7 @@ NetAddress_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
     	
         return Result_NetAddressDecodeErrorZ(pointer: NetAddress_read(Bindings.new_LDKu8slice(array: ser)));
     }

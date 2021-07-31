@@ -15,7 +15,7 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
 });
     }
 
-    public func new(a: UInt, b: [UInt8]) -> C2Tuple_usizeTransactionZ {
+    public class func new(a: UInt, b: [UInt8]) -> C2Tuple_usizeTransactionZ {
     	
         return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, Bindings.new_LDKTransaction(array: b)));
     }

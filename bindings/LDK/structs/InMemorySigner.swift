@@ -193,7 +193,7 @@ InMemorySigner_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
     	
         return Result_InMemorySignerDecodeErrorZ(pointer: InMemorySigner_read(Bindings.new_LDKu8slice(array: ser)));
     }

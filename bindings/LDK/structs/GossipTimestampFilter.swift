@@ -67,7 +67,7 @@ GossipTimestampFilter(pointer: GossipTimestampFilter_clone(origPointer))
 };
     }
 
-    public func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {
     	
         return Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(Bindings.new_LDKu8slice(array: ser)));
     }

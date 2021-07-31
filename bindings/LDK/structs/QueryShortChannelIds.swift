@@ -45,7 +45,7 @@ QueryShortChannelIds(pointer: QueryShortChannelIds_clone(origPointer))
 };
     }
 
-    public func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {
     	
         return Result_QueryShortChannelIdsDecodeErrorZ(pointer: QueryShortChannelIds_read(Bindings.new_LDKu8slice(array: ser)));
     }

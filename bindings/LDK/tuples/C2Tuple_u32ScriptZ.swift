@@ -15,7 +15,7 @@ C2Tuple_u32ScriptZ_clone(origPointer)
 });
     }
 
-    public func new(a: UInt32, b: [UInt8]) -> C2Tuple_u32ScriptZ {
+    public class func new(a: UInt32, b: [UInt8]) -> C2Tuple_u32ScriptZ {
     	
         return C2Tuple_u32ScriptZ(pointer: C2Tuple_u32ScriptZ_new(a, Bindings.new_LDKCVec_u8Z(array: b)));
     }

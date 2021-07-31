@@ -69,7 +69,7 @@ UpdateFailMalformedHTLC_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_UpdateFailMalformedHTLCDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_UpdateFailMalformedHTLCDecodeErrorZ {
     	
         return Result_UpdateFailMalformedHTLCDecodeErrorZ(pointer: UpdateFailMalformedHTLC_read(Bindings.new_LDKu8slice(array: ser)));
     }

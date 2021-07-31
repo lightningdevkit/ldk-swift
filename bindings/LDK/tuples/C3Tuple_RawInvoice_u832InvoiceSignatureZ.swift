@@ -15,7 +15,7 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 });
     }
 
-    public func new(a: RawInvoice, b: [UInt8], c: InvoiceSignature) -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+    public class func new(a: RawInvoice, b: [UInt8], c: InvoiceSignature) -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
     	
         return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: C3Tuple_RawInvoice_u832InvoiceSignatureZ_new(a.clone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b), c.clone().cOpaqueStruct!));
     }

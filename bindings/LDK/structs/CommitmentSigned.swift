@@ -67,7 +67,7 @@ CommitmentSigned_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
     	
         return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }

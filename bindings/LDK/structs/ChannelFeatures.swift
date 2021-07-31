@@ -15,7 +15,7 @@ public class ChannelFeatures {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: ChannelFeatures, b: ChannelFeatures) -> Bool {
+    public class func eq(a: ChannelFeatures, b: ChannelFeatures) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKChannelFeatures>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKChannelFeatures>) in
@@ -38,7 +38,7 @@ ChannelFeatures_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ChannelFeaturesDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ChannelFeaturesDecodeErrorZ {
     	
         return Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }

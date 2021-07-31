@@ -34,6 +34,28 @@ public class Result_TxOutAccessErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: LDKTxOut) -> Result_TxOutAccessErrorZ {
+    	
+        return Result_TxOutAccessErrorZ(pointer: CResult_TxOutAccessErrorZ_ok(o));
+    }
+
+    public class func err(e: LDKAccessError) -> Result_TxOutAccessErrorZ {
+    	
+        return Result_TxOutAccessErrorZ(pointer: CResult_TxOutAccessErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_TxOutAccessErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_TxOutAccessErrorZ {
+    	
+        return Result_TxOutAccessErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_TxOutAccessErrorZ>) in
+CResult_TxOutAccessErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

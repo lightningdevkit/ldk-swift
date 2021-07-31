@@ -119,7 +119,7 @@ RouteHop_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {
     	
         return Result_RouteHopDecodeErrorZ(pointer: RouteHop_read(Bindings.new_LDKu8slice(array: ser)));
     }

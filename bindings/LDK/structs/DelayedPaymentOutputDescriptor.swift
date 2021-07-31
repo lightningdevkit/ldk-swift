@@ -127,7 +127,7 @@ DelayedPaymentOutputDescriptor_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
     	
         return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
     }

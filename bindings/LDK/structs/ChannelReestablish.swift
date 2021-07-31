@@ -69,7 +69,7 @@ ChannelReestablish_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ChannelReestablishDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ChannelReestablishDecodeErrorZ {
     	
         return Result_ChannelReestablishDecodeErrorZ(pointer: ChannelReestablish_read(Bindings.new_LDKu8slice(array: ser)));
     }

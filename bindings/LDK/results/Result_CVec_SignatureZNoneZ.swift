@@ -27,6 +27,28 @@ public class Result_CVec_SignatureZNoneZ {
 				return nil
 			}
 			
+    public class func ok(o: [[UInt8]]) -> Result_CVec_SignatureZNoneZ {
+    	
+        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_ok(Bindings.new_LDKCVec_SignatureZ(array: o)));
+    }
+
+    public class func err() -> Result_CVec_SignatureZNoneZ {
+    	
+        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_CVec_SignatureZNoneZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_CVec_SignatureZNoneZ {
+    	
+        return Result_CVec_SignatureZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_CVec_SignatureZNoneZ>) in
+CResult_CVec_SignatureZNoneZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

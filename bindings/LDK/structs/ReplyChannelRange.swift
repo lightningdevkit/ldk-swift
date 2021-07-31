@@ -90,7 +90,7 @@ ReplyChannelRange(pointer: ReplyChannelRange_clone(origPointer))
 };
     }
 
-    public func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
     	
         return Result_ReplyChannelRangeDecodeErrorZ(pointer: ReplyChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
     }

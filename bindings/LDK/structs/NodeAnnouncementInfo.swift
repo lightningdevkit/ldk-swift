@@ -112,7 +112,7 @@ NodeAnnouncementInfo_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_NodeAnnouncementInfoDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_NodeAnnouncementInfoDecodeErrorZ {
     	
         return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: NodeAnnouncementInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }

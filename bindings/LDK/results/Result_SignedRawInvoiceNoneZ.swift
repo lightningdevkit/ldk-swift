@@ -27,6 +27,28 @@ public class Result_SignedRawInvoiceNoneZ {
 				return nil
 			}
 			
+    public class func ok(o: SignedRawInvoice) -> Result_SignedRawInvoiceNoneZ {
+    	
+        return Result_SignedRawInvoiceNoneZ(pointer: CResult_SignedRawInvoiceNoneZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err() -> Result_SignedRawInvoiceNoneZ {
+    	
+        return Result_SignedRawInvoiceNoneZ(pointer: CResult_SignedRawInvoiceNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_SignedRawInvoiceNoneZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_SignedRawInvoiceNoneZ {
+    	
+        return Result_SignedRawInvoiceNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SignedRawInvoiceNoneZ>) in
+CResult_SignedRawInvoiceNoneZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

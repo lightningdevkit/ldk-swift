@@ -10,7 +10,7 @@ public class PrivateRoute {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: PrivateRoute, b: PrivateRoute) -> Bool {
+    public class func eq(a: PrivateRoute, b: PrivateRoute) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPrivateRoute>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPrivateRoute>) in
@@ -26,7 +26,7 @@ PrivateRoute(pointer: PrivateRoute_clone(origPointer))
 };
     }
 
-    public func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
+    public class func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
     	
         return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.clone().cOpaqueStruct!));
     }

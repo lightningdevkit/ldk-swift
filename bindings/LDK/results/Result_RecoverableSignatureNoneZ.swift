@@ -27,6 +27,28 @@ public class Result_RecoverableSignatureNoneZ {
 				return nil
 			}
 			
+    public class func ok(serialized_form: [UInt8]) -> Result_RecoverableSignatureNoneZ {
+    	
+        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: serialized_form)));
+    }
+
+    public class func err() -> Result_RecoverableSignatureNoneZ {
+    	
+        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_RecoverableSignatureNoneZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_RecoverableSignatureNoneZ {
+    	
+        return Result_RecoverableSignatureNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_RecoverableSignatureNoneZ>) in
+CResult_RecoverableSignatureNoneZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

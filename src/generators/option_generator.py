@@ -194,7 +194,7 @@ class OptionGenerator:
 
 			# if current_rust_return_type in all_type_details and all_type_details[current_rust_return_type].type.name == 'UNITARY_ENUM':
 			# 	current_return_type = current_rust_return_type
-			current_method_name = current_native_method_name[len(method_prefix):]
+			# current_method_name = current_native_method_name[len(method_prefix):]
 
 			current_replacement = method_template
 			is_clone_method = False  # current_method_details['is_clone']
@@ -210,7 +210,6 @@ class OptionGenerator:
 			current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments)',
 										f'return {value_return_wrappers["prefix"]}OptionType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 
-			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 			# if is_clone_method:
 			# 	current_replacement = current_replacement.replace('OptionType_methodName(', f'{swift_struct_name}(pointer: {current_native_method_name}(')
@@ -220,6 +219,8 @@ class OptionGenerator:
 
 
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('OptionType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'OptionType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
 			current_replacement = current_replacement.replace('OptionType_methodName(', f'{current_native_method_name}(')
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))

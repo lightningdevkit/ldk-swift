@@ -234,7 +234,7 @@ AcceptChannel_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_AcceptChannelDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_AcceptChannelDecodeErrorZ {
     	
         return Result_AcceptChannelDecodeErrorZ(pointer: AcceptChannel_read(Bindings.new_LDKu8slice(array: ser)));
     }

@@ -10,7 +10,7 @@ public class ExpiryTime {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: ExpiryTime, b: ExpiryTime) -> Bool {
+    public class func eq(a: ExpiryTime, b: ExpiryTime) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKExpiryTime>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKExpiryTime>) in
@@ -26,12 +26,12 @@ ExpiryTime(pointer: ExpiryTime_clone(origPointer))
 };
     }
 
-    public func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {
+    public class func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {
     	
         return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_seconds(seconds));
     }
 
-    public func from_duration(duration: UInt64) -> Result_ExpiryTimeCreationErrorZ {
+    public class func from_duration(duration: UInt64) -> Result_ExpiryTimeCreationErrorZ {
     	
         return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_duration(duration));
     }

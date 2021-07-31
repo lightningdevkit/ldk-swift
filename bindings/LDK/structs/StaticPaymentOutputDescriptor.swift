@@ -82,7 +82,7 @@ StaticPaymentOutputDescriptor_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
     	
         return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: StaticPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
     }

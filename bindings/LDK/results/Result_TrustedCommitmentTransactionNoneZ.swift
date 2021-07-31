@@ -27,6 +27,21 @@ public class Result_TrustedCommitmentTransactionNoneZ {
 				return nil
 			}
 			
+    public class func ok(o: TrustedCommitmentTransaction) -> Result_TrustedCommitmentTransactionNoneZ {
+    	
+        return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_ok(o.cOpaqueStruct!));
+    }
+
+    public class func err() -> Result_TrustedCommitmentTransactionNoneZ {
+    	
+        return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_TrustedCommitmentTransactionNoneZ_free(self.cOpaqueStruct!);
+    }
+
     /* RESULT_METHODS_END */
 
 }

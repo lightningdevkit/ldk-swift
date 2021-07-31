@@ -10,7 +10,7 @@ public class PositiveTimestamp {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: PositiveTimestamp, b: PositiveTimestamp) -> Bool {
+    public class func eq(a: PositiveTimestamp, b: PositiveTimestamp) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPositiveTimestamp>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPositiveTimestamp>) in
@@ -26,12 +26,12 @@ PositiveTimestamp(pointer: PositiveTimestamp_clone(origPointer))
 };
     }
 
-    public func from_unix_timestamp(unix_seconds: UInt64) -> Result_PositiveTimestampCreationErrorZ {
+    public class func from_unix_timestamp(unix_seconds: UInt64) -> Result_PositiveTimestampCreationErrorZ {
     	
         return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_unix_timestamp(unix_seconds));
     }
 
-    public func from_system_time(time: UInt64) -> Result_PositiveTimestampCreationErrorZ {
+    public class func from_system_time(time: UInt64) -> Result_PositiveTimestampCreationErrorZ {
     	
         return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_system_time(time));
     }

@@ -27,6 +27,28 @@ public class Result_NonePaymentSendFailureZ {
 				return nil
 			}
 			
+    public class func ok() -> Result_NonePaymentSendFailureZ {
+    	
+        return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_ok());
+    }
+
+    public class func err(e: PaymentSendFailure) -> Result_NonePaymentSendFailureZ {
+    	
+        return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_NonePaymentSendFailureZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_NonePaymentSendFailureZ {
+    	
+        return Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NonePaymentSendFailureZ>) in
+CResult_NonePaymentSendFailureZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

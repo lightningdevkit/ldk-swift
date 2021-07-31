@@ -5,7 +5,7 @@ public class HTLCOutputInCommitment {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(offered_arg: Bool, amount_msat_arg: UInt64, cltv_expiry_arg: UInt32, payment_hash_arg: [UInt8], transaction_output_index_arg: Option_u32Z) {
     	
-        self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg), transaction_output_index_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg), transaction_output_index_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -87,7 +87,7 @@ HTLCOutputInCommitment_get_transaction_output_index(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.cOpaqueStruct!);
+        return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func clone() -> HTLCOutputInCommitment {
@@ -104,7 +104,7 @@ HTLCOutputInCommitment_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
     	
         return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: HTLCOutputInCommitment_read(Bindings.new_LDKu8slice(array: ser)));
     }

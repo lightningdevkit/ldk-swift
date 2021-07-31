@@ -5,7 +5,7 @@ public class CommitmentUpdate {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(update_add_htlcs_arg: [LDKUpdateAddHTLC], update_fulfill_htlcs_arg: [LDKUpdateFulfillHTLC], update_fail_htlcs_arg: [LDKUpdateFailHTLC], update_fail_malformed_htlcs_arg: [LDKUpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned) {
     	
-        self.cOpaqueStruct = CommitmentUpdate_new(Bindings.new_LDKCVec_UpdateAddHTLCZ(array: update_add_htlcs_arg), Bindings.new_LDKCVec_UpdateFulfillHTLCZ(array: update_fulfill_htlcs_arg), Bindings.new_LDKCVec_UpdateFailHTLCZ(array: update_fail_htlcs_arg), Bindings.new_LDKCVec_UpdateFailMalformedHTLCZ(array: update_fail_malformed_htlcs_arg), update_fee_arg.cOpaqueStruct!, commitment_signed_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = CommitmentUpdate_new(Bindings.new_LDKCVec_UpdateAddHTLCZ(array: update_add_htlcs_arg), Bindings.new_LDKCVec_UpdateFulfillHTLCZ(array: update_fulfill_htlcs_arg), Bindings.new_LDKCVec_UpdateFailHTLCZ(array: update_fail_htlcs_arg), Bindings.new_LDKCVec_UpdateFailMalformedHTLCZ(array: update_fail_malformed_htlcs_arg), update_fee_arg.clone().cOpaqueStruct!, commitment_signed_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -59,7 +59,7 @@ CommitmentUpdate_get_update_fee(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return CommitmentUpdate_set_update_fee(this_ptrPointer, val.cOpaqueStruct!);
+        return CommitmentUpdate_set_update_fee(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_commitment_signed() -> CommitmentSigned {
@@ -74,7 +74,7 @@ CommitmentUpdate_get_commitment_signed(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return CommitmentUpdate_set_commitment_signed(this_ptrPointer, val.cOpaqueStruct!);
+        return CommitmentUpdate_set_commitment_signed(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func clone() -> CommitmentUpdate {

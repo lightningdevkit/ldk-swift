@@ -33,7 +33,7 @@ Description(pointer: Description_clone(origPointer))
 
     public func into_inner() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.cOpaqueStruct!));
+        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.clone().cOpaqueStruct!));
     }
 
 				

@@ -5,7 +5,7 @@ public class RouteHop {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(pubkey_arg: [UInt8], node_features_arg: NodeFeatures, short_channel_id_arg: UInt64, channel_features_arg: ChannelFeatures, fee_msat_arg: UInt64, cltv_expiry_delta_arg: UInt32) {
     	
-        self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.cOpaqueStruct!, short_channel_id_arg, channel_features_arg.cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
+        self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.clone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.clone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,7 +42,7 @@ RouteHop_get_node_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHop_set_node_features(this_ptrPointer, val.cOpaqueStruct!);
+        return RouteHop_set_node_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_short_channel_id() -> UInt64 {
@@ -72,7 +72,7 @@ RouteHop_get_channel_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHop_set_channel_features(this_ptrPointer, val.cOpaqueStruct!);
+        return RouteHop_set_channel_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_fee_msat() -> UInt64 {

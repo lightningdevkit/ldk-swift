@@ -79,7 +79,7 @@ public class NativelyImplementedFilter: Filter {
 	public override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
 		
 				return 
-				Option_C2Tuple_usizeTransactionZZ(pointer: self.cOpaqueStruct!.register_output(self.cOpaqueStruct!.this_arg, output.cOpaqueStruct!))
+				Option_C2Tuple_usizeTransactionZZ(pointer: self.cOpaqueStruct!.register_output(self.cOpaqueStruct!.this_arg, output.clone().cOpaqueStruct!))
 				
 			
 	}

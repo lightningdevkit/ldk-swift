@@ -5,7 +5,7 @@ public class ChannelUpdate {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedChannelUpdate) {
     	
-        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,7 +42,7 @@ ChannelUpdate_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelUpdate_set_contents(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelUpdate_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelUpdate {

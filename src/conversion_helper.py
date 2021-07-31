@@ -1,5 +1,7 @@
 from src.type_parsing_regeces import TypeParsingRegeces
 
+cloneable_types = set()
+
 class ConversionHelper:
 	@classmethod
 	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback = False, force_pass_instance = False):
@@ -19,6 +21,7 @@ class ConversionHelper:
 			# 	passed_argument_name = 'initValue'
 
 			mutabilityIndicatorSuffix = ''
+			clone_infix = ''
 
 			if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(argument_types) == 1:
 				break
@@ -87,6 +90,10 @@ class ConversionHelper:
 					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
 					pointer_wrapping_suffix += '\n}'
 				# native_call_prep += current_prep
+			elif current_argument_details.swift_type in cloneable_types:
+				clone_infix = '.clone()'
+				print(f'Cloneable type detected: {current_argument_details.swift_type}')
+
 
 			if is_trait_callback and current_argument_details.is_const:
 				if current_argument_details.swift_type.startswith('[') or current_argument_details.swift_type == 'String':
@@ -105,9 +112,9 @@ class ConversionHelper:
 
 			# native_arguments.append(f'{passed_argument_name}')
 			if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:
-				native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
+				native_arguments.append(f'{passed_argument_name}{clone_infix}.cOpaqueStruct!')
 			elif current_argument_details.rust_obj == 'LDKC' + swift_argument_type and not current_argument_details.is_ptr:
-				native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
+				native_arguments.append(f'{passed_argument_name}{clone_infix}.cOpaqueStruct!')
 			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
 				'LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
 				native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')

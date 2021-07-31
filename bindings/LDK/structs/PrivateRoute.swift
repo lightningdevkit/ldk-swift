@@ -28,12 +28,12 @@ PrivateRoute(pointer: PrivateRoute_clone(origPointer))
 
     public func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
     	
-        return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.cOpaqueStruct!));
+        return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.clone().cOpaqueStruct!));
     }
 
     public func into_inner() -> RouteHint {
     	
-        return RouteHint(pointer: PrivateRoute_into_inner(self.cOpaqueStruct!));
+        return RouteHint(pointer: PrivateRoute_into_inner(self.clone().cOpaqueStruct!));
     }
 
 				

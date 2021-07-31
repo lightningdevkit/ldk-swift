@@ -5,7 +5,7 @@ public class ChannelDetails {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], counterparty_arg: ChannelCounterparty, funding_txo_arg: OutPoint, short_channel_id_arg: Option_u64Z, channel_value_satoshis_arg: UInt64, unspendable_punishment_reserve_arg: Option_u64Z, user_id_arg: UInt64, outbound_capacity_msat_arg: UInt64, inbound_capacity_msat_arg: UInt64, confirmations_required_arg: Option_u32Z, force_close_spend_delay_arg: Option_u16Z, is_outbound_arg: Bool, is_funding_locked_arg: Bool, is_usable_arg: Bool, is_public_arg: Bool) {
     	
-        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.cOpaqueStruct!, funding_txo_arg.cOpaqueStruct!, short_channel_id_arg.cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.cOpaqueStruct!, user_id_arg, outbound_capacity_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.cOpaqueStruct!, force_close_spend_delay_arg.cOpaqueStruct!, is_outbound_arg, is_funding_locked_arg, is_usable_arg, is_public_arg)
+        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.clone().cOpaqueStruct!, funding_txo_arg.clone().cOpaqueStruct!, short_channel_id_arg.cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.cOpaqueStruct!, user_id_arg, outbound_capacity_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.cOpaqueStruct!, force_close_spend_delay_arg.cOpaqueStruct!, is_outbound_arg, is_funding_locked_arg, is_usable_arg, is_public_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,7 +42,7 @@ ChannelDetails_get_counterparty(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_counterparty(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelDetails_set_counterparty(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_funding_txo() -> OutPoint {
@@ -57,7 +57,7 @@ ChannelDetails_get_funding_txo(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_funding_txo(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelDetails_set_funding_txo(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_short_channel_id() -> Option_u64Z {

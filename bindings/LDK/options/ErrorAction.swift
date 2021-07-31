@@ -51,6 +51,18 @@ public class ErrorAction {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return ErrorAction_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> ErrorAction {
+    	
+        return ErrorAction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKErrorAction>) in
+ErrorAction_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	

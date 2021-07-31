@@ -204,6 +204,18 @@ public class MessageSendEvent {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return MessageSendEvent_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMessageSendEvent>) in
+MessageSendEvent_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	

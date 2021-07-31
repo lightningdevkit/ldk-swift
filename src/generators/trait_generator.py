@@ -56,7 +56,8 @@ class TraitGenerator:
 				instantiation_arguments.append(f'{current_lambda_name}: {current_rust_type}()')
 				continue
 
-			if current_lambda['is_instance_agnostic']:
+			# Temporary misnomer, it's actually supposed to signify optional implementation
+			if current_lambda['is_nullable']:
 				instantiation_arguments.append(f'{current_lambda_name}: nil')
 				continue
 
@@ -66,7 +67,6 @@ class TraitGenerator:
 
 			instantiation_arguments.append(f'{current_lambda_name}: {current_lambda_name}Callback')
 
-			# let's specify the correct return type
 			current_return_type_details = current_lambda["return_type"]
 			swift_raw_return_type = current_return_type_details.swift_raw_type
 			swift_return_type = current_return_type_details.swift_type
@@ -193,6 +193,40 @@ class TraitGenerator:
 
 			if not is_clone: # TODO: add support for natively implemented cloning
 				default_callbacks += '\n' + current_default_callback_replacement + '\n'
+
+
+		for current_method_details in struct_details.methods:
+			current_native_method_name = current_method_details['name']['native']
+			current_return_type = current_method_details['return_type'].swift_type
+			current_method_name = current_native_method_name[len(method_prefix):]
+
+			force_pass_instance = False
+			if len(current_method_details['argument_types']) == 1:
+				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
+					force_pass_instance = True
+
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+
+			swift_argument_list = ', '.join(prepared_arguments['swift_arguments'])
+			swift_return_type = value_return_wrappers['swift_type']
+			native_arguments = prepared_arguments['native_arguments']
+			default_return_prefix = 'return '
+			if current_method_details['return_type'].swift_type == 'Void':
+				default_return_prefix = ''
+
+			current_method_implementation = f'''
+				func {current_method_details['name']['swift']}({swift_argument_list}) -> {swift_return_type} {{
+					{prepared_arguments['native_call_prep']}
+					{default_return_prefix}{prepared_arguments['native_call_prefix']}
+					{value_return_wrappers['prefix']}{current_method_details['name']['native']}({', '.join(native_arguments)}){value_return_wrappers['suffix']}
+					{prepared_arguments['native_call_suffix']}
+				}}
+			'''
+
+			swift_callbacks += '\n' + current_method_implementation + '\n'
+
+
 
 		trait_file = self.template.replace('class TraitName {', f'class {swift_struct_name} {{')
 		trait_file = trait_file.replace('class NativelyImplementedTraitName: TraitName {', f'class NativelyImplemented{swift_struct_name}: {swift_struct_name} {{')

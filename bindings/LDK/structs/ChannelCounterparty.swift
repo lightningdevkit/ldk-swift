@@ -37,7 +37,7 @@ ChannelCounterparty_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelCounterparty>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelCounterparty_set_features(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelCounterparty_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_unspendable_punishment_reserve() -> UInt64 {

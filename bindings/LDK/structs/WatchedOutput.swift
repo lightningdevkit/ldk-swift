@@ -5,7 +5,7 @@ public class WatchedOutput {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(block_hash_arg: [UInt8], outpoint_arg: OutPoint, script_pubkey_arg: [UInt8]) {
     	
-        self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: script_pubkey_arg))
+        self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.clone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: script_pubkey_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,7 +42,7 @@ WatchedOutput_get_outpoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKWatchedOutput>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return WatchedOutput_set_outpoint(this_ptrPointer, val.cOpaqueStruct!);
+        return WatchedOutput_set_outpoint(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_script_pubkey() -> [UInt8] {

@@ -17,7 +17,7 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
 
     public func new(a: OutPoint, b: [UInt8]) -> C2Tuple_OutPointScriptZ {
     	
-        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
+        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.clone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
     }
 
 				

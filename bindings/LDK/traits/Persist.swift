@@ -68,7 +68,7 @@ public class NativelyImplementedPersist: Persist {
 		
 				return withUnsafePointer(to: data.cOpaqueStruct!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.persist_new_channel(self.cOpaqueStruct!.this_arg, id.cOpaqueStruct!, dataPointer))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.persist_new_channel(self.cOpaqueStruct!.this_arg, id.clone().cOpaqueStruct!, dataPointer))
 				
 }
 			
@@ -79,7 +79,7 @@ public class NativelyImplementedPersist: Persist {
 				return withUnsafePointer(to: update.cOpaqueStruct!) { (updatePointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 withUnsafePointer(to: data.cOpaqueStruct!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_persisted_channel(self.cOpaqueStruct!.this_arg, id.cOpaqueStruct!, updatePointer, dataPointer))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_persisted_channel(self.cOpaqueStruct!.this_arg, id.clone().cOpaqueStruct!, updatePointer, dataPointer))
 				
 }
 }

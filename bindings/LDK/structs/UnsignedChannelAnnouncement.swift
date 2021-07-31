@@ -22,7 +22,7 @@ UnsignedChannelAnnouncement_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.cOpaqueStruct!);
+        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_chain_hash() -> [UInt8] {

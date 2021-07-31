@@ -6,6 +6,7 @@ from src import java_type_mapper
 from src import swift_constants
 from src import type_mapping_generator
 from src import swift_type_mapper
+import src.conversion_helper
 
 
 class CTypes(enum.Enum):
@@ -143,9 +144,9 @@ class LightningHeaderParser():
 		line_indicates_trait_regex = re.compile("^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?void \*this_arg(.*)\);$")
 
 		# for the oddball cases that aren't real trait lambdas, but ones without the this_arg
-		line_indicates_instance_agnostic_trait_method_regex = re.compile("^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?(.*)\);$")
-		assert (line_indicates_instance_agnostic_trait_method_regex.match('void (*set_pubkeys)(const struct LDKBaseSign*NONNULL_PTR );'))
-		assert (line_indicates_instance_agnostic_trait_method_regex.match('struct LDKBaseSign (*BaseSign_clone)(const struct LDKBaseSign *NONNULL_PTR orig_BaseSign);'))
+		line_indicates_nullable_trait_method_regex = re.compile("^(struct |enum |union )?([A-Za-z_0-9]* \*?)\(\*([A-Za-z_0-9]*)\)\((const )?(.*)\);$")
+		assert (line_indicates_nullable_trait_method_regex.match('void (*set_pubkeys)(const struct LDKBaseSign*NONNULL_PTR );'))
+		assert (line_indicates_nullable_trait_method_regex.match('struct LDKBaseSign (*BaseSign_clone)(const struct LDKBaseSign *NONNULL_PTR orig_BaseSign);'))
 
 		assert (line_indicates_trait_regex.match("uintptr_t (*send_data)(void *this_arg, LDKu8slice data, bool resume_read);"))
 		assert (line_indicates_trait_regex.match("struct LDKCVec_MessageSendEventZ (*get_and_clear_pending_msg_events)(const void *this_arg);"))
@@ -224,9 +225,10 @@ class LightningHeaderParser():
 							field_var_lines.append(field_var_match)
 							ordered_interpreted_lines.append({"type": "field", "value": field_var_match})
 						if trait_fn_match is None and field_var_match is None:
-							instance_agnostic_trait_fn_match = line_indicates_instance_agnostic_trait_method_regex.match(struct_line)
-							if instance_agnostic_trait_fn_match:
-								ordered_interpreted_lines.append({"type": "instance_agnostic_lambda", "value": instance_agnostic_trait_fn_match})
+							nullable_trait_fn_match = line_indicates_nullable_trait_method_regex.match(struct_line)
+							if nullable_trait_fn_match:
+								ordered_interpreted_lines.append({"type": "nullable_lambda", "value": nullable_trait_fn_match})
+								print(f'\nNullable trait property line: \n{struct_line}\n')
 						if struct_line == 'bool is_owned;':
 							is_ownable = True
 						field_lines.append(struct_line)
@@ -402,6 +404,9 @@ class LightningHeaderParser():
 							self.type_details[associated_type_name].constructor_method = method_details
 						else:
 							self.type_details[associated_type_name].methods.append(method_details)
+					elif method_details['associated_type_name'] is not None:
+						associated_type_name = method_details['associated_type_name']['native']
+						self.type_details[associated_type_name].methods.append(method_details)
 					else:
 						is_independent = method_details['is_independent']
 						native_method_name = method_details['name']['native']
@@ -537,13 +542,16 @@ class LightningHeaderParser():
 				else:
 					mapped = swift_type_mapper.map_types_to_swift(current_field_type + " " + current_field_name, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
 					lambdas.append({'name': current_field_name, 'field_details': mapped, 'is_lambda': False})
-			elif current_interpreted_line['type'] == 'instance_agnostic_lambda':
+			elif False and current_interpreted_line['type'] == 'nullable_lambda':
 				fn_line = current_interpreted_line['value']
-				lambdas.append({'name': fn_line.group(3), 'is_lambda': True, 'is_instance_agnostic': True})
-			elif current_interpreted_line['type'] == 'lambda':
+				lambdas.append({'name': fn_line.group(3), 'is_lambda': True, 'is_nullable': True})
+			elif current_interpreted_line['type'] == 'lambda' or current_interpreted_line['type'] == 'nullable_lambda':
 				fn_line = current_interpreted_line['value']
 				ret_ty_info = swift_type_mapper.map_types_to_swift(fn_line.group(2).strip() + " ret", None, False, self.tuple_types, self.unitary_enums, self.language_constants)
 				is_const = fn_line.group(4) is not None
+
+				# if it's nullable, the type signature is collected incorrectly
+				is_nullable = (current_interpreted_line['type'] == 'nullable_lambda')
 
 				arg_tys = []
 				for idx, arg in enumerate(fn_line.group(5).split(',')):
@@ -552,7 +560,7 @@ class LightningHeaderParser():
 					arg_conv_info = swift_type_mapper.map_types_to_swift(arg, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
 					arg_tys.append(arg_conv_info)
 
-				lambdas.append({'name': fn_line.group(3), 'is_lambda': True, 'is_instance_agnostic': False, 'is_constant': is_const, 'return_type': ret_ty_info, 'argument_types': arg_tys})
+				lambdas.append({'name': fn_line.group(3), 'is_lambda': True, 'is_nullable': is_nullable, 'is_constant': is_const, 'return_type': ret_ty_info, 'argument_types': arg_tys})
 
 		return lambdas
 
@@ -630,6 +638,8 @@ class LightningHeaderParser():
 			# belongs to struct
 			belongs_to_struct = True
 			associated_type_name = inferred_struct_name
+		elif native_struct_name in self.option_types or native_struct_name in self.result_types:
+			associated_type_name = inferred_struct_name
 		elif method_name.startswith("C2Tuple_") and method_name.endswith("_read"):
 			# belongs in utility methods
 			inferred_struct_name = method_name.rsplit("_", 1)[0]
@@ -650,9 +660,11 @@ class LightningHeaderParser():
 		if is_clone:
 			if inferred_struct_name != inferred_tuple_name:
 				print(f'unequal struct/tuple inference: "{inferred_struct_name}" vs. "{inferred_tuple_name}"')
+				src.conversion_helper.cloneable_types.add(inferred_tuple_name)
 				self.cloneable_types.add(inferred_tuple_name)
 			else:
 				self.cloneable_types.add(inferred_struct_name)
+				src.conversion_helper.cloneable_types.add(inferred_struct_name)
 
 		return {'struct_method': inferred_struct_name, 'associated_type_name': None if associated_type_name is None else {'native': 'LDK' + associated_type_name, 'swift': associated_type_name},
 			'is_free': is_free, 'is_constructor': is_constructor, 'is_clone': is_clone, 'takes_self': takes_self, 'name': {'native': method_name, 'swift': clean_method_name},

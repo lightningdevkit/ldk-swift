@@ -5,7 +5,7 @@ public class RouteHintHop {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(src_node_id_arg: [UInt8], short_channel_id_arg: UInt64, fees_arg: RoutingFees, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: Option_u64Z, htlc_maximum_msat_arg: Option_u64Z) {
     	
-        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg), short_channel_id_arg, fees_arg.cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.cOpaqueStruct!, htlc_maximum_msat_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg), short_channel_id_arg, fees_arg.clone().cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.cOpaqueStruct!, htlc_maximum_msat_arg.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -57,7 +57,7 @@ RouteHintHop_get_fees(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_fees(this_ptrPointer, val.cOpaqueStruct!);
+        return RouteHintHop_set_fees(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_cltv_expiry_delta() -> UInt16 {

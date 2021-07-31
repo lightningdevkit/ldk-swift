@@ -22,7 +22,7 @@ UnsignedNodeAnnouncement_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedNodeAnnouncement_set_features(this_ptrPointer, val.cOpaqueStruct!);
+        return UnsignedNodeAnnouncement_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_timestamp() -> UInt32 {

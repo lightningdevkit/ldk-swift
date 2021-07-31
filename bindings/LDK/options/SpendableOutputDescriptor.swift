@@ -51,6 +51,30 @@ public class SpendableOutputDescriptor {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return SpendableOutputDescriptor_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> SpendableOutputDescriptor {
+    	
+        return SpendableOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
+SpendableOutputDescriptor_clone(origPointer)
+});
+    }
+
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
+SpendableOutputDescriptor_write(objPointer)
+});
+    }
+
+    public func read(ser: [UInt8]) -> Result_SpendableOutputDescriptorDecodeErrorZ {
+    	
+        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
+    }
+
     /* OPTION_METHODS_END */
 
 	

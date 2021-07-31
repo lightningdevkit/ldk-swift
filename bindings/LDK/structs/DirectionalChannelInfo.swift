@@ -5,7 +5,7 @@ public class DirectionalChannelInfo {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(last_update_arg: UInt32, enabled_arg: Bool, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: UInt64, htlc_maximum_msat_arg: Option_u64Z, fees_arg: RoutingFees, last_update_message_arg: ChannelUpdate) {
     	
-        self.cOpaqueStruct = DirectionalChannelInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg.cOpaqueStruct!, fees_arg.cOpaqueStruct!, last_update_message_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = DirectionalChannelInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg.cOpaqueStruct!, fees_arg.clone().cOpaqueStruct!, last_update_message_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -102,7 +102,7 @@ DirectionalChannelInfo_get_fees(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDirectionalChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DirectionalChannelInfo_set_fees(this_ptrPointer, val.cOpaqueStruct!);
+        return DirectionalChannelInfo_set_fees(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_last_update_message() -> ChannelUpdate {
@@ -117,7 +117,7 @@ DirectionalChannelInfo_get_last_update_message(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDirectionalChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DirectionalChannelInfo_set_last_update_message(this_ptrPointer, val.cOpaqueStruct!);
+        return DirectionalChannelInfo_set_last_update_message(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func clone() -> DirectionalChannelInfo {

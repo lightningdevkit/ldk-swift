@@ -5,7 +5,7 @@ public class StaticPaymentOutputDescriptor {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(outpoint_arg: OutPoint, output_arg: LDKTxOut, channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
     	
-        self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.cOpaqueStruct!, output_arg, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
+        self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.clone().cOpaqueStruct!, output_arg, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -27,7 +27,7 @@ StaticPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return StaticPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.cOpaqueStruct!);
+        return StaticPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func set_output(val: LDKTxOut) -> Void {

@@ -3,6 +3,7 @@ import os
 
 from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
+from src.conversion_helper import ConversionHelper
 
 
 class OptionGenerator:
@@ -196,75 +197,34 @@ class OptionGenerator:
 			current_method_name = current_native_method_name[len(method_prefix):]
 
 			current_replacement = method_template
-			is_clone_method = current_method_details['is_clone']
+			is_clone_method = False  # current_method_details['is_clone']
 
-			if current_method_details['return_type'].rust_obj is not None and current_method_details['return_type'].rust_obj.startswith('LDK') and current_method_details[
-				'return_type'].swift_type.startswith('['):
-				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(nativeType: '
-				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments)',
-					f'return {return_type_wrapper_prefix}OptionType_methodName(native_arguments){return_type_wrapper_suffix}')
-			elif current_method_details['return_type'].rust_obj == 'LDK' + current_method_details['return_type'].swift_type and not is_clone_method:
-				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
-				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments)',
-					f'return {return_type_wrapper_prefix}OptionType_methodName(native_arguments){return_type_wrapper_suffix}')
+			force_pass_instance = False
+			if len(current_method_details['argument_types']) == 1:
+				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
+					force_pass_instance = True
+
+
+
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
+			current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments)',
+										f'return {value_return_wrappers["prefix"]}OptionType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 
 			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
-			if is_clone_method:
-				current_replacement = current_replacement.replace('OptionType_methodName(', f'{swift_struct_name}(pointer: {current_native_method_name}(')
-			else:
-				current_replacement = current_replacement.replace('OptionType_methodName(', f'{current_native_method_name}(')
+			# if is_clone_method:
+			# 	current_replacement = current_replacement.replace('OptionType_methodName(', f'{swift_struct_name}(pointer: {current_native_method_name}(')
+			# else:
+			# 	current_replacement = current_replacement.replace('OptionType_methodName(', f'{current_native_method_name}(')
 			# replace arguments
-			swift_arguments = []
-			native_arguments = []
-			native_call_prep = ''
-			for current_argument_details in current_method_details['argument_types']:
-				pass_instance = False
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				if argument_name == 'this_ptr':
-					pass_instance = True
 
-				if current_argument_details.is_ptr:
-					passed_argument_name = argument_name + 'Pointer'
-					requires_mutability = not current_argument_details.is_const
 
-					mutability_infix = ''
-
-					if pass_instance:
-						argument_name = 'self'
-					if requires_mutability:
-						argument_name = '&' + argument_name
-						mutability_infix = 'Mutable'
-					# let managerPointer = withUnsafePointer(to: self.cChannelManager!) { (pointer: UnsafePointer<LDKChannelManager>) in
-					# 	pointer
-					# }
-					# the \n\t will add a bunch of extra lines, but this file will be easier to read
-					current_prep = f'''
-						\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
-							\n\t\t	pointer
-						\n\t	}}
-					'''
-					native_call_prep += current_prep
-
-				if not pass_instance:
-					swift_arguments.append(f'{argument_name}: {current_argument_details.swift_type}')
-
-				# native_arguments.append(f'{passed_argument_name}')
-				if current_argument_details.rust_obj == 'LDK' + current_argument_details.swift_type and not current_argument_details.is_ptr:
-					native_arguments.append(f'{passed_argument_name}.cOpaqueStruct!')
-				else:
-					native_arguments.append(f'{passed_argument_name}')
-
-			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
-			if is_clone_method:
-				# add closing parenthesis that could not be added further up in the clone initializer
-				current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments) + ')')
-			else:
-				current_replacement = current_replacement.replace('native_arguments', ', '.join(native_arguments))
-			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+			current_replacement = current_replacement.replace('OptionType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'OptionType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
+			current_replacement = current_replacement.replace('OptionType_methodName(', f'{current_native_method_name}(')
+			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
+			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
+			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
 
 			struct_methods += '\n' + current_replacement + '\n'

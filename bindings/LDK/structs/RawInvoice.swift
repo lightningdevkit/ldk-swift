@@ -22,7 +22,7 @@ RawInvoice_get_data(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRawInvoice>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RawInvoice_set_data(this_ptrPointer, val.cOpaqueStruct!);
+        return RawInvoice_set_data(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func eq(a: RawInvoice, b: RawInvoice) -> Bool {

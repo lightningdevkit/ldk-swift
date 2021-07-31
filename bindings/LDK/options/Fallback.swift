@@ -51,6 +51,27 @@ public class Fallback {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return Fallback_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Fallback {
+    	
+        return Fallback(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFallback>) in
+Fallback_clone(origPointer)
+});
+    }
+
+    public func eq(a: Fallback, b: Fallback) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKFallback>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKFallback>) in
+Fallback_eq(aPointer, bPointer)
+}
+};
+    }
+
     /* OPTION_METHODS_END */
 
 	

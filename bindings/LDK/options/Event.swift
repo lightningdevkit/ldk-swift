@@ -78,6 +78,25 @@ public class Event {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return Event_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Event {
+    	
+        return Event(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKEvent>) in
+Event_clone(origPointer)
+});
+    }
+
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKEvent>) in
+Event_write(objPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	

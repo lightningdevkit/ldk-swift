@@ -5,7 +5,7 @@ public class Init {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(features_arg: InitFeatures) {
     	
-        self.cOpaqueStruct = Init_new(features_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = Init_new(features_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -27,7 +27,7 @@ Init_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKInit>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Init_set_features(this_ptrPointer, val.cOpaqueStruct!);
+        return Init_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func clone() -> Init {

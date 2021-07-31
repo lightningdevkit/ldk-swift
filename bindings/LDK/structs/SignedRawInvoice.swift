@@ -28,7 +28,7 @@ SignedRawInvoice(pointer: SignedRawInvoice_clone(origPointer))
 
     public func into_parts() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
     	
-        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: SignedRawInvoice_into_parts(self.cOpaqueStruct!));
+        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: SignedRawInvoice_into_parts(self.clone().cOpaqueStruct!));
     }
 
     public func raw_invoice() -> RawInvoice {

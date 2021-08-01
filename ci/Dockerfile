@@ -3,12 +3,15 @@ FROM swift:bionic
 
 RUN apt-get -y update
 RUN apt-get -y dist-upgrade
-RUN apt-get install -y bash curl git make unzip build-essential python3 clang
+RUN apt-get install -y bash curl git make unzip build-essential python3
 # RUN apt-get install -y cargo
 
 # install RUST
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
+
+# install llvm/clang 11
+RUN curl -SL https://github.com/llvm/llvm-project/releases/download/llvmorg-11.0.0/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz | tar -xJC .
 
 #RUN apt-get install -y valgrind
 # RUN apt-get install -y python3
@@ -35,6 +38,6 @@ COPY bindings/batteries ci/LDKSwift/Sources/LDKSwift/batteries
 ENV LDK_C_BINDINGS_BASE="/ldk-c-bindings"
 ENV LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="/ldk-c-bindings/lightning-c-bindings/include/lightning.h"
 ENV LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH="/ci/LDKSwift/Sources/LDKSwift"
-ENV LLVM_CLANG_ASAN_PATH="/usr/lib/llvm-6.0/lib/clang/6.0.0/lib/linux/libclang_rt.asan-x86_64.a"
+ENV LLVM_CLANG_ASAN_PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a"
 ENV RUST_BACKTRACE=1
 ENV SHELL=/bin/bash

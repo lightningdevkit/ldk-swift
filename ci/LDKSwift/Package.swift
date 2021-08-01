@@ -58,9 +58,7 @@ let package = Package(
                     //     "SampleTest.swift"
                     // ],
                     cSettings: nil, cxxSettings: nil, swiftSettings: nil,
-                    linkerSettings: [
-                        .linkedLibrary(String(utf8String: getenv("LDK_C_BINDINGS_BASE")!)! + "/lightning-c-bindings/target/debug/libldk.a")
-                    ])
+                    linkerSettings: nil)
 
         ]
 )

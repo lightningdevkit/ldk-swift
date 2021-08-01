@@ -42,25 +42,22 @@ jobs:
                     cd ..
             -   name: Copy new headers into bindings
                 run: |
-                    mkdir -p ci/LDKCHeaders/Headers/
-                    mkdir -p input/
-                    cp ldk-c-bindings/lightning-c-bindings/include/*.h ci/LDKCHeaders/Headers/
-                    cp ldk-c-bindings/ldk-net/ldk_net.h ci/LDKCHeaders/Headers/
-                    cp ldk-c-bindings/lightning-c-bindings/include/lightning.h input/
+                    mkdir -p ci/LDKSwift/Sources/LDKHeaders/include
+                    cp ldk-c-bindings/lightning-c-bindings/include/*.h ci/LDKSwift/Sources/LDKHeaders/include/
+                    cp ldk-c-bindings/ldk-net/ldk_net.h ci/LDKSwift/Sources/LDKHeaders/include/
+                    cp /ldk-c-bindings/ldk-net/ldk_net.c ci/LDKSwift/Sources/LDKHeaders/
             -   name: Set up Python
                 uses: actions/setup-python@v2
             -   name: Fix header files
                 run: |
                     python ci/fix_header_includes.py
-            -   name: Generate Swift bindings
+            -   name: Generate Swift bindings and copy batteries
                 run: |
-                    rm -r bindings/LDK/
-                    python ./
-            -   name: Copy Swift bindings into sources
-                run: |
-                    mkdir -p ci/LDKSwift/Sources/LDKSwift
-                    cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="ldk-c-bindings/lightning-c-bindings/include/lightning.h" LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH="/ci/LDKSwift/Sources/LDKSwift" python ./
                     cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
+            -   name: Fix Swift files
+                run: |
+                    python ci/fix_swift_imports.py
             -   name: Build and test bindings
                 run: |
                     cd ci/LDKSwift

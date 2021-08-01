@@ -50,8 +50,8 @@ public class ChannelManagerConstructor {
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             var b: LDKChannelMonitor = value.result!.pointee.b
             b.is_owned = false
-            let currentChannelMonitor = ChannelMonitor(pointer: b)
-            var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
+            var clonedChannelMonitor = ChannelMonitor(pointer: b)
+            // var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
             clonedChannelMonitor.cOpaqueStruct?.is_owned = false
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
             self.channel_monitors.append((clonedChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
@@ -125,9 +125,10 @@ public class ChannelManagerConstructor {
             return
         }
         
-        for (currentChannelMonitor, _) in self.channel_monitors {
+        for (monitorClone, _) in self.channel_monitors {
             let chainMonitorWatch = self.chain_monitor.as_Watch()
-            let monitorClone = currentChannelMonitor.clone(orig: currentChannelMonitor)
+            // let monitorClone = currentChannelMonitor.clone(orig: currentChannelMonitor)
+            monitorClone.cOpaqueStruct?.is_owned = false
             let fundingTxo = monitorClone.get_funding_txo()
             let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a)
             

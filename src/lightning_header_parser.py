@@ -57,7 +57,7 @@ class LightningHeaderParser():
 	@classmethod
 	def get_file(cls) -> str:
 		header_path = Config.HEADER_FILE_PATH
-		with open(header_path, 'r') as lightning_header_handle:
+		with open(header_path, 'r', encoding='utf-8') as lightning_header_handle:
 			lightning_header = lightning_header_handle.read()
 			return lightning_header
 

@@ -40,6 +40,9 @@ jobs:
                     cd ldk-c-bindings
                     ./genbindings.sh ../rust-lightning true
                     cd ..
+            -   name: Debug bindings target directory structure
+                run: |
+                    python ci/walker.py ldk-c-bindings/lightning-c-bindings/target
             -   name: Copy new headers into bindings
                 run: |
                     mkdir -p ci/LDKSwift/Sources/LDKHeaders/include
@@ -58,6 +61,9 @@ jobs:
             -   name: Fix Swift files
                 run: |
                     python ci/fix_swift_imports.py
+            -   name: Debug CI directory structure
+                run: |
+                    python ci/walker.py ci/
             -   name: Build Swift bindings package
                 run: |
                     cd ci/LDKSwift

@@ -46,7 +46,10 @@ let package = Package(
                         .linkedLibrary(String(utf8String: getenv("LDK_C_BINDINGS_BASE")!)! + "/lightning-c-bindings/target/debug/libldk.a"),
                         .linkedLibrary("/usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a")
                     ]),
-            .testTarget(name: "LDKSwiftTests", dependencies: ["LDKSwift", "LDKHeaders"], path: nil,
+            .testTarget(
+                    name: "LDKSwiftTests",
+                    dependencies: ["LDKSwift", "LDKHeaders"],
+                    path: nil,
                     exclude: [],
                     // exclude: ["SampleTest.swift"],
                     sources: nil,

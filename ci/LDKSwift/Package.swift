@@ -44,7 +44,8 @@ let package = Package(
                     swiftSettings: nil,
                     linkerSettings: [
                         .linkedLibrary(String(utf8String: getenv("LDK_C_BINDINGS_BASE")!)! + "/lightning-c-bindings/target/debug/libldk.a"),
-                        .linkedLibrary("/usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a")
+                        // .linkedLibrary("/usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a")
+                        .linkedLibrary(String(utf8String: getenv("LLVM_CLANG_ASAN_PATH")!)!)
                     ]),
             .testTarget(
                     name: "LDKSwiftTests",

@@ -35,11 +35,16 @@ jobs:
                       exit 1
                     fi
                     tar xvvf swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
-            -   name: Rebuild C bindings
+            -   name: Regenerate C bindings
                 run: |
                     cd ldk-c-bindings
                     ./genbindings.sh ../rust-lightning true
                     cd ..
+            -   name: Build C bindings
+                run: |
+                    cd ldk-c-bindings/lightning-c-bindings
+                    cargo build
+                    cd ../../
             -   name: Copy new headers into bindings
                 run: |
                     mkdir -p ci/LDKSwift/Sources/LDKHeaders/include

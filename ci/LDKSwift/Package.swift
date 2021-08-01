@@ -7,9 +7,10 @@ import Foundation
 let package = Package(
     name: "LDKSwift",
     products: [
-        .library(
-            name: "LDKSwift",
-            targets: ["LDKSwift"]),
+       .library(
+           name: "LDKSwift",
+           targets: ["LDKSwift"]),
+//         .library(name: "LDKSwift", type: .dynamic, targets: ["LDKSwift"])
     ],
     dependencies: [],
     targets: [
@@ -64,7 +65,9 @@ let package = Package(
 //                     sources: [
 //                         "SampleTest.swift"
 //                     ],
-                    cSettings: nil, cxxSettings: nil, swiftSettings: nil, linkerSettings: nil)
+                    cSettings: nil, cxxSettings: nil, swiftSettings: nil, linkerSettings: [
+					  .linkedLibrary(String(utf8String: getenv("LDK_C_BINDINGS_BASE")!)! + "/lightning-c-bindings/target/debug/libldk.a")
+				  ])
 
     ]
 )

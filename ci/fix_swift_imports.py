@@ -33,4 +33,5 @@ for current_swift_file in swift_files:
 		file_out = open(path, 'wt')
 		file_out.write(fixed_contents)
 		file_out.close()
+		print(f'Fixed Swift file: {path}')
 

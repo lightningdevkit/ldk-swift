@@ -44,4 +44,5 @@ for current_header_file in header_files:
 		file_out = open(path, 'wt')
 		file_out.write(fixed_contents)
 		file_out.close()
+		print(f'Fixed .h/.c file: {path}')
 

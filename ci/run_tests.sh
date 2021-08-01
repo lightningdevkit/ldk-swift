@@ -4,7 +4,7 @@ set -x
 pushd ../
 # working within /
 
-LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="ldk-c-bindings/lightning-c-bindings/include/lightning.h" python3 ./
+python3 ./
 
 mkdir -p /ci/LDKSwift/Sources/LDKHeaders/include/
 cp /ldk-c-bindings/lightning-c-bindings/include/*.h /ci/LDKSwift/Sources/LDKHeaders/include/
@@ -16,5 +16,6 @@ popd
 
 python3 ./fix_header_includes.py
 python3 ./fix_swift_imports.py
+
 pushd LDKSwift/
-swift test
+swift test # -Xswiftc -suppress-warnings

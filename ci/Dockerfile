@@ -32,7 +32,8 @@ RUN chmod +x ci/run_tests.sh
 
 COPY bindings/batteries ci/LDKSwift/Sources/LDKSwift/batteries
 
-ENV LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH="/ci/LDKSwift/Sources/LDKSwift"
 ENV LDK_C_BINDINGS_BASE="/ldk-c-bindings"
+ENV LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="/ldk-c-bindings/lightning-c-bindings/include/lightning.h"
+ENV LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH="/ci/LDKSwift/Sources/LDKSwift"
 ENV RUST_BACKTRACE=1
 ENV SHELL=/bin/bash

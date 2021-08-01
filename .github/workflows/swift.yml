@@ -40,11 +40,6 @@ jobs:
                     cd ldk-c-bindings
                     ./genbindings.sh ../rust-lightning true
                     cd ..
-            -   name: Build C bindings
-                run: |
-                    cd ldk-c-bindings/lightning-c-bindings
-                    cargo build
-                    cd ../../
             -   name: Copy new headers into bindings
                 run: |
                     mkdir -p ci/LDKSwift/Sources/LDKHeaders/include
@@ -63,7 +58,12 @@ jobs:
             -   name: Fix Swift files
                 run: |
                     python ci/fix_swift_imports.py
-            -   name: Build and test bindings
+            -   name: Build Swift bindings package
+                run: |
+                    cd ci/LDKSwift
+                    LDK_C_BINDINGS_BASE="../../ldk-c-bindings" RUST_BACKTRACE=1 ../../swift-5.4.2-RELEASE-ubuntu20.04/usr/bin/swift build
+                    cd ../../
+            -   name: Test Swift bindings package
                 run: |
                     cd ci/LDKSwift
                     LDK_C_BINDINGS_BASE="../../ldk-c-bindings" RUST_BACKTRACE=1 ../../swift-5.4.2-RELEASE-ubuntu20.04/usr/bin/swift test

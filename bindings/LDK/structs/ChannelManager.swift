@@ -77,15 +77,6 @@ ChannelManager_send_payment(this_argPointer, routePointer, Bindings.new_LDKThirt
 });
     }
 
-    public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentHashPaymentSendFailureZ {
-    	
-        return Result_PaymentHashPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
-ChannelManager_send_spontaneous_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage))
-}
-});
-    }
-
     public func funding_transaction_generated(temporary_channel_id: [UInt8], funding_transaction: [UInt8]) -> Result_NoneAPIErrorZ {
     	
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in

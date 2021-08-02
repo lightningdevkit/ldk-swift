@@ -31,6 +31,12 @@ open class SocketDescriptor {
 			return instance.hash();
 		}
 
+		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {
+			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::clone")
+			
+			return instance.clone();
+		}
+
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::free")
 			
@@ -44,7 +50,7 @@ open class SocketDescriptor {
 			disconnect_socket: disconnect_socketCallback,
 			eq: eqCallback,
 			hash: hashCallback,
-			cloned: nil,
+			clone: cloneCallback,
 			free: freeCallback)
     }
 
@@ -72,6 +78,11 @@ open class SocketDescriptor {
     open func hash() -> UInt64 {
     	/* EDIT ME */
 		return 0
+    }
+
+    open func clone() -> UnsafeMutableRawPointer {
+    	/* EDIT ME */
+		return UnsafeMutableRawPointer(bitPattern: 0)!
     }
 
     open func free() -> Void {

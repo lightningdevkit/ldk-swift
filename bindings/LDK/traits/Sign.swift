@@ -12,6 +12,12 @@ open class Sign {
 			return Bindings.new_LDKCVec_u8Z(array: instance.write());
 		}
 
+		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {
+			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::clone")
+			
+			return instance.clone();
+		}
+
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::free")
 			
@@ -22,8 +28,9 @@ open class Sign {
 
         self.cOpaqueStruct = LDKSign(this_arg: Bindings.instanceToPointer(instance: self), 
 			BaseSign: LDKBaseSign(),
+			BaseSign_clone: nil,
 			write: writeCallback,
-			cloned: nil,
+			clone: cloneCallback,
 			free: freeCallback)
     }
 
@@ -36,6 +43,11 @@ open class Sign {
     open func write() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
+    }
+
+    open func clone() -> UnsafeMutableRawPointer {
+    	/* EDIT ME */
+		return UnsafeMutableRawPointer(bitPattern: 0)!
     }
 
     open func free() -> Void {

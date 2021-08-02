@@ -31,11 +31,11 @@ class LDKSwiftTest: XCTestCase {
     }
 
     func testIncrementalMemoryLeaks() throws {
-        let feeEstimator = TestFeeEstimator()
-        let logger = TestLogger()
-        let broadcaster = TestBroadcasterInterface()
-        let persister = TestPersister()
         let filter = TestFilter()
+        let broadcaster = TestBroadcasterInterface()
+        let logger = TestLogger()
+        let feeEstimator = TestFeeEstimator()
+        let persister = TestPersister()
 
         let chainMonitor = ChainMonitor(chain_source: filter, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
         /*

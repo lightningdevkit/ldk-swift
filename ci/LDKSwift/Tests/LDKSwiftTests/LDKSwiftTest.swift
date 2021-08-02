@@ -38,7 +38,7 @@ class LDKSwiftTest: XCTestCase {
         let persister = TestPersister()
 
         let chainMonitor = ChainMonitor(chain_source: filter, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
-        /*
+
         let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
         let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
         let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
@@ -63,9 +63,9 @@ class LDKSwiftTest: XCTestCase {
         )
 
         let channel_manager = channel_manager_constructor.channelManager;
-        let cmPersister = MyChannelManagerPersister(channelManager: channel_manager)
+        let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
         channel_manager_constructor.chain_sync_completed(persister: cmPersister)
-        */
+
     }
 
     func xtestExtendedActivity() {

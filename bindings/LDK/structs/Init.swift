@@ -51,13 +51,11 @@ Init_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Init_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

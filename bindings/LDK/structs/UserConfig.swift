@@ -84,13 +84,11 @@ UserConfig(pointer: UserConfig_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UserConfig_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

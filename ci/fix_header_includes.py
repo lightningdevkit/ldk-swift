@@ -41,7 +41,7 @@ for current_header_file in header_files:
 		fixed_contents = fixed_contents.replace(f'#include <{other_file_name}>', f'#include "{other_file_name}"')
 	if fixed_contents != original_contents:
 		# Only save updated file if a change occurred
-		file_out = open(path, 'wt')
+		file_out = open(path, 'wt', encoding='utf-8')
 		file_out.write(fixed_contents)
 		file_out.close()
 		print(f'Fixed .h/.c file: {path}')

@@ -38,13 +38,11 @@ Description(pointer: Description_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Description_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

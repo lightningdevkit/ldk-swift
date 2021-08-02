@@ -81,13 +81,11 @@ RevokeAndACK_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RevokeAndACK_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

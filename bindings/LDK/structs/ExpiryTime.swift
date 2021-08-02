@@ -52,13 +52,11 @@ ExpiryTime_as_duration(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ExpiryTime_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

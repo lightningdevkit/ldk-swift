@@ -249,13 +249,11 @@ ChannelDetails(pointer: ChannelDetails_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelDetails_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

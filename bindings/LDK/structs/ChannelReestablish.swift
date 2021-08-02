@@ -76,13 +76,11 @@ ChannelReestablish_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelReestablish_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

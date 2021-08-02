@@ -111,13 +111,11 @@ ChannelAnnouncement_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -79,13 +79,11 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		CommitmentTransaction_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

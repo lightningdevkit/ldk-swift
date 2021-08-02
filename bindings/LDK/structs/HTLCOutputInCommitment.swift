@@ -111,13 +111,11 @@ HTLCOutputInCommitment_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		HTLCOutputInCommitment_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -54,13 +54,11 @@ LightningError(pointer: LightningError_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		LightningError_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

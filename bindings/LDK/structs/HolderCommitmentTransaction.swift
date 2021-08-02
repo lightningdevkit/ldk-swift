@@ -59,13 +59,11 @@ HolderCommitmentTransaction_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		HolderCommitmentTransaction_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

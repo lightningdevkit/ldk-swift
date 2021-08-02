@@ -69,13 +69,11 @@ ChannelHandshakeConfig(pointer: ChannelHandshakeConfig_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelHandshakeConfig_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -42,13 +42,11 @@ KeysManager_as_KeysInterface(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		KeysManager_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -66,13 +66,11 @@ Ping_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Ping_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

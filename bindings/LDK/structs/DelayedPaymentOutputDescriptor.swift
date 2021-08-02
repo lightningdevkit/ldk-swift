@@ -134,13 +134,11 @@ DelayedPaymentOutputDescriptor_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

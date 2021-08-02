@@ -39,13 +39,11 @@ PeerHandleError(pointer: PeerHandleError_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		PeerHandleError_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

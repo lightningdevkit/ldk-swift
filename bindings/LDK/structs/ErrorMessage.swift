@@ -66,13 +66,11 @@ ErrorMessage_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ErrorMessage_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -52,13 +52,11 @@ InitFeatures_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		InitFeatures_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

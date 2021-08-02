@@ -111,13 +111,11 @@ ChannelPublicKeys_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelPublicKeys_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

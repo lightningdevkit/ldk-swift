@@ -38,13 +38,11 @@ BestBlock_height(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		BestBlock_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

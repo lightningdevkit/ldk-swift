@@ -86,13 +86,11 @@ CommitmentUpdate(pointer: CommitmentUpdate_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		CommitmentUpdate_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

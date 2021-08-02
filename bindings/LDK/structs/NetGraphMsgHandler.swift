@@ -58,13 +58,11 @@ NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NetGraphMsgHandler_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

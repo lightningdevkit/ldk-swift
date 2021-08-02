@@ -81,13 +81,11 @@ GossipTimestampFilter_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		GossipTimestampFilter_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

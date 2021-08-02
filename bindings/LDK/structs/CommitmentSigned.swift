@@ -74,13 +74,11 @@ CommitmentSigned_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		CommitmentSigned_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

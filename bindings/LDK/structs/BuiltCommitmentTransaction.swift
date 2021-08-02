@@ -82,13 +82,11 @@ BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, Bindings.ne
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		BuiltCommitmentTransaction_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

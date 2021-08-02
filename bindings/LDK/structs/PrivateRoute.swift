@@ -38,13 +38,11 @@ PrivateRoute(pointer: PrivateRoute_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		PrivateRoute_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

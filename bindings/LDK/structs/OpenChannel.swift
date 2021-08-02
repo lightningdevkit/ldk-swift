@@ -301,13 +301,11 @@ OpenChannel_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		OpenChannel_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

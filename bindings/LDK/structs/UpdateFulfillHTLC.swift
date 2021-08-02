@@ -81,13 +81,11 @@ UpdateFulfillHTLC_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UpdateFulfillHTLC_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

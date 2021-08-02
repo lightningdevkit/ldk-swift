@@ -114,13 +114,11 @@ UnsignedNodeAnnouncement_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UnsignedNodeAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -45,13 +45,11 @@ ChannelFeatures_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelFeatures_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

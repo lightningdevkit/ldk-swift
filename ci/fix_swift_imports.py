@@ -30,7 +30,7 @@ for current_swift_file in swift_files:
 
 	if fixed_contents != original_contents:
 		# Only save updated file if a change occurred
-		file_out = open(path, 'wt')
+		file_out = open(path, 'wt', encoding='utf-8')
 		file_out.write(fixed_contents)
 		file_out.close()
 		print(f'Fixed Swift file: {path}')

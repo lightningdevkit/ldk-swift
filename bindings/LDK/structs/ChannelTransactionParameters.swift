@@ -132,13 +132,11 @@ ChannelTransactionParameters_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelTransactionParameters_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

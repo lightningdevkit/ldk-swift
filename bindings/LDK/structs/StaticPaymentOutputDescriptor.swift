@@ -89,13 +89,11 @@ StaticPaymentOutputDescriptor_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		StaticPaymentOutputDescriptor_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

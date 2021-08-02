@@ -52,13 +52,11 @@ PositiveTimestamp_as_time(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		PositiveTimestamp_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

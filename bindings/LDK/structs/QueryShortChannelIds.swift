@@ -59,13 +59,11 @@ QueryShortChannelIds_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		QueryShortChannelIds_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

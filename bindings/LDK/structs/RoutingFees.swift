@@ -75,13 +75,11 @@ RoutingFees_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RoutingFees_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

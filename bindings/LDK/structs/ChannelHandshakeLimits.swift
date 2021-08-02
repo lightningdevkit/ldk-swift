@@ -144,13 +144,11 @@ ChannelHandshakeLimits(pointer: ChannelHandshakeLimits_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelHandshakeLimits_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

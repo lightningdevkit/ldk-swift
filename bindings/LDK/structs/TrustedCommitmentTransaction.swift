@@ -44,13 +44,11 @@ TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		TrustedCommitmentTransaction_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

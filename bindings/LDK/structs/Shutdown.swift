@@ -66,13 +66,11 @@ Shutdown_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Shutdown_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

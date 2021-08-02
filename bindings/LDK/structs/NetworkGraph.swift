@@ -116,13 +116,11 @@ NetworkGraph_update_channel_unsigned(this_argPointer, msgPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NetworkGraph_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

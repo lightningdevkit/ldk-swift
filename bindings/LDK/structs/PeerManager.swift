@@ -90,13 +90,11 @@ PeerManager_timer_tick_occurred(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		PeerManager_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

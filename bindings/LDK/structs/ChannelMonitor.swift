@@ -146,13 +146,11 @@ ChannelMonitor_current_best_block(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelMonitor_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

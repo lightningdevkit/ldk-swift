@@ -28,13 +28,11 @@ Sha256(pointer: Sha256_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Sha256_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

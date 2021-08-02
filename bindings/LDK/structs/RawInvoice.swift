@@ -127,13 +127,11 @@ RawInvoice_currency(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RawInvoice_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

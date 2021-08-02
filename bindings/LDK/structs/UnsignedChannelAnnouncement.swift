@@ -136,13 +136,11 @@ UnsignedChannelAnnouncement_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UnsignedChannelAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

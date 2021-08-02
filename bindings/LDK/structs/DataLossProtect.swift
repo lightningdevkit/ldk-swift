@@ -54,13 +54,11 @@ DataLossProtect(pointer: DataLossProtect_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		DataLossProtect_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

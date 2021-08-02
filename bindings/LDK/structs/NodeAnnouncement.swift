@@ -66,13 +66,11 @@ NodeAnnouncement_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NodeAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -74,13 +74,11 @@ NodeInfo_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NodeInfo_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

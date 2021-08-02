@@ -89,13 +89,11 @@ OutPoint_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		OutPoint_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

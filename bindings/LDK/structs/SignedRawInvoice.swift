@@ -80,13 +80,11 @@ SignedRawInvoice_to_str(oPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		SignedRawInvoice_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

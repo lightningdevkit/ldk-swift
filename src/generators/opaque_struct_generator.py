@@ -183,9 +183,10 @@ class OpaqueStructGenerator:
 			ownability_check_prefix = ''
 			ownability_check_suffix = ''
 
-			if struct_details.is_ownable:
-				ownability_check_prefix = f'if self.cOpaqueStruct?.is_owned == false {{\n'
-				ownability_check_suffix = f'\n}}'
+
+			# if struct_details.is_ownable:
+			# 	ownability_check_prefix = f'if self.cOpaqueStruct?.is_owned == false {{\n'
+			# 	ownability_check_suffix = f'\n}}'
 
 			for current_argument_details in free_method_details['argument_types']:
 				pass_instance = False

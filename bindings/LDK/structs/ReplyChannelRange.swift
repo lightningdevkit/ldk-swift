@@ -104,13 +104,11 @@ ReplyChannelRange_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ReplyChannelRange_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

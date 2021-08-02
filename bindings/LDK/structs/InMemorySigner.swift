@@ -200,13 +200,11 @@ InMemorySigner_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		InMemorySigner_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

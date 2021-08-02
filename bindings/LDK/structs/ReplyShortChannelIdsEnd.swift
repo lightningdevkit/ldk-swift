@@ -66,13 +66,11 @@ ReplyShortChannelIdsEnd_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ReplyShortChannelIdsEnd_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -66,13 +66,11 @@ FundingLocked_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		FundingLocked_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

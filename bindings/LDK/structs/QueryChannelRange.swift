@@ -88,13 +88,11 @@ QueryChannelRange_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		QueryChannelRange_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

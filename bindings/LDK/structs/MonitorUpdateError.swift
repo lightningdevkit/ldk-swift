@@ -19,13 +19,11 @@ MonitorUpdateError(pointer: MonitorUpdateError_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		MonitorUpdateError_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

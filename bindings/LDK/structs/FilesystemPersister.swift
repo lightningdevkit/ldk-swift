@@ -45,13 +45,11 @@ FilesystemPersister_as_Persist(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		FilesystemPersister_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

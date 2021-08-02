@@ -151,13 +151,11 @@ UnsignedChannelUpdate_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UnsignedChannelUpdate_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -76,13 +76,11 @@ UpdateFailMalformedHTLC_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UpdateFailMalformedHTLC_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

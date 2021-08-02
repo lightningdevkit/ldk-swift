@@ -96,13 +96,11 @@ AnnouncementSignatures_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		AnnouncementSignatures_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

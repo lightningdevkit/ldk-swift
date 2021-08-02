@@ -81,13 +81,11 @@ ClosingSigned_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ClosingSigned_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

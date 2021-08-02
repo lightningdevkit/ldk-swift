@@ -218,13 +218,11 @@ ChannelManager_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelManager_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -28,13 +28,11 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		BackgroundProcessor_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

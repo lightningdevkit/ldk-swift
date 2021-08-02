@@ -52,13 +52,11 @@ NodeFeatures_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NodeFeatures_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -28,13 +28,11 @@ RouteHint(pointer: RouteHint_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RouteHint_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

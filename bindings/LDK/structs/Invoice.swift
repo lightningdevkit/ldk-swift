@@ -141,13 +141,11 @@ Invoice_to_str(oPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Invoice_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

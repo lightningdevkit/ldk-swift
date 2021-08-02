@@ -141,13 +141,11 @@ ChannelInfo_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelInfo_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -76,13 +76,11 @@ WatchedOutput_hash(oPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		WatchedOutput_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

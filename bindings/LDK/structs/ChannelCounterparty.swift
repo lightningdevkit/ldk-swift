@@ -64,13 +64,11 @@ ChannelCounterparty(pointer: ChannelCounterparty_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelCounterparty_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

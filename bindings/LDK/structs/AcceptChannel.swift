@@ -241,13 +241,11 @@ AcceptChannel_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		AcceptChannel_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

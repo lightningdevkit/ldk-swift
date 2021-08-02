@@ -66,13 +66,11 @@ UpdateFee_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UpdateFee_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

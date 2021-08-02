@@ -106,13 +106,11 @@ UpdateAddHTLC_write(objPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UpdateAddHTLC_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

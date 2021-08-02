@@ -54,13 +54,11 @@ ChainParameters(pointer: ChainParameters_clone(origPointer))
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChainParameters_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

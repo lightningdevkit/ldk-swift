@@ -5,11 +5,10 @@
 //  Created by Arik Sosman on 5/17/21.
 //
 
-import XCTest
 import LDKSwift
 import LDKHeaders
 
-class MyLogger: Logger {
+class TestLogger: Logger {
 
     override func log(record: String?) {
         print("record: \(record)")

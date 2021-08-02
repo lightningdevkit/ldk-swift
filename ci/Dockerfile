@@ -35,9 +35,13 @@ RUN chmod +x ci/run_tests.sh
 
 COPY bindings/batteries ci/LDKSwift/Sources/LDKSwift/batteries
 
+# RUN ln -s /lib/x86_64-linux-gnu/libtinfo.so.5 /lib/x86_64-linux-gnu/libtinfo.so.6
+
 ENV LDK_C_BINDINGS_BASE="/ldk-c-bindings"
 ENV LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="/ldk-c-bindings/lightning-c-bindings/include/lightning.h"
 ENV LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH="/ci/LDKSwift/Sources/LDKSwift"
 ENV LLVM_CLANG_ASAN_PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a"
+ENV ASAN_SYMBOLIZER_PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/bin/llvm-symbolizer"
+ENV PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/bin:${PATH}"
 ENV RUST_BACKTRACE=1
 ENV SHELL=/bin/bash

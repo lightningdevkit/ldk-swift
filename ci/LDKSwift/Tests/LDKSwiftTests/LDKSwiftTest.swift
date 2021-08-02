@@ -9,7 +9,7 @@ import XCTest
 import LDKSwift
 import LDKHeaders
 
-class LDKExperimentTest: XCTestCase {
+class LDKSwiftTest: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -30,15 +30,53 @@ class LDKExperimentTest: XCTestCase {
         check_platform()
     }
 
-    func testExtendedActivity() {
+    func testIncrementalMemoryLeaks() throws {
+        let feeEstimator = TestFeeEstimator()
+        let logger = TestLogger()
+        let broadcaster = TestBroadcasterInterface()
+        let persister = TestPersister()
+        let filter = TestFilter()
+
+        let chainMonitor = ChainMonitor(chain_source: filter, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
+        /*
+        let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
+        let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
+        let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
+
+        let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+        let keysInterface = keysManager.as_KeysInterface()
+
+        let serialized_channel_manager = LDKTestFixtures.serializedChannelManager
+
+        let serializedChannelMonitors: [[UInt8]] = LDKTestFixtures.serializedChannelMonitors
+
+        let channel_manager_constructor = try ChannelManagerConstructor(
+                channel_manager_serialized: serialized_channel_manager,
+                channel_monitors_serialized: serializedChannelMonitors,
+                keys_interface: keysInterface,
+                fee_estimator: feeEstimator,
+                chain_monitor: chainMonitor,
+                filter: filter,
+                router: nil,
+                tx_broadcaster: broadcaster,
+                logger: logger
+        )
+
+        let channel_manager = channel_manager_constructor.channelManager;
+        let cmPersister = MyChannelManagerPersister(channelManager: channel_manager)
+        channel_manager_constructor.chain_sync_completed(persister: cmPersister)
+        */
+    }
+
+    func xtestExtendedActivity() {
         // for i in 0...(1 << 7) {
         for i in 0..<1 { // only do one test run initially
-            let nice_close =                   (i & (1 << 0)) != 0;
-            let use_km_wrapper =               (i & (1 << 1)) != 0;
-            let use_manual_watch =             (i & (1 << 2)) != 0;
-            let reload_peers =                 (i & (1 << 3)) != 0;
-            let break_cross_refs =             (i & (1 << 4)) != 0;
-            let nio_peer_handler =             true // (i & (1 << 5)) != 0;
+            let nice_close = (i & (1 << 0)) != 0;
+            let use_km_wrapper = (i & (1 << 1)) != 0;
+            let use_manual_watch = (i & (1 << 2)) != 0;
+            let reload_peers = (i & (1 << 3)) != 0;
+            let break_cross_refs = (i & (1 << 4)) != 0;
+            let nio_peer_handler = true // (i & (1 << 5)) != 0;
             let use_chan_manager_constructor = true //  (i & (1 << 6)) != 0;
 
             if (break_cross_refs && !reload_peers) {
@@ -84,14 +122,12 @@ class LDKExperimentTest: XCTestCase {
     }
 
 
-
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         measure {
             // Put the code you want to measure the time of here.
         }
     }
-
 
 
 }

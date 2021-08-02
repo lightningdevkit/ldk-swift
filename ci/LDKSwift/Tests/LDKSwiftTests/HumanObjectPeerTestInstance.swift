@@ -129,8 +129,8 @@ public class HumanObjectPeerTestInstance {
         fileprivate init(master: HumanObjectPeerTestInstance, _dummy: Any, seed: UInt8) {
 
             self.master = master
-            self.logger = MyLogger()
-            self.feeEstimator = MyFeeEstimator()
+            self.logger = TestLogger()
+            self.feeEstimator = TestFeeEstimator()
             self.monitors = [String: ChannelMonitor]()
             self.seed = seed
             let persister = TestPersister()

@@ -83,34 +83,32 @@ ReplyChannelRange_get_sync_complete(this_ptrPointer)
         return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val));
     }
 
-    public func clone(orig: ReplyChannelRange) -> ReplyChannelRange {
+    public func clone() -> ReplyChannelRange {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyChannelRange>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyChannelRange>) in
 ReplyChannelRange(pointer: ReplyChannelRange_clone(origPointer))
 };
     }
 
-    public func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
     	
         return Result_ReplyChannelRangeDecodeErrorZ(pointer: ReplyChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
-    public func write(obj: ReplyChannelRange) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyChannelRange>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyChannelRange>) in
 ReplyChannelRange_write(objPointer)
 });
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ReplyChannelRange_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

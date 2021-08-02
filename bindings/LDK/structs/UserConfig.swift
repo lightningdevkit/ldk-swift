@@ -27,7 +27,7 @@ UserConfig_get_own_channel_config(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_own_channel_config(this_ptrPointer, val.cOpaqueStruct!);
+        return UserConfig_set_own_channel_config(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_peer_channel_config_limits() -> ChannelHandshakeLimits {
@@ -42,7 +42,7 @@ UserConfig_get_peer_channel_config_limits(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val.cOpaqueStruct!);
+        return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_channel_options() -> ChannelConfig {
@@ -57,25 +57,38 @@ UserConfig_get_channel_options(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_channel_options(this_ptrPointer, val.cOpaqueStruct!);
+        return UserConfig_set_channel_options(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: UserConfig) -> UserConfig {
+    public func get_accept_forwards_to_priv_channels() -> Bool {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUserConfig>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUserConfig>) in
+UserConfig_get_accept_forwards_to_priv_channels(this_ptrPointer)
+};
+    }
+
+    public func set_accept_forwards_to_priv_channels(val: Bool) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return UserConfig_set_accept_forwards_to_priv_channels(this_ptrPointer, val);
+    }
+
+    public func clone() -> UserConfig {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUserConfig>) in
 UserConfig(pointer: UserConfig_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UserConfig_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

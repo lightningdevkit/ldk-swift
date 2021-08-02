@@ -53,34 +53,32 @@ CommitmentSigned_get_signature(this_ptrPointer)
         return CommitmentSigned_set_htlc_signatures(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
     }
 
-    public func clone(orig: CommitmentSigned) -> CommitmentSigned {
+    public func clone() -> CommitmentSigned {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentSigned>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentSigned>) in
 CommitmentSigned(pointer: CommitmentSigned_clone(origPointer))
 };
     }
 
-    public func write(obj: CommitmentSigned) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentSigned>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentSigned>) in
 CommitmentSigned_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
     	
         return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		CommitmentSigned_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -34,6 +34,28 @@ public class Result_QueryChannelRangeDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: QueryChannelRange) -> Result_QueryChannelRangeDecodeErrorZ {
+    	
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: CResult_QueryChannelRangeDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_QueryChannelRangeDecodeErrorZ {
+    	
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: CResult_QueryChannelRangeDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_QueryChannelRangeDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_QueryChannelRangeDecodeErrorZ {
+    	
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_QueryChannelRangeDecodeErrorZ>) in
+CResult_QueryChannelRangeDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

@@ -34,6 +34,28 @@ public class Result_PaymentSecretAPIErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: [UInt8]) -> Result_PaymentSecretAPIErrorZ {
+    	
+        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o)));
+    }
+
+    public class func err(e: APIError) -> Result_PaymentSecretAPIErrorZ {
+    	
+        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_PaymentSecretAPIErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_PaymentSecretAPIErrorZ {
+    	
+        return Result_PaymentSecretAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PaymentSecretAPIErrorZ>) in
+CResult_PaymentSecretAPIErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

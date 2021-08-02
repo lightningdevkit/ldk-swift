@@ -38,6 +38,28 @@ public class Option_u32Z {
         
     }
 
+    public class func some(o: UInt32) -> Option_u32Z {
+    	
+        return Option_u32Z(pointer: COption_u32Z_some(o));
+    }
+
+    public class func none() -> Option_u32Z {
+    	
+        return Option_u32Z(pointer: COption_u32Z_none());
+    }
+
+    public func free() -> Void {
+    	
+        return COption_u32Z_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Option_u32Z {
+    	
+        return Option_u32Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCOption_u32Z>) in
+COption_u32Z_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	/* TYPE_CLASSES */

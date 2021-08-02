@@ -34,6 +34,21 @@ public class Result_ChannelFeaturesDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: ChannelFeatures) -> Result_ChannelFeaturesDecodeErrorZ {
+    	
+        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_ChannelFeaturesDecodeErrorZ {
+    	
+        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_ChannelFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
+    }
+
     /* RESULT_METHODS_END */
 
 }

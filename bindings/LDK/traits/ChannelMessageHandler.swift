@@ -302,7 +302,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKOpenChannel>) in
 
-				self.cOpaqueStruct!.handle_open_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.cOpaqueStruct!, msgPointer)
+				self.cOpaqueStruct!.handle_open_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.clone().cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -312,7 +312,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKAcceptChannel>) in
 
-				self.cOpaqueStruct!.handle_accept_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.cOpaqueStruct!, msgPointer)
+				self.cOpaqueStruct!.handle_accept_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.clone().cOpaqueStruct!, msgPointer)
 				
 }
 			

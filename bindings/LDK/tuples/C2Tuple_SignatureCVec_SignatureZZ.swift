@@ -8,19 +8,14 @@ public class C2Tuple_SignatureCVec_SignatureZZ {
 
     /* TUPLE_METHODS_START */
 
-    public func clone(orig: C2Tuple_SignatureCVec_SignatureZZ) -> C2Tuple_SignatureCVec_SignatureZZ {
+    public func clone() -> C2Tuple_SignatureCVec_SignatureZZ {
     	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKC2Tuple_SignatureCVec_SignatureZZ>) in
-							
-			pointer
-						
-		}
-					
-        return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer));
+        return C2Tuple_SignatureCVec_SignatureZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_SignatureCVec_SignatureZZ>) in
+C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
+});
     }
 
-    public func new(a: [UInt8], b: [[UInt8]]) -> C2Tuple_SignatureCVec_SignatureZZ {
+    public class func new(a: [UInt8], b: [[UInt8]]) -> C2Tuple_SignatureCVec_SignatureZZ {
     	
         return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_new(Bindings.new_LDKSignature(array: a), Bindings.new_LDKCVec_SignatureZ(array: b)));
     }

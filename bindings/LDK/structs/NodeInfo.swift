@@ -5,7 +5,7 @@ public class NodeInfo {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channels_arg: [UInt64], lowest_inbound_channel_fees_arg: RoutingFees, announcement_info_arg: NodeAnnouncementInfo) {
     	
-        self.cOpaqueStruct = NodeInfo_new(Bindings.new_LDKCVec_u64Z(array: channels_arg), lowest_inbound_channel_fees_arg.cOpaqueStruct!, announcement_info_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = NodeInfo_new(Bindings.new_LDKCVec_u64Z(array: channels_arg), lowest_inbound_channel_fees_arg.clone().cOpaqueStruct!, announcement_info_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -35,7 +35,7 @@ NodeInfo_get_lowest_inbound_channel_fees(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeInfo_set_lowest_inbound_channel_fees(this_ptrPointer, val.cOpaqueStruct!);
+        return NodeInfo_set_lowest_inbound_channel_fees(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_announcement_info() -> NodeAnnouncementInfo {
@@ -50,37 +50,35 @@ NodeInfo_get_announcement_info(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeInfo_set_announcement_info(this_ptrPointer, val.cOpaqueStruct!);
+        return NodeInfo_set_announcement_info(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: NodeInfo) -> NodeInfo {
+    public func clone() -> NodeInfo {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeInfo>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeInfo>) in
 NodeInfo(pointer: NodeInfo_clone(origPointer))
 };
     }
 
-    public func write(obj: NodeInfo) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeInfo>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeInfo>) in
 NodeInfo_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {
     	
         return Result_NodeInfoDecodeErrorZ(pointer: NodeInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NodeInfo_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

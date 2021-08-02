@@ -10,7 +10,7 @@ public class Description {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: Description, b: Description) -> Bool {
+    public class func eq(a: Description, b: Description) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKDescription>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKDescription>) in
@@ -19,32 +19,30 @@ Description_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: Description) -> Description {
+    public func clone() -> Description {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
 Description(pointer: Description_clone(origPointer))
 };
     }
 
-    public func new(description: String) -> Result_DescriptionCreationErrorZ {
+    public class func new(description: String) -> Result_DescriptionCreationErrorZ {
     	
         return Result_DescriptionCreationErrorZ(pointer: Description_new(Bindings.new_LDKStr(string: description)));
     }
 
     public func into_inner() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.cOpaqueStruct!));
+        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.clone().cOpaqueStruct!));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Description_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

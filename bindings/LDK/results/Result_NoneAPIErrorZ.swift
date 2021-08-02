@@ -27,6 +27,28 @@ public class Result_NoneAPIErrorZ {
 				return nil
 			}
 			
+    public class func ok() -> Result_NoneAPIErrorZ {
+    	
+        return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_ok());
+    }
+
+    public class func err(e: APIError) -> Result_NoneAPIErrorZ {
+    	
+        return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_NoneAPIErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_NoneAPIErrorZ {
+    	
+        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NoneAPIErrorZ>) in
+CResult_NoneAPIErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

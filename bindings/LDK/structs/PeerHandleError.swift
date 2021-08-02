@@ -30,22 +30,20 @@ PeerHandleError_get_no_connection_possible(this_ptrPointer)
         return PeerHandleError_set_no_connection_possible(this_ptrPointer, val);
     }
 
-    public func clone(orig: PeerHandleError) -> PeerHandleError {
+    public func clone() -> PeerHandleError {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPeerHandleError>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPeerHandleError>) in
 PeerHandleError(pointer: PeerHandleError_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		PeerHandleError_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

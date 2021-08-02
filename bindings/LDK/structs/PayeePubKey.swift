@@ -10,7 +10,7 @@ public class PayeePubKey {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: PayeePubKey, b: PayeePubKey) -> Bool {
+    public class func eq(a: PayeePubKey, b: PayeePubKey) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPayeePubKey>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPayeePubKey>) in
@@ -19,22 +19,20 @@ PayeePubKey_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: PayeePubKey) -> PayeePubKey {
+    public func clone() -> PayeePubKey {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPayeePubKey>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPayeePubKey>) in
 PayeePubKey(pointer: PayeePubKey_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		PayeePubKey_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

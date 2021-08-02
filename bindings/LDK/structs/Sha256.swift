@@ -10,7 +10,7 @@ public class Sha256 {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: Sha256, b: Sha256) -> Bool {
+    public class func eq(a: Sha256, b: Sha256) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSha256>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSha256>) in
@@ -19,22 +19,20 @@ Sha256_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: Sha256) -> Sha256 {
+    public func clone() -> Sha256 {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
 Sha256(pointer: Sha256_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Sha256_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

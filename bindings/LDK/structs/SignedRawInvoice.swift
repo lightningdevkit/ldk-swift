@@ -10,7 +10,7 @@ public class SignedRawInvoice {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: SignedRawInvoice, b: SignedRawInvoice) -> Bool {
+    public class func eq(a: SignedRawInvoice, b: SignedRawInvoice) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSignedRawInvoice>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSignedRawInvoice>) in
@@ -19,16 +19,16 @@ SignedRawInvoice_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: SignedRawInvoice) -> SignedRawInvoice {
+    public func clone() -> SignedRawInvoice {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice(pointer: SignedRawInvoice_clone(origPointer))
 };
     }
 
     public func into_parts() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
     	
-        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: SignedRawInvoice_into_parts(self.cOpaqueStruct!));
+        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: SignedRawInvoice_into_parts(self.clone().cOpaqueStruct!));
     }
 
     public func raw_invoice() -> RawInvoice {
@@ -66,27 +66,25 @@ SignedRawInvoice_check_signature(this_argPointer)
 };
     }
 
-    public func from_str(s: String) -> Result_SignedRawInvoiceNoneZ {
+    public class func from_str(s: String) -> Result_SignedRawInvoiceNoneZ {
     	
         return Result_SignedRawInvoiceNoneZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s)));
     }
 
-    public func to_str(o: SignedRawInvoice) -> String {
+    public func to_str() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_to_str(oPointer)
 });
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		SignedRawInvoice_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

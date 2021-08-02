@@ -31,13 +31,11 @@ IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		IgnoringMessageHandler_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -22,7 +22,7 @@ UnsignedChannelAnnouncement_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.cOpaqueStruct!);
+        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_chain_hash() -> [UInt8] {
@@ -115,34 +115,32 @@ UnsignedChannelAnnouncement_get_bitcoin_key_2(this_ptrPointer)
         return UnsignedChannelAnnouncement_set_bitcoin_key_2(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: UnsignedChannelAnnouncement) -> UnsignedChannelAnnouncement {
+    public func clone() -> UnsignedChannelAnnouncement {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
 UnsignedChannelAnnouncement(pointer: UnsignedChannelAnnouncement_clone(origPointer))
 };
     }
 
-    public func write(obj: UnsignedChannelAnnouncement) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
 UnsignedChannelAnnouncement_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
     	
         return Result_UnsignedChannelAnnouncementDecodeErrorZ(pointer: UnsignedChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UnsignedChannelAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -5,7 +5,7 @@ public class ChannelUpdate {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedChannelUpdate) {
     	
-        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,37 +42,35 @@ ChannelUpdate_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelUpdate_set_contents(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelUpdate_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: ChannelUpdate) -> ChannelUpdate {
+    public func clone() -> ChannelUpdate {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelUpdate>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelUpdate>) in
 ChannelUpdate(pointer: ChannelUpdate_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelUpdate) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelUpdate>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelUpdate>) in
 ChannelUpdate_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ChannelUpdateDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ChannelUpdateDecodeErrorZ {
     	
         return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelUpdate_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

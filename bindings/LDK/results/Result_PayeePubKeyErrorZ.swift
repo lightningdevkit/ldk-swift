@@ -34,6 +34,28 @@ public class Result_PayeePubKeyErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: PayeePubKey) -> Result_PayeePubKeyErrorZ {
+    	
+        return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: LDKSecp256k1Error) -> Result_PayeePubKeyErrorZ {
+    	
+        return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_PayeePubKeyErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_PayeePubKeyErrorZ {
+    	
+        return Result_PayeePubKeyErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PayeePubKeyErrorZ>) in
+CResult_PayeePubKeyErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

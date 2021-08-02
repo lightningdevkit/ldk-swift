@@ -34,6 +34,28 @@ public class Result_RevokeAndACKDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: RevokeAndACK) -> Result_RevokeAndACKDecodeErrorZ {
+    	
+        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_RevokeAndACKDecodeErrorZ {
+    	
+        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_RevokeAndACKDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_RevokeAndACKDecodeErrorZ {
+    	
+        return Result_RevokeAndACKDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_RevokeAndACKDecodeErrorZ>) in
+CResult_RevokeAndACKDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

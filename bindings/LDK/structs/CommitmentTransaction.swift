@@ -10,21 +10,21 @@ public class CommitmentTransaction {
 
     /* STRUCT_METHODS_START */
 
-    public func clone(orig: CommitmentTransaction) -> CommitmentTransaction {
+    public func clone() -> CommitmentTransaction {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction(pointer: CommitmentTransaction_clone(origPointer))
 };
     }
 
-    public func write(obj: CommitmentTransaction) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_CommitmentTransactionDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_CommitmentTransactionDecodeErrorZ {
     	
         return Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
     }
@@ -79,13 +79,11 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		CommitmentTransaction_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

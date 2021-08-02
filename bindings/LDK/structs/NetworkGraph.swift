@@ -15,21 +15,21 @@ public class NetworkGraph {
 
     /* STRUCT_METHODS_START */
 
-    public func clone(orig: NetworkGraph) -> NetworkGraph {
+    public func clone() -> NetworkGraph {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
 NetworkGraph(pointer: NetworkGraph_clone(origPointer))
 };
     }
 
-    public func write(obj: NetworkGraph) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkGraph>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkGraph>) in
 NetworkGraph_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
     	
         return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser)));
     }
@@ -116,13 +116,11 @@ NetworkGraph_update_channel_unsigned(this_argPointer, msgPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NetworkGraph_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -22,10 +22,10 @@ RawDataPart_get_timestamp(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRawDataPart>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RawDataPart_set_timestamp(this_ptrPointer, val.cOpaqueStruct!);
+        return RawDataPart_set_timestamp(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func eq(a: RawDataPart, b: RawDataPart) -> Bool {
+    public class func eq(a: RawDataPart, b: RawDataPart) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRawDataPart>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRawDataPart>) in
@@ -34,22 +34,20 @@ RawDataPart_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: RawDataPart) -> RawDataPart {
+    public func clone() -> RawDataPart {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawDataPart>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawDataPart>) in
 RawDataPart(pointer: RawDataPart_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RawDataPart_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

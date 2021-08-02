@@ -85,34 +85,32 @@ UpdateAddHTLC_get_cltv_expiry(this_ptrPointer)
         return UpdateAddHTLC_set_cltv_expiry(this_ptrPointer, val);
     }
 
-    public func clone(orig: UpdateAddHTLC) -> UpdateAddHTLC {
+    public func clone() -> UpdateAddHTLC {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
 UpdateAddHTLC(pointer: UpdateAddHTLC_clone(origPointer))
 };
     }
 
-    public func write(obj: UpdateAddHTLC) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateAddHTLC>) in
 UpdateAddHTLC_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_UpdateAddHTLCDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_UpdateAddHTLCDecodeErrorZ {
     	
         return Result_UpdateAddHTLCDecodeErrorZ(pointer: UpdateAddHTLC_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UpdateAddHTLC_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

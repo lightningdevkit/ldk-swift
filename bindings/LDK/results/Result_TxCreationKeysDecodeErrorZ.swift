@@ -34,6 +34,28 @@ public class Result_TxCreationKeysDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: TxCreationKeys) -> Result_TxCreationKeysDecodeErrorZ {
+    	
+        return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_TxCreationKeysDecodeErrorZ {
+    	
+        return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_TxCreationKeysDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_TxCreationKeysDecodeErrorZ {
+    	
+        return Result_TxCreationKeysDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_TxCreationKeysDecodeErrorZ>) in
+CResult_TxCreationKeysDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

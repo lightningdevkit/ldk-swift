@@ -42,6 +42,18 @@ public class MonitorEvent {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return MonitorEvent_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> MonitorEvent {
+    	
+        return MonitorEvent(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMonitorEvent>) in
+MonitorEvent_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	/* TYPE_CLASSES */

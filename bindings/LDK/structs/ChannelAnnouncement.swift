@@ -5,7 +5,7 @@ public class ChannelAnnouncement {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(node_signature_1_arg: [UInt8], node_signature_2_arg: [UInt8], bitcoin_signature_1_arg: [UInt8], bitcoin_signature_2_arg: [UInt8], contents_arg: UnsignedChannelAnnouncement) {
     	
-        self.cOpaqueStruct = ChannelAnnouncement_new(Bindings.new_LDKSignature(array: node_signature_1_arg), Bindings.new_LDKSignature(array: node_signature_2_arg), Bindings.new_LDKSignature(array: bitcoin_signature_1_arg), Bindings.new_LDKSignature(array: bitcoin_signature_2_arg), contents_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelAnnouncement_new(Bindings.new_LDKSignature(array: node_signature_1_arg), Bindings.new_LDKSignature(array: node_signature_2_arg), Bindings.new_LDKSignature(array: bitcoin_signature_1_arg), Bindings.new_LDKSignature(array: bitcoin_signature_2_arg), contents_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -87,37 +87,35 @@ ChannelAnnouncement_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelAnnouncement_set_contents(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelAnnouncement_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: ChannelAnnouncement) -> ChannelAnnouncement {
+    public func clone() -> ChannelAnnouncement {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelAnnouncement>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelAnnouncement>) in
 ChannelAnnouncement(pointer: ChannelAnnouncement_clone(origPointer))
 };
     }
 
-    public func write(obj: ChannelAnnouncement) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelAnnouncement>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelAnnouncement>) in
 ChannelAnnouncement_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ChannelAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ChannelAnnouncementDecodeErrorZ {
     	
         return Result_ChannelAnnouncementDecodeErrorZ(pointer: ChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

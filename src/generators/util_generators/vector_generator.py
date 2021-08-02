@@ -1,6 +1,6 @@
 import re
 
-from generators.util_generators import UtilGenerator
+from src.generators.util_generators import UtilGenerator
 
 class VectorGenerator(UtilGenerator):
 

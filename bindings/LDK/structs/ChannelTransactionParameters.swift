@@ -5,7 +5,7 @@ public class ChannelTransactionParameters {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(holder_pubkeys_arg: ChannelPublicKeys, holder_selected_contest_delay_arg: UInt16, is_outbound_from_holder_arg: Bool, counterparty_parameters_arg: CounterpartyChannelTransactionParameters, funding_outpoint_arg: OutPoint) {
     	
-        self.cOpaqueStruct = ChannelTransactionParameters_new(holder_pubkeys_arg.cOpaqueStruct!, holder_selected_contest_delay_arg, is_outbound_from_holder_arg, counterparty_parameters_arg.cOpaqueStruct!, funding_outpoint_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelTransactionParameters_new(holder_pubkeys_arg.clone().cOpaqueStruct!, holder_selected_contest_delay_arg, is_outbound_from_holder_arg, counterparty_parameters_arg.clone().cOpaqueStruct!, funding_outpoint_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -27,7 +27,7 @@ ChannelTransactionParameters_get_holder_pubkeys(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_holder_pubkeys(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelTransactionParameters_set_holder_pubkeys(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_holder_selected_contest_delay() -> UInt16 {
@@ -72,7 +72,7 @@ ChannelTransactionParameters_get_counterparty_parameters(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_funding_outpoint() -> OutPoint {
@@ -87,12 +87,12 @@ ChannelTransactionParameters_get_funding_outpoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: ChannelTransactionParameters) -> ChannelTransactionParameters {
+    public func clone() -> ChannelTransactionParameters {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters(pointer: ChannelTransactionParameters_clone(origPointer))
 };
     }
@@ -118,27 +118,25 @@ ChannelTransactionParameters_as_counterparty_broadcastable(this_argPointer)
 });
     }
 
-    public func write(obj: ChannelTransactionParameters) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ChannelTransactionParametersDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
         return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelTransactionParameters_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

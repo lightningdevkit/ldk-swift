@@ -10,22 +10,20 @@ public class DecodeError {
 
     /* STRUCT_METHODS_START */
 
-    public func clone(orig: DecodeError) -> DecodeError {
+    public func clone() -> DecodeError {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDecodeError>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDecodeError>) in
 DecodeError(pointer: DecodeError_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		DecodeError_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

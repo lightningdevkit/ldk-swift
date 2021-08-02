@@ -34,6 +34,28 @@ public class Result_GossipTimestampFilterDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: GossipTimestampFilter) -> Result_GossipTimestampFilterDecodeErrorZ {
+    	
+        return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_GossipTimestampFilterDecodeErrorZ {
+    	
+        return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_GossipTimestampFilterDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_GossipTimestampFilterDecodeErrorZ {
+    	
+        return Result_GossipTimestampFilterDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_GossipTimestampFilterDecodeErrorZ>) in
+CResult_GossipTimestampFilterDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

@@ -45,22 +45,20 @@ DataLossProtect_get_my_current_per_commitment_point(this_ptrPointer)
         return DataLossProtect_set_my_current_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: DataLossProtect) -> DataLossProtect {
+    public func clone() -> DataLossProtect {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDataLossProtect>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDataLossProtect>) in
 DataLossProtect(pointer: DataLossProtect_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		DataLossProtect_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

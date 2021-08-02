@@ -34,6 +34,28 @@ public class Result_PositiveTimestampCreationErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: PositiveTimestamp) -> Result_PositiveTimestampCreationErrorZ {
+    	
+        return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: LDKCreationError) -> Result_PositiveTimestampCreationErrorZ {
+    	
+        return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_PositiveTimestampCreationErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_PositiveTimestampCreationErrorZ {
+    	
+        return Result_PositiveTimestampCreationErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PositiveTimestampCreationErrorZ>) in
+CResult_PositiveTimestampCreationErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

@@ -31,13 +31,11 @@ ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ErroringMessageHandler_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

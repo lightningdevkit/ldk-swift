@@ -11,7 +11,7 @@ public class MessageSendEvent {
     /* OPTION_METHODS_START */
 
 				public enum MessageSendEventValueType {
-					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendFundingLocked, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, HandleError, PaymentFailureNetworkUpdate, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange
+					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendFundingLocked, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, PaymentFailureNetworkUpdate, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange
 				}
 				
 				public func getValueType() -> MessageSendEventValueType? {
@@ -45,6 +45,8 @@ public class MessageSendEvent {
 						return .BroadcastNodeAnnouncement
 					case LDKMessageSendEvent_BroadcastChannelUpdate:
 						return .BroadcastChannelUpdate
+					case LDKMessageSendEvent_SendChannelUpdate:
+						return .SendChannelUpdate
 					case LDKMessageSendEvent_HandleError:
 						return .HandleError
 					case LDKMessageSendEvent_PaymentFailureNetworkUpdate:
@@ -159,6 +161,13 @@ public class MessageSendEvent {
 						return BroadcastChannelUpdate(pointer: self.cOpaqueStruct!.broadcast_channel_update)
 					}
 				
+					public func getValueAsSendChannelUpdate() -> SendChannelUpdate? {
+						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendChannelUpdate {
+							return nil
+						}
+						return SendChannelUpdate(pointer: self.cOpaqueStruct!.send_channel_update)
+					}
+				
 					public func getValueAsHandleError() -> HandleError? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_HandleError {
 							return nil
@@ -195,6 +204,18 @@ public class MessageSendEvent {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return MessageSendEvent_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMessageSendEvent>) in
+MessageSendEvent_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	
@@ -490,6 +511,28 @@ public class MessageSendEvent {
 				}
 			
 				
+				
+					public func getMsg() -> ChannelUpdate {
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg)
+					}
+				
+				
+			}
+		
+
+			public class SendChannelUpdate {
+				
+				
+				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelUpdate_Body?;
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelUpdate_Body) {
+					self.cOpaqueStruct = pointer
+				}
+			
+				
+				
+					public func getNode_id() -> [UInt8] {
+						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
+					}
 				
 					public func getMsg() -> ChannelUpdate {
 						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg)

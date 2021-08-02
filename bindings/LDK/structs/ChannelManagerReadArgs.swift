@@ -5,7 +5,7 @@ public class ChannelManagerReadArgs {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
     	
-        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
+        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.clone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -102,18 +102,16 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelManagerReadArgs_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

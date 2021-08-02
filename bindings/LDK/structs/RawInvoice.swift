@@ -22,10 +22,10 @@ RawInvoice_get_data(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRawInvoice>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RawInvoice_set_data(this_ptrPointer, val.cOpaqueStruct!);
+        return RawInvoice_set_data(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func eq(a: RawInvoice, b: RawInvoice) -> Bool {
+    public class func eq(a: RawInvoice, b: RawInvoice) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRawInvoice>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRawInvoice>) in
@@ -34,9 +34,9 @@ RawInvoice_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: RawInvoice) -> RawInvoice {
+    public func clone() -> RawInvoice {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice(pointer: RawInvoice_clone(origPointer))
 };
     }
@@ -104,10 +104,10 @@ RawInvoice_features(this_argPointer)
 });
     }
 
-    public func routes() -> [LDKRouteHint] {
+    public func private_routes() -> [LDKPrivateRoute] {
     	
-        return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
-RawInvoice_routes(this_argPointer)
+        return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
+RawInvoice_private_routes(this_argPointer)
 });
     }
 
@@ -127,13 +127,11 @@ RawInvoice_currency(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RawInvoice_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

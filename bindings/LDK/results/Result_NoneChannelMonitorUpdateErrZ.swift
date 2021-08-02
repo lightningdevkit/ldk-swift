@@ -27,6 +27,28 @@ public class Result_NoneChannelMonitorUpdateErrZ {
 				return nil
 			}
 			
+    public class func ok() -> Result_NoneChannelMonitorUpdateErrZ {
+    	
+        return Result_NoneChannelMonitorUpdateErrZ(pointer: CResult_NoneChannelMonitorUpdateErrZ_ok());
+    }
+
+    public class func err(e: LDKChannelMonitorUpdateErr) -> Result_NoneChannelMonitorUpdateErrZ {
+    	
+        return Result_NoneChannelMonitorUpdateErrZ(pointer: CResult_NoneChannelMonitorUpdateErrZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_NoneChannelMonitorUpdateErrZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_NoneChannelMonitorUpdateErrZ {
+    	
+        return Result_NoneChannelMonitorUpdateErrZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NoneChannelMonitorUpdateErrZ>) in
+CResult_NoneChannelMonitorUpdateErrZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

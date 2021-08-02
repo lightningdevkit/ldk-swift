@@ -1,9 +1,9 @@
 import re
 import os
 
-from config import Config
-from type_parsing_regeces import TypeParsingRegeces
-from conversion_helper import ConversionHelper
+from src.config import Config
+from src.type_parsing_regeces import TypeParsingRegeces
+from src.conversion_helper import ConversionHelper
 
 
 class OpaqueStructGenerator:
@@ -78,6 +78,11 @@ class OpaqueStructGenerator:
 			# 	current_return_type = current_rust_return_type
 			current_method_name = current_native_method_name[len(method_prefix):]
 
+			force_pass_instance = False
+			if len(current_method_details['argument_types']) == 1:
+				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
+					force_pass_instance = True
+
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 
@@ -137,15 +142,17 @@ class OpaqueStructGenerator:
 			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(current_swift_return_type):
 				current_swift_return_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', current_swift_return_type)
 
-			current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
 
 			# replace arguments
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'])
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
 			swift_arguments = prepared_arguments["swift_arguments"]
 			native_arguments = prepared_arguments['native_arguments']
 			native_call_prefix = prepared_arguments['native_call_prefix']
 			native_call_suffix = prepared_arguments['native_call_suffix']
 			native_call_prep = prepared_arguments['native_call_prep']
+			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+
+			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
 			if is_clone_method:
@@ -176,9 +183,10 @@ class OpaqueStructGenerator:
 			ownability_check_prefix = ''
 			ownability_check_suffix = ''
 
-			if struct_details.is_ownable:
-				ownability_check_prefix = f'if self.cOpaqueStruct?.is_owned == false {{\n'
-				ownability_check_suffix = f'\n}}'
+
+			# if struct_details.is_ownable:
+			# 	ownability_check_prefix = f'if self.cOpaqueStruct?.is_owned == false {{\n'
+			# 	ownability_check_suffix = f'\n}}'
 
 			for current_argument_details in free_method_details['argument_types']:
 				pass_instance = False

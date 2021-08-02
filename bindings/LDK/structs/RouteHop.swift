@@ -5,7 +5,7 @@ public class RouteHop {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(pubkey_arg: [UInt8], node_features_arg: NodeFeatures, short_channel_id_arg: UInt64, channel_features_arg: ChannelFeatures, fee_msat_arg: UInt64, cltv_expiry_delta_arg: UInt32) {
     	
-        self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.cOpaqueStruct!, short_channel_id_arg, channel_features_arg.cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
+        self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.clone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.clone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,7 +42,7 @@ RouteHop_get_node_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHop_set_node_features(this_ptrPointer, val.cOpaqueStruct!);
+        return RouteHop_set_node_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_short_channel_id() -> UInt64 {
@@ -72,7 +72,7 @@ RouteHop_get_channel_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHop_set_channel_features(this_ptrPointer, val.cOpaqueStruct!);
+        return RouteHop_set_channel_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_fee_msat() -> UInt64 {
@@ -105,34 +105,32 @@ RouteHop_get_cltv_expiry_delta(this_ptrPointer)
         return RouteHop_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 
-    public func clone(orig: RouteHop) -> RouteHop {
+    public func clone() -> RouteHop {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
 RouteHop(pointer: RouteHop_clone(origPointer))
 };
     }
 
-    public func write(obj: RouteHop) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHop>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHop>) in
 RouteHop_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {
     	
         return Result_RouteHopDecodeErrorZ(pointer: RouteHop_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RouteHop_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

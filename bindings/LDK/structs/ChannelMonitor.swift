@@ -10,16 +10,9 @@ public class ChannelMonitor {
 
     /* STRUCT_METHODS_START */
 
-    public func clone(orig: ChannelMonitor) -> ChannelMonitor {
+    public func write() -> [UInt8] {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitor>) in
-ChannelMonitor(pointer: ChannelMonitor_clone(origPointer))
-};
-    }
-
-    public func write(obj: ChannelMonitor) -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitor>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_write(objPointer)
 });
     }
@@ -144,15 +137,20 @@ ChannelMonitor_get_relevant_txids(this_argPointer)
 });
     }
 
+    public func current_best_block() -> BestBlock {
+    	
+        return BestBlock(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
+ChannelMonitor_current_best_block(this_argPointer)
+});
+    }
+
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChannelMonitor_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

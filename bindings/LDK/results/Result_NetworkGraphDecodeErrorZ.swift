@@ -34,6 +34,28 @@ public class Result_NetworkGraphDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: NetworkGraph) -> Result_NetworkGraphDecodeErrorZ {
+    	
+        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_NetworkGraphDecodeErrorZ {
+    	
+        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_NetworkGraphDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_NetworkGraphDecodeErrorZ {
+    	
+        return Result_NetworkGraphDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NetworkGraphDecodeErrorZ>) in
+CResult_NetworkGraphDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

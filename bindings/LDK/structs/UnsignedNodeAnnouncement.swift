@@ -22,7 +22,7 @@ UnsignedNodeAnnouncement_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedNodeAnnouncement_set_features(this_ptrPointer, val.cOpaqueStruct!);
+        return UnsignedNodeAnnouncement_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_timestamp() -> UInt32 {
@@ -93,34 +93,32 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
         return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZ(array: val));
     }
 
-    public func clone(orig: UnsignedNodeAnnouncement) -> UnsignedNodeAnnouncement {
+    public func clone() -> UnsignedNodeAnnouncement {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement(pointer: UnsignedNodeAnnouncement_clone(origPointer))
 };
     }
 
-    public func write(obj: UnsignedNodeAnnouncement) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
     	
         return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: UnsignedNodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		UnsignedNodeAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

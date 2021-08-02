@@ -8,19 +8,14 @@ public class C2Tuple_u32TxOutZ {
 
     /* TUPLE_METHODS_START */
 
-    public func clone(orig: C2Tuple_u32TxOutZ) -> C2Tuple_u32TxOutZ {
+    public func clone() -> C2Tuple_u32TxOutZ {
     	
-						
-		let origPointer = withUnsafePointer(to: orig.cOpaqueStruct!) { (pointer: UnsafePointer<LDKC2Tuple_u32TxOutZ>) in
-							
-			pointer
-						
-		}
-					
-        return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_clone(origPointer));
+        return C2Tuple_u32TxOutZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_u32TxOutZ>) in
+C2Tuple_u32TxOutZ_clone(origPointer)
+});
     }
 
-    public func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
+    public class func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
     	
         return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b));
     }

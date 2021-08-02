@@ -76,7 +76,7 @@ public class NativelyImplementedWatch: Watch {
 	public override func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
 		
 				return 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.cOpaqueStruct!, monitor.cOpaqueStruct!))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.clone().cOpaqueStruct!, monitor.cOpaqueStruct!))
 				
 			
 	}
@@ -84,7 +84,7 @@ public class NativelyImplementedWatch: Watch {
 	public override func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
 		
 				return 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_channel(self.cOpaqueStruct!.this_arg, funding_txo.cOpaqueStruct!, update.cOpaqueStruct!))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_channel(self.cOpaqueStruct!.this_arg, funding_txo.clone().cOpaqueStruct!, update.clone().cOpaqueStruct!))
 				
 			
 	}

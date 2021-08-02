@@ -280,34 +280,32 @@ OpenChannel_get_channel_flags(this_ptrPointer)
         return OpenChannel_set_channel_flags(this_ptrPointer, val);
     }
 
-    public func clone(orig: OpenChannel) -> OpenChannel {
+    public func clone() -> OpenChannel {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOpenChannel>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOpenChannel>) in
 OpenChannel(pointer: OpenChannel_clone(origPointer))
 };
     }
 
-    public func write(obj: OpenChannel) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOpenChannel>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOpenChannel>) in
 OpenChannel_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_OpenChannelDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_OpenChannelDecodeErrorZ {
     	
         return Result_OpenChannelDecodeErrorZ(pointer: OpenChannel_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		OpenChannel_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

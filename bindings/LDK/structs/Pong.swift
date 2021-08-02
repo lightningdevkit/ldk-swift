@@ -30,34 +30,32 @@ Pong_get_byteslen(this_ptrPointer)
         return Pong_set_byteslen(this_ptrPointer, val);
     }
 
-    public func clone(orig: Pong) -> Pong {
+    public func clone() -> Pong {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPong>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPong>) in
 Pong(pointer: Pong_clone(origPointer))
 };
     }
 
-    public func write(obj: Pong) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKPong>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKPong>) in
 Pong_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_PongDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_PongDecodeErrorZ {
     	
         return Result_PongDecodeErrorZ(pointer: Pong_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Pong_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

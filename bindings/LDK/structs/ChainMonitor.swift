@@ -51,13 +51,11 @@ ChainMonitor_as_EventsProvider(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChainMonitor_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

@@ -1,0 +1,5 @@
+services:
+    swift-generation-ci:
+        build:
+            context: ../
+            dockerfile: ./Dockerfile

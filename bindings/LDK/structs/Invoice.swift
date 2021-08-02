@@ -10,7 +10,7 @@ public class Invoice {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: Invoice, b: Invoice) -> Bool {
+    public class func eq(a: Invoice, b: Invoice) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoice>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKInvoice>) in
@@ -19,16 +19,16 @@ Invoice_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: Invoice) -> Invoice {
+    public func clone() -> Invoice {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoice>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoice>) in
 Invoice(pointer: Invoice_clone(origPointer))
 };
     }
 
     public func into_signed_raw() -> SignedRawInvoice {
     	
-        return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.cOpaqueStruct!));
+        return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.clone().cOpaqueStruct!));
     }
 
     public func check_signature() -> Result_NoneSemanticErrorZ {
@@ -38,9 +38,9 @@ Invoice_check_signature(this_argPointer)
 });
     }
 
-    public func from_signed(signed_invoice: SignedRawInvoice) -> Result_InvoiceSemanticErrorZ {
+    public class func from_signed(signed_invoice: SignedRawInvoice) -> Result_InvoiceSemanticErrorZ {
     	
-        return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.cOpaqueStruct!));
+        return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.clone().cOpaqueStruct!));
     }
 
     public func timestamp() -> UInt64 {
@@ -99,10 +99,17 @@ Invoice_min_final_cltv_expiry(this_argPointer)
 };
     }
 
-    public func routes() -> [LDKRouteHint] {
+    public func private_routes() -> [LDKPrivateRoute] {
+    	
+        return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+Invoice_private_routes(this_argPointer)
+});
+    }
+
+    public func route_hints() -> [LDKRouteHint] {
     	
         return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
-Invoice_routes(this_argPointer)
+Invoice_route_hints(this_argPointer)
 });
     }
 
@@ -120,27 +127,25 @@ Invoice_amount_pico_btc(this_argPointer)
 });
     }
 
-    public func from_str(s: String) -> Result_InvoiceNoneZ {
+    public class func from_str(s: String) -> Result_InvoiceNoneZ {
     	
         return Result_InvoiceNoneZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
     }
 
-    public func to_str(o: Invoice) -> String {
+    public func to_str() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKInvoice>) in
 Invoice_to_str(oPointer)
 });
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Invoice_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

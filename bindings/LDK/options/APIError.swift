@@ -60,6 +60,18 @@ public class APIError {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return APIError_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> APIError {
+    	
+        return APIError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAPIError>) in
+APIError_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	

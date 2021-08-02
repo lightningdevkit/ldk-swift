@@ -10,7 +10,7 @@ public class MinFinalCltvExpiry {
 
     /* STRUCT_METHODS_START */
 
-    public func eq(a: MinFinalCltvExpiry, b: MinFinalCltvExpiry) -> Bool {
+    public class func eq(a: MinFinalCltvExpiry, b: MinFinalCltvExpiry) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
@@ -19,22 +19,20 @@ MinFinalCltvExpiry_eq(aPointer, bPointer)
 };
     }
 
-    public func clone(orig: MinFinalCltvExpiry) -> MinFinalCltvExpiry {
+    public func clone() -> MinFinalCltvExpiry {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
 MinFinalCltvExpiry(pointer: MinFinalCltvExpiry_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		MinFinalCltvExpiry_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

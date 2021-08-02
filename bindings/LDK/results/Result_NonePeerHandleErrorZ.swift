@@ -27,6 +27,28 @@ public class Result_NonePeerHandleErrorZ {
 				return nil
 			}
 			
+    public class func ok() -> Result_NonePeerHandleErrorZ {
+    	
+        return Result_NonePeerHandleErrorZ(pointer: CResult_NonePeerHandleErrorZ_ok());
+    }
+
+    public class func err(e: PeerHandleError) -> Result_NonePeerHandleErrorZ {
+    	
+        return Result_NonePeerHandleErrorZ(pointer: CResult_NonePeerHandleErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_NonePeerHandleErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_NonePeerHandleErrorZ {
+    	
+        return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NonePeerHandleErrorZ>) in
+CResult_NonePeerHandleErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

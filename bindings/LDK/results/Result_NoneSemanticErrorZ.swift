@@ -27,6 +27,28 @@ public class Result_NoneSemanticErrorZ {
 				return nil
 			}
 			
+    public class func ok() -> Result_NoneSemanticErrorZ {
+    	
+        return Result_NoneSemanticErrorZ(pointer: CResult_NoneSemanticErrorZ_ok());
+    }
+
+    public class func err(e: LDKSemanticError) -> Result_NoneSemanticErrorZ {
+    	
+        return Result_NoneSemanticErrorZ(pointer: CResult_NoneSemanticErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_NoneSemanticErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_NoneSemanticErrorZ {
+    	
+        return Result_NoneSemanticErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NoneSemanticErrorZ>) in
+CResult_NoneSemanticErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

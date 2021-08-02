@@ -34,6 +34,28 @@ public class Result_DirectionalChannelInfoDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: DirectionalChannelInfo) -> Result_DirectionalChannelInfoDecodeErrorZ {
+    	
+        return Result_DirectionalChannelInfoDecodeErrorZ(pointer: CResult_DirectionalChannelInfoDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_DirectionalChannelInfoDecodeErrorZ {
+    	
+        return Result_DirectionalChannelInfoDecodeErrorZ(pointer: CResult_DirectionalChannelInfoDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_DirectionalChannelInfoDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_DirectionalChannelInfoDecodeErrorZ {
+    	
+        return Result_DirectionalChannelInfoDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_DirectionalChannelInfoDecodeErrorZ>) in
+CResult_DirectionalChannelInfoDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

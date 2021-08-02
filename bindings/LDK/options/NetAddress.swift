@@ -60,6 +60,30 @@ public class NetAddress {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return NetAddress_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> NetAddress {
+    	
+        return NetAddress(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetAddress>) in
+NetAddress_clone(origPointer)
+});
+    }
+
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetAddress>) in
+NetAddress_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
+    	
+        return Result_NetAddressDecodeErrorZ(pointer: NetAddress_read(Bindings.new_LDKu8slice(array: ser)));
+    }
+
     /* OPTION_METHODS_END */
 
 	

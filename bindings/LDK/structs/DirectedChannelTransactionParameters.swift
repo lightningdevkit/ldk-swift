@@ -47,13 +47,11 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		DirectedChannelTransactionParameters_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

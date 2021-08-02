@@ -34,6 +34,28 @@ public class Result_OutPointDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: OutPoint) -> Result_OutPointDecodeErrorZ {
+    	
+        return Result_OutPointDecodeErrorZ(pointer: CResult_OutPointDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_OutPointDecodeErrorZ {
+    	
+        return Result_OutPointDecodeErrorZ(pointer: CResult_OutPointDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_OutPointDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_OutPointDecodeErrorZ {
+    	
+        return Result_OutPointDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_OutPointDecodeErrorZ>) in
+CResult_OutPointDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

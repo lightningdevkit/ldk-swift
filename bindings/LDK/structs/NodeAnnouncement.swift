@@ -5,7 +5,7 @@ public class NodeAnnouncement {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedNodeAnnouncement) {
     	
-        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,37 +42,35 @@ NodeAnnouncement_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncement_set_contents(this_ptrPointer, val.cOpaqueStruct!);
+        return NodeAnnouncement_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: NodeAnnouncement) -> NodeAnnouncement {
+    public func clone() -> NodeAnnouncement {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncement>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncement>) in
 NodeAnnouncement(pointer: NodeAnnouncement_clone(origPointer))
 };
     }
 
-    public func write(obj: NodeAnnouncement) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeAnnouncement>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeAnnouncement>) in
 NodeAnnouncement_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {
     	
         return Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NodeAnnouncement_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

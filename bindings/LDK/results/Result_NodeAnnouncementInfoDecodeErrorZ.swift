@@ -34,6 +34,28 @@ public class Result_NodeAnnouncementInfoDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: NodeAnnouncementInfo) -> Result_NodeAnnouncementInfoDecodeErrorZ {
+    	
+        return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: CResult_NodeAnnouncementInfoDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_NodeAnnouncementInfoDecodeErrorZ {
+    	
+        return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: CResult_NodeAnnouncementInfoDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_NodeAnnouncementInfoDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_NodeAnnouncementInfoDecodeErrorZ {
+    	
+        return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NodeAnnouncementInfoDecodeErrorZ>) in
+CResult_NodeAnnouncementInfoDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

@@ -55,6 +55,17 @@ open class Sign {
 		
     }
 
+
+				func clone() -> Sign {
+					
+					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSign>) in
+
+					Sign(pointer: Sign_clone(origPointer))
+					
+}
+				}
+			
+
     /* SWIFT_CALLBACKS_END */
 
 }

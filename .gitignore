@@ -4,6 +4,11 @@ lib*.a
 .DS_Store
 __pycache__
 
+ci/Build
+ci/LDKSwift/Sources
+ci/LDKSwift/.build
+ci/LDKSwift/.swiftpm
+
 /xcode/LDKFramework/Build/
 /xcode/LDKFramework/LDKFramework.xcodeproj/project.xcworkspace/
 /xcode/LDKFramework/LDKFramework.xcodeproj/xcuserdata/

@@ -5,7 +5,7 @@ public class ChainParameters {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(network_arg: LDKNetwork, best_block_arg: BestBlock) {
     	
-        self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -42,25 +42,23 @@ ChainParameters_get_best_block(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChainParameters_set_best_block(this_ptrPointer, val.cOpaqueStruct!);
+        return ChainParameters_set_best_block(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: ChainParameters) -> ChainParameters {
+    public func clone() -> ChainParameters {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChainParameters>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChainParameters>) in
 ChainParameters(pointer: ChainParameters_clone(origPointer))
 };
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		ChainParameters_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

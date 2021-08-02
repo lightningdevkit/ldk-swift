@@ -1,5 +1,5 @@
-from binding_types import TypeInfo
-from type_parsing_regeces import TypeParsingRegeces
+from src.binding_types import TypeInfo
+from src.type_parsing_regeces import TypeParsingRegeces
 
 var_is_arr_regex = TypeParsingRegeces.IS_VARIABLE_AN_ARRAY_REGEX
 var_ty_regex = TypeParsingRegeces.VARIABLE_TYPE_REGEX

@@ -34,6 +34,28 @@ public class Result_InvoiceSignOrCreationErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: Invoice) -> Result_InvoiceSignOrCreationErrorZ {
+    	
+        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: SignOrCreationError) -> Result_InvoiceSignOrCreationErrorZ {
+    	
+        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_InvoiceSignOrCreationErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_InvoiceSignOrCreationErrorZ {
+    	
+        return Result_InvoiceSignOrCreationErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_InvoiceSignOrCreationErrorZ>) in
+CResult_InvoiceSignOrCreationErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

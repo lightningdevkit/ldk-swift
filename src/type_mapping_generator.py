@@ -1,5 +1,5 @@
-from binding_types import ConvInfo
-import java_type_mapper
+from src.binding_types import ConvInfo
+from src import java_type_mapper
 
 class TypeMappingGenerator:
 

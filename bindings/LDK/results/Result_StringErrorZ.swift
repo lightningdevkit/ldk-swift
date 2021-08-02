@@ -34,6 +34,21 @@ public class Result_StringErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: String) -> Result_StringErrorZ {
+    	
+        return Result_StringErrorZ(pointer: CResult_StringErrorZ_ok(Bindings.new_LDKStr(string: o)));
+    }
+
+    public class func err(e: LDKSecp256k1Error) -> Result_StringErrorZ {
+    	
+        return Result_StringErrorZ(pointer: CResult_StringErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_StringErrorZ_free(self.cOpaqueStruct!);
+    }
+
     /* RESULT_METHODS_END */
 
 }

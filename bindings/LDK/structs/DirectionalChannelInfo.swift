@@ -5,7 +5,7 @@ public class DirectionalChannelInfo {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(last_update_arg: UInt32, enabled_arg: Bool, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: UInt64, htlc_maximum_msat_arg: Option_u64Z, fees_arg: RoutingFees, last_update_message_arg: ChannelUpdate) {
     	
-        self.cOpaqueStruct = DirectionalChannelInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg.cOpaqueStruct!, fees_arg.cOpaqueStruct!, last_update_message_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = DirectionalChannelInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg.clone().cOpaqueStruct!, fees_arg.clone().cOpaqueStruct!, last_update_message_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -87,7 +87,7 @@ DirectionalChannelInfo_get_htlc_maximum_msat(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDirectionalChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DirectionalChannelInfo_set_htlc_maximum_msat(this_ptrPointer, val.cOpaqueStruct!);
+        return DirectionalChannelInfo_set_htlc_maximum_msat(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_fees() -> RoutingFees {
@@ -102,7 +102,7 @@ DirectionalChannelInfo_get_fees(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDirectionalChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DirectionalChannelInfo_set_fees(this_ptrPointer, val.cOpaqueStruct!);
+        return DirectionalChannelInfo_set_fees(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
     public func get_last_update_message() -> ChannelUpdate {
@@ -117,37 +117,35 @@ DirectionalChannelInfo_get_last_update_message(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDirectionalChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DirectionalChannelInfo_set_last_update_message(this_ptrPointer, val.cOpaqueStruct!);
+        return DirectionalChannelInfo_set_last_update_message(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func clone(orig: DirectionalChannelInfo) -> DirectionalChannelInfo {
+    public func clone() -> DirectionalChannelInfo {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
 DirectionalChannelInfo(pointer: DirectionalChannelInfo_clone(origPointer))
 };
     }
 
-    public func write(obj: DirectionalChannelInfo) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
 DirectionalChannelInfo_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_DirectionalChannelInfoDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_DirectionalChannelInfoDecodeErrorZ {
     	
         return Result_DirectionalChannelInfoDecodeErrorZ(pointer: DirectionalChannelInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		DirectionalChannelInfo_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

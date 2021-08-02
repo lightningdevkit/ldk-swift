@@ -34,6 +34,28 @@ public class Result_UpdateFailHTLCDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: UpdateFailHTLC) -> Result_UpdateFailHTLCDecodeErrorZ {
+    	
+        return Result_UpdateFailHTLCDecodeErrorZ(pointer: CResult_UpdateFailHTLCDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_UpdateFailHTLCDecodeErrorZ {
+    	
+        return Result_UpdateFailHTLCDecodeErrorZ(pointer: CResult_UpdateFailHTLCDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_UpdateFailHTLCDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_UpdateFailHTLCDecodeErrorZ {
+    	
+        return Result_UpdateFailHTLCDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_UpdateFailHTLCDecodeErrorZ>) in
+CResult_UpdateFailHTLCDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

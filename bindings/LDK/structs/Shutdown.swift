@@ -45,34 +45,32 @@ Shutdown_get_scriptpubkey(this_ptrPointer)
         return Shutdown_set_scriptpubkey(this_ptrPointer, Bindings.new_LDKCVec_u8Z(array: val));
     }
 
-    public func clone(orig: Shutdown) -> Shutdown {
+    public func clone() -> Shutdown {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKShutdown>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKShutdown>) in
 Shutdown(pointer: Shutdown_clone(origPointer))
 };
     }
 
-    public func write(obj: Shutdown) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKShutdown>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKShutdown>) in
 Shutdown_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
     	
         return Result_ShutdownDecodeErrorZ(pointer: Shutdown_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		Shutdown_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

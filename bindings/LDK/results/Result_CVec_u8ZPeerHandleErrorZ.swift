@@ -34,6 +34,28 @@ public class Result_CVec_u8ZPeerHandleErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: [UInt8]) -> Result_CVec_u8ZPeerHandleErrorZ {
+    	
+        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_ok(Bindings.new_LDKCVec_u8Z(array: o)));
+    }
+
+    public class func err(e: PeerHandleError) -> Result_CVec_u8ZPeerHandleErrorZ {
+    	
+        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_CVec_u8ZPeerHandleErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_CVec_u8ZPeerHandleErrorZ {
+    	
+        return Result_CVec_u8ZPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_CVec_u8ZPeerHandleErrorZ>) in
+CResult_CVec_u8ZPeerHandleErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

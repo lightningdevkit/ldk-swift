@@ -34,6 +34,28 @@ public class Result_CResult_NetAddressu8ZDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: Result_NetAddressu8Z) -> Result_CResult_NetAddressu8ZDecodeErrorZ {
+    	
+        return Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: CResult_CResult_NetAddressu8ZDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_CResult_NetAddressu8ZDecodeErrorZ {
+    	
+        return Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: CResult_CResult_NetAddressu8ZDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_CResult_NetAddressu8ZDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_CResult_NetAddressu8ZDecodeErrorZ {
+    	
+        return Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_CResult_NetAddressu8ZDecodeErrorZ>) in
+CResult_CResult_NetAddressu8ZDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

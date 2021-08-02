@@ -220,34 +220,32 @@ AcceptChannel_get_first_per_commitment_point(this_ptrPointer)
         return AcceptChannel_set_first_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: AcceptChannel) -> AcceptChannel {
+    public func clone() -> AcceptChannel {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAcceptChannel>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAcceptChannel>) in
 AcceptChannel(pointer: AcceptChannel_clone(origPointer))
 };
     }
 
-    public func write(obj: AcceptChannel) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAcceptChannel>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAcceptChannel>) in
 AcceptChannel_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_AcceptChannelDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_AcceptChannelDecodeErrorZ {
     	
         return Result_AcceptChannelDecodeErrorZ(pointer: AcceptChannel_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		AcceptChannel_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

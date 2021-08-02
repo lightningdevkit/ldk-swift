@@ -90,6 +90,17 @@ open class SocketDescriptor {
 		
     }
 
+
+				func clone() -> SocketDescriptor {
+					
+					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSocketDescriptor>) in
+
+					SocketDescriptor(pointer: SocketDescriptor_clone(origPointer))
+					
+}
+				}
+			
+
     /* SWIFT_CALLBACKS_END */
 
 }

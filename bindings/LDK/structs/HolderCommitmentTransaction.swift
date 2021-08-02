@@ -5,7 +5,7 @@ public class HolderCommitmentTransaction {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(commitment_tx: CommitmentTransaction, counterparty_sig: [UInt8], counterparty_htlc_sigs: [[UInt8]], holder_funding_key: [UInt8], counterparty_funding_key: [UInt8]) {
     	
-        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), Bindings.new_LDKCVec_SignatureZ(array: counterparty_htlc_sigs), Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
+        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.clone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), Bindings.new_LDKCVec_SignatureZ(array: counterparty_htlc_sigs), Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,34 +38,32 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
         return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
     }
 
-    public func clone(orig: HolderCommitmentTransaction) -> HolderCommitmentTransaction {
+    public func clone() -> HolderCommitmentTransaction {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
 HolderCommitmentTransaction(pointer: HolderCommitmentTransaction_clone(origPointer))
 };
     }
 
-    public func write(obj: HolderCommitmentTransaction) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
 HolderCommitmentTransaction_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
     	
         return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		HolderCommitmentTransaction_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

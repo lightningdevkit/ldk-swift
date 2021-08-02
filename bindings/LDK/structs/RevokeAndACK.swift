@@ -60,34 +60,32 @@ RevokeAndACK_get_next_per_commitment_point(this_ptrPointer)
         return RevokeAndACK_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
-    public func clone(orig: RevokeAndACK) -> RevokeAndACK {
+    public func clone() -> RevokeAndACK {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRevokeAndACK>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRevokeAndACK>) in
 RevokeAndACK(pointer: RevokeAndACK_clone(origPointer))
 };
     }
 
-    public func write(obj: RevokeAndACK) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRevokeAndACK>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRevokeAndACK>) in
 RevokeAndACK_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
     	
         return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		RevokeAndACK_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

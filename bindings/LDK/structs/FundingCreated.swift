@@ -75,34 +75,32 @@ FundingCreated_get_signature(this_ptrPointer)
         return FundingCreated_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
-    public func clone(orig: FundingCreated) -> FundingCreated {
+    public func clone() -> FundingCreated {
     	
-        return withUnsafePointer(to: orig.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
 FundingCreated(pointer: FundingCreated_clone(origPointer))
 };
     }
 
-    public func write(obj: FundingCreated) -> [UInt8] {
+    public func write() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: obj.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingCreated>) in
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingCreated>) in
 FundingCreated_write(objPointer)
 });
     }
 
-    public func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
+    public class func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
     	
         return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		FundingCreated_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

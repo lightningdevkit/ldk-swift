@@ -34,6 +34,28 @@ public class Result_UnsignedNodeAnnouncementDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: UnsignedNodeAnnouncement) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
+    	
+        return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: CResult_UnsignedNodeAnnouncementDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
+    	
+        return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: CResult_UnsignedNodeAnnouncementDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_UnsignedNodeAnnouncementDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
+    	
+        return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_UnsignedNodeAnnouncementDecodeErrorZ>) in
+CResult_UnsignedNodeAnnouncementDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

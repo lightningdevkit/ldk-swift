@@ -19,13 +19,11 @@ LockedNetworkGraph_graph(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		LockedNetworkGraph_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

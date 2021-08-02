@@ -27,6 +27,28 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 				return nil
 			}
 			
+    public class func ok(o: C2Tuple_SignatureCVec_SignatureZZ) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+    	
+        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+    	
+        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_err());
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+    	
+        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ>) in
+CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

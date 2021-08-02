@@ -11,7 +11,7 @@ public class NetGraphMsgHandler {
 								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
 							}
 						
-        self.cOpaqueStruct = NetGraphMsgHandler_from_net_graph(chain_accessPointer, logger.cOpaqueStruct!, network_graph.cOpaqueStruct!)
+        self.cOpaqueStruct = NetGraphMsgHandler_from_net_graph(chain_accessPointer, logger.cOpaqueStruct!, network_graph.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -58,13 +58,11 @@ NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
 
 				
 	deinit {
-					if self.cOpaqueStruct?.is_owned == false {
-
+					
 					
 					
 		NetGraphMsgHandler_free(self.cOpaqueStruct!)
 					
-}
 				
 	}
 			

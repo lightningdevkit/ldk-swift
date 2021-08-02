@@ -34,6 +34,28 @@ public class Result_InMemorySignerDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: InMemorySigner) -> Result_InMemorySignerDecodeErrorZ {
+    	
+        return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_InMemorySignerDecodeErrorZ {
+    	
+        return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_InMemorySignerDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_InMemorySignerDecodeErrorZ {
+    	
+        return Result_InMemorySignerDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_InMemorySignerDecodeErrorZ>) in
+CResult_InMemorySignerDecodeErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

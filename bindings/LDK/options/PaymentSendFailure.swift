@@ -60,6 +60,18 @@ public class PaymentSendFailure {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return PaymentSendFailure_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> PaymentSendFailure {
+    	
+        return PaymentSendFailure(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentSendFailure>) in
+PaymentSendFailure_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	/* TYPE_CLASSES */

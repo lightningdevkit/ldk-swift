@@ -51,6 +51,18 @@ public class HTLCFailChannelUpdate {
 					}
 				
 			
+    public func free() -> Void {
+    	
+        return HTLCFailChannelUpdate_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> HTLCFailChannelUpdate {
+    	
+        return HTLCFailChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCFailChannelUpdate>) in
+HTLCFailChannelUpdate_clone(origPointer)
+});
+    }
+
     /* OPTION_METHODS_END */
 
 	

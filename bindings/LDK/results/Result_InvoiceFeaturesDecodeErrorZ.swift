@@ -34,6 +34,21 @@ public class Result_InvoiceFeaturesDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: InvoiceFeatures) -> Result_InvoiceFeaturesDecodeErrorZ {
+    	
+        return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_InvoiceFeaturesDecodeErrorZ {
+    	
+        return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_InvoiceFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
+    }
+
     /* RESULT_METHODS_END */
 
 }

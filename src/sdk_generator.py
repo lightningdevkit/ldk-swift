@@ -1,12 +1,14 @@
-from lightning_header_parser import LightningHeaderParser
-from generators.opaque_struct_generator import OpaqueStructGenerator
-from generators.tuple_generator import TupleGenerator
-from generators.result_generator import ResultGenerator
-from generators.option_generator import OptionGenerator
-from generators.trait_generator import TraitGenerator
-from generators.util_generators.vector_generator import VectorGenerator
-from generators.util_generators.byte_array_generator import ByteArrayGenerator
-from generators.util_generators.static_method_generator import StaticMethodGenerator
+from src.lightning_header_parser import LightningHeaderParser
+from src.generators.opaque_struct_generator import OpaqueStructGenerator
+from src.generators.tuple_generator import TupleGenerator
+from src.generators.result_generator import ResultGenerator
+from src.generators.option_generator import OptionGenerator
+from src.generators.trait_generator import TraitGenerator
+from src.generators.util_generators.vector_generator import VectorGenerator
+from src.generators.util_generators.byte_array_generator import ByteArrayGenerator
+from src.generators.util_generators.static_method_generator import StaticMethodGenerator
+
+import src.conversion_helper
 
 
 def parse_header() -> LightningHeaderParser:
@@ -23,14 +25,14 @@ def generate_binding_methods(parser: LightningHeaderParser):
 	vector_generator = VectorGenerator()
 	static_method_generator = StaticMethodGenerator()
 
-	byte_arrays = parser.byte_arrays
+	byte_arrays = sorted(parser.byte_arrays)
 	for current_byte_array_type in byte_arrays:
 		byte_array_details = parser.type_details[current_byte_array_type]
 		byte_array_generator.generate_byte_array(current_byte_array_type, byte_array_details)
 	byte_array_generator.generate_tuple_converter(80)
 	byte_array_generator.finalize()
 
-	vectors = parser.vec_types
+	vectors = sorted(parser.vec_types)
 	for current_vector in vectors:
 		vector_type_details = parser.type_details[current_vector]
 		vector_generator.generate_vector(current_vector, vector_type_details)
@@ -93,6 +95,11 @@ def generate_sdk():
 	generate_result_wrappers(parser)
 	generate_option_wrappers(parser)
 	generate_trait_placeholders(parser, returned_trait_instances)
+
+	print('\n\nUtilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(src.conversion_helper.detected_cloneable_types)))), '\n\n')
+
+	undetected_cloneables = src.conversion_helper.cloneable_types - src.conversion_helper.detected_cloneable_types
+	print('\n\nUnutilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(undetected_cloneables)))), '\n\n')
 
 
 

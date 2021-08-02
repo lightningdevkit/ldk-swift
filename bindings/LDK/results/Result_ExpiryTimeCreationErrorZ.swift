@@ -34,6 +34,28 @@ public class Result_ExpiryTimeCreationErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: ExpiryTime) -> Result_ExpiryTimeCreationErrorZ {
+    	
+        return Result_ExpiryTimeCreationErrorZ(pointer: CResult_ExpiryTimeCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+    }
+
+    public class func err(e: LDKCreationError) -> Result_ExpiryTimeCreationErrorZ {
+    	
+        return Result_ExpiryTimeCreationErrorZ(pointer: CResult_ExpiryTimeCreationErrorZ_err(e));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_ExpiryTimeCreationErrorZ_free(self.clone().cOpaqueStruct!);
+    }
+
+    public func clone() -> Result_ExpiryTimeCreationErrorZ {
+    	
+        return Result_ExpiryTimeCreationErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ExpiryTimeCreationErrorZ>) in
+CResult_ExpiryTimeCreationErrorZ_clone(origPointer)
+});
+    }
+
     /* RESULT_METHODS_END */
 
 }

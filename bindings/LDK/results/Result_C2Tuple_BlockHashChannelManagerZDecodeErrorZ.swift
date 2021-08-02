@@ -34,6 +34,21 @@ public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 				return nil
 			}
 			
+    public class func ok(o: C2Tuple_BlockHashChannelManagerZ) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
+    	
+        return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_ok(o.cOpaqueStruct!));
+    }
+
+    public class func err(e: DecodeError) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
+    	
+        return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+    }
+
+    public func free() -> Void {
+    	
+        return CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_free(self.cOpaqueStruct!);
+    }
+
     /* RESULT_METHODS_END */
 
 }

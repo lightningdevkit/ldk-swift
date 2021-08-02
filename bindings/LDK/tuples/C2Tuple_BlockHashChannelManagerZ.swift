@@ -8,7 +8,7 @@ public class C2Tuple_BlockHashChannelManagerZ {
 
     /* TUPLE_METHODS_START */
 
-    public func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannelManagerZ {
+    public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannelManagerZ {
     	
         return C2Tuple_BlockHashChannelManagerZ(pointer: C2Tuple_BlockHashChannelManagerZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
     }

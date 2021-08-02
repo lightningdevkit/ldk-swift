@@ -25,14 +25,14 @@ def generate_binding_methods(parser: LightningHeaderParser):
 	vector_generator = VectorGenerator()
 	static_method_generator = StaticMethodGenerator()
 
-	byte_arrays = parser.byte_arrays
+	byte_arrays = sorted(parser.byte_arrays)
 	for current_byte_array_type in byte_arrays:
 		byte_array_details = parser.type_details[current_byte_array_type]
 		byte_array_generator.generate_byte_array(current_byte_array_type, byte_array_details)
 	byte_array_generator.generate_tuple_converter(80)
 	byte_array_generator.finalize()
 
-	vectors = parser.vec_types
+	vectors = sorted(parser.vec_types)
 	for current_vector in vectors:
 		vector_type_details = parser.type_details[current_vector]
 		vector_generator.generate_vector(current_vector, vector_type_details)

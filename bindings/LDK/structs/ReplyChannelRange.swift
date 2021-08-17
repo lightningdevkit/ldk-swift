@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ReplyChannelRange {
 
     public internal(set) var cOpaqueStruct: LDKReplyChannelRange?;

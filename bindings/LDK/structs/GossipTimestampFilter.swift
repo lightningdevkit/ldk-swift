@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class GossipTimestampFilter {
 
     public internal(set) var cOpaqueStruct: LDKGossipTimestampFilter?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RevokeAndACK {
 
     public internal(set) var cOpaqueStruct: LDKRevokeAndACK?;

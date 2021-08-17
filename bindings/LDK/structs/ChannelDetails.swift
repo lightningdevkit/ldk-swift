@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelDetails {
 
     public internal(set) var cOpaqueStruct: LDKChannelDetails?;

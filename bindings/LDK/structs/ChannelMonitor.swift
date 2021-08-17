@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelMonitor {
 
     public internal(set) var cOpaqueStruct: LDKChannelMonitor?;

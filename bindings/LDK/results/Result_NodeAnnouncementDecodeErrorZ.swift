@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NodeAnnouncementDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_NodeAnnouncementDecodeErrorZ?;

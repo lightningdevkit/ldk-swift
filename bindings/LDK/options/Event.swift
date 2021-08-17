@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Event {
 
     public internal(set) var cOpaqueStruct: LDKEvent?;

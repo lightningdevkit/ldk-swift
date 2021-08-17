@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class StaticPaymentOutputDescriptor {
 
     public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NodeAnnouncement {
 
     public internal(set) var cOpaqueStruct: LDKNodeAnnouncement?;

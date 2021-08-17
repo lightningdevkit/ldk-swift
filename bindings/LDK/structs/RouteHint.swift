@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RouteHint {
 
     public internal(set) var cOpaqueStruct: LDKRouteHint?;

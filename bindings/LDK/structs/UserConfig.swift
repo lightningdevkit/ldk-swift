@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class UserConfig {
 
     public internal(set) var cOpaqueStruct: LDKUserConfig?;
@@ -76,10 +78,14 @@ UserConfig_get_accept_forwards_to_priv_channels(this_ptrPointer)
     }
 
     public func clone() -> UserConfig {
+
+        let thingz: UnsafeRawPointer = UnsafeRawPointer(&self.cOpaqueStruct!)
+        let ugh: UnsafePointer<LDKUserConfig> = thingz.assumingMemoryBound(to: LDKUserConfig.self)
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUserConfig>) in
-UserConfig(pointer: UserConfig_clone(origPointer))
-};
+        // return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUserConfig>) in UserConfig(pointer: UserConfig_clone(origPointer)) };
+        let clone = UserConfig(pointer: UserConfig_clone(ugh))
+        UserConfig_free(self.cOpaqueStruct!)
+        return clone
     }
 
 				
@@ -87,7 +93,7 @@ UserConfig(pointer: UserConfig_clone(origPointer))
 					
 					
 					
-		UserConfig_free(self.cOpaqueStruct!)
+		// UserConfig_free(self.cOpaqueStruct!)
 					
 				
 	}

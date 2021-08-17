@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RoutingFees {
 
     public internal(set) var cOpaqueStruct: LDKRoutingFees?;

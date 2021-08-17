@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PaymentSendFailure {
 
     public internal(set) var cOpaqueStruct: LDKPaymentSendFailure?;

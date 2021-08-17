@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class WatchedOutput {
 
     public internal(set) var cOpaqueStruct: LDKWatchedOutput?;

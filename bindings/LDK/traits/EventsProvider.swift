@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class EventsProvider {
 
     public var cOpaqueStruct: LDKEventsProvider?;

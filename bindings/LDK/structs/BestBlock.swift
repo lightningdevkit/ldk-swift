@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class BestBlock {
 
     public internal(set) var cOpaqueStruct: LDKBestBlock?;

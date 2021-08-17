@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Description {
 
     public internal(set) var cOpaqueStruct: LDKDescription?;

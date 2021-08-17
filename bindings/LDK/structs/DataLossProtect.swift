@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DataLossProtect {
 
     public internal(set) var cOpaqueStruct: LDKDataLossProtect?;

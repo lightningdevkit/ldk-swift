@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ClosingSigned {
 
     public internal(set) var cOpaqueStruct: LDKClosingSigned?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class TxCreationKeys {
 
     public internal(set) var cOpaqueStruct: LDKTxCreationKeys?;

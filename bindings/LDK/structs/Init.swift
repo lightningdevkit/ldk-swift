@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Init {
 
     public internal(set) var cOpaqueStruct: LDKInit?;

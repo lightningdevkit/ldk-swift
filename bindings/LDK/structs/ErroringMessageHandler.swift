@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ErroringMessageHandler {
 
     public internal(set) var cOpaqueStruct: LDKErroringMessageHandler?;

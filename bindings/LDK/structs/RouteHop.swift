@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RouteHop {
 
     public internal(set) var cOpaqueStruct: LDKRouteHop?;

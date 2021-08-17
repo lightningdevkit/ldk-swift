@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelManagerReadArgs {
 
     public internal(set) var cOpaqueStruct: LDKChannelManagerReadArgs?;
@@ -5,7 +7,10 @@ public class ChannelManagerReadArgs {
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
     	
-        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.clone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
+        // self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.clone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
+        // let channelMonitorVector = Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors)
+        let channelMonitorVector = LDKCVec_ChannelMonitorZ(data: UnsafeMutablePointer<LDKChannelMonitor>(nil), datalen: 0)
+        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.cOpaqueStruct!, channelMonitorVector)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

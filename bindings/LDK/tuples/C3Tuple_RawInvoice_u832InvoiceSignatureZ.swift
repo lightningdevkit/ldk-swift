@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C3Tuple_RawInvoice_u832InvoiceSignatureZ {
 
     public internal(set) var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class FeeEstimator {
 
     public var cOpaqueStruct: LDKFeeEstimator?;
@@ -40,6 +42,10 @@ open class FeeEstimator {
     	/* EDIT ME */
 		
     }
+
+	deinit {
+		FeeEstimator_free(self.cOpaqueStruct!)
+	}
 
     /* SWIFT_CALLBACKS_END */
 

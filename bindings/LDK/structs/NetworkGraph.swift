@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NetworkGraph {
 
     public internal(set) var cOpaqueStruct: LDKNetworkGraph?;

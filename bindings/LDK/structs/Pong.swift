@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Pong {
 
     public internal(set) var cOpaqueStruct: LDKPong?;

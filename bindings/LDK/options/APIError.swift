@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class APIError {
 
     public internal(set) var cOpaqueStruct: LDKAPIError?;

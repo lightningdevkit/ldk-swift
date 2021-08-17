@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_DelayedPaymentOutputDescriptorDecodeErrorZ?;

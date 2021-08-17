@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelHandshakeConfig {
 
     public internal(set) var cOpaqueStruct: LDKChannelHandshakeConfig?;

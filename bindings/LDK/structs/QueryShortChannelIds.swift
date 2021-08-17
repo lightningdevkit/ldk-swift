@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class QueryShortChannelIds {
 
     public internal(set) var cOpaqueStruct: LDKQueryShortChannelIds?;

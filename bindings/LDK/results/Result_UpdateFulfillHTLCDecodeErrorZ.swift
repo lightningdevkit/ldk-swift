@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_UpdateFulfillHTLCDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_UpdateFulfillHTLCDecodeErrorZ?;

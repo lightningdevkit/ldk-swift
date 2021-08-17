@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MonitorEvent {
 
     public internal(set) var cOpaqueStruct: LDKMonitorEvent?;

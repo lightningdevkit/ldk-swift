@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Route {
 
     public internal(set) var cOpaqueStruct: LDKRoute?;

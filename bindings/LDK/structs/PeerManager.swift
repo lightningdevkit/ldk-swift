@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PeerManager {
 
     public internal(set) var cOpaqueStruct: LDKPeerManager?;

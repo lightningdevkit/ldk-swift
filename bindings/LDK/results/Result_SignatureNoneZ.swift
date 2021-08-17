@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_SignatureNoneZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_SignatureNoneZ?;

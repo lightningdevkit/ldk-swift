@@ -20,6 +20,9 @@ jobs:
                     git checkout origin/2021-03-java-bindings-base
                     cd ..
                     git clone https://github.com/lightningdevkit/ldk-c-bindings
+                    cd ldk-c-bindings
+                    git checkout 3559b05697ad226c82994bfb6b3d09657d21bbe2
+                    cd ..
             -   name: Install native Rust toolchain, Valgrind, and build utilitis
                 run: |
                     sudo apt-get update
@@ -56,11 +59,11 @@ jobs:
                     python ci/fix_header_includes.py
             -   name: Generate (copy for debugging) Swift bindings and copy batteries
                 run: |
-                    python ./ # Generate bindings
+                    # python ./ # Generate bindings
 
                     # TODO: switch back to generation method after debugging
-                    # mkdir -p ci/LDKSwift/Sources/LDKSwift
-                    # cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
+                    mkdir -p ci/LDKSwift/Sources/LDKSwift
+                    cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
 
                     cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
                 env:

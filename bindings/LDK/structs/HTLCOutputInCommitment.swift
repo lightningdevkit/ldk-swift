@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class HTLCOutputInCommitment {
 
     public internal(set) var cOpaqueStruct: LDKHTLCOutputInCommitment?;

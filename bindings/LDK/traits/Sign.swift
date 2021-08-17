@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Sign {
 
     public var cOpaqueStruct: LDKSign?;

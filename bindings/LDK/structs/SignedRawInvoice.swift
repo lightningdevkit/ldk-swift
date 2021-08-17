@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SignedRawInvoice {
 
     public internal(set) var cOpaqueStruct: LDKSignedRawInvoice?;

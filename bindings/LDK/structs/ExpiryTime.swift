@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ExpiryTime {
 
     public internal(set) var cOpaqueStruct: LDKExpiryTime?;

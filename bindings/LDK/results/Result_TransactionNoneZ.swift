@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_TransactionNoneZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_TransactionNoneZ?;

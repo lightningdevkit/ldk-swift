@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Watch {
 
     public var cOpaqueStruct: LDKWatch?;
@@ -64,6 +66,10 @@ open class Watch {
     	/* EDIT ME */
 		
     }
+
+	deinit {
+		Watch_free(self.cOpaqueStruct!)
+	}
 
     /* SWIFT_CALLBACKS_END */
 

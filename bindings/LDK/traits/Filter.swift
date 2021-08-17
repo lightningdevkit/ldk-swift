@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Filter {
 
     public var cOpaqueStruct: LDKFilter?;

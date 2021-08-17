@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class CommitmentTransaction {
 
     public internal(set) var cOpaqueStruct: LDKCommitmentTransaction?;

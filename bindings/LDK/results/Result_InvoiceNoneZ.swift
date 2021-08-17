@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_InvoiceNoneZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_InvoiceNoneZ?;

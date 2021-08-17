@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChainParameters {
 
     public internal(set) var cOpaqueStruct: LDKChainParameters?;

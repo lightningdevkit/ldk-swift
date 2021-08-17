@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Invoice {
 
     public internal(set) var cOpaqueStruct: LDKInvoice?;

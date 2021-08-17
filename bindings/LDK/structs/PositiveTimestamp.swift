@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PositiveTimestamp {
 
     public internal(set) var cOpaqueStruct: LDKPositiveTimestamp?;

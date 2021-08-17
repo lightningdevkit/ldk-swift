@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MinFinalCltvExpiry {
 
     public internal(set) var cOpaqueStruct: LDKMinFinalCltvExpiry?;

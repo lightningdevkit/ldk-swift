@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelUpdate {
 
     public internal(set) var cOpaqueStruct: LDKChannelUpdate?;

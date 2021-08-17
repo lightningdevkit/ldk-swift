@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ReplyShortChannelIdsEnd {
 
     public internal(set) var cOpaqueStruct: LDKReplyShortChannelIdsEnd?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ?;
@@ -48,6 +50,11 @@ public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
     	
         return CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+	deinit {
+
+		CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_free(self.cOpaqueStruct!);
+	}
 
     /* RESULT_METHODS_END */
 

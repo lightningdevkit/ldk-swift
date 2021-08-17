@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SpendableOutputDescriptor {
 
     public internal(set) var cOpaqueStruct: LDKSpendableOutputDescriptor?;

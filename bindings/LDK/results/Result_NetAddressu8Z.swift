@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NetAddressu8Z {
 
     public internal(set) var cOpaqueStruct: LDKCResult_NetAddressu8Z?;

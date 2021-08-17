@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Ping {
 
     public internal(set) var cOpaqueStruct: LDKPing?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_CVec_u8ZPeerHandleErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_CVec_u8ZPeerHandleErrorZ?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PayeePubKey {
 
     public internal(set) var cOpaqueStruct: LDKPayeePubKey?;

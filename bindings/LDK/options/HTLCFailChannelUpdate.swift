@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class HTLCFailChannelUpdate {
 
     public internal(set) var cOpaqueStruct: LDKHTLCFailChannelUpdate?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DecodeError {
 
     public internal(set) var cOpaqueStruct: LDKDecodeError?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelReestablish {
 
     public internal(set) var cOpaqueStruct: LDKChannelReestablish?;

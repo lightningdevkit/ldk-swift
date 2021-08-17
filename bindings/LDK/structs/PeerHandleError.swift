@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PeerHandleError {
 
     public internal(set) var cOpaqueStruct: LDKPeerHandleError?;

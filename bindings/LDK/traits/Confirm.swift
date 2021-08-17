@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Confirm {
 
     public var cOpaqueStruct: LDKConfirm?;

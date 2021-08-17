@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class IgnoringMessageHandler {
 
     public internal(set) var cOpaqueStruct: LDKIgnoringMessageHandler?;

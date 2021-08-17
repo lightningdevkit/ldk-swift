@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DirectionalChannelInfo {
 
     public internal(set) var cOpaqueStruct: LDKDirectionalChannelInfo?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Option_u16Z {
 
     public internal(set) var cOpaqueStruct: LDKCOption_u16Z?;

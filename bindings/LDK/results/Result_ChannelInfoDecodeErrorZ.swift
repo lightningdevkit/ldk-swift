@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_ChannelInfoDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_ChannelInfoDecodeErrorZ?;

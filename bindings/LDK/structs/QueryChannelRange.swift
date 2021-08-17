@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class QueryChannelRange {
 
     public internal(set) var cOpaqueStruct: LDKQueryChannelRange?;

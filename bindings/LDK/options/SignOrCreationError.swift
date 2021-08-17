@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SignOrCreationError {
 
     public internal(set) var cOpaqueStruct: LDKSignOrCreationError?;

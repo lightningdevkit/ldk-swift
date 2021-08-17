@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class MessageSendEventsProvider {
 
     public var cOpaqueStruct: LDKMessageSendEventsProvider?;

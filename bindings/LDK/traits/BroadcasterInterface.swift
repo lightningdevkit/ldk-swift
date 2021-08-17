@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class BroadcasterInterface {
 
     public var cOpaqueStruct: LDKBroadcasterInterface?;
@@ -40,6 +42,10 @@ open class BroadcasterInterface {
     	/* EDIT ME */
 		
     }
+
+	deinit {
+		BroadcasterInterface_free(self.cOpaqueStruct!)
+	}
 
     /* SWIFT_CALLBACKS_END */
 

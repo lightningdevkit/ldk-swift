@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_PaymentHashPaymentSecretZ {
 
     public internal(set) var cOpaqueStruct: LDKC2Tuple_PaymentHashPaymentSecretZ?;

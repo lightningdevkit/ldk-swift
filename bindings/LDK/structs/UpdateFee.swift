@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class UpdateFee {
 
     public internal(set) var cOpaqueStruct: LDKUpdateFee?;

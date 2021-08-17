@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class KeysManager {
 
     public internal(set) var cOpaqueStruct: LDKKeysManager?;

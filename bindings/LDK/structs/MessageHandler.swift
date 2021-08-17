@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MessageHandler {
 
     public internal(set) var cOpaqueStruct: LDKMessageHandler?;

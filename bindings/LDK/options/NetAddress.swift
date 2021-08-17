@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NetAddress {
 
     public internal(set) var cOpaqueStruct: LDKNetAddress?;

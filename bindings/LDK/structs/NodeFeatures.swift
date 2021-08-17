@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NodeFeatures {
 
     public internal(set) var cOpaqueStruct: LDKNodeFeatures?;

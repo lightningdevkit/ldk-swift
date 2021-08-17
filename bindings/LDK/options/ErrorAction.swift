@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ErrorAction {
 
     public internal(set) var cOpaqueStruct: LDKErrorAction?;

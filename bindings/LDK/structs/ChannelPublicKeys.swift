@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelPublicKeys {
 
     public internal(set) var cOpaqueStruct: LDKChannelPublicKeys?;

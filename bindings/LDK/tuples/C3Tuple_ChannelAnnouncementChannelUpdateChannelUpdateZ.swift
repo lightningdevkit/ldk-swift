@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 
     public internal(set) var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?;

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import LDKHeaders
 
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
@@ -15,7 +16,7 @@ enum InvalidSerializedDataError: Error {
 public class ChannelManagerConstructor {
 
     public let channelManager: ChannelManager
-    
+
     /**
      * The latest block has the channel manager saw. If this is non-null it is a 32-byte block hash.
      * You should sync the blockchain starting with the block that builds on this block.
@@ -26,7 +27,7 @@ public class ChannelManagerConstructor {
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: CustomEventHandler?
     public let peerManager: PeerManager
-    
+
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
      * starting with the block that builds on the hash given.
@@ -41,6 +42,7 @@ public class ChannelManagerConstructor {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
+        /*
         for currentSerializedChannelMonitor in channel_monitors_serialized {
             let res: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
             if res.cOpaqueStruct?.result_ok != true {
@@ -56,9 +58,9 @@ public class ChannelManagerConstructor {
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
             self.channel_monitors.append((clonedChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
         }
-
+        */
         let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
-        if res.cOpaqueStruct?.result_ok != true {
+        if res.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
@@ -124,20 +126,20 @@ public class ChannelManagerConstructor {
         if self.backgroundProcessor != nil {
             return
         }
-        
+
         for (monitorClone, _) in self.channel_monitors {
             let chainMonitorWatch = self.chain_monitor.as_Watch()
             // let monitorClone = currentChannelMonitor.clone(orig: currentChannelMonitor)
             monitorClone.cOpaqueStruct?.is_owned = false
             let fundingTxo = monitorClone.get_funding_txo()
             let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a)
-            
+
             let monitorWatchResult = chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: monitorClone)
             if !monitorWatchResult.isOk() {
                 print("Some error occurred with a chainMonitorWatch.watch_channel call")
             }
         }
-        
+
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)

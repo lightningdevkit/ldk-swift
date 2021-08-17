@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class FundingLocked {
 
     public internal(set) var cOpaqueStruct: LDKFundingLocked?;

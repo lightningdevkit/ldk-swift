@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DelayedPaymentOutputDescriptor {
 
     public internal(set) var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?;

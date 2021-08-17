@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NodeInfo {
 
     public internal(set) var cOpaqueStruct: LDKNodeInfo?;

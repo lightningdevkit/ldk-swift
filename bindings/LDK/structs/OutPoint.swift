@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class OutPoint {
 
     public internal(set) var cOpaqueStruct: LDKOutPoint?;

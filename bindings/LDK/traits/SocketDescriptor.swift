@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class SocketDescriptor {
 
     public var cOpaqueStruct: LDKSocketDescriptor?;

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class CounterpartyChannelTransactionParameters {
 
     public internal(set) var cOpaqueStruct: LDKCounterpartyChannelTransactionParameters?;

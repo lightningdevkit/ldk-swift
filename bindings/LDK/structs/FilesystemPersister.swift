@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class FilesystemPersister {
 
     public internal(set) var cOpaqueStruct: LDKFilesystemPersister?;

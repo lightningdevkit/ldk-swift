@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PrivateRoute {
 
     public internal(set) var cOpaqueStruct: LDKPrivateRoute?;

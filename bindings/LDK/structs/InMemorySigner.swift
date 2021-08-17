@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class InMemorySigner {
 
     public internal(set) var cOpaqueStruct: LDKInMemorySigner?;

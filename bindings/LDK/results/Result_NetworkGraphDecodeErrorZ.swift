@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NetworkGraphDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_NetworkGraphDecodeErrorZ?;

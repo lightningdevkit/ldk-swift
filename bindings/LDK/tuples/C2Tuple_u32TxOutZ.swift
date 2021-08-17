@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_u32TxOutZ {
 
     public internal(set) var cOpaqueStruct: LDKC2Tuple_u32TxOutZ?;

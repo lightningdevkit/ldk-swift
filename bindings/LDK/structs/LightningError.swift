@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class LightningError {
 
     public internal(set) var cOpaqueStruct: LDKLightningError?;

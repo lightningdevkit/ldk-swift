@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_SignatureCVec_SignatureZZ {
 
     public internal(set) var cOpaqueStruct: LDKC2Tuple_SignatureCVec_SignatureZZ?;

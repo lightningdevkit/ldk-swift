@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NoneMonitorUpdateErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_NoneMonitorUpdateErrorZ?;

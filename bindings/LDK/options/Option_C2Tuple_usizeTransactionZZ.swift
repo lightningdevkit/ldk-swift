@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Option_C2Tuple_usizeTransactionZZ {
 
     public internal(set) var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?;

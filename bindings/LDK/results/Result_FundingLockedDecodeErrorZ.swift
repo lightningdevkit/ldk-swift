@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_FundingLockedDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_FundingLockedDecodeErrorZ?;

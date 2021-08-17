@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelHandshakeLimits {
 
     public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?;

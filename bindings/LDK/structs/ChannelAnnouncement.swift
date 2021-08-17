@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelAnnouncement {
 
     public internal(set) var cOpaqueStruct: LDKChannelAnnouncement?;

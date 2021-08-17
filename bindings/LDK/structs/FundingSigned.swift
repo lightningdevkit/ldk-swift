@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class FundingSigned {
 
     public internal(set) var cOpaqueStruct: LDKFundingSigned?;

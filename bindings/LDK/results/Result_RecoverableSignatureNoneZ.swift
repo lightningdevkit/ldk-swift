@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_RecoverableSignatureNoneZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?;

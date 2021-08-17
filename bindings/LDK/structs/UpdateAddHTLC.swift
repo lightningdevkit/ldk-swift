@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class UpdateAddHTLC {
 
     public internal(set) var cOpaqueStruct: LDKUpdateAddHTLC?;

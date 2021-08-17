@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Sha256 {
 
     public internal(set) var cOpaqueStruct: LDKSha256?;

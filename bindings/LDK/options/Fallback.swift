@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Fallback {
 
     public internal(set) var cOpaqueStruct: LDKFallback?;

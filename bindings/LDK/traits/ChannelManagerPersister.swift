@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class ChannelManagerPersister {
 
     public var cOpaqueStruct: LDKChannelManagerPersister?;

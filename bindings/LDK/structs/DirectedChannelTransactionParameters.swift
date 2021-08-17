@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DirectedChannelTransactionParameters {
 
     public internal(set) var cOpaqueStruct: LDKDirectedChannelTransactionParameters?;

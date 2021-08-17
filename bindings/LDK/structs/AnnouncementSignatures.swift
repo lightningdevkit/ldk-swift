@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class AnnouncementSignatures {
 
     public internal(set) var cOpaqueStruct: LDKAnnouncementSignatures?;

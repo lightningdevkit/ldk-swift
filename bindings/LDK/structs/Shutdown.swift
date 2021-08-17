@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Shutdown {
 
     public internal(set) var cOpaqueStruct: LDKShutdown?;

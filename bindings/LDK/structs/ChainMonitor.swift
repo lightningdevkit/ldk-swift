@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChainMonitor {
 
     public internal(set) var cOpaqueStruct: LDKChainMonitor?;

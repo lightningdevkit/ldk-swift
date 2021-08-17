@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
 
     public internal(set) var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?;

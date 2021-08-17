@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Access {
 
     public var cOpaqueStruct: LDKAccess?;

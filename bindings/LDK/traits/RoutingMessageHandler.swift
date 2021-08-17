@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class RoutingMessageHandler {
 
     public var cOpaqueStruct: LDKRoutingMessageHandler?;

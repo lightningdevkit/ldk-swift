@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MonitorUpdateError {
 
     public internal(set) var cOpaqueStruct: LDKMonitorUpdateError?;

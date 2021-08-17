@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class BackgroundProcessor {
 
     public internal(set) var cOpaqueStruct: LDKBackgroundProcessor?;

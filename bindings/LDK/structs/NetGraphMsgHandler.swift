@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NetGraphMsgHandler {
 
     public internal(set) var cOpaqueStruct: LDKNetGraphMsgHandler?;

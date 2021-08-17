@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_CResult_NetAddressu8ZDecodeErrorZ {
 
     public internal(set) var cOpaqueStruct: LDKCResult_CResult_NetAddressu8ZDecodeErrorZ?;

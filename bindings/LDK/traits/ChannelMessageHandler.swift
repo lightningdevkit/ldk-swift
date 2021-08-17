@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class ChannelMessageHandler {
 
     public var cOpaqueStruct: LDKChannelMessageHandler?;

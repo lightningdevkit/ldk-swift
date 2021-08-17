@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Persist {
 
     public var cOpaqueStruct: LDKPersist?;

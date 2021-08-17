@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RawDataPart {
 
     public internal(set) var cOpaqueStruct: LDKRawDataPart?;

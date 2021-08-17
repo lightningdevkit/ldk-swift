@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Logger {
 
     public var cOpaqueStruct: LDKLogger?;
@@ -45,6 +47,10 @@ open class Logger {
     	/* EDIT ME */
 		
     }
+
+	deinit {
+		Logger_free(self.cOpaqueStruct!)
+	}
 
     /* SWIFT_CALLBACKS_END */
 

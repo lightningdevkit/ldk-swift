@@ -53,6 +53,7 @@ class LDKSwiftTest: XCTestCase {
         let serializedChannelMonitors: [[UInt8]] = LDKTestFixtures.serializedChannelMonitors
 
         let monitors: [LDKChannelMonitor] = []
+        // let secondConfig = config.clone()
         let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: serialized_channel_manager, arg_keys_manager: keysInterface, arg_fee_estimator: feeEstimator, arg_chain_monitor: chainMonitor.as_Watch(), arg_tx_broadcaster: broadcaster, arg_logger: logger, arg_default_config: config, arg_channel_monitors: monitors)
 
         /*

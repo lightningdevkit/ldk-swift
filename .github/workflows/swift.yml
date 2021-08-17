@@ -17,7 +17,8 @@ jobs:
                     # Note this is a different endpoint, as we need one non-upstream commit!
                     git clone https://git.bitcoin.ninja/rust-lightning
                     cd rust-lightning
-                    git checkout origin/2021-03-java-bindings-base
+                    # git checkout origin/2021-03-java-bindings-base
+                    git checkout afae12ea1e610634f90335443e3fe9f126bf5551
                     cd ..
                     git clone https://github.com/lightningdevkit/ldk-c-bindings
                     cd ldk-c-bindings

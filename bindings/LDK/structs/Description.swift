@@ -28,9 +28,9 @@ Description_eq(aPointer, bPointer)
 
     public func clone() -> Description {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
-Description(pointer: Description_clone(origPointer))
-};
+        return Description(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
+Description_clone(origPointer)
+});
     }
 
     public class func new(description: String) -> Result_DescriptionCreationErrorZ {

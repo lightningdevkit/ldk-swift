@@ -43,9 +43,9 @@ RawDataPart_eq(aPointer, bPointer)
 
     public func clone() -> RawDataPart {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawDataPart>) in
-RawDataPart(pointer: RawDataPart_clone(origPointer))
-};
+        return RawDataPart(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawDataPart>) in
+RawDataPart_clone(origPointer)
+});
     }
 
 				

@@ -71,9 +71,9 @@ ClosingSigned_get_signature(this_ptrPointer)
 
     public func clone() -> ClosingSigned {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKClosingSigned>) in
-ClosingSigned(pointer: ClosingSigned_clone(origPointer))
-};
+        return ClosingSigned(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKClosingSigned>) in
+ClosingSigned_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

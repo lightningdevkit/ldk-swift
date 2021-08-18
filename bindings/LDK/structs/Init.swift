@@ -41,9 +41,9 @@ Init_get_features(this_ptrPointer)
 
     public func clone() -> Init {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInit>) in
-Init(pointer: Init_clone(origPointer))
-};
+        return Init(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInit>) in
+Init_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

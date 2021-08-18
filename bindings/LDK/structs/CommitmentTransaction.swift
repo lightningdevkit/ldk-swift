@@ -19,9 +19,9 @@ public class CommitmentTransaction {
 
     public func clone() -> CommitmentTransaction {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentTransaction>) in
-CommitmentTransaction(pointer: CommitmentTransaction_clone(origPointer))
-};
+        return CommitmentTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentTransaction>) in
+CommitmentTransaction_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

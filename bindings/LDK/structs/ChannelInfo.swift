@@ -131,9 +131,9 @@ ChannelInfo_get_announcement_message(this_ptrPointer)
 
     public func clone() -> ChannelInfo {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelInfo>) in
-ChannelInfo(pointer: ChannelInfo_clone(origPointer))
-};
+        return ChannelInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

@@ -35,9 +35,9 @@ InitFeatures_eq(aPointer, bPointer)
 
     public func clone() -> InitFeatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInitFeatures>) in
-InitFeatures(pointer: InitFeatures_clone(origPointer))
-};
+        return InitFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_clone(origPointer)
+});
     }
 
     public func supports_payment_secret() -> Bool {

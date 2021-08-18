@@ -28,9 +28,9 @@ SignedRawInvoice_eq(aPointer, bPointer)
 
     public func clone() -> SignedRawInvoice {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSignedRawInvoice>) in
-SignedRawInvoice(pointer: SignedRawInvoice_clone(origPointer))
-};
+        return SignedRawInvoice(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSignedRawInvoice>) in
+SignedRawInvoice_clone(origPointer)
+});
     }
 
     public func into_parts() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {

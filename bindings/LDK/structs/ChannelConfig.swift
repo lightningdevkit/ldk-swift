@@ -101,9 +101,9 @@ ChannelConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
 
     public func clone() -> ChannelConfig {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelConfig>) in
-ChannelConfig(pointer: ChannelConfig_clone(origPointer))
-};
+        return ChannelConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelConfig>) in
+ChannelConfig_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

@@ -101,9 +101,9 @@ TxCreationKeys_get_broadcaster_delayed_payment_key(this_ptrPointer)
 
     public func clone() -> TxCreationKeys {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKTxCreationKeys>) in
-TxCreationKeys(pointer: TxCreationKeys_clone(origPointer))
-};
+        return TxCreationKeys(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKTxCreationKeys>) in
+TxCreationKeys_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

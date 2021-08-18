@@ -35,9 +35,9 @@ InvoiceFeatures_eq(aPointer, bPointer)
 
     public func clone() -> InvoiceFeatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceFeatures>) in
-InvoiceFeatures(pointer: InvoiceFeatures_clone(origPointer))
-};
+        return InvoiceFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_clone(origPointer)
+});
     }
 
     public func supports_payment_secret() -> Bool {

@@ -71,9 +71,9 @@ RevokeAndACK_get_next_per_commitment_point(this_ptrPointer)
 
     public func clone() -> RevokeAndACK {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRevokeAndACK>) in
-RevokeAndACK(pointer: RevokeAndACK_clone(origPointer))
-};
+        return RevokeAndACK(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRevokeAndACK>) in
+RevokeAndACK_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

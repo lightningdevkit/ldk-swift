@@ -64,9 +64,9 @@ UpdateFailMalformedHTLC_get_failure_code(this_ptrPointer)
 
     public func clone() -> UpdateFailMalformedHTLC {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
-UpdateFailMalformedHTLC(pointer: UpdateFailMalformedHTLC_clone(origPointer))
-};
+        return UpdateFailMalformedHTLC(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
+UpdateFailMalformedHTLC_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

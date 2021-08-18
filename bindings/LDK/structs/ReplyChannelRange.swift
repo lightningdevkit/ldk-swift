@@ -94,9 +94,9 @@ ReplyChannelRange_get_sync_complete(this_ptrPointer)
 
     public func clone() -> ReplyChannelRange {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyChannelRange>) in
-ReplyChannelRange(pointer: ReplyChannelRange_clone(origPointer))
-};
+        return ReplyChannelRange(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_clone(origPointer)
+});
     }
 
     public class func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {

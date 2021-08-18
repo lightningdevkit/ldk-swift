@@ -64,9 +64,9 @@ NodeInfo_get_announcement_info(this_ptrPointer)
 
     public func clone() -> NodeInfo {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeInfo>) in
-NodeInfo(pointer: NodeInfo_clone(origPointer))
-};
+        return NodeInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeInfo>) in
+NodeInfo_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

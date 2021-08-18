@@ -28,9 +28,9 @@ PrivateRoute_eq(aPointer, bPointer)
 
     public func clone() -> PrivateRoute {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPrivateRoute>) in
-PrivateRoute(pointer: PrivateRoute_clone(origPointer))
-};
+        return PrivateRoute(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPrivateRoute>) in
+PrivateRoute_clone(origPointer)
+});
     }
 
     public class func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {

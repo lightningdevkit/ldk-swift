@@ -19,9 +19,9 @@ public class MonitorUpdateError {
 
     public func clone() -> MonitorUpdateError {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMonitorUpdateError>) in
-MonitorUpdateError(pointer: MonitorUpdateError_clone(origPointer))
-};
+        return MonitorUpdateError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMonitorUpdateError>) in
+MonitorUpdateError_clone(origPointer)
+});
     }
 
 				

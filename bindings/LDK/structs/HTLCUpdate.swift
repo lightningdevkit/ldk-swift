@@ -19,9 +19,9 @@ public class HTLCUpdate {
 
     public func clone() -> HTLCUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
-HTLCUpdate(pointer: HTLCUpdate_clone(origPointer))
-};
+        return HTLCUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
+HTLCUpdate_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

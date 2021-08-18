@@ -88,9 +88,9 @@ CommitmentUpdate_get_commitment_signed(this_ptrPointer)
 
     public func clone() -> CommitmentUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentUpdate>) in
-CommitmentUpdate(pointer: CommitmentUpdate_clone(origPointer))
-};
+        return CommitmentUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_clone(origPointer)
+});
     }
 
 				

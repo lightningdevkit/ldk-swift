@@ -71,9 +71,9 @@ WatchedOutput_get_script_pubkey(this_ptrPointer)
 
     public func clone() -> WatchedOutput {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKWatchedOutput>) in
-WatchedOutput(pointer: WatchedOutput_clone(origPointer))
-};
+        return WatchedOutput(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKWatchedOutput>) in
+WatchedOutput_clone(origPointer)
+});
     }
 
     public func hash() -> UInt64 {

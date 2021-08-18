@@ -19,9 +19,9 @@ public class DecodeError {
 
     public func clone() -> DecodeError {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDecodeError>) in
-DecodeError(pointer: DecodeError_clone(origPointer))
-};
+        return DecodeError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDecodeError>) in
+DecodeError_clone(origPointer)
+});
     }
 
 				

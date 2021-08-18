@@ -56,9 +56,9 @@ UpdateFee_get_feerate_per_kw(this_ptrPointer)
 
     public func clone() -> UpdateFee {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFee>) in
-UpdateFee(pointer: UpdateFee_clone(origPointer))
-};
+        return UpdateFee(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFee>) in
+UpdateFee_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

@@ -56,9 +56,9 @@ Ping_get_byteslen(this_ptrPointer)
 
     public func clone() -> Ping {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPing>) in
-Ping(pointer: Ping_clone(origPointer))
-};
+        return Ping(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPing>) in
+Ping_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

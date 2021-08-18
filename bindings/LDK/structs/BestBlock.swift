@@ -26,9 +26,9 @@ public class BestBlock {
 
     public func clone() -> BestBlock {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBestBlock>) in
-BestBlock(pointer: BestBlock_clone(origPointer))
-};
+        return BestBlock(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBestBlock>) in
+BestBlock_clone(origPointer)
+});
     }
 
     public func block_hash() -> [UInt8] {

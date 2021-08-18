@@ -64,9 +64,9 @@ ChannelReestablish_get_next_remote_commitment_number(this_ptrPointer)
 
     public func clone() -> ChannelReestablish {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelReestablish>) in
-ChannelReestablish(pointer: ChannelReestablish_clone(origPointer))
-};
+        return ChannelReestablish(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelReestablish>) in
+ChannelReestablish_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

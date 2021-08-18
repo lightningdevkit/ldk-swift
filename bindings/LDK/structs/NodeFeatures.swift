@@ -35,9 +35,9 @@ NodeFeatures_eq(aPointer, bPointer)
 
     public func clone() -> NodeFeatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeFeatures>) in
-NodeFeatures(pointer: NodeFeatures_clone(origPointer))
-};
+        return NodeFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_clone(origPointer)
+});
     }
 
     public func supports_payment_secret() -> Bool {

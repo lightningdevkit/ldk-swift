@@ -124,9 +124,9 @@ UnsignedChannelAnnouncement_get_bitcoin_key_2(this_ptrPointer)
 
     public func clone() -> UnsignedChannelAnnouncement {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
-UnsignedChannelAnnouncement(pointer: UnsignedChannelAnnouncement_clone(origPointer))
-};
+        return UnsignedChannelAnnouncement(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+UnsignedChannelAnnouncement_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

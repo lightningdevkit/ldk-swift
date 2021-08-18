@@ -49,9 +49,9 @@ UpdateFailHTLC_get_htlc_id(this_ptrPointer)
 
     public func clone() -> UpdateFailHTLC {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailHTLC>) in
-UpdateFailHTLC(pointer: UpdateFailHTLC_clone(origPointer))
-};
+        return UpdateFailHTLC(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailHTLC>) in
+UpdateFailHTLC_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

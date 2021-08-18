@@ -229,9 +229,9 @@ AcceptChannel_get_first_per_commitment_point(this_ptrPointer)
 
     public func clone() -> AcceptChannel {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAcceptChannel>) in
-AcceptChannel(pointer: AcceptChannel_clone(origPointer))
-};
+        return AcceptChannel(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAcceptChannel>) in
+AcceptChannel_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

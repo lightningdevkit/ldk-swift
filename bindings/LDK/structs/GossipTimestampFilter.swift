@@ -71,9 +71,9 @@ GossipTimestampFilter_get_timestamp_range(this_ptrPointer)
 
     public func clone() -> GossipTimestampFilter {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKGossipTimestampFilter>) in
-GossipTimestampFilter(pointer: GossipTimestampFilter_clone(origPointer))
-};
+        return GossipTimestampFilter(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_clone(origPointer)
+});
     }
 
     public class func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {

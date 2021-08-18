@@ -56,9 +56,9 @@ ChannelUpdate_get_contents(this_ptrPointer)
 
     public func clone() -> ChannelUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelUpdate>) in
-ChannelUpdate(pointer: ChannelUpdate_clone(origPointer))
-};
+        return ChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelUpdate>) in
+ChannelUpdate_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

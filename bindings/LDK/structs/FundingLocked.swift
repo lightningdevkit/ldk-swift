@@ -56,9 +56,9 @@ FundingLocked_get_next_per_commitment_point(this_ptrPointer)
 
     public func clone() -> FundingLocked {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingLocked>) in
-FundingLocked(pointer: FundingLocked_clone(origPointer))
-};
+        return FundingLocked(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingLocked>) in
+FundingLocked_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

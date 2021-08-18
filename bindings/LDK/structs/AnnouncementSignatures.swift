@@ -86,9 +86,9 @@ AnnouncementSignatures_get_bitcoin_signature(this_ptrPointer)
 
     public func clone() -> AnnouncementSignatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAnnouncementSignatures>) in
-AnnouncementSignatures(pointer: AnnouncementSignatures_clone(origPointer))
-};
+        return AnnouncementSignatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAnnouncementSignatures>) in
+AnnouncementSignatures_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

@@ -49,9 +49,9 @@ QueryShortChannelIds_get_chain_hash(this_ptrPointer)
 
     public func clone() -> QueryShortChannelIds {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryShortChannelIds>) in
-QueryShortChannelIds(pointer: QueryShortChannelIds_clone(origPointer))
-};
+        return QueryShortChannelIds(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryShortChannelIds>) in
+QueryShortChannelIds_clone(origPointer)
+});
     }
 
     public class func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {

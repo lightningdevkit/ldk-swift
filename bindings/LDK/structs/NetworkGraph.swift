@@ -26,9 +26,9 @@ public class NetworkGraph {
 
     public func clone() -> NetworkGraph {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph(pointer: NetworkGraph_clone(origPointer))
-};
+        return NetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

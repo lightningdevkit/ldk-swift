@@ -125,9 +125,9 @@ RouteHintHop_eq(aPointer, bPointer)
 
     public func clone() -> RouteHintHop {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHintHop>) in
-RouteHintHop(pointer: RouteHintHop_clone(origPointer))
-};
+        return RouteHintHop(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHintHop>) in
+RouteHintHop_clone(origPointer)
+});
     }
 
 				

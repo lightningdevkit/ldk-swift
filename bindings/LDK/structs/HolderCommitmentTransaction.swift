@@ -49,9 +49,9 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
 
     public func clone() -> HolderCommitmentTransaction {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
-HolderCommitmentTransaction(pointer: HolderCommitmentTransaction_clone(origPointer))
-};
+        return HolderCommitmentTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+HolderCommitmentTransaction_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

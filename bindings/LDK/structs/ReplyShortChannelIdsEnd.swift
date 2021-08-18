@@ -56,9 +56,9 @@ ReplyShortChannelIdsEnd_get_full_information(this_ptrPointer)
 
     public func clone() -> ReplyShortChannelIdsEnd {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
-ReplyShortChannelIdsEnd(pointer: ReplyShortChannelIdsEnd_clone(origPointer))
-};
+        return ReplyShortChannelIdsEnd(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
+ReplyShortChannelIdsEnd_clone(origPointer)
+});
     }
 
     public class func read(ser: [UInt8]) -> Result_ReplyShortChannelIdsEndDecodeErrorZ {

@@ -79,9 +79,9 @@ StaticPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer)
 
     public func clone() -> StaticPaymentOutputDescriptor {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-StaticPaymentOutputDescriptor(pointer: StaticPaymentOutputDescriptor_clone(origPointer))
-};
+        return StaticPaymentOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+StaticPaymentOutputDescriptor_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

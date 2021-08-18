@@ -28,9 +28,9 @@ Sha256_eq(aPointer, bPointer)
 
     public func clone() -> Sha256 {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
-Sha256(pointer: Sha256_clone(origPointer))
-};
+        return Sha256(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
+Sha256_clone(origPointer)
+});
     }
 
 				

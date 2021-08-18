@@ -124,9 +124,9 @@ DelayedPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer)
 
     public func clone() -> DelayedPaymentOutputDescriptor {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
-DelayedPaymentOutputDescriptor(pointer: DelayedPaymentOutputDescriptor_clone(origPointer))
-};
+        return DelayedPaymentOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+DelayedPaymentOutputDescriptor_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

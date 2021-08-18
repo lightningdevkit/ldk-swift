@@ -139,9 +139,9 @@ UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer)
 
     public func clone() -> UnsignedChannelUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
-UnsignedChannelUpdate(pointer: UnsignedChannelUpdate_clone(origPointer))
-};
+        return UnsignedChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+UnsignedChannelUpdate_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

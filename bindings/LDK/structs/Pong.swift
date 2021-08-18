@@ -41,9 +41,9 @@ Pong_get_byteslen(this_ptrPointer)
 
     public func clone() -> Pong {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPong>) in
-Pong(pointer: Pong_clone(origPointer))
-};
+        return Pong(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPong>) in
+Pong_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

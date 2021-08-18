@@ -71,9 +71,9 @@ ChannelHandshakeConfig_get_our_htlc_minimum_msat(this_ptrPointer)
 
     public func clone() -> ChannelHandshakeConfig {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
-ChannelHandshakeConfig(pointer: ChannelHandshakeConfig_clone(origPointer))
-};
+        return ChannelHandshakeConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_clone(origPointer)
+});
     }
 
 				

@@ -94,9 +94,9 @@ UpdateAddHTLC_get_cltv_expiry(this_ptrPointer)
 
     public func clone() -> UpdateAddHTLC {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
-UpdateAddHTLC(pointer: UpdateAddHTLC_clone(origPointer))
-};
+        return UpdateAddHTLC(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+UpdateAddHTLC_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

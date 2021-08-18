@@ -65,9 +65,9 @@ RoutingFees_eq(aPointer, bPointer)
 
     public func clone() -> RoutingFees {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
-RoutingFees(pointer: RoutingFees_clone(origPointer))
-};
+        return RoutingFees(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
+RoutingFees_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

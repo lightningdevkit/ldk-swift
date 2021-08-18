@@ -64,9 +64,9 @@ CommitmentSigned_get_signature(this_ptrPointer)
 
     public func clone() -> CommitmentSigned {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentSigned>) in
-CommitmentSigned(pointer: CommitmentSigned_clone(origPointer))
-};
+        return CommitmentSigned(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentSigned>) in
+CommitmentSigned_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

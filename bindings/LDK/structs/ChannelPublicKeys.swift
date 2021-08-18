@@ -101,9 +101,9 @@ ChannelPublicKeys_get_htlc_basepoint(this_ptrPointer)
 
     public func clone() -> ChannelPublicKeys {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelPublicKeys>) in
-ChannelPublicKeys(pointer: ChannelPublicKeys_clone(origPointer))
-};
+        return ChannelPublicKeys(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelPublicKeys>) in
+ChannelPublicKeys_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

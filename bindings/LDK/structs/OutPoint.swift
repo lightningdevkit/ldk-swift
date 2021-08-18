@@ -56,9 +56,9 @@ OutPoint_get_index(this_ptrPointer)
 
     public func clone() -> OutPoint {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOutPoint>) in
-OutPoint(pointer: OutPoint_clone(origPointer))
-};
+        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOutPoint>) in
+OutPoint_clone(origPointer)
+});
     }
 
     public class func eq(a: OutPoint, b: OutPoint) -> Bool {

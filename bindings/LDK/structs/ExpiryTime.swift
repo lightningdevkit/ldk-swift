@@ -28,9 +28,9 @@ ExpiryTime_eq(aPointer, bPointer)
 
     public func clone() -> ExpiryTime {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKExpiryTime>) in
-ExpiryTime(pointer: ExpiryTime_clone(origPointer))
-};
+        return ExpiryTime(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKExpiryTime>) in
+ExpiryTime_clone(origPointer)
+});
     }
 
     public class func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {

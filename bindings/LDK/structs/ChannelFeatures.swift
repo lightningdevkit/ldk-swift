@@ -35,9 +35,9 @@ ChannelFeatures_eq(aPointer, bPointer)
 
     public func clone() -> ChannelFeatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelFeatures>) in
-ChannelFeatures(pointer: ChannelFeatures_clone(origPointer))
-};
+        return ChannelFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelFeatures>) in
+ChannelFeatures_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

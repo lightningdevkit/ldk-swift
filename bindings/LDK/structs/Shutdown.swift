@@ -56,9 +56,9 @@ Shutdown_get_scriptpubkey(this_ptrPointer)
 
     public func clone() -> Shutdown {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKShutdown>) in
-Shutdown(pointer: Shutdown_clone(origPointer))
-};
+        return Shutdown(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKShutdown>) in
+Shutdown_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

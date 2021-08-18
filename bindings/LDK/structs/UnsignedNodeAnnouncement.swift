@@ -102,9 +102,9 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
 
     public func clone() -> UnsignedNodeAnnouncement {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
-UnsignedNodeAnnouncement(pointer: UnsignedNodeAnnouncement_clone(origPointer))
-};
+        return UnsignedNodeAnnouncement(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+UnsignedNodeAnnouncement_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

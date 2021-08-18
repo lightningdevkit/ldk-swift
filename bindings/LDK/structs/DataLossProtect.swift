@@ -56,9 +56,9 @@ DataLossProtect_get_my_current_per_commitment_point(this_ptrPointer)
 
     public func clone() -> DataLossProtect {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDataLossProtect>) in
-DataLossProtect(pointer: DataLossProtect_clone(origPointer))
-};
+        return DataLossProtect(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDataLossProtect>) in
+DataLossProtect_clone(origPointer)
+});
     }
 
 				

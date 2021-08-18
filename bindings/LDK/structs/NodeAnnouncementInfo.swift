@@ -109,9 +109,9 @@ NodeAnnouncementInfo_get_announcement_message(this_ptrPointer)
 
     public func clone() -> NodeAnnouncementInfo {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-NodeAnnouncementInfo(pointer: NodeAnnouncementInfo_clone(origPointer))
-};
+        return NodeAnnouncementInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+NodeAnnouncementInfo_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

@@ -34,9 +34,9 @@ public class Route {
 
     public func clone() -> Route {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoute>) in
-Route(pointer: Route_clone(origPointer))
-};
+        return Route(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoute>) in
+Route_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

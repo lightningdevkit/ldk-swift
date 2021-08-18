@@ -71,9 +71,9 @@ UpdateFulfillHTLC_get_payment_preimage(this_ptrPointer)
 
     public func clone() -> UpdateFulfillHTLC {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
-UpdateFulfillHTLC(pointer: UpdateFulfillHTLC_clone(origPointer))
-};
+        return UpdateFulfillHTLC(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
+UpdateFulfillHTLC_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

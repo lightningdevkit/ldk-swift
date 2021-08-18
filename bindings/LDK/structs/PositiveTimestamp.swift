@@ -28,9 +28,9 @@ PositiveTimestamp_eq(aPointer, bPointer)
 
     public func clone() -> PositiveTimestamp {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPositiveTimestamp>) in
-PositiveTimestamp(pointer: PositiveTimestamp_clone(origPointer))
-};
+        return PositiveTimestamp(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPositiveTimestamp>) in
+PositiveTimestamp_clone(origPointer)
+});
     }
 
     public class func from_unix_timestamp(unix_seconds: UInt64) -> Result_PositiveTimestampCreationErrorZ {

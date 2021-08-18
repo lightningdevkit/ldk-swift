@@ -289,9 +289,9 @@ OpenChannel_get_channel_flags(this_ptrPointer)
 
     public func clone() -> OpenChannel {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOpenChannel>) in
-OpenChannel(pointer: OpenChannel_clone(origPointer))
-};
+        return OpenChannel(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOpenChannel>) in
+OpenChannel_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

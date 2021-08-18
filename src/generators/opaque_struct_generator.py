@@ -15,7 +15,7 @@ class OpaqueStructGenerator:
 			template = template_handle.read()
 			self.template = template
 
-	def generate_opaque_struct(self, struct_name, struct_details, all_type_details={}, trait_structs = set(), returned_trait_instances = set()):
+	def generate_opaque_struct(self, struct_name, struct_details, all_type_details={}, trait_structs=set(), returned_trait_instances=set()):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
@@ -39,28 +39,20 @@ class OpaqueStructGenerator:
 			constructor_native_call_suffix = constructor_prepared_arguments['native_call_suffix']
 			constructor_native_call_prep = constructor_prepared_arguments['native_call_prep']
 
-			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments',
-																				  ', '.join(constructor_swift_arguments))
-			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)',
-																				  constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(constructor_native_arguments) + ')' + constructor_native_call_suffix)
+			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', ', '.join(constructor_swift_arguments))
+			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)', constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(
+				constructor_native_arguments) + ')' + constructor_native_call_suffix)
 
-			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */',
-																				  constructor_native_call_prep)
-			mutating_output_file_contents = mutating_output_file_contents.replace(
-				'OpaqueStructType(',
-				f'{constructor_native_name}(')
+			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */', constructor_native_call_prep)
+			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(', f'{constructor_native_name}(')
 		else:
 			# remove the default constructor template
-			constructor_template_regex = re.compile(
-				"(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)",
-				flags=re.MULTILINE | re.DOTALL)
+			constructor_template_regex = re.compile("(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 			mutating_output_file_contents = constructor_template_regex.sub('', mutating_output_file_contents)
 
 		# REGULAR METHODS START
 
-		method_template_regex = re.compile(
-			"(\/\* STRUCT_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* STRUCT_METHODS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		method_template_regex = re.compile("(\/\* STRUCT_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* STRUCT_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		method_template = method_template_regex.search(mutating_output_file_contents).group(2)
 
 		method_prefix = swift_struct_name + '_'
@@ -86,89 +78,41 @@ class OpaqueStructGenerator:
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 
-			if current_return_type.rust_obj is not None and current_return_type.rust_obj.startswith('LDK') and current_return_type.swift_type.startswith('['):
-				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(nativeType: '
-				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace(
-					'return OpaqueStructType_methodName(native_arguments)',
-					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
-			elif current_return_type.swift_raw_type.startswith('(UInt8'):
-				# TODO: get array length
-				array_length = current_return_type.arr_len
-				return_type_wrapper_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
-				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace(
-					'return OpaqueStructType_methodName(native_arguments)',
-					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
-			elif current_return_type.rust_obj == 'LDK' + current_return_type.swift_type and not is_clone_method:
-				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
-				if current_return_type.rust_obj in trait_structs:
-					trait_swift_type = current_method_details["return_type"].swift_type
-					actual_return_type = 'NativelyImplemented' + trait_swift_type
-					returned_trait_instances.add(trait_swift_type)
-					return_type_wrapper_prefix = f'{actual_return_type}(pointer: '
-				return_type_wrapper_suffix = ')'
-				if current_return_type.is_const:
-					return_type_wrapper_suffix = '.pointee)'
-				current_replacement = current_replacement.replace(
-					'return OpaqueStructType_methodName(native_arguments)',
-					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
-			elif current_return_type.rust_obj == 'LDKC' + current_return_type.swift_type and not is_clone_method:
-				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
-				# return_type_wrapper_suffix = '.pointee)'
-				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace(
-					'return OpaqueStructType_methodName(native_arguments)',
-					f'return {return_type_wrapper_prefix}OpaqueStructType_methodName(native_arguments){return_type_wrapper_suffix}')
-			elif current_return_type.swift_type == 'String':
-				current_replacement = current_replacement.replace(
-					'return OpaqueStructType_methodName(native_arguments)',
-					'return Bindings.LDKStr_to_string(nativeType: OpaqueStructType_methodName(native_arguments))')
-
-			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
-				current_replacement = current_replacement.replace(
-					'OpaqueStructType_methodName(native_arguments)',
-					'OpaqueStructType_methodName(native_arguments).pointee')
-
 			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
 				# current_swift_return_type = current_return_type.swift_raw_type
 				pass
 
-			# if current_swift_return_type == '[TransactionOutputs]':
-			# 	current_swift_return_type = '[LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]'
-			# elif current_swift_return_type == '[Txid]':
-			# 	current_swift_return_type = '[LDKThirtyTwoBytes]'
-
 			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(current_swift_return_type):
 				current_swift_return_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', current_swift_return_type)
 
+			is_trait_instantiator = False
+			if current_return_type.rust_obj == 'LDK' + current_return_type.swift_type and not is_clone_method:
+				if current_return_type.rust_obj in trait_structs:
+					trait_swift_type = current_method_details["return_type"].swift_type
+					# actual_return_type = 'NativelyImplemented' + trait_swift_type
+					# current_method_details["return_type"].swift_type = actual_return_type
+					returned_trait_instances.add(trait_swift_type)
+					is_trait_instantiator = True
 
 			# replace arguments
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
-			swift_arguments = prepared_arguments["swift_arguments"]
-			native_arguments = prepared_arguments['native_arguments']
-			native_call_prefix = prepared_arguments['native_call_prefix']
-			native_call_suffix = prepared_arguments['native_call_suffix']
-			native_call_prep = prepared_arguments['native_call_prep']
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, is_trait_instantiator)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
+
+
+			current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',
+															  f'return {value_return_wrappers["prefix"]}OpaqueStructType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
-
-			current_replacement = current_replacement.replace('swift_arguments', ', '.join(swift_arguments))
-			if is_clone_method:
-				# add closing parenthesis that could not be added further up in the clone initializer
-				current_replacement = current_replacement.replace('OpaqueStructType_methodName(native_arguments)', native_call_prefix + 'OpaqueStructType_methodName(' + ', '.join(native_arguments) + '))' + native_call_suffix)
-			else:
-				current_replacement = current_replacement.replace('OpaqueStructType_methodName(native_arguments)', native_call_prefix + 'OpaqueStructType_methodName(' + ', '.join(native_arguments) + ')' + native_call_suffix)
-			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', native_call_prep)
+			current_replacement = current_replacement.replace('OpaqueStructType_methodName(native_arguments)',
+															  prepared_arguments['native_call_prefix'] + 'OpaqueStructType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' +
+															  prepared_arguments['native_call_suffix'])
+			current_replacement = current_replacement.replace('OpaqueStructType_methodName(', f'{current_native_method_name}(')
+			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
+			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
+			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
+			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
-
-			if is_clone_method:
-				current_replacement = current_replacement.replace('OpaqueStructType_methodName(',
-																  f'{swift_struct_name}(pointer: {current_native_method_name}(')
-			else:
-				current_replacement = current_replacement.replace('OpaqueStructType_methodName(',
-																  f'{current_native_method_name}(')
 
 			struct_methods += '\n' + current_replacement + '\n'
 
@@ -182,7 +126,6 @@ class OpaqueStructGenerator:
 
 			ownability_check_prefix = ''
 			ownability_check_suffix = ''
-
 
 			# if struct_details.is_ownable:
 			# 	ownability_check_prefix = f'if self.cOpaqueStruct?.is_owned == false {{\n'
@@ -226,14 +169,10 @@ class OpaqueStructGenerator:
 				\n\t}}
 			'''
 
-		mutating_output_file_contents = mutating_output_file_contents.replace('class OpaqueStructName {',
-																			  f'class {swift_struct_name} {{')
-		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: OpaqueStructType',
-																			  f'init(pointer: {struct_name}')
-		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: OpaqueStructType?',
-																			  f'var cOpaqueStruct: {struct_name}?')
-		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>',
-																  mutating_output_file_contents)
+		mutating_output_file_contents = mutating_output_file_contents.replace('class OpaqueStructName {', f'class {swift_struct_name} {{')
+		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: OpaqueStructType', f'init(pointer: {struct_name}')
+		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: OpaqueStructType?', f'var cOpaqueStruct: {struct_name}?')
+		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)
 
 		# store the output
 		output_path = f'{Config.OUTPUT_DIRECTORY_PATH}/structs/{swift_struct_name}.swift'

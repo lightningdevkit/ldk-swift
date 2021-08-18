@@ -56,9 +56,9 @@ ErrorMessage_get_data(this_ptrPointer)
 
     public func clone() -> ErrorMessage {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKErrorMessage>) in
-ErrorMessage(pointer: ErrorMessage_clone(origPointer))
-};
+        return ErrorMessage(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKErrorMessage>) in
+ErrorMessage_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

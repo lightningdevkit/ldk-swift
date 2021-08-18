@@ -101,9 +101,9 @@ ChannelTransactionParameters_get_funding_outpoint(this_ptrPointer)
 
     public func clone() -> ChannelTransactionParameters {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
-ChannelTransactionParameters(pointer: ChannelTransactionParameters_clone(origPointer))
-};
+        return ChannelTransactionParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+ChannelTransactionParameters_clone(origPointer)
+});
     }
 
     public func is_populated() -> Bool {

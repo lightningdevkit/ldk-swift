@@ -116,9 +116,9 @@ InMemorySigner_get_commitment_seed(this_ptrPointer)
 
     public func clone() -> InMemorySigner {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInMemorySigner>) in
-InMemorySigner(pointer: InMemorySigner_clone(origPointer))
-};
+        return InMemorySigner(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInMemorySigner>) in
+InMemorySigner_clone(origPointer)
+});
     }
 
     public func counterparty_pubkeys() -> ChannelPublicKeys {

@@ -116,9 +116,9 @@ RouteHop_get_cltv_expiry_delta(this_ptrPointer)
 
     public func clone() -> RouteHop {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
-RouteHop(pointer: RouteHop_clone(origPointer))
-};
+        return RouteHop(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
+RouteHop_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

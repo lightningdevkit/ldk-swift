@@ -41,9 +41,9 @@ PeerHandleError_get_no_connection_possible(this_ptrPointer)
 
     public func clone() -> PeerHandleError {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPeerHandleError>) in
-PeerHandleError(pointer: PeerHandleError_clone(origPointer))
-};
+        return PeerHandleError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPeerHandleError>) in
+PeerHandleError_clone(origPointer)
+});
     }
 
 				

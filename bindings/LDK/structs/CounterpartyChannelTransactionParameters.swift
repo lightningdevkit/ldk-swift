@@ -56,9 +56,9 @@ CounterpartyChannelTransactionParameters_get_selected_contest_delay(this_ptrPoin
 
     public func clone() -> CounterpartyChannelTransactionParameters {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCounterpartyChannelTransactionParameters>) in
-CounterpartyChannelTransactionParameters(pointer: CounterpartyChannelTransactionParameters_clone(origPointer))
-};
+        return CounterpartyChannelTransactionParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCounterpartyChannelTransactionParameters>) in
+CounterpartyChannelTransactionParameters_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

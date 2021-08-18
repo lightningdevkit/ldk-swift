@@ -28,9 +28,9 @@ PayeePubKey_eq(aPointer, bPointer)
 
     public func clone() -> PayeePubKey {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPayeePubKey>) in
-PayeePubKey(pointer: PayeePubKey_clone(origPointer))
-};
+        return PayeePubKey(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPayeePubKey>) in
+PayeePubKey_clone(origPointer)
+});
     }
 
 				

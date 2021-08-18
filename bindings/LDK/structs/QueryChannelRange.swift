@@ -71,9 +71,9 @@ QueryChannelRange_get_number_of_blocks(this_ptrPointer)
 
     public func clone() -> QueryChannelRange {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryChannelRange>) in
-QueryChannelRange(pointer: QueryChannelRange_clone(origPointer))
-};
+        return QueryChannelRange(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryChannelRange>) in
+QueryChannelRange_clone(origPointer)
+});
     }
 
     public func end_blocknum() -> UInt32 {

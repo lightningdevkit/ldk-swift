@@ -101,9 +101,9 @@ HTLCOutputInCommitment_get_transaction_output_index(this_ptrPointer)
 
     public func clone() -> HTLCOutputInCommitment {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
-HTLCOutputInCommitment(pointer: HTLCOutputInCommitment_clone(origPointer))
-};
+        return HTLCOutputInCommitment(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+HTLCOutputInCommitment_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

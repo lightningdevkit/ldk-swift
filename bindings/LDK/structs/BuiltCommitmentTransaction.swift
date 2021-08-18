@@ -56,9 +56,9 @@ BuiltCommitmentTransaction_get_txid(this_ptrPointer)
 
     public func clone() -> BuiltCommitmentTransaction {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
-BuiltCommitmentTransaction(pointer: BuiltCommitmentTransaction_clone(origPointer))
-};
+        return BuiltCommitmentTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
+BuiltCommitmentTransaction_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

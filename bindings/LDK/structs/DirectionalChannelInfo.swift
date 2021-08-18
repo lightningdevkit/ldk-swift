@@ -131,9 +131,9 @@ DirectionalChannelInfo_get_last_update_message(this_ptrPointer)
 
     public func clone() -> DirectionalChannelInfo {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
-DirectionalChannelInfo(pointer: DirectionalChannelInfo_clone(origPointer))
-};
+        return DirectionalChannelInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDirectionalChannelInfo>) in
+DirectionalChannelInfo_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

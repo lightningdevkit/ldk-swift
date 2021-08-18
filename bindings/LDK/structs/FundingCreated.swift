@@ -86,9 +86,9 @@ FundingCreated_get_signature(this_ptrPointer)
 
     public func clone() -> FundingCreated {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
-FundingCreated(pointer: FundingCreated_clone(origPointer))
-};
+        return FundingCreated(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
+FundingCreated_clone(origPointer)
+});
     }
 
     public func write() -> [UInt8] {

@@ -22,6 +22,9 @@ class ByteArrayGenerator(UtilGenerator):
 																						  byte_array_type_name)
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('fieldName:',
 																						  f'{byte_array_field.var_name}:')
+		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('.fieldName.deallocate()',
+																						  f'.{byte_array_field.var_name}.deallocate()')
+
 		tupleArguments = 'array[0]'
 		tupleReads = f'nativeType.{byte_array_field.var_name}.0'
 		rawTupleReads = f'nativeType.0'

@@ -77,7 +77,7 @@ class ConversionHelper:
 
 						if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
 							'LDK') and current_argument_details.swift_type.startswith('['):
-								initialization_target = f'Bindings.new_{current_argument_details.rust_obj}(array: {argument_name}Unwrapped)'
+								initialization_target = f'Bindings.new_{current_argument_details.rust_obj}(array: {argument_name}Unwrapped).cOpaqueStruct!'
 								is_pointer_to_array = True
 
 						native_call_prep += f'''
@@ -126,7 +126,10 @@ class ConversionHelper:
 				native_arguments.append(f'{passed_argument_name}{clone_infix}.cOpaqueStruct!')
 			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
 				'LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
-				native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
+				if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
+					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
+				else:
+					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name}).cOpaqueStruct!')
 			elif swift_argument_type == 'String':
 				if is_trait_callback and current_argument_details.swift_raw_type == 'UnsafePointer<Int8>':
 					force_unwrap_suffix = ''

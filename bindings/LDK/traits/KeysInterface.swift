@@ -22,7 +22,7 @@ open class KeysInterface {
 		func get_destination_scriptCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_destination_script")
 			
-			return Bindings.new_LDKCVec_u8Z(array: instance.get_destination_script())
+			return Bindings.new_LDKCVec_u8Z(array: instance.get_destination_script()).cOpaqueStruct!
 		}
 
 		func get_shutdown_pubkeyCallback(pointer: UnsafeRawPointer?) -> LDKPublicKey {

@@ -166,11 +166,11 @@ class TraitGenerator:
 				return_conversion_suffix = ')'
 			elif swift_raw_return_type.startswith('LDK') and swift_return_type.startswith('['):
 				return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}(array: '
-				return_conversion_suffix = ')'
+				return_conversion_suffix = ').cOpaqueStruct!'
 			elif current_return_type_details.rust_obj is not None and current_return_type_details.rust_obj.startswith('LDK') and swift_raw_return_type.startswith('['):
 				swift_raw_return_type = current_return_type_details.rust_obj
 				return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}(array: '
-				return_conversion_suffix = ')'
+				return_conversion_suffix = ').cOpaqueStruct!'
 			elif current_return_type_details.pass_by_ref and current_lambda_name == 'clone':
 				swift_raw_return_type = 'UnsafeMutableRawPointer'
 				swift_return_type = swift_raw_return_type

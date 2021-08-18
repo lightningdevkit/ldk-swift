@@ -152,50 +152,6 @@ class ResultGenerator:
 			struct_methods += '\n' + current_replacement + '\n'
 
 
-
-		# DESTRUCTOR START
-		if struct_details.free_method is not None:
-			# fill constructor details
-			free_method_details = struct_details.free_method
-			free_native_name = free_method_details['name']['native']
-			native_call_prep = ''
-			native_arguments = []
-			for current_argument_details in free_method_details['argument_types']:
-				pass_instance = False
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				if argument_name.startswith('this_'):
-					pass_instance = True
-
-				if current_argument_details.is_ptr:
-					passed_argument_name = argument_name + 'Pointer'
-					requires_mutability = not current_argument_details.is_const
-
-					mutability_infix = ''
-
-					if pass_instance:
-						argument_name = 'self'
-					if requires_mutability:
-						argument_name = '&' + argument_name
-						mutability_infix = 'Mutable'
-
-					current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
-								\n\t\t	pointer
-							\n\t	}}
-						'''
-					native_call_prep += current_prep
-				elif pass_instance:
-					passed_argument_name = 'self.cOpaqueStruct!'
-				native_arguments.append(f'{passed_argument_name}')
-
-			struct_methods += f'''
-				\n\tdeinit {{
-					{native_call_prep}
-					\n\t	{free_native_name}({', '.join(native_arguments)})
-				\n\t}}
-			'''
-
 		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName {', f'class {swift_struct_name} {{')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: ResultType', f'init(pointer: {struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: ResultType?', f'var cOpaqueStruct: {struct_name}?')

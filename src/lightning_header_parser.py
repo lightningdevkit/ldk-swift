@@ -52,6 +52,7 @@ class ComplexEnumVariantInfo:
 		self.tag_value = tag_value
 
 
+
 class LightningHeaderParser():
 
 	@classmethod

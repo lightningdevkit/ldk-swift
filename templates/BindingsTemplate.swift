@@ -244,7 +244,7 @@ public class Bindings{
 		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops).cOpaqueStruct!
 			return withUnsafeMutablePointer(to: &mutableHops) { (first_hopsPointer) in
-				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintZ(array: last_hops), final_value_msat, final_cltv, logger.cOpaqueStruct!))
+				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintZ(array: last_hops).cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!))
 			}
 		}
 	}

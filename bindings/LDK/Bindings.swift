@@ -236,6 +236,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_APIErrorZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_APIErrorZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_APIErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_APIErrorZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_APIErrorZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_APIErrorZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -268,6 +297,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -300,6 +358,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -332,6 +419,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_C2Tuple_u32ScriptZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_C2Tuple_u32ScriptZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_C2Tuple_u32ScriptZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_C2Tuple_u32ScriptZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_C2Tuple_u32ScriptZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -364,6 +480,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_C2Tuple_u32TxOutZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_C2Tuple_u32TxOutZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_C2Tuple_u32TxOutZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_C2Tuple_u32TxOutZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_C2Tuple_u32TxOutZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -396,6 +541,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_C2Tuple_usizeTransactionZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_C2Tuple_usizeTransactionZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_C2Tuple_usizeTransactionZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_C2Tuple_usizeTransactionZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_C2Tuple_usizeTransactionZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -428,6 +602,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -460,6 +663,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_CResult_NoneAPIErrorZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_CResult_NoneAPIErrorZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_CResult_NoneAPIErrorZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_CResult_NoneAPIErrorZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_CResult_NoneAPIErrorZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -498,6 +730,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_CVec_RouteHopZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_CVec_RouteHopZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_CVec_RouteHopZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_CVec_RouteHopZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_CVec_RouteHopZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_CVec_RouteHopZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -536,6 +797,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_CVec_u8ZZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_CVec_u8ZZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_CVec_u8ZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_CVec_u8ZZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_CVec_u8ZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_CVec_u8ZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -568,6 +858,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_ChannelDetailsZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_ChannelDetailsZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_ChannelDetailsZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_ChannelDetailsZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_ChannelDetailsZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_ChannelDetailsZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -600,6 +919,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_ChannelMonitorZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_ChannelMonitorZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_ChannelMonitorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_ChannelMonitorZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_ChannelMonitorZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_ChannelMonitorZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -632,6 +980,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_EventZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_EventZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_EventZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_EventZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_EventZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_EventZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -664,6 +1041,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_MessageSendEventZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_MessageSendEventZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_MessageSendEventZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_MessageSendEventZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_MessageSendEventZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_MessageSendEventZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -696,6 +1102,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_MonitorEventZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_MonitorEventZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_MonitorEventZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_MonitorEventZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_MonitorEventZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_MonitorEventZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -728,6 +1163,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_NetAddressZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_NetAddressZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_NetAddressZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_NetAddressZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_NetAddressZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_NetAddressZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -760,6 +1224,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_NodeAnnouncementZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_NodeAnnouncementZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_NodeAnnouncementZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_NodeAnnouncementZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_NodeAnnouncementZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_NodeAnnouncementZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -792,6 +1285,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_PrivateRouteZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_PrivateRouteZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_PrivateRouteZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_PrivateRouteZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_PrivateRouteZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_PrivateRouteZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -830,6 +1352,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_PublicKeyZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_PublicKeyZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_PublicKeyZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_PublicKeyZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_PublicKeyZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_PublicKeyZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -862,6 +1413,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_RouteHintZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_RouteHintZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_RouteHintZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_RouteHintZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_RouteHintZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_RouteHintZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -894,6 +1474,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_RouteHopZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_RouteHopZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_RouteHopZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_RouteHopZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_RouteHopZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_RouteHopZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -932,6 +1541,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_SignatureZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_SignatureZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_SignatureZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_SignatureZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_SignatureZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_SignatureZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -964,6 +1602,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_SpendableOutputDescriptorZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_SpendableOutputDescriptorZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_SpendableOutputDescriptorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_SpendableOutputDescriptorZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_SpendableOutputDescriptorZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_SpendableOutputDescriptorZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -996,6 +1663,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_TransactionOutputsZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_TransactionOutputsZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_TransactionOutputsZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_TransactionOutputsZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_TransactionOutputsZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_TransactionOutputsZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1034,6 +1730,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_TransactionZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_TransactionZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_TransactionZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_TransactionZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_TransactionZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_TransactionZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1066,6 +1791,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_TxOutZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_TxOutZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_TxOutZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_TxOutZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_TxOutZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_TxOutZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1098,6 +1852,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_TxidZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_TxidZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_TxidZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_TxidZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_TxidZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_TxidZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1130,6 +1913,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_UpdateAddHTLCZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_UpdateAddHTLCZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_UpdateAddHTLCZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_UpdateAddHTLCZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_UpdateAddHTLCZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_UpdateAddHTLCZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1162,6 +1974,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_UpdateFailHTLCZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_UpdateFailHTLCZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_UpdateFailHTLCZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_UpdateFailHTLCZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_UpdateFailHTLCZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_UpdateFailHTLCZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1194,6 +2035,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_UpdateFailMalformedHTLCZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_UpdateFailMalformedHTLCZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_UpdateFailMalformedHTLCZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_UpdateFailMalformedHTLCZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_UpdateFailMalformedHTLCZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1226,6 +2096,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_UpdateFulfillHTLCZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_UpdateFulfillHTLCZ?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_UpdateFulfillHTLCZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_UpdateFulfillHTLCZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_UpdateFulfillHTLCZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_UpdateFulfillHTLCZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1258,6 +2157,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_u64ZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_u64Z?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_u64Z){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_u64ZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_u64ZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_u64ZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
@@ -1290,6 +2218,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_u8ZWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_u8Z?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_u8Z){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_u8ZWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_u8ZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_u8ZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */

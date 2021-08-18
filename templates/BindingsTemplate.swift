@@ -43,6 +43,35 @@ public class Bindings{
         return vector
 
     }
+
+    class LDKCVec_rust_primitiveWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKCVec_rust_primitive?
+		internal private(set) var subdimensionWrapper: AnyObject? = nil
+
+		public init(pointer: LDKCVec_rust_primitive){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKCVec_rust_primitiveWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_rust_primitiveWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_rust_primitiveWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */

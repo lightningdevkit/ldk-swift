@@ -50,10 +50,22 @@ public class Result_InvoiceFeaturesDecodeErrorZ {
         return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_InvoiceFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InvoiceFeaturesDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

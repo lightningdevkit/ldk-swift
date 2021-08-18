@@ -50,10 +50,22 @@ public class Result_QueryShortChannelIdsDecodeErrorZ {
         return Result_QueryShortChannelIdsDecodeErrorZ(pointer: CResult_QueryShortChannelIdsDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_QueryShortChannelIdsDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_QueryShortChannelIdsDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_QueryShortChannelIdsDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_QueryShortChannelIdsDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_QueryShortChannelIdsDecodeErrorZ {
 CResult_QueryShortChannelIdsDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_QueryShortChannelIdsDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

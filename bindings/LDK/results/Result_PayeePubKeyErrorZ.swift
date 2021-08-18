@@ -50,10 +50,22 @@ public class Result_PayeePubKeyErrorZ {
         return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PayeePubKeyErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PayeePubKeyErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PayeePubKeyErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_PayeePubKeyErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_PayeePubKeyErrorZ {
 CResult_PayeePubKeyErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PayeePubKeyErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

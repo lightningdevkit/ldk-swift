@@ -50,10 +50,22 @@ public class Result_BuiltCommitmentTransactionDecodeErrorZ {
         return Result_BuiltCommitmentTransactionDecodeErrorZ(pointer: CResult_BuiltCommitmentTransactionDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_BuiltCommitmentTransactionDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_BuiltCommitmentTransactionDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_BuiltCommitmentTransactionDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_BuiltCommitmentTransactionDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_BuiltCommitmentTransactionDecodeErrorZ {
 CResult_BuiltCommitmentTransactionDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_BuiltCommitmentTransactionDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

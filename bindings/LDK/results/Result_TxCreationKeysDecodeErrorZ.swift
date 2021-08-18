@@ -50,10 +50,22 @@ public class Result_TxCreationKeysDecodeErrorZ {
         return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_TxCreationKeysDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_TxCreationKeysDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_TxCreationKeysDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_TxCreationKeysDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_TxCreationKeysDecodeErrorZ {
 CResult_TxCreationKeysDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_TxCreationKeysDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

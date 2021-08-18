@@ -43,10 +43,22 @@ public class Result_NoneSemanticErrorZ {
         return Result_NoneSemanticErrorZ(pointer: CResult_NoneSemanticErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneSemanticErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneSemanticErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneSemanticErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_NoneSemanticErrorZ {
     	
@@ -54,6 +66,13 @@ public class Result_NoneSemanticErrorZ {
 CResult_NoneSemanticErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneSemanticErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_UnsignedNodeAnnouncementDecodeErrorZ {
         return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: CResult_UnsignedNodeAnnouncementDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_UnsignedNodeAnnouncementDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_UnsignedNodeAnnouncementDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_UnsignedNodeAnnouncementDecodeErrorZ {
 CResult_UnsignedNodeAnnouncementDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

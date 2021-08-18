@@ -43,10 +43,22 @@ public class Result_SiPrefixNoneZ {
         return Result_SiPrefixNoneZ(pointer: CResult_SiPrefixNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_SiPrefixNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_SiPrefixNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_SiPrefixNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_SiPrefixNoneZ {
     	
@@ -54,6 +66,13 @@ public class Result_SiPrefixNoneZ {
 CResult_SiPrefixNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_SiPrefixNoneZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -43,10 +43,22 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
         return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	
@@ -54,6 +66,13 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_ExpiryTimeCreationErrorZ {
         return Result_ExpiryTimeCreationErrorZ(pointer: CResult_ExpiryTimeCreationErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_ExpiryTimeCreationErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_ExpiryTimeCreationErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ExpiryTimeCreationErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_ExpiryTimeCreationErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_ExpiryTimeCreationErrorZ {
 CResult_ExpiryTimeCreationErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_ExpiryTimeCreationErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

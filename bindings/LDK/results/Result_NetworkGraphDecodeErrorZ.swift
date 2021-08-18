@@ -50,10 +50,22 @@ public class Result_NetworkGraphDecodeErrorZ {
         return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NetworkGraphDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NetworkGraphDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NetworkGraphDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_NetworkGraphDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_NetworkGraphDecodeErrorZ {
 CResult_NetworkGraphDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NetworkGraphDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

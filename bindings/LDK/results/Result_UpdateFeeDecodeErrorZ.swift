@@ -50,10 +50,22 @@ public class Result_UpdateFeeDecodeErrorZ {
         return Result_UpdateFeeDecodeErrorZ(pointer: CResult_UpdateFeeDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_UpdateFeeDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_UpdateFeeDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_UpdateFeeDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_UpdateFeeDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_UpdateFeeDecodeErrorZ {
 CResult_UpdateFeeDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_UpdateFeeDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

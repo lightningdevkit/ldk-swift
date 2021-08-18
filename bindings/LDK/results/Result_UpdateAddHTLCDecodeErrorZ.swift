@@ -50,10 +50,22 @@ public class Result_UpdateAddHTLCDecodeErrorZ {
         return Result_UpdateAddHTLCDecodeErrorZ(pointer: CResult_UpdateAddHTLCDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_UpdateAddHTLCDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_UpdateAddHTLCDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_UpdateAddHTLCDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_UpdateAddHTLCDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_UpdateAddHTLCDecodeErrorZ {
 CResult_UpdateAddHTLCDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_UpdateAddHTLCDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_TxOutAccessErrorZ {
         return Result_TxOutAccessErrorZ(pointer: CResult_TxOutAccessErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_TxOutAccessErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_TxOutAccessErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_TxOutAccessErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_TxOutAccessErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_TxOutAccessErrorZ {
 CResult_TxOutAccessErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_TxOutAccessErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

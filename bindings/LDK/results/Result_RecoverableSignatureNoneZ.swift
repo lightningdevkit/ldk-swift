@@ -43,10 +43,22 @@ public class Result_RecoverableSignatureNoneZ {
         return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_RecoverableSignatureNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_RecoverableSignatureNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_RecoverableSignatureNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_RecoverableSignatureNoneZ {
     	
@@ -54,6 +66,13 @@ public class Result_RecoverableSignatureNoneZ {
 CResult_RecoverableSignatureNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_RecoverableSignatureNoneZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

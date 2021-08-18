@@ -50,10 +50,22 @@ public class Result_PingDecodeErrorZ {
         return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PingDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PingDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PingDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_PingDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_PingDecodeErrorZ {
 CResult_PingDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PingDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

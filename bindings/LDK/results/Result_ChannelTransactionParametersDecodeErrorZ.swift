@@ -50,10 +50,22 @@ public class Result_ChannelTransactionParametersDecodeErrorZ {
         return Result_ChannelTransactionParametersDecodeErrorZ(pointer: CResult_ChannelTransactionParametersDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_ChannelTransactionParametersDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_ChannelTransactionParametersDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ChannelTransactionParametersDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_ChannelTransactionParametersDecodeErrorZ {
 CResult_ChannelTransactionParametersDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_ChannelTransactionParametersDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

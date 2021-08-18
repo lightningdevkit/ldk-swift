@@ -50,10 +50,22 @@ public class Result_SecretKeyErrorZ {
         return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_SecretKeyErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_SecretKeyErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

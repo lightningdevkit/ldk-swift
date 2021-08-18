@@ -43,10 +43,22 @@ public class Result_CVec_CVec_u8ZZNoneZ {
         return Result_CVec_CVec_u8ZZNoneZ(pointer: CResult_CVec_CVec_u8ZZNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_CVec_CVec_u8ZZNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_CVec_CVec_u8ZZNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_CVec_CVec_u8ZZNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_CVec_CVec_u8ZZNoneZ {
     	
@@ -54,6 +66,13 @@ public class Result_CVec_CVec_u8ZZNoneZ {
 CResult_CVec_CVec_u8ZZNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_CVec_CVec_u8ZZNoneZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

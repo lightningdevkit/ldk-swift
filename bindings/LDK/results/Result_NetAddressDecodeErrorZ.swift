@@ -50,10 +50,22 @@ public class Result_NetAddressDecodeErrorZ {
         return Result_NetAddressDecodeErrorZ(pointer: CResult_NetAddressDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NetAddressDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NetAddressDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NetAddressDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_NetAddressDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_NetAddressDecodeErrorZ {
 CResult_NetAddressDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NetAddressDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

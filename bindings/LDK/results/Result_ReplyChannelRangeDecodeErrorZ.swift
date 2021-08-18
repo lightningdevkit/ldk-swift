@@ -50,10 +50,22 @@ public class Result_ReplyChannelRangeDecodeErrorZ {
         return Result_ReplyChannelRangeDecodeErrorZ(pointer: CResult_ReplyChannelRangeDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_ReplyChannelRangeDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_ReplyChannelRangeDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ReplyChannelRangeDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_ReplyChannelRangeDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_ReplyChannelRangeDecodeErrorZ {
 CResult_ReplyChannelRangeDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_ReplyChannelRangeDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_ChannelFeaturesDecodeErrorZ {
         return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_ChannelFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ChannelFeaturesDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

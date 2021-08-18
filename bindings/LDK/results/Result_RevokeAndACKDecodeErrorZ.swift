@@ -50,10 +50,22 @@ public class Result_RevokeAndACKDecodeErrorZ {
         return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_RevokeAndACKDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_RevokeAndACKDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_RevokeAndACKDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_RevokeAndACKDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_RevokeAndACKDecodeErrorZ {
 CResult_RevokeAndACKDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_RevokeAndACKDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

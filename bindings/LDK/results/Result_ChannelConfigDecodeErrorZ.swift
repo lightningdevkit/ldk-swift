@@ -50,10 +50,22 @@ public class Result_ChannelConfigDecodeErrorZ {
         return Result_ChannelConfigDecodeErrorZ(pointer: CResult_ChannelConfigDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_ChannelConfigDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_ChannelConfigDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ChannelConfigDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_ChannelConfigDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_ChannelConfigDecodeErrorZ {
 CResult_ChannelConfigDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_ChannelConfigDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

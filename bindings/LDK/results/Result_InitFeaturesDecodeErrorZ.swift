@@ -50,10 +50,22 @@ public class Result_InitFeaturesDecodeErrorZ {
         return Result_InitFeaturesDecodeErrorZ(pointer: CResult_InitFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_InitFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InitFeaturesDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

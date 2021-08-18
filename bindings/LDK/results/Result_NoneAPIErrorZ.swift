@@ -43,10 +43,22 @@ public class Result_NoneAPIErrorZ {
         return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneAPIErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneAPIErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneAPIErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_NoneAPIErrorZ {
     	
@@ -54,6 +66,13 @@ public class Result_NoneAPIErrorZ {
 CResult_NoneAPIErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneAPIErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

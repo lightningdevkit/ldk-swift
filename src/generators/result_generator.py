@@ -98,13 +98,16 @@ class ResultGenerator:
 			current_return_type = current_method_details['return_type'].swift_type
 
 			current_replacement = method_template
+			is_clone_method = current_method_details['is_clone']
+			is_free_method = current_method_details['is_free']
+
 
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
 					force_pass_instance = True
 			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
 			current_replacement = current_replacement.replace('return ResultType_methodName(native_arguments)',
@@ -117,7 +120,33 @@ class ResultGenerator:
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
 
+			if is_clone_method:
+				current_replacement += f'''\n
+					internal func danglingClone() -> {current_return_type} {{
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}}
+				'''
+
+			if is_free_method:
+				current_replacement = current_replacement.replace('public func', 'internal func')
+				current_replacement += f'''\n
+					internal func dangle() -> {swift_struct_name} {{
+        				self.dangling = true
+						return self
+					}}
+					
+					deinit {{
+						if !self.dangling {{
+							self.{current_method_name}()
+						}}
+					}}
+				'''
+
 			struct_methods += '\n' + current_replacement + '\n'
+
+
 
 		# DESTRUCTOR START
 		if struct_details.free_method is not None:

@@ -50,10 +50,22 @@ public class Result_GossipTimestampFilterDecodeErrorZ {
         return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_GossipTimestampFilterDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_GossipTimestampFilterDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_GossipTimestampFilterDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_GossipTimestampFilterDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_GossipTimestampFilterDecodeErrorZ {
 CResult_GossipTimestampFilterDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_GossipTimestampFilterDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

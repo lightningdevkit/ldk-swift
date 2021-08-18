@@ -50,10 +50,22 @@ public class Result_StringErrorZ {
         return Result_StringErrorZ(pointer: CResult_StringErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_StringErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_StringErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
         return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_DelayedPaymentOutputDescriptorDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_DelayedPaymentOutputDescriptorDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_DelayedPaymentOutputDescriptorDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
 CResult_DelayedPaymentOutputDescriptorDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

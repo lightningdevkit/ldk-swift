@@ -43,10 +43,22 @@ public class Result_TrustedCommitmentTransactionNoneZ {
         return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_TrustedCommitmentTransactionNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_TrustedCommitmentTransactionNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

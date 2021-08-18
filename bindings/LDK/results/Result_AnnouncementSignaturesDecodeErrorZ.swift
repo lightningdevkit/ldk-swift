@@ -50,10 +50,22 @@ public class Result_AnnouncementSignaturesDecodeErrorZ {
         return Result_AnnouncementSignaturesDecodeErrorZ(pointer: CResult_AnnouncementSignaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_AnnouncementSignaturesDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_AnnouncementSignaturesDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_AnnouncementSignaturesDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_AnnouncementSignaturesDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_AnnouncementSignaturesDecodeErrorZ {
 CResult_AnnouncementSignaturesDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_AnnouncementSignaturesDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_PositiveTimestampCreationErrorZ {
         return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PositiveTimestampCreationErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PositiveTimestampCreationErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PositiveTimestampCreationErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_PositiveTimestampCreationErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_PositiveTimestampCreationErrorZ {
 CResult_PositiveTimestampCreationErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PositiveTimestampCreationErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

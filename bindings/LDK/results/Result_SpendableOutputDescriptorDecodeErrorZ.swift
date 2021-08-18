@@ -50,10 +50,22 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ {
         return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: CResult_SpendableOutputDescriptorDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_SpendableOutputDescriptorDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_SpendableOutputDescriptorDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_SpendableOutputDescriptorDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ {
 CResult_SpendableOutputDescriptorDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_SpendableOutputDescriptorDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

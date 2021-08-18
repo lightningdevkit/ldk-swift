@@ -43,10 +43,22 @@ public class Result_SignedRawInvoiceNoneZ {
         return Result_SignedRawInvoiceNoneZ(pointer: CResult_SignedRawInvoiceNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_SignedRawInvoiceNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_SignedRawInvoiceNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_SignedRawInvoiceNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_SignedRawInvoiceNoneZ {
     	
@@ -54,6 +66,13 @@ public class Result_SignedRawInvoiceNoneZ {
 CResult_SignedRawInvoiceNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_SignedRawInvoiceNoneZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

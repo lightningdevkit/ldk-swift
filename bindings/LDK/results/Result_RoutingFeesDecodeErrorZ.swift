@@ -50,10 +50,22 @@ public class Result_RoutingFeesDecodeErrorZ {
         return Result_RoutingFeesDecodeErrorZ(pointer: CResult_RoutingFeesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_RoutingFeesDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_RoutingFeesDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_RoutingFeesDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_RoutingFeesDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_RoutingFeesDecodeErrorZ {
 CResult_RoutingFeesDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_RoutingFeesDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_RouteLightningErrorZ {
         return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_RouteLightningErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_RouteLightningErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_RouteLightningErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_RouteLightningErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_RouteLightningErrorZ {
 CResult_RouteLightningErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_RouteLightningErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

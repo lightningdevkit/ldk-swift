@@ -50,10 +50,22 @@ public class Result_NetAddressu8Z {
         return Result_NetAddressu8Z(pointer: CResult_NetAddressu8Z_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NetAddressu8Z_free(self.clone().cOpaqueStruct!);
+        return CResult_NetAddressu8Z_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NetAddressu8Z {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_NetAddressu8Z {
     	
@@ -61,6 +73,13 @@ public class Result_NetAddressu8Z {
 CResult_NetAddressu8Z_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NetAddressu8Z {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

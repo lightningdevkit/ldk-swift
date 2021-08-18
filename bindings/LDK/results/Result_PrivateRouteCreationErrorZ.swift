@@ -50,10 +50,22 @@ public class Result_PrivateRouteCreationErrorZ {
         return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PrivateRouteCreationErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PrivateRouteCreationErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PrivateRouteCreationErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_PrivateRouteCreationErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_PrivateRouteCreationErrorZ {
 CResult_PrivateRouteCreationErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PrivateRouteCreationErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

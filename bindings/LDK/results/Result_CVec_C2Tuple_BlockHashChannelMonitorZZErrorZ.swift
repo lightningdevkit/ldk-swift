@@ -50,10 +50,22 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
         return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -50,10 +50,22 @@ public class Result_InvoiceSemanticErrorZ {
         return Result_InvoiceSemanticErrorZ(pointer: CResult_InvoiceSemanticErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_InvoiceSemanticErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_InvoiceSemanticErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InvoiceSemanticErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_InvoiceSemanticErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_InvoiceSemanticErrorZ {
 CResult_InvoiceSemanticErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_InvoiceSemanticErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

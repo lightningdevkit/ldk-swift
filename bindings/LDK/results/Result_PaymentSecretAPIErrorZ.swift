@@ -50,10 +50,22 @@ public class Result_PaymentSecretAPIErrorZ {
         return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PaymentSecretAPIErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PaymentSecretAPIErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PaymentSecretAPIErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_PaymentSecretAPIErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_PaymentSecretAPIErrorZ {
 CResult_PaymentSecretAPIErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PaymentSecretAPIErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

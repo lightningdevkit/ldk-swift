@@ -43,10 +43,22 @@ public class Result_NoneMonitorUpdateErrorZ {
         return Result_NoneMonitorUpdateErrorZ(pointer: CResult_NoneMonitorUpdateErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneMonitorUpdateErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneMonitorUpdateErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneMonitorUpdateErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_NoneMonitorUpdateErrorZ {
     	
@@ -54,6 +66,13 @@ public class Result_NoneMonitorUpdateErrorZ {
 CResult_NoneMonitorUpdateErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneMonitorUpdateErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

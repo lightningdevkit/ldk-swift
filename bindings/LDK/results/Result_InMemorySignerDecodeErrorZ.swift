@@ -50,10 +50,22 @@ public class Result_InMemorySignerDecodeErrorZ {
         return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_InMemorySignerDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_InMemorySignerDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InMemorySignerDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_InMemorySignerDecodeErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_InMemorySignerDecodeErrorZ {
 CResult_InMemorySignerDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_InMemorySignerDecodeErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

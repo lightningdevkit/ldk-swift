@@ -50,10 +50,22 @@ public class Result_InvoiceSignOrCreationErrorZ {
         return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_InvoiceSignOrCreationErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_InvoiceSignOrCreationErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InvoiceSignOrCreationErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_InvoiceSignOrCreationErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_InvoiceSignOrCreationErrorZ {
 CResult_InvoiceSignOrCreationErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_InvoiceSignOrCreationErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

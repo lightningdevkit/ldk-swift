@@ -43,10 +43,22 @@ public class Result_NonePaymentSendFailureZ {
         return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NonePaymentSendFailureZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NonePaymentSendFailureZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NonePaymentSendFailureZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_NonePaymentSendFailureZ {
     	
@@ -54,6 +66,13 @@ public class Result_NonePaymentSendFailureZ {
 CResult_NonePaymentSendFailureZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NonePaymentSendFailureZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

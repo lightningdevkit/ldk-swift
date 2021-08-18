@@ -50,10 +50,22 @@ public class Result_boolLightningErrorZ {
         return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_err(e.clone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_boolLightningErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_boolLightningErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_boolLightningErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_boolLightningErrorZ {
     	
@@ -61,6 +73,13 @@ public class Result_boolLightningErrorZ {
 CResult_boolLightningErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_boolLightningErrorZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

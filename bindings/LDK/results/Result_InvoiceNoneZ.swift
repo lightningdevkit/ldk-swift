@@ -43,10 +43,22 @@ public class Result_InvoiceNoneZ {
         return Result_InvoiceNoneZ(pointer: CResult_InvoiceNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_InvoiceNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_InvoiceNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InvoiceNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Result_InvoiceNoneZ {
     	
@@ -54,6 +66,13 @@ public class Result_InvoiceNoneZ {
 CResult_InvoiceNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_InvoiceNoneZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

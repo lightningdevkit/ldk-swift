@@ -33,16 +33,28 @@ RouteHint_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> RouteHint {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return RouteHint_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RouteHint {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		RouteHint_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

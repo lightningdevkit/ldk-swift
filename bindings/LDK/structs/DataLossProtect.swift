@@ -61,16 +61,28 @@ DataLossProtect_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> DataLossProtect {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return DataLossProtect_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> DataLossProtect {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		DataLossProtect_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

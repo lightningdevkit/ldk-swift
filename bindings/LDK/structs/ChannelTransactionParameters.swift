@@ -106,6 +106,13 @@ ChannelTransactionParameters_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ChannelTransactionParameters {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func is_populated() -> Bool {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTransactionParameters>) in
@@ -139,16 +146,21 @@ ChannelTransactionParameters_write(objPointer)
         return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelTransactionParameters_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelTransactionParameters {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelTransactionParameters_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

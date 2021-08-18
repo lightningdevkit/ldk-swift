@@ -33,6 +33,13 @@ PositiveTimestamp_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> PositiveTimestamp {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func from_unix_timestamp(unix_seconds: UInt64) -> Result_PositiveTimestampCreationErrorZ {
     	
         return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_unix_timestamp(unix_seconds));
@@ -57,16 +64,21 @@ PositiveTimestamp_as_time(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return PositiveTimestamp_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PositiveTimestamp {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		PositiveTimestamp_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -99,6 +99,13 @@ ReplyChannelRange_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ReplyChannelRange {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
     	
         return Result_ReplyChannelRangeDecodeErrorZ(pointer: ReplyChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
@@ -111,16 +118,21 @@ ReplyChannelRange_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ReplyChannelRange_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ReplyChannelRange {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ReplyChannelRange_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

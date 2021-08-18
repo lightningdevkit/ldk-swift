@@ -33,6 +33,13 @@ Description_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> Description {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(description: String) -> Result_DescriptionCreationErrorZ {
     	
         return Result_DescriptionCreationErrorZ(pointer: Description_new(Bindings.new_LDKStr(string: description)));
@@ -43,16 +50,21 @@ Description_clone(origPointer)
         return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.clone().cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return Description_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> Description {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		Description_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

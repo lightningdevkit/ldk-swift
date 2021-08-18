@@ -129,6 +129,13 @@ DelayedPaymentOutputDescriptor_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> DelayedPaymentOutputDescriptor {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
@@ -141,16 +148,21 @@ DelayedPaymentOutputDescriptor_write(objPointer)
         return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> DelayedPaymentOutputDescriptor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

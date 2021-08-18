@@ -106,6 +106,13 @@ TxCreationKeys_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> TxCreationKeys {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKTxCreationKeys>) in
@@ -132,16 +139,21 @@ TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_com
 });
     }
 
+    internal func free() -> Void {
+    	
+        return TxCreationKeys_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> TxCreationKeys {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		TxCreationKeys_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

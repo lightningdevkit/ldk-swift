@@ -24,6 +24,13 @@ CommitmentTransaction_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> CommitmentTransaction {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentTransaction>) in
@@ -84,16 +91,21 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 });
     }
 
+    internal func free() -> Void {
+    	
+        return CommitmentTransaction_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> CommitmentTransaction {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		CommitmentTransaction_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

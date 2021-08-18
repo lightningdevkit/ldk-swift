@@ -61,6 +61,13 @@ FundingLocked_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> FundingLocked {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingLocked>) in
@@ -73,16 +80,21 @@ FundingLocked_write(objPointer)
         return Result_FundingLockedDecodeErrorZ(pointer: FundingLocked_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return FundingLocked_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> FundingLocked {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		FundingLocked_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

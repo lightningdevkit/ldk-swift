@@ -54,6 +54,13 @@ HolderCommitmentTransaction_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> HolderCommitmentTransaction {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
@@ -66,16 +73,21 @@ HolderCommitmentTransaction_write(objPointer)
         return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return HolderCommitmentTransaction_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> HolderCommitmentTransaction {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		HolderCommitmentTransaction_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

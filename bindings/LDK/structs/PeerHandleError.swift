@@ -46,16 +46,28 @@ PeerHandleError_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> PeerHandleError {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return PeerHandleError_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PeerHandleError {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		PeerHandleError_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

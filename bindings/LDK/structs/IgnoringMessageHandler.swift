@@ -38,16 +38,21 @@ IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return IgnoringMessageHandler_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> IgnoringMessageHandler {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		IgnoringMessageHandler_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

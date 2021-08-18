@@ -93,16 +93,28 @@ CommitmentUpdate_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> CommitmentUpdate {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return CommitmentUpdate_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> CommitmentUpdate {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		CommitmentUpdate_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

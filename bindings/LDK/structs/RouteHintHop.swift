@@ -130,16 +130,28 @@ RouteHintHop_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> RouteHintHop {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return RouteHintHop_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RouteHintHop {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		RouteHintHop_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

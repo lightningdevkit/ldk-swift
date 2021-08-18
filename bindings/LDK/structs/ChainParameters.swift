@@ -61,16 +61,28 @@ ChainParameters_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ChainParameters {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return ChainParameters_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChainParameters {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		ChainParameters_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

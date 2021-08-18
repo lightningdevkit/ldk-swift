@@ -5,7 +5,7 @@ detected_cloneable_types = set()
 
 class ConversionHelper:
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback = False, force_pass_instance = False):
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback = False, force_pass_instance = False, is_free_method = False):
 		swift_arguments = []
 		native_arguments = []
 		pointer_wrapping_prefix = ''
@@ -94,7 +94,9 @@ class ConversionHelper:
 					pointer_wrapping_suffix += '\n}'
 				# native_call_prep += current_prep
 			elif current_argument_details.swift_type in cloneable_types or (current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDKC') and f'C{current_argument_details.swift_type}' in cloneable_types):
-				clone_infix = '.clone()'
+				if not is_free_method:
+					clone_infix = '.clone()'
+					# clone_infix = '.danglingClone()'
 				# print(f'Cloneable type detected: {current_argument_details.swift_type}')
 				detected_cloneable_types.add(current_argument_details.swift_type)
 			elif current_argument_details.rust_obj is not None and ('Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith('['):
@@ -271,13 +273,16 @@ class ConversionHelper:
 		}
 
 	@classmethod
-	def prepare_return_value(cls, return_type, is_clone_method = False):
+	def prepare_return_value(cls, return_type, is_clone_method = False, is_trait_instantiator = False):
 		rust_return_type = return_type.rust_obj
 		return_prefix = ''
 		return_suffix = ''
 		return_type_string = return_type.swift_type
+		swift_return_instantiation_type = return_type_string
+		if is_trait_instantiator:
+			swift_return_instantiation_type = f'NativelyImplemented{return_type_string}'
 
-		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type.swift_type.startswith('['):
+		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type_string.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
 			return_suffix = ')'
 		elif return_type.swift_raw_type.startswith('(UInt8'):
@@ -285,24 +290,25 @@ class ConversionHelper:
 			array_length = return_type.arr_len
 			return_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
 			return_suffix = ')'
-		elif rust_return_type == 'LDK' + return_type.swift_type and not is_clone_method:
-			return_prefix = f'{return_type.swift_type}(pointer: '
+		elif rust_return_type == 'LDK' + return_type_string and not is_clone_method:
+			return_prefix = f'{swift_return_instantiation_type}(pointer: '
 			return_suffix = ')'
 			if return_type.is_const:
 				return_suffix = '.pointee)'
-		elif rust_return_type == 'LDKC' + return_type.swift_type and not is_clone_method:
-			return_prefix = f'{return_type.swift_type}(pointer: '
+		elif rust_return_type == 'LDKC' + return_type_string and not is_clone_method:
+			return_prefix = f'{swift_return_instantiation_type}(pointer: '
 			return_suffix = ')'
-		elif return_type.swift_type == 'String':
+		elif return_type_string == 'String':
 			return_prefix = 'Bindings.LDKStr_to_string(nativeType: '
 			return_suffix = ')'
 		elif is_clone_method:
 			return_prefix = 'Self(pointer: ',
 			return_suffix = ')'
-		if rust_return_type is None and return_type.swift_type.startswith('['):
-			return_suffix = '.pointee'
+		if rust_return_type is None and return_type_string.startswith('['):
+			return_suffix = '.pointee)'
+			pass
 
-		if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type.swift_type):
+		if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string):
 			return_type_string = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', return_type_string)
 
 		return {

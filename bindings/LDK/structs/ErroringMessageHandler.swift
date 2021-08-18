@@ -38,16 +38,21 @@ ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ErroringMessageHandler_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ErroringMessageHandler {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ErroringMessageHandler_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

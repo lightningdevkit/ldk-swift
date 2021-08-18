@@ -114,16 +114,21 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
         return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelManagerReadArgs_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelManagerReadArgs {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelManagerReadArgs_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

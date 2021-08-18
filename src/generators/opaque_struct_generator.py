@@ -58,6 +58,10 @@ class OpaqueStructGenerator:
 		method_prefix = swift_struct_name + '_'
 		struct_methods = ''
 
+		method_iterator = struct_details.methods
+		if struct_details.free_method is not None:
+			method_iterator.append(struct_details.free_method)
+
 		# fill templates
 		for current_method_details in struct_details.methods:
 			current_native_method_name = current_method_details['name']['native']
@@ -77,6 +81,7 @@ class OpaqueStructGenerator:
 
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
+			is_free_method = current_method_details['is_free']
 
 			if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
 				# current_swift_return_type = current_return_type.swift_raw_type
@@ -95,7 +100,7 @@ class OpaqueStructGenerator:
 					is_trait_instantiator = True
 
 			# replace arguments
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, is_trait_instantiator)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
@@ -114,10 +119,32 @@ class OpaqueStructGenerator:
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
 
+			if is_clone_method:
+				current_replacement += f'''\n
+					internal func danglingClone() -> {current_swift_return_type} {{
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}}
+				'''
+
+			if is_free_method:
+				current_replacement = current_replacement.replace('public func', 'internal func')
+				current_replacement += f'''\n
+					internal func dangle() -> {swift_struct_name} {{
+        				self.dangling = true
+						return self
+					}}
+					
+					deinit {{
+						self.{current_method_name}()
+					}}
+				'''
+
 			struct_methods += '\n' + current_replacement + '\n'
 
 		# DESTRUCTOR START
-		if struct_details.free_method is not None:
+		if False and struct_details.free_method is not None:
 			# fill constructor details
 			free_method_details = struct_details.free_method
 			free_native_name = free_method_details['name']['native']

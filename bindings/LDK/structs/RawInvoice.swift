@@ -48,6 +48,13 @@ RawInvoice_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> RawInvoice {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func hash() -> [UInt8] {
     	
         return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
@@ -132,16 +139,21 @@ RawInvoice_currency(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return RawInvoice_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RawInvoice {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		RawInvoice_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

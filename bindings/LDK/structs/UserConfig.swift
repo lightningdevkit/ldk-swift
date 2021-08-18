@@ -91,16 +91,28 @@ UserConfig_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> UserConfig {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return UserConfig_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UserConfig {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		UserConfig_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -33,16 +33,28 @@ MinFinalCltvExpiry_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> MinFinalCltvExpiry {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return MinFinalCltvExpiry_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> MinFinalCltvExpiry {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		MinFinalCltvExpiry_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

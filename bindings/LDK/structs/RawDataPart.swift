@@ -48,16 +48,28 @@ RawDataPart_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> RawDataPart {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return RawDataPart_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RawDataPart {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		RawDataPart_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

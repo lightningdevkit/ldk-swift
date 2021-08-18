@@ -33,16 +33,28 @@ Sha256_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> Sha256 {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return Sha256_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> Sha256 {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		Sha256_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

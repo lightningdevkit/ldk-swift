@@ -31,6 +31,13 @@ NetworkGraph_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> NetworkGraph {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkGraph>) in
@@ -123,16 +130,21 @@ NetworkGraph_update_channel_unsigned(this_argPointer, msgPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return NetworkGraph_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> NetworkGraph {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		NetworkGraph_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

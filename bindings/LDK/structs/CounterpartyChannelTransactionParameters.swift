@@ -61,6 +61,13 @@ CounterpartyChannelTransactionParameters_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> CounterpartyChannelTransactionParameters {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCounterpartyChannelTransactionParameters>) in
@@ -73,16 +80,21 @@ CounterpartyChannelTransactionParameters_write(objPointer)
         return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CounterpartyChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return CounterpartyChannelTransactionParameters_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> CounterpartyChannelTransactionParameters {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		CounterpartyChannelTransactionParameters_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

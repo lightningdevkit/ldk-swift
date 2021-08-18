@@ -33,6 +33,13 @@ ExpiryTime_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ExpiryTime {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {
     	
         return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_seconds(seconds));
@@ -57,16 +64,21 @@ ExpiryTime_as_duration(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return ExpiryTime_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ExpiryTime {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ExpiryTime_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

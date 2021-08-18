@@ -234,6 +234,13 @@ AcceptChannel_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> AcceptChannel {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAcceptChannel>) in
@@ -246,16 +253,21 @@ AcceptChannel_write(objPointer)
         return Result_AcceptChannelDecodeErrorZ(pointer: AcceptChannel_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return AcceptChannel_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> AcceptChannel {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		AcceptChannel_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

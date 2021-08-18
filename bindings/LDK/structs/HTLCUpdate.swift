@@ -24,6 +24,13 @@ HTLCUpdate_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> HTLCUpdate {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
@@ -36,16 +43,21 @@ HTLCUpdate_write(objPointer)
         return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return HTLCUpdate_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> HTLCUpdate {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		HTLCUpdate_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -33,16 +33,28 @@ InvoiceSignature_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> InvoiceSignature {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return InvoiceSignature_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> InvoiceSignature {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		InvoiceSignature_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

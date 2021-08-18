@@ -61,16 +61,28 @@ LightningError_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> LightningError {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return LightningError_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> LightningError {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		LightningError_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

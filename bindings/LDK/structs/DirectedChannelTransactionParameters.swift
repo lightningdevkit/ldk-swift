@@ -52,16 +52,21 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return DirectedChannelTransactionParameters_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> DirectedChannelTransactionParameters {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		DirectedChannelTransactionParameters_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

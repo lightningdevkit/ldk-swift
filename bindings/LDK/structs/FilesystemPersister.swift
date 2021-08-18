@@ -52,16 +52,21 @@ FilesystemPersister_as_Persist(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return FilesystemPersister_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> FilesystemPersister {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		FilesystemPersister_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

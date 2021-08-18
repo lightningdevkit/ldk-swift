@@ -70,6 +70,13 @@ RoutingFees_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> RoutingFees {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoutingFees>) in
@@ -82,16 +89,21 @@ RoutingFees_write(objPointer)
         return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return RoutingFees_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RoutingFees {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		RoutingFees_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

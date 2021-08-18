@@ -61,6 +61,13 @@ ErrorMessage_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ErrorMessage {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKErrorMessage>) in
@@ -73,16 +80,21 @@ ErrorMessage_write(objPointer)
         return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return ErrorMessage_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ErrorMessage {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ErrorMessage_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

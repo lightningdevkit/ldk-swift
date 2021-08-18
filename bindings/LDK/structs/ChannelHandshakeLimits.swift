@@ -151,16 +151,28 @@ ChannelHandshakeLimits_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ChannelHandshakeLimits {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return ChannelHandshakeLimits_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelHandshakeLimits {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		ChannelHandshakeLimits_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

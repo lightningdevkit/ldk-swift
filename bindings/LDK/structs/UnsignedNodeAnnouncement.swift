@@ -107,6 +107,13 @@ UnsignedNodeAnnouncement_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> UnsignedNodeAnnouncement {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
@@ -119,16 +126,21 @@ UnsignedNodeAnnouncement_write(objPointer)
         return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: UnsignedNodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return UnsignedNodeAnnouncement_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UnsignedNodeAnnouncement {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		UnsignedNodeAnnouncement_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

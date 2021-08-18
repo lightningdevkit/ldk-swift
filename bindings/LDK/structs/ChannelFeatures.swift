@@ -40,6 +40,13 @@ ChannelFeatures_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ChannelFeatures {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelFeatures>) in
@@ -52,16 +59,21 @@ ChannelFeatures_write(objPointer)
         return Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelFeatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelFeatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelFeatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

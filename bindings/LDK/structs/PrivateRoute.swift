@@ -33,6 +33,13 @@ PrivateRoute_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> PrivateRoute {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
     	
         return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.clone().cOpaqueStruct!));
@@ -43,16 +50,21 @@ PrivateRoute_clone(origPointer)
         return RouteHint(pointer: PrivateRoute_into_inner(self.clone().cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return PrivateRoute_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PrivateRoute {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		PrivateRoute_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -76,6 +76,13 @@ QueryChannelRange_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> QueryChannelRange {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func end_blocknum() -> UInt32 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKQueryChannelRange>) in
@@ -95,16 +102,21 @@ QueryChannelRange_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return QueryChannelRange_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> QueryChannelRange {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		QueryChannelRange_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

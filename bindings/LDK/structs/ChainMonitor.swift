@@ -58,16 +58,21 @@ ChainMonitor_as_EventsProvider(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ChainMonitor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChainMonitor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ChainMonitor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

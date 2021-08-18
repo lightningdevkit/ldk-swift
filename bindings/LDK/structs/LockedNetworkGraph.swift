@@ -24,16 +24,21 @@ LockedNetworkGraph_graph(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return LockedNetworkGraph_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> LockedNetworkGraph {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		LockedNetworkGraph_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

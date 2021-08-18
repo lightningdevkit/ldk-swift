@@ -40,6 +40,13 @@ InitFeatures_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> InitFeatures {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func supports_payment_secret() -> Bool {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
@@ -59,16 +66,21 @@ InitFeatures_write(objPointer)
         return Result_InitFeaturesDecodeErrorZ(pointer: InitFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return InitFeatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> InitFeatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		InitFeatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

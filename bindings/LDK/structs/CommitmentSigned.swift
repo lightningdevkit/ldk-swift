@@ -69,6 +69,13 @@ CommitmentSigned_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> CommitmentSigned {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentSigned>) in
@@ -81,16 +88,21 @@ CommitmentSigned_write(objPointer)
         return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return CommitmentSigned_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> CommitmentSigned {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		CommitmentSigned_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

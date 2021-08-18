@@ -40,6 +40,13 @@ NodeFeatures_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> NodeFeatures {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func supports_payment_secret() -> Bool {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
@@ -59,16 +66,21 @@ NodeFeatures_write(objPointer)
         return Result_NodeFeaturesDecodeErrorZ(pointer: NodeFeatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return NodeFeatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> NodeFeatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		NodeFeatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

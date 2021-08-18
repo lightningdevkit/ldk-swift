@@ -49,16 +49,21 @@ KeysManager_as_KeysInterface(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return KeysManager_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> KeysManager {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		KeysManager_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

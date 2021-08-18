@@ -76,6 +76,13 @@ GossipTimestampFilter_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> GossipTimestampFilter {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {
     	
         return Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(Bindings.new_LDKu8slice(array: ser)));
@@ -88,16 +95,21 @@ GossipTimestampFilter_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return GossipTimestampFilter_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> GossipTimestampFilter {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		GossipTimestampFilter_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

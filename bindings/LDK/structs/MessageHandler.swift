@@ -54,16 +54,21 @@ MessageHandler_get_route_handler(this_ptrPointer)
         return MessageHandler_set_route_handler(this_ptrPointer, val.cOpaqueStruct!);
     }
 
+    internal func free() -> Void {
+    	
+        return MessageHandler_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> MessageHandler {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		MessageHandler_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

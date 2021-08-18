@@ -121,6 +121,13 @@ InMemorySigner_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> InMemorySigner {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func counterparty_pubkeys() -> ChannelPublicKeys {
     	
         return ChannelPublicKeys(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
@@ -207,16 +214,21 @@ InMemorySigner_write(objPointer)
         return Result_InMemorySignerDecodeErrorZ(pointer: InMemorySigner_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return InMemorySigner_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> InMemorySigner {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		InMemorySigner_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

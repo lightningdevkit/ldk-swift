@@ -69,16 +69,28 @@ ChannelCounterparty_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ChannelCounterparty {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return ChannelCounterparty_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelCounterparty {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		ChannelCounterparty_free(self.cOpaqueStruct!)
-					
+					deinit {
+						self.free()
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

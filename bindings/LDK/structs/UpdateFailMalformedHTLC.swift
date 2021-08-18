@@ -69,6 +69,13 @@ UpdateFailMalformedHTLC_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> UpdateFailMalformedHTLC {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
@@ -81,16 +88,21 @@ UpdateFailMalformedHTLC_write(objPointer)
         return Result_UpdateFailMalformedHTLCDecodeErrorZ(pointer: UpdateFailMalformedHTLC_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return UpdateFailMalformedHTLC_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UpdateFailMalformedHTLC {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		UpdateFailMalformedHTLC_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

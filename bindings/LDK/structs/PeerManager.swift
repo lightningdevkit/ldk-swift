@@ -97,16 +97,21 @@ PeerManager_timer_tick_occurred(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return PeerManager_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PeerManager {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		PeerManager_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

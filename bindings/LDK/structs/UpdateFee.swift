@@ -61,6 +61,13 @@ UpdateFee_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> UpdateFee {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFee>) in
@@ -73,16 +80,21 @@ UpdateFee_write(objPointer)
         return Result_UpdateFeeDecodeErrorZ(pointer: UpdateFee_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return UpdateFee_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UpdateFee {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		UpdateFee_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

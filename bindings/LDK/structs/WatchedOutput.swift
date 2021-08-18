@@ -76,6 +76,13 @@ WatchedOutput_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> WatchedOutput {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func hash() -> UInt64 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKWatchedOutput>) in
@@ -83,16 +90,21 @@ WatchedOutput_hash(oPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return WatchedOutput_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> WatchedOutput {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		WatchedOutput_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

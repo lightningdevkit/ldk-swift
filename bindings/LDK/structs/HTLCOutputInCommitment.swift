@@ -106,6 +106,13 @@ HTLCOutputInCommitment_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> HTLCOutputInCommitment {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
@@ -118,16 +125,21 @@ HTLCOutputInCommitment_write(objPointer)
         return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: HTLCOutputInCommitment_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return HTLCOutputInCommitment_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> HTLCOutputInCommitment {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		HTLCOutputInCommitment_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

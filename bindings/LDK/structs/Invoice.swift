@@ -33,6 +33,13 @@ Invoice_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> Invoice {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func into_signed_raw() -> SignedRawInvoice {
     	
         return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.clone().cOpaqueStruct!));
@@ -146,16 +153,21 @@ Invoice_to_str(oPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return Invoice_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> Invoice {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		Invoice_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

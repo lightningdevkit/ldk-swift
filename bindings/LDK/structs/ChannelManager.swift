@@ -225,16 +225,21 @@ ChannelManager_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelManager_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelManager {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelManager_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

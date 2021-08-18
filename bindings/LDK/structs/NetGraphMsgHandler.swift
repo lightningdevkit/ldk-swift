@@ -65,16 +65,21 @@ NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return NetGraphMsgHandler_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> NetGraphMsgHandler {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		NetGraphMsgHandler_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

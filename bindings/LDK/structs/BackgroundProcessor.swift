@@ -35,16 +35,21 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
         return Result_NoneErrorZ(pointer: BackgroundProcessor_stop(self.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return BackgroundProcessor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> BackgroundProcessor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		BackgroundProcessor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

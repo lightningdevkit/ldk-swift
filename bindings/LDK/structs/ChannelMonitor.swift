@@ -151,16 +151,21 @@ ChannelMonitor_current_best_block(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelMonitor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelMonitor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelMonitor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

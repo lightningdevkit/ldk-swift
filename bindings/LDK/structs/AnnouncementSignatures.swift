@@ -91,6 +91,13 @@ AnnouncementSignatures_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> AnnouncementSignatures {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAnnouncementSignatures>) in
@@ -103,16 +110,21 @@ AnnouncementSignatures_write(objPointer)
         return Result_AnnouncementSignaturesDecodeErrorZ(pointer: AnnouncementSignatures_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return AnnouncementSignatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> AnnouncementSignatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		AnnouncementSignatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

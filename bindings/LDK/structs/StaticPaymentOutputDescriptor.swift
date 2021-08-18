@@ -84,6 +84,13 @@ StaticPaymentOutputDescriptor_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> StaticPaymentOutputDescriptor {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
@@ -96,16 +103,21 @@ StaticPaymentOutputDescriptor_write(objPointer)
         return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: StaticPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return StaticPaymentOutputDescriptor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> StaticPaymentOutputDescriptor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		StaticPaymentOutputDescriptor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

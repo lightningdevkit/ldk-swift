@@ -54,6 +54,13 @@ QueryShortChannelIds_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> QueryShortChannelIds {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {
     	
         return Result_QueryShortChannelIdsDecodeErrorZ(pointer: QueryShortChannelIds_read(Bindings.new_LDKu8slice(array: ser)));
@@ -66,16 +73,21 @@ QueryShortChannelIds_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return QueryShortChannelIds_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> QueryShortChannelIds {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		QueryShortChannelIds_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

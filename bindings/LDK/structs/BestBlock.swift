@@ -31,6 +31,13 @@ BestBlock_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> BestBlock {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func block_hash() -> [UInt8] {
     	
         return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in
@@ -45,16 +52,21 @@ BestBlock_height(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return BestBlock_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> BestBlock {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		BestBlock_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

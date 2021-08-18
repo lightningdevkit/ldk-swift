@@ -69,6 +69,13 @@ ChannelReestablish_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> ChannelReestablish {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelReestablish>) in
@@ -81,16 +88,21 @@ ChannelReestablish_write(objPointer)
         return Result_ChannelReestablishDecodeErrorZ(pointer: ChannelReestablish_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelReestablish_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelReestablish {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelReestablish_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

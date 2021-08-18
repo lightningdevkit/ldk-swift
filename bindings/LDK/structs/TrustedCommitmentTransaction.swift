@@ -49,16 +49,21 @@ TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer
 });
     }
 
+    internal func free() -> Void {
+    	
+        return TrustedCommitmentTransaction_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> TrustedCommitmentTransaction {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		TrustedCommitmentTransaction_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

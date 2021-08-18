@@ -61,6 +61,13 @@ OutPoint_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> OutPoint {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func eq(a: OutPoint, b: OutPoint) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKOutPoint>) in
@@ -96,16 +103,21 @@ OutPoint_write(objPointer)
         return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
+    internal func free() -> Void {
+    	
+        return OutPoint_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> OutPoint {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						self.free()
+					}
 				
-	deinit {
-					
-					
-					
-		OutPoint_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

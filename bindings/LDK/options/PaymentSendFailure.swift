@@ -66,10 +66,22 @@ public class PaymentSendFailure {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return PaymentSendFailure_free(self.clone().cOpaqueStruct!);
+        return PaymentSendFailure_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> PaymentSendFailure {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> PaymentSendFailure {
     	
@@ -77,6 +89,13 @@ public class PaymentSendFailure {
 PaymentSendFailure_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> PaymentSendFailure {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

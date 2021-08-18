@@ -66,10 +66,22 @@ public class NetAddress {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return NetAddress_free(self.clone().cOpaqueStruct!);
+        return NetAddress_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> NetAddress {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> NetAddress {
     	
@@ -77,6 +89,13 @@ public class NetAddress {
 NetAddress_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> NetAddress {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	

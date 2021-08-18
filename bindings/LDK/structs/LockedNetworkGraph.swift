@@ -35,7 +35,9 @@ LockedNetworkGraph_graph(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

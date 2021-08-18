@@ -65,7 +65,9 @@ MessageHandler_get_route_handler(this_ptrPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

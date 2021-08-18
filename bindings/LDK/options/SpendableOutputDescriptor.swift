@@ -57,10 +57,22 @@ public class SpendableOutputDescriptor {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return SpendableOutputDescriptor_free(self.clone().cOpaqueStruct!);
+        return SpendableOutputDescriptor_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> SpendableOutputDescriptor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> SpendableOutputDescriptor {
     	
@@ -68,6 +80,13 @@ public class SpendableOutputDescriptor {
 SpendableOutputDescriptor_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> SpendableOutputDescriptor {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	

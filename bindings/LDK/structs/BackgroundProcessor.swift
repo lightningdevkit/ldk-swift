@@ -46,7 +46,9 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

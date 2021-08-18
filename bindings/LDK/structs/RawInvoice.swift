@@ -150,7 +150,9 @@ RawInvoice_currency(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

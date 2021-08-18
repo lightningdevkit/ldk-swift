@@ -57,10 +57,22 @@ public class ErrorAction {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return ErrorAction_free(self.clone().cOpaqueStruct!);
+        return ErrorAction_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> ErrorAction {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> ErrorAction {
     	
@@ -68,6 +80,13 @@ public class ErrorAction {
 ErrorAction_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> ErrorAction {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

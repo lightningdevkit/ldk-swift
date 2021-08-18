@@ -63,7 +63,9 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

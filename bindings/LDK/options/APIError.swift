@@ -66,10 +66,22 @@ public class APIError {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return APIError_free(self.clone().cOpaqueStruct!);
+        return APIError_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> APIError {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> APIError {
     	
@@ -77,6 +89,13 @@ public class APIError {
 APIError_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> APIError {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

@@ -57,10 +57,22 @@ public class Fallback {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return Fallback_free(self.clone().cOpaqueStruct!);
+        return Fallback_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Fallback {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Fallback {
     	
@@ -68,6 +80,13 @@ public class Fallback {
 Fallback_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Fallback {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func eq(a: Fallback, b: Fallback) -> Bool {
     	

@@ -75,7 +75,9 @@ PositiveTimestamp_as_time(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

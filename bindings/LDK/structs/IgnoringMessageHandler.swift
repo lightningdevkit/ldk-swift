@@ -49,7 +49,9 @@ IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

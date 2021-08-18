@@ -56,10 +56,22 @@ public class Option_C2Tuple_usizeTransactionZZ {
         return Option_C2Tuple_usizeTransactionZZ(pointer: COption_C2Tuple_usizeTransactionZZ_none());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return COption_C2Tuple_usizeTransactionZZ_free(self.clone().cOpaqueStruct!);
+        return COption_C2Tuple_usizeTransactionZZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Option_C2Tuple_usizeTransactionZZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Option_C2Tuple_usizeTransactionZZ {
     	
@@ -67,6 +79,13 @@ public class Option_C2Tuple_usizeTransactionZZ {
 COption_C2Tuple_usizeTransactionZZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Option_C2Tuple_usizeTransactionZZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

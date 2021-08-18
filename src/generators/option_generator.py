@@ -186,7 +186,11 @@ class OptionGenerator:
 			'''  # print('here we are')
 
 		# fill templates
-		for current_method_details in struct_details.methods:
+		method_iterator = struct_details.methods
+		if struct_details.free_method is not None:
+			method_iterator.append(struct_details.free_method)
+
+		for current_method_details in method_iterator:
 			current_native_method_name = current_method_details['name']['native']
 			current_method_name = current_method_details['name']['swift']
 			current_return_type = current_method_details['return_type'].swift_type
@@ -197,7 +201,8 @@ class OptionGenerator:
 			# current_method_name = current_native_method_name[len(method_prefix):]
 
 			current_replacement = method_template
-			is_clone_method = False  # current_method_details['is_clone']
+			is_clone_method = current_method_details['is_clone']
+			is_free_method = current_method_details['is_free']
 
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:
@@ -218,7 +223,7 @@ class OptionGenerator:
 			# replace arguments
 
 
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('OptionType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'OptionType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
@@ -228,50 +233,31 @@ class OptionGenerator:
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
 
+			if is_clone_method:
+				current_replacement += f'''\n
+					internal func danglingClone() -> {current_return_type} {{
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}}
+				'''
+
+			if is_free_method:
+				current_replacement = current_replacement.replace('public func', 'internal func')
+				current_replacement += f'''\n
+					internal func dangle() -> {swift_struct_name} {{
+        				self.dangling = true
+						return self
+					}}
+					
+					deinit {{
+						if !self.dangling {{
+							self.{current_method_name}()
+						}}
+					}}
+				'''
+
 			struct_methods += '\n' + current_replacement + '\n'
-
-		# DESTRUCTOR START
-		if struct_details.free_method is not None:
-			# fill constructor details
-			free_method_details = struct_details.free_method
-			free_native_name = free_method_details['name']['native']
-			native_call_prep = ''
-			native_arguments = []
-			for current_argument_details in free_method_details['argument_types']:
-				pass_instance = False
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				if argument_name.startswith('this_'):
-					pass_instance = True
-
-				if current_argument_details.is_ptr:
-					passed_argument_name = argument_name + 'Pointer'
-					requires_mutability = not current_argument_details.is_const
-
-					mutability_infix = ''
-
-					if pass_instance:
-						argument_name = 'self'
-					if requires_mutability:
-						argument_name = '&' + argument_name
-						mutability_infix = 'Mutable'
-
-					current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
-								\n\t\t	pointer
-							\n\t	}}
-						'''
-					native_call_prep += current_prep
-				elif pass_instance:
-					passed_argument_name = 'self.cOpaqueStruct!'
-				native_arguments.append(f'{passed_argument_name}')
-
-			struct_methods += f'''
-				\n\tdeinit {{
-					{native_call_prep}
-					\n\t	{free_native_name}({', '.join(native_arguments)})
-				\n\t}}
-			'''
 
 		mutating_output_file_contents = mutating_output_file_contents.replace('class OptionName {', f'class {swift_struct_name} {{')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: OptionType', f'init(pointer: {struct_name}')

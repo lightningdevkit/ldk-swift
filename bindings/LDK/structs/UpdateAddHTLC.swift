@@ -129,7 +129,9 @@ UpdateAddHTLC_write(objPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

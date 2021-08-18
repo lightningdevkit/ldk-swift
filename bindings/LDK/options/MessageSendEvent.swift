@@ -210,10 +210,22 @@ public class MessageSendEvent {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return MessageSendEvent_free(self.clone().cOpaqueStruct!);
+        return MessageSendEvent_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> MessageSendEvent {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> MessageSendEvent {
     	
@@ -221,6 +233,13 @@ public class MessageSendEvent {
 MessageSendEvent_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> MessageSendEvent {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

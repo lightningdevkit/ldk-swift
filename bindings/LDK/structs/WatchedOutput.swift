@@ -101,7 +101,9 @@ WatchedOutput_hash(oPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

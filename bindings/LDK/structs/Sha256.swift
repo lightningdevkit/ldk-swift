@@ -51,7 +51,9 @@ Sha256_clone(origPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

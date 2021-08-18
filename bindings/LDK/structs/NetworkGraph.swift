@@ -141,7 +141,9 @@ NetworkGraph_update_channel_unsigned(this_argPointer, msgPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

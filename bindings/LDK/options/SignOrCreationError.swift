@@ -39,10 +39,22 @@ public class SignOrCreationError {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return SignOrCreationError_free(self.clone().cOpaqueStruct!);
+        return SignOrCreationError_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> SignOrCreationError {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> SignOrCreationError {
     	
@@ -50,6 +62,13 @@ public class SignOrCreationError {
 SignOrCreationError_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> SignOrCreationError {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func eq(a: SignOrCreationError, b: SignOrCreationError) -> Bool {
     	

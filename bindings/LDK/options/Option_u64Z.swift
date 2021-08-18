@@ -56,10 +56,22 @@ public class Option_u64Z {
         return Option_u64Z(pointer: COption_u64Z_none());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return COption_u64Z_free(self.clone().cOpaqueStruct!);
+        return COption_u64Z_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Option_u64Z {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Option_u64Z {
     	
@@ -67,6 +79,13 @@ public class Option_u64Z {
 COption_u64Z_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Option_u64Z {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

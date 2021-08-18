@@ -48,10 +48,22 @@ public class MonitorEvent {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return MonitorEvent_free(self.clone().cOpaqueStruct!);
+        return MonitorEvent_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> MonitorEvent {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> MonitorEvent {
     	
@@ -59,6 +71,13 @@ public class MonitorEvent {
 MonitorEvent_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> MonitorEvent {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

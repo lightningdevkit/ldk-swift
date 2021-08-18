@@ -107,7 +107,9 @@ BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, Bindings.ne
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

@@ -84,10 +84,22 @@ public class Event {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return Event_free(self.clone().cOpaqueStruct!);
+        return Event_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Event {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> Event {
     	
@@ -95,6 +107,13 @@ public class Event {
 Event_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Event {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	

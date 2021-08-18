@@ -57,10 +57,22 @@ public class HTLCFailChannelUpdate {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return HTLCFailChannelUpdate_free(self.clone().cOpaqueStruct!);
+        return HTLCFailChannelUpdate_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> HTLCFailChannelUpdate {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
 
     public func clone() -> HTLCFailChannelUpdate {
     	
@@ -68,6 +80,13 @@ public class HTLCFailChannelUpdate {
 HTLCFailChannelUpdate_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> HTLCFailChannelUpdate {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* OPTION_METHODS_END */
 

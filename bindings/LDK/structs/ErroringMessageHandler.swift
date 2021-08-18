@@ -49,7 +49,9 @@ ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

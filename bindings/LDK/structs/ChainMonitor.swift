@@ -69,7 +69,9 @@ ChainMonitor_as_EventsProvider(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

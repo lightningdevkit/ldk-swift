@@ -164,7 +164,9 @@ Invoice_to_str(oPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

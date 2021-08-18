@@ -60,7 +60,9 @@ TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

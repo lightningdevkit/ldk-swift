@@ -108,7 +108,9 @@ PeerManager_timer_tick_occurred(this_argPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

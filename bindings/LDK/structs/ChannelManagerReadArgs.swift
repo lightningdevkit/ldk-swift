@@ -125,7 +125,9 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

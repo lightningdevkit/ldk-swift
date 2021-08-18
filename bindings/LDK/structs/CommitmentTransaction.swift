@@ -102,7 +102,9 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 					}
 					
 					deinit {
-						self.free()
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
 

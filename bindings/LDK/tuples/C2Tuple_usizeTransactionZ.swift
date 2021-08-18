@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C2Tuple_usizeTransactionZ {
 
 	private static var instanceCounter: UInt = 0
@@ -32,7 +30,7 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
 
     public class func new(a: UInt, b: [UInt8]) -> C2Tuple_usizeTransactionZ {
     	
-        return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, Bindings.new_LDKTransaction(array: b)));
+        return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, Bindings.new_LDKTransaction(array: b).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

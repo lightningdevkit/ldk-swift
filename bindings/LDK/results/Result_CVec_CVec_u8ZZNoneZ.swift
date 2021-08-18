@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_CVec_CVec_u8ZZNoneZ {
 
 	private static var instanceCounter: UInt = 0
@@ -39,7 +37,7 @@ public class Result_CVec_CVec_u8ZZNoneZ {
 			
     public class func ok(o: [[UInt8]]) -> Result_CVec_CVec_u8ZZNoneZ {
     	
-        return Result_CVec_CVec_u8ZZNoneZ(pointer: CResult_CVec_CVec_u8ZZNoneZ_ok(Bindings.new_LDKCVec_CVec_u8ZZ(array: o)));
+        return Result_CVec_CVec_u8ZZNoneZ(pointer: CResult_CVec_CVec_u8ZZNoneZ_ok(Bindings.new_LDKCVec_CVec_u8ZZ(array: o).cOpaqueStruct!));
     }
 
     public class func err() -> Result_CVec_CVec_u8ZZNoneZ {

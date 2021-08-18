@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class NodeAnnouncement {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class NodeAnnouncement {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg).cOpaqueStruct!, contents_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ NodeAnnouncement_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncement_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+        return NodeAnnouncement_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
     }
 
     public func get_contents() -> UnsignedNodeAnnouncement {
@@ -79,7 +77,7 @@ NodeAnnouncement_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {
     	
-        return Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

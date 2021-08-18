@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class NetworkGraph {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class NetworkGraph {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NetworkGraph_new(Bindings.new_LDKThirtyTwoBytes(array: genesis_hash))
+        self.cOpaqueStruct = NetworkGraph_new(Bindings.new_LDKThirtyTwoBytes(array: genesis_hash).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -49,7 +47,7 @@ NetworkGraph_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
     	
-        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     public func update_node_from_announcement(msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {

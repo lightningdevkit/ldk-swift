@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class KeysManager {
 
 	private static var instanceCounter: UInt = 0
@@ -40,7 +38,7 @@ KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, paramsP
     public func spend_spendable_outputs(descriptors: [LDKSpendableOutputDescriptor], outputs: [LDKTxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
     	
         return Result_TransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKKeysManager>) in
-KeysManager_spend_spendable_outputs(this_argPointer, Bindings.new_LDKCVec_SpendableOutputDescriptorZ(array: descriptors), Bindings.new_LDKCVec_TxOutZ(array: outputs), Bindings.new_LDKCVec_u8Z(array: change_destination_script), feerate_sat_per_1000_weight)
+KeysManager_spend_spendable_outputs(this_argPointer, Bindings.new_LDKCVec_SpendableOutputDescriptorZ(array: descriptors).cOpaqueStruct!, Bindings.new_LDKCVec_TxOutZ(array: outputs).cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: change_destination_script).cOpaqueStruct!, feerate_sat_per_1000_weight)
 });
     }
 

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Ping {
 
 	private static var instanceCounter: UInt = 0
@@ -79,7 +77,7 @@ Ping_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_PingDecodeErrorZ {
     	
-        return Result_PingDecodeErrorZ(pointer: Ping_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_PingDecodeErrorZ(pointer: Ping_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

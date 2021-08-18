@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_SecretKeyErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -46,7 +44,7 @@ public class Result_SecretKeyErrorZ {
 			
     public class func ok(o: [UInt8]) -> Result_SecretKeyErrorZ {
     	
-        return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_ok(Bindings.new_LDKSecretKey(array: o)));
+        return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_ok(Bindings.new_LDKSecretKey(array: o).cOpaqueStruct!));
     }
 
     public class func err(e: LDKSecp256k1Error) -> Result_SecretKeyErrorZ {

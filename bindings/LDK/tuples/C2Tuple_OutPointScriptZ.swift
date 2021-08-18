@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C2Tuple_OutPointScriptZ {
 
 	private static var instanceCounter: UInt = 0
@@ -32,7 +30,7 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
 
     public class func new(a: OutPoint, b: [UInt8]) -> C2Tuple_OutPointScriptZ {
     	
-        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
+        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

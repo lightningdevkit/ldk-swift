@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class UpdateFulfillHTLC {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class UpdateFulfillHTLC {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = UpdateFulfillHTLC_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), htlc_id_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage_arg))
+        self.cOpaqueStruct = UpdateFulfillHTLC_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg).cOpaqueStruct!, htlc_id_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ UpdateFulfillHTLC_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFulfillHTLC>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UpdateFulfillHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return UpdateFulfillHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_htlc_id() -> UInt64 {
@@ -68,7 +66,7 @@ UpdateFulfillHTLC_get_payment_preimage(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFulfillHTLC>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UpdateFulfillHTLC_set_payment_preimage(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return UpdateFulfillHTLC_set_payment_preimage(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> UpdateFulfillHTLC {
@@ -94,7 +92,7 @@ UpdateFulfillHTLC_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateFulfillHTLCDecodeErrorZ {
     	
-        return Result_UpdateFulfillHTLCDecodeErrorZ(pointer: UpdateFulfillHTLC_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_UpdateFulfillHTLCDecodeErrorZ(pointer: UpdateFulfillHTLC_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class FundingLocked {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class FundingLocked {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = FundingLocked_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg))
+        self.cOpaqueStruct = FundingLocked_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ FundingLocked_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKFundingLocked>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return FundingLocked_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return FundingLocked_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_next_per_commitment_point() -> [UInt8] {
@@ -53,7 +51,7 @@ FundingLocked_get_next_per_commitment_point(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKFundingLocked>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return FundingLocked_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return FundingLocked_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> FundingLocked {
@@ -79,7 +77,7 @@ FundingLocked_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_FundingLockedDecodeErrorZ {
     	
-        return Result_FundingLockedDecodeErrorZ(pointer: FundingLocked_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_FundingLockedDecodeErrorZ(pointer: FundingLocked_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

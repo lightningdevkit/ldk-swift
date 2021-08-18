@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class BestBlock {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class BestBlock {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = BestBlock_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash), height)
+        self.cOpaqueStruct = BestBlock_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash).cOpaqueStruct!, height)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

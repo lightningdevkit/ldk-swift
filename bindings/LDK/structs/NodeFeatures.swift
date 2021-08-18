@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class NodeFeatures {
 
 	private static var instanceCounter: UInt = 0
@@ -65,7 +63,7 @@ NodeFeatures_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NodeFeaturesDecodeErrorZ {
     	
-        return Result_NodeFeaturesDecodeErrorZ(pointer: NodeFeatures_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_NodeFeaturesDecodeErrorZ(pointer: NodeFeatures_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

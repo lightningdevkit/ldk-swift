@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class OutPoint {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class OutPoint {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = OutPoint_new(Bindings.new_LDKThirtyTwoBytes(array: txid_arg), index_arg)
+        self.cOpaqueStruct = OutPoint_new(Bindings.new_LDKThirtyTwoBytes(array: txid_arg).cOpaqueStruct!, index_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ OutPoint_get_txid(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKOutPoint>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return OutPoint_set_txid(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return OutPoint_set_txid(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_index() -> UInt16 {
@@ -102,7 +100,7 @@ OutPoint_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_OutPointDecodeErrorZ {
     	
-        return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

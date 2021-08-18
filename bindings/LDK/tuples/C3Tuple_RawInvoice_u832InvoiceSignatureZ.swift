@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C3Tuple_RawInvoice_u832InvoiceSignatureZ {
 
 	private static var instanceCounter: UInt = 0
@@ -32,7 +30,7 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 
     public class func new(a: RawInvoice, b: [UInt8], c: InvoiceSignature) -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
     	
-        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: C3Tuple_RawInvoice_u832InvoiceSignatureZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b), c.danglingClone().cOpaqueStruct!));
+        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: C3Tuple_RawInvoice_u832InvoiceSignatureZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b).cOpaqueStruct!, c.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

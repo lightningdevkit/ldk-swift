@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelAnnouncement {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class ChannelAnnouncement {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelAnnouncement_new(Bindings.new_LDKSignature(array: node_signature_1_arg), Bindings.new_LDKSignature(array: node_signature_2_arg), Bindings.new_LDKSignature(array: bitcoin_signature_1_arg), Bindings.new_LDKSignature(array: bitcoin_signature_2_arg), contents_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelAnnouncement_new(Bindings.new_LDKSignature(array: node_signature_1_arg).cOpaqueStruct!, Bindings.new_LDKSignature(array: node_signature_2_arg).cOpaqueStruct!, Bindings.new_LDKSignature(array: bitcoin_signature_1_arg).cOpaqueStruct!, Bindings.new_LDKSignature(array: bitcoin_signature_2_arg).cOpaqueStruct!, contents_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ ChannelAnnouncement_get_node_signature_1(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelAnnouncement_set_node_signature_1(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+        return ChannelAnnouncement_set_node_signature_1(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
     }
 
     public func get_node_signature_2() -> [UInt8] {
@@ -53,7 +51,7 @@ ChannelAnnouncement_get_node_signature_2(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelAnnouncement_set_node_signature_2(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+        return ChannelAnnouncement_set_node_signature_2(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
     }
 
     public func get_bitcoin_signature_1() -> [UInt8] {
@@ -68,7 +66,7 @@ ChannelAnnouncement_get_bitcoin_signature_1(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelAnnouncement_set_bitcoin_signature_1(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+        return ChannelAnnouncement_set_bitcoin_signature_1(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
     }
 
     public func get_bitcoin_signature_2() -> [UInt8] {
@@ -83,7 +81,7 @@ ChannelAnnouncement_get_bitcoin_signature_2(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelAnnouncement_set_bitcoin_signature_2(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+        return ChannelAnnouncement_set_bitcoin_signature_2(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
     }
 
     public func get_contents() -> UnsignedChannelAnnouncement {
@@ -124,7 +122,7 @@ ChannelAnnouncement_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelAnnouncementDecodeErrorZ {
     	
-        return Result_ChannelAnnouncementDecodeErrorZ(pointer: ChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ChannelAnnouncementDecodeErrorZ(pointer: ChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

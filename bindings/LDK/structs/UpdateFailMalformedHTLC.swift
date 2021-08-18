@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class UpdateFailMalformedHTLC {
 
 	private static var instanceCounter: UInt = 0
@@ -31,7 +29,7 @@ UpdateFailMalformedHTLC_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailMalformedHTLC>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UpdateFailMalformedHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return UpdateFailMalformedHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_htlc_id() -> UInt64 {
@@ -87,7 +85,7 @@ UpdateFailMalformedHTLC_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateFailMalformedHTLCDecodeErrorZ {
     	
-        return Result_UpdateFailMalformedHTLCDecodeErrorZ(pointer: UpdateFailMalformedHTLC_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_UpdateFailMalformedHTLCDecodeErrorZ(pointer: UpdateFailMalformedHTLC_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

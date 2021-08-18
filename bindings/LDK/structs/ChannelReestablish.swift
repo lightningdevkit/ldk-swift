@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelReestablish {
 
 	private static var instanceCounter: UInt = 0
@@ -31,7 +29,7 @@ ChannelReestablish_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelReestablish>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelReestablish_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return ChannelReestablish_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_next_local_commitment_number() -> UInt64 {
@@ -87,7 +85,7 @@ ChannelReestablish_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelReestablishDecodeErrorZ {
     	
-        return Result_ChannelReestablishDecodeErrorZ(pointer: ChannelReestablish_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ChannelReestablishDecodeErrorZ(pointer: ChannelReestablish_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

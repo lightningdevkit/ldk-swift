@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class CommitmentTransaction {
 
 	private static var instanceCounter: UInt = 0
@@ -42,7 +40,7 @@ CommitmentTransaction_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_CommitmentTransactionDecodeErrorZ {
     	
-        return Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     public func commitment_number() -> UInt64 {

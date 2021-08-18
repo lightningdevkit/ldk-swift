@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class EventHandler {
 
 	private static var instanceCounter: UInt = 0

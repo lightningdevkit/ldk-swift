@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class ChannelMessageHandler {
 
 	private static var instanceCounter: UInt = 0
@@ -338,7 +336,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKOpenChannel>) in
 
-				self.cOpaqueStruct!.handle_open_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.danglingClone().cOpaqueStruct!, msgPointer)
+				self.cOpaqueStruct!.handle_open_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, their_features.danglingClone().cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -348,7 +346,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKAcceptChannel>) in
 
-				self.cOpaqueStruct!.handle_accept_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_features.danglingClone().cOpaqueStruct!, msgPointer)
+				self.cOpaqueStruct!.handle_accept_channel(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, their_features.danglingClone().cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -358,7 +356,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKFundingCreated>) in
 
-				self.cOpaqueStruct!.handle_funding_created(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_funding_created(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -368,7 +366,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKFundingSigned>) in
 
-				self.cOpaqueStruct!.handle_funding_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_funding_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -378,7 +376,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKFundingLocked>) in
 
-				self.cOpaqueStruct!.handle_funding_locked(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_funding_locked(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -389,7 +387,7 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 				withUnsafePointer(to: their_features.cOpaqueStruct!) { (their_featuresPointer: UnsafePointer<LDKInitFeatures>) in
 withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdown>) in
 
-				self.cOpaqueStruct!.handle_shutdown(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), their_featuresPointer, msgPointer)
+				self.cOpaqueStruct!.handle_shutdown(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, their_featuresPointer, msgPointer)
 				
 }
 }
@@ -400,7 +398,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKClosingSigned>) in
 
-				self.cOpaqueStruct!.handle_closing_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_closing_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -410,7 +408,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateAddHTLC>) in
 
-				self.cOpaqueStruct!.handle_update_add_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_update_add_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -420,7 +418,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
 
-				self.cOpaqueStruct!.handle_update_fulfill_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_update_fulfill_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -430,7 +428,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFailHTLC>) in
 
-				self.cOpaqueStruct!.handle_update_fail_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_update_fail_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -440,7 +438,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
 
-				self.cOpaqueStruct!.handle_update_fail_malformed_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_update_fail_malformed_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -450,7 +448,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKCommitmentSigned>) in
 
-				self.cOpaqueStruct!.handle_commitment_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_commitment_signed(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -460,7 +458,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKRevokeAndACK>) in
 
-				self.cOpaqueStruct!.handle_revoke_and_ack(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_revoke_and_ack(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -470,7 +468,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUpdateFee>) in
 
-				self.cOpaqueStruct!.handle_update_fee(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_update_fee(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -480,7 +478,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKAnnouncementSignatures>) in
 
-				self.cOpaqueStruct!.handle_announcement_signatures(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_announcement_signatures(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -489,7 +487,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 	public override func peer_disconnected(their_node_id: [UInt8], no_connection_possible: Bool) -> Void {
 		
 				
-				self.cOpaqueStruct!.peer_disconnected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), no_connection_possible)
+				self.cOpaqueStruct!.peer_disconnected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, no_connection_possible)
 				
 			
 	}
@@ -498,7 +496,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKInit>) in
 
-				self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -508,7 +506,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelReestablish>) in
 
-				self.cOpaqueStruct!.handle_channel_reestablish(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_channel_reestablish(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -518,7 +516,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelUpdate>) in
 
-				self.cOpaqueStruct!.handle_channel_update(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_channel_update(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			
@@ -528,7 +526,7 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 		
 				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKErrorMessage>) in
 
-				self.cOpaqueStruct!.handle_error(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_error(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id).cOpaqueStruct!, msgPointer)
 				
 }
 			

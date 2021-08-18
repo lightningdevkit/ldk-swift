@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C2Tuple_BlockHashChannelMonitorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -18,7 +16,7 @@ public class C2Tuple_BlockHashChannelMonitorZ {
 
     public class func new(a: [UInt8], b: ChannelMonitor) -> C2Tuple_BlockHashChannelMonitorZ {
     	
-        return C2Tuple_BlockHashChannelMonitorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
+        return C2Tuple_BlockHashChannelMonitorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_new(Bindings.new_LDKThirtyTwoBytes(array: a).cOpaqueStruct!, b.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

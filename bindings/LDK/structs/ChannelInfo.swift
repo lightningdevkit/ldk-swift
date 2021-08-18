@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelInfo {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class ChannelInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg).cOpaqueStruct!, one_to_two_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg).cOpaqueStruct!, two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -53,7 +51,7 @@ ChannelInfo_get_node_one(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_node_one(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelInfo_set_node_one(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_one_to_two() -> DirectionalChannelInfo {
@@ -83,7 +81,7 @@ ChannelInfo_get_node_two(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_node_two(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelInfo_set_node_two(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_two_to_one() -> DirectionalChannelInfo {
@@ -154,7 +152,7 @@ ChannelInfo_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {
     	
-        return Result_ChannelInfoDecodeErrorZ(pointer: ChannelInfo_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ChannelInfoDecodeErrorZ(pointer: ChannelInfo_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

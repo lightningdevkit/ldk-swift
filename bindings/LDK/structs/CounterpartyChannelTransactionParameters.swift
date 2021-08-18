@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class CounterpartyChannelTransactionParameters {
 
 	private static var instanceCounter: UInt = 0
@@ -79,7 +77,7 @@ CounterpartyChannelTransactionParameters_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
     	
-        return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CounterpartyChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CounterpartyChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

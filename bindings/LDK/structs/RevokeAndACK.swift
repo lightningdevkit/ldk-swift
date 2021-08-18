@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class RevokeAndACK {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class RevokeAndACK {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = RevokeAndACK_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKThirtyTwoBytes(array: per_commitment_secret_arg), Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg))
+        self.cOpaqueStruct = RevokeAndACK_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg).cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: per_commitment_secret_arg).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ RevokeAndACK_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRevokeAndACK>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RevokeAndACK_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return RevokeAndACK_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_per_commitment_secret() -> [UInt8] {
@@ -53,7 +51,7 @@ RevokeAndACK_get_per_commitment_secret(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRevokeAndACK>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RevokeAndACK_set_per_commitment_secret(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return RevokeAndACK_set_per_commitment_secret(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_next_per_commitment_point() -> [UInt8] {
@@ -68,7 +66,7 @@ RevokeAndACK_get_next_per_commitment_point(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRevokeAndACK>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RevokeAndACK_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return RevokeAndACK_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> RevokeAndACK {
@@ -94,7 +92,7 @@ RevokeAndACK_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

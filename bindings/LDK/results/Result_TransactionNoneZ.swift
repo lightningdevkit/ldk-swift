@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_TransactionNoneZ {
 
 	private static var instanceCounter: UInt = 0
@@ -39,7 +37,7 @@ public class Result_TransactionNoneZ {
 			
     public class func ok(o: [UInt8]) -> Result_TransactionNoneZ {
     	
-        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(Bindings.new_LDKTransaction(array: o)));
+        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(Bindings.new_LDKTransaction(array: o).cOpaqueStruct!));
     }
 
     public class func err() -> Result_TransactionNoneZ {

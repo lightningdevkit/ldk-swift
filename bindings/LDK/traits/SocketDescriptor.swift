@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class SocketDescriptor {
 
 	private static var instanceCounter: UInt = 0
@@ -156,7 +154,7 @@ public class NativelyImplementedSocketDescriptor: SocketDescriptor {
 	public override func send_data(data: [UInt8], resume_read: Bool) -> UInt {
 		
 				return 
-				self.cOpaqueStruct!.send_data(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: data), resume_read)
+				self.cOpaqueStruct!.send_data(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: data).cOpaqueStruct!, resume_read)
 				
 			
 	}

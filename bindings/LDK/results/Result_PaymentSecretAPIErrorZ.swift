@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_PaymentSecretAPIErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -46,7 +44,7 @@ public class Result_PaymentSecretAPIErrorZ {
 			
     public class func ok(o: [UInt8]) -> Result_PaymentSecretAPIErrorZ {
     	
-        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o)));
+        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o).cOpaqueStruct!));
     }
 
     public class func err(e: APIError) -> Result_PaymentSecretAPIErrorZ {

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_ShutdownDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0

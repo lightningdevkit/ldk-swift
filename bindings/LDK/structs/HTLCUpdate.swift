@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class HTLCUpdate {
 
 	private static var instanceCounter: UInt = 0
@@ -42,7 +40,7 @@ HTLCUpdate_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
     	
-        return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

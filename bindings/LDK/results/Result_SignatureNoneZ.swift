@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_SignatureNoneZ {
 
 	private static var instanceCounter: UInt = 0
@@ -39,7 +37,7 @@ public class Result_SignatureNoneZ {
 			
     public class func ok(o: [UInt8]) -> Result_SignatureNoneZ {
     	
-        return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_ok(Bindings.new_LDKSignature(array: o)));
+        return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_ok(Bindings.new_LDKSignature(array: o).cOpaqueStruct!));
     }
 
     public class func err() -> Result_SignatureNoneZ {

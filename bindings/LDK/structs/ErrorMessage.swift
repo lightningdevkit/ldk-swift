@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ErrorMessage {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class ErrorMessage {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ErrorMessage_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKStr(string: data_arg))
+        self.cOpaqueStruct = ErrorMessage_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg).cOpaqueStruct!, Bindings.new_LDKStr(string: data_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ ErrorMessage_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKErrorMessage>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ErrorMessage_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return ErrorMessage_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_data() -> String {
@@ -79,7 +77,7 @@ ErrorMessage_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ErrorMessageDecodeErrorZ {
     	
-        return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

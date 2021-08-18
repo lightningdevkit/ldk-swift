@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelTransactionParameters {
 
 	private static var instanceCounter: UInt = 0
@@ -145,7 +143,7 @@ ChannelTransactionParameters_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
-        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

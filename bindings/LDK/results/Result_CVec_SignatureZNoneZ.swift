@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_CVec_SignatureZNoneZ {
 
 	private static var instanceCounter: UInt = 0
@@ -39,7 +37,7 @@ public class Result_CVec_SignatureZNoneZ {
 			
     public class func ok(o: [[UInt8]]) -> Result_CVec_SignatureZNoneZ {
     	
-        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_ok(Bindings.new_LDKCVec_SignatureZ(array: o)));
+        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_ok(Bindings.new_LDKCVec_SignatureZ(array: o).cOpaqueStruct!));
     }
 
     public class func err() -> Result_CVec_SignatureZNoneZ {

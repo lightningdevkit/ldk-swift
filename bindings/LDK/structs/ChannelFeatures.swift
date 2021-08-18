@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelFeatures {
 
 	private static var instanceCounter: UInt = 0
@@ -58,7 +56,7 @@ ChannelFeatures_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelFeaturesDecodeErrorZ {
     	
-        return Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelCounterparty {
 
 	private static var instanceCounter: UInt = 0
@@ -31,7 +29,7 @@ ChannelCounterparty_get_node_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelCounterparty>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelCounterparty_set_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelCounterparty_set_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_features() -> InitFeatures {

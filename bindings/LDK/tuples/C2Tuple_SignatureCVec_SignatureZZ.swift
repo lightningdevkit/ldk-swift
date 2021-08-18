@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C2Tuple_SignatureCVec_SignatureZZ {
 
 	private static var instanceCounter: UInt = 0
@@ -32,7 +30,7 @@ C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
 
     public class func new(a: [UInt8], b: [[UInt8]]) -> C2Tuple_SignatureCVec_SignatureZZ {
     	
-        return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_new(Bindings.new_LDKSignature(array: a), Bindings.new_LDKCVec_SignatureZ(array: b)));
+        return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_new(Bindings.new_LDKSignature(array: a).cOpaqueStruct!, Bindings.new_LDKCVec_SignatureZ(array: b).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

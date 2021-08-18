@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -46,7 +44,7 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 			
     public class func ok(o: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
-        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_ok(Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZ(array: o)));
+        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_ok(Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZ(array: o).cOpaqueStruct!));
     }
 
     public class func err(e: LDKIOError) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {

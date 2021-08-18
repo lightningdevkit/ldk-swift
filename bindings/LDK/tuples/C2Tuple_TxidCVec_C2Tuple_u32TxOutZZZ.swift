@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
 
 	private static var instanceCounter: UInt = 0
@@ -32,7 +30,7 @@ C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer)
 
     public class func new(a: [UInt8], b: [LDKC2Tuple_u32TxOutZ]) -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
     	
-        return C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKCVec_C2Tuple_u32TxOutZZ(array: b)));
+        return C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a).cOpaqueStruct!, Bindings.new_LDKCVec_C2Tuple_u32TxOutZZ(array: b).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

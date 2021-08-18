@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class NodeAnnouncementInfo {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class NodeAnnouncementInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), Bindings.new_LDKCVec_NetAddressZ(array: addresses_arg), announcement_message_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg).cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: alias_arg).cOpaqueStruct!, Bindings.new_LDKCVec_NetAddressZ(array: addresses_arg).cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -68,7 +66,7 @@ NodeAnnouncementInfo_get_rgb(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncementInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncementInfo_set_rgb(this_ptrPointer, Bindings.new_LDKThreeBytes(array: val));
+        return NodeAnnouncementInfo_set_rgb(this_ptrPointer, Bindings.new_LDKThreeBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_alias() -> [UInt8] {
@@ -83,7 +81,7 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncementInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncementInfo_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return NodeAnnouncementInfo_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func set_addresses(val: [LDKNetAddress]) -> Void {
@@ -91,7 +89,7 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncementInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncementInfo_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZ(array: val));
+        return NodeAnnouncementInfo_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZ(array: val).cOpaqueStruct!);
     }
 
     public func get_announcement_message() -> NodeAnnouncement {
@@ -132,7 +130,7 @@ NodeAnnouncementInfo_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NodeAnnouncementInfoDecodeErrorZ {
     	
-        return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: NodeAnnouncementInfo_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: NodeAnnouncementInfo_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

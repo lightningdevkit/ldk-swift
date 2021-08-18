@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class HTLCOutputInCommitment {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class HTLCOutputInCommitment {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg), transaction_output_index_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg).cOpaqueStruct!, transaction_output_index_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -83,7 +81,7 @@ HTLCOutputInCommitment_get_payment_hash(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_payment_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return HTLCOutputInCommitment_set_payment_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_transaction_output_index() -> Option_u32Z {
@@ -124,7 +122,7 @@ HTLCOutputInCommitment_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
     	
-        return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: HTLCOutputInCommitment_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: HTLCOutputInCommitment_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

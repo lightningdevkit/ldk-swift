@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class UnsignedNodeAnnouncement {
 
 	private static var instanceCounter: UInt = 0
@@ -61,7 +59,7 @@ UnsignedNodeAnnouncement_get_node_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedNodeAnnouncement_set_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return UnsignedNodeAnnouncement_set_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_rgb() -> [UInt8] {
@@ -76,7 +74,7 @@ UnsignedNodeAnnouncement_get_rgb(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedNodeAnnouncement_set_rgb(this_ptrPointer, Bindings.new_LDKThreeBytes(array: val));
+        return UnsignedNodeAnnouncement_set_rgb(this_ptrPointer, Bindings.new_LDKThreeBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_alias() -> [UInt8] {
@@ -91,7 +89,7 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedNodeAnnouncement_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return UnsignedNodeAnnouncement_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func set_addresses(val: [LDKNetAddress]) -> Void {
@@ -99,7 +97,7 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZ(array: val));
+        return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZ(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> UnsignedNodeAnnouncement {
@@ -125,7 +123,7 @@ UnsignedNodeAnnouncement_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
     	
-        return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: UnsignedNodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: UnsignedNodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

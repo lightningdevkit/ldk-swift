@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelConfig {
 
 	private static var instanceCounter: UInt = 0
@@ -124,7 +122,7 @@ ChannelConfig_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelConfigDecodeErrorZ {
     	
-        return Result_ChannelConfigDecodeErrorZ(pointer: ChannelConfig_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ChannelConfigDecodeErrorZ(pointer: ChannelConfig_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

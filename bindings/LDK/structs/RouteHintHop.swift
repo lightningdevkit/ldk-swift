@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class RouteHintHop {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class RouteHintHop {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg), short_channel_id_arg, fees_arg.danglingClone().cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg).cOpaqueStruct!, short_channel_id_arg, fees_arg.danglingClone().cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ RouteHintHop_get_src_node_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_src_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return RouteHintHop_set_src_node_id(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_short_channel_id() -> UInt64 {

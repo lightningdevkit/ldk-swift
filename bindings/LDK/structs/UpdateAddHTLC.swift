@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class UpdateAddHTLC {
 
 	private static var instanceCounter: UInt = 0
@@ -31,7 +29,7 @@ UpdateAddHTLC_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateAddHTLC>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UpdateAddHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return UpdateAddHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_htlc_id() -> UInt64 {
@@ -76,7 +74,7 @@ UpdateAddHTLC_get_payment_hash(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateAddHTLC>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UpdateAddHTLC_set_payment_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return UpdateAddHTLC_set_payment_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_cltv_expiry() -> UInt32 {
@@ -117,7 +115,7 @@ UpdateAddHTLC_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateAddHTLCDecodeErrorZ {
     	
-        return Result_UpdateAddHTLCDecodeErrorZ(pointer: UpdateAddHTLC_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_UpdateAddHTLCDecodeErrorZ(pointer: UpdateAddHTLC_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

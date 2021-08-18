@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class Logger {
 
 	private static var instanceCounter: UInt = 0

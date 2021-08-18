@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Pong {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +62,7 @@ Pong_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_PongDecodeErrorZ {
     	
-        return Result_PongDecodeErrorZ(pointer: Pong_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_PongDecodeErrorZ(pointer: Pong_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

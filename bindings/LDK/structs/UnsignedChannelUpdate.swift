@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class UnsignedChannelUpdate {
 
 	private static var instanceCounter: UInt = 0
@@ -31,7 +29,7 @@ UnsignedChannelUpdate_get_chain_hash(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedChannelUpdate_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return UnsignedChannelUpdate_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
     }
 
     public func get_short_channel_id() -> UInt64 {
@@ -162,7 +160,7 @@ UnsignedChannelUpdate_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UnsignedChannelUpdateDecodeErrorZ {
     	
-        return Result_UnsignedChannelUpdateDecodeErrorZ(pointer: UnsignedChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_UnsignedChannelUpdateDecodeErrorZ(pointer: UnsignedChannelUpdate_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

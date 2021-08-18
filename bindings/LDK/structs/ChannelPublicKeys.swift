@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelPublicKeys {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class ChannelPublicKeys {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelPublicKeys_new(Bindings.new_LDKPublicKey(array: funding_pubkey_arg), Bindings.new_LDKPublicKey(array: revocation_basepoint_arg), Bindings.new_LDKPublicKey(array: payment_point_arg), Bindings.new_LDKPublicKey(array: delayed_payment_basepoint_arg), Bindings.new_LDKPublicKey(array: htlc_basepoint_arg))
+        self.cOpaqueStruct = ChannelPublicKeys_new(Bindings.new_LDKPublicKey(array: funding_pubkey_arg).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: revocation_basepoint_arg).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: payment_point_arg).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: delayed_payment_basepoint_arg).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: htlc_basepoint_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ ChannelPublicKeys_get_funding_pubkey(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelPublicKeys>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelPublicKeys_set_funding_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelPublicKeys_set_funding_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_revocation_basepoint() -> [UInt8] {
@@ -53,7 +51,7 @@ ChannelPublicKeys_get_revocation_basepoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelPublicKeys>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelPublicKeys_set_revocation_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelPublicKeys_set_revocation_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_payment_point() -> [UInt8] {
@@ -68,7 +66,7 @@ ChannelPublicKeys_get_payment_point(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelPublicKeys>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelPublicKeys_set_payment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelPublicKeys_set_payment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_delayed_payment_basepoint() -> [UInt8] {
@@ -83,7 +81,7 @@ ChannelPublicKeys_get_delayed_payment_basepoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelPublicKeys>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelPublicKeys_set_delayed_payment_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelPublicKeys_set_delayed_payment_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func get_htlc_basepoint() -> [UInt8] {
@@ -98,7 +96,7 @@ ChannelPublicKeys_get_htlc_basepoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelPublicKeys>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelPublicKeys_set_htlc_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelPublicKeys_set_htlc_basepoint(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> ChannelPublicKeys {
@@ -124,7 +122,7 @@ ChannelPublicKeys_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelPublicKeysDecodeErrorZ {
     	
-        return Result_ChannelPublicKeysDecodeErrorZ(pointer: ChannelPublicKeys_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ChannelPublicKeysDecodeErrorZ(pointer: ChannelPublicKeys_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

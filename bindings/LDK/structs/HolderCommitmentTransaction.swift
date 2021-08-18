@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class HolderCommitmentTransaction {
 
 	private static var instanceCounter: UInt = 0
@@ -14,7 +12,7 @@ public class HolderCommitmentTransaction {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), Bindings.new_LDKCVec_SignatureZ(array: counterparty_htlc_sigs), Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
+        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig).cOpaqueStruct!, Bindings.new_LDKCVec_SignatureZ(array: counterparty_htlc_sigs).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: counterparty_funding_key).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -38,7 +36,7 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKHolderCommitmentTransaction>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HolderCommitmentTransaction_set_counterparty_sig(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+        return HolderCommitmentTransaction_set_counterparty_sig(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
     }
 
     public func set_counterparty_htlc_sigs(val: [[UInt8]]) -> Void {
@@ -46,7 +44,7 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKHolderCommitmentTransaction>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
+        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> HolderCommitmentTransaction {
@@ -72,7 +70,7 @@ HolderCommitmentTransaction_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
     	
-        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

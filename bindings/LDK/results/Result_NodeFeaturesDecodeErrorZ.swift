@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NodeFeaturesDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0

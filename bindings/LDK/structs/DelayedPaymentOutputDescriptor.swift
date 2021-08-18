@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DelayedPaymentOutputDescriptor {
 
 	private static var instanceCounter: UInt = 0

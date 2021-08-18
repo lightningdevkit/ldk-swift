@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MessageSendEvent {
 
 	private static var instanceCounter: UInt = 0

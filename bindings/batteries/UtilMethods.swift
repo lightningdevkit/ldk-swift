@@ -8,6 +8,8 @@
 import Foundation
 import LDKHeaders
 
+
+
 public class UtilMethods {
 
     /**
@@ -17,12 +19,14 @@ public class UtilMethods {
 
         let clonedConfig = arg_default_config.danglingClone()
         print("instantiating channelManagerReadArgs with cloned user config")
-        let args = ChannelManagerReadArgs(keys_manager: arg_keys_manager, fee_estimator: arg_fee_estimator, chain_monitor: arg_chain_monitor, tx_broadcaster: arg_tx_broadcaster, logger: arg_logger, default_config: clonedConfig, channel_monitors: arg_channel_monitors)
+        let args = ChannelManagerReadArgs(keys_manager: arg_keys_manager.dangle(), fee_estimator: arg_fee_estimator, chain_monitor: arg_chain_monitor.dangle(), tx_broadcaster: arg_tx_broadcaster, logger: arg_logger, default_config: clonedConfig, channel_monitors: arg_channel_monitors)
         args.dangle()
-        let ret = C2Tuple_BlockHashChannelManagerZ_read(Bindings.new_LDKu8slice(array: ser), args.cOpaqueStruct!)
+        // let slice = Bindings.new_LDKu8slice(array: ser)
+        // let wrappedSlice = U8SliceWrapper(pointer: slice)
+        // let ret = C2Tuple_BlockHashChannelManagerZ_read(wrappedSlice.cOpaqueStruct!, args.cOpaqueStruct!)
+        // return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: ret)
         print("returning result from blockhashchannelmanager reader")
-        // return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ()
-        return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: ret)
+        return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ()
     }
 
     /**

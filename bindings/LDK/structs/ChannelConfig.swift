@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelConfig {
 
 	private static var instanceCounter: UInt = 0

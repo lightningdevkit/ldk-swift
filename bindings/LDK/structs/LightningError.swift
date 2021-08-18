@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class LightningError {
 
 	private static var instanceCounter: UInt = 0

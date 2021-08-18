@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class ChannelMessageHandler {
 
 	private static var instanceCounter: UInt = 0

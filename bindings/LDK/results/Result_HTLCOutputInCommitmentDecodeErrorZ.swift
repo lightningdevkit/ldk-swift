@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_HTLCOutputInCommitmentDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0

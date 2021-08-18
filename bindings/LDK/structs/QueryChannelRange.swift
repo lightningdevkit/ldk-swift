@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class QueryChannelRange {
 
 	private static var instanceCounter: UInt = 0

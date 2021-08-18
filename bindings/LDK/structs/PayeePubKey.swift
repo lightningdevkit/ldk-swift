@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PayeePubKey {
 
 	private static var instanceCounter: UInt = 0

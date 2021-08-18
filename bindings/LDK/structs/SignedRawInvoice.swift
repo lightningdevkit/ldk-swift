@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SignedRawInvoice {
 
 	private static var instanceCounter: UInt = 0

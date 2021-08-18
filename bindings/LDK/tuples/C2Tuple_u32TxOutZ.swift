@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_u32TxOutZ {
 
 	private static var instanceCounter: UInt = 0

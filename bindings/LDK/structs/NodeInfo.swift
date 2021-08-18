@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NodeInfo {
 
 	private static var instanceCounter: UInt = 0

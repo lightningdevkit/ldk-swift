@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Option_u32Z {
 
 	private static var instanceCounter: UInt = 0

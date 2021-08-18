@@ -21,28 +21,35 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: RawInvoice, b: [UInt8], c: InvoiceSignature) -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
     	
         return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: C3Tuple_RawInvoice_u832InvoiceSignatureZ_new(a.clone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b), c.clone().cOpaqueStruct!));
     }
 
-				
-	deinit {
+    internal func free() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+    	
+        return C3Tuple_RawInvoice_u832InvoiceSignatureZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+        				self.dangling = true
+						return self
+					}
 					
-					if self.cOpaqueStruct?.a.is_owned == true {
-						return
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
-					if self.cOpaqueStruct?.c.is_owned == true {
-						return
-					}
-				
-					
-					
-		C3Tuple_RawInvoice_u832InvoiceSignatureZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

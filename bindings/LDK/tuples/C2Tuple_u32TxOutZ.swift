@@ -21,20 +21,35 @@ C2Tuple_u32TxOutZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C2Tuple_u32TxOutZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
     	
         return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b));
     }
 
+    internal func free() -> C2Tuple_u32TxOutZ {
+    	
+        return C2Tuple_u32TxOutZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C2Tuple_u32TxOutZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		C2Tuple_u32TxOutZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

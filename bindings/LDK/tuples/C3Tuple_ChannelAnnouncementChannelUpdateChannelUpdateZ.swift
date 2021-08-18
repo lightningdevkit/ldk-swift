@@ -21,32 +21,35 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
     	
         return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.clone().cOpaqueStruct!, b.clone().cOpaqueStruct!, c.clone().cOpaqueStruct!));
     }
 
-				
-	deinit {
+    internal func free() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+    	
+        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+        				self.dangling = true
+						return self
+					}
 					
-					if self.cOpaqueStruct?.a.is_owned == true {
-						return
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
-					if self.cOpaqueStruct?.b.is_owned == true {
-						return
-					}
-				
-					if self.cOpaqueStruct?.c.is_owned == true {
-						return
-					}
-				
-					
-					
-		C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

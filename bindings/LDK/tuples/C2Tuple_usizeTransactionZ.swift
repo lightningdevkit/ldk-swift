@@ -21,20 +21,35 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C2Tuple_usizeTransactionZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: UInt, b: [UInt8]) -> C2Tuple_usizeTransactionZ {
     	
         return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, Bindings.new_LDKTransaction(array: b)));
     }
 
+    internal func free() -> C2Tuple_usizeTransactionZ {
+    	
+        return C2Tuple_usizeTransactionZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C2Tuple_usizeTransactionZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		C2Tuple_usizeTransactionZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

@@ -19,19 +19,23 @@ public class C2Tuple_BlockHashChannelManagerZ {
         return C2Tuple_BlockHashChannelManagerZ(pointer: C2Tuple_BlockHashChannelManagerZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
     }
 
-				
-	deinit {
+    internal func free() -> C2Tuple_BlockHashChannelManagerZ {
+    	
+        return C2Tuple_BlockHashChannelManagerZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C2Tuple_BlockHashChannelManagerZ {
+        				self.dangling = true
+						return self
+					}
 					
-					if self.cOpaqueStruct?.b.is_owned == true {
-						return
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
-					
-					
-		C2Tuple_BlockHashChannelManagerZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

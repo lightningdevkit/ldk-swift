@@ -21,24 +21,35 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C2Tuple_OutPointScriptZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: OutPoint, b: [UInt8]) -> C2Tuple_OutPointScriptZ {
     	
         return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.clone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
     }
 
-				
-	deinit {
+    internal func free() -> C2Tuple_OutPointScriptZ {
+    	
+        return C2Tuple_OutPointScriptZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C2Tuple_OutPointScriptZ {
+        				self.dangling = true
+						return self
+					}
 					
-					if self.cOpaqueStruct?.a.is_owned == true {
-						return
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
 					}
 				
-					
-					
-		C2Tuple_OutPointScriptZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

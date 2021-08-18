@@ -21,20 +21,35 @@ C2Tuple_PaymentHashPaymentSecretZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C2Tuple_PaymentHashPaymentSecretZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: [UInt8], b: [UInt8]) -> C2Tuple_PaymentHashPaymentSecretZ {
     	
         return C2Tuple_PaymentHashPaymentSecretZ(pointer: C2Tuple_PaymentHashPaymentSecretZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKThirtyTwoBytes(array: b)));
     }
 
+    internal func free() -> C2Tuple_PaymentHashPaymentSecretZ {
+    	
+        return C2Tuple_PaymentHashPaymentSecretZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C2Tuple_PaymentHashPaymentSecretZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		C2Tuple_PaymentHashPaymentSecretZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

@@ -21,20 +21,35 @@ C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C2Tuple_SignatureCVec_SignatureZZ {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: [UInt8], b: [[UInt8]]) -> C2Tuple_SignatureCVec_SignatureZZ {
     	
         return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_new(Bindings.new_LDKSignature(array: a), Bindings.new_LDKCVec_SignatureZ(array: b)));
     }
 
+    internal func free() -> C2Tuple_SignatureCVec_SignatureZZ {
+    	
+        return C2Tuple_SignatureCVec_SignatureZZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C2Tuple_SignatureCVec_SignatureZZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		C2Tuple_SignatureCVec_SignatureZZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

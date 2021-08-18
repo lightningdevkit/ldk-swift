@@ -12,7 +12,7 @@ public class ClosingSigned {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ClosingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg).cOpaqueStruct!, fee_satoshis_arg, Bindings.new_LDKSignature(array: signature_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = ClosingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), fee_satoshis_arg, Bindings.new_LDKSignature(array: signature_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ ClosingSigned_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKClosingSigned>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ClosingSigned_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return ClosingSigned_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func get_fee_satoshis() -> UInt64 {
@@ -66,7 +66,7 @@ ClosingSigned_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKClosingSigned>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ClosingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
+        return ClosingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     public func clone() -> ClosingSigned {
@@ -92,7 +92,7 @@ ClosingSigned_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ClosingSignedDecodeErrorZ {
     	
-        return Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

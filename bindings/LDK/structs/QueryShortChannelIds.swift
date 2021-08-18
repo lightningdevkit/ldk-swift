@@ -12,7 +12,7 @@ public class QueryShortChannelIds {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg).cOpaqueStruct!, Bindings.new_LDKCVec_u64Z(array: short_channel_ids_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), Bindings.new_LDKCVec_u64Z(array: short_channel_ids_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ QueryShortChannelIds_get_chain_hash(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKQueryShortChannelIds>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return QueryShortChannelIds_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return QueryShortChannelIds_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func set_short_channel_ids(val: [UInt64]) -> Void {
@@ -63,7 +63,7 @@ QueryShortChannelIds_clone(origPointer)
 
     public class func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {
     	
-        return Result_QueryShortChannelIdsDecodeErrorZ(pointer: QueryShortChannelIds_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_QueryShortChannelIdsDecodeErrorZ(pointer: QueryShortChannelIds_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     public func write() -> [UInt8] {

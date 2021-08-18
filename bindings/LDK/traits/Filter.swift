@@ -104,7 +104,7 @@ public class NativelyImplementedFilter: Filter {
 		
 				withUnsafePointer(to: Bindings.array_to_tuple32(array: txid!)) { (txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				self.cOpaqueStruct!.register_tx(self.cOpaqueStruct!.this_arg, txidPointer, Bindings.new_LDKu8slice(array: script_pubkey).cOpaqueStruct!)
+				self.cOpaqueStruct!.register_tx(self.cOpaqueStruct!.this_arg, txidPointer, Bindings.new_LDKu8slice(array: script_pubkey))
 				
 }
 			

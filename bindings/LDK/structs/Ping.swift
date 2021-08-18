@@ -77,7 +77,7 @@ Ping_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_PingDecodeErrorZ {
     	
-        return Result_PingDecodeErrorZ(pointer: Ping_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_PingDecodeErrorZ(pointer: Ping_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

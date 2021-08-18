@@ -44,7 +44,7 @@ public class Result_PublicKeyErrorZ {
 			
     public class func ok(o: [UInt8]) -> Result_PublicKeyErrorZ {
     	
-        return Result_PublicKeyErrorZ(pointer: CResult_PublicKeyErrorZ_ok(Bindings.new_LDKPublicKey(array: o).cOpaqueStruct!));
+        return Result_PublicKeyErrorZ(pointer: CResult_PublicKeyErrorZ_ok(Bindings.new_LDKPublicKey(array: o)));
     }
 
     public class func err(e: LDKSecp256k1Error) -> Result_PublicKeyErrorZ {

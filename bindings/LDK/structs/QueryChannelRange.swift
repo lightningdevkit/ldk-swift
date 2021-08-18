@@ -12,7 +12,7 @@ public class QueryChannelRange {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = QueryChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg).cOpaqueStruct!, first_blocknum_arg, number_of_blocks_arg)
+        self.cOpaqueStruct = QueryChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ QueryChannelRange_get_chain_hash(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKQueryChannelRange>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return QueryChannelRange_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return QueryChannelRange_set_chain_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func get_first_blocknum() -> UInt32 {
@@ -92,7 +92,7 @@ QueryChannelRange_end_blocknum(this_argPointer)
 
     public class func read(ser: [UInt8]) -> Result_QueryChannelRangeDecodeErrorZ {
     	
-        return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     public func write() -> [UInt8] {

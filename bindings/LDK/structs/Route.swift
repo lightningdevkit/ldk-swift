@@ -55,7 +55,7 @@ Route_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
     	
-        return Result_RouteDecodeErrorZ(pointer: Route_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_RouteDecodeErrorZ(pointer: Route_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

@@ -12,7 +12,7 @@ public class ChannelUpdate {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg).cOpaqueStruct!, contents_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ ChannelUpdate_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelUpdate_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
+        return ChannelUpdate_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     public func get_contents() -> UnsignedChannelUpdate {
@@ -77,7 +77,7 @@ ChannelUpdate_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelUpdateDecodeErrorZ {
     	
-        return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

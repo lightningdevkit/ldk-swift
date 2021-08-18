@@ -30,7 +30,7 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
 
     public class func new(a: OutPoint, b: [UInt8]) -> C2Tuple_OutPointScriptZ {
     	
-        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b).cOpaqueStruct!));
+        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
     }
 
     internal func free() -> Void {

@@ -103,7 +103,7 @@ public class NativelyImplementedListen: Listen {
 	public override func block_connected(block: [UInt8], height: UInt32) -> Void {
 		
 				
-				self.cOpaqueStruct!.block_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: block).cOpaqueStruct!, height)
+				self.cOpaqueStruct!.block_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: block), height)
 				
 			
 	}

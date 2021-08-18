@@ -2826,7 +2826,7 @@ public class Bindings{
 				
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: sk)) { (skPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_StringErrorZ(pointer: sign(Bindings.new_LDKu8slice(array: msg).cOpaqueStruct!, skPointer))
+				Result_StringErrorZ(pointer: sign(Bindings.new_LDKu8slice(array: msg), skPointer))
 				
 }
 			
@@ -2835,7 +2835,7 @@ public class Bindings{
 		
 				
 				return 
-				Result_PublicKeyErrorZ(pointer: recover_pk(Bindings.new_LDKu8slice(array: msg).cOpaqueStruct!, Bindings.new_LDKStr(string: sig)))
+				Result_PublicKeyErrorZ(pointer: recover_pk(Bindings.new_LDKu8slice(array: msg), Bindings.new_LDKStr(string: sig)))
 				
 			
 	}
@@ -2843,7 +2843,7 @@ public class Bindings{
 		
 				
 				return 
-				verify(Bindings.new_LDKu8slice(array: msg).cOpaqueStruct!, Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk).cOpaqueStruct!)
+				verify(Bindings.new_LDKu8slice(array: msg), Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
 				
 			
 	}
@@ -2852,7 +2852,7 @@ public class Bindings{
 				
 				return withUnsafePointer(to: arg.cOpaqueStruct!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
 
-				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!, argPointer))
+				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(Bindings.new_LDKu8slice(array: ser), argPointer))
 				
 }
 			
@@ -2861,7 +2861,7 @@ public class Bindings{
 		
 				
 				return 
-				Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelManagerZ_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!, arg.cOpaqueStruct!))
+				Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelManagerZ_read(Bindings.new_LDKu8slice(array: ser), arg.cOpaqueStruct!))
 				
 			
 	}
@@ -2869,7 +2869,7 @@ public class Bindings{
 		
 				
 				return 
-				Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: Result_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!))
+				Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: Result_read(Bindings.new_LDKu8slice(array: ser)))
 				
 			
 	}
@@ -2888,7 +2888,7 @@ public class Bindings{
 				
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: base_secret)) { (base_secretPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_SecretKeyErrorZ(pointer: derive_private_key(Bindings.new_LDKPublicKey(array: per_commitment_point).cOpaqueStruct!, base_secretPointer))
+				Result_SecretKeyErrorZ(pointer: derive_private_key(Bindings.new_LDKPublicKey(array: per_commitment_point), base_secretPointer))
 				
 }
 			
@@ -2897,7 +2897,7 @@ public class Bindings{
 		
 				
 				return 
-				Result_PublicKeyErrorZ(pointer: derive_public_key(Bindings.new_LDKPublicKey(array: per_commitment_point).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: base_point).cOpaqueStruct!))
+				Result_PublicKeyErrorZ(pointer: derive_public_key(Bindings.new_LDKPublicKey(array: per_commitment_point), Bindings.new_LDKPublicKey(array: base_point)))
 				
 			
 	}
@@ -2917,7 +2917,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: countersignatory_revocati
 		
 				
 				return 
-				Result_PublicKeyErrorZ(pointer: derive_public_revocation_key(Bindings.new_LDKPublicKey(array: per_commitment_point).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: countersignatory_revocation_base_point).cOpaqueStruct!))
+				Result_PublicKeyErrorZ(pointer: derive_public_revocation_key(Bindings.new_LDKPublicKey(array: per_commitment_point), Bindings.new_LDKPublicKey(array: countersignatory_revocation_base_point)))
 				
 			
 	}
@@ -2925,7 +2925,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: countersignatory_revocati
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: get_revokeable_redeemscript(Bindings.new_LDKPublicKey(array: revocation_key).cOpaqueStruct!, contest_delay, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key).cOpaqueStruct!))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: get_revokeable_redeemscript(Bindings.new_LDKPublicKey(array: revocation_key), contest_delay, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key)))
 				
 			
 	}
@@ -2945,7 +2945,7 @@ withUnsafePointer(to: keys.cOpaqueStruct!) { (keysPointer: UnsafePointer<LDKTxCr
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: make_funding_redeemscript(Bindings.new_LDKPublicKey(array: broadcaster).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: countersignatory).cOpaqueStruct!))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: make_funding_redeemscript(Bindings.new_LDKPublicKey(array: broadcaster), Bindings.new_LDKPublicKey(array: countersignatory)))
 				
 			
 	}
@@ -2955,7 +2955,7 @@ withUnsafePointer(to: keys.cOpaqueStruct!) { (keysPointer: UnsafePointer<LDKTxCr
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: commitment_txid)) { (commitment_txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Bindings.LDKTransaction_to_array(nativeType: build_htlc_transaction(commitment_txidPointer, feerate_per_kw, contest_delay, htlcPointer, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: revocation_key).cOpaqueStruct!))
+				Bindings.LDKTransaction_to_array(nativeType: build_htlc_transaction(commitment_txidPointer, feerate_per_kw, contest_delay, htlcPointer, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key), Bindings.new_LDKPublicKey(array: revocation_key)))
 				
 }
 }
@@ -2965,7 +2965,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		
 				
 				return 
-				get_commitment_transaction_number_obscure_factor(Bindings.new_LDKPublicKey(array: broadcaster_payment_basepoint).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: countersignatory_payment_basepoint).cOpaqueStruct!, outbound_from_broadcaster)
+				get_commitment_transaction_number_obscure_factor(Bindings.new_LDKPublicKey(array: broadcaster_payment_basepoint), Bindings.new_LDKPublicKey(array: countersignatory_payment_basepoint), outbound_from_broadcaster)
 				
 			
 	}

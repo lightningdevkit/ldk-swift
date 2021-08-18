@@ -37,7 +37,7 @@ public class Result_SignatureNoneZ {
 			
     public class func ok(o: [UInt8]) -> Result_SignatureNoneZ {
     	
-        return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_ok(Bindings.new_LDKSignature(array: o).cOpaqueStruct!));
+        return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_ok(Bindings.new_LDKSignature(array: o)));
     }
 
     public class func err() -> Result_SignatureNoneZ {

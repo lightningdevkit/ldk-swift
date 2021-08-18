@@ -12,7 +12,7 @@ public class DataLossProtect {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = DataLossProtect_new(Bindings.new_LDKThirtyTwoBytes(array: your_last_per_commitment_secret_arg).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: my_current_per_commitment_point_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = DataLossProtect_new(Bindings.new_LDKThirtyTwoBytes(array: your_last_per_commitment_secret_arg), Bindings.new_LDKPublicKey(array: my_current_per_commitment_point_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ DataLossProtect_get_your_last_per_commitment_secret(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDataLossProtect>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DataLossProtect_set_your_last_per_commitment_secret(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return DataLossProtect_set_your_last_per_commitment_secret(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func get_my_current_per_commitment_point() -> [UInt8] {
@@ -51,7 +51,7 @@ DataLossProtect_get_my_current_per_commitment_point(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDataLossProtect>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DataLossProtect_set_my_current_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val).cOpaqueStruct!);
+        return DataLossProtect_set_my_current_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
     public func clone() -> DataLossProtect {

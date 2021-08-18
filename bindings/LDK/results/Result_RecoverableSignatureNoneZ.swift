@@ -37,7 +37,7 @@ public class Result_RecoverableSignatureNoneZ {
 			
     public class func ok(serialized_form: [UInt8]) -> Result_RecoverableSignatureNoneZ {
     	
-        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: serialized_form).cOpaqueStruct!));
+        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: serialized_form)));
     }
 
     public class func err() -> Result_RecoverableSignatureNoneZ {

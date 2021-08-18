@@ -12,7 +12,7 @@ public class FundingSigned {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = FundingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg).cOpaqueStruct!, Bindings.new_LDKSignature(array: signature_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = FundingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ FundingSigned_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKFundingSigned>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return FundingSigned_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return FundingSigned_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func get_signature() -> [UInt8] {
@@ -51,7 +51,7 @@ FundingSigned_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKFundingSigned>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return FundingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
+        return FundingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     public func clone() -> FundingSigned {
@@ -77,7 +77,7 @@ FundingSigned_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_FundingSignedDecodeErrorZ {
     	
-        return Result_FundingSignedDecodeErrorZ(pointer: FundingSigned_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_FundingSignedDecodeErrorZ(pointer: FundingSigned_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

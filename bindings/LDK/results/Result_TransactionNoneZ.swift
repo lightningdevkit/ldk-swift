@@ -37,7 +37,7 @@ public class Result_TransactionNoneZ {
 			
     public class func ok(o: [UInt8]) -> Result_TransactionNoneZ {
     	
-        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(Bindings.new_LDKTransaction(array: o).cOpaqueStruct!));
+        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(Bindings.new_LDKTransaction(array: o)));
     }
 
     public class func err() -> Result_TransactionNoneZ {

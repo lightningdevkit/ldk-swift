@@ -30,7 +30,7 @@ C2Tuple_PaymentHashPaymentSecretZ_clone(origPointer)
 
     public class func new(a: [UInt8], b: [UInt8]) -> C2Tuple_PaymentHashPaymentSecretZ {
     	
-        return C2Tuple_PaymentHashPaymentSecretZ(pointer: C2Tuple_PaymentHashPaymentSecretZ_new(Bindings.new_LDKThirtyTwoBytes(array: a).cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b).cOpaqueStruct!));
+        return C2Tuple_PaymentHashPaymentSecretZ(pointer: C2Tuple_PaymentHashPaymentSecretZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKThirtyTwoBytes(array: b)));
     }
 
     internal func free() -> Void {

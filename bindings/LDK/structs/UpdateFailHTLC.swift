@@ -29,7 +29,7 @@ UpdateFailHTLC_get_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUpdateFailHTLC>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UpdateFailHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return UpdateFailHTLC_set_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func get_htlc_id() -> UInt64 {
@@ -70,7 +70,7 @@ UpdateFailHTLC_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateFailHTLCDecodeErrorZ {
     	
-        return Result_UpdateFailHTLCDecodeErrorZ(pointer: UpdateFailHTLC_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_UpdateFailHTLCDecodeErrorZ(pointer: UpdateFailHTLC_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

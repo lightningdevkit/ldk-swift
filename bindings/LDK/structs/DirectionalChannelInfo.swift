@@ -152,7 +152,7 @@ DirectionalChannelInfo_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_DirectionalChannelInfoDecodeErrorZ {
     	
-        return Result_DirectionalChannelInfoDecodeErrorZ(pointer: DirectionalChannelInfo_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_DirectionalChannelInfoDecodeErrorZ(pointer: DirectionalChannelInfo_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

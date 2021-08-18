@@ -44,7 +44,7 @@ public class Result_PaymentSecretAPIErrorZ {
 			
     public class func ok(o: [UInt8]) -> Result_PaymentSecretAPIErrorZ {
     	
-        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o).cOpaqueStruct!));
+        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o)));
     }
 
     public class func err(e: APIError) -> Result_PaymentSecretAPIErrorZ {

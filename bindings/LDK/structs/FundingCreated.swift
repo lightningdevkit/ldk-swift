@@ -12,7 +12,7 @@ public class FundingCreated {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = FundingCreated_new(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id_arg).cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: funding_txid_arg).cOpaqueStruct!, funding_output_index_arg, Bindings.new_LDKSignature(array: signature_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = FundingCreated_new(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id_arg), Bindings.new_LDKThirtyTwoBytes(array: funding_txid_arg), funding_output_index_arg, Bindings.new_LDKSignature(array: signature_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ FundingCreated_get_temporary_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return FundingCreated_set_temporary_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return FundingCreated_set_temporary_channel_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func get_funding_txid() -> [UInt8] {
@@ -51,7 +51,7 @@ FundingCreated_get_funding_txid(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return FundingCreated_set_funding_txid(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val).cOpaqueStruct!);
+        return FundingCreated_set_funding_txid(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
     public func get_funding_output_index() -> UInt16 {
@@ -81,7 +81,7 @@ FundingCreated_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKFundingCreated>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return FundingCreated_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val).cOpaqueStruct!);
+        return FundingCreated_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
     public func clone() -> FundingCreated {
@@ -107,7 +107,7 @@ FundingCreated_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
     	
-        return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

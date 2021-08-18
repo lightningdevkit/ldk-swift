@@ -100,7 +100,7 @@ SpendableOutputDescriptor_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
-        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     /* OPTION_METHODS_END */

@@ -62,7 +62,7 @@ Init_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_InitDecodeErrorZ {
     	
-        return Result_InitDecodeErrorZ(pointer: Init_read(Bindings.new_LDKu8slice(array: ser).cOpaqueStruct!));
+        return Result_InitDecodeErrorZ(pointer: Init_read(Bindings.new_LDKu8slice(array: ser)));
     }
 
     internal func free() -> Void {

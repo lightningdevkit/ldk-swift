@@ -12,7 +12,7 @@ public class BestBlock {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = BestBlock_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash).cOpaqueStruct!, height)
+        self.cOpaqueStruct = BestBlock_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash), height)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

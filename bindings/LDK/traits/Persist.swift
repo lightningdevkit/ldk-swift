@@ -16,7 +16,7 @@ open class Persist {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::persist_new_channel")
 			let data = ChannelMonitor(pointer: dataPointer.pointee);
 
-			return instance.persist_new_channel(id: OutPoint(pointer: id), data: data).cOpaqueStruct!;
+			return instance.persist_new_channel(id: OutPoint(pointer: id), data: data).cOpaqueStruct!
 		}
 
 		func update_persisted_channelCallback(pointer: UnsafeRawPointer?, id: LDKOutPoint, updatePointer: UnsafePointer<LDKChannelMonitorUpdate>, dataPointer: UnsafePointer<LDKChannelMonitor>) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
@@ -24,13 +24,13 @@ open class Persist {
 			let update = ChannelMonitorUpdate(pointer: updatePointer.pointee);
 let data = ChannelMonitor(pointer: dataPointer.pointee);
 
-			return instance.update_persisted_channel(id: OutPoint(pointer: id), update: update, data: data).cOpaqueStruct!;
+			return instance.update_persisted_channel(id: OutPoint(pointer: id), update: update, data: data).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */

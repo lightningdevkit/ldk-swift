@@ -20,13 +20,13 @@ open class Logger {
 									record = Bindings.UnsafeIntPointer_to_string(nativeType: recordUnwrapped)
 								}
 							
-			return instance.log(record: record);
+			return instance.log(record: record)
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */

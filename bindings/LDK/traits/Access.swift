@@ -20,13 +20,13 @@ open class Access {
 									genesis_hash = Bindings.tuple32_to_array(nativeType: genesis_hashUnwrapped.pointee)
 								}
 							
-			return instance.get_utxo(genesis_hash: genesis_hash, short_channel_id: short_channel_id).cOpaqueStruct!;
+			return instance.get_utxo(genesis_hash: genesis_hash, short_channel_id: short_channel_id).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: Access = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Access.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */

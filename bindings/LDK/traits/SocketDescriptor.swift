@@ -15,38 +15,42 @@ open class SocketDescriptor {
 		func send_dataCallback(pointer: UnsafeMutableRawPointer?, data: LDKu8slice, resume_read: Bool) -> UInt {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::send_data")
 			
-			return instance.send_data(data: Bindings.LDKu8slice_to_array(nativeType: data), resume_read: resume_read);
+			return instance.send_data(data: Bindings.LDKu8slice_to_array(nativeType: data), resume_read: resume_read)
 		}
 
 		func disconnect_socketCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::disconnect_socket")
 			
-			return instance.disconnect_socket();
+			return instance.disconnect_socket()
 		}
 
 		func eqCallback(pointer: UnsafeRawPointer?, other_argPointer: UnsafePointer<LDKSocketDescriptor>) -> Bool {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::eq")
 			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee);
 
-			return instance.eq(other_arg: other_arg);
+			return instance.eq(other_arg: other_arg)
 		}
 
 		func hashCallback(pointer: UnsafeRawPointer?) -> UInt64 {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::hash")
 			
-			return instance.hash();
+			return instance.hash()
 		}
 
 		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::clone")
 			
-			return instance.clone();
+			
+					var clone = instance.clone()
+					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
+					return clonePointer
+				
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */

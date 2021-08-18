@@ -16,13 +16,13 @@ open class ChannelManagerPersister {
 			let instance: ChannelManagerPersister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelManagerPersister.swift::persist_manager")
 			let channel_manager = ChannelManager(pointer: channel_managerPointer.pointee);
 
-			return instance.persist_manager(channel_manager: channel_manager).cOpaqueStruct!;
+			return instance.persist_manager(channel_manager: channel_manager).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: ChannelManagerPersister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelManagerPersister.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */

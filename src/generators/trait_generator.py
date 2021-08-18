@@ -186,11 +186,19 @@ class TraitGenerator:
 			elif current_return_type_details.rust_obj is not None and current_return_type_details.rust_obj.startswith('LDK') and not swift_raw_return_type.startswith('['):
 				swift_default_return = f'return {swift_return_type}(pointer: {current_return_type_details.rust_obj}())'
 
+
 			current_native_callback_replacement = native_callback_template
 			current_native_callback_replacement = current_native_callback_replacement.replace(
 				'func methodNameCallback(', f'func {current_lambda_name}Callback(')
 			current_native_callback_replacement = current_native_callback_replacement.replace('instance: TraitName',
+
 																							  f'instance: {swift_struct_name}')
+			if current_lambda_name == 'clone':
+				current_native_callback_replacement = current_native_callback_replacement.replace('return instance.callbackName(swift_callback_arguments)', f'''
+					var clone = instance.clone()
+					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
+					return clonePointer
+				''')
 			current_native_callback_replacement = current_native_callback_replacement.replace(
 				'instance.callbackName(swift_callback_arguments)',
 				f'{return_conversion_prefix}instance.callbackName(swift_callback_arguments){return_conversion_suffix}')

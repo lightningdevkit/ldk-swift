@@ -15,13 +15,13 @@ open class EventHandler {
 		func handle_eventCallback(pointer: UnsafeRawPointer?, event: LDKEvent) -> Void {
 			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::handle_event")
 			
-			return instance.handle_event(event: Event(pointer: event));
+			return instance.handle_event(event: Event(pointer: event))
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */

@@ -14,7 +14,7 @@ open class TraitName {
 		func methodNameCallback(pointer: UnsafeRawPointer?, native_arguments) -> Void {
 			let instance: TraitName = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: <sourceMarker>)
 			/* SWIFT_CALLBACK_PREP */
-			return instance.callbackName(swift_callback_arguments);
+			return instance.callbackName(swift_callback_arguments)
 		}
 		/* NATIVE_CALLBACKS_END */
 

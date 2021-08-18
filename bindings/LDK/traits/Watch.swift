@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class Watch {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKWatch?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -42,6 +46,8 @@ open class Watch {
     }
 
     public init(pointer: LDKWatch){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 
@@ -66,10 +72,6 @@ open class Watch {
     	/* EDIT ME */
 		
     }
-
-	deinit {
-		Watch_free(self.cOpaqueStruct!)
-	}
 
     /* SWIFT_CALLBACKS_END */
 

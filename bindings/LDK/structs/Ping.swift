@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class Ping {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKPing?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(ponglen_arg: UInt16, byteslen_arg: UInt16) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = Ping_new(ponglen_arg, byteslen_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKPing){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

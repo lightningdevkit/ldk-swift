@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class StaticPaymentOutputDescriptor {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(outpoint_arg: OutPoint, output_arg: LDKTxOut, channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.clone().cOpaqueStruct!, output_arg, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKStaticPaymentOutputDescriptor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

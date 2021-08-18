@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class Listen {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKListen?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -40,6 +44,8 @@ open class Listen {
     }
 
     public init(pointer: LDKListen){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class CounterpartyChannelTransactionParameters {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCounterpartyChannelTransactionParameters?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(pubkeys_arg: ChannelPublicKeys, selected_contest_delay_arg: UInt16) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = CounterpartyChannelTransactionParameters_new(pubkeys_arg.clone().cOpaqueStruct!, selected_contest_delay_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCounterpartyChannelTransactionParameters){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

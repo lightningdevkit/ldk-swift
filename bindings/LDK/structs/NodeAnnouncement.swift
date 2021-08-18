@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class NodeAnnouncement {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKNodeAnnouncement?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedNodeAnnouncement) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNodeAnnouncement){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

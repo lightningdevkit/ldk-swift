@@ -1,10 +1,14 @@
-import LDKHeaders
-
 public class C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?;
 
     public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

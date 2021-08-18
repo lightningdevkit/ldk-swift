@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class RouteHop {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKRouteHop?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(pubkey_arg: [UInt8], node_features_arg: NodeFeatures, short_channel_id_arg: UInt64, channel_features_arg: ChannelFeatures, fee_msat_arg: UInt64, cltv_expiry_delta_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.clone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.clone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKRouteHop){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class NetworkGraph {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKNetworkGraph?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(genesis_hash: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = NetworkGraph_new(Bindings.new_LDKThirtyTwoBytes(array: genesis_hash))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNetworkGraph){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

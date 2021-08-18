@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class ChannelMessageHandler {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKChannelMessageHandler?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -182,6 +186,8 @@ let msg = Shutdown(pointer: msgPointer.pointee);
     }
 
     public init(pointer: LDKChannelMessageHandler){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

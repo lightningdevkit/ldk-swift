@@ -1,11 +1,16 @@
-import LDKHeaders
-
 public class PeerManager {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKPeerManager?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: ephemeral_random_data)) { (ephemeral_random_dataPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.cOpaqueStruct!)
@@ -14,6 +19,8 @@ PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array:
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKPeerManager){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

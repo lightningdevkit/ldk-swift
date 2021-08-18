@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class LightningError {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKLightningError?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(err_arg: String, action_arg: ErrorAction) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg), action_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKLightningError){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

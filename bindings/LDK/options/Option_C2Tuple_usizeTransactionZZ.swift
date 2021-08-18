@@ -1,11 +1,15 @@
-import LDKHeaders
-
 public class Option_C2Tuple_usizeTransactionZZ {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(value: C2Tuple_usizeTransactionZ?) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
 				self.cOpaqueStruct = LDKCOption_C2Tuple_usizeTransactionZZ()
 				if let value = value {
@@ -20,6 +24,8 @@ public class Option_C2Tuple_usizeTransactionZZ {
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCOption_C2Tuple_usizeTransactionZZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

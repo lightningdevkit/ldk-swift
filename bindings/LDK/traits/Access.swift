@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class Access {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKAccess?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -33,6 +37,8 @@ open class Access {
     }
 
     public init(pointer: LDKAccess){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

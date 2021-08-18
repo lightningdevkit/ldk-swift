@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class WatchedOutput {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKWatchedOutput?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(block_hash_arg: [UInt8], outpoint_arg: OutPoint, script_pubkey_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.clone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: script_pubkey_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKWatchedOutput){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

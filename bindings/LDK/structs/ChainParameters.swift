@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ChainParameters {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKChainParameters?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(network_arg: LDKNetwork, best_block_arg: BestBlock) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChainParameters){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

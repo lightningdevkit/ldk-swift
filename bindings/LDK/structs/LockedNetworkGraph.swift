@@ -1,12 +1,17 @@
-import LDKHeaders
-
 public class LockedNetworkGraph {
 
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
+
     public internal(set) var cOpaqueStruct: LDKLockedNetworkGraph?;
+
 
 	
 
     public init(pointer: LDKLockedNetworkGraph){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

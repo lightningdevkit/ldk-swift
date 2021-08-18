@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class FundingSigned {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKFundingSigned?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], signature_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = FundingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKFundingSigned){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

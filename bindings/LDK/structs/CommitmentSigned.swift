@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class CommitmentSigned {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCommitmentSigned?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], signature_arg: [UInt8], htlc_signatures_arg: [[UInt8]]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), Bindings.new_LDKCVec_SignatureZ(array: htlc_signatures_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCommitmentSigned){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

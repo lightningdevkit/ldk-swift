@@ -1,10 +1,14 @@
-import LDKHeaders
-
 public class C2Tuple_OutPointScriptZ {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?;
 
     public init(pointer: LDKC2Tuple_OutPointScriptZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

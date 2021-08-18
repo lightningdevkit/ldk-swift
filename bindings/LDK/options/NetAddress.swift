@@ -1,12 +1,16 @@
-import LDKHeaders
-
 public class NetAddress {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKNetAddress?;
 
 	
 
     public init(pointer: LDKNetAddress){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

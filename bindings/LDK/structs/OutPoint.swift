@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class OutPoint {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKOutPoint?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(txid_arg: [UInt8], index_arg: UInt16) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = OutPoint_new(Bindings.new_LDKThirtyTwoBytes(array: txid_arg), index_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKOutPoint){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

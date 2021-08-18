@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class Route {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKRoute?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(paths_arg: [[LDKRouteHop]]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = Route_new(Bindings.new_LDKCVec_CVec_RouteHopZZ(array: paths_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKRoute){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

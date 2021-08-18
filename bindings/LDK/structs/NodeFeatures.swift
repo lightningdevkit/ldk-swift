@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class NodeFeatures {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKNodeFeatures?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = NodeFeatures_known()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNodeFeatures){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

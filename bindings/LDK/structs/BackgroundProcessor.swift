@@ -1,11 +1,16 @@
-import LDKHeaders
-
 public class BackgroundProcessor {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKBackgroundProcessor?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(persister: ChannelManagerPersister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, peer_manager: PeerManager, logger: Logger) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: chain_monitor.cOpaqueStruct!) { (chain_monitorPointer: UnsafePointer<LDKChainMonitor>) in
 withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
@@ -18,6 +23,8 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKBackgroundProcessor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

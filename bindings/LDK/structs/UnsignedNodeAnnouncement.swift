@@ -1,12 +1,17 @@
-import LDKHeaders
-
 public class UnsignedNodeAnnouncement {
 
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
+
     public internal(set) var cOpaqueStruct: LDKUnsignedNodeAnnouncement?;
+
 
 	
 
     public init(pointer: LDKUnsignedNodeAnnouncement){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

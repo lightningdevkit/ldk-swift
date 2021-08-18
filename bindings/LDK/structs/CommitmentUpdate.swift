@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class CommitmentUpdate {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCommitmentUpdate?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(update_add_htlcs_arg: [LDKUpdateAddHTLC], update_fulfill_htlcs_arg: [LDKUpdateFulfillHTLC], update_fail_htlcs_arg: [LDKUpdateFailHTLC], update_fail_malformed_htlcs_arg: [LDKUpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = CommitmentUpdate_new(Bindings.new_LDKCVec_UpdateAddHTLCZ(array: update_add_htlcs_arg), Bindings.new_LDKCVec_UpdateFulfillHTLCZ(array: update_fulfill_htlcs_arg), Bindings.new_LDKCVec_UpdateFailHTLCZ(array: update_fail_htlcs_arg), Bindings.new_LDKCVec_UpdateFailMalformedHTLCZ(array: update_fail_malformed_htlcs_arg), update_fee_arg.clone().cOpaqueStruct!, commitment_signed_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCommitmentUpdate){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

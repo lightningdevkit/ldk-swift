@@ -1,12 +1,16 @@
-import LDKHeaders
-
 public class SpendableOutputDescriptor {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKSpendableOutputDescriptor?;
 
 	
 
     public init(pointer: LDKSpendableOutputDescriptor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

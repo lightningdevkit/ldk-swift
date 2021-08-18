@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ErroringMessageHandler {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKErroringMessageHandler?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ErroringMessageHandler_new()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKErroringMessageHandler){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

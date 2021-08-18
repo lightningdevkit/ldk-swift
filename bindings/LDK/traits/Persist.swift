@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class Persist {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKPersist?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -38,6 +42,8 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
     }
 
     public init(pointer: LDKPersist){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

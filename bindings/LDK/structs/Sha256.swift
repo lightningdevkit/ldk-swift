@@ -1,12 +1,17 @@
-import LDKHeaders
-
 public class Sha256 {
 
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
+
     public internal(set) var cOpaqueStruct: LDKSha256?;
+
 
 	
 
     public init(pointer: LDKSha256){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class PeerHandleError {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKPeerHandleError?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(no_connection_possible_arg: Bool) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = PeerHandleError_new(no_connection_possible_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKPeerHandleError){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

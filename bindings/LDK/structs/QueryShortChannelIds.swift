@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class QueryShortChannelIds {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKQueryShortChannelIds?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], short_channel_ids_arg: [UInt64]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), Bindings.new_LDKCVec_u64Z(array: short_channel_ids_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKQueryShortChannelIds){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

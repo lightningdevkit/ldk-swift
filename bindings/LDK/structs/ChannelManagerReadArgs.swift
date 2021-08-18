@@ -1,21 +1,24 @@
-import LDKHeaders
-
 public class ChannelManagerReadArgs {
 
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
+
     public internal(set) var cOpaqueStruct: LDKChannelManagerReadArgs?;
-    private var dangling = false
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        // self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.clone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
-        // let channelMonitorVector = Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors)
-        let channelMonitorVector = LDKCVec_ChannelMonitorZ(data: UnsafeMutablePointer<LDKChannelMonitor>(nil), datalen: 0)
-        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.cOpaqueStruct!, channelMonitorVector)
+        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.clone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelManagerReadArgs){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 
@@ -111,21 +114,13 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
         return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.clone().cOpaqueStruct!);
     }
 
-    public func dangle() {
-        self.dangling = true
-    }
-
 				
 	deinit {
 					
 					
-		print("freeing channelmanagerreadargs")
-        if !self.dangling {
-            ChannelManagerReadArgs_free(self.cOpaqueStruct!)
-            print("finished freeing channelmanagerreadargs")
-        }else{
-            print("aborting channelmanagerreadargs free due to dangling flag")
-        }
+					
+		ChannelManagerReadArgs_free(self.cOpaqueStruct!)
+					
 				
 	}
 			

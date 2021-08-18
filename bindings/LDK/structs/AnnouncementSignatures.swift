@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class AnnouncementSignatures {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKAnnouncementSignatures?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], short_channel_id_arg: UInt64, node_signature_arg: [UInt8], bitcoin_signature_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = AnnouncementSignatures_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), short_channel_id_arg, Bindings.new_LDKSignature(array: node_signature_arg), Bindings.new_LDKSignature(array: bitcoin_signature_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKAnnouncementSignatures){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

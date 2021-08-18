@@ -1,6 +1,8 @@
-import LDKHeaders
-
 public class Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ?;
 
@@ -13,6 +15,8 @@ public class Result_StaticPaymentOutputDescriptorDecodeErrorZ {
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

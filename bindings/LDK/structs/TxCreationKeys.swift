@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class TxCreationKeys {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKTxCreationKeys?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(per_commitment_point_arg: [UInt8], revocation_key_arg: [UInt8], broadcaster_htlc_key_arg: [UInt8], countersignatory_htlc_key_arg: [UInt8], broadcaster_delayed_payment_key_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = TxCreationKeys_new(Bindings.new_LDKPublicKey(array: per_commitment_point_arg), Bindings.new_LDKPublicKey(array: revocation_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_htlc_key_arg), Bindings.new_LDKPublicKey(array: countersignatory_htlc_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKTxCreationKeys){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class UpdateFulfillHTLC {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKUpdateFulfillHTLC?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], htlc_id_arg: UInt64, payment_preimage_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = UpdateFulfillHTLC_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), htlc_id_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKUpdateFulfillHTLC){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

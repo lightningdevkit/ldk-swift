@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class DirectionalChannelInfo {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKDirectionalChannelInfo?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(last_update_arg: UInt32, enabled_arg: Bool, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: UInt64, htlc_maximum_msat_arg: Option_u64Z, fees_arg: RoutingFees, last_update_message_arg: ChannelUpdate) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = DirectionalChannelInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg.clone().cOpaqueStruct!, fees_arg.clone().cOpaqueStruct!, last_update_message_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKDirectionalChannelInfo){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

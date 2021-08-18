@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ErrorMessage {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKErrorMessage?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], data_arg: String) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ErrorMessage_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKStr(string: data_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKErrorMessage){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

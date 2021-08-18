@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class SocketDescriptor {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKSocketDescriptor?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -57,6 +61,8 @@ open class SocketDescriptor {
     }
 
     public init(pointer: LDKSocketDescriptor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

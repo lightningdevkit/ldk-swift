@@ -1,12 +1,17 @@
-import LDKHeaders
-
 public class UpdateFailMalformedHTLC {
 
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
+
     public internal(set) var cOpaqueStruct: LDKUpdateFailMalformedHTLC?;
+
 
 	
 
     public init(pointer: LDKUpdateFailMalformedHTLC){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

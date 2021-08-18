@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ChannelUpdate {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKChannelUpdate?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedChannelUpdate) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelUpdate){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

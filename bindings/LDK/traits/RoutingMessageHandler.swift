@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class RoutingMessageHandler {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKRoutingMessageHandler?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -104,6 +108,8 @@ open class RoutingMessageHandler {
     }
 
     public init(pointer: LDKRoutingMessageHandler){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ReplyChannelRange {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKReplyChannelRange?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_blocknum_arg: UInt32, number_of_blocks_arg: UInt32, sync_complete_arg: Bool, short_channel_ids_arg: [UInt64]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, Bindings.new_LDKCVec_u64Z(array: short_channel_ids_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKReplyChannelRange){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class BroadcasterInterface {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKBroadcasterInterface?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -28,6 +32,8 @@ open class BroadcasterInterface {
     }
 
     public init(pointer: LDKBroadcasterInterface){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 
@@ -42,10 +48,6 @@ open class BroadcasterInterface {
     	/* EDIT ME */
 		
     }
-
-	deinit {
-		BroadcasterInterface_free(self.cOpaqueStruct!)
-	}
 
     /* SWIFT_CALLBACKS_END */
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ChannelFeatures {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKChannelFeatures?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelFeatures_known()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelFeatures){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

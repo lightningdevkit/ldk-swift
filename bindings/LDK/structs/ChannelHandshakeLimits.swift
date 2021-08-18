@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ChannelHandshakeLimits {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelHandshakeLimits_default()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelHandshakeLimits){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

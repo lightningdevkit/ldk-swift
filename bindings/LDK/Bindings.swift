@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import LDKHeaders
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes

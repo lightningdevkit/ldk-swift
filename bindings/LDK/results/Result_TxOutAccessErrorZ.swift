@@ -1,6 +1,8 @@
-import LDKHeaders
-
 public class Result_TxOutAccessErrorZ {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCResult_TxOutAccessErrorZ?;
 
@@ -13,6 +15,8 @@ public class Result_TxOutAccessErrorZ {
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_TxOutAccessErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

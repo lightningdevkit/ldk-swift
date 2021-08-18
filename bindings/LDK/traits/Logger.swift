@@ -1,10 +1,14 @@
-import LDKHeaders
-
 open class Logger {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKLogger?;
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -33,6 +37,8 @@ open class Logger {
     }
 
     public init(pointer: LDKLogger){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 
@@ -47,10 +53,6 @@ open class Logger {
     	/* EDIT ME */
 		
     }
-
-	deinit {
-		Logger_free(self.cOpaqueStruct!)
-	}
 
     /* SWIFT_CALLBACKS_END */
 

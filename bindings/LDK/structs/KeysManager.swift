@@ -1,11 +1,16 @@
-import LDKHeaders
-
 public class KeysManager {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKKeysManager?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(seed: [UInt8], starting_time_secs: UInt64, starting_time_nanos: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: seed)) { (seedPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 KeysManager_new(seedPointer, starting_time_secs, starting_time_nanos)
@@ -14,6 +19,8 @@ KeysManager_new(seedPointer, starting_time_secs, starting_time_nanos)
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKKeysManager){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class DataLossProtect {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKDataLossProtect?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(your_last_per_commitment_secret_arg: [UInt8], my_current_per_commitment_point_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = DataLossProtect_new(Bindings.new_LDKThirtyTwoBytes(array: your_last_per_commitment_secret_arg), Bindings.new_LDKPublicKey(array: my_current_per_commitment_point_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKDataLossProtect){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class BuiltCommitmentTransaction {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKBuiltCommitmentTransaction?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(transaction_arg: [UInt8], txid_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = BuiltCommitmentTransaction_new(Bindings.new_LDKTransaction(array: transaction_arg), Bindings.new_LDKThirtyTwoBytes(array: txid_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKBuiltCommitmentTransaction){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

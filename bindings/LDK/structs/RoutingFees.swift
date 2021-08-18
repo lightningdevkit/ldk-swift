@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class RoutingFees {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKRoutingFees?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(base_msat_arg: UInt32, proportional_millionths_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = RoutingFees_new(base_msat_arg, proportional_millionths_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKRoutingFees){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

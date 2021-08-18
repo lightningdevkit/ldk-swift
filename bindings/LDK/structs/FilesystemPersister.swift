@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class FilesystemPersister {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKFilesystemPersister?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(path_to_channel_data: String) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = FilesystemPersister_new(Bindings.new_LDKStr(string: path_to_channel_data))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKFilesystemPersister){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

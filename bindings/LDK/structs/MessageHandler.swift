@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class MessageHandler {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKMessageHandler?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chan_handler_arg: ChannelMessageHandler, route_handler_arg: RoutingMessageHandler) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = MessageHandler_new(chan_handler_arg.cOpaqueStruct!, route_handler_arg.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKMessageHandler){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

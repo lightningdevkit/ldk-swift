@@ -1,11 +1,15 @@
-import LDKHeaders
-
 public class Option_u32Z {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCOption_u32Z?;
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(value: UInt32?) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
 				self.cOpaqueStruct = LDKCOption_u32Z()
 				if let value = value {
@@ -20,6 +24,8 @@ public class Option_u32Z {
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCOption_u32Z){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

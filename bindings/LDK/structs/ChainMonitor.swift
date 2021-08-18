@@ -1,11 +1,16 @@
-import LDKHeaders
-
 public class ChainMonitor {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKChainMonitor?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_source: Filter?, broadcaster: BroadcasterInterface, logger: Logger, feeest: FeeEstimator, persister: Persist) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
 							var chain_sourcePointer: UnsafeMutablePointer<LDKFilter>? = nil
 							if let chain_sourceUnwrapped = chain_source {
@@ -18,6 +23,8 @@ public class ChainMonitor {
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChainMonitor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

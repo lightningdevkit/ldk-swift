@@ -1,11 +1,16 @@
-import LDKHeaders
-
 public class NetGraphMsgHandler {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKNetGraphMsgHandler?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_access: Access?, logger: Logger, network_graph: NetworkGraph) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
 							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
 							if let chain_accessUnwrapped = chain_access {
@@ -18,6 +23,8 @@ public class NetGraphMsgHandler {
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNetGraphMsgHandler){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class NodeInfo {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKNodeInfo?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channels_arg: [UInt64], lowest_inbound_channel_fees_arg: RoutingFees, announcement_info_arg: NodeAnnouncementInfo) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = NodeInfo_new(Bindings.new_LDKCVec_u64Z(array: channels_arg), lowest_inbound_channel_fees_arg.clone().cOpaqueStruct!, announcement_info_arg.clone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNodeInfo){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

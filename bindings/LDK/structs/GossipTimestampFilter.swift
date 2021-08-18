@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class GossipTimestampFilter {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKGossipTimestampFilter?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_timestamp_arg: UInt32, timestamp_range_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = GossipTimestampFilter_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_timestamp_arg, timestamp_range_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKGossipTimestampFilter){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

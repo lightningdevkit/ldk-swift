@@ -1,17 +1,24 @@
-import LDKHeaders
-
 public class ChannelPublicKeys {
+
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKChannelPublicKeys?;
 
+
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(funding_pubkey_arg: [UInt8], revocation_basepoint_arg: [UInt8], payment_point_arg: [UInt8], delayed_payment_basepoint_arg: [UInt8], htlc_basepoint_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelPublicKeys_new(Bindings.new_LDKPublicKey(array: funding_pubkey_arg), Bindings.new_LDKPublicKey(array: revocation_basepoint_arg), Bindings.new_LDKPublicKey(array: payment_point_arg), Bindings.new_LDKPublicKey(array: delayed_payment_basepoint_arg), Bindings.new_LDKPublicKey(array: htlc_basepoint_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelPublicKeys){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 	}
 

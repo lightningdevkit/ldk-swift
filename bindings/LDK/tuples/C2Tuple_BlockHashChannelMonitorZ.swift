@@ -19,7 +19,7 @@ public class C2Tuple_BlockHashChannelMonitorZ {
         return C2Tuple_BlockHashChannelMonitorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
     }
 
-    internal func free() -> C2Tuple_BlockHashChannelMonitorZ {
+    internal func free() -> Void {
     	
         return C2Tuple_BlockHashChannelMonitorZ_free(self.cOpaqueStruct!);
     }

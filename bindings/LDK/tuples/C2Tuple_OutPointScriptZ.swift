@@ -33,7 +33,7 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
         return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.clone().cOpaqueStruct!, Bindings.new_LDKCVec_u8Z(array: b)));
     }
 
-    internal func free() -> C2Tuple_OutPointScriptZ {
+    internal func free() -> Void {
     	
         return C2Tuple_OutPointScriptZ_free(self.cOpaqueStruct!);
     }

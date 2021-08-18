@@ -33,7 +33,7 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
         return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, Bindings.new_LDKTransaction(array: b)));
     }
 
-    internal func free() -> C2Tuple_usizeTransactionZ {
+    internal func free() -> Void {
     	
         return C2Tuple_usizeTransactionZ_free(self.cOpaqueStruct!);
     }

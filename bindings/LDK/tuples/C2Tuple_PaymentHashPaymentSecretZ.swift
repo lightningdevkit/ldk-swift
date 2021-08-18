@@ -33,7 +33,7 @@ C2Tuple_PaymentHashPaymentSecretZ_clone(origPointer)
         return C2Tuple_PaymentHashPaymentSecretZ(pointer: C2Tuple_PaymentHashPaymentSecretZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKThirtyTwoBytes(array: b)));
     }
 
-    internal func free() -> C2Tuple_PaymentHashPaymentSecretZ {
+    internal func free() -> Void {
     	
         return C2Tuple_PaymentHashPaymentSecretZ_free(self.cOpaqueStruct!);
     }

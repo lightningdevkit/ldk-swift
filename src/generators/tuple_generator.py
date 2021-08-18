@@ -45,18 +45,19 @@ class TupleGenerator:
 				struct_details.constructor_method = current_method_details
 				if len(struct_details.fields) == 0:
 					struct_details.fields = struct_details.constructor_method['argument_types']
-			current_method_name = current_method_details['name']['swift']
-			current_return_type = current_method_details['return_type'].swift_type
-			current_return_type = swift_tuple_name
 			# current_rust_return_type = current_method_details['return_type'].rust_obj
 
 			# if current_rust_return_type in all_type_details and all_type_details[current_rust_return_type].type.name == 'UNITARY_ENUM':
 			# 	current_return_type = current_rust_return_type
-			current_method_name = current_native_method_name[len(method_prefix):]
 
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 			is_free_method = current_method_details['is_free']
+
+			current_method_name = current_native_method_name[len(method_prefix):]
+			current_return_type = current_method_details['return_type'].swift_type
+			if not is_free_method:
+				current_return_type = swift_tuple_name
 
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:

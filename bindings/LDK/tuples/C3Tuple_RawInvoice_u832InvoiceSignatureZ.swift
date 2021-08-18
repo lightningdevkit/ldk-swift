@@ -33,7 +33,7 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
         return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: C3Tuple_RawInvoice_u832InvoiceSignatureZ_new(a.clone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b), c.clone().cOpaqueStruct!));
     }
 
-    internal func free() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+    internal func free() -> Void {
     	
         return C3Tuple_RawInvoice_u832InvoiceSignatureZ_free(self.cOpaqueStruct!);
     }

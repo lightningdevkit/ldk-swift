@@ -33,7 +33,7 @@ C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
         return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_new(Bindings.new_LDKSignature(array: a), Bindings.new_LDKCVec_SignatureZ(array: b)));
     }
 
-    internal func free() -> C2Tuple_SignatureCVec_SignatureZZ {
+    internal func free() -> Void {
     	
         return C2Tuple_SignatureCVec_SignatureZZ_free(self.cOpaqueStruct!);
     }

@@ -33,7 +33,7 @@ C2Tuple_u32TxOutZ_clone(origPointer)
         return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b));
     }
 
-    internal func free() -> C2Tuple_u32TxOutZ {
+    internal func free() -> Void {
     	
         return C2Tuple_u32TxOutZ_free(self.cOpaqueStruct!);
     }

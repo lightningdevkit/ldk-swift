@@ -33,7 +33,7 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
         return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.clone().cOpaqueStruct!, b.clone().cOpaqueStruct!, c.clone().cOpaqueStruct!));
     }
 
-    internal func free() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+    internal func free() -> Void {
     	
         return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!);
     }

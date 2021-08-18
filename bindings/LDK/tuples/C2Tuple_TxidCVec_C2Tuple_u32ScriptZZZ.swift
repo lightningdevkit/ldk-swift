@@ -33,7 +33,7 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
         return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKCVec_C2Tuple_u32ScriptZZ(array: b)));
     }
 
-    internal func free() -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
+    internal func free() -> Void {
     	
         return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_free(self.cOpaqueStruct!);
     }

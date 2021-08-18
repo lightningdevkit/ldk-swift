@@ -53,6 +53,27 @@ open class Watch {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					Watch_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> Watch {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
 		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
@@ -68,10 +89,7 @@ open class Watch {
 		return [LDKMonitorEvent]()
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

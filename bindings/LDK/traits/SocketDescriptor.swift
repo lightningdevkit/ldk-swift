@@ -68,6 +68,45 @@ open class SocketDescriptor {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				public func clone() -> SocketDescriptor {
+					
+					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSocketDescriptor>) in
+
+					SocketDescriptor(pointer: SocketDescriptor_clone(origPointer))
+					
+}
+				}
+			
+
+					internal func danglingClone() -> SocketDescriptor {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
+
+				internal func free() -> Void {
+					
+					
+					SocketDescriptor_free(self.clone().cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> SocketDescriptor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func send_data(data: [UInt8], resume_read: Bool) -> UInt {
     	/* EDIT ME */
 		return 0
@@ -88,26 +127,9 @@ open class SocketDescriptor {
 		return 0
     }
 
-    open func clone() -> UnsafeMutableRawPointer {
-    	/* EDIT ME */
-		return UnsafeMutableRawPointer(bitPattern: 0)!
-    }
-
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
 
 
-				func clone() -> SocketDescriptor {
-					
-					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSocketDescriptor>) in
 
-					SocketDescriptor(pointer: SocketDescriptor_clone(origPointer))
-					
-}
-				}
-			
 
     /* SWIFT_CALLBACKS_END */
 

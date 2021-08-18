@@ -39,15 +39,33 @@ open class EventsProvider {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					EventsProvider_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> EventsProvider {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func process_pending_events(handler: EventHandler) -> Void {
     	/* EDIT ME */
 		
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

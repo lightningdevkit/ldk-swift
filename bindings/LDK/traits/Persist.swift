@@ -49,6 +49,27 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					Persist_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> Persist {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
 		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
@@ -59,10 +80,7 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
 		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

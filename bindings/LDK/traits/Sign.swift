@@ -48,23 +48,8 @@ open class Sign {
 
     /* SWIFT_CALLBACKS_START */
 
-    open func write() -> [UInt8] {
-    	/* EDIT ME */
-		return [UInt8]()
-    }
 
-    open func clone() -> UnsafeMutableRawPointer {
-    	/* EDIT ME */
-		return UnsafeMutableRawPointer(bitPattern: 0)!
-    }
-
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
-
-
-				func clone() -> Sign {
+				public func clone() -> Sign {
 					
 					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSign>) in
 
@@ -73,6 +58,43 @@ open class Sign {
 }
 				}
 			
+
+					internal func danglingClone() -> Sign {
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
+
+				internal func free() -> Void {
+					
+					
+					Sign_free(self.clone().cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> Sign {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
+    open func write() -> [UInt8] {
+    	/* EDIT ME */
+		return [UInt8]()
+    }
+
+
+
+
 
     /* SWIFT_CALLBACKS_END */
 

@@ -75,6 +75,27 @@ open class Confirm {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					Confirm_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> Confirm {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
     	/* EDIT ME */
 		
@@ -95,10 +116,7 @@ open class Confirm {
 		return [LDKTxid]()
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

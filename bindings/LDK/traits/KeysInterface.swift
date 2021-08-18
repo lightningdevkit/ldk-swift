@@ -81,6 +81,27 @@ open class KeysInterface {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					KeysInterface_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> KeysInterface {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func get_node_secret() -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
@@ -116,10 +137,7 @@ open class KeysInterface {
 		return Result_RecoverableSignatureNoneZ(pointer: LDKCResult_RecoverableSignatureNoneZ())
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

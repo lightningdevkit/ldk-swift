@@ -115,6 +115,27 @@ open class RoutingMessageHandler {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					RoutingMessageHandler_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> RoutingMessageHandler {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func handle_node_announcement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
 		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
@@ -170,10 +191,7 @@ open class RoutingMessageHandler {
 		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

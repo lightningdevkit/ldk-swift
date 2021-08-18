@@ -193,6 +193,27 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					ChannelMessageHandler_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> ChannelMessageHandler {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func handle_open_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: OpenChannel) -> Void {
     	/* EDIT ME */
 		
@@ -293,10 +314,7 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 		
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

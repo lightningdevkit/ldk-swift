@@ -39,15 +39,33 @@ open class FeeEstimator {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					FeeEstimator_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> FeeEstimator {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
     	/* EDIT ME */
 		return 0
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

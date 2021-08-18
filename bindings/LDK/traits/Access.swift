@@ -44,15 +44,33 @@ open class Access {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					Access_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> Access {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
     	/* EDIT ME */
 		return Result_TxOutAccessErrorZ(pointer: LDKCResult_TxOutAccessErrorZ())
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

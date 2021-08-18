@@ -51,6 +51,27 @@ open class Listen {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					Listen_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> Listen {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func block_connected(block: [UInt8], height: UInt32) -> Void {
     	/* EDIT ME */
 		
@@ -61,10 +82,7 @@ open class Listen {
 		
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

@@ -44,6 +44,75 @@ class TraitGenerator:
 
 		instantiation_arguments = []
 
+		has_clone_implementation = False
+		has_free_implementation = False
+
+		method_iterator = struct_details.methods
+		if struct_details.free_method is not None:
+			method_iterator.append(struct_details.free_method)
+
+		for current_method_details in method_iterator:
+			current_native_method_name = current_method_details['name']['native']
+			visibility_prefix = 'public '
+
+			is_clone_method = current_method_details['is_clone']
+			is_free_method = current_method_details['is_free']
+
+			if is_clone_method:
+				has_clone_implementation = True
+			if is_free_method:
+				visibility_prefix = 'internal '
+				has_free_implementation = True
+
+			force_pass_instance = False
+			if len(current_method_details['argument_types']) == 1:
+				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
+					force_pass_instance = True
+
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+
+			swift_argument_list = ', '.join(prepared_arguments['swift_arguments'])
+			swift_return_type = value_return_wrappers['swift_type']
+			native_arguments = prepared_arguments['native_arguments']
+			default_return_prefix = 'return '
+			if current_method_details['return_type'].swift_type == 'Void':
+				default_return_prefix = ''
+
+			current_method_implementation = f'''
+				{visibility_prefix}func {current_method_details['name']['swift']}({swift_argument_list}) -> {swift_return_type} {{
+					{prepared_arguments['native_call_prep']}
+					{default_return_prefix}{prepared_arguments['native_call_prefix']}
+					{value_return_wrappers['prefix']}{current_method_details['name']['native']}({', '.join(native_arguments)}){value_return_wrappers['suffix']}
+					{prepared_arguments['native_call_suffix']}
+				}}
+			'''
+
+			if is_clone_method:
+				current_method_implementation += f'''\n
+					internal func danglingClone() -> {swift_return_type} {{
+        				var dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}}
+				'''
+
+			if is_free_method:
+				current_method_implementation += f'''\n
+					internal func dangle() -> {swift_struct_name} {{
+        				self.dangling = true
+						return self
+					}}
+					
+					deinit {{
+						if !self.dangling {{
+							self.{current_method_details['name']['swift']}()
+						}}
+					}}
+				'''
+
+			swift_callbacks += '\n' + current_method_implementation + '\n'
+
 		# fill templates
 		for current_lambda in struct_details.lambdas:
 			current_lambda_name = current_lambda['name']
@@ -184,6 +253,15 @@ class TraitGenerator:
 			current_swift_callback_replacement = current_swift_callback_replacement.replace('/* EDIT ME */',
 																							f'/* EDIT ME */\n\t\t{swift_default_return}')
 
+			if current_lambda_name == 'free' or current_lambda_name == 'clone':
+				if current_lambda_name == 'free' and has_free_implementation:
+					current_swift_callback_replacement = ''
+				elif current_lambda_name == 'clone' and has_clone_implementation:
+					current_swift_callback_replacement = ''
+				else:
+					print('has editable clone or free implementation')
+
+
 			if not current_lambda['is_constant']:
 				current_native_callback_replacement = current_native_callback_replacement.replace(
 					'(pointer: UnsafeRawPointer?', '(pointer: UnsafeMutableRawPointer?')
@@ -195,34 +273,8 @@ class TraitGenerator:
 				default_callbacks += '\n' + current_default_callback_replacement + '\n'
 
 
-		for current_method_details in struct_details.methods:
-			current_native_method_name = current_method_details['name']['native']
 
-			force_pass_instance = False
-			if len(current_method_details['argument_types']) == 1:
-				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
-					force_pass_instance = True
 
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
-
-			swift_argument_list = ', '.join(prepared_arguments['swift_arguments'])
-			swift_return_type = value_return_wrappers['swift_type']
-			native_arguments = prepared_arguments['native_arguments']
-			default_return_prefix = 'return '
-			if current_method_details['return_type'].swift_type == 'Void':
-				default_return_prefix = ''
-
-			current_method_implementation = f'''
-				func {current_method_details['name']['swift']}({swift_argument_list}) -> {swift_return_type} {{
-					{prepared_arguments['native_call_prep']}
-					{default_return_prefix}{prepared_arguments['native_call_prefix']}
-					{value_return_wrappers['prefix']}{current_method_details['name']['native']}({', '.join(native_arguments)}){value_return_wrappers['suffix']}
-					{prepared_arguments['native_call_suffix']}
-				}}
-			'''
-
-			swift_callbacks += '\n' + current_method_implementation + '\n'
 
 
 

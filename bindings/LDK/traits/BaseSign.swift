@@ -127,6 +127,27 @@ open class BaseSign {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					BaseSign_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> BaseSign {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func get_per_commitment_point(idx: UInt64) -> [UInt8] {
     	/* EDIT ME */
 		return [UInt8]()
@@ -182,10 +203,7 @@ open class BaseSign {
 		
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

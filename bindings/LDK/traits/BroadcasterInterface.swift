@@ -39,15 +39,33 @@ open class BroadcasterInterface {
 
     /* SWIFT_CALLBACKS_START */
 
+
+				internal func free() -> Void {
+					
+					
+					BroadcasterInterface_free(self.cOpaqueStruct!)
+					
+				}
+			
+
+					internal func dangle() -> BroadcasterInterface {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							self.free()
+						}
+					}
+				
+
     open func broadcast_transaction(tx: [UInt8]) -> Void {
     	/* EDIT ME */
 		
     }
 
-    open func free() -> Void {
-    	/* EDIT ME */
-		
-    }
+
 
     /* SWIFT_CALLBACKS_END */
 

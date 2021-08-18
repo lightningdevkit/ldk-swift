@@ -9,6 +9,8 @@ public class Result_InvoiceSemanticErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_InvoiceSemanticErrorZ(contents: LDKCResult_InvoiceSemanticErrorZPtr(), result_ok: true)
 				}
 			

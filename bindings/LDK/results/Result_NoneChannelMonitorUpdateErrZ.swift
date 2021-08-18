@@ -9,6 +9,8 @@ public class Result_NoneChannelMonitorUpdateErrZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NoneChannelMonitorUpdateErrZ(contents: LDKCResult_NoneChannelMonitorUpdateErrZPtr(), result_ok: true)
 				}
 			

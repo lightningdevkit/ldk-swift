@@ -9,6 +9,8 @@ public class Result_ChannelConfigDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_ChannelConfigDecodeErrorZ(contents: LDKCResult_ChannelConfigDecodeErrorZPtr(), result_ok: true)
 				}
 			

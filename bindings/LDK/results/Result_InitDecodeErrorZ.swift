@@ -9,6 +9,8 @@ public class Result_InitDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_InitDecodeErrorZ(contents: LDKCResult_InitDecodeErrorZPtr(), result_ok: true)
 				}
 			

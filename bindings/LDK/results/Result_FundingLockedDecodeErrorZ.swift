@@ -9,6 +9,8 @@ public class Result_FundingLockedDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_FundingLockedDecodeErrorZ(contents: LDKCResult_FundingLockedDecodeErrorZPtr(), result_ok: true)
 				}
 			

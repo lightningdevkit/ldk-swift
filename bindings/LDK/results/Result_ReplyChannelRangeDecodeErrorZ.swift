@@ -9,6 +9,8 @@ public class Result_ReplyChannelRangeDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_ReplyChannelRangeDecodeErrorZ(contents: LDKCResult_ReplyChannelRangeDecodeErrorZPtr(), result_ok: true)
 				}
 			

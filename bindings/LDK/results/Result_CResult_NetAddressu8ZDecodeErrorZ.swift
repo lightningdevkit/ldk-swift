@@ -9,6 +9,8 @@ public class Result_CResult_NetAddressu8ZDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_CResult_NetAddressu8ZDecodeErrorZ(contents: LDKCResult_CResult_NetAddressu8ZDecodeErrorZPtr(), result_ok: true)
 				}
 			

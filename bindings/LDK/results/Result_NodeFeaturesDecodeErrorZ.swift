@@ -9,6 +9,8 @@ public class Result_NodeFeaturesDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NodeFeaturesDecodeErrorZ(contents: LDKCResult_NodeFeaturesDecodeErrorZPtr(), result_ok: true)
 				}
 			

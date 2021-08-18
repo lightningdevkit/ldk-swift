@@ -9,6 +9,8 @@ public class Result_QueryShortChannelIdsDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_QueryShortChannelIdsDecodeErrorZ(contents: LDKCResult_QueryShortChannelIdsDecodeErrorZPtr(), result_ok: true)
 				}
 			

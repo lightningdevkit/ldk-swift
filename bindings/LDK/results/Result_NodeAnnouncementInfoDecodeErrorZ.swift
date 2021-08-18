@@ -9,6 +9,8 @@ public class Result_NodeAnnouncementInfoDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NodeAnnouncementInfoDecodeErrorZ(contents: LDKCResult_NodeAnnouncementInfoDecodeErrorZPtr(), result_ok: true)
 				}
 			

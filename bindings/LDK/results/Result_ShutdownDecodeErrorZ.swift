@@ -9,6 +9,8 @@ public class Result_ShutdownDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_ShutdownDecodeErrorZ(contents: LDKCResult_ShutdownDecodeErrorZPtr(), result_ok: true)
 				}
 			

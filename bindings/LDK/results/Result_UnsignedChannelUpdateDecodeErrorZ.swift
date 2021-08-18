@@ -9,6 +9,8 @@ public class Result_UnsignedChannelUpdateDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_UnsignedChannelUpdateDecodeErrorZ(contents: LDKCResult_UnsignedChannelUpdateDecodeErrorZPtr(), result_ok: true)
 				}
 			

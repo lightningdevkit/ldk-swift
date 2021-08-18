@@ -9,6 +9,8 @@ public class Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_CounterpartyChannelTransactionParametersDecodeErrorZ(contents: LDKCResult_CounterpartyChannelTransactionParametersDecodeErrorZPtr(), result_ok: true)
 				}
 			

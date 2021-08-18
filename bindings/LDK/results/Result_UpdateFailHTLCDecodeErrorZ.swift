@@ -9,6 +9,8 @@ public class Result_UpdateFailHTLCDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_UpdateFailHTLCDecodeErrorZ(contents: LDKCResult_UpdateFailHTLCDecodeErrorZPtr(), result_ok: true)
 				}
 			

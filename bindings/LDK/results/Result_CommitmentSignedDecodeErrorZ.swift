@@ -9,6 +9,8 @@ public class Result_CommitmentSignedDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_CommitmentSignedDecodeErrorZ(contents: LDKCResult_CommitmentSignedDecodeErrorZPtr(), result_ok: true)
 				}
 			

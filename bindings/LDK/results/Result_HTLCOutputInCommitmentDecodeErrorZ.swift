@@ -9,6 +9,8 @@ public class Result_HTLCOutputInCommitmentDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_HTLCOutputInCommitmentDecodeErrorZ(contents: LDKCResult_HTLCOutputInCommitmentDecodeErrorZPtr(), result_ok: true)
 				}
 			

@@ -9,6 +9,8 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_SpendableOutputDescriptorDecodeErrorZ(contents: LDKCResult_SpendableOutputDescriptorDecodeErrorZPtr(), result_ok: true)
 				}
 			

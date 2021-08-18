@@ -9,6 +9,8 @@ public class Result_UpdateFailMalformedHTLCDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_UpdateFailMalformedHTLCDecodeErrorZ(contents: LDKCResult_UpdateFailMalformedHTLCDecodeErrorZPtr(), result_ok: true)
 				}
 			

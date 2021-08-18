@@ -9,6 +9,8 @@ public class Result_RouteHopDecodeErrorZ {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_RouteHopDecodeErrorZ(contents: LDKCResult_RouteHopDecodeErrorZPtr(), result_ok: true)
 				}
 			

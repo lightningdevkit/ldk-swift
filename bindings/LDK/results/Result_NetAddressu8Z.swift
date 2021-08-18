@@ -9,6 +9,8 @@ public class Result_NetAddressu8Z {
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NetAddressu8Z(contents: LDKCResult_NetAddressu8ZPtr(), result_ok: true)
 				}
 			

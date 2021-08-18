@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class ChannelMessageHandler {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class ChannelMessageHandler {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKChannelMessageHandler?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -192,7 +194,7 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: LDKChannelMessageHandler, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true
@@ -211,7 +213,10 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelMessageHandler \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelMessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

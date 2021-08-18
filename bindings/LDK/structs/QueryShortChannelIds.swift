@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class QueryShortChannelIds {
 
 	private static var instanceCounter: UInt = 0
@@ -85,7 +87,10 @@ QueryShortChannelIds_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing QueryShortChannelIds \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing QueryShortChannelIds \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

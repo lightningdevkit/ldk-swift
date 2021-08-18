@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PeerManager {
 
 	private static var instanceCounter: UInt = 0
@@ -109,7 +111,10 @@ PeerManager_timer_tick_occurred(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing PeerManager \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing PeerManager \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

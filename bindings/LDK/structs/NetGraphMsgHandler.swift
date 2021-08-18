@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NetGraphMsgHandler {
 
 	private static var instanceCounter: UInt = 0
@@ -77,7 +79,10 @@ NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing NetGraphMsgHandler \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing NetGraphMsgHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

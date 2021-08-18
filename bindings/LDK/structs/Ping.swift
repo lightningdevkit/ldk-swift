@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Ping {
 
 	private static var instanceCounter: UInt = 0
@@ -92,7 +94,10 @@ Ping_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Ping \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Ping \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

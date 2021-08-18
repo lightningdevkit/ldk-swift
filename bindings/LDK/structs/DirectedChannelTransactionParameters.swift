@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DirectedChannelTransactionParameters {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing DirectedChannelTransactionParameters \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing DirectedChannelTransactionParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

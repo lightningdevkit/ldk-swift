@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DataLossProtect {
 
 	private static var instanceCounter: UInt = 0
@@ -80,7 +82,10 @@ DataLossProtect_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing DataLossProtect \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing DataLossProtect \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

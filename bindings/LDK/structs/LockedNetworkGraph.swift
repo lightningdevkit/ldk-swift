@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class LockedNetworkGraph {
 
 	private static var instanceCounter: UInt = 0
@@ -36,7 +38,10 @@ LockedNetworkGraph_graph(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing LockedNetworkGraph \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing LockedNetworkGraph \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

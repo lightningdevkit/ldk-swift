@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class OpenChannel {
 
 	private static var instanceCounter: UInt = 0
@@ -325,7 +327,10 @@ OpenChannel_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing OpenChannel \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing OpenChannel \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

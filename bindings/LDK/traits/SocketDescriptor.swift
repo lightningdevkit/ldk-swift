@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class SocketDescriptor {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class SocketDescriptor {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKSocketDescriptor?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -71,7 +73,7 @@ open class SocketDescriptor {
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: LDKSocketDescriptor, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true
@@ -108,7 +110,10 @@ open class SocketDescriptor {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing SocketDescriptor \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing SocketDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

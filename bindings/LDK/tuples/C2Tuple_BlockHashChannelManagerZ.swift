@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_BlockHashChannelManagerZ {
 
 	private static var instanceCounter: UInt = 0
@@ -31,7 +33,10 @@ public class C2Tuple_BlockHashChannelManagerZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing C2Tuple_BlockHashChannelManagerZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing C2Tuple_BlockHashChannelManagerZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

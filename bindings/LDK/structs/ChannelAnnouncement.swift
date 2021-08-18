@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelAnnouncement {
 
 	private static var instanceCounter: UInt = 0
@@ -137,7 +139,10 @@ ChannelAnnouncement_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelAnnouncement \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

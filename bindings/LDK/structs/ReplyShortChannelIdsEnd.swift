@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ReplyShortChannelIdsEnd {
 
 	private static var instanceCounter: UInt = 0
@@ -92,7 +94,10 @@ ReplyShortChannelIdsEnd_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ReplyShortChannelIdsEnd \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ReplyShortChannelIdsEnd \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

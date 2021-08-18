@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelCounterparty {
 
 	private static var instanceCounter: UInt = 0
@@ -88,7 +90,10 @@ ChannelCounterparty_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelCounterparty \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelCounterparty \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

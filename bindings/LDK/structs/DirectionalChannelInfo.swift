@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DirectionalChannelInfo {
 
 	private static var instanceCounter: UInt = 0
@@ -167,7 +169,10 @@ DirectionalChannelInfo_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing DirectionalChannelInfo \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing DirectionalChannelInfo \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

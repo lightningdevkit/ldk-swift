@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class HTLCOutputInCommitment {
 
 	private static var instanceCounter: UInt = 0
@@ -137,7 +139,10 @@ HTLCOutputInCommitment_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing HTLCOutputInCommitment \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing HTLCOutputInCommitment \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

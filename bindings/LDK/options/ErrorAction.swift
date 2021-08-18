@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ErrorAction {
 
 	private static var instanceCounter: UInt = 0
@@ -69,7 +71,10 @@ public class ErrorAction {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ErrorAction \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ErrorAction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

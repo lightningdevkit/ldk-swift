@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class BuiltCommitmentTransaction {
 
 	private static var instanceCounter: UInt = 0
@@ -108,7 +110,10 @@ BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, Bindings.ne
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing BuiltCommitmentTransaction \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing BuiltCommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

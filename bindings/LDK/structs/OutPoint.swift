@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class OutPoint {
 
 	private static var instanceCounter: UInt = 0
@@ -115,7 +117,10 @@ OutPoint_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing OutPoint \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing OutPoint \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

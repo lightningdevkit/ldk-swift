@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MessageHandler {
 
 	private static var instanceCounter: UInt = 0
@@ -66,7 +68,10 @@ MessageHandler_get_route_handler(this_ptrPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing MessageHandler \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing MessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

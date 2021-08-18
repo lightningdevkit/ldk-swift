@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ErroringMessageHandler {
 
 	private static var instanceCounter: UInt = 0
@@ -50,7 +52,10 @@ ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ErroringMessageHandler \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ErroringMessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

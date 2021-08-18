@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SignedRawInvoice {
 
 	private static var instanceCounter: UInt = 0
@@ -104,7 +106,10 @@ SignedRawInvoice_to_str(oPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing SignedRawInvoice \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing SignedRawInvoice \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

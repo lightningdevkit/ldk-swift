@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NoneMonitorUpdateErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -57,7 +59,10 @@ public class Result_NoneMonitorUpdateErrorZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_NoneMonitorUpdateErrorZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_NoneMonitorUpdateErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

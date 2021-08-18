@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Event {
 
 	private static var instanceCounter: UInt = 0
@@ -96,7 +98,10 @@ public class Event {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Event \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Event \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

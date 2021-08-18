@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MonitorUpdateError {
 
 	private static var instanceCounter: UInt = 0
@@ -43,7 +45,10 @@ MonitorUpdateError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing MonitorUpdateError \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing MonitorUpdateError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

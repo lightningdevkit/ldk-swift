@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NodeAnnouncementInfo {
 
 	private static var instanceCounter: UInt = 0
@@ -145,7 +147,10 @@ NodeAnnouncementInfo_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing NodeAnnouncementInfo \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing NodeAnnouncementInfo \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

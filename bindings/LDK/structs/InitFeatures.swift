@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class InitFeatures {
 
 	private static var instanceCounter: UInt = 0
@@ -78,7 +80,10 @@ InitFeatures_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing InitFeatures \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing InitFeatures \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

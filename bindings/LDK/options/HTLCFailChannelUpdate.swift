@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class HTLCFailChannelUpdate {
 
 	private static var instanceCounter: UInt = 0
@@ -69,7 +71,10 @@ public class HTLCFailChannelUpdate {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing HTLCFailChannelUpdate \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing HTLCFailChannelUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

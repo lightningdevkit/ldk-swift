@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RevokeAndACK {
 
 	private static var instanceCounter: UInt = 0
@@ -107,7 +109,10 @@ RevokeAndACK_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing RevokeAndACK \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing RevokeAndACK \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 
 	private static var instanceCounter: UInt = 0
@@ -57,7 +59,10 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_ErrorMessageDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ public class Result_ErrorMessageDecodeErrorZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_ErrorMessageDecodeErrorZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_ErrorMessageDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

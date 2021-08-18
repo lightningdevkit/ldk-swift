@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Persist {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class Persist {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKPersist?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -48,7 +50,7 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: LDKPersist, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true
@@ -67,7 +69,10 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Persist \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Persist \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

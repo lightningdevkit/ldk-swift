@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelHandshakeLimits {
 
 	private static var instanceCounter: UInt = 0
@@ -170,7 +172,10 @@ ChannelHandshakeLimits_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelHandshakeLimits \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelHandshakeLimits \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

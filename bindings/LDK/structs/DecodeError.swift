@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DecodeError {
 
 	private static var instanceCounter: UInt = 0
@@ -43,7 +45,10 @@ DecodeError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing DecodeError \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing DecodeError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

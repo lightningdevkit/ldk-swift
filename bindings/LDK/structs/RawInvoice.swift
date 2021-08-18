@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RawInvoice {
 
 	private static var instanceCounter: UInt = 0
@@ -151,7 +153,10 @@ RawInvoice_currency(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing RawInvoice \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing RawInvoice \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

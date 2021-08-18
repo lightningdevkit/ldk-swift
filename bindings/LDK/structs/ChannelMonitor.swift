@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelMonitor {
 
 	private static var instanceCounter: UInt = 0
@@ -163,7 +165,10 @@ ChannelMonitor_current_best_block(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelMonitor \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelMonitor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

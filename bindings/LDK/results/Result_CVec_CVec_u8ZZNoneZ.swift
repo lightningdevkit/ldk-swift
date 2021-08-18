@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_CVec_CVec_u8ZZNoneZ {
 
 	private static var instanceCounter: UInt = 0
@@ -57,7 +59,10 @@ public class Result_CVec_CVec_u8ZZNoneZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

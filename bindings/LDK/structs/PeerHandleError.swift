@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PeerHandleError {
 
 	private static var instanceCounter: UInt = 0
@@ -65,7 +67,10 @@ PeerHandleError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing PeerHandleError \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing PeerHandleError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

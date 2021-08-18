@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class IgnoringMessageHandler {
 
 	private static var instanceCounter: UInt = 0
@@ -50,7 +52,10 @@ IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing IgnoringMessageHandler \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing IgnoringMessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

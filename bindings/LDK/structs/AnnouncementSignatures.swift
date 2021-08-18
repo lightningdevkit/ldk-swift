@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class AnnouncementSignatures {
 
 	private static var instanceCounter: UInt = 0
@@ -122,7 +124,10 @@ AnnouncementSignatures_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing AnnouncementSignatures \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing AnnouncementSignatures \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

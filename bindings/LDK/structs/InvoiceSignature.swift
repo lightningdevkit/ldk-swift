@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class InvoiceSignature {
 
 	private static var instanceCounter: UInt = 0
@@ -52,7 +54,10 @@ InvoiceSignature_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing InvoiceSignature \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing InvoiceSignature \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

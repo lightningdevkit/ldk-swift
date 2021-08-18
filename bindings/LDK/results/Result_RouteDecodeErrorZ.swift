@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_RouteDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ public class Result_RouteDecodeErrorZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_RouteDecodeErrorZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_RouteDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

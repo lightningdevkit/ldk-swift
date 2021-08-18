@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class StaticPaymentOutputDescriptor {
 
 	private static var instanceCounter: UInt = 0
@@ -115,7 +117,10 @@ StaticPaymentOutputDescriptor_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing StaticPaymentOutputDescriptor \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

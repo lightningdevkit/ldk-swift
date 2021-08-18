@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class CommitmentSigned {
 
 	private static var instanceCounter: UInt = 0
@@ -100,7 +102,10 @@ CommitmentSigned_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing CommitmentSigned \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing CommitmentSigned \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

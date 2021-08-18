@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RouteHop {
 
 	private static var instanceCounter: UInt = 0
@@ -152,7 +154,10 @@ RouteHop_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing RouteHop \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing RouteHop \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -5,7 +5,7 @@ open class TraitName {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: TraitType?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -28,7 +28,7 @@ open class TraitName {
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: TraitType, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true

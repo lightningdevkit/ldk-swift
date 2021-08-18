@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C3Tuple_RawInvoice_u832InvoiceSignatureZ {
 
 	private static var instanceCounter: UInt = 0
@@ -45,7 +47,10 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing C3Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing C3Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

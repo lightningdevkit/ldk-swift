@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelManagerReadArgs {
 
 	private static var instanceCounter: UInt = 0
@@ -126,7 +128,10 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelManagerReadArgs \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelManagerReadArgs \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

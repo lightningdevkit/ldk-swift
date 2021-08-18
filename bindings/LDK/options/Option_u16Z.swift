@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Option_u16Z {
 
 	private static var instanceCounter: UInt = 0
@@ -68,7 +70,10 @@ public class Option_u16Z {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Option_u16Z \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Option_u16Z \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

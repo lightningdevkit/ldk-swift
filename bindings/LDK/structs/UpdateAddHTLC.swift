@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class UpdateAddHTLC {
 
 	private static var instanceCounter: UInt = 0
@@ -130,7 +132,10 @@ UpdateAddHTLC_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing UpdateAddHTLC \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing UpdateAddHTLC \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

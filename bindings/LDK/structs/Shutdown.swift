@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Shutdown {
 
 	private static var instanceCounter: UInt = 0
@@ -92,7 +94,10 @@ Shutdown_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Shutdown \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Shutdown \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

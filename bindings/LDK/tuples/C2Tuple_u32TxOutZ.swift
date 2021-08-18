@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_u32TxOutZ {
 
 	private static var instanceCounter: UInt = 0
@@ -45,7 +47,10 @@ C2Tuple_u32TxOutZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing C2Tuple_u32TxOutZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing C2Tuple_u32TxOutZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

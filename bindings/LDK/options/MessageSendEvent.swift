@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MessageSendEvent {
 
 	private static var instanceCounter: UInt = 0
@@ -222,7 +224,10 @@ public class MessageSendEvent {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing MessageSendEvent \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing MessageSendEvent \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

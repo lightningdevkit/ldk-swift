@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_SiPrefixNoneZ {
 
 	private static var instanceCounter: UInt = 0
@@ -57,7 +59,10 @@ public class Result_SiPrefixNoneZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_SiPrefixNoneZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_SiPrefixNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

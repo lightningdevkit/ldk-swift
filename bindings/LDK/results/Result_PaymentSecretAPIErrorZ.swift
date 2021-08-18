@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_PaymentSecretAPIErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ public class Result_PaymentSecretAPIErrorZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

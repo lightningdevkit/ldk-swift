@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class UserConfig {
 
 	private static var instanceCounter: UInt = 0
@@ -110,7 +112,10 @@ UserConfig_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing UserConfig \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing UserConfig \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

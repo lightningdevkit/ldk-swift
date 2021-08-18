@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NetworkGraph {
 
 	private static var instanceCounter: UInt = 0
@@ -142,7 +144,10 @@ NetworkGraph_update_channel_unsigned(this_argPointer, msgPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing NetworkGraph \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing NetworkGraph \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

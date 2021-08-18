@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class BaseSign {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class BaseSign {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKBaseSign?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -126,7 +128,7 @@ open class BaseSign {
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: LDKBaseSign, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true
@@ -145,7 +147,10 @@ open class BaseSign {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing BaseSign \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing BaseSign \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ClosingSigned {
 
 	private static var instanceCounter: UInt = 0
@@ -107,7 +109,10 @@ ClosingSigned_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ClosingSigned \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ClosingSigned \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

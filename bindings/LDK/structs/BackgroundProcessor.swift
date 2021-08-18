@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class BackgroundProcessor {
 
 	private static var instanceCounter: UInt = 0
@@ -47,7 +49,10 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing BackgroundProcessor \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing BackgroundProcessor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

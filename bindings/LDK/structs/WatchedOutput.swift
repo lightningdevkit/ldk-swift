@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class WatchedOutput {
 
 	private static var instanceCounter: UInt = 0
@@ -102,7 +104,10 @@ WatchedOutput_hash(oPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing WatchedOutput \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing WatchedOutput \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

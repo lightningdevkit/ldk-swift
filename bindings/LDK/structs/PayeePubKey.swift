@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PayeePubKey {
 
 	private static var instanceCounter: UInt = 0
@@ -52,7 +54,10 @@ PayeePubKey_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing PayeePubKey \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing PayeePubKey \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

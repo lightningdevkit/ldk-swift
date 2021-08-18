@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class RoutingMessageHandler {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class RoutingMessageHandler {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKRoutingMessageHandler?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -114,7 +116,7 @@ open class RoutingMessageHandler {
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: LDKRoutingMessageHandler, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true
@@ -133,7 +135,10 @@ open class RoutingMessageHandler {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing RoutingMessageHandler \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing RoutingMessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_CVec_u8ZPeerHandleErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ public class Result_CVec_u8ZPeerHandleErrorZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

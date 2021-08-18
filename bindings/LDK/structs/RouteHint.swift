@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RouteHint {
 
 	private static var instanceCounter: UInt = 0
@@ -52,7 +54,10 @@ RouteHint_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing RouteHint \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing RouteHint \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

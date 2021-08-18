@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ReplyChannelRange {
 
 	private static var instanceCounter: UInt = 0
@@ -130,7 +132,10 @@ ReplyChannelRange_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ReplyChannelRange \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ReplyChannelRange \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

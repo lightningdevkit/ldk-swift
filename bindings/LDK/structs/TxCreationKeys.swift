@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class TxCreationKeys {
 
 	private static var instanceCounter: UInt = 0
@@ -151,7 +153,10 @@ TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_com
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing TxCreationKeys \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

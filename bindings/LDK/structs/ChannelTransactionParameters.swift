@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelTransactionParameters {
 
 	private static var instanceCounter: UInt = 0
@@ -158,7 +160,10 @@ ChannelTransactionParameters_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelTransactionParameters \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelTransactionParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

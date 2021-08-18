@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class FundingLocked {
 
 	private static var instanceCounter: UInt = 0
@@ -92,7 +94,10 @@ FundingLocked_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing FundingLocked \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing FundingLocked \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

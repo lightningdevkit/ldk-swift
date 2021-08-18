@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class GossipTimestampFilter {
 
 	private static var instanceCounter: UInt = 0
@@ -107,7 +109,10 @@ GossipTimestampFilter_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing GossipTimestampFilter \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing GossipTimestampFilter \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

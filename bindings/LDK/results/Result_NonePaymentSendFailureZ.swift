@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NonePaymentSendFailureZ {
 
 	private static var instanceCounter: UInt = 0
@@ -57,7 +59,10 @@ public class Result_NonePaymentSendFailureZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_NonePaymentSendFailureZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_NonePaymentSendFailureZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

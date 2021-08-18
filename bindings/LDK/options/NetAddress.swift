@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NetAddress {
 
 	private static var instanceCounter: UInt = 0
@@ -78,7 +80,10 @@ public class NetAddress {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing NetAddress \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing NetAddress \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

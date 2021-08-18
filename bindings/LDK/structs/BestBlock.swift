@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class BestBlock {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ BestBlock_height(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing BestBlock \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing BestBlock \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class HolderCommitmentTransaction {
 
 	private static var instanceCounter: UInt = 0
@@ -85,7 +87,10 @@ HolderCommitmentTransaction_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing HolderCommitmentTransaction \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing HolderCommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

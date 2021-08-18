@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class TrustedCommitmentTransaction {
 
 	private static var instanceCounter: UInt = 0
@@ -61,7 +63,10 @@ TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing TrustedCommitmentTransaction \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing TrustedCommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

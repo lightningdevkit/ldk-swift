@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Listen {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class Listen {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKListen?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -50,7 +52,7 @@ open class Listen {
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: LDKListen, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true
@@ -69,7 +71,10 @@ open class Listen {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Listen \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Listen \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

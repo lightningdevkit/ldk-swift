@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Fallback {
 
 	private static var instanceCounter: UInt = 0
@@ -69,7 +71,10 @@ public class Fallback {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Fallback \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Fallback \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

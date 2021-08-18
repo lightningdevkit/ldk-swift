@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SpendableOutputDescriptor {
 
 	private static var instanceCounter: UInt = 0
@@ -69,7 +71,10 @@ public class SpendableOutputDescriptor {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing SpendableOutputDescriptor \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing SpendableOutputDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

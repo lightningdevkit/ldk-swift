@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SignOrCreationError {
 
 	private static var instanceCounter: UInt = 0
@@ -51,7 +53,10 @@ public class SignOrCreationError {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing SignOrCreationError \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing SignOrCreationError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Sha256 {
 
 	private static var instanceCounter: UInt = 0
@@ -52,7 +54,10 @@ Sha256_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Sha256 \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Sha256 \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

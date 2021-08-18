@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class KeysInterface {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class KeysInterface {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKKeysInterface?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -99,7 +101,10 @@ open class KeysInterface {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing KeysInterface \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing KeysInterface \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

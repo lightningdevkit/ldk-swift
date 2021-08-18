@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelPublicKeys {
 
 	private static var instanceCounter: UInt = 0
@@ -137,7 +139,10 @@ ChannelPublicKeys_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChannelPublicKeys \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChannelPublicKeys \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

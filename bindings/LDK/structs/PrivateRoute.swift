@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class PrivateRoute {
 
 	private static var instanceCounter: UInt = 0
@@ -62,7 +64,10 @@ PrivateRoute_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing PrivateRoute \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing PrivateRoute \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

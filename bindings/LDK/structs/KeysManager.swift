@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class KeysManager {
 
 	private static var instanceCounter: UInt = 0
@@ -61,7 +63,10 @@ KeysManager_as_KeysInterface(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing KeysManager \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing KeysManager \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
 
 	private static var instanceCounter: UInt = 0
@@ -45,7 +47,10 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Description {
 
 	private static var instanceCounter: UInt = 0
@@ -62,7 +64,10 @@ Description_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Description \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Description \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

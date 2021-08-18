@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class QueryChannelRange {
 
 	private static var instanceCounter: UInt = 0
@@ -114,7 +116,10 @@ QueryChannelRange_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing QueryChannelRange \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing QueryChannelRange \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

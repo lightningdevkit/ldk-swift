@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ExpiryTime {
 
 	private static var instanceCounter: UInt = 0
@@ -76,7 +78,10 @@ ExpiryTime_as_duration(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ExpiryTime \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ExpiryTime \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_SignatureCVec_SignatureZZ {
 
 	private static var instanceCounter: UInt = 0
@@ -45,7 +47,10 @@ C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing C2Tuple_SignatureCVec_SignatureZZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing C2Tuple_SignatureCVec_SignatureZZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

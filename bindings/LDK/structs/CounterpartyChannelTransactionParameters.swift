@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class CounterpartyChannelTransactionParameters {
 
 	private static var instanceCounter: UInt = 0
@@ -92,7 +94,10 @@ CounterpartyChannelTransactionParameters_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing CounterpartyChannelTransactionParameters \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing CounterpartyChannelTransactionParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

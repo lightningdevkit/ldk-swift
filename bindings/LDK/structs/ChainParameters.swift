@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChainParameters {
 
 	private static var instanceCounter: UInt = 0
@@ -80,7 +82,10 @@ ChainParameters_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing ChainParameters \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing ChainParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

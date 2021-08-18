@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_ChannelUpdateDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ public class Result_ChannelUpdateDecodeErrorZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_ChannelUpdateDecodeErrorZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_ChannelUpdateDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

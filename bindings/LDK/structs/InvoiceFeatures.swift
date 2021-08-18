@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class InvoiceFeatures {
 
 	private static var instanceCounter: UInt = 0
@@ -78,7 +80,10 @@ InvoiceFeatures_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing InvoiceFeatures \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing InvoiceFeatures \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

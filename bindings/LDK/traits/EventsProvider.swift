@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class EventsProvider {
 
 	private static var instanceCounter: UInt = 0
@@ -5,7 +7,7 @@ open class EventsProvider {
 	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKEventsProvider?
-    internal let anchor: AnyObject?
+    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -38,7 +40,7 @@ open class EventsProvider {
 		self.cOpaqueStruct = pointer
 	}
 
-	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+	public init(pointer: LDKEventsProvider, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.dangling = true
@@ -57,7 +59,10 @@ open class EventsProvider {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing EventsProvider \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing EventsProvider \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

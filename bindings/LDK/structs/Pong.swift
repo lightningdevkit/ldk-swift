@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Pong {
 
 	private static var instanceCounter: UInt = 0
@@ -77,7 +79,10 @@ Pong_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Pong \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Pong \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

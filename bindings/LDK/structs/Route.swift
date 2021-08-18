@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Route {
 
 	private static var instanceCounter: UInt = 0
@@ -70,7 +72,10 @@ Route_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Route \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Route \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MinFinalCltvExpiry {
 
 	private static var instanceCounter: UInt = 0
@@ -52,7 +54,10 @@ MinFinalCltvExpiry_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing MinFinalCltvExpiry \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing MinFinalCltvExpiry \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

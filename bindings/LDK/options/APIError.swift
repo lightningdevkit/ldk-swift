@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class APIError {
 
 	private static var instanceCounter: UInt = 0
@@ -78,7 +80,10 @@ public class APIError {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing APIError \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing APIError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

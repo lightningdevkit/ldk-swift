@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class AcceptChannel {
 
 	private static var instanceCounter: UInt = 0
@@ -265,7 +267,10 @@ AcceptChannel_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing AcceptChannel \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing AcceptChannel \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

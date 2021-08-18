@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class LightningError {
 
 	private static var instanceCounter: UInt = 0
@@ -80,7 +82,10 @@ LightningError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing LightningError \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing LightningError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

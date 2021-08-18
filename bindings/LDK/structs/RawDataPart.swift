@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RawDataPart {
 
 	private static var instanceCounter: UInt = 0
@@ -67,7 +69,10 @@ RawDataPart_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing RawDataPart \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing RawDataPart \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

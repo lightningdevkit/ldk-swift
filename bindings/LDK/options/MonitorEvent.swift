@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class MonitorEvent {
 
 	private static var instanceCounter: UInt = 0
@@ -60,7 +62,10 @@ public class MonitorEvent {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing MonitorEvent \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing MonitorEvent \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

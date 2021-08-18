@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class CommitmentUpdate {
 
 	private static var instanceCounter: UInt = 0
@@ -112,7 +114,10 @@ CommitmentUpdate_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing CommitmentUpdate \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing CommitmentUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

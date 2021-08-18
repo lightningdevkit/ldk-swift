@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RoutingFees {
 
 	private static var instanceCounter: UInt = 0
@@ -101,7 +103,10 @@ RoutingFees_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing RoutingFees \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing RoutingFees \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

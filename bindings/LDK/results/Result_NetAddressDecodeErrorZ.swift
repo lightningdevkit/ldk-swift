@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NetAddressDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0
@@ -64,7 +66,10 @@ public class Result_NetAddressDecodeErrorZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Result_NetAddressDecodeErrorZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Result_NetAddressDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

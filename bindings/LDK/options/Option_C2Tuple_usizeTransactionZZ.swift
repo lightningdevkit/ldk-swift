@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Option_C2Tuple_usizeTransactionZZ {
 
 	private static var instanceCounter: UInt = 0
@@ -68,7 +70,10 @@ public class Option_C2Tuple_usizeTransactionZZ {
 					
 					deinit {
 						if !self.dangling {
+							print("Freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber).")
 							self.free()
+						} else {
+							print("Not freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -252,7 +252,10 @@ class OptionGenerator:
 					
 					deinit {{
 						if !self.dangling {{
+							print("Freeing {swift_struct_name} \(self.instanceNumber).")
 							self.{current_method_name}()
+						}} else {{
+							print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
 						}}
 					}}
 				'''

@@ -70,7 +70,7 @@ open class Sign {
 				internal func free() -> Void {
 					
 					
-					Sign_free(self.clone().cOpaqueStruct!)
+					Sign_free(self.danglingClone().cOpaqueStruct!)
 					
 				}
 			

@@ -44,12 +44,12 @@ public class Result_HTLCOutputInCommitmentDecodeErrorZ {
 			
     public class func ok(o: HTLCOutputInCommitment) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
     	
-        return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: CResult_HTLCOutputInCommitmentDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: CResult_HTLCOutputInCommitmentDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
     	
-        return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: CResult_HTLCOutputInCommitmentDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: CResult_HTLCOutputInCommitmentDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

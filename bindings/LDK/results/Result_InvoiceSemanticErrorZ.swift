@@ -44,7 +44,7 @@ public class Result_InvoiceSemanticErrorZ {
 			
     public class func ok(o: Invoice) -> Result_InvoiceSemanticErrorZ {
     	
-        return Result_InvoiceSemanticErrorZ(pointer: CResult_InvoiceSemanticErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_InvoiceSemanticErrorZ(pointer: CResult_InvoiceSemanticErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKSemanticError) -> Result_InvoiceSemanticErrorZ {

@@ -44,7 +44,7 @@ public class Result_PositiveTimestampCreationErrorZ {
 			
     public class func ok(o: PositiveTimestamp) -> Result_PositiveTimestampCreationErrorZ {
     	
-        return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKCreationError) -> Result_PositiveTimestampCreationErrorZ {

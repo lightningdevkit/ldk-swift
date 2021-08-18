@@ -44,12 +44,12 @@ public class Result_CResult_NetAddressu8ZDecodeErrorZ {
 			
     public class func ok(o: Result_NetAddressu8Z) -> Result_CResult_NetAddressu8ZDecodeErrorZ {
     	
-        return Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: CResult_CResult_NetAddressu8ZDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: CResult_CResult_NetAddressu8ZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_CResult_NetAddressu8ZDecodeErrorZ {
     	
-        return Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: CResult_CResult_NetAddressu8ZDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: CResult_CResult_NetAddressu8ZDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

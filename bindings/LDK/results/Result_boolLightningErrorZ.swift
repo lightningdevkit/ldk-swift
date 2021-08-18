@@ -49,7 +49,7 @@ public class Result_boolLightningErrorZ {
 
     public class func err(e: LightningError) -> Result_boolLightningErrorZ {
     	
-        return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

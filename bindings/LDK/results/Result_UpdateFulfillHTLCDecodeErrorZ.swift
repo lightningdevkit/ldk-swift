@@ -44,12 +44,12 @@ public class Result_UpdateFulfillHTLCDecodeErrorZ {
 			
     public class func ok(o: UpdateFulfillHTLC) -> Result_UpdateFulfillHTLCDecodeErrorZ {
     	
-        return Result_UpdateFulfillHTLCDecodeErrorZ(pointer: CResult_UpdateFulfillHTLCDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_UpdateFulfillHTLCDecodeErrorZ(pointer: CResult_UpdateFulfillHTLCDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_UpdateFulfillHTLCDecodeErrorZ {
     	
-        return Result_UpdateFulfillHTLCDecodeErrorZ(pointer: CResult_UpdateFulfillHTLCDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_UpdateFulfillHTLCDecodeErrorZ(pointer: CResult_UpdateFulfillHTLCDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

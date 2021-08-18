@@ -49,7 +49,7 @@ public class Result_boolPeerHandleErrorZ {
 
     public class func err(e: PeerHandleError) -> Result_boolPeerHandleErrorZ {
     	
-        return Result_boolPeerHandleErrorZ(pointer: CResult_boolPeerHandleErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_boolPeerHandleErrorZ(pointer: CResult_boolPeerHandleErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

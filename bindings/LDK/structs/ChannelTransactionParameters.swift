@@ -12,7 +12,7 @@ public class ChannelTransactionParameters {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelTransactionParameters_new(holder_pubkeys_arg.clone().cOpaqueStruct!, holder_selected_contest_delay_arg, is_outbound_from_holder_arg, counterparty_parameters_arg.clone().cOpaqueStruct!, funding_outpoint_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelTransactionParameters_new(holder_pubkeys_arg.danglingClone().cOpaqueStruct!, holder_selected_contest_delay_arg, is_outbound_from_holder_arg, counterparty_parameters_arg.danglingClone().cOpaqueStruct!, funding_outpoint_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ ChannelTransactionParameters_get_holder_pubkeys(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_holder_pubkeys(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelTransactionParameters_set_holder_pubkeys(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_holder_selected_contest_delay() -> UInt16 {
@@ -81,7 +81,7 @@ ChannelTransactionParameters_get_counterparty_parameters(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_funding_outpoint() -> OutPoint {
@@ -96,7 +96,7 @@ ChannelTransactionParameters_get_funding_outpoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelTransactionParameters {

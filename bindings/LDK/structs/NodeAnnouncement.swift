@@ -12,7 +12,7 @@ public class NodeAnnouncement {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -51,7 +51,7 @@ NodeAnnouncement_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncement_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return NodeAnnouncement_set_contents(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> NodeAnnouncement {

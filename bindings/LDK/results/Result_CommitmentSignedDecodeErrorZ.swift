@@ -44,12 +44,12 @@ public class Result_CommitmentSignedDecodeErrorZ {
 			
     public class func ok(o: CommitmentSigned) -> Result_CommitmentSignedDecodeErrorZ {
     	
-        return Result_CommitmentSignedDecodeErrorZ(pointer: CResult_CommitmentSignedDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_CommitmentSignedDecodeErrorZ(pointer: CResult_CommitmentSignedDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_CommitmentSignedDecodeErrorZ {
     	
-        return Result_CommitmentSignedDecodeErrorZ(pointer: CResult_CommitmentSignedDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_CommitmentSignedDecodeErrorZ(pointer: CResult_CommitmentSignedDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

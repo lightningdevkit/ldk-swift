@@ -12,7 +12,7 @@ public class CounterpartyChannelTransactionParameters {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = CounterpartyChannelTransactionParameters_new(pubkeys_arg.clone().cOpaqueStruct!, selected_contest_delay_arg)
+        self.cOpaqueStruct = CounterpartyChannelTransactionParameters_new(pubkeys_arg.danglingClone().cOpaqueStruct!, selected_contest_delay_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ CounterpartyChannelTransactionParameters_get_pubkeys(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKCounterpartyChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return CounterpartyChannelTransactionParameters_set_pubkeys(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return CounterpartyChannelTransactionParameters_set_pubkeys(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_selected_contest_delay() -> UInt16 {

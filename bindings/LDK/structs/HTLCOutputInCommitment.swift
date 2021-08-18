@@ -12,7 +12,7 @@ public class HTLCOutputInCommitment {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg), transaction_output_index_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg), transaction_output_index_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -96,7 +96,7 @@ HTLCOutputInCommitment_get_transaction_output_index(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> HTLCOutputInCommitment {

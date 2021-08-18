@@ -270,7 +270,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 	public override func handle_reply_channel_range(their_node_id: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
 		
 				return 
-				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_reply_channel_range(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.clone().cOpaqueStruct!))
+				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_reply_channel_range(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
 			
 	}
@@ -278,7 +278,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 	public override func handle_reply_short_channel_ids_end(their_node_id: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
 		
 				return 
-				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_reply_short_channel_ids_end(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.clone().cOpaqueStruct!))
+				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_reply_short_channel_ids_end(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
 			
 	}
@@ -286,7 +286,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 	public override func handle_query_channel_range(their_node_id: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 		
 				return 
-				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_query_channel_range(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.clone().cOpaqueStruct!))
+				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_query_channel_range(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
 			
 	}
@@ -294,7 +294,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 	public override func handle_query_short_channel_ids(their_node_id: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 		
 				return 
-				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_query_short_channel_ids(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.clone().cOpaqueStruct!))
+				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_query_short_channel_ids(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
 			
 	}

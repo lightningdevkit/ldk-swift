@@ -78,7 +78,7 @@ public class NativelyImplementedEventHandler: EventHandler {
 	public override func handle_event(event: Event) -> Void {
 		
 				
-				self.cOpaqueStruct!.handle_event(self.cOpaqueStruct!.this_arg, event.clone().cOpaqueStruct!)
+				self.cOpaqueStruct!.handle_event(self.cOpaqueStruct!.this_arg, event.danglingClone().cOpaqueStruct!)
 				
 			
 	}

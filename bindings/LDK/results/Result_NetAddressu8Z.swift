@@ -44,7 +44,7 @@ public class Result_NetAddressu8Z {
 			
     public class func ok(o: NetAddress) -> Result_NetAddressu8Z {
     	
-        return Result_NetAddressu8Z(pointer: CResult_NetAddressu8Z_ok(o.clone().cOpaqueStruct!));
+        return Result_NetAddressu8Z(pointer: CResult_NetAddressu8Z_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: UInt8) -> Result_NetAddressu8Z {

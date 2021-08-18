@@ -12,7 +12,7 @@ public class Init {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = Init_new(features_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = Init_new(features_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ Init_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKInit>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Init_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return Init_set_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> Init {

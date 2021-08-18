@@ -44,12 +44,12 @@ public class Result_OutPointDecodeErrorZ {
 			
     public class func ok(o: OutPoint) -> Result_OutPointDecodeErrorZ {
     	
-        return Result_OutPointDecodeErrorZ(pointer: CResult_OutPointDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_OutPointDecodeErrorZ(pointer: CResult_OutPointDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_OutPointDecodeErrorZ {
     	
-        return Result_OutPointDecodeErrorZ(pointer: CResult_OutPointDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_OutPointDecodeErrorZ(pointer: CResult_OutPointDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -44,7 +44,7 @@ public class Result_PayeePubKeyErrorZ {
 			
     public class func ok(o: PayeePubKey) -> Result_PayeePubKeyErrorZ {
     	
-        return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKSecp256k1Error) -> Result_PayeePubKeyErrorZ {

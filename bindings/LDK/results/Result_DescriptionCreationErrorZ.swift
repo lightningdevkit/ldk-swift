@@ -44,7 +44,7 @@ public class Result_DescriptionCreationErrorZ {
 			
     public class func ok(o: Description) -> Result_DescriptionCreationErrorZ {
     	
-        return Result_DescriptionCreationErrorZ(pointer: CResult_DescriptionCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_DescriptionCreationErrorZ(pointer: CResult_DescriptionCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKCreationError) -> Result_DescriptionCreationErrorZ {

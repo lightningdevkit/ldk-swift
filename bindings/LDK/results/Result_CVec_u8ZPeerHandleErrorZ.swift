@@ -49,7 +49,7 @@ public class Result_CVec_u8ZPeerHandleErrorZ {
 
     public class func err(e: PeerHandleError) -> Result_CVec_u8ZPeerHandleErrorZ {
     	
-        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

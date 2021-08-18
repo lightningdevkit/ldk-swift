@@ -44,12 +44,12 @@ public class Result_NetworkGraphDecodeErrorZ {
 			
     public class func ok(o: NetworkGraph) -> Result_NetworkGraphDecodeErrorZ {
     	
-        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_NetworkGraphDecodeErrorZ {
     	
-        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

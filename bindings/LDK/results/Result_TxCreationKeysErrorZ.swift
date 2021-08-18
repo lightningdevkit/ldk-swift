@@ -44,7 +44,7 @@ public class Result_TxCreationKeysErrorZ {
 			
     public class func ok(o: TxCreationKeys) -> Result_TxCreationKeysErrorZ {
     	
-        return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKSecp256k1Error) -> Result_TxCreationKeysErrorZ {

@@ -44,12 +44,12 @@ public class Result_RouteLightningErrorZ {
 			
     public class func ok(o: Route) -> Result_RouteLightningErrorZ {
     	
-        return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LightningError) -> Result_RouteLightningErrorZ {
     	
-        return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -12,7 +12,7 @@ public class ChannelManagerReadArgs {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.clone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
+        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.danglingClone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -111,7 +111,7 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     internal func free() -> Void {

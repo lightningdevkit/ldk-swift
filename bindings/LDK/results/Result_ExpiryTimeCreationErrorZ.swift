@@ -44,7 +44,7 @@ public class Result_ExpiryTimeCreationErrorZ {
 			
     public class func ok(o: ExpiryTime) -> Result_ExpiryTimeCreationErrorZ {
     	
-        return Result_ExpiryTimeCreationErrorZ(pointer: CResult_ExpiryTimeCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_ExpiryTimeCreationErrorZ(pointer: CResult_ExpiryTimeCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKCreationError) -> Result_ExpiryTimeCreationErrorZ {

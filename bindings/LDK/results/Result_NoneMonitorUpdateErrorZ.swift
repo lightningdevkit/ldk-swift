@@ -42,7 +42,7 @@ public class Result_NoneMonitorUpdateErrorZ {
 
     public class func err(e: MonitorUpdateError) -> Result_NoneMonitorUpdateErrorZ {
     	
-        return Result_NoneMonitorUpdateErrorZ(pointer: CResult_NoneMonitorUpdateErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NoneMonitorUpdateErrorZ(pointer: CResult_NoneMonitorUpdateErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

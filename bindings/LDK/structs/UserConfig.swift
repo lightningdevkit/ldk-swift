@@ -36,7 +36,7 @@ UserConfig_get_own_channel_config(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_own_channel_config(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return UserConfig_set_own_channel_config(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_peer_channel_config_limits() -> ChannelHandshakeLimits {
@@ -51,7 +51,7 @@ UserConfig_get_peer_channel_config_limits(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_channel_options() -> ChannelConfig {
@@ -66,7 +66,7 @@ UserConfig_get_channel_options(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_channel_options(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return UserConfig_set_channel_options(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_accept_forwards_to_priv_channels() -> Bool {

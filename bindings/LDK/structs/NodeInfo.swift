@@ -12,7 +12,7 @@ public class NodeInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NodeInfo_new(Bindings.new_LDKCVec_u64Z(array: channels_arg), lowest_inbound_channel_fees_arg.clone().cOpaqueStruct!, announcement_info_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeInfo_new(Bindings.new_LDKCVec_u64Z(array: channels_arg), lowest_inbound_channel_fees_arg.danglingClone().cOpaqueStruct!, announcement_info_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -44,7 +44,7 @@ NodeInfo_get_lowest_inbound_channel_fees(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeInfo_set_lowest_inbound_channel_fees(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return NodeInfo_set_lowest_inbound_channel_fees(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_announcement_info() -> NodeAnnouncementInfo {
@@ -59,7 +59,7 @@ NodeInfo_get_announcement_info(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeInfo_set_announcement_info(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return NodeInfo_set_announcement_info(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> NodeInfo {

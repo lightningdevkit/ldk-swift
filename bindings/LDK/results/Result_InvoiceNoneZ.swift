@@ -37,7 +37,7 @@ public class Result_InvoiceNoneZ {
 			
     public class func ok(o: Invoice) -> Result_InvoiceNoneZ {
     	
-        return Result_InvoiceNoneZ(pointer: CResult_InvoiceNoneZ_ok(o.clone().cOpaqueStruct!));
+        return Result_InvoiceNoneZ(pointer: CResult_InvoiceNoneZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err() -> Result_InvoiceNoneZ {

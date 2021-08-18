@@ -42,7 +42,7 @@ public class Result_NoneLightningErrorZ {
 
     public class func err(e: LightningError) -> Result_NoneLightningErrorZ {
     	
-        return Result_NoneLightningErrorZ(pointer: CResult_NoneLightningErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NoneLightningErrorZ(pointer: CResult_NoneLightningErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

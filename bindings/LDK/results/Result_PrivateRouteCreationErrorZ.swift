@@ -44,7 +44,7 @@ public class Result_PrivateRouteCreationErrorZ {
 			
     public class func ok(o: PrivateRoute) -> Result_PrivateRouteCreationErrorZ {
     	
-        return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKCreationError) -> Result_PrivateRouteCreationErrorZ {

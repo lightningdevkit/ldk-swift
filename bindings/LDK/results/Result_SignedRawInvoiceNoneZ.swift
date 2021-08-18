@@ -37,7 +37,7 @@ public class Result_SignedRawInvoiceNoneZ {
 			
     public class func ok(o: SignedRawInvoice) -> Result_SignedRawInvoiceNoneZ {
     	
-        return Result_SignedRawInvoiceNoneZ(pointer: CResult_SignedRawInvoiceNoneZ_ok(o.clone().cOpaqueStruct!));
+        return Result_SignedRawInvoiceNoneZ(pointer: CResult_SignedRawInvoiceNoneZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err() -> Result_SignedRawInvoiceNoneZ {

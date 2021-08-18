@@ -42,7 +42,7 @@ public class Result_NonePaymentSendFailureZ {
 
     public class func err(e: PaymentSendFailure) -> Result_NonePaymentSendFailureZ {
     	
-        return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_err(e.clone().cOpaqueStruct!));
+        return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

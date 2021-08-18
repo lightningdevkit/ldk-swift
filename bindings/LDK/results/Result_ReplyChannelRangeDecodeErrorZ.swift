@@ -44,12 +44,12 @@ public class Result_ReplyChannelRangeDecodeErrorZ {
 			
     public class func ok(o: ReplyChannelRange) -> Result_ReplyChannelRangeDecodeErrorZ {
     	
-        return Result_ReplyChannelRangeDecodeErrorZ(pointer: CResult_ReplyChannelRangeDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_ReplyChannelRangeDecodeErrorZ(pointer: CResult_ReplyChannelRangeDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_ReplyChannelRangeDecodeErrorZ {
     	
-        return Result_ReplyChannelRangeDecodeErrorZ(pointer: CResult_ReplyChannelRangeDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_ReplyChannelRangeDecodeErrorZ(pointer: CResult_ReplyChannelRangeDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

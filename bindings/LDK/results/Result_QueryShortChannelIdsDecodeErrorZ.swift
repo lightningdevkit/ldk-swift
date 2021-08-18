@@ -44,12 +44,12 @@ public class Result_QueryShortChannelIdsDecodeErrorZ {
 			
     public class func ok(o: QueryShortChannelIds) -> Result_QueryShortChannelIdsDecodeErrorZ {
     	
-        return Result_QueryShortChannelIdsDecodeErrorZ(pointer: CResult_QueryShortChannelIdsDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_QueryShortChannelIdsDecodeErrorZ(pointer: CResult_QueryShortChannelIdsDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_QueryShortChannelIdsDecodeErrorZ {
     	
-        return Result_QueryShortChannelIdsDecodeErrorZ(pointer: CResult_QueryShortChannelIdsDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_QueryShortChannelIdsDecodeErrorZ(pointer: CResult_QueryShortChannelIdsDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

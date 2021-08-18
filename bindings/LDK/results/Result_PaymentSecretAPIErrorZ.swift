@@ -49,7 +49,7 @@ public class Result_PaymentSecretAPIErrorZ {
 
     public class func err(e: APIError) -> Result_PaymentSecretAPIErrorZ {
     	
-        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_PaymentSecretAPIErrorZ(pointer: CResult_PaymentSecretAPIErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -30,7 +30,7 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 
     public class func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
     	
-        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.clone().cOpaqueStruct!, b.clone().cOpaqueStruct!, c.clone().cOpaqueStruct!));
+        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.danglingClone().cOpaqueStruct!, b.danglingClone().cOpaqueStruct!, c.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

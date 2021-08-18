@@ -12,7 +12,7 @@ public class ChannelDetails {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.clone().cOpaqueStruct!, funding_txo_arg.clone().cOpaqueStruct!, short_channel_id_arg.clone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.clone().cOpaqueStruct!, user_id_arg, outbound_capacity_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.clone().cOpaqueStruct!, force_close_spend_delay_arg.clone().cOpaqueStruct!, is_outbound_arg, is_funding_locked_arg, is_usable_arg, is_public_arg)
+        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.danglingClone().cOpaqueStruct!, funding_txo_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg.danglingClone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.danglingClone().cOpaqueStruct!, user_id_arg, outbound_capacity_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.danglingClone().cOpaqueStruct!, force_close_spend_delay_arg.danglingClone().cOpaqueStruct!, is_outbound_arg, is_funding_locked_arg, is_usable_arg, is_public_arg)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -51,7 +51,7 @@ ChannelDetails_get_counterparty(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_counterparty(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelDetails_set_counterparty(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_funding_txo() -> OutPoint {
@@ -66,7 +66,7 @@ ChannelDetails_get_funding_txo(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_funding_txo(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelDetails_set_funding_txo(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_short_channel_id() -> Option_u64Z {
@@ -81,7 +81,7 @@ ChannelDetails_get_short_channel_id(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_short_channel_id(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelDetails_set_short_channel_id(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_channel_value_satoshis() -> UInt64 {
@@ -111,7 +111,7 @@ ChannelDetails_get_unspendable_punishment_reserve(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_unspendable_punishment_reserve(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelDetails_set_unspendable_punishment_reserve(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_user_id() -> UInt64 {
@@ -171,7 +171,7 @@ ChannelDetails_get_confirmations_required(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_confirmations_required(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelDetails_set_confirmations_required(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_force_close_spend_delay() -> Option_u16Z {
@@ -186,7 +186,7 @@ ChannelDetails_get_force_close_spend_delay(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_force_close_spend_delay(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelDetails_set_force_close_spend_delay(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_is_outbound() -> Bool {

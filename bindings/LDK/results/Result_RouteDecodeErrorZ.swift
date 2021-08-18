@@ -44,12 +44,12 @@ public class Result_RouteDecodeErrorZ {
 			
     public class func ok(o: Route) -> Result_RouteDecodeErrorZ {
     	
-        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_RouteDecodeErrorZ {
     	
-        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

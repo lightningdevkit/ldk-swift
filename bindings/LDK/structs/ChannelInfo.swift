@@ -12,7 +12,7 @@ public class ChannelInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelInfo_new(features_arg.clone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.clone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.clone().cOpaqueStruct!, capacity_sats_arg.clone().cOpaqueStruct!, announcement_message_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ ChannelInfo_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelInfo_set_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_node_one() -> [UInt8] {
@@ -66,7 +66,7 @@ ChannelInfo_get_one_to_two(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_one_to_two(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelInfo_set_one_to_two(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_node_two() -> [UInt8] {
@@ -96,7 +96,7 @@ ChannelInfo_get_two_to_one(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_two_to_one(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelInfo_set_two_to_one(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_capacity_sats() -> Option_u64Z {
@@ -111,7 +111,7 @@ ChannelInfo_get_capacity_sats(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_capacity_sats(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelInfo_set_capacity_sats(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_announcement_message() -> ChannelAnnouncement {
@@ -126,7 +126,7 @@ ChannelInfo_get_announcement_message(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_announcement_message(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelInfo_set_announcement_message(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelInfo {

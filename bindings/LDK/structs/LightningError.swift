@@ -12,7 +12,7 @@ public class LightningError {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg), action_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg), action_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -51,7 +51,7 @@ LightningError_get_action(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKLightningError>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return LightningError_set_action(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return LightningError_set_action(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> LightningError {

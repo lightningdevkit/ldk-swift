@@ -36,14 +36,14 @@ PeerManager_get_peer_node_ids(this_argPointer)
     public func new_outbound_connection(their_node_id: [UInt8], descriptor: SocketDescriptor) -> Result_CVec_u8ZPeerHandleErrorZ {
     	
         return Result_CVec_u8ZPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-PeerManager_new_outbound_connection(this_argPointer, Bindings.new_LDKPublicKey(array: their_node_id), descriptor.clone().cOpaqueStruct!)
+PeerManager_new_outbound_connection(this_argPointer, Bindings.new_LDKPublicKey(array: their_node_id), descriptor.danglingClone().cOpaqueStruct!)
 });
     }
 
     public func new_inbound_connection(descriptor: SocketDescriptor) -> Result_NonePeerHandleErrorZ {
     	
         return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-PeerManager_new_inbound_connection(this_argPointer, descriptor.clone().cOpaqueStruct!)
+PeerManager_new_inbound_connection(this_argPointer, descriptor.danglingClone().cOpaqueStruct!)
 });
     }
 

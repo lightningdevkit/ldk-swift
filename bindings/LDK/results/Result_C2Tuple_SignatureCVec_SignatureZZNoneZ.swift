@@ -37,7 +37,7 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 			
     public class func ok(o: C2Tuple_SignatureCVec_SignatureZZ) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	
-        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.clone().cOpaqueStruct!));
+        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {

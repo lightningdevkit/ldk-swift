@@ -42,7 +42,7 @@ Invoice_clone(origPointer)
 
     public func into_signed_raw() -> SignedRawInvoice {
     	
-        return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.clone().cOpaqueStruct!));
+        return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.danglingClone().cOpaqueStruct!));
     }
 
     public func check_signature() -> Result_NoneSemanticErrorZ {
@@ -54,7 +54,7 @@ Invoice_check_signature(this_argPointer)
 
     public class func from_signed(signed_invoice: SignedRawInvoice) -> Result_InvoiceSemanticErrorZ {
     	
-        return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.clone().cOpaqueStruct!));
+        return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.danglingClone().cOpaqueStruct!));
     }
 
     public func timestamp() -> UInt64 {

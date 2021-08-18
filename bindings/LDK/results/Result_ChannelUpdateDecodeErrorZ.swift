@@ -44,12 +44,12 @@ public class Result_ChannelUpdateDecodeErrorZ {
 			
     public class func ok(o: ChannelUpdate) -> Result_ChannelUpdateDecodeErrorZ {
     	
-        return Result_ChannelUpdateDecodeErrorZ(pointer: CResult_ChannelUpdateDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_ChannelUpdateDecodeErrorZ(pointer: CResult_ChannelUpdateDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_ChannelUpdateDecodeErrorZ {
     	
-        return Result_ChannelUpdateDecodeErrorZ(pointer: CResult_ChannelUpdateDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_ChannelUpdateDecodeErrorZ(pointer: CResult_ChannelUpdateDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

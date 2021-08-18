@@ -44,12 +44,12 @@ public class Result_InMemorySignerDecodeErrorZ {
 			
     public class func ok(o: InMemorySigner) -> Result_InMemorySignerDecodeErrorZ {
     	
-        return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_InMemorySignerDecodeErrorZ {
     	
-        return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

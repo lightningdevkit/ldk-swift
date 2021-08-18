@@ -12,7 +12,7 @@ public class ChainParameters {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -51,7 +51,7 @@ ChainParameters_get_best_block(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChainParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChainParameters_set_best_block(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChainParameters_set_best_block(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChainParameters {

@@ -95,8 +95,8 @@ class ConversionHelper:
 				# native_call_prep += current_prep
 			elif current_argument_details.swift_type in cloneable_types or (current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDKC') and f'C{current_argument_details.swift_type}' in cloneable_types):
 				if not is_free_method:
-					clone_infix = '.clone()'
-					# clone_infix = '.danglingClone()'
+					# clone_infix = '.clone()'
+					clone_infix = '.danglingClone()'
 				# print(f'Cloneable type detected: {current_argument_details.swift_type}')
 				detected_cloneable_types.add(current_argument_details.swift_type)
 			elif current_argument_details.rust_obj is not None and ('Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith('['):

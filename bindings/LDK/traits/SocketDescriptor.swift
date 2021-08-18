@@ -90,7 +90,7 @@ open class SocketDescriptor {
 				internal func free() -> Void {
 					
 					
-					SocketDescriptor_free(self.clone().cOpaqueStruct!)
+					SocketDescriptor_free(self.danglingClone().cOpaqueStruct!)
 					
 				}
 			

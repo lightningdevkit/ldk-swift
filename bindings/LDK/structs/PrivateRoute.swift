@@ -42,12 +42,12 @@ PrivateRoute_clone(origPointer)
 
     public class func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
     	
-        return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.clone().cOpaqueStruct!));
+        return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.danglingClone().cOpaqueStruct!));
     }
 
     public func into_inner() -> RouteHint {
     	
-        return RouteHint(pointer: PrivateRoute_into_inner(self.clone().cOpaqueStruct!));
+        return RouteHint(pointer: PrivateRoute_into_inner(self.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -44,12 +44,12 @@ public class Result_InvoiceSignOrCreationErrorZ {
 			
     public class func ok(o: Invoice) -> Result_InvoiceSignOrCreationErrorZ {
     	
-        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: SignOrCreationError) -> Result_InvoiceSignOrCreationErrorZ {
     	
-        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

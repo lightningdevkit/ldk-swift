@@ -44,12 +44,12 @@ public class Result_RoutingFeesDecodeErrorZ {
 			
     public class func ok(o: RoutingFees) -> Result_RoutingFeesDecodeErrorZ {
     	
-        return Result_RoutingFeesDecodeErrorZ(pointer: CResult_RoutingFeesDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_RoutingFeesDecodeErrorZ(pointer: CResult_RoutingFeesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_RoutingFeesDecodeErrorZ {
     	
-        return Result_RoutingFeesDecodeErrorZ(pointer: CResult_RoutingFeesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_RoutingFeesDecodeErrorZ(pointer: CResult_RoutingFeesDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

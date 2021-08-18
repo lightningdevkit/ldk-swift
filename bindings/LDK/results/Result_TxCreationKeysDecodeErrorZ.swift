@@ -44,12 +44,12 @@ public class Result_TxCreationKeysDecodeErrorZ {
 			
     public class func ok(o: TxCreationKeys) -> Result_TxCreationKeysDecodeErrorZ {
     	
-        return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_TxCreationKeysDecodeErrorZ {
     	
-        return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

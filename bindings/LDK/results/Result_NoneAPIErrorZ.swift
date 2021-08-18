@@ -42,7 +42,7 @@ public class Result_NoneAPIErrorZ {
 
     public class func err(e: APIError) -> Result_NoneAPIErrorZ {
     	
-        return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

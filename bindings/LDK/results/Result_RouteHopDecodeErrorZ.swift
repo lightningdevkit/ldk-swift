@@ -44,12 +44,12 @@ public class Result_RouteHopDecodeErrorZ {
 			
     public class func ok(o: RouteHop) -> Result_RouteHopDecodeErrorZ {
     	
-        return Result_RouteHopDecodeErrorZ(pointer: CResult_RouteHopDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_RouteHopDecodeErrorZ(pointer: CResult_RouteHopDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_RouteHopDecodeErrorZ {
     	
-        return Result_RouteHopDecodeErrorZ(pointer: CResult_RouteHopDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_RouteHopDecodeErrorZ(pointer: CResult_RouteHopDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

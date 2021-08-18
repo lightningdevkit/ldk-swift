@@ -48,7 +48,7 @@ public class Option_C2Tuple_usizeTransactionZZ {
 
     public class func some(o: C2Tuple_usizeTransactionZ) -> Option_C2Tuple_usizeTransactionZZ {
     	
-        return Option_C2Tuple_usizeTransactionZZ(pointer: COption_C2Tuple_usizeTransactionZZ_some(o.clone().cOpaqueStruct!));
+        return Option_C2Tuple_usizeTransactionZZ(pointer: COption_C2Tuple_usizeTransactionZZ_some(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func none() -> Option_C2Tuple_usizeTransactionZZ {

@@ -29,7 +29,7 @@ RawDataPart_get_timestamp(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRawDataPart>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RawDataPart_set_timestamp(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RawDataPart_set_timestamp(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public class func eq(a: RawDataPart, b: RawDataPart) -> Bool {

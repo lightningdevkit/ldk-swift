@@ -44,12 +44,12 @@ public class Result_QueryChannelRangeDecodeErrorZ {
 			
     public class func ok(o: QueryChannelRange) -> Result_QueryChannelRangeDecodeErrorZ {
     	
-        return Result_QueryChannelRangeDecodeErrorZ(pointer: CResult_QueryChannelRangeDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: CResult_QueryChannelRangeDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_QueryChannelRangeDecodeErrorZ {
     	
-        return Result_QueryChannelRangeDecodeErrorZ(pointer: CResult_QueryChannelRangeDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: CResult_QueryChannelRangeDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

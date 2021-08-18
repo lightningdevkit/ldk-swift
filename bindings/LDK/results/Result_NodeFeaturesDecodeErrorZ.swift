@@ -44,12 +44,12 @@ public class Result_NodeFeaturesDecodeErrorZ {
 			
     public class func ok(o: NodeFeatures) -> Result_NodeFeaturesDecodeErrorZ {
     	
-        return Result_NodeFeaturesDecodeErrorZ(pointer: CResult_NodeFeaturesDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_NodeFeaturesDecodeErrorZ(pointer: CResult_NodeFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_NodeFeaturesDecodeErrorZ {
     	
-        return Result_NodeFeaturesDecodeErrorZ(pointer: CResult_NodeFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NodeFeaturesDecodeErrorZ(pointer: CResult_NodeFeaturesDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

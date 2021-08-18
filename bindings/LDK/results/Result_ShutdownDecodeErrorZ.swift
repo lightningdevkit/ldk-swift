@@ -44,12 +44,12 @@ public class Result_ShutdownDecodeErrorZ {
 			
     public class func ok(o: Shutdown) -> Result_ShutdownDecodeErrorZ {
     	
-        return Result_ShutdownDecodeErrorZ(pointer: CResult_ShutdownDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_ShutdownDecodeErrorZ(pointer: CResult_ShutdownDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_ShutdownDecodeErrorZ {
     	
-        return Result_ShutdownDecodeErrorZ(pointer: CResult_ShutdownDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_ShutdownDecodeErrorZ(pointer: CResult_ShutdownDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

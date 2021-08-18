@@ -12,7 +12,7 @@ public class RouteHintHop {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg), short_channel_id_arg, fees_arg.clone().cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.clone().cOpaqueStruct!, htlc_maximum_msat_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg), short_channel_id_arg, fees_arg.danglingClone().cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -66,7 +66,7 @@ RouteHintHop_get_fees(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_fees(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHintHop_set_fees(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_cltv_expiry_delta() -> UInt16 {
@@ -96,7 +96,7 @@ RouteHintHop_get_htlc_minimum_msat(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_htlc_minimum_msat(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHintHop_set_htlc_minimum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_htlc_maximum_msat() -> Option_u64Z {
@@ -111,7 +111,7 @@ RouteHintHop_get_htlc_maximum_msat(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_htlc_maximum_msat(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHintHop_set_htlc_maximum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public class func eq(a: RouteHintHop, b: RouteHintHop) -> Bool {

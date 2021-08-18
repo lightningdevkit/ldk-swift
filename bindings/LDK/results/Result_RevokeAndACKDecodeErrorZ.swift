@@ -44,12 +44,12 @@ public class Result_RevokeAndACKDecodeErrorZ {
 			
     public class func ok(o: RevokeAndACK) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

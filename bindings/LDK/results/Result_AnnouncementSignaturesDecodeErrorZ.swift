@@ -44,12 +44,12 @@ public class Result_AnnouncementSignaturesDecodeErrorZ {
 			
     public class func ok(o: AnnouncementSignatures) -> Result_AnnouncementSignaturesDecodeErrorZ {
     	
-        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: CResult_AnnouncementSignaturesDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: CResult_AnnouncementSignaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_AnnouncementSignaturesDecodeErrorZ {
     	
-        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: CResult_AnnouncementSignaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: CResult_AnnouncementSignaturesDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

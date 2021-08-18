@@ -41,13 +41,6 @@ open class ChannelManagerPersister {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					ChannelManagerPersister_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> ChannelManagerPersister {
         				self.dangling = true
@@ -66,7 +59,10 @@ open class ChannelManagerPersister {
 		return Result_NoneErrorZ(pointer: LDKCResult_NoneErrorZ())
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

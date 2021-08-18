@@ -82,13 +82,6 @@ open class KeysInterface {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					KeysInterface_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> KeysInterface {
         				self.dangling = true
@@ -137,7 +130,10 @@ open class KeysInterface {
 		return Result_RecoverableSignatureNoneZ(pointer: LDKCResult_RecoverableSignatureNoneZ())
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

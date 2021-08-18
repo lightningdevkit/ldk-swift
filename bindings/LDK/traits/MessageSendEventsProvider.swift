@@ -40,13 +40,6 @@ open class MessageSendEventsProvider {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					MessageSendEventsProvider_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> MessageSendEventsProvider {
         				self.dangling = true
@@ -65,7 +58,10 @@ open class MessageSendEventsProvider {
 		return [LDKMessageSendEvent]()
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

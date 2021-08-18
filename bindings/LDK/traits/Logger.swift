@@ -45,13 +45,6 @@ open class Logger {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					Logger_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> Logger {
         				self.dangling = true
@@ -70,7 +63,10 @@ open class Logger {
 		
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

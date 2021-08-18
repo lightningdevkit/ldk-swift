@@ -22,7 +22,7 @@ open class Sign {
 			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::clone")
 			
 			
-					var clone = instance.danglingClone()
+					let clone = instance.danglingClone()
 					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
 					return clonePointer
 				
@@ -71,13 +71,6 @@ open class Sign {
 				
 
 
-				internal func free() -> Void {
-					
-					
-					Sign_free(self.danglingClone().cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> Sign {
         				self.dangling = true
@@ -98,7 +91,10 @@ open class Sign {
 
 
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

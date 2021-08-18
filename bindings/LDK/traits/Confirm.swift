@@ -76,13 +76,6 @@ open class Confirm {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					Confirm_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> Confirm {
         				self.dangling = true
@@ -116,7 +109,10 @@ open class Confirm {
 		return [LDKTxid]()
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

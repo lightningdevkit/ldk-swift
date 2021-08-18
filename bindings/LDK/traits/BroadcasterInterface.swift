@@ -40,13 +40,6 @@ open class BroadcasterInterface {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					BroadcasterInterface_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> BroadcasterInterface {
         				self.dangling = true
@@ -65,7 +58,10 @@ open class BroadcasterInterface {
 		
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

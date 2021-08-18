@@ -41,7 +41,7 @@ open class SocketDescriptor {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::clone")
 			
 			
-					var clone = instance.danglingClone()
+					let clone = instance.danglingClone()
 					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
 					return clonePointer
 				
@@ -91,13 +91,6 @@ open class SocketDescriptor {
 				
 
 
-				internal func free() -> Void {
-					
-					
-					SocketDescriptor_free(self.danglingClone().cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> SocketDescriptor {
         				self.dangling = true
@@ -133,7 +126,10 @@ open class SocketDescriptor {
 
 
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

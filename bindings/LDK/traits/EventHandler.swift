@@ -40,13 +40,6 @@ open class EventHandler {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					EventHandler_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> EventHandler {
         				self.dangling = true
@@ -65,7 +58,10 @@ open class EventHandler {
 		
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

@@ -52,13 +52,6 @@ open class Filter {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					Filter_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> Filter {
         				self.dangling = true
@@ -82,7 +75,10 @@ open class Filter {
 		return Option_C2Tuple_usizeTransactionZZ(pointer: LDKCOption_C2Tuple_usizeTransactionZZ())
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

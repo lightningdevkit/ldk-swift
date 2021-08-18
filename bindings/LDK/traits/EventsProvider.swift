@@ -40,13 +40,6 @@ open class EventsProvider {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					EventsProvider_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> EventsProvider {
         				self.dangling = true
@@ -65,7 +58,10 @@ open class EventsProvider {
 		
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

@@ -40,13 +40,6 @@ open class FeeEstimator {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					FeeEstimator_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> FeeEstimator {
         				self.dangling = true
@@ -65,7 +58,10 @@ open class FeeEstimator {
 		return 0
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

@@ -194,13 +194,6 @@ let msg = Shutdown(pointer: msgPointer.pointee);
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					ChannelMessageHandler_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> ChannelMessageHandler {
         				self.dangling = true
@@ -314,7 +307,10 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 		
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

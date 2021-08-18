@@ -45,13 +45,6 @@ open class Access {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					Access_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> Access {
         				self.dangling = true
@@ -70,7 +63,10 @@ open class Access {
 		return Result_TxOutAccessErrorZ(pointer: LDKCResult_TxOutAccessErrorZ())
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

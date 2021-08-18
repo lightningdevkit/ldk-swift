@@ -54,13 +54,6 @@ open class Watch {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					Watch_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> Watch {
         				self.dangling = true
@@ -89,7 +82,10 @@ open class Watch {
 		return [LDKMonitorEvent]()
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

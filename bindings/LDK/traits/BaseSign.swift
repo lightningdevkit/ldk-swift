@@ -128,13 +128,6 @@ open class BaseSign {
     /* SWIFT_CALLBACKS_START */
 
 
-				internal func free() -> Void {
-					
-					
-					BaseSign_free(self.cOpaqueStruct!)
-					
-				}
-			
 
 					internal func dangle() -> BaseSign {
         				self.dangling = true
@@ -203,7 +196,10 @@ open class BaseSign {
 		
     }
 
-
+    open func free() -> Void {
+    	/* EDIT ME */
+		
+    }
 
     /* SWIFT_CALLBACKS_END */
 

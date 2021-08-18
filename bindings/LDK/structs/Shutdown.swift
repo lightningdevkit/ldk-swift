@@ -12,7 +12,7 @@ public class Shutdown {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = Shutdown_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKCVec_u8Z(array: scriptpubkey_arg))
+        self.cOpaqueStruct = Shutdown_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKCVec_u8Z(array: scriptpubkey_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -51,7 +51,7 @@ Shutdown_get_scriptpubkey(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKShutdown>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Shutdown_set_scriptpubkey(this_ptrPointer, Bindings.new_LDKCVec_u8Z(array: val));
+        return Shutdown_set_scriptpubkey(this_ptrPointer, Bindings.new_LDKCVec_u8Z(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> Shutdown {

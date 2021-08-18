@@ -15,6 +15,7 @@ public class Bindings{
 	/* BYTE_ARRAY_METHODS_START */
 	public class func new_LDKByteType(array: [UInt8]) -> LDKByteType {
 		let byteType = LDKByteType(fieldName: (tupleArguments))
+		// let wrapper = LDKByteTypeWrapper(pointer: byteType)
 		return byteType
 	}
 
@@ -22,11 +23,40 @@ public class Bindings{
 		let array = [tupleReads]
 		return array
 	}
+	/*
+	public class LDKByteTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKByteType?
+
+		public init(pointer: LDKByteType){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKByteTypeWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKByteTypeWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.fieldName.deallocate()
+			} else {
+				print("Not freeing LDKByteTypeWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+	*/
 	/* BYTE_ARRAY_METHODS_END */
 
 	/* VECTOR_METHODS_START */
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_rust_primitive(array: [SwiftPrimitive]) -> LDKCVec_rust_primitive {
+	public class func new_LDKCVec_rust_primitive(array: [SwiftPrimitive]) -> LDKCVec_rust_primitiveWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -40,21 +70,28 @@ public class Bindings{
 		dataContainer.initialize(from: array, count: array.count)
 
         let vector = LDKCVec_rust_primitive(data: dataContainer, datalen: UInt(array.count))
-        return vector
-
+        let wrapper = LDKCVec_rust_primitiveWrapper(pointer: vector)
+        return wrapper
     }
 
-    class LDKCVec_rust_primitiveWrapper {
+    public class LDKCVec_rust_primitiveWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_rust_primitive?
-		internal private(set) var subdimensionWrapper: AnyObject? = nil
+		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_rust_primitive){
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal init(pointer: LDKCVec_rust_primitive, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
 
@@ -205,7 +242,7 @@ public class Bindings{
 
 	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
-			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops)
+			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops).cOpaqueStruct!
 			return withUnsafeMutablePointer(to: &mutableHops) { (first_hopsPointer) in
 				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintZ(array: last_hops), final_value_msat, final_cltv, logger.cOpaqueStruct!))
 			}

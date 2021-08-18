@@ -206,7 +206,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 	public override func sign_invoice(invoice_preimage: [UInt8]) -> Result_RecoverableSignatureNoneZ {
 		
 				return 
-				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, Bindings.new_LDKCVec_u8Z(array: invoice_preimage)))
+				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, Bindings.new_LDKCVec_u8Z(array: invoice_preimage).cOpaqueStruct!))
 				
 			
 	}

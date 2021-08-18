@@ -3102,7 +3102,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
-			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops)
+			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops).cOpaqueStruct!
 			return withUnsafeMutablePointer(to: &mutableHops) { (first_hopsPointer) in
 				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintZ(array: last_hops), final_value_msat, final_cltv, logger.cOpaqueStruct!))
 			}

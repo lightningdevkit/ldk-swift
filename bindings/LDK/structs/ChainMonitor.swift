@@ -34,28 +34,28 @@ public class ChainMonitor {
     	
         return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Listen(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_Confirm() -> Confirm {
     	
         return NativelyImplementedConfirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Confirm(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_Watch() -> Watch {
     	
         return NativelyImplementedWatch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Watch(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_EventsProvider() -> EventsProvider {
     	
         return NativelyImplementedEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_EventsProvider(this_argPointer)
-});
+}, anchor: self);
     }
 
     internal func free() -> Void {

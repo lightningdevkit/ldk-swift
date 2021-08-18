@@ -28,7 +28,7 @@ public class ChannelManagerReadArgs {
     	
         return NativelyImplementedKeysInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_keys_manager(val: KeysInterface) -> Void {
@@ -43,7 +43,7 @@ ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
     	
         return NativelyImplementedFeeEstimator(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_fee_estimator(val: FeeEstimator) -> Void {
@@ -58,7 +58,7 @@ ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
     	
         return NativelyImplementedWatch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_chain_monitor(val: Watch) -> Void {
@@ -73,7 +73,7 @@ ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
     	
         return NativelyImplementedBroadcasterInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_tx_broadcaster(val: BroadcasterInterface) -> Void {
@@ -88,7 +88,7 @@ ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
     	
         return NativelyImplementedLogger(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_logger(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_logger(val: Logger) -> Void {

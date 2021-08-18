@@ -46,7 +46,7 @@ KeysManager_spend_spendable_outputs(this_argPointer, Bindings.new_LDKCVec_Spenda
     	
         return NativelyImplementedKeysInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKKeysManager>) in
 KeysManager_as_KeysInterface(this_argPointer)
-});
+}, anchor: self);
     }
 
     internal func free() -> Void {

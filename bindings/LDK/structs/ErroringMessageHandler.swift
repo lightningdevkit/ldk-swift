@@ -28,14 +28,14 @@ public class ErroringMessageHandler {
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_MessageSendEventsProvider(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_ChannelMessageHandler() -> ChannelMessageHandler {
     	
         return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
-});
+}, anchor: self);
     }
 
     internal func free() -> Void {

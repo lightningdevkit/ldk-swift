@@ -55,14 +55,14 @@ NetGraphMsgHandler_read_locked_graph(this_argPointer)
     	
         return NativelyImplementedRoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
 NetGraphMsgHandler_as_RoutingMessageHandler(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
 NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
-});
+}, anchor: self);
     }
 
     internal func free() -> Void {

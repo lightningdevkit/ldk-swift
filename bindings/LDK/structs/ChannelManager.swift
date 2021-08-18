@@ -166,28 +166,28 @@ ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDK
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_MessageSendEventsProvider(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_EventsProvider() -> EventsProvider {
     	
         return NativelyImplementedEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_EventsProvider(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_Listen() -> Listen {
     	
         return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Listen(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_Confirm() -> Confirm {
     	
         return NativelyImplementedConfirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Confirm(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func await_persistable_update_timeout(max_wait: UInt64) -> Bool {
@@ -215,7 +215,7 @@ ChannelManager_current_best_block(this_argPointer)
     	
         return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_ChannelMessageHandler(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func write() -> [UInt8] {

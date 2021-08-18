@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Option_u16Z {
 
 	private static var instanceCounter: UInt = 0

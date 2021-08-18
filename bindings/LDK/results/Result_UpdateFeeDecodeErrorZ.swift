@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_UpdateFeeDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import LDKHeaders
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -1508,7 +1507,6 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		print("Retrieving instance from pointer for caller: \(caller)")
 		// let value = Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
 		let value = Self.nativelyExposedInstances[pointer.debugDescription] as! T
-		// Self.nativelyExposedInstances.removeValue(forKey: pointer.debugDescription)
 		print("Instance retrieved for caller: \(caller)")
 		return value
 	}

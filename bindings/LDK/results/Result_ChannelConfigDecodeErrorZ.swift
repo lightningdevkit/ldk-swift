@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_ChannelConfigDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0

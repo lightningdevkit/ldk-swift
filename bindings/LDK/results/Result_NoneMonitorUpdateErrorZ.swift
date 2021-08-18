@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_NoneMonitorUpdateErrorZ {
 
 	private static var instanceCounter: UInt = 0

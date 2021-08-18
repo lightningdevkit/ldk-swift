@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Option_C2Tuple_usizeTransactionZZ {
 
 	private static var instanceCounter: UInt = 0

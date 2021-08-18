@@ -1,12 +1,11 @@
-import LDKHeaders
-
 open class RoutingMessageHandler {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 	internal private(set) var dangling = false
 
-    public var cOpaqueStruct: LDKRoutingMessageHandler?;
+    public var cOpaqueStruct: LDKRoutingMessageHandler?
+    internal let anchor: AnyObject?
 
     public init() {
 		Self.instanceCounter += 1
@@ -112,6 +111,14 @@ open class RoutingMessageHandler {
     public init(pointer: LDKRoutingMessageHandler){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+	}
+
+	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.dangling = true
+		self.anchor = anchor
 		self.cOpaqueStruct = pointer
 	}
 

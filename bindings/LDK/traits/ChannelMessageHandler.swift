@@ -1,12 +1,11 @@
-import LDKHeaders
-
 open class ChannelMessageHandler {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 	internal private(set) var dangling = false
 
-    public var cOpaqueStruct: LDKChannelMessageHandler?;
+    public var cOpaqueStruct: LDKChannelMessageHandler?
+    internal let anchor: AnyObject?
 
     public init() {
 		Self.instanceCounter += 1
@@ -190,6 +189,14 @@ let msg = Shutdown(pointer: msgPointer.pointee);
     public init(pointer: LDKChannelMessageHandler){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+	}
+
+	public init(pointer: LDKKeysInterface, anchor: AnyObject){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.dangling = true
+		self.anchor = anchor
 		self.cOpaqueStruct = pointer
 	}
 

@@ -20,7 +20,7 @@ public class UtilMethods {
         let clonedConfig = arg_default_config.danglingClone()
         print("instantiating channelManagerReadArgs with cloned user config")
         let args = ChannelManagerReadArgs(keys_manager: arg_keys_manager.dangle(), fee_estimator: arg_fee_estimator, chain_monitor: arg_chain_monitor.dangle(), tx_broadcaster: arg_tx_broadcaster, logger: arg_logger, default_config: clonedConfig, channel_monitors: arg_channel_monitors)
-        args.dangle()
+        // args.dangle()
         // let slice = Bindings.new_LDKu8slice(array: ser)
         // let wrappedSlice = U8SliceWrapper(pointer: slice)
         // let ret = C2Tuple_BlockHashChannelManagerZ_read(wrappedSlice.cOpaqueStruct!, args.cOpaqueStruct!)

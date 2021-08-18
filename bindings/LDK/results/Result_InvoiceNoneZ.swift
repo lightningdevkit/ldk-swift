@@ -70,7 +70,7 @@ CResult_InvoiceNoneZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_InvoiceNoneZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

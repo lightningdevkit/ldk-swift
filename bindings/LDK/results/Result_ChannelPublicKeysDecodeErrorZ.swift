@@ -77,7 +77,7 @@ CResult_ChannelPublicKeysDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_ChannelPublicKeysDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -55,7 +55,7 @@ QueryShortChannelIds_clone(origPointer)
     }
 
 					internal func danglingClone() -> QueryShortChannelIds {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

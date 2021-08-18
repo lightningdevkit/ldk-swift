@@ -25,7 +25,7 @@ HTLCUpdate_clone(origPointer)
     }
 
 					internal func danglingClone() -> HTLCUpdate {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

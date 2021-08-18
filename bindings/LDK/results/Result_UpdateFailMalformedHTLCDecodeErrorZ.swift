@@ -77,7 +77,7 @@ CResult_UpdateFailMalformedHTLCDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_UpdateFailMalformedHTLCDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

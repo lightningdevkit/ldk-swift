@@ -91,7 +91,7 @@ PaymentSendFailure_clone(origPointer)
     }
 
 					internal func danglingClone() -> PaymentSendFailure {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

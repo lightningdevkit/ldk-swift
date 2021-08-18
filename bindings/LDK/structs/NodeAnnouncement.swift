@@ -62,7 +62,7 @@ NodeAnnouncement_clone(origPointer)
     }
 
 					internal func danglingClone() -> NodeAnnouncement {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

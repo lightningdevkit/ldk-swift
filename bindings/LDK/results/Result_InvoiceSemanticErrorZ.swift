@@ -77,7 +77,7 @@ CResult_InvoiceSemanticErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_InvoiceSemanticErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

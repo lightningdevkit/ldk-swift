@@ -70,7 +70,7 @@ CResult_NoneChannelMonitorUpdateErrZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_NoneChannelMonitorUpdateErrZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

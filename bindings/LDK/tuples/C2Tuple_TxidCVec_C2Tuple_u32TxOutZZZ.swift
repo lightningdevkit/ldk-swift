@@ -22,7 +22,7 @@ C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

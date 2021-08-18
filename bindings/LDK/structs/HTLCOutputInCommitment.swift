@@ -107,7 +107,7 @@ HTLCOutputInCommitment_clone(origPointer)
     }
 
 					internal func danglingClone() -> HTLCOutputInCommitment {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

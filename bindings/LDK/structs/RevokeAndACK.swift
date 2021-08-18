@@ -77,7 +77,7 @@ RevokeAndACK_clone(origPointer)
     }
 
 					internal func danglingClone() -> RevokeAndACK {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

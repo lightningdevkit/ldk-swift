@@ -77,7 +77,7 @@ CResult_PaymentSecretAPIErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_PaymentSecretAPIErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -77,7 +77,7 @@ CResult_NetAddressDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_NetAddressDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -77,7 +77,7 @@ CResult_PayeePubKeyErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_PayeePubKeyErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

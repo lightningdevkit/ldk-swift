@@ -108,7 +108,7 @@ UnsignedNodeAnnouncement_clone(origPointer)
     }
 
 					internal func danglingClone() -> UnsignedNodeAnnouncement {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

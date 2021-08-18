@@ -77,7 +77,7 @@ CResult_ChannelTransactionParametersDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_ChannelTransactionParametersDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

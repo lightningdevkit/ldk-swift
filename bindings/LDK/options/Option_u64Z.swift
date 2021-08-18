@@ -81,7 +81,7 @@ COption_u64Z_clone(origPointer)
     }
 
 					internal func danglingClone() -> Option_u64Z {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

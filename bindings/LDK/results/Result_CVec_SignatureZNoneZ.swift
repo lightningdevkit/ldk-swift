@@ -70,7 +70,7 @@ CResult_CVec_SignatureZNoneZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_CVec_SignatureZNoneZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

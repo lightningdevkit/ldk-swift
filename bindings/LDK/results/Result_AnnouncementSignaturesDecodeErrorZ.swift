@@ -77,7 +77,7 @@ CResult_AnnouncementSignaturesDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_AnnouncementSignaturesDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

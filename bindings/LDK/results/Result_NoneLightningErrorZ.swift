@@ -70,7 +70,7 @@ CResult_NoneLightningErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_NoneLightningErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

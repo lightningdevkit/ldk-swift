@@ -34,7 +34,7 @@ SignedRawInvoice_clone(origPointer)
     }
 
 					internal func danglingClone() -> SignedRawInvoice {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

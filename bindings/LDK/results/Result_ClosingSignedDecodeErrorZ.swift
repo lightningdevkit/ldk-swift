@@ -77,7 +77,7 @@ CResult_ClosingSignedDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_ClosingSignedDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -77,7 +77,7 @@ CResult_ErrorMessageDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_ErrorMessageDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

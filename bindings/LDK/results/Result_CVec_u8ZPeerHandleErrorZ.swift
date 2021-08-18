@@ -77,7 +77,7 @@ CResult_CVec_u8ZPeerHandleErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_CVec_u8ZPeerHandleErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -77,7 +77,7 @@ CResult_UnsignedNodeAnnouncementDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

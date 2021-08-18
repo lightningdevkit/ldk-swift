@@ -41,7 +41,7 @@ NodeFeatures_clone(origPointer)
     }
 
 					internal func danglingClone() -> NodeFeatures {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

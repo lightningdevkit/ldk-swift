@@ -77,7 +77,7 @@ CResult_TxCreationKeysErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_TxCreationKeysErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

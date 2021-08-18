@@ -77,7 +77,7 @@ CResult_PingDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_PingDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

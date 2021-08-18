@@ -70,7 +70,7 @@ CResult_CVec_CVec_u8ZZNoneZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_CVec_CVec_u8ZZNoneZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

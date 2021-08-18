@@ -34,7 +34,7 @@ PrivateRoute_clone(origPointer)
     }
 
 					internal func danglingClone() -> PrivateRoute {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

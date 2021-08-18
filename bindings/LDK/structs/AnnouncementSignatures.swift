@@ -92,7 +92,7 @@ AnnouncementSignatures_clone(origPointer)
     }
 
 					internal func danglingClone() -> AnnouncementSignatures {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

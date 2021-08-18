@@ -77,7 +77,7 @@ CResult_NetAddressu8Z_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_NetAddressu8Z {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

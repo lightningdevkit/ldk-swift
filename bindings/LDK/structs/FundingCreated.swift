@@ -92,7 +92,7 @@ FundingCreated_clone(origPointer)
     }
 
 					internal func danglingClone() -> FundingCreated {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -77,7 +77,7 @@ CResult_ChannelAnnouncementDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_ChannelAnnouncementDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

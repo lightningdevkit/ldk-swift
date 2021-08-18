@@ -22,7 +22,7 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

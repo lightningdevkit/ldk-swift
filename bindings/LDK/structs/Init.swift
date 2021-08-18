@@ -47,7 +47,7 @@ Init_clone(origPointer)
     }
 
 					internal func danglingClone() -> Init {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

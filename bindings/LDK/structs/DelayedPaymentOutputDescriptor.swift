@@ -130,7 +130,7 @@ DelayedPaymentOutputDescriptor_clone(origPointer)
     }
 
 					internal func danglingClone() -> DelayedPaymentOutputDescriptor {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

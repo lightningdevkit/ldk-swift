@@ -91,7 +91,7 @@ class TraitGenerator:
 			if is_clone_method:
 				current_method_implementation += f'''\n
 					internal func danglingClone() -> {swift_return_type} {{
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}}
@@ -195,7 +195,7 @@ class TraitGenerator:
 																							  f'instance: {swift_struct_name}')
 			if current_lambda_name == 'clone':
 				current_native_callback_replacement = current_native_callback_replacement.replace('return instance.callbackName(swift_callback_arguments)', f'''
-					var clone = instance.clone()
+					var clone = instance.danglingClone()
 					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
 					return clonePointer
 				''')

@@ -77,7 +77,7 @@ CResult_NetworkGraphDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_NetworkGraphDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

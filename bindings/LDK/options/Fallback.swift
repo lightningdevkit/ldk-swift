@@ -82,7 +82,7 @@ Fallback_clone(origPointer)
     }
 
 					internal func danglingClone() -> Fallback {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

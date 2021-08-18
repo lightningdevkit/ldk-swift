@@ -22,7 +22,7 @@ C2Tuple_PaymentHashPaymentSecretZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> C2Tuple_PaymentHashPaymentSecretZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -77,7 +77,7 @@ CResult_InvoiceSignOrCreationErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_InvoiceSignOrCreationErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

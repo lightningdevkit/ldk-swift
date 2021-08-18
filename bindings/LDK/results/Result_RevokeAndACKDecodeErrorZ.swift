@@ -77,7 +77,7 @@ CResult_RevokeAndACKDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_RevokeAndACKDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

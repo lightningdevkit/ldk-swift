@@ -77,7 +77,7 @@ GossipTimestampFilter_clone(origPointer)
     }
 
 					internal func danglingClone() -> GossipTimestampFilter {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

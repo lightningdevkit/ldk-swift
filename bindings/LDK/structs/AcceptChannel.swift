@@ -235,7 +235,7 @@ AcceptChannel_clone(origPointer)
     }
 
 					internal func danglingClone() -> AcceptChannel {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

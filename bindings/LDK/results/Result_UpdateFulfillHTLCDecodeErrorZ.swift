@@ -77,7 +77,7 @@ CResult_UpdateFulfillHTLCDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_UpdateFulfillHTLCDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

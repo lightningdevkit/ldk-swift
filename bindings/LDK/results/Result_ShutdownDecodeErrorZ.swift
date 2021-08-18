@@ -77,7 +77,7 @@ CResult_ShutdownDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_ShutdownDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

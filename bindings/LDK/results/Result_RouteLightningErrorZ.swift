@@ -77,7 +77,7 @@ CResult_RouteLightningErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_RouteLightningErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

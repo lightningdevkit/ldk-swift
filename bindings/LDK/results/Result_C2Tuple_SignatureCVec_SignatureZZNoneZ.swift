@@ -70,7 +70,7 @@ CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

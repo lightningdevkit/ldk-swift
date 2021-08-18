@@ -77,7 +77,7 @@ CResult_ExpiryTimeCreationErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_ExpiryTimeCreationErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

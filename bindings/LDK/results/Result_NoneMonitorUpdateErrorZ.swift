@@ -70,7 +70,7 @@ CResult_NoneMonitorUpdateErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_NoneMonitorUpdateErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -107,7 +107,7 @@ ChannelPublicKeys_clone(origPointer)
     }
 
 					internal func danglingClone() -> ChannelPublicKeys {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

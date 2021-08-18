@@ -22,7 +22,7 @@ open class Sign {
 			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::clone")
 			
 			
-					var clone = instance.clone()
+					var clone = instance.danglingClone()
 					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
 					return clonePointer
 				
@@ -64,7 +64,7 @@ open class Sign {
 			
 
 					internal func danglingClone() -> Sign {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

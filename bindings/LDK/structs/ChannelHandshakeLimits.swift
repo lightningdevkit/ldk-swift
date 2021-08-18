@@ -152,7 +152,7 @@ ChannelHandshakeLimits_clone(origPointer)
     }
 
 					internal func danglingClone() -> ChannelHandshakeLimits {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

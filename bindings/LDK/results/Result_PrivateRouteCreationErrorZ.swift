@@ -77,7 +77,7 @@ CResult_PrivateRouteCreationErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_PrivateRouteCreationErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

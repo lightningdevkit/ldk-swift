@@ -22,7 +22,7 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> C2Tuple_usizeTransactionZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

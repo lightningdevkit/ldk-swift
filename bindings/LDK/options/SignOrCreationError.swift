@@ -64,7 +64,7 @@ SignOrCreationError_clone(origPointer)
     }
 
 					internal func danglingClone() -> SignOrCreationError {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

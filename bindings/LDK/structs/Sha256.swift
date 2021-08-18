@@ -34,7 +34,7 @@ Sha256_clone(origPointer)
     }
 
 					internal func danglingClone() -> Sha256 {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

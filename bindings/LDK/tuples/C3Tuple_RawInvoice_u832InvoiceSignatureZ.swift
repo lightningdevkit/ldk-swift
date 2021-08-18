@@ -22,7 +22,7 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

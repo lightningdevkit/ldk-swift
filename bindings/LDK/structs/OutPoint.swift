@@ -62,7 +62,7 @@ OutPoint_clone(origPointer)
     }
 
 					internal func danglingClone() -> OutPoint {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

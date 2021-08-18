@@ -77,7 +77,7 @@ CResult_boolPeerHandleErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_boolPeerHandleErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

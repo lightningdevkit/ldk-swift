@@ -40,7 +40,7 @@ Route_clone(origPointer)
     }
 
 					internal func danglingClone() -> Route {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

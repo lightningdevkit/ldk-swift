@@ -236,7 +236,7 @@ class OptionGenerator:
 			if is_clone_method:
 				current_replacement += f'''\n
 					internal func danglingClone() -> {current_return_type} {{
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}}

@@ -70,7 +70,7 @@ CResult_RecoverableSignatureNoneZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_RecoverableSignatureNoneZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

@@ -107,7 +107,7 @@ ChannelAnnouncement_clone(origPointer)
     }
 
 					internal func danglingClone() -> ChannelAnnouncement {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

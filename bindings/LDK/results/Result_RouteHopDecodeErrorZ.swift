@@ -77,7 +77,7 @@ CResult_RouteHopDecodeErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_RouteHopDecodeErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

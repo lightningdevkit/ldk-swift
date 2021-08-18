@@ -77,7 +77,7 @@ CResult_TxOutAccessErrorZ_clone(origPointer)
     }
 
 					internal func danglingClone() -> Result_TxOutAccessErrorZ {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

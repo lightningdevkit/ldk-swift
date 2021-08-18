@@ -131,7 +131,7 @@ RouteHintHop_clone(origPointer)
     }
 
 					internal func danglingClone() -> RouteHintHop {
-        				var dangledClone = self.clone()
+        				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}

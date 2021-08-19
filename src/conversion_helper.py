@@ -140,6 +140,9 @@ class ConversionHelper:
 					native_arguments.append(f'{passed_argument_name}Wrapper.cOpaqueStruct!')
 				else:
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
+			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
+				'LDK') and current_argument_details.is_unary_tuple:
+				native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 			elif swift_argument_type == 'String':
 				if is_trait_callback and current_argument_details.swift_raw_type == 'UnsafePointer<Int8>':
 					force_unwrap_suffix = ''

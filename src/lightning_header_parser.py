@@ -313,6 +313,7 @@ class LightningHeaderParser():
 							# vector_type_details.name = struct_name
 							vector_type_details.is_primitive = False
 							vector_type_details.iteratee = vectored_type_details
+							src.conversion_helper.vector_types.add(struct_name)
 						else:
 							# it's a primitive
 							vector_type_details.is_primitive = True

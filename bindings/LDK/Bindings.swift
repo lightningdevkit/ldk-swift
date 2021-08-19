@@ -519,7 +519,7 @@ public class Bindings{
 	/* VECTOR_METHODS_START */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_APIErrorZ(array: [LDKAPIError]) -> LDKCVec_APIErrorZWrapper {
+	public class func new_LDKCVec_APIErrorZWrapper(array: [LDKAPIError]) -> LDKCVec_APIErrorZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -587,7 +587,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZ(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
+	public class func new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -655,7 +655,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
+	public class func new_LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -723,7 +723,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C2Tuple_u32ScriptZZ(array: [LDKC2Tuple_u32ScriptZ]) -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
+	public class func new_LDKCVec_C2Tuple_u32ScriptZZWrapper(array: [LDKC2Tuple_u32ScriptZ]) -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -791,7 +791,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C2Tuple_u32TxOutZZ(array: [LDKC2Tuple_u32TxOutZ]) -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
+	public class func new_LDKCVec_C2Tuple_u32TxOutZZWrapper(array: [LDKC2Tuple_u32TxOutZ]) -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -859,7 +859,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C2Tuple_usizeTransactionZZ(array: [LDKC2Tuple_usizeTransactionZ]) -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
+	public class func new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: [LDKC2Tuple_usizeTransactionZ]) -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -927,7 +927,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
+	public class func new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -995,7 +995,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_CResult_NoneAPIErrorZZ(array: [LDKCResult_NoneAPIErrorZ]) -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
+	public class func new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: [LDKCResult_NoneAPIErrorZ]) -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1063,12 +1063,12 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_CVec_RouteHopZZ(array: [[LDKRouteHop]]) -> LDKCVec_CVec_RouteHopZZWrapper {
+	public class func new_LDKCVec_CVec_RouteHopZZWrapper(array: [[LDKRouteHop]]) -> LDKCVec_CVec_RouteHopZZWrapper {
 		
 					var lowerDimension = [LDKCVec_RouteHopZ]()
 					var subdimensionWrapper = [LDKCVec_RouteHopZWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKCVec_RouteHopZ(array: currentEntry)
+						let convertedEntry = new_LDKCVec_RouteHopZWrapper(array: currentEntry)
 						lowerDimension.append(convertedEntry.cOpaqueStruct!)
 						subdimensionWrapper.append(convertedEntry)
 					}
@@ -1139,14 +1139,14 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_CVec_u8ZZ(array: [[UInt8]]) -> LDKCVec_CVec_u8ZZWrapper {
+	public class func new_LDKCVec_CVec_u8ZZWrapper(array: [[UInt8]]) -> LDKCVec_CVec_u8ZZWrapper {
 		
 					var lowerDimension = [LDKCVec_u8Z]()
-					var subdimensionWrapper = [LDKCVec_u8ZWrapper]()
+					// var subdimensionWrapper = [LDKCVec_u8ZWrapper]()
 					for currentEntry in array {
 						let convertedEntry = new_LDKCVec_u8Z(array: currentEntry)
-						lowerDimension.append(convertedEntry.cOpaqueStruct!)
-						subdimensionWrapper.append(convertedEntry)
+						lowerDimension.append(convertedEntry)
+						// subdimensionWrapper.append(convertedEntry)
 					}
 				
 
@@ -1161,7 +1161,7 @@ public class Bindings{
 		dataContainer.initialize(from: lowerDimension, count: array.count)
 
         let vector = LDKCVec_CVec_u8ZZ(data: dataContainer, datalen: UInt(array.count))
-        let wrapper = LDKCVec_CVec_u8ZZWrapper(pointer: vector, subdimensionWrapper: subdimensionWrapper)
+        let wrapper = LDKCVec_CVec_u8ZZWrapper(pointer: vector)
         return wrapper
     }
 
@@ -1215,7 +1215,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_ChannelDetailsZ(array: [LDKChannelDetails]) -> LDKCVec_ChannelDetailsZWrapper {
+	public class func new_LDKCVec_ChannelDetailsZWrapper(array: [LDKChannelDetails]) -> LDKCVec_ChannelDetailsZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1283,7 +1283,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_ChannelMonitorZ(array: [LDKChannelMonitor]) -> LDKCVec_ChannelMonitorZWrapper {
+	public class func new_LDKCVec_ChannelMonitorZWrapper(array: [LDKChannelMonitor]) -> LDKCVec_ChannelMonitorZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1351,7 +1351,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_EventZ(array: [LDKEvent]) -> LDKCVec_EventZWrapper {
+	public class func new_LDKCVec_EventZWrapper(array: [LDKEvent]) -> LDKCVec_EventZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1419,7 +1419,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_MessageSendEventZ(array: [LDKMessageSendEvent]) -> LDKCVec_MessageSendEventZWrapper {
+	public class func new_LDKCVec_MessageSendEventZWrapper(array: [LDKMessageSendEvent]) -> LDKCVec_MessageSendEventZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1487,7 +1487,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_MonitorEventZ(array: [LDKMonitorEvent]) -> LDKCVec_MonitorEventZWrapper {
+	public class func new_LDKCVec_MonitorEventZWrapper(array: [LDKMonitorEvent]) -> LDKCVec_MonitorEventZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1555,7 +1555,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_NetAddressZ(array: [LDKNetAddress]) -> LDKCVec_NetAddressZWrapper {
+	public class func new_LDKCVec_NetAddressZWrapper(array: [LDKNetAddress]) -> LDKCVec_NetAddressZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1623,7 +1623,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_NodeAnnouncementZ(array: [LDKNodeAnnouncement]) -> LDKCVec_NodeAnnouncementZWrapper {
+	public class func new_LDKCVec_NodeAnnouncementZWrapper(array: [LDKNodeAnnouncement]) -> LDKCVec_NodeAnnouncementZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1691,7 +1691,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_PrivateRouteZ(array: [LDKPrivateRoute]) -> LDKCVec_PrivateRouteZWrapper {
+	public class func new_LDKCVec_PrivateRouteZWrapper(array: [LDKPrivateRoute]) -> LDKCVec_PrivateRouteZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1759,7 +1759,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_PublicKeyZ(array: [[UInt8]]) -> LDKCVec_PublicKeyZWrapper {
+	public class func new_LDKCVec_PublicKeyZWrapper(array: [[UInt8]]) -> LDKCVec_PublicKeyZWrapper {
 		
 					var lowerDimension = [LDKPublicKey]()
 					// var subdimensionWrapper = [LDKPublicKeyWrapper]()
@@ -1835,7 +1835,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_RouteHintZ(array: [LDKRouteHint]) -> LDKCVec_RouteHintZWrapper {
+	public class func new_LDKCVec_RouteHintZWrapper(array: [LDKRouteHint]) -> LDKCVec_RouteHintZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1903,7 +1903,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_RouteHopZ(array: [LDKRouteHop]) -> LDKCVec_RouteHopZWrapper {
+	public class func new_LDKCVec_RouteHopZWrapper(array: [LDKRouteHop]) -> LDKCVec_RouteHopZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -1971,7 +1971,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_SignatureZ(array: [[UInt8]]) -> LDKCVec_SignatureZWrapper {
+	public class func new_LDKCVec_SignatureZWrapper(array: [[UInt8]]) -> LDKCVec_SignatureZWrapper {
 		
 					var lowerDimension = [LDKSignature]()
 					// var subdimensionWrapper = [LDKSignatureWrapper]()
@@ -2047,7 +2047,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_SpendableOutputDescriptorZ(array: [LDKSpendableOutputDescriptor]) -> LDKCVec_SpendableOutputDescriptorZWrapper {
+	public class func new_LDKCVec_SpendableOutputDescriptorZWrapper(array: [LDKSpendableOutputDescriptor]) -> LDKCVec_SpendableOutputDescriptorZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2115,7 +2115,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_TransactionOutputsZ(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> LDKCVec_TransactionOutputsZWrapper {
+	public class func new_LDKCVec_TransactionOutputsZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> LDKCVec_TransactionOutputsZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2183,7 +2183,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_TransactionZ(array: [[UInt8]]) -> LDKCVec_TransactionZWrapper {
+	public class func new_LDKCVec_TransactionZWrapper(array: [[UInt8]]) -> LDKCVec_TransactionZWrapper {
 		
 					var lowerDimension = [LDKTransaction]()
 					// var subdimensionWrapper = [LDKTransactionWrapper]()
@@ -2259,7 +2259,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_TxOutZ(array: [LDKTxOut]) -> LDKCVec_TxOutZWrapper {
+	public class func new_LDKCVec_TxOutZWrapper(array: [LDKTxOut]) -> LDKCVec_TxOutZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2327,7 +2327,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_TxidZ(array: [LDKThirtyTwoBytes]) -> LDKCVec_TxidZWrapper {
+	public class func new_LDKCVec_TxidZWrapper(array: [LDKThirtyTwoBytes]) -> LDKCVec_TxidZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2395,7 +2395,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_UpdateAddHTLCZ(array: [LDKUpdateAddHTLC]) -> LDKCVec_UpdateAddHTLCZWrapper {
+	public class func new_LDKCVec_UpdateAddHTLCZWrapper(array: [LDKUpdateAddHTLC]) -> LDKCVec_UpdateAddHTLCZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2463,7 +2463,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_UpdateFailHTLCZ(array: [LDKUpdateFailHTLC]) -> LDKCVec_UpdateFailHTLCZWrapper {
+	public class func new_LDKCVec_UpdateFailHTLCZWrapper(array: [LDKUpdateFailHTLC]) -> LDKCVec_UpdateFailHTLCZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2531,7 +2531,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_UpdateFailMalformedHTLCZ(array: [LDKUpdateFailMalformedHTLC]) -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
+	public class func new_LDKCVec_UpdateFailMalformedHTLCZWrapper(array: [LDKUpdateFailMalformedHTLC]) -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2599,7 +2599,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_UpdateFulfillHTLCZ(array: [LDKUpdateFulfillHTLC]) -> LDKCVec_UpdateFulfillHTLCZWrapper {
+	public class func new_LDKCVec_UpdateFulfillHTLCZWrapper(array: [LDKUpdateFulfillHTLC]) -> LDKCVec_UpdateFulfillHTLCZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2667,7 +2667,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_u64Z(array: [UInt64]) -> LDKCVec_u64ZWrapper {
+	public class func new_LDKCVec_u64ZWrapper(array: [UInt64]) -> LDKCVec_u64ZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*
@@ -2735,7 +2735,7 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_u8Z(array: [UInt8]) -> LDKCVec_u8ZWrapper {
+	public class func new_LDKCVec_u8ZWrapper(array: [UInt8]) -> LDKCVec_u8ZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*

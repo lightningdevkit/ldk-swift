@@ -12,7 +12,7 @@ public class CommitmentSigned {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), Bindings.new_LDKCVec_SignatureZ(array: htlc_signatures_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), Bindings.new_LDKCVec_SignatureZWrapper(array: htlc_signatures_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -59,7 +59,7 @@ CommitmentSigned_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentSigned>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val).cOpaqueStruct!);
+        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, Bindings.new_LDKCVec_SignatureZWrapper(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> CommitmentSigned {

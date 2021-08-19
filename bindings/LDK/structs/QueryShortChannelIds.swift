@@ -12,7 +12,7 @@ public class QueryShortChannelIds {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), Bindings.new_LDKCVec_u64Z(array: short_channel_ids_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), Bindings.new_LDKCVec_u64ZWrapper(array: short_channel_ids_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -44,7 +44,7 @@ QueryShortChannelIds_get_chain_hash(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKQueryShortChannelIds>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return QueryShortChannelIds_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val).cOpaqueStruct!);
+        return QueryShortChannelIds_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64ZWrapper(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> QueryShortChannelIds {

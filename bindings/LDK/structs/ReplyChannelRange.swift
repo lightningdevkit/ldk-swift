@@ -12,7 +12,7 @@ public class ReplyChannelRange {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, Bindings.new_LDKCVec_u64Z(array: short_channel_ids_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, Bindings.new_LDKCVec_u64ZWrapper(array: short_channel_ids_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -89,7 +89,7 @@ ReplyChannelRange_get_sync_complete(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKReplyChannelRange>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val).cOpaqueStruct!);
+        return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64ZWrapper(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> ReplyChannelRange {

@@ -28,7 +28,7 @@ open class Watch {
 		func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_MonitorEventZ {
 			let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::release_pending_monitor_events")
 			
-			return Bindings.new_LDKCVec_MonitorEventZ(array: instance.release_pending_monitor_events()).cOpaqueStruct!
+			return Bindings.new_LDKCVec_MonitorEventZWrapper(array: instance.release_pending_monitor_events()).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {

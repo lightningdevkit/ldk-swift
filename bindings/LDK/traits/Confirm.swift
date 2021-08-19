@@ -49,7 +49,7 @@ open class Confirm {
 		func get_relevant_txidsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_TxidZ {
 			let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::get_relevant_txids")
 			
-			return Bindings.new_LDKCVec_TxidZ(array: instance.get_relevant_txids()).cOpaqueStruct!
+			return Bindings.new_LDKCVec_TxidZWrapper(array: instance.get_relevant_txids()).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
@@ -138,7 +138,7 @@ public class NativelyImplementedConfirm: Confirm {
 		
 				withUnsafePointer(to: Bindings.array_to_tuple80(array: header!)) { (headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				self.cOpaqueStruct!.transactions_confirmed(self.cOpaqueStruct!.this_arg, headerPointer, Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZ(array: txdata).cOpaqueStruct!, height)
+				self.cOpaqueStruct!.transactions_confirmed(self.cOpaqueStruct!.this_arg, headerPointer, Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: txdata).cOpaqueStruct!, height)
 				
 }
 			

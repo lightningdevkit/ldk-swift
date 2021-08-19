@@ -1,5 +1,6 @@
 from src.type_parsing_regeces import TypeParsingRegeces
 
+vector_types = set()
 cloneable_types = set()
 detected_cloneable_types = set()
 
@@ -77,7 +78,8 @@ class ConversionHelper:
 
 						if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
 							'LDK') and current_argument_details.swift_type.startswith('['):
-								initialization_target = f'Bindings.new_{current_argument_details.rust_obj}(array: {argument_name}Unwrapped).cOpaqueStruct!'
+								# TODO: figure out why this never gets hit, or rather why I originally wrote this
+								initialization_target = f'Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {argument_name}Unwrapped).cOpaqueStruct!'
 								is_pointer_to_array = True
 
 						native_call_prep += f'''
@@ -129,7 +131,7 @@ class ConversionHelper:
 				if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 				else:
-					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name}).cOpaqueStruct!')
+					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {passed_argument_name}).cOpaqueStruct!')
 			elif swift_argument_type == 'String':
 				if is_trait_callback and current_argument_details.swift_raw_type == 'UnsafePointer<Int8>':
 					force_unwrap_suffix = ''

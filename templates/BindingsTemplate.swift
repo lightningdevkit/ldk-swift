@@ -56,7 +56,7 @@ public class Bindings{
 
 	/* VECTOR_METHODS_START */
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_rust_primitive(array: [SwiftPrimitive]) -> LDKCVec_rust_primitiveWrapper {
+	public class func new_LDKCVec_rust_primitiveWrapper(array: [SwiftPrimitive]) -> LDKCVec_rust_primitiveWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
 		/*

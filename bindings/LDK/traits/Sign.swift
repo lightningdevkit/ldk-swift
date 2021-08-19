@@ -16,7 +16,7 @@ open class Sign {
 		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
 			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::write")
 			
-			return Bindings.new_LDKCVec_u8Z(array: instance.write()).cOpaqueStruct!
+			return Bindings.new_LDKCVec_u8ZWrapper(array: instance.write()).cOpaqueStruct!
 		}
 
 		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {

@@ -12,7 +12,7 @@ public class NodeInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NodeInfo_new(Bindings.new_LDKCVec_u64Z(array: channels_arg).cOpaqueStruct!, lowest_inbound_channel_fees_arg.danglingClone().cOpaqueStruct!, announcement_info_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeInfo_new(Bindings.new_LDKCVec_u64ZWrapper(array: channels_arg).cOpaqueStruct!, lowest_inbound_channel_fees_arg.danglingClone().cOpaqueStruct!, announcement_info_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -29,7 +29,7 @@ public class NodeInfo {
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeInfo_set_channels(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val).cOpaqueStruct!);
+        return NodeInfo_set_channels(this_ptrPointer, Bindings.new_LDKCVec_u64ZWrapper(array: val).cOpaqueStruct!);
     }
 
     public func get_lowest_inbound_channel_fees() -> RoutingFees {

@@ -12,7 +12,7 @@ public class Route {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = Route_new(Bindings.new_LDKCVec_CVec_RouteHopZZ(array: paths_arg).cOpaqueStruct!)
+        self.cOpaqueStruct = Route_new(Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: paths_arg).cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -29,7 +29,7 @@ public class Route {
 							let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Route_set_paths(this_ptrPointer, Bindings.new_LDKCVec_CVec_RouteHopZZ(array: val).cOpaqueStruct!);
+        return Route_set_paths(this_ptrPointer, Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> Route {

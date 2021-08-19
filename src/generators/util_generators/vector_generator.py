@@ -27,8 +27,8 @@ class VectorGenerator(UtilGenerator):
 				deepest_iteratee = deepest_iteratee.iteratee
 				dimensions += 1
 			shallowmost_iteratee = vector_type_details.iteratee
-			if shallowmost_iteratee.name in ['LDKPublicKey', 'LDKSignature', 'LDKTransaction']:
-				# TODO: smarter detection
+
+			if shallowmost_iteratee.is_primitive:
 				shallowmost_iteratee_is_tuple_primitive = True
 			if deepest_iteratee.is_primitive:
 				swift_primitive = deepest_iteratee.primitive_swift_counterpart
@@ -40,14 +40,16 @@ class VectorGenerator(UtilGenerator):
 				pointerTypeName = shallowmost_iteratee.name
 				subdimension_prefix = ''
 				subdimension_suffix = '.cOpaqueStruct!'
+				subdimension_call_suffix = 'Wrapper'
 				if shallowmost_iteratee_is_tuple_primitive:
 					subdimension_prefix = '// '
 					subdimension_suffix = ''
+					subdimension_call_suffix = ''
 				dimension_reduction_prep = f'''
 					var lowerDimension = [{shallowmost_iteratee.name}]()
 					{subdimension_prefix}var subdimensionWrapper = [{shallowmost_iteratee.name}Wrapper]()
 					for currentEntry in array {{
-						let convertedEntry = new_{shallowmost_iteratee.name}(array: currentEntry)
+						let convertedEntry = new_{shallowmost_iteratee.name + subdimension_call_suffix}(array: currentEntry)
 						lowerDimension.append(convertedEntry{subdimension_suffix})
 						{subdimension_prefix}subdimensionWrapper.append(convertedEntry)
 					}}

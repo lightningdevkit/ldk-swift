@@ -97,7 +97,7 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZ(array: val).cOpaqueStruct!);
+        return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZWrapper(array: val).cOpaqueStruct!);
     }
 
     public func clone() -> UnsignedNodeAnnouncement {

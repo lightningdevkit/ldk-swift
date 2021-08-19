@@ -16,7 +16,7 @@ open class MessageSendEventsProvider {
 		func get_and_clear_pending_msg_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_MessageSendEventZ {
 			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::get_and_clear_pending_msg_events")
 			
-			return Bindings.new_LDKCVec_MessageSendEventZ(array: instance.get_and_clear_pending_msg_events()).cOpaqueStruct!
+			return Bindings.new_LDKCVec_MessageSendEventZWrapper(array: instance.get_and_clear_pending_msg_events()).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {

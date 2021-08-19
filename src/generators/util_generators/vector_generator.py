@@ -28,7 +28,7 @@ class VectorGenerator(UtilGenerator):
 				dimensions += 1
 			shallowmost_iteratee = vector_type_details.iteratee
 
-			if shallowmost_iteratee.is_primitive:
+			if shallowmost_iteratee.is_tuple_based_iterator:
 				shallowmost_iteratee_is_tuple_primitive = True
 			if deepest_iteratee.is_primitive:
 				swift_primitive = deepest_iteratee.primitive_swift_counterpart

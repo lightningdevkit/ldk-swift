@@ -34,6 +34,8 @@ def generate_binding_methods(parser: LightningHeaderParser):
 
 	vectors = sorted(parser.vec_types)
 	for current_vector in vectors:
+		if current_vector == 'LDKTransaction':
+			continue
 		vector_type_details = parser.type_details[current_vector]
 		vector_generator.generate_vector(current_vector, vector_type_details)
 	vector_generator.finalize()

@@ -31,6 +31,8 @@ class TypeDetails:
 		self.constructor_method = None
 		self.free_method = None
 		self.is_primitive = False
+		self.is_pointer_based_iterator = False
+		self.is_tuple_based_iterator = False
 		self.is_ownable = False
 		self.primitive_swift_counterpart = None
 		self.iteratee = None
@@ -183,7 +185,7 @@ class LightningHeaderParser():
 
 					field_lines = []
 					struct_name = None
-					vec_ty = None  # contains data field
+					iterated_type = None  # contains data field
 					obj_lines = current_block_object.splitlines()
 					is_opaque = False  # has is_owned property?
 					result_contents = None  # is union of result pointers with contents fields
@@ -216,7 +218,9 @@ class LightningHeaderParser():
 
 						vec_ty_match = line_indicates_vec_regex.match(struct_line)
 						if vec_ty_match is not None and struct_name.startswith("LDKCVec_"):
-							vec_ty = vec_ty_match.group(2)
+							iterated_type = vec_ty_match.group(2)
+						elif struct_name in ['LDKTransaction', 'LDKCVec_u8Z']:
+							iterated_type = 'uint8_t'
 						elif struct_name.startswith("LDKC2Tuple_") or struct_name.startswith("LDKC3Tuple_"):
 							# this check should only be run once, it can be moved out of the loop
 							is_tuple = True
@@ -238,13 +242,13 @@ class LightningHeaderParser():
 						field_lines.append(struct_line)
 
 					assert (struct_name is not None)
-					assert (len(trait_fn_lines) == 0 or not (is_opaque or is_unitary_enum or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_opaque or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_unitary_enum or not (len(trait_fn_lines) != 0 or is_opaque or is_union_enum or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_union_enum or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_opaque or is_union or result_contents is not None or vec_ty is not None))
-					assert (not is_union or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or result_contents is not None or vec_ty is not None))
-					assert (result_contents is None or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or vec_ty is not None))
-					assert (vec_ty is None or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or result_contents is not None))
+					assert (len(trait_fn_lines) == 0 or not (is_opaque or is_unitary_enum or is_union_enum or is_union or result_contents is not None or iterated_type is not None))
+					assert (not is_opaque or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_union or result_contents is not None or iterated_type is not None))
+					assert (not is_unitary_enum or not (len(trait_fn_lines) != 0 or is_opaque or is_union_enum or is_union or result_contents is not None or iterated_type is not None))
+					assert (not is_union_enum or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_opaque or is_union or result_contents is not None or iterated_type is not None))
+					assert (not is_union or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or result_contents is not None or iterated_type is not None))
+					assert (result_contents is None or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or iterated_type is not None))
+					assert (iterated_type is None or not (len(trait_fn_lines) != 0 or is_unitary_enum or is_union_enum or is_opaque or is_union or result_contents is not None))
 
 					current_type_detail = TypeDetails()
 					current_type_detail.name = struct_name
@@ -292,32 +296,37 @@ class LightningHeaderParser():
 						self.tuple_types[struct_name] = (ty_list, struct_name)
 						# map_tuple(struct_name, field_lines)
 						pass
-					elif vec_ty is not None:
+					elif iterated_type is not None: # vec_ty is the iteratee
 						# TODO: vector type (each one needs to be mapped)
 						self.vec_types.add(struct_name)
 						# vector_type_details = None
 						vector_type_details = TypeDetails()  # iterator type
 						vector_type_details.type = CTypes.VECTOR
-						vector_type_details.name = struct_name
+						vector_type_details.name = struct_name # this is the iterator
 
 						# if 'LDKTransaction' not in self.type_details:
-						if vec_ty in ['LDKTransaction', 'LDKSignature', 'LDKu8slice', 'LDKPublicKey']:
-							vectored_type_details = TypeDetails()
-							vectored_type_details.type = CTypes.VECTOR
-							vectored_type_details.name = vec_ty
-							vectored_type_details.is_primitive = True
-							vectored_type_details.primitive_swift_counterpart = 'UInt8'
-							vector_type_details.iteratee = vectored_type_details
-						elif vec_ty in self.type_details:
-							vectored_type_details = self.type_details[vec_ty]
+						if iterated_type in ['LDKSignature', 'LDKPublicKey']:
+							iterated_type_details = TypeDetails()
+							iterated_type_details.type = CTypes.VECTOR
+							iterated_type_details.name = iterated_type
+							iterated_type_details.is_primitive = True
+							iterated_type_details.is_tuple_based_iterator = True
+							iterated_type_details.primitive_swift_counterpart = 'UInt8'
+							vector_type_details.iteratee = iterated_type_details
+							vector_type_details.is_pointer_based_iterator = True
+						elif iterated_type in self.type_details:
+							iterated_type_details = self.type_details[iterated_type]
 							# vector_type_details.name = struct_name
 							vector_type_details.is_primitive = False
-							vector_type_details.iteratee = vectored_type_details
+							vector_type_details.is_pointer_based_iterator = True
+							vector_type_details.iteratee = iterated_type_details
 							src.conversion_helper.vector_types.add(struct_name)
 						else:
 							# it's a primitive
+							print('Fallback primitive vector type:', struct_name)
 							vector_type_details.is_primitive = True
-							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[vec_ty]
+							vector_type_details.is_pointer_based_iterator = True
+							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[iterated_type]
 						self.type_details[struct_name] = vector_type_details
 					# pass
 					elif is_union_enum:

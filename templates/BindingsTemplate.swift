@@ -173,29 +173,73 @@ public class Bindings{
 		return array
 	}
 
-	public class func new_LDKTransaction(array: [UInt8]) -> LDKTransaction {
-        /*
-        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
-            let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
-            return mutablePointer
-        }
-        */
+	/* SWIFT_TO_RUST_START */
+	public class func new_LDKTransactionWrapper(array: [UInt8]) -> LDKTransactionWrapper {
+		/* DIMENSION_REDUCTION_PREP */
 
-        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
-        dataContainer.initialize(from: array, count: array.count)
+		/*
+		let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
+			let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
+			return mutablePointer
+		}
+		*/
 
-        let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: false)
-        return vector
-    }
+		let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
 
-    public class func LDKTransaction_to_array(nativeType: LDKTransaction) -> [UInt8] {
-        var array = [UInt8]()
-        for index in 0..<Int(nativeType.datalen) {
-            let currentEntry = nativeType.data[index]
-            array.append(currentEntry)
-        }
-        return array
-    }
+		let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: false)
+		let wrapper = LDKTransactionWrapper(pointer: vector)
+		return wrapper
+	}
+
+	public class LDKTransactionWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKTransaction?
+		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKTransaction){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal init(pointer: LDKTransaction, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKTransactionWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKTransactionWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKTransactionWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+	/* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+	public class func LDKTransaction_to_array(nativeType: LDKTransaction) -> [UInt8] {
+		var array = [UInt8]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
 
     public class func LDKStr_to_string(nativeType: LDKStr) -> String {
         let string = String(cString: nativeType.chars)
@@ -242,9 +286,9 @@ public class Bindings{
 
 	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
-			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZ(array: first_hops).cOpaqueStruct!
+			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hops).cOpaqueStruct!
 			return withUnsafeMutablePointer(to: &mutableHops) { (first_hopsPointer) in
-				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintZ(array: last_hops).cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!))
+				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hops).cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!))
 			}
 		}
 	}

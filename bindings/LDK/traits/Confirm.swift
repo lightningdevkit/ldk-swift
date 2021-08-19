@@ -49,7 +49,13 @@ open class Confirm {
 		func get_relevant_txidsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_TxidZ {
 			let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::get_relevant_txids")
 			
-			return Bindings.new_LDKCVec_TxidZWrapper(array: instance.get_relevant_txids()).cOpaqueStruct!
+			
+					let returnWrapper = Bindings.new_LDKCVec_TxidZWrapper(array: instance.get_relevant_txids())
+					defer {
+						returnWrapper.noOpRetain()
+					}
+					return returnWrapper.cOpaqueStruct!
+				
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {

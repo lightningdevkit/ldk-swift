@@ -4,6 +4,7 @@ import os
 from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
 from src.conversion_helper import ConversionHelper
+import src.conversion_helper
 
 
 class TraitGenerator:
@@ -147,6 +148,8 @@ class TraitGenerator:
 				swift_return_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_return_type)
 				swift_raw_return_type = swift_return_type
 
+
+			array_wrapper = None
 			return_conversion_prefix = ''
 			return_conversion_suffix = ''
 			swift_default_return = ''
@@ -165,12 +168,14 @@ class TraitGenerator:
 					return_conversion_prefix = f'Bindings.new_{current_rust_type}(array: '
 				return_conversion_suffix = ')'
 			elif swift_raw_return_type.startswith('LDK') and swift_return_type.startswith('['):
-				return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '
-				return_conversion_suffix = ').cOpaqueStruct!'
+				array_wrapper = f'Bindings.new_{swift_raw_return_type}Wrapper'
+				# return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '
+				# return_conversion_suffix = '.cOpaqueStruct!'
 			elif current_return_type_details.rust_obj is not None and current_return_type_details.rust_obj.startswith('LDK') and swift_raw_return_type.startswith('['):
 				swift_raw_return_type = current_return_type_details.rust_obj
-				return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '
-				return_conversion_suffix = ').cOpaqueStruct!'
+				array_wrapper = f'Bindings.new_{swift_raw_return_type}Wrapper'
+				# return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '
+				# return_conversion_suffix = ').cOpaqueStruct!'
 			elif current_return_type_details.pass_by_ref and current_lambda_name == 'clone':
 				swift_raw_return_type = 'UnsafeMutableRawPointer'
 				swift_return_type = swift_raw_return_type
@@ -193,6 +198,18 @@ class TraitGenerator:
 			current_native_callback_replacement = native_callback_template
 			current_native_callback_replacement = current_native_callback_replacement.replace(
 				'func methodNameCallback(', f'func {current_lambda_name}Callback(')
+
+			if array_wrapper is not None:
+				current_native_callback_replacement = current_native_callback_replacement.replace('return instance.callbackName(swift_callback_arguments)', f'''
+					let returnWrapper = {array_wrapper}(array: instance.callbackName(swift_callback_arguments))
+					defer {{
+						returnWrapper.noOpRetain()
+					}}
+					return returnWrapper.cOpaqueStruct!
+				''')
+				print('here')
+
+
 			current_native_callback_replacement = current_native_callback_replacement.replace('instance: TraitName',
 
 																							  f'instance: {swift_struct_name}')

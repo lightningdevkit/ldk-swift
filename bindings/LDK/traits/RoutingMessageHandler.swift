@@ -44,13 +44,25 @@ open class RoutingMessageHandler {
 		func get_next_channel_announcementsCallback(pointer: UnsafeRawPointer?, starting_point: UInt64, batch_amount: UInt8) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::get_next_channel_announcements")
 			
-			return Bindings.new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(array: instance.get_next_channel_announcements(starting_point: starting_point, batch_amount: batch_amount)).cOpaqueStruct!
+			
+					let returnWrapper = Bindings.new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(array: instance.get_next_channel_announcements(starting_point: starting_point, batch_amount: batch_amount))
+					defer {
+						returnWrapper.noOpRetain()
+					}
+					return returnWrapper.cOpaqueStruct!
+				
 		}
 
 		func get_next_node_announcementsCallback(pointer: UnsafeRawPointer?, starting_point: LDKPublicKey, batch_amount: UInt8) -> LDKCVec_NodeAnnouncementZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::get_next_node_announcements")
 			
-			return Bindings.new_LDKCVec_NodeAnnouncementZWrapper(array: instance.get_next_node_announcements(starting_point: Bindings.tuple33_to_array(nativeType: starting_point.compressed_form), batch_amount: batch_amount)).cOpaqueStruct!
+			
+					let returnWrapper = Bindings.new_LDKCVec_NodeAnnouncementZWrapper(array: instance.get_next_node_announcements(starting_point: Bindings.tuple33_to_array(nativeType: starting_point.compressed_form), batch_amount: batch_amount))
+					defer {
+						returnWrapper.noOpRetain()
+					}
+					return returnWrapper.cOpaqueStruct!
+				
 		}
 
 		func sync_routing_tableCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> Void {

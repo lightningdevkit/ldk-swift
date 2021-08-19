@@ -314,19 +314,21 @@ class LightningHeaderParser():
 							iterated_type_details.primitive_swift_counterpart = 'UInt8'
 							vector_type_details.iteratee = iterated_type_details
 							vector_type_details.is_pointer_based_iterator = True
+							src.conversion_helper.pointer_iterating_vector_types.add(struct_name)
 						elif iterated_type in self.type_details:
 							iterated_type_details = self.type_details[iterated_type]
 							# vector_type_details.name = struct_name
 							vector_type_details.is_primitive = False
 							vector_type_details.is_pointer_based_iterator = True
 							vector_type_details.iteratee = iterated_type_details
-							src.conversion_helper.vector_types.add(struct_name)
+							src.conversion_helper.pointer_iterating_vector_types.add(struct_name)
 						else:
 							# it's a primitive
 							print('Fallback primitive vector type:', struct_name)
 							vector_type_details.is_primitive = True
 							vector_type_details.is_pointer_based_iterator = True
 							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[iterated_type]
+							src.conversion_helper.pointer_iterating_vector_types.add(struct_name)
 						self.type_details[struct_name] = vector_type_details
 					# pass
 					elif is_union_enum:

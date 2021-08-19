@@ -86,7 +86,7 @@ public class NativelyImplementedBroadcasterInterface: BroadcasterInterface {
 	public override func broadcast_transaction(tx: [UInt8]) -> Void {
 		
 				
-				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransaction(array: tx))
+				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransactionWrapper(array: tx).cOpaqueStruct!)
 				
 			
 	}

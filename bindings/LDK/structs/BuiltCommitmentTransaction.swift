@@ -12,7 +12,7 @@ public class BuiltCommitmentTransaction {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = BuiltCommitmentTransaction_new(Bindings.new_LDKTransaction(array: transaction_arg), Bindings.new_LDKThirtyTwoBytes(array: txid_arg))
+        self.cOpaqueStruct = BuiltCommitmentTransaction_new(Bindings.new_LDKTransactionWrapper(array: transaction_arg).cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: txid_arg))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -36,7 +36,7 @@ BuiltCommitmentTransaction_get_transaction(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKBuiltCommitmentTransaction>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return BuiltCommitmentTransaction_set_transaction(this_ptrPointer, Bindings.new_LDKTransaction(array: val));
+        return BuiltCommitmentTransaction_set_transaction(this_ptrPointer, Bindings.new_LDKTransactionWrapper(array: val).cOpaqueStruct!);
     }
 
     public func get_txid() -> [UInt8] {

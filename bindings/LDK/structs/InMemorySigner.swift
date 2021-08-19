@@ -174,7 +174,7 @@ InMemorySigner_get_channel_parameters(this_argPointer)
     	
         return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-InMemorySigner_sign_counterparty_payment_input(this_argPointer, Bindings.new_LDKTransaction(array: spend_tx), input_idx, descriptorPointer)
+InMemorySigner_sign_counterparty_payment_input(this_argPointer, Bindings.new_LDKTransactionWrapper(array: spend_tx).cOpaqueStruct!, input_idx, descriptorPointer)
 }
 });
     }
@@ -183,7 +183,7 @@ InMemorySigner_sign_counterparty_payment_input(this_argPointer, Bindings.new_LDK
     	
         return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
-InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, Bindings.new_LDKTransaction(array: spend_tx), input_idx, descriptorPointer)
+InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, Bindings.new_LDKTransactionWrapper(array: spend_tx).cOpaqueStruct!, input_idx, descriptorPointer)
 }
 });
     }

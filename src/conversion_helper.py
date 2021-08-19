@@ -1,6 +1,6 @@
 from src.type_parsing_regeces import TypeParsingRegeces
 
-vector_types = set()
+pointer_iterating_vector_types = set()
 cloneable_types = set()
 detected_cloneable_types = set()
 
@@ -128,10 +128,11 @@ class ConversionHelper:
 				native_arguments.append(f'{passed_argument_name}{clone_infix}.cOpaqueStruct!')
 			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
 				'LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
-				if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
-					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
-				else:
+				# if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
+				if current_argument_details.rust_obj in pointer_iterating_vector_types:
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {passed_argument_name}).cOpaqueStruct!')
+				else:
+					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 			elif swift_argument_type == 'String':
 				if is_trait_callback and current_argument_details.swift_raw_type == 'UnsafePointer<Int8>':
 					force_unwrap_suffix = ''

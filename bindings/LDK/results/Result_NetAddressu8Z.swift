@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_NetAddressu8Z {
 
 	private static var instanceCounter: UInt = 0

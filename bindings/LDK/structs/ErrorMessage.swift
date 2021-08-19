@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ErrorMessage {
 
 	private static var instanceCounter: UInt = 0

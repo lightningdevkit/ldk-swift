@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class FundingSigned {
 
 	private static var instanceCounter: UInt = 0

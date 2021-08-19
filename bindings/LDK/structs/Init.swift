@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Init {
 
 	private static var instanceCounter: UInt = 0

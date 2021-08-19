@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Confirm {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Filter {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class ChannelManagerPersister {
 
 	private static var instanceCounter: UInt = 0

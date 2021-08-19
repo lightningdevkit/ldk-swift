@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class HTLCUpdate {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class RawDataPart {
 
 	private static var instanceCounter: UInt = 0

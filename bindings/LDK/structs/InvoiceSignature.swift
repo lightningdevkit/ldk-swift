@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class InvoiceSignature {
 
 	private static var instanceCounter: UInt = 0

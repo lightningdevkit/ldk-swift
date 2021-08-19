@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class BroadcasterInterface {
 
 	private static var instanceCounter: UInt = 0

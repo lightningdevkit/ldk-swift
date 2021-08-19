@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_PaymentSecretAPIErrorZ {
 
 	private static var instanceCounter: UInt = 0

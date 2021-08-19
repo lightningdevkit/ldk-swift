@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Route {
 
 	private static var instanceCounter: UInt = 0

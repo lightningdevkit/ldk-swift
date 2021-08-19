@@ -198,7 +198,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 	public override func read_chan_signer(reader: [UInt8]) -> Result_SignDecodeErrorZ {
 		
 				return 
-				Result_SignDecodeErrorZ(pointer: self.cOpaqueStruct!.read_chan_signer(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: reader)))
+				Result_SignDecodeErrorZ(pointer: self.cOpaqueStruct!.read_chan_signer(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8sliceWrapper(array: reader).cOpaqueStruct!))
 				
 			
 	}

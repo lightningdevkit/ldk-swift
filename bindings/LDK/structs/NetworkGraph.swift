@@ -47,7 +47,7 @@ NetworkGraph_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
     	
-        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     public func update_node_from_announcement(msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {

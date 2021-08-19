@@ -77,7 +77,7 @@ UpdateFee_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateFeeDecodeErrorZ {
     	
-        return Result_UpdateFeeDecodeErrorZ(pointer: UpdateFee_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_UpdateFeeDecodeErrorZ(pointer: UpdateFee_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

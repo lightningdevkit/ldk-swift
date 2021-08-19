@@ -63,7 +63,7 @@ PeerManager_write_buffer_space_avail(this_argPointer, descriptorPointer)
 							peer_descriptorPointer.initialize(to: peer_descriptor.cOpaqueStruct!)
 						
         return Result_boolPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-PeerManager_read_event(this_argPointer, peer_descriptorPointer, Bindings.new_LDKu8slice(array: data))
+PeerManager_read_event(this_argPointer, peer_descriptorPointer, Bindings.new_LDKu8sliceWrapper(array: data).cOpaqueStruct!)
 });
     }
 

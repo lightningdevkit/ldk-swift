@@ -149,30 +149,6 @@ public class Bindings{
 		return value
 	}
 
-	public class func new_LDKu8slice(array: [UInt8]) -> LDKu8slice {
-		/*
-		let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
-			let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
-			return mutablePointer
-		}
-        */
-
-        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
-        dataContainer.initialize(from: array, count: array.count)
-
-		let vector = LDKu8slice(data: dataContainer, datalen: UInt(array.count))
-		return vector
-	}
-
-	public class func LDKu8slice_to_array(nativeType: LDKu8slice) -> [UInt8] {
-		var array = [UInt8]()
-		for index in 0..<Int(nativeType.datalen) {
-			let currentEntry = nativeType.data[index]
-			array.append(currentEntry)
-		}
-		return array
-	}
-
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKTransactionWrapper(array: [UInt8]) -> LDKTransactionWrapper {
 		/* DIMENSION_REDUCTION_PREP */

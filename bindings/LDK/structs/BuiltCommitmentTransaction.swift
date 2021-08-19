@@ -77,13 +77,13 @@ BuiltCommitmentTransaction_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_BuiltCommitmentTransactionDecodeErrorZ {
     	
-        return Result_BuiltCommitmentTransactionDecodeErrorZ(pointer: BuiltCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_BuiltCommitmentTransactionDecodeErrorZ(pointer: BuiltCommitmentTransaction_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     public func get_sighash_all(funding_redeemscript: [UInt8], channel_value_satoshis: UInt64) -> [UInt8] {
     	
         return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
-BuiltCommitmentTransaction_get_sighash_all(this_argPointer, Bindings.new_LDKu8slice(array: funding_redeemscript), channel_value_satoshis)
+BuiltCommitmentTransaction_get_sighash_all(this_argPointer, Bindings.new_LDKu8sliceWrapper(array: funding_redeemscript).cOpaqueStruct!, channel_value_satoshis)
 });
     }
 
@@ -91,7 +91,7 @@ BuiltCommitmentTransaction_get_sighash_all(this_argPointer, Bindings.new_LDKu8sl
     	
         return Bindings.LDKSignature_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: funding_key)) { (funding_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, Bindings.new_LDKu8slice(array: funding_redeemscript), channel_value_satoshis)
+BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, Bindings.new_LDKu8sliceWrapper(array: funding_redeemscript).cOpaqueStruct!, channel_value_satoshis)
 }
 });
     }

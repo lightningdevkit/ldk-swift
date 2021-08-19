@@ -70,7 +70,7 @@ ReplyShortChannelIdsEnd_clone(origPointer)
 
     public class func read(ser: [UInt8]) -> Result_ReplyShortChannelIdsEndDecodeErrorZ {
     	
-        return Result_ReplyShortChannelIdsEndDecodeErrorZ(pointer: ReplyShortChannelIdsEnd_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ReplyShortChannelIdsEndDecodeErrorZ(pointer: ReplyShortChannelIdsEnd_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {

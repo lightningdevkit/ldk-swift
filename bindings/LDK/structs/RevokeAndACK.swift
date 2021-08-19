@@ -92,7 +92,7 @@ RevokeAndACK_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

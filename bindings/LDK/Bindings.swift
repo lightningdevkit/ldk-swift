@@ -2802,6 +2802,74 @@ public class Bindings{
 	}
 	/* RUST_TO_SWIFT_END */
 
+	/* SWIFT_TO_RUST_START */
+	public class func new_LDKu8sliceWrapper(array: [UInt8]) -> LDKu8sliceWrapper {
+		/* DIMENSION_REDUCTION_PREP */
+
+		/*
+        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
+            let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
+
+        let vector = LDKu8slice(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKu8sliceWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKu8sliceWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKu8slice?
+		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKu8slice){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal init(pointer: LDKu8slice, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKu8sliceWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKu8sliceWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKu8sliceWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKu8slice_to_array(nativeType: LDKu8slice) -> [UInt8] {
+		var array = [UInt8]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+
 	/* VECTOR_METHODS_END */
 
 	/* STATIC_METHODS_START */
@@ -2826,7 +2894,7 @@ public class Bindings{
 				
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: sk)) { (skPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_StringErrorZ(pointer: sign(Bindings.new_LDKu8slice(array: msg), skPointer))
+				Result_StringErrorZ(pointer: sign(Bindings.new_LDKu8sliceWrapper(array: msg).cOpaqueStruct!, skPointer))
 				
 }
 			
@@ -2835,7 +2903,7 @@ public class Bindings{
 		
 				
 				return 
-				Result_PublicKeyErrorZ(pointer: recover_pk(Bindings.new_LDKu8slice(array: msg), Bindings.new_LDKStr(string: sig)))
+				Result_PublicKeyErrorZ(pointer: recover_pk(Bindings.new_LDKu8sliceWrapper(array: msg).cOpaqueStruct!, Bindings.new_LDKStr(string: sig)))
 				
 			
 	}
@@ -2843,7 +2911,7 @@ public class Bindings{
 		
 				
 				return 
-				verify(Bindings.new_LDKu8slice(array: msg), Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
+				verify(Bindings.new_LDKu8sliceWrapper(array: msg).cOpaqueStruct!, Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
 				
 			
 	}
@@ -2852,7 +2920,7 @@ public class Bindings{
 				
 				return withUnsafePointer(to: arg.cOpaqueStruct!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
 
-				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(Bindings.new_LDKu8slice(array: ser), argPointer))
+				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!, argPointer))
 				
 }
 			
@@ -2861,7 +2929,7 @@ public class Bindings{
 		
 				
 				return 
-				Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelManagerZ_read(Bindings.new_LDKu8slice(array: ser), arg.cOpaqueStruct!))
+				Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelManagerZ_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!, arg.cOpaqueStruct!))
 				
 			
 	}
@@ -2869,7 +2937,7 @@ public class Bindings{
 		
 				
 				return 
-				Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: Result_read(Bindings.new_LDKu8slice(array: ser)))
+				Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: Result_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!))
 				
 			
 	}
@@ -3007,30 +3075,6 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		let value = Self.nativelyExposedInstances[pointer.debugDescription] as! T
 		print("Instance retrieved for caller: \(caller)")
 		return value
-	}
-
-	public class func new_LDKu8slice(array: [UInt8]) -> LDKu8slice {
-		/*
-		let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<UInt8>) -> UnsafeMutablePointer<UInt8> in
-			let mutablePointer = UnsafeMutablePointer<UInt8>(mutating: pointer.baseAddress!)
-			return mutablePointer
-		}
-        */
-
-        let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
-        dataContainer.initialize(from: array, count: array.count)
-
-		let vector = LDKu8slice(data: dataContainer, datalen: UInt(array.count))
-		return vector
-	}
-
-	public class func LDKu8slice_to_array(nativeType: LDKu8slice) -> [UInt8] {
-		var array = [UInt8]()
-		for index in 0..<Int(nativeType.datalen) {
-			let currentEntry = nativeType.data[index]
-			array.append(currentEntry)
-		}
-		return array
 	}
 
 	/* SWIFT_TO_RUST_START */

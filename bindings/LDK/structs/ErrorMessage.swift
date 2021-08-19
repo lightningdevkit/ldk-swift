@@ -77,7 +77,7 @@ ErrorMessage_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ErrorMessageDecodeErrorZ {
     	
-        return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

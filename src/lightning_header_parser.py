@@ -219,7 +219,7 @@ class LightningHeaderParser():
 						vec_ty_match = line_indicates_vec_regex.match(struct_line)
 						if vec_ty_match is not None and struct_name.startswith("LDKCVec_"):
 							iterated_type = vec_ty_match.group(2)
-						elif struct_name in ['LDKTransaction', 'LDKCVec_u8Z']:
+						elif struct_name in ['LDKTransaction', 'LDKCVec_u8Z', 'LDKu8slice']:
 							iterated_type = 'uint8_t'
 						elif struct_name.startswith("LDKC2Tuple_") or struct_name.startswith("LDKC3Tuple_"):
 							# this check should only be run once, it can be moved out of the loop

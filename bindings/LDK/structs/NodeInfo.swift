@@ -85,7 +85,7 @@ NodeInfo_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {
     	
-        return Result_NodeInfoDecodeErrorZ(pointer: NodeInfo_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_NodeInfoDecodeErrorZ(pointer: NodeInfo_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

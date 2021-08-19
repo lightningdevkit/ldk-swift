@@ -92,7 +92,7 @@ QueryChannelRange_end_blocknum(this_argPointer)
 
     public class func read(ser: [UInt8]) -> Result_QueryChannelRangeDecodeErrorZ {
     	
-        return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {

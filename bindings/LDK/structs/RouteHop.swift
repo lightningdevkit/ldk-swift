@@ -137,7 +137,7 @@ RouteHop_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {
     	
-        return Result_RouteHopDecodeErrorZ(pointer: RouteHop_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_RouteHopDecodeErrorZ(pointer: RouteHop_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     internal func free() -> Void {

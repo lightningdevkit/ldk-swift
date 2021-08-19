@@ -122,7 +122,7 @@ TxCreationKeys_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_TxCreationKeysDecodeErrorZ {
     	
-        return Result_TxCreationKeysDecodeErrorZ(pointer: TxCreationKeys_read(Bindings.new_LDKu8slice(array: ser)));
+        return Result_TxCreationKeysDecodeErrorZ(pointer: TxCreationKeys_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
     }
 
     public class func derive_new(per_commitment_point: [UInt8], broadcaster_delayed_payment_base: [UInt8], broadcaster_htlc_base: [UInt8], countersignatory_revocation_base: [UInt8], countersignatory_htlc_base: [UInt8]) -> Result_TxCreationKeysErrorZ {

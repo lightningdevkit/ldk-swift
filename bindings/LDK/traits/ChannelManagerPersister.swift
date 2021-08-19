@@ -86,6 +86,7 @@ public class NativelyImplementedChannelManagerPersister: ChannelManagerPersister
 
 	public override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
 		
+				
 				return withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
 
 				Result_NoneErrorZ(pointer: self.cOpaqueStruct!.persist_manager(self.cOpaqueStruct!.this_arg, channel_managerPointer))
@@ -96,6 +97,7 @@ public class NativelyImplementedChannelManagerPersister: ChannelManagerPersister
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

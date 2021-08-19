@@ -90,6 +90,7 @@ public class NativelyImplementedAccess: Access {
 
 	public override func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
 		
+				
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: genesis_hash!)) { (genesis_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
 				Result_TxOutAccessErrorZ(pointer: self.cOpaqueStruct!.get_utxo(self.cOpaqueStruct!.this_arg, genesis_hashPointer, short_channel_id))
@@ -100,6 +101,7 @@ public class NativelyImplementedAccess: Access {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

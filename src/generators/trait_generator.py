@@ -207,7 +207,6 @@ class TraitGenerator:
 					}}
 					return returnWrapper.cOpaqueStruct!
 				''')
-				print('here')
 
 
 			current_native_callback_replacement = current_native_callback_replacement.replace('instance: TraitName',
@@ -258,6 +257,7 @@ class TraitGenerator:
 				default_return_prefix = ''
 
 			current_default_callback_replacement = current_default_callback_replacement.replace('/* SWIFT_DEFAULT_CALLBACK_BODY */', f'''
+				{default_callback_prepared_arguments['native_call_prep']}
 				{default_return_prefix}{default_callback_prepared_arguments['native_call_prefix']}
 				{default_callback_return_wrappers['prefix']}self.cOpaqueStruct!.{current_lambda_name}({', '.join(default_native_call_arguments)}){default_callback_return_wrappers['suffix']}
 				{default_callback_prepared_arguments['native_call_suffix']}

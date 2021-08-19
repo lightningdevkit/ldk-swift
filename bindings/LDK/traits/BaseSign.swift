@@ -223,6 +223,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 
 	public override func get_per_commitment_point(idx: UInt64) -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.get_per_commitment_point(self.cOpaqueStruct!.this_arg, idx))
 				
@@ -231,6 +232,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 
 	public override func release_commitment_secret(idx: UInt64) -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.release_commitment_secret(self.cOpaqueStruct!.this_arg, idx))
 				
@@ -239,6 +241,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 
 	public override func channel_keys_id() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.channel_keys_id(self.cOpaqueStruct!.this_arg))
 				
@@ -247,6 +250,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 
 	public override func sign_counterparty_commitment(commitment_tx: CommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 		
+				
 				return withUnsafePointer(to: commitment_tx.cOpaqueStruct!) { (commitment_txPointer: UnsafePointer<LDKCommitmentTransaction>) in
 
 				Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_commitment(self.cOpaqueStruct!.this_arg, commitment_txPointer))
@@ -257,6 +261,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 
 	public override func sign_holder_commitment_and_htlcs(commitment_tx: HolderCommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 		
+				
 				return withUnsafePointer(to: commitment_tx.cOpaqueStruct!) { (commitment_txPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
 
 				Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: self.cOpaqueStruct!.sign_holder_commitment_and_htlcs(self.cOpaqueStruct!.this_arg, commitment_txPointer))
@@ -267,6 +272,12 @@ public class NativelyImplementedBaseSign: BaseSign {
 
 	public override func sign_justice_revoked_output(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?) -> Result_SignatureNoneZ {
 		
+				
+						let justice_txWrapper = Bindings.new_LDKTransactionWrapper(array: justice_tx)
+						defer {
+							justice_txWrapper.noOpRetain()
+						}
+					
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
 				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_output(self.cOpaqueStruct!.this_arg, justice_txWrapper.cOpaqueStruct!, input, amount, per_commitment_keyPointer))
@@ -277,6 +288,12 @@ public class NativelyImplementedBaseSign: BaseSign {
 
 	public override func sign_justice_revoked_htlc(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 		
+				
+						let justice_txWrapper = Bindings.new_LDKTransactionWrapper(array: justice_tx)
+						defer {
+							justice_txWrapper.noOpRetain()
+						}
+					
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
@@ -289,6 +306,12 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 	public override func sign_counterparty_htlc_transaction(htlc_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_point: [UInt8], htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 		
+				
+						let htlc_txWrapper = Bindings.new_LDKTransactionWrapper(array: htlc_tx)
+						defer {
+							htlc_txWrapper.noOpRetain()
+						}
+					
 				return withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
 				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_htlc_transaction(self.cOpaqueStruct!.this_arg, htlc_txWrapper.cOpaqueStruct!, input, amount, Bindings.new_LDKPublicKey(array: per_commitment_point), htlcPointer))
@@ -299,6 +322,12 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 	public override func sign_closing_transaction(closing_tx: [UInt8]) -> Result_SignatureNoneZ {
 		
+				
+						let closing_txWrapper = Bindings.new_LDKTransactionWrapper(array: closing_tx)
+						defer {
+							closing_txWrapper.noOpRetain()
+						}
+					
 				return 
 				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, closing_txWrapper.cOpaqueStruct!))
 				
@@ -307,6 +336,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 	public override func sign_channel_announcement(msg: UnsignedChannelAnnouncement) -> Result_SignatureNoneZ {
 		
+				
 				return withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
 
 				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_channel_announcement(self.cOpaqueStruct!.this_arg, msgPointer))
@@ -317,6 +347,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 	public override func ready_channel(channel_parameters: ChannelTransactionParameters) -> Void {
 		
+				
 				withUnsafePointer(to: channel_parameters.cOpaqueStruct!) { (channel_parametersPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 
 				self.cOpaqueStruct!.ready_channel(self.cOpaqueStruct!.this_arg, channel_parametersPointer)
@@ -327,6 +358,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

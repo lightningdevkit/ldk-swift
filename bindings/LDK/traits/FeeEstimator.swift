@@ -85,6 +85,7 @@ public class NativelyImplementedFeeEstimator: FeeEstimator {
 
 	public override func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
 		
+				
 				return 
 				self.cOpaqueStruct!.get_est_sat_per_1000_weight(self.cOpaqueStruct!.this_arg, confirmation_target)
 				
@@ -93,6 +94,7 @@ public class NativelyImplementedFeeEstimator: FeeEstimator {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

@@ -223,6 +223,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_node_announcement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
 		
+				
 				return withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKNodeAnnouncement>) in
 
 				Result_boolLightningErrorZ(pointer: self.cOpaqueStruct!.handle_node_announcement(self.cOpaqueStruct!.this_arg, msgPointer))
@@ -233,6 +234,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_channel_announcement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
 		
+				
 				return withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelAnnouncement>) in
 
 				Result_boolLightningErrorZ(pointer: self.cOpaqueStruct!.handle_channel_announcement(self.cOpaqueStruct!.this_arg, msgPointer))
@@ -243,6 +245,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_channel_update(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
 		
+				
 				return withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelUpdate>) in
 
 				Result_boolLightningErrorZ(pointer: self.cOpaqueStruct!.handle_channel_update(self.cOpaqueStruct!.this_arg, msgPointer))
@@ -253,6 +256,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_htlc_fail_channel_update(update: HTLCFailChannelUpdate) -> Void {
 		
+				
 				withUnsafePointer(to: update.cOpaqueStruct!) { (updatePointer: UnsafePointer<LDKHTLCFailChannelUpdate>) in
 
 				self.cOpaqueStruct!.handle_htlc_fail_channel_update(self.cOpaqueStruct!.this_arg, updatePointer)
@@ -263,6 +267,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
 		
+				
 				return 
 				Bindings.LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_to_array(nativeType: self.cOpaqueStruct!.get_next_channel_announcements(self.cOpaqueStruct!.this_arg, starting_point, batch_amount))
 				
@@ -271,6 +276,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func get_next_node_announcements(starting_point: [UInt8], batch_amount: UInt8) -> [LDKNodeAnnouncement] {
 		
+				
 				return 
 				Bindings.LDKCVec_NodeAnnouncementZ_to_array(nativeType: self.cOpaqueStruct!.get_next_node_announcements(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: starting_point), batch_amount))
 				
@@ -279,6 +285,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func sync_routing_table(their_node_id: [UInt8], initValue: Init) -> Void {
 		
+				
 				withUnsafePointer(to: initValue.cOpaqueStruct!) { (initPointer: UnsafePointer<LDKInit>) in
 
 				self.cOpaqueStruct!.sync_routing_table(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), initPointer)
@@ -289,6 +296,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_reply_channel_range(their_node_id: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
 		
+				
 				return 
 				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_reply_channel_range(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
@@ -297,6 +305,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_reply_short_channel_ids_end(their_node_id: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
 		
+				
 				return 
 				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_reply_short_channel_ids_end(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
@@ -305,6 +314,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_query_channel_range(their_node_id: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 		
+				
 				return 
 				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_query_channel_range(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
@@ -313,6 +323,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func handle_query_short_channel_ids(their_node_id: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 		
+				
 				return 
 				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_query_short_channel_ids(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
 				
@@ -321,6 +332,7 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

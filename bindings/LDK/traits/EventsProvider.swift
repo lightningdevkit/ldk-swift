@@ -86,6 +86,7 @@ public class NativelyImplementedEventsProvider: EventsProvider {
 	public override func process_pending_events(handler: EventHandler) -> Void {
 		
 				
+				
 				self.cOpaqueStruct!.process_pending_events(self.cOpaqueStruct!.this_arg, handler.cOpaqueStruct!)
 				
 			
@@ -93,6 +94,7 @@ public class NativelyImplementedEventsProvider: EventsProvider {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

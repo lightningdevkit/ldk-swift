@@ -86,6 +86,7 @@ public class NativelyImplementedEventHandler: EventHandler {
 	public override func handle_event(event: Event) -> Void {
 		
 				
+				
 				self.cOpaqueStruct!.handle_event(self.cOpaqueStruct!.this_arg, event.danglingClone().cOpaqueStruct!)
 				
 			
@@ -93,6 +94,7 @@ public class NativelyImplementedEventHandler: EventHandler {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

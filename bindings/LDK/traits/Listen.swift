@@ -103,6 +103,12 @@ public class NativelyImplementedListen: Listen {
 	public override func block_connected(block: [UInt8], height: UInt32) -> Void {
 		
 				
+						let blockWrapper = Bindings.new_LDKu8sliceWrapper(array: block)
+						defer {
+							blockWrapper.noOpRetain()
+						}
+					
+				
 				self.cOpaqueStruct!.block_connected(self.cOpaqueStruct!.this_arg, blockWrapper.cOpaqueStruct!, height)
 				
 			
@@ -110,6 +116,7 @@ public class NativelyImplementedListen: Listen {
 
 	public override func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
 		
+				
 				withUnsafePointer(to: Bindings.array_to_tuple80(array: header!)) { (headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
 				self.cOpaqueStruct!.block_disconnected(self.cOpaqueStruct!.this_arg, headerPointer, height)
@@ -120,6 +127,7 @@ public class NativelyImplementedListen: Listen {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

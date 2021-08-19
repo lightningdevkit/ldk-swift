@@ -102,6 +102,12 @@ public class NativelyImplementedFilter: Filter {
 
 	public override func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
 		
+				
+						let script_pubkeyWrapper = Bindings.new_LDKu8sliceWrapper(array: script_pubkey)
+						defer {
+							script_pubkeyWrapper.noOpRetain()
+						}
+					
 				withUnsafePointer(to: Bindings.array_to_tuple32(array: txid!)) { (txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
 				self.cOpaqueStruct!.register_tx(self.cOpaqueStruct!.this_arg, txidPointer, script_pubkeyWrapper.cOpaqueStruct!)
@@ -112,6 +118,7 @@ public class NativelyImplementedFilter: Filter {
 
 	public override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
 		
+				
 				return 
 				Option_C2Tuple_usizeTransactionZZ(pointer: self.cOpaqueStruct!.register_output(self.cOpaqueStruct!.this_arg, output.danglingClone().cOpaqueStruct!))
 				
@@ -120,6 +127,7 @@ public class NativelyImplementedFilter: Filter {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

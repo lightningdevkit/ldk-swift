@@ -86,6 +86,12 @@ public class NativelyImplementedBroadcasterInterface: BroadcasterInterface {
 	public override func broadcast_transaction(tx: [UInt8]) -> Void {
 		
 				
+						let txWrapper = Bindings.new_LDKTransactionWrapper(array: tx)
+						defer {
+							txWrapper.noOpRetain()
+						}
+					
+				
 				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, txWrapper.cOpaqueStruct!)
 				
 			
@@ -93,6 +99,7 @@ public class NativelyImplementedBroadcasterInterface: BroadcasterInterface {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

@@ -91,6 +91,7 @@ public class NativelyImplementedLogger: Logger {
 	public override func log(record: String?) -> Void {
 		
 				
+				
 				self.cOpaqueStruct!.log(self.cOpaqueStruct!.this_arg, Bindings.string_to_unsafe_int8_pointer(string: record!))
 				
 			
@@ -98,6 +99,7 @@ public class NativelyImplementedLogger: Logger {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

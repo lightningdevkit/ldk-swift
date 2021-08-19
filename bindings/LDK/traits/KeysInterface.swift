@@ -163,6 +163,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_node_secret() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKSecretKey_to_array(nativeType: self.cOpaqueStruct!.get_node_secret(self.cOpaqueStruct!.this_arg))
 				
@@ -171,6 +172,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_destination_script() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.get_destination_script(self.cOpaqueStruct!.this_arg))
 				
@@ -179,6 +181,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_shutdown_pubkey() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.get_shutdown_pubkey(self.cOpaqueStruct!.this_arg))
 				
@@ -187,6 +190,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
 		
+				
 				return 
 				Sign(pointer: self.cOpaqueStruct!.get_channel_signer(self.cOpaqueStruct!.this_arg, inbound, channel_value_satoshis))
 				
@@ -195,6 +199,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_secure_random_bytes() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.get_secure_random_bytes(self.cOpaqueStruct!.this_arg))
 				
@@ -203,6 +208,12 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func read_chan_signer(reader: [UInt8]) -> Result_SignDecodeErrorZ {
 		
+				
+						let readerWrapper = Bindings.new_LDKu8sliceWrapper(array: reader)
+						defer {
+							readerWrapper.noOpRetain()
+						}
+					
 				return 
 				Result_SignDecodeErrorZ(pointer: self.cOpaqueStruct!.read_chan_signer(self.cOpaqueStruct!.this_arg, readerWrapper.cOpaqueStruct!))
 				
@@ -211,6 +222,12 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func sign_invoice(invoice_preimage: [UInt8]) -> Result_RecoverableSignatureNoneZ {
 		
+				
+						let invoice_preimageWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: invoice_preimage)
+						defer {
+							invoice_preimageWrapper.noOpRetain()
+						}
+					
 				return 
 				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, invoice_preimageWrapper.cOpaqueStruct!))
 				
@@ -219,6 +236,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

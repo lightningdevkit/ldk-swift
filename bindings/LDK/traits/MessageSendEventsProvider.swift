@@ -91,6 +91,7 @@ public class NativelyImplementedMessageSendEventsProvider: MessageSendEventsProv
 
 	public override func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
 		
+				
 				return 
 				Bindings.LDKCVec_MessageSendEventZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_msg_events(self.cOpaqueStruct!.this_arg))
 				
@@ -99,6 +100,7 @@ public class NativelyImplementedMessageSendEventsProvider: MessageSendEventsProv
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

@@ -115,6 +115,7 @@ public class NativelyImplementedWatch: Watch {
 
 	public override func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
 		
+				
 				return 
 				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, monitor.cOpaqueStruct!))
 				
@@ -123,6 +124,7 @@ public class NativelyImplementedWatch: Watch {
 
 	public override func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
 		
+				
 				return 
 				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, update.danglingClone().cOpaqueStruct!))
 				
@@ -131,6 +133,7 @@ public class NativelyImplementedWatch: Watch {
 
 	public override func release_pending_monitor_events() -> [LDKMonitorEvent] {
 		
+				
 				return 
 				Bindings.LDKCVec_MonitorEventZ_to_array(nativeType: self.cOpaqueStruct!.release_pending_monitor_events(self.cOpaqueStruct!.this_arg))
 				
@@ -139,6 +142,7 @@ public class NativelyImplementedWatch: Watch {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

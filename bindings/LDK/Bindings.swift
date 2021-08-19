@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import LDKHeaders
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -559,6 +558,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_APIErrorZWrapper {
 			self.dangling = true
 			return self
@@ -626,6 +627,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
 			self.dangling = true
@@ -695,6 +698,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
 			self.dangling = true
 			return self
@@ -762,6 +767,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
 			self.dangling = true
@@ -831,6 +838,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
 			self.dangling = true
 			return self
@@ -898,6 +907,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
 			self.dangling = true
@@ -967,6 +978,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
 			self.dangling = true
 			return self
@@ -1034,6 +1047,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
 			self.dangling = true
@@ -1111,6 +1126,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_CVec_RouteHopZZWrapper {
 			self.dangling = true
 			return self
@@ -1187,6 +1204,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_CVec_u8ZZWrapper {
 			self.dangling = true
 			return self
@@ -1254,6 +1273,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_ChannelDetailsZWrapper {
 			self.dangling = true
@@ -1323,6 +1344,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_ChannelMonitorZWrapper {
 			self.dangling = true
 			return self
@@ -1390,6 +1413,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_EventZWrapper {
 			self.dangling = true
@@ -1459,6 +1484,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_MessageSendEventZWrapper {
 			self.dangling = true
 			return self
@@ -1526,6 +1553,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_MonitorEventZWrapper {
 			self.dangling = true
@@ -1595,6 +1624,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_NetAddressZWrapper {
 			self.dangling = true
 			return self
@@ -1663,6 +1694,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_NodeAnnouncementZWrapper {
 			self.dangling = true
 			return self
@@ -1730,6 +1763,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_PrivateRouteZWrapper {
 			self.dangling = true
@@ -1807,6 +1842,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_PublicKeyZWrapper {
 			self.dangling = true
 			return self
@@ -1875,6 +1912,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_RouteHintZWrapper {
 			self.dangling = true
 			return self
@@ -1942,6 +1981,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_RouteHopZWrapper {
 			self.dangling = true
@@ -2019,6 +2060,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_SignatureZWrapper {
 			self.dangling = true
 			return self
@@ -2087,6 +2130,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_SpendableOutputDescriptorZWrapper {
 			self.dangling = true
 			return self
@@ -2154,6 +2199,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_TransactionOutputsZWrapper {
 			self.dangling = true
@@ -2231,6 +2278,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_TransactionZWrapper {
 			self.dangling = true
 			return self
@@ -2298,6 +2347,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_TxOutZWrapper {
 			self.dangling = true
@@ -2367,6 +2418,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_TxidZWrapper {
 			self.dangling = true
 			return self
@@ -2434,6 +2487,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_UpdateAddHTLCZWrapper {
 			self.dangling = true
@@ -2503,6 +2558,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_UpdateFailHTLCZWrapper {
 			self.dangling = true
 			return self
@@ -2570,6 +2627,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
 			self.dangling = true
@@ -2639,6 +2698,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_UpdateFulfillHTLCZWrapper {
 			self.dangling = true
 			return self
@@ -2706,6 +2767,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKCVec_u64ZWrapper {
 			self.dangling = true
@@ -2775,6 +2838,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_u8ZWrapper {
 			self.dangling = true
 			return self
@@ -2842,6 +2907,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKu8sliceWrapper {
 			self.dangling = true
@@ -3117,6 +3184,8 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKTransactionWrapper {
 			self.dangling = true

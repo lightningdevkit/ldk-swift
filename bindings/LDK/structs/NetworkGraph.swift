@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class NetworkGraph {
 
 	private static var instanceCounter: UInt = 0

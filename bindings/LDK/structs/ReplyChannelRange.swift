@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ReplyChannelRange {
 
 	private static var instanceCounter: UInt = 0

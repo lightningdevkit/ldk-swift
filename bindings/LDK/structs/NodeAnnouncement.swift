@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class NodeAnnouncement {
 
 	private static var instanceCounter: UInt = 0

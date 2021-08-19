@@ -95,6 +95,8 @@ public class Bindings{
 			self.cOpaqueStruct = pointer
 		}
 
+		public func noOpRetain(){}
+
 		internal func dangle() -> LDKCVec_rust_primitiveWrapper {
 			self.dangling = true
 			return self
@@ -188,6 +190,8 @@ public class Bindings{
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
 		}
+
+		public func noOpRetain(){}
 
 		internal func dangle() -> LDKTransactionWrapper {
 			self.dangling = true

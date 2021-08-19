@@ -8,11 +8,11 @@ public class ClosingSigned {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(channel_id_arg: [UInt8], fee_satoshis_arg: UInt64, signature_arg: [UInt8]) {
+    public init(channel_id_arg: [UInt8], fee_satoshis_arg: UInt64, signature_arg: [UInt8], fee_range_arg: ClosingSignedFeeRange) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ClosingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), fee_satoshis_arg, Bindings.new_LDKSignature(array: signature_arg))
+        self.cOpaqueStruct = ClosingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), fee_satoshis_arg, Bindings.new_LDKSignature(array: signature_arg), fee_range_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -67,6 +67,21 @@ ClosingSigned_get_signature(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return ClosingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
+    }
+
+    public func get_fee_range() -> ClosingSignedFeeRange {
+    	
+        return ClosingSignedFeeRange(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKClosingSigned>) in
+ClosingSigned_get_fee_range(this_ptrPointer)
+});
+    }
+
+    public func set_fee_range(val: ClosingSignedFeeRange) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKClosingSigned>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ClosingSigned_set_fee_range(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ClosingSigned {

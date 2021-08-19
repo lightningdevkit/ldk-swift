@@ -25,16 +25,6 @@ open class Sign {
 				
 		}
 
-		func cloneCallback(pointer: UnsafeRawPointer?) -> UnsafeMutableRawPointer? {
-			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::clone")
-			
-			
-					let clone = instance.danglingClone()
-					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
-					return clonePointer
-				
-		}
-
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: Sign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Sign.swift::free")
 			
@@ -45,9 +35,8 @@ open class Sign {
 
         self.cOpaqueStruct = LDKSign(this_arg: Bindings.instanceToPointer(instance: self), 
 			BaseSign: LDKBaseSign(),
-			BaseSign_clone: nil,
 			write: writeCallback,
-			clone: cloneCallback,
+			cloned: nil,
 			free: freeCallback)
     }
 
@@ -106,8 +95,6 @@ open class Sign {
     	/* EDIT ME */
 		return [UInt8]()
     }
-
-
 
     open func free() -> Void {
     	/* EDIT ME */

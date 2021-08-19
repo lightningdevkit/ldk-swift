@@ -91,6 +91,26 @@ ErrorAction_clone(origPointer)
 					}
 				
 
+    public class func disconnect_peer(msg: ErrorMessage) -> ErrorAction {
+    	
+        return ErrorAction(pointer: ErrorAction_disconnect_peer(msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func ignore_error() -> ErrorAction {
+    	
+        return ErrorAction(pointer: ErrorAction_ignore_error());
+    }
+
+    public class func ignore_and_log(a: LDKLevel) -> ErrorAction {
+    	
+        return ErrorAction(pointer: ErrorAction_ignore_and_log(a));
+    }
+
+    public class func send_error_message(msg: ErrorMessage) -> ErrorAction {
+    	
+        return ErrorAction(pointer: ErrorAction_send_error_message(msg.danglingClone().cOpaqueStruct!));
+    }
+
     /* OPTION_METHODS_END */
 
 	

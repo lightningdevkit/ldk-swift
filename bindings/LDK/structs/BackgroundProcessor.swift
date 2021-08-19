@@ -30,6 +30,11 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 
     /* STRUCT_METHODS_START */
 
+    public func join() -> Result_NoneErrorZ {
+    	
+        return Result_NoneErrorZ(pointer: BackgroundProcessor_join(self.cOpaqueStruct!));
+    }
+
     public func stop() -> Result_NoneErrorZ {
     	
         return Result_NoneErrorZ(pointer: BackgroundProcessor_stop(self.cOpaqueStruct!));

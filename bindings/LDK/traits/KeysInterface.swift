@@ -31,10 +31,10 @@ open class KeysInterface {
 				
 		}
 
-		func get_shutdown_pubkeyCallback(pointer: UnsafeRawPointer?) -> LDKPublicKey {
-			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_shutdown_pubkey")
+		func get_shutdown_scriptpubkeyCallback(pointer: UnsafeRawPointer?) -> LDKShutdownScript {
+			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_shutdown_scriptpubkey")
 			
-			return Bindings.new_LDKPublicKey(array: instance.get_shutdown_pubkey())
+			return instance.get_shutdown_scriptpubkey().cOpaqueStruct!
 		}
 
 		func get_channel_signerCallback(pointer: UnsafeRawPointer?, inbound: Bool, channel_value_satoshis: UInt64) -> LDKSign {
@@ -72,7 +72,7 @@ open class KeysInterface {
         self.cOpaqueStruct = LDKKeysInterface(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_node_secret: get_node_secretCallback,
 			get_destination_script: get_destination_scriptCallback,
-			get_shutdown_pubkey: get_shutdown_pubkeyCallback,
+			get_shutdown_scriptpubkey: get_shutdown_scriptpubkeyCallback,
 			get_channel_signer: get_channel_signerCallback,
 			get_secure_random_bytes: get_secure_random_bytesCallback,
 			read_chan_signer: read_chan_signerCallback,
@@ -123,9 +123,9 @@ open class KeysInterface {
 		return [UInt8]()
     }
 
-    open func get_shutdown_pubkey() -> [UInt8] {
+    open func get_shutdown_scriptpubkey() -> ShutdownScript {
     	/* EDIT ME */
-		return [UInt8]()
+		return ShutdownScript(pointer: LDKShutdownScript())
     }
 
     open func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
@@ -179,11 +179,11 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 			
 	}
 
-	public override func get_shutdown_pubkey() -> [UInt8] {
+	public override func get_shutdown_scriptpubkey() -> ShutdownScript {
 		
 				
 				return 
-				Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.get_shutdown_pubkey(self.cOpaqueStruct!.this_arg))
+				ShutdownScript(pointer: self.cOpaqueStruct!.get_shutdown_scriptpubkey(self.cOpaqueStruct!.this_arg))
 				
 			
 	}

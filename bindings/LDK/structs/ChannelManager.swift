@@ -61,6 +61,15 @@ ChannelManager_close_channel(this_argPointer, channel_idPointer)
 });
     }
 
+    public func close_channel_with_target_feerate(channel_id: [UInt8], target_feerate_sats_per_1000_weight: UInt32) -> Result_NoneAPIErrorZ {
+    	
+        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+ChannelManager_close_channel_with_target_feerate(this_argPointer, channel_idPointer, target_feerate_sats_per_1000_weight)
+}
+});
+    }
+
     public func force_close_channel(channel_id: [UInt8]) -> Result_NoneAPIErrorZ {
     	
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
@@ -82,6 +91,15 @@ ChannelManager_force_close_all_channels(this_argPointer)
         return Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
 ChannelManager_send_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret))
+}
+});
+    }
+
+    public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentHashPaymentSendFailureZ {
+    	
+        return Result_PaymentHashPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
+ChannelManager_send_spontaneous_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage))
 }
 });
     }

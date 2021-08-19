@@ -91,6 +91,26 @@ Fallback_clone(origPointer)
 					}
 				
 
+    public class func seg_wit_program(version: UInt8, program: [UInt8]) -> Fallback {
+    	
+						let programWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: program)
+						defer {
+							programWrapper.noOpRetain()
+						}
+					
+        return Fallback(pointer: Fallback_seg_wit_program(version, programWrapper.cOpaqueStruct!));
+    }
+
+    public class func pub_key_hash(a: [UInt8]) -> Fallback {
+    	
+        return Fallback(pointer: Fallback_pub_key_hash(Bindings.new_LDKTwentyBytes(array: a)));
+    }
+
+    public class func script_hash(a: [UInt8]) -> Fallback {
+    	
+        return Fallback(pointer: Fallback_script_hash(Bindings.new_LDKTwentyBytes(array: a)));
+    }
+
     public class func eq(a: Fallback, b: Fallback) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKFallback>) in

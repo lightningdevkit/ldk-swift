@@ -100,6 +100,26 @@ NetAddress_clone(origPointer)
 					}
 				
 
+    public class func ipv4(addr: [UInt8], port: UInt16) -> NetAddress {
+    	
+        return NetAddress(pointer: NetAddress_ipv4(Bindings.new_LDKFourBytes(array: addr), port));
+    }
+
+    public class func ipv6(addr: [UInt8], port: UInt16) -> NetAddress {
+    	
+        return NetAddress(pointer: NetAddress_ipv6(Bindings.new_LDKSixteenBytes(array: addr), port));
+    }
+
+    public class func onion_v2(addr: [UInt8], port: UInt16) -> NetAddress {
+    	
+        return NetAddress(pointer: NetAddress_onion_v2(Bindings.new_LDKTenBytes(array: addr), port));
+    }
+
+    public class func onion_v3(ed25519_pubkey: [UInt8], checksum: UInt16, version: UInt8, port: UInt16) -> NetAddress {
+    	
+        return NetAddress(pointer: NetAddress_onion_v3(Bindings.new_LDKThirtyTwoBytes(array: ed25519_pubkey), checksum, version, port));
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetAddress>) in

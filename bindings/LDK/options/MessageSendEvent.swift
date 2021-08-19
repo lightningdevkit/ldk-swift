@@ -244,6 +244,106 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 
+    public class func send_accept_channel(node_id: [UInt8], msg: AcceptChannel) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_accept_channel(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_open_channel(node_id: [UInt8], msg: OpenChannel) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_open_channel(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_funding_created(node_id: [UInt8], msg: FundingCreated) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_funding_created(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_funding_signed(node_id: [UInt8], msg: FundingSigned) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_funding_signed(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_funding_locked(node_id: [UInt8], msg: FundingLocked) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_funding_locked(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_announcement_signatures(node_id: [UInt8], msg: AnnouncementSignatures) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_announcement_signatures(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func update_htlcs(node_id: [UInt8], updates: CommitmentUpdate) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_update_htlcs(Bindings.new_LDKPublicKey(array: node_id), updates.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_revoke_and_ack(node_id: [UInt8], msg: RevokeAndACK) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_revoke_and_ack(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_closing_signed(node_id: [UInt8], msg: ClosingSigned) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_closing_signed(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_shutdown(node_id: [UInt8], msg: Shutdown) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_shutdown(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_channel_reestablish(node_id: [UInt8], msg: ChannelReestablish) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_channel_reestablish(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func broadcast_channel_announcement(msg: ChannelAnnouncement, update_msg: ChannelUpdate) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_broadcast_channel_announcement(msg.danglingClone().cOpaqueStruct!, update_msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func broadcast_node_announcement(msg: NodeAnnouncement) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_broadcast_node_announcement(msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func broadcast_channel_update(msg: ChannelUpdate) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_broadcast_channel_update(msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_channel_update(node_id: [UInt8], msg: ChannelUpdate) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_channel_update(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func handle_error(node_id: [UInt8], action: ErrorAction) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_handle_error(Bindings.new_LDKPublicKey(array: node_id), action.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func payment_failure_network_update(update: HTLCFailChannelUpdate) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_payment_failure_network_update(update.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_channel_range_query(node_id: [UInt8], msg: QueryChannelRange) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_channel_range_query(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_short_ids_query(node_id: [UInt8], msg: QueryShortChannelIds) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_short_ids_query(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_reply_channel_range(node_id: [UInt8], msg: ReplyChannelRange) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_reply_channel_range(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
     /* OPTION_METHODS_END */
 
 	

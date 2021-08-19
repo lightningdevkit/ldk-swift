@@ -18,11 +18,11 @@ jobs:
                     git clone https://git.bitcoin.ninja/rust-lightning
                     cd rust-lightning
                     # git checkout origin/2021-03-java-bindings-base
-                    git checkout afae12ea1e610634f90335443e3fe9f126bf5551
+                    git checkout v0.0.100
                     cd ..
                     git clone https://github.com/lightningdevkit/ldk-c-bindings
                     cd ldk-c-bindings
-                    git checkout 3559b05697ad226c82994bfb6b3d09657d21bbe2
+                    git checkout v0.0.100.1
                     cd ..
             -   name: Install native Rust toolchain, Valgrind, and build utilitis
                 run: |

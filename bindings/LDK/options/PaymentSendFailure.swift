@@ -100,6 +100,41 @@ PaymentSendFailure_clone(origPointer)
 					}
 				
 
+    public class func parameter_error(a: APIError) -> PaymentSendFailure {
+    	
+        return PaymentSendFailure(pointer: PaymentSendFailure_parameter_error(a.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func path_parameter_error(a: [LDKResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    	
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+						defer {
+							aWrapper.noOpRetain()
+						}
+					
+        return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.cOpaqueStruct!));
+    }
+
+    public class func all_failed_retry_safe(a: [LDKAPIError]) -> PaymentSendFailure {
+    	
+						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: a)
+						defer {
+							aWrapper.noOpRetain()
+						}
+					
+        return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.cOpaqueStruct!));
+    }
+
+    public class func partial_failure(a: [LDKResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    	
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+						defer {
+							aWrapper.noOpRetain()
+						}
+					
+        return PaymentSendFailure(pointer: PaymentSendFailure_partial_failure(aWrapper.cOpaqueStruct!));
+    }
+
     /* OPTION_METHODS_END */
 
 	/* TYPE_CLASSES */

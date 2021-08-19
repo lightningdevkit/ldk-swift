@@ -91,6 +91,21 @@ SpendableOutputDescriptor_clone(origPointer)
 					}
 				
 
+    public class func static_output(outpoint: OutPoint, output: LDKTxOut) -> SpendableOutputDescriptor {
+    	
+        return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_static_output(outpoint.danglingClone().cOpaqueStruct!, output));
+    }
+
+    public class func delayed_payment_output(a: DelayedPaymentOutputDescriptor) -> SpendableOutputDescriptor {
+    	
+        return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_delayed_payment_output(a.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func static_payment_output(a: StaticPaymentOutputDescriptor) -> SpendableOutputDescriptor {
+    	
+        return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_static_payment_output(a.danglingClone().cOpaqueStruct!));
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in

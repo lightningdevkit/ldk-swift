@@ -17,7 +17,7 @@ public class APIError {
     /* OPTION_METHODS_START */
 
 				public enum APIErrorValueType {
-					case APIMisuseError, FeeRateTooHigh, RouteError, ChannelUnavailable
+					case APIMisuseError, FeeRateTooHigh, RouteError, ChannelUnavailable, IncompatibleShutdownScript
 				}
 				
 				public func getValueType() -> APIErrorValueType? {
@@ -31,6 +31,8 @@ public class APIError {
 						return .RouteError
 					case LDKAPIError_ChannelUnavailable:
 						return .ChannelUnavailable
+					case LDKAPIError_IncompatibleShutdownScript:
+						return .IncompatibleShutdownScript
                     default:
                         return nil
                     }
@@ -63,6 +65,13 @@ public class APIError {
 							return nil
 						}
 						return ChannelUnavailable(pointer: self.cOpaqueStruct!.channel_unavailable)
+					}
+				
+					public func getValueAsIncompatibleShutdownScript() -> IncompatibleShutdownScript? {
+						if self.cOpaqueStruct?.tag != LDKAPIError_IncompatibleShutdownScript {
+							return nil
+						}
+						return IncompatibleShutdownScript(pointer: self.cOpaqueStruct!.incompatible_shutdown_script)
 					}
 				
 			
@@ -99,6 +108,36 @@ APIError_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public class func apimisuse_error(err: String) -> APIError {
+    	
+        return APIError(pointer: APIError_apimisuse_error(Bindings.new_LDKStr(string: err)));
+    }
+
+    public class func fee_rate_too_high(err: String, feerate: UInt32) -> APIError {
+    	
+        return APIError(pointer: APIError_fee_rate_too_high(Bindings.new_LDKStr(string: err), feerate));
+    }
+
+    public class func route_error(err: String) -> APIError {
+    	
+        return APIError(pointer: APIError_route_error(Bindings.new_LDKStr(string: err)));
+    }
+
+    public class func channel_unavailable(err: String) -> APIError {
+    	
+        return APIError(pointer: APIError_channel_unavailable(Bindings.new_LDKStr(string: err)));
+    }
+
+    public class func monitor_update_failed() -> APIError {
+    	
+        return APIError(pointer: APIError_monitor_update_failed());
+    }
+
+    public class func incompatible_shutdown_script(script: ShutdownScript) -> APIError {
+    	
+        return APIError(pointer: APIError_incompatible_shutdown_script(script.danglingClone().cOpaqueStruct!));
+    }
 
     /* OPTION_METHODS_END */
 
@@ -174,6 +213,24 @@ APIError_clone(origPointer)
 				
 					public func getErr() -> String {
 						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
+					}
+				
+				
+			}
+		
+
+			public class IncompatibleShutdownScript {
+				
+				
+				var cOpaqueStruct: LDKAPIError_LDKIncompatibleShutdownScript_Body?;
+				fileprivate init(pointer: LDKAPIError_LDKIncompatibleShutdownScript_Body) {
+					self.cOpaqueStruct = pointer
+				}
+			
+				
+				
+					public func getScript() -> ShutdownScript {
+						return ShutdownScript(pointer: self.cOpaqueStruct!.script)
 					}
 				
 				

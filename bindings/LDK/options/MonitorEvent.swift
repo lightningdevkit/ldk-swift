@@ -82,6 +82,16 @@ MonitorEvent_clone(origPointer)
 					}
 				
 
+    public class func htlcevent(a: HTLCUpdate) -> MonitorEvent {
+    	
+        return MonitorEvent(pointer: MonitorEvent_htlcevent(a.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func commitment_tx_broadcasted(a: OutPoint) -> MonitorEvent {
+    	
+        return MonitorEvent(pointer: MonitorEvent_commitment_tx_broadcasted(a.danglingClone().cOpaqueStruct!));
+    }
+
     /* OPTION_METHODS_END */
 
 	/* TYPE_CLASSES */

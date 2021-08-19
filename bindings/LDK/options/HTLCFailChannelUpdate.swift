@@ -91,6 +91,21 @@ HTLCFailChannelUpdate_clone(origPointer)
 					}
 				
 
+    public class func channel_update_message(msg: ChannelUpdate) -> HTLCFailChannelUpdate {
+    	
+        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_channel_update_message(msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func channel_closed(short_channel_id: UInt64, is_permanent: Bool) -> HTLCFailChannelUpdate {
+    	
+        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_channel_closed(short_channel_id, is_permanent));
+    }
+
+    public class func node_failure(node_id: [UInt8], is_permanent: Bool) -> HTLCFailChannelUpdate {
+    	
+        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_node_failure(Bindings.new_LDKPublicKey(array: node_id), is_permanent));
+    }
+
     /* OPTION_METHODS_END */
 
 	

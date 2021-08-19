@@ -99,6 +99,36 @@ ChannelConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
         return ChannelConfig_set_commit_upfront_shutdown_pubkey(this_ptrPointer, val);
     }
 
+    public func get_max_dust_htlc_exposure_msat() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelConfig>) in
+ChannelConfig_get_max_dust_htlc_exposure_msat(this_ptrPointer)
+};
+    }
+
+    public func set_max_dust_htlc_exposure_msat(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelConfig_set_max_dust_htlc_exposure_msat(this_ptrPointer, val);
+    }
+
+    public func get_force_close_avoidance_max_fee_satoshis() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelConfig>) in
+ChannelConfig_get_force_close_avoidance_max_fee_satoshis(this_ptrPointer)
+};
+    }
+
+    public func set_force_close_avoidance_max_fee_satoshis(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelConfig_set_force_close_avoidance_max_fee_satoshis(this_ptrPointer, val);
+    }
+
     public func clone() -> ChannelConfig {
     	
         return ChannelConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelConfig>) in

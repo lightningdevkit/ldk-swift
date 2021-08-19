@@ -12,7 +12,12 @@ public class NodeAnnouncementInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses_arg).cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
+						let addresses_argWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses_arg)
+						defer {
+							addresses_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), addresses_argWrapper.cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -89,7 +94,12 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncementInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncementInfo_set_addresses(this_ptrPointer, Bindings.new_LDKCVec_NetAddressZWrapper(array: val).cOpaqueStruct!);
+						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return NodeAnnouncementInfo_set_addresses(this_ptrPointer, valWrapper.cOpaqueStruct!);
     }
 
     public func get_announcement_message() -> NodeAnnouncement {
@@ -130,7 +140,12 @@ NodeAnnouncementInfo_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NodeAnnouncementInfoDecodeErrorZ {
     	
-        return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: NodeAnnouncementInfo_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: NodeAnnouncementInfo_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

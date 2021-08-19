@@ -30,7 +30,12 @@ C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
 
     public class func new(a: [UInt8], b: [[UInt8]]) -> C2Tuple_SignatureCVec_SignatureZZ {
     	
-        return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_new(Bindings.new_LDKSignature(array: a), Bindings.new_LDKCVec_SignatureZWrapper(array: b).cOpaqueStruct!));
+						let bWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: b)
+						defer {
+							bWrapper.noOpRetain()
+						}
+					
+        return C2Tuple_SignatureCVec_SignatureZZ(pointer: C2Tuple_SignatureCVec_SignatureZZ_new(Bindings.new_LDKSignature(array: a), bWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

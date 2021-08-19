@@ -12,7 +12,12 @@ public class Route {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = Route_new(Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: paths_arg).cOpaqueStruct!)
+						let paths_argWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: paths_arg)
+						defer {
+							paths_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = Route_new(paths_argWrapper.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -29,7 +34,12 @@ public class Route {
 							let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Route_set_paths(this_ptrPointer, Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: val).cOpaqueStruct!);
+						let valWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return Route_set_paths(this_ptrPointer, valWrapper.cOpaqueStruct!);
     }
 
     public func clone() -> Route {
@@ -55,7 +65,12 @@ Route_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
     	
-        return Result_RouteDecodeErrorZ(pointer: Route_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_RouteDecodeErrorZ(pointer: Route_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

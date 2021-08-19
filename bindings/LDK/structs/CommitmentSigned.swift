@@ -12,7 +12,12 @@ public class CommitmentSigned {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), Bindings.new_LDKCVec_SignatureZWrapper(array: htlc_signatures_arg).cOpaqueStruct!)
+						let htlc_signatures_argWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: htlc_signatures_arg)
+						defer {
+							htlc_signatures_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), htlc_signatures_argWrapper.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -59,7 +64,12 @@ CommitmentSigned_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentSigned>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, Bindings.new_LDKCVec_SignatureZWrapper(array: val).cOpaqueStruct!);
+						let valWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, valWrapper.cOpaqueStruct!);
     }
 
     public func clone() -> CommitmentSigned {
@@ -85,7 +95,12 @@ CommitmentSigned_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
     	
-        return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

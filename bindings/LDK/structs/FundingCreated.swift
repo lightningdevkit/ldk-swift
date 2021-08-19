@@ -107,7 +107,12 @@ FundingCreated_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
     	
-        return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

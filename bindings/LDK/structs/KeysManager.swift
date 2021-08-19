@@ -37,8 +37,23 @@ KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, paramsP
 
     public func spend_spendable_outputs(descriptors: [LDKSpendableOutputDescriptor], outputs: [LDKTxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
     	
+						let descriptorsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: descriptors)
+						defer {
+							descriptorsWrapper.noOpRetain()
+						}
+					
+						let outputsWrapper = Bindings.new_LDKCVec_TxOutZWrapper(array: outputs)
+						defer {
+							outputsWrapper.noOpRetain()
+						}
+					
+						let change_destination_scriptWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: change_destination_script)
+						defer {
+							change_destination_scriptWrapper.noOpRetain()
+						}
+					
         return Result_TransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKKeysManager>) in
-KeysManager_spend_spendable_outputs(this_argPointer, Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: descriptors).cOpaqueStruct!, Bindings.new_LDKCVec_TxOutZWrapper(array: outputs).cOpaqueStruct!, Bindings.new_LDKCVec_u8ZWrapper(array: change_destination_script).cOpaqueStruct!, feerate_sat_per_1000_weight)
+KeysManager_spend_spendable_outputs(this_argPointer, descriptorsWrapper.cOpaqueStruct!, outputsWrapper.cOpaqueStruct!, change_destination_scriptWrapper.cOpaqueStruct!, feerate_sat_per_1000_weight)
 });
     }
 

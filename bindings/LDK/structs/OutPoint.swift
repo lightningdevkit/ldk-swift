@@ -100,7 +100,12 @@ OutPoint_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_OutPointDecodeErrorZ {
     	
-        return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

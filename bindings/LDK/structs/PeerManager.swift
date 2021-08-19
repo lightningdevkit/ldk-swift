@@ -62,8 +62,13 @@ PeerManager_write_buffer_space_avail(this_argPointer, descriptorPointer)
 							let peer_descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
 							peer_descriptorPointer.initialize(to: peer_descriptor.cOpaqueStruct!)
 						
+						let dataWrapper = Bindings.new_LDKu8sliceWrapper(array: data)
+						defer {
+							dataWrapper.noOpRetain()
+						}
+					
         return Result_boolPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-PeerManager_read_event(this_argPointer, peer_descriptorPointer, Bindings.new_LDKu8sliceWrapper(array: data).cOpaqueStruct!)
+PeerManager_read_event(this_argPointer, peer_descriptorPointer, dataWrapper.cOpaqueStruct!)
 });
     }
 

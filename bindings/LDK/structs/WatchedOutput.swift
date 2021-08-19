@@ -12,7 +12,12 @@ public class WatchedOutput {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKCVec_u8ZWrapper(array: script_pubkey_arg).cOpaqueStruct!)
+						let script_pubkey_argWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: script_pubkey_arg)
+						defer {
+							script_pubkey_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -66,7 +71,12 @@ WatchedOutput_get_script_pubkey(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKWatchedOutput>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return WatchedOutput_set_script_pubkey(this_ptrPointer, Bindings.new_LDKCVec_u8ZWrapper(array: val).cOpaqueStruct!);
+						let valWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return WatchedOutput_set_script_pubkey(this_ptrPointer, valWrapper.cOpaqueStruct!);
     }
 
     public func clone() -> WatchedOutput {

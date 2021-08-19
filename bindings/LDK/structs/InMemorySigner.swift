@@ -172,18 +172,28 @@ InMemorySigner_get_channel_parameters(this_argPointer)
 
     public func sign_counterparty_payment_input(spend_tx: [UInt8], input_idx: UInt, descriptor: StaticPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
     	
+						let spend_txWrapper = Bindings.new_LDKTransactionWrapper(array: spend_tx)
+						defer {
+							spend_txWrapper.noOpRetain()
+						}
+					
         return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-InMemorySigner_sign_counterparty_payment_input(this_argPointer, Bindings.new_LDKTransactionWrapper(array: spend_tx).cOpaqueStruct!, input_idx, descriptorPointer)
+InMemorySigner_sign_counterparty_payment_input(this_argPointer, spend_txWrapper.cOpaqueStruct!, input_idx, descriptorPointer)
 }
 });
     }
 
     public func sign_dynamic_p2wsh_input(spend_tx: [UInt8], input_idx: UInt, descriptor: DelayedPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
     	
+						let spend_txWrapper = Bindings.new_LDKTransactionWrapper(array: spend_tx)
+						defer {
+							spend_txWrapper.noOpRetain()
+						}
+					
         return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
-InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, Bindings.new_LDKTransactionWrapper(array: spend_tx).cOpaqueStruct!, input_idx, descriptorPointer)
+InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, spend_txWrapper.cOpaqueStruct!, input_idx, descriptorPointer)
 }
 });
     }
@@ -211,7 +221,12 @@ InMemorySigner_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
     	
-        return Result_InMemorySignerDecodeErrorZ(pointer: InMemorySigner_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_InMemorySignerDecodeErrorZ(pointer: InMemorySigner_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

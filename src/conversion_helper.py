@@ -130,7 +130,13 @@ class ConversionHelper:
 				'LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
 				# if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
 				if current_argument_details.rust_obj in pointer_iterating_vector_types:
-					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {passed_argument_name}).cOpaqueStruct!')
+					native_call_prep += f'''
+						let {passed_argument_name}Wrapper = Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {passed_argument_name})
+						defer {{
+							{passed_argument_name}Wrapper.noOpRetain()
+						}}
+					'''
+					native_arguments.append(f'{passed_argument_name}Wrapper.cOpaqueStruct!')
 				else:
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 			elif swift_argument_type == 'String':

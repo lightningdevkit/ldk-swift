@@ -12,7 +12,12 @@ public class Shutdown {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = Shutdown_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKCVec_u8ZWrapper(array: scriptpubkey_arg).cOpaqueStruct!)
+						let scriptpubkey_argWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: scriptpubkey_arg)
+						defer {
+							scriptpubkey_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = Shutdown_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), scriptpubkey_argWrapper.cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -51,7 +56,12 @@ Shutdown_get_scriptpubkey(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKShutdown>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Shutdown_set_scriptpubkey(this_ptrPointer, Bindings.new_LDKCVec_u8ZWrapper(array: val).cOpaqueStruct!);
+						let valWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return Shutdown_set_scriptpubkey(this_ptrPointer, valWrapper.cOpaqueStruct!);
     }
 
     public func clone() -> Shutdown {
@@ -77,7 +87,12 @@ Shutdown_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
     	
-        return Result_ShutdownDecodeErrorZ(pointer: Shutdown_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ShutdownDecodeErrorZ(pointer: Shutdown_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -152,7 +152,12 @@ ChannelInfo_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {
     	
-        return Result_ChannelInfoDecodeErrorZ(pointer: ChannelInfo_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelInfoDecodeErrorZ(pointer: ChannelInfo_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

@@ -44,7 +44,12 @@ public class Result_CVec_u8ZPeerHandleErrorZ {
 			
     public class func ok(o: [UInt8]) -> Result_CVec_u8ZPeerHandleErrorZ {
     	
-        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_ok(Bindings.new_LDKCVec_u8ZWrapper(array: o).cOpaqueStruct!));
+						let oWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: o)
+						defer {
+							oWrapper.noOpRetain()
+						}
+					
+        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_ok(oWrapper.cOpaqueStruct!));
     }
 
     public class func err(e: PeerHandleError) -> Result_CVec_u8ZPeerHandleErrorZ {

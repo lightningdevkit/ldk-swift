@@ -143,7 +143,12 @@ ChannelTransactionParameters_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
-        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

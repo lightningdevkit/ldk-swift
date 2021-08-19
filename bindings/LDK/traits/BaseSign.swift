@@ -269,7 +269,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 		
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_output(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransactionWrapper(array: justice_tx).cOpaqueStruct!, input, amount, per_commitment_keyPointer))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_output(self.cOpaqueStruct!.this_arg, justice_txWrapper.cOpaqueStruct!, input, amount, per_commitment_keyPointer))
 				
 }
 			
@@ -280,7 +280,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_htlc(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransactionWrapper(array: justice_tx).cOpaqueStruct!, input, amount, per_commitment_keyPointer, htlcPointer))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_htlc(self.cOpaqueStruct!.this_arg, justice_txWrapper.cOpaqueStruct!, input, amount, per_commitment_keyPointer, htlcPointer))
 				
 }
 }
@@ -291,7 +291,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		
 				return withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_htlc_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransactionWrapper(array: htlc_tx).cOpaqueStruct!, input, amount, Bindings.new_LDKPublicKey(array: per_commitment_point), htlcPointer))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_htlc_transaction(self.cOpaqueStruct!.this_arg, htlc_txWrapper.cOpaqueStruct!, input, amount, Bindings.new_LDKPublicKey(array: per_commitment_point), htlcPointer))
 				
 }
 			
@@ -300,7 +300,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 	public override func sign_closing_transaction(closing_tx: [UInt8]) -> Result_SignatureNoneZ {
 		
 				return 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, Bindings.new_LDKTransactionWrapper(array: closing_tx).cOpaqueStruct!))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, closing_txWrapper.cOpaqueStruct!))
 				
 			
 	}

@@ -37,7 +37,12 @@ public class Result_CVec_SignatureZNoneZ {
 			
     public class func ok(o: [[UInt8]]) -> Result_CVec_SignatureZNoneZ {
     	
-        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_ok(Bindings.new_LDKCVec_SignatureZWrapper(array: o).cOpaqueStruct!));
+						let oWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: o)
+						defer {
+							oWrapper.noOpRetain()
+						}
+					
+        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_ok(oWrapper.cOpaqueStruct!));
     }
 
     public class func err() -> Result_CVec_SignatureZNoneZ {

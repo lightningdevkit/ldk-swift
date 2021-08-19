@@ -198,7 +198,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 	public override func read_chan_signer(reader: [UInt8]) -> Result_SignDecodeErrorZ {
 		
 				return 
-				Result_SignDecodeErrorZ(pointer: self.cOpaqueStruct!.read_chan_signer(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8sliceWrapper(array: reader).cOpaqueStruct!))
+				Result_SignDecodeErrorZ(pointer: self.cOpaqueStruct!.read_chan_signer(self.cOpaqueStruct!.this_arg, readerWrapper.cOpaqueStruct!))
 				
 			
 	}
@@ -206,7 +206,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 	public override func sign_invoice(invoice_preimage: [UInt8]) -> Result_RecoverableSignatureNoneZ {
 		
 				return 
-				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, Bindings.new_LDKCVec_u8ZWrapper(array: invoice_preimage).cOpaqueStruct!))
+				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, invoice_preimageWrapper.cOpaqueStruct!))
 				
 			
 	}

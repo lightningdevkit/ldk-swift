@@ -30,7 +30,12 @@ C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer)
 
     public class func new(a: [UInt8], b: [LDKC2Tuple_u32TxOutZ]) -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
     	
-        return C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKCVec_C2Tuple_u32TxOutZZWrapper(array: b).cOpaqueStruct!));
+						let bWrapper = Bindings.new_LDKCVec_C2Tuple_u32TxOutZZWrapper(array: b)
+						defer {
+							bWrapper.noOpRetain()
+						}
+					
+        return C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), bWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

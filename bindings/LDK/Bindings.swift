@@ -2960,9 +2960,14 @@ public class Bindings{
 	public class func swift_sign(msg: [UInt8], sk: [UInt8]) -> Result_StringErrorZ {
 		
 				
+						let msgWrapper = Bindings.new_LDKu8sliceWrapper(array: msg)
+						defer {
+							msgWrapper.noOpRetain()
+						}
+					
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: sk)) { (skPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_StringErrorZ(pointer: sign(Bindings.new_LDKu8sliceWrapper(array: msg).cOpaqueStruct!, skPointer))
+				Result_StringErrorZ(pointer: sign(msgWrapper.cOpaqueStruct!, skPointer))
 				
 }
 			
@@ -2970,25 +2975,40 @@ public class Bindings{
 	public class func swift_recover_pk(msg: [UInt8], sig: String) -> Result_PublicKeyErrorZ {
 		
 				
+						let msgWrapper = Bindings.new_LDKu8sliceWrapper(array: msg)
+						defer {
+							msgWrapper.noOpRetain()
+						}
+					
 				return 
-				Result_PublicKeyErrorZ(pointer: recover_pk(Bindings.new_LDKu8sliceWrapper(array: msg).cOpaqueStruct!, Bindings.new_LDKStr(string: sig)))
+				Result_PublicKeyErrorZ(pointer: recover_pk(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig)))
 				
 			
 	}
 	public class func swift_verify(msg: [UInt8], sig: String, pk: [UInt8]) -> Bool {
 		
 				
+						let msgWrapper = Bindings.new_LDKu8sliceWrapper(array: msg)
+						defer {
+							msgWrapper.noOpRetain()
+						}
+					
 				return 
-				verify(Bindings.new_LDKu8sliceWrapper(array: msg).cOpaqueStruct!, Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
+				verify(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
 				
 			
 	}
 	public class func swift_C2Tuple_BlockHashChannelMonitorZ_read(ser: [UInt8], arg: KeysInterface) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 		
 				
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
 				return withUnsafePointer(to: arg.cOpaqueStruct!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
 
-				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!, argPointer))
+				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(serWrapper.cOpaqueStruct!, argPointer))
 				
 }
 			
@@ -2996,16 +3016,26 @@ public class Bindings{
 	public class func swift_C2Tuple_BlockHashChannelManagerZ_read(ser: [UInt8], arg: ChannelManagerReadArgs) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 		
 				
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
 				return 
-				Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelManagerZ_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!, arg.cOpaqueStruct!))
+				Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelManagerZ_read(serWrapper.cOpaqueStruct!, arg.cOpaqueStruct!))
 				
 			
 	}
 	public class func swift_Result_read(ser: [UInt8]) -> Result_CResult_NetAddressu8ZDecodeErrorZ {
 		
 				
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
 				return 
-				Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: Result_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!))
+				Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: Result_read(serWrapper.cOpaqueStruct!))
 				
 			
 	}

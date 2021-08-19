@@ -12,7 +12,12 @@ public class HolderCommitmentTransaction {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), Bindings.new_LDKCVec_SignatureZWrapper(array: counterparty_htlc_sigs).cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
+						let counterparty_htlc_sigsWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: counterparty_htlc_sigs)
+						defer {
+							counterparty_htlc_sigsWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), counterparty_htlc_sigsWrapper.cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -44,7 +49,12 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKHolderCommitmentTransaction>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, Bindings.new_LDKCVec_SignatureZWrapper(array: val).cOpaqueStruct!);
+						let valWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, valWrapper.cOpaqueStruct!);
     }
 
     public func clone() -> HolderCommitmentTransaction {
@@ -70,7 +80,12 @@ HolderCommitmentTransaction_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
     	
-        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(Bindings.new_LDKu8sliceWrapper(array: ser).cOpaqueStruct!));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(serWrapper.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

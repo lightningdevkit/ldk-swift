@@ -154,7 +154,7 @@ public class NativelyImplementedSocketDescriptor: SocketDescriptor {
 	public override func send_data(data: [UInt8], resume_read: Bool) -> UInt {
 		
 				return 
-				self.cOpaqueStruct!.send_data(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8sliceWrapper(array: data).cOpaqueStruct!, resume_read)
+				self.cOpaqueStruct!.send_data(self.cOpaqueStruct!.this_arg, dataWrapper.cOpaqueStruct!, resume_read)
 				
 			
 	}

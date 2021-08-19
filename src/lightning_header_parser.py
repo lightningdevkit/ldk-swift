@@ -33,6 +33,7 @@ class TypeDetails:
 		self.is_primitive = False
 		self.is_pointer_based_iterator = False
 		self.is_tuple_based_iterator = False
+		self.is_unary_tuple = False
 		self.is_ownable = False
 		self.primitive_swift_counterpart = None
 		self.iteratee = None
@@ -363,9 +364,6 @@ class LightningHeaderParser():
 					elif struct_name == "LDKTxOut":
 						# TODO: why is this even a special case? It's Swift, we dgaf
 						pass
-					elif struct_name == 'LDKu5':
-						# TODO: add LDKu5 conversion
-						pass
 					else:
 						if len(field_lines) != 3:
 							print('irregular byte array struct type:', struct_name)
@@ -377,8 +375,13 @@ class LightningHeaderParser():
 
 						assert len(field_lines) == 3
 						byte_array_line = field_lines[1].strip(';')
-						custom_line = 'uint8_t[32] data'
+						# custom_line = 'uint8_t[32] data'
 						byte_array_info = swift_type_mapper.map_types_to_swift(byte_array_line, None, True, self.tuple_types, self.unitary_enums, self.language_constants)
+
+						if struct_name == 'LDKu5':
+							byte_array_info.arr_len = 1
+							byte_array_info.is_unary_tuple = True
+							self.type_details[struct_name].is_unary_tuple = True
 
 						self.type_details[struct_name].fields.append(byte_array_info)
 			else:

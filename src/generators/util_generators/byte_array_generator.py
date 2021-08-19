@@ -18,6 +18,7 @@ class ByteArrayGenerator(UtilGenerator):
 		byte_array_field = byte_array_type_details.fields[0]
 		array_length = byte_array_field.arr_len
 		mutating_current_byte_array_methods = self.template
+
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('LDKByteType',
 																						  byte_array_type_name)
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('fieldName:',
@@ -28,17 +29,27 @@ class ByteArrayGenerator(UtilGenerator):
 		tupleArguments = 'array[0]'
 		tupleReads = f'nativeType.{byte_array_field.var_name}.0'
 		rawTupleReads = f'nativeType.0'
+
 		for i in range(1, array_length):
 			tupleArguments += f', array[{i}]'
 			tupleReads += f', nativeType.{byte_array_field.var_name}.{i}'
 			rawTupleReads += f', nativeType.{i}'
+
+		if byte_array_type_details.is_unary_tuple:
+			tupleArguments = 'array'
+			tupleReads = f'nativeType.{byte_array_field.var_name}'
+			rawTupleReads = f'nativeType'
+			mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('[UInt8]', 'UInt8')
+			mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('(tupleArguments)', 'tupleArguments')
+			mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('[tupleReads]', 'tupleReads')
+
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleArguments',
 																						  tupleArguments)
 		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleReads',
 																						  tupleReads)
 		self.filled_template += "\n" + mutating_current_byte_array_methods + "\n"
 
-		if not array_length in self.raw_tuple_generators:
+		if not array_length in self.raw_tuple_generators and not byte_array_type_details.is_unary_tuple:
 			self.raw_tuple_generators[array_length] = True
 			current_generator = f"""
 			static func array_to_tuple{array_length}(array: [UInt8]) -> {byte_array_field.swift_raw_type} {{

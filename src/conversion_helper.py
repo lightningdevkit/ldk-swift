@@ -117,6 +117,7 @@ class ConversionHelper:
 
 				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
 					swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
+					swift_argument_type = swift_argument_type.replace('[LDKResult_', '[LDKCResult_').replace('[LDKTuple_', '[LDKCTuple_')
 				swift_arguments.append(f'{argument_name}: {swift_argument_type}{mutabilityIndicatorSuffix}')
 
 

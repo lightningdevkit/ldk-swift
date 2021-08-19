@@ -105,7 +105,7 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_parameter_error(a.danglingClone().cOpaqueStruct!));
     }
 
-    public class func path_parameter_error(a: [LDKResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    public class func path_parameter_error(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
 						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
 						defer {
@@ -125,7 +125,7 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.cOpaqueStruct!));
     }
 
-    public class func partial_failure(a: [LDKResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    public class func partial_failure(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
 						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
 						defer {

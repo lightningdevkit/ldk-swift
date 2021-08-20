@@ -627,6 +627,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKAPIErrorArray(array: [APIError]) -> [LDKAPIError] {
+							return array.map { entry -> LDKAPIError in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKAPIErrorArray(array: [LDKAPIError]) -> [APIError] {
+							return array.map { entry -> APIError in
+								APIError(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKAPIErrorArray(array: [LDKAPIError]) -> [APIError] {
+							return array.map { entry -> APIError in
+								APIError(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
@@ -697,6 +715,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [C2Tuple_BlockHashChannelMonitorZ]) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
+							return array.map { entry -> LDKC2Tuple_BlockHashChannelMonitorZ in
+								entry.cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> [C2Tuple_BlockHashChannelMonitorZ] {
+							return array.map { entry -> C2Tuple_BlockHashChannelMonitorZ in
+								C2Tuple_BlockHashChannelMonitorZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> [C2Tuple_BlockHashChannelMonitorZ] {
+							return array.map { entry -> C2Tuple_BlockHashChannelMonitorZ in
+								C2Tuple_BlockHashChannelMonitorZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
@@ -767,6 +803,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: [C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
+							return array.map { entry -> LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
+							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ in
+								C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
+							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ in
+								C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_u32ScriptZZWrapper(array: [LDKC2Tuple_u32ScriptZ]) -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
@@ -837,6 +891,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC2Tuple_u32ScriptZArray(array: [C2Tuple_u32ScriptZ]) -> [LDKC2Tuple_u32ScriptZ] {
+							return array.map { entry -> LDKC2Tuple_u32ScriptZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC2Tuple_u32ScriptZArray(array: [LDKC2Tuple_u32ScriptZ]) -> [C2Tuple_u32ScriptZ] {
+							return array.map { entry -> C2Tuple_u32ScriptZ in
+								C2Tuple_u32ScriptZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC2Tuple_u32ScriptZArray(array: [LDKC2Tuple_u32ScriptZ]) -> [C2Tuple_u32ScriptZ] {
+							return array.map { entry -> C2Tuple_u32ScriptZ in
+								C2Tuple_u32ScriptZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_u32TxOutZZWrapper(array: [LDKC2Tuple_u32TxOutZ]) -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
@@ -907,6 +979,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC2Tuple_u32TxOutZArray(array: [C2Tuple_u32TxOutZ]) -> [LDKC2Tuple_u32TxOutZ] {
+							return array.map { entry -> LDKC2Tuple_u32TxOutZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC2Tuple_u32TxOutZArray(array: [LDKC2Tuple_u32TxOutZ]) -> [C2Tuple_u32TxOutZ] {
+							return array.map { entry -> C2Tuple_u32TxOutZ in
+								C2Tuple_u32TxOutZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC2Tuple_u32TxOutZArray(array: [LDKC2Tuple_u32TxOutZ]) -> [C2Tuple_u32TxOutZ] {
+							return array.map { entry -> C2Tuple_u32TxOutZ in
+								C2Tuple_u32TxOutZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: [LDKC2Tuple_usizeTransactionZ]) -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
@@ -977,6 +1067,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC2Tuple_usizeTransactionZArray(array: [C2Tuple_usizeTransactionZ]) -> [LDKC2Tuple_usizeTransactionZ] {
+							return array.map { entry -> LDKC2Tuple_usizeTransactionZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC2Tuple_usizeTransactionZArray(array: [LDKC2Tuple_usizeTransactionZ]) -> [C2Tuple_usizeTransactionZ] {
+							return array.map { entry -> C2Tuple_usizeTransactionZ in
+								C2Tuple_usizeTransactionZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC2Tuple_usizeTransactionZArray(array: [LDKC2Tuple_usizeTransactionZ]) -> [C2Tuple_usizeTransactionZ] {
+							return array.map { entry -> C2Tuple_usizeTransactionZ in
+								C2Tuple_usizeTransactionZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
@@ -1047,6 +1155,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+							return array.map { entry -> LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+							return array.map { entry -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
+								C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+							return array.map { entry -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
+								C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: [LDKCResult_NoneAPIErrorZ]) -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
@@ -1117,6 +1243,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKCResult_NoneAPIErrorZArray(array: [Result_NoneAPIErrorZ]) -> [LDKCResult_NoneAPIErrorZ] {
+							return array.map { entry -> LDKCResult_NoneAPIErrorZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKCResult_NoneAPIErrorZArray(array: [LDKCResult_NoneAPIErrorZ]) -> [Result_NoneAPIErrorZ] {
+							return array.map { entry -> Result_NoneAPIErrorZ in
+								Result_NoneAPIErrorZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKCResult_NoneAPIErrorZArray(array: [LDKCResult_NoneAPIErrorZ]) -> [Result_NoneAPIErrorZ] {
+							return array.map { entry -> Result_NoneAPIErrorZ in
+								Result_NoneAPIErrorZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_CVec_RouteHopZZWrapper(array: [[LDKRouteHop]]) -> LDKCVec_CVec_RouteHopZZWrapper {
@@ -1195,6 +1339,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKCVec_RouteHopZArray(array: [CVec_RouteHopZ]) -> [LDKCVec_RouteHopZ] {
+							return array.map { entry -> LDKCVec_RouteHopZ in
+								entry.cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKCVec_RouteHopZArray(array: [LDKCVec_RouteHopZ]) -> [CVec_RouteHopZ] {
+							return array.map { entry -> CVec_RouteHopZ in
+								CVec_RouteHopZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKCVec_RouteHopZArray(array: [LDKCVec_RouteHopZ]) -> [CVec_RouteHopZ] {
+							return array.map { entry -> CVec_RouteHopZ in
+								CVec_RouteHopZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_CVec_u8ZZWrapper(array: [[UInt8]]) -> LDKCVec_CVec_u8ZZWrapper {
@@ -1273,6 +1435,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKCVec_u8ZArray(array: [CVec_u8Z]) -> [LDKCVec_u8Z] {
+							return array.map { entry -> LDKCVec_u8Z in
+								entry.cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKCVec_u8ZArray(array: [LDKCVec_u8Z]) -> [CVec_u8Z] {
+							return array.map { entry -> CVec_u8Z in
+								CVec_u8Z(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKCVec_u8ZArray(array: [LDKCVec_u8Z]) -> [CVec_u8Z] {
+							return array.map { entry -> CVec_u8Z in
+								CVec_u8Z(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_ChannelDetailsZWrapper(array: [LDKChannelDetails]) -> LDKCVec_ChannelDetailsZWrapper {
@@ -1343,6 +1523,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKChannelDetailsArray(array: [ChannelDetails]) -> [LDKChannelDetails] {
+							return array.map { entry -> LDKChannelDetails in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKChannelDetailsArray(array: [LDKChannelDetails]) -> [ChannelDetails] {
+							return array.map { entry -> ChannelDetails in
+								ChannelDetails(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKChannelDetailsArray(array: [LDKChannelDetails]) -> [ChannelDetails] {
+							return array.map { entry -> ChannelDetails in
+								ChannelDetails(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_ChannelMonitorZWrapper(array: [LDKChannelMonitor]) -> LDKCVec_ChannelMonitorZWrapper {
@@ -1413,6 +1611,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKChannelMonitorArray(array: [ChannelMonitor]) -> [LDKChannelMonitor] {
+							return array.map { entry -> LDKChannelMonitor in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [ChannelMonitor] {
+							return array.map { entry -> ChannelMonitor in
+								ChannelMonitor(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [ChannelMonitor] {
+							return array.map { entry -> ChannelMonitor in
+								ChannelMonitor(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_EventZWrapper(array: [LDKEvent]) -> LDKCVec_EventZWrapper {
@@ -1483,6 +1699,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKEventArray(array: [Event]) -> [LDKEvent] {
+							return array.map { entry -> LDKEvent in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKEventArray(array: [LDKEvent]) -> [Event] {
+							return array.map { entry -> Event in
+								Event(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKEventArray(array: [LDKEvent]) -> [Event] {
+							return array.map { entry -> Event in
+								Event(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_MessageSendEventZWrapper(array: [LDKMessageSendEvent]) -> LDKCVec_MessageSendEventZWrapper {
@@ -1553,6 +1787,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKMessageSendEventArray(array: [MessageSendEvent]) -> [LDKMessageSendEvent] {
+							return array.map { entry -> LDKMessageSendEvent in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKMessageSendEventArray(array: [LDKMessageSendEvent]) -> [MessageSendEvent] {
+							return array.map { entry -> MessageSendEvent in
+								MessageSendEvent(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKMessageSendEventArray(array: [LDKMessageSendEvent]) -> [MessageSendEvent] {
+							return array.map { entry -> MessageSendEvent in
+								MessageSendEvent(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_MonitorEventZWrapper(array: [LDKMonitorEvent]) -> LDKCVec_MonitorEventZWrapper {
@@ -1623,6 +1875,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKMonitorEventArray(array: [MonitorEvent]) -> [LDKMonitorEvent] {
+							return array.map { entry -> LDKMonitorEvent in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKMonitorEventArray(array: [LDKMonitorEvent]) -> [MonitorEvent] {
+							return array.map { entry -> MonitorEvent in
+								MonitorEvent(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKMonitorEventArray(array: [LDKMonitorEvent]) -> [MonitorEvent] {
+							return array.map { entry -> MonitorEvent in
+								MonitorEvent(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_NetAddressZWrapper(array: [LDKNetAddress]) -> LDKCVec_NetAddressZWrapper {
@@ -1693,6 +1963,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKNetAddressArray(array: [NetAddress]) -> [LDKNetAddress] {
+							return array.map { entry -> LDKNetAddress in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKNetAddressArray(array: [LDKNetAddress]) -> [NetAddress] {
+							return array.map { entry -> NetAddress in
+								NetAddress(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKNetAddressArray(array: [LDKNetAddress]) -> [NetAddress] {
+							return array.map { entry -> NetAddress in
+								NetAddress(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_NodeAnnouncementZWrapper(array: [LDKNodeAnnouncement]) -> LDKCVec_NodeAnnouncementZWrapper {
@@ -1763,6 +2051,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKNodeAnnouncementArray(array: [NodeAnnouncement]) -> [LDKNodeAnnouncement] {
+							return array.map { entry -> LDKNodeAnnouncement in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKNodeAnnouncementArray(array: [LDKNodeAnnouncement]) -> [NodeAnnouncement] {
+							return array.map { entry -> NodeAnnouncement in
+								NodeAnnouncement(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKNodeAnnouncementArray(array: [LDKNodeAnnouncement]) -> [NodeAnnouncement] {
+							return array.map { entry -> NodeAnnouncement in
+								NodeAnnouncement(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_PrivateRouteZWrapper(array: [LDKPrivateRoute]) -> LDKCVec_PrivateRouteZWrapper {
@@ -1833,6 +2139,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKPrivateRouteArray(array: [PrivateRoute]) -> [LDKPrivateRoute] {
+							return array.map { entry -> LDKPrivateRoute in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKPrivateRouteArray(array: [LDKPrivateRoute]) -> [PrivateRoute] {
+							return array.map { entry -> PrivateRoute in
+								PrivateRoute(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKPrivateRouteArray(array: [LDKPrivateRoute]) -> [PrivateRoute] {
+							return array.map { entry -> PrivateRoute in
+								PrivateRoute(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_PublicKeyZWrapper(array: [[UInt8]]) -> LDKCVec_PublicKeyZWrapper {
@@ -1981,6 +2305,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKRouteHintArray(array: [RouteHint]) -> [LDKRouteHint] {
+							return array.map { entry -> LDKRouteHint in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKRouteHintArray(array: [LDKRouteHint]) -> [RouteHint] {
+							return array.map { entry -> RouteHint in
+								RouteHint(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKRouteHintArray(array: [LDKRouteHint]) -> [RouteHint] {
+							return array.map { entry -> RouteHint in
+								RouteHint(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_RouteHopZWrapper(array: [LDKRouteHop]) -> LDKCVec_RouteHopZWrapper {
@@ -2051,6 +2393,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKRouteHopArray(array: [RouteHop]) -> [LDKRouteHop] {
+							return array.map { entry -> LDKRouteHop in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKRouteHopArray(array: [LDKRouteHop]) -> [RouteHop] {
+							return array.map { entry -> RouteHop in
+								RouteHop(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKRouteHopArray(array: [LDKRouteHop]) -> [RouteHop] {
+							return array.map { entry -> RouteHop in
+								RouteHop(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_SignatureZWrapper(array: [[UInt8]]) -> LDKCVec_SignatureZWrapper {
@@ -2199,6 +2559,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKSpendableOutputDescriptorArray(array: [SpendableOutputDescriptor]) -> [LDKSpendableOutputDescriptor] {
+							return array.map { entry -> LDKSpendableOutputDescriptor in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKSpendableOutputDescriptorArray(array: [LDKSpendableOutputDescriptor]) -> [SpendableOutputDescriptor] {
+							return array.map { entry -> SpendableOutputDescriptor in
+								SpendableOutputDescriptor(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKSpendableOutputDescriptorArray(array: [LDKSpendableOutputDescriptor]) -> [SpendableOutputDescriptor] {
+							return array.map { entry -> SpendableOutputDescriptor in
+								SpendableOutputDescriptor(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TransactionOutputsZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> LDKCVec_TransactionOutputsZWrapper {
@@ -2269,6 +2647,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: [C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
+							return array.map { entry -> LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
+							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ in
+								C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
+							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ in
+								C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TransactionZWrapper(array: [[UInt8]]) -> LDKCVec_TransactionZWrapper {
@@ -2347,6 +2743,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKTransactionArray(array: [Transaction]) -> [LDKTransaction] {
+							return array.map { entry -> LDKTransaction in
+								entry.cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKTransactionArray(array: [LDKTransaction]) -> [Transaction] {
+							return array.map { entry -> Transaction in
+								Transaction(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKTransactionArray(array: [LDKTransaction]) -> [Transaction] {
+							return array.map { entry -> Transaction in
+								Transaction(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TxOutZWrapper(array: [LDKTxOut]) -> LDKCVec_TxOutZWrapper {
@@ -2417,6 +2831,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKTxOutArray(array: [TxOut]) -> [LDKTxOut] {
+							return array.map { entry -> LDKTxOut in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKTxOutArray(array: [LDKTxOut]) -> [TxOut] {
+							return array.map { entry -> TxOut in
+								TxOut(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKTxOutArray(array: [LDKTxOut]) -> [TxOut] {
+							return array.map { entry -> TxOut in
+								TxOut(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TxidZWrapper(array: [LDKThirtyTwoBytes]) -> LDKCVec_TxidZWrapper {
@@ -2487,6 +2919,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKThirtyTwoBytesArray(array: [ThirtyTwoBytes]) -> [LDKThirtyTwoBytes] {
+							return array.map { entry -> LDKThirtyTwoBytes in
+								entry.cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKThirtyTwoBytesArray(array: [LDKThirtyTwoBytes]) -> [ThirtyTwoBytes] {
+							return array.map { entry -> ThirtyTwoBytes in
+								ThirtyTwoBytes(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKThirtyTwoBytesArray(array: [LDKThirtyTwoBytes]) -> [ThirtyTwoBytes] {
+							return array.map { entry -> ThirtyTwoBytes in
+								ThirtyTwoBytes(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateAddHTLCZWrapper(array: [LDKUpdateAddHTLC]) -> LDKCVec_UpdateAddHTLCZWrapper {
@@ -2557,6 +3007,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKUpdateAddHTLCArray(array: [UpdateAddHTLC]) -> [LDKUpdateAddHTLC] {
+							return array.map { entry -> LDKUpdateAddHTLC in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKUpdateAddHTLCArray(array: [LDKUpdateAddHTLC]) -> [UpdateAddHTLC] {
+							return array.map { entry -> UpdateAddHTLC in
+								UpdateAddHTLC(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKUpdateAddHTLCArray(array: [LDKUpdateAddHTLC]) -> [UpdateAddHTLC] {
+							return array.map { entry -> UpdateAddHTLC in
+								UpdateAddHTLC(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateFailHTLCZWrapper(array: [LDKUpdateFailHTLC]) -> LDKCVec_UpdateFailHTLCZWrapper {
@@ -2627,6 +3095,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKUpdateFailHTLCArray(array: [UpdateFailHTLC]) -> [LDKUpdateFailHTLC] {
+							return array.map { entry -> LDKUpdateFailHTLC in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKUpdateFailHTLCArray(array: [LDKUpdateFailHTLC]) -> [UpdateFailHTLC] {
+							return array.map { entry -> UpdateFailHTLC in
+								UpdateFailHTLC(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKUpdateFailHTLCArray(array: [LDKUpdateFailHTLC]) -> [UpdateFailHTLC] {
+							return array.map { entry -> UpdateFailHTLC in
+								UpdateFailHTLC(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateFailMalformedHTLCZWrapper(array: [LDKUpdateFailMalformedHTLC]) -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
@@ -2697,6 +3183,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKUpdateFailMalformedHTLCArray(array: [UpdateFailMalformedHTLC]) -> [LDKUpdateFailMalformedHTLC] {
+							return array.map { entry -> LDKUpdateFailMalformedHTLC in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKUpdateFailMalformedHTLCArray(array: [LDKUpdateFailMalformedHTLC]) -> [UpdateFailMalformedHTLC] {
+							return array.map { entry -> UpdateFailMalformedHTLC in
+								UpdateFailMalformedHTLC(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKUpdateFailMalformedHTLCArray(array: [LDKUpdateFailMalformedHTLC]) -> [UpdateFailMalformedHTLC] {
+							return array.map { entry -> UpdateFailMalformedHTLC in
+								UpdateFailMalformedHTLC(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateFulfillHTLCZWrapper(array: [LDKUpdateFulfillHTLC]) -> LDKCVec_UpdateFulfillHTLCZWrapper {
@@ -2767,6 +3271,24 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKUpdateFulfillHTLCArray(array: [UpdateFulfillHTLC]) -> [LDKUpdateFulfillHTLC] {
+							return array.map { entry -> LDKUpdateFulfillHTLC in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKUpdateFulfillHTLCArray(array: [LDKUpdateFulfillHTLC]) -> [UpdateFulfillHTLC] {
+							return array.map { entry -> UpdateFulfillHTLC in
+								UpdateFulfillHTLC(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKUpdateFulfillHTLCArray(array: [LDKUpdateFulfillHTLC]) -> [UpdateFulfillHTLC] {
+							return array.map { entry -> UpdateFulfillHTLC in
+								UpdateFulfillHTLC(pointer: entry).dangle()
+							}
+						}
+					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_u64ZWrapper(array: [UInt64]) -> LDKCVec_u64ZWrapper {

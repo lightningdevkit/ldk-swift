@@ -12,7 +12,7 @@ public class NodeAnnouncementInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-						let addresses_argWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: Bindings.cloneNativeLDKNetAddressArray(array: addresses_arg))
+						let addresses_argWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses_arg)
 						defer {
 							addresses_argWrapper.noOpRetain()
 						}
@@ -94,7 +94,7 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncementInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: Bindings.cloneNativeLDKNetAddressArray(array: val))
+						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: val)
 						defer {
 							valWrapper.noOpRetain()
 						}

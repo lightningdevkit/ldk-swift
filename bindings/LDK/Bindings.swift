@@ -1652,9 +1652,7 @@ public class Bindings{
 							internal class func cloneNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [LDKChannelMonitor] {
 								return array.map { entry -> LDKChannelMonitor in
 									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									let clone = ChannelMonitor(pointer: entry).dangle().clone().dangle()
-                                    clone.cOpaqueStruct!.is_owned = false
-                                    return clone.cOpaqueStruct!
+									ChannelMonitor(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
 								}
 							}
 						
@@ -3804,7 +3802,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 								first_hopsPointer!.initialize(to: Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hopsUnwrapped).cOpaqueStruct!)
 							}
 						
-						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: Bindings.cloneNativeLDKRouteHintArray(array: last_hops))
+						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hops)
 						defer {
 							last_hopsWrapper.noOpRetain()
 						}
@@ -3927,16 +3925,16 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 	/* RUST_TO_SWIFT_END */
 
     public class func LDKStr_to_string(nativeType: LDKStr) -> String {
-        var array = [UInt8]()
-        for index in 0..<Int(nativeType.len) {
-            let currentEntry = nativeType.chars[index]
-            /* CONVERSION_PREP */
-            array.append(currentEntry)
-        }
-        let data = Data(bytes: array)
-        let string = String(data: data, encoding: .utf8)!
-        return string
-    }
+		var array = [UInt8]()
+		for index in 0..<Int(nativeType.len) {
+			let currentEntry = nativeType.chars[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		let data = Data(bytes: array)
+		let string = String(data: data, encoding: .utf8)!
+		return string
+	}
 
     public class func UnsafeIntPointer_to_string(nativeType: UnsafePointer<Int8>) -> String {
 		let string = String(cString: nativeType)

@@ -107,7 +107,7 @@ PaymentSendFailure_clone(origPointer)
 
     public class func path_parameter_error(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: Bindings.cloneNativeLDKCResult_NoneAPIErrorZArray(array: a))
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
 						defer {
 							aWrapper.noOpRetain()
 						}
@@ -117,7 +117,7 @@ PaymentSendFailure_clone(origPointer)
 
     public class func all_failed_retry_safe(a: [LDKAPIError]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: Bindings.cloneNativeLDKAPIErrorArray(array: a))
+						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: a)
 						defer {
 							aWrapper.noOpRetain()
 						}
@@ -127,7 +127,7 @@ PaymentSendFailure_clone(origPointer)
 
     public class func partial_failure(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: Bindings.cloneNativeLDKCResult_NoneAPIErrorZArray(array: a))
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
 						defer {
 							aWrapper.noOpRetain()
 						}

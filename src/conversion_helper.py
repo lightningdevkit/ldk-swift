@@ -132,8 +132,16 @@ class ConversionHelper:
 				'LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
 				# if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
 				if current_argument_details.rust_obj in pointer_iterating_vector_types:
+					# TODO: expand beyond 1-dimensional array support (as of writing only affects Route.swift)
+					cloneability_lookup = current_argument_details.swift_type[1:-1].replace('Result_', 'CResult_').replace('Tuple_', 'CTuple_')
+					array_clone_prefix = ''
+					array_clone_suffix = ''
+					if cloneability_lookup in cloneable_types:
+						print('cloneable array type:', current_argument_details.rust_obj, 'LDK'+cloneability_lookup)
+						array_clone_prefix = f'Bindings.cloneNativeLDK{cloneability_lookup}Array(array: '
+						array_clone_suffix = ')'
 					native_call_prep += f'''
-						let {passed_argument_name}Wrapper = Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {passed_argument_name})
+						let {passed_argument_name}Wrapper = Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {array_clone_prefix}{passed_argument_name}{array_clone_suffix})
 						defer {{
 							{passed_argument_name}Wrapper.noOpRetain()
 						}}

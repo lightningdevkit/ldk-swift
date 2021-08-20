@@ -160,7 +160,7 @@ class OpaqueStructGenerator:
 				current_replacement = method_template
 				current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',
 																  f'return {value_return_wrappers["prefix"]}self.cOpaqueStruct!.{current_field_name}{value_return_wrappers["suffix"]}')
-				current_replacement = current_replacement.replace('func methodName(', f'func {current_method_name}(')
+				current_replacement = current_replacement.replace('func methodName(swift_arguments)', f'func {current_method_name}()')
 				current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', '')
 				current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
 				struct_methods += '\n' + current_replacement + '\n'

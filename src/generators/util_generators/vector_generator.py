@@ -96,6 +96,13 @@ class VectorGenerator(UtilGenerator):
 						}}
 					'''
 
+					if is_cloneable:
+						extraction_method += f'''
+							internal class func cloneNative{shallowmost_iteratee.name}Array(array: [{shallowmost_iteratee.name}]) -> [{shallowmost_iteratee.name}] {{
+								return extractNative{shallowmost_iteratee.name}Array(array: wrapDanglingNative{shallowmost_iteratee.name}Array(array: array))
+							}}
+						'''
+
 
 		mutating_current_vector_methods = self.template
 		for dim_delta in range(1, dimensions):

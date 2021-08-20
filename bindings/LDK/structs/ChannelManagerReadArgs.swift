@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelManagerReadArgs {
 
 	private static var instanceCounter: UInt = 0
@@ -15,6 +13,7 @@ public class ChannelManagerReadArgs {
 		self.instanceNumber = Self.instanceCounter
     	
 						let channel_monitorsWrapper = Bindings.new_LDKCVec_ChannelMonitorZWrapper(array: Bindings.cloneNativeLDKChannelMonitorArray(array: channel_monitors))
+                        channel_monitorsWrapper.dangle()
 						defer {
 							channel_monitorsWrapper.noOpRetain()
 						}

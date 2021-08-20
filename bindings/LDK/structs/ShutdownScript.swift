@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ShutdownScript {
 
 	private static var instanceCounter: UInt = 0

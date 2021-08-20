@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import LDKHeaders
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -1653,7 +1652,9 @@ public class Bindings{
 							internal class func cloneNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [LDKChannelMonitor] {
 								return array.map { entry -> LDKChannelMonitor in
 									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									ChannelMonitor(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+									let clone = ChannelMonitor(pointer: entry).dangle().clone().dangle()
+                                    clone.cOpaqueStruct!.is_owned = false
+                                    return clone.cOpaqueStruct!
 								}
 							}
 						
@@ -3926,8 +3927,14 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 	/* RUST_TO_SWIFT_END */
 
     public class func LDKStr_to_string(nativeType: LDKStr) -> String {
-        let string = String(cString: nativeType.chars)
-        assert(string.count == nativeType.len)
+        var array = [UInt8]()
+        for index in 0..<Int(nativeType.len) {
+            let currentEntry = nativeType.chars[index]
+            /* CONVERSION_PREP */
+            array.append(currentEntry)
+        }
+        let data = Data(bytes: array)
+        let string = String(data: data, encoding: .utf8)!
         return string
     }
 

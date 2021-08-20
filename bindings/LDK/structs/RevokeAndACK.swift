@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class RevokeAndACK {
 
 	private static var instanceCounter: UInt = 0

@@ -17,7 +17,7 @@ public class InvalidShutdownScript {
 							script_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = InvalidShutdownScript_new(script_argWrapper.cOpaqueStruct!)
+        self.cOpaqueStruct = InvalidShutdownScript_new(script_argWrapper.dangle().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -46,7 +46,7 @@ InvalidShutdownScript_get_script(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return InvalidShutdownScript_set_script(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return InvalidShutdownScript_set_script(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     internal func free() -> Void {

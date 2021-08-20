@@ -17,7 +17,7 @@ public class WatchedOutput {
 							script_pubkey_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.cOpaqueStruct!)
+        self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.dangle().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -76,7 +76,7 @@ WatchedOutput_get_script_pubkey(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return WatchedOutput_set_script_pubkey(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return WatchedOutput_set_script_pubkey(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> WatchedOutput {

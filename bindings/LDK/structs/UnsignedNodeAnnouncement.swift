@@ -102,7 +102,7 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return UnsignedNodeAnnouncement_set_addresses(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> UnsignedNodeAnnouncement {

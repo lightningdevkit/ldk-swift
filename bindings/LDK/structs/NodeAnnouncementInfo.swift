@@ -17,7 +17,7 @@ public class NodeAnnouncementInfo {
 							addresses_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), addresses_argWrapper.cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), addresses_argWrapper.dangle().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -99,7 +99,7 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return NodeAnnouncementInfo_set_addresses(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return NodeAnnouncementInfo_set_addresses(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func get_announcement_message() -> NodeAnnouncement {

@@ -229,7 +229,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 						}
 					
 				return 
-				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, invoice_preimageWrapper.cOpaqueStruct!))
+				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, invoice_preimageWrapper.dangle().cOpaqueStruct!))
 				
 			
 	}

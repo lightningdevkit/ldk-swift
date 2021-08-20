@@ -17,7 +17,7 @@ public class HolderCommitmentTransaction {
 							counterparty_htlc_sigsWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), counterparty_htlc_sigsWrapper.cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
+        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), counterparty_htlc_sigsWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -54,7 +54,7 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> HolderCommitmentTransaction {

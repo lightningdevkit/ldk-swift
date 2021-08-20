@@ -35,7 +35,7 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
 							bWrapper.noOpRetain()
 						}
 					
-        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.danglingClone().cOpaqueStruct!, bWrapper.cOpaqueStruct!));
+        return C2Tuple_OutPointScriptZ(pointer: C2Tuple_OutPointScriptZ_new(a.danglingClone().cOpaqueStruct!, bWrapper.dangle().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

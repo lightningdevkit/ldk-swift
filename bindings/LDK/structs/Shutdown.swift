@@ -17,7 +17,7 @@ public class Shutdown {
 							scriptpubkey_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = Shutdown_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), scriptpubkey_argWrapper.cOpaqueStruct!)
+        self.cOpaqueStruct = Shutdown_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), scriptpubkey_argWrapper.dangle().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -61,7 +61,7 @@ Shutdown_get_scriptpubkey(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return Shutdown_set_scriptpubkey(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return Shutdown_set_scriptpubkey(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> Shutdown {

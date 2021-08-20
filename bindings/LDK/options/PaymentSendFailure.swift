@@ -112,7 +112,7 @@ PaymentSendFailure_clone(origPointer)
 							aWrapper.noOpRetain()
 						}
 					
-        return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.cOpaqueStruct!));
+        return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func all_failed_retry_safe(a: [LDKAPIError]) -> PaymentSendFailure {
@@ -122,7 +122,7 @@ PaymentSendFailure_clone(origPointer)
 							aWrapper.noOpRetain()
 						}
 					
-        return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.cOpaqueStruct!));
+        return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func partial_failure(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
@@ -132,7 +132,7 @@ PaymentSendFailure_clone(origPointer)
 							aWrapper.noOpRetain()
 						}
 					
-        return PaymentSendFailure(pointer: PaymentSendFailure_partial_failure(aWrapper.cOpaqueStruct!));
+        return PaymentSendFailure(pointer: PaymentSendFailure_partial_failure(aWrapper.dangle().cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */

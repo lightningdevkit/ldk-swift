@@ -17,7 +17,7 @@ public class QueryShortChannelIds {
 							short_channel_ids_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), short_channel_ids_argWrapper.cOpaqueStruct!)
+        self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), short_channel_ids_argWrapper.dangle().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -54,7 +54,7 @@ QueryShortChannelIds_get_chain_hash(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return QueryShortChannelIds_set_short_channel_ids(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return QueryShortChannelIds_set_short_channel_ids(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> QueryShortChannelIds {

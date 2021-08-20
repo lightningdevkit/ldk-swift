@@ -17,7 +17,7 @@ public class Route {
 							paths_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = Route_new(paths_argWrapper.cOpaqueStruct!)
+        self.cOpaqueStruct = Route_new(paths_argWrapper.dangle().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -39,7 +39,7 @@ public class Route {
 							valWrapper.noOpRetain()
 						}
 					
-        return Route_set_paths(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return Route_set_paths(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> Route {

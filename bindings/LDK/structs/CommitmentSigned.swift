@@ -17,7 +17,7 @@ public class CommitmentSigned {
 							htlc_signatures_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), htlc_signatures_argWrapper.cOpaqueStruct!)
+        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), htlc_signatures_argWrapper.dangle().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -69,7 +69,7 @@ CommitmentSigned_get_signature(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> CommitmentSigned {

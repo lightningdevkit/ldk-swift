@@ -134,7 +134,7 @@ Event_clone(origPointer)
 							output_scriptWrapper.noOpRetain()
 						}
 					
-        return Event(pointer: Event_funding_generation_ready(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id), channel_value_satoshis, output_scriptWrapper.cOpaqueStruct!, user_channel_id));
+        return Event(pointer: Event_funding_generation_ready(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id), channel_value_satoshis, output_scriptWrapper.dangle().cOpaqueStruct!, user_channel_id));
     }
 
     public class func payment_received(payment_hash: [UInt8], amt: UInt64, purpose: PaymentPurpose) -> Event {
@@ -164,7 +164,7 @@ Event_clone(origPointer)
 							outputsWrapper.noOpRetain()
 						}
 					
-        return Event(pointer: Event_spendable_outputs(outputsWrapper.cOpaqueStruct!));
+        return Event(pointer: Event_spendable_outputs(outputsWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func payment_forwarded(fee_earned_msat: Option_u64Z, claim_from_onchain_tx: Bool) -> Event {

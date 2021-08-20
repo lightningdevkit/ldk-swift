@@ -32,7 +32,7 @@ public class CommitmentUpdate {
 							update_fail_malformed_htlcs_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = CommitmentUpdate_new(update_add_htlcs_argWrapper.cOpaqueStruct!, update_fulfill_htlcs_argWrapper.cOpaqueStruct!, update_fail_htlcs_argWrapper.cOpaqueStruct!, update_fail_malformed_htlcs_argWrapper.cOpaqueStruct!, update_fee_arg.danglingClone().cOpaqueStruct!, commitment_signed_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = CommitmentUpdate_new(update_add_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fulfill_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fail_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fail_malformed_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fee_arg.danglingClone().cOpaqueStruct!, commitment_signed_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -54,7 +54,7 @@ public class CommitmentUpdate {
 							valWrapper.noOpRetain()
 						}
 					
-        return CommitmentUpdate_set_update_add_htlcs(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return CommitmentUpdate_set_update_add_htlcs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func set_update_fulfill_htlcs(val: [LDKUpdateFulfillHTLC]) -> Void {
@@ -67,7 +67,7 @@ public class CommitmentUpdate {
 							valWrapper.noOpRetain()
 						}
 					
-        return CommitmentUpdate_set_update_fulfill_htlcs(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return CommitmentUpdate_set_update_fulfill_htlcs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func set_update_fail_htlcs(val: [LDKUpdateFailHTLC]) -> Void {
@@ -80,7 +80,7 @@ public class CommitmentUpdate {
 							valWrapper.noOpRetain()
 						}
 					
-        return CommitmentUpdate_set_update_fail_htlcs(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return CommitmentUpdate_set_update_fail_htlcs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func set_update_fail_malformed_htlcs(val: [LDKUpdateFailMalformedHTLC]) -> Void {
@@ -93,7 +93,7 @@ public class CommitmentUpdate {
 							valWrapper.noOpRetain()
 						}
 					
-        return CommitmentUpdate_set_update_fail_malformed_htlcs(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return CommitmentUpdate_set_update_fail_malformed_htlcs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func get_update_fee() -> UpdateFee {

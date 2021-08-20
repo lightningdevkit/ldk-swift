@@ -49,7 +49,7 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 							oWrapper.noOpRetain()
 						}
 					
-        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_ok(oWrapper.cOpaqueStruct!));
+        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_ok(oWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func err(e: LDKIOError) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {

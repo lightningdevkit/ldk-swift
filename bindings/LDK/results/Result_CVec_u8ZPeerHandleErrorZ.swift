@@ -49,7 +49,7 @@ public class Result_CVec_u8ZPeerHandleErrorZ {
 							oWrapper.noOpRetain()
 						}
 					
-        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_ok(oWrapper.cOpaqueStruct!));
+        return Result_CVec_u8ZPeerHandleErrorZ(pointer: CResult_CVec_u8ZPeerHandleErrorZ_ok(oWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func err(e: PeerHandleError) -> Result_CVec_u8ZPeerHandleErrorZ {

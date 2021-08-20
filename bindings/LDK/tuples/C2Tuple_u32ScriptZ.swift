@@ -35,7 +35,7 @@ C2Tuple_u32ScriptZ_clone(origPointer)
 							bWrapper.noOpRetain()
 						}
 					
-        return C2Tuple_u32ScriptZ(pointer: C2Tuple_u32ScriptZ_new(a, bWrapper.cOpaqueStruct!));
+        return C2Tuple_u32ScriptZ(pointer: C2Tuple_u32ScriptZ_new(a, bWrapper.dangle().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

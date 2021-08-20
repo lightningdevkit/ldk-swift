@@ -17,7 +17,7 @@ public class TxOut {
 							script_pubkeyWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = TxOut_new(script_pubkeyWrapper.cOpaqueStruct!, value)
+        self.cOpaqueStruct = TxOut_new(script_pubkeyWrapper.dangle().cOpaqueStruct!, value)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -17,7 +17,7 @@ public class NodeInfo {
 							channels_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = NodeInfo_new(channels_argWrapper.cOpaqueStruct!, lowest_inbound_channel_fees_arg.danglingClone().cOpaqueStruct!, announcement_info_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeInfo_new(channels_argWrapper.dangle().cOpaqueStruct!, lowest_inbound_channel_fees_arg.danglingClone().cOpaqueStruct!, announcement_info_arg.danglingClone().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -39,7 +39,7 @@ public class NodeInfo {
 							valWrapper.noOpRetain()
 						}
 					
-        return NodeInfo_set_channels(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return NodeInfo_set_channels(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func get_lowest_inbound_channel_fees() -> RoutingFees {

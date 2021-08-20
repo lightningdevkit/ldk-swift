@@ -42,7 +42,7 @@ public class Result_CVec_CVec_u8ZZNoneZ {
 							oWrapper.noOpRetain()
 						}
 					
-        return Result_CVec_CVec_u8ZZNoneZ(pointer: CResult_CVec_CVec_u8ZZNoneZ_ok(oWrapper.cOpaqueStruct!));
+        return Result_CVec_CVec_u8ZZNoneZ(pointer: CResult_CVec_CVec_u8ZZNoneZ_ok(oWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func err() -> Result_CVec_CVec_u8ZZNoneZ {

@@ -53,7 +53,7 @@ KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, paramsP
 						}
 					
         return Result_TransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKKeysManager>) in
-KeysManager_spend_spendable_outputs(this_argPointer, descriptorsWrapper.cOpaqueStruct!, outputsWrapper.cOpaqueStruct!, change_destination_scriptWrapper.cOpaqueStruct!, feerate_sat_per_1000_weight)
+KeysManager_spend_spendable_outputs(this_argPointer, descriptorsWrapper.dangle().cOpaqueStruct!, outputsWrapper.dangle().cOpaqueStruct!, change_destination_scriptWrapper.dangle().cOpaqueStruct!, feerate_sat_per_1000_weight)
 });
     }
 

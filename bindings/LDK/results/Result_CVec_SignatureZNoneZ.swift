@@ -42,7 +42,7 @@ public class Result_CVec_SignatureZNoneZ {
 							oWrapper.noOpRetain()
 						}
 					
-        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_ok(oWrapper.cOpaqueStruct!));
+        return Result_CVec_SignatureZNoneZ(pointer: CResult_CVec_SignatureZNoneZ_ok(oWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func err() -> Result_CVec_SignatureZNoneZ {

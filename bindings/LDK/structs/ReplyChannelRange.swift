@@ -17,7 +17,7 @@ public class ReplyChannelRange {
 							short_channel_ids_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, short_channel_ids_argWrapper.cOpaqueStruct!)
+        self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, short_channel_ids_argWrapper.dangle().cOpaqueStruct!)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -99,7 +99,7 @@ ReplyChannelRange_get_sync_complete(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> ReplyChannelRange {

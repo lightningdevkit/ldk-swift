@@ -98,7 +98,7 @@ Fallback_clone(origPointer)
 							programWrapper.noOpRetain()
 						}
 					
-        return Fallback(pointer: Fallback_seg_wit_program(Bindings.new_LDKu5(array: version), programWrapper.cOpaqueStruct!));
+        return Fallback(pointer: Fallback_seg_wit_program(Bindings.new_LDKu5(array: version), programWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func pub_key_hash(a: [UInt8]) -> Fallback {

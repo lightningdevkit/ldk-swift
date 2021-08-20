@@ -3671,9 +3671,12 @@ public class Bindings{
 }
 			
 	}
-	public class func swift_C2Tuple_BlockHashChannelManagerZ_read(ser: [UInt8], arg: ChannelManagerReadArgs) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
+	
+/// Non-cloneable types passed by ownership. Here be dragons!
+public class func swift_C2Tuple_BlockHashChannelManagerZ_read(ser: [UInt8], arg: ChannelManagerReadArgs) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 		
-				
+				print("DANGER! Non-cloneable types passed by ownership. Affected arguments: [arg: ChannelManagerReadArgs (1)]")
+
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()

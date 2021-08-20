@@ -63,12 +63,12 @@ TxOut_clone(origPointer)
 					}
 				
 
-    public func get_script_pubkey(swift_arguments) -> [UInt8] {
+    public func get_script_pubkey() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey);
     }
 
-    public func get_value(swift_arguments) -> UInt64 {
+    public func get_value() -> UInt64 {
     	
         return self.cOpaqueStruct!.value;
     }

@@ -159,7 +159,7 @@ Event_clone(origPointer)
 
     public class func spendable_outputs(outputs: [LDKSpendableOutputDescriptor]) -> Event {
     	
-						let outputsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: outputs)
+						let outputsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: Bindings.cloneNativeLDKSpendableOutputDescriptorArray(array: outputs))
 						defer {
 							outputsWrapper.noOpRetain()
 						}

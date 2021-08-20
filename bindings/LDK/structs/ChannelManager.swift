@@ -120,7 +120,7 @@ ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_
 
     public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
     	
-						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses)
+						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: Bindings.cloneNativeLDKNetAddressArray(array: addresses))
 						defer {
 							addressesWrapper.noOpRetain()
 						}

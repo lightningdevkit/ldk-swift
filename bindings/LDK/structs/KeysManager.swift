@@ -37,12 +37,12 @@ KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, paramsP
 
     public func spend_spendable_outputs(descriptors: [LDKSpendableOutputDescriptor], outputs: [LDKTxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
     	
-						let descriptorsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: descriptors)
+						let descriptorsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: Bindings.cloneNativeLDKSpendableOutputDescriptorArray(array: descriptors))
 						defer {
 							descriptorsWrapper.noOpRetain()
 						}
 					
-						let outputsWrapper = Bindings.new_LDKCVec_TxOutZWrapper(array: outputs)
+						let outputsWrapper = Bindings.new_LDKCVec_TxOutZWrapper(array: Bindings.cloneNativeLDKTxOutArray(array: outputs))
 						defer {
 							outputsWrapper.noOpRetain()
 						}

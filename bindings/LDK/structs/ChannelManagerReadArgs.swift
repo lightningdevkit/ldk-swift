@@ -12,7 +12,7 @@ public class ChannelManagerReadArgs {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-						let channel_monitorsWrapper = Bindings.new_LDKCVec_ChannelMonitorZWrapper(array: channel_monitors)
+						let channel_monitorsWrapper = Bindings.new_LDKCVec_ChannelMonitorZWrapper(array: Bindings.cloneNativeLDKChannelMonitorArray(array: channel_monitors))
 						defer {
 							channel_monitorsWrapper.noOpRetain()
 						}

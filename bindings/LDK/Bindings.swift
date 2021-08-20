@@ -645,6 +645,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKAPIErrorArray(array: [LDKAPIError]) -> [LDKAPIError] {
+								return extractNativeLDKAPIErrorArray(array: wrapDanglingNativeLDKAPIErrorArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
@@ -821,6 +825,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
+								return extractNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_u32ScriptZZWrapper(array: [LDKC2Tuple_u32ScriptZ]) -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
@@ -909,6 +917,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKC2Tuple_u32ScriptZArray(array: [LDKC2Tuple_u32ScriptZ]) -> [LDKC2Tuple_u32ScriptZ] {
+								return extractNativeLDKC2Tuple_u32ScriptZArray(array: wrapDanglingNativeLDKC2Tuple_u32ScriptZArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_u32TxOutZZWrapper(array: [LDKC2Tuple_u32TxOutZ]) -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
@@ -997,6 +1009,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKC2Tuple_u32TxOutZArray(array: [LDKC2Tuple_u32TxOutZ]) -> [LDKC2Tuple_u32TxOutZ] {
+								return extractNativeLDKC2Tuple_u32TxOutZArray(array: wrapDanglingNativeLDKC2Tuple_u32TxOutZArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: [LDKC2Tuple_usizeTransactionZ]) -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
@@ -1085,6 +1101,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKC2Tuple_usizeTransactionZArray(array: [LDKC2Tuple_usizeTransactionZ]) -> [LDKC2Tuple_usizeTransactionZ] {
+								return extractNativeLDKC2Tuple_usizeTransactionZArray(array: wrapDanglingNativeLDKC2Tuple_usizeTransactionZArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
@@ -1173,6 +1193,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+								return extractNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: wrapDanglingNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: [LDKCResult_NoneAPIErrorZ]) -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
@@ -1261,6 +1285,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKCResult_NoneAPIErrorZArray(array: [LDKCResult_NoneAPIErrorZ]) -> [LDKCResult_NoneAPIErrorZ] {
+								return extractNativeLDKCResult_NoneAPIErrorZArray(array: wrapDanglingNativeLDKCResult_NoneAPIErrorZArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_CVec_RouteHopZZWrapper(array: [[LDKRouteHop]]) -> LDKCVec_CVec_RouteHopZZWrapper {
@@ -1505,6 +1533,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKChannelDetailsArray(array: [LDKChannelDetails]) -> [LDKChannelDetails] {
+								return extractNativeLDKChannelDetailsArray(array: wrapDanglingNativeLDKChannelDetailsArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_ChannelMonitorZWrapper(array: [LDKChannelMonitor]) -> LDKCVec_ChannelMonitorZWrapper {
@@ -1593,6 +1625,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [LDKChannelMonitor] {
+								return extractNativeLDKChannelMonitorArray(array: wrapDanglingNativeLDKChannelMonitorArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_EventZWrapper(array: [LDKEvent]) -> LDKCVec_EventZWrapper {
@@ -1681,6 +1717,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKEventArray(array: [LDKEvent]) -> [LDKEvent] {
+								return extractNativeLDKEventArray(array: wrapDanglingNativeLDKEventArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_MessageSendEventZWrapper(array: [LDKMessageSendEvent]) -> LDKCVec_MessageSendEventZWrapper {
@@ -1769,6 +1809,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKMessageSendEventArray(array: [LDKMessageSendEvent]) -> [LDKMessageSendEvent] {
+								return extractNativeLDKMessageSendEventArray(array: wrapDanglingNativeLDKMessageSendEventArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_MonitorEventZWrapper(array: [LDKMonitorEvent]) -> LDKCVec_MonitorEventZWrapper {
@@ -1857,6 +1901,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKMonitorEventArray(array: [LDKMonitorEvent]) -> [LDKMonitorEvent] {
+								return extractNativeLDKMonitorEventArray(array: wrapDanglingNativeLDKMonitorEventArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_NetAddressZWrapper(array: [LDKNetAddress]) -> LDKCVec_NetAddressZWrapper {
@@ -1945,6 +1993,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKNetAddressArray(array: [LDKNetAddress]) -> [LDKNetAddress] {
+								return extractNativeLDKNetAddressArray(array: wrapDanglingNativeLDKNetAddressArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_NodeAnnouncementZWrapper(array: [LDKNodeAnnouncement]) -> LDKCVec_NodeAnnouncementZWrapper {
@@ -2033,6 +2085,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKNodeAnnouncementArray(array: [LDKNodeAnnouncement]) -> [LDKNodeAnnouncement] {
+								return extractNativeLDKNodeAnnouncementArray(array: wrapDanglingNativeLDKNodeAnnouncementArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_PrivateRouteZWrapper(array: [LDKPrivateRoute]) -> LDKCVec_PrivateRouteZWrapper {
@@ -2121,6 +2177,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKPrivateRouteArray(array: [LDKPrivateRoute]) -> [LDKPrivateRoute] {
+								return extractNativeLDKPrivateRouteArray(array: wrapDanglingNativeLDKPrivateRouteArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_PublicKeyZWrapper(array: [[UInt8]]) -> LDKCVec_PublicKeyZWrapper {
@@ -2287,6 +2347,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKRouteHintArray(array: [LDKRouteHint]) -> [LDKRouteHint] {
+								return extractNativeLDKRouteHintArray(array: wrapDanglingNativeLDKRouteHintArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_RouteHopZWrapper(array: [LDKRouteHop]) -> LDKCVec_RouteHopZWrapper {
@@ -2375,6 +2439,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKRouteHopArray(array: [LDKRouteHop]) -> [LDKRouteHop] {
+								return extractNativeLDKRouteHopArray(array: wrapDanglingNativeLDKRouteHopArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_SignatureZWrapper(array: [[UInt8]]) -> LDKCVec_SignatureZWrapper {
@@ -2541,6 +2609,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKSpendableOutputDescriptorArray(array: [LDKSpendableOutputDescriptor]) -> [LDKSpendableOutputDescriptor] {
+								return extractNativeLDKSpendableOutputDescriptorArray(array: wrapDanglingNativeLDKSpendableOutputDescriptorArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TransactionOutputsZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> LDKCVec_TransactionOutputsZWrapper {
@@ -2629,6 +2701,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
+								return extractNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TransactionZWrapper(array: [[UInt8]]) -> LDKCVec_TransactionZWrapper {
@@ -2795,6 +2871,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKTxOutArray(array: [LDKTxOut]) -> [LDKTxOut] {
+								return extractNativeLDKTxOutArray(array: wrapDanglingNativeLDKTxOutArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TxidZWrapper(array: [LDKThirtyTwoBytes]) -> LDKCVec_TxidZWrapper {
@@ -2953,6 +3033,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKUpdateAddHTLCArray(array: [LDKUpdateAddHTLC]) -> [LDKUpdateAddHTLC] {
+								return extractNativeLDKUpdateAddHTLCArray(array: wrapDanglingNativeLDKUpdateAddHTLCArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateFailHTLCZWrapper(array: [LDKUpdateFailHTLC]) -> LDKCVec_UpdateFailHTLCZWrapper {
@@ -3041,6 +3125,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKUpdateFailHTLCArray(array: [LDKUpdateFailHTLC]) -> [LDKUpdateFailHTLC] {
+								return extractNativeLDKUpdateFailHTLCArray(array: wrapDanglingNativeLDKUpdateFailHTLCArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateFailMalformedHTLCZWrapper(array: [LDKUpdateFailMalformedHTLC]) -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
@@ -3129,6 +3217,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKUpdateFailMalformedHTLCArray(array: [LDKUpdateFailMalformedHTLC]) -> [LDKUpdateFailMalformedHTLC] {
+								return extractNativeLDKUpdateFailMalformedHTLCArray(array: wrapDanglingNativeLDKUpdateFailMalformedHTLCArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateFulfillHTLCZWrapper(array: [LDKUpdateFulfillHTLC]) -> LDKCVec_UpdateFulfillHTLCZWrapper {
@@ -3217,6 +3309,10 @@ public class Bindings{
 							}
 						}
 					
+							internal class func cloneNativeLDKUpdateFulfillHTLCArray(array: [LDKUpdateFulfillHTLC]) -> [LDKUpdateFulfillHTLC] {
+								return extractNativeLDKUpdateFulfillHTLCArray(array: wrapDanglingNativeLDKUpdateFulfillHTLCArray(array: array))
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_u64ZWrapper(array: [UInt64]) -> LDKCVec_u64ZWrapper {
@@ -3634,7 +3730,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 								first_hopsPointer!.initialize(to: Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hopsUnwrapped).cOpaqueStruct!)
 							}
 						
-						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hops)
+						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: Bindings.cloneNativeLDKRouteHintArray(array: last_hops))
 						defer {
 							last_hopsWrapper.noOpRetain()
 						}

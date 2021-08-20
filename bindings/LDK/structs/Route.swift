@@ -12,7 +12,7 @@ public class Route {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-						let paths_argWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: paths_arg)
+						let paths_argWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: Bindings.cloneNativeLDKRouteHopArray(array: paths_arg))
 						defer {
 							paths_argWrapper.noOpRetain()
 						}
@@ -34,7 +34,7 @@ public class Route {
 							let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-						let valWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: val)
+						let valWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: Bindings.cloneNativeLDKRouteHopArray(array: val))
 						defer {
 							valWrapper.noOpRetain()
 						}

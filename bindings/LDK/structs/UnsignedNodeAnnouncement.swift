@@ -97,7 +97,7 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: val)
+						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: Bindings.cloneNativeLDKNetAddressArray(array: val))
 						defer {
 							valWrapper.noOpRetain()
 						}

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//import LDKHeaders
+import LDKHeaders
 
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
@@ -42,27 +42,33 @@ public class ChannelManagerConstructor {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
-        /*
+
         for currentSerializedChannelMonitor in channel_monitors_serialized {
             let res: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
             if res.cOpaqueStruct?.result_ok != true {
                 throw InvalidSerializedDataError.invalidSerializedChannelMonitor
             }
+            res.dangle()
+
             let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = res.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             var b: LDKChannelMonitor = value.result!.pointee.b
             b.is_owned = false
+
             var clonedChannelMonitor = ChannelMonitor(pointer: b)
+            clonedChannelMonitor.dangle()
             // var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
-            clonedChannelMonitor.cOpaqueStruct?.is_owned = false
+            // clonedChannelMonitor.cOpaqueStruct?.is_owned = false // is_owned should never have to be modified
+
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
             self.channel_monitors.append((clonedChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
         }
-        */
+
         let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
         if res.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
+        res.dangle()
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
         let channelManager = ChannelManager(pointer: res.cOpaqueStruct!.contents.result.pointee.b)
 
@@ -74,15 +80,15 @@ public class ChannelManagerConstructor {
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         } else {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         }
 
         if let filter = filter {
             for (currentMonitor, _) in self.channel_monitors {
-                currentMonitor.load_outputs_to_watch(filter: filter)
+                // currentMonitor.load_outputs_to_watch(filter: filter)
             }
         }
 

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 
 	private static var instanceCounter: UInt = 0

@@ -52,13 +52,12 @@ class LDKSwiftTest: XCTestCase {
 
         let serializedChannelMonitors: [[UInt8]] = LDKTestFixtures.serializedChannelMonitors
 
-        let monitors: [LDKChannelMonitor] = []
+        var monitors: [LDKChannelMonitor] = []
         // let secondConfig = config.clone()
-        let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: serialized_channel_manager, arg_keys_manager: keysInterface, arg_fee_estimator: feeEstimator, arg_chain_monitor: chainMonitor.as_Watch(), arg_tx_broadcaster: broadcaster, arg_logger: logger, arg_default_config: config, arg_channel_monitors: monitors)
+        // let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: serialized_channel_manager, arg_keys_manager: keysInterface, arg_fee_estimator: feeEstimator, arg_chain_monitor: chainMonitor.as_Watch(), arg_tx_broadcaster: broadcaster, arg_logger: logger, arg_default_config: config, arg_channel_monitors: monitors)
 
         print("last statement in memory leak test")
 
-        /*
         let channel_manager_constructor = try ChannelManagerConstructor(
                 channel_manager_serialized: serialized_channel_manager,
                 channel_monitors_serialized: serializedChannelMonitors,
@@ -70,7 +69,7 @@ class LDKSwiftTest: XCTestCase {
                 tx_broadcaster: broadcaster,
                 logger: logger
         )
-
+        /*
         let channel_manager = channel_manager_constructor.channelManager;
         let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
         channel_manager_constructor.chain_sync_completed(persister: cmPersister)

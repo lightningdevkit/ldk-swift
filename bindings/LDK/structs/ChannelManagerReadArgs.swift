@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ChannelManagerReadArgs {
 
 	private static var instanceCounter: UInt = 0
@@ -14,6 +16,7 @@ public class ChannelManagerReadArgs {
     	
 						let channel_monitorsWrapper = Bindings.new_LDKCVec_ChannelMonitorZWrapper(array: channel_monitors)
 						defer {
+                            channel_monitorsWrapper.dangle()
 							channel_monitorsWrapper.noOpRetain()
 						}
 					

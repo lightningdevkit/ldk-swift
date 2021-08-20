@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C3Tuple_RawInvoice_u832InvoiceSignatureZ {
 
 	private static var instanceCounter: UInt = 0

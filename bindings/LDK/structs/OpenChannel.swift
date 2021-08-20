@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class OpenChannel {
 
 	private static var instanceCounter: UInt = 0

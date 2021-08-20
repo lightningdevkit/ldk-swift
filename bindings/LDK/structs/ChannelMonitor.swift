@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelMonitor {
 
 	private static var instanceCounter: UInt = 0
@@ -18,6 +16,20 @@ public class ChannelMonitor {
 	}
 
     /* STRUCT_METHODS_START */
+
+    public func clone() -> ChannelMonitor {
+    	
+        return ChannelMonitor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitor>) in
+ChannelMonitor_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> ChannelMonitor {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class Watch {
 
 	private static var instanceCounter: UInt = 0
@@ -119,7 +117,7 @@ public class NativelyImplementedWatch: Watch {
 		
 				
 				return 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, monitor.cOpaqueStruct!))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, monitor.danglingClone().cOpaqueStruct!))
 				
 			
 	}

@@ -222,10 +222,16 @@ public class Bindings{
 	/* RUST_TO_SWIFT_END */
 
     public class func LDKStr_to_string(nativeType: LDKStr) -> String {
-        let string = String(cString: nativeType.chars)
-        assert(string.count == nativeType.len)
-        return string
-    }
+		var array = [UInt8]()
+		for index in 0..<Int(nativeType.len) {
+			let currentEntry = nativeType.chars[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		let data = Data(bytes: array)
+		let string = String(data: data, encoding: .utf8)!
+		return string
+	}
 
     public class func UnsafeIntPointer_to_string(nativeType: UnsafePointer<Int8>) -> String {
 		let string = String(cString: nativeType)

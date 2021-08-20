@@ -1,6 +1,7 @@
 import re
 
 from src.generators.util_generators import UtilGenerator
+import src.conversion_helper
 
 class VectorGenerator(UtilGenerator):
 
@@ -10,6 +11,7 @@ class VectorGenerator(UtilGenerator):
 			"(\/\* VECTOR_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* VECTOR_METHODS_END \*\/)",
 			flags=re.MULTILINE | re.DOTALL)
 		self.loadTemplate()
+		self.extractors = {}
 
 	def generate_vector(self, vector_name, vector_type_details):
 		dimensions = 1
@@ -18,6 +20,7 @@ class VectorGenerator(UtilGenerator):
 		is_primitive = vector_type_details.is_primitive
 		pointerTypeName = 'UInt8'
 		shallowmost_iteratee_is_tuple_primitive = False
+		extraction_method = ''
 
 		if is_primitive:
 			swift_primitive = vector_type_details.primitive_swift_counterpart
@@ -55,6 +58,44 @@ class VectorGenerator(UtilGenerator):
 					}}
 				'''
 
+			if shallowmost_iteratee.name not in self.extractors and not shallowmost_iteratee_is_tuple_primitive:
+				self.extractors[shallowmost_iteratee.name] = True
+				if not shallowmost_iteratee.name.startswith('LDK'):
+					pass
+				elif shallowmost_iteratee.name.startswith('LDKCVec_'):
+					pass
+				elif shallowmost_iteratee.primitive_swift_counterpart == 'UInt8':
+					pass
+				elif shallowmost_iteratee.type.name == 'BYTE_ARRAY': # BYTE_ARRAY, therefore not associated with a singular type
+					pass
+				else:
+					cloneability_lookup = shallowmost_iteratee.name.lstrip('LDK')
+					shallowmost_swift_type_name = cloneability_lookup.replace('CResult_', 'Result_').replace('CTuple_', 'Tuple_')
+					is_cloneable = cloneability_lookup in src.conversion_helper.cloneable_types
+					cloneability_infix = ''
+					if is_cloneable:
+						cloneability_infix = '.danglingClone()'
+					print('Shallowmost iteratee:', shallowmost_iteratee.name, 'cloneable:', is_cloneable)
+					extraction_method = f'''
+						public class func extractNative{shallowmost_iteratee.name}Array(array: [{shallowmost_swift_type_name}]) -> [{shallowmost_iteratee.name}] {{
+							return array.map {{ entry -> {shallowmost_iteratee.name} in
+								entry{cloneability_infix}.cOpaqueStruct!
+							}}
+						}}
+						
+						public class func wrapNative{shallowmost_iteratee.name}Array(array: [{shallowmost_iteratee.name}]) -> [{shallowmost_swift_type_name}] {{
+							return array.map {{ entry -> {shallowmost_swift_type_name} in
+								{shallowmost_swift_type_name}(pointer: entry)
+							}}
+						}}
+						
+						public class func wrapDanglingNative{shallowmost_iteratee.name}Array(array: [{shallowmost_iteratee.name}]) -> [{shallowmost_swift_type_name}] {{
+							return array.map {{ entry -> {shallowmost_swift_type_name} in
+								{shallowmost_swift_type_name}(pointer: entry).dangle()
+							}}
+						}}
+					'''
+
 
 		mutating_current_vector_methods = self.template
 		for dim_delta in range(1, dimensions):
@@ -82,5 +123,7 @@ class VectorGenerator(UtilGenerator):
 
 		mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive',
 																				  swift_primitive)
+
+		mutating_current_vector_methods += extraction_method
 
 		self.filled_template += "\n"+mutating_current_vector_methods+"\n"

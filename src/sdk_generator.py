@@ -98,10 +98,10 @@ def generate_sdk():
 	generate_option_wrappers(parser)
 	generate_trait_placeholders(parser, returned_trait_instances)
 
-	print('\n\nUtilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(src.conversion_helper.detected_cloneable_types)))), '\n\n')
+	# print('\n\nUtilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(src.conversion_helper.detected_cloneable_types)))), '\n\n')
 
 	undetected_cloneables = src.conversion_helper.cloneable_types - src.conversion_helper.detected_cloneable_types
-	print('\n\nUnutilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(undetected_cloneables)))), '\n\n')
+	# print('\n\nUnutilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(undetected_cloneables)))), '\n\n')
 
 
 

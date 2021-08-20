@@ -287,7 +287,9 @@ class TraitGenerator:
 				elif current_lambda_name == 'clone' and has_clone_implementation:
 					current_swift_callback_replacement = ''
 				else:
-					print('has editable clone or free implementation')
+					# TODO: figure out editable clone/free implementations
+					# print('has editable clone or free implementation')
+					pass
 
 
 			if not current_lambda['is_constant']:

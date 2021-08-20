@@ -31,6 +31,7 @@ class TypeDetails:
 		self.constructor_method = None
 		self.free_method = None
 		self.is_primitive = False
+		self.is_transparent = False
 		self.is_pointer_based_iterator = False
 		self.is_tuple_based_iterator = False
 		self.is_unary_tuple = False
@@ -74,7 +75,7 @@ class LightningHeaderParser():
 		self.populate_type_details()
 
 		# sanity check of cloneable types
-		print('\n\nCloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(self.cloneable_types)))), '\n\n')
+		# print('\n\nCloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(self.cloneable_types)))), '\n\n')
 
 	def gather_types(self):
 		self.unitary_enums = set()
@@ -189,6 +190,7 @@ class LightningHeaderParser():
 					iterated_type = None  # contains data field
 					obj_lines = current_block_object.splitlines()
 					is_opaque = False  # has is_owned property?
+					is_transparent = False # is a struct that needs custom getters
 					result_contents = None  # is union of result pointers with contents fields
 					is_unitary_enum = False
 					is_union_enum = False
@@ -199,6 +201,7 @@ class LightningHeaderParser():
 					is_ownable = False
 
 					ordered_interpreted_lines = []
+					ordered_uninterpreted_lines = []
 
 					for idx, struct_line in enumerate(obj_lines):
 						struct_name_match = struct_name_regex.match(struct_line)
@@ -225,6 +228,9 @@ class LightningHeaderParser():
 						elif struct_name.startswith("LDKC2Tuple_") or struct_name.startswith("LDKC3Tuple_"):
 							# this check should only be run once, it can be moved out of the loop
 							is_tuple = True
+						elif struct_name in ['LDKTxOut']:
+							is_opaque = True
+							is_transparent = True # oxymoronic, pending name refactor
 						trait_fn_match = line_indicates_trait_regex.match(struct_line)
 						if trait_fn_match is not None:
 							trait_fn_lines.append(trait_fn_match)
@@ -237,7 +243,9 @@ class LightningHeaderParser():
 							nullable_trait_fn_match = line_indicates_nullable_trait_method_regex.match(struct_line)
 							if nullable_trait_fn_match:
 								ordered_interpreted_lines.append({"type": "nullable_lambda", "value": nullable_trait_fn_match})
-								print(f'\nNullable trait property line: \n{struct_line}\n')
+							elif struct_name_match is None and idx > 0 and idx < len(obj_lines) - 1:
+								ordered_uninterpreted_lines.append(struct_line)
+								# print(f'\nNullable trait property line: \n{struct_line}\n')
 						if struct_line == 'bool is_owned;':
 							is_ownable = True
 						field_lines.append(struct_line)
@@ -258,6 +266,9 @@ class LightningHeaderParser():
 
 					if is_opaque:
 						self.type_details[struct_name].type = CTypes.OPAQUE_STRUCT
+						self.type_details[struct_name].is_transparent = is_transparent
+						if is_transparent:
+							self.type_details[struct_name].fields = self.parse_transparent_struct_fields(ordered_interpreted_lines, ordered_uninterpreted_lines)
 						self.opaque_structs.add(struct_name)
 					# with open(f"{sys.argv[3]}/structs/{struct_name.replace('LDK', '')}{consts.file_ext}", "w") as out_java_struct:
 					#     out_opaque_struct_human = consts.map_opaque_struct(struct_name)
@@ -361,7 +372,7 @@ class LightningHeaderParser():
 						self.trait_structs.add(struct_name)
 						lambdas = self.parse_lambda_details(ordered_interpreted_lines)
 						current_type_detail.lambdas = lambdas
-					elif struct_name == "LDKTxOut":
+					elif struct_name == "xxLDKTxOut":
 						# TODO: why is this even a special case? It's Swift, we dgaf
 						pass
 					else:
@@ -430,7 +441,7 @@ class LightningHeaderParser():
 						is_independent = method_details['is_independent']
 						native_method_name = method_details['name']['native']
 						if is_independent or native_method_name in ['C2Tuple_BlockHashChannelManagerZ_read', 'C2Tuple_BlockHashChannelMonitorZ_read', 'FilesystemPersister_persist_manager']:
-							print('native method:', native_method_name)
+							# print('native method:', native_method_name)
 							if native_method_name not in self.global_methods:
 								self.global_methods.add(native_method_name)
 								self.static_methods.append(method_details)
@@ -543,6 +554,31 @@ class LightningHeaderParser():
 				else:
 					enum_variants.append(ComplexEnumVariantInfo(raw_variant_name, fields, True))
 		return enum_variants
+
+	def parse_transparent_struct_fields(self, ordered_interpreted_lines, ordered_uninterpreted_lines):
+		field_var_convs = []
+		flattened_field_var_convs = []
+
+		fields = []
+
+		for current_interpreted_line in ordered_interpreted_lines:
+			if current_interpreted_line['type'] == 'field':
+				var_line = current_interpreted_line['value']
+				current_field_type = var_line.group(1)
+				current_field_name = var_line.group(2)
+				if False and current_field_type in self.trait_structs:
+					fields.append({'name': current_field_name, 'field_details': self.type_details[current_field_type], 'is_lambda': False})
+				# flattened_field_var_convs.extend(self.type_details[current_field_type])
+				else:
+					mapped = swift_type_mapper.map_types_to_swift(current_field_type + " " + current_field_name, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+					fields.append({'name': current_field_name, 'field_details': mapped, 'is_lambda': False})
+
+		for current_line in ordered_uninterpreted_lines:
+			cleaned_line = current_line.strip().rstrip(';')
+			current_field = swift_type_mapper.map_types_to_swift(cleaned_line, None, False, self.tuple_types, self.unitary_enums, self.language_constants)
+			fields.append({'name': current_field.var_name, 'field_details': current_field})
+
+		return fields
 
 	def parse_lambda_details(self, ordered_interpreted_lines):
 		field_var_convs = []

@@ -1339,24 +1339,6 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
-						public class func extractNativeLDKCVec_RouteHopZArray(array: [CVec_RouteHopZ]) -> [LDKCVec_RouteHopZ] {
-							return array.map { entry -> LDKCVec_RouteHopZ in
-								entry.cOpaqueStruct!
-							}
-						}
-						
-						public class func wrapNativeLDKCVec_RouteHopZArray(array: [LDKCVec_RouteHopZ]) -> [CVec_RouteHopZ] {
-							return array.map { entry -> CVec_RouteHopZ in
-								CVec_RouteHopZ(pointer: entry)
-							}
-						}
-						
-						public class func wrapDanglingNativeLDKCVec_RouteHopZArray(array: [LDKCVec_RouteHopZ]) -> [CVec_RouteHopZ] {
-							return array.map { entry -> CVec_RouteHopZ in
-								CVec_RouteHopZ(pointer: entry).dangle()
-							}
-						}
-					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_CVec_u8ZZWrapper(array: [[UInt8]]) -> LDKCVec_CVec_u8ZZWrapper {
@@ -1435,24 +1417,6 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
-						public class func extractNativeLDKCVec_u8ZArray(array: [CVec_u8Z]) -> [LDKCVec_u8Z] {
-							return array.map { entry -> LDKCVec_u8Z in
-								entry.cOpaqueStruct!
-							}
-						}
-						
-						public class func wrapNativeLDKCVec_u8ZArray(array: [LDKCVec_u8Z]) -> [CVec_u8Z] {
-							return array.map { entry -> CVec_u8Z in
-								CVec_u8Z(pointer: entry)
-							}
-						}
-						
-						public class func wrapDanglingNativeLDKCVec_u8ZArray(array: [LDKCVec_u8Z]) -> [CVec_u8Z] {
-							return array.map { entry -> CVec_u8Z in
-								CVec_u8Z(pointer: entry).dangle()
-							}
-						}
-					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_ChannelDetailsZWrapper(array: [LDKChannelDetails]) -> LDKCVec_ChannelDetailsZWrapper {
@@ -2743,24 +2707,6 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
-						public class func extractNativeLDKTransactionArray(array: [Transaction]) -> [LDKTransaction] {
-							return array.map { entry -> LDKTransaction in
-								entry.cOpaqueStruct!
-							}
-						}
-						
-						public class func wrapNativeLDKTransactionArray(array: [LDKTransaction]) -> [Transaction] {
-							return array.map { entry -> Transaction in
-								Transaction(pointer: entry)
-							}
-						}
-						
-						public class func wrapDanglingNativeLDKTransactionArray(array: [LDKTransaction]) -> [Transaction] {
-							return array.map { entry -> Transaction in
-								Transaction(pointer: entry).dangle()
-							}
-						}
-					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TxOutZWrapper(array: [LDKTxOut]) -> LDKCVec_TxOutZWrapper {
@@ -2919,24 +2865,6 @@ public class Bindings{
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
-						public class func extractNativeLDKThirtyTwoBytesArray(array: [ThirtyTwoBytes]) -> [LDKThirtyTwoBytes] {
-							return array.map { entry -> LDKThirtyTwoBytes in
-								entry.cOpaqueStruct!
-							}
-						}
-						
-						public class func wrapNativeLDKThirtyTwoBytesArray(array: [LDKThirtyTwoBytes]) -> [ThirtyTwoBytes] {
-							return array.map { entry -> ThirtyTwoBytes in
-								ThirtyTwoBytes(pointer: entry)
-							}
-						}
-						
-						public class func wrapDanglingNativeLDKThirtyTwoBytesArray(array: [LDKThirtyTwoBytes]) -> [ThirtyTwoBytes] {
-							return array.map { entry -> ThirtyTwoBytes in
-								ThirtyTwoBytes(pointer: entry).dangle()
-							}
-						}
-					
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_UpdateAddHTLCZWrapper(array: [LDKUpdateAddHTLC]) -> LDKCVec_UpdateAddHTLCZWrapper {
@@ -3878,23 +3806,6 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.cOpaqueStruct!, first_hopsPointer, Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hops).cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!))
 			}
 		}
-	}
-
-}
-
-public class TxOut {
-
-	public internal(set) var cOpaqueStruct: LDKTxOut?;
-	init(pointer: LDKTxOut) {
-		self.cOpaqueStruct = pointer
-	}
-
-	public func getScriptPubkey() -> [UInt8] {
-		return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey)
-	}
-
-	public func getValue() -> UInt64 {
-		return self.cOpaqueStruct!.value
 	}
 
 }

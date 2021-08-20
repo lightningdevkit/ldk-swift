@@ -102,7 +102,8 @@ class ConversionHelper:
 				# print(f'Cloneable type detected: {current_argument_details.swift_type}')
 				detected_cloneable_types.add(current_argument_details.swift_type)
 			elif current_argument_details.rust_obj is not None and ('Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith('['):
-				print('Potentially undetected cloneable type?', current_argument_details.rust_obj)
+				# TODO: figure out potentially undetected cloneable types
+				# print('Potentially undetected cloneable type?', current_argument_details.rust_obj)
 				pass
 
 

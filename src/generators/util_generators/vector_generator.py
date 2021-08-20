@@ -99,7 +99,10 @@ class VectorGenerator(UtilGenerator):
 					if is_cloneable:
 						extraction_method += f'''
 							internal class func cloneNative{shallowmost_iteratee.name}Array(array: [{shallowmost_iteratee.name}]) -> [{shallowmost_iteratee.name}] {{
-								return extractNative{shallowmost_iteratee.name}Array(array: wrapDanglingNative{shallowmost_iteratee.name}Array(array: array))
+								return array.map {{ entry -> {shallowmost_iteratee.name} in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									{shallowmost_swift_type_name}(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}}
 							}}
 						'''
 

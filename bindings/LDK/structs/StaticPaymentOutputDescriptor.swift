@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class StaticPaymentOutputDescriptor {
 
 	private static var instanceCounter: UInt = 0

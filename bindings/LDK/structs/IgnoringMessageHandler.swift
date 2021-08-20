@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class IgnoringMessageHandler {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class UpdateFailMalformedHTLC {
 
 	private static var instanceCounter: UInt = 0

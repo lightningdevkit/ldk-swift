@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import LDKHeaders
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -646,7 +647,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKAPIErrorArray(array: [LDKAPIError]) -> [LDKAPIError] {
-								return extractNativeLDKAPIErrorArray(array: wrapDanglingNativeLDKAPIErrorArray(array: array))
+								return array.map { entry -> LDKAPIError in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									APIError(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -826,7 +830,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
-								return extractNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: array))
+								return array.map { entry -> LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -918,7 +925,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKC2Tuple_u32ScriptZArray(array: [LDKC2Tuple_u32ScriptZ]) -> [LDKC2Tuple_u32ScriptZ] {
-								return extractNativeLDKC2Tuple_u32ScriptZArray(array: wrapDanglingNativeLDKC2Tuple_u32ScriptZArray(array: array))
+								return array.map { entry -> LDKC2Tuple_u32ScriptZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C2Tuple_u32ScriptZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1010,7 +1020,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKC2Tuple_u32TxOutZArray(array: [LDKC2Tuple_u32TxOutZ]) -> [LDKC2Tuple_u32TxOutZ] {
-								return extractNativeLDKC2Tuple_u32TxOutZArray(array: wrapDanglingNativeLDKC2Tuple_u32TxOutZArray(array: array))
+								return array.map { entry -> LDKC2Tuple_u32TxOutZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C2Tuple_u32TxOutZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1102,7 +1115,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKC2Tuple_usizeTransactionZArray(array: [LDKC2Tuple_usizeTransactionZ]) -> [LDKC2Tuple_usizeTransactionZ] {
-								return extractNativeLDKC2Tuple_usizeTransactionZArray(array: wrapDanglingNativeLDKC2Tuple_usizeTransactionZArray(array: array))
+								return array.map { entry -> LDKC2Tuple_usizeTransactionZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C2Tuple_usizeTransactionZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1194,7 +1210,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
-								return extractNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: wrapDanglingNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: array))
+								return array.map { entry -> LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1286,7 +1305,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKCResult_NoneAPIErrorZArray(array: [LDKCResult_NoneAPIErrorZ]) -> [LDKCResult_NoneAPIErrorZ] {
-								return extractNativeLDKCResult_NoneAPIErrorZArray(array: wrapDanglingNativeLDKCResult_NoneAPIErrorZArray(array: array))
+								return array.map { entry -> LDKCResult_NoneAPIErrorZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									Result_NoneAPIErrorZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1534,7 +1556,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKChannelDetailsArray(array: [LDKChannelDetails]) -> [LDKChannelDetails] {
-								return extractNativeLDKChannelDetailsArray(array: wrapDanglingNativeLDKChannelDetailsArray(array: array))
+								return array.map { entry -> LDKChannelDetails in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									ChannelDetails(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1626,7 +1651,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [LDKChannelMonitor] {
-								return extractNativeLDKChannelMonitorArray(array: wrapDanglingNativeLDKChannelMonitorArray(array: array))
+								return array.map { entry -> LDKChannelMonitor in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									ChannelMonitor(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1718,7 +1746,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKEventArray(array: [LDKEvent]) -> [LDKEvent] {
-								return extractNativeLDKEventArray(array: wrapDanglingNativeLDKEventArray(array: array))
+								return array.map { entry -> LDKEvent in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									Event(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1810,7 +1841,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKMessageSendEventArray(array: [LDKMessageSendEvent]) -> [LDKMessageSendEvent] {
-								return extractNativeLDKMessageSendEventArray(array: wrapDanglingNativeLDKMessageSendEventArray(array: array))
+								return array.map { entry -> LDKMessageSendEvent in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									MessageSendEvent(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1902,7 +1936,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKMonitorEventArray(array: [LDKMonitorEvent]) -> [LDKMonitorEvent] {
-								return extractNativeLDKMonitorEventArray(array: wrapDanglingNativeLDKMonitorEventArray(array: array))
+								return array.map { entry -> LDKMonitorEvent in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									MonitorEvent(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -1994,7 +2031,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKNetAddressArray(array: [LDKNetAddress]) -> [LDKNetAddress] {
-								return extractNativeLDKNetAddressArray(array: wrapDanglingNativeLDKNetAddressArray(array: array))
+								return array.map { entry -> LDKNetAddress in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									NetAddress(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -2086,7 +2126,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKNodeAnnouncementArray(array: [LDKNodeAnnouncement]) -> [LDKNodeAnnouncement] {
-								return extractNativeLDKNodeAnnouncementArray(array: wrapDanglingNativeLDKNodeAnnouncementArray(array: array))
+								return array.map { entry -> LDKNodeAnnouncement in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									NodeAnnouncement(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -2178,7 +2221,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKPrivateRouteArray(array: [LDKPrivateRoute]) -> [LDKPrivateRoute] {
-								return extractNativeLDKPrivateRouteArray(array: wrapDanglingNativeLDKPrivateRouteArray(array: array))
+								return array.map { entry -> LDKPrivateRoute in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									PrivateRoute(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -2348,7 +2394,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKRouteHintArray(array: [LDKRouteHint]) -> [LDKRouteHint] {
-								return extractNativeLDKRouteHintArray(array: wrapDanglingNativeLDKRouteHintArray(array: array))
+								return array.map { entry -> LDKRouteHint in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									RouteHint(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -2440,7 +2489,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKRouteHopArray(array: [LDKRouteHop]) -> [LDKRouteHop] {
-								return extractNativeLDKRouteHopArray(array: wrapDanglingNativeLDKRouteHopArray(array: array))
+								return array.map { entry -> LDKRouteHop in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									RouteHop(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -2610,7 +2662,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKSpendableOutputDescriptorArray(array: [LDKSpendableOutputDescriptor]) -> [LDKSpendableOutputDescriptor] {
-								return extractNativeLDKSpendableOutputDescriptorArray(array: wrapDanglingNativeLDKSpendableOutputDescriptorArray(array: array))
+								return array.map { entry -> LDKSpendableOutputDescriptor in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									SpendableOutputDescriptor(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -2702,7 +2757,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
-								return extractNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: array))
+								return array.map { entry -> LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -2872,7 +2930,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKTxOutArray(array: [LDKTxOut]) -> [LDKTxOut] {
-								return extractNativeLDKTxOutArray(array: wrapDanglingNativeLDKTxOutArray(array: array))
+								return array.map { entry -> LDKTxOut in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									TxOut(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -3034,7 +3095,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKUpdateAddHTLCArray(array: [LDKUpdateAddHTLC]) -> [LDKUpdateAddHTLC] {
-								return extractNativeLDKUpdateAddHTLCArray(array: wrapDanglingNativeLDKUpdateAddHTLCArray(array: array))
+								return array.map { entry -> LDKUpdateAddHTLC in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									UpdateAddHTLC(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -3126,7 +3190,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKUpdateFailHTLCArray(array: [LDKUpdateFailHTLC]) -> [LDKUpdateFailHTLC] {
-								return extractNativeLDKUpdateFailHTLCArray(array: wrapDanglingNativeLDKUpdateFailHTLCArray(array: array))
+								return array.map { entry -> LDKUpdateFailHTLC in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									UpdateFailHTLC(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -3218,7 +3285,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKUpdateFailMalformedHTLCArray(array: [LDKUpdateFailMalformedHTLC]) -> [LDKUpdateFailMalformedHTLC] {
-								return extractNativeLDKUpdateFailMalformedHTLCArray(array: wrapDanglingNativeLDKUpdateFailMalformedHTLCArray(array: array))
+								return array.map { entry -> LDKUpdateFailMalformedHTLC in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									UpdateFailMalformedHTLC(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 
@@ -3310,7 +3380,10 @@ public class Bindings{
 						}
 					
 							internal class func cloneNativeLDKUpdateFulfillHTLCArray(array: [LDKUpdateFulfillHTLC]) -> [LDKUpdateFulfillHTLC] {
-								return extractNativeLDKUpdateFulfillHTLCArray(array: wrapDanglingNativeLDKUpdateFulfillHTLCArray(array: array))
+								return array.map { entry -> LDKUpdateFulfillHTLC in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									UpdateFulfillHTLC(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
 							}
 						
 

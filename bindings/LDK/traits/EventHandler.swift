@@ -4,7 +4,6 @@ open class EventHandler: NativeTypeWrapper {
 	internal let instanceNumber: UInt
 
     public var cOpaqueStruct: LDKEventHandler?
-    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -40,13 +39,13 @@ open class EventHandler: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKEventHandler, anchor: AnyObject){
+	public init(pointer: LDKEventHandler, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.anchor = anchor
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */

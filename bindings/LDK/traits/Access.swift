@@ -4,7 +4,6 @@ open class Access: NativeTypeWrapper {
 	internal let instanceNumber: UInt
 
     public var cOpaqueStruct: LDKAccess?
-    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -45,13 +44,13 @@ open class Access: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKAccess, anchor: AnyObject){
+	public init(pointer: LDKAccess, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.anchor = anchor
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */

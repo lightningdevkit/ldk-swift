@@ -4,7 +4,6 @@ open class TraitName: NativeTypeWrapper {
 	internal let instanceNumber: UInt
 
     public var cOpaqueStruct: TraitType?
-    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -30,13 +29,13 @@ open class TraitName: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: TraitType, anchor: AnyObject){
+	public init(pointer: TraitType, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.anchor = anchor
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */

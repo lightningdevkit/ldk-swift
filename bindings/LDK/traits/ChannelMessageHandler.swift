@@ -4,7 +4,6 @@ open class ChannelMessageHandler: NativeTypeWrapper {
 	internal let instanceNumber: UInt
 
     public var cOpaqueStruct: LDKChannelMessageHandler?
-    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -194,13 +193,13 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKChannelMessageHandler, anchor: AnyObject){
+	public init(pointer: LDKChannelMessageHandler, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.anchor = anchor
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */

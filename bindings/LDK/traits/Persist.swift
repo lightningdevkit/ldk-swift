@@ -4,7 +4,6 @@ open class Persist: NativeTypeWrapper {
 	internal let instanceNumber: UInt
 
     public var cOpaqueStruct: LDKPersist?
-    internal private(set) var anchor: AnyObject? = nil
 
     public init() {
 		Self.instanceCounter += 1
@@ -50,13 +49,13 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKPersist, anchor: AnyObject){
+	public init(pointer: LDKPersist, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.anchor = anchor
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */

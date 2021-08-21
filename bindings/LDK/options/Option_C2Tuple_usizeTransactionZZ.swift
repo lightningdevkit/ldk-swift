@@ -1,10 +1,9 @@
-public class Option_C2Tuple_usizeTransactionZZ {
+public class Option_C2Tuple_usizeTransactionZZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?;
+    public internal(set) var cOpaqueStruct: LDKCOption_C2Tuple_usizeTransactionZZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(value: C2Tuple_usizeTransactionZ?) {
@@ -20,6 +19,7 @@ public class Option_C2Tuple_usizeTransactionZZ {
 				}
 			
         
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -27,6 +27,7 @@ public class Option_C2Tuple_usizeTransactionZZ {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* OPTION_METHODS_START */

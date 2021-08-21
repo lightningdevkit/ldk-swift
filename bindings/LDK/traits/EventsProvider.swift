@@ -1,8 +1,7 @@
-open class EventsProvider {
+open class EventsProvider: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKEventsProvider?
     internal private(set) var anchor: AnyObject? = nil
@@ -30,12 +29,14 @@ open class EventsProvider {
         self.cOpaqueStruct = LDKEventsProvider(this_arg: Bindings.instanceToPointer(instance: self), 
 			process_pending_events: process_pending_eventsCallback,
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKEventsProvider){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKEventsProvider, anchor: AnyObject){
@@ -44,6 +45,7 @@ open class EventsProvider {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

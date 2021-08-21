@@ -1,10 +1,9 @@
-public class ClosingSignedFeeRange {
+public class ClosingSignedFeeRange: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKClosingSignedFeeRange?;
+    public internal(set) var cOpaqueStruct: LDKClosingSignedFeeRange?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ClosingSignedFeeRange {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ClosingSignedFeeRange_new(min_fee_satoshis_arg, max_fee_satoshis_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ClosingSignedFeeRange {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

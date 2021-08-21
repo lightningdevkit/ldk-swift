@@ -1,10 +1,9 @@
-public class CommitmentSigned {
+public class CommitmentSigned: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKCommitmentSigned?;
+    public internal(set) var cOpaqueStruct: LDKCommitmentSigned?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -18,6 +17,7 @@ public class CommitmentSigned {
 						}
 					
         self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), htlc_signatures_argWrapper.dangle().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,6 +25,7 @@ public class CommitmentSigned {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

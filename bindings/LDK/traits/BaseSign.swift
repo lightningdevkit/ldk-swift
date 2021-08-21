@@ -1,8 +1,7 @@
-open class BaseSign {
+open class BaseSign: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKBaseSign?
     internal private(set) var anchor: AnyObject? = nil
@@ -118,12 +117,14 @@ open class BaseSign {
 			sign_channel_announcement: sign_channel_announcementCallback,
 			ready_channel: ready_channelCallback,
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKBaseSign){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKBaseSign, anchor: AnyObject){
@@ -132,6 +133,7 @@ open class BaseSign {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

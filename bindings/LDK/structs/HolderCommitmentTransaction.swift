@@ -1,10 +1,9 @@
-public class HolderCommitmentTransaction {
+public class HolderCommitmentTransaction: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKHolderCommitmentTransaction?;
+    public internal(set) var cOpaqueStruct: LDKHolderCommitmentTransaction?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -18,6 +17,7 @@ public class HolderCommitmentTransaction {
 						}
 					
         self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), counterparty_htlc_sigsWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,6 +25,7 @@ public class HolderCommitmentTransaction {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

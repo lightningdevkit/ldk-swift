@@ -1,10 +1,9 @@
-public class BuiltCommitmentTransaction {
+public class BuiltCommitmentTransaction: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKBuiltCommitmentTransaction?;
+    public internal(set) var cOpaqueStruct: LDKBuiltCommitmentTransaction?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -18,6 +17,7 @@ public class BuiltCommitmentTransaction {
 						}
 					
         self.cOpaqueStruct = BuiltCommitmentTransaction_new(transaction_argWrapper.cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: txid_arg))
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,6 +25,7 @@ public class BuiltCommitmentTransaction {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

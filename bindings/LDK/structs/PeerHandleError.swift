@@ -1,10 +1,9 @@
-public class PeerHandleError {
+public class PeerHandleError: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKPeerHandleError?;
+    public internal(set) var cOpaqueStruct: LDKPeerHandleError?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class PeerHandleError {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = PeerHandleError_new(no_connection_possible_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class PeerHandleError {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

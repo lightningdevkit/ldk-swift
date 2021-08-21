@@ -1,10 +1,9 @@
-public class ChannelUpdate {
+public class ChannelUpdate: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelUpdate?;
+    public internal(set) var cOpaqueStruct: LDKChannelUpdate?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChannelUpdate {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.danglingClone().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChannelUpdate {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,9 @@
-public class UpdateFulfillHTLC {
+public class UpdateFulfillHTLC: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKUpdateFulfillHTLC?;
+    public internal(set) var cOpaqueStruct: LDKUpdateFulfillHTLC?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class UpdateFulfillHTLC {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = UpdateFulfillHTLC_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), htlc_id_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage_arg))
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class UpdateFulfillHTLC {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,9 @@
-public class DataLossProtect {
+public class DataLossProtect: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKDataLossProtect?;
+    public internal(set) var cOpaqueStruct: LDKDataLossProtect?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class DataLossProtect {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = DataLossProtect_new(Bindings.new_LDKThirtyTwoBytes(array: your_last_per_commitment_secret_arg), Bindings.new_LDKPublicKey(array: my_current_per_commitment_point_arg))
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class DataLossProtect {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,9 @@
-public class ChannelTransactionParameters {
+public class ChannelTransactionParameters: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelTransactionParameters?;
+    public internal(set) var cOpaqueStruct: LDKChannelTransactionParameters?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChannelTransactionParameters {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelTransactionParameters_new(holder_pubkeys_arg.danglingClone().cOpaqueStruct!, holder_selected_contest_delay_arg, is_outbound_from_holder_arg, counterparty_parameters_arg.danglingClone().cOpaqueStruct!, funding_outpoint_arg.danglingClone().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChannelTransactionParameters {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

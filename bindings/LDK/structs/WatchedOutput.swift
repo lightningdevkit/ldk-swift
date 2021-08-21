@@ -1,10 +1,9 @@
-public class WatchedOutput {
+public class WatchedOutput: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKWatchedOutput?;
+    public internal(set) var cOpaqueStruct: LDKWatchedOutput?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -18,6 +17,7 @@ public class WatchedOutput {
 						}
 					
         self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.dangle().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,6 +25,7 @@ public class WatchedOutput {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

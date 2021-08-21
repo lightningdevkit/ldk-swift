@@ -1,10 +1,10 @@
-public class Result_DescriptionCreationErrorZ {
+public class Result_DescriptionCreationErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKCResult_DescriptionCreationErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_DescriptionCreationErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -20,6 +20,7 @@ public class Result_DescriptionCreationErrorZ {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public func isOk() -> Bool {

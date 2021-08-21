@@ -1,10 +1,9 @@
-public class PaymentPurpose {
+public class PaymentPurpose: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKPaymentPurpose?;
+    public internal(set) var cOpaqueStruct: LDKPaymentPurpose?
 
 	
 
@@ -12,6 +11,7 @@ public class PaymentPurpose {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* OPTION_METHODS_START */

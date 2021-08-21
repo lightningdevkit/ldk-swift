@@ -1,10 +1,9 @@
-public class ChannelDetails {
+public class ChannelDetails: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelDetails?;
+    public internal(set) var cOpaqueStruct: LDKChannelDetails?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChannelDetails {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.danglingClone().cOpaqueStruct!, funding_txo_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg.danglingClone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.danglingClone().cOpaqueStruct!, user_id_arg, outbound_capacity_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.danglingClone().cOpaqueStruct!, force_close_spend_delay_arg.danglingClone().cOpaqueStruct!, is_outbound_arg, is_funding_locked_arg, is_usable_arg, is_public_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChannelDetails {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

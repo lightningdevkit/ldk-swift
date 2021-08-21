@@ -1,10 +1,9 @@
-public class ReplyShortChannelIdsEnd {
+public class ReplyShortChannelIdsEnd: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKReplyShortChannelIdsEnd?;
+    public internal(set) var cOpaqueStruct: LDKReplyShortChannelIdsEnd?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ReplyShortChannelIdsEnd {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ReplyShortChannelIdsEnd_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), full_information_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ReplyShortChannelIdsEnd {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

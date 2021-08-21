@@ -156,7 +156,7 @@ class ResultGenerator:
 			struct_methods += '\n' + current_replacement + '\n'
 
 
-		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName {', f'class {swift_struct_name} {{')
+		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: ResultType', f'init(pointer: {struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: ResultType?', f'var cOpaqueStruct: {struct_name}?')
 		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)

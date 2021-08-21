@@ -1,10 +1,9 @@
-public class TxOut {
+public class TxOut: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKTxOut?;
+    public internal(set) var cOpaqueStruct: LDKTxOut?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -18,6 +17,7 @@ public class TxOut {
 						}
 					
         self.cOpaqueStruct = TxOut_new(script_pubkeyWrapper.dangle().cOpaqueStruct!, value)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,6 +25,7 @@ public class TxOut {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

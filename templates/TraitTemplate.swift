@@ -1,8 +1,7 @@
-open class TraitName {
+open class TraitName: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: TraitType?
     internal private(set) var anchor: AnyObject? = nil
@@ -20,12 +19,14 @@ open class TraitName {
 		/* NATIVE_CALLBACKS_END */
 
         self.cOpaqueStruct = TraitType(this_arg: Bindings.instanceToPointer(instance: self), native_callback_instantiation_arguments)
+        super.init()
     }
 
     public init(pointer: TraitType){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: TraitType, anchor: AnyObject){
@@ -34,6 +35,7 @@ open class TraitName {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

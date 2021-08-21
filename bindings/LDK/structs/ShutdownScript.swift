@@ -1,10 +1,9 @@
-public class ShutdownScript {
+public class ShutdownScript: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKShutdownScript?;
+    public internal(set) var cOpaqueStruct: LDKShutdownScript?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -15,6 +14,7 @@ public class ShutdownScript {
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: script_hash)) { (script_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ShutdownScript_new_p2wsh(script_hashPointer)
 }
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -22,6 +22,7 @@ ShutdownScript_new_p2wsh(script_hashPointer)
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

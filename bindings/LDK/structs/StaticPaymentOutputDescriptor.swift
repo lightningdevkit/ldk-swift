@@ -1,10 +1,9 @@
-public class StaticPaymentOutputDescriptor {
+public class StaticPaymentOutputDescriptor: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?;
+    public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class StaticPaymentOutputDescriptor {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.danglingClone().cOpaqueStruct!, output_arg, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class StaticPaymentOutputDescriptor {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

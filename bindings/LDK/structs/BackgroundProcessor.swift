@@ -1,10 +1,9 @@
-public class BackgroundProcessor {
+public class BackgroundProcessor: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKBackgroundProcessor?;
+    public internal(set) var cOpaqueStruct: LDKBackgroundProcessor?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -19,6 +18,7 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 }
 }
 }
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -26,6 +26,7 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,9 @@
-public class NodeInfo {
+public class NodeInfo: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKNodeInfo?;
+    public internal(set) var cOpaqueStruct: LDKNodeInfo?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -18,6 +17,7 @@ public class NodeInfo {
 						}
 					
         self.cOpaqueStruct = NodeInfo_new(channels_argWrapper.dangle().cOpaqueStruct!, lowest_inbound_channel_fees_arg.danglingClone().cOpaqueStruct!, announcement_info_arg.danglingClone().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,6 +25,7 @@ public class NodeInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

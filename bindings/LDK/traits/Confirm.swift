@@ -1,8 +1,7 @@
-open class Confirm {
+open class Confirm: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKConfirm?
     internal private(set) var anchor: AnyObject? = nil
@@ -72,12 +71,14 @@ open class Confirm {
 			best_block_updated: best_block_updatedCallback,
 			get_relevant_txids: get_relevant_txidsCallback,
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKConfirm){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKConfirm, anchor: AnyObject){
@@ -86,6 +87,7 @@ open class Confirm {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

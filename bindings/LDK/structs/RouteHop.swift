@@ -1,10 +1,9 @@
-public class RouteHop {
+public class RouteHop: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKRouteHop?;
+    public internal(set) var cOpaqueStruct: LDKRouteHop?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class RouteHop {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.danglingClone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class RouteHop {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

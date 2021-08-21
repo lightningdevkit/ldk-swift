@@ -1,8 +1,7 @@
-open class SocketDescriptor {
+open class SocketDescriptor: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKSocketDescriptor?
     internal private(set) var anchor: AnyObject? = nil
@@ -53,12 +52,14 @@ open class SocketDescriptor {
 			hash: hashCallback,
 			cloned: nil,
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKSocketDescriptor){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKSocketDescriptor, anchor: AnyObject){
@@ -67,6 +68,7 @@ open class SocketDescriptor {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

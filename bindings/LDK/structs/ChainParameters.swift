@@ -1,10 +1,9 @@
-public class ChainParameters {
+public class ChainParameters: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChainParameters?;
+    public internal(set) var cOpaqueStruct: LDKChainParameters?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChainParameters {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.danglingClone().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChainParameters {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

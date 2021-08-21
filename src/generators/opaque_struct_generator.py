@@ -178,7 +178,7 @@ class OpaqueStructGenerator:
 				current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
 				struct_methods += '\n' + current_replacement + '\n'
 
-		mutating_output_file_contents = mutating_output_file_contents.replace('class OpaqueStructName {', f'class {swift_struct_name} {{')
+		mutating_output_file_contents = mutating_output_file_contents.replace('class OpaqueStructName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: OpaqueStructType', f'init(pointer: {struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: OpaqueStructType?', f'var cOpaqueStruct: {struct_name}?')
 		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)

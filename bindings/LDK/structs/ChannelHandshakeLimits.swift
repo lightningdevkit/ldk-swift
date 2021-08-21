@@ -1,10 +1,9 @@
-public class ChannelHandshakeLimits {
+public class ChannelHandshakeLimits: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?;
+    public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChannelHandshakeLimits {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelHandshakeLimits_default()
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChannelHandshakeLimits {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

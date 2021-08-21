@@ -1,10 +1,10 @@
-public class Result_ChannelReestablishDecodeErrorZ {
+public class Result_ChannelReestablishDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ChannelReestablishDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_ChannelReestablishDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -20,6 +20,7 @@ public class Result_ChannelReestablishDecodeErrorZ {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public func isOk() -> Bool {

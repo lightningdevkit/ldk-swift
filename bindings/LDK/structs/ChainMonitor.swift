@@ -1,10 +1,9 @@
-public class ChainMonitor {
+public class ChainMonitor: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChainMonitor?;
+    public internal(set) var cOpaqueStruct: LDKChainMonitor?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -19,6 +18,7 @@ public class ChainMonitor {
 							}
 						
         self.cOpaqueStruct = ChainMonitor_new(chain_sourcePointer, broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, feeest.cOpaqueStruct!, persister.cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -26,6 +26,7 @@ public class ChainMonitor {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

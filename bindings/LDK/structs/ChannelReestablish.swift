@@ -1,10 +1,9 @@
-public class ChannelReestablish {
+public class ChannelReestablish: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelReestablish?;
+    public internal(set) var cOpaqueStruct: LDKChannelReestablish?
 
 
 	
@@ -13,6 +12,7 @@ public class ChannelReestablish {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

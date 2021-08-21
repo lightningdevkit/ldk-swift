@@ -1,10 +1,9 @@
-public class DirectionalChannelInfo {
+public class DirectionalChannelInfo: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKDirectionalChannelInfo?;
+    public internal(set) var cOpaqueStruct: LDKDirectionalChannelInfo?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class DirectionalChannelInfo {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = DirectionalChannelInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!, fees_arg.danglingClone().cOpaqueStruct!, last_update_message_arg.danglingClone().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class DirectionalChannelInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

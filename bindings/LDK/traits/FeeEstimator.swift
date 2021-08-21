@@ -1,8 +1,7 @@
-open class FeeEstimator {
+open class FeeEstimator: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKFeeEstimator?
     internal private(set) var anchor: AnyObject? = nil
@@ -30,12 +29,14 @@ open class FeeEstimator {
         self.cOpaqueStruct = LDKFeeEstimator(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_est_sat_per_1000_weight: get_est_sat_per_1000_weightCallback,
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKFeeEstimator){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKFeeEstimator, anchor: AnyObject){
@@ -44,6 +45,7 @@ open class FeeEstimator {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

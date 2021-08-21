@@ -1,8 +1,7 @@
-open class BroadcasterInterface {
+open class BroadcasterInterface: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKBroadcasterInterface?
     internal private(set) var anchor: AnyObject? = nil
@@ -30,12 +29,14 @@ open class BroadcasterInterface {
         self.cOpaqueStruct = LDKBroadcasterInterface(this_arg: Bindings.instanceToPointer(instance: self), 
 			broadcast_transaction: broadcast_transactionCallback,
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKBroadcasterInterface){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKBroadcasterInterface, anchor: AnyObject){
@@ -44,6 +45,7 @@ open class BroadcasterInterface {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

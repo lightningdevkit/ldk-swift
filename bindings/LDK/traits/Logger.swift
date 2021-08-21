@@ -1,8 +1,7 @@
-open class Logger {
+open class Logger: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKLogger?
     internal private(set) var anchor: AnyObject? = nil
@@ -35,12 +34,14 @@ open class Logger {
         self.cOpaqueStruct = LDKLogger(this_arg: Bindings.instanceToPointer(instance: self), 
 			log: logCallback,
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKLogger){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKLogger, anchor: AnyObject){
@@ -49,6 +50,7 @@ open class Logger {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

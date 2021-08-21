@@ -1,10 +1,9 @@
-public class ChannelInfo {
+public class ChannelInfo: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelInfo?;
+    public internal(set) var cOpaqueStruct: LDKChannelInfo?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChannelInfo {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChannelInfo {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,9 @@
-public class InvoiceSignature {
+public class InvoiceSignature: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKInvoiceSignature?;
+    public internal(set) var cOpaqueStruct: LDKInvoiceSignature?
 
 
 	
@@ -13,6 +12,7 @@ public class InvoiceSignature {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,9 @@
-public class InMemorySigner {
+public class InMemorySigner: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKInMemorySigner?;
+    public internal(set) var cOpaqueStruct: LDKInMemorySigner?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class InMemorySigner {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = InMemorySigner_new(Bindings.new_LDKSecretKey(array: funding_key), Bindings.new_LDKSecretKey(array: revocation_base_key), Bindings.new_LDKSecretKey(array: payment_key), Bindings.new_LDKSecretKey(array: delayed_payment_base_key), Bindings.new_LDKSecretKey(array: htlc_base_key), Bindings.new_LDKThirtyTwoBytes(array: commitment_seed), channel_value_satoshis, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id))
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class InMemorySigner {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

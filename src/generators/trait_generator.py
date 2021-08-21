@@ -320,7 +320,7 @@ class TraitGenerator:
 
 
 
-		trait_file = self.template.replace('class TraitName {', f'class {swift_struct_name} {{')
+		trait_file = self.template.replace('class TraitName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		trait_file = trait_file.replace('class NativelyImplementedTraitName: TraitName {', f'class NativelyImplemented{swift_struct_name}: {swift_struct_name} {{')
 		trait_file = trait_file.replace('init(pointer: TraitType', f'init(pointer: {struct_name}')
 		trait_file = trait_file.replace('var cOpaqueStruct: TraitType?',

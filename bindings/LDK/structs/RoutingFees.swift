@@ -1,10 +1,9 @@
-public class RoutingFees {
+public class RoutingFees: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKRoutingFees?;
+    public internal(set) var cOpaqueStruct: LDKRoutingFees?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class RoutingFees {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = RoutingFees_new(base_msat_arg, proportional_millionths_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class RoutingFees {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

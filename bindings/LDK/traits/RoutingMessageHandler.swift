@@ -1,8 +1,7 @@
-open class RoutingMessageHandler {
+open class RoutingMessageHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKRoutingMessageHandler?
     internal private(set) var anchor: AnyObject? = nil
@@ -118,12 +117,14 @@ open class RoutingMessageHandler {
 			handle_query_short_channel_ids: handle_query_short_channel_idsCallback,
 			MessageSendEventsProvider: LDKMessageSendEventsProvider(),
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKRoutingMessageHandler){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKRoutingMessageHandler, anchor: AnyObject){
@@ -132,6 +133,7 @@ open class RoutingMessageHandler {
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

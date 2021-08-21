@@ -1,10 +1,9 @@
-public class Sha256 {
+public class Sha256: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKSha256?;
+    public internal(set) var cOpaqueStruct: LDKSha256?
 
 
 	
@@ -13,6 +12,7 @@ public class Sha256 {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

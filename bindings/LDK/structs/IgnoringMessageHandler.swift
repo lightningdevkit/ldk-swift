@@ -1,10 +1,9 @@
-public class IgnoringMessageHandler {
+public class IgnoringMessageHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKIgnoringMessageHandler?;
+    public internal(set) var cOpaqueStruct: LDKIgnoringMessageHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class IgnoringMessageHandler {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = IgnoringMessageHandler_new()
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class IgnoringMessageHandler {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,10 @@
-public class Result_CResult_NetAddressu8ZDecodeErrorZ {
+public class Result_CResult_NetAddressu8ZDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKCResult_CResult_NetAddressu8ZDecodeErrorZ?;
+    public internal(set) var cOpaqueStruct: LDKCResult_CResult_NetAddressu8ZDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -20,6 +20,7 @@ public class Result_CResult_NetAddressu8ZDecodeErrorZ {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public func isOk() -> Bool {

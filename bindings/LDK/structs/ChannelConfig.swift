@@ -1,10 +1,9 @@
-public class ChannelConfig {
+public class ChannelConfig: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelConfig?;
+    public internal(set) var cOpaqueStruct: LDKChannelConfig?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChannelConfig {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelConfig_default()
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChannelConfig {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

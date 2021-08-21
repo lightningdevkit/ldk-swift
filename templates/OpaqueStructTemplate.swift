@@ -1,10 +1,9 @@
-public class OpaqueStructName {
+public class OpaqueStructName: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: OpaqueStructType?;
+    public internal(set) var cOpaqueStruct: OpaqueStructType?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class OpaqueStructName {
 		self.instanceNumber = Self.instanceCounter
     	/* NATIVE_CONSTRUCTOR_PREP */
         self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class OpaqueStructName {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

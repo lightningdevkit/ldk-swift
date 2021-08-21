@@ -1,10 +1,9 @@
-public class Option_u16Z {
+public class Option_u16Z: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKCOption_u16Z?;
+    public internal(set) var cOpaqueStruct: LDKCOption_u16Z?
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(value: UInt16?) {
@@ -20,6 +19,7 @@ public class Option_u16Z {
 				}
 			
         
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -27,6 +27,7 @@ public class Option_u16Z {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* OPTION_METHODS_START */

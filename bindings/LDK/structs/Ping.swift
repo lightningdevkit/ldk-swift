@@ -1,10 +1,9 @@
-public class Ping {
+public class Ping: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKPing?;
+    public internal(set) var cOpaqueStruct: LDKPing?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class Ping {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = Ping_new(ponglen_arg, byteslen_arg)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class Ping {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

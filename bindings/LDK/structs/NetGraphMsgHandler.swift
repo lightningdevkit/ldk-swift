@@ -1,10 +1,9 @@
-public class NetGraphMsgHandler {
+public class NetGraphMsgHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKNetGraphMsgHandler?;
+    public internal(set) var cOpaqueStruct: LDKNetGraphMsgHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -19,6 +18,7 @@ public class NetGraphMsgHandler {
 							}
 						
         self.cOpaqueStruct = NetGraphMsgHandler_from_net_graph(chain_accessPointer, logger.cOpaqueStruct!, network_graph.danglingClone().cOpaqueStruct!)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -26,6 +26,7 @@ public class NetGraphMsgHandler {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

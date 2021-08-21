@@ -267,7 +267,7 @@ class OptionGenerator:
 
 			struct_methods += '\n' + current_replacement + '\n'
 
-		mutating_output_file_contents = mutating_output_file_contents.replace('class OptionName {', f'class {swift_struct_name} {{')
+		mutating_output_file_contents = mutating_output_file_contents.replace('class OptionName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: OptionType', f'init(pointer: {struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: OptionType?', f'var cOpaqueStruct: {struct_name}?')
 		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)

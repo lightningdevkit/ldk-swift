@@ -1,8 +1,7 @@
-open class ChannelMessageHandler {
+open class ChannelMessageHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public var cOpaqueStruct: LDKChannelMessageHandler?
     internal private(set) var anchor: AnyObject? = nil
@@ -184,12 +183,14 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 			handle_error: handle_errorCallback,
 			MessageSendEventsProvider: LDKMessageSendEventsProvider(),
 			free: freeCallback)
+        super.init()
     }
 
     public init(pointer: LDKChannelMessageHandler){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
 	public init(pointer: LDKChannelMessageHandler, anchor: AnyObject){
@@ -198,6 +199,7 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* SWIFT_CALLBACKS_START */

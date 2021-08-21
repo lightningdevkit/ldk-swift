@@ -1,10 +1,9 @@
-public class OptionName {
+public class OptionName: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: OptionType?;
+    public internal(set) var cOpaqueStruct: OptionType?
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(swift_constructor_arguments) {
@@ -12,6 +11,7 @@ public class OptionName {
 		self.instanceNumber = Self.instanceCounter
     	/* NATIVE_CONSTRUCTOR_PREP */
         self.cOpaqueStruct = OptionType(native_constructor_arguments)
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -19,6 +19,7 @@ public class OptionName {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* OPTION_METHODS_START */

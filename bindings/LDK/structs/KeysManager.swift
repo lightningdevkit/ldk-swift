@@ -1,10 +1,9 @@
-public class KeysManager {
+public class KeysManager: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKKeysManager?;
+    public internal(set) var cOpaqueStruct: LDKKeysManager?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -15,6 +14,7 @@ public class KeysManager {
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: seed)) { (seedPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 KeysManager_new(seedPointer, starting_time_secs, starting_time_nanos)
 }
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -22,6 +22,7 @@ KeysManager_new(seedPointer, starting_time_secs, starting_time_nanos)
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

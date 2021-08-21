@@ -1,10 +1,9 @@
-public class ChannelFeatures {
+public class ChannelFeatures: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKChannelFeatures?;
+    public internal(set) var cOpaqueStruct: LDKChannelFeatures?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class ChannelFeatures {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelFeatures_known()
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class ChannelFeatures {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

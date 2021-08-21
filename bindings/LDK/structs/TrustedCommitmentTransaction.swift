@@ -1,10 +1,9 @@
-public class TrustedCommitmentTransaction {
+public class TrustedCommitmentTransaction: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKTrustedCommitmentTransaction?;
+    public internal(set) var cOpaqueStruct: LDKTrustedCommitmentTransaction?
 
 
 	
@@ -13,6 +12,7 @@ public class TrustedCommitmentTransaction {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

@@ -1,10 +1,9 @@
-public class InitFeatures {
+public class InitFeatures: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKInitFeatures?;
+    public internal(set) var cOpaqueStruct: LDKInitFeatures?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +12,7 @@ public class InitFeatures {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = InitFeatures_known()
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,6 +20,7 @@ public class InitFeatures {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

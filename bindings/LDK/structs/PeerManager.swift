@@ -1,10 +1,9 @@
-public class PeerManager {
+public class PeerManager: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
-    public internal(set) var cOpaqueStruct: LDKPeerManager?;
+    public internal(set) var cOpaqueStruct: LDKPeerManager?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -15,6 +14,7 @@ public class PeerManager {
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: ephemeral_random_data)) { (ephemeral_random_dataPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.cOpaqueStruct!)
 }
+        super.init()
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -22,6 +22,7 @@ PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array:
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init()
 	}
 
     /* STRUCT_METHODS_START */

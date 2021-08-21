@@ -10,6 +10,43 @@ import Foundation
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
 
+internal class NativeTypeWrapper: Hashable {
+
+    enum AnchorError: Error {
+        case cyclicReference
+    }
+
+    private static var globalInstanceCounter: UInt = 0
+    internal let globalInstanceNumber: UInt
+    internal private(set) var dangling = false
+    internal private(set) var anchors: Set<NativeTypeWrapper> = []
+
+    init() {
+        Self.globalInstanceCounter += 1
+        self.globalInstanceNumber = Self.globalInstanceCounter
+    }
+
+    internal func addAnchor(anchor: NativeTypeWrapper) throws {
+        if self.hasAnchor(candidate: anchor) {
+            throw AnchorError.cyclicReference
+        }
+        self.anchors.insert(anchor)
+    }
+
+    internal func hasAnchor(candidate: NativeTypeWrapper) -> Bool {
+        self.anchors.contains(candidate)
+    }
+
+    static func == (lhs: NativeTypeWrapper, rhs: NativeTypeWrapper) -> Bool {
+        return (lhs.globalInstanceNumber == rhs.globalInstanceNumber)
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(globalInstanceNumber)
+    }
+
+}
+
 public class Bindings{
 
 	/* BYTE_ARRAY_METHODS_START */

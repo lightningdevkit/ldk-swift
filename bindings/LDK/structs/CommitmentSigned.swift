@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class CommitmentSigned {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_CVec_u8ZPeerHandleErrorZ {
 
 	private static var instanceCounter: UInt = 0

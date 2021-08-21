@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DecodeError {
 
 	private static var instanceCounter: UInt = 0

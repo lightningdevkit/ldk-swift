@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class WatchedOutput {
 
 	private static var instanceCounter: UInt = 0

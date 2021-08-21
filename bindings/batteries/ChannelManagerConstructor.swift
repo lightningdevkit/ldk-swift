@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// import LDKHeaders
+import LDKHeaders
 
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
@@ -56,7 +56,7 @@ public class ChannelManagerConstructor {
 
             var clonedChannelMonitor = ChannelMonitor(pointer: b).dangle().clone()
             // var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
-            // clonedChannelMonitor.cOpaqueStruct?.is_owned = false // is_owned should never have to be modified
+            clonedChannelMonitor.cOpaqueStruct?.is_owned = false // is_owned should never have to be modified
 
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
             self.channel_monitors.append((clonedChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
@@ -67,12 +67,11 @@ public class ChannelManagerConstructor {
         if res.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
-        res.dangle()
 
         print("Extracting block hash from channel manager")
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
         print("Extracting channel manager object")
-        let channelManager = ChannelManager(pointer: res.cOpaqueStruct!.contents.result.pointee.b)
+        let channelManager = ChannelManager(pointer: res.dangle().cOpaqueStruct!.contents.result.pointee.b)
 
         self.channelManager = channelManager
         self.channel_manager_latest_block_hash = latestBlockHash

@@ -126,6 +126,7 @@ class VectorGenerator(UtilGenerator):
 			if not shallowmost_iteratee_is_tuple_primitive:
 				mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitiveWrapper(pointer: vector)', 'LDKCVec_rust_primitiveWrapper(pointer: vector, subdimensionWrapper: subdimensionWrapper)')
 
+		# mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'nativeType.{}.deallocate()')
 		mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitive', vector_name)
 
 		if not is_primitive and dimensions > 2 or is_primitive and dimensions > 3:

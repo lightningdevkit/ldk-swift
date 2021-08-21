@@ -624,6 +624,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -719,6 +720,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -807,6 +809,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -902,6 +905,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -997,6 +1001,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1092,6 +1097,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1187,6 +1193,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1282,6 +1289,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1385,6 +1393,7 @@ public class Bindings{
 			let convertedEntry = LDKCVec_RouteHopZ_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1463,6 +1472,7 @@ public class Bindings{
 			let convertedEntry = LDKCVec_u8Z_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1533,6 +1543,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1628,6 +1639,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1723,6 +1735,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1818,6 +1831,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1913,6 +1927,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2008,6 +2023,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2103,6 +2119,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2198,6 +2215,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2301,6 +2319,7 @@ public class Bindings{
 			let convertedEntry = LDKPublicKey_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2371,6 +2390,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2466,6 +2486,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2569,6 +2590,7 @@ public class Bindings{
 			let convertedEntry = LDKSignature_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2639,6 +2661,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2734,6 +2757,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2837,6 +2861,7 @@ public class Bindings{
 			let convertedEntry = LDKTransaction_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2907,6 +2932,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3002,6 +3028,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3072,6 +3099,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3167,6 +3195,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3262,6 +3291,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3357,6 +3387,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3452,6 +3483,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3522,6 +3554,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3592,6 +3625,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3923,6 +3957,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */

@@ -121,6 +121,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(convertedEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -217,6 +218,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
+		nativeType.data.deallocate()
 		return array
 	}
 	/* RUST_TO_SWIFT_END */

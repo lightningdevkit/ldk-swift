@@ -336,7 +336,7 @@ class LightningHeaderParser():
 							src.conversion_helper.pointer_iterating_vector_types.add(struct_name)
 						else:
 							# it's a primitive
-							print('Fallback primitive vector type:', struct_name)
+							# print('Fallback primitive vector type:', struct_name)
 							vector_type_details.is_primitive = True
 							vector_type_details.is_pointer_based_iterator = True
 							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[iterated_type]
@@ -370,6 +370,7 @@ class LightningHeaderParser():
 						pass
 					elif len(trait_fn_lines) > 0:
 						self.trait_structs.add(struct_name)
+						src.conversion_helper.ConversionHelper.trait_structs.add(struct_name)
 						lambdas = self.parse_lambda_details(ordered_interpreted_lines)
 						current_type_detail.lambdas = lambdas
 					elif struct_name == "xxLDKTxOut":

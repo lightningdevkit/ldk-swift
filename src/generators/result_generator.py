@@ -112,6 +112,10 @@ class ResultGenerator:
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
+			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
+				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
+				print(f'/// {cloneability_warning}: {current_native_method_name}')
+
 			current_replacement = current_replacement.replace('return ResultType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}ResultType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 			current_replacement = current_replacement.replace('ResultType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'ResultType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])

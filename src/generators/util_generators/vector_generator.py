@@ -69,13 +69,15 @@ class VectorGenerator(UtilGenerator):
 				elif shallowmost_iteratee.type.name == 'BYTE_ARRAY': # BYTE_ARRAY, therefore not associated with a singular type
 					pass
 				else:
-					cloneability_lookup = shallowmost_iteratee.name.lstrip('LDK')
+					cloneability_lookup = shallowmost_iteratee.name
+					if cloneability_lookup.startswith('LDK'):
+						cloneability_lookup = cloneability_lookup[len('LDK'):]
 					shallowmost_swift_type_name = cloneability_lookup.replace('CResult_', 'Result_').replace('CTuple_', 'Tuple_')
 					is_cloneable = cloneability_lookup in src.conversion_helper.cloneable_types
 					cloneability_infix = ''
 					if is_cloneable:
 						cloneability_infix = '.danglingClone()'
-					print('Shallowmost iteratee:', shallowmost_iteratee.name, 'cloneable:', is_cloneable)
+					# print('Shallowmost iteratee:', shallowmost_iteratee.name, 'cloneable:', is_cloneable)
 					extraction_method = f'''
 						public class func extractNative{shallowmost_iteratee.name}Array(array: [{shallowmost_swift_type_name}]) -> [{shallowmost_iteratee.name}] {{
 							return array.map {{ entry -> {shallowmost_iteratee.name} in

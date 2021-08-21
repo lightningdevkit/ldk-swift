@@ -33,7 +33,7 @@ open class Watch {
 					defer {
 						returnWrapper.noOpRetain()
 					}
-					return returnWrapper.cOpaqueStruct!
+					return returnWrapper.dangle().cOpaqueStruct!
 				
 		}
 

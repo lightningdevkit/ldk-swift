@@ -39,6 +39,10 @@ class OpaqueStructGenerator:
 			constructor_native_call_suffix = constructor_prepared_arguments['native_call_suffix']
 			constructor_native_call_prep = constructor_prepared_arguments['native_call_prep']
 
+			if len(constructor_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
+				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
+				print(f'/// {cloneability_warning}: {constructor_native_name}')
+
 			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', ', '.join(constructor_swift_arguments))
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)', constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(
 				constructor_native_arguments) + ')' + constructor_native_call_suffix)
@@ -105,6 +109,15 @@ class OpaqueStructGenerator:
 			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, is_trait_instantiator)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
+			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
+				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
+				cloneability_types = []
+				for affected_argument_index in prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']:
+					# swift_argument_index = affected_argument_index + len(arguments['swift_arguments']) - len(current_method['argument_types'])
+					# swift_argument_message = arguments['swift_arguments'][swift_argument_index] + f' ({swift_argument_index})'
+					cloneability_types.append(f'{current_method_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
+				cloneability_type_message = '; '.join(cloneability_types)
+				print(f'/// {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
 
 
 			current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',

@@ -5,6 +5,8 @@ cloneable_types = set()
 detected_cloneable_types = set()
 
 class ConversionHelper:
+	trait_structs = set()
+
 	@classmethod
 	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback = False, force_pass_instance = False, is_free_method = False):
 		swift_arguments = []
@@ -14,7 +16,8 @@ class ConversionHelper:
 		native_call_prep = ''
 		pointer_wrapping_depth = 0
 		static_eligible = True
-		for current_argument_details in argument_types:
+		non_cloneable_argument_indices_passed_by_ownership = []
+		for argument_index, current_argument_details in enumerate(argument_types):
 			pass_instance = False
 			argument_name = current_argument_details.var_name
 			passed_argument_name = argument_name
@@ -25,6 +28,12 @@ class ConversionHelper:
 
 			mutabilityIndicatorSuffix = ''
 			clone_infix = ''
+			cloneability_lookup = 'x-uncloneable'
+			if current_argument_details.rust_obj is not None:
+				cloneability_lookup = current_argument_details.rust_obj
+				if cloneability_lookup.startswith('LDK'):
+					cloneability_lookup = cloneability_lookup[len('LDK'):]
+			is_cloneable = cloneability_lookup in cloneable_types
 
 			if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(argument_types) == 1:
 				break
@@ -33,6 +42,8 @@ class ConversionHelper:
 				pass_instance = True
 				passed_argument_name = 'self'
 				static_eligible = False
+
+
 
 			if current_argument_details.is_ptr:
 				passed_argument_name = argument_name + 'Pointer'
@@ -89,22 +100,29 @@ class ConversionHelper:
 								{passed_argument_name}!.initialize(to: {initialization_target})
 							}}
 						'''
-						print('optional argument:', argument_name, passed_argument_name)
+						# print('optional argument:', argument_name, passed_argument_name)
 				else:
 					wrapper_return_prefix = '' if pointer_wrapping_depth == 0 else 'return '
 					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
 					pointer_wrapping_suffix += '\n}'
 				# native_call_prep += current_prep
-			elif current_argument_details.swift_type in cloneable_types or (current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDKC') and f'C{current_argument_details.swift_type}' in cloneable_types):
+			elif is_cloneable:
 				if not is_free_method:
 					# clone_infix = '.clone()'
 					clone_infix = '.danglingClone()'
 				# print(f'Cloneable type detected: {current_argument_details.swift_type}')
 				detected_cloneable_types.add(current_argument_details.swift_type)
-			elif current_argument_details.rust_obj is not None and ('Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith('['):
-				# TODO: figure out potentially undetected cloneable types
-				# print('Potentially undetected cloneable type?', current_argument_details.rust_obj)
-				pass
+			else:
+				if current_argument_details.rust_obj is None:
+					pass
+				elif current_argument_details.rust_obj in ConversionHelper.trait_structs:
+					pass
+				elif current_argument_details.rust_obj.startswith('LDK') and not current_argument_details.swift_type.startswith('[') and not is_free_method:
+					non_cloneable_argument_indices_passed_by_ownership.append(argument_index)
+				if current_argument_details.rust_obj is not None and ('Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith('['):
+					# TODO: figure out potentially undetected cloneable types
+					# print('Potentially undetected cloneable type?', current_argument_details.rust_obj)
+					pass
 
 
 			if is_trait_callback and current_argument_details.is_const:
@@ -137,16 +155,21 @@ class ConversionHelper:
 					array_clone_prefix = ''
 					array_clone_suffix = ''
 					if cloneability_lookup in cloneable_types:
-						print('cloneable array type:', current_argument_details.rust_obj, 'LDK'+cloneability_lookup)
-						array_clone_prefix = f'Bindings.cloneNativeLDK{cloneability_lookup}Array(array: '
-						array_clone_suffix = ')'
+						# print('cloneable array type (ignored):', current_argument_details.rust_obj, 'LDK'+cloneability_lookup)
+						# array_clone_prefix = f'Bindings.cloneNativeLDK{cloneability_lookup}Array(array: '
+						# array_clone_suffix = ')'
+						pass
 					native_call_prep += f'''
 						let {passed_argument_name}Wrapper = Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {array_clone_prefix}{passed_argument_name}{array_clone_suffix})
 						defer {{
 							{passed_argument_name}Wrapper.noOpRetain()
 						}}
 					'''
-					native_arguments.append(f'{passed_argument_name}Wrapper.cOpaqueStruct!')
+					if current_argument_details.rust_obj.startswith('LDKCVec_'):
+						# vectors will be freed by the underlying function automatically
+						native_arguments.append(f'{passed_argument_name}Wrapper.dangle().cOpaqueStruct!')
+					else:
+						native_arguments.append(f'{passed_argument_name}Wrapper.cOpaqueStruct!')
 				else:
 					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
@@ -183,7 +206,8 @@ class ConversionHelper:
 			"native_call_prefix": pointer_wrapping_prefix,
 			"native_call_suffix": pointer_wrapping_suffix,
 			"native_call_prep": native_call_prep,
-			"static_eligible": static_eligible
+			"static_eligible": static_eligible,
+			"non_cloneable_argument_indices_passed_by_ownership": non_cloneable_argument_indices_passed_by_ownership
 		}
 
 	# the arguments that we receive from a native lambda, before they get passed on to a human consumer

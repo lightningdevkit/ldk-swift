@@ -21,7 +21,7 @@ open class MessageSendEventsProvider {
 					defer {
 						returnWrapper.noOpRetain()
 					}
-					return returnWrapper.cOpaqueStruct!
+					return returnWrapper.dangle().cOpaqueStruct!
 				
 		}
 

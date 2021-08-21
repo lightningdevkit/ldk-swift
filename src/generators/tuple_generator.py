@@ -77,6 +77,11 @@ class TupleGenerator:
 
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], force_pass_instance=force_pass_instance, is_free_method=is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+
+			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
+				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
+				print(f'/// {cloneability_warning}: {current_native_method_name}')
+
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('TupleType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'TupleType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
 			current_replacement = current_replacement.replace('TupleType_methodName(',

@@ -71,7 +71,11 @@ class TraitGenerator:
 					force_pass_instance = True
 
 			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method=current_method_details['is_free'])
+
+			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
+				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
+				print(f'/// {cloneability_warning}: {current_native_method_name}')
 
 			swift_argument_list = ', '.join(prepared_arguments['swift_arguments'])
 			swift_return_type = value_return_wrappers['swift_type']
@@ -200,12 +204,15 @@ class TraitGenerator:
 				'func methodNameCallback(', f'func {current_lambda_name}Callback(')
 
 			if array_wrapper is not None:
+				array_wrapper_dangle_infix = ''
+				if current_return_type_details.rust_obj.startswith('LDKCVec_'):
+					array_wrapper_dangle_infix = '.dangle()'
 				current_native_callback_replacement = current_native_callback_replacement.replace('return instance.callbackName(swift_callback_arguments)', f'''
 					let returnWrapper = {array_wrapper}(array: instance.callbackName(swift_callback_arguments))
 					defer {{
 						returnWrapper.noOpRetain()
 					}}
-					return returnWrapper.cOpaqueStruct!
+					return returnWrapper{array_wrapper_dangle_infix}.cOpaqueStruct!
 				''')
 
 
@@ -245,6 +252,11 @@ class TraitGenerator:
 			# let's create a native default implementation
 			default_callback_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], True)
 			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone)
+
+			if len(default_callback_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
+				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
+				print(f'/// {cloneability_warning}: {struct_name}::{current_lambda_name}')
+
 			current_default_callback_replacement = natively_implemented_callback_template
 			current_default_callback_replacement = current_default_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)
 			current_default_callback_replacement = current_default_callback_replacement.replace('-> Void {', f'-> {swift_return_type} {{')

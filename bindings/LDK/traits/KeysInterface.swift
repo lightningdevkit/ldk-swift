@@ -27,7 +27,7 @@ open class KeysInterface {
 					defer {
 						returnWrapper.noOpRetain()
 					}
-					return returnWrapper.cOpaqueStruct!
+					return returnWrapper.dangle().cOpaqueStruct!
 				
 		}
 

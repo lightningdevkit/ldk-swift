@@ -54,7 +54,7 @@ open class Confirm {
 					defer {
 						returnWrapper.noOpRetain()
 					}
-					return returnWrapper.cOpaqueStruct!
+					return returnWrapper.dangle().cOpaqueStruct!
 				
 		}
 

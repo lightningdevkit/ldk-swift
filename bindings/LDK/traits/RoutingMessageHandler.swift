@@ -49,7 +49,7 @@ open class RoutingMessageHandler {
 					defer {
 						returnWrapper.noOpRetain()
 					}
-					return returnWrapper.cOpaqueStruct!
+					return returnWrapper.dangle().cOpaqueStruct!
 				
 		}
 
@@ -61,7 +61,7 @@ open class RoutingMessageHandler {
 					defer {
 						returnWrapper.noOpRetain()
 					}
-					return returnWrapper.cOpaqueStruct!
+					return returnWrapper.dangle().cOpaqueStruct!
 				
 		}
 

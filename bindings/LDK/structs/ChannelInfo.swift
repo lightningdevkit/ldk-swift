@@ -12,7 +12,7 @@ public class ChannelInfo: NativeTypeWrapper {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,7 +20,7 @@ public class ChannelInfo: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

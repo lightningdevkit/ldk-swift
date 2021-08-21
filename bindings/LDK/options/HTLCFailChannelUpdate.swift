@@ -11,7 +11,7 @@ public class HTLCFailChannelUpdate: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* OPTION_METHODS_START */

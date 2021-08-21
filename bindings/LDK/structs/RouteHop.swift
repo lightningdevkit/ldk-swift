@@ -12,7 +12,7 @@ public class RouteHop: NativeTypeWrapper {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.danglingClone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,7 +20,7 @@ public class RouteHop: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

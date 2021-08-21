@@ -14,7 +14,7 @@ public class ShutdownScript: NativeTypeWrapper {
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: script_hash)) { (script_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ShutdownScript_new_p2wsh(script_hashPointer)
 }
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -22,7 +22,7 @@ ShutdownScript_new_p2wsh(script_hashPointer)
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

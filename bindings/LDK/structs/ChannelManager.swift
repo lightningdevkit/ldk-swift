@@ -12,7 +12,7 @@ public class ChannelManager: NativeTypeWrapper {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelManager_new(fee_est.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, keys_manager.cOpaqueStruct!, config.danglingClone().cOpaqueStruct!, params.danglingClone().cOpaqueStruct!)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,7 +20,7 @@ public class ChannelManager: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

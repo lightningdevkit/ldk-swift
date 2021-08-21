@@ -12,7 +12,7 @@ public class TxCreationKeys: NativeTypeWrapper {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = TxCreationKeys_new(Bindings.new_LDKPublicKey(array: per_commitment_point_arg), Bindings.new_LDKPublicKey(array: revocation_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_htlc_key_arg), Bindings.new_LDKPublicKey(array: countersignatory_htlc_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key_arg))
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -20,7 +20,7 @@ public class TxCreationKeys: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

@@ -11,7 +11,7 @@ public class OptionName: NativeTypeWrapper {
 		self.instanceNumber = Self.instanceCounter
     	/* NATIVE_CONSTRUCTOR_PREP */
         self.cOpaqueStruct = OptionType(native_constructor_arguments)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -19,7 +19,7 @@ public class OptionName: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* OPTION_METHODS_START */

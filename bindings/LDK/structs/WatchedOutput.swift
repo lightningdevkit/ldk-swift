@@ -17,7 +17,7 @@ public class WatchedOutput: NativeTypeWrapper {
 						}
 					
         self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.dangle().cOpaqueStruct!)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,7 +25,7 @@ public class WatchedOutput: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

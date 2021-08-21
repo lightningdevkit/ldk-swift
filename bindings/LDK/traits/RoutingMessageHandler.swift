@@ -103,6 +103,7 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKRoutingMessageHandler(this_arg: Bindings.instanceToPointer(instance: self), 
 			handle_node_announcement: handle_node_announcementCallback,
 			handle_channel_announcement: handle_channel_announcementCallback,
@@ -117,23 +118,23 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 			handle_query_short_channel_ids: handle_query_short_channel_idsCallback,
 			MessageSendEventsProvider: LDKMessageSendEventsProvider(),
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKRoutingMessageHandler){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKRoutingMessageHandler, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

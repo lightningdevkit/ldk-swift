@@ -37,27 +37,28 @@ open class Listen: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKListen(this_arg: Bindings.instanceToPointer(instance: self), 
 			block_connected: block_connectedCallback,
 			block_disconnected: block_disconnectedCallback,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKListen){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKListen, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

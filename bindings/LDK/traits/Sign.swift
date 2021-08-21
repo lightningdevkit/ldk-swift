@@ -32,28 +32,29 @@ open class Sign: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKSign(this_arg: Bindings.instanceToPointer(instance: self), 
 			BaseSign: LDKBaseSign(),
 			write: writeCallback,
 			cloned: nil,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKSign){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKSign, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

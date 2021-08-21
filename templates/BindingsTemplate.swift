@@ -10,7 +10,7 @@ import Foundation
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
 
-internal class NativeTypeWrapper: Hashable {
+open class NativeTypeWrapper: Hashable {
 
     enum AnchorError: Error {
         case cyclicReference
@@ -18,10 +18,10 @@ internal class NativeTypeWrapper: Hashable {
 
     private static var globalInstanceCounter: UInt = 0
     internal let globalInstanceNumber: UInt
-    internal private(set) var dangling = false
+    internal var dangling = false
     internal private(set) var anchors: Set<NativeTypeWrapper> = []
 
-    init() {
+    init(conflictAvoidingVariableName: UInt) {
         Self.globalInstanceCounter += 1
         self.globalInstanceNumber = Self.globalInstanceCounter
     }
@@ -37,11 +37,11 @@ internal class NativeTypeWrapper: Hashable {
         self.anchors.contains(candidate)
     }
 
-    static func == (lhs: NativeTypeWrapper, rhs: NativeTypeWrapper) -> Bool {
+    public static func == (lhs: NativeTypeWrapper, rhs: NativeTypeWrapper) -> Bool {
         return (lhs.globalInstanceNumber == rhs.globalInstanceNumber)
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(globalInstanceNumber)
     }
 
@@ -111,10 +111,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_rust_primitiveWrapper {
+    public class LDKCVec_rust_primitiveWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_rust_primitive?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -123,6 +122,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_rust_primitive, subdimensionWrapper: [AnyObject]){
@@ -130,6 +130,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}

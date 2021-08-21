@@ -17,7 +17,7 @@ public class NodeAnnouncementInfo: NativeTypeWrapper {
 						}
 					
         self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), addresses_argWrapper.dangle().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,7 +25,7 @@ public class NodeAnnouncementInfo: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

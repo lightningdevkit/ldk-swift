@@ -45,6 +45,7 @@ open class SocketDescriptor: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKSocketDescriptor(this_arg: Bindings.instanceToPointer(instance: self), 
 			send_data: send_dataCallback,
 			disconnect_socket: disconnect_socketCallback,
@@ -52,23 +53,23 @@ open class SocketDescriptor: NativeTypeWrapper {
 			hash: hashCallback,
 			cloned: nil,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKSocketDescriptor){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKSocketDescriptor, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

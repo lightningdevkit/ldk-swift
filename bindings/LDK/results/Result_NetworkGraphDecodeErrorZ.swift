@@ -2,7 +2,6 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
-	internal private(set) var dangling = false
 
     public internal(set) var cOpaqueStruct: LDKCResult_NetworkGraphDecodeErrorZ?
 
@@ -12,6 +11,7 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
 					Self.instanceCounter += 1
 					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NetworkGraphDecodeErrorZ(contents: LDKCResult_NetworkGraphDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
@@ -20,7 +20,7 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {

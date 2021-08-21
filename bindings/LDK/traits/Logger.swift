@@ -31,26 +31,27 @@ open class Logger: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKLogger(this_arg: Bindings.instanceToPointer(instance: self), 
 			log: logCallback,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKLogger){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKLogger, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

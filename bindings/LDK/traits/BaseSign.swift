@@ -102,6 +102,7 @@ open class BaseSign: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKBaseSign(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_per_commitment_point: get_per_commitment_pointCallback,
 			release_commitment_secret: release_commitment_secretCallback,
@@ -117,23 +118,23 @@ open class BaseSign: NativeTypeWrapper {
 			sign_channel_announcement: sign_channel_announcementCallback,
 			ready_channel: ready_channelCallback,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKBaseSign){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKBaseSign, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

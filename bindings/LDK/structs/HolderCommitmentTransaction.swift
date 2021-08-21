@@ -17,7 +17,7 @@ public class HolderCommitmentTransaction: NativeTypeWrapper {
 						}
 					
         self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), counterparty_htlc_sigsWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,7 +25,7 @@ public class HolderCommitmentTransaction: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

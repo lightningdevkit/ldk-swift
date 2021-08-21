@@ -17,7 +17,7 @@ public class ReplyChannelRange: NativeTypeWrapper {
 						}
 					
         self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, short_channel_ids_argWrapper.dangle().cOpaqueStruct!)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,7 +25,7 @@ public class ReplyChannelRange: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

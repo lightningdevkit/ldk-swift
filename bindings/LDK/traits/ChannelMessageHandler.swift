@@ -160,6 +160,7 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKChannelMessageHandler(this_arg: Bindings.instanceToPointer(instance: self), 
 			handle_open_channel: handle_open_channelCallback,
 			handle_accept_channel: handle_accept_channelCallback,
@@ -183,23 +184,23 @@ let msg = Shutdown(pointer: msgPointer.pointee);
 			handle_error: handle_errorCallback,
 			MessageSendEventsProvider: LDKMessageSendEventsProvider(),
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKChannelMessageHandler){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKChannelMessageHandler, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

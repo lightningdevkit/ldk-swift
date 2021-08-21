@@ -65,29 +65,30 @@ open class Confirm: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKConfirm(this_arg: Bindings.instanceToPointer(instance: self), 
 			transactions_confirmed: transactions_confirmedCallback,
 			transaction_unconfirmed: transaction_unconfirmedCallback,
 			best_block_updated: best_block_updatedCallback,
 			get_relevant_txids: get_relevant_txidsCallback,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKConfirm){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKConfirm, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

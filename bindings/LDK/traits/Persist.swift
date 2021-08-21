@@ -35,27 +35,28 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKPersist(this_arg: Bindings.instanceToPointer(instance: self), 
 			persist_new_channel: persist_new_channelCallback,
 			update_persisted_channel: update_persisted_channelCallback,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKPersist){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKPersist, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

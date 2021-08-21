@@ -10,7 +10,7 @@ import Foundation
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
 
-internal class NativeTypeWrapper: Hashable {
+open class NativeTypeWrapper: Hashable {
 
     enum AnchorError: Error {
         case cyclicReference
@@ -18,10 +18,10 @@ internal class NativeTypeWrapper: Hashable {
 
     private static var globalInstanceCounter: UInt = 0
     internal let globalInstanceNumber: UInt
-    internal private(set) var dangling = false
+    internal var dangling = false
     internal private(set) var anchors: Set<NativeTypeWrapper> = []
 
-    init() {
+    init(conflictAvoidingVariableName: UInt) {
         Self.globalInstanceCounter += 1
         self.globalInstanceNumber = Self.globalInstanceCounter
     }
@@ -37,11 +37,11 @@ internal class NativeTypeWrapper: Hashable {
         self.anchors.contains(candidate)
     }
 
-    static func == (lhs: NativeTypeWrapper, rhs: NativeTypeWrapper) -> Bool {
+    public static func == (lhs: NativeTypeWrapper, rhs: NativeTypeWrapper) -> Bool {
         return (lhs.globalInstanceNumber == rhs.globalInstanceNumber)
     }
 
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(globalInstanceNumber)
     }
 
@@ -614,10 +614,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_APIErrorZWrapper {
+    public class LDKCVec_APIErrorZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_APIErrorZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -626,6 +625,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_APIErrorZ, subdimensionWrapper: [AnyObject]){
@@ -633,6 +633,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -710,10 +711,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
+    public class LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -722,6 +722,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ, subdimensionWrapper: [AnyObject]){
@@ -729,6 +730,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -799,10 +801,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
+    public class LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -811,6 +812,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ, subdimensionWrapper: [AnyObject]){
@@ -818,6 +820,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -895,10 +898,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_C2Tuple_u32ScriptZZWrapper {
+    public class LDKCVec_C2Tuple_u32ScriptZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_C2Tuple_u32ScriptZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -907,6 +909,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_C2Tuple_u32ScriptZZ, subdimensionWrapper: [AnyObject]){
@@ -914,6 +917,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -991,10 +995,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_C2Tuple_u32TxOutZZWrapper {
+    public class LDKCVec_C2Tuple_u32TxOutZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_C2Tuple_u32TxOutZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1003,6 +1006,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_C2Tuple_u32TxOutZZ, subdimensionWrapper: [AnyObject]){
@@ -1010,6 +1014,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1087,10 +1092,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_C2Tuple_usizeTransactionZZWrapper {
+    public class LDKCVec_C2Tuple_usizeTransactionZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_C2Tuple_usizeTransactionZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1099,6 +1103,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_C2Tuple_usizeTransactionZZ, subdimensionWrapper: [AnyObject]){
@@ -1106,6 +1111,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1183,10 +1189,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
+    public class LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1195,6 +1200,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ, subdimensionWrapper: [AnyObject]){
@@ -1202,6 +1208,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1279,10 +1286,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_CResult_NoneAPIErrorZZWrapper {
+    public class LDKCVec_CResult_NoneAPIErrorZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_CResult_NoneAPIErrorZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1291,6 +1297,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_CResult_NoneAPIErrorZZ, subdimensionWrapper: [AnyObject]){
@@ -1298,6 +1305,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1383,10 +1391,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_CVec_RouteHopZZWrapper {
+    public class LDKCVec_CVec_RouteHopZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_CVec_RouteHopZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1395,6 +1402,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_CVec_RouteHopZZ, subdimensionWrapper: [AnyObject]){
@@ -1402,6 +1410,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1462,10 +1471,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_CVec_u8ZZWrapper {
+    public class LDKCVec_CVec_u8ZZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_CVec_u8ZZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1474,6 +1482,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_CVec_u8ZZ, subdimensionWrapper: [AnyObject]){
@@ -1481,6 +1490,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1533,10 +1543,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_ChannelDetailsZWrapper {
+    public class LDKCVec_ChannelDetailsZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_ChannelDetailsZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1545,6 +1554,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_ChannelDetailsZ, subdimensionWrapper: [AnyObject]){
@@ -1552,6 +1562,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1629,10 +1640,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_ChannelMonitorZWrapper {
+    public class LDKCVec_ChannelMonitorZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_ChannelMonitorZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1641,6 +1651,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_ChannelMonitorZ, subdimensionWrapper: [AnyObject]){
@@ -1648,6 +1659,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1725,10 +1737,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_EventZWrapper {
+    public class LDKCVec_EventZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_EventZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1737,6 +1748,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_EventZ, subdimensionWrapper: [AnyObject]){
@@ -1744,6 +1756,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1821,10 +1834,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_MessageSendEventZWrapper {
+    public class LDKCVec_MessageSendEventZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_MessageSendEventZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1833,6 +1845,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_MessageSendEventZ, subdimensionWrapper: [AnyObject]){
@@ -1840,6 +1853,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -1917,10 +1931,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_MonitorEventZWrapper {
+    public class LDKCVec_MonitorEventZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_MonitorEventZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -1929,6 +1942,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_MonitorEventZ, subdimensionWrapper: [AnyObject]){
@@ -1936,6 +1950,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2013,10 +2028,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_NetAddressZWrapper {
+    public class LDKCVec_NetAddressZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_NetAddressZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2025,6 +2039,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_NetAddressZ, subdimensionWrapper: [AnyObject]){
@@ -2032,6 +2047,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2109,10 +2125,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_NodeAnnouncementZWrapper {
+    public class LDKCVec_NodeAnnouncementZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_NodeAnnouncementZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2121,6 +2136,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_NodeAnnouncementZ, subdimensionWrapper: [AnyObject]){
@@ -2128,6 +2144,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2205,10 +2222,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_PrivateRouteZWrapper {
+    public class LDKCVec_PrivateRouteZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_PrivateRouteZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2217,6 +2233,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_PrivateRouteZ, subdimensionWrapper: [AnyObject]){
@@ -2224,6 +2241,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2309,10 +2327,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_PublicKeyZWrapper {
+    public class LDKCVec_PublicKeyZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_PublicKeyZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2321,6 +2338,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_PublicKeyZ, subdimensionWrapper: [AnyObject]){
@@ -2328,6 +2346,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2380,10 +2399,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_RouteHintZWrapper {
+    public class LDKCVec_RouteHintZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_RouteHintZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2392,6 +2410,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_RouteHintZ, subdimensionWrapper: [AnyObject]){
@@ -2399,6 +2418,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2476,10 +2496,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_RouteHopZWrapper {
+    public class LDKCVec_RouteHopZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_RouteHopZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2488,6 +2507,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_RouteHopZ, subdimensionWrapper: [AnyObject]){
@@ -2495,6 +2515,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2580,10 +2601,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_SignatureZWrapper {
+    public class LDKCVec_SignatureZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_SignatureZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2592,6 +2612,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_SignatureZ, subdimensionWrapper: [AnyObject]){
@@ -2599,6 +2620,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2651,10 +2673,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_SpendableOutputDescriptorZWrapper {
+    public class LDKCVec_SpendableOutputDescriptorZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_SpendableOutputDescriptorZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2663,6 +2684,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_SpendableOutputDescriptorZ, subdimensionWrapper: [AnyObject]){
@@ -2670,6 +2692,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2747,10 +2770,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_TransactionOutputsZWrapper {
+    public class LDKCVec_TransactionOutputsZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_TransactionOutputsZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2759,6 +2781,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_TransactionOutputsZ, subdimensionWrapper: [AnyObject]){
@@ -2766,6 +2789,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2851,10 +2875,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_TransactionZWrapper {
+    public class LDKCVec_TransactionZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_TransactionZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2863,6 +2886,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_TransactionZ, subdimensionWrapper: [AnyObject]){
@@ -2870,6 +2894,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -2922,10 +2947,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_TxOutZWrapper {
+    public class LDKCVec_TxOutZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_TxOutZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -2934,6 +2958,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_TxOutZ, subdimensionWrapper: [AnyObject]){
@@ -2941,6 +2966,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3018,10 +3044,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_TxidZWrapper {
+    public class LDKCVec_TxidZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_TxidZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3030,6 +3055,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_TxidZ, subdimensionWrapper: [AnyObject]){
@@ -3037,6 +3063,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3089,10 +3116,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_UpdateAddHTLCZWrapper {
+    public class LDKCVec_UpdateAddHTLCZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_UpdateAddHTLCZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3101,6 +3127,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_UpdateAddHTLCZ, subdimensionWrapper: [AnyObject]){
@@ -3108,6 +3135,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3185,10 +3213,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_UpdateFailHTLCZWrapper {
+    public class LDKCVec_UpdateFailHTLCZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_UpdateFailHTLCZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3197,6 +3224,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_UpdateFailHTLCZ, subdimensionWrapper: [AnyObject]){
@@ -3204,6 +3232,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3281,10 +3310,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_UpdateFailMalformedHTLCZWrapper {
+    public class LDKCVec_UpdateFailMalformedHTLCZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_UpdateFailMalformedHTLCZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3293,6 +3321,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_UpdateFailMalformedHTLCZ, subdimensionWrapper: [AnyObject]){
@@ -3300,6 +3329,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3377,10 +3407,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_UpdateFulfillHTLCZWrapper {
+    public class LDKCVec_UpdateFulfillHTLCZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_UpdateFulfillHTLCZ?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3389,6 +3418,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_UpdateFulfillHTLCZ, subdimensionWrapper: [AnyObject]){
@@ -3396,6 +3426,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3473,10 +3504,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_u64ZWrapper {
+    public class LDKCVec_u64ZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_u64Z?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3485,6 +3515,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_u64Z, subdimensionWrapper: [AnyObject]){
@@ -3492,6 +3523,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3544,10 +3576,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKCVec_u8ZWrapper {
+    public class LDKCVec_u8ZWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKCVec_u8Z?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3556,6 +3587,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKCVec_u8Z, subdimensionWrapper: [AnyObject]){
@@ -3563,6 +3595,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}
@@ -3615,10 +3648,9 @@ public class Bindings{
         return wrapper
     }
 
-    public class LDKu8sliceWrapper {
+    public class LDKu8sliceWrapper: NativeTypeWrapper {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
 
 		public var cOpaqueStruct: LDKu8slice?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
@@ -3627,6 +3659,7 @@ public class Bindings{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		internal init(pointer: LDKu8slice, subdimensionWrapper: [AnyObject]){
@@ -3634,6 +3667,7 @@ public class Bindings{
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
 			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
 		}
 
 		public func noOpRetain(){}

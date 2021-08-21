@@ -18,7 +18,7 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 }
 }
 }
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -26,7 +26,7 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

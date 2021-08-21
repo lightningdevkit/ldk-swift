@@ -44,28 +44,29 @@ open class Watch: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKWatch(this_arg: Bindings.instanceToPointer(instance: self), 
 			watch_channel: watch_channelCallback,
 			update_channel: update_channelCallback,
 			release_pending_monitor_events: release_pending_monitor_eventsCallback,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKWatch){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKWatch, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

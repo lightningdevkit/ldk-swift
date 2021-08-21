@@ -17,7 +17,7 @@ public class TxOut: NativeTypeWrapper {
 						}
 					
         self.cOpaqueStruct = TxOut_new(script_pubkeyWrapper.dangle().cOpaqueStruct!, value)
-        super.init()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -25,7 +25,7 @@ public class TxOut: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */

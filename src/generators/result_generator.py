@@ -57,6 +57,7 @@ class ResultGenerator:
 					Self.instanceCounter += 1
 					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = {struct_name}(contents: {struct_details.result_wrapper_type}(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}}
 			'''
 			mutating_output_file_contents = constructor_template_regex.sub(f'\g<1>{constructor_body}\g<3>', mutating_output_file_contents)

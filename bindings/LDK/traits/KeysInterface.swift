@@ -68,6 +68,7 @@ open class KeysInterface: NativeTypeWrapper {
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKKeysInterface(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_node_secret: get_node_secretCallback,
 			get_destination_script: get_destination_scriptCallback,
@@ -77,23 +78,23 @@ open class KeysInterface: NativeTypeWrapper {
 			read_chan_signer: read_chan_signerCallback,
 			sign_invoice: sign_invoiceCallback,
 			free: freeCallback)
-        super.init()
+
     }
 
     public init(pointer: LDKKeysInterface){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public init(pointer: LDKKeysInterface, anchor: AnyObject){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
-		self.dangling = true
 		self.anchor = anchor
 		self.cOpaqueStruct = pointer
-		super.init()
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
 	}
 
     /* SWIFT_CALLBACKS_START */

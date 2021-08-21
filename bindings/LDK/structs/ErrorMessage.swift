@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ErrorMessage: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

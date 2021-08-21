@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import LDKHeaders
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -3708,7 +3707,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		/* RUST_PRIMITIVE_CLEANUP */
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3988,7 +3987,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
 		dataContainer.initialize(from: array, count: array.count)
 
-		let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: false)
+		let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: true)
 		let wrapper = LDKTransactionWrapper(pointer: vector)
 		return wrapper
 	}

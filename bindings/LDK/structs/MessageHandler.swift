@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class MessageHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

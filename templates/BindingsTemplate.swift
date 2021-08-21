@@ -170,7 +170,7 @@ public class Bindings{
 			/* CONVERSION_PREP */
 			array.append(convertedEntry)
 		}
-		nativeType.data.deallocate()
+		/* RUST_PRIMITIVE_CLEANUP */
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -215,7 +215,7 @@ public class Bindings{
 		let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)
 		dataContainer.initialize(from: array, count: array.count)
 
-		let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: false)
+		let vector = LDKTransaction(data: dataContainer, datalen: UInt(array.count), data_is_owned: true)
 		let wrapper = LDKTransactionWrapper(pointer: vector)
 		return wrapper
 	}

@@ -62,11 +62,11 @@ jobs:
                     python ci/fix_header_includes.py
             -   name: Generate (copy for debugging) Swift bindings and copy batteries
                 run: |
-                    # python ./ # Generate bindings
+                    python ./ # Generate bindings
 
                     # TODO: switch back to generation method after debugging
-                    mkdir -p ci/LDKSwift/Sources/LDKSwift
-                    cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
+                    # mkdir -p ci/LDKSwift/Sources/LDKSwift
+                    # cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
 
                     cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
                 env:

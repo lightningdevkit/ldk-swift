@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class FundingSigned: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

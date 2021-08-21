@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class HTLCUpdate: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

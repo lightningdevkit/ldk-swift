@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

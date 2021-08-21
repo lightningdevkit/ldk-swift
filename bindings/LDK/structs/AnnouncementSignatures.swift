@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class AnnouncementSignatures: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

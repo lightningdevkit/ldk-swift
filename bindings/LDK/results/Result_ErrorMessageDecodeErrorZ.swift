@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

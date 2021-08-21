@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class OutPoint: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

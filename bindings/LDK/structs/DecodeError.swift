@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class DecodeError: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ErrorAction {
 
 	private static var instanceCounter: UInt = 0

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Sha256 {
 
 	private static var instanceCounter: UInt = 0

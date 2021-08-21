@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Ping {
 
 	private static var instanceCounter: UInt = 0

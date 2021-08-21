@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class HolderCommitmentTransaction {
 
 	private static var instanceCounter: UInt = 0

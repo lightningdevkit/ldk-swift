@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class CounterpartyChannelTransactionParameters: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

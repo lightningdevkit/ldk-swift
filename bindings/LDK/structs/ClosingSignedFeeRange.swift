@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ClosingSignedFeeRange: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Access: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

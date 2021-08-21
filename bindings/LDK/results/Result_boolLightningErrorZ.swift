@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_boolLightningErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

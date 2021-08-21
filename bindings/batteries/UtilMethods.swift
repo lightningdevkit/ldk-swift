@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import LDKHeaders
+
+
 
 public class UtilMethods {
 

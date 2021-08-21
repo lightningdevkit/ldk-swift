@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_SecretKeyErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ShutdownScript: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

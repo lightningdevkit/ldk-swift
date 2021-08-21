@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_CResult_NetAddressu8ZDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

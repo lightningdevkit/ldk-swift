@@ -15,18 +15,22 @@ enum InvalidSerializedDataError: Error {
 
 public class ChannelManagerConstructor {
 
+    /*
     public let channelManager: ChannelManager
 
     /**
      * The latest block has the channel manager saw. If this is non-null it is a 32-byte block hash.
      * You should sync the blockchain starting with the block that builds on this block.
      */
+
+
     public let channel_manager_latest_block_hash: [UInt8]?
     
     let logger: Logger
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: CustomEventHandler?
     public let peerManager: PeerManager
+    */
 
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
@@ -36,7 +40,8 @@ public class ChannelManagerConstructor {
      */
     public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]
 
-    private let chain_monitor: ChainMonitor
+    // private let chain_monitor: ChainMonitor
+
 
     public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, router: NetGraphMsgHandler?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
 
@@ -68,10 +73,17 @@ public class ChannelManagerConstructor {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
 
-        print("Extracting block hash from channel manager")
-        let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
-        print("Extracting channel manager object")
-        let channelManager = ChannelManager(pointer: res.dangle().cOpaqueStruct!.contents.result.pointee.b)
+
+        for clonedChannelMonitor in self.channel_monitors {
+            clonedChannelMonitor.0.cOpaqueStruct!.is_owned = true
+        }
+
+        // print("Extracting block hash from channel manager")
+        // let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
+        // print("Extracting channel manager object")
+        // let channelManager = ChannelManager(pointer: res.dangle().cOpaqueStruct!.contents.result.pointee.b)
+
+        /*
 
         self.channelManager = channelManager
         self.channel_manager_latest_block_hash = latestBlockHash
@@ -93,7 +105,11 @@ public class ChannelManagerConstructor {
             }
         }
 
+        */
+
     }
+
+    /*
 
     /**
      * Constructs a channel manager from the given interface implementations
@@ -116,7 +132,8 @@ public class ChannelManagerConstructor {
             self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         }
     }
-    
+
+
     var persisterWorkItem: DispatchWorkItem?
     var backgroundProcessor: BackgroundProcessor?
     var shutdown = false
@@ -158,6 +175,7 @@ public class ChannelManagerConstructor {
         self.shutdown = true
         self.backgroundProcessor?.stop()
     }
+    */
 
 }
 

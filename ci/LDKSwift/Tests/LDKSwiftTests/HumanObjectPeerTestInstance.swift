@@ -11,6 +11,8 @@ import LDKHeaders
 
 public class HumanObjectPeerTestInstance {
 
+    /*
+
     private let nice_close: Bool;
     private let use_km_wrapper: Bool;
     private let use_manual_watch: Bool;
@@ -253,4 +255,7 @@ public class HumanObjectPeerTestInstance {
         connectPeers(peerA: peer1, peerB: peer2)
     }
 
+    */
+
 }
+

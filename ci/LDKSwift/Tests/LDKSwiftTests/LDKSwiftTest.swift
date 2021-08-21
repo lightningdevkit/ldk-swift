@@ -76,6 +76,8 @@ class LDKSwiftTest: XCTestCase {
         */
     }
 
+    /*
+
     func xtestExtendedActivity() {
         // for i in 0...(1 << 7) {
         for i in 0..<1 { // only do one test run initially
@@ -128,6 +130,8 @@ class LDKSwiftTest: XCTestCase {
         }
 
     }
+
+    */
 
 
     func testPerformanceExample() throws {

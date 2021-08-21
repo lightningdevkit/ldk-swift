@@ -6,7 +6,6 @@
 //
 
 import Foundation
-// import LDKHeaders
 
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
@@ -25,7 +24,7 @@ public class ChannelManagerConstructor {
 
 
     public let channel_manager_latest_block_hash: [UInt8]?
-    
+
     let logger: Logger
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: CustomEventHandler?
@@ -87,7 +86,7 @@ public class ChannelManagerConstructor {
         self.channel_manager_latest_block_hash = latestBlockHash
         self.chain_monitor = chain_monitor
         self.logger = logger
-        
+
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
@@ -119,7 +118,7 @@ public class ChannelManagerConstructor {
         let chainParameters = ChainParameters(network_arg: network, best_block_arg: block)
         self.channelManager = ChannelManager(fee_est: fee_estimator, chain_monitor: chain_monitor.as_Watch(), tx_broadcaster: tx_broadcaster, logger: logger, keys_manager: keys_interface, config: config, params: chainParameters)
         self.logger = logger
-        
+
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
@@ -134,7 +133,7 @@ public class ChannelManagerConstructor {
     var persisterWorkItem: DispatchWorkItem?
     var backgroundProcessor: BackgroundProcessor?
     var shutdown = false
-    
+
     /**
      * Utility which adds all of the deserialized ChannelMonitors to the chain watch so that further updates from the
      * ChannelManager are processed as normal.
@@ -143,7 +142,7 @@ public class ChannelManagerConstructor {
      * ChannelManagerPersister as required.
      */
     public func chain_sync_completed(persister: ExtendedChannelManagerPersister) {
-        
+
         if self.backgroundProcessor != nil {
             return
         }
@@ -164,10 +163,10 @@ public class ChannelManagerConstructor {
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
-        
-        
+
+
     }
-    
+
     public func interrupt() {
         self.shutdown = true
         self.backgroundProcessor?.stop()
@@ -177,14 +176,14 @@ public class ChannelManagerConstructor {
 }
 
 fileprivate class CustomChannelManagerPersister: ChannelManagerPersister {
-    
+
     let handler: ExtendedChannelManagerPersister
-    
+
     init(handler: ExtendedChannelManagerPersister) {
         self.handler = handler
         super.init()
     }
-    
+
     override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
         return self.handler.persist_manager(channel_manager: channel_manager)
     }
@@ -193,17 +192,17 @@ fileprivate class CustomChannelManagerPersister: ChannelManagerPersister {
 fileprivate class CustomEventHandler: EventHandler {
 
     let handler: ExtendedChannelManagerPersister
-    
+
     init(handler: ExtendedChannelManagerPersister) {
         self.handler = handler
         super.init()
     }
-    
+
     override func handle_event(event: Event) {
         self.handler.handle_event(event: event)
     }
-    
-    
+
+
 }
 
 public protocol ExtendedChannelManagerPersister: ChannelManagerPersister {

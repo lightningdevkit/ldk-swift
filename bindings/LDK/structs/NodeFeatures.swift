@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class NodeFeatures: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

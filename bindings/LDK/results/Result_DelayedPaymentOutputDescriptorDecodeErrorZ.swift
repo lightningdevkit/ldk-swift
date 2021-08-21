@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

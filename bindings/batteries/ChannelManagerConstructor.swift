@@ -15,7 +15,7 @@ enum InvalidSerializedDataError: Error {
 
 public class ChannelManagerConstructor {
 
-    /*
+
     public let channelManager: ChannelManager
 
     /**
@@ -30,7 +30,7 @@ public class ChannelManagerConstructor {
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: CustomEventHandler?
     public let peerManager: PeerManager
-    */
+
 
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
@@ -40,7 +40,7 @@ public class ChannelManagerConstructor {
      */
     public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]
 
-    // private let chain_monitor: ChainMonitor
+    private let chain_monitor: ChainMonitor
 
 
     public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, router: NetGraphMsgHandler?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
@@ -49,13 +49,13 @@ public class ChannelManagerConstructor {
         self.channel_monitors = []
 
         for currentSerializedChannelMonitor in channel_monitors_serialized {
-            let res: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
-            if res.cOpaqueStruct?.result_ok != true {
+            let channelMonitorResult: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
+            if channelMonitorResult.cOpaqueStruct?.result_ok != true {
                 throw InvalidSerializedDataError.invalidSerializedChannelMonitor
             }
             // res
 
-            let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = res.cOpaqueStruct!.contents
+            let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = channelMonitorResult.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             var b: LDKChannelMonitor = value.result!.pointee.b
 
@@ -68,8 +68,8 @@ public class ChannelManagerConstructor {
         }
 
         print("Collected channel monitors, reading channel manager")
-        let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
-        if res.isOk() != true {
+        let channelManagerResult = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
+        if channelManagerResult.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
 
@@ -78,12 +78,10 @@ public class ChannelManagerConstructor {
             clonedChannelMonitor.0.cOpaqueStruct!.is_owned = true
         }
 
-        // print("Extracting block hash from channel manager")
-        // let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
-        // print("Extracting channel manager object")
-        // let channelManager = ChannelManager(pointer: res.dangle().cOpaqueStruct!.contents.result.pointee.b)
+        let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
+        let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
+        try! channelManager.dangle().addAnchor(anchor: channelManagerResult)
 
-        /*
 
         self.channelManager = channelManager
         self.channel_manager_latest_block_hash = latestBlockHash
@@ -101,11 +99,10 @@ public class ChannelManagerConstructor {
 
         if let filter = filter {
             for (currentMonitor, _) in self.channel_monitors {
-                // currentMonitor.load_outputs_to_watch(filter: filter)
+                currentMonitor.load_outputs_to_watch(filter: filter)
             }
         }
 
-        */
 
     }
 

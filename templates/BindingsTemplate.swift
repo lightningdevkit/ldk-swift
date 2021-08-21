@@ -34,8 +34,19 @@ open class NativeTypeWrapper: Hashable {
     }
 
     internal func hasAnchor(candidate: NativeTypeWrapper) -> Bool {
-        self.anchors.contains(candidate)
-    }
+		if self.anchors.count == 0 {
+			return false
+		}
+		if self.anchors.contains(candidate) {
+			return true
+		}
+		for currentAnchor in self.anchors {
+			if currentAnchor.hasAnchor(candidate: candidate) {
+				return true
+			}
+		}
+		return false
+	}
 
     public static func == (lhs: NativeTypeWrapper, rhs: NativeTypeWrapper) -> Bool {
         return (lhs.globalInstanceNumber == rhs.globalInstanceNumber)

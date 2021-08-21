@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class UnsignedChannelUpdate: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

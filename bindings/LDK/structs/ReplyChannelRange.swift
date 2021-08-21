@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class ReplyChannelRange: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

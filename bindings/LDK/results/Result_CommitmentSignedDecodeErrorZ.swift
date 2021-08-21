@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_CommitmentSignedDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

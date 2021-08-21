@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Watch: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

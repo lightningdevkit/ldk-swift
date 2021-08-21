@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Option_C2Tuple_usizeTransactionZZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

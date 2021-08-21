@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Result_UpdateFulfillHTLCDecodeErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

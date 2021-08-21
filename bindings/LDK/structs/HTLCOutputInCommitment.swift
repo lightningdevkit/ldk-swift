@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class HTLCOutputInCommitment: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

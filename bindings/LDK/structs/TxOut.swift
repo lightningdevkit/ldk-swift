@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class TxOut: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

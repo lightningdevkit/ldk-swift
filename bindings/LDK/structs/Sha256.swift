@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Sha256: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

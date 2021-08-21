@@ -1,4 +1,3 @@
-import conversion_helper
 from src.lightning_header_parser import LightningHeaderParser
 from src.generators.opaque_struct_generator import OpaqueStructGenerator
 from src.generators.tuple_generator import TupleGenerator
@@ -92,7 +91,7 @@ def generate_trait_placeholders(parser: LightningHeaderParser, returned_trait_in
 
 
 def initialize_conversion_helper_knowledge(parser: LightningHeaderParser):
-	conversion_helper.ConversionHelper.trait_structs = parser.trait_structs
+	src.conversion_helper.ConversionHelper.trait_structs = parser.trait_structs
 
 
 def generate_sdk():

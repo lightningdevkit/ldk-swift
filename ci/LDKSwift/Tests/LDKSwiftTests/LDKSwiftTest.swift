@@ -69,11 +69,12 @@ class LDKSwiftTest: XCTestCase {
                 tx_broadcaster: broadcaster,
                 logger: logger
         )
-        /*
+
         let channel_manager = channel_manager_constructor.channelManager;
         let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
+
         channel_manager_constructor.chain_sync_completed(persister: cmPersister)
-        */
+
     }
 
     /*

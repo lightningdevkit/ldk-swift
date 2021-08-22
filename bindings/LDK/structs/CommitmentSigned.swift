@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class CommitmentSigned: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

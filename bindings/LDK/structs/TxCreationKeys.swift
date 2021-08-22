@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class TxCreationKeys: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class QueryChannelRange: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

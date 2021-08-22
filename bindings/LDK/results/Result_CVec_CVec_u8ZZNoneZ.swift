@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_CVec_CVec_u8ZZNoneZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

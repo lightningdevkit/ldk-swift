@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class Persist: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
@@ -17,7 +15,7 @@ open class Persist: NativeTypeWrapper {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::persist_new_channel")
 			let data = ChannelMonitor(pointer: dataPointer.pointee);
 
-			return instance.persist_new_channel(id: OutPoint(pointer: id).danglingClone(), data: data).cOpaqueStruct!
+			return instance.persist_new_channel(id: OutPoint(pointer: id), data: data).cOpaqueStruct!
 		}
 
 		func update_persisted_channelCallback(pointer: UnsafeRawPointer?, id: LDKOutPoint, updatePointer: UnsafePointer<LDKChannelMonitorUpdate>, dataPointer: UnsafePointer<LDKChannelMonitor>) -> LDKCResult_NoneChannelMonitorUpdateErrZ {

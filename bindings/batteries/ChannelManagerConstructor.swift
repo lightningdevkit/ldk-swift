@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import LDKHeaders
+
 
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
@@ -153,7 +153,7 @@ public class ChannelManagerConstructor {
             let monitorClone = currentChannelMonitor.clone()
             monitorClone.cOpaqueStruct?.is_owned = false
             let fundingTxo = monitorClone.get_funding_txo()
-            let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a)
+            let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a).dangle()
             print("watching channel")
             let monitorWatchResult = chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: monitorClone)
             if !monitorWatchResult.isOk() {
@@ -161,9 +161,9 @@ public class ChannelManagerConstructor {
             }
         }
 
-        // self.customPersister = CustomChannelManagerPersister(handler: persister)
-        // self.customEventHandler = CustomEventHandler(handler: persister)
-        // self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
+        self.customPersister = CustomChannelManagerPersister(handler: persister)
+        self.customEventHandler = CustomEventHandler(handler: persister)
+        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
 
     }
 

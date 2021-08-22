@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class RawDataPart: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

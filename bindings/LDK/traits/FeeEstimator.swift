@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class FeeEstimator: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

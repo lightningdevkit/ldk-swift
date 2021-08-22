@@ -161,10 +161,9 @@ public class ChannelManagerConstructor {
             }
         }
 
-        self.customPersister = CustomChannelManagerPersister(handler: persister)
-        self.customEventHandler = CustomEventHandler(handler: persister)
-        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
-
+        // self.customPersister = CustomChannelManagerPersister(handler: persister)
+        // self.customEventHandler = CustomEventHandler(handler: persister)
+        // self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
 
     }
 

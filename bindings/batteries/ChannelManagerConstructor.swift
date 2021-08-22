@@ -159,6 +159,7 @@ public class ChannelManagerConstructor {
             if !monitorWatchResult.isOk() {
                 print("Some error occurred with a chainMonitorWatch.watch_channel call")
             }
+            monitorClone.cOpaqueStruct?.is_owned = true
         }
 
         self.customPersister = CustomChannelManagerPersister(handler: persister)

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class OpenChannel: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

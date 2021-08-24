@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class Logger: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

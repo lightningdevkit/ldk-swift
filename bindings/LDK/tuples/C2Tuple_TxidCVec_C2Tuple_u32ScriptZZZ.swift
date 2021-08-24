@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class Invoice: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

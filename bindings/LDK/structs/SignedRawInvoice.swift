@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class SignedRawInvoice: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

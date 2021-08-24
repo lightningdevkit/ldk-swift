@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class GossipTimestampFilter: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

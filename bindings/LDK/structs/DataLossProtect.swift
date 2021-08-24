@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class DataLossProtect: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

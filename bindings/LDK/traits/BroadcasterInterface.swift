@@ -1,3 +1,5 @@
+import LDKHeaders
+
 open class BroadcasterInterface: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

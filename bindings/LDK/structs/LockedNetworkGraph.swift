@@ -1,3 +1,5 @@
+import LDKHeaders
+
 public class LockedNetworkGraph: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

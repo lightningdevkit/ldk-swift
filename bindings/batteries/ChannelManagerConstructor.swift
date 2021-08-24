@@ -80,7 +80,7 @@ public class ChannelManagerConstructor {
 
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
         let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
-        try! channelManager.dangle().addAnchor(anchor: channelManagerResult)
+        try! channelManager.addAnchor(anchor: channelManagerResult)
 
 
         self.channelManager = channelManager

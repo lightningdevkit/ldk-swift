@@ -14,7 +14,7 @@ enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelManager
 }
 
-public class ChannelManagerConstructor {
+public class ChannelManagerConstructor: NativeTypeWrapper {
 
 
     public let channelManager: ChannelManager
@@ -104,6 +104,9 @@ public class ChannelManagerConstructor {
             }
         }
 
+        super.init(conflictAvoidingVariableName: 0)
+        try! self.peerManager.addAnchor(anchor: self)
+        try! self.channelManager.addAnchor(anchor: self)
 
     }
 
@@ -124,11 +127,15 @@ public class ChannelManagerConstructor {
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         } else {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         }
+
+        super.init(conflictAvoidingVariableName: 0)
+        try! self.peerManager.addAnchor(anchor: self)
+        try! self.channelManager.addAnchor(anchor: self)
     }
 
 

@@ -1,17 +1,26 @@
-public class Result_InvoiceFeaturesDecodeErrorZ {
+public class Result_InvoiceFeaturesDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceFeaturesDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceFeaturesDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_InvoiceFeaturesDecodeErrorZ(contents: LDKCResult_InvoiceFeaturesDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_InvoiceFeaturesDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_InvoiceFeaturesDecodeErrorZ {
 			
     public class func ok(o: InvoiceFeatures) -> Result_InvoiceFeaturesDecodeErrorZ {
     	
-        return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_InvoiceFeaturesDecodeErrorZ {
     	
-        return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_InvoiceFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InvoiceFeaturesDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_InvoiceFeaturesDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_InvoiceFeaturesDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -1,17 +1,26 @@
-public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ(contents: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -29,7 +38,7 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 			
     public class func ok(o: C2Tuple_SignatureCVec_SignatureZZ) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	
-        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.clone().cOpaqueStruct!));
+        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
@@ -37,10 +46,25 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
         return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	
@@ -48,6 +72,13 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

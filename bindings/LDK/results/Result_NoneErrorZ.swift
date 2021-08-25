@@ -1,17 +1,26 @@
-public class Result_NoneErrorZ {
+public class Result_NoneErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NoneErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NoneErrorZ(contents: LDKCResult_NoneErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_NoneErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -37,10 +46,25 @@ public class Result_NoneErrorZ {
         return Result_NoneErrorZ(pointer: CResult_NoneErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_NoneErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_NoneErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_NoneErrorZ {
     	
@@ -48,6 +72,13 @@ public class Result_NoneErrorZ {
 CResult_NoneErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -1,17 +1,26 @@
-public class Result_TxOutAccessErrorZ {
+public class Result_TxOutAccessErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TxOutAccessErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_TxOutAccessErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_TxOutAccessErrorZ(contents: LDKCResult_TxOutAccessErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_TxOutAccessErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -44,10 +53,25 @@ public class Result_TxOutAccessErrorZ {
         return Result_TxOutAccessErrorZ(pointer: CResult_TxOutAccessErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_TxOutAccessErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_TxOutAccessErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_TxOutAccessErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_TxOutAccessErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_TxOutAccessErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_TxOutAccessErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_TxOutAccessErrorZ {
 CResult_TxOutAccessErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_TxOutAccessErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

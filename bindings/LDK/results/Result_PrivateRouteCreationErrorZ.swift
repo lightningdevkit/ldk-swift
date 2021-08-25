@@ -1,17 +1,26 @@
-public class Result_PrivateRouteCreationErrorZ {
+public class Result_PrivateRouteCreationErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PrivateRouteCreationErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_PrivateRouteCreationErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_PrivateRouteCreationErrorZ(contents: LDKCResult_PrivateRouteCreationErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_PrivateRouteCreationErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,7 +45,7 @@ public class Result_PrivateRouteCreationErrorZ {
 			
     public class func ok(o: PrivateRoute) -> Result_PrivateRouteCreationErrorZ {
     	
-        return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKCreationError) -> Result_PrivateRouteCreationErrorZ {
@@ -44,10 +53,25 @@ public class Result_PrivateRouteCreationErrorZ {
         return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PrivateRouteCreationErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PrivateRouteCreationErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PrivateRouteCreationErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_PrivateRouteCreationErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_PrivateRouteCreationErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_PrivateRouteCreationErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_PrivateRouteCreationErrorZ {
 CResult_PrivateRouteCreationErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PrivateRouteCreationErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

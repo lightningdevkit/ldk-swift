@@ -1,16 +1,26 @@
-public class ChannelTransactionParameters {
+public class ChannelTransactionParameters: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelTransactionParameters?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelTransactionParameters?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(holder_pubkeys_arg: ChannelPublicKeys, holder_selected_contest_delay_arg: UInt16, is_outbound_from_holder_arg: Bool, counterparty_parameters_arg: CounterpartyChannelTransactionParameters, funding_outpoint_arg: OutPoint) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelTransactionParameters_new(holder_pubkeys_arg.clone().cOpaqueStruct!, holder_selected_contest_delay_arg, is_outbound_from_holder_arg, counterparty_parameters_arg.clone().cOpaqueStruct!, funding_outpoint_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelTransactionParameters_new(holder_pubkeys_arg.danglingClone().cOpaqueStruct!, holder_selected_contest_delay_arg, is_outbound_from_holder_arg, counterparty_parameters_arg.danglingClone().cOpaqueStruct!, funding_outpoint_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelTransactionParameters){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -27,7 +37,7 @@ ChannelTransactionParameters_get_holder_pubkeys(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_holder_pubkeys(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelTransactionParameters_set_holder_pubkeys(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_holder_selected_contest_delay() -> UInt16 {
@@ -72,7 +82,7 @@ ChannelTransactionParameters_get_counterparty_parameters(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_funding_outpoint() -> OutPoint {
@@ -87,15 +97,22 @@ ChannelTransactionParameters_get_funding_outpoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelTransactionParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelTransactionParameters_set_funding_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelTransactionParameters {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
-ChannelTransactionParameters(pointer: ChannelTransactionParameters_clone(origPointer))
-};
+        return ChannelTransactionParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+ChannelTransactionParameters_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ChannelTransactionParameters {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func is_populated() -> Bool {
     	
@@ -127,19 +144,34 @@ ChannelTransactionParameters_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
-        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: ChannelTransactionParameters_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelTransactionParameters_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelTransactionParameters {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelTransactionParameters \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelTransactionParameters \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelTransactionParameters_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

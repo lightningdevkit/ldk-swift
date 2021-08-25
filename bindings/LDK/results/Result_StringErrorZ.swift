@@ -1,17 +1,26 @@
-public class Result_StringErrorZ {
+public class Result_StringErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_StringErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_StringErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_StringErrorZ(contents: LDKCResult_StringErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_StringErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -44,10 +53,25 @@ public class Result_StringErrorZ {
         return Result_StringErrorZ(pointer: CResult_StringErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_StringErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_StringErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_StringErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_StringErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

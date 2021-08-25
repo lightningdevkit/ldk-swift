@@ -1,16 +1,26 @@
-public class ClosingSigned {
+public class ClosingSigned: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKClosingSigned?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKClosingSigned?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(channel_id_arg: [UInt8], fee_satoshis_arg: UInt64, signature_arg: [UInt8]) {
+    public init(channel_id_arg: [UInt8], fee_satoshis_arg: UInt64, signature_arg: [UInt8], fee_range_arg: ClosingSignedFeeRange) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ClosingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), fee_satoshis_arg, Bindings.new_LDKSignature(array: signature_arg))
+        self.cOpaqueStruct = ClosingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), fee_satoshis_arg, Bindings.new_LDKSignature(array: signature_arg), fee_range_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKClosingSigned){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -60,12 +70,34 @@ ClosingSigned_get_signature(this_ptrPointer)
         return ClosingSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
+    public func get_fee_range() -> ClosingSignedFeeRange {
+    	
+        return ClosingSignedFeeRange(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKClosingSigned>) in
+ClosingSigned_get_fee_range(this_ptrPointer)
+});
+    }
+
+    public func set_fee_range(val: ClosingSignedFeeRange) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKClosingSigned>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ClosingSigned_set_fee_range(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
     public func clone() -> ClosingSigned {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKClosingSigned>) in
-ClosingSigned(pointer: ClosingSigned_clone(origPointer))
-};
+        return ClosingSigned(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKClosingSigned>) in
+ClosingSigned_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ClosingSigned {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -76,19 +108,34 @@ ClosingSigned_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ClosingSignedDecodeErrorZ {
     	
-        return Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return ClosingSigned_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ClosingSigned {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ClosingSigned \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ClosingSigned \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ClosingSigned_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

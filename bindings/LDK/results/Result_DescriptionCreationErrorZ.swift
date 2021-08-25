@@ -1,17 +1,26 @@
-public class Result_DescriptionCreationErrorZ {
+public class Result_DescriptionCreationErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_DescriptionCreationErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_DescriptionCreationErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_DescriptionCreationErrorZ(contents: LDKCResult_DescriptionCreationErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_DescriptionCreationErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,7 +45,7 @@ public class Result_DescriptionCreationErrorZ {
 			
     public class func ok(o: Description) -> Result_DescriptionCreationErrorZ {
     	
-        return Result_DescriptionCreationErrorZ(pointer: CResult_DescriptionCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_DescriptionCreationErrorZ(pointer: CResult_DescriptionCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKCreationError) -> Result_DescriptionCreationErrorZ {
@@ -44,10 +53,25 @@ public class Result_DescriptionCreationErrorZ {
         return Result_DescriptionCreationErrorZ(pointer: CResult_DescriptionCreationErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_DescriptionCreationErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_DescriptionCreationErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_DescriptionCreationErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_DescriptionCreationErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_DescriptionCreationErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_DescriptionCreationErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_DescriptionCreationErrorZ {
 CResult_DescriptionCreationErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_DescriptionCreationErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

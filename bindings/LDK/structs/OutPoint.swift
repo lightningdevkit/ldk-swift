@@ -1,16 +1,26 @@
-public class OutPoint {
+public class OutPoint: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKOutPoint?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKOutPoint?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(txid_arg: [UInt8], index_arg: UInt16) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = OutPoint_new(Bindings.new_LDKThirtyTwoBytes(array: txid_arg), index_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKOutPoint){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -47,10 +57,17 @@ OutPoint_get_index(this_ptrPointer)
 
     public func clone() -> OutPoint {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOutPoint>) in
-OutPoint(pointer: OutPoint_clone(origPointer))
-};
+        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOutPoint>) in
+OutPoint_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> OutPoint {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func eq(a: OutPoint, b: OutPoint) -> Bool {
     	
@@ -84,19 +101,34 @@ OutPoint_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_OutPointDecodeErrorZ {
     	
-        return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_OutPointDecodeErrorZ(pointer: OutPoint_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return OutPoint_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> OutPoint {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing OutPoint \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing OutPoint \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		OutPoint_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

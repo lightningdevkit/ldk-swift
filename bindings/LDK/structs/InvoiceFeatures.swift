@@ -1,16 +1,26 @@
-public class InvoiceFeatures {
+public class InvoiceFeatures: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKInvoiceFeatures?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKInvoiceFeatures?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = InvoiceFeatures_known()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKInvoiceFeatures){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -26,10 +36,17 @@ InvoiceFeatures_eq(aPointer, bPointer)
 
     public func clone() -> InvoiceFeatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceFeatures>) in
-InvoiceFeatures(pointer: InvoiceFeatures_clone(origPointer))
-};
+        return InvoiceFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> InvoiceFeatures {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func supports_payment_secret() -> Bool {
     	
@@ -47,19 +64,34 @@ InvoiceFeatures_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_InvoiceFeaturesDecodeErrorZ {
     	
-        return Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return InvoiceFeatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> InvoiceFeatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing InvoiceFeatures \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing InvoiceFeatures \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		InvoiceFeatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

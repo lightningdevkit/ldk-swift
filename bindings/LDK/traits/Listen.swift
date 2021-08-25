@@ -1,15 +1,20 @@
-open class Listen {
+open class Listen: NativeTypeWrapper {
 
-    public var cOpaqueStruct: LDKListen?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public var cOpaqueStruct: LDKListen?
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
 		func block_connectedCallback(pointer: UnsafeRawPointer?, block: LDKu8slice, height: UInt32) -> Void {
 			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::block_connected")
 			
-			return instance.block_connected(block: Bindings.LDKu8slice_to_array(nativeType: block), height: height);
+			return instance.block_connected(block: Bindings.LDKu8slice_to_array(nativeType: block), height: height)
 		}
 
 		func block_disconnectedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, height: UInt32) -> Void {
@@ -20,28 +25,59 @@ open class Listen {
 									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
 								}
 							
-			return instance.block_disconnected(header: header, height: height);
+			return instance.block_disconnected(header: header, height: height)
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKListen(this_arg: Bindings.instanceToPointer(instance: self), 
 			block_connected: block_connectedCallback,
 			block_disconnected: block_disconnectedCallback,
 			free: freeCallback)
+
     }
 
     public init(pointer: LDKListen){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+	}
+
+	public init(pointer: LDKListen, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */
+
+
+
+					internal func dangle() -> Listen {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Listen \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Listen \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     open func block_connected(block: [UInt8], height: UInt32) -> Void {
     	/* EDIT ME */
@@ -69,13 +105,20 @@ public class NativelyImplementedListen: Listen {
 	public override func block_connected(block: [UInt8], height: UInt32) -> Void {
 		
 				
-				self.cOpaqueStruct!.block_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: block), height)
+						let blockWrapper = Bindings.new_LDKu8sliceWrapper(array: block)
+						defer {
+							blockWrapper.noOpRetain()
+						}
+					
+				
+				self.cOpaqueStruct!.block_connected(self.cOpaqueStruct!.this_arg, blockWrapper.cOpaqueStruct!, height)
 				
 			
 	}
 
 	public override func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
 		
+				
 				withUnsafePointer(to: Bindings.array_to_tuple80(array: header!)) { (headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
 				self.cOpaqueStruct!.block_disconnected(self.cOpaqueStruct!.this_arg, headerPointer, height)
@@ -86,6 +129,7 @@ public class NativelyImplementedListen: Listen {
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

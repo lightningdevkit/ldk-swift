@@ -1,11 +1,18 @@
-public class UnsignedChannelAnnouncement {
+public class UnsignedChannelAnnouncement: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKUnsignedChannelAnnouncement?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKUnsignedChannelAnnouncement?
+
 
 	
 
     public init(pointer: LDKUnsignedChannelAnnouncement){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -22,7 +29,7 @@ UnsignedChannelAnnouncement_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return UnsignedChannelAnnouncement_set_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_chain_hash() -> [UInt8] {
@@ -117,10 +124,17 @@ UnsignedChannelAnnouncement_get_bitcoin_key_2(this_ptrPointer)
 
     public func clone() -> UnsignedChannelAnnouncement {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
-UnsignedChannelAnnouncement(pointer: UnsignedChannelAnnouncement_clone(origPointer))
-};
+        return UnsignedChannelAnnouncement(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+UnsignedChannelAnnouncement_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> UnsignedChannelAnnouncement {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -131,19 +145,34 @@ UnsignedChannelAnnouncement_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
     	
-        return Result_UnsignedChannelAnnouncementDecodeErrorZ(pointer: UnsignedChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_UnsignedChannelAnnouncementDecodeErrorZ(pointer: UnsignedChannelAnnouncement_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return UnsignedChannelAnnouncement_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UnsignedChannelAnnouncement {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing UnsignedChannelAnnouncement \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing UnsignedChannelAnnouncement \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		UnsignedChannelAnnouncement_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

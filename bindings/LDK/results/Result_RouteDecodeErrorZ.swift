@@ -1,17 +1,26 @@
-public class Result_RouteDecodeErrorZ {
+public class Result_RouteDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_RouteDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_RouteDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_RouteDecodeErrorZ(contents: LDKCResult_RouteDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_RouteDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_RouteDecodeErrorZ {
 			
     public class func ok(o: Route) -> Result_RouteDecodeErrorZ {
     	
-        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_RouteDecodeErrorZ {
     	
-        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_RouteDecodeErrorZ(pointer: CResult_RouteDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_RouteDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_RouteDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_RouteDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_RouteDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_RouteDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_RouteDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_RouteDecodeErrorZ {
 CResult_RouteDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_RouteDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -1,11 +1,18 @@
-public class Sha256 {
+public class Sha256: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKSha256?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKSha256?
+
 
 	
 
     public init(pointer: LDKSha256){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -21,21 +28,38 @@ Sha256_eq(aPointer, bPointer)
 
     public func clone() -> Sha256 {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
-Sha256(pointer: Sha256_clone(origPointer))
-};
+        return Sha256(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
+Sha256_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> Sha256 {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return Sha256_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> Sha256 {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		Sha256_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing Sha256 \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Sha256 \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

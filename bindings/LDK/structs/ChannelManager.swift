@@ -1,16 +1,26 @@
-public class ChannelManager {
+public class ChannelManager: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelManager?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelManager?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(fee_est: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, keys_manager: KeysInterface, config: UserConfig, params: ChainParameters) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelManager_new(fee_est.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, keys_manager.cOpaqueStruct!, config.clone().cOpaqueStruct!, params.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelManager_new(fee_est.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, keys_manager.cOpaqueStruct!, config.danglingClone().cOpaqueStruct!, params.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelManager){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -25,7 +35,7 @@ ChannelManager_get_current_default_configuration(this_argPointer)
     public func create_channel(their_network_key: [UInt8], channel_value_satoshis: UInt64, push_msat: UInt64, user_id: UInt64, override_config: UserConfig) -> Result_NoneAPIErrorZ {
     	
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_channel(this_argPointer, Bindings.new_LDKPublicKey(array: their_network_key), channel_value_satoshis, push_msat, user_id, override_config.clone().cOpaqueStruct!)
+ChannelManager_create_channel(this_argPointer, Bindings.new_LDKPublicKey(array: their_network_key), channel_value_satoshis, push_msat, user_id, override_config.danglingClone().cOpaqueStruct!)
 });
     }
 
@@ -48,6 +58,15 @@ ChannelManager_list_usable_channels(this_argPointer)
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelManager_close_channel(this_argPointer, channel_idPointer)
+}
+});
+    }
+
+    public func close_channel_with_target_feerate(channel_id: [UInt8], target_feerate_sats_per_1000_weight: UInt32) -> Result_NoneAPIErrorZ {
+    	
+        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+ChannelManager_close_channel_with_target_feerate(this_argPointer, channel_idPointer, target_feerate_sats_per_1000_weight)
 }
 });
     }
@@ -77,19 +96,38 @@ ChannelManager_send_payment(this_argPointer, routePointer, Bindings.new_LDKThirt
 });
     }
 
+    public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentHashPaymentSendFailureZ {
+    	
+        return Result_PaymentHashPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
+ChannelManager_send_spontaneous_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage))
+}
+});
+    }
+
     public func funding_transaction_generated(temporary_channel_id: [UInt8], funding_transaction: [UInt8]) -> Result_NoneAPIErrorZ {
     	
+						let funding_transactionWrapper = Bindings.new_LDKTransactionWrapper(array: funding_transaction)
+						defer {
+							funding_transactionWrapper.noOpRetain()
+						}
+					
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: temporary_channel_id)) { (temporary_channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_idPointer, Bindings.new_LDKTransaction(array: funding_transaction))
+ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_idPointer, funding_transactionWrapper.cOpaqueStruct!)
 }
 });
     }
 
     public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
     	
+						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses)
+						defer {
+							addressesWrapper.noOpRetain()
+						}
+					
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_broadcast_node_announcement(this_argPointer, Bindings.new_LDKThreeBytes(array: rgb), Bindings.new_LDKThirtyTwoBytes(array: alias), Bindings.new_LDKCVec_NetAddressZ(array: addresses))
+ChannelManager_broadcast_node_announcement(this_argPointer, Bindings.new_LDKThreeBytes(array: rgb), Bindings.new_LDKThirtyTwoBytes(array: alias), addressesWrapper.dangle().cOpaqueStruct!)
 };
     }
 
@@ -142,14 +180,14 @@ ChannelManager_channel_monitor_updated(this_argPointer, funding_txoPointer, high
     public func create_inbound_payment(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32, user_payment_id: UInt64) -> C2Tuple_PaymentHashPaymentSecretZ {
     	
         return C2Tuple_PaymentHashPaymentSecretZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_inbound_payment(this_argPointer, min_value_msat.clone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
+ChannelManager_create_inbound_payment(this_argPointer, min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
 });
     }
 
     public func create_inbound_payment_for_hash(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32, user_payment_id: UInt64) -> Result_PaymentSecretAPIErrorZ {
     	
         return Result_PaymentSecretAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.clone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
+ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
 });
     }
 
@@ -157,28 +195,28 @@ ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDK
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_MessageSendEventsProvider(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_EventsProvider() -> EventsProvider {
     	
         return NativelyImplementedEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_EventsProvider(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_Listen() -> Listen {
     	
         return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Listen(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func as_Confirm() -> Confirm {
     	
         return NativelyImplementedConfirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Confirm(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func await_persistable_update_timeout(max_wait: UInt64) -> Bool {
@@ -206,7 +244,7 @@ ChannelManager_current_best_block(this_argPointer)
     	
         return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_ChannelMessageHandler(this_argPointer)
-});
+}, anchor: self);
     }
 
     public func write() -> [UInt8] {
@@ -216,16 +254,26 @@ ChannelManager_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelManager_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelManager {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelManager \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelManager \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelManager_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

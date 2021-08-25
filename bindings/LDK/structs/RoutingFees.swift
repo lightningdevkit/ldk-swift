@@ -1,16 +1,26 @@
-public class RoutingFees {
+public class RoutingFees: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKRoutingFees?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKRoutingFees?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(base_msat_arg: UInt32, proportional_millionths_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = RoutingFees_new(base_msat_arg, proportional_millionths_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKRoutingFees){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -56,10 +66,17 @@ RoutingFees_eq(aPointer, bPointer)
 
     public func clone() -> RoutingFees {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
-RoutingFees(pointer: RoutingFees_clone(origPointer))
-};
+        return RoutingFees(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRoutingFees>) in
+RoutingFees_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> RoutingFees {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -70,19 +87,34 @@ RoutingFees_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
     	
-        return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return RoutingFees_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RoutingFees {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing RoutingFees \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing RoutingFees \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		RoutingFees_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -1,11 +1,17 @@
-public class SpendableOutputDescriptor {
+public class SpendableOutputDescriptor: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKSpendableOutputDescriptor?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKSpendableOutputDescriptor?
 
 	
 
     public init(pointer: LDKSpendableOutputDescriptor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* OPTION_METHODS_START */
@@ -51,16 +57,53 @@ public class SpendableOutputDescriptor {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return SpendableOutputDescriptor_free(self.clone().cOpaqueStruct!);
+        return SpendableOutputDescriptor_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> SpendableOutputDescriptor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing SpendableOutputDescriptor \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing SpendableOutputDescriptor \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> SpendableOutputDescriptor {
     	
         return SpendableOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
 SpendableOutputDescriptor_clone(origPointer)
 });
+    }
+
+					internal func danglingClone() -> SpendableOutputDescriptor {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
+    public class func static_output(outpoint: OutPoint, output: LDKTxOut) -> SpendableOutputDescriptor {
+    	
+        return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_static_output(outpoint.danglingClone().cOpaqueStruct!, output));
+    }
+
+    public class func delayed_payment_output(a: DelayedPaymentOutputDescriptor) -> SpendableOutputDescriptor {
+    	
+        return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_delayed_payment_output(a.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func static_payment_output(a: StaticPaymentOutputDescriptor) -> SpendableOutputDescriptor {
+    	
+        return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_static_payment_output(a.danglingClone().cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {
@@ -72,7 +115,12 @@ SpendableOutputDescriptor_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
-        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(serWrapper.cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */

@@ -1,16 +1,26 @@
-public class RouteHintHop {
+public class RouteHintHop: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKRouteHintHop?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKRouteHintHop?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(src_node_id_arg: [UInt8], short_channel_id_arg: UInt64, fees_arg: RoutingFees, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: Option_u64Z, htlc_maximum_msat_arg: Option_u64Z) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg), short_channel_id_arg, fees_arg.clone().cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.clone().cOpaqueStruct!, htlc_maximum_msat_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = RouteHintHop_new(Bindings.new_LDKPublicKey(array: src_node_id_arg), short_channel_id_arg, fees_arg.danglingClone().cOpaqueStruct!, cltv_expiry_delta_arg, htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKRouteHintHop){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -57,7 +67,7 @@ RouteHintHop_get_fees(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_fees(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHintHop_set_fees(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_cltv_expiry_delta() -> UInt16 {
@@ -87,7 +97,7 @@ RouteHintHop_get_htlc_minimum_msat(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_htlc_minimum_msat(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHintHop_set_htlc_minimum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_htlc_maximum_msat() -> Option_u64Z {
@@ -102,7 +112,7 @@ RouteHintHop_get_htlc_maximum_msat(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHintHop_set_htlc_maximum_msat(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHintHop_set_htlc_maximum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public class func eq(a: RouteHintHop, b: RouteHintHop) -> Bool {
@@ -116,21 +126,38 @@ RouteHintHop_eq(aPointer, bPointer)
 
     public func clone() -> RouteHintHop {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHintHop>) in
-RouteHintHop(pointer: RouteHintHop_clone(origPointer))
-};
+        return RouteHintHop(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHintHop>) in
+RouteHintHop_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> RouteHintHop {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return RouteHintHop_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RouteHintHop {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		RouteHintHop_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing RouteHintHop \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing RouteHintHop \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

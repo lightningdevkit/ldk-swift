@@ -1,16 +1,31 @@
-public class CommitmentSigned {
+public class CommitmentSigned: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCommitmentSigned?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCommitmentSigned?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], signature_arg: [UInt8], htlc_signatures_arg: [[UInt8]]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), Bindings.new_LDKCVec_SignatureZ(array: htlc_signatures_arg))
+						let htlc_signatures_argWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: htlc_signatures_arg)
+						defer {
+							htlc_signatures_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), htlc_signatures_argWrapper.dangle().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCommitmentSigned){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -50,15 +65,27 @@ CommitmentSigned_get_signature(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentSigned>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
+						let valWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return CommitmentSigned_set_htlc_signatures(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> CommitmentSigned {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentSigned>) in
-CommitmentSigned(pointer: CommitmentSigned_clone(origPointer))
-};
+        return CommitmentSigned(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentSigned>) in
+CommitmentSigned_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> CommitmentSigned {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -69,19 +96,34 @@ CommitmentSigned_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
     	
-        return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return CommitmentSigned_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> CommitmentSigned {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing CommitmentSigned \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing CommitmentSigned \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		CommitmentSigned_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

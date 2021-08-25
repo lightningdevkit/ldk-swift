@@ -1,16 +1,26 @@
-public class UpdateFee {
+public class UpdateFee: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKUpdateFee?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKUpdateFee?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], feerate_per_kw_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = UpdateFee_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), feerate_per_kw_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKUpdateFee){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -47,10 +57,17 @@ UpdateFee_get_feerate_per_kw(this_ptrPointer)
 
     public func clone() -> UpdateFee {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFee>) in
-UpdateFee(pointer: UpdateFee_clone(origPointer))
-};
+        return UpdateFee(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFee>) in
+UpdateFee_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> UpdateFee {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -61,19 +78,34 @@ UpdateFee_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateFeeDecodeErrorZ {
     	
-        return Result_UpdateFeeDecodeErrorZ(pointer: UpdateFee_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_UpdateFeeDecodeErrorZ(pointer: UpdateFee_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return UpdateFee_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UpdateFee {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing UpdateFee \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing UpdateFee \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		UpdateFee_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

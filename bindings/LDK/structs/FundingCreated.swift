@@ -1,16 +1,26 @@
-public class FundingCreated {
+public class FundingCreated: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKFundingCreated?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKFundingCreated?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(temporary_channel_id_arg: [UInt8], funding_txid_arg: [UInt8], funding_output_index_arg: UInt16, signature_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = FundingCreated_new(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id_arg), Bindings.new_LDKThirtyTwoBytes(array: funding_txid_arg), funding_output_index_arg, Bindings.new_LDKSignature(array: signature_arg))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKFundingCreated){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -77,10 +87,17 @@ FundingCreated_get_signature(this_ptrPointer)
 
     public func clone() -> FundingCreated {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
-FundingCreated(pointer: FundingCreated_clone(origPointer))
-};
+        return FundingCreated(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFundingCreated>) in
+FundingCreated_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> FundingCreated {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -91,19 +108,34 @@ FundingCreated_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
     	
-        return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_FundingCreatedDecodeErrorZ(pointer: FundingCreated_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return FundingCreated_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> FundingCreated {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing FundingCreated \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing FundingCreated \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		FundingCreated_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

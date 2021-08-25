@@ -1,11 +1,18 @@
-public class ExpiryTime {
+public class ExpiryTime: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKExpiryTime?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKExpiryTime?
+
 
 	
 
     public init(pointer: LDKExpiryTime){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -21,10 +28,17 @@ ExpiryTime_eq(aPointer, bPointer)
 
     public func clone() -> ExpiryTime {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKExpiryTime>) in
-ExpiryTime(pointer: ExpiryTime_clone(origPointer))
-};
+        return ExpiryTime(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKExpiryTime>) in
+ExpiryTime_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ExpiryTime {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {
     	
@@ -50,16 +64,26 @@ ExpiryTime_as_duration(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return ExpiryTime_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ExpiryTime {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ExpiryTime \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ExpiryTime \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ExpiryTime_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

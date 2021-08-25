@@ -1,9 +1,15 @@
-public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?
 
     public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* TUPLE_METHODS_START */
@@ -15,32 +21,38 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
     	
-        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.clone().cOpaqueStruct!, b.clone().cOpaqueStruct!, c.clone().cOpaqueStruct!));
+        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.danglingClone().cOpaqueStruct!, b.danglingClone().cOpaqueStruct!, c.danglingClone().cOpaqueStruct!));
     }
 
-				
-	deinit {
+    internal func free() -> Void {
+    	
+        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+        				self.dangling = true
+						return self
+					}
 					
-					if self.cOpaqueStruct?.a.is_owned == true {
-						return
+					deinit {
+						if !self.dangling {
+							print("Freeing C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ \(self.instanceNumber) due to dangle.")
+						}
 					}
 				
-					if self.cOpaqueStruct?.b.is_owned == true {
-						return
-					}
-				
-					if self.cOpaqueStruct?.c.is_owned == true {
-						return
-					}
-				
-					
-					
-		C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

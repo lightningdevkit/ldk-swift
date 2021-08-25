@@ -1,9 +1,15 @@
-public class C2Tuple_usizeTransactionZ {
+public class C2Tuple_usizeTransactionZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKC2Tuple_usizeTransactionZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKC2Tuple_usizeTransactionZ?
 
     public init(pointer: LDKC2Tuple_usizeTransactionZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* TUPLE_METHODS_START */
@@ -15,20 +21,43 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
 });
     }
 
+					internal func danglingClone() -> C2Tuple_usizeTransactionZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public class func new(a: UInt, b: [UInt8]) -> C2Tuple_usizeTransactionZ {
     	
-        return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, Bindings.new_LDKTransaction(array: b)));
+						let bWrapper = Bindings.new_LDKTransactionWrapper(array: b)
+						defer {
+							bWrapper.noOpRetain()
+						}
+					
+        return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, bWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return C2Tuple_usizeTransactionZ_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> C2Tuple_usizeTransactionZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing C2Tuple_usizeTransactionZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing C2Tuple_usizeTransactionZ \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		C2Tuple_usizeTransactionZ_free(self.cOpaqueStruct!)
-				
-	}
-			
+
     /* TUPLE_METHODS_END */
 
 }

@@ -34,6 +34,8 @@ def generate_binding_methods(parser: LightningHeaderParser):
 
 	vectors = sorted(parser.vec_types)
 	for current_vector in vectors:
+		if current_vector == 'LDKTransaction':
+			continue
 		vector_type_details = parser.type_details[current_vector]
 		vector_generator.generate_vector(current_vector, vector_type_details)
 	vector_generator.finalize()
@@ -42,13 +44,14 @@ def generate_binding_methods(parser: LightningHeaderParser):
 	static_method_generator.finalize()
 
 
-def generate_opaque_struct_wrappers(parser: LightningHeaderParser, returned_trait_instances = set()):
+def generate_opaque_struct_wrappers(parser: LightningHeaderParser, returned_trait_instances=set()):
 	opaque_struct_generator = OpaqueStructGenerator()
 
 	opaque_structs = parser.opaque_structs
 	for current_struct in opaque_structs:
 		current_struct_details = parser.type_details[current_struct]
-		opaque_struct_generator.generate_opaque_struct(current_struct, current_struct_details, all_type_details=parser.type_details, trait_structs = parser.trait_structs, returned_trait_instances = returned_trait_instances)
+		opaque_struct_generator.generate_opaque_struct(current_struct, current_struct_details, all_type_details=parser.type_details, trait_structs=parser.trait_structs,
+													   returned_trait_instances=returned_trait_instances)
 
 
 def generate_tuple_wrappers(parser: LightningHeaderParser):
@@ -58,6 +61,7 @@ def generate_tuple_wrappers(parser: LightningHeaderParser):
 	for current_tuple in tuples:
 		current_tuple_details = parser.type_details[current_tuple]
 		tuple_generator.generate_tuple(current_tuple, current_tuple_details, all_type_details=parser.type_details)
+
 
 def generate_result_wrappers(parser: LightningHeaderParser):
 	result_generator = ResultGenerator()
@@ -77,7 +81,7 @@ def generate_option_wrappers(parser: LightningHeaderParser):
 		option_generator.generate_option(current_option, current_option_details, all_type_details=parser.type_details)
 
 
-def generate_trait_placeholders(parser: LightningHeaderParser, returned_trait_instances = set()):
+def generate_trait_placeholders(parser: LightningHeaderParser, returned_trait_instances=set()):
 	trait_generator = TraitGenerator()
 
 	traits = parser.trait_structs
@@ -86,9 +90,16 @@ def generate_trait_placeholders(parser: LightningHeaderParser, returned_trait_in
 		trait_generator.generate_trait(current_trait, current_trait_details)
 
 
+def initialize_conversion_helper_knowledge(parser: LightningHeaderParser):
+	src.conversion_helper.ConversionHelper.trait_structs = parser.trait_structs
+
+
 def generate_sdk():
 	returned_trait_instances = set()
 	parser = parse_header()
+
+	# initialize_conversion_helper_knowledge(parser)
+
 	generate_binding_methods(parser)
 	generate_opaque_struct_wrappers(parser, returned_trait_instances)
 	generate_tuple_wrappers(parser)
@@ -96,10 +107,6 @@ def generate_sdk():
 	generate_option_wrappers(parser)
 	generate_trait_placeholders(parser, returned_trait_instances)
 
-	print('\n\nUtilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(src.conversion_helper.detected_cloneable_types)))), '\n\n')
+	# print('\n\nUtilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(src.conversion_helper.detected_cloneable_types)))), '\n\n')
 
-	undetected_cloneables = src.conversion_helper.cloneable_types - src.conversion_helper.detected_cloneable_types
-	print('\n\nUnutilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(undetected_cloneables)))), '\n\n')
-
-
-
+	undetected_cloneables = src.conversion_helper.cloneable_types - src.conversion_helper.detected_cloneable_types  # print('\n\nUnutilized cloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(undetected_cloneables)))), '\n\n')

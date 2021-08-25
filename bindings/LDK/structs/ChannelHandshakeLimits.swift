@@ -1,16 +1,26 @@
-public class ChannelHandshakeLimits {
+public class ChannelHandshakeLimits: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelHandshakeLimits_default()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelHandshakeLimits){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -137,21 +147,38 @@ ChannelHandshakeLimits_get_their_to_self_delay(this_ptrPointer)
 
     public func clone() -> ChannelHandshakeLimits {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeLimits>) in
-ChannelHandshakeLimits(pointer: ChannelHandshakeLimits_clone(origPointer))
-};
+        return ChannelHandshakeLimits(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeLimits>) in
+ChannelHandshakeLimits_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> ChannelHandshakeLimits {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return ChannelHandshakeLimits_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelHandshakeLimits {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		ChannelHandshakeLimits_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelHandshakeLimits \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelHandshakeLimits \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

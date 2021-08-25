@@ -1,9 +1,15 @@
-public class TupleName {
+public class TupleName: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: TupleType?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: TupleType?
 
     public init(pointer: TupleType){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* TUPLE_METHODS_START */

@@ -1,16 +1,26 @@
-public class RevokeAndACK {
+public class RevokeAndACK: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKRevokeAndACK?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKRevokeAndACK?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], per_commitment_secret_arg: [UInt8], next_per_commitment_point_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = RevokeAndACK_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKThirtyTwoBytes(array: per_commitment_secret_arg), Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKRevokeAndACK){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -62,10 +72,17 @@ RevokeAndACK_get_next_per_commitment_point(this_ptrPointer)
 
     public func clone() -> RevokeAndACK {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRevokeAndACK>) in
-RevokeAndACK(pointer: RevokeAndACK_clone(origPointer))
-};
+        return RevokeAndACK(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRevokeAndACK>) in
+RevokeAndACK_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> RevokeAndACK {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -76,19 +93,34 @@ RevokeAndACK_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return RevokeAndACK_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RevokeAndACK {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing RevokeAndACK \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing RevokeAndACK \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		RevokeAndACK_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

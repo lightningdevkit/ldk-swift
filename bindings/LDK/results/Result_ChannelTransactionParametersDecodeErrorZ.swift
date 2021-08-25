@@ -1,17 +1,26 @@
-public class Result_ChannelTransactionParametersDecodeErrorZ {
+public class Result_ChannelTransactionParametersDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ChannelTransactionParametersDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_ChannelTransactionParametersDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_ChannelTransactionParametersDecodeErrorZ(contents: LDKCResult_ChannelTransactionParametersDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_ChannelTransactionParametersDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_ChannelTransactionParametersDecodeErrorZ {
 			
     public class func ok(o: ChannelTransactionParameters) -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
-        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: CResult_ChannelTransactionParametersDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: CResult_ChannelTransactionParametersDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
-        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: CResult_ChannelTransactionParametersDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_ChannelTransactionParametersDecodeErrorZ(pointer: CResult_ChannelTransactionParametersDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_ChannelTransactionParametersDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_ChannelTransactionParametersDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ChannelTransactionParametersDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_ChannelTransactionParametersDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_ChannelTransactionParametersDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_ChannelTransactionParametersDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_ChannelTransactionParametersDecodeErrorZ {
 CResult_ChannelTransactionParametersDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_ChannelTransactionParametersDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

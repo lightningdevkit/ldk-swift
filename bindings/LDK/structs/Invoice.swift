@@ -1,11 +1,18 @@
-public class Invoice {
+public class Invoice: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKInvoice?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKInvoice?
+
 
 	
 
     public init(pointer: LDKInvoice){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -21,14 +28,21 @@ Invoice_eq(aPointer, bPointer)
 
     public func clone() -> Invoice {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoice>) in
-Invoice(pointer: Invoice_clone(origPointer))
-};
+        return Invoice(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoice>) in
+Invoice_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> Invoice {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func into_signed_raw() -> SignedRawInvoice {
     	
-        return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.clone().cOpaqueStruct!));
+        return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.danglingClone().cOpaqueStruct!));
     }
 
     public func check_signature() -> Result_NoneSemanticErrorZ {
@@ -40,7 +54,7 @@ Invoice_check_signature(this_argPointer)
 
     public class func from_signed(signed_invoice: SignedRawInvoice) -> Result_InvoiceSemanticErrorZ {
     	
-        return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.clone().cOpaqueStruct!));
+        return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.danglingClone().cOpaqueStruct!));
     }
 
     public func timestamp() -> UInt64 {
@@ -139,16 +153,26 @@ Invoice_to_str(oPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return Invoice_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> Invoice {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Invoice \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Invoice \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		Invoice_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

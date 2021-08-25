@@ -1,21 +1,35 @@
-public class HTLCUpdate {
+public class HTLCUpdate: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKHTLCUpdate?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKHTLCUpdate?
+
 
 	
 
     public init(pointer: LDKHTLCUpdate){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
 
     public func clone() -> HTLCUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
-HTLCUpdate(pointer: HTLCUpdate_clone(origPointer))
-};
+        return HTLCUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
+HTLCUpdate_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> HTLCUpdate {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -26,19 +40,34 @@ HTLCUpdate_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
     	
-        return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return HTLCUpdate_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> HTLCUpdate {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing HTLCUpdate \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing HTLCUpdate \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		HTLCUpdate_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

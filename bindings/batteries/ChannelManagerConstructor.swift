@@ -12,21 +12,25 @@ enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelManager
 }
 
-public class ChannelManagerConstructor {
+public class ChannelManagerConstructor: NativeTypeWrapper {
+
 
     public let channelManager: ChannelManager
-    
+
     /**
      * The latest block has the channel manager saw. If this is non-null it is a 32-byte block hash.
      * You should sync the blockchain starting with the block that builds on this block.
      */
+
+
     public let channel_manager_latest_block_hash: [UInt8]?
-    
+
     let logger: Logger
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: CustomEventHandler?
     public let peerManager: PeerManager
-    
+
+
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
      * starting with the block that builds on the hash given.
@@ -37,45 +41,58 @@ public class ChannelManagerConstructor {
 
     private let chain_monitor: ChainMonitor
 
+
     public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, router: NetGraphMsgHandler?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
+
         for currentSerializedChannelMonitor in channel_monitors_serialized {
-            let res: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
-            if res.cOpaqueStruct?.result_ok != true {
+            let channelMonitorResult: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
+            if channelMonitorResult.cOpaqueStruct?.result_ok != true {
                 throw InvalidSerializedDataError.invalidSerializedChannelMonitor
             }
-            let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = res.cOpaqueStruct!.contents
+            // res
+
+            let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = channelMonitorResult.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             var b: LDKChannelMonitor = value.result!.pointee.b
-            b.is_owned = false
-            var clonedChannelMonitor = ChannelMonitor(pointer: b)
+
+            var clonedChannelMonitor = ChannelMonitor(pointer: b).dangle().clone()
             // var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
-            clonedChannelMonitor.cOpaqueStruct?.is_owned = false
+            clonedChannelMonitor.cOpaqueStruct?.is_owned = false // is_owned should never have to be modified
+
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
             self.channel_monitors.append((clonedChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
         }
 
-        let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
-        if res.cOpaqueStruct?.result_ok != true {
+        print("Collected channel monitors, reading channel manager")
+        let channelManagerResult: Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
+        if channelManagerResult.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
-        let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: res.cOpaqueStruct!.contents.result.pointee.a)
-        let channelManager = ChannelManager(pointer: res.cOpaqueStruct!.contents.result.pointee.b)
+
+        for clonedChannelMonitor in self.channel_monitors {
+            clonedChannelMonitor.0.cOpaqueStruct!.is_owned = true
+        }
+
+        let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
+        let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
+        try! channelManager.dangle().addAnchor(anchor: channelManagerResult)
+
 
         self.channelManager = channelManager
         self.channel_manager_latest_block_hash = latestBlockHash
         self.chain_monitor = chain_monitor
         self.logger = logger
-        
+
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         } else {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         }
 
         if let filter = filter {
@@ -84,7 +101,13 @@ public class ChannelManagerConstructor {
             }
         }
 
+        super.init(conflictAvoidingVariableName: 0)
+        // try! self.peerManager.addAnchor(anchor: self)
+        // try! self.channelManager.addAnchor(anchor: self)
+
     }
+
+
 
     /**
      * Constructs a channel manager from the given interface implementations
@@ -97,21 +120,26 @@ public class ChannelManagerConstructor {
         let chainParameters = ChainParameters(network_arg: network, best_block_arg: block)
         self.channelManager = ChannelManager(fee_est: fee_estimator, chain_monitor: chain_monitor.as_Watch(), tx_broadcaster: tx_broadcaster, logger: logger, keys_manager: keys_interface, config: config, params: chainParameters)
         self.logger = logger
-        
+
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         } else {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
         }
+
+        super.init(conflictAvoidingVariableName: 0)
+        // try! self.peerManager.addAnchor(anchor: self)
+        // try! self.channelManager.addAnchor(anchor: self)
     }
-    
+
+
     var persisterWorkItem: DispatchWorkItem?
     var backgroundProcessor: BackgroundProcessor?
     var shutdown = false
-    
+
     /**
      * Utility which adds all of the deserialized ChannelMonitors to the chain watch so that further updates from the
      * ChannelManager are processed as normal.
@@ -120,47 +148,66 @@ public class ChannelManagerConstructor {
      * ChannelManagerPersister as required.
      */
     public func chain_sync_completed(persister: ExtendedChannelManagerPersister) {
-        
+
         if self.backgroundProcessor != nil {
             return
         }
-        
-        for (monitorClone, _) in self.channel_monitors {
+
+        for (currentChannelMonitor, _) in self.channel_monitors {
             let chainMonitorWatch = self.chain_monitor.as_Watch()
-            // let monitorClone = currentChannelMonitor.clone(orig: currentChannelMonitor)
+            let monitorClone = currentChannelMonitor.clone()
             monitorClone.cOpaqueStruct?.is_owned = false
             let fundingTxo = monitorClone.get_funding_txo()
-            let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a)
-            
+            let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a).dangle()
+            print("watching channel")
             let monitorWatchResult = chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: monitorClone)
             if !monitorWatchResult.isOk() {
                 print("Some error occurred with a chainMonitorWatch.watch_channel call")
             }
+            monitorClone.cOpaqueStruct?.is_owned = true
         }
-        
+
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
-        
-        
+        try! self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
+        try! self.backgroundProcessor!.addAnchor(anchor: persister)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
+
     }
-    
+
     public func interrupt() {
+        print("stopping background processor")
         self.shutdown = true
-        self.backgroundProcessor?.stop()
+        self.backgroundProcessor?.dangle().stop()
+        print("stopped background processor")
+        if let processor = self.backgroundProcessor {
+            for currentAnchor in processor.anchors {
+                Bindings.removeInstancePointer(instance: currentAnchor)
+            }
+            print("removed background processor anchors")
+        }
+        self.backgroundProcessor = nil
+        print("unset background processor")
     }
+
+    deinit {
+        print("deiniting ChannelManagerConstructor")
+    }
+
 
 }
 
 fileprivate class CustomChannelManagerPersister: ChannelManagerPersister {
-    
+
     let handler: ExtendedChannelManagerPersister
-    
+
     init(handler: ExtendedChannelManagerPersister) {
         self.handler = handler
         super.init()
     }
-    
+
     override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
         return self.handler.persist_manager(channel_manager: channel_manager)
     }
@@ -169,17 +216,17 @@ fileprivate class CustomChannelManagerPersister: ChannelManagerPersister {
 fileprivate class CustomEventHandler: EventHandler {
 
     let handler: ExtendedChannelManagerPersister
-    
+
     init(handler: ExtendedChannelManagerPersister) {
         self.handler = handler
         super.init()
     }
-    
+
     override func handle_event(event: Event) {
         self.handler.handle_event(event: event)
     }
-    
-    
+
+
 }
 
 public protocol ExtendedChannelManagerPersister: ChannelManagerPersister {

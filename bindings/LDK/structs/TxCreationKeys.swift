@@ -1,16 +1,26 @@
-public class TxCreationKeys {
+public class TxCreationKeys: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKTxCreationKeys?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKTxCreationKeys?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(per_commitment_point_arg: [UInt8], revocation_key_arg: [UInt8], broadcaster_htlc_key_arg: [UInt8], countersignatory_htlc_key_arg: [UInt8], broadcaster_delayed_payment_key_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = TxCreationKeys_new(Bindings.new_LDKPublicKey(array: per_commitment_point_arg), Bindings.new_LDKPublicKey(array: revocation_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_htlc_key_arg), Bindings.new_LDKPublicKey(array: countersignatory_htlc_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key_arg))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKTxCreationKeys){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -92,10 +102,17 @@ TxCreationKeys_get_broadcaster_delayed_payment_key(this_ptrPointer)
 
     public func clone() -> TxCreationKeys {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKTxCreationKeys>) in
-TxCreationKeys(pointer: TxCreationKeys_clone(origPointer))
-};
+        return TxCreationKeys(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKTxCreationKeys>) in
+TxCreationKeys_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> TxCreationKeys {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -106,7 +123,12 @@ TxCreationKeys_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_TxCreationKeysDecodeErrorZ {
     	
-        return Result_TxCreationKeysDecodeErrorZ(pointer: TxCreationKeys_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_TxCreationKeysDecodeErrorZ(pointer: TxCreationKeys_read(serWrapper.cOpaqueStruct!));
     }
 
     public class func derive_new(per_commitment_point: [UInt8], broadcaster_delayed_payment_base: [UInt8], broadcaster_htlc_base: [UInt8], countersignatory_revocation_base: [UInt8], countersignatory_htlc_base: [UInt8]) -> Result_TxCreationKeysErrorZ {
@@ -123,16 +145,26 @@ TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_com
 });
     }
 
+    internal func free() -> Void {
+    	
+        return TxCreationKeys_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> TxCreationKeys {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing TxCreationKeys \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		TxCreationKeys_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

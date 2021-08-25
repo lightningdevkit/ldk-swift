@@ -1,21 +1,35 @@
-public class CommitmentTransaction {
+public class CommitmentTransaction: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCommitmentTransaction?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCommitmentTransaction?
+
 
 	
 
     public init(pointer: LDKCommitmentTransaction){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
 
     public func clone() -> CommitmentTransaction {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentTransaction>) in
-CommitmentTransaction(pointer: CommitmentTransaction_clone(origPointer))
-};
+        return CommitmentTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCommitmentTransaction>) in
+CommitmentTransaction_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> CommitmentTransaction {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -26,7 +40,12 @@ CommitmentTransaction_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_CommitmentTransactionDecodeErrorZ {
     	
-        return Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(serWrapper.cOpaqueStruct!));
     }
 
     public func commitment_number() -> UInt64 {
@@ -77,16 +96,26 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 });
     }
 
+    internal func free() -> Void {
+    	
+        return CommitmentTransaction_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> CommitmentTransaction {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing CommitmentTransaction \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing CommitmentTransaction \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		CommitmentTransaction_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

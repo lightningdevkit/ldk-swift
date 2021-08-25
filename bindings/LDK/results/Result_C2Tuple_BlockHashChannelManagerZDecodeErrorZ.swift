@@ -1,17 +1,26 @@
-public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
+public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(contents: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -41,13 +50,28 @@ public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 
     public class func err(e: DecodeError) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
     	
-        return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

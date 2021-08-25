@@ -1,17 +1,26 @@
-public class Result_GossipTimestampFilterDecodeErrorZ {
+public class Result_GossipTimestampFilterDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_GossipTimestampFilterDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_GossipTimestampFilterDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_GossipTimestampFilterDecodeErrorZ(contents: LDKCResult_GossipTimestampFilterDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_GossipTimestampFilterDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_GossipTimestampFilterDecodeErrorZ {
 			
     public class func ok(o: GossipTimestampFilter) -> Result_GossipTimestampFilterDecodeErrorZ {
     	
-        return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_GossipTimestampFilterDecodeErrorZ {
     	
-        return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_GossipTimestampFilterDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_GossipTimestampFilterDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_GossipTimestampFilterDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_GossipTimestampFilterDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_GossipTimestampFilterDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_GossipTimestampFilterDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_GossipTimestampFilterDecodeErrorZ {
 CResult_GossipTimestampFilterDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_GossipTimestampFilterDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

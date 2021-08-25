@@ -1,26 +1,43 @@
-public class NetworkGraph {
+public class NetworkGraph: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKNetworkGraph?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKNetworkGraph?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(genesis_hash: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = NetworkGraph_new(Bindings.new_LDKThirtyTwoBytes(array: genesis_hash))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNetworkGraph){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
 
     public func clone() -> NetworkGraph {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph(pointer: NetworkGraph_clone(origPointer))
-};
+        return NetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> NetworkGraph {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -31,7 +48,12 @@ NetworkGraph_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
     	
-        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(serWrapper.cOpaqueStruct!));
     }
 
     public func update_node_from_announcement(msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {
@@ -114,16 +136,26 @@ NetworkGraph_update_channel_unsigned(this_argPointer, msgPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return NetworkGraph_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> NetworkGraph {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing NetworkGraph \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing NetworkGraph \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		NetworkGraph_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

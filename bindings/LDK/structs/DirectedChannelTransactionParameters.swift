@@ -1,11 +1,18 @@
-public class DirectedChannelTransactionParameters {
+public class DirectedChannelTransactionParameters: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKDirectedChannelTransactionParameters?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKDirectedChannelTransactionParameters?
+
 
 	
 
     public init(pointer: LDKDirectedChannelTransactionParameters){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -45,16 +52,26 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return DirectedChannelTransactionParameters_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> DirectedChannelTransactionParameters {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing DirectedChannelTransactionParameters \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing DirectedChannelTransactionParameters \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		DirectedChannelTransactionParameters_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

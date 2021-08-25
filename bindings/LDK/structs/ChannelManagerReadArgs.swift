@@ -1,16 +1,31 @@
-public class ChannelManagerReadArgs {
+public class ChannelManagerReadArgs: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelManagerReadArgs?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelManagerReadArgs?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.clone().cOpaqueStruct!, Bindings.new_LDKCVec_ChannelMonitorZ(array: channel_monitors))
+						let channel_monitorsWrapper = Bindings.new_LDKCVec_ChannelMonitorZWrapper(array: channel_monitors)
+						defer {
+							channel_monitorsWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.danglingClone().cOpaqueStruct!, channel_monitorsWrapper.dangle().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelManagerReadArgs){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -19,7 +34,7 @@ public class ChannelManagerReadArgs {
     	
         return NativelyImplementedKeysInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_keys_manager(val: KeysInterface) -> Void {
@@ -34,7 +49,7 @@ ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
     	
         return NativelyImplementedFeeEstimator(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_fee_estimator(val: FeeEstimator) -> Void {
@@ -49,7 +64,7 @@ ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
     	
         return NativelyImplementedWatch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_chain_monitor(val: Watch) -> Void {
@@ -64,7 +79,7 @@ ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
     	
         return NativelyImplementedBroadcasterInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_tx_broadcaster(val: BroadcasterInterface) -> Void {
@@ -79,7 +94,7 @@ ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
     	
         return NativelyImplementedLogger(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_logger(this_ptrPointer)
-}.pointee);
+}.pointee, anchor: self);
     }
 
     public func set_logger(val: Logger) -> Void {
@@ -102,19 +117,29 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_default_config(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelManagerReadArgs_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelManagerReadArgs {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelManagerReadArgs \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelManagerReadArgs \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelManagerReadArgs_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

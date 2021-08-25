@@ -1,11 +1,18 @@
-public class PrivateRoute {
+public class PrivateRoute: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKPrivateRoute?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKPrivateRoute?
+
 
 	
 
     public init(pointer: LDKPrivateRoute){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -21,31 +28,48 @@ PrivateRoute_eq(aPointer, bPointer)
 
     public func clone() -> PrivateRoute {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPrivateRoute>) in
-PrivateRoute(pointer: PrivateRoute_clone(origPointer))
-};
+        return PrivateRoute(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPrivateRoute>) in
+PrivateRoute_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> PrivateRoute {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
     	
-        return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.clone().cOpaqueStruct!));
+        return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.danglingClone().cOpaqueStruct!));
     }
 
     public func into_inner() -> RouteHint {
     	
-        return RouteHint(pointer: PrivateRoute_into_inner(self.clone().cOpaqueStruct!));
+        return RouteHint(pointer: PrivateRoute_into_inner(self.danglingClone().cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return PrivateRoute_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PrivateRoute {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing PrivateRoute \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing PrivateRoute \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		PrivateRoute_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

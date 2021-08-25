@@ -1,16 +1,31 @@
-public class HolderCommitmentTransaction {
+public class HolderCommitmentTransaction: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKHolderCommitmentTransaction?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKHolderCommitmentTransaction?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(commitment_tx: CommitmentTransaction, counterparty_sig: [UInt8], counterparty_htlc_sigs: [[UInt8]], holder_funding_key: [UInt8], counterparty_funding_key: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.clone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), Bindings.new_LDKCVec_SignatureZ(array: counterparty_htlc_sigs), Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
+						let counterparty_htlc_sigsWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: counterparty_htlc_sigs)
+						defer {
+							counterparty_htlc_sigsWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), counterparty_htlc_sigsWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKHolderCommitmentTransaction){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -35,15 +50,27 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKHolderCommitmentTransaction>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, Bindings.new_LDKCVec_SignatureZ(array: val));
+						let valWrapper = Bindings.new_LDKCVec_SignatureZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return HolderCommitmentTransaction_set_counterparty_htlc_sigs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> HolderCommitmentTransaction {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
-HolderCommitmentTransaction(pointer: HolderCommitmentTransaction_clone(origPointer))
-};
+        return HolderCommitmentTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+HolderCommitmentTransaction_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> HolderCommitmentTransaction {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -54,19 +81,34 @@ HolderCommitmentTransaction_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
     	
-        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return HolderCommitmentTransaction_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> HolderCommitmentTransaction {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing HolderCommitmentTransaction \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing HolderCommitmentTransaction \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		HolderCommitmentTransaction_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

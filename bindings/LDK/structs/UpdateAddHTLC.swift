@@ -1,11 +1,18 @@
-public class UpdateAddHTLC {
+public class UpdateAddHTLC: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKUpdateAddHTLC?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKUpdateAddHTLC?
+
 
 	
 
     public init(pointer: LDKUpdateAddHTLC){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -87,10 +94,17 @@ UpdateAddHTLC_get_cltv_expiry(this_ptrPointer)
 
     public func clone() -> UpdateAddHTLC {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
-UpdateAddHTLC(pointer: UpdateAddHTLC_clone(origPointer))
-};
+        return UpdateAddHTLC(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+UpdateAddHTLC_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> UpdateAddHTLC {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -101,19 +115,34 @@ UpdateAddHTLC_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateAddHTLCDecodeErrorZ {
     	
-        return Result_UpdateAddHTLCDecodeErrorZ(pointer: UpdateAddHTLC_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_UpdateAddHTLCDecodeErrorZ(pointer: UpdateAddHTLC_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return UpdateAddHTLC_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UpdateAddHTLC {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing UpdateAddHTLC \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing UpdateAddHTLC \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		UpdateAddHTLC_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

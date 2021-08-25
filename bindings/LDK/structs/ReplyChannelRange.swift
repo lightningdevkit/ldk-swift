@@ -1,16 +1,31 @@
-public class ReplyChannelRange {
+public class ReplyChannelRange: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKReplyChannelRange?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKReplyChannelRange?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_blocknum_arg: UInt32, number_of_blocks_arg: UInt32, sync_complete_arg: Bool, short_channel_ids_arg: [UInt64]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, Bindings.new_LDKCVec_u64Z(array: short_channel_ids_arg))
+						let short_channel_ids_argWrapper = Bindings.new_LDKCVec_u64ZWrapper(array: short_channel_ids_arg)
+						defer {
+							short_channel_ids_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = ReplyChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg, sync_complete_arg, short_channel_ids_argWrapper.dangle().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKReplyChannelRange){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -80,19 +95,36 @@ ReplyChannelRange_get_sync_complete(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKReplyChannelRange>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, Bindings.new_LDKCVec_u64Z(array: val));
+						let valWrapper = Bindings.new_LDKCVec_u64ZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return ReplyChannelRange_set_short_channel_ids(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> ReplyChannelRange {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyChannelRange>) in
-ReplyChannelRange(pointer: ReplyChannelRange_clone(origPointer))
-};
+        return ReplyChannelRange(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ReplyChannelRange {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
     	
-        return Result_ReplyChannelRangeDecodeErrorZ(pointer: ReplyChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ReplyChannelRangeDecodeErrorZ(pointer: ReplyChannelRange_read(serWrapper.cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {
@@ -102,16 +134,26 @@ ReplyChannelRange_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ReplyChannelRange_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ReplyChannelRange {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ReplyChannelRange \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ReplyChannelRange \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ReplyChannelRange_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

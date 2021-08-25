@@ -1,16 +1,26 @@
-public class ChannelUpdate {
+public class ChannelUpdate: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelUpdate?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelUpdate?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedChannelUpdate) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelUpdate_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelUpdate){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -42,15 +52,22 @@ ChannelUpdate_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdate>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelUpdate_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelUpdate_set_contents(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelUpdate>) in
-ChannelUpdate(pointer: ChannelUpdate_clone(origPointer))
-};
+        return ChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelUpdate>) in
+ChannelUpdate_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ChannelUpdate {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -61,19 +78,34 @@ ChannelUpdate_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelUpdateDecodeErrorZ {
     	
-        return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelUpdate_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelUpdate {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelUpdate \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelUpdate \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelUpdate_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

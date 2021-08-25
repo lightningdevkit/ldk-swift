@@ -1,16 +1,26 @@
-public class NodeAnnouncement {
+public class NodeAnnouncement: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKNodeAnnouncement?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKNodeAnnouncement?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(signature_arg: [UInt8], contents_arg: UnsignedNodeAnnouncement) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeAnnouncement_new(Bindings.new_LDKSignature(array: signature_arg), contents_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNodeAnnouncement){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -42,15 +52,22 @@ NodeAnnouncement_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncement_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return NodeAnnouncement_set_contents(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> NodeAnnouncement {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncement>) in
-NodeAnnouncement(pointer: NodeAnnouncement_clone(origPointer))
-};
+        return NodeAnnouncement(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeAnnouncement>) in
+NodeAnnouncement_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> NodeAnnouncement {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -61,19 +78,34 @@ NodeAnnouncement_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {
     	
-        return Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return NodeAnnouncement_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> NodeAnnouncement {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing NodeAnnouncement \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing NodeAnnouncement \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		NodeAnnouncement_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -1,16 +1,26 @@
-public class NodeFeatures {
+public class NodeFeatures: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKNodeFeatures?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKNodeFeatures?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = NodeFeatures_known()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKNodeFeatures){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -26,10 +36,17 @@ NodeFeatures_eq(aPointer, bPointer)
 
     public func clone() -> NodeFeatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeFeatures>) in
-NodeFeatures(pointer: NodeFeatures_clone(origPointer))
-};
+        return NodeFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> NodeFeatures {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func supports_payment_secret() -> Bool {
     	
@@ -47,19 +64,34 @@ NodeFeatures_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_NodeFeaturesDecodeErrorZ {
     	
-        return Result_NodeFeaturesDecodeErrorZ(pointer: NodeFeatures_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_NodeFeaturesDecodeErrorZ(pointer: NodeFeatures_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return NodeFeatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> NodeFeatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing NodeFeatures \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing NodeFeatures \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		NodeFeatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

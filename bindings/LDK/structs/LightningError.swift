@@ -1,16 +1,26 @@
-public class LightningError {
+public class LightningError: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKLightningError?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKLightningError?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(err_arg: String, action_arg: ErrorAction) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg), action_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg), action_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKLightningError){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -42,26 +52,43 @@ LightningError_get_action(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKLightningError>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return LightningError_set_action(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return LightningError_set_action(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> LightningError {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKLightningError>) in
-LightningError(pointer: LightningError_clone(origPointer))
-};
+        return LightningError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKLightningError>) in
+LightningError_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> LightningError {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return LightningError_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> LightningError {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		LightningError_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing LightningError \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing LightningError \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

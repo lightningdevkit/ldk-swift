@@ -1,16 +1,25 @@
-public class ResultName {
+public class ResultName: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: ResultType?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: ResultType?
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(swift_constructor_arguments) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	/* NATIVE_CONSTRUCTOR_PREP */
         self.cOpaqueStruct = ResultType(native_constructor_arguments)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: ResultType){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {

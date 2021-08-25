@@ -1,17 +1,26 @@
-public class Result_NodeInfoDecodeErrorZ {
+public class Result_NodeInfoDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NodeInfoDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_NodeInfoDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NodeInfoDecodeErrorZ(contents: LDKCResult_NodeInfoDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_NodeInfoDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_NodeInfoDecodeErrorZ {
 			
     public class func ok(o: NodeInfo) -> Result_NodeInfoDecodeErrorZ {
     	
-        return Result_NodeInfoDecodeErrorZ(pointer: CResult_NodeInfoDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_NodeInfoDecodeErrorZ(pointer: CResult_NodeInfoDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_NodeInfoDecodeErrorZ {
     	
-        return Result_NodeInfoDecodeErrorZ(pointer: CResult_NodeInfoDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NodeInfoDecodeErrorZ(pointer: CResult_NodeInfoDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NodeInfoDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NodeInfoDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NodeInfoDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_NodeInfoDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_NodeInfoDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_NodeInfoDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_NodeInfoDecodeErrorZ {
 CResult_NodeInfoDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NodeInfoDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

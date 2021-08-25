@@ -38,17 +38,25 @@ class LDKSwiftTest: XCTestCase {
         let persister = TestPersister()
 
         let chainMonitor = ChainMonitor(chain_source: filter, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
-        /*
+
         let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
         let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
         let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
 
         let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+        let config = UserConfig()
+
         let keysInterface = keysManager.as_KeysInterface()
 
         let serialized_channel_manager = LDKTestFixtures.serializedChannelManager
 
         let serializedChannelMonitors: [[UInt8]] = LDKTestFixtures.serializedChannelMonitors
+
+        var monitors: [LDKChannelMonitor] = []
+        // let secondConfig = config.clone()
+        // let res = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: serialized_channel_manager, arg_keys_manager: keysInterface, arg_fee_estimator: feeEstimator, arg_chain_monitor: chainMonitor.as_Watch(), arg_tx_broadcaster: broadcaster, arg_logger: logger, arg_default_config: config, arg_channel_monitors: monitors)
+
+        print("last statement in memory leak test")
 
         let channel_manager_constructor = try ChannelManagerConstructor(
                 channel_manager_serialized: serialized_channel_manager,
@@ -63,10 +71,13 @@ class LDKSwiftTest: XCTestCase {
         )
 
         let channel_manager = channel_manager_constructor.channelManager;
-        let cmPersister = MyChannelManagerPersister(channelManager: channel_manager)
+        let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
+
         channel_manager_constructor.chain_sync_completed(persister: cmPersister)
-        */
+        channel_manager_constructor.interrupt()
     }
+
+    /*
 
     func xtestExtendedActivity() {
         // for i in 0...(1 << 7) {
@@ -120,6 +131,8 @@ class LDKSwiftTest: XCTestCase {
         }
 
     }
+
+    */
 
 
     func testPerformanceExample() throws {

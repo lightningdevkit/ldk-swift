@@ -1,17 +1,26 @@
-public class Result_NoneLightningErrorZ {
+public class Result_NoneLightningErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NoneLightningErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneLightningErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NoneLightningErrorZ(contents: LDKCResult_NoneLightningErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_NoneLightningErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -34,13 +43,28 @@ public class Result_NoneLightningErrorZ {
 
     public class func err(e: LightningError) -> Result_NoneLightningErrorZ {
     	
-        return Result_NoneLightningErrorZ(pointer: CResult_NoneLightningErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NoneLightningErrorZ(pointer: CResult_NoneLightningErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneLightningErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneLightningErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneLightningErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_NoneLightningErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_NoneLightningErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_NoneLightningErrorZ {
     	
@@ -48,6 +72,13 @@ public class Result_NoneLightningErrorZ {
 CResult_NoneLightningErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneLightningErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

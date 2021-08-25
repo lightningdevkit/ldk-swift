@@ -1,16 +1,26 @@
-public class FilesystemPersister {
+public class FilesystemPersister: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKFilesystemPersister?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKFilesystemPersister?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(path_to_channel_data: String) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = FilesystemPersister_new(Bindings.new_LDKStr(string: path_to_channel_data))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKFilesystemPersister){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -40,19 +50,29 @@ FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueSt
     	
         return NativelyImplementedPersist(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_as_Persist(this_argPointer)
-});
+}, anchor: self);
     }
 
+    internal func free() -> Void {
+    	
+        return FilesystemPersister_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> FilesystemPersister {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing FilesystemPersister \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing FilesystemPersister \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		FilesystemPersister_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

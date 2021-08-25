@@ -1,17 +1,26 @@
-public class Result_PublicKeyErrorZ {
+public class Result_PublicKeyErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PublicKeyErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_PublicKeyErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_PublicKeyErrorZ(contents: LDKCResult_PublicKeyErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_PublicKeyErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -44,10 +53,25 @@ public class Result_PublicKeyErrorZ {
         return Result_PublicKeyErrorZ(pointer: CResult_PublicKeyErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PublicKeyErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PublicKeyErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PublicKeyErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_PublicKeyErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_PublicKeyErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_PublicKeyErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_PublicKeyErrorZ {
 CResult_PublicKeyErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PublicKeyErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

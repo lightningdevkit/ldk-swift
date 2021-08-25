@@ -1,17 +1,26 @@
-public class Result_NoneSemanticErrorZ {
+public class Result_NoneSemanticErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NoneSemanticErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneSemanticErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NoneSemanticErrorZ(contents: LDKCResult_NoneSemanticErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_NoneSemanticErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -37,10 +46,25 @@ public class Result_NoneSemanticErrorZ {
         return Result_NoneSemanticErrorZ(pointer: CResult_NoneSemanticErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneSemanticErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneSemanticErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneSemanticErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_NoneSemanticErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_NoneSemanticErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_NoneSemanticErrorZ {
     	
@@ -48,6 +72,13 @@ public class Result_NoneSemanticErrorZ {
 CResult_NoneSemanticErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneSemanticErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

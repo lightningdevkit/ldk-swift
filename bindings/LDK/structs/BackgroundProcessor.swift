@@ -1,9 +1,15 @@
-public class BackgroundProcessor {
+public class BackgroundProcessor: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKBackgroundProcessor?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKBackgroundProcessor?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(persister: ChannelManagerPersister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, peer_manager: PeerManager, logger: Logger) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: chain_monitor.cOpaqueStruct!) { (chain_monitorPointer: UnsafePointer<LDKChainMonitor>) in
 withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
@@ -12,30 +18,49 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 }
 }
 }
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKBackgroundProcessor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
+
+    public func join() -> Result_NoneErrorZ {
+    	
+        return Result_NoneErrorZ(pointer: BackgroundProcessor_join(self.cOpaqueStruct!));
+    }
 
     public func stop() -> Result_NoneErrorZ {
     	
         return Result_NoneErrorZ(pointer: BackgroundProcessor_stop(self.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return BackgroundProcessor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> BackgroundProcessor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing BackgroundProcessor \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing BackgroundProcessor \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		BackgroundProcessor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -1,16 +1,26 @@
-public class RouteHop {
+public class RouteHop: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKRouteHop?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKRouteHop?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(pubkey_arg: [UInt8], node_features_arg: NodeFeatures, short_channel_id_arg: UInt64, channel_features_arg: ChannelFeatures, fee_msat_arg: UInt64, cltv_expiry_delta_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.clone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.clone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
+        self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.danglingClone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKRouteHop){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -42,7 +52,7 @@ RouteHop_get_node_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHop_set_node_features(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHop_set_node_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_short_channel_id() -> UInt64 {
@@ -72,7 +82,7 @@ RouteHop_get_channel_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteHop_set_channel_features(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RouteHop_set_channel_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_fee_msat() -> UInt64 {
@@ -107,10 +117,17 @@ RouteHop_get_cltv_expiry_delta(this_ptrPointer)
 
     public func clone() -> RouteHop {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
-RouteHop(pointer: RouteHop_clone(origPointer))
-};
+        return RouteHop(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHop>) in
+RouteHop_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> RouteHop {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -121,19 +138,34 @@ RouteHop_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {
     	
-        return Result_RouteHopDecodeErrorZ(pointer: RouteHop_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_RouteHopDecodeErrorZ(pointer: RouteHop_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return RouteHop_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RouteHop {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing RouteHop \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing RouteHop \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		RouteHop_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

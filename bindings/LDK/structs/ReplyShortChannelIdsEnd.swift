@@ -1,16 +1,26 @@
-public class ReplyShortChannelIdsEnd {
+public class ReplyShortChannelIdsEnd: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKReplyShortChannelIdsEnd?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKReplyShortChannelIdsEnd?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], full_information_arg: Bool) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ReplyShortChannelIdsEnd_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), full_information_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKReplyShortChannelIdsEnd){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -47,14 +57,26 @@ ReplyShortChannelIdsEnd_get_full_information(this_ptrPointer)
 
     public func clone() -> ReplyShortChannelIdsEnd {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
-ReplyShortChannelIdsEnd(pointer: ReplyShortChannelIdsEnd_clone(origPointer))
-};
+        return ReplyShortChannelIdsEnd(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
+ReplyShortChannelIdsEnd_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ReplyShortChannelIdsEnd {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func read(ser: [UInt8]) -> Result_ReplyShortChannelIdsEndDecodeErrorZ {
     	
-        return Result_ReplyShortChannelIdsEndDecodeErrorZ(pointer: ReplyShortChannelIdsEnd_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ReplyShortChannelIdsEndDecodeErrorZ(pointer: ReplyShortChannelIdsEnd_read(serWrapper.cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {
@@ -64,16 +86,26 @@ ReplyShortChannelIdsEnd_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return ReplyShortChannelIdsEnd_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ReplyShortChannelIdsEnd {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ReplyShortChannelIdsEnd \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ReplyShortChannelIdsEnd \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ReplyShortChannelIdsEnd_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

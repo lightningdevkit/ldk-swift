@@ -1,11 +1,18 @@
-public class ChannelReestablish {
+public class ChannelReestablish: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelReestablish?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelReestablish?
+
 
 	
 
     public init(pointer: LDKChannelReestablish){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -57,10 +64,17 @@ ChannelReestablish_get_next_remote_commitment_number(this_ptrPointer)
 
     public func clone() -> ChannelReestablish {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelReestablish>) in
-ChannelReestablish(pointer: ChannelReestablish_clone(origPointer))
-};
+        return ChannelReestablish(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelReestablish>) in
+ChannelReestablish_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ChannelReestablish {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -71,19 +85,34 @@ ChannelReestablish_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelReestablishDecodeErrorZ {
     	
-        return Result_ChannelReestablishDecodeErrorZ(pointer: ChannelReestablish_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelReestablishDecodeErrorZ(pointer: ChannelReestablish_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelReestablish_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelReestablish {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelReestablish \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelReestablish \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelReestablish_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -1,77 +1,119 @@
-open class KeysInterface {
+open class KeysInterface: NativeTypeWrapper {
 
-    public var cOpaqueStruct: LDKKeysInterface?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public var cOpaqueStruct: LDKKeysInterface?
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
 		func get_node_secretCallback(pointer: UnsafeRawPointer?) -> LDKSecretKey {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_node_secret")
 			
-			return Bindings.new_LDKSecretKey(array: instance.get_node_secret());
+			return Bindings.new_LDKSecretKey(array: instance.get_node_secret())
 		}
 
 		func get_destination_scriptCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_destination_script")
 			
-			return Bindings.new_LDKCVec_u8Z(array: instance.get_destination_script());
+			
+					let returnWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: instance.get_destination_script())
+					defer {
+						returnWrapper.noOpRetain()
+					}
+					return returnWrapper.dangle().cOpaqueStruct!
+				
 		}
 
-		func get_shutdown_pubkeyCallback(pointer: UnsafeRawPointer?) -> LDKPublicKey {
-			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_shutdown_pubkey")
+		func get_shutdown_scriptpubkeyCallback(pointer: UnsafeRawPointer?) -> LDKShutdownScript {
+			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_shutdown_scriptpubkey")
 			
-			return Bindings.new_LDKPublicKey(array: instance.get_shutdown_pubkey());
+			return instance.get_shutdown_scriptpubkey().cOpaqueStruct!
 		}
 
 		func get_channel_signerCallback(pointer: UnsafeRawPointer?, inbound: Bool, channel_value_satoshis: UInt64) -> LDKSign {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_channel_signer")
 			
-			return instance.get_channel_signer(inbound: inbound, channel_value_satoshis: channel_value_satoshis).cOpaqueStruct!;
+			return instance.get_channel_signer(inbound: inbound, channel_value_satoshis: channel_value_satoshis).cOpaqueStruct!
 		}
 
 		func get_secure_random_bytesCallback(pointer: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_secure_random_bytes")
 			
-			return Bindings.new_LDKThirtyTwoBytes(array: instance.get_secure_random_bytes());
+			return Bindings.new_LDKThirtyTwoBytes(array: instance.get_secure_random_bytes())
 		}
 
 		func read_chan_signerCallback(pointer: UnsafeRawPointer?, reader: LDKu8slice) -> LDKCResult_SignDecodeErrorZ {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::read_chan_signer")
 			
-			return instance.read_chan_signer(reader: Bindings.LDKu8slice_to_array(nativeType: reader)).cOpaqueStruct!;
+			return instance.read_chan_signer(reader: Bindings.LDKu8slice_to_array(nativeType: reader)).cOpaqueStruct!
 		}
 
 		func sign_invoiceCallback(pointer: UnsafeRawPointer?, invoice_preimage: LDKCVec_u8Z) -> LDKCResult_RecoverableSignatureNoneZ {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::sign_invoice")
 			
-			return instance.sign_invoice(invoice_preimage: Bindings.LDKCVec_u8Z_to_array(nativeType: invoice_preimage)).cOpaqueStruct!;
+			return instance.sign_invoice(invoice_preimage: Bindings.LDKCVec_u8Z_to_array(nativeType: invoice_preimage)).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKKeysInterface(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_node_secret: get_node_secretCallback,
 			get_destination_script: get_destination_scriptCallback,
-			get_shutdown_pubkey: get_shutdown_pubkeyCallback,
+			get_shutdown_scriptpubkey: get_shutdown_scriptpubkeyCallback,
 			get_channel_signer: get_channel_signerCallback,
 			get_secure_random_bytes: get_secure_random_bytesCallback,
 			read_chan_signer: read_chan_signerCallback,
 			sign_invoice: sign_invoiceCallback,
 			free: freeCallback)
+
     }
 
     public init(pointer: LDKKeysInterface){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+	}
+
+	public init(pointer: LDKKeysInterface, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */
+
+
+
+					internal func dangle() -> KeysInterface {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing KeysInterface \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing KeysInterface \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     open func get_node_secret() -> [UInt8] {
     	/* EDIT ME */
@@ -83,9 +125,9 @@ open class KeysInterface {
 		return [UInt8]()
     }
 
-    open func get_shutdown_pubkey() -> [UInt8] {
+    open func get_shutdown_scriptpubkey() -> ShutdownScript {
     	/* EDIT ME */
-		return [UInt8]()
+		return ShutdownScript(pointer: LDKShutdownScript())
     }
 
     open func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
@@ -123,6 +165,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_node_secret() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKSecretKey_to_array(nativeType: self.cOpaqueStruct!.get_node_secret(self.cOpaqueStruct!.this_arg))
 				
@@ -131,22 +174,25 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_destination_script() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.get_destination_script(self.cOpaqueStruct!.this_arg))
 				
 			
 	}
 
-	public override func get_shutdown_pubkey() -> [UInt8] {
+	public override func get_shutdown_scriptpubkey() -> ShutdownScript {
 		
+				
 				return 
-				Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.get_shutdown_pubkey(self.cOpaqueStruct!.this_arg))
+				ShutdownScript(pointer: self.cOpaqueStruct!.get_shutdown_scriptpubkey(self.cOpaqueStruct!.this_arg))
 				
 			
 	}
 
 	public override func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
 		
+				
 				return 
 				Sign(pointer: self.cOpaqueStruct!.get_channel_signer(self.cOpaqueStruct!.this_arg, inbound, channel_value_satoshis))
 				
@@ -155,6 +201,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func get_secure_random_bytes() -> [UInt8] {
 		
+				
 				return 
 				Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.get_secure_random_bytes(self.cOpaqueStruct!.this_arg))
 				
@@ -163,22 +210,35 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 
 	public override func read_chan_signer(reader: [UInt8]) -> Result_SignDecodeErrorZ {
 		
+				
+						let readerWrapper = Bindings.new_LDKu8sliceWrapper(array: reader)
+						defer {
+							readerWrapper.noOpRetain()
+						}
+					
 				return 
-				Result_SignDecodeErrorZ(pointer: self.cOpaqueStruct!.read_chan_signer(self.cOpaqueStruct!.this_arg, Bindings.new_LDKu8slice(array: reader)))
+				Result_SignDecodeErrorZ(pointer: self.cOpaqueStruct!.read_chan_signer(self.cOpaqueStruct!.this_arg, readerWrapper.cOpaqueStruct!))
 				
 			
 	}
 
 	public override func sign_invoice(invoice_preimage: [UInt8]) -> Result_RecoverableSignatureNoneZ {
 		
+				
+						let invoice_preimageWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: invoice_preimage)
+						defer {
+							invoice_preimageWrapper.noOpRetain()
+						}
+					
 				return 
-				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, Bindings.new_LDKCVec_u8Z(array: invoice_preimage)))
+				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, invoice_preimageWrapper.dangle().cOpaqueStruct!))
 				
 			
 	}
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

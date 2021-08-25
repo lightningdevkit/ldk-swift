@@ -1,11 +1,17 @@
-public class PaymentSendFailure {
+public class PaymentSendFailure: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKPaymentSendFailure?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKPaymentSendFailure?
 
 	
 
     public init(pointer: LDKPaymentSendFailure){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* OPTION_METHODS_START */
@@ -60,16 +66,73 @@ public class PaymentSendFailure {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return PaymentSendFailure_free(self.clone().cOpaqueStruct!);
+        return PaymentSendFailure_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> PaymentSendFailure {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing PaymentSendFailure \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing PaymentSendFailure \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> PaymentSendFailure {
     	
         return PaymentSendFailure(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentSendFailure>) in
 PaymentSendFailure_clone(origPointer)
 });
+    }
+
+					internal func danglingClone() -> PaymentSendFailure {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
+    public class func parameter_error(a: APIError) -> PaymentSendFailure {
+    	
+        return PaymentSendFailure(pointer: PaymentSendFailure_parameter_error(a.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func path_parameter_error(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    	
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+						defer {
+							aWrapper.noOpRetain()
+						}
+					
+        return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.dangle().cOpaqueStruct!));
+    }
+
+    public class func all_failed_retry_safe(a: [LDKAPIError]) -> PaymentSendFailure {
+    	
+						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: a)
+						defer {
+							aWrapper.noOpRetain()
+						}
+					
+        return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.dangle().cOpaqueStruct!));
+    }
+
+    public class func partial_failure(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    	
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+						defer {
+							aWrapper.noOpRetain()
+						}
+					
+        return PaymentSendFailure(pointer: PaymentSendFailure_partial_failure(aWrapper.dangle().cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */

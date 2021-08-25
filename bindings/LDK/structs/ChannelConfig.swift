@@ -1,16 +1,26 @@
-public class ChannelConfig {
+public class ChannelConfig: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelConfig?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelConfig?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelConfig_default()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelConfig){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -90,12 +100,49 @@ ChannelConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
         return ChannelConfig_set_commit_upfront_shutdown_pubkey(this_ptrPointer, val);
     }
 
-    public func clone() -> ChannelConfig {
+    public func get_max_dust_htlc_exposure_msat() -> UInt64 {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelConfig>) in
-ChannelConfig(pointer: ChannelConfig_clone(origPointer))
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelConfig>) in
+ChannelConfig_get_max_dust_htlc_exposure_msat(this_ptrPointer)
 };
     }
+
+    public func set_max_dust_htlc_exposure_msat(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelConfig_set_max_dust_htlc_exposure_msat(this_ptrPointer, val);
+    }
+
+    public func get_force_close_avoidance_max_fee_satoshis() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelConfig>) in
+ChannelConfig_get_force_close_avoidance_max_fee_satoshis(this_ptrPointer)
+};
+    }
+
+    public func set_force_close_avoidance_max_fee_satoshis(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelConfig_set_force_close_avoidance_max_fee_satoshis(this_ptrPointer, val);
+    }
+
+    public func clone() -> ChannelConfig {
+    	
+        return ChannelConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelConfig>) in
+ChannelConfig_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> ChannelConfig {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -106,19 +153,34 @@ ChannelConfig_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelConfigDecodeErrorZ {
     	
-        return Result_ChannelConfigDecodeErrorZ(pointer: ChannelConfig_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelConfigDecodeErrorZ(pointer: ChannelConfig_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelConfig_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelConfig {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelConfig \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelConfig \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelConfig_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -1,16 +1,26 @@
-public class GossipTimestampFilter {
+public class GossipTimestampFilter: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKGossipTimestampFilter?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKGossipTimestampFilter?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_timestamp_arg: UInt32, timestamp_range_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = GossipTimestampFilter_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_timestamp_arg, timestamp_range_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKGossipTimestampFilter){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -62,14 +72,26 @@ GossipTimestampFilter_get_timestamp_range(this_ptrPointer)
 
     public func clone() -> GossipTimestampFilter {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKGossipTimestampFilter>) in
-GossipTimestampFilter(pointer: GossipTimestampFilter_clone(origPointer))
-};
+        return GossipTimestampFilter(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> GossipTimestampFilter {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {
     	
-        return Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(serWrapper.cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {
@@ -79,16 +101,26 @@ GossipTimestampFilter_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return GossipTimestampFilter_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> GossipTimestampFilter {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing GossipTimestampFilter \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing GossipTimestampFilter \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		GossipTimestampFilter_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

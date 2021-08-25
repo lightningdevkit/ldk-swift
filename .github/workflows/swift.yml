@@ -15,11 +15,21 @@ jobs:
                     git config --global user.email "ldk-ci@example.com"
                     git config --global user.name "LDK CI"
                     # Note this is a different endpoint, as we need one non-upstream commit!
-                    git clone https://git.bitcoin.ninja/rust-lightning
+                    # git clone https://git.bitcoin.ninja/rust-lightning
+                    git clone https://github.com/TheBlueMatt/rust-lightning
                     cd rust-lightning
-                    git checkout origin/2021-03-java-bindings-base
+                    # git checkout origin/2021-03-java-bindings-base
+                    # git checkout v0.0.100
+                    git checkout dba15b73610e4f54378782e55874fc694bf8bda9
+                    echo "rust-lightning commit hash:"
+                    git rev-parse HEAD
                     cd ..
                     git clone https://github.com/lightningdevkit/ldk-c-bindings
+                    cd ldk-c-bindings
+                    git checkout v0.0.100.1
+                    echo "ldk-c-bindings commit hash:"
+                    git rev-parse HEAD
+                    cd ..
             -   name: Install native Rust toolchain, Valgrind, and build utilitis
                 run: |
                     sudo apt-get update

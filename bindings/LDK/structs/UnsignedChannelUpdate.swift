@@ -1,11 +1,18 @@
-public class UnsignedChannelUpdate {
+public class UnsignedChannelUpdate: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKUnsignedChannelUpdate?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKUnsignedChannelUpdate?
+
 
 	
 
     public init(pointer: LDKUnsignedChannelUpdate){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -132,10 +139,17 @@ UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer)
 
     public func clone() -> UnsignedChannelUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
-UnsignedChannelUpdate(pointer: UnsignedChannelUpdate_clone(origPointer))
-};
+        return UnsignedChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+UnsignedChannelUpdate_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> UnsignedChannelUpdate {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -146,19 +160,34 @@ UnsignedChannelUpdate_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UnsignedChannelUpdateDecodeErrorZ {
     	
-        return Result_UnsignedChannelUpdateDecodeErrorZ(pointer: UnsignedChannelUpdate_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_UnsignedChannelUpdateDecodeErrorZ(pointer: UnsignedChannelUpdate_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return UnsignedChannelUpdate_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UnsignedChannelUpdate {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing UnsignedChannelUpdate \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing UnsignedChannelUpdate \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		UnsignedChannelUpdate_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

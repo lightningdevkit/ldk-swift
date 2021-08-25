@@ -1,16 +1,26 @@
-public class InitFeatures {
+public class InitFeatures: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKInitFeatures?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKInitFeatures?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = InitFeatures_known()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKInitFeatures){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -26,10 +36,17 @@ InitFeatures_eq(aPointer, bPointer)
 
     public func clone() -> InitFeatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInitFeatures>) in
-InitFeatures(pointer: InitFeatures_clone(origPointer))
-};
+        return InitFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> InitFeatures {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func supports_payment_secret() -> Bool {
     	
@@ -47,19 +64,34 @@ InitFeatures_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_InitFeaturesDecodeErrorZ {
     	
-        return Result_InitFeaturesDecodeErrorZ(pointer: InitFeatures_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_InitFeaturesDecodeErrorZ(pointer: InitFeatures_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return InitFeatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> InitFeatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing InitFeatures \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing InitFeatures \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		InitFeatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

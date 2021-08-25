@@ -1,8 +1,13 @@
-open class Persist {
+open class Persist: NativeTypeWrapper {
 
-    public var cOpaqueStruct: LDKPersist?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public var cOpaqueStruct: LDKPersist?
 
     public init() {
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 
     	/* NATIVE_CALLBACKS_START */
 
@@ -10,7 +15,7 @@ open class Persist {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::persist_new_channel")
 			let data = ChannelMonitor(pointer: dataPointer.pointee);
 
-			return instance.persist_new_channel(id: OutPoint(pointer: id), data: data).cOpaqueStruct!;
+			return instance.persist_new_channel(id: OutPoint(pointer: id), data: data).cOpaqueStruct!
 		}
 
 		func update_persisted_channelCallback(pointer: UnsafeRawPointer?, id: LDKOutPoint, updatePointer: UnsafePointer<LDKChannelMonitorUpdate>, dataPointer: UnsafePointer<LDKChannelMonitor>) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
@@ -18,28 +23,59 @@ open class Persist {
 			let update = ChannelMonitorUpdate(pointer: updatePointer.pointee);
 let data = ChannelMonitor(pointer: dataPointer.pointee);
 
-			return instance.update_persisted_channel(id: OutPoint(pointer: id), update: update, data: data).cOpaqueStruct!;
+			return instance.update_persisted_channel(id: OutPoint(pointer: id), update: update, data: data).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::free")
 			
-			return instance.free();
+			return instance.free()
 		}
 
 		/* NATIVE_CALLBACKS_END */
 
+		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKPersist(this_arg: Bindings.instanceToPointer(instance: self), 
 			persist_new_channel: persist_new_channelCallback,
 			update_persisted_channel: update_persisted_channelCallback,
 			free: freeCallback)
+
     }
 
     public init(pointer: LDKPersist){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+	}
+
+	public init(pointer: LDKPersist, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
 	}
 
     /* SWIFT_CALLBACKS_START */
+
+
+
+					internal func dangle() -> Persist {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Persist \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Persist \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     open func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
@@ -66,9 +102,10 @@ public class NativelyImplementedPersist: Persist {
 
 	public override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
 		
+				
 				return withUnsafePointer(to: data.cOpaqueStruct!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.persist_new_channel(self.cOpaqueStruct!.this_arg, id.clone().cOpaqueStruct!, dataPointer))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.persist_new_channel(self.cOpaqueStruct!.this_arg, id.danglingClone().cOpaqueStruct!, dataPointer))
 				
 }
 			
@@ -76,10 +113,11 @@ public class NativelyImplementedPersist: Persist {
 
 	public override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
 		
+				
 				return withUnsafePointer(to: update.cOpaqueStruct!) { (updatePointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 withUnsafePointer(to: data.cOpaqueStruct!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_persisted_channel(self.cOpaqueStruct!.this_arg, id.clone().cOpaqueStruct!, updatePointer, dataPointer))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_persisted_channel(self.cOpaqueStruct!.this_arg, id.danglingClone().cOpaqueStruct!, updatePointer, dataPointer))
 				
 }
 }
@@ -88,6 +126,7 @@ withUnsafePointer(to: data.cOpaqueStruct!) { (dataPointer: UnsafePointer<LDKChan
 
 	public override func free() -> Void {
 		
+				
 				
 				self.cOpaqueStruct!.free(self.cOpaqueStruct!.this_arg)
 				

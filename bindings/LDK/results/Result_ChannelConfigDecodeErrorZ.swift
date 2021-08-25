@@ -1,17 +1,26 @@
-public class Result_ChannelConfigDecodeErrorZ {
+public class Result_ChannelConfigDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ChannelConfigDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_ChannelConfigDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_ChannelConfigDecodeErrorZ(contents: LDKCResult_ChannelConfigDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_ChannelConfigDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_ChannelConfigDecodeErrorZ {
 			
     public class func ok(o: ChannelConfig) -> Result_ChannelConfigDecodeErrorZ {
     	
-        return Result_ChannelConfigDecodeErrorZ(pointer: CResult_ChannelConfigDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_ChannelConfigDecodeErrorZ(pointer: CResult_ChannelConfigDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_ChannelConfigDecodeErrorZ {
     	
-        return Result_ChannelConfigDecodeErrorZ(pointer: CResult_ChannelConfigDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_ChannelConfigDecodeErrorZ(pointer: CResult_ChannelConfigDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_ChannelConfigDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_ChannelConfigDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ChannelConfigDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_ChannelConfigDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_ChannelConfigDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_ChannelConfigDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_ChannelConfigDecodeErrorZ {
 CResult_ChannelConfigDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_ChannelConfigDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

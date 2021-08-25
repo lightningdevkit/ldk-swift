@@ -1,11 +1,18 @@
-public class InvoiceSignature {
+public class InvoiceSignature: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKInvoiceSignature?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKInvoiceSignature?
+
 
 	
 
     public init(pointer: LDKInvoiceSignature){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -21,21 +28,38 @@ InvoiceSignature_eq(aPointer, bPointer)
 
     public func clone() -> InvoiceSignature {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceSignature>) in
-InvoiceSignature(pointer: InvoiceSignature_clone(origPointer))
-};
+        return InvoiceSignature(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvoiceSignature>) in
+InvoiceSignature_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> InvoiceSignature {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return InvoiceSignature_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> InvoiceSignature {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		InvoiceSignature_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing InvoiceSignature \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing InvoiceSignature \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

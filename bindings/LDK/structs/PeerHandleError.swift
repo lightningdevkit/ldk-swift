@@ -1,16 +1,26 @@
-public class PeerHandleError {
+public class PeerHandleError: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKPeerHandleError?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKPeerHandleError?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(no_connection_possible_arg: Bool) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = PeerHandleError_new(no_connection_possible_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKPeerHandleError){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -32,21 +42,38 @@ PeerHandleError_get_no_connection_possible(this_ptrPointer)
 
     public func clone() -> PeerHandleError {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPeerHandleError>) in
-PeerHandleError(pointer: PeerHandleError_clone(origPointer))
-};
+        return PeerHandleError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPeerHandleError>) in
+PeerHandleError_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> PeerHandleError {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return PeerHandleError_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PeerHandleError {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		PeerHandleError_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing PeerHandleError \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing PeerHandleError \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

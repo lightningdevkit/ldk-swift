@@ -1,17 +1,26 @@
-public class Result_ChannelFeaturesDecodeErrorZ {
+public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ChannelFeaturesDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_ChannelFeaturesDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_ChannelFeaturesDecodeErrorZ(contents: LDKCResult_ChannelFeaturesDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_ChannelFeaturesDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_ChannelFeaturesDecodeErrorZ {
 			
     public class func ok(o: ChannelFeatures) -> Result_ChannelFeaturesDecodeErrorZ {
     	
-        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_ChannelFeaturesDecodeErrorZ {
     	
-        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_ChannelFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_ChannelFeaturesDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_ChannelFeaturesDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_ChannelFeaturesDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -1,17 +1,26 @@
-public class Result_SpendableOutputDescriptorDecodeErrorZ {
+public class Result_SpendableOutputDescriptorDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_SpendableOutputDescriptorDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_SpendableOutputDescriptorDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_SpendableOutputDescriptorDecodeErrorZ(contents: LDKCResult_SpendableOutputDescriptorDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_SpendableOutputDescriptorDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ {
 			
     public class func ok(o: SpendableOutputDescriptor) -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
-        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: CResult_SpendableOutputDescriptorDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: CResult_SpendableOutputDescriptorDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
-        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: CResult_SpendableOutputDescriptorDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: CResult_SpendableOutputDescriptorDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_SpendableOutputDescriptorDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_SpendableOutputDescriptorDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_SpendableOutputDescriptorDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_SpendableOutputDescriptorDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_SpendableOutputDescriptorDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ {
 CResult_SpendableOutputDescriptorDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_SpendableOutputDescriptorDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

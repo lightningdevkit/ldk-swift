@@ -1,17 +1,26 @@
-public class Result_NoneMonitorUpdateErrorZ {
+public class Result_NoneMonitorUpdateErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NoneMonitorUpdateErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneMonitorUpdateErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NoneMonitorUpdateErrorZ(contents: LDKCResult_NoneMonitorUpdateErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_NoneMonitorUpdateErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -34,13 +43,28 @@ public class Result_NoneMonitorUpdateErrorZ {
 
     public class func err(e: MonitorUpdateError) -> Result_NoneMonitorUpdateErrorZ {
     	
-        return Result_NoneMonitorUpdateErrorZ(pointer: CResult_NoneMonitorUpdateErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NoneMonitorUpdateErrorZ(pointer: CResult_NoneMonitorUpdateErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneMonitorUpdateErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneMonitorUpdateErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneMonitorUpdateErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_NoneMonitorUpdateErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_NoneMonitorUpdateErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_NoneMonitorUpdateErrorZ {
     	
@@ -48,6 +72,13 @@ public class Result_NoneMonitorUpdateErrorZ {
 CResult_NoneMonitorUpdateErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneMonitorUpdateErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

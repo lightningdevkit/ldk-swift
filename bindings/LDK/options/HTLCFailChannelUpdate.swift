@@ -1,11 +1,17 @@
-public class HTLCFailChannelUpdate {
+public class HTLCFailChannelUpdate: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKHTLCFailChannelUpdate?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKHTLCFailChannelUpdate?
 
 	
 
     public init(pointer: LDKHTLCFailChannelUpdate){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* OPTION_METHODS_START */
@@ -51,16 +57,53 @@ public class HTLCFailChannelUpdate {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return HTLCFailChannelUpdate_free(self.clone().cOpaqueStruct!);
+        return HTLCFailChannelUpdate_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> HTLCFailChannelUpdate {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing HTLCFailChannelUpdate \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing HTLCFailChannelUpdate \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> HTLCFailChannelUpdate {
     	
         return HTLCFailChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCFailChannelUpdate>) in
 HTLCFailChannelUpdate_clone(origPointer)
 });
+    }
+
+					internal func danglingClone() -> HTLCFailChannelUpdate {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
+    public class func channel_update_message(msg: ChannelUpdate) -> HTLCFailChannelUpdate {
+    	
+        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_channel_update_message(msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func channel_closed(short_channel_id: UInt64, is_permanent: Bool) -> HTLCFailChannelUpdate {
+    	
+        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_channel_closed(short_channel_id, is_permanent));
+    }
+
+    public class func node_failure(node_id: [UInt8], is_permanent: Bool) -> HTLCFailChannelUpdate {
+    	
+        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_node_failure(Bindings.new_LDKPublicKey(array: node_id), is_permanent));
     }
 
     /* OPTION_METHODS_END */

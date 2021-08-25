@@ -1,16 +1,26 @@
-public class QueryChannelRange {
+public class QueryChannelRange: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKQueryChannelRange?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKQueryChannelRange?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(chain_hash_arg: [UInt8], first_blocknum_arg: UInt32, number_of_blocks_arg: UInt32) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = QueryChannelRange_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), first_blocknum_arg, number_of_blocks_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKQueryChannelRange){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -62,10 +72,17 @@ QueryChannelRange_get_number_of_blocks(this_ptrPointer)
 
     public func clone() -> QueryChannelRange {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryChannelRange>) in
-QueryChannelRange(pointer: QueryChannelRange_clone(origPointer))
-};
+        return QueryChannelRange(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKQueryChannelRange>) in
+QueryChannelRange_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> QueryChannelRange {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func end_blocknum() -> UInt32 {
     	
@@ -76,7 +93,12 @@ QueryChannelRange_end_blocknum(this_argPointer)
 
     public class func read(ser: [UInt8]) -> Result_QueryChannelRangeDecodeErrorZ {
     	
-        return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(serWrapper.cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {
@@ -86,16 +108,26 @@ QueryChannelRange_write(objPointer)
 });
     }
 
+    internal func free() -> Void {
+    	
+        return QueryChannelRange_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> QueryChannelRange {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing QueryChannelRange \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing QueryChannelRange \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		QueryChannelRange_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

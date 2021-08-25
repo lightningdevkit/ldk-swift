@@ -1,16 +1,26 @@
-public class DataLossProtect {
+public class DataLossProtect: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKDataLossProtect?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKDataLossProtect?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(your_last_per_commitment_secret_arg: [UInt8], my_current_per_commitment_point_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = DataLossProtect_new(Bindings.new_LDKThirtyTwoBytes(array: your_last_per_commitment_secret_arg), Bindings.new_LDKPublicKey(array: my_current_per_commitment_point_arg))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKDataLossProtect){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -47,21 +57,38 @@ DataLossProtect_get_my_current_per_commitment_point(this_ptrPointer)
 
     public func clone() -> DataLossProtect {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDataLossProtect>) in
-DataLossProtect(pointer: DataLossProtect_clone(origPointer))
-};
+        return DataLossProtect(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDataLossProtect>) in
+DataLossProtect_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> DataLossProtect {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return DataLossProtect_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> DataLossProtect {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		DataLossProtect_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing DataLossProtect \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing DataLossProtect \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

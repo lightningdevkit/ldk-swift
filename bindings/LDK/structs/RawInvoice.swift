@@ -1,11 +1,18 @@
-public class RawInvoice {
+public class RawInvoice: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKRawInvoice?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKRawInvoice?
+
 
 	
 
     public init(pointer: LDKRawInvoice){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -22,7 +29,7 @@ RawInvoice_get_data(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRawInvoice>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RawInvoice_set_data(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return RawInvoice_set_data(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public class func eq(a: RawInvoice, b: RawInvoice) -> Bool {
@@ -36,10 +43,17 @@ RawInvoice_eq(aPointer, bPointer)
 
     public func clone() -> RawInvoice {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawInvoice>) in
-RawInvoice(pointer: RawInvoice_clone(origPointer))
-};
+        return RawInvoice(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawInvoice>) in
+RawInvoice_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> RawInvoice {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func hash() -> [UInt8] {
     	
@@ -125,16 +139,26 @@ RawInvoice_currency(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return RawInvoice_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> RawInvoice {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing RawInvoice \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing RawInvoice \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		RawInvoice_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

@@ -1,11 +1,18 @@
-public class PositiveTimestamp {
+public class PositiveTimestamp: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKPositiveTimestamp?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKPositiveTimestamp?
+
 
 	
 
     public init(pointer: LDKPositiveTimestamp){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -21,10 +28,17 @@ PositiveTimestamp_eq(aPointer, bPointer)
 
     public func clone() -> PositiveTimestamp {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPositiveTimestamp>) in
-PositiveTimestamp(pointer: PositiveTimestamp_clone(origPointer))
-};
+        return PositiveTimestamp(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPositiveTimestamp>) in
+PositiveTimestamp_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> PositiveTimestamp {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func from_unix_timestamp(unix_seconds: UInt64) -> Result_PositiveTimestampCreationErrorZ {
     	
@@ -50,16 +64,26 @@ PositiveTimestamp_as_time(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return PositiveTimestamp_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PositiveTimestamp {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing PositiveTimestamp \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing PositiveTimestamp \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		PositiveTimestamp_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

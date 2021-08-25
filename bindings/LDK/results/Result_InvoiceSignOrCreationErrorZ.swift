@@ -1,17 +1,26 @@
-public class Result_InvoiceSignOrCreationErrorZ {
+public class Result_InvoiceSignOrCreationErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceSignOrCreationErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceSignOrCreationErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_InvoiceSignOrCreationErrorZ(contents: LDKCResult_InvoiceSignOrCreationErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_InvoiceSignOrCreationErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_InvoiceSignOrCreationErrorZ {
 			
     public class func ok(o: Invoice) -> Result_InvoiceSignOrCreationErrorZ {
     	
-        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: SignOrCreationError) -> Result_InvoiceSignOrCreationErrorZ {
     	
-        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_InvoiceSignOrCreationErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_InvoiceSignOrCreationErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_InvoiceSignOrCreationErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_InvoiceSignOrCreationErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_InvoiceSignOrCreationErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_InvoiceSignOrCreationErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_InvoiceSignOrCreationErrorZ {
 CResult_InvoiceSignOrCreationErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_InvoiceSignOrCreationErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

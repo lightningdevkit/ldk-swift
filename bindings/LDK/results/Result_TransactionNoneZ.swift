@@ -1,17 +1,26 @@
-public class Result_TransactionNoneZ {
+public class Result_TransactionNoneZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TransactionNoneZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_TransactionNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_TransactionNoneZ(contents: LDKCResult_TransactionNoneZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_TransactionNoneZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -29,7 +38,12 @@ public class Result_TransactionNoneZ {
 			
     public class func ok(o: [UInt8]) -> Result_TransactionNoneZ {
     	
-        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(Bindings.new_LDKTransaction(array: o)));
+						let oWrapper = Bindings.new_LDKTransactionWrapper(array: o)
+						defer {
+							oWrapper.noOpRetain()
+						}
+					
+        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(oWrapper.cOpaqueStruct!));
     }
 
     public class func err() -> Result_TransactionNoneZ {
@@ -37,10 +51,25 @@ public class Result_TransactionNoneZ {
         return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_TransactionNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_TransactionNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_TransactionNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_TransactionNoneZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_TransactionNoneZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_TransactionNoneZ {
     	
@@ -48,6 +77,13 @@ public class Result_TransactionNoneZ {
 CResult_TransactionNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_TransactionNoneZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

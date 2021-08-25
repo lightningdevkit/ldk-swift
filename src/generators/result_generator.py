@@ -54,7 +54,10 @@ class ResultGenerator:
 			constructor_template_regex = re.compile("(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 			constructor_body = f'''
 				public init() {{
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = {struct_name}(contents: {struct_details.result_wrapper_type}(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}}
 			'''
 			mutating_output_file_contents = constructor_template_regex.sub(f'\g<1>{constructor_body}\g<3>', mutating_output_file_contents)
@@ -98,14 +101,21 @@ class ResultGenerator:
 			current_return_type = current_method_details['return_type'].swift_type
 
 			current_replacement = method_template
+			is_clone_method = current_method_details['is_clone']
+			is_free_method = current_method_details['is_free']
+
 
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
 					force_pass_instance = True
 			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+
+			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
+				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
+				print(f'/// {cloneability_warning}: {current_native_method_name}')
 
 			current_replacement = current_replacement.replace('return ResultType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}ResultType_methodName(native_arguments){value_return_wrappers["suffix"]}')
@@ -117,52 +127,37 @@ class ResultGenerator:
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
 			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
 
+			if is_clone_method:
+				current_replacement += f'''\n
+					internal func danglingClone() -> {current_return_type} {{
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}}
+				'''
+
+			if is_free_method:
+				current_replacement = current_replacement.replace('public func', 'internal func')
+				current_replacement += f'''\n
+					internal func dangle() -> {swift_struct_name} {{
+        				self.dangling = true
+						return self
+					}}
+					
+					deinit {{
+						if !self.dangling {{
+							print("Freeing {swift_struct_name} \(self.instanceNumber).")
+							self.{current_method_name}()
+						}} else {{
+							print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
+						}}
+					}}
+				'''
+
 			struct_methods += '\n' + current_replacement + '\n'
 
-		# DESTRUCTOR START
-		if struct_details.free_method is not None:
-			# fill constructor details
-			free_method_details = struct_details.free_method
-			free_native_name = free_method_details['name']['native']
-			native_call_prep = ''
-			native_arguments = []
-			for current_argument_details in free_method_details['argument_types']:
-				pass_instance = False
-				argument_name = current_argument_details.var_name
-				passed_argument_name = argument_name
-				if argument_name.startswith('this_'):
-					pass_instance = True
 
-				if current_argument_details.is_ptr:
-					passed_argument_name = argument_name + 'Pointer'
-					requires_mutability = not current_argument_details.is_const
-
-					mutability_infix = ''
-
-					if pass_instance:
-						argument_name = 'self'
-					if requires_mutability:
-						argument_name = '&' + argument_name
-						mutability_infix = 'Mutable'
-
-					current_prep = f'''
-							\n\t	let {passed_argument_name} = withUnsafe{mutability_infix}Pointer(to: {argument_name}.cOpaqueStruct!) {{ (pointer: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in
-								\n\t\t	pointer
-							\n\t	}}
-						'''
-					native_call_prep += current_prep
-				elif pass_instance:
-					passed_argument_name = 'self.cOpaqueStruct!'
-				native_arguments.append(f'{passed_argument_name}')
-
-			struct_methods += f'''
-				\n\tdeinit {{
-					{native_call_prep}
-					\n\t	{free_native_name}({', '.join(native_arguments)})
-				\n\t}}
-			'''
-
-		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName {', f'class {swift_struct_name} {{')
+		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: ResultType', f'init(pointer: {struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: ResultType?', f'var cOpaqueStruct: {struct_name}?')
 		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)

@@ -1,11 +1,17 @@
-public class MonitorEvent {
+public class MonitorEvent: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKMonitorEvent?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKMonitorEvent?
 
 	
 
     public init(pointer: LDKMonitorEvent){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* OPTION_METHODS_START */
@@ -42,16 +48,48 @@ public class MonitorEvent {
 					}
 				
 			
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return MonitorEvent_free(self.clone().cOpaqueStruct!);
+        return MonitorEvent_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> MonitorEvent {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing MonitorEvent \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing MonitorEvent \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> MonitorEvent {
     	
         return MonitorEvent(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMonitorEvent>) in
 MonitorEvent_clone(origPointer)
 });
+    }
+
+					internal func danglingClone() -> MonitorEvent {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
+    public class func htlcevent(a: HTLCUpdate) -> MonitorEvent {
+    	
+        return MonitorEvent(pointer: MonitorEvent_htlcevent(a.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func commitment_tx_broadcasted(a: OutPoint) -> MonitorEvent {
+    	
+        return MonitorEvent(pointer: MonitorEvent_commitment_tx_broadcasted(a.danglingClone().cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */

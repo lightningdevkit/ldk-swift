@@ -1,11 +1,18 @@
-public class OpenChannel {
+public class OpenChannel: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKOpenChannel?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKOpenChannel?
+
 
 	
 
     public init(pointer: LDKOpenChannel){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -282,10 +289,17 @@ OpenChannel_get_channel_flags(this_ptrPointer)
 
     public func clone() -> OpenChannel {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOpenChannel>) in
-OpenChannel(pointer: OpenChannel_clone(origPointer))
-};
+        return OpenChannel(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOpenChannel>) in
+OpenChannel_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> OpenChannel {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -296,19 +310,34 @@ OpenChannel_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_OpenChannelDecodeErrorZ {
     	
-        return Result_OpenChannelDecodeErrorZ(pointer: OpenChannel_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_OpenChannelDecodeErrorZ(pointer: OpenChannel_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return OpenChannel_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> OpenChannel {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing OpenChannel \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing OpenChannel \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		OpenChannel_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

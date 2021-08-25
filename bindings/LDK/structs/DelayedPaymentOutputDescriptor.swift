@@ -1,16 +1,26 @@
-public class DelayedPaymentOutputDescriptor {
+public class DelayedPaymentOutputDescriptor: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(outpoint_arg: OutPoint, per_commitment_point_arg: [UInt8], to_self_delay_arg: UInt16, output_arg: LDKTxOut, revocation_pubkey_arg: [UInt8], channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = DelayedPaymentOutputDescriptor_new(outpoint_arg.clone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: per_commitment_point_arg), to_self_delay_arg, output_arg, Bindings.new_LDKPublicKey(array: revocation_pubkey_arg), Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
+        self.cOpaqueStruct = DelayedPaymentOutputDescriptor_new(outpoint_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: per_commitment_point_arg), to_self_delay_arg, output_arg, Bindings.new_LDKPublicKey(array: revocation_pubkey_arg), Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKDelayedPaymentOutputDescriptor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -27,7 +37,7 @@ DelayedPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return DelayedPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_per_commitment_point() -> [UInt8] {
@@ -115,10 +125,17 @@ DelayedPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer)
 
     public func clone() -> DelayedPaymentOutputDescriptor {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
-DelayedPaymentOutputDescriptor(pointer: DelayedPaymentOutputDescriptor_clone(origPointer))
-};
+        return DelayedPaymentOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+DelayedPaymentOutputDescriptor_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> DelayedPaymentOutputDescriptor {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -129,19 +146,34 @@ DelayedPaymentOutputDescriptor_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
     	
-        return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> DelayedPaymentOutputDescriptor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing DelayedPaymentOutputDescriptor \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing DelayedPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

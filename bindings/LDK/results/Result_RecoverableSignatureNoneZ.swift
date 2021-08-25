@@ -1,17 +1,26 @@
-public class Result_RecoverableSignatureNoneZ {
+public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_RecoverableSignatureNoneZ(contents: LDKCResult_RecoverableSignatureNoneZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_RecoverableSignatureNoneZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -37,10 +46,25 @@ public class Result_RecoverableSignatureNoneZ {
         return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_RecoverableSignatureNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_RecoverableSignatureNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_RecoverableSignatureNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_RecoverableSignatureNoneZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_RecoverableSignatureNoneZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_RecoverableSignatureNoneZ {
     	
@@ -48,6 +72,13 @@ public class Result_RecoverableSignatureNoneZ {
 CResult_RecoverableSignatureNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_RecoverableSignatureNoneZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

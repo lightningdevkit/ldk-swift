@@ -1,16 +1,26 @@
-public class ChannelAnnouncement {
+public class ChannelAnnouncement: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelAnnouncement?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelAnnouncement?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(node_signature_1_arg: [UInt8], node_signature_2_arg: [UInt8], bitcoin_signature_1_arg: [UInt8], bitcoin_signature_2_arg: [UInt8], contents_arg: UnsignedChannelAnnouncement) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelAnnouncement_new(Bindings.new_LDKSignature(array: node_signature_1_arg), Bindings.new_LDKSignature(array: node_signature_2_arg), Bindings.new_LDKSignature(array: bitcoin_signature_1_arg), Bindings.new_LDKSignature(array: bitcoin_signature_2_arg), contents_arg.clone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelAnnouncement_new(Bindings.new_LDKSignature(array: node_signature_1_arg), Bindings.new_LDKSignature(array: node_signature_2_arg), Bindings.new_LDKSignature(array: bitcoin_signature_1_arg), Bindings.new_LDKSignature(array: bitcoin_signature_2_arg), contents_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelAnnouncement){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -87,15 +97,22 @@ ChannelAnnouncement_get_contents(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelAnnouncement_set_contents(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelAnnouncement_set_contents(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelAnnouncement {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelAnnouncement>) in
-ChannelAnnouncement(pointer: ChannelAnnouncement_clone(origPointer))
-};
+        return ChannelAnnouncement(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelAnnouncement>) in
+ChannelAnnouncement_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ChannelAnnouncement {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -106,19 +123,34 @@ ChannelAnnouncement_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelAnnouncementDecodeErrorZ {
     	
-        return Result_ChannelAnnouncementDecodeErrorZ(pointer: ChannelAnnouncement_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelAnnouncementDecodeErrorZ(pointer: ChannelAnnouncement_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelAnnouncement_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelAnnouncement {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelAnnouncement \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelAnnouncement_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

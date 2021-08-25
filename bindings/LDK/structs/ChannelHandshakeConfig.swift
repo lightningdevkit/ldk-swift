@@ -1,16 +1,26 @@
-public class ChannelHandshakeConfig {
+public class ChannelHandshakeConfig: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelHandshakeConfig?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelHandshakeConfig?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init() {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = ChannelHandshakeConfig_default()
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelHandshakeConfig){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -62,21 +72,38 @@ ChannelHandshakeConfig_get_our_htlc_minimum_msat(this_ptrPointer)
 
     public func clone() -> ChannelHandshakeConfig {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
-ChannelHandshakeConfig(pointer: ChannelHandshakeConfig_clone(origPointer))
-};
+        return ChannelHandshakeConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> ChannelHandshakeConfig {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return ChannelHandshakeConfig_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelHandshakeConfig {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		ChannelHandshakeConfig_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelHandshakeConfig \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelHandshakeConfig \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

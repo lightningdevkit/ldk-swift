@@ -1,17 +1,26 @@
-public class Result_NoneAPIErrorZ {
+public class Result_NoneAPIErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NoneAPIErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_NoneAPIErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NoneAPIErrorZ(contents: LDKCResult_NoneAPIErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_NoneAPIErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -34,13 +43,28 @@ public class Result_NoneAPIErrorZ {
 
     public class func err(e: APIError) -> Result_NoneAPIErrorZ {
     	
-        return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NoneAPIErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NoneAPIErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NoneAPIErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_NoneAPIErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_NoneAPIErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_NoneAPIErrorZ {
     	
@@ -48,6 +72,13 @@ public class Result_NoneAPIErrorZ {
 CResult_NoneAPIErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NoneAPIErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

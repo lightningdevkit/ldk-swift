@@ -1,17 +1,26 @@
-public class Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+public class Result_StaticPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ(contents: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_StaticPaymentOutputDescriptorDecodeErrorZ {
 			
     public class func ok(o: StaticPaymentOutputDescriptor) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
     	
-        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_StaticPaymentOutputDescriptorDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_StaticPaymentOutputDescriptorDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
     	
-        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_StaticPaymentOutputDescriptorDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_StaticPaymentOutputDescriptorDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_StaticPaymentOutputDescriptorDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_StaticPaymentOutputDescriptorDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_StaticPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_StaticPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_StaticPaymentOutputDescriptorDecodeErrorZ {
 CResult_StaticPaymentOutputDescriptorDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

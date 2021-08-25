@@ -1,11 +1,18 @@
-public class AcceptChannel {
+public class AcceptChannel: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKAcceptChannel?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKAcceptChannel?
+
 
 	
 
     public init(pointer: LDKAcceptChannel){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -222,10 +229,17 @@ AcceptChannel_get_first_per_commitment_point(this_ptrPointer)
 
     public func clone() -> AcceptChannel {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAcceptChannel>) in
-AcceptChannel(pointer: AcceptChannel_clone(origPointer))
-};
+        return AcceptChannel(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAcceptChannel>) in
+AcceptChannel_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> AcceptChannel {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -236,19 +250,34 @@ AcceptChannel_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_AcceptChannelDecodeErrorZ {
     	
-        return Result_AcceptChannelDecodeErrorZ(pointer: AcceptChannel_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_AcceptChannelDecodeErrorZ(pointer: AcceptChannel_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return AcceptChannel_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> AcceptChannel {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing AcceptChannel \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing AcceptChannel \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		AcceptChannel_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

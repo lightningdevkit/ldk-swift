@@ -1,17 +1,26 @@
-public class Result_RevokeAndACKDecodeErrorZ {
+public class Result_RevokeAndACKDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_RevokeAndACKDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_RevokeAndACKDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_RevokeAndACKDecodeErrorZ(contents: LDKCResult_RevokeAndACKDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_RevokeAndACKDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_RevokeAndACKDecodeErrorZ {
 			
     public class func ok(o: RevokeAndACK) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_RevokeAndACKDecodeErrorZ {
     	
-        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_RevokeAndACKDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_RevokeAndACKDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_RevokeAndACKDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_RevokeAndACKDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_RevokeAndACKDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_RevokeAndACKDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_RevokeAndACKDecodeErrorZ {
 CResult_RevokeAndACKDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_RevokeAndACKDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

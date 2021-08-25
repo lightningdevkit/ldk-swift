@@ -1,11 +1,18 @@
-public class UpdateFailMalformedHTLC {
+public class UpdateFailMalformedHTLC: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKUpdateFailMalformedHTLC?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKUpdateFailMalformedHTLC?
+
 
 	
 
     public init(pointer: LDKUpdateFailMalformedHTLC){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -57,10 +64,17 @@ UpdateFailMalformedHTLC_get_failure_code(this_ptrPointer)
 
     public func clone() -> UpdateFailMalformedHTLC {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
-UpdateFailMalformedHTLC(pointer: UpdateFailMalformedHTLC_clone(origPointer))
-};
+        return UpdateFailMalformedHTLC(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) in
+UpdateFailMalformedHTLC_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> UpdateFailMalformedHTLC {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -71,19 +85,34 @@ UpdateFailMalformedHTLC_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_UpdateFailMalformedHTLCDecodeErrorZ {
     	
-        return Result_UpdateFailMalformedHTLCDecodeErrorZ(pointer: UpdateFailMalformedHTLC_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_UpdateFailMalformedHTLCDecodeErrorZ(pointer: UpdateFailMalformedHTLC_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return UpdateFailMalformedHTLC_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> UpdateFailMalformedHTLC {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing UpdateFailMalformedHTLC \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing UpdateFailMalformedHTLC \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		UpdateFailMalformedHTLC_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

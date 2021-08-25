@@ -1,16 +1,26 @@
-public class AnnouncementSignatures {
+public class AnnouncementSignatures: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKAnnouncementSignatures?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKAnnouncementSignatures?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(channel_id_arg: [UInt8], short_channel_id_arg: UInt64, node_signature_arg: [UInt8], bitcoin_signature_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = AnnouncementSignatures_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), short_channel_id_arg, Bindings.new_LDKSignature(array: node_signature_arg), Bindings.new_LDKSignature(array: bitcoin_signature_arg))
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKAnnouncementSignatures){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -77,10 +87,17 @@ AnnouncementSignatures_get_bitcoin_signature(this_ptrPointer)
 
     public func clone() -> AnnouncementSignatures {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAnnouncementSignatures>) in
-AnnouncementSignatures(pointer: AnnouncementSignatures_clone(origPointer))
-};
+        return AnnouncementSignatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAnnouncementSignatures>) in
+AnnouncementSignatures_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> AnnouncementSignatures {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -91,19 +108,34 @@ AnnouncementSignatures_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_AnnouncementSignaturesDecodeErrorZ {
     	
-        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: AnnouncementSignatures_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: AnnouncementSignatures_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return AnnouncementSignatures_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> AnnouncementSignatures {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing AnnouncementSignatures \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing AnnouncementSignatures \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		AnnouncementSignatures_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

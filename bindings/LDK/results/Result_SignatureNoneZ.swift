@@ -1,17 +1,26 @@
-public class Result_SignatureNoneZ {
+public class Result_SignatureNoneZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_SignatureNoneZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_SignatureNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_SignatureNoneZ(contents: LDKCResult_SignatureNoneZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_SignatureNoneZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -37,10 +46,25 @@ public class Result_SignatureNoneZ {
         return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_err());
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_SignatureNoneZ_free(self.clone().cOpaqueStruct!);
+        return CResult_SignatureNoneZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_SignatureNoneZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_SignatureNoneZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_SignatureNoneZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_SignatureNoneZ {
     	
@@ -48,6 +72,13 @@ public class Result_SignatureNoneZ {
 CResult_SignatureNoneZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_SignatureNoneZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

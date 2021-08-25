@@ -1,11 +1,18 @@
-public class ChannelCounterparty {
+public class ChannelCounterparty: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelCounterparty?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelCounterparty?
+
 
 	
 
     public init(pointer: LDKChannelCounterparty){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -37,7 +44,7 @@ ChannelCounterparty_get_features(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelCounterparty>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelCounterparty_set_features(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return ChannelCounterparty_set_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_unspendable_punishment_reserve() -> UInt64 {
@@ -57,21 +64,38 @@ ChannelCounterparty_get_unspendable_punishment_reserve(this_ptrPointer)
 
     public func clone() -> ChannelCounterparty {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelCounterparty>) in
-ChannelCounterparty(pointer: ChannelCounterparty_clone(origPointer))
-};
+        return ChannelCounterparty(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelCounterparty>) in
+ChannelCounterparty_clone(origPointer)
+});
     }
 
+					internal func danglingClone() -> ChannelCounterparty {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
 				
-	deinit {
+
+    internal func free() -> Void {
+    	
+        return ChannelCounterparty_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelCounterparty {
+        				self.dangling = true
+						return self
+					}
 					
-					
-					
-		ChannelCounterparty_free(self.cOpaqueStruct!)
-					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelCounterparty \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelCounterparty \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

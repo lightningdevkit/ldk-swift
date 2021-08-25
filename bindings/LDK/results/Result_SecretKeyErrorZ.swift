@@ -1,17 +1,26 @@
-public class Result_SecretKeyErrorZ {
+public class Result_SecretKeyErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_SecretKeyErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_SecretKeyErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_SecretKeyErrorZ(contents: LDKCResult_SecretKeyErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_SecretKeyErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -44,10 +53,25 @@ public class Result_SecretKeyErrorZ {
         return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
         return CResult_SecretKeyErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_SecretKeyErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_SecretKeyErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_SecretKeyErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     /* RESULT_METHODS_END */
 

@@ -1,17 +1,26 @@
-public class Result_NonePaymentSendFailureZ {
+public class Result_NonePaymentSendFailureZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NonePaymentSendFailureZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_NonePaymentSendFailureZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_NonePaymentSendFailureZ(contents: LDKCResult_NonePaymentSendFailureZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_NonePaymentSendFailureZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -34,13 +43,28 @@ public class Result_NonePaymentSendFailureZ {
 
     public class func err(e: PaymentSendFailure) -> Result_NonePaymentSendFailureZ {
     	
-        return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_err(e.clone().cOpaqueStruct!));
+        return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_NonePaymentSendFailureZ_free(self.clone().cOpaqueStruct!);
+        return CResult_NonePaymentSendFailureZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_NonePaymentSendFailureZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_NonePaymentSendFailureZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_NonePaymentSendFailureZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_NonePaymentSendFailureZ {
     	
@@ -48,6 +72,13 @@ public class Result_NonePaymentSendFailureZ {
 CResult_NonePaymentSendFailureZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_NonePaymentSendFailureZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

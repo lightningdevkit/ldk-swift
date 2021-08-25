@@ -1,11 +1,18 @@
-public class ChannelMonitorUpdate {
+public class ChannelMonitorUpdate: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKChannelMonitorUpdate?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKChannelMonitorUpdate?
+
 
 	
 
     public init(pointer: LDKChannelMonitorUpdate){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -27,10 +34,17 @@ ChannelMonitorUpdate_get_update_id(this_ptrPointer)
 
     public func clone() -> ChannelMonitorUpdate {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
-ChannelMonitorUpdate(pointer: ChannelMonitorUpdate_clone(origPointer))
-};
+        return ChannelMonitorUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
+ChannelMonitorUpdate_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> ChannelMonitorUpdate {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -41,19 +55,34 @@ ChannelMonitorUpdate_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_ChannelMonitorUpdateDecodeErrorZ {
     	
-        return Result_ChannelMonitorUpdateDecodeErrorZ(pointer: ChannelMonitorUpdate_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelMonitorUpdateDecodeErrorZ(pointer: ChannelMonitorUpdate_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return ChannelMonitorUpdate_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> ChannelMonitorUpdate {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing ChannelMonitorUpdate \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing ChannelMonitorUpdate \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		ChannelMonitorUpdate_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

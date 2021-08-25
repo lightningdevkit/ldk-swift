@@ -1,11 +1,18 @@
-public class Description {
+public class Description: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKDescription?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKDescription?
+
 
 	
 
     public init(pointer: LDKDescription){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -21,10 +28,17 @@ Description_eq(aPointer, bPointer)
 
     public func clone() -> Description {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
-Description(pointer: Description_clone(origPointer))
-};
+        return Description(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
+Description_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> Description {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public class func new(description: String) -> Result_DescriptionCreationErrorZ {
     	
@@ -33,19 +47,29 @@ Description(pointer: Description_clone(origPointer))
 
     public func into_inner() -> String {
     	
-        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.clone().cOpaqueStruct!));
+        return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.danglingClone().cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return Description_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> Description {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Description \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Description \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		Description_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

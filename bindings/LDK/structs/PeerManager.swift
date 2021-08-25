@@ -1,18 +1,28 @@
-public class PeerManager {
+public class PeerManager: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKPeerManager?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKPeerManager?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: ephemeral_random_data)) { (ephemeral_random_dataPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.cOpaqueStruct!)
 }
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKPeerManager){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -27,14 +37,14 @@ PeerManager_get_peer_node_ids(this_argPointer)
     public func new_outbound_connection(their_node_id: [UInt8], descriptor: SocketDescriptor) -> Result_CVec_u8ZPeerHandleErrorZ {
     	
         return Result_CVec_u8ZPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-PeerManager_new_outbound_connection(this_argPointer, Bindings.new_LDKPublicKey(array: their_node_id), descriptor.clone().cOpaqueStruct!)
+PeerManager_new_outbound_connection(this_argPointer, Bindings.new_LDKPublicKey(array: their_node_id), descriptor.danglingClone().cOpaqueStruct!)
 });
     }
 
     public func new_inbound_connection(descriptor: SocketDescriptor) -> Result_NonePeerHandleErrorZ {
     	
         return Result_NonePeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-PeerManager_new_inbound_connection(this_argPointer, descriptor.clone().cOpaqueStruct!)
+PeerManager_new_inbound_connection(this_argPointer, descriptor.danglingClone().cOpaqueStruct!)
 });
     }
 
@@ -53,8 +63,13 @@ PeerManager_write_buffer_space_avail(this_argPointer, descriptorPointer)
 							let peer_descriptorPointer = UnsafeMutablePointer<LDKSocketDescriptor>.allocate(capacity: 1)
 							peer_descriptorPointer.initialize(to: peer_descriptor.cOpaqueStruct!)
 						
+						let dataWrapper = Bindings.new_LDKu8sliceWrapper(array: data)
+						defer {
+							dataWrapper.noOpRetain()
+						}
+					
         return Result_boolPeerHandleErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-PeerManager_read_event(this_argPointer, peer_descriptorPointer, Bindings.new_LDKu8slice(array: data))
+PeerManager_read_event(this_argPointer, peer_descriptorPointer, dataWrapper.cOpaqueStruct!)
 });
     }
 
@@ -88,16 +103,26 @@ PeerManager_timer_tick_occurred(this_argPointer)
 };
     }
 
+    internal func free() -> Void {
+    	
+        return PeerManager_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> PeerManager {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing PeerManager \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing PeerManager \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		PeerManager_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

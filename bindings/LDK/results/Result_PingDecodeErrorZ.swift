@@ -1,17 +1,26 @@
-public class Result_PingDecodeErrorZ {
+public class Result_PingDecodeErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PingDecodeErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_PingDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_PingDecodeErrorZ(contents: LDKCResult_PingDecodeErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_PingDecodeErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,18 +45,33 @@ public class Result_PingDecodeErrorZ {
 			
     public class func ok(o: Ping) -> Result_PingDecodeErrorZ {
     	
-        return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_PingDecodeErrorZ {
     	
-        return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_err(e.clone().cOpaqueStruct!));
+        return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_PingDecodeErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_PingDecodeErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_PingDecodeErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_PingDecodeErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_PingDecodeErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_PingDecodeErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_PingDecodeErrorZ {
 CResult_PingDecodeErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_PingDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

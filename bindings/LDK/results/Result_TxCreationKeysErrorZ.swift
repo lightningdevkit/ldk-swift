@@ -1,17 +1,26 @@
-public class Result_TxCreationKeysErrorZ {
+public class Result_TxCreationKeysErrorZ: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TxCreationKeysErrorZ?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKCResult_TxCreationKeysErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
+					Self.instanceCounter += 1
+					self.instanceNumber = Self.instanceCounter
         			self.cOpaqueStruct = LDKCResult_TxCreationKeysErrorZ(contents: LDKCResult_TxCreationKeysErrorZPtr(), result_ok: true)
+        			super.init(conflictAvoidingVariableName: 0)
 				}
 			
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKCResult_TxCreationKeysErrorZ){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
 	public func isOk() -> Bool {
@@ -36,7 +45,7 @@ public class Result_TxCreationKeysErrorZ {
 			
     public class func ok(o: TxCreationKeys) -> Result_TxCreationKeysErrorZ {
     	
-        return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_ok(o.clone().cOpaqueStruct!));
+        return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: LDKSecp256k1Error) -> Result_TxCreationKeysErrorZ {
@@ -44,10 +53,25 @@ public class Result_TxCreationKeysErrorZ {
         return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_err(e));
     }
 
-    public func free() -> Void {
+    internal func free() -> Void {
     	
-        return CResult_TxCreationKeysErrorZ_free(self.clone().cOpaqueStruct!);
+        return CResult_TxCreationKeysErrorZ_free(self.cOpaqueStruct!);
     }
+
+					internal func dangle() -> Result_TxCreationKeysErrorZ {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing Result_TxCreationKeysErrorZ \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing Result_TxCreationKeysErrorZ \(self.instanceNumber) due to dangle.")
+						}
+					}
+				
 
     public func clone() -> Result_TxCreationKeysErrorZ {
     	
@@ -55,6 +79,13 @@ public class Result_TxCreationKeysErrorZ {
 CResult_TxCreationKeysErrorZ_clone(origPointer)
 });
     }
+
+					internal func danglingClone() -> Result_TxCreationKeysErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     /* RESULT_METHODS_END */
 

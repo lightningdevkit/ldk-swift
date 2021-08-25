@@ -1,16 +1,26 @@
-public class StaticPaymentOutputDescriptor {
+public class StaticPaymentOutputDescriptor: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?
+
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(outpoint_arg: OutPoint, output_arg: LDKTxOut, channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.clone().cOpaqueStruct!, output_arg, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
+        self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.danglingClone().cOpaqueStruct!, output_arg, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
+        super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKStaticPaymentOutputDescriptor){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -27,7 +37,7 @@ StaticPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return StaticPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.clone().cOpaqueStruct!);
+        return StaticPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func set_output(val: LDKTxOut) -> Void {
@@ -70,10 +80,17 @@ StaticPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer)
 
     public func clone() -> StaticPaymentOutputDescriptor {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-StaticPaymentOutputDescriptor(pointer: StaticPaymentOutputDescriptor_clone(origPointer))
-};
+        return StaticPaymentOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+StaticPaymentOutputDescriptor_clone(origPointer)
+});
     }
+
+					internal func danglingClone() -> StaticPaymentOutputDescriptor {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
     public func write() -> [UInt8] {
     	
@@ -84,19 +101,34 @@ StaticPaymentOutputDescriptor_write(objPointer)
 
     public class func read(ser: [UInt8]) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
     	
-        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: StaticPaymentOutputDescriptor_read(Bindings.new_LDKu8slice(array: ser)));
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: StaticPaymentOutputDescriptor_read(serWrapper.cOpaqueStruct!));
     }
 
+    internal func free() -> Void {
+    	
+        return StaticPaymentOutputDescriptor_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> StaticPaymentOutputDescriptor {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing StaticPaymentOutputDescriptor \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		StaticPaymentOutputDescriptor_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

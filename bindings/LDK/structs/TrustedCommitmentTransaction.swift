@@ -1,11 +1,18 @@
-public class TrustedCommitmentTransaction {
+public class TrustedCommitmentTransaction: NativeTypeWrapper {
 
-    public internal(set) var cOpaqueStruct: LDKTrustedCommitmentTransaction?;
+	private static var instanceCounter: UInt = 0
+	internal let instanceNumber: UInt
+
+    public internal(set) var cOpaqueStruct: LDKTrustedCommitmentTransaction?
+
 
 	
 
     public init(pointer: LDKTrustedCommitmentTransaction){
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
 	}
 
     /* STRUCT_METHODS_START */
@@ -42,16 +49,26 @@ TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer
 });
     }
 
+    internal func free() -> Void {
+    	
+        return TrustedCommitmentTransaction_free(self.cOpaqueStruct!);
+    }
+
+					internal func dangle() -> TrustedCommitmentTransaction {
+        				self.dangling = true
+						return self
+					}
+					
+					deinit {
+						if !self.dangling {
+							print("Freeing TrustedCommitmentTransaction \(self.instanceNumber).")
+							self.free()
+						} else {
+							print("Not freeing TrustedCommitmentTransaction \(self.instanceNumber) due to dangle.")
+						}
+					}
 				
-	deinit {
-					
-					
-					
-		TrustedCommitmentTransaction_free(self.cOpaqueStruct!)
-					
-				
-	}
-			
+
     /* STRUCT_METHODS_END */
 
 }

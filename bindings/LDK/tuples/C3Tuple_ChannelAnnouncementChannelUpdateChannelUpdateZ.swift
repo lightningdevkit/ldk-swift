@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

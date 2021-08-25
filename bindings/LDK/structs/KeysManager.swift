@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class KeysManager: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

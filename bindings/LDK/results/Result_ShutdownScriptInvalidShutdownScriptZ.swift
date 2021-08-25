@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class Result_ShutdownScriptInvalidShutdownScriptZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

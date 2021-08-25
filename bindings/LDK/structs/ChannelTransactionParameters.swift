@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ChannelTransactionParameters: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

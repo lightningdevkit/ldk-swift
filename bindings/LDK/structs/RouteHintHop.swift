@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class RouteHintHop: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

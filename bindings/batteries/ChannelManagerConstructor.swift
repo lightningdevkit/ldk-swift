@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import LDKHeaders
-
 
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor

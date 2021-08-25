@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class C2Tuple_u32TxOutZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

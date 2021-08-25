@@ -1,5 +1,3 @@
-import LDKHeaders
-
 open class EventHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

@@ -1,5 +1,3 @@
-import LDKHeaders
-
 public class ClosingSigned: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

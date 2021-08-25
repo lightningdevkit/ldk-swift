@@ -173,6 +173,9 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.customEventHandler = CustomEventHandler(handler: persister)
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
         try! self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
+        try! self.backgroundProcessor!.addAnchor(anchor: persister)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
 
     }
 
@@ -181,8 +184,18 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.shutdown = true
         self.backgroundProcessor?.dangle().stop()
         print("stopped background processor")
+        if let processor = self.backgroundProcessor {
+            for currentAnchor in processor.anchors {
+                Bindings.removeInstancePointer(instance: currentAnchor)
+            }
+            print("removed background processor anchors")
+        }
         self.backgroundProcessor = nil
         print("unset background processor")
+    }
+
+    deinit {
+        print("deiniting ChannelManagerConstructor")
     }
 
 

@@ -79,8 +79,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         }
 
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
-        let channelManager = ChannelManager(pointer: channelManagerResult.dangle().cOpaqueStruct!.contents.result.pointee.b)
-        // try! channelManager.addAnchor(anchor: channelManagerResult)
+        let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
+        try! channelManager.dangle().addAnchor(anchor: channelManagerResult)
 
 
         self.channelManager = channelManager
@@ -169,25 +169,18 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             monitorClone.cOpaqueStruct?.is_owned = true
         }
 
-        let customPersister = CustomChannelManagerPersister(handler: persister)
-        let customEventHandler = CustomEventHandler(handler: persister)
-        /*self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
-        try! self.backgroundProcessor!.addAnchor(anchor: self.channelManager)
+        self.customPersister = CustomChannelManagerPersister(handler: persister)
+        self.customEventHandler = CustomEventHandler(handler: persister)
+        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
         try! self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
-        try! self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
-        try! self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)*/
 
     }
 
     public func interrupt() {
         self.shutdown = true
         self.backgroundProcessor?.stop()
-        self.backgroundProcessor = nil
     }
 
-    deinit {
-        print("channelmanagerconstructor destructor")
-    }
 
 }
 

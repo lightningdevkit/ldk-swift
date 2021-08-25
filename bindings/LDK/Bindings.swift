@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import LDKHeaders
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -21,6 +20,7 @@ open class NativeTypeWrapper: Hashable {
     internal let globalInstanceNumber: UInt
     internal var dangling = false
     internal private(set) var anchors: Set<NativeTypeWrapper> = []
+    internal var pointerDebugDescription: String? = nil
 
     init(conflictAvoidingVariableName: UInt) {
         Self.globalInstanceCounter += 1
@@ -3955,24 +3955,41 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 	/* STATIC_METHODS_END */
 
-	static var nativelyExposedInstances = [String: AnyObject]()
+	static var nativelyExposedInstances = [String: NativeTypeWrapper]()
 
-	public class func instanceToPointer(instance: AnyObject) -> UnsafeMutableRawPointer {
+	public class func instanceToPointer(instance: NativeTypeWrapper) -> UnsafeMutableRawPointer {
 		let pointer = Unmanaged.passUnretained(instance).toOpaque()
+        instance.pointerDebugDescription = pointer.debugDescription
 		Self.nativelyExposedInstances[pointer.debugDescription] = instance
 		return pointer
 	}
 
-	public class func pointerToInstance<T: AnyObject>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
+	public class func pointerToInstance<T: NativeTypeWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
 
 		let callStack = Thread.callStackSymbols
 		let caller = sourceMarker ?? callStack[1]
-		print("Retrieving instance from pointer for caller: \(caller)")
+		// print("Retrieving instance from pointer for caller: \(caller)")
 		// let value = Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
 		let value = Self.nativelyExposedInstances[pointer.debugDescription] as! T
-		print("Instance retrieved for caller: \(caller)")
+		// print("Instance retrieved for caller: \(caller)")
 		return value
 	}
+
+    public class func removeInstancePointer(instance: NativeTypeWrapper) -> Bool {
+        guard let debugDescription = instance.pointerDebugDescription else {
+            return false
+        }
+        Self.nativelyExposedInstances.removeValue(forKey: debugDescription)
+        instance.pointerDebugDescription = nil
+        return true
+    }
+
+    public class func clearInstancePointers() {
+        for (_, currentInstance) in Self.nativelyExposedInstances {
+            currentInstance.pointerDebugDescription = nil
+        }
+        Self.nativelyExposedInstances.removeAll()
+    }
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKTransactionWrapper(array: [UInt8]) -> LDKTransactionWrapper {
@@ -4105,11 +4122,11 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 
 }
 
-public class InstanceCrashSimulator {
+public class InstanceCrashSimulator: NativeTypeWrapper {
 
     public init() {
-
-    }
+		super.init(conflictAvoidingVariableName: 0)
+	}
 
     public func getPointer() -> UnsafeMutableRawPointer {
         let pointer = Bindings.instanceToPointer(instance: self)

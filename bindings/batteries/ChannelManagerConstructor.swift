@@ -69,19 +69,18 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         }
 
         print("Collected channel monitors, reading channel manager")
-        let channelManagerResult = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
+        let channelManagerResult: Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: channel_manager_serialized, arg_keys_manager: keys_interface, arg_fee_estimator: fee_estimator, arg_chain_monitor: chain_monitor.as_Watch(), arg_tx_broadcaster: tx_broadcaster, arg_logger: logger, arg_default_config: UserConfig(), arg_channel_monitors: monitors)
         if channelManagerResult.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
-
 
         for clonedChannelMonitor in self.channel_monitors {
             clonedChannelMonitor.0.cOpaqueStruct!.is_owned = true
         }
 
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
-        let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
-        try! channelManager.addAnchor(anchor: channelManagerResult)
+        let channelManager = ChannelManager(pointer: channelManagerResult.dangle().cOpaqueStruct!.contents.result.pointee.b)
+        // try! channelManager.addAnchor(anchor: channelManagerResult)
 
 
         self.channelManager = channelManager
@@ -170,18 +169,25 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             monitorClone.cOpaqueStruct?.is_owned = true
         }
 
-        self.customPersister = CustomChannelManagerPersister(handler: persister)
-        self.customEventHandler = CustomEventHandler(handler: persister)
-        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
+        let customPersister = CustomChannelManagerPersister(handler: persister)
+        let customEventHandler = CustomEventHandler(handler: persister)
+        /*self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.channelManager)
         try! self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)*/
 
     }
 
     public func interrupt() {
         self.shutdown = true
         self.backgroundProcessor?.stop()
+        self.backgroundProcessor = nil
     }
 
+    deinit {
+        print("channelmanagerconstructor destructor")
+    }
 
 }
 

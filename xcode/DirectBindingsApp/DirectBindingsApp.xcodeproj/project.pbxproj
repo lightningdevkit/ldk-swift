@@ -554,6 +554,8 @@
 		07BBCE7526D03B49000D96C4 /* TestFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCE6626D03B49000D96C4 /* TestFilter.swift */; };
 		07BBCE7626D03B49000D96C4 /* TestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */; };
 		07BBCE7726D03B49000D96C4 /* TestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */; };
+		07C753E026D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
+		07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -867,6 +869,7 @@
 		07BBCE6526D03B49000D96C4 /* TestFeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFeeEstimator.swift; sourceTree = "<group>"; };
 		07BBCE6626D03B49000D96C4 /* TestFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFilter.swift; sourceTree = "<group>"; };
 		07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBroadcasterInterface.swift; sourceTree = "<group>"; };
+		07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanObjectPeerTestInstance.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -945,6 +948,7 @@
 			children = (
 				07BBCE5F26D03B49000D96C4 /* test-batteries */,
 				07BBC77B26D0272D000D96C4 /* DirectBindingsAppTests.swift */,
+				07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */,
 				07BBC77D26D0272D000D96C4 /* Info.plist */,
 			);
 			path = DirectBindingsAppTests;
@@ -1468,6 +1472,7 @@
 				07BBCD3C26D036BA000D96C4 /* Result_NetAddressu8Z.swift in Sources */,
 				07BBCE3626D036BB000D96C4 /* FundingSigned.swift in Sources */,
 				07BBCD6026D036BB000D96C4 /* Result_NodeAnnouncementInfoDecodeErrorZ.swift in Sources */,
+				07C753E026D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */,
 				07BBCC8026D036BA000D96C4 /* Listen.swift in Sources */,
 				07BBCD6426D036BB000D96C4 /* Result_ExpiryTimeCreationErrorZ.swift in Sources */,
 				07BBCE3A26D036BB000D96C4 /* Init.swift in Sources */,
@@ -1837,6 +1842,7 @@
 				07BBCCB326D036BA000D96C4 /* Result_TxCreationKeysErrorZ.swift in Sources */,
 				07BBC77C26D0272D000D96C4 /* DirectBindingsAppTests.swift in Sources */,
 				07BBCDC326D036BB000D96C4 /* ChannelAnnouncement.swift in Sources */,
+				07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */,
 				07BBCD6F26D036BB000D96C4 /* Result_NoneChannelMonitorUpdateErrZ.swift in Sources */,
 				07BBCCD126D036BA000D96C4 /* Result_PaymentSecretAPIErrorZ.swift in Sources */,
 				07BBCC8126D036BA000D96C4 /* Listen.swift in Sources */,

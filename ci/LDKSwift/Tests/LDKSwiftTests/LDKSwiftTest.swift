@@ -77,9 +77,9 @@ class LDKSwiftTest: XCTestCase {
         channel_manager_constructor.interrupt()
     }
 
-    /*
 
-    func xtestExtendedActivity() {
+
+    func testExtendedActivity() {
         // for i in 0...(1 << 7) {
         for i in 0..<1 { // only do one test run initially
             let nice_close = (i & (1 << 0)) != 0;
@@ -131,8 +131,6 @@ class LDKSwiftTest: XCTestCase {
         }
 
     }
-
-    */
 
 
     func testPerformanceExample() throws {

@@ -11,8 +11,6 @@ import LDKHeaders
 
 public class HumanObjectPeerTestInstance {
 
-    /*
-
     private let nice_close: Bool;
     private let use_km_wrapper: Bool;
     private let use_manual_watch: Bool;
@@ -121,10 +119,10 @@ public class HumanObjectPeerTestInstance {
 
         fileprivate class TestPersister: Persist {
             override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
-                return Result_NoneChannelMonitorUpdateErrZ()
+                return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
             override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
-                return Result_NoneChannelMonitorUpdateErrZ()
+                return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
         }
 
@@ -217,7 +215,7 @@ public class HumanObjectPeerTestInstance {
                 return
             }
             self.tcpSocketHandler = TCPPeerHandler(peerManager: self.peerManager)
-            for i in 0...10000 {
+            for i in 1...10000 {
                 let port = UInt16(i)
                 let bound = self.tcpSocketHandler!.bind(address: "127.0.0.1", port: port)
                 if bound {
@@ -254,8 +252,6 @@ public class HumanObjectPeerTestInstance {
 
         connectPeers(peerA: peer1, peerB: peer2)
     }
-
-    */
 
 }
 

@@ -76,8 +76,8 @@ class LDKSwiftTest: XCTestCase {
         channel_manager_constructor.chain_sync_completed(persister: cmPersister)
         channel_manager_constructor.interrupt()
 
-        // Bindings.removeInstancePointer(instance: cmPersister)
-
+        print("final cleanup")
+        Bindings.removeInstancePointer(instance: cmPersister)
     }
 
     /*

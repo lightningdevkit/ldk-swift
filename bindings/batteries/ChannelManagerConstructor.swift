@@ -177,8 +177,12 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     }
 
     public func interrupt() {
+        print("stopping background processor")
         self.shutdown = true
-        self.backgroundProcessor?.stop()
+        self.backgroundProcessor?.dangle().stop()
+        print("stopped background processor")
+        self.backgroundProcessor = nil
+        print("unset background processor")
     }
 
 

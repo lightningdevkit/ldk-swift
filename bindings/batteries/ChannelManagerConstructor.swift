@@ -105,8 +105,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         }
 
         super.init(conflictAvoidingVariableName: 0)
-        try! self.peerManager.addAnchor(anchor: self)
-        try! self.channelManager.addAnchor(anchor: self)
+        // try! self.peerManager.addAnchor(anchor: self)
+        // try! self.channelManager.addAnchor(anchor: self)
 
     }
 
@@ -134,8 +134,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         }
 
         super.init(conflictAvoidingVariableName: 0)
-        try! self.peerManager.addAnchor(anchor: self)
-        try! self.channelManager.addAnchor(anchor: self)
+        // try! self.peerManager.addAnchor(anchor: self)
+        // try! self.channelManager.addAnchor(anchor: self)
     }
 
 
@@ -173,6 +173,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
+        try! self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
 
     }
 

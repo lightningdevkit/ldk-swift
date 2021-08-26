@@ -35,7 +35,7 @@ public class HumanObjectPeerTestInstance {
     fileprivate class Peer {
 
         private(set) var txBroadcaster: BroadcasterInterface!
-        let master: HumanObjectPeerTestInstance
+        weak var master: HumanObjectPeerTestInstance!
         let logger: Logger
         let feeEstimator: FeeEstimator
         let seed: UInt8
@@ -60,25 +60,28 @@ public class HumanObjectPeerTestInstance {
         var chainMonitor: ChainMonitor?
 
         fileprivate class TestBroadcaster: BroadcasterInterface {
-            let master: Peer
-            fileprivate init(master: Peer){
-                self.master  = master
+            weak var master: Peer!
+
+            fileprivate init(master: Peer) {
+                self.master = master
                 super.init()
             }
         }
 
         fileprivate class TestFilter: Filter {
 
-            let master: Peer
+            weak var master: Peer!
 
             fileprivate init(master: Peer) {
                 self.master = master
                 super.init()
             }
+
             override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
                 self.master.filterAdditions.insert("\(output.get_outpoint().get_txid()):\(output.get_outpoint().get_index())")
                 return Option_C2Tuple_usizeTransactionZZ(value: nil)
             }
+
             override func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) {
                 self.master.filterAdditions.insert("\(txid)")
             }
@@ -86,10 +89,10 @@ public class HumanObjectPeerTestInstance {
 
         fileprivate class TestKeysInterface: KeysInterface {
 
-            let master: Peer
+            weak var master: Peer!
             let interface: KeysInterface
 
-            fileprivate init(master: Peer, underlyingInterface: KeysInterface){
+            fileprivate init(master: Peer, underlyingInterface: KeysInterface) {
                 self.master = master
                 self.interface = underlyingInterface
                 super.init()
@@ -104,7 +107,7 @@ public class HumanObjectPeerTestInstance {
 
         fileprivate class TestChannelManagerPersister: ChannelManagerPersister, ExtendedChannelManagerPersister {
 
-            let master: Peer
+            weak var master: Peer!
 
             fileprivate init(master: Peer) {
                 self.master = master
@@ -121,6 +124,7 @@ public class HumanObjectPeerTestInstance {
             override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
                 return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
+
             override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
                 return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
@@ -144,7 +148,7 @@ public class HumanObjectPeerTestInstance {
 
             if master.use_manual_watch || false { // don't support manual watch yet
                 // self.chainMonitor
-            }else{
+            } else {
                 self.chainMonitor = ChainMonitor(chain_source: self.filter, broadcaster: self.txBroadcaster, logger: self.logger, feeest: self.feeEstimator, persister: persister)
                 self.chainWatch = self.chainMonitor!.as_Watch()
             }
@@ -160,7 +164,7 @@ public class HumanObjectPeerTestInstance {
 
             if master.use_km_wrapper {
                 // self.keysInterface = manual_
-            }else {
+            } else {
                 self.keysInterface = keysManager.as_KeysInterface()
                 self.explicitKeysManager = keysManager
             }
@@ -169,7 +173,7 @@ public class HumanObjectPeerTestInstance {
 
         }
 
-        fileprivate convenience init (master: HumanObjectPeerTestInstance, seed: UInt8) {
+        fileprivate convenience init(master: HumanObjectPeerTestInstance, seed: UInt8) {
             self.init(master: master, _dummy: (), seed: seed)
 
             if master.use_chan_manager_constructor {
@@ -182,13 +186,13 @@ public class HumanObjectPeerTestInstance {
                 self.channelManager = ChannelManager(fee_est: self.feeEstimator, chain_monitor: self.chainWatch!, tx_broadcaster: self.txBroadcaster, logger: self.logger, keys_manager: self.keysInterface, config: UserConfig(), params: chainParameters)
                 let randomData = self.keysInterface.get_secure_random_bytes()
                 let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.as_RoutingMessageHandler())
-                PeerManager(message_handler: messageHandler, our_node_secret: self.keysInterface.get_node_secret(), ephemeral_random_data: randomData, logger: self.logger)
+                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: self.keysInterface.get_node_secret(), ephemeral_random_data: randomData, logger: self.logger)
             }
             self.nodeId = self.channelManager.get_our_node_id()
             self.bindSocketHandler()
         }
 
-        fileprivate convenience init (original: Peer) {
+        fileprivate convenience init(original: Peer) {
             self.init(master: original.master, _dummy: (), seed: original.seed)
 
             if master.use_chan_manager_constructor {
@@ -229,6 +233,10 @@ public class HumanObjectPeerTestInstance {
 
         }
 
+        deinit {
+            print("deiniting Peer")
+        }
+
     }
 
     func do_read_event(pm: PeerManager, descriptor: SocketDescriptor, data: [UInt8]) {
@@ -241,7 +249,7 @@ public class HumanObjectPeerTestInstance {
         if self.use_nio_peer_handler {
             let connectionResult = peerA.tcpSocketHandler?.connect(address: "127.0.0.1", port: peerB.tcpPort!, theirNodeId: peerB.nodeId!)
             print("connection result: \(connectionResult)")
-        }else{
+        } else {
             // not currently relevant; we need the TCP connection simulation
         }
     }
@@ -253,16 +261,18 @@ public class HumanObjectPeerTestInstance {
         connectPeers(peerA: peer1, peerB: peer2)
 
         let semaphore = DispatchSemaphore(value: 0)
+
         DispatchQueue.global(qos: .background).async {
             print("waiting five seconds")
             sleep(5)
             semaphore.signal()
             print("finished waiting five seconds")
         }
+
         semaphore.wait()
         peer1.constructor?.interrupt()
         peer2.constructor?.interrupt()
+
     }
 
 }
-

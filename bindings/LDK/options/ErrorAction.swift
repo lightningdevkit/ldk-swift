@@ -69,10 +69,10 @@ public class ErrorAction: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ErrorAction \(self.instanceNumber).")
+							Bindings.print("Freeing ErrorAction \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ErrorAction \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ErrorAction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

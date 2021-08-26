@@ -100,37 +100,47 @@ open class SocketDescriptor: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing SocketDescriptor \(self.instanceNumber).")
+							Bindings.print("Freeing SocketDescriptor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing SocketDescriptor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing SocketDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func send_data(data: [UInt8], resume_read: Bool) -> UInt {
     	/* EDIT ME */
-		return 0
+		Bindings.print("SocketDescriptor::send_data should be overridden!", severity: .WARNING)
+
+return 0
     }
 
     open func disconnect_socket() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("SocketDescriptor::disconnect_socket should be overridden!", severity: .WARNING)
+
+
     }
 
     open func eq(other_arg: SocketDescriptor) -> Bool {
     	/* EDIT ME */
-		return false
+		Bindings.print("SocketDescriptor::eq should be overridden!", severity: .WARNING)
+
+return false
     }
 
     open func hash() -> UInt64 {
     	/* EDIT ME */
-		return 0
+		Bindings.print("SocketDescriptor::hash should be overridden!", severity: .WARNING)
+
+return 0
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("SocketDescriptor::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

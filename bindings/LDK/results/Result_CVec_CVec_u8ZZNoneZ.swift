@@ -63,10 +63,10 @@ public class Result_CVec_CVec_u8ZZNoneZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

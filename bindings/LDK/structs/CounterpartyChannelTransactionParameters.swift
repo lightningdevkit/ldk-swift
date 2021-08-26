@@ -98,10 +98,10 @@ CounterpartyChannelTransactionParameters_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing CounterpartyChannelTransactionParameters \(self.instanceNumber).")
+							Bindings.print("Freeing CounterpartyChannelTransactionParameters \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing CounterpartyChannelTransactionParameters \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing CounterpartyChannelTransactionParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

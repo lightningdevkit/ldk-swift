@@ -121,10 +121,10 @@ StaticPaymentOutputDescriptor_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing StaticPaymentOutputDescriptor \(self.instanceNumber).")
+							Bindings.print("Freeing StaticPaymentOutputDescriptor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

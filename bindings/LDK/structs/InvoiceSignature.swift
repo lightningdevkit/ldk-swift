@@ -52,10 +52,10 @@ InvoiceSignature_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing InvoiceSignature \(self.instanceNumber).")
+							Bindings.print("Freeing InvoiceSignature \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing InvoiceSignature \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing InvoiceSignature \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

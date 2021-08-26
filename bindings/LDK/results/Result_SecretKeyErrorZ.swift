@@ -65,10 +65,10 @@ public class Result_SecretKeyErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_SecretKeyErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_SecretKeyErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_SecretKeyErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_SecretKeyErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -164,10 +164,10 @@ ChannelTransactionParameters_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelTransactionParameters \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelTransactionParameters \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelTransactionParameters \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelTransactionParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

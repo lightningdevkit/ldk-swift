@@ -65,10 +65,10 @@ public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ: NativeTypeWrap
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

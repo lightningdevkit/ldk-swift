@@ -65,10 +65,10 @@ public class Result_UpdateFailHTLCDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_UpdateFailHTLCDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_UpdateFailHTLCDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_UpdateFailHTLCDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_UpdateFailHTLCDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

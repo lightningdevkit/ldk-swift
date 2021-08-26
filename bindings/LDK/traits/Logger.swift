@@ -64,22 +64,26 @@ open class Logger: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Logger \(self.instanceNumber).")
+							Bindings.print("Freeing Logger \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Logger \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Logger \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func log(record: String?) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Logger::log should be overridden!", severity: .WARNING)
+
+
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Logger::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

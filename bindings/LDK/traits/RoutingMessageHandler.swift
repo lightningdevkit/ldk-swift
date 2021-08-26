@@ -147,72 +147,96 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RoutingMessageHandler \(self.instanceNumber).")
+							Bindings.print("Freeing RoutingMessageHandler \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RoutingMessageHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RoutingMessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func handle_node_announcement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
-		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
+		Bindings.print("RoutingMessageHandler::handle_node_announcement should be overridden!", severity: .WARNING)
+
+return Result_boolLightningErrorZ()
     }
 
     open func handle_channel_announcement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
-		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
+		Bindings.print("RoutingMessageHandler::handle_channel_announcement should be overridden!", severity: .WARNING)
+
+return Result_boolLightningErrorZ()
     }
 
     open func handle_channel_update(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
     	/* EDIT ME */
-		return Result_boolLightningErrorZ(pointer: LDKCResult_boolLightningErrorZ())
+		Bindings.print("RoutingMessageHandler::handle_channel_update should be overridden!", severity: .WARNING)
+
+return Result_boolLightningErrorZ()
     }
 
     open func handle_htlc_fail_channel_update(update: HTLCFailChannelUpdate) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("RoutingMessageHandler::handle_htlc_fail_channel_update should be overridden!", severity: .WARNING)
+
+
     }
 
     open func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
     	/* EDIT ME */
-		return [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
+		Bindings.print("RoutingMessageHandler::get_next_channel_announcements should be overridden!", severity: .WARNING)
+
+return [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
     }
 
     open func get_next_node_announcements(starting_point: [UInt8], batch_amount: UInt8) -> [LDKNodeAnnouncement] {
     	/* EDIT ME */
-		return [LDKNodeAnnouncement]()
+		Bindings.print("RoutingMessageHandler::get_next_node_announcements should be overridden!", severity: .WARNING)
+
+return [LDKNodeAnnouncement]()
     }
 
     open func sync_routing_table(their_node_id: [UInt8], initValue: Init) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("RoutingMessageHandler::sync_routing_table should be overridden!", severity: .WARNING)
+
+
     }
 
     open func handle_reply_channel_range(their_node_id: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
-		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
+		Bindings.print("RoutingMessageHandler::handle_reply_channel_range should be overridden!", severity: .WARNING)
+
+return Result_NoneLightningErrorZ()
     }
 
     open func handle_reply_short_channel_ids_end(their_node_id: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
-		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
+		Bindings.print("RoutingMessageHandler::handle_reply_short_channel_ids_end should be overridden!", severity: .WARNING)
+
+return Result_NoneLightningErrorZ()
     }
 
     open func handle_query_channel_range(their_node_id: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
-		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
+		Bindings.print("RoutingMessageHandler::handle_query_channel_range should be overridden!", severity: .WARNING)
+
+return Result_NoneLightningErrorZ()
     }
 
     open func handle_query_short_channel_ids(their_node_id: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
-		return Result_NoneLightningErrorZ(pointer: LDKCResult_NoneLightningErrorZ())
+		Bindings.print("RoutingMessageHandler::handle_query_short_channel_ids should be overridden!", severity: .WARNING)
+
+return Result_NoneLightningErrorZ()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("RoutingMessageHandler::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

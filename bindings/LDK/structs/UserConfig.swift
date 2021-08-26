@@ -111,10 +111,10 @@ UserConfig_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UserConfig \(self.instanceNumber).")
+							Bindings.print("Freeing UserConfig \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UserConfig \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UserConfig \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -65,10 +65,10 @@ public class Result_InvoiceFeaturesDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_InvoiceFeaturesDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_InvoiceFeaturesDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_InvoiceFeaturesDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_InvoiceFeaturesDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

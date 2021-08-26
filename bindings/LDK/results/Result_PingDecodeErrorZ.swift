@@ -65,10 +65,10 @@ public class Result_PingDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_PingDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_PingDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_PingDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_PingDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

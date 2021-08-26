@@ -98,10 +98,10 @@ Ping_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Ping \(self.instanceNumber).")
+							Bindings.print("Freeing Ping \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Ping \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Ping \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

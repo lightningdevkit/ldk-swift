@@ -65,10 +65,10 @@ public class Result_PaymentSecretAPIErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -50,10 +50,10 @@ C2Tuple_u32ScriptZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C2Tuple_u32ScriptZ \(self.instanceNumber).")
+							Bindings.print("Freeing C2Tuple_u32ScriptZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C2Tuple_u32ScriptZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C2Tuple_u32ScriptZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

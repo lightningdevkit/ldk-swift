@@ -52,10 +52,10 @@ Sha256_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Sha256 \(self.instanceNumber).")
+							Bindings.print("Freeing Sha256 \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Sha256 \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Sha256 \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

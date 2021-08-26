@@ -60,22 +60,26 @@ open class ChannelManagerPersister: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelManagerPersister \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelManagerPersister \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelManagerPersister \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelManagerPersister \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
     	/* EDIT ME */
-		return Result_NoneErrorZ(pointer: LDKCResult_NoneErrorZ())
+		Bindings.print("ChannelManagerPersister::persist_manager should be overridden!", severity: .WARNING)
+
+return Result_NoneErrorZ()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("ChannelManagerPersister::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -69,10 +69,10 @@ public class SpendableOutputDescriptor: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing SpendableOutputDescriptor \(self.instanceNumber).")
+							Bindings.print("Freeing SpendableOutputDescriptor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing SpendableOutputDescriptor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing SpendableOutputDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

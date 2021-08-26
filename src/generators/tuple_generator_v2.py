@@ -15,7 +15,6 @@ class TupleGenerator:
 	def generate_tuple(self, tuple_name, tuple_details):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
-		print(tuple_name)
 		swift_tuple_name = tuple_name[3:]
 
 		mutating_output_file_contents = self.template

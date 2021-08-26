@@ -62,10 +62,10 @@ Description_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Description \(self.instanceNumber).")
+							Bindings.print("Freeing Description \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Description \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Description \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

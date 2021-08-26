@@ -69,10 +69,10 @@ public class Fallback: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Fallback \(self.instanceNumber).")
+							Bindings.print("Freeing Fallback \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Fallback \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Fallback \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

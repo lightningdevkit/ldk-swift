@@ -157,10 +157,10 @@ TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_com
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing TxCreationKeys \(self.instanceNumber).")
+							Bindings.print("Freeing TxCreationKeys \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

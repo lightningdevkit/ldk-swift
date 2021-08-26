@@ -65,10 +65,10 @@ public class Result_PayeePubKeyErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_PayeePubKeyErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_PayeePubKeyErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_PayeePubKeyErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_PayeePubKeyErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

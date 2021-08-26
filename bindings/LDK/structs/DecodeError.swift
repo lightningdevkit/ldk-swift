@@ -43,10 +43,10 @@ DecodeError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing DecodeError \(self.instanceNumber).")
+							Bindings.print("Freeing DecodeError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing DecodeError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing DecodeError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

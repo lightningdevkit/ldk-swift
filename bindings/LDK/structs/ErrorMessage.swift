@@ -98,10 +98,10 @@ ErrorMessage_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ErrorMessage \(self.instanceNumber).")
+							Bindings.print("Freeing ErrorMessage \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ErrorMessage \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ErrorMessage \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

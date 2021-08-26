@@ -65,10 +65,10 @@ public class Result_StringErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_StringErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_StringErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_StringErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_StringErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

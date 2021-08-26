@@ -134,10 +134,10 @@ BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, funding_red
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing BuiltCommitmentTransaction \(self.instanceNumber).")
+							Bindings.print("Freeing BuiltCommitmentTransaction \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing BuiltCommitmentTransaction \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing BuiltCommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

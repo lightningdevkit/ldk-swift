@@ -62,10 +62,10 @@ PrivateRoute_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PrivateRoute \(self.instanceNumber).")
+							Bindings.print("Freeing PrivateRoute \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PrivateRoute \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PrivateRoute \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -90,10 +90,10 @@ UpdateFailHTLC_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UpdateFailHTLC \(self.instanceNumber).")
+							Bindings.print("Freeing UpdateFailHTLC \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UpdateFailHTLC \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UpdateFailHTLC \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

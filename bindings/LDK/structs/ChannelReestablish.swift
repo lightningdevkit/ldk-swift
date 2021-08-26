@@ -105,10 +105,10 @@ ChannelReestablish_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelReestablish \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelReestablish \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelReestablish \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelReestablish \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

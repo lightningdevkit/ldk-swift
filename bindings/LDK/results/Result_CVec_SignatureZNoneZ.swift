@@ -63,10 +63,10 @@ public class Result_CVec_SignatureZNoneZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_CVec_SignatureZNoneZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_CVec_SignatureZNoneZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_CVec_SignatureZNoneZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_CVec_SignatureZNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

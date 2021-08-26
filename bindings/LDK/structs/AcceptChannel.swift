@@ -270,10 +270,10 @@ AcceptChannel_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing AcceptChannel \(self.instanceNumber).")
+							Bindings.print("Freeing AcceptChannel \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing AcceptChannel \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing AcceptChannel \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

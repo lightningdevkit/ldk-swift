@@ -113,10 +113,10 @@ GossipTimestampFilter_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing GossipTimestampFilter \(self.instanceNumber).")
+							Bindings.print("Freeing GossipTimestampFilter \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing GossipTimestampFilter \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing GossipTimestampFilter \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

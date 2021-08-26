@@ -43,10 +43,10 @@ MonitorUpdateError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MonitorUpdateError \(self.instanceNumber).")
+							Bindings.print("Freeing MonitorUpdateError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MonitorUpdateError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MonitorUpdateError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

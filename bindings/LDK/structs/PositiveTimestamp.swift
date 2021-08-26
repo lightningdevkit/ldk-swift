@@ -76,10 +76,10 @@ PositiveTimestamp_as_time(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PositiveTimestamp \(self.instanceNumber).")
+							Bindings.print("Freeing PositiveTimestamp \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PositiveTimestamp \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PositiveTimestamp \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

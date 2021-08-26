@@ -116,10 +116,10 @@ NodeInfo_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing NodeInfo \(self.instanceNumber).")
+							Bindings.print("Freeing NodeInfo \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing NodeInfo \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NodeInfo \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

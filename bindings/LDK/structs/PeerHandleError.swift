@@ -66,10 +66,10 @@ PeerHandleError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PeerHandleError \(self.instanceNumber).")
+							Bindings.print("Freeing PeerHandleError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PeerHandleError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PeerHandleError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

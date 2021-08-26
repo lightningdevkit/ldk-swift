@@ -65,10 +65,10 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_NetworkGraphDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_NetworkGraphDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_NetworkGraphDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_NetworkGraphDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -52,10 +52,10 @@ RouteHint_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RouteHint \(self.instanceNumber).")
+							Bindings.print("Freeing RouteHint \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RouteHint \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RouteHint \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

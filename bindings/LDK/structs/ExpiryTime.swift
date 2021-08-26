@@ -76,10 +76,10 @@ ExpiryTime_as_duration(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ExpiryTime \(self.instanceNumber).")
+							Bindings.print("Freeing ExpiryTime \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ExpiryTime \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ExpiryTime \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

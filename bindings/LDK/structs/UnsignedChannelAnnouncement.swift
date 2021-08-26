@@ -165,10 +165,10 @@ UnsignedChannelAnnouncement_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UnsignedChannelAnnouncement \(self.instanceNumber).")
+							Bindings.print("Freeing UnsignedChannelAnnouncement \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UnsignedChannelAnnouncement \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UnsignedChannelAnnouncement \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

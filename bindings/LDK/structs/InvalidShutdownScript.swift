@@ -62,10 +62,10 @@ InvalidShutdownScript_get_script(this_ptrPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing InvalidShutdownScript \(self.instanceNumber).")
+							Bindings.print("Freeing InvalidShutdownScript \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing InvalidShutdownScript \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing InvalidShutdownScript \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -143,10 +143,10 @@ ChannelPublicKeys_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelPublicKeys \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelPublicKeys \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelPublicKeys \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelPublicKeys \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

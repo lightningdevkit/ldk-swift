@@ -59,7 +59,25 @@ open class NativeTypeWrapper: Hashable {
 
 }
 
-public class Bindings{
+public class Bindings {
+
+	internal static var minimumPrintSeverity: PrintSeverity = .WARNING
+
+    public enum PrintSeverity: UInt {
+        case DEBUG = 0
+        case WARNING = 1
+        case ERROR = 2
+    }
+
+    internal class func print(_ string: String, severity: PrintSeverity = .DEBUG) {
+        if severity.rawValue >= Self.minimumPrintSeverity.rawValue {
+            Swift.print(string)
+        }
+    }
+
+    public class func setLogThreshold(severity: PrintSeverity){
+        Self.minimumPrintSeverity = severity
+    }
 
 	/* BYTE_ARRAY_METHODS_START */
 

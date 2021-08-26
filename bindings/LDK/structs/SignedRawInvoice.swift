@@ -104,10 +104,10 @@ SignedRawInvoice_to_str(oPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing SignedRawInvoice \(self.instanceNumber).")
+							Bindings.print("Freeing SignedRawInvoice \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing SignedRawInvoice \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing SignedRawInvoice \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

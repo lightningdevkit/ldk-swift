@@ -128,10 +128,10 @@ AnnouncementSignatures_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing AnnouncementSignatures \(self.instanceNumber).")
+							Bindings.print("Freeing AnnouncementSignatures \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing AnnouncementSignatures \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing AnnouncementSignatures \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

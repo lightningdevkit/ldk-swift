@@ -180,10 +180,10 @@ UnsignedChannelUpdate_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UnsignedChannelUpdate \(self.instanceNumber).")
+							Bindings.print("Freeing UnsignedChannelUpdate \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UnsignedChannelUpdate \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UnsignedChannelUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

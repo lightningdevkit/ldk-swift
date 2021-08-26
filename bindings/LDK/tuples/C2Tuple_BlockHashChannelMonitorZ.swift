@@ -31,10 +31,10 @@ public class C2Tuple_BlockHashChannelMonitorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C2Tuple_BlockHashChannelMonitorZ \(self.instanceNumber).")
+							Bindings.print("Freeing C2Tuple_BlockHashChannelMonitorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C2Tuple_BlockHashChannelMonitorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C2Tuple_BlockHashChannelMonitorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

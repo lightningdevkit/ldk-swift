@@ -88,10 +88,10 @@ ChannelCounterparty_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelCounterparty \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelCounterparty \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelCounterparty \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelCounterparty \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

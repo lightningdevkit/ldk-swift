@@ -58,10 +58,10 @@ public class Result_NonePeerHandleErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_NonePeerHandleErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_NonePeerHandleErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_NonePeerHandleErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_NonePeerHandleErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

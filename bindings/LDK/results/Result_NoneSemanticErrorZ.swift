@@ -58,10 +58,10 @@ public class Result_NoneSemanticErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_NoneSemanticErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_NoneSemanticErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_NoneSemanticErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_NoneSemanticErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

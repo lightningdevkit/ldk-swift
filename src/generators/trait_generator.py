@@ -111,10 +111,10 @@ class TraitGenerator:
 					
 					deinit {{
 						if !self.dangling {{
-							print("Freeing {swift_struct_name} \(self.instanceNumber).")
+							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")
 							self.{current_method_details['name']['swift']}()
 						}} else {{
-							print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
 						}}
 					}}
 				'''
@@ -184,6 +184,7 @@ class TraitGenerator:
 				swift_raw_return_type = 'UnsafeMutableRawPointer'
 				swift_return_type = swift_raw_return_type
 
+			is_default_return_error = False
 			if swift_return_type.startswith('UInt'):
 				swift_default_return = 'return 0'
 			if swift_return_type.startswith('Bool'):
@@ -196,7 +197,22 @@ class TraitGenerator:
 			elif swift_return_type.startswith('LDK'):
 				swift_default_return = f'return {swift_return_type}()'
 			elif current_return_type_details.rust_obj is not None and current_return_type_details.rust_obj.startswith('LDK') and not swift_raw_return_type.startswith('['):
-				swift_default_return = f'return {swift_return_type}(pointer: {current_return_type_details.rust_obj}())'
+				if current_return_type_details.rust_obj.startswith('LDKCResult_'):
+					swift_default_return = f'return {swift_return_type}()'
+				elif current_return_type_details.rust_obj.startswith('LDKCTuple_'):
+					swift_default_return = f'return {swift_return_type}()'
+				elif current_return_type_details.rust_obj.startswith('LDKCOption_'):
+					swift_default_return = f'return {swift_return_type}.none()'
+				elif current_return_type_details.rust_obj == 'LDKShutdownScript':
+					swift_default_return = ''
+					is_default_return_error = True
+				else:
+					swift_default_return = f'return {swift_return_type}()'
+				# swift_default_return = f'return {swift_return_type}(pointer: {current_return_type_details.rust_obj}())'
+
+			swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} should be overridden!", severity: .WARNING)\n\n{swift_default_return}'
+			if is_default_return_error:
+				swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} MUST be overridden!", severity: .ERROR)\n\nabort()'
 
 
 			current_native_callback_replacement = native_callback_template

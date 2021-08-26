@@ -147,72 +147,96 @@ open class BaseSign: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing BaseSign \(self.instanceNumber).")
+							Bindings.print("Freeing BaseSign \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing BaseSign \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing BaseSign \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func get_per_commitment_point(idx: UInt64) -> [UInt8] {
     	/* EDIT ME */
-		return [UInt8]()
+		Bindings.print("BaseSign::get_per_commitment_point should be overridden!", severity: .WARNING)
+
+return [UInt8]()
     }
 
     open func release_commitment_secret(idx: UInt64) -> [UInt8] {
     	/* EDIT ME */
-		return [UInt8]()
+		Bindings.print("BaseSign::release_commitment_secret should be overridden!", severity: .WARNING)
+
+return [UInt8]()
     }
 
     open func channel_keys_id() -> [UInt8] {
     	/* EDIT ME */
-		return [UInt8]()
+		Bindings.print("BaseSign::channel_keys_id should be overridden!", severity: .WARNING)
+
+return [UInt8]()
     }
 
     open func sign_counterparty_commitment(commitment_tx: CommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	/* EDIT ME */
-		return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ())
+		Bindings.print("BaseSign::sign_counterparty_commitment should be overridden!", severity: .WARNING)
+
+return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ()
     }
 
     open func sign_holder_commitment_and_htlcs(commitment_tx: HolderCommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	/* EDIT ME */
-		return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ())
+		Bindings.print("BaseSign::sign_holder_commitment_and_htlcs should be overridden!", severity: .WARNING)
+
+return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ()
     }
 
     open func sign_justice_revoked_output(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?) -> Result_SignatureNoneZ {
     	/* EDIT ME */
-		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
+		Bindings.print("BaseSign::sign_justice_revoked_output should be overridden!", severity: .WARNING)
+
+return Result_SignatureNoneZ()
     }
 
     open func sign_justice_revoked_htlc(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
     	/* EDIT ME */
-		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
+		Bindings.print("BaseSign::sign_justice_revoked_htlc should be overridden!", severity: .WARNING)
+
+return Result_SignatureNoneZ()
     }
 
     open func sign_counterparty_htlc_transaction(htlc_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_point: [UInt8], htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
     	/* EDIT ME */
-		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
+		Bindings.print("BaseSign::sign_counterparty_htlc_transaction should be overridden!", severity: .WARNING)
+
+return Result_SignatureNoneZ()
     }
 
     open func sign_closing_transaction(closing_tx: [UInt8]) -> Result_SignatureNoneZ {
     	/* EDIT ME */
-		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
+		Bindings.print("BaseSign::sign_closing_transaction should be overridden!", severity: .WARNING)
+
+return Result_SignatureNoneZ()
     }
 
     open func sign_channel_announcement(msg: UnsignedChannelAnnouncement) -> Result_SignatureNoneZ {
     	/* EDIT ME */
-		return Result_SignatureNoneZ(pointer: LDKCResult_SignatureNoneZ())
+		Bindings.print("BaseSign::sign_channel_announcement should be overridden!", severity: .WARNING)
+
+return Result_SignatureNoneZ()
     }
 
     open func ready_channel(channel_parameters: ChannelTransactionParameters) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("BaseSign::ready_channel should be overridden!", severity: .WARNING)
+
+
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("BaseSign::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

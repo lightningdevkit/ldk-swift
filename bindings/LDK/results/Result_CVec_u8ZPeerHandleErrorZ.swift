@@ -70,10 +70,10 @@ public class Result_CVec_u8ZPeerHandleErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

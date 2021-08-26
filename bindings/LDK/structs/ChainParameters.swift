@@ -81,10 +81,10 @@ ChainParameters_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChainParameters \(self.instanceNumber).")
+							Bindings.print("Freeing ChainParameters \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChainParameters \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChainParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

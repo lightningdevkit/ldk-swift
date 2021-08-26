@@ -78,10 +78,10 @@ public class PaymentSendFailure: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PaymentSendFailure \(self.instanceNumber).")
+							Bindings.print("Freeing PaymentSendFailure \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PaymentSendFailure \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PaymentSendFailure \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -83,10 +83,10 @@ Pong_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Pong \(self.instanceNumber).")
+							Bindings.print("Freeing Pong \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Pong \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Pong \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

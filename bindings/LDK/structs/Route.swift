@@ -86,10 +86,10 @@ Route_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Route \(self.instanceNumber).")
+							Bindings.print("Freeing Route \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Route \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Route \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

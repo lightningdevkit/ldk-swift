@@ -56,10 +56,10 @@ TxOut_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing TxOut \(self.instanceNumber).")
+							Bindings.print("Freeing TxOut \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing TxOut \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing TxOut \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

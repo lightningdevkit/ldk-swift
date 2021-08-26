@@ -330,10 +330,10 @@ OpenChannel_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing OpenChannel \(self.instanceNumber).")
+							Bindings.print("Freeing OpenChannel \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing OpenChannel \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing OpenChannel \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

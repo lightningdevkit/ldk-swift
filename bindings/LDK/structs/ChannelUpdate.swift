@@ -98,10 +98,10 @@ ChannelUpdate_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelUpdate \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelUpdate \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelUpdate \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -58,10 +58,10 @@ public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_RecoverableSignatureNoneZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_RecoverableSignatureNoneZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_RecoverableSignatureNoneZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_RecoverableSignatureNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

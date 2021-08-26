@@ -58,10 +58,10 @@ public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_TrustedCommitmentTransactionNoneZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_TrustedCommitmentTransactionNoneZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_TrustedCommitmentTransactionNoneZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_TrustedCommitmentTransactionNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

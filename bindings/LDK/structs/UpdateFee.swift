@@ -98,10 +98,10 @@ UpdateFee_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UpdateFee \(self.instanceNumber).")
+							Bindings.print("Freeing UpdateFee \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UpdateFee \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UpdateFee \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

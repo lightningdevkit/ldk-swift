@@ -242,10 +242,10 @@ InMemorySigner_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing InMemorySigner \(self.instanceNumber).")
+							Bindings.print("Freeing InMemorySigner \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing InMemorySigner \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing InMemorySigner \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

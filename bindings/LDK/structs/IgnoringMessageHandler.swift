@@ -51,10 +51,10 @@ IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing IgnoringMessageHandler \(self.instanceNumber).")
+							Bindings.print("Freeing IgnoringMessageHandler \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing IgnoringMessageHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing IgnoringMessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

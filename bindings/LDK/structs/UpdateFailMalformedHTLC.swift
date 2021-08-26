@@ -105,10 +105,10 @@ UpdateFailMalformedHTLC_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UpdateFailMalformedHTLC \(self.instanceNumber).")
+							Bindings.print("Freeing UpdateFailMalformedHTLC \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UpdateFailMalformedHTLC \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UpdateFailMalformedHTLC \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -98,10 +98,10 @@ FundingLocked_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing FundingLocked \(self.instanceNumber).")
+							Bindings.print("Freeing FundingLocked \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing FundingLocked \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing FundingLocked \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

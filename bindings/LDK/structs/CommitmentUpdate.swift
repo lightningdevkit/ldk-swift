@@ -153,10 +153,10 @@ CommitmentUpdate_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing CommitmentUpdate \(self.instanceNumber).")
+							Bindings.print("Freeing CommitmentUpdate \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing CommitmentUpdate \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing CommitmentUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

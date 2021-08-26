@@ -59,22 +59,26 @@ open class BroadcasterInterface: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing BroadcasterInterface \(self.instanceNumber).")
+							Bindings.print("Freeing BroadcasterInterface \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing BroadcasterInterface \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing BroadcasterInterface \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func broadcast_transaction(tx: [UInt8]) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("BroadcasterInterface::broadcast_transaction should be overridden!", severity: .WARNING)
+
+
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("BroadcasterInterface::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

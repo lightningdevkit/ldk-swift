@@ -84,10 +84,10 @@ NodeFeatures_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing NodeFeatures \(self.instanceNumber).")
+							Bindings.print("Freeing NodeFeatures \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing NodeFeatures \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NodeFeatures \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

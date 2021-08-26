@@ -65,10 +65,10 @@ public class Result_QueryShortChannelIdsDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_QueryShortChannelIdsDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_QueryShortChannelIdsDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_QueryShortChannelIdsDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_QueryShortChannelIdsDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

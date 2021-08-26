@@ -60,10 +60,10 @@ public class MonitorEvent: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MonitorEvent \(self.instanceNumber).")
+							Bindings.print("Freeing MonitorEvent \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MonitorEvent \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MonitorEvent \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

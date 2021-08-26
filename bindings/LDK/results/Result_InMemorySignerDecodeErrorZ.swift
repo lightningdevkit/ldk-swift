@@ -65,10 +65,10 @@ public class Result_InMemorySignerDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_InMemorySignerDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_InMemorySignerDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_InMemorySignerDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_InMemorySignerDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

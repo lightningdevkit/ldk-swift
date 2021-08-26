@@ -67,10 +67,10 @@ RawDataPart_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RawDataPart \(self.instanceNumber).")
+							Bindings.print("Freeing RawDataPart \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RawDataPart \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RawDataPart \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

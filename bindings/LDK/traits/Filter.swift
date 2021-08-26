@@ -71,27 +71,33 @@ open class Filter: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Filter \(self.instanceNumber).")
+							Bindings.print("Freeing Filter \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Filter \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Filter \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Filter::register_tx should be overridden!", severity: .WARNING)
+
+
     }
 
     open func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
     	/* EDIT ME */
-		return Option_C2Tuple_usizeTransactionZZ(pointer: LDKCOption_C2Tuple_usizeTransactionZZ())
+		Bindings.print("Filter::register_output should be overridden!", severity: .WARNING)
+
+return Option_C2Tuple_usizeTransactionZZ.none()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Filter::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

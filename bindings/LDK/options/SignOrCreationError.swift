@@ -51,10 +51,10 @@ public class SignOrCreationError: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing SignOrCreationError \(self.instanceNumber).")
+							Bindings.print("Freeing SignOrCreationError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing SignOrCreationError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing SignOrCreationError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

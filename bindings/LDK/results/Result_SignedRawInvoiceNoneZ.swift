@@ -58,10 +58,10 @@ public class Result_SignedRawInvoiceNoneZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_SignedRawInvoiceNoneZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_SignedRawInvoiceNoneZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_SignedRawInvoiceNoneZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_SignedRawInvoiceNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

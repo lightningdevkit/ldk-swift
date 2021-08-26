@@ -65,10 +65,10 @@ public class Result_ReplyShortChannelIdsEndDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_ReplyShortChannelIdsEndDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_ReplyShortChannelIdsEndDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_ReplyShortChannelIdsEndDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_ReplyShortChannelIdsEndDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

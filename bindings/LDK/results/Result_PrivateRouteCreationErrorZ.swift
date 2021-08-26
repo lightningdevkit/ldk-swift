@@ -65,10 +65,10 @@ public class Result_PrivateRouteCreationErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_PrivateRouteCreationErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_PrivateRouteCreationErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_PrivateRouteCreationErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_PrivateRouteCreationErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

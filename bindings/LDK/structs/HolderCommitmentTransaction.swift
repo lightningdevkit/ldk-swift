@@ -101,10 +101,10 @@ HolderCommitmentTransaction_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing HolderCommitmentTransaction \(self.instanceNumber).")
+							Bindings.print("Freeing HolderCommitmentTransaction \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing HolderCommitmentTransaction \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing HolderCommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

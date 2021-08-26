@@ -166,10 +166,10 @@ DelayedPaymentOutputDescriptor_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing DelayedPaymentOutputDescriptor \(self.instanceNumber).")
+							Bindings.print("Freeing DelayedPaymentOutputDescriptor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing DelayedPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing DelayedPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

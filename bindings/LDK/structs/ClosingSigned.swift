@@ -128,10 +128,10 @@ ClosingSigned_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ClosingSigned \(self.instanceNumber).")
+							Bindings.print("Freeing ClosingSigned \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ClosingSigned \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ClosingSigned \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

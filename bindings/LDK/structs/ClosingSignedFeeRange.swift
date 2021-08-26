@@ -98,10 +98,10 @@ ClosingSignedFeeRange_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ClosingSignedFeeRange \(self.instanceNumber).")
+							Bindings.print("Freeing ClosingSignedFeeRange \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ClosingSignedFeeRange \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ClosingSignedFeeRange \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

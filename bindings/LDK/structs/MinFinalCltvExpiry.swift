@@ -52,10 +52,10 @@ MinFinalCltvExpiry_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MinFinalCltvExpiry \(self.instanceNumber).")
+							Bindings.print("Freeing MinFinalCltvExpiry \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MinFinalCltvExpiry \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MinFinalCltvExpiry \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

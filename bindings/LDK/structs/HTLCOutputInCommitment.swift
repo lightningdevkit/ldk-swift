@@ -143,10 +143,10 @@ HTLCOutputInCommitment_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing HTLCOutputInCommitment \(self.instanceNumber).")
+							Bindings.print("Freeing HTLCOutputInCommitment \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing HTLCOutputInCommitment \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing HTLCOutputInCommitment \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

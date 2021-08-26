@@ -101,10 +101,10 @@ QueryShortChannelIds_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing QueryShortChannelIds \(self.instanceNumber).")
+							Bindings.print("Freeing QueryShortChannelIds \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing QueryShortChannelIds \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing QueryShortChannelIds \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

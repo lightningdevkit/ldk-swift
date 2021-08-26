@@ -132,10 +132,10 @@ ChannelManagerReadArgs_get_default_config(this_ptrPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelManagerReadArgs \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelManagerReadArgs \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelManagerReadArgs \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelManagerReadArgs \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

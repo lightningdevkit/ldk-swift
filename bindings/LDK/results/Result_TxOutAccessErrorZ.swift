@@ -65,10 +65,10 @@ public class Result_TxOutAccessErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_TxOutAccessErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_TxOutAccessErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_TxOutAccessErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_TxOutAccessErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

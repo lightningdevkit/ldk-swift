@@ -45,10 +45,10 @@ C2Tuple_PaymentHashPaymentSecretZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber).")
+							Bindings.print("Freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

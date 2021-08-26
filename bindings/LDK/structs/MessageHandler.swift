@@ -67,10 +67,10 @@ MessageHandler_get_route_handler(this_ptrPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MessageHandler \(self.instanceNumber).")
+							Bindings.print("Freeing MessageHandler \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MessageHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -50,10 +50,10 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ \(self.instanceNumber).")
+							Bindings.print("Freeing C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

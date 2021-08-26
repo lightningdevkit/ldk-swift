@@ -79,32 +79,40 @@ open class Watch: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Watch \(self.instanceNumber).")
+							Bindings.print("Freeing Watch \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Watch \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Watch \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
-		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
+		Bindings.print("Watch::watch_channel should be overridden!", severity: .WARNING)
+
+return Result_NoneChannelMonitorUpdateErrZ()
     }
 
     open func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
-		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
+		Bindings.print("Watch::update_channel should be overridden!", severity: .WARNING)
+
+return Result_NoneChannelMonitorUpdateErrZ()
     }
 
     open func release_pending_monitor_events() -> [LDKMonitorEvent] {
     	/* EDIT ME */
-		return [LDKMonitorEvent]()
+		Bindings.print("Watch::release_pending_monitor_events should be overridden!", severity: .WARNING)
+
+return [LDKMonitorEvent]()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Watch::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

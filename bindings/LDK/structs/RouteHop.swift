@@ -158,10 +158,10 @@ RouteHop_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RouteHop \(self.instanceNumber).")
+							Bindings.print("Freeing RouteHop \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RouteHop \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RouteHop \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

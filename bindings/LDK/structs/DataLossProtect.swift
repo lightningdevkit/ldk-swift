@@ -81,10 +81,10 @@ DataLossProtect_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing DataLossProtect \(self.instanceNumber).")
+							Bindings.print("Freeing DataLossProtect \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing DataLossProtect \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing DataLossProtect \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

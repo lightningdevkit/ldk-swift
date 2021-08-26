@@ -113,10 +113,10 @@ UpdateFulfillHTLC_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UpdateFulfillHTLC \(self.instanceNumber).")
+							Bindings.print("Freeing UpdateFulfillHTLC \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UpdateFulfillHTLC \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UpdateFulfillHTLC \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

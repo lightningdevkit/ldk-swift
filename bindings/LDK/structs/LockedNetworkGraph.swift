@@ -36,10 +36,10 @@ LockedNetworkGraph_graph(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing LockedNetworkGraph \(self.instanceNumber).")
+							Bindings.print("Freeing LockedNetworkGraph \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing LockedNetworkGraph \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing LockedNetworkGraph \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

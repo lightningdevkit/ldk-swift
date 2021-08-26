@@ -50,10 +50,10 @@ C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C2Tuple_SignatureCVec_SignatureZZ \(self.instanceNumber).")
+							Bindings.print("Freeing C2Tuple_SignatureCVec_SignatureZZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C2Tuple_SignatureCVec_SignatureZZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C2Tuple_SignatureCVec_SignatureZZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

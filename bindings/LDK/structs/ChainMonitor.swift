@@ -71,10 +71,10 @@ ChainMonitor_as_EventsProvider(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChainMonitor \(self.instanceNumber).")
+							Bindings.print("Freeing ChainMonitor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChainMonitor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChainMonitor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

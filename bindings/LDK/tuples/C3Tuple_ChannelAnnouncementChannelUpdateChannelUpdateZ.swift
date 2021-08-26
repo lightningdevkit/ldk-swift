@@ -45,10 +45,10 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ \(self.instanceNumber).")
+							Bindings.print("Freeing C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

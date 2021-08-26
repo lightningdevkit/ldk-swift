@@ -69,10 +69,10 @@ public class HTLCFailChannelUpdate: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing HTLCFailChannelUpdate \(self.instanceNumber).")
+							Bindings.print("Freeing HTLCFailChannelUpdate \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing HTLCFailChannelUpdate \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing HTLCFailChannelUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

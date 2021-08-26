@@ -78,10 +78,10 @@ public class NetAddress: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing NetAddress \(self.instanceNumber).")
+							Bindings.print("Freeing NetAddress \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing NetAddress \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NetAddress \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

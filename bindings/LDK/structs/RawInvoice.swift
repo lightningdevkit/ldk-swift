@@ -151,10 +151,10 @@ RawInvoice_currency(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RawInvoice \(self.instanceNumber).")
+							Bindings.print("Freeing RawInvoice \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RawInvoice \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RawInvoice \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -69,10 +69,10 @@ public class Option_u32Z: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Option_u32Z \(self.instanceNumber).")
+							Bindings.print("Freeing Option_u32Z \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Option_u32Z \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Option_u32Z \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

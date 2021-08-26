@@ -5,8 +5,6 @@ import swift_constants
 import type_mapping_generator
 from generators.opaque_struct_generator import OpaqueStructGenerator
 
-def hello_world():
-    print("hello!")
 
 
 def get_file() -> str:
@@ -316,4 +314,3 @@ parsed_types = parse_header_file(header_file)
 opaque_struct_generator = OpaqueStructGenerator()
 opaque_struct_generator.generate_opaque_struct()
 
-print("here we are")

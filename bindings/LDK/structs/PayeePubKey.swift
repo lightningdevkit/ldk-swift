@@ -52,10 +52,10 @@ PayeePubKey_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PayeePubKey \(self.instanceNumber).")
+							Bindings.print("Freeing PayeePubKey \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PayeePubKey \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PayeePubKey \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

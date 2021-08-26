@@ -108,10 +108,10 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing CommitmentTransaction \(self.instanceNumber).")
+							Bindings.print("Freeing CommitmentTransaction \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing CommitmentTransaction \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing CommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

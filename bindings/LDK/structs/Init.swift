@@ -83,10 +83,10 @@ Init_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Init \(self.instanceNumber).")
+							Bindings.print("Freeing Init \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Init \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Init \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -113,10 +113,10 @@ RevokeAndACK_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RevokeAndACK \(self.instanceNumber).")
+							Bindings.print("Freeing RevokeAndACK \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RevokeAndACK \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RevokeAndACK \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

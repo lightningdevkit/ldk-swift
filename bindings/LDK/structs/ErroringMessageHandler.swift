@@ -51,10 +51,10 @@ ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ErroringMessageHandler \(self.instanceNumber).")
+							Bindings.print("Freeing ErroringMessageHandler \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ErroringMessageHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ErroringMessageHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

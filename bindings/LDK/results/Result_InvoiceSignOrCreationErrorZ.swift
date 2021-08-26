@@ -65,10 +65,10 @@ public class Result_InvoiceSignOrCreationErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_InvoiceSignOrCreationErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_InvoiceSignOrCreationErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_InvoiceSignOrCreationErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_InvoiceSignOrCreationErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

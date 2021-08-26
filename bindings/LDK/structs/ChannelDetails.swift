@@ -276,10 +276,10 @@ ChannelDetails_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelDetails \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelDetails \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelDetails \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelDetails \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -59,22 +59,26 @@ open class EventsProvider: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing EventsProvider \(self.instanceNumber).")
+							Bindings.print("Freeing EventsProvider \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing EventsProvider \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing EventsProvider \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func process_pending_events(handler: EventHandler) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("EventsProvider::process_pending_events should be overridden!", severity: .WARNING)
+
+
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("EventsProvider::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

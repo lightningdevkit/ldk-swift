@@ -146,10 +146,10 @@ ReplyChannelRange_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ReplyChannelRange \(self.instanceNumber).")
+							Bindings.print("Freeing ReplyChannelRange \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ReplyChannelRange \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ReplyChannelRange \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

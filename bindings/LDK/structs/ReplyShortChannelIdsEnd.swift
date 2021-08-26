@@ -98,10 +98,10 @@ ReplyShortChannelIdsEnd_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ReplyShortChannelIdsEnd \(self.instanceNumber).")
+							Bindings.print("Freeing ReplyShortChannelIdsEnd \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ReplyShortChannelIdsEnd \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ReplyShortChannelIdsEnd \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

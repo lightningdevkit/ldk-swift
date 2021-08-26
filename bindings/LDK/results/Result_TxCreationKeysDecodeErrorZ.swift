@@ -65,10 +65,10 @@ public class Result_TxCreationKeysDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_TxCreationKeysDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_TxCreationKeysDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_TxCreationKeysDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_TxCreationKeysDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -81,10 +81,10 @@ LightningError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing LightningError \(self.instanceNumber).")
+							Bindings.print("Freeing LightningError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing LightningError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing LightningError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -113,10 +113,10 @@ WatchedOutput_hash(oPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing WatchedOutput \(self.instanceNumber).")
+							Bindings.print("Freeing WatchedOutput \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing WatchedOutput \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing WatchedOutput \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

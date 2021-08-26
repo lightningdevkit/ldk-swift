@@ -143,10 +143,10 @@ ChannelAnnouncement_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelAnnouncement \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelAnnouncement \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -65,10 +65,10 @@ public class Result_RevokeAndACKDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_RevokeAndACKDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_RevokeAndACKDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_RevokeAndACKDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_RevokeAndACKDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

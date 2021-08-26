@@ -65,10 +65,10 @@ public class Result_InvoiceSemanticErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_InvoiceSemanticErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_InvoiceSemanticErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_InvoiceSemanticErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_InvoiceSemanticErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

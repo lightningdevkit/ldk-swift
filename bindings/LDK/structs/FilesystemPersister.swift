@@ -65,10 +65,10 @@ FilesystemPersister_as_Persist(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing FilesystemPersister \(self.instanceNumber).")
+							Bindings.print("Freeing FilesystemPersister \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing FilesystemPersister \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing FilesystemPersister \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

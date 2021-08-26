@@ -69,10 +69,10 @@ public class Option_C2Tuple_usizeTransactionZZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber).")
+							Bindings.print("Freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

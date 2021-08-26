@@ -65,10 +65,10 @@ public class Result_ExpiryTimeCreationErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_ExpiryTimeCreationErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_ExpiryTimeCreationErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_ExpiryTimeCreationErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_ExpiryTimeCreationErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

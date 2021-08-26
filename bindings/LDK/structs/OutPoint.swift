@@ -121,10 +121,10 @@ OutPoint_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing OutPoint \(self.instanceNumber).")
+							Bindings.print("Freeing OutPoint \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing OutPoint \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing OutPoint \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -65,10 +65,10 @@ public class Result_UnsignedNodeAnnouncementDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_UnsignedNodeAnnouncementDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_UnsignedNodeAnnouncementDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_UnsignedNodeAnnouncementDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_UnsignedNodeAnnouncementDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -222,10 +222,10 @@ public class MessageSendEvent: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MessageSendEvent \(self.instanceNumber).")
+							Bindings.print("Freeing MessageSendEvent \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MessageSendEvent \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MessageSendEvent \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

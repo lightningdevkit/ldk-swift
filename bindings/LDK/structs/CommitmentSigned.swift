@@ -116,10 +116,10 @@ CommitmentSigned_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing CommitmentSigned \(self.instanceNumber).")
+							Bindings.print("Freeing CommitmentSigned \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing CommitmentSigned \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing CommitmentSigned \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

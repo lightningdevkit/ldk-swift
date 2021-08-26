@@ -65,10 +65,10 @@ public class Result_RouteHopDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_RouteHopDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_RouteHopDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_RouteHopDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_RouteHopDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

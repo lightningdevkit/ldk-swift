@@ -65,10 +65,10 @@ public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrappe
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_DelayedPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_DelayedPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_DelayedPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_DelayedPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

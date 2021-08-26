@@ -173,10 +173,10 @@ ChannelInfo_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelInfo \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelInfo \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelInfo \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelInfo \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

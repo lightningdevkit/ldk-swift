@@ -87,10 +87,10 @@ public class APIError: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing APIError \(self.instanceNumber).")
+							Bindings.print("Freeing APIError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing APIError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing APIError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

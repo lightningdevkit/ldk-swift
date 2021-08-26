@@ -150,10 +150,10 @@ RouteHintHop_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RouteHintHop \(self.instanceNumber).")
+							Bindings.print("Freeing RouteHintHop \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RouteHintHop \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RouteHintHop \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -266,10 +266,10 @@ ChannelManager_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelManager \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelManager \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelManager \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelManager \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

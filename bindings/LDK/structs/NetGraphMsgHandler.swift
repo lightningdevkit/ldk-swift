@@ -78,10 +78,10 @@ NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing NetGraphMsgHandler \(self.instanceNumber).")
+							Bindings.print("Freeing NetGraphMsgHandler \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing NetGraphMsgHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NetGraphMsgHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

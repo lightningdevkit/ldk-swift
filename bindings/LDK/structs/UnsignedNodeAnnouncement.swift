@@ -148,10 +148,10 @@ UnsignedNodeAnnouncement_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UnsignedNodeAnnouncement \(self.instanceNumber).")
+							Bindings.print("Freeing UnsignedNodeAnnouncement \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UnsignedNodeAnnouncement \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UnsignedNodeAnnouncement \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

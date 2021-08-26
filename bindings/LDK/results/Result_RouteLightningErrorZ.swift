@@ -65,10 +65,10 @@ public class Result_RouteLightningErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_RouteLightningErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_RouteLightningErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_RouteLightningErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_RouteLightningErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

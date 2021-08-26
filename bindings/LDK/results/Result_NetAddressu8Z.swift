@@ -65,10 +65,10 @@ public class Result_NetAddressu8Z: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_NetAddressu8Z \(self.instanceNumber).")
+							Bindings.print("Freeing Result_NetAddressu8Z \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_NetAddressu8Z \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_NetAddressu8Z \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

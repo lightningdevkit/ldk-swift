@@ -65,10 +65,10 @@ public class Result_ShutdownScriptDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_ShutdownScriptDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_ShutdownScriptDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_ShutdownScriptDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_ShutdownScriptDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

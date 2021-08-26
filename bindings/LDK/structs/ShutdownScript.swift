@@ -101,10 +101,10 @@ ShutdownScript_is_compatible(this_argPointer, featuresPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ShutdownScript \(self.instanceNumber).")
+							Bindings.print("Freeing ShutdownScript \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ShutdownScript \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ShutdownScript \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

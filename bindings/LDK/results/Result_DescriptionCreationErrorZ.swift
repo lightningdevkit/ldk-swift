@@ -65,10 +65,10 @@ public class Result_DescriptionCreationErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_DescriptionCreationErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_DescriptionCreationErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_DescriptionCreationErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_DescriptionCreationErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

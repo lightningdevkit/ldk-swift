@@ -58,10 +58,10 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

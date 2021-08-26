@@ -120,10 +120,10 @@ QueryChannelRange_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing QueryChannelRange \(self.instanceNumber).")
+							Bindings.print("Freeing QueryChannelRange \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing QueryChannelRange \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing QueryChannelRange \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

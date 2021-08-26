@@ -65,10 +65,10 @@ public class Result_BuiltCommitmentTransactionDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_BuiltCommitmentTransactionDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_BuiltCommitmentTransactionDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_BuiltCommitmentTransactionDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_BuiltCommitmentTransactionDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

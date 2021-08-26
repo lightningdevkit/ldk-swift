@@ -65,10 +65,10 @@ public class Result_StaticPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrapper
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_StaticPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_StaticPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_StaticPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_StaticPaymentOutputDescriptorDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

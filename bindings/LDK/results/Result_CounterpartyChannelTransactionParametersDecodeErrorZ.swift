@@ -65,10 +65,10 @@ public class Result_CounterpartyChannelTransactionParametersDecodeErrorZ: Native
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_CounterpartyChannelTransactionParametersDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_CounterpartyChannelTransactionParametersDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_CounterpartyChannelTransactionParametersDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_CounterpartyChannelTransactionParametersDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

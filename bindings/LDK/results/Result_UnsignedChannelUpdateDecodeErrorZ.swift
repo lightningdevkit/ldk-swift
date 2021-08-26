@@ -65,10 +65,10 @@ public class Result_UnsignedChannelUpdateDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_UnsignedChannelUpdateDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_UnsignedChannelUpdateDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_UnsignedChannelUpdateDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_UnsignedChannelUpdateDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

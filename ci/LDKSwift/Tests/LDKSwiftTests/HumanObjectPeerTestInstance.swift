@@ -251,6 +251,17 @@ public class HumanObjectPeerTestInstance {
         let peer2 = Peer(master: self, seed: 2)
 
         connectPeers(peerA: peer1, peerB: peer2)
+
+        let semaphore = DispatchSemaphore(value: 0)
+        DispatchQueue.global(qos: .background).async {
+            print("waiting five seconds")
+            sleep(5)
+            semaphore.signal()
+            print("finished waiting five seconds")
+        }
+        semaphore.wait()
+        peer1.constructor?.interrupt()
+        peer2.constructor?.interrupt()
     }
 
 }

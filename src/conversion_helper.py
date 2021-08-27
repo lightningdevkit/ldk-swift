@@ -322,7 +322,7 @@ class ConversionHelper:
 		}
 
 	@classmethod
-	def prepare_return_value(cls, return_type, is_clone_method = False, is_trait_instantiator = False):
+	def prepare_return_value(cls, return_type, is_clone_method = False, is_trait_instantiator = False, is_raw_property_getter = False):
 		rust_return_type = return_type.rust_obj
 		return_prefix = ''
 		return_suffix = ''
@@ -334,6 +334,8 @@ class ConversionHelper:
 		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type_string.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
 			return_suffix = ')'
+			if rust_return_type.startswith('LDKCVec_') and is_raw_property_getter:
+				return_suffix = ', deallocate: false)'
 		elif return_type.swift_raw_type.startswith('(UInt8'):
 			# TODO: get array length
 			array_length = return_type.arr_len

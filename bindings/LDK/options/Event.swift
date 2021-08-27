@@ -202,7 +202,7 @@ Event_write(objPointer)
 					}
 				
 					public func getOutput_script() -> [UInt8] {
-						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.output_script)
+						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.output_script, deallocate: false)
 					}
 				
 					public func getUser_channel_id() -> UInt64 {
@@ -308,7 +308,7 @@ Event_write(objPointer)
 				
 				
 					public func getOutputs() -> [LDKSpendableOutputDescriptor] {
-						return Bindings.LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: self.cOpaqueStruct!.outputs)
+						return Bindings.LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: self.cOpaqueStruct!.outputs, deallocate: false)
 					}
 				
 				

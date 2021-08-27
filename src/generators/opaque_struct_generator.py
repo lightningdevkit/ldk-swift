@@ -166,7 +166,7 @@ class OpaqueStructGenerator:
 			for current_field in struct_details.fields:
 				current_field_name = current_field['name']
 				current_field_type = current_field['field_details']
-				value_return_wrappers = ConversionHelper.prepare_return_value(current_field_type)
+				value_return_wrappers = ConversionHelper.prepare_return_value(current_field_type, is_raw_property_getter=True)
 				current_swift_return_type = value_return_wrappers['swift_type']
 				current_method_name = f'get_{current_field_name}'
 

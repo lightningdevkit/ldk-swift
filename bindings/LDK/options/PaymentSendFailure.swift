@@ -48,21 +48,21 @@ public class PaymentSendFailure: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_PathParameterError {
 							return nil
 						}
-						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error)
+						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error, deallocate: false)
 					}
 				
 					public func getValueAsAllFailedRetrySafe() -> [LDKAPIError]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_AllFailedRetrySafe {
 							return nil
 						}
-						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe)
+						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe, deallocate: false)
 					}
 				
 					public func getValueAsPartialFailure() -> [LDKCResult_NoneAPIErrorZ]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_PartialFailure {
 							return nil
 						}
-						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.partial_failure)
+						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.partial_failure, deallocate: false)
 					}
 				
 			

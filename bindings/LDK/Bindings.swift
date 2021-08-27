@@ -1498,7 +1498,7 @@ public class Bindings {
 		var array = [[LDKRouteHop]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKCVec_RouteHopZ_to_array(nativeType: currentEntry)
+			let convertedEntry = LDKCVec_RouteHopZ_to_array(nativeType: currentEntry, deallocate: deallocate)
 			array.append(convertedEntry)
 		}
 		
@@ -1582,7 +1582,7 @@ public class Bindings {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKCVec_u8Z_to_array(nativeType: currentEntry)
+			let convertedEntry = LDKCVec_u8Z_to_array(nativeType: currentEntry, deallocate: deallocate)
 			array.append(convertedEntry)
 		}
 		
@@ -3046,7 +3046,7 @@ public class Bindings {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKTransaction_to_array(nativeType: currentEntry)
+			let convertedEntry = LDKTransaction_to_array(nativeType: currentEntry, deallocate: deallocate)
 			array.append(convertedEntry)
 		}
 		

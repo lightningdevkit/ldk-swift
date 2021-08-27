@@ -40,6 +40,8 @@ class VectorGenerator(UtilGenerator):
 				swift_primitive = deepest_iteratee.name
 			if dimensions > 1:
 				conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry)'
+				if shallowmost_iteratee.name.startswith('LDKCVec_') or shallowmost_iteratee.name == 'LDKTransaction':
+					conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry, deallocate: deallocate)'
 				pointerTypeName = shallowmost_iteratee.name
 				subdimension_prefix = ''
 				subdimension_suffix = '.cOpaqueStruct!'

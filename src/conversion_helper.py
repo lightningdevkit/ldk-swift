@@ -334,7 +334,7 @@ class ConversionHelper:
 		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type_string.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
 			return_suffix = ')'
-			if rust_return_type.startswith('LDKCVec_') and is_raw_property_getter:
+			if (rust_return_type.startswith('LDKCVec_') or rust_return_type == 'LDKTransaction') and is_raw_property_getter:
 				return_suffix = ', deallocate: false)'
 		elif return_type.swift_raw_type.startswith('(UInt8'):
 			# TODO: get array length

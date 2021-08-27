@@ -343,7 +343,7 @@ class OptionGenerator:
 		if current_return_type.rust_obj is not None and current_return_type.rust_obj.startswith('LDK') and current_return_type.swift_type.startswith('['):
 			return_type_wrapper_prefix = f'Bindings.{current_return_type.rust_obj}_to_array(nativeType: '
 			return_type_wrapper_suffix = ')'
-			if current_return_type.rust_obj.startswith('LDKCVec_'):
+			if current_return_type.rust_obj.startswith('LDKCVec_') or current_return_type.rust_obj == 'LDKTransaction':
 				return_type_wrapper_suffix = ', deallocate: false)'
 			current_replacement = current_replacement.replace('return self.cOpaqueStruct!.varName', f'return {return_type_wrapper_prefix}self.cOpaqueStruct!.varName{return_type_wrapper_suffix}')
 		elif current_return_type.swift_raw_type.startswith('(UInt8'):

@@ -3,13 +3,12 @@ import re
 from src.generators.util_generators import UtilGenerator
 import src.conversion_helper
 
+
 class VectorGenerator(UtilGenerator):
 
 	def __init__(self) -> None:
 		super().__init__()
-		self.template_regex = re.compile(
-			"(\/\* VECTOR_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* VECTOR_METHODS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		self.template_regex = re.compile("(\/\* VECTOR_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* VECTOR_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		self.loadTemplate()
 		self.extractors = {}
 
@@ -68,7 +67,7 @@ class VectorGenerator(UtilGenerator):
 					pass
 				elif shallowmost_iteratee.primitive_swift_counterpart == 'UInt8':
 					pass
-				elif shallowmost_iteratee.type.name == 'BYTE_ARRAY': # BYTE_ARRAY, therefore not associated with a singular type
+				elif shallowmost_iteratee.type.name == 'BYTE_ARRAY':  # BYTE_ARRAY, therefore not associated with a singular type
 					pass
 				else:
 					cloneability_lookup = shallowmost_iteratee.name
@@ -110,7 +109,6 @@ class VectorGenerator(UtilGenerator):
 							}}
 						'''
 
-
 		mutating_current_vector_methods = self.template
 		for dim_delta in range(1, dimensions):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('[SwiftPrimitive]', '[[SwiftPrimitive]]')
@@ -126,10 +124,12 @@ class VectorGenerator(UtilGenerator):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('dataContainer.initialize(from: array,', 'dataContainer.initialize(from: lowerDimension,')
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('<SwiftPrimitive>', f'<{pointerTypeName}>')
 			if not shallowmost_iteratee_is_tuple_primitive:
-				mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitiveWrapper(pointer: vector)', 'LDKCVec_rust_primitiveWrapper(pointer: vector, subdimensionWrapper: subdimensionWrapper)')
+				mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitiveWrapper(pointer: vector)',
+																						  'LDKCVec_rust_primitiveWrapper(pointer: vector, subdimensionWrapper: subdimensionWrapper)')
 
 		if vector_name.startswith('LDKCVec_'):
-			mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive)', f'LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive, deallocate: Bool = true)')
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive)',
+																					  f'LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive, deallocate: Bool = true)')
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'''
 				if deallocate {{
 					nativeType.data.deallocate()
@@ -139,12 +139,10 @@ class VectorGenerator(UtilGenerator):
 
 		if not is_primitive and dimensions > 2 or is_primitive and dimensions > 3:
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_START */', '/* SWIFT_TO_RUST_START ')
-			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_END */', 'SWIFT_TO_RUST_END */')
-			# pass
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_END */', 'SWIFT_TO_RUST_END */')  # pass
 
-		mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive',
-																				  swift_primitive)
+		mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive', swift_primitive)
 
 		mutating_current_vector_methods += extraction_method
 
-		self.filled_template += "\n"+mutating_current_vector_methods+"\n"
+		self.filled_template += "\n" + mutating_current_vector_methods + "\n"

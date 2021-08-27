@@ -1,10 +1,7 @@
 import enum
-import os
 import re
 from src.config import Config
-from src import java_type_mapper
 from src import swift_constants
-from src import type_mapping_generator
 from src import swift_type_mapper
 import src.conversion_helper
 
@@ -56,7 +53,6 @@ class ComplexEnumVariantInfo:
 		self.tag_value = tag_value
 
 
-
 class LightningHeaderParser():
 
 	@classmethod
@@ -74,8 +70,8 @@ class LightningHeaderParser():
 		self.gather_types()
 		self.populate_type_details()
 
-		# sanity check of cloneable types
-		# print('\n\nCloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(self.cloneable_types)))), '\n\n')
+	# sanity check of cloneable types
+	# print('\n\nCloneable types:\n', '\n '.join(sorted(list(dict.fromkeys(self.cloneable_types)))), '\n\n')
 
 	def gather_types(self):
 		self.unitary_enums = set()
@@ -103,9 +99,9 @@ class LightningHeaderParser():
 				if reg_fn.group(2).endswith("_clone"):
 					self.clone_fns.add(reg_fn.group(2))
 				else:
-					java_c_type_arguments = {"tuple_types": self.tuple_types, # "var_is_arr_regex": var_is_arr_regex,
-						"java_c_types_none_allowed": java_c_types_none_allowed, # "var_ty_regex": var_ty_regex,
-						"unitary_enums": self.unitary_enums, "language_constants": self.language_constants}
+					java_c_type_arguments = {"tuple_types": self.tuple_types,  # "var_is_arr_regex": var_is_arr_regex,
+											 "java_c_types_none_allowed": java_c_types_none_allowed,  # "var_ty_regex": var_ty_regex,
+											 "unitary_enums": self.unitary_enums, "language_constants": self.language_constants}
 					# rty = java_type_mapper.java_c_types(reg_fn.group(1), None, **java_c_type_arguments)
 					rty = swift_type_mapper.map_types_to_swift(reg_fn.group(1), None, **java_c_type_arguments)
 					if rty is not None and not rty.is_native_primitive and reg_fn.group(2) == rty.swift_type + "_new":
@@ -190,7 +186,7 @@ class LightningHeaderParser():
 					iterated_type = None  # contains data field
 					obj_lines = current_block_object.splitlines()
 					is_opaque = False  # has is_owned property?
-					is_transparent = False # is a struct that needs custom getters
+					is_transparent = False  # is a struct that needs custom getters
 					result_contents = None  # is union of result pointers with contents fields
 					is_unitary_enum = False
 					is_union_enum = False
@@ -230,7 +226,7 @@ class LightningHeaderParser():
 							is_tuple = True
 						elif struct_name in ['LDKTxOut']:
 							is_opaque = True
-							is_transparent = True # oxymoronic, pending name refactor
+							is_transparent = True  # oxymoronic, pending name refactor
 						trait_fn_match = line_indicates_trait_regex.match(struct_line)
 						if trait_fn_match is not None:
 							trait_fn_lines.append(trait_fn_match)
@@ -244,8 +240,7 @@ class LightningHeaderParser():
 							if nullable_trait_fn_match:
 								ordered_interpreted_lines.append({"type": "nullable_lambda", "value": nullable_trait_fn_match})
 							elif struct_name_match is None and idx > 0 and idx < len(obj_lines) - 1:
-								ordered_uninterpreted_lines.append(struct_line)
-								# print(f'\nNullable trait property line: \n{struct_line}\n')
+								ordered_uninterpreted_lines.append(struct_line)  # print(f'\nNullable trait property line: \n{struct_line}\n')
 						if struct_line == 'bool is_owned;':
 							is_ownable = True
 						field_lines.append(struct_line)
@@ -308,13 +303,13 @@ class LightningHeaderParser():
 						self.tuple_types[struct_name] = (ty_list, struct_name)
 						# map_tuple(struct_name, field_lines)
 						pass
-					elif iterated_type is not None: # vec_ty is the iteratee
+					elif iterated_type is not None:  # vec_ty is the iteratee
 						# TODO: vector type (each one needs to be mapped)
 						self.vec_types.add(struct_name)
 						# vector_type_details = None
 						vector_type_details = TypeDetails()  # iterator type
 						vector_type_details.type = CTypes.VECTOR
-						vector_type_details.name = struct_name # this is the iterator
+						vector_type_details.name = struct_name  # this is the iterator
 
 						# if 'LDKTransaction' not in self.type_details:
 						if iterated_type in ['LDKSignature', 'LDKPublicKey']:
@@ -725,9 +720,9 @@ class LightningHeaderParser():
 				src.conversion_helper.cloneable_types.add(inferred_struct_name)
 
 		return {'struct_method': inferred_struct_name, 'associated_type_name': None if associated_type_name is None else {'native': 'LDK' + associated_type_name, 'swift': associated_type_name},
-			'is_free': is_free, 'is_constructor': is_constructor, 'is_clone': is_clone, 'takes_self': takes_self, 'name': {'native': method_name, 'swift': clean_method_name},
-			'arguments': method_arguments, 'argument_types': argument_types, 'return_value': method_return_type, 'return_type': return_type_info, 'belongs_to_struct': belongs_to_struct,
-			'belongs_to_tuple': belongs_to_tuple, 'is_independent': is_independent}
+				'is_free': is_free, 'is_constructor': is_constructor, 'is_clone': is_clone, 'takes_self': takes_self, 'name': {'native': method_name, 'swift': clean_method_name},
+				'arguments': method_arguments, 'argument_types': argument_types, 'return_value': method_return_type, 'return_type': return_type_info, 'belongs_to_struct': belongs_to_struct,
+				'belongs_to_tuple': belongs_to_tuple, 'is_independent': is_independent}
 
 	@staticmethod
 	def camel_to_snake(s):

@@ -151,10 +151,12 @@ class OptionGenerator:
 					getter_body = f'return {swift_tag_value}(pointer: self.cOpaqueStruct!.{current_option_details.var_name})'
 				else:
 					assert (len(current_option_details.fields) == 1)
-					return_body_details = self.prepare_return_body(current_option_details.fields[0])
+					current_return_field = current_option_details.fields[0]
+					current_var_name = current_return_field.var_name
+					return_body_details = self.prepare_return_body(current_return_field)
 					return_type = return_body_details['return_type']
 					getter_body = return_body_details['body']
-					# print('Tuple variant:', struct_name, swift_struct_name, swift_tag_value)
+				# print('Tuple variant:', struct_name, swift_struct_name, swift_tag_value)
 
 				enum_value_types.append(swift_tag_value)
 				enum_switch_cases += f'\n\t\t\t\t\tcase {native_tag_value}:\n\t\t\t\t\t\treturn .{swift_tag_value}'
@@ -209,19 +211,15 @@ class OptionGenerator:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
 					force_pass_instance = True
 
-
-
 			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
 			current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments)',
-										f'return {value_return_wrappers["prefix"]}OptionType_methodName(native_arguments){value_return_wrappers["suffix"]}')
-
+															  f'return {value_return_wrappers["prefix"]}OptionType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 
 			# if is_clone_method:
 			# 	current_replacement = current_replacement.replace('OptionType_methodName(', f'{swift_struct_name}(pointer: {current_native_method_name}(')
 			# else:
 			# 	current_replacement = current_replacement.replace('OptionType_methodName(', f'{current_native_method_name}(')
 			# replace arguments
-
 
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
@@ -231,7 +229,9 @@ class OptionGenerator:
 				print(f'/// {cloneability_warning}: {current_native_method_name}')
 
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
-			current_replacement = current_replacement.replace('OptionType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'OptionType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
+			current_replacement = current_replacement.replace('OptionType_methodName(native_arguments)',
+															  prepared_arguments['native_call_prefix'] + 'OptionType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' +
+															  prepared_arguments['native_call_suffix'])
 			current_replacement = current_replacement.replace('OptionType_methodName(', f'{current_native_method_name}(')
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
 			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
@@ -306,9 +306,9 @@ class OptionGenerator:
 
 		value_getters = ''
 		for current_field in class_details.fields:
-			return_body_details = self.prepare_return_body(current_field)
 			var_name: str = current_field.var_name
 			swift_var_name = var_name[0].upper() + var_name[1:]
+			return_body_details = self.prepare_return_body(current_field)
 			return_body = return_body_details['body']
 			if class_name == 'SegWitProgram' and var_name == 'version':
 				return_body += '._0'  # one-time LDKu5 exception
@@ -331,62 +331,9 @@ class OptionGenerator:
 
 	def prepare_return_body(self, type_details):
 		current_return_type = type_details
-		current_swift_return_type = current_return_type.swift_type
-		# current_rust_return_type = current_method_details['return_type'].rust_obj
+		value_return_wrappers = ConversionHelper.prepare_return_value(current_return_type, is_clone_method=False, is_raw_property_getter=True)
 
-		# if current_rust_return_type in all_type_details and all_type_details[current_rust_return_type].type.name == 'UNITARY_ENUM':
-		# 	current_return_type = current_rust_return_type
-
-		current_replacement = 'return self.cOpaqueStruct!.varName'
-		is_clone_method = False
-
-		if current_return_type.rust_obj is not None and current_return_type.rust_obj.startswith('LDK') and current_return_type.swift_type.startswith('['):
-			return_type_wrapper_prefix = f'Bindings.{current_return_type.rust_obj}_to_array(nativeType: '
-			return_type_wrapper_suffix = ')'
-			if current_return_type.rust_obj.startswith('LDKCVec_') or current_return_type.rust_obj == 'LDKTransaction':
-				return_type_wrapper_suffix = ', deallocate: false)'
-			current_replacement = current_replacement.replace('return self.cOpaqueStruct!.varName', f'return {return_type_wrapper_prefix}self.cOpaqueStruct!.varName{return_type_wrapper_suffix}')
-		elif current_return_type.swift_raw_type.startswith('(UInt8'):
-			# TODO: get array length
-			array_length = current_return_type.arr_len
-			return_type_wrapper_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
-			return_type_wrapper_suffix = ')'
-			current_replacement = current_replacement.replace('return self.cOpaqueStruct!.varName', f'return {return_type_wrapper_prefix}self.cOpaqueStruct!.varName{return_type_wrapper_suffix}')
-		elif current_return_type.rust_obj == 'LDK' + current_return_type.swift_type and not is_clone_method:
-			return_type_wrapper_prefix = f'{current_return_type.swift_type}(pointer: '
-			return_type_wrapper_suffix = ')'
-			if current_return_type.is_const:
-				return_type_wrapper_suffix = '.pointee)'
-			current_replacement = current_replacement.replace('return self.cOpaqueStruct!.varName', f'return {return_type_wrapper_prefix}self.cOpaqueStruct!.varName{return_type_wrapper_suffix}')
-		elif current_return_type.rust_obj == 'LDKC' + current_return_type.swift_type and not is_clone_method:
-			return_type_wrapper_prefix = f'{current_return_type.swift_type}(pointer: '
-			# return_type_wrapper_suffix = '.pointee)'
-			return_type_wrapper_suffix = ')'
-			current_replacement = current_replacement.replace('return self.cOpaqueStruct!.varName', f'return {return_type_wrapper_prefix}self.cOpaqueStruct!.varName{return_type_wrapper_suffix}')
-		elif current_return_type.swift_type == 'String':
-			current_replacement = current_replacement.replace('return self.cOpaqueStruct!.varName', 'return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.varName)')
-
-		if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
-			current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', 'self.cOpaqueStruct!.varName.pointee')
-		elif current_return_type.rust_obj is None and current_return_type.swift_type == 'UInt8':
-			# current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', 'self.cOpaqueStruct!.varName._0')
-			pass
-
-		if current_return_type.rust_obj is None and current_return_type.swift_type.startswith('['):
-			# current_swift_return_type = current_return_type.swift_raw_type
-			pass
-
-		# if current_swift_return_type == '[TransactionOutputs]':
-		# 	current_swift_return_type = '[LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]'
-		# elif current_swift_return_type == '[Txid]':
-		# 	current_swift_return_type = '[LDKThirtyTwoBytes]'
-
-		if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(current_swift_return_type):
-			prefix = 'LDK'
-			if current_return_type.rust_obj.startswith('LDKCVec_CResult'):
-				print(current_return_type.rust_obj)
-				prefix = 'LDKC'
-			current_swift_return_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[' + prefix, current_swift_return_type)
-
+		current_swift_return_type = value_return_wrappers['swift_type']
+		current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]
 		current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', f'self.cOpaqueStruct!.{type_details.var_name}')
 		return {"return_type": current_swift_return_type, "body": current_replacement}

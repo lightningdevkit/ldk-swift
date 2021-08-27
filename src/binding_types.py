@@ -1,6 +1,7 @@
 class TypeInfo:
-	def __init__(self, is_native_primitive, rust_obj, swift_type, c_ty, is_const, passed_as_ptr, is_ptr, var_name,
-				 arr_len, arr_access, subty=None, swift_raw_type=None, non_nullable = False, is_unary_tuple = False):
+	def __init__(self, is_native_primitive, rust_obj, swift_type, c_ty, is_const, passed_as_ptr, is_ptr, var_name, arr_len, arr_access, subty=None, swift_raw_type=None, non_nullable=False,
+				 is_unary_tuple=False
+				 ):
 		self.is_native_primitive = is_native_primitive
 		self.rust_obj = rust_obj
 		# self.java_ty = java_ty
@@ -49,8 +50,7 @@ class TypeInfo:
 
 
 class ConvInfo:
-	def __init__(self, ty_info, arg_name, arg_conv, arg_conv_name, arg_conv_cleanup, ret_conv, ret_conv_name,
-				 to_hu_conv, to_hu_conv_name, from_hu_conv):
+	def __init__(self, ty_info, arg_name, arg_conv, arg_conv_name, arg_conv_cleanup, ret_conv, ret_conv_name, to_hu_conv, to_hu_conv_name, from_hu_conv):
 		assert (ty_info.c_ty is not None)
 		assert (ty_info.java_ty is not None)
 		assert (arg_name is not None)

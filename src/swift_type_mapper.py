@@ -6,7 +6,7 @@ var_ty_regex = TypeParsingRegeces.VARIABLE_TYPE_REGEX
 
 
 def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_types, unitary_enums, language_constants):
-	unaltered_function_argument = fn_arg # if necessary
+	unaltered_function_argument = fn_arg  # if necessary
 	fn_arg = fn_arg.strip()
 	non_nullable = False
 	if fn_arg.startswith("MUST_USE_RES "):
@@ -127,25 +127,18 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 			new_arg = "LDK" + tyn[0][:-1]
 		for a in tyn[1:]:
 			new_arg = new_arg + " " + a
-		res = map_types_to_swift(new_arg, ret_arr_len, java_c_types_none_allowed, tuple_types, unitary_enums,
-								 language_constants)
+		res = map_types_to_swift(new_arg, ret_arr_len, java_c_types_none_allowed, tuple_types, unitary_enums, language_constants)
 		if res is None:
 			assert java_c_types_none_allowed
 			return None
 		if is_ptr:
 			res.pass_by_ref = True
 		if res.is_native_primitive or res.passed_as_ptr:
-			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]',
-							c_ty=res.c_ty + "Array", passed_as_ptr=False,
-							is_ptr=is_ptr, is_const=is_const,
-							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
-							is_native_primitive=False, non_nullable=non_nullable)
+			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]', c_ty=res.c_ty + "Array", passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const, var_name=res.var_name,
+							arr_len="datalen", arr_access="data", subty=res, is_native_primitive=False, non_nullable=non_nullable)
 		else:
-			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]',
-							c_ty=language_constants.ptr_arr,
-							passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const,
-							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res,
-							is_native_primitive=False, non_nullable=non_nullable)
+			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]', c_ty=language_constants.ptr_arr, passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const,
+							var_name=res.var_name, arr_len="datalen", arr_access="data", subty=res, is_native_primitive=False, non_nullable=non_nullable)
 
 	is_primitive = False
 	arr_len = None
@@ -307,15 +300,12 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 				array_size = int(var_is_arr.group(2))
 				swift_raw_type = f'({",".join([mapped_type] * array_size)})'
 			if var_is_arr.group(1) == "":
-				return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const,
-								passed_as_ptr=False, is_ptr=False, var_name="arg", arr_len=var_is_arr.group(2),
+				return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const, passed_as_ptr=False, is_ptr=False, var_name="arg", arr_len=var_is_arr.group(2),
 								arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type, non_nullable=non_nullable, is_unary_tuple=is_unary_tuple)
-			return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const,
-							passed_as_ptr=False, is_ptr=False, var_name=var_is_arr.group(1),
-							arr_len=var_is_arr.group(2), arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type, non_nullable=non_nullable, is_unary_tuple=is_unary_tuple)
+			return TypeInfo(rust_obj=rust_obj, swift_type=java_ty, c_ty=c_ty, is_const=is_const, passed_as_ptr=False, is_ptr=False, var_name=var_is_arr.group(1), arr_len=var_is_arr.group(2),
+							arr_access=arr_access, is_native_primitive=False, swift_raw_type=swift_raw_type, non_nullable=non_nullable, is_unary_tuple=is_unary_tuple)
 
 	if swift_type is None:
 		swift_type = java_ty
-	return TypeInfo(rust_obj=rust_obj, swift_type=swift_type, c_ty=c_ty, passed_as_ptr=is_ptr or take_by_ptr,
-					is_const=is_const, is_ptr=is_ptr, var_name=fn_arg, arr_len=arr_len, arr_access=arr_access,
+	return TypeInfo(rust_obj=rust_obj, swift_type=swift_type, c_ty=c_ty, passed_as_ptr=is_ptr or take_by_ptr, is_const=is_const, is_ptr=is_ptr, var_name=fn_arg, arr_len=arr_len, arr_access=arr_access,
 					is_native_primitive=is_primitive, swift_raw_type=swift_raw_type, non_nullable=non_nullable, is_unary_tuple=is_unary_tuple)

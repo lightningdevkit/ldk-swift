@@ -23,19 +23,13 @@ class TraitGenerator:
 		# swift_struct_name = struct_name[3:] + 'Trait'
 		swift_struct_name = struct_name[3:]
 
-		native_callback_template_regex = re.compile(
-			"(\/\* NATIVE_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* NATIVE_CALLBACKS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		native_callback_template_regex = re.compile("(\/\* NATIVE_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* NATIVE_CALLBACKS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		native_callback_template = native_callback_template_regex.search(self.template).group(2)
 
-		swift_callback_template_regex = re.compile(
-			"(\/\* SWIFT_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* SWIFT_CALLBACKS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		swift_callback_template_regex = re.compile("(\/\* SWIFT_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* SWIFT_CALLBACKS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		swift_callback_template = swift_callback_template_regex.search(self.template).group(2)
 
-		natively_implemented_callback_template_regex = re.compile(
-			"(\/\* SWIFT_DEFAULT_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* SWIFT_DEFAULT_CALLBACKS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		natively_implemented_callback_template_regex = re.compile("(\/\* SWIFT_DEFAULT_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* SWIFT_DEFAULT_CALLBACKS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		natively_implemented_callback_template = natively_implemented_callback_template_regex.search(self.template).group(2)
 
 		method_prefix = swift_struct_name + '_'
@@ -62,8 +56,7 @@ class TraitGenerator:
 			if is_clone_method:
 				has_clone_implementation = True
 			if is_free_method:
-				visibility_prefix = 'internal '
-				# has_free_implementation = True
+				visibility_prefix = 'internal '  # has_free_implementation = True
 
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:
@@ -71,7 +64,8 @@ class TraitGenerator:
 					force_pass_instance = True
 
 			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method=current_method_details['is_free'])
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance,
+																					is_free_method=current_method_details['is_free'])
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
@@ -126,7 +120,6 @@ class TraitGenerator:
 			current_lambda_name = current_lambda['name']
 			is_clone = current_lambda_name == 'clone'
 
-
 			if not current_lambda['is_lambda']:
 				current_field_details = current_lambda['field_details']
 				current_rust_type = current_field_details.rust_obj
@@ -139,8 +132,7 @@ class TraitGenerator:
 				continue
 
 			current_swift_callback_replacement = swift_callback_template
-			current_swift_callback_replacement = current_swift_callback_replacement.replace('func methodName(',
-																							f'func {current_lambda_name}(')
+			current_swift_callback_replacement = current_swift_callback_replacement.replace('func methodName(', f'func {current_lambda_name}(')
 
 			instantiation_arguments.append(f'{current_lambda_name}: {current_lambda_name}Callback')
 
@@ -151,7 +143,6 @@ class TraitGenerator:
 			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_return_type):
 				swift_return_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_return_type)
 				swift_raw_return_type = swift_return_type
-
 
 			array_wrapper = None
 			return_conversion_prefix = ''
@@ -172,14 +163,10 @@ class TraitGenerator:
 					return_conversion_prefix = f'Bindings.new_{current_rust_type}(array: '
 				return_conversion_suffix = ')'
 			elif swift_raw_return_type.startswith('LDK') and swift_return_type.startswith('['):
-				array_wrapper = f'Bindings.new_{swift_raw_return_type}Wrapper'
-				# return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '
-				# return_conversion_suffix = '.cOpaqueStruct!'
+				array_wrapper = f'Bindings.new_{swift_raw_return_type}Wrapper'  # return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '  # return_conversion_suffix = '.cOpaqueStruct!'
 			elif current_return_type_details.rust_obj is not None and current_return_type_details.rust_obj.startswith('LDK') and swift_raw_return_type.startswith('['):
 				swift_raw_return_type = current_return_type_details.rust_obj
-				array_wrapper = f'Bindings.new_{swift_raw_return_type}Wrapper'
-				# return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '
-				# return_conversion_suffix = ').cOpaqueStruct!'
+				array_wrapper = f'Bindings.new_{swift_raw_return_type}Wrapper'  # return_conversion_prefix = f'Bindings.new_{swift_raw_return_type}Wrapper(array: '  # return_conversion_suffix = ').cOpaqueStruct!'
 			elif current_return_type_details.pass_by_ref and current_lambda_name == 'clone':
 				swift_raw_return_type = 'UnsafeMutableRawPointer'
 				swift_return_type = swift_raw_return_type
@@ -207,17 +194,14 @@ class TraitGenerator:
 					swift_default_return = ''
 					is_default_return_error = True
 				else:
-					swift_default_return = f'return {swift_return_type}()'
-				# swift_default_return = f'return {swift_return_type}(pointer: {current_return_type_details.rust_obj}())'
+					swift_default_return = f'return {swift_return_type}()'  # swift_default_return = f'return {swift_return_type}(pointer: {current_return_type_details.rust_obj}())'
 
 			swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} should be overridden!", severity: .WARNING)\n\n{swift_default_return}'
 			if is_default_return_error:
 				swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} MUST be overridden!", severity: .ERROR)\n\nabort()'
 
-
 			current_native_callback_replacement = native_callback_template
-			current_native_callback_replacement = current_native_callback_replacement.replace(
-				'func methodNameCallback(', f'func {current_lambda_name}Callback(')
+			current_native_callback_replacement = current_native_callback_replacement.replace('func methodNameCallback(', f'func {current_lambda_name}Callback(')
 
 			if array_wrapper is not None:
 				array_wrapper_dangle_infix = ''
@@ -231,7 +215,6 @@ class TraitGenerator:
 					return returnWrapper{array_wrapper_dangle_infix}.cOpaqueStruct!
 				''')
 
-
 			current_native_callback_replacement = current_native_callback_replacement.replace('instance: TraitName',
 
 																							  f'instance: {swift_struct_name}')
@@ -241,14 +224,11 @@ class TraitGenerator:
 					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
 					return clonePointer
 				''')
-			current_native_callback_replacement = current_native_callback_replacement.replace(
-				'instance.callbackName(swift_callback_arguments)',
-				f'{return_conversion_prefix}instance.callbackName(swift_callback_arguments){return_conversion_suffix}')
-			current_native_callback_replacement = current_native_callback_replacement.replace('instance.callbackName(',
-																							  f'instance.{current_lambda_name}(')
+			current_native_callback_replacement = current_native_callback_replacement.replace('instance.callbackName(swift_callback_arguments)',
+																							  f'{return_conversion_prefix}instance.callbackName(swift_callback_arguments){return_conversion_suffix}')
+			current_native_callback_replacement = current_native_callback_replacement.replace('instance.callbackName(', f'instance.{current_lambda_name}(')
 
-			current_native_callback_replacement = current_native_callback_replacement.replace(') -> Void {',
-																							  f') -> {swift_raw_return_type} {{')
+			current_native_callback_replacement = current_native_callback_replacement.replace(') -> Void {', f') -> {swift_raw_return_type} {{')
 
 			# let's get the current native arguments, i. e. the arguments we get from C into the native callback
 			swift_argument_string = ''
@@ -261,9 +241,6 @@ class TraitGenerator:
 				# add leading comma
 				swift_argument_string = ', '.join(native_arguments)
 				native_arguments.insert(0, '')
-
-
-
 
 			# let's create a native default implementation
 			default_callback_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], True)
@@ -291,23 +268,16 @@ class TraitGenerator:
 				{default_callback_prepared_arguments['native_call_suffix']}
 			''')
 
-
 			native_argument_string = ', '.join(native_arguments)
 
-			current_native_callback_replacement = current_native_callback_replacement.replace(', native_arguments',
-																							  native_argument_string)
-			current_native_callback_replacement = current_native_callback_replacement.replace(
-				'swift_callback_arguments', ', '.join(swift_callback_arguments))
+			current_native_callback_replacement = current_native_callback_replacement.replace(', native_arguments', native_argument_string)
+			current_native_callback_replacement = current_native_callback_replacement.replace('swift_callback_arguments', ', '.join(swift_callback_arguments))
 			current_native_callback_replacement = current_native_callback_replacement.replace('/* SWIFT_CALLBACK_PREP */', swift_callback_prep)
 			current_native_callback_replacement = current_native_callback_replacement.replace('<sourceMarker>', f'"{swift_struct_name}.swift::{current_lambda_name}"')
 
-
-			current_swift_callback_replacement = current_swift_callback_replacement.replace('public_swift_argument_list',
-																							public_swift_argument_list)
-			current_swift_callback_replacement = current_swift_callback_replacement.replace('-> Void {',
-																							f'-> {swift_return_type} {{')
-			current_swift_callback_replacement = current_swift_callback_replacement.replace('/* EDIT ME */',
-																							f'/* EDIT ME */\n\t\t{swift_default_return}')
+			current_swift_callback_replacement = current_swift_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)
+			current_swift_callback_replacement = current_swift_callback_replacement.replace('-> Void {', f'-> {swift_return_type} {{')
+			current_swift_callback_replacement = current_swift_callback_replacement.replace('/* EDIT ME */', f'/* EDIT ME */\n\t\t{swift_default_return}')
 
 			if current_lambda_name == 'free' or current_lambda_name == 'clone':
 				if current_lambda_name == 'free' and has_free_implementation:
@@ -319,32 +289,21 @@ class TraitGenerator:
 					# print('has editable clone or free implementation')
 					pass
 
-
 			if not current_lambda['is_constant']:
-				current_native_callback_replacement = current_native_callback_replacement.replace(
-					'(pointer: UnsafeRawPointer?', '(pointer: UnsafeMutableRawPointer?')
+				current_native_callback_replacement = current_native_callback_replacement.replace('(pointer: UnsafeRawPointer?', '(pointer: UnsafeMutableRawPointer?')
 
 			native_callbacks += '\n' + current_native_callback_replacement + '\n'
 			swift_callbacks += '\n' + current_swift_callback_replacement + '\n'
 
-			if not is_clone: # TODO: add support for natively implemented cloning
+			if not is_clone:  # TODO: add support for natively implemented cloning
 				default_callbacks += '\n' + current_default_callback_replacement + '\n'
-
-
-
-
-
-
 
 		trait_file = self.template.replace('class TraitName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		trait_file = trait_file.replace('class NativelyImplementedTraitName: TraitName {', f'class NativelyImplemented{swift_struct_name}: {swift_struct_name} {{')
 		trait_file = trait_file.replace('init(pointer: TraitType', f'init(pointer: {struct_name}')
-		trait_file = trait_file.replace('var cOpaqueStruct: TraitType?',
-										f'var cOpaqueStruct: {struct_name}?')
-		trait_file = trait_file.replace('self.cOpaqueStruct = TraitType(',
-										f'self.cOpaqueStruct = {struct_name}(')
-		trait_file = trait_file.replace('native_callback_instantiation_arguments',
-										'\n\t\t\t'+',\n\t\t\t'.join(instantiation_arguments))
+		trait_file = trait_file.replace('var cOpaqueStruct: TraitType?', f'var cOpaqueStruct: {struct_name}?')
+		trait_file = trait_file.replace('self.cOpaqueStruct = TraitType(', f'self.cOpaqueStruct = {struct_name}(')
+		trait_file = trait_file.replace('native_callback_instantiation_arguments', '\n\t\t\t' + ',\n\t\t\t'.join(instantiation_arguments))
 		trait_file = native_callback_template_regex.sub(f'\g<1>{native_callbacks}\g<3>', trait_file)
 		trait_file = swift_callback_template_regex.sub(f'\g<1>{swift_callbacks}\g<3>', trait_file)
 		trait_file = natively_implemented_callback_template_regex.sub(f'\g<1>{default_callbacks}\g<3>', trait_file)

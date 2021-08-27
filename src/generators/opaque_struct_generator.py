@@ -66,7 +66,6 @@ class OpaqueStructGenerator:
 		if struct_details.free_method is not None:
 			method_iterator.append(struct_details.free_method)
 
-
 		# fill templates
 		for current_method_details in method_iterator:
 			current_native_method_name = current_method_details['name']['native']
@@ -118,7 +117,6 @@ class OpaqueStructGenerator:
 					cloneability_types.append(f'{current_method_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
 				cloneability_type_message = '; '.join(cloneability_types)
 				print(f'/// {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
-
 
 			current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}OpaqueStructType_methodName(native_arguments){value_return_wrappers["suffix"]}')

@@ -8,9 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var experiment = PolarConnectionExperiment()
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        if !self.experiment.isMonitoring {
+            Button("Monitor Chain") {
+                self.experiment.startMonitoring()
+            }.padding()
+        } else {
+            VStack {
+                Text("Monitoring…").padding()
+                if !self.experiment.hasCaughtUpToChainTip {
+                    Text("Complete Sync").padding()
+                } else if !self.experiment.hasCompletedChainSync {
+                    Button("Complete Sync") {
+                        self.experiment.completeChainSync()
+                    }.padding()
+                } else {
+                    
+                    Text("Sync Complete").padding()
+                    
+                    if !self.experiment.isConnectedToAlice {
+                        Button("Connect to Alice") {
+                            self.experiment.connectToAlice()
+                        }.padding()
+                    } else {
+                        Text("Connected to Alice").padding()
+                        
+                        if !self.experiment.isChannelWithAliceOpen {
+                            Button("Open Channel w/ Alice") {
+                                self.experiment.openChannelWithAlice()
+                            }.padding()
+                        } else {
+                            Text("Channel w/ Alice Open")
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

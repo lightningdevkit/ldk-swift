@@ -7,9 +7,7 @@ class ByteArrayGenerator(UtilGenerator):
 
 	def __init__(self) -> None:
 		super().__init__()
-		self.template_regex = re.compile(
-			"(\/\* BYTE_ARRAY_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* BYTE_ARRAY_METHODS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		self.template_regex = re.compile("(\/\* BYTE_ARRAY_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* BYTE_ARRAY_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		self.loadTemplate()
 		self.raw_tuple_generators = {}
 
@@ -19,12 +17,9 @@ class ByteArrayGenerator(UtilGenerator):
 		array_length = byte_array_field.arr_len
 		mutating_current_byte_array_methods = self.template
 
-		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('LDKByteType',
-																						  byte_array_type_name)
-		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('fieldName:',
-																						  f'{byte_array_field.var_name}:')
-		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('.fieldName.deallocate()',
-																						  f'.{byte_array_field.var_name}.deallocate()')
+		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('LDKByteType', byte_array_type_name)
+		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('fieldName:', f'{byte_array_field.var_name}:')
+		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('.fieldName.deallocate()', f'.{byte_array_field.var_name}.deallocate()')
 
 		tupleArguments = 'array[0]'
 		tupleReads = f'nativeType.{byte_array_field.var_name}.0'
@@ -43,10 +38,8 @@ class ByteArrayGenerator(UtilGenerator):
 			mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('(tupleArguments)', 'tupleArguments')
 			mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('[tupleReads]', 'tupleReads')
 
-		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleArguments',
-																						  tupleArguments)
-		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleReads',
-																						  tupleReads)
+		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleArguments', tupleArguments)
+		mutating_current_byte_array_methods = mutating_current_byte_array_methods.replace('tupleReads', tupleReads)
 		self.filled_template += "\n" + mutating_current_byte_array_methods + "\n"
 
 		if not array_length in self.raw_tuple_generators and not byte_array_type_details.is_unary_tuple:
@@ -89,5 +82,3 @@ class ByteArrayGenerator(UtilGenerator):
 		"""
 
 		self.filled_template += current_generator + "\n"
-
-

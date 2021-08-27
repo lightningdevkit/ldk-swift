@@ -5,6 +5,7 @@ from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
 from src.conversion_helper import ConversionHelper
 
+
 # Tuples have only new, optionally clone, and free methods
 class TupleGenerator:
 
@@ -15,7 +16,7 @@ class TupleGenerator:
 			template = template_handle.read()
 			self.template = template
 
-	def generate_tuple(self, struct_name, struct_details, all_type_details = {}):
+	def generate_tuple(self, struct_name, struct_details, all_type_details={}):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
@@ -23,12 +24,9 @@ class TupleGenerator:
 
 		mutating_output_file_contents = self.template
 
-
 		# REGULAR METHODS START
 
-		method_template_regex = re.compile(
-			"(\/\* TUPLE_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* TUPLE_METHODS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		method_template_regex = re.compile("(\/\* TUPLE_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* TUPLE_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		method_template = method_template_regex.search(mutating_output_file_contents).group(2)
 
 		method_prefix = swift_tuple_name + '_'
@@ -64,16 +62,17 @@ class TupleGenerator:
 				if current_method_details['argument_types'][0].swift_type == swift_tuple_name:
 					force_pass_instance = True
 
-			if current_method_details['return_type'].rust_obj is not None and current_method_details['return_type'].rust_obj.startswith('LDK') and current_method_details['return_type'].swift_type.startswith('['):
+			if current_method_details['return_type'].rust_obj is not None and current_method_details['return_type'].rust_obj.startswith('LDK') and current_method_details[
+				'return_type'].swift_type.startswith('['):
 				return_type_wrapper_prefix = f'Bindings.{current_method_details["return_type"].rust_obj}_to_array(nativeType: '
 				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)', f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
+				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)',
+																  f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
 			elif current_method_details['return_type'].rust_obj == 'LDK' + current_method_details['return_type'].swift_type:
 				return_type_wrapper_prefix = f'{current_method_details["return_type"].swift_type}(pointer: '
 				return_type_wrapper_suffix = ')'
-				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)', f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
-
-
+				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)',
+																  f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
 
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], force_pass_instance=force_pass_instance, is_free_method=is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
@@ -83,9 +82,10 @@ class TupleGenerator:
 				print(f'/// {cloneability_warning}: {current_native_method_name}')
 
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
-			current_replacement = current_replacement.replace('TupleType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'TupleType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
-			current_replacement = current_replacement.replace('TupleType_methodName(',
-															  f'{current_native_method_name}(')
+			current_replacement = current_replacement.replace('TupleType_methodName(native_arguments)',
+															  prepared_arguments['native_call_prefix'] + 'TupleType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' +
+															  prepared_arguments['native_call_suffix'])
+			current_replacement = current_replacement.replace('TupleType_methodName(', f'{current_native_method_name}(')
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
 			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
@@ -120,17 +120,10 @@ class TupleGenerator:
 
 			struct_methods += '\n' + current_replacement + '\n'
 
-
-
-		mutating_output_file_contents = mutating_output_file_contents.replace('class TupleName: NativeTypeWrapper',
-																			  f'class {swift_tuple_name}: NativeTypeWrapper')
-		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: TupleType',
-																			  f'init(pointer: {struct_name}')
-		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: TupleType?',
-																			  f'var cOpaqueStruct: {struct_name}?')
-		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>',
-																  mutating_output_file_contents)
-
+		mutating_output_file_contents = mutating_output_file_contents.replace('class TupleName: NativeTypeWrapper', f'class {swift_tuple_name}: NativeTypeWrapper')
+		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: TupleType', f'init(pointer: {struct_name}')
+		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: TupleType?', f'var cOpaqueStruct: {struct_name}?')
+		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)
 
 		# store the output
 		output_path = f'{Config.OUTPUT_DIRECTORY_PATH}/tuples/{swift_tuple_name}.swift'

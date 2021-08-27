@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074A2DC426D957BC00370D0B /* RegtestBlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserver.swift */; };
+		074A2DCD26D970D500370D0B /* RegtestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074A2DCB26D970D400370D0B /* RegtestBroadcasterInterface.swift */; };
+		074A2DCE26D970D500370D0B /* RegtestChannelManagerPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074A2DCC26D970D500370D0B /* RegtestChannelManagerPersister.swift */; };
 		07BBC76A26D02727000D96C4 /* DirectBindingsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBC76926D02727000D96C4 /* DirectBindingsAppApp.swift */; };
 		07BBC76C26D02727000D96C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBC76B26D02727000D96C4 /* ContentView.swift */; };
 		07BBC76E26D0272D000D96C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07BBC76D26D0272D000D96C4 /* Assets.xcassets */; };
@@ -556,6 +559,9 @@
 		07BBCE7726D03B49000D96C4 /* TestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */; };
 		07C753E026D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
 		07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
+		07C753E926D954B200081BF8 /* PolarConnectionExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */; };
+		07C753EA26D954B300081BF8 /* PolarConnectionExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */; };
+		07C753F326D9560200081BF8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 07C753F226D9560200081BF8 /* PromiseKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -576,6 +582,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		074A2DCB26D970D400370D0B /* RegtestBroadcasterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegtestBroadcasterInterface.swift; sourceTree = "<group>"; };
+		074A2DCC26D970D500370D0B /* RegtestChannelManagerPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegtestChannelManagerPersister.swift; sourceTree = "<group>"; };
 		07BBC76626D02727000D96C4 /* DirectBindingsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DirectBindingsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BBC76926D02727000D96C4 /* DirectBindingsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectBindingsAppApp.swift; sourceTree = "<group>"; };
 		07BBC76B26D02727000D96C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -870,6 +878,7 @@
 		07BBCE6626D03B49000D96C4 /* TestFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestFilter.swift; sourceTree = "<group>"; };
 		07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBroadcasterInterface.swift; sourceTree = "<group>"; };
 		07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanObjectPeerTestInstance.swift; sourceTree = "<group>"; };
+		07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionExperiment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -878,6 +887,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07BBCB1926D034B7000D96C4 /* libldk.a in Frameworks */,
+				07C753F326D9560200081BF8 /* PromiseKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -925,6 +935,7 @@
 				07BBCAF826D02985000D96C4 /* c-files */,
 				07BBC76926D02727000D96C4 /* DirectBindingsAppApp.swift */,
 				07BBC76B26D02727000D96C4 /* ContentView.swift */,
+				07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */,
 				07BBCB2626D0369F000D96C4 /* app-batteries */,
 				07BBCB3326D036AC000D96C4 /* batteries */,
 				07BBCB4026D036B9000D96C4 /* LDK */,
@@ -989,6 +1000,8 @@
 		07BBCB2626D0369F000D96C4 /* app-batteries */ = {
 			isa = PBXGroup;
 			children = (
+				074A2DCB26D970D400370D0B /* RegtestBroadcasterInterface.swift */,
+				074A2DCC26D970D500370D0B /* RegtestChannelManagerPersister.swift */,
 				07BBCB2726D0369F000D96C4 /* SwiftSocketPeerHandler.swift */,
 				07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserver.swift */,
 				07BBCB2926D0369F000D96C4 /* SwiftSocketEchoHandler.swift */,
@@ -1344,6 +1357,9 @@
 			dependencies = (
 			);
 			name = DirectBindingsApp;
+			packageProductDependencies = (
+				07C753F226D9560200081BF8 /* PromiseKit */,
+			);
 			productName = DirectBindingsApp;
 			productReference = 07BBC76626D02727000D96C4 /* DirectBindingsApp.app */;
 			productType = "com.apple.product-type.application";
@@ -1417,6 +1433,9 @@
 				Base,
 			);
 			mainGroup = 07BBC75D26D02727000D96C4;
+			packageReferences = (
+				07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit" */,
+			);
 			productRefGroup = 07BBC76726D02727000D96C4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1474,7 +1493,9 @@
 				07BBCD6026D036BB000D96C4 /* Result_NodeAnnouncementInfoDecodeErrorZ.swift in Sources */,
 				07C753E026D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */,
 				07BBCC8026D036BA000D96C4 /* Listen.swift in Sources */,
+				074A2DCD26D970D500370D0B /* RegtestBroadcasterInterface.swift in Sources */,
 				07BBCD6426D036BB000D96C4 /* Result_ExpiryTimeCreationErrorZ.swift in Sources */,
+				074A2DC426D957BC00370D0B /* RegtestBlockchainObserver.swift in Sources */,
 				07BBCE3A26D036BB000D96C4 /* Init.swift in Sources */,
 				07BBCCF826D036BA000D96C4 /* Result_PublicKeyErrorZ.swift in Sources */,
 				07BBCDBC26D036BB000D96C4 /* KeysManager.swift in Sources */,
@@ -1558,6 +1579,7 @@
 				07BBCD3826D036BA000D96C4 /* Result_NoneErrorZ.swift in Sources */,
 				07BBCD5226D036BB000D96C4 /* Result_TxCreationKeysDecodeErrorZ.swift in Sources */,
 				07BBCC8A26D036BA000D96C4 /* Watch.swift in Sources */,
+				074A2DCE26D970D500370D0B /* RegtestChannelManagerPersister.swift in Sources */,
 				07BBCD3226D036BA000D96C4 /* Result_CVec_SignatureZNoneZ.swift in Sources */,
 				07BBCDA226D036BB000D96C4 /* NetGraphMsgHandler.swift in Sources */,
 				07BBCCBA26D036BA000D96C4 /* Result_CVec_u8ZPeerHandleErrorZ.swift in Sources */,
@@ -1584,6 +1606,7 @@
 				07BBCD1226D036BA000D96C4 /* Result_NoneSemanticErrorZ.swift in Sources */,
 				07BBCC7426D036BA000D96C4 /* MessageSendEventsProvider.swift in Sources */,
 				07BBCD9E26D036BB000D96C4 /* UpdateFulfillHTLC.swift in Sources */,
+				07C753E926D954B200081BF8 /* PolarConnectionExperiment.swift in Sources */,
 				07BBCCE626D036BA000D96C4 /* Result_RouteHopDecodeErrorZ.swift in Sources */,
 				07BBCDE226D036BB000D96C4 /* Pong.swift in Sources */,
 				07BBCDB826D036BB000D96C4 /* InvalidShutdownScript.swift in Sources */,
@@ -1891,6 +1914,7 @@
 				07BBCE4926D036BB000D96C4 /* OutPoint.swift in Sources */,
 				07BBCE0B26D036BB000D96C4 /* ClosingSigned.swift in Sources */,
 				07BBCC9526D036BA000D96C4 /* C2Tuple_BlockHashChannelManagerZ.swift in Sources */,
+				07C753EA26D954B300081BF8 /* PolarConnectionExperiment.swift in Sources */,
 				07BBCD2F26D036BA000D96C4 /* Result_NetAddressDecodeErrorZ.swift in Sources */,
 				07BBCDFB26D036BB000D96C4 /* PrivateRoute.swift in Sources */,
 				07BBCE0526D036BB000D96C4 /* ChannelHandshakeLimits.swift in Sources */,
@@ -2336,6 +2360,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.15.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		07C753F226D9560200081BF8 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 07BBC75E26D02727000D96C4 /* Project object */;
 }

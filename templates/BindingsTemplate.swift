@@ -296,14 +296,16 @@ public class Bindings {
 	/* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-	public class func LDKTransaction_to_array(nativeType: LDKTransaction) -> [UInt8] {
+	public class func LDKTransaction_to_array(nativeType: LDKTransaction, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		if deallocate {
+			nativeType.data.deallocate()
+		}
 		return array
 	}
 	/* RUST_TO_SWIFT_END */

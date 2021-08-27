@@ -46,14 +46,14 @@ public class SpendableOutputDescriptor: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_DelayedPaymentOutput {
 							return nil
 						}
-						return DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output)
+						return DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output).dangle()
 					}
 				
 					public func getValueAsStaticPaymentOutput() -> StaticPaymentOutputDescriptor? {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_StaticPaymentOutput {
 							return nil
 						}
-						return StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output)
+						return StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output).dangle()
 					}
 				
 			
@@ -138,11 +138,11 @@ SpendableOutputDescriptor_write(objPointer)
 				
 				
 					public func getOutpoint() -> OutPoint {
-						return OutPoint(pointer: self.cOpaqueStruct!.outpoint)
+						return OutPoint(pointer: self.cOpaqueStruct!.outpoint).dangle()
 					}
 				
 					public func getOutput() -> TxOut {
-						return TxOut(pointer: self.cOpaqueStruct!.output)
+						return TxOut(pointer: self.cOpaqueStruct!.output).dangle()
 					}
 				
 				

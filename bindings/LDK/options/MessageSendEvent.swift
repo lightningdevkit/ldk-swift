@@ -363,7 +363,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> AcceptChannel {
-						return AcceptChannel(pointer: self.cOpaqueStruct!.msg)
+						return AcceptChannel(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -385,7 +385,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> OpenChannel {
-						return OpenChannel(pointer: self.cOpaqueStruct!.msg)
+						return OpenChannel(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -407,7 +407,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> FundingCreated {
-						return FundingCreated(pointer: self.cOpaqueStruct!.msg)
+						return FundingCreated(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -429,7 +429,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> FundingSigned {
-						return FundingSigned(pointer: self.cOpaqueStruct!.msg)
+						return FundingSigned(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -451,7 +451,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> FundingLocked {
-						return FundingLocked(pointer: self.cOpaqueStruct!.msg)
+						return FundingLocked(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -473,7 +473,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> AnnouncementSignatures {
-						return AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg)
+						return AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -495,7 +495,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getUpdates() -> CommitmentUpdate {
-						return CommitmentUpdate(pointer: self.cOpaqueStruct!.updates)
+						return CommitmentUpdate(pointer: self.cOpaqueStruct!.updates).dangle()
 					}
 				
 				
@@ -517,7 +517,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> RevokeAndACK {
-						return RevokeAndACK(pointer: self.cOpaqueStruct!.msg)
+						return RevokeAndACK(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -539,7 +539,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ClosingSigned {
-						return ClosingSigned(pointer: self.cOpaqueStruct!.msg)
+						return ClosingSigned(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -561,7 +561,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Shutdown {
-						return Shutdown(pointer: self.cOpaqueStruct!.msg)
+						return Shutdown(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -583,7 +583,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ChannelReestablish {
-						return ChannelReestablish(pointer: self.cOpaqueStruct!.msg)
+						return ChannelReestablish(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -601,11 +601,11 @@ MessageSendEvent_clone(origPointer)
 				
 				
 					public func getMsg() -> ChannelAnnouncement {
-						return ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg)
+						return ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 					public func getUpdate_msg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg)
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg).dangle()
 					}
 				
 				
@@ -623,7 +623,7 @@ MessageSendEvent_clone(origPointer)
 				
 				
 					public func getMsg() -> NodeAnnouncement {
-						return NodeAnnouncement(pointer: self.cOpaqueStruct!.msg)
+						return NodeAnnouncement(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -641,7 +641,7 @@ MessageSendEvent_clone(origPointer)
 				
 				
 					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg)
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -663,7 +663,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg)
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -685,7 +685,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getAction() -> ErrorAction {
-						return ErrorAction(pointer: self.cOpaqueStruct!.action)
+						return ErrorAction(pointer: self.cOpaqueStruct!.action).dangle()
 					}
 				
 				
@@ -703,7 +703,7 @@ MessageSendEvent_clone(origPointer)
 				
 				
 					public func getUpdate() -> HTLCFailChannelUpdate {
-						return HTLCFailChannelUpdate(pointer: self.cOpaqueStruct!.update)
+						return HTLCFailChannelUpdate(pointer: self.cOpaqueStruct!.update).dangle()
 					}
 				
 				
@@ -725,7 +725,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> QueryChannelRange {
-						return QueryChannelRange(pointer: self.cOpaqueStruct!.msg)
+						return QueryChannelRange(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -747,7 +747,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> QueryShortChannelIds {
-						return QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg)
+						return QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -769,7 +769,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ReplyChannelRange {
-						return ReplyChannelRange(pointer: self.cOpaqueStruct!.msg)
+						return ReplyChannelRange(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				

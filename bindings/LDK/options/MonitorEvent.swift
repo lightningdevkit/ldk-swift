@@ -37,14 +37,14 @@ public class MonitorEvent: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKMonitorEvent_HTLCEvent {
 							return nil
 						}
-						return HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event)
+						return HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event).dangle()
 					}
 				
 					public func getValueAsCommitmentTxBroadcasted() -> OutPoint? {
 						if self.cOpaqueStruct?.tag != LDKMonitorEvent_CommitmentTxBroadcasted {
 							return nil
 						}
-						return OutPoint(pointer: self.cOpaqueStruct!.commitment_tx_broadcasted)
+						return OutPoint(pointer: self.cOpaqueStruct!.commitment_tx_broadcasted).dangle()
 					}
 				
 			

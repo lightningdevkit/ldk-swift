@@ -232,7 +232,7 @@ Event_write(objPointer)
 					}
 				
 					public func getPurpose() -> PaymentPurpose {
-						return PaymentPurpose(pointer: self.cOpaqueStruct!.purpose)
+						return PaymentPurpose(pointer: self.cOpaqueStruct!.purpose).dangle()
 					}
 				
 				
@@ -326,7 +326,7 @@ Event_write(objPointer)
 				
 				
 					public func getFee_earned_msat() -> Option_u64Z {
-						return Option_u64Z(pointer: self.cOpaqueStruct!.fee_earned_msat)
+						return Option_u64Z(pointer: self.cOpaqueStruct!.fee_earned_msat).dangle()
 					}
 				
 					public func getClaim_from_onchain_tx() -> Bool {

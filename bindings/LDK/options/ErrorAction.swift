@@ -126,7 +126,7 @@ ErrorAction_clone(origPointer)
 				
 				
 					public func getMsg() -> ErrorMessage {
-						return ErrorMessage(pointer: self.cOpaqueStruct!.msg)
+						return ErrorMessage(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				
@@ -144,7 +144,7 @@ ErrorAction_clone(origPointer)
 				
 				
 					public func getMsg() -> ErrorMessage {
-						return ErrorMessage(pointer: self.cOpaqueStruct!.msg)
+						return ErrorMessage(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				

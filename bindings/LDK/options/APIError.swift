@@ -230,7 +230,7 @@ APIError_clone(origPointer)
 				
 				
 					public func getScript() -> ShutdownScript {
-						return ShutdownScript(pointer: self.cOpaqueStruct!.script)
+						return ShutdownScript(pointer: self.cOpaqueStruct!.script).dangle()
 					}
 				
 				

@@ -121,7 +121,7 @@ HTLCFailChannelUpdate_clone(origPointer)
 				
 				
 					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg)
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg).dangle()
 					}
 				
 				

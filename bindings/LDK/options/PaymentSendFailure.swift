@@ -41,7 +41,7 @@ public class PaymentSendFailure: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_ParameterError {
 							return nil
 						}
-						return APIError(pointer: self.cOpaqueStruct!.parameter_error)
+						return APIError(pointer: self.cOpaqueStruct!.parameter_error).dangle()
 					}
 				
 					public func getValueAsPathParameterError() -> [LDKCResult_NoneAPIErrorZ]? {

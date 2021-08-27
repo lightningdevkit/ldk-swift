@@ -332,9 +332,13 @@ class ConversionHelper:
 			if is_trait_instantiator:
 				# replace if with elif if it's only to be used for _as methods (ChannelManagerReadArgs with get_ vs KeysManager with as_)
 				return_suffix = return_suffix.rstrip(')') + ', anchor: self)'
+			if is_raw_property_getter:
+				return_suffix += '.dangle()'
 		elif rust_return_type == 'LDKC' + return_type_string and not is_clone_method:
 			return_prefix = f'{swift_return_instantiation_type}(pointer: '
 			return_suffix = ')'
+			if is_raw_property_getter:
+				return_suffix += '.dangle()'
 		# if is_trait_instantiator:
 		# only applies to tuples, but is never hit
 		# return_suffix = ', anchor: self)'

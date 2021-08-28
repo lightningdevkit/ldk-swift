@@ -14,6 +14,15 @@ public class MonitorEvent: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKMonitorEvent, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum MonitorEventValueType {
@@ -37,14 +46,14 @@ public class MonitorEvent: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKMonitorEvent_HTLCEvent {
 							return nil
 						}
-						return HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event).dangle()
+						return HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event, anchor: self)
 					}
 				
 					public func getValueAsCommitmentTxBroadcasted() -> OutPoint? {
 						if self.cOpaqueStruct?.tag != LDKMonitorEvent_CommitmentTxBroadcasted {
 							return nil
 						}
-						return OutPoint(pointer: self.cOpaqueStruct!.commitment_tx_broadcasted).dangle()
+						return OutPoint(pointer: self.cOpaqueStruct!.commitment_tx_broadcasted, anchor: self)
 					}
 				
 			

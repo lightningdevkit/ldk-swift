@@ -14,6 +14,15 @@ public class ErrorAction: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKErrorAction, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum ErrorActionValueType {
@@ -39,7 +48,7 @@ public class ErrorAction: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKErrorAction_DisconnectPeer {
 							return nil
 						}
-						return DisconnectPeer(pointer: self.cOpaqueStruct!.disconnect_peer)
+						return DisconnectPeer(pointer: self.cOpaqueStruct!.disconnect_peer, anchor: self)
 					}
 				
 					public func getValueAsIgnoreAndLog() -> LDKLevel? {
@@ -53,7 +62,7 @@ public class ErrorAction: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKErrorAction_SendErrorMessage {
 							return nil
 						}
-						return SendErrorMessage(pointer: self.cOpaqueStruct!.send_error_message)
+						return SendErrorMessage(pointer: self.cOpaqueStruct!.send_error_message, anchor: self)
 					}
 				
 			
@@ -115,36 +124,50 @@ ErrorAction_clone(origPointer)
 
 	
 
-			public class DisconnectPeer {
+			public class DisconnectPeer: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKErrorAction_LDKDisconnectPeer_Body?;
 				fileprivate init(pointer: LDKErrorAction_LDKDisconnectPeer_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKErrorAction_LDKDisconnectPeer_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getMsg() -> ErrorMessage {
-						return ErrorMessage(pointer: self.cOpaqueStruct!.msg).dangle()
+						return ErrorMessage(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendErrorMessage {
+			public class SendErrorMessage: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKErrorAction_LDKSendErrorMessage_Body?;
 				fileprivate init(pointer: LDKErrorAction_LDKSendErrorMessage_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKErrorAction_LDKSendErrorMessage_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getMsg() -> ErrorMessage {
-						return ErrorMessage(pointer: self.cOpaqueStruct!.msg).dangle()
+						return ErrorMessage(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				

@@ -72,7 +72,7 @@ class ResultGenerator:
 		struct_methods = ''
 
 		if struct_details.result_error_type.swift_type != 'Void':
-			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False)
+			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False, is_raw_property_getter=True)
 
 			struct_methods += f'''
 			public func getError() -> {error_return_wrappers['swift_type']}? {{
@@ -84,7 +84,7 @@ class ResultGenerator:
 			'''
 
 		if struct_details.result_value_type.swift_type != 'Void':
-			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False)
+			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False, is_raw_property_getter=True)
 
 			struct_methods += f'''
 			public func getValue() -> {value_return_wrappers['swift_type']}? {{

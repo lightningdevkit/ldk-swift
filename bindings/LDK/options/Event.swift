@@ -14,6 +14,15 @@ public class Event: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKEvent, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum EventValueType {
@@ -47,49 +56,49 @@ public class Event: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKEvent_FundingGenerationReady {
 							return nil
 						}
-						return FundingGenerationReady(pointer: self.cOpaqueStruct!.funding_generation_ready)
+						return FundingGenerationReady(pointer: self.cOpaqueStruct!.funding_generation_ready, anchor: self)
 					}
 				
 					public func getValueAsPaymentReceived() -> PaymentReceived? {
 						if self.cOpaqueStruct?.tag != LDKEvent_PaymentReceived {
 							return nil
 						}
-						return PaymentReceived(pointer: self.cOpaqueStruct!.payment_received)
+						return PaymentReceived(pointer: self.cOpaqueStruct!.payment_received, anchor: self)
 					}
 				
 					public func getValueAsPaymentSent() -> PaymentSent? {
 						if self.cOpaqueStruct?.tag != LDKEvent_PaymentSent {
 							return nil
 						}
-						return PaymentSent(pointer: self.cOpaqueStruct!.payment_sent)
+						return PaymentSent(pointer: self.cOpaqueStruct!.payment_sent, anchor: self)
 					}
 				
 					public func getValueAsPaymentFailed() -> PaymentFailed? {
 						if self.cOpaqueStruct?.tag != LDKEvent_PaymentFailed {
 							return nil
 						}
-						return PaymentFailed(pointer: self.cOpaqueStruct!.payment_failed)
+						return PaymentFailed(pointer: self.cOpaqueStruct!.payment_failed, anchor: self)
 					}
 				
 					public func getValueAsPendingHTLCsForwardable() -> PendingHTLCsForwardable? {
 						if self.cOpaqueStruct?.tag != LDKEvent_PendingHTLCsForwardable {
 							return nil
 						}
-						return PendingHTLCsForwardable(pointer: self.cOpaqueStruct!.pending_htl_cs_forwardable)
+						return PendingHTLCsForwardable(pointer: self.cOpaqueStruct!.pending_htl_cs_forwardable, anchor: self)
 					}
 				
 					public func getValueAsSpendableOutputs() -> SpendableOutputs? {
 						if self.cOpaqueStruct?.tag != LDKEvent_SpendableOutputs {
 							return nil
 						}
-						return SpendableOutputs(pointer: self.cOpaqueStruct!.spendable_outputs)
+						return SpendableOutputs(pointer: self.cOpaqueStruct!.spendable_outputs, anchor: self)
 					}
 				
 					public func getValueAsPaymentForwarded() -> PaymentForwarded? {
 						if self.cOpaqueStruct?.tag != LDKEvent_PaymentForwarded {
 							return nil
 						}
-						return PaymentForwarded(pointer: self.cOpaqueStruct!.payment_forwarded)
+						return PaymentForwarded(pointer: self.cOpaqueStruct!.payment_forwarded, anchor: self)
 					}
 				
 			
@@ -183,12 +192,19 @@ Event_write(objPointer)
 
 	
 
-			public class FundingGenerationReady {
+			public class FundingGenerationReady: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKEvent_LDKFundingGenerationReady_Body?;
 				fileprivate init(pointer: LDKEvent_LDKFundingGenerationReady_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKFundingGenerationReady_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -213,12 +229,19 @@ Event_write(objPointer)
 			}
 		
 
-			public class PaymentReceived {
+			public class PaymentReceived: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKEvent_LDKPaymentReceived_Body?;
 				fileprivate init(pointer: LDKEvent_LDKPaymentReceived_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKPaymentReceived_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -232,19 +255,26 @@ Event_write(objPointer)
 					}
 				
 					public func getPurpose() -> PaymentPurpose {
-						return PaymentPurpose(pointer: self.cOpaqueStruct!.purpose).dangle()
+						return PaymentPurpose(pointer: self.cOpaqueStruct!.purpose, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class PaymentSent {
+			public class PaymentSent: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKEvent_LDKPaymentSent_Body?;
 				fileprivate init(pointer: LDKEvent_LDKPaymentSent_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKPaymentSent_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -257,12 +287,19 @@ Event_write(objPointer)
 			}
 		
 
-			public class PaymentFailed {
+			public class PaymentFailed: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKEvent_LDKPaymentFailed_Body?;
 				fileprivate init(pointer: LDKEvent_LDKPaymentFailed_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKPaymentFailed_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -279,12 +316,19 @@ Event_write(objPointer)
 			}
 		
 
-			public class PendingHTLCsForwardable {
+			public class PendingHTLCsForwardable: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKEvent_LDKPendingHTLCsForwardable_Body?;
 				fileprivate init(pointer: LDKEvent_LDKPendingHTLCsForwardable_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKPendingHTLCsForwardable_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -297,12 +341,19 @@ Event_write(objPointer)
 			}
 		
 
-			public class SpendableOutputs {
+			public class SpendableOutputs: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKEvent_LDKSpendableOutputs_Body?;
 				fileprivate init(pointer: LDKEvent_LDKSpendableOutputs_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKSpendableOutputs_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -315,18 +366,25 @@ Event_write(objPointer)
 			}
 		
 
-			public class PaymentForwarded {
+			public class PaymentForwarded: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKEvent_LDKPaymentForwarded_Body?;
 				fileprivate init(pointer: LDKEvent_LDKPaymentForwarded_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKPaymentForwarded_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getFee_earned_msat() -> Option_u64Z {
-						return Option_u64Z(pointer: self.cOpaqueStruct!.fee_earned_msat).dangle()
+						return Option_u64Z(pointer: self.cOpaqueStruct!.fee_earned_msat, anchor: self)
 					}
 				
 					public func getClaim_from_onchain_tx() -> Bool {

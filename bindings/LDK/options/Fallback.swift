@@ -14,6 +14,15 @@ public class Fallback: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKFallback, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum FallbackValueType {
@@ -39,7 +48,7 @@ public class Fallback: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKFallback_SegWitProgram {
 							return nil
 						}
-						return SegWitProgram(pointer: self.cOpaqueStruct!.seg_wit_program)
+						return SegWitProgram(pointer: self.cOpaqueStruct!.seg_wit_program, anchor: self)
 					}
 				
 					public func getValueAsPubKeyHash() -> [UInt8]? {
@@ -124,12 +133,19 @@ Fallback_eq(aPointer, bPointer)
 
 	
 
-			public class SegWitProgram {
+			public class SegWitProgram: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKFallback_LDKSegWitProgram_Body?;
 				fileprivate init(pointer: LDKFallback_LDKSegWitProgram_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKFallback_LDKSegWitProgram_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				

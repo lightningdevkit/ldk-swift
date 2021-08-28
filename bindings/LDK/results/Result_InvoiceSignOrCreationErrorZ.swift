@@ -23,6 +23,15 @@ public class Result_InvoiceSignOrCreationErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_InvoiceSignOrCreationErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,14 +40,14 @@ public class Result_InvoiceSignOrCreationErrorZ: NativeTypeWrapper {
 
 			public func getError() -> SignOrCreationError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return SignOrCreationError(pointer: self.cOpaqueStruct!.contents.err.pointee)
+					return SignOrCreationError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
 				}
 				return nil
 			}
 			
 			public func getValue() -> Invoice? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee)
+					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 				}
 				return nil
 			}

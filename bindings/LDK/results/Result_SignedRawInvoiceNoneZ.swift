@@ -23,6 +23,15 @@ public class Result_SignedRawInvoiceNoneZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_SignedRawInvoiceNoneZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,7 +40,7 @@ public class Result_SignedRawInvoiceNoneZ: NativeTypeWrapper {
 
 			public func getValue() -> SignedRawInvoice? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return SignedRawInvoice(pointer: self.cOpaqueStruct!.contents.result.pointee)
+					return SignedRawInvoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 				}
 				return nil
 			}

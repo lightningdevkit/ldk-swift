@@ -25,6 +25,15 @@ KeysManager_new(seedPointer, starting_time_secs, starting_time_nanos)
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKKeysManager, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func derive_channel_keys(channel_value_satoshis: UInt64, params: [UInt8]) -> InMemorySigner {

@@ -23,6 +23,15 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_NetworkGraphDecodeErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,14 +40,14 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee)
+					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
 				}
 				return nil
 			}
 			
 			public func getValue() -> NetworkGraph? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return NetworkGraph(pointer: self.cOpaqueStruct!.contents.result.pointee)
+					return NetworkGraph(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 				}
 				return nil
 			}

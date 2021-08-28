@@ -14,6 +14,15 @@ public class PaymentSendFailure: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKPaymentSendFailure, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum PaymentSendFailureValueType {
@@ -41,7 +50,7 @@ public class PaymentSendFailure: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_ParameterError {
 							return nil
 						}
-						return APIError(pointer: self.cOpaqueStruct!.parameter_error).dangle()
+						return APIError(pointer: self.cOpaqueStruct!.parameter_error, anchor: self)
 					}
 				
 					public func getValueAsPathParameterError() -> [LDKCResult_NoneAPIErrorZ]? {

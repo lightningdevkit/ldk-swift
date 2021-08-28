@@ -148,7 +148,7 @@ class OptionGenerator:
 					typed_class_names.append(swift_tag_value)
 					return_type = swift_tag_value
 					typed_class_details[swift_tag_value] = current_option_details
-					getter_body = f'return {swift_tag_value}(pointer: self.cOpaqueStruct!.{current_option_details.var_name})'
+					getter_body = f'return {swift_tag_value}(pointer: self.cOpaqueStruct!.{current_option_details.var_name}, anchor: self)'
 				else:
 					assert (len(current_option_details.fields) == 1)
 					current_return_field = current_option_details.fields[0]
@@ -297,10 +297,18 @@ class OptionGenerator:
 		if is_tuple_variant:
 			extension_suffix = ': ' + parent_class_name
 		else:
+			extension_suffix = ': NativeTypeWrapper'
 			pointer_constructor = f'''
 				var cOpaqueStruct: {native_pointer_type}?;
 				fileprivate init(pointer: {native_pointer_type}) {{
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}}
+				fileprivate init(pointer: {native_pointer_type}, anchor: NativeTypeWrapper) {{
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}}
 			'''
 

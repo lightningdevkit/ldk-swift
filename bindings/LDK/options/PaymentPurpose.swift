@@ -14,6 +14,15 @@ public class PaymentPurpose: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKPaymentPurpose, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum PaymentPurposeValueType {
@@ -37,7 +46,7 @@ public class PaymentPurpose: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKPaymentPurpose_InvoicePayment {
 							return nil
 						}
-						return InvoicePayment(pointer: self.cOpaqueStruct!.invoice_payment)
+						return InvoicePayment(pointer: self.cOpaqueStruct!.invoice_payment, anchor: self)
 					}
 				
 					public func getValueAsSpontaneousPayment() -> [UInt8]? {
@@ -96,12 +105,19 @@ PaymentPurpose_clone(origPointer)
 
 	
 
-			public class InvoicePayment {
+			public class InvoicePayment: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKPaymentPurpose_LDKInvoicePayment_Body?;
 				fileprivate init(pointer: LDKPaymentPurpose_LDKInvoicePayment_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKPaymentPurpose_LDKInvoicePayment_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				

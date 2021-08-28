@@ -255,8 +255,14 @@ public class HumanObjectPeerTestInstance {
     }
 
     func do_test_message_handler() {
+
         let peer1 = Peer(master: self, seed: 1)
         let peer2 = Peer(master: self, seed: 2)
+
+        let originalPeersA = peer1.peerManager.get_peer_node_ids()
+        let originalPeersB = peer2.peerManager.get_peer_node_ids()
+        XCTAssertEqual(originalPeersA.count, 0)
+        XCTAssertEqual(originalPeersB.count, 0)
 
         connectPeers(peerA: peer1, peerB: peer2)
 
@@ -270,6 +276,12 @@ public class HumanObjectPeerTestInstance {
         }
 
         semaphore.wait()
+
+        let connectedPeersA = peer1.peerManager.get_peer_node_ids()
+        let connectedPeersB = peer2.peerManager.get_peer_node_ids()
+        XCTAssertEqual(connectedPeersA.count, 0)
+        XCTAssertEqual(connectedPeersB.count, 0)
+
         peer1.constructor?.interrupt()
         peer2.constructor?.interrupt()
 

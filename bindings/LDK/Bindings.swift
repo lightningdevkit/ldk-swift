@@ -693,10 +693,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -794,10 +794,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -888,10 +888,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -989,10 +989,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1090,10 +1090,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1191,10 +1191,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1292,10 +1292,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1393,10 +1393,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1498,14 +1498,14 @@ public class Bindings {
 		var array = [[LDKRouteHop]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKCVec_RouteHopZ_to_array(nativeType: currentEntry, deallocate: deallocate)
+			let convertedEntry = LDKCVec_RouteHopZ_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1582,14 +1582,14 @@ public class Bindings {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKCVec_u8Z_to_array(nativeType: currentEntry, deallocate: deallocate)
+			let convertedEntry = LDKCVec_u8Z_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1662,10 +1662,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1763,10 +1763,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1864,10 +1864,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1965,10 +1965,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2066,10 +2066,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2167,10 +2167,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2268,10 +2268,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2369,10 +2369,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2478,10 +2478,10 @@ public class Bindings {
 			array.append(convertedEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2554,10 +2554,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2655,10 +2655,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2764,10 +2764,10 @@ public class Bindings {
 			array.append(convertedEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2840,10 +2840,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2941,10 +2941,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3046,14 +3046,14 @@ public class Bindings {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKTransaction_to_array(nativeType: currentEntry, deallocate: deallocate)
+			let convertedEntry = LDKTransaction_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3126,10 +3126,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3227,10 +3227,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3303,10 +3303,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3404,10 +3404,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3505,10 +3505,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3606,10 +3606,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3707,10 +3707,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3783,10 +3783,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-				if deallocate {
-					nativeType.data.deallocate()
-				}
-			
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -4207,7 +4207,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		if deallocate {
+		if deallocate && nativeType.datalen > 0 {
 			nativeType.data.deallocate()
 		}
 		return array

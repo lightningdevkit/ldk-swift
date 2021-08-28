@@ -303,7 +303,7 @@ public class Bindings {
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		if deallocate {
+		if deallocate && nativeType.datalen > 0 {
 			nativeType.data.deallocate()
 		}
 		return array

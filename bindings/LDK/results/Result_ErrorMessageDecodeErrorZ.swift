@@ -23,6 +23,15 @@ public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_ErrorMessageDecodeErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,14 +40,14 @@ public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee)
+					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
 				}
 				return nil
 			}
 			
 			public func getValue() -> ErrorMessage? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return ErrorMessage(pointer: self.cOpaqueStruct!.contents.result.pointee)
+					return ErrorMessage(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 				}
 				return nil
 			}
@@ -65,10 +74,10 @@ public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_ErrorMessageDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_ErrorMessageDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_ErrorMessageDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_ErrorMessageDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

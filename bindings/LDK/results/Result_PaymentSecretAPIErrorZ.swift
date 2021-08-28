@@ -23,6 +23,15 @@ public class Result_PaymentSecretAPIErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_PaymentSecretAPIErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,7 +40,7 @@ public class Result_PaymentSecretAPIErrorZ: NativeTypeWrapper {
 
 			public func getError() -> APIError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return APIError(pointer: self.cOpaqueStruct!.contents.err.pointee)
+					return APIError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
 				}
 				return nil
 			}
@@ -65,10 +74,10 @@ public class Result_PaymentSecretAPIErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_PaymentSecretAPIErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

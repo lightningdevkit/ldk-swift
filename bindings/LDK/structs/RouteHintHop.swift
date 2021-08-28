@@ -23,6 +23,15 @@ public class RouteHintHop: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKRouteHintHop, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_src_node_id() -> [UInt8] {
@@ -150,10 +159,10 @@ RouteHintHop_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RouteHintHop \(self.instanceNumber).")
+							Bindings.print("Freeing RouteHintHop \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RouteHintHop \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RouteHintHop \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

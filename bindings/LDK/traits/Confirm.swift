@@ -101,37 +101,47 @@ open class Confirm: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Confirm \(self.instanceNumber).")
+							Bindings.print("Freeing Confirm \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Confirm \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Confirm \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Confirm::transactions_confirmed should be overridden!", severity: .WARNING)
+
+
     }
 
     open func transaction_unconfirmed(txid: [UInt8]?) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Confirm::transaction_unconfirmed should be overridden!", severity: .WARNING)
+
+
     }
 
     open func best_block_updated(header: [UInt8]?, height: UInt32) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Confirm::best_block_updated should be overridden!", severity: .WARNING)
+
+
     }
 
     open func get_relevant_txids() -> [LDKTxid] {
     	/* EDIT ME */
-		return [LDKTxid]()
+		Bindings.print("Confirm::get_relevant_txids should be overridden!", severity: .WARNING)
+
+return [LDKTxid]()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Confirm::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

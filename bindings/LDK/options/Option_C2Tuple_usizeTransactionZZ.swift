@@ -30,6 +30,15 @@ public class Option_C2Tuple_usizeTransactionZZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCOption_C2Tuple_usizeTransactionZZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
     public func getValue() -> C2Tuple_usizeTransactionZ? {
@@ -69,10 +78,10 @@ public class Option_C2Tuple_usizeTransactionZZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber).")
+							Bindings.print("Freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Option_C2Tuple_usizeTransactionZZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

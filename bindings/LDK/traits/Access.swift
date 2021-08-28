@@ -64,22 +64,26 @@ open class Access: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Access \(self.instanceNumber).")
+							Bindings.print("Freeing Access \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Access \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Access \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
     	/* EDIT ME */
-		return Result_TxOutAccessErrorZ(pointer: LDKCResult_TxOutAccessErrorZ())
+		Bindings.print("Access::get_utxo should be overridden!", severity: .WARNING)
+
+return Result_TxOutAccessErrorZ()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Access::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

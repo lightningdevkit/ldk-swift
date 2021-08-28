@@ -14,6 +14,15 @@ public class APIError: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKAPIError, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum APIErrorValueType {
@@ -43,35 +52,35 @@ public class APIError: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKAPIError_APIMisuseError {
 							return nil
 						}
-						return APIMisuseError(pointer: self.cOpaqueStruct!.api_misuse_error)
+						return APIMisuseError(pointer: self.cOpaqueStruct!.api_misuse_error, anchor: self)
 					}
 				
 					public func getValueAsFeeRateTooHigh() -> FeeRateTooHigh? {
 						if self.cOpaqueStruct?.tag != LDKAPIError_FeeRateTooHigh {
 							return nil
 						}
-						return FeeRateTooHigh(pointer: self.cOpaqueStruct!.fee_rate_too_high)
+						return FeeRateTooHigh(pointer: self.cOpaqueStruct!.fee_rate_too_high, anchor: self)
 					}
 				
 					public func getValueAsRouteError() -> RouteError? {
 						if self.cOpaqueStruct?.tag != LDKAPIError_RouteError {
 							return nil
 						}
-						return RouteError(pointer: self.cOpaqueStruct!.route_error)
+						return RouteError(pointer: self.cOpaqueStruct!.route_error, anchor: self)
 					}
 				
 					public func getValueAsChannelUnavailable() -> ChannelUnavailable? {
 						if self.cOpaqueStruct?.tag != LDKAPIError_ChannelUnavailable {
 							return nil
 						}
-						return ChannelUnavailable(pointer: self.cOpaqueStruct!.channel_unavailable)
+						return ChannelUnavailable(pointer: self.cOpaqueStruct!.channel_unavailable, anchor: self)
 					}
 				
 					public func getValueAsIncompatibleShutdownScript() -> IncompatibleShutdownScript? {
 						if self.cOpaqueStruct?.tag != LDKAPIError_IncompatibleShutdownScript {
 							return nil
 						}
-						return IncompatibleShutdownScript(pointer: self.cOpaqueStruct!.incompatible_shutdown_script)
+						return IncompatibleShutdownScript(pointer: self.cOpaqueStruct!.incompatible_shutdown_script, anchor: self)
 					}
 				
 			
@@ -87,10 +96,10 @@ public class APIError: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing APIError \(self.instanceNumber).")
+							Bindings.print("Freeing APIError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing APIError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing APIError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
@@ -143,12 +152,19 @@ APIError_clone(origPointer)
 
 	
 
-			public class APIMisuseError {
+			public class APIMisuseError: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKAPIError_LDKAPIMisuseError_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKAPIMisuseError_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKAPIError_LDKAPIMisuseError_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -161,12 +177,19 @@ APIError_clone(origPointer)
 			}
 		
 
-			public class FeeRateTooHigh {
+			public class FeeRateTooHigh: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKAPIError_LDKFeeRateTooHigh_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKFeeRateTooHigh_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKAPIError_LDKFeeRateTooHigh_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -183,12 +206,19 @@ APIError_clone(origPointer)
 			}
 		
 
-			public class RouteError {
+			public class RouteError: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKAPIError_LDKRouteError_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKRouteError_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKAPIError_LDKRouteError_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -201,12 +231,19 @@ APIError_clone(origPointer)
 			}
 		
 
-			public class ChannelUnavailable {
+			public class ChannelUnavailable: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKAPIError_LDKChannelUnavailable_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKChannelUnavailable_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKAPIError_LDKChannelUnavailable_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -219,18 +256,25 @@ APIError_clone(origPointer)
 			}
 		
 
-			public class IncompatibleShutdownScript {
+			public class IncompatibleShutdownScript: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKAPIError_LDKIncompatibleShutdownScript_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKIncompatibleShutdownScript_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKAPIError_LDKIncompatibleShutdownScript_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getScript() -> ShutdownScript {
-						return ShutdownScript(pointer: self.cOpaqueStruct!.script)
+						return ShutdownScript(pointer: self.cOpaqueStruct!.script, anchor: self)
 					}
 				
 				

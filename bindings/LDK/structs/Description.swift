@@ -15,6 +15,15 @@ public class Description: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKDescription, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public class func eq(a: Description, b: Description) -> Bool {
@@ -62,10 +71,10 @@ Description_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Description \(self.instanceNumber).")
+							Bindings.print("Freeing Description \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Description \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Description \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

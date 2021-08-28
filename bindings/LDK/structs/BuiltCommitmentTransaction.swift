@@ -28,6 +28,15 @@ public class BuiltCommitmentTransaction: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKBuiltCommitmentTransaction, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_transaction() -> [UInt8] {
@@ -134,10 +143,10 @@ BuiltCommitmentTransaction_sign(this_argPointer, funding_keyPointer, funding_red
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing BuiltCommitmentTransaction \(self.instanceNumber).")
+							Bindings.print("Freeing BuiltCommitmentTransaction \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing BuiltCommitmentTransaction \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing BuiltCommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

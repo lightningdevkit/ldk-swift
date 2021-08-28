@@ -23,6 +23,15 @@ public class NetworkGraph: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKNetworkGraph, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func clone() -> NetworkGraph {
@@ -148,10 +157,10 @@ NetworkGraph_update_channel_unsigned(this_argPointer, msgPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing NetworkGraph \(self.instanceNumber).")
+							Bindings.print("Freeing NetworkGraph \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing NetworkGraph \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NetworkGraph \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

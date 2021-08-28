@@ -23,6 +23,15 @@ public class DirectionalChannelInfo: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKDirectionalChannelInfo, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_last_update() -> UInt32 {
@@ -173,10 +182,10 @@ DirectionalChannelInfo_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing DirectionalChannelInfo \(self.instanceNumber).")
+							Bindings.print("Freeing DirectionalChannelInfo \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing DirectionalChannelInfo \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing DirectionalChannelInfo \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

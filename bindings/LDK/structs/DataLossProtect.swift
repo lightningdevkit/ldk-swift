@@ -23,6 +23,15 @@ public class DataLossProtect: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKDataLossProtect, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_your_last_per_commitment_secret() -> [UInt8] {
@@ -81,10 +90,10 @@ DataLossProtect_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing DataLossProtect \(self.instanceNumber).")
+							Bindings.print("Freeing DataLossProtect \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing DataLossProtect \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing DataLossProtect \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -23,6 +23,15 @@ public class ChannelHandshakeLimits: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChannelHandshakeLimits, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_min_funding_satoshis() -> UInt64 {
@@ -171,10 +180,10 @@ ChannelHandshakeLimits_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelHandshakeLimits \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelHandshakeLimits \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelHandshakeLimits \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelHandshakeLimits \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -5,6 +5,7 @@ from src.config import Config
 from src.conversion_helper import ConversionHelper
 from src.conversion_helper import ConversionHelper
 
+
 class ResultGenerator:
 
 	def __init__(self) -> None:
@@ -71,7 +72,7 @@ class ResultGenerator:
 		struct_methods = ''
 
 		if struct_details.result_error_type.swift_type != 'Void':
-			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False)
+			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False, is_raw_property_getter=True)
 
 			struct_methods += f'''
 			public func getError() -> {error_return_wrappers['swift_type']}? {{
@@ -83,7 +84,7 @@ class ResultGenerator:
 			'''
 
 		if struct_details.result_value_type.swift_type != 'Void':
-			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False)
+			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False, is_raw_property_getter=True)
 
 			struct_methods += f'''
 			public func getValue() -> {value_return_wrappers['swift_type']}? {{
@@ -104,7 +105,6 @@ class ResultGenerator:
 			is_clone_method = current_method_details['is_clone']
 			is_free_method = current_method_details['is_free']
 
-
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
@@ -119,7 +119,9 @@ class ResultGenerator:
 
 			current_replacement = current_replacement.replace('return ResultType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}ResultType_methodName(native_arguments){value_return_wrappers["suffix"]}')
-			current_replacement = current_replacement.replace('ResultType_methodName(native_arguments)', prepared_arguments['native_call_prefix'] + 'ResultType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' + prepared_arguments['native_call_suffix'])
+			current_replacement = current_replacement.replace('ResultType_methodName(native_arguments)',
+															  prepared_arguments['native_call_prefix'] + 'ResultType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' +
+															  prepared_arguments['native_call_suffix'])
 			current_replacement = current_replacement.replace('ResultType_methodName(', f'{current_native_method_name}(')
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
@@ -146,16 +148,15 @@ class ResultGenerator:
 					
 					deinit {{
 						if !self.dangling {{
-							print("Freeing {swift_struct_name} \(self.instanceNumber).")
+							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")
 							self.{current_method_name}()
 						}} else {{
-							print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
 						}}
 					}}
 				'''
 
 			struct_methods += '\n' + current_replacement + '\n'
-
 
 		mutating_output_file_contents = mutating_output_file_contents.replace('class ResultName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: ResultType', f'init(pointer: {struct_name}')

@@ -23,6 +23,15 @@ public class RouteHop: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKRouteHop, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_pubkey() -> [UInt8] {
@@ -158,10 +167,10 @@ RouteHop_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RouteHop \(self.instanceNumber).")
+							Bindings.print("Freeing RouteHop \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RouteHop \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RouteHop \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

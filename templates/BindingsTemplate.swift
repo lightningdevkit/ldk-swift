@@ -59,7 +59,25 @@ open class NativeTypeWrapper: Hashable {
 
 }
 
-public class Bindings{
+public class Bindings {
+
+	internal static var minimumPrintSeverity: PrintSeverity = .WARNING
+
+    public enum PrintSeverity: UInt {
+        case DEBUG = 0
+        case WARNING = 1
+        case ERROR = 2
+    }
+
+    internal class func print(_ string: String, severity: PrintSeverity = .DEBUG) {
+        if severity.rawValue >= Self.minimumPrintSeverity.rawValue {
+            Swift.print(string)
+        }
+    }
+
+    public class func setLogThreshold(severity: PrintSeverity){
+        Self.minimumPrintSeverity = severity
+    }
 
 	/* BYTE_ARRAY_METHODS_START */
 	public class func new_LDKByteType(array: [UInt8]) -> LDKByteType {
@@ -278,14 +296,16 @@ public class Bindings{
 	/* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-	public class func LDKTransaction_to_array(nativeType: LDKTransaction) -> [UInt8] {
+	public class func LDKTransaction_to_array(nativeType: LDKTransaction, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		if deallocate && nativeType.datalen > 0 {
+			nativeType.data.deallocate()
+		}
 		return array
 	}
 	/* RUST_TO_SWIFT_END */

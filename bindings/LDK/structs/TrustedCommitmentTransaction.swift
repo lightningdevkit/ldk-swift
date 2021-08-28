@@ -15,6 +15,15 @@ public class TrustedCommitmentTransaction: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKTrustedCommitmentTransaction, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func txid() -> [UInt8] {
@@ -61,10 +70,10 @@ TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing TrustedCommitmentTransaction \(self.instanceNumber).")
+							Bindings.print("Freeing TrustedCommitmentTransaction \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing TrustedCommitmentTransaction \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing TrustedCommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

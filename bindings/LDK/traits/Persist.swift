@@ -69,27 +69,33 @@ let data = ChannelMonitor(pointer: dataPointer.pointee);
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Persist \(self.instanceNumber).")
+							Bindings.print("Freeing Persist \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Persist \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Persist \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
-		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
+		Bindings.print("Persist::persist_new_channel should be overridden!", severity: .WARNING)
+
+return Result_NoneChannelMonitorUpdateErrZ()
     }
 
     open func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
     	/* EDIT ME */
-		return Result_NoneChannelMonitorUpdateErrZ(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ())
+		Bindings.print("Persist::update_persisted_channel should be overridden!", severity: .WARNING)
+
+return Result_NoneChannelMonitorUpdateErrZ()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Persist::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -23,6 +23,15 @@ public class TxCreationKeys: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKTxCreationKeys, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_per_commitment_point() -> [UInt8] {
@@ -157,10 +166,10 @@ TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_com
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing TxCreationKeys \(self.instanceNumber).")
+							Bindings.print("Freeing TxCreationKeys \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

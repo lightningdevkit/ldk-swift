@@ -23,6 +23,15 @@ public class Result_CVec_u8ZPeerHandleErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_CVec_u8ZPeerHandleErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,14 +40,14 @@ public class Result_CVec_u8ZPeerHandleErrorZ: NativeTypeWrapper {
 
 			public func getError() -> PeerHandleError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return PeerHandleError(pointer: self.cOpaqueStruct!.contents.err.pointee)
+					return PeerHandleError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
 				}
 				return nil
 			}
 			
 			public func getValue() -> [UInt8]? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
 				}
 				return nil
 			}
@@ -70,10 +79,10 @@ public class Result_CVec_u8ZPeerHandleErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_CVec_u8ZPeerHandleErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

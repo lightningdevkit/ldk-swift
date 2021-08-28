@@ -107,52 +107,68 @@ open class KeysInterface: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing KeysInterface \(self.instanceNumber).")
+							Bindings.print("Freeing KeysInterface \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing KeysInterface \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing KeysInterface \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func get_node_secret() -> [UInt8] {
     	/* EDIT ME */
-		return [UInt8]()
+		Bindings.print("KeysInterface::get_node_secret should be overridden!", severity: .WARNING)
+
+return [UInt8]()
     }
 
     open func get_destination_script() -> [UInt8] {
     	/* EDIT ME */
-		return [UInt8]()
+		Bindings.print("KeysInterface::get_destination_script should be overridden!", severity: .WARNING)
+
+return [UInt8]()
     }
 
     open func get_shutdown_scriptpubkey() -> ShutdownScript {
     	/* EDIT ME */
-		return ShutdownScript(pointer: LDKShutdownScript())
+		Bindings.print("KeysInterface::get_shutdown_scriptpubkey MUST be overridden!", severity: .ERROR)
+
+abort()
     }
 
     open func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
     	/* EDIT ME */
-		return Sign(pointer: LDKSign())
+		Bindings.print("KeysInterface::get_channel_signer should be overridden!", severity: .WARNING)
+
+return Sign()
     }
 
     open func get_secure_random_bytes() -> [UInt8] {
     	/* EDIT ME */
-		return [UInt8]()
+		Bindings.print("KeysInterface::get_secure_random_bytes should be overridden!", severity: .WARNING)
+
+return [UInt8]()
     }
 
     open func read_chan_signer(reader: [UInt8]) -> Result_SignDecodeErrorZ {
     	/* EDIT ME */
-		return Result_SignDecodeErrorZ(pointer: LDKCResult_SignDecodeErrorZ())
+		Bindings.print("KeysInterface::read_chan_signer should be overridden!", severity: .WARNING)
+
+return Result_SignDecodeErrorZ()
     }
 
     open func sign_invoice(invoice_preimage: [UInt8]) -> Result_RecoverableSignatureNoneZ {
     	/* EDIT ME */
-		return Result_RecoverableSignatureNoneZ(pointer: LDKCResult_RecoverableSignatureNoneZ())
+		Bindings.print("KeysInterface::sign_invoice should be overridden!", severity: .WARNING)
+
+return Result_RecoverableSignatureNoneZ()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("KeysInterface::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

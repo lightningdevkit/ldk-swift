@@ -23,6 +23,15 @@ public class ChannelHandshakeConfig: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChannelHandshakeConfig, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_minimum_depth() -> UInt32 {
@@ -96,10 +105,10 @@ ChannelHandshakeConfig_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelHandshakeConfig \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelHandshakeConfig \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelHandshakeConfig \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelHandshakeConfig \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

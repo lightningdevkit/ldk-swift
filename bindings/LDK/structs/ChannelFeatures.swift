@@ -23,6 +23,15 @@ public class ChannelFeatures: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChannelFeatures, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public class func eq(a: ChannelFeatures, b: ChannelFeatures) -> Bool {
@@ -77,10 +86,10 @@ ChannelFeatures_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelFeatures \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelFeatures \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelFeatures \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelFeatures \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

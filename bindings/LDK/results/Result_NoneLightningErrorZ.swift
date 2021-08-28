@@ -23,6 +23,15 @@ public class Result_NoneLightningErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_NoneLightningErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,7 +40,7 @@ public class Result_NoneLightningErrorZ: NativeTypeWrapper {
 
 			public func getError() -> LightningError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return LightningError(pointer: self.cOpaqueStruct!.contents.err.pointee)
+					return LightningError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
 				}
 				return nil
 			}
@@ -58,10 +67,10 @@ public class Result_NoneLightningErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_NoneLightningErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_NoneLightningErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_NoneLightningErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_NoneLightningErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

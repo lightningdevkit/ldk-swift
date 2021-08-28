@@ -14,6 +14,15 @@ public class Fallback: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKFallback, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum FallbackValueType {
@@ -39,7 +48,7 @@ public class Fallback: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKFallback_SegWitProgram {
 							return nil
 						}
-						return SegWitProgram(pointer: self.cOpaqueStruct!.seg_wit_program)
+						return SegWitProgram(pointer: self.cOpaqueStruct!.seg_wit_program, anchor: self)
 					}
 				
 					public func getValueAsPubKeyHash() -> [UInt8]? {
@@ -69,10 +78,10 @@ public class Fallback: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Fallback \(self.instanceNumber).")
+							Bindings.print("Freeing Fallback \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Fallback \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Fallback \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
@@ -124,12 +133,19 @@ Fallback_eq(aPointer, bPointer)
 
 	
 
-			public class SegWitProgram {
+			public class SegWitProgram: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKFallback_LDKSegWitProgram_Body?;
 				fileprivate init(pointer: LDKFallback_LDKSegWitProgram_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKFallback_LDKSegWitProgram_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -139,7 +155,7 @@ Fallback_eq(aPointer, bPointer)
 					}
 				
 					public func getProgram() -> [UInt8] {
-						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.program)
+						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.program, deallocate: false)
 					}
 				
 				

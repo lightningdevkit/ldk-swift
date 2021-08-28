@@ -85,22 +85,26 @@ open class Sign: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Sign \(self.instanceNumber).")
+							Bindings.print("Freeing Sign \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Sign \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Sign \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func write() -> [UInt8] {
     	/* EDIT ME */
-		return [UInt8]()
+		Bindings.print("Sign::write should be overridden!", severity: .WARNING)
+
+return [UInt8]()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Sign::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

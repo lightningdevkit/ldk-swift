@@ -23,6 +23,15 @@ public class ErrorMessage: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKErrorMessage, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_channel_id() -> [UInt8] {
@@ -98,10 +107,10 @@ ErrorMessage_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ErrorMessage \(self.instanceNumber).")
+							Bindings.print("Freeing ErrorMessage \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ErrorMessage \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ErrorMessage \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

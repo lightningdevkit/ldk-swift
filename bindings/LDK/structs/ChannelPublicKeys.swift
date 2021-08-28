@@ -23,6 +23,15 @@ public class ChannelPublicKeys: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChannelPublicKeys, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_funding_pubkey() -> [UInt8] {
@@ -143,10 +152,10 @@ ChannelPublicKeys_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelPublicKeys \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelPublicKeys \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelPublicKeys \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelPublicKeys \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -15,6 +15,15 @@ public class SignedRawInvoice: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKSignedRawInvoice, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public class func eq(a: SignedRawInvoice, b: SignedRawInvoice) -> Bool {
@@ -104,10 +113,10 @@ SignedRawInvoice_to_str(oPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing SignedRawInvoice \(self.instanceNumber).")
+							Bindings.print("Freeing SignedRawInvoice \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing SignedRawInvoice \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing SignedRawInvoice \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

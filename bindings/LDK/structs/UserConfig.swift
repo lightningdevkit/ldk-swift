@@ -23,6 +23,15 @@ public class UserConfig: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKUserConfig, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_own_channel_config() -> ChannelHandshakeConfig {
@@ -111,10 +120,10 @@ UserConfig_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UserConfig \(self.instanceNumber).")
+							Bindings.print("Freeing UserConfig \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UserConfig \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UserConfig \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

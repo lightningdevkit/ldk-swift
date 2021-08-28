@@ -15,6 +15,15 @@ public class MonitorUpdateError: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKMonitorUpdateError, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func clone() -> MonitorUpdateError {
@@ -43,10 +52,10 @@ MonitorUpdateError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MonitorUpdateError \(self.instanceNumber).")
+							Bindings.print("Freeing MonitorUpdateError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MonitorUpdateError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MonitorUpdateError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

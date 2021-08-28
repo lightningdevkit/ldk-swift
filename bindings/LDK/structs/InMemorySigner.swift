@@ -23,6 +23,15 @@ public class InMemorySigner: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKInMemorySigner, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_funding_key() -> [UInt8] {
@@ -242,10 +251,10 @@ InMemorySigner_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing InMemorySigner \(self.instanceNumber).")
+							Bindings.print("Freeing InMemorySigner \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing InMemorySigner \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing InMemorySigner \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

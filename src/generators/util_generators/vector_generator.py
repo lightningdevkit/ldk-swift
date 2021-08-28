@@ -3,13 +3,12 @@ import re
 from src.generators.util_generators import UtilGenerator
 import src.conversion_helper
 
+
 class VectorGenerator(UtilGenerator):
 
 	def __init__(self) -> None:
 		super().__init__()
-		self.template_regex = re.compile(
-			"(\/\* VECTOR_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* VECTOR_METHODS_END \*\/)",
-			flags=re.MULTILINE | re.DOTALL)
+		self.template_regex = re.compile("(\/\* VECTOR_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* VECTOR_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		self.loadTemplate()
 		self.extractors = {}
 
@@ -21,6 +20,8 @@ class VectorGenerator(UtilGenerator):
 		pointerTypeName = 'UInt8'
 		shallowmost_iteratee_is_tuple_primitive = False
 		extraction_method = ''
+
+		is_deepest_iteratee_primitive = True
 
 		if is_primitive:
 			swift_primitive = vector_type_details.primitive_swift_counterpart
@@ -38,8 +39,13 @@ class VectorGenerator(UtilGenerator):
 			else:
 				dimensions -= 1
 				swift_primitive = deepest_iteratee.name
+
+				# don't deinit the underlying type for complex arrays – the wrappers will do that when appropriate
+				# is_deepest_iteratee_primitive = False
 			if dimensions > 1:
 				conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry)'
+				if (shallowmost_iteratee.name.startswith('LDKCVec_') or shallowmost_iteratee.name) == 'LDKTransaction' and not is_deepest_iteratee_primitive:
+					conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry, deallocate: deallocate)'
 				pointerTypeName = shallowmost_iteratee.name
 				subdimension_prefix = ''
 				subdimension_suffix = '.cOpaqueStruct!'
@@ -66,7 +72,7 @@ class VectorGenerator(UtilGenerator):
 					pass
 				elif shallowmost_iteratee.primitive_swift_counterpart == 'UInt8':
 					pass
-				elif shallowmost_iteratee.type.name == 'BYTE_ARRAY': # BYTE_ARRAY, therefore not associated with a singular type
+				elif shallowmost_iteratee.type.name == 'BYTE_ARRAY':  # BYTE_ARRAY, therefore not associated with a singular type
 					pass
 				else:
 					cloneability_lookup = shallowmost_iteratee.name
@@ -108,7 +114,6 @@ class VectorGenerator(UtilGenerator):
 							}}
 						'''
 
-
 		mutating_current_vector_methods = self.template
 		for dim_delta in range(1, dimensions):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('[SwiftPrimitive]', '[[SwiftPrimitive]]')
@@ -124,20 +129,32 @@ class VectorGenerator(UtilGenerator):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('dataContainer.initialize(from: array,', 'dataContainer.initialize(from: lowerDimension,')
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('<SwiftPrimitive>', f'<{pointerTypeName}>')
 			if not shallowmost_iteratee_is_tuple_primitive:
-				mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitiveWrapper(pointer: vector)', 'LDKCVec_rust_primitiveWrapper(pointer: vector, subdimensionWrapper: subdimensionWrapper)')
+				mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitiveWrapper(pointer: vector)',
+																						  'LDKCVec_rust_primitiveWrapper(pointer: vector, subdimensionWrapper: subdimensionWrapper)')
 
 		if vector_name.startswith('LDKCVec_'):
-			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'nativeType.data.deallocate()')
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive)',
+																					  f'LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive, deallocate: Bool = true)')
+			if is_deepest_iteratee_primitive:
+				mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'''
+					if deallocate && nativeType.datalen > 0 {{
+						nativeType.data.deallocate()
+					}}
+				''')
+			else:
+				mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'''
+					if deallocate {{
+						{vector_type_details.name[3:]}_free(nativeType)
+					}}
+				''')
 		mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitive', vector_name)
 
 		if not is_primitive and dimensions > 2 or is_primitive and dimensions > 3:
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_START */', '/* SWIFT_TO_RUST_START ')
-			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_END */', 'SWIFT_TO_RUST_END */')
-			# pass
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_END */', 'SWIFT_TO_RUST_END */')  # pass
 
-		mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive',
-																				  swift_primitive)
+		mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive', swift_primitive)
 
 		mutating_current_vector_methods += extraction_method
 
-		self.filled_template += "\n"+mutating_current_vector_methods+"\n"
+		self.filled_template += "\n" + mutating_current_vector_methods + "\n"

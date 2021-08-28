@@ -23,6 +23,15 @@ public class Result_StringErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_StringErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -65,10 +74,10 @@ public class Result_StringErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_StringErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_StringErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_StringErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_StringErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

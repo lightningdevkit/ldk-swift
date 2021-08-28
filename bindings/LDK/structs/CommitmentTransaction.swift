@@ -15,6 +15,15 @@ public class CommitmentTransaction: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCommitmentTransaction, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func clone() -> CommitmentTransaction {
@@ -108,10 +117,10 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing CommitmentTransaction \(self.instanceNumber).")
+							Bindings.print("Freeing CommitmentTransaction \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing CommitmentTransaction \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing CommitmentTransaction \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -23,6 +23,15 @@ public class Result_HTLCOutputInCommitmentDecodeErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -31,14 +40,14 @@ public class Result_HTLCOutputInCommitmentDecodeErrorZ: NativeTypeWrapper {
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee)
+					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
 				}
 				return nil
 			}
 			
 			public func getValue() -> HTLCOutputInCommitment? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return HTLCOutputInCommitment(pointer: self.cOpaqueStruct!.contents.result.pointee)
+					return HTLCOutputInCommitment(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 				}
 				return nil
 			}
@@ -65,10 +74,10 @@ public class Result_HTLCOutputInCommitmentDecodeErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_HTLCOutputInCommitmentDecodeErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_HTLCOutputInCommitmentDecodeErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_HTLCOutputInCommitmentDecodeErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_HTLCOutputInCommitmentDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

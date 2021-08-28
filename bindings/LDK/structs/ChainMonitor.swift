@@ -29,6 +29,15 @@ public class ChainMonitor: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChainMonitor, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func as_Listen() -> Listen {
@@ -71,10 +80,10 @@ ChainMonitor_as_EventsProvider(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChainMonitor \(self.instanceNumber).")
+							Bindings.print("Freeing ChainMonitor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChainMonitor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChainMonitor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

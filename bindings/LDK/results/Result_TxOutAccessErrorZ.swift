@@ -23,6 +23,15 @@ public class Result_TxOutAccessErrorZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKCResult_TxOutAccessErrorZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
 	public func isOk() -> Bool {
 		return self.cOpaqueStruct?.result_ok == true
 	}
@@ -38,7 +47,7 @@ public class Result_TxOutAccessErrorZ: NativeTypeWrapper {
 			
 			public func getValue() -> TxOut? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return TxOut(pointer: self.cOpaqueStruct!.contents.result.pointee)
+					return TxOut(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 				}
 				return nil
 			}
@@ -65,10 +74,10 @@ public class Result_TxOutAccessErrorZ: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Result_TxOutAccessErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_TxOutAccessErrorZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Result_TxOutAccessErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_TxOutAccessErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

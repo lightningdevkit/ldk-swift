@@ -59,22 +59,26 @@ open class FeeEstimator: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing FeeEstimator \(self.instanceNumber).")
+							Bindings.print("Freeing FeeEstimator \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing FeeEstimator \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing FeeEstimator \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
     	/* EDIT ME */
-		return 0
+		Bindings.print("FeeEstimator::get_est_sat_per_1000_weight should be overridden!", severity: .WARNING)
+
+return 0
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("FeeEstimator::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

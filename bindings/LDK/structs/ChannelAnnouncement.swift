@@ -23,6 +23,15 @@ public class ChannelAnnouncement: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChannelAnnouncement, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_node_signature_1() -> [UInt8] {
@@ -143,10 +152,10 @@ ChannelAnnouncement_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelAnnouncement \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelAnnouncement \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

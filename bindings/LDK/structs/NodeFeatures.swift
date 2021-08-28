@@ -23,6 +23,15 @@ public class NodeFeatures: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKNodeFeatures, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public class func eq(a: NodeFeatures, b: NodeFeatures) -> Bool {
@@ -84,10 +93,10 @@ NodeFeatures_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing NodeFeatures \(self.instanceNumber).")
+							Bindings.print("Freeing NodeFeatures \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing NodeFeatures \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NodeFeatures \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

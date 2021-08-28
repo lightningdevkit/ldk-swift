@@ -14,6 +14,15 @@ public class PaymentSendFailure: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKPaymentSendFailure, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum PaymentSendFailureValueType {
@@ -41,28 +50,28 @@ public class PaymentSendFailure: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_ParameterError {
 							return nil
 						}
-						return APIError(pointer: self.cOpaqueStruct!.parameter_error)
+						return APIError(pointer: self.cOpaqueStruct!.parameter_error, anchor: self)
 					}
 				
 					public func getValueAsPathParameterError() -> [LDKCResult_NoneAPIErrorZ]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_PathParameterError {
 							return nil
 						}
-						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error)
+						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error, deallocate: false)
 					}
 				
 					public func getValueAsAllFailedRetrySafe() -> [LDKAPIError]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_AllFailedRetrySafe {
 							return nil
 						}
-						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe)
+						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe, deallocate: false)
 					}
 				
 					public func getValueAsPartialFailure() -> [LDKCResult_NoneAPIErrorZ]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_PartialFailure {
 							return nil
 						}
-						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.partial_failure)
+						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.partial_failure, deallocate: false)
 					}
 				
 			
@@ -78,10 +87,10 @@ public class PaymentSendFailure: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PaymentSendFailure \(self.instanceNumber).")
+							Bindings.print("Freeing PaymentSendFailure \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PaymentSendFailure \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PaymentSendFailure \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

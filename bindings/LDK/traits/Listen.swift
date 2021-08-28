@@ -71,27 +71,33 @@ open class Listen: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing Listen \(self.instanceNumber).")
+							Bindings.print("Freeing Listen \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing Listen \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Listen \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func block_connected(block: [UInt8], height: UInt32) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Listen::block_connected should be overridden!", severity: .WARNING)
+
+
     }
 
     open func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Listen::block_disconnected should be overridden!", severity: .WARNING)
+
+
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("Listen::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

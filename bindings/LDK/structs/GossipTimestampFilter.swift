@@ -23,6 +23,15 @@ public class GossipTimestampFilter: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKGossipTimestampFilter, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_chain_hash() -> [UInt8] {
@@ -113,10 +122,10 @@ GossipTimestampFilter_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing GossipTimestampFilter \(self.instanceNumber).")
+							Bindings.print("Freeing GossipTimestampFilter \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing GossipTimestampFilter \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing GossipTimestampFilter \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

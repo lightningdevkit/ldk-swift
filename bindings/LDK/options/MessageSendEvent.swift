@@ -14,6 +14,15 @@ public class MessageSendEvent: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKMessageSendEvent, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum MessageSendEventValueType {
@@ -73,140 +82,140 @@ public class MessageSendEvent: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendAcceptChannel {
 							return nil
 						}
-						return SendAcceptChannel(pointer: self.cOpaqueStruct!.send_accept_channel)
+						return SendAcceptChannel(pointer: self.cOpaqueStruct!.send_accept_channel, anchor: self)
 					}
 				
 					public func getValueAsSendOpenChannel() -> SendOpenChannel? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendOpenChannel {
 							return nil
 						}
-						return SendOpenChannel(pointer: self.cOpaqueStruct!.send_open_channel)
+						return SendOpenChannel(pointer: self.cOpaqueStruct!.send_open_channel, anchor: self)
 					}
 				
 					public func getValueAsSendFundingCreated() -> SendFundingCreated? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendFundingCreated {
 							return nil
 						}
-						return SendFundingCreated(pointer: self.cOpaqueStruct!.send_funding_created)
+						return SendFundingCreated(pointer: self.cOpaqueStruct!.send_funding_created, anchor: self)
 					}
 				
 					public func getValueAsSendFundingSigned() -> SendFundingSigned? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendFundingSigned {
 							return nil
 						}
-						return SendFundingSigned(pointer: self.cOpaqueStruct!.send_funding_signed)
+						return SendFundingSigned(pointer: self.cOpaqueStruct!.send_funding_signed, anchor: self)
 					}
 				
 					public func getValueAsSendFundingLocked() -> SendFundingLocked? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendFundingLocked {
 							return nil
 						}
-						return SendFundingLocked(pointer: self.cOpaqueStruct!.send_funding_locked)
+						return SendFundingLocked(pointer: self.cOpaqueStruct!.send_funding_locked, anchor: self)
 					}
 				
 					public func getValueAsSendAnnouncementSignatures() -> SendAnnouncementSignatures? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendAnnouncementSignatures {
 							return nil
 						}
-						return SendAnnouncementSignatures(pointer: self.cOpaqueStruct!.send_announcement_signatures)
+						return SendAnnouncementSignatures(pointer: self.cOpaqueStruct!.send_announcement_signatures, anchor: self)
 					}
 				
 					public func getValueAsUpdateHTLCs() -> UpdateHTLCs? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_UpdateHTLCs {
 							return nil
 						}
-						return UpdateHTLCs(pointer: self.cOpaqueStruct!.update_htl_cs)
+						return UpdateHTLCs(pointer: self.cOpaqueStruct!.update_htl_cs, anchor: self)
 					}
 				
 					public func getValueAsSendRevokeAndACK() -> SendRevokeAndACK? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendRevokeAndACK {
 							return nil
 						}
-						return SendRevokeAndACK(pointer: self.cOpaqueStruct!.send_revoke_and_ack)
+						return SendRevokeAndACK(pointer: self.cOpaqueStruct!.send_revoke_and_ack, anchor: self)
 					}
 				
 					public func getValueAsSendClosingSigned() -> SendClosingSigned? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendClosingSigned {
 							return nil
 						}
-						return SendClosingSigned(pointer: self.cOpaqueStruct!.send_closing_signed)
+						return SendClosingSigned(pointer: self.cOpaqueStruct!.send_closing_signed, anchor: self)
 					}
 				
 					public func getValueAsSendShutdown() -> SendShutdown? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendShutdown {
 							return nil
 						}
-						return SendShutdown(pointer: self.cOpaqueStruct!.send_shutdown)
+						return SendShutdown(pointer: self.cOpaqueStruct!.send_shutdown, anchor: self)
 					}
 				
 					public func getValueAsSendChannelReestablish() -> SendChannelReestablish? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendChannelReestablish {
 							return nil
 						}
-						return SendChannelReestablish(pointer: self.cOpaqueStruct!.send_channel_reestablish)
+						return SendChannelReestablish(pointer: self.cOpaqueStruct!.send_channel_reestablish, anchor: self)
 					}
 				
 					public func getValueAsBroadcastChannelAnnouncement() -> BroadcastChannelAnnouncement? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_BroadcastChannelAnnouncement {
 							return nil
 						}
-						return BroadcastChannelAnnouncement(pointer: self.cOpaqueStruct!.broadcast_channel_announcement)
+						return BroadcastChannelAnnouncement(pointer: self.cOpaqueStruct!.broadcast_channel_announcement, anchor: self)
 					}
 				
 					public func getValueAsBroadcastNodeAnnouncement() -> BroadcastNodeAnnouncement? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_BroadcastNodeAnnouncement {
 							return nil
 						}
-						return BroadcastNodeAnnouncement(pointer: self.cOpaqueStruct!.broadcast_node_announcement)
+						return BroadcastNodeAnnouncement(pointer: self.cOpaqueStruct!.broadcast_node_announcement, anchor: self)
 					}
 				
 					public func getValueAsBroadcastChannelUpdate() -> BroadcastChannelUpdate? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_BroadcastChannelUpdate {
 							return nil
 						}
-						return BroadcastChannelUpdate(pointer: self.cOpaqueStruct!.broadcast_channel_update)
+						return BroadcastChannelUpdate(pointer: self.cOpaqueStruct!.broadcast_channel_update, anchor: self)
 					}
 				
 					public func getValueAsSendChannelUpdate() -> SendChannelUpdate? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendChannelUpdate {
 							return nil
 						}
-						return SendChannelUpdate(pointer: self.cOpaqueStruct!.send_channel_update)
+						return SendChannelUpdate(pointer: self.cOpaqueStruct!.send_channel_update, anchor: self)
 					}
 				
 					public func getValueAsHandleError() -> HandleError? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_HandleError {
 							return nil
 						}
-						return HandleError(pointer: self.cOpaqueStruct!.handle_error)
+						return HandleError(pointer: self.cOpaqueStruct!.handle_error, anchor: self)
 					}
 				
 					public func getValueAsPaymentFailureNetworkUpdate() -> PaymentFailureNetworkUpdate? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_PaymentFailureNetworkUpdate {
 							return nil
 						}
-						return PaymentFailureNetworkUpdate(pointer: self.cOpaqueStruct!.payment_failure_network_update)
+						return PaymentFailureNetworkUpdate(pointer: self.cOpaqueStruct!.payment_failure_network_update, anchor: self)
 					}
 				
 					public func getValueAsSendChannelRangeQuery() -> SendChannelRangeQuery? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendChannelRangeQuery {
 							return nil
 						}
-						return SendChannelRangeQuery(pointer: self.cOpaqueStruct!.send_channel_range_query)
+						return SendChannelRangeQuery(pointer: self.cOpaqueStruct!.send_channel_range_query, anchor: self)
 					}
 				
 					public func getValueAsSendShortIdsQuery() -> SendShortIdsQuery? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendShortIdsQuery {
 							return nil
 						}
-						return SendShortIdsQuery(pointer: self.cOpaqueStruct!.send_short_ids_query)
+						return SendShortIdsQuery(pointer: self.cOpaqueStruct!.send_short_ids_query, anchor: self)
 					}
 				
 					public func getValueAsSendReplyChannelRange() -> SendReplyChannelRange? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendReplyChannelRange {
 							return nil
 						}
-						return SendReplyChannelRange(pointer: self.cOpaqueStruct!.send_reply_channel_range)
+						return SendReplyChannelRange(pointer: self.cOpaqueStruct!.send_reply_channel_range, anchor: self)
 					}
 				
 			
@@ -222,10 +231,10 @@ public class MessageSendEvent: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MessageSendEvent \(self.instanceNumber).")
+							Bindings.print("Freeing MessageSendEvent \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MessageSendEvent \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MessageSendEvent \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
@@ -348,12 +357,19 @@ MessageSendEvent_clone(origPointer)
 
 	
 
-			public class SendAcceptChannel {
+			public class SendAcceptChannel: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendAcceptChannel_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendAcceptChannel_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendAcceptChannel_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -363,19 +379,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> AcceptChannel {
-						return AcceptChannel(pointer: self.cOpaqueStruct!.msg)
+						return AcceptChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendOpenChannel {
+			public class SendOpenChannel: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendOpenChannel_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendOpenChannel_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendOpenChannel_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -385,19 +408,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> OpenChannel {
-						return OpenChannel(pointer: self.cOpaqueStruct!.msg)
+						return OpenChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendFundingCreated {
+			public class SendFundingCreated: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendFundingCreated_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingCreated_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingCreated_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -407,19 +437,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> FundingCreated {
-						return FundingCreated(pointer: self.cOpaqueStruct!.msg)
+						return FundingCreated(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendFundingSigned {
+			public class SendFundingSigned: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendFundingSigned_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingSigned_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingSigned_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -429,19 +466,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> FundingSigned {
-						return FundingSigned(pointer: self.cOpaqueStruct!.msg)
+						return FundingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendFundingLocked {
+			public class SendFundingLocked: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendFundingLocked_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingLocked_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingLocked_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -451,19 +495,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> FundingLocked {
-						return FundingLocked(pointer: self.cOpaqueStruct!.msg)
+						return FundingLocked(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendAnnouncementSignatures {
+			public class SendAnnouncementSignatures: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendAnnouncementSignatures_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendAnnouncementSignatures_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendAnnouncementSignatures_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -473,19 +524,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> AnnouncementSignatures {
-						return AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg)
+						return AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class UpdateHTLCs {
+			public class UpdateHTLCs: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKUpdateHTLCs_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKUpdateHTLCs_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKUpdateHTLCs_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -495,19 +553,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getUpdates() -> CommitmentUpdate {
-						return CommitmentUpdate(pointer: self.cOpaqueStruct!.updates)
+						return CommitmentUpdate(pointer: self.cOpaqueStruct!.updates, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendRevokeAndACK {
+			public class SendRevokeAndACK: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendRevokeAndACK_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendRevokeAndACK_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendRevokeAndACK_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -517,19 +582,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> RevokeAndACK {
-						return RevokeAndACK(pointer: self.cOpaqueStruct!.msg)
+						return RevokeAndACK(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendClosingSigned {
+			public class SendClosingSigned: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendClosingSigned_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendClosingSigned_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendClosingSigned_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -539,19 +611,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ClosingSigned {
-						return ClosingSigned(pointer: self.cOpaqueStruct!.msg)
+						return ClosingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendShutdown {
+			public class SendShutdown: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendShutdown_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendShutdown_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendShutdown_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -561,19 +640,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Shutdown {
-						return Shutdown(pointer: self.cOpaqueStruct!.msg)
+						return Shutdown(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendChannelReestablish {
+			public class SendChannelReestablish: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelReestablish_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelReestablish_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelReestablish_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -583,77 +669,105 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ChannelReestablish {
-						return ChannelReestablish(pointer: self.cOpaqueStruct!.msg)
+						return ChannelReestablish(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class BroadcastChannelAnnouncement {
+			public class BroadcastChannelAnnouncement: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKBroadcastChannelAnnouncement_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastChannelAnnouncement_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastChannelAnnouncement_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getMsg() -> ChannelAnnouncement {
-						return ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg)
+						return ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 					public func getUpdate_msg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg)
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class BroadcastNodeAnnouncement {
+			public class BroadcastNodeAnnouncement: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getMsg() -> NodeAnnouncement {
-						return NodeAnnouncement(pointer: self.cOpaqueStruct!.msg)
+						return NodeAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class BroadcastChannelUpdate {
+			public class BroadcastChannelUpdate: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKBroadcastChannelUpdate_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastChannelUpdate_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastChannelUpdate_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg)
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendChannelUpdate {
+			public class SendChannelUpdate: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelUpdate_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelUpdate_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelUpdate_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -663,19 +777,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg)
+						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class HandleError {
+			public class HandleError: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKHandleError_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKHandleError_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKHandleError_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -685,37 +806,51 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getAction() -> ErrorAction {
-						return ErrorAction(pointer: self.cOpaqueStruct!.action)
+						return ErrorAction(pointer: self.cOpaqueStruct!.action, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class PaymentFailureNetworkUpdate {
+			public class PaymentFailureNetworkUpdate: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKPaymentFailureNetworkUpdate_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKPaymentFailureNetworkUpdate_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKPaymentFailureNetworkUpdate_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getUpdate() -> HTLCFailChannelUpdate {
-						return HTLCFailChannelUpdate(pointer: self.cOpaqueStruct!.update)
+						return HTLCFailChannelUpdate(pointer: self.cOpaqueStruct!.update, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendChannelRangeQuery {
+			public class SendChannelRangeQuery: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelRangeQuery_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelRangeQuery_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelRangeQuery_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -725,19 +860,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> QueryChannelRange {
-						return QueryChannelRange(pointer: self.cOpaqueStruct!.msg)
+						return QueryChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendShortIdsQuery {
+			public class SendShortIdsQuery: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendShortIdsQuery_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendShortIdsQuery_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendShortIdsQuery_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -747,19 +889,26 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> QueryShortChannelIds {
-						return QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg)
+						return QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				
 			}
 		
 
-			public class SendReplyChannelRange {
+			public class SendReplyChannelRange: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendReplyChannelRange_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendReplyChannelRange_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendReplyChannelRange_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
@@ -769,7 +918,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> ReplyChannelRange {
-						return ReplyChannelRange(pointer: self.cOpaqueStruct!.msg)
+						return ReplyChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				

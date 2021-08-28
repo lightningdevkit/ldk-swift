@@ -12,6 +12,15 @@ public class C3Tuple_RawInvoice_u832InvoiceSignatureZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* TUPLE_METHODS_START */
 
     public func clone() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
@@ -45,10 +54,10 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C3Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber).")
+							Bindings.print("Freeing C3Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C3Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C3Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -15,6 +15,15 @@ public class ChannelMonitorUpdate: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChannelMonitorUpdate, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_update_id() -> UInt64 {
@@ -75,10 +84,10 @@ ChannelMonitorUpdate_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelMonitorUpdate \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelMonitorUpdate \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelMonitorUpdate \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelMonitorUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

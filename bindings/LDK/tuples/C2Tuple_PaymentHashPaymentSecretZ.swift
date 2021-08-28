@@ -12,6 +12,15 @@ public class C2Tuple_PaymentHashPaymentSecretZ: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKC2Tuple_PaymentHashPaymentSecretZ, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* TUPLE_METHODS_START */
 
     public func clone() -> C2Tuple_PaymentHashPaymentSecretZ {
@@ -45,10 +54,10 @@ C2Tuple_PaymentHashPaymentSecretZ_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber).")
+							Bindings.print("Freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C2Tuple_PaymentHashPaymentSecretZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

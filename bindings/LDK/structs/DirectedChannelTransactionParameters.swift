@@ -15,6 +15,15 @@ public class DirectedChannelTransactionParameters: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKDirectedChannelTransactionParameters, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func broadcaster_pubkeys() -> ChannelPublicKeys {
@@ -64,10 +73,10 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing DirectedChannelTransactionParameters \(self.instanceNumber).")
+							Bindings.print("Freeing DirectedChannelTransactionParameters \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing DirectedChannelTransactionParameters \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing DirectedChannelTransactionParameters \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

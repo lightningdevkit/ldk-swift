@@ -65,22 +65,26 @@ open class MessageSendEventsProvider: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing MessageSendEventsProvider \(self.instanceNumber).")
+							Bindings.print("Freeing MessageSendEventsProvider \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing MessageSendEventsProvider \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MessageSendEventsProvider \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
     	/* EDIT ME */
-		return [LDKMessageSendEvent]()
+		Bindings.print("MessageSendEventsProvider::get_and_clear_pending_msg_events should be overridden!", severity: .WARNING)
+
+return [LDKMessageSendEvent]()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("MessageSendEventsProvider::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

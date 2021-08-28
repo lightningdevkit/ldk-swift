@@ -59,22 +59,26 @@ open class EventHandler: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing EventHandler \(self.instanceNumber).")
+							Bindings.print("Freeing EventHandler \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing EventHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing EventHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func handle_event(event: Event) -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("EventHandler::handle_event should be overridden!", severity: .WARNING)
+
+
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		
+		Bindings.print("EventHandler::free should be overridden!", severity: .WARNING)
+
+
     }
 
     /* SWIFT_CALLBACKS_END */

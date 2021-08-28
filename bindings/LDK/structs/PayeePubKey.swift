@@ -15,6 +15,15 @@ public class PayeePubKey: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKPayeePubKey, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public class func eq(a: PayeePubKey, b: PayeePubKey) -> Bool {
@@ -52,10 +61,10 @@ PayeePubKey_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PayeePubKey \(self.instanceNumber).")
+							Bindings.print("Freeing PayeePubKey \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PayeePubKey \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PayeePubKey \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

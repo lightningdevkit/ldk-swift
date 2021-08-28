@@ -66,7 +66,6 @@ class OpaqueStructGenerator:
 		if struct_details.free_method is not None:
 			method_iterator.append(struct_details.free_method)
 
-
 		# fill templates
 		for current_method_details in method_iterator:
 			current_native_method_name = current_method_details['name']['native']
@@ -119,7 +118,6 @@ class OpaqueStructGenerator:
 				cloneability_type_message = '; '.join(cloneability_types)
 				print(f'/// {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
 
-
 			current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}OpaqueStructType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
@@ -152,10 +150,10 @@ class OpaqueStructGenerator:
 					
 					deinit {{
 						if !self.dangling {{
-							print("Freeing {swift_struct_name} \(self.instanceNumber).")
+							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")
 							self.{current_method_name}()
 						}} else {{
-							print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
 						}}
 					}}
 				'''
@@ -166,7 +164,7 @@ class OpaqueStructGenerator:
 			for current_field in struct_details.fields:
 				current_field_name = current_field['name']
 				current_field_type = current_field['field_details']
-				value_return_wrappers = ConversionHelper.prepare_return_value(current_field_type)
+				value_return_wrappers = ConversionHelper.prepare_return_value(current_field_type, is_raw_property_getter=True)
 				current_swift_return_type = value_return_wrappers['swift_type']
 				current_method_name = f'get_{current_field_name}'
 

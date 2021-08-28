@@ -59,7 +59,25 @@ open class NativeTypeWrapper: Hashable {
 
 }
 
-public class Bindings{
+public class Bindings {
+
+	internal static var minimumPrintSeverity: PrintSeverity = .WARNING
+
+    public enum PrintSeverity: UInt {
+        case DEBUG = 0
+        case WARNING = 1
+        case ERROR = 2
+    }
+
+    internal class func print(_ string: String, severity: PrintSeverity = .DEBUG) {
+        if severity.rawValue >= Self.minimumPrintSeverity.rawValue {
+            Swift.print(string)
+        }
+    }
+
+    public class func setLogThreshold(severity: PrintSeverity){
+        Self.minimumPrintSeverity = severity
+    }
 
 	/* BYTE_ARRAY_METHODS_START */
 
@@ -667,14 +685,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_APIErrorZ_to_array(nativeType: LDKCVec_APIErrorZ) -> [LDKAPIError] {
+    public class func LDKCVec_APIErrorZ_to_array(nativeType: LDKCVec_APIErrorZ, deallocate: Bool = true) -> [LDKAPIError] {
 		var array = [LDKAPIError]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -764,14 +786,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
+    public class func LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ, deallocate: Bool = true) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
 		var array = [LDKC2Tuple_BlockHashChannelMonitorZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -854,14 +880,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ_to_array(nativeType: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
+    public class func LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ_to_array(nativeType: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ, deallocate: Bool = true) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
 		var array = [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -951,14 +981,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_u32ScriptZZ_to_array(nativeType: LDKCVec_C2Tuple_u32ScriptZZ) -> [LDKC2Tuple_u32ScriptZ] {
+    public class func LDKCVec_C2Tuple_u32ScriptZZ_to_array(nativeType: LDKCVec_C2Tuple_u32ScriptZZ, deallocate: Bool = true) -> [LDKC2Tuple_u32ScriptZ] {
 		var array = [LDKC2Tuple_u32ScriptZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1048,14 +1082,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_u32TxOutZZ_to_array(nativeType: LDKCVec_C2Tuple_u32TxOutZZ) -> [LDKC2Tuple_u32TxOutZ] {
+    public class func LDKCVec_C2Tuple_u32TxOutZZ_to_array(nativeType: LDKCVec_C2Tuple_u32TxOutZZ, deallocate: Bool = true) -> [LDKC2Tuple_u32TxOutZ] {
 		var array = [LDKC2Tuple_u32TxOutZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1145,14 +1183,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: LDKCVec_C2Tuple_usizeTransactionZZ) -> [LDKC2Tuple_usizeTransactionZ] {
+    public class func LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: LDKCVec_C2Tuple_usizeTransactionZZ, deallocate: Bool = true) -> [LDKC2Tuple_usizeTransactionZ] {
 		var array = [LDKC2Tuple_usizeTransactionZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1242,14 +1284,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_to_array(nativeType: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+    public class func LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_to_array(nativeType: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ, deallocate: Bool = true) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
 		var array = [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1339,14 +1385,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: LDKCVec_CResult_NoneAPIErrorZZ) -> [LDKCResult_NoneAPIErrorZ] {
+    public class func LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: LDKCVec_CResult_NoneAPIErrorZZ, deallocate: Bool = true) -> [LDKCResult_NoneAPIErrorZ] {
 		var array = [LDKCResult_NoneAPIErrorZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1444,14 +1494,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_CVec_RouteHopZZ_to_array(nativeType: LDKCVec_CVec_RouteHopZZ) -> [[LDKRouteHop]] {
+    public class func LDKCVec_CVec_RouteHopZZ_to_array(nativeType: LDKCVec_CVec_RouteHopZZ, deallocate: Bool = true) -> [[LDKRouteHop]] {
 		var array = [[LDKRouteHop]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			let convertedEntry = LDKCVec_RouteHopZ_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1524,14 +1578,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_CVec_u8ZZ_to_array(nativeType: LDKCVec_CVec_u8ZZ) -> [[UInt8]] {
+    public class func LDKCVec_CVec_u8ZZ_to_array(nativeType: LDKCVec_CVec_u8ZZ, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			let convertedEntry = LDKCVec_u8Z_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1596,14 +1654,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_ChannelDetailsZ_to_array(nativeType: LDKCVec_ChannelDetailsZ) -> [LDKChannelDetails] {
+    public class func LDKCVec_ChannelDetailsZ_to_array(nativeType: LDKCVec_ChannelDetailsZ, deallocate: Bool = true) -> [LDKChannelDetails] {
 		var array = [LDKChannelDetails]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1693,14 +1755,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_ChannelMonitorZ_to_array(nativeType: LDKCVec_ChannelMonitorZ) -> [LDKChannelMonitor] {
+    public class func LDKCVec_ChannelMonitorZ_to_array(nativeType: LDKCVec_ChannelMonitorZ, deallocate: Bool = true) -> [LDKChannelMonitor] {
 		var array = [LDKChannelMonitor]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1790,14 +1856,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_EventZ_to_array(nativeType: LDKCVec_EventZ) -> [LDKEvent] {
+    public class func LDKCVec_EventZ_to_array(nativeType: LDKCVec_EventZ, deallocate: Bool = true) -> [LDKEvent] {
 		var array = [LDKEvent]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1887,14 +1957,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_MessageSendEventZ_to_array(nativeType: LDKCVec_MessageSendEventZ) -> [LDKMessageSendEvent] {
+    public class func LDKCVec_MessageSendEventZ_to_array(nativeType: LDKCVec_MessageSendEventZ, deallocate: Bool = true) -> [LDKMessageSendEvent] {
 		var array = [LDKMessageSendEvent]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -1984,14 +2058,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_MonitorEventZ_to_array(nativeType: LDKCVec_MonitorEventZ) -> [LDKMonitorEvent] {
+    public class func LDKCVec_MonitorEventZ_to_array(nativeType: LDKCVec_MonitorEventZ, deallocate: Bool = true) -> [LDKMonitorEvent] {
 		var array = [LDKMonitorEvent]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2081,14 +2159,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_NetAddressZ_to_array(nativeType: LDKCVec_NetAddressZ) -> [LDKNetAddress] {
+    public class func LDKCVec_NetAddressZ_to_array(nativeType: LDKCVec_NetAddressZ, deallocate: Bool = true) -> [LDKNetAddress] {
 		var array = [LDKNetAddress]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2178,14 +2260,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_NodeAnnouncementZ_to_array(nativeType: LDKCVec_NodeAnnouncementZ) -> [LDKNodeAnnouncement] {
+    public class func LDKCVec_NodeAnnouncementZ_to_array(nativeType: LDKCVec_NodeAnnouncementZ, deallocate: Bool = true) -> [LDKNodeAnnouncement] {
 		var array = [LDKNodeAnnouncement]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2275,14 +2361,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_PrivateRouteZ_to_array(nativeType: LDKCVec_PrivateRouteZ) -> [LDKPrivateRoute] {
+    public class func LDKCVec_PrivateRouteZ_to_array(nativeType: LDKCVec_PrivateRouteZ, deallocate: Bool = true) -> [LDKPrivateRoute] {
 		var array = [LDKPrivateRoute]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2380,14 +2470,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_PublicKeyZ_to_array(nativeType: LDKCVec_PublicKeyZ) -> [[UInt8]] {
+    public class func LDKCVec_PublicKeyZ_to_array(nativeType: LDKCVec_PublicKeyZ, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			let convertedEntry = LDKPublicKey_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2452,14 +2546,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_RouteHintZ_to_array(nativeType: LDKCVec_RouteHintZ) -> [LDKRouteHint] {
+    public class func LDKCVec_RouteHintZ_to_array(nativeType: LDKCVec_RouteHintZ, deallocate: Bool = true) -> [LDKRouteHint] {
 		var array = [LDKRouteHint]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2549,14 +2647,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_RouteHopZ_to_array(nativeType: LDKCVec_RouteHopZ) -> [LDKRouteHop] {
+    public class func LDKCVec_RouteHopZ_to_array(nativeType: LDKCVec_RouteHopZ, deallocate: Bool = true) -> [LDKRouteHop] {
 		var array = [LDKRouteHop]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2654,14 +2756,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_SignatureZ_to_array(nativeType: LDKCVec_SignatureZ) -> [[UInt8]] {
+    public class func LDKCVec_SignatureZ_to_array(nativeType: LDKCVec_SignatureZ, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			let convertedEntry = LDKSignature_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2726,14 +2832,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: LDKCVec_SpendableOutputDescriptorZ) -> [LDKSpendableOutputDescriptor] {
+    public class func LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: LDKCVec_SpendableOutputDescriptorZ, deallocate: Bool = true) -> [LDKSpendableOutputDescriptor] {
 		var array = [LDKSpendableOutputDescriptor]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2823,14 +2933,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TransactionOutputsZ_to_array(nativeType: LDKCVec_TransactionOutputsZ) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
+    public class func LDKCVec_TransactionOutputsZ_to_array(nativeType: LDKCVec_TransactionOutputsZ, deallocate: Bool = true) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
 		var array = [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -2928,14 +3042,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TransactionZ_to_array(nativeType: LDKCVec_TransactionZ) -> [[UInt8]] {
+    public class func LDKCVec_TransactionZ_to_array(nativeType: LDKCVec_TransactionZ, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			let convertedEntry = LDKTransaction_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3000,14 +3118,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TxOutZ_to_array(nativeType: LDKCVec_TxOutZ) -> [LDKTxOut] {
+    public class func LDKCVec_TxOutZ_to_array(nativeType: LDKCVec_TxOutZ, deallocate: Bool = true) -> [LDKTxOut] {
 		var array = [LDKTxOut]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3097,14 +3219,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TxidZ_to_array(nativeType: LDKCVec_TxidZ) -> [LDKThirtyTwoBytes] {
+    public class func LDKCVec_TxidZ_to_array(nativeType: LDKCVec_TxidZ, deallocate: Bool = true) -> [LDKThirtyTwoBytes] {
 		var array = [LDKThirtyTwoBytes]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3169,14 +3295,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateAddHTLCZ_to_array(nativeType: LDKCVec_UpdateAddHTLCZ) -> [LDKUpdateAddHTLC] {
+    public class func LDKCVec_UpdateAddHTLCZ_to_array(nativeType: LDKCVec_UpdateAddHTLCZ, deallocate: Bool = true) -> [LDKUpdateAddHTLC] {
 		var array = [LDKUpdateAddHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3266,14 +3396,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateFailHTLCZ_to_array(nativeType: LDKCVec_UpdateFailHTLCZ) -> [LDKUpdateFailHTLC] {
+    public class func LDKCVec_UpdateFailHTLCZ_to_array(nativeType: LDKCVec_UpdateFailHTLCZ, deallocate: Bool = true) -> [LDKUpdateFailHTLC] {
 		var array = [LDKUpdateFailHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3363,14 +3497,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateFailMalformedHTLCZ_to_array(nativeType: LDKCVec_UpdateFailMalformedHTLCZ) -> [LDKUpdateFailMalformedHTLC] {
+    public class func LDKCVec_UpdateFailMalformedHTLCZ_to_array(nativeType: LDKCVec_UpdateFailMalformedHTLCZ, deallocate: Bool = true) -> [LDKUpdateFailMalformedHTLC] {
 		var array = [LDKUpdateFailMalformedHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3460,14 +3598,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateFulfillHTLCZ_to_array(nativeType: LDKCVec_UpdateFulfillHTLCZ) -> [LDKUpdateFulfillHTLC] {
+    public class func LDKCVec_UpdateFulfillHTLCZ_to_array(nativeType: LDKCVec_UpdateFulfillHTLCZ, deallocate: Bool = true) -> [LDKUpdateFulfillHTLC] {
 		var array = [LDKUpdateFulfillHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3557,14 +3699,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_u64Z_to_array(nativeType: LDKCVec_u64Z) -> [UInt64] {
+    public class func LDKCVec_u64Z_to_array(nativeType: LDKCVec_u64Z, deallocate: Bool = true) -> [UInt64] {
 		var array = [UInt64]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -3629,14 +3775,18 @@ public class Bindings{
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_u8Z_to_array(nativeType: LDKCVec_u8Z) -> [UInt8] {
+    public class func LDKCVec_u8Z_to_array(nativeType: LDKCVec_u8Z, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
@@ -4050,14 +4200,16 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 	/* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-	public class func LDKTransaction_to_array(nativeType: LDKTransaction) -> [UInt8] {
+	public class func LDKTransaction_to_array(nativeType: LDKTransaction, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
 			array.append(currentEntry)
 		}
-		nativeType.data.deallocate()
+		if deallocate && nativeType.datalen > 0 {
+			nativeType.data.deallocate()
+		}
 		return array
 	}
 	/* RUST_TO_SWIFT_END */

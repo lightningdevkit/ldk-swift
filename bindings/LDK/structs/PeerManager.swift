@@ -25,6 +25,15 @@ PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array:
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKPeerManager, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_peer_node_ids() -> [[UInt8]] {
@@ -115,10 +124,10 @@ PeerManager_timer_tick_occurred(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PeerManager \(self.instanceNumber).")
+							Bindings.print("Freeing PeerManager \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PeerManager \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PeerManager \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

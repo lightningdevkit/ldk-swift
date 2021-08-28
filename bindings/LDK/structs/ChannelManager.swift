@@ -23,6 +23,15 @@ public class ChannelManager: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKChannelManager, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_current_default_configuration() -> UserConfig {
@@ -266,10 +275,10 @@ ChannelManager_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ChannelManager \(self.instanceNumber).")
+							Bindings.print("Freeing ChannelManager \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ChannelManager \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ChannelManager \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

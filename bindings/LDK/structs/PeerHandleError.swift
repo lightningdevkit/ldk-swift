@@ -23,6 +23,15 @@ public class PeerHandleError: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKPeerHandleError, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_no_connection_possible() -> Bool {
@@ -66,10 +75,10 @@ PeerHandleError_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PeerHandleError \(self.instanceNumber).")
+							Bindings.print("Freeing PeerHandleError \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PeerHandleError \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PeerHandleError \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

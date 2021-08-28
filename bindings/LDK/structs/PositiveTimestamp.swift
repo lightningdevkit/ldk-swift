@@ -15,6 +15,15 @@ public class PositiveTimestamp: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKPositiveTimestamp, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public class func eq(a: PositiveTimestamp, b: PositiveTimestamp) -> Bool {
@@ -76,10 +85,10 @@ PositiveTimestamp_as_time(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing PositiveTimestamp \(self.instanceNumber).")
+							Bindings.print("Freeing PositiveTimestamp \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing PositiveTimestamp \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing PositiveTimestamp \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

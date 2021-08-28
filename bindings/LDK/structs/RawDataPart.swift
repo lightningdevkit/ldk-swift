@@ -15,6 +15,15 @@ public class RawDataPart: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKRawDataPart, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_timestamp() -> PositiveTimestamp {
@@ -67,10 +76,10 @@ RawDataPart_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing RawDataPart \(self.instanceNumber).")
+							Bindings.print("Freeing RawDataPart \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing RawDataPart \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing RawDataPart \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -15,6 +15,15 @@ public class UnsignedNodeAnnouncement: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKUnsignedNodeAnnouncement, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_features() -> NodeFeatures {
@@ -148,10 +157,10 @@ UnsignedNodeAnnouncement_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UnsignedNodeAnnouncement \(self.instanceNumber).")
+							Bindings.print("Freeing UnsignedNodeAnnouncement \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UnsignedNodeAnnouncement \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UnsignedNodeAnnouncement \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

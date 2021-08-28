@@ -15,6 +15,15 @@ public class UpdateFailMalformedHTLC: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKUpdateFailMalformedHTLC, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_channel_id() -> [UInt8] {
@@ -105,10 +114,10 @@ UpdateFailMalformedHTLC_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing UpdateFailMalformedHTLC \(self.instanceNumber).")
+							Bindings.print("Freeing UpdateFailMalformedHTLC \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing UpdateFailMalformedHTLC \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UpdateFailMalformedHTLC \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

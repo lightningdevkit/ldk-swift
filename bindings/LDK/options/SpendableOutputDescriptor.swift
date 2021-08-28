@@ -14,6 +14,15 @@ public class SpendableOutputDescriptor: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKSpendableOutputDescriptor, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* OPTION_METHODS_START */
 
 				public enum SpendableOutputDescriptorValueType {
@@ -39,21 +48,21 @@ public class SpendableOutputDescriptor: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_StaticOutput {
 							return nil
 						}
-						return StaticOutput(pointer: self.cOpaqueStruct!.static_output)
+						return StaticOutput(pointer: self.cOpaqueStruct!.static_output, anchor: self)
 					}
 				
 					public func getValueAsDelayedPaymentOutput() -> DelayedPaymentOutputDescriptor? {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_DelayedPaymentOutput {
 							return nil
 						}
-						return DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output)
+						return DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output, anchor: self)
 					}
 				
 					public func getValueAsStaticPaymentOutput() -> StaticPaymentOutputDescriptor? {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_StaticPaymentOutput {
 							return nil
 						}
-						return StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output)
+						return StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output, anchor: self)
 					}
 				
 			
@@ -69,10 +78,10 @@ public class SpendableOutputDescriptor: NativeTypeWrapper {
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing SpendableOutputDescriptor \(self.instanceNumber).")
+							Bindings.print("Freeing SpendableOutputDescriptor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing SpendableOutputDescriptor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing SpendableOutputDescriptor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
@@ -127,22 +136,29 @@ SpendableOutputDescriptor_write(objPointer)
 
 	
 
-			public class StaticOutput {
+			public class StaticOutput: NativeTypeWrapper {
 				
 				
 				var cOpaqueStruct: LDKSpendableOutputDescriptor_LDKStaticOutput_Body?;
 				fileprivate init(pointer: LDKSpendableOutputDescriptor_LDKStaticOutput_Body) {
 					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKSpendableOutputDescriptor_LDKStaticOutput_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
 				}
 			
 				
 				
 					public func getOutpoint() -> OutPoint {
-						return OutPoint(pointer: self.cOpaqueStruct!.outpoint)
+						return OutPoint(pointer: self.cOpaqueStruct!.outpoint, anchor: self)
 					}
 				
 					public func getOutput() -> TxOut {
-						return TxOut(pointer: self.cOpaqueStruct!.output)
+						return TxOut(pointer: self.cOpaqueStruct!.output, anchor: self)
 					}
 				
 				

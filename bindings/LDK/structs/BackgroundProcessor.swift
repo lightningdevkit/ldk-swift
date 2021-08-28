@@ -29,6 +29,15 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKBackgroundProcessor, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func join() -> Result_NoneErrorZ {
@@ -53,10 +62,10 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing BackgroundProcessor \(self.instanceNumber).")
+							Bindings.print("Freeing BackgroundProcessor \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing BackgroundProcessor \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing BackgroundProcessor \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -28,6 +28,15 @@ public class TxOut: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKTxOut, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func clone() -> TxOut {
@@ -56,17 +65,17 @@ TxOut_clone(origPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing TxOut \(self.instanceNumber).")
+							Bindings.print("Freeing TxOut \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing TxOut \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing TxOut \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     public func get_script_pubkey() -> [UInt8] {
     	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey);
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey, deallocate: false);
     }
 
     public func get_value() -> UInt64 {

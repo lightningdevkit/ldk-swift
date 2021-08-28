@@ -29,6 +29,15 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKNetGraphMsgHandler, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func add_chain_access(chain_access: Access?) -> Void {
@@ -78,10 +87,10 @@ NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing NetGraphMsgHandler \(self.instanceNumber).")
+							Bindings.print("Freeing NetGraphMsgHandler \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing NetGraphMsgHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NetGraphMsgHandler \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

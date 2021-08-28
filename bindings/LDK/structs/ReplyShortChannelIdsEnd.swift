@@ -23,6 +23,15 @@ public class ReplyShortChannelIdsEnd: NativeTypeWrapper {
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
+	public init(pointer: LDKReplyShortChannelIdsEnd, anchor: NativeTypeWrapper){
+		Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+		self.cOpaqueStruct = pointer
+		super.init(conflictAvoidingVariableName: 0)
+		self.dangling = true
+		try! self.addAnchor(anchor: anchor)
+	}
+
     /* STRUCT_METHODS_START */
 
     public func get_chain_hash() -> [UInt8] {
@@ -98,10 +107,10 @@ ReplyShortChannelIdsEnd_write(objPointer)
 					
 					deinit {
 						if !self.dangling {
-							print("Freeing ReplyShortChannelIdsEnd \(self.instanceNumber).")
+							Bindings.print("Freeing ReplyShortChannelIdsEnd \(self.instanceNumber).")
 							self.free()
 						} else {
-							print("Not freeing ReplyShortChannelIdsEnd \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing ReplyShortChannelIdsEnd \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

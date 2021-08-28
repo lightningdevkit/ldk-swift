@@ -279,8 +279,8 @@ public class HumanObjectPeerTestInstance {
 
         let connectedPeersA = peer1.peerManager.get_peer_node_ids()
         let connectedPeersB = peer2.peerManager.get_peer_node_ids()
-        XCTAssertEqual(connectedPeersA.count, 0)
-        XCTAssertEqual(connectedPeersB.count, 0)
+        XCTAssertEqual(connectedPeersA.count, 1)
+        XCTAssertEqual(connectedPeersB.count, 1)
 
         peer1.constructor?.interrupt()
         peer2.constructor?.interrupt()

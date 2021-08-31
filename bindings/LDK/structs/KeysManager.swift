@@ -45,14 +45,24 @@ KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, paramsP
 });
     }
 
-    public func spend_spendable_outputs(descriptors: [LDKSpendableOutputDescriptor], outputs: [LDKTxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
+    public func spend_spendable_outputs(descriptors: [SpendableOutputDescriptor], outputs: [TxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
     	
-						let descriptorsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: descriptors)
+							let descriptorsUnwrapped = descriptors.map { (descriptorsCurrentValue) in
+							descriptorsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let descriptorsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: descriptorsUnwrapped)
 						defer {
 							descriptorsWrapper.noOpRetain()
 						}
 					
-						let outputsWrapper = Bindings.new_LDKCVec_TxOutZWrapper(array: outputs)
+							let outputsUnwrapped = outputs.map { (outputsCurrentValue) in
+							outputsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let outputsWrapper = Bindings.new_LDKCVec_TxOutZWrapper(array: outputsUnwrapped)
 						defer {
 							outputsWrapper.noOpRetain()
 						}

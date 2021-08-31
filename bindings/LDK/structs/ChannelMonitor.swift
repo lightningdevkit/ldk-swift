@@ -115,9 +115,14 @@ ChannelMonitor_get_latest_holder_commitment_txn(this_argPointer, loggerPointer)
 });
     }
 
-    public func block_connected(header: [UInt8], txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
+    public func block_connected(header: [UInt8], txdata: [C2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
     	
-						let txdataWrapper = Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: txdata)
+							let txdataUnwrapped = txdata.map { (txdataCurrentValue) in
+							txdataCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let txdataWrapper = Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: txdataUnwrapped)
 						defer {
 							txdataWrapper.noOpRetain()
 						}
@@ -138,9 +143,14 @@ ChannelMonitor_block_disconnected(this_argPointer, headerPointer, height, broadc
 };
     }
 
-    public func transactions_confirmed(header: [UInt8], txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
+    public func transactions_confirmed(header: [UInt8], txdata: [C2Tuple_usizeTransactionZ], height: UInt32, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> [LDKTransactionOutputs] {
     	
-						let txdataWrapper = Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: txdata)
+							let txdataUnwrapped = txdata.map { (txdataCurrentValue) in
+							txdataCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let txdataWrapper = Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: txdataUnwrapped)
 						defer {
 							txdataWrapper.noOpRetain()
 						}

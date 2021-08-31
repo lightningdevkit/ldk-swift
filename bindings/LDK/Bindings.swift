@@ -4062,7 +4062,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				
 			
 	}
-	public class func swift_get_keysend_route(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], first_hops: [LDKChannelDetails]?, last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
+	public class func swift_get_keysend_route(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], first_hops: [ChannelDetails]?, last_hops: [RouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		
 				
 							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
@@ -4071,14 +4071,24 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 								first_hopsPointer!.initialize(to: Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hopsUnwrapped).cOpaqueStruct!)
 							}
 						
-						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hops)
+							let first_hopsUnwrapped = first_hops.map { (first_hopsCurrentValue) in
+							first_hopsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+							let last_hopsUnwrapped = last_hops.map { (last_hopsCurrentValue) in
+							last_hopsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hopsUnwrapped)
 						defer {
 							last_hopsWrapper.noOpRetain()
 						}
 					
 				return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 
-				Result_RouteLightningErrorZ(pointer: get_keysend_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), first_hopsPointer, last_hopsWrapper.dangle().cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!))
+				Result_RouteLightningErrorZ(pointer: get_keysend_route(Bindings.new_LDKPublicKey(array: our_node_id), networkPointer, Bindings.new_LDKPublicKey(array: payee), first_hopsUnwrapped, last_hopsWrapper.dangle().cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!))
 				
 }
 			

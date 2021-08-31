@@ -52,9 +52,14 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrap
 				return nil
 			}
 			
-    public class func ok(o: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    public class func ok(o: [C2Tuple_BlockHashChannelMonitorZ]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
-						let oWrapper = Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: o)
+							let oUnwrapped = o.map { (oCurrentValue) in
+							oCurrentValue
+								.dangle().cOpaqueStruct!
+							}
+						
+						let oWrapper = Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: oUnwrapped)
 						defer {
 							oWrapper.noOpRetain()
 						}

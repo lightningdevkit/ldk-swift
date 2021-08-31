@@ -268,6 +268,22 @@ class TraitGenerator:
 				{default_callback_prepared_arguments['native_call_suffix']}
 			''')
 
+			if default_callback_prepared_arguments['has_unwrapped_arrays']:
+				default_callback_alternative_input_parameters = ConversionHelper.prepare_native_to_swift_callback_arguments(current_lambda['argument_types'], array_unwrapping_preparation_only=True)
+				default_callback_alternative_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], is_trait_callback=False, array_unwrapping_preparation_only=True)
+
+				current_default_callback_addition = natively_implemented_callback_template
+				current_default_callback_addition = current_default_callback_addition.replace('public_swift_argument_list', default_callback_alternative_input_parameters['public_swift_argument_list'])
+				current_default_callback_addition = current_default_callback_addition.replace('-> Void {', f'-> {swift_return_type} {{')
+				current_default_callback_addition = current_default_callback_addition.replace('override func', 'func')
+				current_default_callback_addition = current_default_callback_addition.replace('func methodName(', f'func {current_lambda_name}(')
+				current_default_callback_addition = current_default_callback_addition.replace('/* SWIFT_DEFAULT_CALLBACK_BODY */', f'''
+					{default_callback_alternative_arguments['native_call_prep']}
+					return self.{current_lambda_name}({', '.join(default_callback_alternative_arguments['swift_redirection_arguments'])})
+				''')
+
+				current_default_callback_replacement = current_default_callback_addition + '\n\n@available(*, deprecated, message: "Use method taking Swift object array type instead.")\n' + current_default_callback_replacement
+
 			native_argument_string = ', '.join(native_arguments)
 
 			current_native_callback_replacement = current_native_callback_replacement.replace(', native_arguments', native_argument_string)

@@ -114,9 +114,14 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_parameter_error(a.danglingClone().cOpaqueStruct!));
     }
 
-    public class func path_parameter_error(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    public class func path_parameter_error(a: [Result_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+							let aUnwrapped = a.map { (aCurrentValue) in
+							aCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: aUnwrapped)
 						defer {
 							aWrapper.noOpRetain()
 						}
@@ -124,9 +129,14 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.dangle().cOpaqueStruct!));
     }
 
-    public class func all_failed_retry_safe(a: [LDKAPIError]) -> PaymentSendFailure {
+    public class func all_failed_retry_safe(a: [APIError]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: a)
+							let aUnwrapped = a.map { (aCurrentValue) in
+							aCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: aUnwrapped)
 						defer {
 							aWrapper.noOpRetain()
 						}
@@ -134,9 +144,14 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.dangle().cOpaqueStruct!));
     }
 
-    public class func partial_failure(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    public class func partial_failure(a: [Result_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+							let aUnwrapped = a.map { (aCurrentValue) in
+							aCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: aUnwrapped)
 						defer {
 							aWrapper.noOpRetain()
 						}

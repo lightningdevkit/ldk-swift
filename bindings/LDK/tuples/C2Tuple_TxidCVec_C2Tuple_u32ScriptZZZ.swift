@@ -37,9 +37,14 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: [UInt8], b: [LDKC2Tuple_u32ScriptZ]) -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
+    public class func new(a: [UInt8], b: [C2Tuple_u32ScriptZ]) -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
     	
-						let bWrapper = Bindings.new_LDKCVec_C2Tuple_u32ScriptZZWrapper(array: b)
+							let bUnwrapped = b.map { (bCurrentValue) in
+							bCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let bWrapper = Bindings.new_LDKCVec_C2Tuple_u32ScriptZZWrapper(array: bUnwrapped)
 						defer {
 							bWrapper.noOpRetain()
 						}

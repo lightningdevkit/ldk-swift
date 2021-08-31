@@ -101,12 +101,17 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
         return UnsignedNodeAnnouncement_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    public func set_addresses(val: [LDKNetAddress]) -> Void {
+    public func set_addresses(val: [NetAddress]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: val)
+							let valUnwrapped = val.map { (valCurrentValue) in
+							valCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: valUnwrapped)
 						defer {
 							valWrapper.noOpRetain()
 						}

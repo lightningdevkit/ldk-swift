@@ -7,11 +7,16 @@ public class ChannelManagerReadArgs: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
+    public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [ChannelMonitor]) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-						let channel_monitorsWrapper = Bindings.new_LDKCVec_ChannelMonitorZWrapper(array: channel_monitors)
+							let channel_monitorsUnwrapped = channel_monitors.map { (channel_monitorsCurrentValue) in
+							channel_monitorsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let channel_monitorsWrapper = Bindings.new_LDKCVec_ChannelMonitorZWrapper(array: channel_monitorsUnwrapped)
 						defer {
 							channel_monitorsWrapper.noOpRetain()
 						}

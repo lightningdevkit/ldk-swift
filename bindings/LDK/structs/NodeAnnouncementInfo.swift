@@ -7,11 +7,16 @@ public class NodeAnnouncementInfo: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: [UInt8], addresses_arg: [LDKNetAddress], announcement_message_arg: NodeAnnouncement) {
+    public init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: [UInt8], addresses_arg: [NetAddress], announcement_message_arg: NodeAnnouncement) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-						let addresses_argWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses_arg)
+							let addresses_argUnwrapped = addresses_arg.map { (addresses_argCurrentValue) in
+							addresses_argCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let addresses_argWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses_argUnwrapped)
 						defer {
 							addresses_argWrapper.noOpRetain()
 						}
@@ -99,12 +104,17 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
         return NodeAnnouncementInfo_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    public func set_addresses(val: [LDKNetAddress]) -> Void {
+    public func set_addresses(val: [NetAddress]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncementInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: val)
+							let valUnwrapped = val.map { (valCurrentValue) in
+							valCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let valWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: valUnwrapped)
 						defer {
 							valWrapper.noOpRetain()
 						}

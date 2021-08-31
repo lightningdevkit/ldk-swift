@@ -166,9 +166,14 @@ Event_clone(origPointer)
         return Event(pointer: Event_pending_htlcs_forwardable(time_forwardable));
     }
 
-    public class func spendable_outputs(outputs: [LDKSpendableOutputDescriptor]) -> Event {
+    public class func spendable_outputs(outputs: [SpendableOutputDescriptor]) -> Event {
     	
-						let outputsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: outputs)
+							let outputsUnwrapped = outputs.map { (outputsCurrentValue) in
+							outputsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let outputsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: outputsUnwrapped)
 						defer {
 							outputsWrapper.noOpRetain()
 						}

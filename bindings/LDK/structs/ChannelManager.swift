@@ -128,9 +128,14 @@ ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_
 });
     }
 
-    public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
+    public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) -> Void {
     	
-						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses)
+							let addressesUnwrapped = addresses.map { (addressesCurrentValue) in
+							addressesCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addressesUnwrapped)
 						defer {
 							addressesWrapper.noOpRetain()
 						}

@@ -7,11 +7,17 @@ public class Route: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(paths_arg: [[LDKRouteHop]]) {
+    public init(paths_arg: [[RouteHop]]) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-						let paths_argWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: paths_arg)
+							let paths_argUnwrapped = paths_arg.map { (paths_argCurrentValue) in
+							paths_argCurrentValue.map { (paths_argCurrentValue) in
+							paths_argCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}}
+						
+						let paths_argWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: paths_argUnwrapped)
 						defer {
 							paths_argWrapper.noOpRetain()
 						}
@@ -39,12 +45,18 @@ public class Route: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func set_paths(val: [[LDKRouteHop]]) -> Void {
+    public func set_paths(val: [[RouteHop]]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-						let valWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: val)
+							let valUnwrapped = val.map { (valCurrentValue) in
+							valCurrentValue.map { (valCurrentValue) in
+							valCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}}
+						
+						let valWrapper = Bindings.new_LDKCVec_CVec_RouteHopZZWrapper(array: valUnwrapped)
 						defer {
 							valWrapper.noOpRetain()
 						}

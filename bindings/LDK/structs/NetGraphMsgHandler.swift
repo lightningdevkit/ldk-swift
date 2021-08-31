@@ -13,6 +13,7 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
     	
 							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
 							if let chain_accessUnwrapped = chain_access {
+								
 								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
 								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
 							}
@@ -47,6 +48,7 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
 						
 							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
 							if let chain_accessUnwrapped = chain_access {
+								
 								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
 								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
 							}

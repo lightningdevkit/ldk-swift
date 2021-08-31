@@ -13,6 +13,7 @@ public class ChainMonitor: NativeTypeWrapper {
     	
 							var chain_sourcePointer: UnsafeMutablePointer<LDKFilter>? = nil
 							if let chain_sourceUnwrapped = chain_source {
+								
 								chain_sourcePointer = UnsafeMutablePointer<LDKFilter>.allocate(capacity: 1)
 								chain_sourcePointer!.initialize(to: chain_sourceUnwrapped.cOpaqueStruct!)
 							}

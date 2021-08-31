@@ -57,7 +57,9 @@ public class Result_SecretKeyErrorZ: NativeTypeWrapper {
         return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_ok(Bindings.new_LDKSecretKey(array: o)));
     }
 
-    public class func err(e: LDKSecp256k1Error) -> Result_SecretKeyErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func err(e: LDKSecp256k1Error) -> Result_SecretKeyErrorZ {
     	
         return Result_SecretKeyErrorZ(pointer: CResult_SecretKeyErrorZ_err(e));
     }

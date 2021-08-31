@@ -117,6 +117,7 @@ class ConversionHelper:
 					pass
 				elif current_argument_details.rust_obj.startswith('LDK') and not current_argument_details.swift_type.startswith('[') and not is_free_method:
 					non_cloneable_argument_indices_passed_by_ownership.append(argument_index)
+					# clone_infix = '.dangle()'
 				if current_argument_details.rust_obj is not None and (
 					'Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith(
 					'['):

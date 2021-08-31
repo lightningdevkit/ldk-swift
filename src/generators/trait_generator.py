@@ -69,7 +69,7 @@ class TraitGenerator:
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {current_native_method_name}')
+				print(f'(trait_generator.py#method) {cloneability_warning}: {current_native_method_name}')
 
 			swift_argument_list = ', '.join(prepared_arguments['swift_arguments'])
 			swift_return_type = value_return_wrappers['swift_type']
@@ -248,7 +248,7 @@ class TraitGenerator:
 
 			if len(default_callback_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {struct_name}::{current_lambda_name}')
+				print(f'(trait_generator.py#lambda) {cloneability_warning}: {struct_name}::{current_lambda_name}')
 
 			current_default_callback_replacement = natively_implemented_callback_template
 			current_default_callback_replacement = current_default_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)

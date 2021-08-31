@@ -23,7 +23,9 @@ public class C2Tuple_BlockHashChannelManagerZ: NativeTypeWrapper {
 
     /* TUPLE_METHODS_START */
 
-    public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannelManagerZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannelManagerZ {
     	
         return C2Tuple_BlockHashChannelManagerZ(pointer: C2Tuple_BlockHashChannelManagerZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
     }

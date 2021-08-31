@@ -31,6 +31,7 @@ class OpaqueStructGenerator:
 			swift_arguments = []
 			native_arguments = []
 			constructor_argument_prep = ''
+			deprecation_prefix = ''
 
 			constructor_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_details['argument_types'])
 			constructor_swift_arguments = constructor_prepared_arguments["swift_arguments"]
@@ -41,8 +42,14 @@ class OpaqueStructGenerator:
 
 			if len(constructor_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {constructor_native_name}')
+				deprecation_prefix = '#warning("This method passes non-cloneable objects by owned value. Here be dragons.")\n@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")\n'
+				cloneability_types = []
+				for affected_argument_index in constructor_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']:
+					cloneability_types.append(f'{constructor_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
+				cloneability_type_message = '; '.join(cloneability_types)
+				print(f'(opaque_struct_generator.py#constructor, warned, deprecated) {cloneability_warning}: {constructor_native_name} [{cloneability_type_message}]')
 
+			mutating_output_file_contents = mutating_output_file_contents.replace('public init', f'{deprecation_prefix}public init')
 			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', ', '.join(constructor_swift_arguments))
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)', constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(
 				constructor_native_arguments) + ')' + constructor_native_call_suffix)
@@ -116,7 +123,7 @@ class OpaqueStructGenerator:
 					# swift_argument_message = arguments['swift_arguments'][swift_argument_index] + f' ({swift_argument_index})'
 					cloneability_types.append(f'{current_method_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
 				cloneability_type_message = '; '.join(cloneability_types)
-				print(f'/// {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
+				print(f'(opaque_struct_generator.py#method) {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
 
 			current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}OpaqueStructType_methodName(native_arguments){value_return_wrappers["suffix"]}')

@@ -7,7 +7,9 @@ public class ChainParameters: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(network_arg: LDKNetwork, best_block_arg: BestBlock) {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(network_arg: LDKNetwork, best_block_arg: BestBlock) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -16,14 +18,18 @@ public class ChainParameters: NativeTypeWrapper {
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKChainParameters){
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKChainParameters){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKChainParameters, anchor: NativeTypeWrapper){
+	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKChainParameters, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer

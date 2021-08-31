@@ -50,7 +50,9 @@ public class Result_NoneErrorZ: NativeTypeWrapper {
         return Result_NoneErrorZ(pointer: CResult_NoneErrorZ_ok());
     }
 
-    public class func err(e: LDKIOError) -> Result_NoneErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func err(e: LDKIOError) -> Result_NoneErrorZ {
     	
         return Result_NoneErrorZ(pointer: CResult_NoneErrorZ_err(e));
     }

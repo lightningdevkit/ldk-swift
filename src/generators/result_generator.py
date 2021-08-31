@@ -104,6 +104,7 @@ class ResultGenerator:
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 			is_free_method = current_method_details['is_free']
+			deprecation_prefix = ''
 
 			force_pass_instance = False
 			if len(current_method_details['argument_types']) == 1:
@@ -115,7 +116,12 @@ class ResultGenerator:
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {current_native_method_name}')
+				deprecation_prefix = '#warning("This method passes non-cloneable objects by owned value. Here be dragons.")\n@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")\n'
+				cloneability_types = []
+				for affected_argument_index in prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']:
+					cloneability_types.append(f'{current_method_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
+				cloneability_type_message = '; '.join(cloneability_types)
+				print(f'(result_generator.py, warned, deprecated) {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
 
 			current_replacement = current_replacement.replace('return ResultType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}ResultType_methodName(native_arguments){value_return_wrappers["suffix"]}')
@@ -123,6 +129,7 @@ class ResultGenerator:
 															  prepared_arguments['native_call_prefix'] + 'ResultType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' +
 															  prepared_arguments['native_call_suffix'])
 			current_replacement = current_replacement.replace('ResultType_methodName(', f'{current_native_method_name}(')
+			current_replacement = current_replacement.replace('public func', f'{deprecation_prefix}public func')
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
 			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))

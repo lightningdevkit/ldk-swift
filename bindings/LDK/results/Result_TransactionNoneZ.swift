@@ -52,7 +52,7 @@ public class Result_TransactionNoneZ: NativeTypeWrapper {
 							oWrapper.noOpRetain()
 						}
 					
-        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(oWrapper.cOpaqueStruct!));
+        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(oWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func err() -> Result_TransactionNoneZ {

@@ -44,7 +44,7 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
 							bWrapper.noOpRetain()
 						}
 					
-        return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, bWrapper.cOpaqueStruct!));
+        return C2Tuple_usizeTransactionZ(pointer: C2Tuple_usizeTransactionZ_new(a, bWrapper.dangle().cOpaqueStruct!));
     }
 
     internal func free() -> Void {

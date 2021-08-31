@@ -425,6 +425,7 @@ class LightningHeaderParser():
 						associated_type_name = method_details['associated_type_name']['native']
 						if method_details['is_free']:
 							self.type_details[associated_type_name].free_method = method_details
+							src.conversion_helper.ConversionHelper.freeable_types.add(associated_type_name)
 						elif method_details['is_constructor']:
 							# TODO: handle case for multiple constructors
 							self.type_details[associated_type_name].constructor_method = method_details

@@ -98,7 +98,7 @@ public class NativelyImplementedBroadcasterInterface: BroadcasterInterface {
 						}
 					
 				
-				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, txWrapper.cOpaqueStruct!)
+				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, txWrapper.dangle().cOpaqueStruct!)
 				
 			
 	}

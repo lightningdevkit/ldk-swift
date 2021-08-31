@@ -7,9 +7,10 @@ detected_cloneable_types = set()
 
 class ConversionHelper:
 	trait_structs = set()
+	freeable_types = set()
 
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False):
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False):
 		swift_arguments = []
 		native_arguments = []
 		pointer_wrapping_prefix = ''
@@ -160,7 +161,7 @@ class ConversionHelper:
 							{passed_argument_name}Wrapper.noOpRetain()
 						}}
 					'''
-					if current_argument_details.rust_obj.startswith('LDKCVec_'):
+					if current_argument_details.rust_obj.startswith('LDKCVec_') or current_argument_details.rust_obj == 'LDKTransaction':
 						# vectors will be freed by the underlying function automatically
 						native_arguments.append(f'{passed_argument_name}Wrapper.dangle().cOpaqueStruct!')
 					else:

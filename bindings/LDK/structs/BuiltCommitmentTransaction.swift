@@ -16,7 +16,7 @@ public class BuiltCommitmentTransaction: NativeTypeWrapper {
 							transaction_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = BuiltCommitmentTransaction_new(transaction_argWrapper.cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: txid_arg))
+        self.cOpaqueStruct = BuiltCommitmentTransaction_new(transaction_argWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: txid_arg))
         super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
@@ -56,7 +56,7 @@ BuiltCommitmentTransaction_get_transaction(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return BuiltCommitmentTransaction_set_transaction(this_ptrPointer, valWrapper.cOpaqueStruct!);
+        return BuiltCommitmentTransaction_set_transaction(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func get_txid() -> [UInt8] {

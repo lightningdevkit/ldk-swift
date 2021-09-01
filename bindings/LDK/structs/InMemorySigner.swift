@@ -208,14 +208,14 @@ InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, spend_txWrapper.dangle(
 });
     }
 
-    public func as_BaseSign() -> BaseSign {
+    public func as_BaseSign() -> NativelyImplementedBaseSign {
     	
         return NativelyImplementedBaseSign(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_as_BaseSign(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_Sign() -> Sign {
+    public func as_Sign() -> NativelyImplementedSign {
     	
         return NativelyImplementedSign(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_as_Sign(this_argPointer)

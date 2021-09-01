@@ -10,7 +10,7 @@ class ConversionHelper:
 	freeable_types = set()
 
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, array_unwrapping_preparation_only = False):
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False):
 		swift_arguments = []
 		swift_redirection_arguments = []
 		native_arguments = []
@@ -56,10 +56,10 @@ class ConversionHelper:
 					swift_argument_type = 'LDKTxOut'
 
 				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
-					if is_trait_callback and not array_unwrapping_preparation_only:
+					has_unwrapped_arrays = True
+					if (is_trait_callback and not array_unwrapping_preparation_only) or not unwrap_complex_arrays:
 						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
 						swift_argument_type = swift_argument_type.replace('[LDKResult_', '[LDKCResult_').replace('[LDKTuple_', '[LDKCTuple_')
-						has_unwrapped_arrays = True
 					else:
 						is_array_wrapper_extraction_required = True
 						individual_cloneability_lookup = swift_argument_type.lstrip('[').rstrip(']')
@@ -355,6 +355,7 @@ class ConversionHelper:
 		swift_return_instantiation_type = return_type_string
 		if is_trait_instantiator:
 			swift_return_instantiation_type = f'NativelyImplemented{return_type_string}'
+			# return_type_string = swift_return_instantiation_type
 
 		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type_string.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
@@ -397,5 +398,8 @@ class ConversionHelper:
 			# replace the last [ with [LDK (in case
 			return_type_string = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', return_type_string)
 			return_type_string = return_type_string.replace('LDKResult_', 'LDKCResult_').replace('LDKTuple_', 'LDKCTuple_').replace('LDKVec_', 'LDKCVec_')
+
+		if is_trait_instantiator:
+			return_type_string = swift_return_instantiation_type
 
 		return {'prefix': return_prefix, 'suffix': return_suffix, 'swift_type': return_type_string}

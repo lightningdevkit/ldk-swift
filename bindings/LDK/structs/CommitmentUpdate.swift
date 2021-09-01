@@ -7,46 +7,26 @@ public class CommitmentUpdate: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(update_add_htlcs_arg: [UpdateAddHTLC], update_fulfill_htlcs_arg: [UpdateFulfillHTLC], update_fail_htlcs_arg: [UpdateFailHTLC], update_fail_malformed_htlcs_arg: [UpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned) {
+    internal init(update_add_htlcs_arg: [LDKUpdateAddHTLC], update_fulfill_htlcs_arg: [LDKUpdateFulfillHTLC], update_fail_htlcs_arg: [LDKUpdateFailHTLC], update_fail_malformed_htlcs_arg: [LDKUpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-							let update_add_htlcs_argUnwrapped = update_add_htlcs_arg.map { (update_add_htlcs_argCurrentValue) in
-							update_add_htlcs_argCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-						let update_add_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateAddHTLCZWrapper(array: update_add_htlcs_argUnwrapped)
+						let update_add_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateAddHTLCZWrapper(array: update_add_htlcs_arg)
 						defer {
 							update_add_htlcs_argWrapper.noOpRetain()
 						}
 					
-							let update_fulfill_htlcs_argUnwrapped = update_fulfill_htlcs_arg.map { (update_fulfill_htlcs_argCurrentValue) in
-							update_fulfill_htlcs_argCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-						let update_fulfill_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateFulfillHTLCZWrapper(array: update_fulfill_htlcs_argUnwrapped)
+						let update_fulfill_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateFulfillHTLCZWrapper(array: update_fulfill_htlcs_arg)
 						defer {
 							update_fulfill_htlcs_argWrapper.noOpRetain()
 						}
 					
-							let update_fail_htlcs_argUnwrapped = update_fail_htlcs_arg.map { (update_fail_htlcs_argCurrentValue) in
-							update_fail_htlcs_argCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-						let update_fail_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateFailHTLCZWrapper(array: update_fail_htlcs_argUnwrapped)
+						let update_fail_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateFailHTLCZWrapper(array: update_fail_htlcs_arg)
 						defer {
 							update_fail_htlcs_argWrapper.noOpRetain()
 						}
 					
-							let update_fail_malformed_htlcs_argUnwrapped = update_fail_malformed_htlcs_arg.map { (update_fail_malformed_htlcs_argCurrentValue) in
-							update_fail_malformed_htlcs_argCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-						let update_fail_malformed_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateFailMalformedHTLCZWrapper(array: update_fail_malformed_htlcs_argUnwrapped)
+						let update_fail_malformed_htlcs_argWrapper = Bindings.new_LDKCVec_UpdateFailMalformedHTLCZWrapper(array: update_fail_malformed_htlcs_arg)
 						defer {
 							update_fail_malformed_htlcs_argWrapper.noOpRetain()
 						}
@@ -73,18 +53,47 @@ public class CommitmentUpdate: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
+    public convenience init(update_add_htlcs_arg: [UpdateAddHTLC], update_fulfill_htlcs_arg: [UpdateFulfillHTLC], update_fail_htlcs_arg: [UpdateFailHTLC], update_fail_malformed_htlcs_arg: [UpdateFailMalformedHTLC], update_fee_arg: UpdateFee, commitment_signed_arg: CommitmentSigned)  {
+    	
+							let update_add_htlcs_argUnwrapped = update_add_htlcs_arg.map { (update_add_htlcs_argCurrentValue) in
+							update_add_htlcs_argCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+							let update_fulfill_htlcs_argUnwrapped = update_fulfill_htlcs_arg.map { (update_fulfill_htlcs_argCurrentValue) in
+							update_fulfill_htlcs_argCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+							let update_fail_htlcs_argUnwrapped = update_fail_htlcs_arg.map { (update_fail_htlcs_argCurrentValue) in
+							update_fail_htlcs_argCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+							let update_fail_malformed_htlcs_argUnwrapped = update_fail_malformed_htlcs_arg.map { (update_fail_malformed_htlcs_argCurrentValue) in
+							update_fail_malformed_htlcs_argCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+        self.init(update_add_htlcs_arg: update_add_htlcs_argUnwrapped, update_fulfill_htlcs_arg: update_fulfill_htlcs_argUnwrapped, update_fail_htlcs_arg: update_fail_htlcs_argUnwrapped, update_fail_malformed_htlcs_arg: update_fail_malformed_htlcs_argUnwrapped, update_fee_arg: update_fee_arg, commitment_signed_arg: commitment_signed_arg);
+    }
 
     public func set_update_add_htlcs(val: [UpdateAddHTLC]) -> Void {
     	
-							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
-							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-						
 							let valUnwrapped = val.map { (valCurrentValue) in
 							valCurrentValue
 								.danglingClone().cOpaqueStruct!
 							}
 						
-						let valWrapper = Bindings.new_LDKCVec_UpdateAddHTLCZWrapper(array: valUnwrapped)
+        return self.set_update_add_htlcs(val: valUnwrapped);
+    }
+
+    internal func set_update_add_htlcs(val: [LDKUpdateAddHTLC]) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+						let valWrapper = Bindings.new_LDKCVec_UpdateAddHTLCZWrapper(array: val)
 						defer {
 							valWrapper.noOpRetain()
 						}
@@ -94,15 +103,20 @@ public class CommitmentUpdate: NativeTypeWrapper {
 
     public func set_update_fulfill_htlcs(val: [UpdateFulfillHTLC]) -> Void {
     	
-							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
-							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-						
 							let valUnwrapped = val.map { (valCurrentValue) in
 							valCurrentValue
 								.danglingClone().cOpaqueStruct!
 							}
 						
-						let valWrapper = Bindings.new_LDKCVec_UpdateFulfillHTLCZWrapper(array: valUnwrapped)
+        return self.set_update_fulfill_htlcs(val: valUnwrapped);
+    }
+
+    internal func set_update_fulfill_htlcs(val: [LDKUpdateFulfillHTLC]) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+						let valWrapper = Bindings.new_LDKCVec_UpdateFulfillHTLCZWrapper(array: val)
 						defer {
 							valWrapper.noOpRetain()
 						}
@@ -112,15 +126,20 @@ public class CommitmentUpdate: NativeTypeWrapper {
 
     public func set_update_fail_htlcs(val: [UpdateFailHTLC]) -> Void {
     	
-							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
-							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-						
 							let valUnwrapped = val.map { (valCurrentValue) in
 							valCurrentValue
 								.danglingClone().cOpaqueStruct!
 							}
 						
-						let valWrapper = Bindings.new_LDKCVec_UpdateFailHTLCZWrapper(array: valUnwrapped)
+        return self.set_update_fail_htlcs(val: valUnwrapped);
+    }
+
+    internal func set_update_fail_htlcs(val: [LDKUpdateFailHTLC]) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+						let valWrapper = Bindings.new_LDKCVec_UpdateFailHTLCZWrapper(array: val)
 						defer {
 							valWrapper.noOpRetain()
 						}
@@ -130,15 +149,20 @@ public class CommitmentUpdate: NativeTypeWrapper {
 
     public func set_update_fail_malformed_htlcs(val: [UpdateFailMalformedHTLC]) -> Void {
     	
-							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
-							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-						
 							let valUnwrapped = val.map { (valCurrentValue) in
 							valCurrentValue
 								.danglingClone().cOpaqueStruct!
 							}
 						
-						let valWrapper = Bindings.new_LDKCVec_UpdateFailMalformedHTLCZWrapper(array: valUnwrapped)
+        return self.set_update_fail_malformed_htlcs(val: valUnwrapped);
+    }
+
+    internal func set_update_fail_malformed_htlcs(val: [LDKUpdateFailMalformedHTLC]) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+						let valWrapper = Bindings.new_LDKCVec_UpdateFailMalformedHTLCZWrapper(array: val)
 						defer {
 							valWrapper.noOpRetain()
 						}

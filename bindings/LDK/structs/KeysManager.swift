@@ -52,17 +52,22 @@ KeysManager_derive_channel_keys(this_argPointer, channel_value_satoshis, paramsP
 								.danglingClone().cOpaqueStruct!
 							}
 						
-						let descriptorsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: descriptorsUnwrapped)
-						defer {
-							descriptorsWrapper.noOpRetain()
-						}
-					
 							let outputsUnwrapped = outputs.map { (outputsCurrentValue) in
 							outputsCurrentValue
 								.danglingClone().cOpaqueStruct!
 							}
 						
-						let outputsWrapper = Bindings.new_LDKCVec_TxOutZWrapper(array: outputsUnwrapped)
+        return self.spend_spendable_outputs(descriptors: descriptorsUnwrapped, outputs: outputsUnwrapped, change_destination_script: change_destination_script, feerate_sat_per_1000_weight: feerate_sat_per_1000_weight);
+    }
+
+    internal func spend_spendable_outputs(descriptors: [LDKSpendableOutputDescriptor], outputs: [LDKTxOut], change_destination_script: [UInt8], feerate_sat_per_1000_weight: UInt32) -> Result_TransactionNoneZ {
+    	
+						let descriptorsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: descriptors)
+						defer {
+							descriptorsWrapper.noOpRetain()
+						}
+					
+						let outputsWrapper = Bindings.new_LDKCVec_TxOutZWrapper(array: outputs)
 						defer {
 							outputsWrapper.noOpRetain()
 						}
@@ -77,7 +82,7 @@ KeysManager_spend_spendable_outputs(this_argPointer, descriptorsWrapper.dangle()
 });
     }
 
-    public func as_KeysInterface() -> KeysInterface {
+    public func as_KeysInterface() -> NativelyImplementedKeysInterface {
     	
         return NativelyImplementedKeysInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKKeysManager>) in
 KeysManager_as_KeysInterface(this_argPointer)

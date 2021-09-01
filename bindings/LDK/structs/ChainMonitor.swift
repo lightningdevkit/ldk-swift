@@ -41,28 +41,28 @@ public class ChainMonitor: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func as_Listen() -> Listen {
+    public func as_Listen() -> NativelyImplementedListen {
     	
         return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Listen(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_Confirm() -> Confirm {
+    public func as_Confirm() -> NativelyImplementedConfirm {
     	
         return NativelyImplementedConfirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Confirm(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_Watch() -> Watch {
+    public func as_Watch() -> NativelyImplementedWatch {
     	
         return NativelyImplementedWatch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_Watch(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_EventsProvider() -> EventsProvider {
+    public func as_EventsProvider() -> NativelyImplementedEventsProvider {
     	
         return NativelyImplementedEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_as_EventsProvider(this_argPointer)

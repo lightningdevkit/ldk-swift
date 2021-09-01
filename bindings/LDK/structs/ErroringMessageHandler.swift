@@ -34,14 +34,14 @@ public class ErroringMessageHandler: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
+    public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_MessageSendEventsProvider(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_ChannelMessageHandler() -> ChannelMessageHandler {
+    public func as_ChannelMessageHandler() -> NativelyImplementedChannelMessageHandler {
     	
         return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)

@@ -22,6 +22,7 @@ class VectorGenerator(UtilGenerator):
 		extraction_method = ''
 
 		is_deepest_iteratee_primitive = True
+		subdimension_wrapper_type = 'AnyObject'
 
 		if is_primitive:
 			swift_primitive = vector_type_details.primitive_swift_counterpart
@@ -50,6 +51,7 @@ class VectorGenerator(UtilGenerator):
 				subdimension_prefix = ''
 				subdimension_suffix = '.cOpaqueStruct!'
 				subdimension_call_suffix = 'Wrapper'
+				subdimension_wrapper_type = f'{shallowmost_iteratee.name}Wrapper'
 				if shallowmost_iteratee_is_tuple_primitive:
 					subdimension_prefix = '// '
 					subdimension_suffix = ''
@@ -131,6 +133,16 @@ class VectorGenerator(UtilGenerator):
 			if not shallowmost_iteratee_is_tuple_primitive:
 				mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitiveWrapper(pointer: vector)',
 																						  'LDKCVec_rust_primitiveWrapper(pointer: vector, subdimensionWrapper: subdimensionWrapper)')
+				mutating_current_vector_methods = mutating_current_vector_methods.replace('subdimensionWrapper: [AnyObject]', f'subdimensionWrapper: [{subdimension_wrapper_type}]')
+				mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SUBDIMENSION_DANGLE_PREP */', '''
+					if dangleSubdimensions {
+						if let wrappers = self.subdimensionWrapper {
+							for currentWrapper in wrappers {
+								currentWrapper.dangle()
+							}
+						}
+					}
+				''')
 
 		if vector_name.startswith('LDKCVec_'):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive)',

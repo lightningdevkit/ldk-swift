@@ -82,6 +82,40 @@ class LDKSwiftTest: XCTestCase {
         try incrementalMemoryLeakTest()
     }
 
+    func testRouteConstruction() throws {
+
+        let destPubkeyHex = "03c2abfa93eacec04721c019644584424aab2ba4dff3ac9bdab4e9c97007491dda"
+        let short_channel_id_arg: UInt64 = 762615767524704256
+        let paymentValueMsat: UInt64 = 666000
+        let finalCltvValue: UInt32 = 40
+
+        let routeHop = RouteHop(
+                pubkey_arg: Self.hexStringToBytes(hexString: destPubkeyHex)!,
+                node_features_arg: NodeFeatures(),
+                short_channel_id_arg: short_channel_id_arg,
+                channel_features_arg: ChannelFeatures(),
+                fee_msat_arg: paymentValueMsat,
+                cltv_expiry_delta_arg: finalCltvValue
+        )
+
+        var path: [RouteHop] = [routeHop]
+
+        for _ in 0..<3 {
+
+            let extraHop = RouteHop(
+                    pubkey_arg: Self.hexStringToBytes(hexString: destPubkeyHex)!,
+                    node_features_arg: NodeFeatures(),
+                    short_channel_id_arg: short_channel_id_arg,
+                    channel_features_arg: ChannelFeatures(),
+                    fee_msat_arg: paymentValueMsat,
+                    cltv_expiry_delta_arg: finalCltvValue
+            )
+            path.append(extraHop)
+        }
+
+        let route = Route(paths_arg: [path])
+    }
+
     func testExtendedActivity() throws {
         // for i in 0...(1 << 7) {
         for i in 0..<1 { // only do one test run initially
@@ -140,7 +174,9 @@ class LDKSwiftTest: XCTestCase {
     private class func hexStringToBytes(hexString: String) -> [UInt8]? {
         let hexStr = hexString.dropFirst(hexString.hasPrefix("0x") ? 2 : 0)
 
-        guard hexStr.count % 2 == 0 else { return nil }
+        guard hexStr.count % 2 == 0 else {
+            return nil
+        }
 
         var newData = [UInt8]()
 
@@ -148,7 +184,9 @@ class LDKSwiftTest: XCTestCase {
         for i in hexStr.indices {
             if indexIsEven {
                 let byteRange = i...hexStr.index(after: i)
-                guard let byte = UInt8(hexStr[byteRange], radix: 16) else { return nil }
+                guard let byte = UInt8(hexStr[byteRange], radix: 16) else {
+                    return nil
+                }
                 newData.append(byte)
             }
             indexIsEven.toggle()
@@ -158,7 +196,9 @@ class LDKSwiftTest: XCTestCase {
 
     private class func bytesToHexString(bytes: [UInt8]) -> String {
         let format = "%02hhx" // "%02hhX" (uppercase)
-        return bytes.map { String(format: format, $0) }.joined()
+        return bytes.map {
+            String(format: format, $0)
+        }.joined()
     }
 
 }

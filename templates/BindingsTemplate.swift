@@ -165,8 +165,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_rust_primitiveWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_rust_primitiveWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 

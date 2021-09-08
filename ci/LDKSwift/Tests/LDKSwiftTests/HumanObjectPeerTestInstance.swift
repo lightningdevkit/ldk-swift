@@ -282,8 +282,8 @@ public class HumanObjectPeerTestInstance {
         XCTAssertEqual(connectedPeersA.count, 1)
         XCTAssertEqual(connectedPeersB.count, 1)
 
-        peer1.constructor?.interrupt()
-        peer2.constructor?.interrupt()
+        peer1.constructor?.interrupt(tcpPeerHandler: peer1.tcpSocketHandler)
+        peer2.constructor?.interrupt(tcpPeerHandler: peer2.tcpSocketHandler)
 
     }
 

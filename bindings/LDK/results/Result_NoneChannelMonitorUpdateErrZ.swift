@@ -3,7 +3,7 @@ public class Result_NoneChannelMonitorUpdateErrZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NoneChannelMonitorUpdateErrZ?
+    internal var cOpaqueStruct: LDKCResult_NoneChannelMonitorUpdateErrZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

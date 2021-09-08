@@ -3,7 +3,7 @@ public class IgnoringMessageHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKIgnoringMessageHandler?
+    internal var cOpaqueStruct: LDKIgnoringMessageHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

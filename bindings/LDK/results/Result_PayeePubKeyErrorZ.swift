@@ -3,7 +3,7 @@ public class Result_PayeePubKeyErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PayeePubKeyErrorZ?
+    internal var cOpaqueStruct: LDKCResult_PayeePubKeyErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

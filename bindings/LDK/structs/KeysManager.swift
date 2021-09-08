@@ -3,7 +3,7 @@ public class KeysManager: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKKeysManager?
+    internal var cOpaqueStruct: LDKKeysManager?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -3,7 +3,7 @@ public class MonitorUpdateError: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKMonitorUpdateError?
+    internal var cOpaqueStruct: LDKMonitorUpdateError?
 
 
 	

@@ -3,7 +3,7 @@ public class Result_InvoiceNoneZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceNoneZ?
+    internal var cOpaqueStruct: LDKCResult_InvoiceNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

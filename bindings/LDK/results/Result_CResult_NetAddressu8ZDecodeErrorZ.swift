@@ -3,7 +3,7 @@ public class Result_CResult_NetAddressu8ZDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_CResult_NetAddressu8ZDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_CResult_NetAddressu8ZDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

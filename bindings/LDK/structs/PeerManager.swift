@@ -3,7 +3,7 @@ public class PeerManager: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKPeerManager?
+    internal var cOpaqueStruct: LDKPeerManager?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -3,7 +3,7 @@ public class Result_HTLCOutputInCommitmentDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_HTLCOutputInCommitmentDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

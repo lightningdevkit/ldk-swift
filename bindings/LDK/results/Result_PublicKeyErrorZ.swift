@@ -3,7 +3,7 @@ public class Result_PublicKeyErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PublicKeyErrorZ?
+    internal var cOpaqueStruct: LDKCResult_PublicKeyErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

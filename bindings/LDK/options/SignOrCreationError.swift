@@ -3,7 +3,7 @@ public class SignOrCreationError: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKSignOrCreationError?
+    internal var cOpaqueStruct: LDKSignOrCreationError?
 
 	
 

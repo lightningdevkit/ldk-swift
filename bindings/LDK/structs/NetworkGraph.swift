@@ -3,7 +3,7 @@ public class NetworkGraph: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKNetworkGraph?
+    internal var cOpaqueStruct: LDKNetworkGraph?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

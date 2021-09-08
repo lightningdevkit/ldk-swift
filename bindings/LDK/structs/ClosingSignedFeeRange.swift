@@ -3,7 +3,7 @@ public class ClosingSignedFeeRange: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKClosingSignedFeeRange?
+    internal var cOpaqueStruct: LDKClosingSignedFeeRange?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

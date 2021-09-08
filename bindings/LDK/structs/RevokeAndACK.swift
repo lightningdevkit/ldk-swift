@@ -3,7 +3,7 @@ public class RevokeAndACK: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKRevokeAndACK?
+    internal var cOpaqueStruct: LDKRevokeAndACK?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

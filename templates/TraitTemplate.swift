@@ -3,7 +3,7 @@ open class TraitName: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: TraitType?
+    internal var cOpaqueStruct: TraitType?
 
     public init() {
 		Self.instanceCounter += 1

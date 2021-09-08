@@ -3,7 +3,7 @@ public class UpdateFee: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKUpdateFee?
+    internal var cOpaqueStruct: LDKUpdateFee?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

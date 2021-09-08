@@ -3,7 +3,7 @@ public class QueryChannelRange: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKQueryChannelRange?
+    internal var cOpaqueStruct: LDKQueryChannelRange?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

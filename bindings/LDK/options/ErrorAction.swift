@@ -3,7 +3,7 @@ public class ErrorAction: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKErrorAction?
+    internal var cOpaqueStruct: LDKErrorAction?
 
 	
 

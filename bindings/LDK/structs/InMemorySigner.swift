@@ -3,7 +3,7 @@ public class InMemorySigner: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKInMemorySigner?
+    internal var cOpaqueStruct: LDKInMemorySigner?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

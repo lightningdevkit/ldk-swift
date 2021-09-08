@@ -3,7 +3,7 @@ public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?
+    internal var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

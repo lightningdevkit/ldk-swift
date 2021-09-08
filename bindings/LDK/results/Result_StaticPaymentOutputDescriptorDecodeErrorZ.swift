@@ -3,7 +3,7 @@ public class Result_StaticPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrapper
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

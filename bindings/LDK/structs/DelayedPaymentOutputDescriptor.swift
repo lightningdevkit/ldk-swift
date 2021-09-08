@@ -3,7 +3,7 @@ public class DelayedPaymentOutputDescriptor: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?
+    internal var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -3,7 +3,7 @@ open class MessageSendEventsProvider: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKMessageSendEventsProvider?
+    internal var cOpaqueStruct: LDKMessageSendEventsProvider?
 
     public init() {
 		Self.instanceCounter += 1

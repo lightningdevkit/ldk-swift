@@ -3,7 +3,7 @@ public class RouteHop: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKRouteHop?
+    internal var cOpaqueStruct: LDKRouteHop?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

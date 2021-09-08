@@ -3,7 +3,7 @@ public class Result_ChannelConfigDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ChannelConfigDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_ChannelConfigDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

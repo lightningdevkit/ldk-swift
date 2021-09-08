@@ -3,7 +3,7 @@ open class Listen: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKListen?
+    internal var cOpaqueStruct: LDKListen?
 
     public init() {
 		Self.instanceCounter += 1

@@ -3,7 +3,7 @@ public class C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ?
+    internal var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ?
 
     public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ){
     	Self.instanceCounter += 1

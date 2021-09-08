@@ -3,7 +3,7 @@ public class Result_InvoiceSemanticErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_InvoiceSemanticErrorZ?
+    internal var cOpaqueStruct: LDKCResult_InvoiceSemanticErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

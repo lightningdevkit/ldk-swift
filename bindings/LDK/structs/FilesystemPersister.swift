@@ -3,7 +3,7 @@ public class FilesystemPersister: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKFilesystemPersister?
+    internal var cOpaqueStruct: LDKFilesystemPersister?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

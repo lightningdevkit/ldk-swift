@@ -3,7 +3,7 @@ public class Result_UnsignedNodeAnnouncementDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_UnsignedNodeAnnouncementDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_UnsignedNodeAnnouncementDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

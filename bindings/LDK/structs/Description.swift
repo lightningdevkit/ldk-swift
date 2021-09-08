@@ -3,7 +3,7 @@ public class Description: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKDescription?
+    internal var cOpaqueStruct: LDKDescription?
 
 
 	

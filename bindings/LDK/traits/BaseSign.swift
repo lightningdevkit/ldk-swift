@@ -3,7 +3,7 @@ open class BaseSign: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKBaseSign?
+    internal var cOpaqueStruct: LDKBaseSign?
 
     public init() {
 		Self.instanceCounter += 1

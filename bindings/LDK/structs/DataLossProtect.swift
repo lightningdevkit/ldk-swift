@@ -3,7 +3,7 @@ public class DataLossProtect: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKDataLossProtect?
+    internal var cOpaqueStruct: LDKDataLossProtect?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

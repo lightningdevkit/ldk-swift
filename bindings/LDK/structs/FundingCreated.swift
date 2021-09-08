@@ -3,7 +3,7 @@ public class FundingCreated: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKFundingCreated?
+    internal var cOpaqueStruct: LDKFundingCreated?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

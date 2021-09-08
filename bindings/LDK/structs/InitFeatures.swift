@@ -3,7 +3,7 @@ public class InitFeatures: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKInitFeatures?
+    internal var cOpaqueStruct: LDKInitFeatures?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

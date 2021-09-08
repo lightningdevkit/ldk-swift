@@ -3,7 +3,7 @@ public class CommitmentUpdate: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCommitmentUpdate?
+    internal var cOpaqueStruct: LDKCommitmentUpdate?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

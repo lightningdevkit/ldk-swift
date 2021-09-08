@@ -3,7 +3,7 @@ public class ChannelHandshakeLimits: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelHandshakeLimits?
+    internal var cOpaqueStruct: LDKChannelHandshakeLimits?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

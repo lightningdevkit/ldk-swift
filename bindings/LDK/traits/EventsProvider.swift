@@ -3,7 +3,7 @@ open class EventsProvider: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKEventsProvider?
+    internal var cOpaqueStruct: LDKEventsProvider?
 
     public init() {
 		Self.instanceCounter += 1

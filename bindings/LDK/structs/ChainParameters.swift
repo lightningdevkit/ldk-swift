@@ -3,7 +3,7 @@ public class ChainParameters: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChainParameters?
+    internal var cOpaqueStruct: LDKChainParameters?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

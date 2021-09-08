@@ -3,7 +3,7 @@ public class LockedNetworkGraph: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKLockedNetworkGraph?
+    internal var cOpaqueStruct: LDKLockedNetworkGraph?
 
 
 	

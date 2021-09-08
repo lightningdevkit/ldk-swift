@@ -3,7 +3,7 @@ public class C2Tuple_OutPointScriptZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?
+    internal var cOpaqueStruct: LDKC2Tuple_OutPointScriptZ?
 
     public init(pointer: LDKC2Tuple_OutPointScriptZ){
     	Self.instanceCounter += 1

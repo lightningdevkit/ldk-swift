@@ -3,7 +3,7 @@ public class Result_ShutdownScriptInvalidShutdownScriptZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ShutdownScriptInvalidShutdownScriptZ?
+    internal var cOpaqueStruct: LDKCResult_ShutdownScriptInvalidShutdownScriptZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

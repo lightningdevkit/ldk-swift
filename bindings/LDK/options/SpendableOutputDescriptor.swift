@@ -3,7 +3,7 @@ public class SpendableOutputDescriptor: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKSpendableOutputDescriptor?
+    internal var cOpaqueStruct: LDKSpendableOutputDescriptor?
 
 	
 

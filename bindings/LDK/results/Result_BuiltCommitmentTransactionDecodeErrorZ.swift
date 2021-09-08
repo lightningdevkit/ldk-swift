@@ -3,7 +3,7 @@ public class Result_BuiltCommitmentTransactionDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_BuiltCommitmentTransactionDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_BuiltCommitmentTransactionDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

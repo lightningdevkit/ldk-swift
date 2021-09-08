@@ -3,7 +3,7 @@ open class Confirm: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKConfirm?
+    internal var cOpaqueStruct: LDKConfirm?
 
     public init() {
 		Self.instanceCounter += 1

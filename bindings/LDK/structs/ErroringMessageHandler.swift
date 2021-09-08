@@ -3,7 +3,7 @@ public class ErroringMessageHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKErroringMessageHandler?
+    internal var cOpaqueStruct: LDKErroringMessageHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

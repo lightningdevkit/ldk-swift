@@ -3,7 +3,7 @@ public class MonitorEvent: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKMonitorEvent?
+    internal var cOpaqueStruct: LDKMonitorEvent?
 
 	
 

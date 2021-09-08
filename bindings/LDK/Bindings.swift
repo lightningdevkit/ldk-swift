@@ -648,8 +648,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_APIErrorZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_APIErrorZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_APIErrorZ){
 			Self.instanceCounter += 1
@@ -750,8 +750,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ){
 			Self.instanceCounter += 1
@@ -845,8 +845,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ){
 			Self.instanceCounter += 1
@@ -947,8 +947,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_u32ScriptZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_u32ScriptZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_u32ScriptZZ){
 			Self.instanceCounter += 1
@@ -1049,8 +1049,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_u32TxOutZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_u32TxOutZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_u32TxOutZZ){
 			Self.instanceCounter += 1
@@ -1151,8 +1151,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_usizeTransactionZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_usizeTransactionZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_usizeTransactionZZ){
 			Self.instanceCounter += 1
@@ -1253,8 +1253,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ){
 			Self.instanceCounter += 1
@@ -1355,8 +1355,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_CResult_NoneAPIErrorZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_CResult_NoneAPIErrorZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_CResult_NoneAPIErrorZZ){
 			Self.instanceCounter += 1
@@ -1465,8 +1465,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_CVec_RouteHopZZ?
-		internal private(set) var subdimensionWrapper: [LDKCVec_RouteHopZWrapper]? = nil
+		internal var cOpaqueStruct: LDKCVec_CVec_RouteHopZZ?
+		internal var subdimensionWrapper: [LDKCVec_RouteHopZWrapper]? = nil
 
 		public init(pointer: LDKCVec_CVec_RouteHopZZ){
 			Self.instanceCounter += 1
@@ -1558,8 +1558,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_CVec_u8ZZ?
-		internal private(set) var subdimensionWrapper: [LDKCVec_u8ZWrapper]? = nil
+		internal var cOpaqueStruct: LDKCVec_CVec_u8ZZ?
+		internal var subdimensionWrapper: [LDKCVec_u8ZWrapper]? = nil
 
 		public init(pointer: LDKCVec_CVec_u8ZZ){
 			Self.instanceCounter += 1
@@ -1643,8 +1643,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_ChannelDetailsZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_ChannelDetailsZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_ChannelDetailsZ){
 			Self.instanceCounter += 1
@@ -1745,8 +1745,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_ChannelMonitorZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_ChannelMonitorZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_ChannelMonitorZ){
 			Self.instanceCounter += 1
@@ -1847,8 +1847,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_EventZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_EventZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_EventZ){
 			Self.instanceCounter += 1
@@ -1949,8 +1949,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_MessageSendEventZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_MessageSendEventZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_MessageSendEventZ){
 			Self.instanceCounter += 1
@@ -2051,8 +2051,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_MonitorEventZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_MonitorEventZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_MonitorEventZ){
 			Self.instanceCounter += 1
@@ -2153,8 +2153,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_NetAddressZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_NetAddressZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_NetAddressZ){
 			Self.instanceCounter += 1
@@ -2255,8 +2255,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_NodeAnnouncementZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_NodeAnnouncementZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_NodeAnnouncementZ){
 			Self.instanceCounter += 1
@@ -2357,8 +2357,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_PrivateRouteZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_PrivateRouteZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_PrivateRouteZ){
 			Self.instanceCounter += 1
@@ -2467,8 +2467,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_PublicKeyZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_PublicKeyZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_PublicKeyZ){
 			Self.instanceCounter += 1
@@ -2544,8 +2544,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_RouteHintZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_RouteHintZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_RouteHintZ){
 			Self.instanceCounter += 1
@@ -2646,8 +2646,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_RouteHopZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_RouteHopZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_RouteHopZ){
 			Self.instanceCounter += 1
@@ -2756,8 +2756,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_SignatureZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_SignatureZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_SignatureZ){
 			Self.instanceCounter += 1
@@ -2833,8 +2833,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_SpendableOutputDescriptorZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_SpendableOutputDescriptorZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_SpendableOutputDescriptorZ){
 			Self.instanceCounter += 1
@@ -2935,8 +2935,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TransactionOutputsZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_TransactionOutputsZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_TransactionOutputsZ){
 			Self.instanceCounter += 1
@@ -3045,8 +3045,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TransactionZ?
-		internal private(set) var subdimensionWrapper: [LDKTransactionWrapper]? = nil
+		internal var cOpaqueStruct: LDKCVec_TransactionZ?
+		internal var subdimensionWrapper: [LDKTransactionWrapper]? = nil
 
 		public init(pointer: LDKCVec_TransactionZ){
 			Self.instanceCounter += 1
@@ -3130,8 +3130,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TxOutZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_TxOutZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_TxOutZ){
 			Self.instanceCounter += 1
@@ -3232,8 +3232,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TxidZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_TxidZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_TxidZ){
 			Self.instanceCounter += 1
@@ -3309,8 +3309,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateAddHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateAddHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateAddHTLCZ){
 			Self.instanceCounter += 1
@@ -3411,8 +3411,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateFailHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateFailHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateFailHTLCZ){
 			Self.instanceCounter += 1
@@ -3513,8 +3513,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateFailMalformedHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateFailMalformedHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateFailMalformedHTLCZ){
 			Self.instanceCounter += 1
@@ -3615,8 +3615,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateFulfillHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateFulfillHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateFulfillHTLCZ){
 			Self.instanceCounter += 1
@@ -3717,8 +3717,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_u64Z?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_u64Z?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_u64Z){
 			Self.instanceCounter += 1
@@ -3794,8 +3794,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_u8Z?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_u8Z?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_u8Z){
 			Self.instanceCounter += 1
@@ -3871,8 +3871,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKu8slice?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKu8slice?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKu8slice){
 			Self.instanceCounter += 1
@@ -4233,7 +4233,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		internal let instanceNumber: UInt
 		internal private(set) var dangling = false
 
-		public var cOpaqueStruct: LDKTransaction?
+		internal var cOpaqueStruct: LDKTransaction?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKTransaction){

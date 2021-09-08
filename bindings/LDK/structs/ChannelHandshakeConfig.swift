@@ -3,7 +3,7 @@ public class ChannelHandshakeConfig: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelHandshakeConfig?
+    internal var cOpaqueStruct: LDKChannelHandshakeConfig?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

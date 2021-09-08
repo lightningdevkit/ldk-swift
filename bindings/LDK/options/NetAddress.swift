@@ -3,7 +3,7 @@ public class NetAddress: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKNetAddress?
+    internal var cOpaqueStruct: LDKNetAddress?
 
 	
 

@@ -3,7 +3,7 @@ public class C3Tuple_RawInvoice_u832InvoiceSignatureZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?
+    internal var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?
 
     public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ){
     	Self.instanceCounter += 1

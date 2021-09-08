@@ -3,7 +3,7 @@ public class Result_CounterpartyChannelTransactionParametersDecodeErrorZ: Native
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_CounterpartyChannelTransactionParametersDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_CounterpartyChannelTransactionParametersDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

@@ -3,7 +3,7 @@ public class OpaqueStructName: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: OpaqueStructType?
+    internal var cOpaqueStruct: OpaqueStructType?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

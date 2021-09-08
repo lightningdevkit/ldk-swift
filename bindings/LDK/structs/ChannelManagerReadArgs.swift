@@ -3,7 +3,7 @@ public class ChannelManagerReadArgs: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelManagerReadArgs?
+    internal var cOpaqueStruct: LDKChannelManagerReadArgs?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

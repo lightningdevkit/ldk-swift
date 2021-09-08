@@ -3,7 +3,7 @@ public class Result_UpdateFailHTLCDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_UpdateFailHTLCDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_UpdateFailHTLCDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

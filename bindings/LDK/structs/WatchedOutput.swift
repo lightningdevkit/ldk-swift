@@ -3,7 +3,7 @@ public class WatchedOutput: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKWatchedOutput?
+    internal var cOpaqueStruct: LDKWatchedOutput?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

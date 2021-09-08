@@ -3,7 +3,7 @@ public class Result_PongDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PongDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_PongDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

@@ -3,7 +3,7 @@ public class Ping: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKPing?
+    internal var cOpaqueStruct: LDKPing?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

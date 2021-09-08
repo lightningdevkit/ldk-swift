@@ -3,7 +3,7 @@ public class StaticPaymentOutputDescriptor: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?
+    internal var cOpaqueStruct: LDKStaticPaymentOutputDescriptor?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

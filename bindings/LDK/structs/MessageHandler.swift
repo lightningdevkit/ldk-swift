@@ -3,7 +3,7 @@ public class MessageHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKMessageHandler?
+    internal var cOpaqueStruct: LDKMessageHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

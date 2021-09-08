@@ -3,7 +3,7 @@ public class C2Tuple_usizeTransactionZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC2Tuple_usizeTransactionZ?
+    internal var cOpaqueStruct: LDKC2Tuple_usizeTransactionZ?
 
     public init(pointer: LDKC2Tuple_usizeTransactionZ){
     	Self.instanceCounter += 1

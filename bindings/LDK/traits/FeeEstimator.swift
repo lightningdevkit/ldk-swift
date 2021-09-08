@@ -3,7 +3,7 @@ open class FeeEstimator: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKFeeEstimator?
+    internal var cOpaqueStruct: LDKFeeEstimator?
 
     public init() {
 		Self.instanceCounter += 1

@@ -3,7 +3,7 @@ public class CounterpartyChannelTransactionParameters: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCounterpartyChannelTransactionParameters?
+    internal var cOpaqueStruct: LDKCounterpartyChannelTransactionParameters?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -3,7 +3,7 @@ public class C2Tuple_PaymentHashPaymentSecretZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC2Tuple_PaymentHashPaymentSecretZ?
+    internal var cOpaqueStruct: LDKC2Tuple_PaymentHashPaymentSecretZ?
 
     public init(pointer: LDKC2Tuple_PaymentHashPaymentSecretZ){
     	Self.instanceCounter += 1

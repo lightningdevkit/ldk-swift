@@ -3,7 +3,7 @@ public class BestBlock: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKBestBlock?
+    internal var cOpaqueStruct: LDKBestBlock?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

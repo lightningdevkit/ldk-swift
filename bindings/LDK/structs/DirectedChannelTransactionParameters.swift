@@ -3,7 +3,7 @@ public class DirectedChannelTransactionParameters: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKDirectedChannelTransactionParameters?
+    internal var cOpaqueStruct: LDKDirectedChannelTransactionParameters?
 
 
 	

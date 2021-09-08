@@ -3,7 +3,7 @@ public class Route: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKRoute?
+    internal var cOpaqueStruct: LDKRoute?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

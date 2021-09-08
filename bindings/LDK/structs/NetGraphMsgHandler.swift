@@ -3,7 +3,7 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKNetGraphMsgHandler?
+    internal var cOpaqueStruct: LDKNetGraphMsgHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

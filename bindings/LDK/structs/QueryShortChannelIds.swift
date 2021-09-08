@@ -3,7 +3,7 @@ public class QueryShortChannelIds: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKQueryShortChannelIds?
+    internal var cOpaqueStruct: LDKQueryShortChannelIds?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -3,7 +3,7 @@ public class Result_RouteHopDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_RouteHopDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_RouteHopDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

@@ -3,7 +3,7 @@ public class OutPoint: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKOutPoint?
+    internal var cOpaqueStruct: LDKOutPoint?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

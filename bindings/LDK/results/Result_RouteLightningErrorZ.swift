@@ -3,7 +3,7 @@ public class Result_RouteLightningErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_RouteLightningErrorZ?
+    internal var cOpaqueStruct: LDKCResult_RouteLightningErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

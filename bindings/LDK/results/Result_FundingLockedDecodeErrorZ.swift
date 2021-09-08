@@ -3,7 +3,7 @@ public class Result_FundingLockedDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_FundingLockedDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_FundingLockedDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

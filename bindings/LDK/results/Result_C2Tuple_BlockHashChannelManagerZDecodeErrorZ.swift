@@ -3,7 +3,7 @@ public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ: NativeTypeWrap
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

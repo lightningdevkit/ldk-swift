@@ -3,7 +3,7 @@ public class Result_RoutingFeesDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_RoutingFeesDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_RoutingFeesDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

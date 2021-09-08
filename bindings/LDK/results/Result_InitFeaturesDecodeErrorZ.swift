@@ -3,7 +3,7 @@ public class Result_InitFeaturesDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_InitFeaturesDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_InitFeaturesDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

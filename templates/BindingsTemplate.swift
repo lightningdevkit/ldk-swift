@@ -145,8 +145,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_rust_primitive?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_rust_primitive?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_rust_primitive){
 			Self.instanceCounter += 1
@@ -262,7 +262,7 @@ public class Bindings {
 		internal let instanceNumber: UInt
 		internal private(set) var dangling = false
 
-		public var cOpaqueStruct: LDKTransaction?
+		internal var cOpaqueStruct: LDKTransaction?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKTransaction){

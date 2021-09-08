@@ -3,7 +3,7 @@ public class C2Tuple_BlockHashChannelMonitorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC2Tuple_BlockHashChannelMonitorZ?
+    internal var cOpaqueStruct: LDKC2Tuple_BlockHashChannelMonitorZ?
 
     public init(pointer: LDKC2Tuple_BlockHashChannelMonitorZ){
     	Self.instanceCounter += 1

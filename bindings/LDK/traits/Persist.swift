@@ -3,7 +3,7 @@ open class Persist: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKPersist?
+    internal var cOpaqueStruct: LDKPersist?
 
     public init() {
 		Self.instanceCounter += 1

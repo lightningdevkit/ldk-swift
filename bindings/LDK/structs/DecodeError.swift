@@ -3,7 +3,7 @@ public class DecodeError: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKDecodeError?
+    internal var cOpaqueStruct: LDKDecodeError?
 
 
 	

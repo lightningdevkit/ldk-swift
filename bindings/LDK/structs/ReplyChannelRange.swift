@@ -3,7 +3,7 @@ public class ReplyChannelRange: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKReplyChannelRange?
+    internal var cOpaqueStruct: LDKReplyChannelRange?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

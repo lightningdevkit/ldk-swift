@@ -244,7 +244,7 @@ class TraitGenerator:
 
 			# let's create a native default implementation
 			default_callback_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], True)
-			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone)
+			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone, is_trait_callback=True)
 
 			if len(default_callback_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
@@ -254,7 +254,9 @@ class TraitGenerator:
 			current_default_callback_replacement = current_default_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)
 			current_default_callback_replacement = current_default_callback_replacement.replace('-> Void {', f'-> {swift_return_type} {{')
 			if default_callback_prepared_arguments['has_unwrapped_arrays']:
-				current_default_callback_replacement = current_default_callback_replacement.replace('public override func', 'internal override func')
+				# not yet possible due to override method's visibility requirements
+				# current_default_callback_replacement = current_default_callback_replacement.replace('public override func', 'internal override func')
+				pass
 				
 			current_default_callback_replacement = current_default_callback_replacement.replace('func methodName(', f'func {current_lambda_name}(')
 			default_native_call_arguments = default_callback_prepared_arguments['native_arguments']

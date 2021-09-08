@@ -347,7 +347,7 @@ class ConversionHelper:
 				'swift_callback_prep': swift_callback_prep}
 
 	@classmethod
-	def prepare_return_value(cls, return_type, is_clone_method=False, is_trait_instantiator=False, is_raw_property_getter=False):
+	def prepare_return_value(cls, return_type, is_clone_method=False, is_trait_instantiator=False, is_raw_property_getter=False, is_trait_callback=False):
 		rust_return_type = return_type.rust_obj
 		return_prefix = ''
 		return_suffix = ''
@@ -360,8 +360,32 @@ class ConversionHelper:
 		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type_string.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
 			return_suffix = ')'
+			map_suffix = ''
 			if (rust_return_type.startswith('LDKCVec_') or rust_return_type == 'LDKTransaction') and is_raw_property_getter:
 				return_suffix = ', deallocate: false)'
+				map_suffix = '.dangle()'
+				
+			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string) and not is_trait_callback:
+				# replace the last [ with [LDK (in case
+				constructor_type = return_type_string.lstrip('[').rstrip(']')
+				# native_return_type_string = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', return_type_string)
+				# native_return_type_string = return_type_string.replace('LDKResult_', 'LDKCResult_').replace('LDKTuple_', 'LDKCTuple_').replace('LDKVec_', 'LDKCVec_')
+
+				if constructor_type == 'Txid':
+					return_suffix += f'''
+					.map {{ (bytes) in
+						   Bindings.LDKThirtyTwoBytes_to_array(nativeType: bytes)
+					}}
+				'''
+				else:
+					return_suffix += f'''
+						.map {{ (cOpaqueStruct) in
+							{constructor_type}(pointer: cOpaqueStruct){map_suffix}
+						}}
+					'''
+				
+				
+				
 		elif return_type.swift_raw_type.startswith('(UInt8'):
 			# TODO: get array length
 			array_length = return_type.arr_len
@@ -394,7 +418,7 @@ class ConversionHelper:
 			return_suffix = '.pointee)'
 			pass
 
-		if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string):
+		if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string) and is_trait_callback:
 			# replace the last [ with [LDK (in case
 			return_type_string = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', return_type_string)
 			return_type_string = return_type_string.replace('LDKResult_', 'LDKCResult_').replace('LDKTuple_', 'LDKCTuple_').replace('LDKVec_', 'LDKCVec_')

@@ -363,8 +363,12 @@ Event_write(objPointer)
 			
 				
 				
-					public func getOutputs() -> [LDKSpendableOutputDescriptor] {
+					public func getOutputs() -> [SpendableOutputDescriptor] {
 						return Bindings.LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: self.cOpaqueStruct!.outputs, deallocate: false)
+						.map { (cOpaqueStruct) in
+							SpendableOutputDescriptor(pointer: cOpaqueStruct).dangle()
+						}
+					
 					}
 				
 				

@@ -253,6 +253,9 @@ class TraitGenerator:
 			current_default_callback_replacement = natively_implemented_callback_template
 			current_default_callback_replacement = current_default_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)
 			current_default_callback_replacement = current_default_callback_replacement.replace('-> Void {', f'-> {swift_return_type} {{')
+			if default_callback_prepared_arguments['has_unwrapped_arrays']:
+				current_default_callback_replacement = current_default_callback_replacement.replace('public override func', 'internal override func')
+				
 			current_default_callback_replacement = current_default_callback_replacement.replace('func methodName(', f'func {current_lambda_name}(')
 			default_native_call_arguments = default_callback_prepared_arguments['native_arguments']
 

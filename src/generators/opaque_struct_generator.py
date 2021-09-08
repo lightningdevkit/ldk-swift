@@ -55,7 +55,12 @@ class OpaqueStructGenerator:
 				cloneability_type_message = '; '.join(cloneability_types)
 				print(f'(opaque_struct_generator.py#constructor, warned, deprecated) {cloneability_warning}: {constructor_native_name} [{cloneability_type_message}]')
 
+			
 			mutating_output_file_contents = mutating_output_file_contents.replace('public init', f'{deprecation_prefix}public init')
+
+			if constructor_prepared_arguments['has_unwrapped_arrays']:
+				mutating_output_file_contents = mutating_output_file_contents.replace('public init(swift_constructor_arguments)', 'internal init(swift_constructor_arguments)')
+			
 			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', ', '.join(constructor_swift_arguments))
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)', constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(
 				constructor_native_arguments) + ')' + constructor_native_call_suffix)
@@ -64,8 +69,6 @@ class OpaqueStructGenerator:
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(', f'{constructor_native_name}(')
 
 			if constructor_prepared_arguments['has_unwrapped_arrays']:
-				# only replace the default init, don't replace the others
-				mutating_output_file_contents = mutating_output_file_contents.replace('public init', f'internal init', 1)
 
 				prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_details['argument_types'], array_unwrapping_preparation_only=True)
 				current_addition = method_template

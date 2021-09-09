@@ -8,6 +8,7 @@ detected_cloneable_types = set()
 class ConversionHelper:
 	trait_structs = set()
 	freeable_types = set()
+	nullable_inner_types = {'LDKOutPoint'}
 
 	@classmethod
 	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False):
@@ -21,6 +22,7 @@ class ConversionHelper:
 		static_eligible = True
 		non_cloneable_argument_indices_passed_by_ownership = []
 		has_unwrapped_arrays = False
+		return_type_nullable = False
 		for argument_index, current_argument_details in enumerate(argument_types):
 			pass_instance = False
 			argument_name = current_argument_details.var_name
@@ -49,6 +51,15 @@ class ConversionHelper:
 				pass_instance = True
 				passed_argument_name = 'self'
 				static_eligible = False
+				
+				# if caller_is_nullable_inner_type:
+				# 	native_call_prep = f'''
+				# 		if self.cOpaqueStruct!.inner == nil {{
+				# 			return nil
+				# 		}}
+				# 		{native_call_prep}
+				# 	'''
+				# 	return_type_nullable = True
 
 			swift_argument_type = current_argument_details.swift_type
 			if not pass_instance:
@@ -237,7 +248,7 @@ class ConversionHelper:
 		# print(full_syntax)
 		return {"swift_arguments": swift_arguments, "native_arguments": native_arguments, "native_call_prefix": pointer_wrapping_prefix, "native_call_suffix": pointer_wrapping_suffix,
 				"native_call_prep": native_call_prep, "static_eligible": static_eligible, "non_cloneable_argument_indices_passed_by_ownership": non_cloneable_argument_indices_passed_by_ownership,
-				'has_unwrapped_arrays': has_unwrapped_arrays, 'swift_redirection_arguments': swift_redirection_arguments}
+				'has_unwrapped_arrays': has_unwrapped_arrays, 'swift_redirection_arguments': swift_redirection_arguments, 'return_type_nullable': return_type_nullable}
 
 	# the arguments that we receive from a native lambda, before they get passed on to a human consumer
 	# Traits -> NATIVE_CALLBACKS -> SWIFT_CALLBACK_PREP, basically
@@ -391,16 +402,22 @@ class ConversionHelper:
 			array_length = return_type.arr_len
 			return_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
 			return_suffix = ')'
-		elif rust_return_type == 'LDK' + return_type_string and not is_clone_method:
+		elif rust_return_type == 'LDK' + return_type_string:
 			return_prefix = f'{swift_return_instantiation_type}(pointer: '
+			if is_clone_method:
+				# return_prefix = 'Self(pointer: '
+				pass
 			return_suffix = ')'
 			if return_type.is_const:
 				return_suffix = '.pointee)'
 			if is_trait_instantiator or is_raw_property_getter:
 				# replace if with elif if it's only to be used for _as methods (ChannelManagerReadArgs with get_ vs KeysManager with as_)
 				return_suffix = return_suffix.rstrip(')') + ', anchor: self)'
-		elif rust_return_type == 'LDKC' + return_type_string and not is_clone_method:
+		elif rust_return_type == 'LDKC' + return_type_string:
 			return_prefix = f'{swift_return_instantiation_type}(pointer: '
+			if is_clone_method:
+				# return_prefix = 'Self(pointer: '
+				pass
 			return_suffix = ')'
 			if is_raw_property_getter:
 				# return_suffix += '.dangle()'
@@ -411,9 +428,9 @@ class ConversionHelper:
 		elif return_type_string == 'String':
 			return_prefix = 'Bindings.LDKStr_to_string(nativeType: '
 			return_suffix = ')'
-		elif is_clone_method:
-			return_prefix = 'Self(pointer: ',
-			return_suffix = ')'
+		# elif is_clone_method:
+		# 	return_prefix = 'Self(pointer: ',
+		# 	return_suffix = ')'
 		if rust_return_type is None and return_type_string.startswith('['):
 			return_suffix = '.pointee)'
 			pass
@@ -425,5 +442,19 @@ class ConversionHelper:
 
 		if is_trait_instantiator:
 			return_type_string = swift_return_instantiation_type
+
+		if rust_return_type in ConversionHelper.nullable_inner_types and not is_clone_method:
+			return_suffix = f''';
+				if cStruct.inner == nil {{
+					return nil
+				}}	
+				return {return_prefix}cStruct{return_suffix}
+				}}()
+			'''
+			return_prefix = f'''
+				{{ () in
+					let cStruct =
+				'''
+			return_type_string += '?'
 
 		return {'prefix': return_prefix, 'suffix': return_suffix, 'swift_type': return_type_string}

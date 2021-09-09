@@ -20,6 +20,7 @@ class OpaqueStructGenerator:
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
 		swift_struct_name = struct_name[3:]
+		struct_is_nullable_inner_type = struct_name in ConversionHelper.nullable_inner_types
 
 		mutating_output_file_contents = self.template
 
@@ -131,7 +132,7 @@ class OpaqueStructGenerator:
 
 			# replace arguments
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method, unwrap_complex_arrays=False)
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, is_trait_instantiator)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], is_clone_method, is_trait_instantiator)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:

@@ -87,7 +87,7 @@ class ResultGenerator:
 			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False, is_raw_property_getter=True)
 
 			struct_methods += f'''
-			public func getValue() -> {value_return_wrappers['swift_type']}? {{
+			public func getValue() -> {value_return_wrappers['swift_type'].rstrip('?')}? {{
 				if self.cOpaqueStruct?.result_ok == true {{
 					return {value_return_wrappers['prefix']}self.cOpaqueStruct!.contents.result.pointee{value_return_wrappers['suffix']}
 				}}

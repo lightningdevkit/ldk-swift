@@ -153,8 +153,17 @@ SpendableOutputDescriptor_write(objPointer)
 			
 				
 				
-					public func getOutpoint() -> OutPoint {
-						return OutPoint(pointer: self.cOpaqueStruct!.outpoint, anchor: self)
+					public func getOutpoint() -> OutPoint? {
+						return 
+				{ () in
+					let cStruct =
+				self.cOpaqueStruct!.outpoint;
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct, anchor: self)
+				}()
+			
 					}
 				
 					public func getOutput() -> TxOut {

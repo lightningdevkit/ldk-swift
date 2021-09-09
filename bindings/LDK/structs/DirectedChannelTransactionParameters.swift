@@ -54,11 +54,20 @@ DirectedChannelTransactionParameters_is_outbound(this_argPointer)
 };
     }
 
-    public func funding_outpoint() -> OutPoint {
+    public func funding_outpoint() -> OutPoint? {
     	
-        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
+        return 
+				{ () in
+					let cStruct =
+				withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
 DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
-});
+};
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct)
+				}()
+			;
     }
 
     internal func free() -> Void {

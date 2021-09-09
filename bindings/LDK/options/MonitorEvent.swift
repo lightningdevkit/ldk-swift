@@ -53,7 +53,16 @@ public class MonitorEvent: NativeTypeWrapper {
 						if self.cOpaqueStruct?.tag != LDKMonitorEvent_CommitmentTxBroadcasted {
 							return nil
 						}
-						return OutPoint(pointer: self.cOpaqueStruct!.commitment_tx_broadcasted, anchor: self)
+						return 
+				{ () in
+					let cStruct =
+				self.cOpaqueStruct!.commitment_tx_broadcasted;
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct, anchor: self)
+				}()
+			
 					}
 				
 			

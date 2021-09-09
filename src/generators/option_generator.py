@@ -161,7 +161,7 @@ class OptionGenerator:
 				enum_value_types.append(swift_tag_value)
 				enum_switch_cases += f'\n\t\t\t\t\tcase {native_tag_value}:\n\t\t\t\t\t\treturn .{swift_tag_value}'
 				current_value_getter = f'''
-					public func getValueAs{swift_tag_value}() -> {return_type}? {{
+					public func getValueAs{swift_tag_value}() -> {return_type.rstrip('?')}? {{
 						if self.cOpaqueStruct?.tag != {native_tag_value} {{
 							return nil
 						}}

@@ -3,7 +3,7 @@ public class Result_TxCreationKeysErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TxCreationKeysErrorZ?
+    internal var cOpaqueStruct: LDKCResult_TxCreationKeysErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -57,7 +57,9 @@ public class Result_TxCreationKeysErrorZ: NativeTypeWrapper {
         return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
-    public class func err(e: LDKSecp256k1Error) -> Result_TxCreationKeysErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func err(e: LDKSecp256k1Error) -> Result_TxCreationKeysErrorZ {
     	
         return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_err(e));
     }

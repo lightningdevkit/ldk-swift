@@ -3,7 +3,7 @@ public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrappe
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_DelayedPaymentOutputDescriptorDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_DelayedPaymentOutputDescriptorDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

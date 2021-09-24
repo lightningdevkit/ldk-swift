@@ -3,7 +3,7 @@ open class BaseSign: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKBaseSign?
+    internal var cOpaqueStruct: LDKBaseSign?
 
     public init() {
 		Self.instanceCounter += 1
@@ -306,7 +306,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 					
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_output(self.cOpaqueStruct!.this_arg, justice_txWrapper.cOpaqueStruct!, input, amount, per_commitment_keyPointer))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_output(self.cOpaqueStruct!.this_arg, justice_txWrapper.dangle().cOpaqueStruct!, input, amount, per_commitment_keyPointer))
 				
 }
 			
@@ -323,7 +323,7 @@ public class NativelyImplementedBaseSign: BaseSign {
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: per_commitment_key!)) { (per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_htlc(self.cOpaqueStruct!.this_arg, justice_txWrapper.cOpaqueStruct!, input, amount, per_commitment_keyPointer, htlcPointer))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_justice_revoked_htlc(self.cOpaqueStruct!.this_arg, justice_txWrapper.dangle().cOpaqueStruct!, input, amount, per_commitment_keyPointer, htlcPointer))
 				
 }
 }
@@ -340,7 +340,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 					
 				return withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_htlc_transaction(self.cOpaqueStruct!.this_arg, htlc_txWrapper.cOpaqueStruct!, input, amount, Bindings.new_LDKPublicKey(array: per_commitment_point), htlcPointer))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_htlc_transaction(self.cOpaqueStruct!.this_arg, htlc_txWrapper.dangle().cOpaqueStruct!, input, amount, Bindings.new_LDKPublicKey(array: per_commitment_point), htlcPointer))
 				
 }
 			
@@ -355,7 +355,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 						}
 					
 				return 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, closing_txWrapper.cOpaqueStruct!))
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, closing_txWrapper.dangle().cOpaqueStruct!))
 				
 			
 	}

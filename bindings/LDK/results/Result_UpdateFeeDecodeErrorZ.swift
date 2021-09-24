@@ -3,7 +3,7 @@ public class Result_UpdateFeeDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_UpdateFeeDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_UpdateFeeDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

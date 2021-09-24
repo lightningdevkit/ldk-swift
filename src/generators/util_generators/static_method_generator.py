@@ -36,19 +36,26 @@ class StaticMethodGenerator(UtilGenerator):
 			current_method_replacement = current_method_replacement.replace('swift_arguments', swift_argument_list)
 			current_method_replacement = current_method_replacement.replace('-> Void {', f'-> {swift_return_type} {{')
 			current_method_replacement = current_method_replacement.replace('func methodName(', f'func {method_name}(')
+			deprecation_prefix = ''
 
 			cloneability_print = ''
 			if len(arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'{cloneability_warning}: {native_method_name}')
+				deprecation_prefix = '#warning("This method passes non-cloneable objects by owned value. Here be dragons.")\n@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")\n'
 				cloneability_types = []
 				for affected_argument_index in arguments['non_cloneable_argument_indices_passed_by_ownership']:
-					swift_argument_index = affected_argument_index + len(arguments['swift_arguments']) - len(current_method['argument_types'])
-					swift_argument_message = arguments['swift_arguments'][swift_argument_index] + f' ({swift_argument_index})'
-					cloneability_types.append(swift_argument_message)
+					cloneability_types.append(f'{current_method["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
 				cloneability_type_message = '; '.join(cloneability_types)
-				cloneability_print = f'print("DANGER! Non-cloneable types passed by ownership. Affected arguments: [{cloneability_type_message}]")\n'
-				current_method_replacement = current_method_replacement.replace('public class func ', f'\n/// {cloneability_warning}\npublic class func ')
+				print(f'(static_method_generator.py, warned, deprecated) {cloneability_warning}: {native_method_name} [{cloneability_type_message}]')
+
+				# cloneability_types = []
+				# for affected_argument_index in arguments['non_cloneable_argument_indices_passed_by_ownership']:
+				# 	swift_argument_index = affected_argument_index + len(arguments['swift_arguments']) - len(current_method['argument_types'])
+				# 	swift_argument_message = arguments['swift_arguments'][swift_argument_index] + f' ({swift_argument_index})'
+				# 	cloneability_types.append(swift_argument_message)
+				# cloneability_type_message = '; '.join(cloneability_types)
+				# cloneability_print = f'print("DANGER! Non-cloneable types passed by ownership. Affected arguments: [{cloneability_type_message}]")\n'
+				current_method_replacement = current_method_replacement.replace('public class func ', f'{deprecation_prefix}public class func ')
 			native_arguments = arguments['native_arguments']
 			default_return_prefix = 'return '
 			if current_method['return_type'].swift_type == 'Void':

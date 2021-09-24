@@ -8,7 +8,9 @@
 import Foundation
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
+public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
+public typealias Txid = [UInt8]
 
 open class NativeTypeWrapper: Hashable {
 
@@ -145,8 +147,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_rust_primitive?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_rust_primitive?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_rust_primitive){
 			Self.instanceCounter += 1
@@ -165,8 +167,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_rust_primitiveWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_rust_primitiveWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -261,7 +264,7 @@ public class Bindings {
 		internal let instanceNumber: UInt
 		internal private(set) var dangling = false
 
-		public var cOpaqueStruct: LDKTransaction?
+		internal var cOpaqueStruct: LDKTransaction?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKTransaction){

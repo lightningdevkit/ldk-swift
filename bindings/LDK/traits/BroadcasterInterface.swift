@@ -3,7 +3,7 @@ open class BroadcasterInterface: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKBroadcasterInterface?
+    internal var cOpaqueStruct: LDKBroadcasterInterface?
 
     public init() {
 		Self.instanceCounter += 1
@@ -98,7 +98,7 @@ public class NativelyImplementedBroadcasterInterface: BroadcasterInterface {
 						}
 					
 				
-				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, txWrapper.cOpaqueStruct!)
+				self.cOpaqueStruct!.broadcast_transaction(self.cOpaqueStruct!.this_arg, txWrapper.dangle().cOpaqueStruct!)
 				
 			
 	}

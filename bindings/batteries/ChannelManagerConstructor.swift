@@ -177,9 +177,14 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
     }
 
-    public func interrupt() {
-        print("stopping background processor")
+    public func interrupt(tcpPeerHandler: TCPPeerHandler? = nil) {
         self.shutdown = true
+        if let tcpHandler = tcpPeerHandler {
+            print("stopping TCP peer handler")
+            tcpHandler.interrupt()
+            print("stopped TCP peer handler")
+        }
+        print("stopping background processor")
         self.backgroundProcessor?.dangle().stop()
         print("stopped background processor")
         if let processor = self.backgroundProcessor {

@@ -3,7 +3,7 @@ public class Result_TransactionNoneZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TransactionNoneZ?
+    internal var cOpaqueStruct: LDKCResult_TransactionNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -52,7 +52,7 @@ public class Result_TransactionNoneZ: NativeTypeWrapper {
 							oWrapper.noOpRetain()
 						}
 					
-        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(oWrapper.cOpaqueStruct!));
+        return Result_TransactionNoneZ(pointer: CResult_TransactionNoneZ_ok(oWrapper.dangle().cOpaqueStruct!));
     }
 
     public class func err() -> Result_TransactionNoneZ {

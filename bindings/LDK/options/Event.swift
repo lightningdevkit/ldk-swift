@@ -3,7 +3,7 @@ public class Event: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKEvent?
+    internal var cOpaqueStruct: LDKEvent?
 
 	
 
@@ -166,9 +166,14 @@ Event_clone(origPointer)
         return Event(pointer: Event_pending_htlcs_forwardable(time_forwardable));
     }
 
-    public class func spendable_outputs(outputs: [LDKSpendableOutputDescriptor]) -> Event {
+    public class func spendable_outputs(outputs: [SpendableOutputDescriptor]) -> Event {
     	
-						let outputsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: outputs)
+							let outputsUnwrapped = outputs.map { (outputsCurrentValue) in
+							outputsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let outputsWrapper = Bindings.new_LDKCVec_SpendableOutputDescriptorZWrapper(array: outputsUnwrapped)
 						defer {
 							outputsWrapper.noOpRetain()
 						}
@@ -358,8 +363,12 @@ Event_write(objPointer)
 			
 				
 				
-					public func getOutputs() -> [LDKSpendableOutputDescriptor] {
+					public func getOutputs() -> [SpendableOutputDescriptor] {
 						return Bindings.LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: self.cOpaqueStruct!.outputs, deallocate: false)
+						.map { (cOpaqueStruct) in
+							SpendableOutputDescriptor(pointer: cOpaqueStruct).dangle()
+						}
+					
 					}
 				
 				

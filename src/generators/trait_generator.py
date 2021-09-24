@@ -69,7 +69,7 @@ class TraitGenerator:
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {current_native_method_name}')
+				print(f'(trait_generator.py#method) {cloneability_warning}: {current_native_method_name}')
 
 			swift_argument_list = ', '.join(prepared_arguments['swift_arguments'])
 			swift_return_type = value_return_wrappers['swift_type']
@@ -244,15 +244,20 @@ class TraitGenerator:
 
 			# let's create a native default implementation
 			default_callback_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], True)
-			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone)
+			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone, is_trait_callback=True)
 
 			if len(default_callback_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {struct_name}::{current_lambda_name}')
+				print(f'(trait_generator.py#lambda) {cloneability_warning}: {struct_name}::{current_lambda_name}')
 
 			current_default_callback_replacement = natively_implemented_callback_template
 			current_default_callback_replacement = current_default_callback_replacement.replace('public_swift_argument_list', public_swift_argument_list)
 			current_default_callback_replacement = current_default_callback_replacement.replace('-> Void {', f'-> {swift_return_type} {{')
+			if default_callback_prepared_arguments['has_unwrapped_arrays']:
+				# not yet possible due to override method's visibility requirements
+				# current_default_callback_replacement = current_default_callback_replacement.replace('public override func', 'internal override func')
+				pass
+				
 			current_default_callback_replacement = current_default_callback_replacement.replace('func methodName(', f'func {current_lambda_name}(')
 			default_native_call_arguments = default_callback_prepared_arguments['native_arguments']
 
@@ -267,6 +272,22 @@ class TraitGenerator:
 				{default_callback_return_wrappers['prefix']}self.cOpaqueStruct!.{current_lambda_name}({', '.join(default_native_call_arguments)}){default_callback_return_wrappers['suffix']}
 				{default_callback_prepared_arguments['native_call_suffix']}
 			''')
+
+			if default_callback_prepared_arguments['has_unwrapped_arrays']:
+				default_callback_alternative_input_parameters = ConversionHelper.prepare_native_to_swift_callback_arguments(current_lambda['argument_types'], array_unwrapping_preparation_only=True)
+				default_callback_alternative_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], is_trait_callback=False, array_unwrapping_preparation_only=True)
+
+				current_default_callback_addition = natively_implemented_callback_template
+				current_default_callback_addition = current_default_callback_addition.replace('public_swift_argument_list', default_callback_alternative_input_parameters['public_swift_argument_list'])
+				current_default_callback_addition = current_default_callback_addition.replace('-> Void {', f'-> {swift_return_type} {{')
+				current_default_callback_addition = current_default_callback_addition.replace('override func', 'func')
+				current_default_callback_addition = current_default_callback_addition.replace('func methodName(', f'func {current_lambda_name}(')
+				current_default_callback_addition = current_default_callback_addition.replace('/* SWIFT_DEFAULT_CALLBACK_BODY */', f'''
+					{default_callback_alternative_arguments['native_call_prep']}
+					return self.{current_lambda_name}({', '.join(default_callback_alternative_arguments['swift_redirection_arguments'])})
+				''')
+
+				current_default_callback_replacement = current_default_callback_addition + '\n\n@available(*, deprecated, message: "Use method taking Swift object array type instead.")\n' + current_default_callback_replacement
 
 			native_argument_string = ', '.join(native_arguments)
 

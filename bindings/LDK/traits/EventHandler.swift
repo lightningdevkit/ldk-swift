@@ -3,7 +3,7 @@ open class EventHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKEventHandler?
+    internal var cOpaqueStruct: LDKEventHandler?
 
     public init() {
 		Self.instanceCounter += 1

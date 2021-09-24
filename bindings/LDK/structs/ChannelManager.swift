@@ -3,7 +3,7 @@ public class ChannelManager: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelManager?
+    internal var cOpaqueStruct: LDKChannelManager?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -48,18 +48,26 @@ ChannelManager_create_channel(this_argPointer, Bindings.new_LDKPublicKey(array: 
 });
     }
 
-    public func list_channels() -> [LDKChannelDetails] {
+    public func list_channels() -> [ChannelDetails] {
     	
         return Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_list_channels(this_argPointer)
-});
+})
+						.map { (cOpaqueStruct) in
+							ChannelDetails(pointer: cOpaqueStruct)
+						}
+					;
     }
 
-    public func list_usable_channels() -> [LDKChannelDetails] {
+    public func list_usable_channels() -> [ChannelDetails] {
     	
         return Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_list_usable_channels(this_argPointer)
-});
+})
+						.map { (cOpaqueStruct) in
+							ChannelDetails(pointer: cOpaqueStruct)
+						}
+					;
     }
 
     public func close_channel(channel_id: [UInt8]) -> Result_NoneAPIErrorZ {
@@ -123,12 +131,22 @@ ChannelManager_send_spontaneous_payment(this_argPointer, routePointer, Bindings.
 					
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: temporary_channel_id)) { (temporary_channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_idPointer, funding_transactionWrapper.cOpaqueStruct!)
+ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_idPointer, funding_transactionWrapper.dangle().cOpaqueStruct!)
 }
 });
     }
 
-    public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
+    public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) -> Void {
+    	
+							let addressesUnwrapped = addresses.map { (addressesCurrentValue) in
+							addressesCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+        return self.broadcast_node_announcement(rgb: rgb, alias: alias, addresses: addressesUnwrapped);
+    }
+
+    internal func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
     	
 						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses)
 						defer {
@@ -200,28 +218,28 @@ ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDK
 });
     }
 
-    public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
+    public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_MessageSendEventsProvider(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_EventsProvider() -> EventsProvider {
+    public func as_EventsProvider() -> NativelyImplementedEventsProvider {
     	
         return NativelyImplementedEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_EventsProvider(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_Listen() -> Listen {
+    public func as_Listen() -> NativelyImplementedListen {
     	
         return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Listen(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_Confirm() -> Confirm {
+    public func as_Confirm() -> NativelyImplementedConfirm {
     	
         return NativelyImplementedConfirm(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_Confirm(this_argPointer)
@@ -249,7 +267,7 @@ ChannelManager_current_best_block(this_argPointer)
 });
     }
 
-    public func as_ChannelMessageHandler() -> ChannelMessageHandler {
+    public func as_ChannelMessageHandler() -> NativelyImplementedChannelMessageHandler {
     	
         return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_as_ChannelMessageHandler(this_argPointer)

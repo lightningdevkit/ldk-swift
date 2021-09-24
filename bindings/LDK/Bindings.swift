@@ -8,7 +8,9 @@
 import Foundation
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
+public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
+public typealias Txid = [UInt8]
 
 open class NativeTypeWrapper: Hashable {
 
@@ -648,8 +650,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_APIErrorZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_APIErrorZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_APIErrorZ){
 			Self.instanceCounter += 1
@@ -668,8 +670,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_APIErrorZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_APIErrorZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -749,8 +752,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ){
 			Self.instanceCounter += 1
@@ -769,8 +772,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -843,8 +847,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ){
 			Self.instanceCounter += 1
@@ -863,8 +867,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -944,8 +949,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_u32ScriptZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_u32ScriptZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_u32ScriptZZ){
 			Self.instanceCounter += 1
@@ -964,8 +969,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C2Tuple_u32ScriptZZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1045,8 +1051,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_u32TxOutZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_u32TxOutZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_u32TxOutZZ){
 			Self.instanceCounter += 1
@@ -1065,8 +1071,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C2Tuple_u32TxOutZZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1146,8 +1153,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C2Tuple_usizeTransactionZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C2Tuple_usizeTransactionZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C2Tuple_usizeTransactionZZ){
 			Self.instanceCounter += 1
@@ -1166,8 +1173,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C2Tuple_usizeTransactionZZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1247,8 +1255,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ){
 			Self.instanceCounter += 1
@@ -1267,8 +1275,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1348,8 +1357,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_CResult_NoneAPIErrorZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_CResult_NoneAPIErrorZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_CResult_NoneAPIErrorZZ){
 			Self.instanceCounter += 1
@@ -1368,8 +1377,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_CResult_NoneAPIErrorZZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1457,8 +1467,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_CVec_RouteHopZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_CVec_RouteHopZZ?
+		internal var subdimensionWrapper: [LDKCVec_RouteHopZWrapper]? = nil
 
 		public init(pointer: LDKCVec_CVec_RouteHopZZ){
 			Self.instanceCounter += 1
@@ -1467,7 +1477,7 @@ public class Bindings {
 			super.init(conflictAvoidingVariableName: 0)
 		}
 
-		internal init(pointer: LDKCVec_CVec_RouteHopZZ, subdimensionWrapper: [AnyObject]){
+		internal init(pointer: LDKCVec_CVec_RouteHopZZ, subdimensionWrapper: [LDKCVec_RouteHopZWrapper]){
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
@@ -1477,8 +1487,17 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_CVec_RouteHopZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_CVec_RouteHopZZWrapper {
 			self.dangling = true
+			
+					if dangleSubdimensions {
+						if let wrappers = self.subdimensionWrapper {
+							for currentWrapper in wrappers {
+								currentWrapper.dangle()
+							}
+						}
+					}
+				
 			return self
 		}
 
@@ -1541,8 +1560,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_CVec_u8ZZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_CVec_u8ZZ?
+		internal var subdimensionWrapper: [LDKCVec_u8ZWrapper]? = nil
 
 		public init(pointer: LDKCVec_CVec_u8ZZ){
 			Self.instanceCounter += 1
@@ -1551,7 +1570,7 @@ public class Bindings {
 			super.init(conflictAvoidingVariableName: 0)
 		}
 
-		internal init(pointer: LDKCVec_CVec_u8ZZ, subdimensionWrapper: [AnyObject]){
+		internal init(pointer: LDKCVec_CVec_u8ZZ, subdimensionWrapper: [LDKCVec_u8ZWrapper]){
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
@@ -1561,8 +1580,17 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_CVec_u8ZZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_CVec_u8ZZWrapper {
 			self.dangling = true
+			
+					if dangleSubdimensions {
+						if let wrappers = self.subdimensionWrapper {
+							for currentWrapper in wrappers {
+								currentWrapper.dangle()
+							}
+						}
+					}
+				
 			return self
 		}
 
@@ -1617,8 +1645,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_ChannelDetailsZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_ChannelDetailsZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_ChannelDetailsZ){
 			Self.instanceCounter += 1
@@ -1637,8 +1665,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_ChannelDetailsZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_ChannelDetailsZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1718,8 +1747,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_ChannelMonitorZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_ChannelMonitorZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_ChannelMonitorZ){
 			Self.instanceCounter += 1
@@ -1738,8 +1767,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_ChannelMonitorZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_ChannelMonitorZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1819,8 +1849,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_EventZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_EventZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_EventZ){
 			Self.instanceCounter += 1
@@ -1839,8 +1869,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_EventZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_EventZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -1920,8 +1951,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_MessageSendEventZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_MessageSendEventZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_MessageSendEventZ){
 			Self.instanceCounter += 1
@@ -1940,8 +1971,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_MessageSendEventZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_MessageSendEventZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2021,8 +2053,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_MonitorEventZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_MonitorEventZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_MonitorEventZ){
 			Self.instanceCounter += 1
@@ -2041,8 +2073,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_MonitorEventZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_MonitorEventZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2122,8 +2155,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_NetAddressZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_NetAddressZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_NetAddressZ){
 			Self.instanceCounter += 1
@@ -2142,8 +2175,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_NetAddressZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_NetAddressZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2223,8 +2257,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_NodeAnnouncementZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_NodeAnnouncementZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_NodeAnnouncementZ){
 			Self.instanceCounter += 1
@@ -2243,8 +2277,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_NodeAnnouncementZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_NodeAnnouncementZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2324,8 +2359,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_PrivateRouteZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_PrivateRouteZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_PrivateRouteZ){
 			Self.instanceCounter += 1
@@ -2344,8 +2379,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_PrivateRouteZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_PrivateRouteZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2433,8 +2469,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_PublicKeyZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_PublicKeyZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_PublicKeyZ){
 			Self.instanceCounter += 1
@@ -2453,8 +2489,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_PublicKeyZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_PublicKeyZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2509,8 +2546,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_RouteHintZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_RouteHintZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_RouteHintZ){
 			Self.instanceCounter += 1
@@ -2529,8 +2566,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_RouteHintZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_RouteHintZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2610,8 +2648,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_RouteHopZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_RouteHopZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_RouteHopZ){
 			Self.instanceCounter += 1
@@ -2630,8 +2668,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_RouteHopZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_RouteHopZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2719,8 +2758,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_SignatureZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_SignatureZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_SignatureZ){
 			Self.instanceCounter += 1
@@ -2739,8 +2778,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_SignatureZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_SignatureZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2795,8 +2835,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_SpendableOutputDescriptorZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_SpendableOutputDescriptorZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_SpendableOutputDescriptorZ){
 			Self.instanceCounter += 1
@@ -2815,8 +2855,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_SpendableOutputDescriptorZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_SpendableOutputDescriptorZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -2896,8 +2937,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TransactionOutputsZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_TransactionOutputsZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_TransactionOutputsZ){
 			Self.instanceCounter += 1
@@ -2916,8 +2957,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_TransactionOutputsZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_TransactionOutputsZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3005,8 +3047,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TransactionZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_TransactionZ?
+		internal var subdimensionWrapper: [LDKTransactionWrapper]? = nil
 
 		public init(pointer: LDKCVec_TransactionZ){
 			Self.instanceCounter += 1
@@ -3015,7 +3057,7 @@ public class Bindings {
 			super.init(conflictAvoidingVariableName: 0)
 		}
 
-		internal init(pointer: LDKCVec_TransactionZ, subdimensionWrapper: [AnyObject]){
+		internal init(pointer: LDKCVec_TransactionZ, subdimensionWrapper: [LDKTransactionWrapper]){
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.subdimensionWrapper = subdimensionWrapper
@@ -3025,8 +3067,17 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_TransactionZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_TransactionZWrapper {
 			self.dangling = true
+			
+					if dangleSubdimensions {
+						if let wrappers = self.subdimensionWrapper {
+							for currentWrapper in wrappers {
+								currentWrapper.dangle()
+							}
+						}
+					}
+				
 			return self
 		}
 
@@ -3081,8 +3132,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TxOutZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_TxOutZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_TxOutZ){
 			Self.instanceCounter += 1
@@ -3101,8 +3152,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_TxOutZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_TxOutZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3182,8 +3234,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_TxidZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_TxidZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_TxidZ){
 			Self.instanceCounter += 1
@@ -3202,8 +3254,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_TxidZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_TxidZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3258,8 +3311,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateAddHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateAddHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateAddHTLCZ){
 			Self.instanceCounter += 1
@@ -3278,8 +3331,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_UpdateAddHTLCZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_UpdateAddHTLCZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3359,8 +3413,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateFailHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateFailHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateFailHTLCZ){
 			Self.instanceCounter += 1
@@ -3379,8 +3433,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_UpdateFailHTLCZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_UpdateFailHTLCZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3460,8 +3515,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateFailMalformedHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateFailMalformedHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateFailMalformedHTLCZ){
 			Self.instanceCounter += 1
@@ -3480,8 +3535,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_UpdateFailMalformedHTLCZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3561,8 +3617,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_UpdateFulfillHTLCZ?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_UpdateFulfillHTLCZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_UpdateFulfillHTLCZ){
 			Self.instanceCounter += 1
@@ -3581,8 +3637,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_UpdateFulfillHTLCZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_UpdateFulfillHTLCZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3662,8 +3719,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_u64Z?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_u64Z?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_u64Z){
 			Self.instanceCounter += 1
@@ -3682,8 +3739,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_u64ZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_u64ZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3738,8 +3796,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKCVec_u8Z?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKCVec_u8Z?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKCVec_u8Z){
 			Self.instanceCounter += 1
@@ -3758,8 +3816,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKCVec_u8ZWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_u8ZWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3814,8 +3873,8 @@ public class Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		public var cOpaqueStruct: LDKu8slice?
-		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
+		internal var cOpaqueStruct: LDKu8slice?
+		internal var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKu8slice){
 			Self.instanceCounter += 1
@@ -3834,8 +3893,9 @@ public class Bindings {
 
 		public func noOpRetain(){}
 
-		internal func dangle() -> LDKu8sliceWrapper {
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKu8sliceWrapper {
 			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
 			return self
 		}
 
@@ -3938,12 +3998,11 @@ public class Bindings {
 }
 			
 	}
-	
-/// Non-cloneable types passed by ownership. Here be dragons!
+	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
 public class func swift_C2Tuple_BlockHashChannelManagerZ_read(ser: [UInt8], arg: ChannelManagerReadArgs) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 		
-				print("DANGER! Non-cloneable types passed by ownership. Affected arguments: [arg: ChannelManagerReadArgs (1)]")
-
+				
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
@@ -4063,16 +4122,27 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				
 			
 	}
-	public class func swift_get_keysend_route(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], first_hops: [LDKChannelDetails]?, last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
+	public class func swift_get_keysend_route(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], first_hops: [ChannelDetails]?, last_hops: [RouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		
 				
 							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
 							if let first_hopsUnwrapped = first_hops {
+								
+							let first_hopsUnwrapped = first_hopsUnwrapped.map { (first_hopsCurrentValue) in
+							first_hopsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
 								first_hopsPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
 								first_hopsPointer!.initialize(to: Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hopsUnwrapped).cOpaqueStruct!)
 							}
 						
-						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hops)
+							let last_hopsUnwrapped = last_hops.map { (last_hopsCurrentValue) in
+							last_hopsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hopsUnwrapped)
 						defer {
 							last_hopsWrapper.noOpRetain()
 						}
@@ -4165,7 +4235,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		internal let instanceNumber: UInt
 		internal private(set) var dangling = false
 
-		public var cOpaqueStruct: LDKTransaction?
+		internal var cOpaqueStruct: LDKTransaction?
 		internal private(set) var subdimensionWrapper: [AnyObject]? = nil
 
 		public init(pointer: LDKTransaction){

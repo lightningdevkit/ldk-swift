@@ -3,7 +3,7 @@ public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?
+    internal var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -45,7 +45,9 @@ public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: TrustedCommitmentTransaction) -> Result_TrustedCommitmentTransactionNoneZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func ok(o: TrustedCommitmentTransaction) -> Result_TrustedCommitmentTransactionNoneZ {
     	
         return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_ok(o.cOpaqueStruct!));
     }

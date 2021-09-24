@@ -3,7 +3,7 @@ public class RoutingFees: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKRoutingFees?
+    internal var cOpaqueStruct: LDKRoutingFees?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -3,7 +3,7 @@ public class Shutdown: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKShutdown?
+    internal var cOpaqueStruct: LDKShutdown?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

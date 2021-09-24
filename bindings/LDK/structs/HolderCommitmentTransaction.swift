@@ -3,7 +3,7 @@ public class HolderCommitmentTransaction: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKHolderCommitmentTransaction?
+    internal var cOpaqueStruct: LDKHolderCommitmentTransaction?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

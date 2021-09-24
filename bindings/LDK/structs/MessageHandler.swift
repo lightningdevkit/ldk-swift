@@ -3,7 +3,7 @@ public class MessageHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKMessageHandler?
+    internal var cOpaqueStruct: LDKMessageHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -34,7 +34,7 @@ public class MessageHandler: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func get_chan_handler() -> ChannelMessageHandler {
+    public func get_chan_handler() -> NativelyImplementedChannelMessageHandler {
     	
         return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
 MessageHandler_get_chan_handler(this_ptrPointer)
@@ -49,7 +49,7 @@ MessageHandler_get_chan_handler(this_ptrPointer)
         return MessageHandler_set_chan_handler(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func get_route_handler() -> RoutingMessageHandler {
+    public func get_route_handler() -> NativelyImplementedRoutingMessageHandler {
     	
         return NativelyImplementedRoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMessageHandler>) in
 MessageHandler_get_route_handler(this_ptrPointer)

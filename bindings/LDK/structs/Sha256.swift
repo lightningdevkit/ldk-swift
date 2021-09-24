@@ -3,7 +3,7 @@ public class Sha256: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKSha256?
+    internal var cOpaqueStruct: LDKSha256?
 
 
 	

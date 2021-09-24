@@ -3,7 +3,7 @@ public class OptionName: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: OptionType?
+    internal var cOpaqueStruct: OptionType?
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(swift_constructor_arguments) {

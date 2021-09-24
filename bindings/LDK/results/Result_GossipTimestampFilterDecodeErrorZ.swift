@@ -3,7 +3,7 @@ public class Result_GossipTimestampFilterDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_GossipTimestampFilterDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_GossipTimestampFilterDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

@@ -3,7 +3,7 @@ public class UnsignedNodeAnnouncement: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKUnsignedNodeAnnouncement?
+    internal var cOpaqueStruct: LDKUnsignedNodeAnnouncement?
 
 
 	
@@ -101,7 +101,17 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
         return UnsignedNodeAnnouncement_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
     }
 
-    public func set_addresses(val: [LDKNetAddress]) -> Void {
+    public func set_addresses(val: [NetAddress]) -> Void {
+    	
+							let valUnwrapped = val.map { (valCurrentValue) in
+							valCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+        return self.set_addresses(val: valUnwrapped);
+    }
+
+    internal func set_addresses(val: [LDKNetAddress]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)

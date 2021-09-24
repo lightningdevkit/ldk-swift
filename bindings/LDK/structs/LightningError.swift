@@ -3,7 +3,7 @@ public class LightningError: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKLightningError?
+    internal var cOpaqueStruct: LDKLightningError?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

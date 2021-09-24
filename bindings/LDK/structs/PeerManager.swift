@@ -3,11 +3,13 @@ public class PeerManager: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKPeerManager?
+    internal var cOpaqueStruct: LDKPeerManager?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger) {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -18,14 +20,18 @@ PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array:
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKPeerManager){
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKPeerManager){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKPeerManager, anchor: NativeTypeWrapper){
+	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKPeerManager, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer

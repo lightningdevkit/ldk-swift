@@ -3,7 +3,7 @@ public class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?
+    internal var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?
 
     public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ){
     	Self.instanceCounter += 1
@@ -37,9 +37,14 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: [UInt8], b: [LDKC2Tuple_u32ScriptZ]) -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
+    public class func new(a: [UInt8], b: [C2Tuple_u32ScriptZ]) -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
     	
-						let bWrapper = Bindings.new_LDKCVec_C2Tuple_u32ScriptZZWrapper(array: b)
+							let bUnwrapped = b.map { (bCurrentValue) in
+							bCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let bWrapper = Bindings.new_LDKCVec_C2Tuple_u32ScriptZZWrapper(array: bUnwrapped)
 						defer {
 							bWrapper.noOpRetain()
 						}

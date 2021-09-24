@@ -3,7 +3,7 @@ public class DirectionalChannelInfo: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKDirectionalChannelInfo?
+    internal var cOpaqueStruct: LDKDirectionalChannelInfo?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

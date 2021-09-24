@@ -3,7 +3,7 @@ public class ReplyShortChannelIdsEnd: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKReplyShortChannelIdsEnd?
+    internal var cOpaqueStruct: LDKReplyShortChannelIdsEnd?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

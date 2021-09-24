@@ -3,7 +3,7 @@ open class Filter: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKFilter?
+    internal var cOpaqueStruct: LDKFilter?
 
     public init() {
 		Self.instanceCounter += 1

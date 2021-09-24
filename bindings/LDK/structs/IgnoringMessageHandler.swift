@@ -3,7 +3,7 @@ public class IgnoringMessageHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKIgnoringMessageHandler?
+    internal var cOpaqueStruct: LDKIgnoringMessageHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -34,14 +34,14 @@ public class IgnoringMessageHandler: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
+    public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
 IgnoringMessageHandler_as_MessageSendEventsProvider(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_RoutingMessageHandler() -> RoutingMessageHandler {
+    public func as_RoutingMessageHandler() -> NativelyImplementedRoutingMessageHandler {
     	
         return NativelyImplementedRoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
 IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)

@@ -3,7 +3,7 @@ public class UserConfig: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKUserConfig?
+    internal var cOpaqueStruct: LDKUserConfig?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

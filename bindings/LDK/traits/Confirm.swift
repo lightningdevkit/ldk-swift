@@ -3,7 +3,7 @@ open class Confirm: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKConfirm?
+    internal var cOpaqueStruct: LDKConfirm?
 
     public init() {
 		Self.instanceCounter += 1
@@ -152,6 +152,19 @@ return [LDKTxid]()
 public class NativelyImplementedConfirm: Confirm {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
+	public func transactions_confirmed(header: [UInt8]?, txdata: [C2Tuple_usizeTransactionZ], height: UInt32) -> Void {
+		
+					
+							let txdataUnwrapped = txdata.map { (txdataCurrentValue) in
+							txdataCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.transactions_confirmed(header: header, txdata: txdataUnwrapped, height: height)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
 	public override func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
 		
 				

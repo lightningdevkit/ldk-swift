@@ -3,7 +3,7 @@ public class BackgroundProcessor: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKBackgroundProcessor?
+    internal var cOpaqueStruct: LDKBackgroundProcessor?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

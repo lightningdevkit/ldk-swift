@@ -3,11 +3,11 @@ public class Route: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKRoute?
+    internal var cOpaqueStruct: LDKRoute?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(paths_arg: [[LDKRouteHop]]) {
+    internal init(paths_arg: [[LDKRouteHop]]) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -38,8 +38,29 @@ public class Route: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
+    public convenience init(paths_arg: [[RouteHop]])  {
+    	
+							let paths_argUnwrapped = paths_arg.map { (paths_argCurrentValue) in
+							paths_argCurrentValue.map { (paths_argCurrentValue) in
+							paths_argCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}}
+						
+        self.init(paths_arg: paths_argUnwrapped);
+    }
 
-    public func set_paths(val: [[LDKRouteHop]]) -> Void {
+    public func set_paths(val: [[RouteHop]]) -> Void {
+    	
+							let valUnwrapped = val.map { (valCurrentValue) in
+							valCurrentValue.map { (valCurrentValue) in
+							valCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}}
+						
+        return self.set_paths(val: valUnwrapped);
+    }
+
+    internal func set_paths(val: [[LDKRouteHop]]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)

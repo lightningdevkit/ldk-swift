@@ -3,7 +3,7 @@ open class ChannelMessageHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKChannelMessageHandler?
+    internal var cOpaqueStruct: LDKChannelMessageHandler?
 
     public init() {
 		Self.instanceCounter += 1

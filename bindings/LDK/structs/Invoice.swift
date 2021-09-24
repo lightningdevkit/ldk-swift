@@ -3,7 +3,7 @@ public class Invoice: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKInvoice?
+    internal var cOpaqueStruct: LDKInvoice?
 
 
 	
@@ -122,18 +122,26 @@ Invoice_min_final_cltv_expiry(this_argPointer)
 };
     }
 
-    public func private_routes() -> [LDKPrivateRoute] {
+    public func private_routes() -> [PrivateRoute] {
     	
         return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_private_routes(this_argPointer)
-});
+})
+						.map { (cOpaqueStruct) in
+							PrivateRoute(pointer: cOpaqueStruct)
+						}
+					;
     }
 
-    public func route_hints() -> [LDKRouteHint] {
+    public func route_hints() -> [RouteHint] {
     	
         return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_route_hints(this_argPointer)
-});
+})
+						.map { (cOpaqueStruct) in
+							RouteHint(pointer: cOpaqueStruct)
+						}
+					;
     }
 
     public func currency() -> LDKCurrency {

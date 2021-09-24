@@ -20,8 +20,15 @@ class OpaqueStructGenerator:
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
 		swift_struct_name = struct_name[3:]
+		struct_is_nullable_inner_type = struct_name in ConversionHelper.nullable_inner_types
 
 		mutating_output_file_contents = self.template
+
+		method_template_regex = re.compile("(\/\* STRUCT_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* STRUCT_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
+		method_template = method_template_regex.search(mutating_output_file_contents).group(2)
+
+		method_prefix = swift_struct_name + '_'
+		struct_methods = ''
 
 		# CONSTRUCTOR START
 		if struct_details.constructor_method is not None:
@@ -31,8 +38,9 @@ class OpaqueStructGenerator:
 			swift_arguments = []
 			native_arguments = []
 			constructor_argument_prep = ''
+			deprecation_prefix = ''
 
-			constructor_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_details['argument_types'])
+			constructor_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_details['argument_types'], unwrap_complex_arrays=False)
 			constructor_swift_arguments = constructor_prepared_arguments["swift_arguments"]
 			constructor_native_arguments = constructor_prepared_arguments['native_arguments']
 			constructor_native_call_prefix = constructor_prepared_arguments['native_call_prefix']
@@ -41,26 +49,45 @@ class OpaqueStructGenerator:
 
 			if len(constructor_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {constructor_native_name}')
+				deprecation_prefix = '#warning("This method passes non-cloneable objects by owned value. Here be dragons.")\n@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")\n'
+				cloneability_types = []
+				for affected_argument_index in constructor_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']:
+					cloneability_types.append(f'{constructor_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
+				cloneability_type_message = '; '.join(cloneability_types)
+				print(f'(opaque_struct_generator.py#constructor, warned, deprecated) {cloneability_warning}: {constructor_native_name} [{cloneability_type_message}]')
 
+			
+			mutating_output_file_contents = mutating_output_file_contents.replace('public init', f'{deprecation_prefix}public init')
+
+			if constructor_prepared_arguments['has_unwrapped_arrays']:
+				mutating_output_file_contents = mutating_output_file_contents.replace('public init(swift_constructor_arguments)', 'internal init(swift_constructor_arguments)')
+			
 			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', ', '.join(constructor_swift_arguments))
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)', constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(
 				constructor_native_arguments) + ')' + constructor_native_call_suffix)
 
 			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */', constructor_native_call_prep)
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(', f'{constructor_native_name}(')
+
+			if constructor_prepared_arguments['has_unwrapped_arrays']:
+
+				prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_details['argument_types'], array_unwrapping_preparation_only=True)
+				current_addition = method_template
+				current_addition = current_addition.replace('func methodName(', f'convenience init(')
+				current_addition = current_addition.replace('return OpaqueStructType_methodName(native_arguments)',
+															f'self.init(' + ', '.join(prepared_arguments['swift_redirection_arguments']) + ')')
+				current_addition = current_addition.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
+				current_addition = current_addition.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
+				current_addition = current_addition.replace('-> Void {', f' {{')
+
+				struct_methods += current_addition + '\n'
+
 		else:
 			# remove the default constructor template
 			constructor_template_regex = re.compile("(\/\* DEFAULT_CONSTRUCTOR_START \*\/\n)(.*)(\n[\t ]*\/\* DEFAULT_CONSTRUCTOR_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 			mutating_output_file_contents = constructor_template_regex.sub('', mutating_output_file_contents)
 
 		# REGULAR METHODS START
-
-		method_template_regex = re.compile("(\/\* STRUCT_METHODS_START \*\/\n)(.*)(\n[\t ]*\/\* STRUCT_METHODS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
-		method_template = method_template_regex.search(mutating_output_file_contents).group(2)
-
-		method_prefix = swift_struct_name + '_'
-		struct_methods = ''
 
 		method_iterator = struct_details.methods
 		if struct_details.free_method is not None:
@@ -104,8 +131,8 @@ class OpaqueStructGenerator:
 					is_trait_instantiator = True
 
 			# replace arguments
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, is_trait_instantiator)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method, unwrap_complex_arrays=False)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], is_clone_method, is_trait_instantiator)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
@@ -116,7 +143,7 @@ class OpaqueStructGenerator:
 					# swift_argument_message = arguments['swift_arguments'][swift_argument_index] + f' ({swift_argument_index})'
 					cloneability_types.append(f'{current_method_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
 				cloneability_type_message = '; '.join(cloneability_types)
-				print(f'/// {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
+				print(f'(opaque_struct_generator.py#method) {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
 
 			current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}OpaqueStructType_methodName(native_arguments){value_return_wrappers["suffix"]}')
@@ -129,7 +156,19 @@ class OpaqueStructGenerator:
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
 			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
-			current_replacement = current_replacement.replace('-> Void {', f'-> {current_swift_return_type} {{')
+			current_replacement = current_replacement.replace('-> Void {', f'-> {value_return_wrappers["swift_type"]} {{')
+
+			if prepared_arguments['has_unwrapped_arrays']:
+				prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method, array_unwrapping_preparation_only=True)
+				current_addition = method_template
+				current_addition = current_addition.replace('OpaqueStructType_methodName(native_arguments)',
+																f'self.{current_method_name}(' + ', '.join(prepared_arguments['swift_redirection_arguments']) + ')')
+				current_addition = current_addition.replace('func methodName(', f'{static_infix}func {current_method_name}(')
+				current_addition = current_addition.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
+				current_addition = current_addition.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
+				current_addition = current_addition.replace('-> Void {', f'-> {value_return_wrappers["swift_type"]} {{')
+
+				current_replacement = current_addition + '\n\n' + current_replacement.replace('public func', 'internal func')
 
 			if is_clone_method:
 				current_replacement += f'''\n

@@ -3,7 +3,7 @@ public class SignedRawInvoice: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKSignedRawInvoice?
+    internal var cOpaqueStruct: LDKSignedRawInvoice?
 
 
 	

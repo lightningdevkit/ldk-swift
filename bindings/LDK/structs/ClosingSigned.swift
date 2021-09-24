@@ -3,7 +3,7 @@ public class ClosingSigned: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKClosingSigned?
+    internal var cOpaqueStruct: LDKClosingSigned?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -3,7 +3,7 @@ public class ChannelMonitorUpdate: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelMonitorUpdate?
+    internal var cOpaqueStruct: LDKChannelMonitorUpdate?
 
 
 	

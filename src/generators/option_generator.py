@@ -161,7 +161,7 @@ class OptionGenerator:
 				enum_value_types.append(swift_tag_value)
 				enum_switch_cases += f'\n\t\t\t\t\tcase {native_tag_value}:\n\t\t\t\t\t\treturn .{swift_tag_value}'
 				current_value_getter = f'''
-					public func getValueAs{swift_tag_value}() -> {return_type}? {{
+					public func getValueAs{swift_tag_value}() -> {return_type.rstrip('?')}? {{
 						if self.cOpaqueStruct?.tag != {native_tag_value} {{
 							return nil
 						}}
@@ -223,11 +223,18 @@ class OptionGenerator:
 
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+			deprecation_prefix = ''
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {current_native_method_name}')
+				# deprecation_prefix = '#warning("This method passes non-cloneable objects by owned value. Here be dragons.")\n@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")\n'
+				cloneability_types = []
+				for affected_argument_index in prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']:
+					cloneability_types.append(f'{current_method_details["argument_types"][affected_argument_index].var_name} ({affected_argument_index})')
+				cloneability_type_message = '; '.join(cloneability_types)
+				print(f'(option_generator.py) {cloneability_warning}: {current_native_method_name} [{cloneability_type_message}]')
 
+			current_replacement = current_replacement.replace('public func', f'{deprecation_prefix}public func')
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('OptionType_methodName(native_arguments)',
 															  prepared_arguments['native_call_prefix'] + 'OptionType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' +

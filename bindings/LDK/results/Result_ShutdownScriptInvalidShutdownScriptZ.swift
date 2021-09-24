@@ -3,7 +3,7 @@ public class Result_ShutdownScriptInvalidShutdownScriptZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ShutdownScriptInvalidShutdownScriptZ?
+    internal var cOpaqueStruct: LDKCResult_ShutdownScriptInvalidShutdownScriptZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -57,7 +57,9 @@ public class Result_ShutdownScriptInvalidShutdownScriptZ: NativeTypeWrapper {
         return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: CResult_ShutdownScriptInvalidShutdownScriptZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
-    public class func err(e: InvalidShutdownScript) -> Result_ShutdownScriptInvalidShutdownScriptZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func err(e: InvalidShutdownScript) -> Result_ShutdownScriptInvalidShutdownScriptZ {
     	
         return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: CResult_ShutdownScriptInvalidShutdownScriptZ_err(e.cOpaqueStruct!));
     }

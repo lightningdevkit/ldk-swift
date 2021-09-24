@@ -3,7 +3,7 @@ public class Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ: NativeTypeWrap
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -52,7 +52,9 @@ public class Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ: NativeTypeWrap
 				return nil
 			}
 			
-    public class func ok(o: C2Tuple_BlockHashChannelMonitorZ) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func ok(o: C2Tuple_BlockHashChannelMonitorZ) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
     	
         return Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_ok(o.cOpaqueStruct!));
     }

@@ -3,7 +3,7 @@ public class Result_NoneAPIErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_NoneAPIErrorZ?
+    internal var cOpaqueStruct: LDKCResult_NoneAPIErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

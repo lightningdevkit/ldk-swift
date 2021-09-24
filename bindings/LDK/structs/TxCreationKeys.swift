@@ -3,7 +3,7 @@ public class TxCreationKeys: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKTxCreationKeys?
+    internal var cOpaqueStruct: LDKTxCreationKeys?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

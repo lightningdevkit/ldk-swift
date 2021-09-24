@@ -3,7 +3,7 @@ open class ChannelManagerPersister: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKChannelManagerPersister?
+    internal var cOpaqueStruct: LDKChannelManagerPersister?
 
     public init() {
 		Self.instanceCounter += 1

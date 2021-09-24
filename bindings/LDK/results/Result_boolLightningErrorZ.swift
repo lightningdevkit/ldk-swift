@@ -3,7 +3,7 @@ public class Result_boolLightningErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_boolLightningErrorZ?
+    internal var cOpaqueStruct: LDKCResult_boolLightningErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

@@ -3,7 +3,7 @@ public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ: NativeTypeW
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?
+    internal var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?
 
     public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ){
     	Self.instanceCounter += 1

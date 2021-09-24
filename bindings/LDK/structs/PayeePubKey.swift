@@ -3,7 +3,7 @@ public class PayeePubKey: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKPayeePubKey?
+    internal var cOpaqueStruct: LDKPayeePubKey?
 
 
 	

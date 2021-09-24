@@ -3,7 +3,7 @@ public class Result_PositiveTimestampCreationErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PositiveTimestampCreationErrorZ?
+    internal var cOpaqueStruct: LDKCResult_PositiveTimestampCreationErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

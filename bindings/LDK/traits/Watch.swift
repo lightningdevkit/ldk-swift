@@ -3,7 +3,7 @@ open class Watch: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKWatch?
+    internal var cOpaqueStruct: LDKWatch?
 
     public init() {
 		Self.instanceCounter += 1

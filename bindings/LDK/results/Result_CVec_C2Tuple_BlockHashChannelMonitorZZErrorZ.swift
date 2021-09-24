@@ -3,7 +3,7 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrap
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ?
+    internal var cOpaqueStruct: LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -45,16 +45,25 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrap
 				return nil
 			}
 			
-			public func getValue() -> [LDKC2Tuple_BlockHashChannelMonitorZ]? {
+			public func getValue() -> [C2Tuple_BlockHashChannelMonitorZ]? {
 				if self.cOpaqueStruct?.result_ok == true {
 					return Bindings.LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
+						.map { (cOpaqueStruct) in
+							C2Tuple_BlockHashChannelMonitorZ(pointer: cOpaqueStruct).dangle()
+						}
+					
 				}
 				return nil
 			}
 			
-    public class func ok(o: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    public class func ok(o: [C2Tuple_BlockHashChannelMonitorZ]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
-						let oWrapper = Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: o)
+							let oUnwrapped = o.map { (oCurrentValue) in
+							oCurrentValue
+								.dangle().cOpaqueStruct!
+							}
+						
+						let oWrapper = Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: oUnwrapped)
 						defer {
 							oWrapper.noOpRetain()
 						}
@@ -62,7 +71,9 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrap
         return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_ok(oWrapper.dangle().cOpaqueStruct!));
     }
 
-    public class func err(e: LDKIOError) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func err(e: LDKIOError) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
         return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_err(e));
     }

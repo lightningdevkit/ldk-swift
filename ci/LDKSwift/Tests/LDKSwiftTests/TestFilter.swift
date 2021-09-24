@@ -16,7 +16,7 @@ class TestFilter: Filter {
     
     override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
         let scriptPubkeyBytes = output.get_script_pubkey()
-        let outpoint = output.get_outpoint()
+        let outpoint = output.get_outpoint()!
         let txid = outpoint.get_txid()
         let outputIndex = outpoint.get_index()
         

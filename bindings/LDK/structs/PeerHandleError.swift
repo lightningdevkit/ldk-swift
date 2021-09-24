@@ -3,7 +3,7 @@ public class PeerHandleError: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKPeerHandleError?
+    internal var cOpaqueStruct: LDKPeerHandleError?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

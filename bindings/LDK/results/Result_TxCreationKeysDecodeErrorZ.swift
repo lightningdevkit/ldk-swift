@@ -3,7 +3,7 @@ public class Result_TxCreationKeysDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_TxCreationKeysDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_TxCreationKeysDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

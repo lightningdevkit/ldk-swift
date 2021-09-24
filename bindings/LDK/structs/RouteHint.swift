@@ -3,7 +3,7 @@ public class RouteHint: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKRouteHint?
+    internal var cOpaqueStruct: LDKRouteHint?
 
 
 	

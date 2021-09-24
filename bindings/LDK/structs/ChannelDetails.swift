@@ -3,7 +3,7 @@ public class ChannelDetails: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelDetails?
+    internal var cOpaqueStruct: LDKChannelDetails?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -64,11 +64,20 @@ ChannelDetails_get_counterparty(this_ptrPointer)
         return ChannelDetails_set_counterparty(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_funding_txo() -> OutPoint {
+    public func get_funding_txo() -> OutPoint? {
     	
-        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
+        return 
+				{ () in
+					let cStruct =
+				withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
 ChannelDetails_get_funding_txo(this_ptrPointer)
-});
+};
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct)
+				}()
+			;
     }
 
     public func set_funding_txo(val: OutPoint) -> Void {

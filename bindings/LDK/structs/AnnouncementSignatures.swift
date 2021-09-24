@@ -3,7 +3,7 @@ public class AnnouncementSignatures: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKAnnouncementSignatures?
+    internal var cOpaqueStruct: LDKAnnouncementSignatures?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

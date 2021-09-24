@@ -3,7 +3,7 @@ public class InMemorySigner: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKInMemorySigner?
+    internal var cOpaqueStruct: LDKInMemorySigner?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -166,11 +166,20 @@ InMemorySigner_is_outbound(this_argPointer)
 };
     }
 
-    public func funding_outpoint() -> OutPoint {
+    public func funding_outpoint() -> OutPoint? {
     	
-        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
+        return 
+				{ () in
+					let cStruct =
+				withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_funding_outpoint(this_argPointer)
-});
+};
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct)
+				}()
+			;
     }
 
     public func get_channel_parameters() -> ChannelTransactionParameters {
@@ -189,7 +198,7 @@ InMemorySigner_get_channel_parameters(this_argPointer)
 					
         return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-InMemorySigner_sign_counterparty_payment_input(this_argPointer, spend_txWrapper.cOpaqueStruct!, input_idx, descriptorPointer)
+InMemorySigner_sign_counterparty_payment_input(this_argPointer, spend_txWrapper.dangle().cOpaqueStruct!, input_idx, descriptorPointer)
 }
 });
     }
@@ -203,19 +212,19 @@ InMemorySigner_sign_counterparty_payment_input(this_argPointer, spend_txWrapper.
 					
         return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
-InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, spend_txWrapper.cOpaqueStruct!, input_idx, descriptorPointer)
+InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, spend_txWrapper.dangle().cOpaqueStruct!, input_idx, descriptorPointer)
 }
 });
     }
 
-    public func as_BaseSign() -> BaseSign {
+    public func as_BaseSign() -> NativelyImplementedBaseSign {
     	
         return NativelyImplementedBaseSign(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_as_BaseSign(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_Sign() -> Sign {
+    public func as_Sign() -> NativelyImplementedSign {
     	
         return NativelyImplementedSign(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_as_Sign(this_argPointer)

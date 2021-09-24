@@ -3,7 +3,7 @@ public class Result_OutPointDecodeErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_OutPointDecodeErrorZ?
+    internal var cOpaqueStruct: LDKCResult_OutPointDecodeErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -47,7 +47,16 @@ public class Result_OutPointDecodeErrorZ: NativeTypeWrapper {
 			
 			public func getValue() -> OutPoint? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return OutPoint(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return 
+				{ () in
+					let cStruct =
+				self.cOpaqueStruct!.contents.result.pointee;
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct, anchor: self)
+				}()
+			
 				}
 				return nil
 			}

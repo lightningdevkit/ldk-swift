@@ -3,7 +3,7 @@ public class Result_ExpiryTimeCreationErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_ExpiryTimeCreationErrorZ?
+    internal var cOpaqueStruct: LDKCResult_ExpiryTimeCreationErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

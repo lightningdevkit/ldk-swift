@@ -74,13 +74,19 @@ class TupleGenerator:
 				current_replacement = current_replacement.replace('return TupleType_methodName(native_arguments)',
 																  f'return {return_type_wrapper_prefix}TupleType_methodName(native_arguments){return_type_wrapper_suffix}')
 
+			# is_return_freeable = False
+			# if current_method_details['return_type'].rust_obj is not None and current_method_details['return_type'].rust_obj in src.conversion_helper.ConversionHelper.freeable_types:
+			# 	is_return_freeable = True
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], force_pass_instance=force_pass_instance, is_free_method=is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+			deprecation_prefix = ''
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
-				print(f'/// {cloneability_warning}: {current_native_method_name}')
+				deprecation_prefix = '#warning("This method passes non-cloneable objects by owned value. Here be dragons.")\n@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")\n'
+				print(f'(tuple_generator.py, warned, deprecated) {cloneability_warning}: {current_native_method_name}')
 
+			current_replacement = current_replacement.replace('public func', f'{deprecation_prefix}public func')
 			current_replacement = current_replacement.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 			current_replacement = current_replacement.replace('TupleType_methodName(native_arguments)',
 															  prepared_arguments['native_call_prefix'] + 'TupleType_methodName(' + ', '.join(prepared_arguments['native_arguments']) + ')' +

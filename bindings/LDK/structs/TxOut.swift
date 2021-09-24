@@ -3,7 +3,7 @@ public class TxOut: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKTxOut?
+    internal var cOpaqueStruct: LDKTxOut?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

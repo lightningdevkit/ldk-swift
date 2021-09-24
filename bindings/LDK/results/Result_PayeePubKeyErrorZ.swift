@@ -3,7 +3,7 @@ public class Result_PayeePubKeyErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_PayeePubKeyErrorZ?
+    internal var cOpaqueStruct: LDKCResult_PayeePubKeyErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 
@@ -57,7 +57,9 @@ public class Result_PayeePubKeyErrorZ: NativeTypeWrapper {
         return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
-    public class func err(e: LDKSecp256k1Error) -> Result_PayeePubKeyErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func err(e: LDKSecp256k1Error) -> Result_PayeePubKeyErrorZ {
     	
         return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_err(e));
     }

@@ -3,7 +3,7 @@ open class KeysInterface: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKKeysInterface?
+    internal var cOpaqueStruct: LDKKeysInterface?
 
     public init() {
 		Self.instanceCounter += 1

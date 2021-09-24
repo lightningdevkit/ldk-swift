@@ -14,11 +14,4 @@ class TestBroadcasterInterface: BroadcasterInterface {
         // insert code to broadcast transaction
     }
     
-    func testthis(km: KeysManager){
-        var result = km.spend_spendable_outputs(descriptors: [], outputs: [], change_destination_script: [], feerate_sat_per_1000_weight: 0)
-        // result.
-        result.cOpaqueStruct
-        
-    }
-    
 }

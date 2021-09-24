@@ -3,7 +3,7 @@ open class Logger: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKLogger?
+    internal var cOpaqueStruct: LDKLogger?
 
     public init() {
 		Self.instanceCounter += 1

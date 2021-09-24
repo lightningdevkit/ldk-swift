@@ -3,7 +3,7 @@ public class NetworkGraph: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKNetworkGraph?
+    internal var cOpaqueStruct: LDKNetworkGraph?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -92,6 +92,7 @@ NetworkGraph_update_node_from_unsigned_announcement(this_argPointer, msgPointer)
 						
 							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
 							if let chain_accessUnwrapped = chain_access {
+								
 								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
 								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
 							}
@@ -108,6 +109,7 @@ NetworkGraph_update_channel_from_announcement(this_argPointer, msgPointer, chain
 						
 							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
 							if let chain_accessUnwrapped = chain_access {
+								
 								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
 								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
 							}

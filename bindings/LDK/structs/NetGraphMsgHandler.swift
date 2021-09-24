@@ -3,7 +3,7 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKNetGraphMsgHandler?
+    internal var cOpaqueStruct: LDKNetGraphMsgHandler?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -13,6 +13,7 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
     	
 							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
 							if let chain_accessUnwrapped = chain_access {
+								
 								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
 								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
 							}
@@ -47,6 +48,7 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
 						
 							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
 							if let chain_accessUnwrapped = chain_access {
+								
 								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
 								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
 							}
@@ -61,14 +63,14 @@ NetGraphMsgHandler_read_locked_graph(this_argPointer)
 });
     }
 
-    public func as_RoutingMessageHandler() -> RoutingMessageHandler {
+    public func as_RoutingMessageHandler() -> NativelyImplementedRoutingMessageHandler {
     	
         return NativelyImplementedRoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
 NetGraphMsgHandler_as_RoutingMessageHandler(this_argPointer)
 }, anchor: self);
     }
 
-    public func as_MessageSendEventsProvider() -> MessageSendEventsProvider {
+    public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {
     	
         return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
 NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)

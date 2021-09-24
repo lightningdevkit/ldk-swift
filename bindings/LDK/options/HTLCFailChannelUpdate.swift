@@ -3,7 +3,7 @@ public class HTLCFailChannelUpdate: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKHTLCFailChannelUpdate?
+    internal var cOpaqueStruct: LDKHTLCFailChannelUpdate?
 
 	
 

@@ -3,7 +3,7 @@ public class DelayedPaymentOutputDescriptor: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?
+    internal var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -34,11 +34,20 @@ public class DelayedPaymentOutputDescriptor: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func get_outpoint() -> OutPoint {
+    public func get_outpoint() -> OutPoint? {
     	
-        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+        return 
+				{ () in
+					let cStruct =
+				withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
-});
+};
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct)
+				}()
+			;
     }
 
     public func set_outpoint(val: OutPoint) -> Void {

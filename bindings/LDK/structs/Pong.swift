@@ -3,7 +3,7 @@ public class Pong: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKPong?
+    internal var cOpaqueStruct: LDKPong?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

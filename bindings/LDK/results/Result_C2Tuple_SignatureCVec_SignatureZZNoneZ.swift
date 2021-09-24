@@ -3,7 +3,7 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?
+    internal var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

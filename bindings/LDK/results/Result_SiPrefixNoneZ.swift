@@ -3,7 +3,7 @@ public class Result_SiPrefixNoneZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_SiPrefixNoneZ?
+    internal var cOpaqueStruct: LDKCResult_SiPrefixNoneZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

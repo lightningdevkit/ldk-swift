@@ -3,7 +3,7 @@ public class PaymentSendFailure: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKPaymentSendFailure?
+    internal var cOpaqueStruct: LDKPaymentSendFailure?
 
 	
 
@@ -53,25 +53,37 @@ public class PaymentSendFailure: NativeTypeWrapper {
 						return APIError(pointer: self.cOpaqueStruct!.parameter_error, anchor: self)
 					}
 				
-					public func getValueAsPathParameterError() -> [LDKCResult_NoneAPIErrorZ]? {
+					public func getValueAsPathParameterError() -> [Result_NoneAPIErrorZ]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_PathParameterError {
 							return nil
 						}
 						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error, deallocate: false)
+						.map { (cOpaqueStruct) in
+							Result_NoneAPIErrorZ(pointer: cOpaqueStruct).dangle()
+						}
+					
 					}
 				
-					public func getValueAsAllFailedRetrySafe() -> [LDKAPIError]? {
+					public func getValueAsAllFailedRetrySafe() -> [APIError]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_AllFailedRetrySafe {
 							return nil
 						}
 						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe, deallocate: false)
+						.map { (cOpaqueStruct) in
+							APIError(pointer: cOpaqueStruct).dangle()
+						}
+					
 					}
 				
-					public func getValueAsPartialFailure() -> [LDKCResult_NoneAPIErrorZ]? {
+					public func getValueAsPartialFailure() -> [Result_NoneAPIErrorZ]? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_PartialFailure {
 							return nil
 						}
 						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.partial_failure, deallocate: false)
+						.map { (cOpaqueStruct) in
+							Result_NoneAPIErrorZ(pointer: cOpaqueStruct).dangle()
+						}
+					
 					}
 				
 			
@@ -114,9 +126,14 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_parameter_error(a.danglingClone().cOpaqueStruct!));
     }
 
-    public class func path_parameter_error(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    public class func path_parameter_error(a: [Result_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+							let aUnwrapped = a.map { (aCurrentValue) in
+							aCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: aUnwrapped)
 						defer {
 							aWrapper.noOpRetain()
 						}
@@ -124,9 +141,14 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.dangle().cOpaqueStruct!));
     }
 
-    public class func all_failed_retry_safe(a: [LDKAPIError]) -> PaymentSendFailure {
+    public class func all_failed_retry_safe(a: [APIError]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: a)
+							let aUnwrapped = a.map { (aCurrentValue) in
+							aCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let aWrapper = Bindings.new_LDKCVec_APIErrorZWrapper(array: aUnwrapped)
 						defer {
 							aWrapper.noOpRetain()
 						}
@@ -134,9 +156,14 @@ PaymentSendFailure_clone(origPointer)
         return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.dangle().cOpaqueStruct!));
     }
 
-    public class func partial_failure(a: [LDKCResult_NoneAPIErrorZ]) -> PaymentSendFailure {
+    public class func partial_failure(a: [Result_NoneAPIErrorZ]) -> PaymentSendFailure {
     	
-						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: a)
+							let aUnwrapped = a.map { (aCurrentValue) in
+							aCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let aWrapper = Bindings.new_LDKCVec_CResult_NoneAPIErrorZZWrapper(array: aUnwrapped)
 						defer {
 							aWrapper.noOpRetain()
 						}

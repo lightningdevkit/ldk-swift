@@ -3,7 +3,7 @@ public class Result_CVec_u8ZPeerHandleErrorZ: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKCResult_CVec_u8ZPeerHandleErrorZ?
+    internal var cOpaqueStruct: LDKCResult_CVec_u8ZPeerHandleErrorZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
 

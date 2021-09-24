@@ -3,7 +3,7 @@ public class NodeAnnouncement: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKNodeAnnouncement?
+    internal var cOpaqueStruct: LDKNodeAnnouncement?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

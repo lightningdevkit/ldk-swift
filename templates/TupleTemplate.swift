@@ -3,7 +3,7 @@ public class TupleName: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: TupleType?
+    internal var cOpaqueStruct: TupleType?
 
     public init(pointer: TupleType){
     	Self.instanceCounter += 1

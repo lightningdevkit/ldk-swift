@@ -3,7 +3,7 @@ public class HTLCOutputInCommitment: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKHTLCOutputInCommitment?
+    internal var cOpaqueStruct: LDKHTLCOutputInCommitment?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

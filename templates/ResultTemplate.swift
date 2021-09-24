@@ -3,7 +3,7 @@ public class ResultName: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: ResultType?
+    internal var cOpaqueStruct: ResultType?
 
 	/* DEFAULT_CONSTRUCTOR_START */
     public init(swift_constructor_arguments) {

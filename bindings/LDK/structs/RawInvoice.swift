@@ -3,7 +3,7 @@ public class RawInvoice: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKRawInvoice?
+    internal var cOpaqueStruct: LDKRawInvoice?
 
 
 	
@@ -127,11 +127,15 @@ RawInvoice_features(this_argPointer)
 });
     }
 
-    public func private_routes() -> [LDKPrivateRoute] {
+    public func private_routes() -> [PrivateRoute] {
     	
         return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_private_routes(this_argPointer)
-});
+})
+						.map { (cOpaqueStruct) in
+							PrivateRoute(pointer: cOpaqueStruct)
+						}
+					;
     }
 
     public func amount_pico_btc() -> Option_u64Z {

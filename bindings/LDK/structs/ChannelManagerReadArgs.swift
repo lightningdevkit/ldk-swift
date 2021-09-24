@@ -3,11 +3,11 @@ public class ChannelManagerReadArgs: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelManagerReadArgs?
+    internal var cOpaqueStruct: LDKChannelManagerReadArgs?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
+    internal init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [LDKChannelMonitor]) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -38,8 +38,17 @@ public class ChannelManagerReadArgs: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
+    public convenience init(keys_manager: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: Watch, tx_broadcaster: BroadcasterInterface, logger: Logger, default_config: UserConfig, channel_monitors: [ChannelMonitor])  {
+    	
+							let channel_monitorsUnwrapped = channel_monitors.map { (channel_monitorsCurrentValue) in
+							channel_monitorsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+        self.init(keys_manager: keys_manager, fee_estimator: fee_estimator, chain_monitor: chain_monitor, tx_broadcaster: tx_broadcaster, logger: logger, default_config: default_config, channel_monitors: channel_monitorsUnwrapped);
+    }
 
-    public func get_keys_manager() -> KeysInterface {
+    public func get_keys_manager() -> NativelyImplementedKeysInterface {
     	
         return NativelyImplementedKeysInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
@@ -54,7 +63,7 @@ ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
         return ChannelManagerReadArgs_set_keys_manager(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func get_fee_estimator() -> FeeEstimator {
+    public func get_fee_estimator() -> NativelyImplementedFeeEstimator {
     	
         return NativelyImplementedFeeEstimator(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
@@ -69,7 +78,7 @@ ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
         return ChannelManagerReadArgs_set_fee_estimator(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func get_chain_monitor() -> Watch {
+    public func get_chain_monitor() -> NativelyImplementedWatch {
     	
         return NativelyImplementedWatch(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
@@ -84,7 +93,7 @@ ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
         return ChannelManagerReadArgs_set_chain_monitor(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func get_tx_broadcaster() -> BroadcasterInterface {
+    public func get_tx_broadcaster() -> NativelyImplementedBroadcasterInterface {
     	
         return NativelyImplementedBroadcasterInterface(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
@@ -99,7 +108,7 @@ ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
         return ChannelManagerReadArgs_set_tx_broadcaster(this_ptrPointer, val.cOpaqueStruct!);
     }
 
-    public func get_logger() -> Logger {
+    public func get_logger() -> NativelyImplementedLogger {
     	
         return NativelyImplementedLogger(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
 ChannelManagerReadArgs_get_logger(this_ptrPointer)

@@ -3,7 +3,7 @@ open class SocketDescriptor: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public var cOpaqueStruct: LDKSocketDescriptor?
+    internal var cOpaqueStruct: LDKSocketDescriptor?
 
     public init() {
 		Self.instanceCounter += 1

@@ -3,7 +3,7 @@ public class ChannelUpdate: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelUpdate?
+    internal var cOpaqueStruct: LDKChannelUpdate?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

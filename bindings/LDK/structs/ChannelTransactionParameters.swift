@@ -3,7 +3,7 @@ public class ChannelTransactionParameters: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelTransactionParameters?
+    internal var cOpaqueStruct: LDKChannelTransactionParameters?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -94,11 +94,20 @@ ChannelTransactionParameters_get_counterparty_parameters(this_ptrPointer)
         return ChannelTransactionParameters_set_counterparty_parameters(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_funding_outpoint() -> OutPoint {
+    public func get_funding_outpoint() -> OutPoint? {
     	
-        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+        return 
+				{ () in
+					let cStruct =
+				withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelTransactionParameters>) in
 ChannelTransactionParameters_get_funding_outpoint(this_ptrPointer)
-});
+};
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct)
+				}()
+			;
     }
 
     public func set_funding_outpoint(val: OutPoint) -> Void {

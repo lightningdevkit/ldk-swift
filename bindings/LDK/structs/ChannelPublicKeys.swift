@@ -3,7 +3,7 @@ public class ChannelPublicKeys: NativeTypeWrapper {
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    public internal(set) var cOpaqueStruct: LDKChannelPublicKeys?
+    internal var cOpaqueStruct: LDKChannelPublicKeys?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */

@@ -176,6 +176,12 @@ class TraitGenerator:
 				swift_default_return = 'return 0'
 			if swift_return_type.startswith('Bool'):
 				swift_default_return = 'return false'
+			if swift_raw_return_type == 'String' and swift_return_type == 'String':
+				return_conversion_prefix = f'Bindings.new_LDKStr(string: '
+				return_conversion_suffix = ', chars_is_owned: true)'
+				swift_raw_return_type = 'LDKStr'
+				swift_default_return = ''
+				is_default_return_error = True
 			if swift_return_type.startswith('UnsafeMutableRawPointer'):
 				swift_raw_return_type += '?'
 				swift_default_return = 'return UnsafeMutableRawPointer(bitPattern: 0)!'

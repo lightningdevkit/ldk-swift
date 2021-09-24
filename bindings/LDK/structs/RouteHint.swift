@@ -26,15 +26,6 @@ public class RouteHint: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public class func eq(a: RouteHint, b: RouteHint) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHint>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHint>) in
-RouteHint_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> RouteHint {
     	
         return RouteHint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHint>) in
@@ -48,6 +39,22 @@ RouteHint_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRouteHint>) in
+RouteHint_hash(oPointer)
+};
+    }
+
+    public class func eq(a: RouteHint, b: RouteHint) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHint>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHint>) in
+RouteHint_eq(aPointer, bPointer)
+}
+};
+    }
 
     internal func free() -> Void {
     	

@@ -47,16 +47,7 @@ public class Result_OutPointDecodeErrorZ: NativeTypeWrapper {
 			
 			public func getValue() -> OutPoint? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return 
-				{ () in
-					let cStruct =
-				self.cOpaqueStruct!.contents.result.pointee;
-				if cStruct.inner == nil {
-					return nil
-				}	
-				return OutPoint(pointer: cStruct, anchor: self)
-				}()
-			
+					return OutPoint(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 				}
 				return nil
 			}

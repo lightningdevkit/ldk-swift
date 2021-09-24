@@ -26,7 +26,7 @@ public class MonitorEvent: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum MonitorEventValueType {
-					case HTLCEvent, CommitmentTxBroadcasted
+					case HTLCEvent, CommitmentTxConfirmed
 				}
 				
 				public func getValueType() -> MonitorEventValueType? {
@@ -34,8 +34,8 @@ public class MonitorEvent: NativeTypeWrapper {
                     
 					case LDKMonitorEvent_HTLCEvent:
 						return .HTLCEvent
-					case LDKMonitorEvent_CommitmentTxBroadcasted:
-						return .CommitmentTxBroadcasted
+					case LDKMonitorEvent_CommitmentTxConfirmed:
+						return .CommitmentTxConfirmed
                     default:
                         return nil
                     }
@@ -49,20 +49,11 @@ public class MonitorEvent: NativeTypeWrapper {
 						return HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event, anchor: self)
 					}
 				
-					public func getValueAsCommitmentTxBroadcasted() -> OutPoint? {
-						if self.cOpaqueStruct?.tag != LDKMonitorEvent_CommitmentTxBroadcasted {
+					public func getValueAsCommitmentTxConfirmed() -> OutPoint? {
+						if self.cOpaqueStruct?.tag != LDKMonitorEvent_CommitmentTxConfirmed {
 							return nil
 						}
-						return 
-				{ () in
-					let cStruct =
-				self.cOpaqueStruct!.commitment_tx_broadcasted;
-				if cStruct.inner == nil {
-					return nil
-				}	
-				return OutPoint(pointer: cStruct, anchor: self)
-				}()
-			
+						return OutPoint(pointer: self.cOpaqueStruct!.commitment_tx_confirmed, anchor: self)
 					}
 				
 			
@@ -105,9 +96,9 @@ MonitorEvent_clone(origPointer)
         return MonitorEvent(pointer: MonitorEvent_htlcevent(a.danglingClone().cOpaqueStruct!));
     }
 
-    public class func commitment_tx_broadcasted(a: OutPoint) -> MonitorEvent {
+    public class func commitment_tx_confirmed(a: OutPoint) -> MonitorEvent {
     	
-        return MonitorEvent(pointer: MonitorEvent_commitment_tx_broadcasted(a.danglingClone().cOpaqueStruct!));
+        return MonitorEvent(pointer: MonitorEvent_commitment_tx_confirmed(a.danglingClone().cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */

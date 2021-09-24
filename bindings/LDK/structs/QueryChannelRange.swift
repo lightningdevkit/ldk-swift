@@ -100,6 +100,13 @@ QueryChannelRange_end_blocknum(this_argPointer)
 };
     }
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKQueryChannelRange>) in
+QueryChannelRange_write(objPointer)
+});
+    }
+
     public class func read(ser: [UInt8]) -> Result_QueryChannelRangeDecodeErrorZ {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
@@ -108,13 +115,6 @@ QueryChannelRange_end_blocknum(this_argPointer)
 						}
 					
         return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(serWrapper.cOpaqueStruct!));
-    }
-
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKQueryChannelRange>) in
-QueryChannelRange_write(objPointer)
-});
     }
 
     internal func free() -> Void {

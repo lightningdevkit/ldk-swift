@@ -23,6 +23,13 @@ open class BaseSign: NativeTypeWrapper {
 			return Bindings.new_LDKThirtyTwoBytes(array: instance.release_commitment_secret(idx: idx))
 		}
 
+		func validate_holder_commitmentCallback(pointer: UnsafeRawPointer?, holder_txPointer: UnsafePointer<LDKHolderCommitmentTransaction>) -> LDKCResult_NoneNoneZ {
+			let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::validate_holder_commitment")
+			let holder_tx = HolderCommitmentTransaction(pointer: holder_txPointer.pointee);
+
+			return instance.validate_holder_commitment(holder_tx: holder_tx).cOpaqueStruct!
+		}
+
 		func channel_keys_idCallback(pointer: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
 			let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::channel_keys_id")
 			
@@ -34,6 +41,17 @@ open class BaseSign: NativeTypeWrapper {
 			let commitment_tx = CommitmentTransaction(pointer: commitment_txPointer.pointee);
 
 			return instance.sign_counterparty_commitment(commitment_tx: commitment_tx).cOpaqueStruct!
+		}
+
+		func validate_counterparty_revocationCallback(pointer: UnsafeRawPointer?, idx: UInt64, secretPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?) -> LDKCResult_NoneNoneZ {
+			let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::validate_counterparty_revocation")
+			
+								var secret: [UInt8]? = nil
+								if let secretUnwrapped = secretPointer {
+									secret = Bindings.tuple32_to_array(nativeType: secretUnwrapped.pointee)
+								}
+							
+			return instance.validate_counterparty_revocation(idx: idx, secret: secret).cOpaqueStruct!
 		}
 
 		func sign_holder_commitment_and_htlcsCallback(pointer: UnsafeRawPointer?, commitment_txPointer: UnsafePointer<LDKHolderCommitmentTransaction>) -> LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ {
@@ -73,10 +91,11 @@ open class BaseSign: NativeTypeWrapper {
 			return instance.sign_counterparty_htlc_transaction(htlc_tx: Bindings.LDKTransaction_to_array(nativeType: htlc_tx), input: input, amount: amount, per_commitment_point: Bindings.tuple33_to_array(nativeType: per_commitment_point.compressed_form), htlc: htlc).cOpaqueStruct!
 		}
 
-		func sign_closing_transactionCallback(pointer: UnsafeRawPointer?, closing_tx: LDKTransaction) -> LDKCResult_SignatureNoneZ {
+		func sign_closing_transactionCallback(pointer: UnsafeRawPointer?, closing_txPointer: UnsafePointer<LDKClosingTransaction>) -> LDKCResult_SignatureNoneZ {
 			let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::sign_closing_transaction")
-			
-			return instance.sign_closing_transaction(closing_tx: Bindings.LDKTransaction_to_array(nativeType: closing_tx)).cOpaqueStruct!
+			let closing_tx = ClosingTransaction(pointer: closing_txPointer.pointee);
+
+			return instance.sign_closing_transaction(closing_tx: closing_tx).cOpaqueStruct!
 		}
 
 		func sign_channel_announcementCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) -> LDKCResult_SignatureNoneZ {
@@ -105,10 +124,12 @@ open class BaseSign: NativeTypeWrapper {
         self.cOpaqueStruct = LDKBaseSign(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_per_commitment_point: get_per_commitment_pointCallback,
 			release_commitment_secret: release_commitment_secretCallback,
+			validate_holder_commitment: validate_holder_commitmentCallback,
 			pubkeys: LDKChannelPublicKeys(),
 			set_pubkeys: nil,
 			channel_keys_id: channel_keys_idCallback,
 			sign_counterparty_commitment: sign_counterparty_commitmentCallback,
+			validate_counterparty_revocation: validate_counterparty_revocationCallback,
 			sign_holder_commitment_and_htlcs: sign_holder_commitment_and_htlcsCallback,
 			sign_justice_revoked_output: sign_justice_revoked_outputCallback,
 			sign_justice_revoked_htlc: sign_justice_revoked_htlcCallback,
@@ -169,6 +190,13 @@ return [UInt8]()
 return [UInt8]()
     }
 
+    open func validate_holder_commitment(holder_tx: HolderCommitmentTransaction) -> Result_NoneNoneZ {
+    	/* EDIT ME */
+		Bindings.print("BaseSign::validate_holder_commitment should be overridden!", severity: .WARNING)
+
+return Result_NoneNoneZ()
+    }
+
     open func channel_keys_id() -> [UInt8] {
     	/* EDIT ME */
 		Bindings.print("BaseSign::channel_keys_id should be overridden!", severity: .WARNING)
@@ -181,6 +209,13 @@ return [UInt8]()
 		Bindings.print("BaseSign::sign_counterparty_commitment should be overridden!", severity: .WARNING)
 
 return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ()
+    }
+
+    open func validate_counterparty_revocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
+    	/* EDIT ME */
+		Bindings.print("BaseSign::validate_counterparty_revocation should be overridden!", severity: .WARNING)
+
+return Result_NoneNoneZ()
     }
 
     open func sign_holder_commitment_and_htlcs(commitment_tx: HolderCommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
@@ -211,7 +246,7 @@ return Result_SignatureNoneZ()
 return Result_SignatureNoneZ()
     }
 
-    open func sign_closing_transaction(closing_tx: [UInt8]) -> Result_SignatureNoneZ {
+    open func sign_closing_transaction(closing_tx: ClosingTransaction) -> Result_SignatureNoneZ {
     	/* EDIT ME */
 		Bindings.print("BaseSign::sign_closing_transaction should be overridden!", severity: .WARNING)
 
@@ -265,6 +300,17 @@ public class NativelyImplementedBaseSign: BaseSign {
 			
 	}
 
+	public override func validate_holder_commitment(holder_tx: HolderCommitmentTransaction) -> Result_NoneNoneZ {
+		
+				
+				return withUnsafePointer(to: holder_tx.cOpaqueStruct!) { (holder_txPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+
+				Result_NoneNoneZ(pointer: self.cOpaqueStruct!.validate_holder_commitment(self.cOpaqueStruct!.this_arg, holder_txPointer))
+				
+}
+			
+	}
+
 	public override func channel_keys_id() -> [UInt8] {
 		
 				
@@ -280,6 +326,17 @@ public class NativelyImplementedBaseSign: BaseSign {
 				return withUnsafePointer(to: commitment_tx.cOpaqueStruct!) { (commitment_txPointer: UnsafePointer<LDKCommitmentTransaction>) in
 
 				Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: self.cOpaqueStruct!.sign_counterparty_commitment(self.cOpaqueStruct!.this_arg, commitment_txPointer))
+				
+}
+			
+	}
+
+	public override func validate_counterparty_revocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
+		
+				
+				return withUnsafePointer(to: Bindings.array_to_tuple32(array: secret!)) { (secretPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+
+				Result_NoneNoneZ(pointer: self.cOpaqueStruct!.validate_counterparty_revocation(self.cOpaqueStruct!.this_arg, idx, secretPointer))
 				
 }
 			
@@ -346,17 +403,14 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 			
 	}
 
-	public override func sign_closing_transaction(closing_tx: [UInt8]) -> Result_SignatureNoneZ {
+	public override func sign_closing_transaction(closing_tx: ClosingTransaction) -> Result_SignatureNoneZ {
 		
 				
-						let closing_txWrapper = Bindings.new_LDKTransactionWrapper(array: closing_tx)
-						defer {
-							closing_txWrapper.noOpRetain()
-						}
-					
-				return 
-				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, closing_txWrapper.dangle().cOpaqueStruct!))
+				return withUnsafePointer(to: closing_tx.cOpaqueStruct!) { (closing_txPointer: UnsafePointer<LDKClosingTransaction>) in
+
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, closing_txPointer))
 				
+}
 			
 	}
 

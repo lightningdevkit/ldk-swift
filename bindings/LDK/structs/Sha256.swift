@@ -26,15 +26,6 @@ public class Sha256: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public class func eq(a: Sha256, b: Sha256) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSha256>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSha256>) in
-Sha256_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> Sha256 {
     	
         return Sha256(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSha256>) in
@@ -48,6 +39,22 @@ Sha256_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSha256>) in
+Sha256_hash(oPointer)
+};
+    }
+
+    public class func eq(a: Sha256, b: Sha256) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSha256>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSha256>) in
+Sha256_eq(aPointer, bPointer)
+}
+};
+    }
 
     internal func free() -> Void {
     	

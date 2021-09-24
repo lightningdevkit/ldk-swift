@@ -138,6 +138,22 @@ RouteHop_clone(origPointer)
 					}
 				
 
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRouteHop>) in
+RouteHop_hash(oPointer)
+};
+    }
+
+    public class func eq(a: RouteHop, b: RouteHop) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHop>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHop>) in
+RouteHop_eq(aPointer, bPointer)
+}
+};
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHop>) in

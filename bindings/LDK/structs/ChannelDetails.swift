@@ -64,20 +64,11 @@ ChannelDetails_get_counterparty(this_ptrPointer)
         return ChannelDetails_set_counterparty(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_funding_txo() -> OutPoint? {
+    public func get_funding_txo() -> OutPoint {
     	
-        return 
-				{ () in
-					let cStruct =
-				withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
+        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
 ChannelDetails_get_funding_txo(this_ptrPointer)
-};
-				if cStruct.inner == nil {
-					return nil
-				}	
-				return OutPoint(pointer: cStruct)
-				}()
-			;
+});
     }
 
     public func set_funding_txo(val: OutPoint) -> Void {

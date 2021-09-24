@@ -26,15 +26,6 @@ public class Description: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public class func eq(a: Description, b: Description) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKDescription>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKDescription>) in
-Description_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> Description {
     	
         return Description(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDescription>) in
@@ -48,6 +39,22 @@ Description_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKDescription>) in
+Description_hash(oPointer)
+};
+    }
+
+    public class func eq(a: Description, b: Description) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKDescription>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKDescription>) in
+Description_eq(aPointer, bPointer)
+}
+};
+    }
 
     public class func new(description: String) -> Result_DescriptionCreationErrorZ {
     	

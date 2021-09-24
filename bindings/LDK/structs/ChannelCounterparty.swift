@@ -6,7 +6,15 @@ public class ChannelCounterparty: NativeTypeWrapper {
     internal var cOpaqueStruct: LDKChannelCounterparty?
 
 
-	
+	/* DEFAULT_CONSTRUCTOR_START */
+    public init(node_id_arg: [UInt8], features_arg: InitFeatures, unspendable_punishment_reserve_arg: UInt64, forwarding_info_arg: CounterpartyForwardingInfo) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+    	
+        self.cOpaqueStruct = ChannelCounterparty_new(Bindings.new_LDKPublicKey(array: node_id_arg), features_arg.danglingClone().cOpaqueStruct!, unspendable_punishment_reserve_arg, forwarding_info_arg.danglingClone().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
+    }
+    /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKChannelCounterparty){
     	Self.instanceCounter += 1
@@ -69,6 +77,21 @@ ChannelCounterparty_get_unspendable_punishment_reserve(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return ChannelCounterparty_set_unspendable_punishment_reserve(this_ptrPointer, val);
+    }
+
+    public func get_forwarding_info() -> CounterpartyForwardingInfo {
+    	
+        return CounterpartyForwardingInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelCounterparty>) in
+ChannelCounterparty_get_forwarding_info(this_ptrPointer)
+});
+    }
+
+    public func set_forwarding_info(val: CounterpartyForwardingInfo) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelCounterparty>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelCounterparty_set_forwarding_info(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelCounterparty {

@@ -78,6 +78,13 @@ ReplyShortChannelIdsEnd_clone(origPointer)
 					}
 				
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
+ReplyShortChannelIdsEnd_write(objPointer)
+});
+    }
+
     public class func read(ser: [UInt8]) -> Result_ReplyShortChannelIdsEndDecodeErrorZ {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
@@ -86,13 +93,6 @@ ReplyShortChannelIdsEnd_clone(origPointer)
 						}
 					
         return Result_ReplyShortChannelIdsEndDecodeErrorZ(pointer: ReplyShortChannelIdsEnd_read(serWrapper.cOpaqueStruct!));
-    }
-
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyShortChannelIdsEnd>) in
-ReplyShortChannelIdsEnd_write(objPointer)
-});
     }
 
     internal func free() -> Void {

@@ -26,15 +26,6 @@ public class PayeePubKey: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public class func eq(a: PayeePubKey, b: PayeePubKey) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPayeePubKey>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPayeePubKey>) in
-PayeePubKey_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> PayeePubKey {
     	
         return PayeePubKey(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPayeePubKey>) in
@@ -48,6 +39,22 @@ PayeePubKey_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKPayeePubKey>) in
+PayeePubKey_hash(oPointer)
+};
+    }
+
+    public class func eq(a: PayeePubKey, b: PayeePubKey) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPayeePubKey>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPayeePubKey>) in
+PayeePubKey_eq(aPointer, bPointer)
+}
+};
+    }
 
     internal func free() -> Void {
     	

@@ -57,6 +57,13 @@ NodeFeatures_clone(origPointer)
 					}
 				
 
+    public func requires_unknown_bits() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_requires_unknown_bits(this_argPointer)
+};
+    }
+
     public func supports_payment_secret() -> Bool {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in

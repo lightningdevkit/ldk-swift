@@ -78,6 +78,17 @@ public class CommitmentUpdate: NativeTypeWrapper {
         self.init(update_add_htlcs_arg: update_add_htlcs_argUnwrapped, update_fulfill_htlcs_arg: update_fulfill_htlcs_argUnwrapped, update_fail_htlcs_arg: update_fail_htlcs_argUnwrapped, update_fail_malformed_htlcs_arg: update_fail_malformed_htlcs_argUnwrapped, update_fee_arg: update_fee_arg, commitment_signed_arg: commitment_signed_arg);
     }
 
+    public func get_update_add_htlcs() -> [UpdateAddHTLC] {
+    	
+        return Bindings.LDKCVec_UpdateAddHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_get_update_add_htlcs(this_ptrPointer)
+})
+						.map { (cOpaqueStruct) in
+							UpdateAddHTLC(pointer: cOpaqueStruct)
+						}
+					;
+    }
+
     public func set_update_add_htlcs(val: [UpdateAddHTLC]) -> Void {
     	
 							let valUnwrapped = val.map { (valCurrentValue) in
@@ -99,6 +110,17 @@ public class CommitmentUpdate: NativeTypeWrapper {
 						}
 					
         return CommitmentUpdate_set_update_add_htlcs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
+    }
+
+    public func get_update_fulfill_htlcs() -> [UpdateFulfillHTLC] {
+    	
+        return Bindings.LDKCVec_UpdateFulfillHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_get_update_fulfill_htlcs(this_ptrPointer)
+})
+						.map { (cOpaqueStruct) in
+							UpdateFulfillHTLC(pointer: cOpaqueStruct)
+						}
+					;
     }
 
     public func set_update_fulfill_htlcs(val: [UpdateFulfillHTLC]) -> Void {
@@ -124,6 +146,17 @@ public class CommitmentUpdate: NativeTypeWrapper {
         return CommitmentUpdate_set_update_fulfill_htlcs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
+    public func get_update_fail_htlcs() -> [UpdateFailHTLC] {
+    	
+        return Bindings.LDKCVec_UpdateFailHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_get_update_fail_htlcs(this_ptrPointer)
+})
+						.map { (cOpaqueStruct) in
+							UpdateFailHTLC(pointer: cOpaqueStruct)
+						}
+					;
+    }
+
     public func set_update_fail_htlcs(val: [UpdateFailHTLC]) -> Void {
     	
 							let valUnwrapped = val.map { (valCurrentValue) in
@@ -145,6 +178,17 @@ public class CommitmentUpdate: NativeTypeWrapper {
 						}
 					
         return CommitmentUpdate_set_update_fail_htlcs(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
+    }
+
+    public func get_update_fail_malformed_htlcs() -> [UpdateFailMalformedHTLC] {
+    	
+        return Bindings.LDKCVec_UpdateFailMalformedHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_get_update_fail_malformed_htlcs(this_ptrPointer)
+})
+						.map { (cOpaqueStruct) in
+							UpdateFailMalformedHTLC(pointer: cOpaqueStruct)
+						}
+					;
     }
 
     public func set_update_fail_malformed_htlcs(val: [UpdateFailMalformedHTLC]) -> Void {

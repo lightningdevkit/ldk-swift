@@ -232,6 +232,17 @@ ChannelMonitor_current_best_block(this_argPointer)
 });
     }
 
+    public func get_claimable_balances() -> [Balance] {
+    	
+        return Bindings.LDKCVec_BalanceZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
+ChannelMonitor_get_claimable_balances(this_argPointer)
+})
+						.map { (cOpaqueStruct) in
+							Balance(pointer: cOpaqueStruct)
+						}
+					;
+    }
+
     internal func free() -> Void {
     	
         return ChannelMonitor_free(self.cOpaqueStruct!);

@@ -11,10 +11,11 @@ open class EventHandler: NativeTypeWrapper {
 
     	/* NATIVE_CALLBACKS_START */
 
-		func handle_eventCallback(pointer: UnsafeRawPointer?, event: LDKEvent) -> Void {
+		func handle_eventCallback(pointer: UnsafeRawPointer?, eventPointer: UnsafePointer<LDKEvent>) -> Void {
 			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::handle_event")
-			
-			return instance.handle_event(event: Event(pointer: event))
+			let event = Event(pointer: eventPointer.pointee);
+
+			return instance.handle_event(event: event)
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
@@ -92,9 +93,11 @@ public class NativelyImplementedEventHandler: EventHandler {
 	public override func handle_event(event: Event) -> Void {
 		
 				
+				withUnsafePointer(to: event.cOpaqueStruct!) { (eventPointer: UnsafePointer<LDKEvent>) in
+
+				self.cOpaqueStruct!.handle_event(self.cOpaqueStruct!.this_arg, eventPointer)
 				
-				self.cOpaqueStruct!.handle_event(self.cOpaqueStruct!.this_arg, event.danglingClone().cOpaqueStruct!)
-				
+}
 			
 	}
 

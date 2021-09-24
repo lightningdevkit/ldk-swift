@@ -87,6 +87,13 @@ RoutingFees_clone(origPointer)
 					}
 				
 
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRoutingFees>) in
+RoutingFees_hash(oPointer)
+};
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoutingFees>) in

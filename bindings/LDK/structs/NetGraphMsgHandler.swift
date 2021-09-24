@@ -7,30 +7,29 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(chain_access: Access?, logger: Logger, network_graph: NetworkGraph) {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(network_graph: NetworkGraph, chain_access: Option_AccessZ, logger: Logger) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
-							if let chain_accessUnwrapped = chain_access {
-								
-								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
-								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
-							}
-						
-        self.cOpaqueStruct = NetGraphMsgHandler_from_net_graph(chain_accessPointer, logger.cOpaqueStruct!, network_graph.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = NetGraphMsgHandler_new(network_graph.cOpaqueStruct!, chain_access.cOpaqueStruct!, logger.cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKNetGraphMsgHandler){
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKNetGraphMsgHandler){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKNetGraphMsgHandler, anchor: NativeTypeWrapper){
+	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKNetGraphMsgHandler, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
@@ -41,26 +40,34 @@ public class NetGraphMsgHandler: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func add_chain_access(chain_access: Access?) -> Void {
+    public func as_EventHandler() -> NativelyImplementedEventHandler {
+    	
+        return NativelyImplementedEventHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
+NetGraphMsgHandler_as_EventHandler(this_argPointer)
+}, anchor: self);
+    }
+
+    public func get_network_graph() -> NetworkGraph {
+    	
+        return NetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
+NetGraphMsgHandler_get_network_graph(this_ptrPointer)
+});
+    }
+
+    public func set_network_graph(val: NetworkGraph) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKNetGraphMsgHandler>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return NetGraphMsgHandler_set_network_graph(this_ptrPointer, val.cOpaqueStruct!);
+    }
+
+    public func add_chain_access(chain_access: Option_AccessZ) -> Void {
     	
 							let this_argPointer = UnsafeMutablePointer<LDKNetGraphMsgHandler>.allocate(capacity: 1)
 							this_argPointer.initialize(to: self.cOpaqueStruct!)
 						
-							var chain_accessPointer: UnsafeMutablePointer<LDKAccess>? = nil
-							if let chain_accessUnwrapped = chain_access {
-								
-								chain_accessPointer = UnsafeMutablePointer<LDKAccess>.allocate(capacity: 1)
-								chain_accessPointer!.initialize(to: chain_accessUnwrapped.cOpaqueStruct!)
-							}
-						
-        return NetGraphMsgHandler_add_chain_access(this_argPointer, chain_accessPointer);
-    }
-
-    public func read_locked_graph() -> LockedNetworkGraph {
-    	
-        return LockedNetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
-NetGraphMsgHandler_read_locked_graph(this_argPointer)
-});
+        return NetGraphMsgHandler_add_chain_access(this_argPointer, chain_access.cOpaqueStruct!);
     }
 
     public func as_RoutingMessageHandler() -> NativelyImplementedRoutingMessageHandler {

@@ -26,15 +26,6 @@ public class PrivateRoute: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public class func eq(a: PrivateRoute, b: PrivateRoute) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPrivateRoute>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPrivateRoute>) in
-PrivateRoute_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> PrivateRoute {
     	
         return PrivateRoute(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPrivateRoute>) in
@@ -48,6 +39,22 @@ PrivateRoute_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKPrivateRoute>) in
+PrivateRoute_hash(oPointer)
+};
+    }
+
+    public class func eq(a: PrivateRoute, b: PrivateRoute) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKPrivateRoute>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKPrivateRoute>) in
+PrivateRoute_eq(aPointer, bPointer)
+}
+};
+    }
 
     public class func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
     	

@@ -26,15 +26,6 @@ public class ExpiryTime: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public class func eq(a: ExpiryTime, b: ExpiryTime) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKExpiryTime>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKExpiryTime>) in
-ExpiryTime_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> ExpiryTime {
     	
         return ExpiryTime(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKExpiryTime>) in
@@ -48,6 +39,22 @@ ExpiryTime_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKExpiryTime>) in
+ExpiryTime_hash(oPointer)
+};
+    }
+
+    public class func eq(a: ExpiryTime, b: ExpiryTime) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKExpiryTime>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKExpiryTime>) in
+ExpiryTime_eq(aPointer, bPointer)
+}
+};
+    }
 
     public class func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {
     	

@@ -57,6 +57,13 @@ ChannelFeatures_clone(origPointer)
 					}
 				
 
+    public func requires_unknown_bits() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelFeatures>) in
+ChannelFeatures_requires_unknown_bits(this_argPointer)
+};
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelFeatures>) in

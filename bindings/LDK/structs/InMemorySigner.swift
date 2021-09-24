@@ -166,20 +166,11 @@ InMemorySigner_is_outbound(this_argPointer)
 };
     }
 
-    public func funding_outpoint() -> OutPoint? {
+    public func funding_outpoint() -> OutPoint {
     	
-        return 
-				{ () in
-					let cStruct =
-				withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
+        return OutPoint(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_funding_outpoint(this_argPointer)
-};
-				if cStruct.inner == nil {
-					return nil
-				}	
-				return OutPoint(pointer: cStruct)
-				}()
-			;
+});
     }
 
     public func get_channel_parameters() -> ChannelTransactionParameters {

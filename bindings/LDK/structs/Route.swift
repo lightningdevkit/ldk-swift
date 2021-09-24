@@ -54,9 +54,11 @@ public class Route: NativeTypeWrapper {
         return Bindings.LDKCVec_CVec_RouteHopZZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRoute>) in
 Route_get_paths(this_ptrPointer)
 })
+						.map { (cOpaqueStruct) in 
+						cOpaqueStruct
 						.map { (cOpaqueStruct) in
 							RouteHop(pointer: cOpaqueStruct)
-						}
+						}}
 					;
     }
 

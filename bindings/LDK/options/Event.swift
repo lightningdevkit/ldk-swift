@@ -351,6 +351,7 @@ Event_write(objPointer)
 				
 					public func getPath() -> [RouteHop] {
 						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, deallocate: false)
+						
 						.map { (cOpaqueStruct) in
 							RouteHop(pointer: cOpaqueStruct).dangle()
 						}
@@ -405,6 +406,7 @@ Event_write(objPointer)
 				
 					public func getOutputs() -> [SpendableOutputDescriptor] {
 						return Bindings.LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: self.cOpaqueStruct!.outputs, deallocate: false)
+						
 						.map { (cOpaqueStruct) in
 							SpendableOutputDescriptor(pointer: cOpaqueStruct).dangle()
 						}

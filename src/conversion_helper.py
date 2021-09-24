@@ -8,8 +8,7 @@ detected_cloneable_types = set()
 class ConversionHelper:
 	trait_structs = set()
 	freeable_types = set()
-	# nullable_inner_types = {'LDKOutPoint'}
-	nullable_inner_types = {}
+	nullable_inner_types = {'LDKOutPoint'}
 
 	@classmethod
 	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False):

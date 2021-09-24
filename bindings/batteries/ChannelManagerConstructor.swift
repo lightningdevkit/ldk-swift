@@ -89,10 +89,10 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
         } else {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
         }
 
         if let filter = filter {
@@ -124,10 +124,10 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let random_data = keys_interface.get_secure_random_bytes();
         if let router = router {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
         } else {
             let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: IgnoringMessageHandler().as_RoutingMessageHandler())
-            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger)
+            self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
         }
 
         super.init(conflictAvoidingVariableName: 0)
@@ -169,7 +169,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
-        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, peer_manager: self.peerManager, logger: self.logger)
+        let netGraphMessageHandler = NetGraphMsgHandler(pointer: LDKNetGraphMsgHandler(inner: nil, is_owned: false))
+        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, net_graph_msg_handler: netGraphMessageHandler, peer_manager: self.peerManager, logger: self.logger)
         try! self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
         try! self.backgroundProcessor!.addAnchor(anchor: persister)
         try! self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)

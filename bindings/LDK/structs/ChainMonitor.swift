@@ -60,6 +60,7 @@ public init(pointer: LDKChainMonitor, anchor: NativeTypeWrapper){
         return Bindings.LDKCVec_BalanceZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_get_claimable_balances(this_argPointer, ignored_channelsWrapper.dangle().cOpaqueStruct!)
 })
+						
 						.map { (cOpaqueStruct) in
 							Balance(pointer: cOpaqueStruct)
 						}

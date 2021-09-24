@@ -48,6 +48,7 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrap
 			public func getValue() -> [C2Tuple_BlockHashChannelMonitorZ]? {
 				if self.cOpaqueStruct?.result_ok == true {
 					return Bindings.LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
+						
 						.map { (cOpaqueStruct) in
 							C2Tuple_BlockHashChannelMonitorZ(pointer: cOpaqueStruct).dangle()
 						}

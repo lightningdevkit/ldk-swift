@@ -53,6 +53,7 @@ ChannelManager_create_channel(this_argPointer, Bindings.new_LDKPublicKey(array: 
         return Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_list_channels(this_argPointer)
 })
+						
 						.map { (cOpaqueStruct) in
 							ChannelDetails(pointer: cOpaqueStruct)
 						}
@@ -64,6 +65,7 @@ ChannelManager_list_channels(this_argPointer)
         return Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_list_usable_channels(this_argPointer)
 })
+						
 						.map { (cOpaqueStruct) in
 							ChannelDetails(pointer: cOpaqueStruct)
 						}

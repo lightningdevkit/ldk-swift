@@ -17,10 +17,10 @@ open class Type: NativeTypeWrapper {
 			return instance.type_id()
 		}
 
-		func debug_strCallback(pointer: UnsafeRawPointer?) -> String {
+		func debug_strCallback(pointer: UnsafeRawPointer?) -> LDKStr {
 			let instance: Type = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Type.swift::debug_str")
 			
-			return instance.debug_str()
+			return Bindings.new_LDKStr(string: instance.debug_str(), chars_is_owned: true)
 		}
 
 		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
@@ -115,9 +115,9 @@ return 0
 
     open func debug_str() -> String {
     	/* EDIT ME */
-		Bindings.print("Type::debug_str should be overridden!", severity: .WARNING)
+		Bindings.print("Type::debug_str MUST be overridden!", severity: .ERROR)
 
-
+abort()
     }
 
     open func write() -> [UInt8] {

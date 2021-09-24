@@ -24,7 +24,8 @@ jobs:
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
-                    git clone https://github.com/lightningdevkit/ldk-c-bindings
+                    # git clone https://github.com/lightningdevkit/ldk-c-bindings
+                    git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
                     git checkout d3efae5be843d88e3e3a8fcff01efd500d1d546f
                     echo "ldk-c-bindings commit hash:"

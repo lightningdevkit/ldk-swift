@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetGraphMsgHandlerConstructor {
+public class NetGraphMsgHandlerConstructor {
     public static func initNetGraphMsgHandler(networkGraph: NetworkGraph, chainAccess: Access?, logger: Logger) -> NetGraphMsgHandler {
         return NetGraphMsgHandler(network_graph: networkGraph.dangle(), chain_access: Option_AccessZ(value: chainAccess), logger: logger)
     }

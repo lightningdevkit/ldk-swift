@@ -173,7 +173,7 @@ public class HumanObjectPeerTestInstance {
                 self.explicitKeysManager = keysManager
             }
 
-            self.router = NetGraphMsgHandler(network_graph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)), chain_access: Option_AccessZ(value: nil), logger: self.logger)
+            self.router = NetGraphMsgHandlerConstructor.initNetGraphMsgHandler(networkGraph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)), chainAccess: nil, logger: self.logger)
         }
 
         fileprivate convenience init(master: HumanObjectPeerTestInstance, seed: UInt8) {

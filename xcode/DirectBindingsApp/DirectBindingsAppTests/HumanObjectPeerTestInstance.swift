@@ -40,7 +40,7 @@ public class HumanObjectPeerTestInstance {
         let seed: UInt8
         var filterAdditions: Set<String>
         let monitors: [String: ChannelMonitor]
-        private(set) var filter: Filter!
+        private(set) var filter: Option_FilterZ!
         private(set) var keysInterface: KeysInterface!
         private(set) var explicitKeysManager: KeysManager?
         private(set) var router: NetGraphMsgHandler!
@@ -60,8 +60,9 @@ public class HumanObjectPeerTestInstance {
 
         fileprivate class TestBroadcaster: BroadcasterInterface {
             weak var master: Peer!
-            fileprivate init(master: Peer){
-                self.master  = master
+
+            fileprivate init(master: Peer) {
+                self.master = master
                 super.init()
             }
         }
@@ -74,10 +75,14 @@ public class HumanObjectPeerTestInstance {
                 self.master = master
                 super.init()
             }
+
             override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
-                self.master.filterAdditions.insert("\(output.get_outpoint()!.get_txid()):\(output.get_outpoint()!.get_index())")
+                if let outpoint = output.get_outpoint() {
+                    self.master.filterAdditions.insert("\(outpoint.get_txid()):\(outpoint.get_index())")
+                }
                 return Option_C2Tuple_usizeTransactionZZ(value: nil)
             }
+
             override func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) {
                 self.master.filterAdditions.insert("\(txid)")
             }
@@ -88,7 +93,7 @@ public class HumanObjectPeerTestInstance {
             weak var master: Peer!
             let interface: KeysInterface
 
-            fileprivate init(master: Peer, underlyingInterface: KeysInterface){
+            fileprivate init(master: Peer, underlyingInterface: KeysInterface) {
                 self.master = master
                 self.interface = underlyingInterface
                 super.init()
@@ -113,10 +118,6 @@ public class HumanObjectPeerTestInstance {
             func handle_event(event: Event) {
                 master.pendingManagerEvents.append(event)
             }
-            
-//            override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
-//                return Result_NoneErrorZ.ok()
-//            }
 
         }
 
@@ -124,6 +125,7 @@ public class HumanObjectPeerTestInstance {
             override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
                 return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
+
             override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
                 return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
@@ -142,12 +144,14 @@ public class HumanObjectPeerTestInstance {
             self.txBroadcaster = TestBroadcaster(master: self)
 
             if master.use_filter {
-                self.filter = TestFilter(master: self)
+                self.filter = Option_FilterZ(value: TestFilter(master: self))
+            } else {
+                self.filter = Option_FilterZ(value: nil)
             }
 
             if master.use_manual_watch || false { // don't support manual watch yet
                 // self.chainMonitor
-            }else{
+            } else {
                 self.chainMonitor = ChainMonitor(chain_source: self.filter, broadcaster: self.txBroadcaster, logger: self.logger, feeest: self.feeEstimator, persister: persister)
                 self.chainWatch = self.chainMonitor!.as_Watch()
             }
@@ -163,16 +167,15 @@ public class HumanObjectPeerTestInstance {
 
             if master.use_km_wrapper {
                 // self.keysInterface = manual_
-            }else {
+            } else {
                 self.keysInterface = keysManager.as_KeysInterface()
                 self.explicitKeysManager = keysManager
             }
 
-            self.router = NetGraphMsgHandler(chain_access: nil, logger: self.logger, network_graph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)))
-
+            self.router = NetGraphMsgHandlerConstructor.initNetGraphMsgHandler(networkGraph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)), chainAccess: nil, logger: self.logger)
         }
 
-        fileprivate convenience init (master: HumanObjectPeerTestInstance, seed: UInt8) {
+        fileprivate convenience init(master: HumanObjectPeerTestInstance, seed: UInt8) {
             self.init(master: master, _dummy: (), seed: seed)
 
             if master.use_chan_manager_constructor {
@@ -185,13 +188,13 @@ public class HumanObjectPeerTestInstance {
                 self.channelManager = ChannelManager(fee_est: self.feeEstimator, chain_monitor: self.chainWatch!, tx_broadcaster: self.txBroadcaster, logger: self.logger, keys_manager: self.keysInterface, config: UserConfig(), params: chainParameters)
                 let randomData = self.keysInterface.get_secure_random_bytes()
                 let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.as_RoutingMessageHandler())
-                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: self.keysInterface.get_node_secret(), ephemeral_random_data: randomData, logger: self.logger)
+                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: self.keysInterface.get_node_secret(), ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
             self.nodeId = self.channelManager.get_our_node_id()
             self.bindSocketHandler()
         }
 
-        fileprivate convenience init (original: Peer) {
+        fileprivate convenience init(original: Peer) {
             self.init(master: original.master, _dummy: (), seed: original.seed)
 
             if master.use_chan_manager_constructor {
@@ -231,7 +234,7 @@ public class HumanObjectPeerTestInstance {
         fileprivate func getManualWatch() {
 
         }
-        
+
         deinit {
             print("deiniting Peer")
         }
@@ -248,12 +251,13 @@ public class HumanObjectPeerTestInstance {
         if self.use_nio_peer_handler {
             let connectionResult = peerA.tcpSocketHandler?.connect(address: "127.0.0.1", port: peerB.tcpPort!, theirNodeId: peerB.nodeId!)
             print("connection result: \(connectionResult)")
-        }else{
+        } else {
             // not currently relevant; we need the TCP connection simulation
         }
     }
 
     func do_test_message_handler() {
+
         let peer1 = Peer(master: self, seed: 1)
         let peer2 = Peer(master: self, seed: 2)
 
@@ -270,30 +274,29 @@ public class HumanObjectPeerTestInstance {
             print("waiting five seconds")
             sleep(5)
             semaphore.signal()
+            print("finished waiting five seconds")
         }
 
         semaphore.wait()
-        print("finished waiting five seconds")
 
         let connectedPeersA = peer1.peerManager.get_peer_node_ids()
         let connectedPeersB = peer2.peerManager.get_peer_node_ids()
         XCTAssertEqual(connectedPeersA.count, 1)
         XCTAssertEqual(connectedPeersB.count, 1)
-        
+
         let config = UserConfig()
         let theirNodeId = peer2.channelManager.get_our_node_id()
         let channelOpenResult = peer1.channelManager.create_channel(their_network_key: theirNodeId, channel_value_satoshis: 4000000, push_msat: 2000000, user_id: 42, override_config: config)
-        
+
         XCTAssertTrue(channelOpenResult.isOk())
         let channels = peer1.channelManager.list_channels()
         let firstChannel = channels[0]
         let fundingTxo = firstChannel.get_funding_txo()
         XCTAssertNil(fundingTxo)
 
-        peer1.constructor?.interrupt()
-        peer2.constructor?.interrupt()
-        
+        peer1.constructor?.interrupt(tcpPeerHandler: peer1.tcpSocketHandler)
+        peer2.constructor?.interrupt(tcpPeerHandler: peer2.tcpSocketHandler)
+
     }
 
 }
-

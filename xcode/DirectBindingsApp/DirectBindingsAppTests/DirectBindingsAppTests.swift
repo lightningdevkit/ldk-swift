@@ -41,7 +41,8 @@ class DirectBindingsAppTests: XCTestCase {
         let feeEstimator = TestFeeEstimator()
         let persister = TestPersister()
 
-        let chainMonitor = ChainMonitor(chain_source: filter, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
+        let filterOption = Option_FilterZ(value: filter)
+        let chainMonitor = ChainMonitor(chain_source: filterOption, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
 
         let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
         let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)

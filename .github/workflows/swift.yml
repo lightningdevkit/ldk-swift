@@ -27,7 +27,7 @@ jobs:
                     # git clone https://github.com/lightningdevkit/ldk-c-bindings
                     git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
-                    git checkout d3efae5be843d88e3e3a8fcff01efd500d1d546f
+                    git checkout 9e501cbbcde7b6624ec03372452e915967e84064
                     echo "ldk-c-bindings commit hash:"
                     git rev-parse HEAD
                     cd ..

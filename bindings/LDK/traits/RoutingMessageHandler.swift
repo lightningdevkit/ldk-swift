@@ -1,3 +1,5 @@
+import Foundation
+
 open class RoutingMessageHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

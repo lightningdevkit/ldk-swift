@@ -1,3 +1,5 @@
+import Foundation
+
 open class Persist: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

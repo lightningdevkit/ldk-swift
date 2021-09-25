@@ -1,3 +1,5 @@
+import Foundation
+
 open class FeeEstimator: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

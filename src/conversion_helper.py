@@ -297,6 +297,8 @@ class ConversionHelper:
 				if received_raw_type == 'LDK' + published_swift_type:
 					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '
 					swift_local_conversion_suffix = ')'
+					if current_argument_details.passed_as_ptr and current_argument_details.pass_by_ref:
+						swift_local_conversion_suffix = ').dangle()'
 				elif received_raw_type.startswith('LDKCVec') and published_swift_type.startswith('[C'):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'

@@ -15,7 +15,7 @@ open class ChannelManagerPersister: NativeTypeWrapper {
 
 		func persist_managerCallback(pointer: UnsafeRawPointer?, channel_managerPointer: UnsafePointer<LDKChannelManager>) -> LDKCResult_NoneErrorZ {
 			let instance: ChannelManagerPersister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelManagerPersister.swift::persist_manager")
-			let channel_manager = ChannelManager(pointer: channel_managerPointer.pointee);
+			let channel_manager = ChannelManager(pointer: channel_managerPointer.pointee).dangle();
 
 			return instance.persist_manager(channel_manager: channel_manager).cOpaqueStruct!
 		}

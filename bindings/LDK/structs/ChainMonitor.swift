@@ -7,30 +7,29 @@ public class ChainMonitor: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(chain_source: Filter?, broadcaster: BroadcasterInterface, logger: Logger, feeest: FeeEstimator, persister: Persist) {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(chain_source: Option_FilterZ, broadcaster: BroadcasterInterface, logger: Logger, feeest: FeeEstimator, persister: Persist) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-							var chain_sourcePointer: UnsafeMutablePointer<LDKFilter>? = nil
-							if let chain_sourceUnwrapped = chain_source {
-								
-								chain_sourcePointer = UnsafeMutablePointer<LDKFilter>.allocate(capacity: 1)
-								chain_sourcePointer!.initialize(to: chain_sourceUnwrapped.cOpaqueStruct!)
-							}
-						
-        self.cOpaqueStruct = ChainMonitor_new(chain_sourcePointer, broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, feeest.cOpaqueStruct!, persister.cOpaqueStruct!)
+        self.cOpaqueStruct = ChainMonitor_new(chain_source.cOpaqueStruct!, broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, feeest.cOpaqueStruct!, persister.cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKChainMonitor){
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKChainMonitor){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKChainMonitor, anchor: NativeTypeWrapper){
+	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKChainMonitor, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
@@ -40,6 +39,33 @@ public class ChainMonitor: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
+
+    public func get_claimable_balances(ignored_channels: [ChannelDetails]) -> [Balance] {
+    	
+							let ignored_channelsUnwrapped = ignored_channels.map { (ignored_channelsCurrentValue) in
+							ignored_channelsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+        return self.get_claimable_balances(ignored_channels: ignored_channelsUnwrapped);
+    }
+
+    internal func get_claimable_balances(ignored_channels: [LDKChannelDetails]) -> [Balance] {
+    	
+						let ignored_channelsWrapper = Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: ignored_channels)
+						defer {
+							ignored_channelsWrapper.noOpRetain()
+						}
+					
+        return Bindings.LDKCVec_BalanceZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_get_claimable_balances(this_argPointer, ignored_channelsWrapper.dangle().cOpaqueStruct!)
+})
+						
+						.map { (cOpaqueStruct) in
+							Balance(pointer: cOpaqueStruct)
+						}
+					;
+    }
 
     public func as_Listen() -> NativelyImplementedListen {
     	

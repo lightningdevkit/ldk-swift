@@ -346,10 +346,10 @@ public class Bindings {
 		return UnsafePointer<UInt8>(dataMutablePointer)
 	}
 
-	public class func new_LDKStr(string: String) -> LDKStr {
-		let nativeType = Self.string_to_unsafe_uint8_pointer(string: string)
-		return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: false)
-	}
+	public class func new_LDKStr(string: String, chars_is_owned: Bool = false) -> LDKStr {
+        let nativeType = Self.string_to_unsafe_uint8_pointer(string: string)
+        return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: chars_is_owned)
+    }
 
     public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrency, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
 		let nativeKeysManager = keysManager.cOpaqueStruct!

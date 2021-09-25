@@ -26,15 +26,6 @@ public class MinFinalCltvExpiry: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public class func eq(a: MinFinalCltvExpiry, b: MinFinalCltvExpiry) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-MinFinalCltvExpiry_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> MinFinalCltvExpiry {
     	
         return MinFinalCltvExpiry(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
@@ -48,6 +39,22 @@ MinFinalCltvExpiry_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+MinFinalCltvExpiry_hash(oPointer)
+};
+    }
+
+    public class func eq(a: MinFinalCltvExpiry, b: MinFinalCltvExpiry) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+MinFinalCltvExpiry_eq(aPointer, bPointer)
+}
+};
+    }
 
     internal func free() -> Void {
     	

@@ -26,7 +26,7 @@ public class MessageSendEvent: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum MessageSendEventValueType {
-					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendFundingLocked, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, PaymentFailureNetworkUpdate, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange
+					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendFundingLocked, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange
 				}
 				
 				public func getValueType() -> MessageSendEventValueType? {
@@ -64,8 +64,6 @@ public class MessageSendEvent: NativeTypeWrapper {
 						return .SendChannelUpdate
 					case LDKMessageSendEvent_HandleError:
 						return .HandleError
-					case LDKMessageSendEvent_PaymentFailureNetworkUpdate:
-						return .PaymentFailureNetworkUpdate
 					case LDKMessageSendEvent_SendChannelRangeQuery:
 						return .SendChannelRangeQuery
 					case LDKMessageSendEvent_SendShortIdsQuery:
@@ -188,13 +186,6 @@ public class MessageSendEvent: NativeTypeWrapper {
 							return nil
 						}
 						return HandleError(pointer: self.cOpaqueStruct!.handle_error, anchor: self)
-					}
-				
-					public func getValueAsPaymentFailureNetworkUpdate() -> PaymentFailureNetworkUpdate? {
-						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_PaymentFailureNetworkUpdate {
-							return nil
-						}
-						return PaymentFailureNetworkUpdate(pointer: self.cOpaqueStruct!.payment_failure_network_update, anchor: self)
 					}
 				
 					public func getValueAsSendChannelRangeQuery() -> SendChannelRangeQuery? {
@@ -331,11 +322,6 @@ MessageSendEvent_clone(origPointer)
     public class func handle_error(node_id: [UInt8], action: ErrorAction) -> MessageSendEvent {
     	
         return MessageSendEvent(pointer: MessageSendEvent_handle_error(Bindings.new_LDKPublicKey(array: node_id), action.danglingClone().cOpaqueStruct!));
-    }
-
-    public class func payment_failure_network_update(update: HTLCFailChannelUpdate) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_payment_failure_network_update(update.danglingClone().cOpaqueStruct!));
     }
 
     public class func send_channel_range_query(node_id: [UInt8], msg: QueryChannelRange) -> MessageSendEvent {
@@ -807,31 +793,6 @@ MessageSendEvent_clone(origPointer)
 				
 					public func getAction() -> ErrorAction {
 						return ErrorAction(pointer: self.cOpaqueStruct!.action, anchor: self)
-					}
-				
-				
-			}
-		
-
-			public class PaymentFailureNetworkUpdate: NativeTypeWrapper {
-				
-				
-				var cOpaqueStruct: LDKMessageSendEvent_LDKPaymentFailureNetworkUpdate_Body?;
-				fileprivate init(pointer: LDKMessageSendEvent_LDKPaymentFailureNetworkUpdate_Body) {
-					self.cOpaqueStruct = pointer
-					super.init(conflictAvoidingVariableName: 0)
-				}
-				fileprivate init(pointer: LDKMessageSendEvent_LDKPaymentFailureNetworkUpdate_Body, anchor: NativeTypeWrapper) {
-					self.cOpaqueStruct = pointer
-					super.init(conflictAvoidingVariableName: 0)
-					self.dangling = true
-					try! self.addAnchor(anchor: anchor)
-				}
-			
-				
-				
-					public func getUpdate() -> HTLCFailChannelUpdate {
-						return HTLCFailChannelUpdate(pointer: self.cOpaqueStruct!.update, anchor: self)
 					}
 				
 				

@@ -48,6 +48,20 @@ IgnoringMessageHandler_as_RoutingMessageHandler(this_argPointer)
 }, anchor: self);
     }
 
+    public func as_CustomMessageReader() -> NativelyImplementedCustomMessageReader {
+    	
+        return NativelyImplementedCustomMessageReader(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+IgnoringMessageHandler_as_CustomMessageReader(this_argPointer)
+}, anchor: self);
+    }
+
+    public func as_CustomMessageHandler() -> NativelyImplementedCustomMessageHandler {
+    	
+        return NativelyImplementedCustomMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+IgnoringMessageHandler_as_CustomMessageHandler(this_argPointer)
+}, anchor: self);
+    }
+
     internal func free() -> Void {
     	
         return IgnoringMessageHandler_free(self.cOpaqueStruct!);

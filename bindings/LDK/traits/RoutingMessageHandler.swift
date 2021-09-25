@@ -32,13 +32,6 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 			return instance.handle_channel_update(msg: msg).cOpaqueStruct!
 		}
 
-		func handle_htlc_fail_channel_updateCallback(pointer: UnsafeRawPointer?, updatePointer: UnsafePointer<LDKHTLCFailChannelUpdate>) -> Void {
-			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::handle_htlc_fail_channel_update")
-			let update = HTLCFailChannelUpdate(pointer: updatePointer.pointee);
-
-			return instance.handle_htlc_fail_channel_update(update: update)
-		}
-
 		func get_next_channel_announcementsCallback(pointer: UnsafeRawPointer?, starting_point: UInt64, batch_amount: UInt8) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::get_next_channel_announcements")
 			
@@ -107,7 +100,6 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 			handle_node_announcement: handle_node_announcementCallback,
 			handle_channel_announcement: handle_channel_announcementCallback,
 			handle_channel_update: handle_channel_updateCallback,
-			handle_htlc_fail_channel_update: handle_htlc_fail_channel_updateCallback,
 			get_next_channel_announcements: get_next_channel_announcementsCallback,
 			get_next_node_announcements: get_next_node_announcementsCallback,
 			sync_routing_table: sync_routing_tableCallback,
@@ -174,13 +166,6 @@ return Result_boolLightningErrorZ()
 		Bindings.print("RoutingMessageHandler::handle_channel_update should be overridden!", severity: .WARNING)
 
 return Result_boolLightningErrorZ()
-    }
-
-    open func handle_htlc_fail_channel_update(update: HTLCFailChannelUpdate) -> Void {
-    	/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_htlc_fail_channel_update should be overridden!", severity: .WARNING)
-
-
     }
 
     open func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
@@ -275,17 +260,6 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 				return withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelUpdate>) in
 
 				Result_boolLightningErrorZ(pointer: self.cOpaqueStruct!.handle_channel_update(self.cOpaqueStruct!.this_arg, msgPointer))
-				
-}
-			
-	}
-
-	public override func handle_htlc_fail_channel_update(update: HTLCFailChannelUpdate) -> Void {
-		
-				
-				withUnsafePointer(to: update.cOpaqueStruct!) { (updatePointer: UnsafePointer<LDKHTLCFailChannelUpdate>) in
-
-				self.cOpaqueStruct!.handle_htlc_fail_channel_update(self.cOpaqueStruct!.this_arg, updatePointer)
 				
 }
 			

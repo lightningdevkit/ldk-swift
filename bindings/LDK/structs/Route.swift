@@ -49,6 +49,19 @@ public class Route: NativeTypeWrapper {
         self.init(paths_arg: paths_argUnwrapped);
     }
 
+    public func get_paths() -> [[RouteHop]] {
+    	
+        return Bindings.LDKCVec_CVec_RouteHopZZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRoute>) in
+Route_get_paths(this_ptrPointer)
+})
+						.map { (cOpaqueStruct) in 
+						cOpaqueStruct
+						.map { (cOpaqueStruct) in
+							RouteHop(pointer: cOpaqueStruct)
+						}}
+					;
+    }
+
     public func set_paths(val: [[RouteHop]]) -> Void {
     	
 							let valUnwrapped = val.map { (valCurrentValue) in
@@ -86,6 +99,36 @@ Route_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRoute>) in
+Route_hash(oPointer)
+};
+    }
+
+    public class func eq(a: Route, b: Route) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRoute>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRoute>) in
+Route_eq(aPointer, bPointer)
+}
+};
+    }
+
+    public func get_total_fees() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRoute>) in
+Route_get_total_fees(this_argPointer)
+};
+    }
+
+    public func get_total_amount() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRoute>) in
+Route_get_total_amount(this_argPointer)
+};
+    }
 
     public func write() -> [UInt8] {
     	

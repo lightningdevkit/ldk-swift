@@ -1,6 +1,11 @@
 set -e
 set -x
 
+# find all directories and files within LDKSwift sources, exclude batteries. 
+# If at least one result (xargs -r), remove recursively (rm -r)
+find ./LDKSwift/Sources/LDKSwift/* -maxdepth 0 -not -name 'batteries' | xargs -r rm -r
+# rm -i -r ./LDKSwift/Sources/LDKSwift/^(batteries)*
+
 pushd ../
 # working within /
 

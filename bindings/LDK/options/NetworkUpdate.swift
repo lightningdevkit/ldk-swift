@@ -1,20 +1,20 @@
-public class HTLCFailChannelUpdate: NativeTypeWrapper {
+public class NetworkUpdate: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    internal var cOpaqueStruct: LDKHTLCFailChannelUpdate?
+    internal var cOpaqueStruct: LDKNetworkUpdate?
 
 	
 
-    public init(pointer: LDKHTLCFailChannelUpdate){
+    public init(pointer: LDKNetworkUpdate){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKHTLCFailChannelUpdate, anchor: NativeTypeWrapper){
+	public init(pointer: LDKNetworkUpdate, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
@@ -25,18 +25,18 @@ public class HTLCFailChannelUpdate: NativeTypeWrapper {
 
     /* OPTION_METHODS_START */
 
-				public enum HTLCFailChannelUpdateValueType {
+				public enum NetworkUpdateValueType {
 					case ChannelUpdateMessage, ChannelClosed, NodeFailure
 				}
 				
-				public func getValueType() -> HTLCFailChannelUpdateValueType? {
+				public func getValueType() -> NetworkUpdateValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
-					case LDKHTLCFailChannelUpdate_ChannelUpdateMessage:
+					case LDKNetworkUpdate_ChannelUpdateMessage:
 						return .ChannelUpdateMessage
-					case LDKHTLCFailChannelUpdate_ChannelClosed:
+					case LDKNetworkUpdate_ChannelClosed:
 						return .ChannelClosed
-					case LDKHTLCFailChannelUpdate_NodeFailure:
+					case LDKNetworkUpdate_NodeFailure:
 						return .NodeFailure
                     default:
                         return nil
@@ -45,21 +45,21 @@ public class HTLCFailChannelUpdate: NativeTypeWrapper {
 				
 				
 					public func getValueAsChannelUpdateMessage() -> ChannelUpdateMessage? {
-						if self.cOpaqueStruct?.tag != LDKHTLCFailChannelUpdate_ChannelUpdateMessage {
+						if self.cOpaqueStruct?.tag != LDKNetworkUpdate_ChannelUpdateMessage {
 							return nil
 						}
 						return ChannelUpdateMessage(pointer: self.cOpaqueStruct!.channel_update_message, anchor: self)
 					}
 				
 					public func getValueAsChannelClosed() -> ChannelClosed? {
-						if self.cOpaqueStruct?.tag != LDKHTLCFailChannelUpdate_ChannelClosed {
+						if self.cOpaqueStruct?.tag != LDKNetworkUpdate_ChannelClosed {
 							return nil
 						}
 						return ChannelClosed(pointer: self.cOpaqueStruct!.channel_closed, anchor: self)
 					}
 				
 					public func getValueAsNodeFailure() -> NodeFailure? {
-						if self.cOpaqueStruct?.tag != LDKHTLCFailChannelUpdate_NodeFailure {
+						if self.cOpaqueStruct?.tag != LDKNetworkUpdate_NodeFailure {
 							return nil
 						}
 						return NodeFailure(pointer: self.cOpaqueStruct!.node_failure, anchor: self)
@@ -68,51 +68,58 @@ public class HTLCFailChannelUpdate: NativeTypeWrapper {
 			
     internal func free() -> Void {
     	
-        return HTLCFailChannelUpdate_free(self.cOpaqueStruct!);
+        return NetworkUpdate_free(self.cOpaqueStruct!);
     }
 
-					internal func dangle() -> HTLCFailChannelUpdate {
+					internal func dangle() -> NetworkUpdate {
         				self.dangling = true
 						return self
 					}
 					
 					deinit {
 						if !self.dangling {
-							Bindings.print("Freeing HTLCFailChannelUpdate \(self.instanceNumber).")
+							Bindings.print("Freeing NetworkUpdate \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing HTLCFailChannelUpdate \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing NetworkUpdate \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
-    public func clone() -> HTLCFailChannelUpdate {
+    public func clone() -> NetworkUpdate {
     	
-        return HTLCFailChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCFailChannelUpdate>) in
-HTLCFailChannelUpdate_clone(origPointer)
+        return NetworkUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkUpdate>) in
+NetworkUpdate_clone(origPointer)
 });
     }
 
-					internal func danglingClone() -> HTLCFailChannelUpdate {
+					internal func danglingClone() -> NetworkUpdate {
         				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}
 				
 
-    public class func channel_update_message(msg: ChannelUpdate) -> HTLCFailChannelUpdate {
+    public class func channel_update_message(msg: ChannelUpdate) -> NetworkUpdate {
     	
-        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_channel_update_message(msg.danglingClone().cOpaqueStruct!));
+        return NetworkUpdate(pointer: NetworkUpdate_channel_update_message(msg.danglingClone().cOpaqueStruct!));
     }
 
-    public class func channel_closed(short_channel_id: UInt64, is_permanent: Bool) -> HTLCFailChannelUpdate {
+    public class func channel_closed(short_channel_id: UInt64, is_permanent: Bool) -> NetworkUpdate {
     	
-        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_channel_closed(short_channel_id, is_permanent));
+        return NetworkUpdate(pointer: NetworkUpdate_channel_closed(short_channel_id, is_permanent));
     }
 
-    public class func node_failure(node_id: [UInt8], is_permanent: Bool) -> HTLCFailChannelUpdate {
+    public class func node_failure(node_id: [UInt8], is_permanent: Bool) -> NetworkUpdate {
     	
-        return HTLCFailChannelUpdate(pointer: HTLCFailChannelUpdate_node_failure(Bindings.new_LDKPublicKey(array: node_id), is_permanent));
+        return NetworkUpdate(pointer: NetworkUpdate_node_failure(Bindings.new_LDKPublicKey(array: node_id), is_permanent));
+    }
+
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkUpdate>) in
+NetworkUpdate_write(objPointer)
+});
     }
 
     /* OPTION_METHODS_END */
@@ -122,12 +129,12 @@ HTLCFailChannelUpdate_clone(origPointer)
 			public class ChannelUpdateMessage: NativeTypeWrapper {
 				
 				
-				var cOpaqueStruct: LDKHTLCFailChannelUpdate_LDKChannelUpdateMessage_Body?;
-				fileprivate init(pointer: LDKHTLCFailChannelUpdate_LDKChannelUpdateMessage_Body) {
+				var cOpaqueStruct: LDKNetworkUpdate_LDKChannelUpdateMessage_Body?;
+				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelUpdateMessage_Body) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 				}
-				fileprivate init(pointer: LDKHTLCFailChannelUpdate_LDKChannelUpdateMessage_Body, anchor: NativeTypeWrapper) {
+				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelUpdateMessage_Body, anchor: NativeTypeWrapper) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 					self.dangling = true
@@ -147,12 +154,12 @@ HTLCFailChannelUpdate_clone(origPointer)
 			public class ChannelClosed: NativeTypeWrapper {
 				
 				
-				var cOpaqueStruct: LDKHTLCFailChannelUpdate_LDKChannelClosed_Body?;
-				fileprivate init(pointer: LDKHTLCFailChannelUpdate_LDKChannelClosed_Body) {
+				var cOpaqueStruct: LDKNetworkUpdate_LDKChannelClosed_Body?;
+				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelClosed_Body) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 				}
-				fileprivate init(pointer: LDKHTLCFailChannelUpdate_LDKChannelClosed_Body, anchor: NativeTypeWrapper) {
+				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelClosed_Body, anchor: NativeTypeWrapper) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 					self.dangling = true
@@ -176,12 +183,12 @@ HTLCFailChannelUpdate_clone(origPointer)
 			public class NodeFailure: NativeTypeWrapper {
 				
 				
-				var cOpaqueStruct: LDKHTLCFailChannelUpdate_LDKNodeFailure_Body?;
-				fileprivate init(pointer: LDKHTLCFailChannelUpdate_LDKNodeFailure_Body) {
+				var cOpaqueStruct: LDKNetworkUpdate_LDKNodeFailure_Body?;
+				fileprivate init(pointer: LDKNetworkUpdate_LDKNodeFailure_Body) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 				}
-				fileprivate init(pointer: LDKHTLCFailChannelUpdate_LDKNodeFailure_Body, anchor: NativeTypeWrapper) {
+				fileprivate init(pointer: LDKNetworkUpdate_LDKNodeFailure_Body, anchor: NativeTypeWrapper) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 					self.dangling = true

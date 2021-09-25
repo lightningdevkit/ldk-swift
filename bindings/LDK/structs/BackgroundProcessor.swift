@@ -7,14 +7,16 @@ public class BackgroundProcessor: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(persister: ChannelManagerPersister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, peer_manager: PeerManager, logger: Logger) {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(persister: ChannelManagerPersister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, net_graph_msg_handler: NetGraphMsgHandler, peer_manager: PeerManager, logger: Logger) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: chain_monitor.cOpaqueStruct!) { (chain_monitorPointer: UnsafePointer<LDKChainMonitor>) in
 withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: peer_manager.cOpaqueStruct!) { (peer_managerPointer: UnsafePointer<LDKPeerManager>) in
-BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, peer_managerPointer, logger.cOpaqueStruct!)
+BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, net_graph_msg_handler.cOpaqueStruct!, peer_managerPointer, logger.cOpaqueStruct!)
 }
 }
 }
@@ -22,14 +24,18 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKBackgroundProcessor){
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKBackgroundProcessor){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKBackgroundProcessor, anchor: NativeTypeWrapper){
+	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public init(pointer: LDKBackgroundProcessor, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer

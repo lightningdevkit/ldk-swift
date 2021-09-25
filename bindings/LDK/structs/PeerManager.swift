@@ -9,12 +9,12 @@ public class PeerManager: NativeTypeWrapper {
 	/* DEFAULT_CONSTRUCTOR_START */
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger) {
+public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger, custom_message_handler: CustomMessageHandler) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: ephemeral_random_data)) { (ephemeral_random_dataPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.cOpaqueStruct!)
+PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.cOpaqueStruct!, custom_message_handler.cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
     }

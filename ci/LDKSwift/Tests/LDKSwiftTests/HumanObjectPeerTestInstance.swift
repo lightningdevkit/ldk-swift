@@ -41,7 +41,7 @@ public class HumanObjectPeerTestInstance {
         let seed: UInt8
         var filterAdditions: Set<String>
         let monitors: [String: ChannelMonitor]
-        private(set) var filter: Filter!
+        private(set) var filter: Option_FilterZ!
         private(set) var keysInterface: KeysInterface!
         private(set) var explicitKeysManager: KeysManager?
         private(set) var router: NetGraphMsgHandler!
@@ -145,7 +145,9 @@ public class HumanObjectPeerTestInstance {
             self.txBroadcaster = TestBroadcaster(master: self)
 
             if master.use_filter {
-                self.filter = TestFilter(master: self)
+                self.filter = Option_FilterZ(value: TestFilter(master: self))
+            } else {
+                self.filter = Option_FilterZ(value: nil)
             }
 
             if master.use_manual_watch || false { // don't support manual watch yet
@@ -171,8 +173,7 @@ public class HumanObjectPeerTestInstance {
                 self.explicitKeysManager = keysManager
             }
 
-            self.router = NetGraphMsgHandler(chain_access: nil, logger: self.logger, network_graph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)))
-
+            self.router = NetGraphMsgHandlerConstructor.initNetGraphMsgHandler(networkGraph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)), chainAccess: nil, logger: self.logger)
         }
 
         fileprivate convenience init(master: HumanObjectPeerTestInstance, seed: UInt8) {
@@ -188,7 +189,7 @@ public class HumanObjectPeerTestInstance {
                 self.channelManager = ChannelManager(fee_est: self.feeEstimator, chain_monitor: self.chainWatch!, tx_broadcaster: self.txBroadcaster, logger: self.logger, keys_manager: self.keysInterface, config: UserConfig(), params: chainParameters)
                 let randomData = self.keysInterface.get_secure_random_bytes()
                 let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.as_RoutingMessageHandler())
-                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: self.keysInterface.get_node_secret(), ephemeral_random_data: randomData, logger: self.logger)
+                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: self.keysInterface.get_node_secret(), ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
             self.nodeId = self.channelManager.get_our_node_id()
             self.bindSocketHandler()

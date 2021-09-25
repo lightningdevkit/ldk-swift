@@ -120,6 +120,13 @@ Fallback_clone(origPointer)
         return Fallback(pointer: Fallback_script_hash(Bindings.new_LDKTwentyBytes(array: a)));
     }
 
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKFallback>) in
+Fallback_hash(oPointer)
+};
+    }
+
     public class func eq(a: Fallback, b: Fallback) -> Bool {
     	
         return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKFallback>) in

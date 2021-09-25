@@ -58,6 +58,7 @@ public class PaymentSendFailure: NativeTypeWrapper {
 							return nil
 						}
 						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error, deallocate: false)
+						
 						.map { (cOpaqueStruct) in
 							Result_NoneAPIErrorZ(pointer: cOpaqueStruct).dangle()
 						}
@@ -69,6 +70,7 @@ public class PaymentSendFailure: NativeTypeWrapper {
 							return nil
 						}
 						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe, deallocate: false)
+						
 						.map { (cOpaqueStruct) in
 							APIError(pointer: cOpaqueStruct).dangle()
 						}
@@ -80,6 +82,7 @@ public class PaymentSendFailure: NativeTypeWrapper {
 							return nil
 						}
 						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.partial_failure, deallocate: false)
+						
 						.map { (cOpaqueStruct) in
 							Result_NoneAPIErrorZ(pointer: cOpaqueStruct).dangle()
 						}

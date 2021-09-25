@@ -132,6 +132,7 @@ RawInvoice_features(this_argPointer)
         return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
 RawInvoice_private_routes(this_argPointer)
 })
+						
 						.map { (cOpaqueStruct) in
 							PrivateRoute(pointer: cOpaqueStruct)
 						}

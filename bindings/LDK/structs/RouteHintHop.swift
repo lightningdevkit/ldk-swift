@@ -124,15 +124,6 @@ RouteHintHop_get_htlc_maximum_msat(this_ptrPointer)
         return RouteHintHop_set_htlc_maximum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public class func eq(a: RouteHintHop, b: RouteHintHop) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHintHop>) in
-withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHintHop>) in
-RouteHintHop_eq(aPointer, bPointer)
-}
-};
-    }
-
     public func clone() -> RouteHintHop {
     	
         return RouteHintHop(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRouteHintHop>) in
@@ -146,6 +137,22 @@ RouteHintHop_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRouteHintHop>) in
+RouteHintHop_hash(oPointer)
+};
+    }
+
+    public class func eq(a: RouteHintHop, b: RouteHintHop) -> Bool {
+    	
+        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRouteHintHop>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRouteHintHop>) in
+RouteHintHop_eq(aPointer, bPointer)
+}
+};
+    }
 
     internal func free() -> Void {
     	

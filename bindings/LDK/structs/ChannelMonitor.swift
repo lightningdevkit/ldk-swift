@@ -81,6 +81,7 @@ ChannelMonitor_get_funding_txo(this_argPointer)
         return Bindings.LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_outputs_to_watch(this_argPointer)
 })
+						
 						.map { (cOpaqueStruct) in
 							C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: cOpaqueStruct)
 						}
@@ -101,6 +102,7 @@ ChannelMonitor_load_outputs_to_watch(this_argPointer, filterPointer)
         return Bindings.LDKCVec_MonitorEventZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_and_clear_pending_monitor_events(this_argPointer)
 })
+						
 						.map { (cOpaqueStruct) in
 							MonitorEvent(pointer: cOpaqueStruct)
 						}
@@ -112,6 +114,7 @@ ChannelMonitor_get_and_clear_pending_monitor_events(this_argPointer)
         return Bindings.LDKCVec_EventZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_and_clear_pending_events(this_argPointer)
 })
+						
 						.map { (cOpaqueStruct) in
 							Event(pointer: cOpaqueStruct)
 						}
@@ -149,6 +152,7 @@ withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (headerPointer
 ChannelMonitor_block_connected(this_argPointer, headerPointer, txdataWrapper.dangle().cOpaqueStruct!, height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!)
 }
 })
+						
 						.map { (cOpaqueStruct) in
 							TransactionOutputs(pointer: cOpaqueStruct)
 						}
@@ -186,6 +190,7 @@ withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (headerPointer
 ChannelMonitor_transactions_confirmed(this_argPointer, headerPointer, txdataWrapper.dangle().cOpaqueStruct!, height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!)
 }
 })
+						
 						.map { (cOpaqueStruct) in
 							TransactionOutputs(pointer: cOpaqueStruct)
 						}
@@ -208,6 +213,7 @@ withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (headerPointer
 ChannelMonitor_best_block_updated(this_argPointer, headerPointer, height, broadcaster.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, logger.cOpaqueStruct!)
 }
 })
+						
 						.map { (cOpaqueStruct) in
 							TransactionOutputs(pointer: cOpaqueStruct)
 						}
@@ -230,6 +236,18 @@ ChannelMonitor_get_relevant_txids(this_argPointer)
         return BestBlock(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_current_best_block(this_argPointer)
 });
+    }
+
+    public func get_claimable_balances() -> [Balance] {
+    	
+        return Bindings.LDKCVec_BalanceZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
+ChannelMonitor_get_claimable_balances(this_argPointer)
+})
+						
+						.map { (cOpaqueStruct) in
+							Balance(pointer: cOpaqueStruct)
+						}
+					;
     }
 
     internal func free() -> Void {

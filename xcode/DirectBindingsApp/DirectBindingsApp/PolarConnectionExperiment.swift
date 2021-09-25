@@ -42,7 +42,8 @@ class PolarConnectionExperiment: ObservableObject {
         self.feeEstimator = TestFeeEstimator()
         self.persister = TestPersister()
         
-        self.chainMonitor = ChainMonitor(chain_source: self.filter, broadcaster: self.broadcaster, logger: self.logger, feeest: self.feeEstimator, persister: self.persister)
+        let filterOption = Option_FilterZ(value: self.filter)
+        self.chainMonitor = ChainMonitor(chain_source: filterOption.dangle(), broadcaster: self.broadcaster, logger: self.logger, feeest: self.feeEstimator, persister: self.persister)
         
         let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
         let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
@@ -69,6 +70,8 @@ class PolarConnectionExperiment: ObservableObject {
             self.cmPersister = RegtestChannelManagerPersister(channelManager: self.channelManager)
             self.hasCaughtUpToChainTip = true
             self.objectWillChange.send()
+            
+            // Bindings.new_LDKTransactionWrapper(array: <#T##[UInt8]#>)
         }
         
     }
@@ -98,8 +101,14 @@ class PolarConnectionExperiment: ObservableObject {
         self.isConnectedToAlice = true
         // let theirNodeId: [UInt8] = [3, 76, 1, 164, 167, 52, 78, 65, 176, 169, 137, 4, 159, 182, 49, 198, 72, 197, 210, 127, 107, 63, 166, 28, 124, 25, 59, 64, 220, 201, 106, 147, 65]
         let theirNodeId = Block.hexStringToBytes(hexString: "034c01a4a7344e41b0a989049fb631c648c5d27f6b3fa61c7c193b40dcc96a9341")!
-        self.peerNetworkHandler.connect(address: "127.0.0.1", port: 9735, theirNodeId: theirNodeId)
+        let connectionSucceeded = self.peerNetworkHandler.connect(address: "127.0.0.1", port: 9735, theirNodeId: theirNodeId)
+        if !connectionSucceeded {
+            self.isConnectedToAlice = false
+            return
+        }
         self.objectWillChange.send()
+        
+        let peers = self.peerManager.get_peer_node_ids()
     }
     
     func openChannelWithAlice() {
@@ -114,13 +123,20 @@ class PolarConnectionExperiment: ObservableObject {
         
         self.objectWillChange.send()
         
-        if channelOpenResult.cOpaqueStruct?.result_ok == true {
+        if channelOpenResult.isOk() {
             print("Channel should have opened successfully!")
-        }else{
-            let errorDetails = APIError(pointer: channelOpenResult.cOpaqueStruct!.contents.err.pointee)
+        }else if let errorDetails = channelOpenResult.getError(){
             print("Channel open failed!")
             if let error = errorDetails.getValueAsAPIMisuseError() {
                 print("Misuse: \(error.getErr())")
+            }else if let error = errorDetails.getValueAsRouteError() {
+                print("Route: \(error.getErr())")
+            }else if let error = errorDetails.getValueAsChannelUnavailable() {
+                print("Channel Unavailable: \(error.getErr())")
+            }else if let error = errorDetails.getValueAsFeeRateTooHigh() {
+                print("fee rate: \(error.getErr())")
+            }else if let error = errorDetails.getValueAsIncompatibleShutdownScript() {
+                print("incompatible shutdown script")
             }
             self.isChannelWithAliceOpen = false
             self.objectWillChange.send()

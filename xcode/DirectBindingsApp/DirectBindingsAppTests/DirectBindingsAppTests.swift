@@ -72,13 +72,58 @@ class DirectBindingsAppTests: XCTestCase {
 
         let channel_manager = channel_manager_constructor.channelManager;
         let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
+        
+        
+        let txdata = [C2Tuple_usizeTransactionZ.new(a: 2, b: Self.hexStringToBytes(hexString: "020000000001010000000000000000000000000000000000000000000000000000000000000000ffffffff03530101ffffffff0200f2052a0100000017a9149e6d815a46cd349527961f58cc20d41d15fcb99e870000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf90120000000000000000000000000000000000000000000000000000000000000000000000000")!)]
+        
+        let header = Self.hexStringToBytes(hexString: "f5591ea0b69ae3edc0de11497ffb0fdd91f769ede96c5d662c805364e9bf8b2243e8e5b9d1833eff7cb19abd9fc9da3cd26fe84d718bbf8a336966ae4f7dea6a81372961ffff7f200400000001020000")
+        
+        channel_manager.as_Confirm().transactions_confirmed(header: header, txdata: txdata, height: 525)
+        
 
         channel_manager_constructor.chain_sync_completed(persister: cmPersister)
+        
         channel_manager_constructor.interrupt()
+        
+        // Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ.ok(o: <#T##C2Tuple_BlockHashChannelMonitorZ#>)
     }
 
     func testMemoryLeaksIncrementally() throws {
         try incrementalMemoryLeakTest()
+    }
+    
+    func testRouteConstruction() throws {
+        
+        let destPubkeyHex = "03c2abfa93eacec04721c019644584424aab2ba4dff3ac9bdab4e9c97007491dda"
+        let short_channel_id_arg: UInt64 = 762615767524704256
+        let paymentValueMsat: UInt64 = 666000
+        let finalCltvValue: UInt32 = 40
+        
+        let routeHop = RouteHop(
+            pubkey_arg: Self.hexStringToBytes(hexString: destPubkeyHex)!,
+            node_features_arg: NodeFeatures(),
+            short_channel_id_arg: short_channel_id_arg,
+            channel_features_arg: ChannelFeatures(),
+            fee_msat_arg: paymentValueMsat,
+            cltv_expiry_delta_arg: finalCltvValue
+        )
+        
+        var path: [RouteHop] = [routeHop]
+        
+        for _ in 0..<3 {
+            
+            let extraHop = RouteHop(
+                pubkey_arg: Self.hexStringToBytes(hexString: destPubkeyHex)!,
+                node_features_arg: NodeFeatures(),
+                short_channel_id_arg: short_channel_id_arg,
+                channel_features_arg: ChannelFeatures(),
+                fee_msat_arg: paymentValueMsat,
+                cltv_expiry_delta_arg: finalCltvValue
+            )
+            path.append(extraHop)
+        }
+        
+        let route = Route(paths_arg: [path])
     }
 
     func testExtendedActivity() throws {
@@ -124,6 +169,30 @@ class DirectBindingsAppTests: XCTestCase {
             return instance
         }
 
+    }
+    
+    private class func hexStringToBytes(hexString: String) -> [UInt8]? {
+        let hexStr = hexString.dropFirst(hexString.hasPrefix("0x") ? 2 : 0)
+
+        guard hexStr.count % 2 == 0 else { return nil }
+
+        var newData = [UInt8]()
+
+        var indexIsEven = true
+        for i in hexStr.indices {
+            if indexIsEven {
+                let byteRange = i...hexStr.index(after: i)
+                guard let byte = UInt8(hexStr[byteRange], radix: 16) else { return nil }
+                newData.append(byte)
+            }
+            indexIsEven.toggle()
+        }
+        return newData
+    }
+    
+    private class func bytesToHexString(bytes: [UInt8]) -> String {
+        let format = "%02hhx" // "%02hhX" (uppercase)
+        return bytes.map { String(format: format, $0) }.joined()
     }
 
     func testPerformanceExample() throws {

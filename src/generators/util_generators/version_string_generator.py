@@ -21,14 +21,11 @@ class VersionStringGenerator(UtilGenerator):
         version_short = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'], cwd=working_directory).decode(
             'ascii'
         ).strip()
-        
-        # version_description = subprocess.check_output(
-        #     ['git', 'describe', '--tag', '--dirty'],
-        #     cwd=working_directory
-        # ).decode('ascii').strip()
-        # print('Git versions:', '\n', version_description, '\n', version_short, '\n', version_long, '\n')
-        
-        print('Git versions:', '\n', version_short, '\n', version_long, '\n')
+        version_description = subprocess.check_output(
+            ['git', 'describe', '--tag', '--dirty', '--always'],
+            cwd=working_directory
+        ).decode('ascii').strip()
+        print('Git versions:', '\n', version_description, '\n', version_short, '\n', version_long, '\n')
         return version_long
 
     def obtain_version_string(self):

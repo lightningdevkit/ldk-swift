@@ -370,6 +370,10 @@ public class Bindings {
 			}
 		}
 	}
+	
+	public class func get_ldk_swift_bindings_version() -> String {
+        return "/* SWIFT_BINDINGS_VERSION */"
+    }
 
 }
 

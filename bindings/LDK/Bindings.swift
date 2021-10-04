@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import os
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
@@ -63,7 +64,9 @@ open class NativeTypeWrapper: Hashable {
 
 public class Bindings {
 
+    internal static let logger = os.Logger(subsystem: Bundle.main.bundleIdentifier!, category: "ldk")
 	internal static var minimumPrintSeverity: PrintSeverity = .WARNING
+    
 
     public enum PrintSeverity: UInt {
         case DEBUG = 0
@@ -73,7 +76,15 @@ public class Bindings {
 
     internal class func print(_ string: String, severity: PrintSeverity = .DEBUG) {
         if severity.rawValue >= Self.minimumPrintSeverity.rawValue {
-            Swift.print(string)
+            if severity == Self.PrintSeverity.DEBUG {
+                logger.debug("\(string)")
+            }else if severity == Self.PrintSeverity.WARNING {
+                logger.warning("\(string)")
+            }else if severity == Self.PrintSeverity.ERROR {
+                logger.error("\(string)")
+            }else {
+                logger.log("\(string)")
+            }
         }
     }
 
@@ -4563,6 +4574,10 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 			}
 		}
 	}
+	
+	public class func get_ldk_swift_bindings_version() -> String {
+        return "32b7bd5b870675c84f167046cd4e15e754c466b6"
+    }
 
 }
 

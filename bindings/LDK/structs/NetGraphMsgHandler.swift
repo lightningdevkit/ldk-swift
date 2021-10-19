@@ -13,7 +13,7 @@ public init(network_graph: NetworkGraph, chain_access: Option_AccessZ, logger: L
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NetGraphMsgHandler_new(network_graph.cOpaqueStruct!, chain_access.cOpaqueStruct!, logger.cOpaqueStruct!)
+        self.cOpaqueStruct = NetGraphMsgHandler_new(network_graph.danglingClone().cOpaqueStruct!, chain_access.cOpaqueStruct!, logger.cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
@@ -59,7 +59,7 @@ NetGraphMsgHandler_get_network_graph(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKNetGraphMsgHandler>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NetGraphMsgHandler_set_network_graph(this_ptrPointer, val.cOpaqueStruct!);
+        return NetGraphMsgHandler_set_network_graph(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func add_chain_access(chain_access: Option_AccessZ) -> Void {

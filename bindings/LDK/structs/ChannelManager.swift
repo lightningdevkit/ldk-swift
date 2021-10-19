@@ -41,10 +41,10 @@ ChannelManager_get_current_default_configuration(this_argPointer)
 });
     }
 
-    public func create_channel(their_network_key: [UInt8], channel_value_satoshis: UInt64, push_msat: UInt64, user_id: UInt64, override_config: UserConfig) -> Result_NoneAPIErrorZ {
+    public func create_channel(their_network_key: [UInt8], channel_value_satoshis: UInt64, push_msat: UInt64, user_channel_id: UInt64, override_config: UserConfig) -> Result__u832APIErrorZ {
     	
-        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_channel(this_argPointer, Bindings.new_LDKPublicKey(array: their_network_key), channel_value_satoshis, push_msat, user_id, override_config.danglingClone().cOpaqueStruct!)
+        return Result__u832APIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_create_channel(this_argPointer, Bindings.new_LDKPublicKey(array: their_network_key), channel_value_satoshis, push_msat, user_channel_id, override_config.danglingClone().cOpaqueStruct!)
 });
     }
 
@@ -106,18 +106,27 @@ ChannelManager_force_close_all_channels(this_argPointer)
 };
     }
 
-    public func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_NonePaymentSendFailureZ {
+    public func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
     	
-        return Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return Result_PaymentIdPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
 ChannelManager_send_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret))
 }
 });
     }
 
-    public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentHashPaymentSendFailureZ {
+    public func retry_payment(route: Route, payment_id: PaymentId) -> Result_NonePaymentSendFailureZ {
     	
-        return Result_PaymentHashPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
+ChannelManager_retry_payment(this_argPointer, routePointer, payment_id.danglingClone().cOpaqueStruct!)
+}
+});
+    }
+
+    public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
+    	
+        return Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
 ChannelManager_send_spontaneous_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage))
 }

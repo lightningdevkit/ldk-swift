@@ -34,6 +34,20 @@ public class NetworkGraph: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
+    public func clone() -> NetworkGraph {
+    	
+        return NetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> NetworkGraph {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkGraph>) in

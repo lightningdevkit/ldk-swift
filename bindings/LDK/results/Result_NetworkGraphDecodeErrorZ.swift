@@ -52,11 +52,9 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
-@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public class func ok(o: NetworkGraph) -> Result_NetworkGraphDecodeErrorZ {
+    public class func ok(o: NetworkGraph) -> Result_NetworkGraphDecodeErrorZ {
     	
-        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_ok(o.cOpaqueStruct!));
+        return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_NetworkGraphDecodeErrorZ {
@@ -81,6 +79,20 @@ public class func ok(o: NetworkGraph) -> Result_NetworkGraphDecodeErrorZ {
 						} else {
 							Bindings.print("Not freeing Result_NetworkGraphDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
+					}
+				
+
+    public func clone() -> Result_NetworkGraphDecodeErrorZ {
+    	
+        return Result_NetworkGraphDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NetworkGraphDecodeErrorZ>) in
+CResult_NetworkGraphDecodeErrorZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Result_NetworkGraphDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
 					}
 				
 

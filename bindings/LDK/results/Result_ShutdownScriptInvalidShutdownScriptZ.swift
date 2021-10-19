@@ -57,11 +57,9 @@ public class Result_ShutdownScriptInvalidShutdownScriptZ: NativeTypeWrapper {
         return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: CResult_ShutdownScriptInvalidShutdownScriptZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
-    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
-@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public class func err(e: InvalidShutdownScript) -> Result_ShutdownScriptInvalidShutdownScriptZ {
+    public class func err(e: InvalidShutdownScript) -> Result_ShutdownScriptInvalidShutdownScriptZ {
     	
-        return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: CResult_ShutdownScriptInvalidShutdownScriptZ_err(e.cOpaqueStruct!));
+        return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: CResult_ShutdownScriptInvalidShutdownScriptZ_err(e.danglingClone().cOpaqueStruct!));
     }
 
     internal func free() -> Void {
@@ -81,6 +79,20 @@ public class func err(e: InvalidShutdownScript) -> Result_ShutdownScriptInvalidS
 						} else {
 							Bindings.print("Not freeing Result_ShutdownScriptInvalidShutdownScriptZ \(self.instanceNumber) due to dangle.")
 						}
+					}
+				
+
+    public func clone() -> Result_ShutdownScriptInvalidShutdownScriptZ {
+    	
+        return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ShutdownScriptInvalidShutdownScriptZ>) in
+CResult_ShutdownScriptInvalidShutdownScriptZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Result_ShutdownScriptInvalidShutdownScriptZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
 					}
 				
 

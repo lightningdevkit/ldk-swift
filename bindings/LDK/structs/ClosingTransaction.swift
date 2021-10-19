@@ -44,6 +44,27 @@ public class ClosingTransaction: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
+    public func clone() -> ClosingTransaction {
+    	
+        return ClosingTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKClosingTransaction>) in
+ClosingTransaction_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> ClosingTransaction {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
+    public func hash() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKClosingTransaction>) in
+ClosingTransaction_hash(oPointer)
+};
+    }
+
     public func trust() -> TrustedClosingTransaction {
     	
         return TrustedClosingTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKClosingTransaction>) in

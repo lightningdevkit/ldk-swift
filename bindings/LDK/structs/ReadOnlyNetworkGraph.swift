@@ -26,6 +26,13 @@ public class ReadOnlyNetworkGraph: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
+    public func get_addresses(pubkey: [UInt8]) -> Option_CVec_NetAddressZZ {
+    	
+        return Option_CVec_NetAddressZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
+ReadOnlyNetworkGraph_get_addresses(this_argPointer, Bindings.new_LDKPublicKey(array: pubkey))
+});
+    }
+
     internal func free() -> Void {
     	
         return ReadOnlyNetworkGraph_free(self.cOpaqueStruct!);

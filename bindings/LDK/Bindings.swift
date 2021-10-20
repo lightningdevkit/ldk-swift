@@ -6,9 +6,9 @@
 //
 
 import Foundation
-#if canImport(os)
-    import os
-#endif
+// #if canImport(os)
+//     import os
+// #endif
 
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
@@ -67,9 +67,9 @@ open class NativeTypeWrapper: Hashable {
 public class Bindings {
 
 	internal static var minimumPrintSeverity: PrintSeverity = .WARNING
-	#if canImport(os)
-        internal static let logger = os.Logger(subsystem: Bundle.main.bundleIdentifier!, category: "ldk")
-    #endif
+	// #if canImport(os)
+    //     internal static let logger = os.Logger(subsystem: Bundle.main.bundleIdentifier!, category: "ldk")
+    // #endif
 
     public enum PrintSeverity: UInt {
         case DEBUG = 0
@@ -79,19 +79,25 @@ public class Bindings {
 
     internal class func print(_ string: String, severity: PrintSeverity = .DEBUG) {
         if severity.rawValue >= Self.minimumPrintSeverity.rawValue {
-            #if canImport(os)
-                if severity == Self.PrintSeverity.DEBUG {
-                    logger.debug("\(string)")
-                }else if severity == Self.PrintSeverity.WARNING {
-                    logger.warning("\(string)")
-                }else if severity == Self.PrintSeverity.ERROR {
-                    logger.error("\(string)")
-                }else {
-                    logger.log("\(string)")
-                }
-            #else
-                Swift.print(string)
-            #endif
+            Swift.print(string)
+			// if #available(iOS 14.0, *) {
+			// 	#if canImport(os)
+			// 	if severity == Self.PrintSeverity.DEBUG {
+			// 		logger.debug("\(string)")
+			// 	}else if severity == Self.PrintSeverity.WARNING {
+			// 		logger.warning("\(string)")
+			// 	}else if severity == Self.PrintSeverity.ERROR {
+			// 		logger.error("\(string)")
+			// 	}else {
+			// 		logger.log("\(string)")
+			// 	}
+			// 	#else
+			// 	Swift.print(string)
+			// 	#endif
+			// } else {
+			// 	// Fallback on earlier versions
+			// 	Swift.print(string)
+			// }
         }
     }
 
@@ -4730,7 +4736,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "556d959a4572b40920b57394eef4a3c04a514839"
+        return "49993985ba4f2dd197deef5f62758b2f8bfa11cc"
     }
 
 }

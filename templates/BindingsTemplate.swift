@@ -380,6 +380,7 @@ public class Bindings {
 		}
 	}
 
+	/*
 	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hops).cOpaqueStruct!
@@ -388,6 +389,7 @@ public class Bindings {
 			}
 		}
 	}
+	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
         return "/* SWIFT_BINDINGS_VERSION */"

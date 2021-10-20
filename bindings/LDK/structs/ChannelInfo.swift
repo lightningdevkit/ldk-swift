@@ -7,11 +7,11 @@ public class ChannelInfo: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(features_arg: ChannelFeatures, node_one_arg: [UInt8], one_to_two_arg: DirectionalChannelInfo, node_two_arg: [UInt8], two_to_one_arg: DirectionalChannelInfo, capacity_sats_arg: Option_u64Z, announcement_message_arg: ChannelAnnouncement) {
+    public init(features_arg: ChannelFeatures, node_one_arg: NodeId, one_to_two_arg: DirectionalChannelInfo, node_two_arg: NodeId, two_to_one_arg: DirectionalChannelInfo, capacity_sats_arg: Option_u64Z, announcement_message_arg: ChannelAnnouncement) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_one_arg), one_to_two_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_two_arg), two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, node_one_arg.danglingClone().cOpaqueStruct!, one_to_two_arg.danglingClone().cOpaqueStruct!, node_two_arg.danglingClone().cOpaqueStruct!, two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
@@ -49,19 +49,19 @@ ChannelInfo_get_features(this_ptrPointer)
         return ChannelInfo_set_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_node_one() -> [UInt8] {
+    public func get_node_one() -> NodeId {
     	
-        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+        return NodeId(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
 ChannelInfo_get_node_one(this_ptrPointer)
 });
     }
 
-    public func set_node_one(val: [UInt8]) -> Void {
+    public func set_node_one(val: NodeId) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_node_one(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelInfo_set_node_one(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_one_to_two() -> DirectionalChannelInfo {
@@ -79,19 +79,19 @@ ChannelInfo_get_one_to_two(this_ptrPointer)
         return ChannelInfo_set_one_to_two(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_node_two() -> [UInt8] {
+    public func get_node_two() -> NodeId {
     	
-        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+        return NodeId(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
 ChannelInfo_get_node_two(this_ptrPointer)
 });
     }
 
-    public func set_node_two(val: [UInt8]) -> Void {
+    public func set_node_two(val: NodeId) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelInfo_set_node_two(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+        return ChannelInfo_set_node_two(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_two_to_one() -> DirectionalChannelInfo {

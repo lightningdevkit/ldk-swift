@@ -287,7 +287,7 @@ public class HumanObjectPeerTestInstance {
 
         let config = UserConfig()
         let theirNodeId = peer2.channelManager.get_our_node_id()
-        let channelOpenResult = peer1.channelManager.create_channel(their_network_key: theirNodeId, channel_value_satoshis: 4000000, push_msat: 2000000, user_id: 42, override_config: config)
+        let channelOpenResult = peer1.channelManager.create_channel(their_network_key: theirNodeId, channel_value_satoshis: 4000000, push_msat: 2000000, user_channel_id: 42, override_config: config)
 
         XCTAssertTrue(channelOpenResult.isOk())
         let channels = peer1.channelManager.list_channels()

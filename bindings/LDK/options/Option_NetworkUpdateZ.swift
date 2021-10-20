@@ -13,6 +13,7 @@ public class Option_NetworkUpdateZ: NativeTypeWrapper {
 				self.cOpaqueStruct = LDKCOption_NetworkUpdateZ()
 				if let value = value {
 					self.cOpaqueStruct!.tag = LDKCOption_NetworkUpdateZ_Some
+					
 					self.cOpaqueStruct!.some = value.cOpaqueStruct!
 				} else {
 					self.cOpaqueStruct!.tag = LDKCOption_NetworkUpdateZ_None

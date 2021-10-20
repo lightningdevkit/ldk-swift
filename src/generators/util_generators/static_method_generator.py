@@ -24,7 +24,8 @@ class StaticMethodGenerator(UtilGenerator):
 				method_name = 'swift' + swift_method_name
 
 			if native_method_name == 'get_route':
-				continue
+				# continue
+				pass
 
 			arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method['argument_types'], False)
 			return_wrappers = ConversionHelper.prepare_return_value(current_method['return_type'], False)

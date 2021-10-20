@@ -67,6 +67,25 @@ ChainMonitor_get_claimable_balances(this_argPointer, ignored_channelsWrapper.dan
 					;
     }
 
+    public func get_monitor(funding_txo: OutPoint) -> Result_LockedChannelMonitorNoneZ {
+    	
+        return Result_LockedChannelMonitorNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_get_monitor(this_argPointer, funding_txo.danglingClone().cOpaqueStruct!)
+});
+    }
+
+    public func list_monitors() -> [OutPoint] {
+    	
+        return Bindings.LDKCVec_OutPointZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_list_monitors(this_argPointer)
+})
+						
+						.map { (cOpaqueStruct) in
+							OutPoint(pointer: cOpaqueStruct)
+						}
+					;
+    }
+
     public func as_Listen() -> NativelyImplementedListen {
     	
         return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in

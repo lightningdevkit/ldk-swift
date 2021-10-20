@@ -13,6 +13,7 @@ public class Option_C2Tuple_usizeTransactionZZ: NativeTypeWrapper {
 				self.cOpaqueStruct = LDKCOption_C2Tuple_usizeTransactionZZ()
 				if let value = value {
 					self.cOpaqueStruct!.tag = LDKCOption_C2Tuple_usizeTransactionZZ_Some
+					
 					self.cOpaqueStruct!.some = value.cOpaqueStruct!
 				} else {
 					self.cOpaqueStruct!.tag = LDKCOption_C2Tuple_usizeTransactionZZ_None

@@ -9,6 +9,6 @@ import Foundation
 
 public class NetGraphMsgHandlerConstructor {
     public static func initNetGraphMsgHandler(networkGraph: NetworkGraph, chainAccess: Access?, logger: Logger) -> NetGraphMsgHandler {
-        return NetGraphMsgHandler(network_graph: networkGraph.dangle(), chain_access: Option_AccessZ(value: chainAccess), logger: logger)
+        return NetGraphMsgHandler(network_graph: networkGraph, chain_access: Option_AccessZ(value: chainAccess), logger: logger)
     }
 }

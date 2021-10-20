@@ -79,13 +79,18 @@ class OptionGenerator:
 			# TODO: make some/none-ordering-agnostic!
 			some_variant_name = option_value_details[0].tag_value  # var_name
 			none_variant_name = option_value_details[1].var_name
-			field_details = option_value_details[0].fields[0]
+			constructor_argument_types = option_value_details[0].fields
+			field_details = constructor_argument_types[0]
 
 			assert field_details.var_name == 'some'
 
 			raw_rust_type = field_details.rust_obj
 			swift_type = field_details.swift_type
 			nullable_swift_type = swift_type + '?'
+
+			
+			array_parsing_prep = ''
+			array_return_line = None
 
 			native_conversion_prefix = ''
 			native_conversion_suffix = ''
@@ -97,6 +102,23 @@ class OptionGenerator:
 				native_conversion_suffix = '.cOpaqueStruct!'
 				swift_local_conversion_prefix = f'{swift_type}(pointer: '
 				swift_local_conversion_suffix = ')'
+			elif swift_type.startswith('['):
+				prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_argument_types, array_unwrapping_preparation_only=True)
+				array_parsing_prep = f"""
+					{prepared_arguments['native_call_prep'].replace('some', 'value')}
+					let somevalue = Bindings.new_{raw_rust_type}Wrapper(array: valueUnwrapped)
+                    // try! self.addAnchor(anchor: somevalue)
+                    somevalue.dangle()
+				"""
+				native_conversion_prefix = 'some'
+				native_conversion_suffix = '.cOpaqueStruct!'
+
+				value_return_wrappers = ConversionHelper.prepare_return_value(field_details, is_clone_method=False, is_raw_property_getter=True)
+				current_swift_return_type = value_return_wrappers['swift_type']
+				current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]
+				current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', f'self.cOpaqueStruct!.{field_details.var_name}')
+				array_return_line = current_replacement
+			
 
 			# DEFAULT CONSTRUCTOR
 
@@ -106,6 +128,7 @@ class OptionGenerator:
 				self.cOpaqueStruct = {struct_name}()
 				if let value = value {{
 					self.cOpaqueStruct!.tag = {some_variant_name}
+					{array_parsing_prep}
 					self.cOpaqueStruct!.some = {native_conversion_prefix}value{native_conversion_suffix}
 				}} else {{
 					self.cOpaqueStruct!.tag = {none_variant_name}
@@ -118,13 +141,18 @@ class OptionGenerator:
 			current_replacement = current_replacement.replace('methodName', current_method_name)
 			current_replacement = current_replacement.replace('swift_arguments', '')
 			current_replacement = current_replacement.replace('-> Void', '-> ' + nullable_swift_type)
+			
+			some_return_line = f'''return {swift_local_conversion_prefix}self.cOpaqueStruct!.some{swift_local_conversion_suffix}'''
+			if array_return_line is not None:
+				some_return_line = array_return_line
+			
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', f'''
 			
 				if self.cOpaqueStruct!.tag == {none_variant_name} {{
 						return nil
 				}}
 				if self.cOpaqueStruct!.tag == {some_variant_name} {{
-					return {swift_local_conversion_prefix}self.cOpaqueStruct!.some{swift_local_conversion_suffix}
+					{some_return_line}
 				}}
 				assert(false, "invalid option enum value")
 				return nil

@@ -59,6 +59,20 @@ InvalidShutdownScript_get_script(this_ptrPointer)
         return InvalidShutdownScript_set_script(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
+    public func clone() -> InvalidShutdownScript {
+    	
+        return InvalidShutdownScript(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKInvalidShutdownScript>) in
+InvalidShutdownScript_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> InvalidShutdownScript {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     internal func free() -> Void {
     	
         return InvalidShutdownScript_free(self.cOpaqueStruct!);

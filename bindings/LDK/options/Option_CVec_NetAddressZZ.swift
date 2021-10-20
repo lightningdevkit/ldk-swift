@@ -13,9 +13,18 @@ public class Option_CVec_NetAddressZZ: NativeTypeWrapper {
 				self.cOpaqueStruct = LDKCOption_CVec_NetAddressZZ()
 				if let value = value {
 					self.cOpaqueStruct!.tag = LDKCOption_CVec_NetAddressZZ_Some
-                    let wrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: value)
-                    
-                    self.cOpaqueStruct!.some = wrapper.c
+					
+					
+							let valueUnwrapped = value.map { (valueCurrentValue) in
+							valueCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					let somevalue = Bindings.new_LDKCVec_NetAddressZWrapper(array: valueUnwrapped)
+                    // try! self.addAnchor(anchor: somevalue)
+                    somevalue.dangle()
+				
+					self.cOpaqueStruct!.some = somevalue.cOpaqueStruct!
 				} else {
 					self.cOpaqueStruct!.tag = LDKCOption_CVec_NetAddressZZ_None
 				}
@@ -50,7 +59,12 @@ public class Option_CVec_NetAddressZZ: NativeTypeWrapper {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_CVec_NetAddressZZ_Some {
-					return self.cOpaqueStruct!.some
+					return Bindings.LDKCVec_NetAddressZ_to_array(nativeType: self.cOpaqueStruct!.some, deallocate: false)
+						
+						.map { (cOpaqueStruct) in
+							NetAddress(pointer: cOpaqueStruct).dangle()
+						}
+					
 				}
 				assert(false, "invalid option enum value")
 				return nil

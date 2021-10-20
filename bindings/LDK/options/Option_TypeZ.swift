@@ -13,6 +13,7 @@ public class Option_TypeZ: NativeTypeWrapper {
 				self.cOpaqueStruct = LDKCOption_TypeZ()
 				if let value = value {
 					self.cOpaqueStruct!.tag = LDKCOption_TypeZ_Some
+					
 					self.cOpaqueStruct!.some = value.cOpaqueStruct!
 				} else {
 					self.cOpaqueStruct!.tag = LDKCOption_TypeZ_None

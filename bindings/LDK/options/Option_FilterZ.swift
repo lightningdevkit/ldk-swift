@@ -13,6 +13,7 @@ public class Option_FilterZ: NativeTypeWrapper {
 				self.cOpaqueStruct = LDKCOption_FilterZ()
 				if let value = value {
 					self.cOpaqueStruct!.tag = LDKCOption_FilterZ_Some
+					
 					self.cOpaqueStruct!.some = value.cOpaqueStruct!
 				} else {
 					self.cOpaqueStruct!.tag = LDKCOption_FilterZ_None

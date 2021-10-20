@@ -1,3 +1,5 @@
+import Foundation
+
 open class Persist: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
@@ -13,15 +15,15 @@ open class Persist: NativeTypeWrapper {
 
 		func persist_new_channelCallback(pointer: UnsafeRawPointer?, id: LDKOutPoint, dataPointer: UnsafePointer<LDKChannelMonitor>) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::persist_new_channel")
-			let data = ChannelMonitor(pointer: dataPointer.pointee);
+			let data = ChannelMonitor(pointer: dataPointer.pointee).dangle();
 
 			return instance.persist_new_channel(id: OutPoint(pointer: id), data: data).cOpaqueStruct!
 		}
 
 		func update_persisted_channelCallback(pointer: UnsafeRawPointer?, id: LDKOutPoint, updatePointer: UnsafePointer<LDKChannelMonitorUpdate>, dataPointer: UnsafePointer<LDKChannelMonitor>) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::update_persisted_channel")
-			let update = ChannelMonitorUpdate(pointer: updatePointer.pointee);
-let data = ChannelMonitor(pointer: dataPointer.pointee);
+			let update = ChannelMonitorUpdate(pointer: updatePointer.pointee).dangle();
+let data = ChannelMonitor(pointer: dataPointer.pointee).dangle();
 
 			return instance.update_persisted_channel(id: OutPoint(pointer: id), update: update, data: data).cOpaqueStruct!
 		}

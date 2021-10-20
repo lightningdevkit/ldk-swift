@@ -1,3 +1,5 @@
+import Foundation
+
 open class RoutingMessageHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
@@ -13,21 +15,21 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 
 		func handle_node_announcementCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKNodeAnnouncement>) -> LDKCResult_boolLightningErrorZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::handle_node_announcement")
-			let msg = NodeAnnouncement(pointer: msgPointer.pointee);
+			let msg = NodeAnnouncement(pointer: msgPointer.pointee).dangle();
 
 			return instance.handle_node_announcement(msg: msg).cOpaqueStruct!
 		}
 
 		func handle_channel_announcementCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKChannelAnnouncement>) -> LDKCResult_boolLightningErrorZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::handle_channel_announcement")
-			let msg = ChannelAnnouncement(pointer: msgPointer.pointee);
+			let msg = ChannelAnnouncement(pointer: msgPointer.pointee).dangle();
 
 			return instance.handle_channel_announcement(msg: msg).cOpaqueStruct!
 		}
 
 		func handle_channel_updateCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKChannelUpdate>) -> LDKCResult_boolLightningErrorZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::handle_channel_update")
-			let msg = ChannelUpdate(pointer: msgPointer.pointee);
+			let msg = ChannelUpdate(pointer: msgPointer.pointee).dangle();
 
 			return instance.handle_channel_update(msg: msg).cOpaqueStruct!
 		}
@@ -58,7 +60,7 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 
 		func sync_routing_tableCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> Void {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::sync_routing_table")
-			let initValue = Init(pointer: initValuePointer.pointee);
+			let initValue = Init(pointer: initValuePointer.pointee).dangle();
 
 			return instance.sync_routing_table(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), initValue: initValue)
 		}

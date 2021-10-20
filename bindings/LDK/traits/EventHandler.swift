@@ -1,3 +1,5 @@
+import Foundation
+
 open class EventHandler: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
@@ -13,7 +15,7 @@ open class EventHandler: NativeTypeWrapper {
 
 		func handle_eventCallback(pointer: UnsafeRawPointer?, eventPointer: UnsafePointer<LDKEvent>) -> Void {
 			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::handle_event")
-			let event = Event(pointer: eventPointer.pointee);
+			let event = Event(pointer: eventPointer.pointee).dangle();
 
 			return instance.handle_event(event: event)
 		}

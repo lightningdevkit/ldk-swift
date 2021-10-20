@@ -1,3 +1,5 @@
+import Foundation
+
 open class SocketDescriptor: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
@@ -25,7 +27,7 @@ open class SocketDescriptor: NativeTypeWrapper {
 
 		func eqCallback(pointer: UnsafeRawPointer?, other_argPointer: UnsafePointer<LDKSocketDescriptor>) -> Bool {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::eq")
-			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee);
+			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee).dangle();
 
 			return instance.eq(other_arg: other_arg)
 		}

@@ -41,6 +41,23 @@ Scorer_as_Score(this_argPointer)
 }, anchor: self);
     }
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKScorer>) in
+Scorer_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_ScorerDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ScorerDecodeErrorZ(pointer: Scorer_read(serWrapper.cOpaqueStruct!));
+    }
+
     internal func free() -> Void {
     	
         return Scorer_free(self.cOpaqueStruct!);

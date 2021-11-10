@@ -115,11 +115,11 @@ ChannelManager_send_payment(this_argPointer, routePointer, Bindings.new_LDKThirt
 });
     }
 
-    public func retry_payment(route: Route, payment_id: PaymentId) -> Result_NonePaymentSendFailureZ {
+    public func retry_payment(route: Route, payment_id: [UInt8]) -> Result_NonePaymentSendFailureZ {
     	
         return Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
-ChannelManager_retry_payment(this_argPointer, routePointer, payment_id.danglingClone().cOpaqueStruct!)
+ChannelManager_retry_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_id))
 }
 });
     }
@@ -206,15 +206,6 @@ ChannelManager_get_our_node_id(this_argPointer)
 });
     }
 
-    public func channel_monitor_updated(funding_txo: OutPoint, highest_applied_update_id: UInt64) -> Void {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-withUnsafePointer(to: funding_txo.cOpaqueStruct!) { (funding_txoPointer: UnsafePointer<LDKOutPoint>) in
-ChannelManager_channel_monitor_updated(this_argPointer, funding_txoPointer, highest_applied_update_id)
-}
-};
-    }
-
     public func create_inbound_payment(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32, user_payment_id: UInt64) -> C2Tuple_PaymentHashPaymentSecretZ {
     	
         return C2Tuple_PaymentHashPaymentSecretZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
@@ -290,6 +281,13 @@ ChannelManager_as_ChannelMessageHandler(this_argPointer)
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_write(objPointer)
 });
+    }
+
+    public func as_Payer() -> NativelyImplementedPayer {
+    	
+        return NativelyImplementedPayer(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_as_Payer(this_argPointer)
+}, anchor: self);
     }
 
     internal func free() -> Void {

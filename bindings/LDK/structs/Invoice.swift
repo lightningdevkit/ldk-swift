@@ -89,9 +89,9 @@ Invoice_payee_pub_key(this_argPointer)
 
     public func payment_secret() -> [UInt8] {
     	
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_payment_secret(this_argPointer)
-});
+}.pointee);
     }
 
     public func features() -> InvoiceFeatures {
@@ -112,6 +112,13 @@ Invoice_recover_payee_pub_key(this_argPointer)
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_expiry_time(this_argPointer)
+};
+    }
+
+    public func is_expired() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+Invoice_is_expired(this_argPointer)
 };
     }
 
@@ -153,10 +160,10 @@ Invoice_currency(this_argPointer)
 };
     }
 
-    public func amount_pico_btc() -> Option_u64Z {
+    public func amount_milli_satoshis() -> Option_u64Z {
     	
         return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
-Invoice_amount_pico_btc(this_argPointer)
+Invoice_amount_milli_satoshis(this_argPointer)
 });
     }
 

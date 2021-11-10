@@ -169,12 +169,12 @@ Event_clone(origPointer)
         return Event(pointer: Event_payment_received(Bindings.new_LDKThirtyTwoBytes(array: payment_hash), amt, purpose.danglingClone().cOpaqueStruct!));
     }
 
-    public class func payment_sent(payment_preimage: [UInt8], payment_hash: [UInt8]) -> Event {
+    public class func payment_sent(payment_id: [UInt8], payment_preimage: [UInt8], payment_hash: [UInt8], fee_paid_msat: Option_u64Z) -> Event {
     	
-        return Event(pointer: Event_payment_sent(Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), Bindings.new_LDKThirtyTwoBytes(array: payment_hash)));
+        return Event(pointer: Event_payment_sent(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), fee_paid_msat.danglingClone().cOpaqueStruct!));
     }
 
-    public class func payment_path_failed(payment_hash: [UInt8], rejected_by_dest: Bool, network_update: Option_NetworkUpdateZ, all_paths_failed: Bool, path: [RouteHop], short_channel_id: Option_u64Z) -> Event {
+    public class func payment_path_failed(payment_id: [UInt8], payment_hash: [UInt8], rejected_by_dest: Bool, network_update: Option_NetworkUpdateZ, all_paths_failed: Bool, path: [RouteHop], short_channel_id: Option_u64Z, retry: RouteParameters) -> Event {
     	
 							let pathUnwrapped = path.map { (pathCurrentValue) in
 							pathCurrentValue
@@ -186,7 +186,7 @@ Event_clone(origPointer)
 							pathWrapper.noOpRetain()
 						}
 					
-        return Event(pointer: Event_payment_path_failed(Bindings.new_LDKThirtyTwoBytes(array: payment_hash), rejected_by_dest, network_update.danglingClone().cOpaqueStruct!, all_paths_failed, pathWrapper.dangle().cOpaqueStruct!, short_channel_id.danglingClone().cOpaqueStruct!));
+        return Event(pointer: Event_payment_path_failed(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), rejected_by_dest, network_update.danglingClone().cOpaqueStruct!, all_paths_failed, pathWrapper.dangle().cOpaqueStruct!, short_channel_id.danglingClone().cOpaqueStruct!, retry.danglingClone().cOpaqueStruct!));
     }
 
     public class func pending_htlcs_forwardable(time_forwardable: UInt64) -> Event {
@@ -327,12 +327,20 @@ Event_write(objPointer)
 			
 				
 				
+					public func getPayment_id() -> [UInt8] {
+						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_id)
+					}
+				
 					public func getPayment_preimage() -> [UInt8] {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_preimage)
 					}
 				
 					public func getPayment_hash() -> [UInt8] {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_hash)
+					}
+				
+					public func getFee_paid_msat() -> Option_u64Z {
+						return Option_u64Z(pointer: self.cOpaqueStruct!.fee_paid_msat, anchor: self)
 					}
 				
 				
@@ -355,6 +363,10 @@ Event_write(objPointer)
 				}
 			
 				
+				
+					public func getPayment_id() -> [UInt8] {
+						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_id)
+					}
 				
 					public func getPayment_hash() -> [UInt8] {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_hash)
@@ -383,6 +395,10 @@ Event_write(objPointer)
 				
 					public func getShort_channel_id() -> Option_u64Z {
 						return Option_u64Z(pointer: self.cOpaqueStruct!.short_channel_id, anchor: self)
+					}
+				
+					public func getRetry() -> RouteParameters {
+						return RouteParameters(pointer: self.cOpaqueStruct!.retry, anchor: self)
 					}
 				
 				

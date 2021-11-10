@@ -2861,6 +2861,108 @@ public class Bindings {
 	/* RUST_TO_SWIFT_END */
 
 	/* SWIFT_TO_RUST_START */
+	public class func new_LDKCVec_RouteHintHopZWrapper(array: [LDKRouteHintHop]) -> LDKCVec_RouteHintHopZWrapper {
+		/* DIMENSION_REDUCTION_PREP */
+
+		/*
+        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKRouteHintHop>) -> UnsafeMutablePointer<LDKRouteHintHop> in
+            let mutablePointer = UnsafeMutablePointer<LDKRouteHintHop>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<LDKRouteHintHop>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
+
+        let vector = LDKCVec_RouteHintHopZ(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKCVec_RouteHintHopZWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKCVec_RouteHintHopZWrapper: NativeTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCVec_RouteHintHopZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKCVec_RouteHintHopZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		internal init(pointer: LDKCVec_RouteHintHopZ, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public func noOpRetain(){}
+
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_RouteHintHopZWrapper {
+			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_RouteHintHopZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_RouteHintHopZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKCVec_RouteHintHopZ_to_array(nativeType: LDKCVec_RouteHintHopZ, deallocate: Bool = true) -> [LDKRouteHintHop] {
+		var array = [LDKRouteHintHop]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKRouteHintHopArray(array: [RouteHintHop]) -> [LDKRouteHintHop] {
+							return array.map { entry -> LDKRouteHintHop in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKRouteHintHopArray(array: [LDKRouteHintHop]) -> [RouteHintHop] {
+							return array.map { entry -> RouteHintHop in
+								RouteHintHop(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKRouteHintHopArray(array: [LDKRouteHintHop]) -> [RouteHintHop] {
+							return array.map { entry -> RouteHintHop in
+								RouteHintHop(pointer: entry).dangle()
+							}
+						}
+					
+							internal class func cloneNativeLDKRouteHintHopArray(array: [LDKRouteHintHop]) -> [LDKRouteHintHop] {
+								return array.map { entry -> LDKRouteHintHop in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									RouteHintHop(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
+							}
+						
+
+	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_RouteHintZWrapper(array: [LDKRouteHint]) -> LDKCVec_RouteHintZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
@@ -4350,19 +4452,6 @@ public class func swift_C2Tuple_BlockHashChannelManagerZ_read(ser: [UInt8], arg:
 				
 			
 	}
-	public class func swift_Result_read(ser: [UInt8]) -> Result_CResult_NetAddressu8ZDecodeErrorZ {
-		
-				
-						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
-						defer {
-							serWrapper.noOpRetain()
-						}
-					
-				return 
-				Result_CResult_NetAddressu8ZDecodeErrorZ(pointer: Result_read(serWrapper.cOpaqueStruct!))
-				
-			
-	}
 	public class func swift_build_commitment_secret(commitment_seed: [UInt8], idx: UInt64) -> [UInt8] {
 		
 				
@@ -4477,7 +4566,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				
 			
 	}
-	public class func swift_get_keysend_route(our_node_pubkey: [UInt8], network: NetworkGraph, payee: [UInt8], first_hops: [ChannelDetails]?, last_hops: [RouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger, scorer: Score) -> Result_RouteLightningErrorZ {
+	public class func swift_find_route(our_node_pubkey: [UInt8], params: RouteParameters, network: NetworkGraph, first_hops: [ChannelDetails]?, logger: Logger, scorer: Score) -> Result_RouteLightningErrorZ {
 		
 				
 							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
@@ -4492,55 +4581,13 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 								first_hopsPointer!.initialize(to: Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hopsUnwrapped).cOpaqueStruct!)
 							}
 						
-							let last_hopsUnwrapped = last_hops.map { (last_hopsCurrentValue) in
-							last_hopsCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hopsUnwrapped)
-						defer {
-							last_hopsWrapper.noOpRetain()
-						}
-					
-				return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
+				return withUnsafePointer(to: params.cOpaqueStruct!) { (paramsPointer: UnsafePointer<LDKRouteParameters>) in
+withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 
-				Result_RouteLightningErrorZ(pointer: get_keysend_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), networkPointer, Bindings.new_LDKPublicKey(array: payee), first_hopsPointer, last_hopsWrapper.dangle().cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!, scorerPointer))
+				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), paramsPointer, networkPointer, first_hopsPointer, logger.cOpaqueStruct!, scorerPointer))
 				
 }
-}
-			
-	}
-	public class func swift_get_route(our_node_pubkey: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [ChannelDetails]?, last_hops: [RouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger, scorer: Score) -> Result_RouteLightningErrorZ {
-		
-				
-							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
-							if let first_hopsUnwrapped = first_hops {
-								
-							let first_hopsUnwrapped = first_hopsUnwrapped.map { (first_hopsCurrentValue) in
-							first_hopsCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-								first_hopsPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
-								first_hopsPointer!.initialize(to: Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hopsUnwrapped).cOpaqueStruct!)
-							}
-						
-							let last_hopsUnwrapped = last_hops.map { (last_hopsCurrentValue) in
-							last_hopsCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-						let last_hopsWrapper = Bindings.new_LDKCVec_RouteHintZWrapper(array: last_hopsUnwrapped)
-						defer {
-							last_hopsWrapper.noOpRetain()
-						}
-					
-				return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
-withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
-
-				Result_RouteLightningErrorZ(pointer: get_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), networkPointer, Bindings.new_LDKPublicKey(array: payee), payee_features.danglingClone().cOpaqueStruct!, first_hopsPointer, last_hopsWrapper.dangle().cOpaqueStruct!, final_value_msat, final_cltv, logger.cOpaqueStruct!, scorerPointer))
-				
 }
 }
 			
@@ -4736,7 +4783,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "49993985ba4f2dd197deef5f62758b2f8bfa11cc"
+        return "8710fe755533ab4dca1f4b50450e46e9ae2325dc"
     }
 
 }

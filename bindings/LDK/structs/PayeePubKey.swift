@@ -6,7 +6,15 @@ public class PayeePubKey: NativeTypeWrapper {
     internal var cOpaqueStruct: LDKPayeePubKey?
 
 
-	
+	/* DEFAULT_CONSTRUCTOR_START */
+    public init(a_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+    	
+        self.cOpaqueStruct = PayeePubKey_new(Bindings.new_LDKPublicKey(array: a_arg))
+        super.init(conflictAvoidingVariableName: 0)
+    }
+    /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKPayeePubKey){
     	Self.instanceCounter += 1
@@ -25,6 +33,21 @@ public class PayeePubKey: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
+
+    public func get_a() -> [UInt8] {
+    	
+        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPayeePubKey>) in
+PayeePubKey_get_a(this_ptrPointer)
+});
+    }
+
+    public func set_a(val: [UInt8]) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKPayeePubKey>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return PayeePubKey_set_a(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+    }
 
     public func clone() -> PayeePubKey {
     	

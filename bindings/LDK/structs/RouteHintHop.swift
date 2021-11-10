@@ -154,6 +154,23 @@ RouteHintHop_eq(aPointer, bPointer)
 };
     }
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHintHop>) in
+RouteHintHop_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_RouteHintHopDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_RouteHintHopDecodeErrorZ(pointer: RouteHintHop_read(serWrapper.cOpaqueStruct!));
+    }
+
     internal func free() -> Void {
     	
         return RouteHintHop_free(self.cOpaqueStruct!);

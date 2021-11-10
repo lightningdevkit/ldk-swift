@@ -6,7 +6,15 @@ public class MinFinalCltvExpiry: NativeTypeWrapper {
     internal var cOpaqueStruct: LDKMinFinalCltvExpiry?
 
 
-	
+	/* DEFAULT_CONSTRUCTOR_START */
+    public init(a_arg: UInt64) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+    	
+        self.cOpaqueStruct = MinFinalCltvExpiry_new(a_arg)
+        super.init(conflictAvoidingVariableName: 0)
+    }
+    /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKMinFinalCltvExpiry){
     	Self.instanceCounter += 1
@@ -25,6 +33,21 @@ public class MinFinalCltvExpiry: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
+
+    public func get_a() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+MinFinalCltvExpiry_get_a(this_ptrPointer)
+};
+    }
+
+    public func set_a(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKMinFinalCltvExpiry>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return MinFinalCltvExpiry_set_a(this_ptrPointer, val);
+    }
 
     public func clone() -> MinFinalCltvExpiry {
     	

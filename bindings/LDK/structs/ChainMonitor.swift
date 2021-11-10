@@ -86,6 +86,13 @@ ChainMonitor_list_monitors(this_argPointer)
 					;
     }
 
+    public func channel_monitor_updated(funding_txo: OutPoint, completed_update_id: MonitorUpdateId) -> Result_NoneAPIErrorZ {
+    	
+        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+ChainMonitor_channel_monitor_updated(this_argPointer, funding_txo.danglingClone().cOpaqueStruct!, completed_update_id.danglingClone().cOpaqueStruct!)
+});
+    }
+
     public func as_Listen() -> NativelyImplementedListen {
     	
         return NativelyImplementedListen(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in

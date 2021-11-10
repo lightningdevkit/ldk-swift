@@ -10,14 +10,14 @@ import LDKHeaders
 
 class TestPersister: Persist {
     
-    override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
-        let idBytes: [UInt8] = id.write()
+    override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+        let idBytes: [UInt8] = channel_id.write()
         let monitorBytes: [UInt8] = data.write()
         return Result_NoneChannelMonitorUpdateErrZ.ok()
     }
     
-    override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
-        let idBytes: [UInt8] = id.write()
+    override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+        let idBytes: [UInt8] = channel_id.write()
         let monitorBytes: [UInt8] = data.write()
         return Result_NoneChannelMonitorUpdateErrZ.ok()
     }

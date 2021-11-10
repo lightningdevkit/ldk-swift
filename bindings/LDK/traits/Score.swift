@@ -24,7 +24,7 @@ let target = NodeId(pointer: targetPointer.pointee).dangle();
 		func payment_path_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
 			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::payment_path_failed")
 			
-			return instance.payment_path_failed(path: path, short_channel_id: short_channel_id)
+			return instance.payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
 		}
 
 		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
@@ -98,7 +98,7 @@ let target = NodeId(pointer: targetPointer.pointee).dangle();
 return 0
     }
 
-    open func payment_path_failed(path: [RouteHop], short_channel_id: UInt64) -> Void {
+    open func payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
     	/* EDIT ME */
 		Bindings.print("Score::payment_path_failed should be overridden!", severity: .WARNING)
 
@@ -153,7 +153,7 @@ withUnsafePointer(to: target.cOpaqueStruct!) { (targetPointer: UnsafePointer<LDK
 	}
 
 @available(*, deprecated, message: "Use method taking Swift object array type instead.")
-	public override func payment_path_failed(path: [RouteHop], short_channel_id: UInt64) -> Void {
+	public override func payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
 		
 				
 						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: path)

@@ -281,7 +281,7 @@ class TraitGenerator:
 
 			if default_callback_prepared_arguments['has_unwrapped_arrays']:
 				default_callback_alternative_input_parameters = ConversionHelper.prepare_native_to_swift_callback_arguments(current_lambda['argument_types'], array_unwrapping_preparation_only=True)
-				default_callback_alternative_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], is_trait_callback=False, array_unwrapping_preparation_only=True)
+				default_callback_alternative_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], is_trait_callback=False, array_unwrapping_preparation_only=True, is_trait_default_redirect=True)
 
 				current_default_callback_addition = natively_implemented_callback_template
 				current_default_callback_addition = current_default_callback_addition.replace('public_swift_argument_list', default_callback_alternative_input_parameters['public_swift_argument_list'])

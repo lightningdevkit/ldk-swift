@@ -134,7 +134,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		if is_ptr:
 			res.pass_by_ref = True
 		if res.is_native_primitive or res.passed_as_ptr:
-			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]', c_ty=res.c_ty + "Array", passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const, var_name=res.var_name,
+			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]', swift_raw_type=f'[{res.swift_raw_type}]', c_ty=res.c_ty + "Array", passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const, var_name=res.var_name,
 							arr_len="datalen", arr_access="data", subty=res, is_native_primitive=False, non_nullable=non_nullable)
 		else:
 			return TypeInfo(rust_obj=fn_arg.split(" ")[0], swift_type=f'[{res.swift_type}]', c_ty=language_constants.ptr_arr, passed_as_ptr=False, is_ptr=is_ptr, is_const=is_const,
@@ -265,6 +265,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 			c_ty = language_constants.ptr_c_ty
 			java_ty = language_constants.ptr_native_ty
 			swift_type = type_match.replace("LDKCResult", "Result").replace("LDKCOption", "Option").replace("LDK", "")
+			swift_raw_type = type_match
 			fn_arg = name_match
 			rust_obj = type_match
 			take_by_ptr = True

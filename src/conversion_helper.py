@@ -11,7 +11,7 @@ class ConversionHelper:
 	nullable_inner_types = {'LDKOutPoint'}
 
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False):
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False, is_trait_default_redirect = False):
 		swift_arguments = []
 		swift_redirection_arguments = []
 		native_arguments = []
@@ -90,8 +90,13 @@ class ConversionHelper:
 						is_nullable_array_argument = current_argument_details.is_ptr and not pass_instance and not current_argument_details.non_nullable
 						if is_nullable_array_argument:
 							input_argument_name = passed_argument_name
+						declaration_prefix = 'let '
+						if is_trait_default_redirect and current_argument_details.is_ptr and not current_argument_details.is_const:
+							declaration_prefix = ''
+							input_argument_name = passed_argument_name
+							passed_argument_name = f'{argument_name}Native'
 						array_wrapper_extraction = f'''
-							let {passed_argument_name} = {input_argument_name}{map_prefix}
+							{declaration_prefix}{passed_argument_name} = {input_argument_name}{map_prefix}
 								{individual_clone_infix}.cOpaqueStruct!
 							{map_suffix}
 						'''
@@ -99,7 +104,8 @@ class ConversionHelper:
 							native_call_prep += array_wrapper_extraction
 
 			if current_argument_details.is_ptr:
-				passed_argument_name = argument_name + 'Pointer'
+				if not is_trait_default_redirect:
+					passed_argument_name = argument_name + 'Pointer'
 				if argument_name == 'init':
 					argument_name = 'initValue'
 
@@ -153,6 +159,14 @@ class ConversionHelper:
 								{passed_argument_name}!.initialize(to: {initialization_target})
 							}}
 						'''  # print('optional argument:', argument_name, passed_argument_name)
+				elif requires_mutability and array_unwrapping_preparation_only and is_trait_default_redirect:
+					initialization_target = f'{argument_name}Unwrapped.cOpaqueStruct!'
+					native_call_prep += f'''
+						var {passed_argument_name}: {current_argument_details.swift_raw_type}? = nil
+						if let {argument_name}Unwrapped = {argument_name} {{
+							{array_wrapper_extraction}
+						}}
+					'''  # print('optional argument:', argument_name, passed_argument_name)
 				else:
 					wrapper_return_prefix = '' if pointer_wrapping_depth == 0 else 'return '
 					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
@@ -280,8 +294,8 @@ class ConversionHelper:
 					array_length = current_argument_details.arr_len
 					swift_local_conversion_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'
-					if received_raw_type == 'LDKPublicKey':
-						swift_local_conversion_suffix = '.compressed_form)'
+					if current_argument_details.arr_access is not None and len(current_argument_details.arr_access) > 0:
+						swift_local_conversion_suffix = f'.{current_argument_details.arr_access})'
 				elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'
@@ -300,7 +314,7 @@ class ConversionHelper:
 					# TODO: see if `current_argument_details.pass_by_ref` condition is necessary
 					if current_argument_details.passed_as_ptr and current_argument_details.pass_by_ref:
 						swift_local_conversion_suffix = ').dangle()'
-				elif received_raw_type.startswith('LDKCVec') and published_swift_type.startswith('[C'):
+				elif received_raw_type.startswith('LDKCVec') and (published_swift_type.startswith('[C') or (not published_swift_type.startswith('[C') and inferred_raw_swift_type.startswith('[LDK'))):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'
 					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(published_swift_type) and not array_unwrapping_preparation_only:
@@ -342,6 +356,17 @@ class ConversionHelper:
 							'''
 					else:
 						swift_callback_prep += f'let {passed_var_name} = {swift_local_conversion_prefix}{received_var_name}.pointee{swift_local_conversion_suffix};\n'
+			elif current_argument_details.is_ptr:
+				# it is not const
+				received_raw_type = f'UnsafeMutablePointer<{received_raw_type}>?'
+				received_var_name += 'Pointer'
+				published_swift_type += '?'
+				swift_callback_prep += f'''
+					var {passed_var_name}: {published_swift_type} = nil
+					if let {passed_var_name}Unwrapped = {received_var_name} {{
+						{passed_var_name} = {swift_local_conversion_prefix}{passed_var_name}Unwrapped.pointee{swift_local_conversion_suffix}
+					}}
+				'''
 			else:
 				swift_callback_argument_value = swift_local_conversion_prefix + received_var_name + swift_local_conversion_suffix
 			# if current_argument_details.passed_as_ptr:

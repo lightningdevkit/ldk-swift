@@ -7,11 +7,11 @@ public class InvoicePayer: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(payer: Payer, router: Router, scorer: LockableScore, logger: Logger, event_handler: EventHandler, retry_attempts: RetryAttempts) {
+    public init(payer: Payer, router: Router, scorer: MultiThreadedLockableScore, logger: Logger, event_handler: EventHandler, retry_attempts: RetryAttempts) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKLockableScore>) in
+        self.cOpaqueStruct = withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
 InvoicePayer_new(payer.cOpaqueStruct!, router.cOpaqueStruct!, scorerPointer, logger.cOpaqueStruct!, event_handler.cOpaqueStruct!, retry_attempts.danglingClone().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
@@ -51,6 +51,13 @@ InvoicePayer_pay_invoice(this_argPointer, invoicePointer)
 withUnsafePointer(to: invoice.cOpaqueStruct!) { (invoicePointer: UnsafePointer<LDKInvoice>) in
 InvoicePayer_pay_zero_value_invoice(this_argPointer, invoicePointer, amount_msats)
 }
+});
+    }
+
+    public func pay_pubkey(pubkey: [UInt8], payment_preimage: [UInt8], amount_msats: UInt64, final_cltv_expiry_delta: UInt32) -> Result_PaymentIdPaymentErrorZ {
+    	
+        return Result_PaymentIdPaymentErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoicePayer>) in
+InvoicePayer_pay_pubkey(this_argPointer, Bindings.new_LDKPublicKey(array: pubkey), Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), amount_msats, final_cltv_expiry_delta)
 });
     }
 

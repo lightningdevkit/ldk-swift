@@ -91,9 +91,9 @@ PaymentPurpose_clone(origPointer)
 					}
 				
 
-    public class func invoice_payment(payment_preimage: [UInt8], payment_secret: [UInt8], user_payment_id: UInt64) -> PaymentPurpose {
+    public class func invoice_payment(payment_preimage: [UInt8], payment_secret: [UInt8]) -> PaymentPurpose {
     	
-        return PaymentPurpose(pointer: PaymentPurpose_invoice_payment(Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), user_payment_id));
+        return PaymentPurpose(pointer: PaymentPurpose_invoice_payment(Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), Bindings.new_LDKThirtyTwoBytes(array: payment_secret)));
     }
 
     public class func spontaneous_payment(a: [UInt8]) -> PaymentPurpose {
@@ -128,10 +128,6 @@ PaymentPurpose_clone(origPointer)
 				
 					public func getPayment_secret() -> [UInt8] {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_secret)
-					}
-				
-					public func getUser_payment_id() -> UInt64 {
-						return self.cOpaqueStruct!.user_payment_id
 					}
 				
 				

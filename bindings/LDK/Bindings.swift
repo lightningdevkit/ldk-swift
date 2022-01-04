@@ -407,56 +407,6 @@ public class Bindings {
 			}
 			
 
-	public class func new_LDKTenBytes(array: [UInt8]) -> LDKTenBytes {
-		let byteType = LDKTenBytes(data: (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9]))
-		// let wrapper = LDKTenBytesWrapper(pointer: byteType)
-		return byteType
-	}
-
-	public class func LDKTenBytes_to_array(nativeType: LDKTenBytes) -> [UInt8] {
-		let array = [nativeType.data.0, nativeType.data.1, nativeType.data.2, nativeType.data.3, nativeType.data.4, nativeType.data.5, nativeType.data.6, nativeType.data.7, nativeType.data.8, nativeType.data.9]
-		return array
-	}
-	/*
-	public class LDKTenBytesWrapper {
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
-		internal private(set) var dangling = false
-
-		public var cOpaqueStruct: LDKTenBytes?
-
-		public init(pointer: LDKTenBytes){
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cOpaqueStruct = pointer
-		}
-
-		internal func dangle() -> LDKTenBytesWrapper {
-			self.dangling = true
-			return self
-		}
-
-		deinit {
-			if !self.dangling {
-				print("Freeing LDKTenBytesWrapper \(self.instanceNumber).")
-				self.cOpaqueStruct!.data.deallocate()
-			} else {
-				print("Not freeing LDKTenBytesWrapper \(self.instanceNumber) due to dangle.")
-			}
-		}
-	}
-	*/
-
-			static func array_to_tuple10(array: [UInt8]) -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
-        		return (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9])
-			}
-
-    		static func tuple10_to_array(nativeType: (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)) -> [UInt8] {
-				let array = [nativeType.0, nativeType.1, nativeType.2, nativeType.3, nativeType.4, nativeType.5, nativeType.6, nativeType.7, nativeType.8, nativeType.9]
-				return array
-			}
-			
-
 	public class func new_LDKThirtyTwoBytes(array: [UInt8]) -> LDKThirtyTwoBytes {
 		let byteType = LDKThirtyTwoBytes(data: (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18], array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27], array[28], array[29], array[30], array[31]))
 		// let wrapper = LDKThirtyTwoBytesWrapper(pointer: byteType)
@@ -543,6 +493,56 @@ public class Bindings {
 
     		static func tuple3_to_array(nativeType: (UInt8,UInt8,UInt8)) -> [UInt8] {
 				let array = [nativeType.0, nativeType.1, nativeType.2]
+				return array
+			}
+			
+
+	public class func new_LDKTwelveBytes(array: [UInt8]) -> LDKTwelveBytes {
+		let byteType = LDKTwelveBytes(data: (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11]))
+		// let wrapper = LDKTwelveBytesWrapper(pointer: byteType)
+		return byteType
+	}
+
+	public class func LDKTwelveBytes_to_array(nativeType: LDKTwelveBytes) -> [UInt8] {
+		let array = [nativeType.data.0, nativeType.data.1, nativeType.data.2, nativeType.data.3, nativeType.data.4, nativeType.data.5, nativeType.data.6, nativeType.data.7, nativeType.data.8, nativeType.data.9, nativeType.data.10, nativeType.data.11]
+		return array
+	}
+	/*
+	public class LDKTwelveBytesWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKTwelveBytes?
+
+		public init(pointer: LDKTwelveBytes){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKTwelveBytesWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKTwelveBytesWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKTwelveBytesWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+	*/
+
+			static func array_to_tuple12(array: [UInt8]) -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+        		return (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11])
+			}
+
+    		static func tuple12_to_array(nativeType: (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)) -> [UInt8] {
+				let array = [nativeType.0, nativeType.1, nativeType.2, nativeType.3, nativeType.4, nativeType.5, nativeType.6, nativeType.7, nativeType.8, nativeType.9, nativeType.10, nativeType.11]
 				return array
 			}
 			
@@ -933,7 +933,7 @@ public class Bindings {
 	/* RUST_TO_SWIFT_END */
 						public class func extractNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [C2Tuple_BlockHashChannelMonitorZ]) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
 							return array.map { entry -> LDKC2Tuple_BlockHashChannelMonitorZ in
-								entry.danglingClone().cOpaqueStruct!
+								entry.cOpaqueStruct!
 							}
 						}
 						
@@ -949,13 +949,6 @@ public class Bindings {
 							}
 						}
 					
-							internal class func cloneNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
-								return array.map { entry -> LDKC2Tuple_BlockHashChannelMonitorZ in
-									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									C2Tuple_BlockHashChannelMonitorZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
-								}
-							}
-						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_PublicKeyTypeZZWrapper(array: [LDKC2Tuple_PublicKeyTypeZ]) -> LDKCVec_C2Tuple_PublicKeyTypeZZWrapper {
@@ -1035,7 +1028,7 @@ public class Bindings {
 	/* RUST_TO_SWIFT_END */
 						public class func extractNativeLDKC2Tuple_PublicKeyTypeZArray(array: [C2Tuple_PublicKeyTypeZ]) -> [LDKC2Tuple_PublicKeyTypeZ] {
 							return array.map { entry -> LDKC2Tuple_PublicKeyTypeZ in
-								entry.danglingClone().cOpaqueStruct!
+								entry.cOpaqueStruct!
 							}
 						}
 						
@@ -1051,13 +1044,6 @@ public class Bindings {
 							}
 						}
 					
-							internal class func cloneNativeLDKC2Tuple_PublicKeyTypeZArray(array: [LDKC2Tuple_PublicKeyTypeZ]) -> [LDKC2Tuple_PublicKeyTypeZ] {
-								return array.map { entry -> LDKC2Tuple_PublicKeyTypeZ in
-									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									C2Tuple_PublicKeyTypeZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
-								}
-							}
-						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
@@ -2037,7 +2023,7 @@ public class Bindings {
 	/* RUST_TO_SWIFT_END */
 						public class func extractNativeLDKChannelMonitorArray(array: [ChannelMonitor]) -> [LDKChannelMonitor] {
 							return array.map { entry -> LDKChannelMonitor in
-								entry.danglingClone().cOpaqueStruct!
+								entry.cOpaqueStruct!
 							}
 						}
 						
@@ -2053,13 +2039,6 @@ public class Bindings {
 							}
 						}
 					
-							internal class func cloneNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [LDKChannelMonitor] {
-								return array.map { entry -> LDKChannelMonitor in
-									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									ChannelMonitor(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
-								}
-							}
-						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_EventZWrapper(array: [LDKEvent]) -> LDKCVec_EventZWrapper {
@@ -4381,6 +4360,1256 @@ public class Bindings {
 				
 			
 	}
+	public class func swift_CResult_SecretKeyErrorZ_is_ok(o: Result_SecretKeyErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SecretKeyErrorZ>) in
+
+				CResult_SecretKeyErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PublicKeyErrorZ_is_ok(o: Result_PublicKeyErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PublicKeyErrorZ>) in
+
+				CResult_PublicKeyErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_TxCreationKeysDecodeErrorZ_is_ok(o: Result_TxCreationKeysDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_TxCreationKeysDecodeErrorZ>) in
+
+				CResult_TxCreationKeysDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelPublicKeysDecodeErrorZ_is_ok(o: Result_ChannelPublicKeysDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelPublicKeysDecodeErrorZ>) in
+
+				CResult_ChannelPublicKeysDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_TxCreationKeysErrorZ_is_ok(o: Result_TxCreationKeysErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_TxCreationKeysErrorZ>) in
+
+				CResult_TxCreationKeysErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_HTLCOutputInCommitmentDecodeErrorZ_is_ok(o: Result_HTLCOutputInCommitmentDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_HTLCOutputInCommitmentDecodeErrorZ>) in
+
+				CResult_HTLCOutputInCommitmentDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CounterpartyChannelTransactionParametersDecodeErrorZ_is_ok(o: Result_CounterpartyChannelTransactionParametersDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CounterpartyChannelTransactionParametersDecodeErrorZ>) in
+
+				CResult_CounterpartyChannelTransactionParametersDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelTransactionParametersDecodeErrorZ_is_ok(o: Result_ChannelTransactionParametersDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelTransactionParametersDecodeErrorZ>) in
+
+				CResult_ChannelTransactionParametersDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_HolderCommitmentTransactionDecodeErrorZ_is_ok(o: Result_HolderCommitmentTransactionDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_HolderCommitmentTransactionDecodeErrorZ>) in
+
+				CResult_HolderCommitmentTransactionDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_BuiltCommitmentTransactionDecodeErrorZ_is_ok(o: Result_BuiltCommitmentTransactionDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_BuiltCommitmentTransactionDecodeErrorZ>) in
+
+				CResult_BuiltCommitmentTransactionDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_TrustedClosingTransactionNoneZ_is_ok(o: Result_TrustedClosingTransactionNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_TrustedClosingTransactionNoneZ>) in
+
+				CResult_TrustedClosingTransactionNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CommitmentTransactionDecodeErrorZ_is_ok(o: Result_CommitmentTransactionDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CommitmentTransactionDecodeErrorZ>) in
+
+				CResult_CommitmentTransactionDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_TrustedCommitmentTransactionNoneZ_is_ok(o: Result_TrustedCommitmentTransactionNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_TrustedCommitmentTransactionNoneZ>) in
+
+				CResult_TrustedCommitmentTransactionNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CVec_SignatureZNoneZ_is_ok(o: Result_CVec_SignatureZNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CVec_SignatureZNoneZ>) in
+
+				CResult_CVec_SignatureZNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ShutdownScriptDecodeErrorZ_is_ok(o: Result_ShutdownScriptDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ShutdownScriptDecodeErrorZ>) in
+
+				CResult_ShutdownScriptDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ShutdownScriptInvalidShutdownScriptZ_is_ok(o: Result_ShutdownScriptInvalidShutdownScriptZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ShutdownScriptInvalidShutdownScriptZ>) in
+
+				CResult_ShutdownScriptInvalidShutdownScriptZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NoneErrorZ_is_ok(o: Result_NoneErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneErrorZ>) in
+
+				CResult_NoneErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RouteHopDecodeErrorZ_is_ok(o: Result_RouteHopDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RouteHopDecodeErrorZ>) in
+
+				CResult_RouteHopDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RouteDecodeErrorZ_is_ok(o: Result_RouteDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RouteDecodeErrorZ>) in
+
+				CResult_RouteDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RouteParametersDecodeErrorZ_is_ok(o: Result_RouteParametersDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RouteParametersDecodeErrorZ>) in
+
+				CResult_RouteParametersDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PayeeDecodeErrorZ_is_ok(o: Result_PayeeDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PayeeDecodeErrorZ>) in
+
+				CResult_PayeeDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RouteHintDecodeErrorZ_is_ok(o: Result_RouteHintDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RouteHintDecodeErrorZ>) in
+
+				CResult_RouteHintDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RouteHintHopDecodeErrorZ_is_ok(o: Result_RouteHintHopDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RouteHintHopDecodeErrorZ>) in
+
+				CResult_RouteHintHopDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RouteLightningErrorZ_is_ok(o: Result_RouteLightningErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RouteLightningErrorZ>) in
+
+				CResult_RouteLightningErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_TxOutAccessErrorZ_is_ok(o: Result_TxOutAccessErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_TxOutAccessErrorZ>) in
+
+				CResult_TxOutAccessErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NoneChannelMonitorUpdateErrZ_is_ok(o: Result_NoneChannelMonitorUpdateErrZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneChannelMonitorUpdateErrZ>) in
+
+				CResult_NoneChannelMonitorUpdateErrZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_COption_ClosureReasonZDecodeErrorZ_is_ok(o: Result_COption_ClosureReasonZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_COption_ClosureReasonZDecodeErrorZ>) in
+
+				CResult_COption_ClosureReasonZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_COption_EventZDecodeErrorZ_is_ok(o: Result_COption_EventZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_COption_EventZDecodeErrorZ>) in
+
+				CResult_COption_EventZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ScoringParametersDecodeErrorZ_is_ok(o: Result_ScoringParametersDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ScoringParametersDecodeErrorZ>) in
+
+				CResult_ScoringParametersDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ScorerDecodeErrorZ_is_ok(o: Result_ScorerDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ScorerDecodeErrorZ>) in
+
+				CResult_ScorerDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_InitFeaturesDecodeErrorZ_is_ok(o: Result_InitFeaturesDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InitFeaturesDecodeErrorZ>) in
+
+				CResult_InitFeaturesDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelFeaturesDecodeErrorZ_is_ok(o: Result_ChannelFeaturesDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelFeaturesDecodeErrorZ>) in
+
+				CResult_ChannelFeaturesDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NodeFeaturesDecodeErrorZ_is_ok(o: Result_NodeFeaturesDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NodeFeaturesDecodeErrorZ>) in
+
+				CResult_NodeFeaturesDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_InvoiceFeaturesDecodeErrorZ_is_ok(o: Result_InvoiceFeaturesDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InvoiceFeaturesDecodeErrorZ>) in
+
+				CResult_InvoiceFeaturesDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelTypeFeaturesDecodeErrorZ_is_ok(o: Result_ChannelTypeFeaturesDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelTypeFeaturesDecodeErrorZ>) in
+
+				CResult_ChannelTypeFeaturesDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_DelayedPaymentOutputDescriptorDecodeErrorZ_is_ok(o: Result_DelayedPaymentOutputDescriptorDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_DelayedPaymentOutputDescriptorDecodeErrorZ>) in
+
+				CResult_DelayedPaymentOutputDescriptorDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_StaticPaymentOutputDescriptorDecodeErrorZ_is_ok(o: Result_StaticPaymentOutputDescriptorDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_StaticPaymentOutputDescriptorDecodeErrorZ>) in
+
+				CResult_StaticPaymentOutputDescriptorDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_SpendableOutputDescriptorDecodeErrorZ_is_ok(o: Result_SpendableOutputDescriptorDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SpendableOutputDescriptorDecodeErrorZ>) in
+
+				CResult_SpendableOutputDescriptorDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NoneNoneZ_is_ok(o: Result_NoneNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneNoneZ>) in
+
+				CResult_NoneNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_is_ok(o: Result_C2Tuple_SignatureCVec_SignatureZZNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ>) in
+
+				CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_SignatureNoneZ_is_ok(o: Result_SignatureNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SignatureNoneZ>) in
+
+				CResult_SignatureNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_SignDecodeErrorZ_is_ok(o: Result_SignDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SignDecodeErrorZ>) in
+
+				CResult_SignDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RecoverableSignatureNoneZ_is_ok(o: Result_RecoverableSignatureNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RecoverableSignatureNoneZ>) in
+
+				CResult_RecoverableSignatureNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CVec_CVec_u8ZZNoneZ_is_ok(o: Result_CVec_CVec_u8ZZNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CVec_CVec_u8ZZNoneZ>) in
+
+				CResult_CVec_CVec_u8ZZNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_InMemorySignerDecodeErrorZ_is_ok(o: Result_InMemorySignerDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InMemorySignerDecodeErrorZ>) in
+
+				CResult_InMemorySignerDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_TransactionNoneZ_is_ok(o: Result_TransactionNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_TransactionNoneZ>) in
+
+				CResult_TransactionNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_is_ok(o: Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ>) in
+
+				CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NoneAPIErrorZ_is_ok(o: Result_NoneAPIErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneAPIErrorZ>) in
+
+				CResult_NoneAPIErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult__u832APIErrorZ_is_ok(o: Result__u832APIErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult__u832APIErrorZ>) in
+
+				CResult__u832APIErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PaymentIdPaymentSendFailureZ_is_ok(o: Result_PaymentIdPaymentSendFailureZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PaymentIdPaymentSendFailureZ>) in
+
+				CResult_PaymentIdPaymentSendFailureZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NonePaymentSendFailureZ_is_ok(o: Result_NonePaymentSendFailureZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NonePaymentSendFailureZ>) in
+
+				CResult_NonePaymentSendFailureZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ_is_ok(o: Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ>) in
+
+				CResult_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_C2Tuple_PaymentHashPaymentSecretZNoneZ_is_ok(o: Result_C2Tuple_PaymentHashPaymentSecretZNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_PaymentHashPaymentSecretZNoneZ>) in
+
+				CResult_C2Tuple_PaymentHashPaymentSecretZNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ_is_ok(o: Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ>) in
+
+				CResult_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PaymentSecretNoneZ_is_ok(o: Result_PaymentSecretNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PaymentSecretNoneZ>) in
+
+				CResult_PaymentSecretNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PaymentSecretAPIErrorZ_is_ok(o: Result_PaymentSecretAPIErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PaymentSecretAPIErrorZ>) in
+
+				CResult_PaymentSecretAPIErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PaymentPreimageAPIErrorZ_is_ok(o: Result_PaymentPreimageAPIErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PaymentPreimageAPIErrorZ>) in
+
+				CResult_PaymentPreimageAPIErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_is_ok(o: Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ>) in
+
+				CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelConfigDecodeErrorZ_is_ok(o: Result_ChannelConfigDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelConfigDecodeErrorZ>) in
+
+				CResult_ChannelConfigDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_OutPointDecodeErrorZ_is_ok(o: Result_OutPointDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_OutPointDecodeErrorZ>) in
+
+				CResult_OutPointDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_COption_TypeZDecodeErrorZ_is_ok(o: Result_COption_TypeZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_COption_TypeZDecodeErrorZ>) in
+
+				CResult_COption_TypeZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PaymentIdPaymentErrorZ_is_ok(o: Result_PaymentIdPaymentErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PaymentIdPaymentErrorZ>) in
+
+				CResult_PaymentIdPaymentErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_SiPrefixNoneZ_is_ok(o: Result_SiPrefixNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SiPrefixNoneZ>) in
+
+				CResult_SiPrefixNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_InvoiceNoneZ_is_ok(o: Result_InvoiceNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InvoiceNoneZ>) in
+
+				CResult_InvoiceNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_SignedRawInvoiceNoneZ_is_ok(o: Result_SignedRawInvoiceNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SignedRawInvoiceNoneZ>) in
+
+				CResult_SignedRawInvoiceNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PayeePubKeyErrorZ_is_ok(o: Result_PayeePubKeyErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PayeePubKeyErrorZ>) in
+
+				CResult_PayeePubKeyErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PositiveTimestampCreationErrorZ_is_ok(o: Result_PositiveTimestampCreationErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PositiveTimestampCreationErrorZ>) in
+
+				CResult_PositiveTimestampCreationErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NoneSemanticErrorZ_is_ok(o: Result_NoneSemanticErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneSemanticErrorZ>) in
+
+				CResult_NoneSemanticErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_InvoiceSemanticErrorZ_is_ok(o: Result_InvoiceSemanticErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InvoiceSemanticErrorZ>) in
+
+				CResult_InvoiceSemanticErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_DescriptionCreationErrorZ_is_ok(o: Result_DescriptionCreationErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_DescriptionCreationErrorZ>) in
+
+				CResult_DescriptionCreationErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ExpiryTimeCreationErrorZ_is_ok(o: Result_ExpiryTimeCreationErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ExpiryTimeCreationErrorZ>) in
+
+				CResult_ExpiryTimeCreationErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PrivateRouteCreationErrorZ_is_ok(o: Result_PrivateRouteCreationErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PrivateRouteCreationErrorZ>) in
+
+				CResult_PrivateRouteCreationErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_StringErrorZ_is_ok(o: Result_StringErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_StringErrorZ>) in
+
+				CResult_StringErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelMonitorUpdateDecodeErrorZ_is_ok(o: Result_ChannelMonitorUpdateDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelMonitorUpdateDecodeErrorZ>) in
+
+				CResult_ChannelMonitorUpdateDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_COption_MonitorEventZDecodeErrorZ_is_ok(o: Result_COption_MonitorEventZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_COption_MonitorEventZDecodeErrorZ>) in
+
+				CResult_COption_MonitorEventZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_HTLCUpdateDecodeErrorZ_is_ok(o: Result_HTLCUpdateDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_HTLCUpdateDecodeErrorZ>) in
+
+				CResult_HTLCUpdateDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_is_ok(o: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ>) in
+
+				CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NoneLightningErrorZ_is_ok(o: Result_NoneLightningErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneLightningErrorZ>) in
+
+				CResult_NoneLightningErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_boolLightningErrorZ_is_ok(o: Result_boolLightningErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_boolLightningErrorZ>) in
+
+				CResult_boolLightningErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CVec_u8ZPeerHandleErrorZ_is_ok(o: Result_CVec_u8ZPeerHandleErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CVec_u8ZPeerHandleErrorZ>) in
+
+				CResult_CVec_u8ZPeerHandleErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NonePeerHandleErrorZ_is_ok(o: Result_NonePeerHandleErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NonePeerHandleErrorZ>) in
+
+				CResult_NonePeerHandleErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_boolPeerHandleErrorZ_is_ok(o: Result_boolPeerHandleErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_boolPeerHandleErrorZ>) in
+
+				CResult_boolPeerHandleErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NodeIdDecodeErrorZ_is_ok(o: Result_NodeIdDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NodeIdDecodeErrorZ>) in
+
+				CResult_NodeIdDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_COption_NetworkUpdateZDecodeErrorZ_is_ok(o: Result_COption_NetworkUpdateZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_COption_NetworkUpdateZDecodeErrorZ>) in
+
+				CResult_COption_NetworkUpdateZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_DirectionalChannelInfoDecodeErrorZ_is_ok(o: Result_DirectionalChannelInfoDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_DirectionalChannelInfoDecodeErrorZ>) in
+
+				CResult_DirectionalChannelInfoDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelInfoDecodeErrorZ_is_ok(o: Result_ChannelInfoDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelInfoDecodeErrorZ>) in
+
+				CResult_ChannelInfoDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RoutingFeesDecodeErrorZ_is_ok(o: Result_RoutingFeesDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RoutingFeesDecodeErrorZ>) in
+
+				CResult_RoutingFeesDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NodeAnnouncementInfoDecodeErrorZ_is_ok(o: Result_NodeAnnouncementInfoDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NodeAnnouncementInfoDecodeErrorZ>) in
+
+				CResult_NodeAnnouncementInfoDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NodeInfoDecodeErrorZ_is_ok(o: Result_NodeInfoDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NodeInfoDecodeErrorZ>) in
+
+				CResult_NodeInfoDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NetworkGraphDecodeErrorZ_is_ok(o: Result_NetworkGraphDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NetworkGraphDecodeErrorZ>) in
+
+				CResult_NetworkGraphDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NetAddressDecodeErrorZ_is_ok(o: Result_NetAddressDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NetAddressDecodeErrorZ>) in
+
+				CResult_NetAddressDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_AcceptChannelDecodeErrorZ_is_ok(o: Result_AcceptChannelDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_AcceptChannelDecodeErrorZ>) in
+
+				CResult_AcceptChannelDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_AnnouncementSignaturesDecodeErrorZ_is_ok(o: Result_AnnouncementSignaturesDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_AnnouncementSignaturesDecodeErrorZ>) in
+
+				CResult_AnnouncementSignaturesDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelReestablishDecodeErrorZ_is_ok(o: Result_ChannelReestablishDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelReestablishDecodeErrorZ>) in
+
+				CResult_ChannelReestablishDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ClosingSignedDecodeErrorZ_is_ok(o: Result_ClosingSignedDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ClosingSignedDecodeErrorZ>) in
+
+				CResult_ClosingSignedDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ClosingSignedFeeRangeDecodeErrorZ_is_ok(o: Result_ClosingSignedFeeRangeDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ClosingSignedFeeRangeDecodeErrorZ>) in
+
+				CResult_ClosingSignedFeeRangeDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CommitmentSignedDecodeErrorZ_is_ok(o: Result_CommitmentSignedDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CommitmentSignedDecodeErrorZ>) in
+
+				CResult_CommitmentSignedDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_FundingCreatedDecodeErrorZ_is_ok(o: Result_FundingCreatedDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_FundingCreatedDecodeErrorZ>) in
+
+				CResult_FundingCreatedDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_FundingSignedDecodeErrorZ_is_ok(o: Result_FundingSignedDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_FundingSignedDecodeErrorZ>) in
+
+				CResult_FundingSignedDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_FundingLockedDecodeErrorZ_is_ok(o: Result_FundingLockedDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_FundingLockedDecodeErrorZ>) in
+
+				CResult_FundingLockedDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_InitDecodeErrorZ_is_ok(o: Result_InitDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InitDecodeErrorZ>) in
+
+				CResult_InitDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_OpenChannelDecodeErrorZ_is_ok(o: Result_OpenChannelDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_OpenChannelDecodeErrorZ>) in
+
+				CResult_OpenChannelDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_RevokeAndACKDecodeErrorZ_is_ok(o: Result_RevokeAndACKDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_RevokeAndACKDecodeErrorZ>) in
+
+				CResult_RevokeAndACKDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ShutdownDecodeErrorZ_is_ok(o: Result_ShutdownDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ShutdownDecodeErrorZ>) in
+
+				CResult_ShutdownDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UpdateFailHTLCDecodeErrorZ_is_ok(o: Result_UpdateFailHTLCDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UpdateFailHTLCDecodeErrorZ>) in
+
+				CResult_UpdateFailHTLCDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UpdateFailMalformedHTLCDecodeErrorZ_is_ok(o: Result_UpdateFailMalformedHTLCDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UpdateFailMalformedHTLCDecodeErrorZ>) in
+
+				CResult_UpdateFailMalformedHTLCDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UpdateFeeDecodeErrorZ_is_ok(o: Result_UpdateFeeDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UpdateFeeDecodeErrorZ>) in
+
+				CResult_UpdateFeeDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UpdateFulfillHTLCDecodeErrorZ_is_ok(o: Result_UpdateFulfillHTLCDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UpdateFulfillHTLCDecodeErrorZ>) in
+
+				CResult_UpdateFulfillHTLCDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UpdateAddHTLCDecodeErrorZ_is_ok(o: Result_UpdateAddHTLCDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UpdateAddHTLCDecodeErrorZ>) in
+
+				CResult_UpdateAddHTLCDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PingDecodeErrorZ_is_ok(o: Result_PingDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PingDecodeErrorZ>) in
+
+				CResult_PingDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PongDecodeErrorZ_is_ok(o: Result_PongDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PongDecodeErrorZ>) in
+
+				CResult_PongDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UnsignedChannelAnnouncementDecodeErrorZ_is_ok(o: Result_UnsignedChannelAnnouncementDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UnsignedChannelAnnouncementDecodeErrorZ>) in
+
+				CResult_UnsignedChannelAnnouncementDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelAnnouncementDecodeErrorZ_is_ok(o: Result_ChannelAnnouncementDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelAnnouncementDecodeErrorZ>) in
+
+				CResult_ChannelAnnouncementDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UnsignedChannelUpdateDecodeErrorZ_is_ok(o: Result_UnsignedChannelUpdateDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UnsignedChannelUpdateDecodeErrorZ>) in
+
+				CResult_UnsignedChannelUpdateDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelUpdateDecodeErrorZ_is_ok(o: Result_ChannelUpdateDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelUpdateDecodeErrorZ>) in
+
+				CResult_ChannelUpdateDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ErrorMessageDecodeErrorZ_is_ok(o: Result_ErrorMessageDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ErrorMessageDecodeErrorZ>) in
+
+				CResult_ErrorMessageDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_UnsignedNodeAnnouncementDecodeErrorZ_is_ok(o: Result_UnsignedNodeAnnouncementDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UnsignedNodeAnnouncementDecodeErrorZ>) in
+
+				CResult_UnsignedNodeAnnouncementDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NodeAnnouncementDecodeErrorZ_is_ok(o: Result_NodeAnnouncementDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NodeAnnouncementDecodeErrorZ>) in
+
+				CResult_NodeAnnouncementDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_QueryShortChannelIdsDecodeErrorZ_is_ok(o: Result_QueryShortChannelIdsDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_QueryShortChannelIdsDecodeErrorZ>) in
+
+				CResult_QueryShortChannelIdsDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ReplyShortChannelIdsEndDecodeErrorZ_is_ok(o: Result_ReplyShortChannelIdsEndDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ReplyShortChannelIdsEndDecodeErrorZ>) in
+
+				CResult_ReplyShortChannelIdsEndDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_QueryChannelRangeDecodeErrorZ_is_ok(o: Result_QueryChannelRangeDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_QueryChannelRangeDecodeErrorZ>) in
+
+				CResult_QueryChannelRangeDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ReplyChannelRangeDecodeErrorZ_is_ok(o: Result_ReplyChannelRangeDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ReplyChannelRangeDecodeErrorZ>) in
+
+				CResult_ReplyChannelRangeDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_GossipTimestampFilterDecodeErrorZ_is_ok(o: Result_GossipTimestampFilterDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_GossipTimestampFilterDecodeErrorZ>) in
+
+				CResult_GossipTimestampFilterDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_InvoiceSignOrCreationErrorZ_is_ok(o: Result_InvoiceSignOrCreationErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InvoiceSignOrCreationErrorZ>) in
+
+				CResult_InvoiceSignOrCreationErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_LockedChannelMonitorNoneZ_is_ok(o: Result_LockedChannelMonitorNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_LockedChannelMonitorNoneZ>) in
+
+				CResult_LockedChannelMonitorNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_sign(msg: [UInt8], sk: [UInt8]) -> Result_StringErrorZ {
 		
 				
@@ -4449,6 +5678,22 @@ public class func swift_C2Tuple_BlockHashChannelManagerZ_read(ser: [UInt8], arg:
 					
 				return 
 				Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelManagerZ_read(serWrapper.cOpaqueStruct!, arg.cOpaqueStruct!))
+				
+			
+	}
+	public class func swift_htlc_success_tx_weight(opt_anchors: Bool) -> UInt64 {
+		
+				
+				return 
+				htlc_success_tx_weight(opt_anchors)
+				
+			
+	}
+	public class func swift_htlc_timeout_tx_weight(opt_anchors: Bool) -> UInt64 {
+		
+				
+				return 
+				htlc_timeout_tx_weight(opt_anchors)
 				
 			
 	}
@@ -4526,13 +5771,13 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: countersignatory_revocati
 				
 			
 	}
-	public class func swift_get_htlc_redeemscript(htlc: HTLCOutputInCommitment, keys: TxCreationKeys) -> [UInt8] {
+	public class func swift_get_htlc_redeemscript(htlc: HTLCOutputInCommitment, opt_anchors: Bool, keys: TxCreationKeys) -> [UInt8] {
 		
 				
 				return withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 withUnsafePointer(to: keys.cOpaqueStruct!) { (keysPointer: UnsafePointer<LDKTxCreationKeys>) in
 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: get_htlc_redeemscript(htlcPointer, keysPointer))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: get_htlc_redeemscript(htlcPointer, opt_anchors, keysPointer))
 				
 }
 }
@@ -4546,16 +5791,24 @@ withUnsafePointer(to: keys.cOpaqueStruct!) { (keysPointer: UnsafePointer<LDKTxCr
 				
 			
 	}
-	public class func swift_build_htlc_transaction(commitment_txid: [UInt8], feerate_per_kw: UInt32, contest_delay: UInt16, htlc: HTLCOutputInCommitment, broadcaster_delayed_payment_key: [UInt8], revocation_key: [UInt8]) -> [UInt8] {
+	public class func swift_build_htlc_transaction(commitment_txid: [UInt8], feerate_per_kw: UInt32, contest_delay: UInt16, htlc: HTLCOutputInCommitment, opt_anchors: Bool, broadcaster_delayed_payment_key: [UInt8], revocation_key: [UInt8]) -> [UInt8] {
 		
 				
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: commitment_txid)) { (commitment_txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Bindings.LDKTransaction_to_array(nativeType: build_htlc_transaction(commitment_txidPointer, feerate_per_kw, contest_delay, htlcPointer, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key), Bindings.new_LDKPublicKey(array: revocation_key)))
+				Bindings.LDKTransaction_to_array(nativeType: build_htlc_transaction(commitment_txidPointer, feerate_per_kw, contest_delay, htlcPointer, opt_anchors, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key), Bindings.new_LDKPublicKey(array: revocation_key)))
 				
 }
 }
+			
+	}
+	public class func swift_get_anchor_redeemscript(funding_pubkey: [UInt8]) -> [UInt8] {
+		
+				
+				return 
+				Bindings.LDKCVec_u8Z_to_array(nativeType: get_anchor_redeemscript(Bindings.new_LDKPublicKey(array: funding_pubkey)))
+				
 			
 	}
 	public class func swift_get_commitment_transaction_number_obscure_factor(broadcaster_payment_basepoint: [UInt8], countersignatory_payment_basepoint: [UInt8], outbound_from_broadcaster: Bool) -> UInt64 {
@@ -4783,7 +6036,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "7baafe31b7283a7c4920e50cab9f742388798749"
+        return "f740a9b03d24da962d05b9b6d38b2c53f2134b11"
     }
 
 }

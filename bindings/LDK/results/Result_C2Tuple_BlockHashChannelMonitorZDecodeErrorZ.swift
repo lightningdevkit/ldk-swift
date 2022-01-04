@@ -52,9 +52,11 @@ public class Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ: NativeTypeWrap
 				return nil
 			}
 			
-    public class func ok(o: C2Tuple_BlockHashChannelMonitorZ) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func ok(o: C2Tuple_BlockHashChannelMonitorZ) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
     	
-        return Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+        return Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_ok(o.cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
@@ -79,20 +81,6 @@ public class Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ: NativeTypeWrap
 						} else {
 							Bindings.print("Not freeing Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
-					}
-				
-
-    public func clone() -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
-    	
-        return Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ>) in
-CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_clone(origPointer)
-});
-    }
-
-					internal func danglingClone() -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
-        				let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
 					}
 				
 

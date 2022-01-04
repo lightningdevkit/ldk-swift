@@ -52,9 +52,11 @@ public class Result_COption_TypeZDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: Option_TypeZ) -> Result_COption_TypeZDecodeErrorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func ok(o: Option_TypeZ) -> Result_COption_TypeZDecodeErrorZ {
     	
-        return Result_COption_TypeZDecodeErrorZ(pointer: CResult_COption_TypeZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+        return Result_COption_TypeZDecodeErrorZ(pointer: CResult_COption_TypeZDecodeErrorZ_ok(o.cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_COption_TypeZDecodeErrorZ {
@@ -79,20 +81,6 @@ public class Result_COption_TypeZDecodeErrorZ: NativeTypeWrapper {
 						} else {
 							Bindings.print("Not freeing Result_COption_TypeZDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
-					}
-				
-
-    public func clone() -> Result_COption_TypeZDecodeErrorZ {
-    	
-        return Result_COption_TypeZDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_COption_TypeZDecodeErrorZ>) in
-CResult_COption_TypeZDecodeErrorZ_clone(origPointer)
-});
-    }
-
-					internal func danglingClone() -> Result_COption_TypeZDecodeErrorZ {
-        				let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
 					}
 				
 

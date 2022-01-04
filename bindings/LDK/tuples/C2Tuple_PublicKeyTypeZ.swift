@@ -23,23 +23,9 @@ public class C2Tuple_PublicKeyTypeZ: NativeTypeWrapper {
 
     /* TUPLE_METHODS_START */
 
-    public func clone() -> C2Tuple_PublicKeyTypeZ {
-    	
-        return C2Tuple_PublicKeyTypeZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_PublicKeyTypeZ>) in
-C2Tuple_PublicKeyTypeZ_clone(origPointer)
-});
-    }
-
-					internal func danglingClone() -> C2Tuple_PublicKeyTypeZ {
-        				let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-				
-
     public class func new(a: [UInt8], b: Type) -> C2Tuple_PublicKeyTypeZ {
     	
-        return C2Tuple_PublicKeyTypeZ(pointer: C2Tuple_PublicKeyTypeZ_new(Bindings.new_LDKPublicKey(array: a), b.danglingClone().cOpaqueStruct!));
+        return C2Tuple_PublicKeyTypeZ(pointer: C2Tuple_PublicKeyTypeZ_new(Bindings.new_LDKPublicKey(array: a), b.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

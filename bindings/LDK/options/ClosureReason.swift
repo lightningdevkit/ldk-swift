@@ -111,6 +111,11 @@ ClosureReason_clone(origPointer)
         return ClosureReason(pointer: ClosureReason_commitment_tx_confirmed());
     }
 
+    public class func funding_timed_out() -> ClosureReason {
+    	
+        return ClosureReason(pointer: ClosureReason_funding_timed_out());
+    }
+
     public class func processing_error(err: String) -> ClosureReason {
     	
         return ClosureReason(pointer: ClosureReason_processing_error(Bindings.new_LDKStr(string: err)));
@@ -131,6 +136,16 @@ ClosureReason_clone(origPointer)
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKClosureReason>) in
 ClosureReason_write(objPointer)
 });
+    }
+
+    public class func read(ser: [UInt8]) -> Result_COption_ClosureReasonZDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_COption_ClosureReasonZDecodeErrorZ(pointer: ClosureReason_read(serWrapper.cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */

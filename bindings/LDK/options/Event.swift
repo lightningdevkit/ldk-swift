@@ -26,7 +26,7 @@ public class Event: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum EventValueType {
-					case FundingGenerationReady, PaymentReceived, PaymentSent, PaymentPathFailed, PendingHTLCsForwardable, SpendableOutputs, PaymentForwarded, ChannelClosed, DiscardFunding
+					case FundingGenerationReady, PaymentReceived, PaymentSent, PaymentPathFailed, PaymentFailed, PendingHTLCsForwardable, SpendableOutputs, PaymentForwarded, ChannelClosed, DiscardFunding, PaymentPathSuccessful
 				}
 				
 				public func getValueType() -> EventValueType? {
@@ -40,6 +40,8 @@ public class Event: NativeTypeWrapper {
 						return .PaymentSent
 					case LDKEvent_PaymentPathFailed:
 						return .PaymentPathFailed
+					case LDKEvent_PaymentFailed:
+						return .PaymentFailed
 					case LDKEvent_PendingHTLCsForwardable:
 						return .PendingHTLCsForwardable
 					case LDKEvent_SpendableOutputs:
@@ -50,6 +52,8 @@ public class Event: NativeTypeWrapper {
 						return .ChannelClosed
 					case LDKEvent_DiscardFunding:
 						return .DiscardFunding
+					case LDKEvent_PaymentPathSuccessful:
+						return .PaymentPathSuccessful
                     default:
                         return nil
                     }
@@ -82,6 +86,13 @@ public class Event: NativeTypeWrapper {
 							return nil
 						}
 						return PaymentPathFailed(pointer: self.cOpaqueStruct!.payment_path_failed, anchor: self)
+					}
+				
+					public func getValueAsPaymentFailed() -> PaymentFailed? {
+						if self.cOpaqueStruct?.tag != LDKEvent_PaymentFailed {
+							return nil
+						}
+						return PaymentFailed(pointer: self.cOpaqueStruct!.payment_failed, anchor: self)
 					}
 				
 					public func getValueAsPendingHTLCsForwardable() -> PendingHTLCsForwardable? {
@@ -117,6 +128,13 @@ public class Event: NativeTypeWrapper {
 							return nil
 						}
 						return DiscardFunding(pointer: self.cOpaqueStruct!.discard_funding, anchor: self)
+					}
+				
+					public func getValueAsPaymentPathSuccessful() -> PaymentPathSuccessful? {
+						if self.cOpaqueStruct?.tag != LDKEvent_PaymentPathSuccessful {
+							return nil
+						}
+						return PaymentPathSuccessful(pointer: self.cOpaqueStruct!.payment_path_successful, anchor: self)
 					}
 				
 			
@@ -189,6 +207,11 @@ Event_clone(origPointer)
         return Event(pointer: Event_payment_path_failed(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), rejected_by_dest, network_update.danglingClone().cOpaqueStruct!, all_paths_failed, pathWrapper.dangle().cOpaqueStruct!, short_channel_id.danglingClone().cOpaqueStruct!, retry.danglingClone().cOpaqueStruct!));
     }
 
+    public class func payment_failed(payment_id: [UInt8], payment_hash: [UInt8]) -> Event {
+    	
+        return Event(pointer: Event_payment_failed(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash)));
+    }
+
     public class func pending_htlcs_forwardable(time_forwardable: UInt64) -> Event {
     	
         return Event(pointer: Event_pending_htlcs_forwardable(time_forwardable));
@@ -229,11 +252,36 @@ Event_clone(origPointer)
         return Event(pointer: Event_discard_funding(Bindings.new_LDKThirtyTwoBytes(array: channel_id), transactionWrapper.dangle().cOpaqueStruct!));
     }
 
+    public class func payment_path_successful(payment_id: [UInt8], payment_hash: [UInt8], path: [RouteHop]) -> Event {
+    	
+							let pathUnwrapped = path.map { (pathCurrentValue) in
+							pathCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: pathUnwrapped)
+						defer {
+							pathWrapper.noOpRetain()
+						}
+					
+        return Event(pointer: Event_payment_path_successful(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), pathWrapper.dangle().cOpaqueStruct!));
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKEvent>) in
 Event_write(objPointer)
 });
+    }
+
+    public class func read(ser: [UInt8]) -> Result_COption_EventZDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_COption_EventZDecodeErrorZ(pointer: Event_read(serWrapper.cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */
@@ -405,6 +453,35 @@ Event_write(objPointer)
 			}
 		
 
+			public class PaymentFailed: NativeTypeWrapper {
+				
+				
+				var cOpaqueStruct: LDKEvent_LDKPaymentFailed_Body?;
+				fileprivate init(pointer: LDKEvent_LDKPaymentFailed_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKPaymentFailed_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+				
+				
+					public func getPayment_id() -> [UInt8] {
+						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_id)
+					}
+				
+					public func getPayment_hash() -> [UInt8] {
+						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_hash)
+					}
+				
+				
+			}
+		
+
 			public class PendingHTLCsForwardable: NativeTypeWrapper {
 				
 				
@@ -545,6 +622,44 @@ Event_write(objPointer)
 				
 					public func getTransaction() -> [UInt8] {
 						return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.transaction, deallocate: false)
+					}
+				
+				
+			}
+		
+
+			public class PaymentPathSuccessful: NativeTypeWrapper {
+				
+				
+				var cOpaqueStruct: LDKEvent_LDKPaymentPathSuccessful_Body?;
+				fileprivate init(pointer: LDKEvent_LDKPaymentPathSuccessful_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKPaymentPathSuccessful_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+				
+				
+					public func getPayment_id() -> [UInt8] {
+						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_id)
+					}
+				
+					public func getPayment_hash() -> [UInt8] {
+						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_hash)
+					}
+				
+					public func getPath() -> [RouteHop] {
+						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, deallocate: false)
+						
+						.map { (cOpaqueStruct) in
+							RouteHop(pointer: cOpaqueStruct).dangle()
+						}
+					
 					}
 				
 				

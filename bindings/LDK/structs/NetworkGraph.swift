@@ -122,6 +122,13 @@ NetworkGraph_fail_node(this_argPointer, Bindings.new_LDKPublicKey(array: _node_i
 };
     }
 
+    public func remove_stale_channels_with_time(current_time_unix: UInt64) -> Void {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_remove_stale_channels_with_time(this_argPointer, current_time_unix)
+};
+    }
+
     public func update_channel(msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
     	
         return Result_NoneLightningErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in

@@ -64,13 +64,6 @@ InvoiceFeatures_requires_unknown_bits(this_argPointer)
 };
     }
 
-    public func supports_payment_secret() -> Bool {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
-InvoiceFeatures_supports_payment_secret(this_argPointer)
-};
-    }
-
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInvoiceFeatures>) in

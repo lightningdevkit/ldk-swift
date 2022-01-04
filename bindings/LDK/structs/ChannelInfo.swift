@@ -6,15 +6,7 @@ public class ChannelInfo: NativeTypeWrapper {
     internal var cOpaqueStruct: LDKChannelInfo?
 
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init(features_arg: ChannelFeatures, node_one_arg: NodeId, one_to_two_arg: DirectionalChannelInfo, node_two_arg: NodeId, two_to_one_arg: DirectionalChannelInfo, capacity_sats_arg: Option_u64Z, announcement_message_arg: ChannelAnnouncement) {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
-        self.cOpaqueStruct = ChannelInfo_new(features_arg.danglingClone().cOpaqueStruct!, node_one_arg.danglingClone().cOpaqueStruct!, one_to_two_arg.danglingClone().cOpaqueStruct!, node_two_arg.danglingClone().cOpaqueStruct!, two_to_one_arg.danglingClone().cOpaqueStruct!, capacity_sats_arg.danglingClone().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
-        super.init(conflictAvoidingVariableName: 0)
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
+	
 
     public init(pointer: LDKChannelInfo){
     	Self.instanceCounter += 1

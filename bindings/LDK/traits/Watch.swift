@@ -129,7 +129,7 @@ public class NativelyImplementedWatch: Watch {
 		
 				
 				return 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, monitor.danglingClone().cOpaqueStruct!))
+				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, monitor.cOpaqueStruct!))
 				
 			
 	}

@@ -61,7 +61,7 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrap
     	
 							let oUnwrapped = o.map { (oCurrentValue) in
 							oCurrentValue
-								.danglingClone().cOpaqueStruct!
+								.dangle().cOpaqueStruct!
 							}
 						
 						let oWrapper = Bindings.new_LDKCVec_C2Tuple_BlockHashChannelMonitorZZWrapper(array: oUnwrapped)
@@ -96,20 +96,6 @@ public class func err(e: LDKIOError) -> Result_CVec_C2Tuple_BlockHashChannelMoni
 						} else {
 							Bindings.print("Not freeing Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ \(self.instanceNumber) due to dangle.")
 						}
-					}
-				
-
-    public func clone() -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
-    	
-        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ>) in
-CResult_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ_clone(origPointer)
-});
-    }
-
-					internal func danglingClone() -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
-        				let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
 					}
 				
 

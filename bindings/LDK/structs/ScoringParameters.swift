@@ -64,6 +64,36 @@ ScoringParameters_get_failure_penalty_msat(this_ptrPointer)
         return ScoringParameters_set_failure_penalty_msat(this_ptrPointer, val);
     }
 
+    public func get_overuse_penalty_start_1024th() -> UInt16 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKScoringParameters>) in
+ScoringParameters_get_overuse_penalty_start_1024th(this_ptrPointer)
+};
+    }
+
+    public func set_overuse_penalty_start_1024th(val: UInt16) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ScoringParameters_set_overuse_penalty_start_1024th(this_ptrPointer, val);
+    }
+
+    public func get_overuse_penalty_msat_per_1024th() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKScoringParameters>) in
+ScoringParameters_get_overuse_penalty_msat_per_1024th(this_ptrPointer)
+};
+    }
+
+    public func set_overuse_penalty_msat_per_1024th(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ScoringParameters_set_overuse_penalty_msat_per_1024th(this_ptrPointer, val);
+    }
+
     public func get_failure_penalty_half_life() -> UInt64 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKScoringParameters>) in

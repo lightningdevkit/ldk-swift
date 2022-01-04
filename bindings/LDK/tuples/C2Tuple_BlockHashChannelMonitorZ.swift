@@ -23,23 +23,11 @@ public class C2Tuple_BlockHashChannelMonitorZ: NativeTypeWrapper {
 
     /* TUPLE_METHODS_START */
 
-    public func clone() -> C2Tuple_BlockHashChannelMonitorZ {
+    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
+public class func new(a: [UInt8], b: ChannelMonitor) -> C2Tuple_BlockHashChannelMonitorZ {
     	
-        return C2Tuple_BlockHashChannelMonitorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_BlockHashChannelMonitorZ>) in
-C2Tuple_BlockHashChannelMonitorZ_clone(origPointer)
-});
-    }
-
-					internal func danglingClone() -> C2Tuple_BlockHashChannelMonitorZ {
-        				let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-				
-
-    public class func new(a: [UInt8], b: ChannelMonitor) -> C2Tuple_BlockHashChannelMonitorZ {
-    	
-        return C2Tuple_BlockHashChannelMonitorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.danglingClone().cOpaqueStruct!));
+        return C2Tuple_BlockHashChannelMonitorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
     }
 
     internal func free() -> Void {

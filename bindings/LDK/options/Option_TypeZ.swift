@@ -59,7 +59,7 @@ public class Option_TypeZ: NativeTypeWrapper {
 
     public class func some(o: Type) -> Option_TypeZ {
     	
-        return Option_TypeZ(pointer: COption_TypeZ_some(o.cOpaqueStruct!));
+        return Option_TypeZ(pointer: COption_TypeZ_some(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func none() -> Option_TypeZ {
@@ -84,6 +84,20 @@ public class Option_TypeZ: NativeTypeWrapper {
 						} else {
 							Bindings.print("Not freeing Option_TypeZ \(self.instanceNumber) due to dangle.")
 						}
+					}
+				
+
+    public func clone() -> Option_TypeZ {
+    	
+        return Option_TypeZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCOption_TypeZ>) in
+COption_TypeZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Option_TypeZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
 					}
 				
 

@@ -42,7 +42,7 @@ public class ChannelManagerReadArgs: NativeTypeWrapper {
     	
 							let channel_monitorsUnwrapped = channel_monitors.map { (channel_monitorsCurrentValue) in
 							channel_monitorsCurrentValue
-								.dangle().cOpaqueStruct!
+								.danglingClone().cOpaqueStruct!
 							}
 						
         self.init(keys_manager: keys_manager, fee_estimator: fee_estimator, chain_monitor: chain_monitor, tx_broadcaster: tx_broadcaster, logger: logger, default_config: default_config, channel_monitors: channel_monitorsUnwrapped);

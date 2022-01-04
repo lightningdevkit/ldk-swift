@@ -116,7 +116,7 @@ public class NativelyImplementedCustomMessageHandler: CustomMessageHandler {
 		
 				
 				return 
-				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_custom_message(self.cOpaqueStruct!.this_arg, msg.cOpaqueStruct!, Bindings.new_LDKPublicKey(array: sender_node_id)))
+				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_custom_message(self.cOpaqueStruct!.this_arg, msg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: sender_node_id)))
 				
 			
 	}

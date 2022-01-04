@@ -50,6 +50,7 @@ open class Type: NativeTypeWrapper {
 			type_id: type_idCallback,
 			debug_str: debug_strCallback,
 			write: writeCallback,
+			cloned: nil,
 			free: freeCallback)
 
     }
@@ -71,6 +72,24 @@ open class Type: NativeTypeWrapper {
 	}
 
     /* SWIFT_CALLBACKS_START */
+
+
+				public func clone() -> Type {
+					
+					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKType>) in
+
+					Type(pointer: Type_clone(origPointer))
+					
+}
+				}
+			
+
+					internal func danglingClone() -> Type {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
 
 
 

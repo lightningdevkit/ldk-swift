@@ -26,6 +26,20 @@ public class ChannelMonitor: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
+    public func clone() -> ChannelMonitor {
+    	
+        return ChannelMonitor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelMonitor>) in
+ChannelMonitor_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> ChannelMonitor {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitor>) in

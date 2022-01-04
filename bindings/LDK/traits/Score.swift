@@ -17,9 +17,8 @@ open class Score: NativeTypeWrapper {
 			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::channel_penalty_msat")
 			let source = NodeId(pointer: sourcePointer.pointee).dangle();
 let target = NodeId(pointer: targetPointer.pointee).dangle();
-            let capacity = Option_u64Z(pointer: channel_capacity_msat).dangle();
 
-			return instance.channel_penalty_msat(short_channel_id: short_channel_id, send_amt_msat: send_amt_msat, channel_capacity_msat: channel_capacity_msat, source: source, target: target)
+			return instance.channel_penalty_msat(short_channel_id: short_channel_id, send_amt_msat: send_amt_msat, channel_capacity_msat: Option_u64Z(pointer: channel_capacity_msat), source: source, target: target)
 		}
 
 		func payment_path_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {

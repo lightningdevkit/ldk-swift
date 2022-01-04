@@ -933,7 +933,7 @@ public class Bindings {
 	/* RUST_TO_SWIFT_END */
 						public class func extractNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [C2Tuple_BlockHashChannelMonitorZ]) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
 							return array.map { entry -> LDKC2Tuple_BlockHashChannelMonitorZ in
-								entry.cOpaqueStruct!
+								entry.danglingClone().cOpaqueStruct!
 							}
 						}
 						
@@ -949,6 +949,13 @@ public class Bindings {
 							}
 						}
 					
+							internal class func cloneNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
+								return array.map { entry -> LDKC2Tuple_BlockHashChannelMonitorZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C2Tuple_BlockHashChannelMonitorZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_PublicKeyTypeZZWrapper(array: [LDKC2Tuple_PublicKeyTypeZ]) -> LDKCVec_C2Tuple_PublicKeyTypeZZWrapper {
@@ -1028,7 +1035,7 @@ public class Bindings {
 	/* RUST_TO_SWIFT_END */
 						public class func extractNativeLDKC2Tuple_PublicKeyTypeZArray(array: [C2Tuple_PublicKeyTypeZ]) -> [LDKC2Tuple_PublicKeyTypeZ] {
 							return array.map { entry -> LDKC2Tuple_PublicKeyTypeZ in
-								entry.cOpaqueStruct!
+								entry.danglingClone().cOpaqueStruct!
 							}
 						}
 						
@@ -1044,6 +1051,13 @@ public class Bindings {
 							}
 						}
 					
+							internal class func cloneNativeLDKC2Tuple_PublicKeyTypeZArray(array: [LDKC2Tuple_PublicKeyTypeZ]) -> [LDKC2Tuple_PublicKeyTypeZ] {
+								return array.map { entry -> LDKC2Tuple_PublicKeyTypeZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C2Tuple_PublicKeyTypeZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZWrapper {
@@ -2023,7 +2037,7 @@ public class Bindings {
 	/* RUST_TO_SWIFT_END */
 						public class func extractNativeLDKChannelMonitorArray(array: [ChannelMonitor]) -> [LDKChannelMonitor] {
 							return array.map { entry -> LDKChannelMonitor in
-								entry.cOpaqueStruct!
+								entry.danglingClone().cOpaqueStruct!
 							}
 						}
 						
@@ -2039,6 +2053,13 @@ public class Bindings {
 							}
 						}
 					
+							internal class func cloneNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [LDKChannelMonitor] {
+								return array.map { entry -> LDKChannelMonitor in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									ChannelMonitor(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
+							}
+						
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_EventZWrapper(array: [LDKEvent]) -> LDKCVec_EventZWrapper {
@@ -6036,7 +6057,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "f740a9b03d24da962d05b9b6d38b2c53f2134b11"
+        return "e1e1c09ce5f801f30ca2b644e540821050272436"
     }
 
 }

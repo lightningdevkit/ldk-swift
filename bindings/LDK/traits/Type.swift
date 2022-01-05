@@ -74,17 +74,17 @@ open class Type: NativeTypeWrapper {
     /* SWIFT_CALLBACKS_START */
 
 
-				public func clone() -> Type {
+				public func clone() -> BindingsType {
 					
 					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKType>) in
 
-					Type(pointer: Type_clone(origPointer))
+					BindingsType(pointer: Type_clone(origPointer))
 					
 }
 				}
 			
 
-					internal func danglingClone() -> Type {
+					internal func danglingClone() -> BindingsType {
         				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone

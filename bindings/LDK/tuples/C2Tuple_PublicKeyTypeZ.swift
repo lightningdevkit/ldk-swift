@@ -37,7 +37,7 @@ C2Tuple_PublicKeyTypeZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: [UInt8], b: Type) -> C2Tuple_PublicKeyTypeZ {
+    public class func new(a: [UInt8], b: BindingsType) -> C2Tuple_PublicKeyTypeZ {
     	
         return C2Tuple_PublicKeyTypeZ(pointer: C2Tuple_PublicKeyTypeZ_new(Bindings.new_LDKPublicKey(array: a), b.danglingClone().cOpaqueStruct!));
     }

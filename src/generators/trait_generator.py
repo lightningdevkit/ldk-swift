@@ -151,8 +151,7 @@ class TraitGenerator:
 			# if current_lambda['return_type'].rust_obj is not None and current_lambda['return_type'].rust_obj.startswith(
 			# 	'LDK'):
 			current_return_type_details = current_lambda['return_type']
-			if current_return_type_details.rust_obj is not None and (
-				current_return_type_details.rust_obj == 'LDK' + swift_return_type or current_return_type_details.rust_obj == 'LDKC' + swift_return_type):
+			if current_return_type_details.rust_obj is not None and ConversionHelper.is_instance_type(swift_return_type, current_return_type_details.rust_obj):
 				swift_raw_return_type = current_return_type_details.rust_obj
 				return_conversion_suffix = '.cOpaqueStruct!'
 			elif swift_raw_return_type.startswith('(UInt'):

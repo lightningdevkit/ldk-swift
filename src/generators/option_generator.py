@@ -97,7 +97,7 @@ class OptionGenerator:
 			swift_local_conversion_prefix = ''
 			swift_local_conversion_suffix = ''
 
-			if raw_rust_type == 'LDK' + swift_type:
+			if ConversionHelper.is_instance_type(swift_type, raw_rust_type):
 				native_conversion_prefix = ''
 				native_conversion_suffix = '.cOpaqueStruct!'
 				swift_local_conversion_prefix = f'{swift_type}(pointer: '

@@ -11,6 +11,25 @@ class ConversionHelper:
 	nullable_inner_types = {'LDKOutPoint'}
 
 	@classmethod
+	def is_instance_type(cls, swift_type: str, raw_rust_type: str, include_options_and_results: bool = True):
+		if raw_rust_type == 'LDK' + swift_type:
+			return True
+
+		if include_options_and_results:
+			if raw_rust_type == 'LDKC' + swift_type:
+				return True
+
+		# for edge cases
+		if raw_rust_type == 'LDKType' and swift_type == 'BindingsType':
+			return True
+
+		return False
+
+	@classmethod
+	def is_array_type(cls, swift_type: str):
+		return swift_type.startswith('[')
+
+	@classmethod
 	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False, is_trait_default_redirect = False):
 		swift_arguments = []
 		swift_redirection_arguments = []
@@ -204,9 +223,7 @@ class ConversionHelper:
 					swift_redirection_arguments.append(f'{argument_name}: {argument_name}')
 
 			# native_arguments.append(f'{passed_argument_name}')
-			if current_argument_details.rust_obj == 'LDK' + swift_argument_type and not current_argument_details.is_ptr:
-				native_arguments.append(f'{passed_argument_name}{clone_infix}.cOpaqueStruct!')
-			elif current_argument_details.rust_obj == 'LDKC' + swift_argument_type and not current_argument_details.is_ptr:
+			if cls.is_instance_type(swift_argument_type, current_argument_details.rust_obj) and not current_argument_details.is_ptr:
 				native_arguments.append(f'{passed_argument_name}{clone_infix}.cOpaqueStruct!')
 			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
 				# if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
@@ -308,7 +325,13 @@ class ConversionHelper:
 					swift_local_conversion_suffix = ')'
 					published_swift_type = '[UInt8]'
 			elif received_raw_type is not None and received_raw_type.startswith('LDK'):
-				if received_raw_type == 'LDK' + published_swift_type:
+				if cls.is_instance_type(published_swift_type, received_raw_type):
+					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '
+					swift_local_conversion_suffix = ')'
+					# TODO: see if `current_argument_details.pass_by_ref` condition is necessary
+					if current_argument_details.passed_as_ptr and current_argument_details.pass_by_ref:
+						swift_local_conversion_suffix = ').dangle()'
+				elif received_raw_type.startswith('LDKCOption_') and received_raw_type == 'LDKC' + published_swift_type:
 					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '
 					swift_local_conversion_suffix = ')'
 					# TODO: see if `current_argument_details.pass_by_ref` condition is necessary
@@ -439,7 +462,7 @@ class ConversionHelper:
 			array_length = return_type.arr_len
 			return_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
 			return_suffix = ')'
-		elif rust_return_type == 'LDK' + return_type_string:
+		elif cls.is_instance_type(return_type_string, rust_return_type):
 			return_prefix = f'{swift_return_instantiation_type}(pointer: '
 			if is_clone_method:
 				# return_prefix = 'Self(pointer: '
@@ -449,15 +472,6 @@ class ConversionHelper:
 				return_suffix = '.pointee)'
 			if is_trait_instantiator or is_raw_property_getter:
 				# replace if with elif if it's only to be used for _as methods (ChannelManagerReadArgs with get_ vs KeysManager with as_)
-				return_suffix = return_suffix.rstrip(')') + ', anchor: self)'
-		elif rust_return_type == 'LDKC' + return_type_string:
-			return_prefix = f'{swift_return_instantiation_type}(pointer: '
-			if is_clone_method:
-				# return_prefix = 'Self(pointer: '
-				pass
-			return_suffix = ')'
-			if is_raw_property_getter:
-				# return_suffix += '.dangle()'
 				return_suffix = return_suffix.rstrip(')') + ', anchor: self)'
 		# if is_trait_instantiator:
 		# only applies to tuples, but is never hit

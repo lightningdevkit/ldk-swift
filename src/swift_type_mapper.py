@@ -78,6 +78,12 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		rust_obj = "LDKTenBytes"
 		swift_raw_type = rust_obj
 		arr_access = "data"
+	elif fn_arg.startswith("LDKTwelveBytes"):
+		fn_arg = "uint8_t (*" + fn_arg[len('LDKTwelveBytes '):] + ")[12]"
+		assert var_is_arr_regex.match(fn_arg[8:])
+		rust_obj = "LDKTwelveBytes"
+		swift_raw_type = rust_obj
+		arr_access = "data"
 	elif fn_arg.startswith("LDKSixteenBytes"):
 		fn_arg = "uint8_t (*" + fn_arg[16:] + ")[16]"
 		assert var_is_arr_regex.match(fn_arg[8:])
@@ -284,6 +290,10 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		swift_raw_type = f'({",".join([mapped_type] * array_size)})'
 
 	# TODO: remove java_hu_type vs java_type duality artifact
+
+	if swift_type == 'Type':
+		swift_type = 'BindingsType'
+
 	var_is_arr = var_is_arr_regex.match(fn_arg)
 	if var_is_arr is not None or ret_arr_len is not None:
 		assert (not take_by_ptr)

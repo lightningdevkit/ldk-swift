@@ -22,6 +22,8 @@ class TraitGenerator:
 
 		# swift_struct_name = struct_name[3:] + 'Trait'
 		swift_struct_name = struct_name[3:]
+		if swift_struct_name == 'Type':
+			swift_struct_name = 'BindingsType'
 
 		native_callback_template_regex = re.compile("(\/\* NATIVE_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* NATIVE_CALLBACKS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		native_callback_template = native_callback_template_regex.search(self.template).group(2)

@@ -11,6 +11,13 @@ class ConversionHelper:
 	nullable_inner_types = {'LDKOutPoint'}
 
 	@classmethod
+	def normalize_swift_type(cls, swift_type: str):
+		if swift_type == 'Type':
+			return 'BindingsType'
+
+		return swift_type
+
+	@classmethod
 	def is_instance_type(cls, swift_type: str, raw_rust_type: str, include_options_and_results: bool = True):
 		if raw_rust_type == 'LDK' + swift_type:
 			return True

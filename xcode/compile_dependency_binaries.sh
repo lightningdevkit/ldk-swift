@@ -12,7 +12,7 @@ usage() {
 	exit 1
 }
 
-[ "${LDK_DIRECTORY}" = "" ] && echo "Usage: ./docker_shell.sh /path/to/ldk-c-bindings" && exit 1;
+[ "${LDK_DIRECTORY}" = "" ] && echo "Usage: ./compile_dependency_binaries.sh /path/to/ldk-c-bindings" && exit 1;
 [ ! -d "${LDK_DIRECTORY}" ] && echo "Provided directory does not exist" && exit 1;
 
 
@@ -28,7 +28,8 @@ cp "${LDK_DIRECTORY}/ldk-net/ldk_net."{c,h} $DIRECT_BINDINGS_PROJECT_DIRECTORY
 
 # build for Catalyst
 pushd $C_BINDINGS_SOURCE_DIRECTORY
-export RUSTFLAGS=""
+#export RUSTFLAGS=""
+export RUSTFLAGS="--cfg=c_bindings"
 
 rustup override set nightly
 cargo clean

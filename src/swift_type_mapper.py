@@ -1,5 +1,6 @@
 from src.binding_types import TypeInfo
 from src.type_parsing_regeces import TypeParsingRegeces
+from src.conversion_helper import ConversionHelper
 
 var_is_arr_regex = TypeParsingRegeces.IS_VARIABLE_AN_ARRAY_REGEX
 var_ty_regex = TypeParsingRegeces.VARIABLE_TYPE_REGEX
@@ -291,8 +292,7 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 
 	# TODO: remove java_hu_type vs java_type duality artifact
 
-	if swift_type == 'Type':
-		swift_type = 'BindingsType'
+	swift_type = ConversionHelper.normalize_swift_type(swift_type)
 
 	var_is_arr = var_is_arr_regex.match(fn_arg)
 	if var_is_arr is not None or ret_arr_len is not None:

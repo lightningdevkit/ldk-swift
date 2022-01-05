@@ -66,7 +66,7 @@ class DirectBindingsAppTests: XCTestCase {
                 fee_estimator: feeEstimator,
                 chain_monitor: chainMonitor,
                 filter: filter,
-                router: nil,
+                net_graph: nil,
                 tx_broadcaster: broadcaster,
                 logger: logger
         )
@@ -82,7 +82,7 @@ class DirectBindingsAppTests: XCTestCase {
         channel_manager.as_Confirm().transactions_confirmed(header: header, txdata: txdata, height: 525)
         
 
-        channel_manager_constructor.chain_sync_completed(persister: cmPersister)
+        channel_manager_constructor.chain_sync_completed(persister: cmPersister, scorer: nil)
         
         channel_manager_constructor.interrupt()
         
@@ -124,7 +124,8 @@ class DirectBindingsAppTests: XCTestCase {
             path.append(extraHop)
         }
         
-        let route = Route(paths_arg: [path])
+        let payee = Payee(pubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
+        let route = Route(paths_arg: [path], payee_arg: payee)
     }
 
     func testExtendedActivity() throws {

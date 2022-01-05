@@ -7,8 +7,8 @@
 
 class TestLogger: Logger {
 
-    override func log(record: String?) {
-        print("record: \(record)")
+    override func log(record: Record) {
+        print("some abstract log thing")
     }
 
 }

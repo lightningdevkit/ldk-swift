@@ -20,7 +20,7 @@ jobs:
                     cd rust-lightning
                     # git checkout origin/2021-03-java-bindings-base
                     # git checkout v0.0.100
-                    git checkout 557c7143fddde4a3879bb209a71f8f574c604caf
+                    git checkout 8966f8d3d4911e034621c6d3c3d20140d3a7e76a
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..

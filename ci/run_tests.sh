@@ -7,7 +7,10 @@ set -x
 # remove everything except the batteries folder from the sources
 find ./LDKSwift/Sources/LDKSwift/* -maxdepth 0 -not -name 'batteries' | xargs -r rm -r
 
-# rm -i -r ./LDKSwift/Sources/LDKSwift/^(batteries)*
+# build the bindings
+pushd /ldk-c-bindings/lightning-c-bindings
+cargo build
+popd
 
 pushd ../
 # working within /

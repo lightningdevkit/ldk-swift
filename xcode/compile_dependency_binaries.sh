@@ -32,7 +32,10 @@ python3 ../ci/fix_header_includes.py $DIRECT_BINDINGS_PROJECT_DIRECTORY
 # build for Catalyst
 pushd $C_BINDINGS_SOURCE_DIRECTORY
 #export RUSTFLAGS=""
+#export RUSTFLAGS="-Z sanitizer=address"
 export RUSTFLAGS="--cfg=c_bindings"
+#export RUSTFLAGS="--cfg=c_bindings -C lto=off -C embed-bitcode=no"
+#export RUSTFLAGS="--cfg=c_bindings -C lto=off -Z embed-bitcode"
 
 rustup override set nightly
 cargo clean

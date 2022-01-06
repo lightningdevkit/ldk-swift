@@ -31,13 +31,6 @@ jobs:
                     echo "ldk-c-bindings commit hash:"
                     git rev-parse HEAD
                     cd ..
-            -   name: Install native Rust toolchain, Valgrind, and build utilitis
-                run: |
-                    sudo apt-get update
-                    sudo apt-get -y dist-upgrade
-                    sudo apt-get -y install cargo valgrind lld git g++ clang curl
-            -   name: Install cbindgen
-                run: cargo install --force cbindgen
             -   name: Install Swift Toolchain
                 run: |
                     curl https://swift.org/builds/swift-5.4.2-release/ubuntu2004/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-ubuntu20.04.tar.gz > swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
@@ -47,6 +40,13 @@ jobs:
                       exit 1
                     fi
                     tar xvvf swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
+            -   name: Install native Rust toolchain, Valgrind, and build utilitis
+                run: |
+                    sudo apt-get update
+                    sudo apt-get -y dist-upgrade
+                    sudo apt-get -y install cargo valgrind lld git g++ clang curl
+            -   name: Install cbindgen
+                run: cargo install --force cbindgen
             -   name: Regenerate C bindings
                 run: |
                     cd ldk-c-bindings

@@ -61,7 +61,10 @@ class PolarConnectionExperiment: ObservableObject {
             let chainTipHash = self.blockchainObserver.chainTipHash
             let chainTipHeight = self.blockchainObserver.chainTipHeight
             
-            self.channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: chainTipHash, current_blockchain_tip_height: chainTipHeight, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor, router: nil, tx_broadcaster: self.broadcaster, logger: self.logger)
+            let networkGraph = NetworkGraph(genesis_hash: genesis_hash)
+            
+            
+//            self.channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: chainTipHash, current_blockchain_tip_height: chainTipHeight, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor, router: networkGraph, tx_broadcaster: self.broadcaster, logger: self.logger)
             
             self.channelManager = self.channelManagerConstructor.channelManager
             self.peerManager = self.channelManagerConstructor.peerManager

@@ -35,11 +35,13 @@ jobs:
                 run: |
                     curl https://swift.org/builds/swift-5.4.2-release/ubuntu2004/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-ubuntu20.04.tar.gz > swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
                     echo "Sha sum: $(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
-                    if [ "$(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "86b849d9f6ba2eda4e12ea5eafaa0748bffcd6272466b514c2b0fd4a829c63a4" ]; then
+                    if [ "$(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
                       echo "Bad hash"
                       exit 1
                     fi
                     tar xvvf swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
+                env:
+                    EXPECTED_SWIFT_SHASUM: 249abab56c940ebd0266752ecc100e7a3f9bda3341603f8cdeffa6943d9ab355
             -   name: Install native Rust toolchain, Valgrind, and build utilitis
                 run: |
                     sudo apt-get update

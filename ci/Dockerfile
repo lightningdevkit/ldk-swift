@@ -45,4 +45,5 @@ ENV LLVM_CLANG_ASAN_PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/lib/c
 ENV ASAN_SYMBOLIZER_PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/bin/llvm-symbolizer"
 ENV PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/bin:${PATH}"
 ENV RUST_BACKTRACE=1
+ENV RUSTFLAGS="--cfg=c_bindings"
 ENV SHELL=/bin/bash

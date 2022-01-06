@@ -9,6 +9,7 @@ find ./LDKSwift/Sources/LDKSwift/* -maxdepth 0 -not -name 'batteries' | xargs -r
 
 # build the bindings
 pushd /ldk-c-bindings/lightning-c-bindings
+export RUSTFLAGS="--cfg=c_bindings"
 cargo build
 popd
 

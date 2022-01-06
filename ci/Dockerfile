@@ -34,6 +34,7 @@ RUN rm -r ci/LDKSwift/Sources/LDKSwift
 RUN chmod +x ci/run_tests.sh
 
 COPY bindings/batteries ci/LDKSwift/Sources/LDKSwift/batteries
+# COPY bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
 
 # RUN ln -s /lib/x86_64-linux-gnu/libtinfo.so.5 /lib/x86_64-linux-gnu/libtinfo.so.6
 

@@ -9,6 +9,7 @@ LDK_SUBDIRECTORY="$LDK_DIRECTORY/lightning-c-bindings"
 # [ ! -d "${LDK_SUBDIRECTORY}" ] && echo "Provided directory does not contain lightning-c-bindings directory." && exit 1;
 
 # use for direct ci folder access
-#docker run -i -v $PROJECT_DIRECTORY/ci:/ci -v $LDK_DIRECTORY:/ldk-c-bindings --rm -t swift-generation-ci /bin/bash
+# note: batteries will be missing. In parent directory, run `cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift`
+# docker run --name "swift-generator-shell" -i -v $PROJECT_DIRECTORY/ci:/ci -v $LDK_DIRECTORY:/ldk-c-bindings --rm -t swift-generation-ci /bin/bash
 
-docker run -i -v $LDK_DIRECTORY:/ldk-c-bindings --rm -t swift-generation-ci /bin/bash
+docker run --name "swift-generator-shell" -i -v $LDK_DIRECTORY:/ldk-c-bindings --rm -t swift-generation-ci /bin/bash

@@ -20,17 +20,29 @@ jobs:
                     cd rust-lightning
                     # git checkout origin/2021-03-java-bindings-base
                     # git checkout v0.0.100
-                    git checkout 22280286ed38a4753c63c7163fb8414eb1fd3177
+                    git checkout 8966f8d3d4911e034621c6d3c3d20140d3a7e76a
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
                     # git clone https://github.com/lightningdevkit/ldk-c-bindings
                     git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
-                    git checkout fee27c4b40d1d25609a38bb220dd64b297af929a
+                    git checkout 1bb5ae1b34aeb74009b7b4b5ebefc957cddc30a6
                     echo "ldk-c-bindings commit hash:"
                     git rev-parse HEAD
                     cd ..
+            -   name: Install Swift Toolchain
+                run: |
+                    curl -L -o swift-5.4.2-RELEASE-ubuntu20.04.tar.gz https://swift.org/builds/swift-5.4.2-release/ubuntu2004/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
+                    echo "Sha sum: $(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
+                    if [ "$(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
+                      echo "Bad hash"
+                      echo "Contents: \n$(cat swift-5.4.2-RELEASE-ubuntu20.04.tar.gz)" 
+                      exit 1
+                    fi
+                    tar xvvf swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
+                env:
+                    EXPECTED_SWIFT_SHASUM: 86b849d9f6ba2eda4e12ea5eafaa0748bffcd6272466b514c2b0fd4a829c63a4
             -   name: Install native Rust toolchain, Valgrind, and build utilitis
                 run: |
                     sudo apt-get update
@@ -38,14 +50,6 @@ jobs:
                     sudo apt-get -y install cargo valgrind lld git g++ clang curl
             -   name: Install cbindgen
                 run: cargo install --force cbindgen
-            -   name: Install Swift Toolchain
-                run: |
-                    curl https://swift.org/builds/swift-5.4.2-release/ubuntu2004/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-ubuntu20.04.tar.gz > swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
-                    if [ "$(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "86b849d9f6ba2eda4e12ea5eafaa0748bffcd6272466b514c2b0fd4a829c63a4" ]; then
-                      echo "Bad hash"
-                      exit 1
-                    fi
-                    tar xvvf swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
             -   name: Regenerate C bindings
                 run: |
                     cd ldk-c-bindings

@@ -13,14 +13,10 @@ open class Logger: NativeTypeWrapper {
 
     	/* NATIVE_CALLBACKS_START */
 
-		func logCallback(pointer: UnsafeRawPointer?, recordPointer: UnsafePointer<Int8>?) -> Void {
+		func logCallback(pointer: UnsafeRawPointer?, recordPointer: UnsafePointer<LDKRecord>) -> Void {
 			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::log")
-			
-								var record: String? = nil
-								if let recordUnwrapped = recordPointer {
-									record = Bindings.UnsafeIntPointer_to_string(nativeType: recordUnwrapped)
-								}
-							
+			let record = Record(pointer: recordPointer.pointee).dangle();
+
 			return instance.log(record: record)
 		}
 
@@ -74,7 +70,7 @@ open class Logger: NativeTypeWrapper {
 					}
 				
 
-    open func log(record: String?) -> Void {
+    open func log(record: Record) -> Void {
     	/* EDIT ME */
 		Bindings.print("Logger::log should be overridden!", severity: .WARNING)
 
@@ -96,12 +92,14 @@ open class Logger: NativeTypeWrapper {
 public class NativelyImplementedLogger: Logger {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
-	public override func log(record: String?) -> Void {
+	public override func log(record: Record) -> Void {
 		
 				
+				withUnsafePointer(to: record.cOpaqueStruct!) { (recordPointer: UnsafePointer<LDKRecord>) in
+
+				self.cOpaqueStruct!.log(self.cOpaqueStruct!.this_arg, recordPointer)
 				
-				self.cOpaqueStruct!.log(self.cOpaqueStruct!.this_arg, Bindings.string_to_unsafe_int8_pointer(string: record!))
-				
+}
 			
 	}
 

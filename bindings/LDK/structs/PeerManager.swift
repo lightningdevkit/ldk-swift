@@ -111,6 +111,13 @@ PeerManager_disconnect_by_node_id(this_argPointer, Bindings.new_LDKPublicKey(arr
 };
     }
 
+    public func disconnect_all_peers() -> Void {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+PeerManager_disconnect_all_peers(this_argPointer)
+};
+    }
+
     public func timer_tick_occurred() -> Void {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in

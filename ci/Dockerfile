@@ -29,11 +29,12 @@ COPY src ./src
 COPY templates ./templates
 COPY __main__.py ./
 
-RUN rm -r ci/LDKSwift/Sources/LDKHeaders
-RUN rm -r ci/LDKSwift/Sources/LDKSwift
+RUN rm -rf ci/LDKSwift/Sources/LDKHeaders
+RUN rm -rf ci/LDKSwift/Sources/LDKSwift
 RUN chmod +x ci/run_tests.sh
 
 COPY bindings/batteries ci/LDKSwift/Sources/LDKSwift/batteries
+# COPY bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
 
 # RUN ln -s /lib/x86_64-linux-gnu/libtinfo.so.5 /lib/x86_64-linux-gnu/libtinfo.so.6
 
@@ -44,4 +45,5 @@ ENV LLVM_CLANG_ASAN_PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/lib/c
 ENV ASAN_SYMBOLIZER_PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/bin/llvm-symbolizer"
 ENV PATH="/clang+llvm-11.0.0-x86_64-linux-gnu-ubuntu-20.04/bin:${PATH}"
 ENV RUST_BACKTRACE=1
+ENV RUSTFLAGS="--cfg=c_bindings"
 ENV SHELL=/bin/bash

@@ -37,9 +37,9 @@ C2Tuple_PaymentHashPaymentIdZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: [UInt8], b: PaymentId) -> C2Tuple_PaymentHashPaymentIdZ {
+    public class func new(a: [UInt8], b: [UInt8]) -> C2Tuple_PaymentHashPaymentIdZ {
     	
-        return C2Tuple_PaymentHashPaymentIdZ(pointer: C2Tuple_PaymentHashPaymentIdZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.danglingClone().cOpaqueStruct!));
+        return C2Tuple_PaymentHashPaymentIdZ(pointer: C2Tuple_PaymentHashPaymentIdZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), Bindings.new_LDKThirtyTwoBytes(array: b)));
     }
 
     internal func free() -> Void {

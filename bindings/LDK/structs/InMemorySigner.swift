@@ -189,6 +189,13 @@ InMemorySigner_get_channel_parameters(this_argPointer)
 });
     }
 
+    public func opt_anchors() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
+InMemorySigner_opt_anchors(this_argPointer)
+};
+    }
+
     public func sign_counterparty_payment_input(spend_tx: [UInt8], input_idx: UInt, descriptor: StaticPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
     	
 						let spend_txWrapper = Bindings.new_LDKTransactionWrapper(array: spend_tx)

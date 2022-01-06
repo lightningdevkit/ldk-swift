@@ -296,6 +296,21 @@ OpenChannel_get_channel_flags(this_ptrPointer)
         return OpenChannel_set_channel_flags(this_ptrPointer, val);
     }
 
+    public func get_channel_type() -> ChannelTypeFeatures {
+    	
+        return ChannelTypeFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKOpenChannel>) in
+OpenChannel_get_channel_type(this_ptrPointer)
+});
+    }
+
+    public func set_channel_type(val: ChannelTypeFeatures) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKOpenChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return OpenChannel_set_channel_type(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
     public func clone() -> OpenChannel {
     	
         return OpenChannel(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKOpenChannel>) in

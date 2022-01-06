@@ -115,6 +115,11 @@ ErrorAction_clone(origPointer)
         return ErrorAction(pointer: ErrorAction_ignore_and_log(a));
     }
 
+    public class func ignore_duplicate_gossip() -> ErrorAction {
+    	
+        return ErrorAction(pointer: ErrorAction_ignore_duplicate_gossip());
+    }
+
     public class func send_error_message(msg: ErrorMessage) -> ErrorAction {
     	
         return ErrorAction(pointer: ErrorAction_send_error_message(msg.danglingClone().cOpaqueStruct!));

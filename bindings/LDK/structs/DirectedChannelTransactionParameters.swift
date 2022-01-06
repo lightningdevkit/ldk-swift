@@ -70,6 +70,13 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 			;
     }
 
+    public func opt_anchors() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
+DirectedChannelTransactionParameters_opt_anchors(this_argPointer)
+};
+    }
+
     internal func free() -> Void {
     	
         return DirectedChannelTransactionParameters_free(self.cOpaqueStruct!);

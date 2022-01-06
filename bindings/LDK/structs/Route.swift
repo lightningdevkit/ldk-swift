@@ -7,7 +7,7 @@ public class Route: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    internal init(paths_arg: [[LDKRouteHop]]) {
+    internal init(paths_arg: [[LDKRouteHop]], payee_arg: Payee) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -16,7 +16,7 @@ public class Route: NativeTypeWrapper {
 							paths_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = Route_new(paths_argWrapper.dangle().cOpaqueStruct!)
+        self.cOpaqueStruct = Route_new(paths_argWrapper.dangle().cOpaqueStruct!, payee_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
@@ -38,7 +38,7 @@ public class Route: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
-    public convenience init(paths_arg: [[RouteHop]])  {
+    public convenience init(paths_arg: [[RouteHop]], payee_arg: Payee)  {
     	
 							let paths_argUnwrapped = paths_arg.map { (paths_argCurrentValue) in
 							paths_argCurrentValue.map { (paths_argCurrentValue) in
@@ -46,7 +46,7 @@ public class Route: NativeTypeWrapper {
 								.danglingClone().cOpaqueStruct!
 							}}
 						
-        self.init(paths_arg: paths_argUnwrapped);
+        self.init(paths_arg: paths_argUnwrapped, payee_arg: payee_arg);
     }
 
     public func get_paths() -> [[RouteHop]] {
@@ -84,6 +84,21 @@ Route_get_paths(this_ptrPointer)
 						}
 					
         return Route_set_paths(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
+    }
+
+    public func get_payee() -> Payee {
+    	
+        return Payee(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRoute>) in
+Route_get_payee(this_ptrPointer)
+});
+    }
+
+    public func set_payee(val: Payee) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKRoute>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return Route_set_payee(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> Route {

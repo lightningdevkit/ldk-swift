@@ -122,11 +122,11 @@ public class HumanObjectPeerTestInstance {
         }
 
         fileprivate class TestPersister: Persist {
-            override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+            override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
                 return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
 
-            override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+            override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
                 return Result_NoneChannelMonitorUpdateErrZ.ok()
             }
         }
@@ -179,8 +179,14 @@ public class HumanObjectPeerTestInstance {
             self.init(master: master, _dummy: (), seed: seed)
 
             if master.use_chan_manager_constructor {
-                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, router: self.router, tx_broadcaster: self.txBroadcaster, logger: self.logger)
-                self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self))
+                
+                let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32))
+                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: graph, tx_broadcaster: self.txBroadcaster, logger: self.logger)
+                
+//                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: nil, tx_broadcaster: self.txBroadcaster, logger: self.logger)
+                
+                
+                self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self), scorer: nil)
                 self.channelManager = self.constructor!.channelManager
                 self.peerManager = self.constructor!.peerManager
             } else {
@@ -198,8 +204,9 @@ public class HumanObjectPeerTestInstance {
             self.init(master: original.master, _dummy: (), seed: original.seed)
 
             if master.use_chan_manager_constructor {
-                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, router: self.router, tx_broadcaster: self.txBroadcaster, logger: self.logger)
-                self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self))
+                let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32))
+                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: graph, tx_broadcaster: self.txBroadcaster, logger: self.logger)
+                self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self), scorer: nil)
                 self.channelManager = self.constructor!.channelManager
                 self.peerManager = self.constructor!.peerManager
                 self.pendingManagerEvents.append(contentsOf: original.pendingManagerEvents)
@@ -286,7 +293,7 @@ public class HumanObjectPeerTestInstance {
 
         let config = UserConfig()
         let theirNodeId = peer2.channelManager.get_our_node_id()
-        let channelOpenResult = peer1.channelManager.create_channel(their_network_key: theirNodeId, channel_value_satoshis: 4000000, push_msat: 2000000, user_id: 42, override_config: config)
+        let channelOpenResult = peer1.channelManager.create_channel(their_network_key: theirNodeId, channel_value_satoshis: 4000000, push_msat: 2000000, user_channel_id: 42, override_config: config)
 
         XCTAssertTrue(channelOpenResult.isOk())
         let channels = peer1.channelManager.list_channels()

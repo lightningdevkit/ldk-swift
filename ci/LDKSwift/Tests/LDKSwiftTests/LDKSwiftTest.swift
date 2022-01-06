@@ -63,7 +63,7 @@ class LDKSwiftTest: XCTestCase {
                 fee_estimator: feeEstimator,
                 chain_monitor: chainMonitor,
                 filter: filter,
-                router: nil,
+                net_graph: nil,
                 tx_broadcaster: broadcaster,
                 logger: logger
         )
@@ -75,7 +75,7 @@ class LDKSwiftTest: XCTestCase {
         let header = Self.hexStringToBytes(hexString: "f5591ea0b69ae3edc0de11497ffb0fdd91f769ede96c5d662c805364e9bf8b2243e8e5b9d1833eff7cb19abd9fc9da3cd26fe84d718bbf8a336966ae4f7dea6a81372961ffff7f200400000001020000")
         channel_manager.as_Confirm().transactions_confirmed(header: header, txdata: txdata, height: 525)
 
-        channel_manager_constructor.chain_sync_completed(persister: cmPersister)
+        channel_manager_constructor.chain_sync_completed(persister: cmPersister, scorer: nil)
         channel_manager_constructor.interrupt()
     }
 
@@ -114,7 +114,8 @@ class LDKSwiftTest: XCTestCase {
             path.append(extraHop)
         }
 
-        let route = Route(paths_arg: [path])
+        let payee = Payee(pubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
+		let route = Route(paths_arg: [path], payee_arg: payee)
     }
 
     func testExtendedActivity() throws {

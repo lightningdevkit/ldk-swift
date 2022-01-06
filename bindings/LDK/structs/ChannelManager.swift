@@ -115,13 +115,20 @@ ChannelManager_send_payment(this_argPointer, routePointer, Bindings.new_LDKThirt
 });
     }
 
-    public func retry_payment(route: Route, payment_id: PaymentId) -> Result_NonePaymentSendFailureZ {
+    public func retry_payment(route: Route, payment_id: [UInt8]) -> Result_NonePaymentSendFailureZ {
     	
         return Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
-ChannelManager_retry_payment(this_argPointer, routePointer, payment_id.danglingClone().cOpaqueStruct!)
+ChannelManager_retry_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_id))
 }
 });
+    }
+
+    public func abandon_payment(payment_id: [UInt8]) -> Void {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_abandon_payment(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_id))
+};
     }
 
     public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
@@ -206,26 +213,38 @@ ChannelManager_get_our_node_id(this_argPointer)
 });
     }
 
-    public func channel_monitor_updated(funding_txo: OutPoint, highest_applied_update_id: UInt64) -> Void {
+    public func create_inbound_payment(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_C2Tuple_PaymentHashPaymentSecretZNoneZ {
     	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-withUnsafePointer(to: funding_txo.cOpaqueStruct!) { (funding_txoPointer: UnsafePointer<LDKOutPoint>) in
-ChannelManager_channel_monitor_updated(this_argPointer, funding_txoPointer, highest_applied_update_id)
-}
-};
-    }
-
-    public func create_inbound_payment(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32, user_payment_id: UInt64) -> C2Tuple_PaymentHashPaymentSecretZ {
-    	
-        return C2Tuple_PaymentHashPaymentSecretZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_inbound_payment(this_argPointer, min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
+        return Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_create_inbound_payment(this_argPointer, min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
 });
     }
 
-    public func create_inbound_payment_for_hash(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32, user_payment_id: UInt64) -> Result_PaymentSecretAPIErrorZ {
+    public func create_inbound_payment_legacy(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ {
+    	
+        return Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_create_inbound_payment_legacy(this_argPointer, min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
+});
+    }
+
+    public func create_inbound_payment_for_hash(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_PaymentSecretNoneZ {
+    	
+        return Result_PaymentSecretNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
+});
+    }
+
+    public func create_inbound_payment_for_hash_legacy(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_PaymentSecretAPIErrorZ {
     	
         return Result_PaymentSecretAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs, user_payment_id)
+ChannelManager_create_inbound_payment_for_hash_legacy(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
+});
+    }
+
+    public func get_payment_preimage(payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentPreimageAPIErrorZ {
+    	
+        return Result_PaymentPreimageAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_get_payment_preimage(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret))
 });
     }
 
@@ -290,6 +309,13 @@ ChannelManager_as_ChannelMessageHandler(this_argPointer)
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_write(objPointer)
 });
+    }
+
+    public func as_Payer() -> NativelyImplementedPayer {
+    	
+        return NativelyImplementedPayer(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_as_Payer(this_argPointer)
+}, anchor: self);
     }
 
     internal func free() -> Void {

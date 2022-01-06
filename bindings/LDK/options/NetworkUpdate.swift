@@ -122,6 +122,16 @@ NetworkUpdate_write(objPointer)
 });
     }
 
+    public class func read(ser: [UInt8]) -> Result_COption_NetworkUpdateZDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_COption_NetworkUpdateZDecodeErrorZ(pointer: NetworkUpdate_read(serWrapper.cOpaqueStruct!));
+    }
+
     /* OPTION_METHODS_END */
 
 	

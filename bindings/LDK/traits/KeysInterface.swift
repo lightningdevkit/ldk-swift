@@ -61,6 +61,12 @@ open class KeysInterface: NativeTypeWrapper {
 			return instance.sign_invoice(invoice_preimage: Bindings.LDKCVec_u8Z_to_array(nativeType: invoice_preimage)).cOpaqueStruct!
 		}
 
+		func get_inbound_payment_key_materialCallback(pointer: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
+			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_inbound_payment_key_material")
+			
+			return Bindings.new_LDKThirtyTwoBytes(array: instance.get_inbound_payment_key_material())
+		}
+
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::free")
 			
@@ -78,6 +84,7 @@ open class KeysInterface: NativeTypeWrapper {
 			get_secure_random_bytes: get_secure_random_bytesCallback,
 			read_chan_signer: read_chan_signerCallback,
 			sign_invoice: sign_invoiceCallback,
+			get_inbound_payment_key_material: get_inbound_payment_key_materialCallback,
 			free: freeCallback)
 
     }
@@ -166,6 +173,13 @@ return Result_SignDecodeErrorZ()
 return Result_RecoverableSignatureNoneZ()
     }
 
+    open func get_inbound_payment_key_material() -> [UInt8] {
+    	/* EDIT ME */
+		Bindings.print("KeysInterface::get_inbound_payment_key_material should be overridden!", severity: .WARNING)
+
+return [UInt8]()
+    }
+
     open func free() -> Void {
     	/* EDIT ME */
 		Bindings.print("KeysInterface::free should be overridden!", severity: .WARNING)
@@ -250,6 +264,15 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 					
 				return 
 				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, invoice_preimageWrapper.dangle().cOpaqueStruct!))
+				
+			
+	}
+
+	public override func get_inbound_payment_key_material() -> [UInt8] {
+		
+				
+				return 
+				Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.get_inbound_payment_key_material(self.cOpaqueStruct!.this_arg))
 				
 			
 	}

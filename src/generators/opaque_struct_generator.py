@@ -56,6 +56,21 @@ class OpaqueStructGenerator:
 				cloneability_type_message = '; '.join(cloneability_types)
 				print(f'(opaque_struct_generator.py#constructor, warned, deprecated) {cloneability_warning}: {constructor_native_name} [{cloneability_type_message}]')
 
+			if constructor_native_name == 'BackgroundProcessor_start':
+				previous_swift_argument = constructor_swift_arguments[4]
+				previous_native_argument = constructor_native_arguments[4]
+				new_swift_argument = 'net_graph_msg_handler: NetGraphMsgHandler?'
+				new_native_argument = 'graphMessageHandler'
+				print(f'''
+					Replacing {constructor_native_name}:
+						Swift argument `{previous_swift_argument}` -> `{new_swift_argument}`
+						Native argument `{previous_native_argument}` -> `{new_native_argument}`
+				''')
+
+				constructor_swift_arguments[4] = new_swift_argument
+				constructor_native_call_prep += '\nlet graphMessageHandler = net_graph_msg_handler?.dangle().cOpaqueStruct! ?? LDKNetGraphMsgHandler(inner: nil, is_owned: true)\n'
+				constructor_native_arguments[4] = new_native_argument
+
 			
 			mutating_output_file_contents = mutating_output_file_contents.replace('public init', f'{deprecation_prefix}public init')
 

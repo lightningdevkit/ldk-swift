@@ -60,11 +60,11 @@ public class NetAddress: NativeTypeWrapper {
 						return IPv6(pointer: self.cOpaqueStruct!.i_pv6, anchor: self)
 					}
 				
-					public func getValueAsOnionV2() -> OnionV2? {
+					public func getValueAsOnionV2() -> [UInt8]? {
 						if self.cOpaqueStruct?.tag != LDKNetAddress_OnionV2 {
 							return nil
 						}
-						return OnionV2(pointer: self.cOpaqueStruct!.onion_v2, anchor: self)
+						return Bindings.LDKTwelveBytes_to_array(nativeType: self.cOpaqueStruct!.onion_v2)
 					}
 				
 					public func getValueAsOnionV3() -> OnionV3? {
@@ -119,9 +119,9 @@ NetAddress_clone(origPointer)
         return NetAddress(pointer: NetAddress_ipv6(Bindings.new_LDKSixteenBytes(array: addr), port));
     }
 
-    public class func onion_v2(addr: [UInt8], port: UInt16) -> NetAddress {
+    public class func onion_v2(a: [UInt8]) -> NetAddress {
     	
-        return NetAddress(pointer: NetAddress_onion_v2(Bindings.new_LDKTenBytes(array: addr), port));
+        return NetAddress(pointer: NetAddress_onion_v2(Bindings.new_LDKTwelveBytes(array: a)));
     }
 
     public class func onion_v3(ed25519_pubkey: [UInt8], checksum: UInt16, version: UInt8, port: UInt16) -> NetAddress {
@@ -198,35 +198,6 @@ NetAddress_write(objPointer)
 				
 					public func getAddr() -> [UInt8] {
 						return Bindings.LDKSixteenBytes_to_array(nativeType: self.cOpaqueStruct!.addr)
-					}
-				
-					public func getPort() -> UInt16 {
-						return self.cOpaqueStruct!.port
-					}
-				
-				
-			}
-		
-
-			public class OnionV2: NativeTypeWrapper {
-				
-				
-				var cOpaqueStruct: LDKNetAddress_LDKOnionV2_Body?;
-				fileprivate init(pointer: LDKNetAddress_LDKOnionV2_Body) {
-					self.cOpaqueStruct = pointer
-					super.init(conflictAvoidingVariableName: 0)
-				}
-				fileprivate init(pointer: LDKNetAddress_LDKOnionV2_Body, anchor: NativeTypeWrapper) {
-					self.cOpaqueStruct = pointer
-					super.init(conflictAvoidingVariableName: 0)
-					self.dangling = true
-					try! self.addAnchor(anchor: anchor)
-				}
-			
-				
-				
-					public func getAddr() -> [UInt8] {
-						return Bindings.LDKTenBytes_to_array(nativeType: self.cOpaqueStruct!.addr)
 					}
 				
 					public func getPort() -> UInt16 {

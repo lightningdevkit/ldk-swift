@@ -26,7 +26,7 @@ public class MonitorEvent: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum MonitorEventValueType {
-					case HTLCEvent, CommitmentTxConfirmed
+					case HTLCEvent, CommitmentTxConfirmed, UpdateCompleted, UpdateFailed
 				}
 				
 				public func getValueType() -> MonitorEventValueType? {
@@ -36,6 +36,10 @@ public class MonitorEvent: NativeTypeWrapper {
 						return .HTLCEvent
 					case LDKMonitorEvent_CommitmentTxConfirmed:
 						return .CommitmentTxConfirmed
+					case LDKMonitorEvent_UpdateCompleted:
+						return .UpdateCompleted
+					case LDKMonitorEvent_UpdateFailed:
+						return .UpdateFailed
                     default:
                         return nil
                     }
@@ -57,6 +61,29 @@ public class MonitorEvent: NativeTypeWrapper {
 				{ () in
 					let cStruct =
 				self.cOpaqueStruct!.commitment_tx_confirmed;
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct, anchor: self)
+				}()
+			
+					}
+				
+					public func getValueAsUpdateCompleted() -> UpdateCompleted? {
+						if self.cOpaqueStruct?.tag != LDKMonitorEvent_UpdateCompleted {
+							return nil
+						}
+						return UpdateCompleted(pointer: self.cOpaqueStruct!.update_completed, anchor: self)
+					}
+				
+					public func getValueAsUpdateFailed() -> OutPoint? {
+						if self.cOpaqueStruct?.tag != LDKMonitorEvent_UpdateFailed {
+							return nil
+						}
+						return 
+				{ () in
+					let cStruct =
+				self.cOpaqueStruct!.update_failed;
 				if cStruct.inner == nil {
 					return nil
 				}	
@@ -110,7 +137,72 @@ MonitorEvent_clone(origPointer)
         return MonitorEvent(pointer: MonitorEvent_commitment_tx_confirmed(a.danglingClone().cOpaqueStruct!));
     }
 
+    public class func update_completed(funding_txo: OutPoint, monitor_update_id: UInt64) -> MonitorEvent {
+    	
+        return MonitorEvent(pointer: MonitorEvent_update_completed(funding_txo.danglingClone().cOpaqueStruct!, monitor_update_id));
+    }
+
+    public class func update_failed(a: OutPoint) -> MonitorEvent {
+    	
+        return MonitorEvent(pointer: MonitorEvent_update_failed(a.danglingClone().cOpaqueStruct!));
+    }
+
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKMonitorEvent>) in
+MonitorEvent_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_COption_MonitorEventZDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_COption_MonitorEventZDecodeErrorZ(pointer: MonitorEvent_read(serWrapper.cOpaqueStruct!));
+    }
+
     /* OPTION_METHODS_END */
 
-	/* TYPE_CLASSES */
+	
+
+			public class UpdateCompleted: NativeTypeWrapper {
+				
+				
+				var cOpaqueStruct: LDKMonitorEvent_LDKUpdateCompleted_Body?;
+				fileprivate init(pointer: LDKMonitorEvent_LDKUpdateCompleted_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMonitorEvent_LDKUpdateCompleted_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+				
+				
+					public func getFunding_txo() -> OutPoint? {
+						return 
+				{ () in
+					let cStruct =
+				self.cOpaqueStruct!.funding_txo;
+				if cStruct.inner == nil {
+					return nil
+				}	
+				return OutPoint(pointer: cStruct, anchor: self)
+				}()
+			
+					}
+				
+					public func getMonitor_update_id() -> UInt64 {
+						return self.cOpaqueStruct!.monitor_update_id
+					}
+				
+				
+			}
+		
 }

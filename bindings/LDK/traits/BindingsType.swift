@@ -1,6 +1,6 @@
 import Foundation
 
-open class Type: NativeTypeWrapper {
+open class BindingsType: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -14,19 +14,19 @@ open class Type: NativeTypeWrapper {
     	/* NATIVE_CALLBACKS_START */
 
 		func type_idCallback(pointer: UnsafeRawPointer?) -> UInt16 {
-			let instance: Type = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Type.swift::type_id")
+			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::type_id")
 			
 			return instance.type_id()
 		}
 
 		func debug_strCallback(pointer: UnsafeRawPointer?) -> LDKStr {
-			let instance: Type = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Type.swift::debug_str")
+			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::debug_str")
 			
 			return Bindings.new_LDKStr(string: instance.debug_str(), chars_is_owned: true)
 		}
 
 		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
-			let instance: Type = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Type.swift::write")
+			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::write")
 			
 			
 					let returnWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: instance.write())
@@ -38,7 +38,7 @@ open class Type: NativeTypeWrapper {
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Type = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Type.swift::free")
+			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::free")
 			
 			return instance.free()
 		}
@@ -74,17 +74,17 @@ open class Type: NativeTypeWrapper {
     /* SWIFT_CALLBACKS_START */
 
 
-				public func clone() -> Type {
+				public func clone() -> BindingsType {
 					
 					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKType>) in
 
-					Type(pointer: Type_clone(origPointer))
+					BindingsType(pointer: Type_clone(origPointer))
 					
 }
 				}
 			
 
-					internal func danglingClone() -> Type {
+					internal func danglingClone() -> BindingsType {
         				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
@@ -93,45 +93,45 @@ open class Type: NativeTypeWrapper {
 
 
 
-					internal func dangle() -> Type {
+					internal func dangle() -> BindingsType {
         				self.dangling = true
 						return self
 					}
 					
 					deinit {
 						if !self.dangling {
-							Bindings.print("Freeing Type \(self.instanceNumber).")
+							Bindings.print("Freeing BindingsType \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing Type \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing BindingsType \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func type_id() -> UInt16 {
     	/* EDIT ME */
-		Bindings.print("Type::type_id should be overridden!", severity: .WARNING)
+		Bindings.print("BindingsType::type_id should be overridden!", severity: .WARNING)
 
 return 0
     }
 
     open func debug_str() -> String {
     	/* EDIT ME */
-		Bindings.print("Type::debug_str MUST be overridden!", severity: .ERROR)
+		Bindings.print("BindingsType::debug_str MUST be overridden!", severity: .ERROR)
 
 abort()
     }
 
     open func write() -> [UInt8] {
     	/* EDIT ME */
-		Bindings.print("Type::write should be overridden!", severity: .WARNING)
+		Bindings.print("BindingsType::write should be overridden!", severity: .WARNING)
 
 return [UInt8]()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Type::free should be overridden!", severity: .WARNING)
+		Bindings.print("BindingsType::free should be overridden!", severity: .WARNING)
 
 
     }
@@ -141,7 +141,7 @@ return [UInt8]()
 }
 
 
-public class NativelyImplementedType: Type {
+public class NativelyImplementedBindingsType: BindingsType {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
 	public override func type_id() -> UInt16 {

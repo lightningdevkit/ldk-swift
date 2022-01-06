@@ -16,7 +16,7 @@ open class CustomMessageHandler: NativeTypeWrapper {
 		func handle_custom_messageCallback(pointer: UnsafeRawPointer?, msg: LDKType, sender_node_id: LDKPublicKey) -> LDKCResult_NoneLightningErrorZ {
 			let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageHandler.swift::handle_custom_message")
 			
-			return instance.handle_custom_message(msg: Type(pointer: msg), sender_node_id: Bindings.tuple33_to_array(nativeType: sender_node_id.compressed_form)).cOpaqueStruct!
+			return instance.handle_custom_message(msg: BindingsType(pointer: msg), sender_node_id: Bindings.tuple33_to_array(nativeType: sender_node_id.compressed_form)).cOpaqueStruct!
 		}
 
 		func get_and_clear_pending_msgCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C2Tuple_PublicKeyTypeZZ {
@@ -83,7 +83,7 @@ open class CustomMessageHandler: NativeTypeWrapper {
 					}
 				
 
-    open func handle_custom_message(msg: Type, sender_node_id: [UInt8]) -> Result_NoneLightningErrorZ {
+    open func handle_custom_message(msg: BindingsType, sender_node_id: [UInt8]) -> Result_NoneLightningErrorZ {
     	/* EDIT ME */
 		Bindings.print("CustomMessageHandler::handle_custom_message should be overridden!", severity: .WARNING)
 
@@ -112,7 +112,7 @@ return [LDKC2Tuple_PublicKeyTypeZ]()
 public class NativelyImplementedCustomMessageHandler: CustomMessageHandler {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
-	public override func handle_custom_message(msg: Type, sender_node_id: [UInt8]) -> Result_NoneLightningErrorZ {
+	public override func handle_custom_message(msg: BindingsType, sender_node_id: [UInt8]) -> Result_NoneLightningErrorZ {
 		
 				
 				return 

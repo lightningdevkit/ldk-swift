@@ -47,6 +47,13 @@ TrustedCommitmentTransaction_keys(this_argPointer)
 });
     }
 
+    public func opt_anchors() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
+TrustedCommitmentTransaction_opt_anchors(this_argPointer)
+};
+    }
+
     public func get_htlc_sigs(htlc_base_key: [UInt8], channel_parameters: DirectedChannelTransactionParameters) -> Result_CVec_SignatureZNoneZ {
     	
         return Result_CVec_SignatureZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in

@@ -6,7 +6,7 @@ public class Option_TypeZ: NativeTypeWrapper {
     internal var cOpaqueStruct: LDKCOption_TypeZ?
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(value: Type?) {
+    public init(value: BindingsType?) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -42,14 +42,14 @@ public class Option_TypeZ: NativeTypeWrapper {
 
     /* OPTION_METHODS_START */
 
-    public func getValue() -> Type? {
+    public func getValue() -> BindingsType? {
     	
 			
 				if self.cOpaqueStruct!.tag == LDKCOption_TypeZ_None {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_TypeZ_Some {
-					return Type(pointer: self.cOpaqueStruct!.some)
+					return BindingsType(pointer: self.cOpaqueStruct!.some)
 				}
 				assert(false, "invalid option enum value")
 				return nil
@@ -57,7 +57,7 @@ public class Option_TypeZ: NativeTypeWrapper {
         
     }
 
-    public class func some(o: Type) -> Option_TypeZ {
+    public class func some(o: BindingsType) -> Option_TypeZ {
     	
         return Option_TypeZ(pointer: COption_TypeZ_some(o.danglingClone().cOpaqueStruct!));
     }

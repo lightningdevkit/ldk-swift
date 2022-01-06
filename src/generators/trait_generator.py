@@ -21,7 +21,7 @@ class TraitGenerator:
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
 		# swift_struct_name = struct_name[3:] + 'Trait'
-		swift_struct_name = struct_name[3:]
+		swift_struct_name = ConversionHelper.normalize_swift_type(struct_name[3:])
 
 		native_callback_template_regex = re.compile("(\/\* NATIVE_CALLBACKS_START \*\/\n)(.*)(\n[\t ]*\/\* NATIVE_CALLBACKS_END \*\/)", flags=re.MULTILINE | re.DOTALL)
 		native_callback_template = native_callback_template_regex.search(self.template).group(2)
@@ -151,8 +151,7 @@ class TraitGenerator:
 			# if current_lambda['return_type'].rust_obj is not None and current_lambda['return_type'].rust_obj.startswith(
 			# 	'LDK'):
 			current_return_type_details = current_lambda['return_type']
-			if current_return_type_details.rust_obj is not None and (
-				current_return_type_details.rust_obj == 'LDK' + swift_return_type or current_return_type_details.rust_obj == 'LDKC' + swift_return_type):
+			if current_return_type_details.rust_obj is not None and ConversionHelper.is_instance_type(swift_return_type, current_return_type_details.rust_obj):
 				swift_raw_return_type = current_return_type_details.rust_obj
 				return_conversion_suffix = '.cOpaqueStruct!'
 			elif swift_raw_return_type.startswith('(UInt'):
@@ -281,7 +280,7 @@ class TraitGenerator:
 
 			if default_callback_prepared_arguments['has_unwrapped_arrays']:
 				default_callback_alternative_input_parameters = ConversionHelper.prepare_native_to_swift_callback_arguments(current_lambda['argument_types'], array_unwrapping_preparation_only=True)
-				default_callback_alternative_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], is_trait_callback=False, array_unwrapping_preparation_only=True)
+				default_callback_alternative_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], is_trait_callback=False, array_unwrapping_preparation_only=True, is_trait_default_redirect=True)
 
 				current_default_callback_addition = natively_implemented_callback_template
 				current_default_callback_addition = current_default_callback_addition.replace('public_swift_argument_list', default_callback_alternative_input_parameters['public_swift_argument_list'])

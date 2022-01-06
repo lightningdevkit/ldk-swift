@@ -29,8 +29,8 @@ COPY src ./src
 COPY templates ./templates
 COPY __main__.py ./
 
-RUN rm -r ci/LDKSwift/Sources/LDKHeaders
-RUN rm -r ci/LDKSwift/Sources/LDKSwift
+RUN rm -rf ci/LDKSwift/Sources/LDKHeaders
+RUN rm -rf ci/LDKSwift/Sources/LDKSwift
 RUN chmod +x ci/run_tests.sh
 
 COPY bindings/batteries ci/LDKSwift/Sources/LDKSwift/batteries

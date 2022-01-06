@@ -20,14 +20,14 @@ jobs:
                     cd rust-lightning
                     # git checkout origin/2021-03-java-bindings-base
                     # git checkout v0.0.100
-                    git checkout bfd04db6318fe374988d651607f1219749e42a52
+                    git checkout 557c7143fddde4a3879bb209a71f8f574c604caf
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
                     # git clone https://github.com/lightningdevkit/ldk-c-bindings
                     git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
-                    git checkout 18337a0191c3abdca8d51861c328dd3d2d9ca6b7
+                    git checkout 1bb5ae1b34aeb74009b7b4b5ebefc957cddc30a6
                     echo "ldk-c-bindings commit hash:"
                     git rev-parse HEAD
                     cd ..

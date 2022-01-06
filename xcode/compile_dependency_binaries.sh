@@ -16,7 +16,6 @@ usage() {
 [ ! -d "${LDK_DIRECTORY}" ] && echo "Provided directory does not exist" && exit 1;
 
 
-
 cp "${C_BINDINGS_SOURCE_DIRECTORY}/include/"*.h $FRAMEWORK_PROJECT_DIRECTORY_IOS
 cp "${C_BINDINGS_SOURCE_DIRECTORY}/include/"*.h $FRAMEWORK_PROJECT_DIRECTORY_MAC
 cp "${C_BINDINGS_SOURCE_DIRECTORY}/include/"*.h $DIRECT_BINDINGS_PROJECT_DIRECTORY
@@ -24,6 +23,10 @@ cp "${C_BINDINGS_SOURCE_DIRECTORY}/include/"*.h $DIRECT_BINDINGS_PROJECT_DIRECTO
 cp "${LDK_DIRECTORY}/ldk-net/ldk_net."{c,h} $FRAMEWORK_PROJECT_DIRECTORY_IOS
 cp "${LDK_DIRECTORY}/ldk-net/ldk_net."{c,h} $FRAMEWORK_PROJECT_DIRECTORY_MAC
 cp "${LDK_DIRECTORY}/ldk-net/ldk_net."{c,h} $DIRECT_BINDINGS_PROJECT_DIRECTORY
+
+python3 ../ci/fix_header_includes.py $FRAMEWORK_PROJECT_DIRECTORY_IOS
+python3 ../ci/fix_header_includes.py $FRAMEWORK_PROJECT_DIRECTORY_MAC
+python3 ../ci/fix_header_includes.py $DIRECT_BINDINGS_PROJECT_DIRECTORY
 
 
 # build for Catalyst

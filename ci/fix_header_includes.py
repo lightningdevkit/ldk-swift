@@ -1,8 +1,13 @@
 import os
+import sys
 
 directory_path = os.path.dirname(os.path.realpath(__file__))
-header_directory = f'{directory_path}/LDKSwift/Sources/LDKHeaders'
+default_header_directory = f'{directory_path}/LDKSwift/Sources/LDKHeaders'
+header_directory = sys.argv[1] if len(sys.argv) >= 2 else default_header_directory
 # header_directory = f'{directory_path}/../xcode/LDKFramework'
+
+if not os.path.exists(header_directory):
+	sys.exit(f'Directory "{header_directory}" does not exist')
 
 header_files = []
 

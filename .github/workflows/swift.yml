@@ -41,6 +41,7 @@ jobs:
             -   name: Install Swift Toolchain
                 run: |
                     curl https://swift.org/builds/swift-5.4.2-release/ubuntu2004/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-ubuntu20.04.tar.gz > swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
+                    echo "Sha sum: $(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
                     if [ "$(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "86b849d9f6ba2eda4e12ea5eafaa0748bffcd6272466b514c2b0fd4a829c63a4" ]; then
                       echo "Bad hash"
                       exit 1

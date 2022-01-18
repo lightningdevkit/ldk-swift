@@ -103,14 +103,14 @@ CommitmentSigned_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> CommitmentSigned {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(serWrapper.cOpaqueStruct!));
+        return try Result_CommitmentSignedDecodeErrorZ(pointer: CommitmentSigned_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

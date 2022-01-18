@@ -45,13 +45,14 @@ public class Result_PublicKeyErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> [UInt8]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
-				}
-				return nil
+		public func getValue() throws -> [UInt8] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
 			}
-			
+			throw Bindings.Error.ldkSecp256k1Error(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: [UInt8]) -> Result_PublicKeyErrorZ {
     	
         return Result_PublicKeyErrorZ(pointer: CResult_PublicKeyErrorZ_ok(Bindings.new_LDKPublicKey(array: o)));

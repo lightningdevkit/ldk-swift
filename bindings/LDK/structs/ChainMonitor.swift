@@ -67,11 +67,11 @@ ChainMonitor_get_claimable_balances(this_argPointer, ignored_channelsWrapper.dan
 					;
     }
 
-    public func get_monitor(funding_txo: OutPoint) -> Result_LockedChannelMonitorNoneZ {
+    public func get_monitor(funding_txo: OutPoint) throws -> LockedChannelMonitor {
     	
-        return Result_LockedChannelMonitorNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+        return try Result_LockedChannelMonitorNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_get_monitor(this_argPointer, funding_txo.danglingClone().cOpaqueStruct!)
-});
+}).getValue();
     }
 
     public func list_monitors() -> [OutPoint] {
@@ -86,11 +86,11 @@ ChainMonitor_list_monitors(this_argPointer)
 					;
     }
 
-    public func channel_monitor_updated(funding_txo: OutPoint, completed_update_id: MonitorUpdateId) -> Result_NoneAPIErrorZ {
+    public func channel_monitor_updated(funding_txo: OutPoint, completed_update_id: MonitorUpdateId) throws -> Void {
     	
-        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
+        return try Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_channel_monitor_updated(this_argPointer, funding_txo.danglingClone().cOpaqueStruct!, completed_update_id.danglingClone().cOpaqueStruct!)
-});
+}).getValue();
     }
 
     public func as_Listen() -> NativelyImplementedListen {

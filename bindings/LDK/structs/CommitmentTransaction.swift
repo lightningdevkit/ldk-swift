@@ -47,14 +47,14 @@ CommitmentTransaction_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_CommitmentTransactionDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> CommitmentTransaction {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(serWrapper.cOpaqueStruct!));
+        return try Result_CommitmentTransactionDecodeErrorZ(pointer: CommitmentTransaction_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     public func commitment_number() -> UInt64 {
@@ -92,9 +92,9 @@ CommitmentTransaction_trust(this_argPointer)
 });
     }
 
-    public func verify(channel_parameters: DirectedChannelTransactionParameters, broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) -> Result_TrustedCommitmentTransactionNoneZ {
+    public func verify(channel_parameters: DirectedChannelTransactionParameters, broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) throws -> TrustedCommitmentTransaction {
     	
-        return Result_TrustedCommitmentTransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
+        return try Result_TrustedCommitmentTransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKCommitmentTransaction>) in
 withUnsafePointer(to: channel_parameters.cOpaqueStruct!) { (channel_parametersPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
 withUnsafePointer(to: broadcaster_keys.cOpaqueStruct!) { (broadcaster_keysPointer: UnsafePointer<LDKChannelPublicKeys>) in
 withUnsafePointer(to: countersignatory_keys.cOpaqueStruct!) { (countersignatory_keysPointer: UnsafePointer<LDKChannelPublicKeys>) in
@@ -102,7 +102,7 @@ CommitmentTransaction_verify(this_argPointer, channel_parametersPointer, broadca
 }
 }
 }
-});
+}).getValue();
     }
 
     internal func free() -> Void {

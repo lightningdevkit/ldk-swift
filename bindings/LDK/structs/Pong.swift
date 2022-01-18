@@ -70,14 +70,14 @@ Pong_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_PongDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> Pong {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_PongDecodeErrorZ(pointer: Pong_read(serWrapper.cOpaqueStruct!));
+        return try Result_PongDecodeErrorZ(pointer: Pong_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

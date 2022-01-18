@@ -85,14 +85,14 @@ ChannelUpdate_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ChannelUpdateDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ChannelUpdate {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(serWrapper.cOpaqueStruct!));
+        return try Result_ChannelUpdateDecodeErrorZ(pointer: ChannelUpdate_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

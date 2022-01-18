@@ -130,14 +130,14 @@ ChannelPublicKeys_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ChannelPublicKeysDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ChannelPublicKeys {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ChannelPublicKeysDecodeErrorZ(pointer: ChannelPublicKeys_read(serWrapper.cOpaqueStruct!));
+        return try Result_ChannelPublicKeysDecodeErrorZ(pointer: ChannelPublicKeys_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

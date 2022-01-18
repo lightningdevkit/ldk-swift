@@ -45,13 +45,14 @@ public class Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ: NativeTypeWrap
 				return nil
 			}
 			
-			public func getValue() -> C2Tuple_BlockHashChannelMonitorZ? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_BlockHashChannelMonitorZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> C2Tuple_BlockHashChannelMonitorZ {
+			if self.cOpaqueStruct?.result_ok == true {
+				return C2Tuple_BlockHashChannelMonitorZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: C2Tuple_BlockHashChannelMonitorZ) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
     	
         return Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

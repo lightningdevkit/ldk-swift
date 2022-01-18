@@ -54,15 +54,15 @@ TrustedCommitmentTransaction_opt_anchors(this_argPointer)
 };
     }
 
-    public func get_htlc_sigs(htlc_base_key: [UInt8], channel_parameters: DirectedChannelTransactionParameters) -> Result_CVec_SignatureZNoneZ {
+    public func get_htlc_sigs(htlc_base_key: [UInt8], channel_parameters: DirectedChannelTransactionParameters) throws -> [[UInt8]] {
     	
-        return Result_CVec_SignatureZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
+        return try Result_CVec_SignatureZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: htlc_base_key)) { (htlc_base_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: channel_parameters.cOpaqueStruct!) { (channel_parametersPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
 TrustedCommitmentTransaction_get_htlc_sigs(this_argPointer, htlc_base_keyPointer, channel_parametersPointer)
 }
 }
-});
+}).getValue();
     }
 
     internal func free() -> Void {

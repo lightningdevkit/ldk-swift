@@ -38,13 +38,14 @@ public class Result_TransactionNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> [UInt8]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
-				}
-				return nil
+		public func getValue() throws -> [UInt8] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(o: [UInt8]) -> Result_TransactionNoneZ {
     	
 						let oWrapper = Bindings.new_LDKTransactionWrapper(array: o)

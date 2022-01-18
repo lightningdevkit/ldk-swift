@@ -85,14 +85,14 @@ ErrorMessage_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ErrorMessageDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ErrorMessage {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(serWrapper.cOpaqueStruct!));
+        return try Result_ErrorMessageDecodeErrorZ(pointer: ErrorMessage_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

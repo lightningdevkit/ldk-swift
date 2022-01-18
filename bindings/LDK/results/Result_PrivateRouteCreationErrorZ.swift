@@ -45,13 +45,14 @@ public class Result_PrivateRouteCreationErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> PrivateRoute? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return PrivateRoute(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> PrivateRoute {
+			if self.cOpaqueStruct?.result_ok == true {
+				return PrivateRoute(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.ldkCreationError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: PrivateRoute) -> Result_PrivateRouteCreationErrorZ {
     	
         return Result_PrivateRouteCreationErrorZ(pointer: CResult_PrivateRouteCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));

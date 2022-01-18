@@ -45,13 +45,14 @@ public class Result_boolPeerHandleErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Bool? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return self.cOpaqueStruct!.contents.result.pointee
-				}
-				return nil
+		public func getValue() throws -> Bool {
+			if self.cOpaqueStruct?.result_ok == true {
+				return self.cOpaqueStruct!.contents.result.pointee
 			}
-			
+			throw Bindings.Error.peerHandleError(PeerHandleError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Bool) -> Result_boolPeerHandleErrorZ {
     	
         return Result_boolPeerHandleErrorZ(pointer: CResult_boolPeerHandleErrorZ_ok(o));

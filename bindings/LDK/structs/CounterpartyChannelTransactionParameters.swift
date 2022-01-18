@@ -85,14 +85,14 @@ CounterpartyChannelTransactionParameters_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> CounterpartyChannelTransactionParameters {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CounterpartyChannelTransactionParameters_read(serWrapper.cOpaqueStruct!));
+        return try Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CounterpartyChannelTransactionParameters_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

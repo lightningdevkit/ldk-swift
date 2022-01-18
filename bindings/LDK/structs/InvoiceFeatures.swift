@@ -71,14 +71,14 @@ InvoiceFeatures_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_InvoiceFeaturesDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> InvoiceFeatures {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(serWrapper.cOpaqueStruct!));
+        return try Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

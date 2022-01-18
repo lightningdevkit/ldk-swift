@@ -38,13 +38,14 @@ public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> [UInt8]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKRecoverableSignature_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
-				}
-				return nil
+		public func getValue() throws -> [UInt8] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKRecoverableSignature_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(serialized_form: [UInt8]) -> Result_RecoverableSignatureNoneZ {
     	
         return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: serialized_form)));

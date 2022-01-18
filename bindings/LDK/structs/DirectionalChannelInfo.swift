@@ -160,14 +160,14 @@ DirectionalChannelInfo_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_DirectionalChannelInfoDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> DirectionalChannelInfo {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_DirectionalChannelInfoDecodeErrorZ(pointer: DirectionalChannelInfo_read(serWrapper.cOpaqueStruct!));
+        return try Result_DirectionalChannelInfoDecodeErrorZ(pointer: DirectionalChannelInfo_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

@@ -45,13 +45,14 @@ public class Result_ScoringParametersDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> ScoringParameters? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return ScoringParameters(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> ScoringParameters {
+			if self.cOpaqueStruct?.result_ok == true {
+				return ScoringParameters(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
 public class func ok(o: ScoringParameters) -> Result_ScoringParametersDecodeErrorZ {

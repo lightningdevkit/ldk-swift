@@ -45,13 +45,14 @@ public class Result_NetworkGraphDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> NetworkGraph? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return NetworkGraph(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> NetworkGraph {
+			if self.cOpaqueStruct?.result_ok == true {
+				return NetworkGraph(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: NetworkGraph) -> Result_NetworkGraphDecodeErrorZ {
     	
         return Result_NetworkGraphDecodeErrorZ(pointer: CResult_NetworkGraphDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

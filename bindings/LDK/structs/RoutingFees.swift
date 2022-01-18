@@ -101,14 +101,14 @@ RoutingFees_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> RoutingFees {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(serWrapper.cOpaqueStruct!));
+        return try Result_RoutingFeesDecodeErrorZ(pointer: RoutingFees_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

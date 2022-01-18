@@ -45,13 +45,14 @@ public class Result_InvoiceFeaturesDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> InvoiceFeatures? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return InvoiceFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> InvoiceFeatures {
+			if self.cOpaqueStruct?.result_ok == true {
+				return InvoiceFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: InvoiceFeatures) -> Result_InvoiceFeaturesDecodeErrorZ {
     	
         return Result_InvoiceFeaturesDecodeErrorZ(pointer: CResult_InvoiceFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

@@ -56,9 +56,9 @@ Description_eq(aPointer, bPointer)
 };
     }
 
-    public class func new(description: String) -> Result_DescriptionCreationErrorZ {
+    public class func new(description: String) throws -> Description {
     	
-        return Result_DescriptionCreationErrorZ(pointer: Description_new(Bindings.new_LDKStr(string: description)));
+        return try Result_DescriptionCreationErrorZ(pointer: Description_new(Bindings.new_LDKStr(string: description))).getValue();
     }
 
     public func into_inner() -> String {

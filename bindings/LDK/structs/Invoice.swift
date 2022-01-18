@@ -54,16 +54,16 @@ Invoice_clone(origPointer)
         return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.danglingClone().cOpaqueStruct!));
     }
 
-    public func check_signature() -> Result_NoneSemanticErrorZ {
+    public func check_signature() throws -> Void {
     	
-        return Result_NoneSemanticErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+        return try Result_NoneSemanticErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_check_signature(this_argPointer)
-});
+}).getValue();
     }
 
-    public class func from_signed(signed_invoice: SignedRawInvoice) -> Result_InvoiceSemanticErrorZ {
+    public class func from_signed(signed_invoice: SignedRawInvoice) throws -> Invoice {
     	
-        return Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.danglingClone().cOpaqueStruct!));
+        return try Result_InvoiceSemanticErrorZ(pointer: Invoice_from_signed(signed_invoice.danglingClone().cOpaqueStruct!)).getValue();
     }
 
     public func timestamp() -> UInt64 {
@@ -167,9 +167,9 @@ Invoice_amount_milli_satoshis(this_argPointer)
 });
     }
 
-    public class func from_str(s: String) -> Result_InvoiceNoneZ {
+    public class func from_str(s: String) throws -> Invoice {
     	
-        return Result_InvoiceNoneZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
+        return try Result_InvoiceNoneZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s))).getValue();
     }
 
     public func to_str() -> String {

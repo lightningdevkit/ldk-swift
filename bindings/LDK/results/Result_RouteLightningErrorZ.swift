@@ -45,13 +45,14 @@ public class Result_RouteLightningErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Route? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Route(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Route {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Route(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.lightningError(LightningError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Route) -> Result_RouteLightningErrorZ {
     	
         return Result_RouteLightningErrorZ(pointer: CResult_RouteLightningErrorZ_ok(o.danglingClone().cOpaqueStruct!));

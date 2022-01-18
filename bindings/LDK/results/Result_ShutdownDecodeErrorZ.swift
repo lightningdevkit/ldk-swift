@@ -45,13 +45,14 @@ public class Result_ShutdownDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Shutdown? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Shutdown(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Shutdown {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Shutdown(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Shutdown) -> Result_ShutdownDecodeErrorZ {
     	
         return Result_ShutdownDecodeErrorZ(pointer: CResult_ShutdownDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

@@ -45,6 +45,14 @@ public class Result_NoneErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.ldkioError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok() -> Result_NoneErrorZ {
     	
         return Result_NoneErrorZ(pointer: CResult_NoneErrorZ_ok());

@@ -45,18 +45,19 @@ public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrap
 				return nil
 			}
 			
-			public func getValue() -> [C2Tuple_BlockHashChannelMonitorZ]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
+		public func getValue() throws -> [C2Tuple_BlockHashChannelMonitorZ] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							C2Tuple_BlockHashChannelMonitorZ(pointer: cOpaqueStruct).dangle()
 						}
 					
-				}
-				return nil
 			}
-			
+			throw Bindings.Error.ldkioError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: [C2Tuple_BlockHashChannelMonitorZ]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
 							let oUnwrapped = o.map { (oCurrentValue) in

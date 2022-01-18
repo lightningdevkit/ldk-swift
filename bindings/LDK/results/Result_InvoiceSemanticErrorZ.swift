@@ -45,13 +45,14 @@ public class Result_InvoiceSemanticErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Invoice? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Invoice {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.ldkSemanticError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: Invoice) -> Result_InvoiceSemanticErrorZ {
     	
         return Result_InvoiceSemanticErrorZ(pointer: CResult_InvoiceSemanticErrorZ_ok(o.danglingClone().cOpaqueStruct!));

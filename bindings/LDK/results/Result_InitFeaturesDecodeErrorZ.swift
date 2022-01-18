@@ -45,13 +45,14 @@ public class Result_InitFeaturesDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> InitFeatures? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return InitFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> InitFeatures {
+			if self.cOpaqueStruct?.result_ok == true {
+				return InitFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: InitFeatures) -> Result_InitFeaturesDecodeErrorZ {
     	
         return Result_InitFeaturesDecodeErrorZ(pointer: CResult_InitFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

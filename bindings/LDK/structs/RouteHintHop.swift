@@ -161,14 +161,14 @@ RouteHintHop_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_RouteHintHopDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> RouteHintHop {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_RouteHintHopDecodeErrorZ(pointer: RouteHintHop_read(serWrapper.cOpaqueStruct!));
+        return try Result_RouteHintHopDecodeErrorZ(pointer: RouteHintHop_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

@@ -72,11 +72,11 @@ ClosingTransaction_trust(this_argPointer)
 });
     }
 
-    public func verify(funding_outpoint: OutPoint) -> Result_TrustedClosingTransactionNoneZ {
+    public func verify(funding_outpoint: OutPoint) throws -> TrustedClosingTransaction {
     	
-        return Result_TrustedClosingTransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKClosingTransaction>) in
+        return try Result_TrustedClosingTransactionNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKClosingTransaction>) in
 ClosingTransaction_verify(this_argPointer, funding_outpoint.danglingClone().cOpaqueStruct!)
-});
+}).getValue();
     }
 
     public func to_holder_value_sat() -> UInt64 {

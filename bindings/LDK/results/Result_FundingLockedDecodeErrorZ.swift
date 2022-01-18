@@ -45,13 +45,14 @@ public class Result_FundingLockedDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> FundingLocked? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return FundingLocked(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> FundingLocked {
+			if self.cOpaqueStruct?.result_ok == true {
+				return FundingLocked(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: FundingLocked) -> Result_FundingLockedDecodeErrorZ {
     	
         return Result_FundingLockedDecodeErrorZ(pointer: CResult_FundingLockedDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

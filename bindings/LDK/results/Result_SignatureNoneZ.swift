@@ -38,13 +38,14 @@ public class Result_SignatureNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> [UInt8]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKSignature_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
-				}
-				return nil
+		public func getValue() throws -> [UInt8] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKSignature_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(o: [UInt8]) -> Result_SignatureNoneZ {
     	
         return Result_SignatureNoneZ(pointer: CResult_SignatureNoneZ_ok(Bindings.new_LDKSignature(array: o)));

@@ -160,14 +160,14 @@ ChannelConfig_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ChannelConfigDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ChannelConfig {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ChannelConfigDecodeErrorZ(pointer: ChannelConfig_read(serWrapper.cOpaqueStruct!));
+        return try Result_ChannelConfigDecodeErrorZ(pointer: ChannelConfig_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

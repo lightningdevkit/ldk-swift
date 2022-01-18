@@ -45,13 +45,14 @@ public class Result_RevokeAndACKDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> RevokeAndACK? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return RevokeAndACK(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> RevokeAndACK {
+			if self.cOpaqueStruct?.result_ok == true {
+				return RevokeAndACK(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: RevokeAndACK) -> Result_RevokeAndACKDecodeErrorZ {
     	
         return Result_RevokeAndACKDecodeErrorZ(pointer: CResult_RevokeAndACKDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

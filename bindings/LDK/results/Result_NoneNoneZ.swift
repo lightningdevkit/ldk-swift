@@ -38,6 +38,14 @@ public class Result_NoneNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok() -> Result_NoneNoneZ {
     	
         return Result_NoneNoneZ(pointer: CResult_NoneNoneZ_ok());

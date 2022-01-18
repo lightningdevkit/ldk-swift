@@ -56,14 +56,14 @@ ExpiryTime_eq(aPointer, bPointer)
 };
     }
 
-    public class func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {
+    public class func from_seconds(seconds: UInt64) throws -> ExpiryTime {
     	
-        return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_seconds(seconds));
+        return try Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_seconds(seconds)).getValue();
     }
 
-    public class func from_duration(duration: UInt64) -> Result_ExpiryTimeCreationErrorZ {
+    public class func from_duration(duration: UInt64) throws -> ExpiryTime {
     	
-        return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_duration(duration));
+        return try Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_duration(duration)).getValue();
     }
 
     public func as_seconds() -> UInt64 {

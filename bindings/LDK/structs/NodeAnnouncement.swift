@@ -85,14 +85,14 @@ NodeAnnouncement_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> NodeAnnouncement {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(serWrapper.cOpaqueStruct!));
+        return try Result_NodeAnnouncementDecodeErrorZ(pointer: NodeAnnouncement_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

@@ -45,13 +45,14 @@ public class Result_SpendableOutputDescriptorDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> SpendableOutputDescriptor? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return SpendableOutputDescriptor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> SpendableOutputDescriptor {
+			if self.cOpaqueStruct?.result_ok == true {
+				return SpendableOutputDescriptor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: SpendableOutputDescriptor) -> Result_SpendableOutputDescriptorDecodeErrorZ {
     	
         return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: CResult_SpendableOutputDescriptorDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

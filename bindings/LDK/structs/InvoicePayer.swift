@@ -36,29 +36,29 @@ InvoicePayer_new(payer.cOpaqueStruct!, router.cOpaqueStruct!, scorerPointer, log
 
     /* STRUCT_METHODS_START */
 
-    public func pay_invoice(invoice: Invoice) -> Result_PaymentIdPaymentErrorZ {
+    public func pay_invoice(invoice: Invoice) throws -> [UInt8] {
     	
-        return Result_PaymentIdPaymentErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoicePayer>) in
+        return try Result_PaymentIdPaymentErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoicePayer>) in
 withUnsafePointer(to: invoice.cOpaqueStruct!) { (invoicePointer: UnsafePointer<LDKInvoice>) in
 InvoicePayer_pay_invoice(this_argPointer, invoicePointer)
 }
-});
+}).getValue();
     }
 
-    public func pay_zero_value_invoice(invoice: Invoice, amount_msats: UInt64) -> Result_PaymentIdPaymentErrorZ {
+    public func pay_zero_value_invoice(invoice: Invoice, amount_msats: UInt64) throws -> [UInt8] {
     	
-        return Result_PaymentIdPaymentErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoicePayer>) in
+        return try Result_PaymentIdPaymentErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoicePayer>) in
 withUnsafePointer(to: invoice.cOpaqueStruct!) { (invoicePointer: UnsafePointer<LDKInvoice>) in
 InvoicePayer_pay_zero_value_invoice(this_argPointer, invoicePointer, amount_msats)
 }
-});
+}).getValue();
     }
 
-    public func pay_pubkey(pubkey: [UInt8], payment_preimage: [UInt8], amount_msats: UInt64, final_cltv_expiry_delta: UInt32) -> Result_PaymentIdPaymentErrorZ {
+    public func pay_pubkey(pubkey: [UInt8], payment_preimage: [UInt8], amount_msats: UInt64, final_cltv_expiry_delta: UInt32) throws -> [UInt8] {
     	
-        return Result_PaymentIdPaymentErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoicePayer>) in
+        return try Result_PaymentIdPaymentErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoicePayer>) in
 InvoicePayer_pay_pubkey(this_argPointer, Bindings.new_LDKPublicKey(array: pubkey), Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), amount_msats, final_cltv_expiry_delta)
-});
+}).getValue();
     }
 
     public func remove_cached_payment(payment_hash: [UInt8]) -> Void {

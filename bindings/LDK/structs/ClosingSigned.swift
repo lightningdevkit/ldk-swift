@@ -115,14 +115,14 @@ ClosingSigned_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ClosingSignedDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ClosingSigned {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(serWrapper.cOpaqueStruct!));
+        return try Result_ClosingSignedDecodeErrorZ(pointer: ClosingSigned_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

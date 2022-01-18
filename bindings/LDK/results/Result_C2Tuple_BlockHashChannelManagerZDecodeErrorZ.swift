@@ -45,13 +45,14 @@ public class Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ: NativeTypeWrap
 				return nil
 			}
 			
-			public func getValue() -> C2Tuple_BlockHashChannelManagerZ? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_BlockHashChannelManagerZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> C2Tuple_BlockHashChannelManagerZ {
+			if self.cOpaqueStruct?.result_ok == true {
+				return C2Tuple_BlockHashChannelManagerZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
 public class func ok(o: C2Tuple_BlockHashChannelManagerZ) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {

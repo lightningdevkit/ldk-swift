@@ -45,13 +45,14 @@ public class Result_HolderCommitmentTransactionDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> HolderCommitmentTransaction? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return HolderCommitmentTransaction(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> HolderCommitmentTransaction {
+			if self.cOpaqueStruct?.result_ok == true {
+				return HolderCommitmentTransaction(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: HolderCommitmentTransaction) -> Result_HolderCommitmentTransactionDecodeErrorZ {
     	
         return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: CResult_HolderCommitmentTransactionDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

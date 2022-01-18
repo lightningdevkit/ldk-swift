@@ -48,14 +48,14 @@ Scorer_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ScorerDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> Scorer {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ScorerDecodeErrorZ(pointer: Scorer_read(serWrapper.cOpaqueStruct!));
+        return try Result_ScorerDecodeErrorZ(pointer: Scorer_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

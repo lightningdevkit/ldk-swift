@@ -56,9 +56,9 @@ PrivateRoute_eq(aPointer, bPointer)
 };
     }
 
-    public class func new(hops: RouteHint) -> Result_PrivateRouteCreationErrorZ {
+    public class func new(hops: RouteHint) throws -> PrivateRoute {
     	
-        return Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.danglingClone().cOpaqueStruct!));
+        return try Result_PrivateRouteCreationErrorZ(pointer: PrivateRoute_new(hops.danglingClone().cOpaqueStruct!)).getValue();
     }
 
     public func into_inner() -> RouteHint {

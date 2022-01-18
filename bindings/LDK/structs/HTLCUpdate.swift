@@ -47,14 +47,14 @@ HTLCUpdate_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> HTLCUpdate {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(serWrapper.cOpaqueStruct!));
+        return try Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

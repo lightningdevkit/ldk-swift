@@ -162,14 +162,14 @@ DelayedPaymentOutputDescriptor_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> DelayedPaymentOutputDescriptor {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(serWrapper.cOpaqueStruct!));
+        return try Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

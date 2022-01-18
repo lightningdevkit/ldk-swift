@@ -45,13 +45,14 @@ public class Result_UpdateFailHTLCDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> UpdateFailHTLC? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return UpdateFailHTLC(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> UpdateFailHTLC {
+			if self.cOpaqueStruct?.result_ok == true {
+				return UpdateFailHTLC(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: UpdateFailHTLC) -> Result_UpdateFailHTLCDecodeErrorZ {
     	
         return Result_UpdateFailHTLCDecodeErrorZ(pointer: CResult_UpdateFailHTLCDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

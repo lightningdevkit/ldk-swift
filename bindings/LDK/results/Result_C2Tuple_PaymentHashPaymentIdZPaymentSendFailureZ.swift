@@ -45,13 +45,14 @@ public class Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ: NativeType
 				return nil
 			}
 			
-			public func getValue() -> C2Tuple_PaymentHashPaymentIdZ? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_PaymentHashPaymentIdZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> C2Tuple_PaymentHashPaymentIdZ {
+			if self.cOpaqueStruct?.result_ok == true {
+				return C2Tuple_PaymentHashPaymentIdZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.paymentSendFailure(PaymentSendFailure(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: C2Tuple_PaymentHashPaymentIdZ) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
     	
         return Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(pointer: CResult_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ_ok(o.danglingClone().cOpaqueStruct!));

@@ -81,14 +81,14 @@ QueryShortChannelIds_clone(origPointer)
 					}
 				
 
-    public class func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> QueryShortChannelIds {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_QueryShortChannelIdsDecodeErrorZ(pointer: QueryShortChannelIds_read(serWrapper.cOpaqueStruct!));
+        return try Result_QueryShortChannelIdsDecodeErrorZ(pointer: QueryShortChannelIds_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     public func write() -> [UInt8] {

@@ -122,14 +122,14 @@ SpendableOutputDescriptor_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_SpendableOutputDescriptorDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> SpendableOutputDescriptor {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(serWrapper.cOpaqueStruct!));
+        return try Result_SpendableOutputDescriptorDecodeErrorZ(pointer: SpendableOutputDescriptor_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     /* OPTION_METHODS_END */

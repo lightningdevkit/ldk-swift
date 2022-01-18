@@ -88,14 +88,14 @@ HolderCommitmentTransaction_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> HolderCommitmentTransaction {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(serWrapper.cOpaqueStruct!));
+        return try Result_HolderCommitmentTransactionDecodeErrorZ(pointer: HolderCommitmentTransaction_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

@@ -45,13 +45,14 @@ public class Result_InMemorySignerDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> InMemorySigner? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return InMemorySigner(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> InMemorySigner {
+			if self.cOpaqueStruct?.result_ok == true {
+				return InMemorySigner(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: InMemorySigner) -> Result_InMemorySignerDecodeErrorZ {
     	
         return Result_InMemorySignerDecodeErrorZ(pointer: CResult_InMemorySignerDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

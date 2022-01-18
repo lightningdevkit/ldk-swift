@@ -45,13 +45,14 @@ public class Result_NetAddressDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> NetAddress? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return NetAddress(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> NetAddress {
+			if self.cOpaqueStruct?.result_ok == true {
+				return NetAddress(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: NetAddress) -> Result_NetAddressDecodeErrorZ {
     	
         return Result_NetAddressDecodeErrorZ(pointer: CResult_NetAddressDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

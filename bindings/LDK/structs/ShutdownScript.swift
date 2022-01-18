@@ -57,24 +57,24 @@ ShutdownScript_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ShutdownScriptDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ShutdownScript {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ShutdownScriptDecodeErrorZ(pointer: ShutdownScript_read(serWrapper.cOpaqueStruct!));
+        return try Result_ShutdownScriptDecodeErrorZ(pointer: ShutdownScript_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
-    public class func new_witness_program(version: UInt8, program: [UInt8]) -> Result_ShutdownScriptInvalidShutdownScriptZ {
+    public class func new_witness_program(version: UInt8, program: [UInt8]) throws -> ShutdownScript {
     	
 						let programWrapper = Bindings.new_LDKu8sliceWrapper(array: program)
 						defer {
 							programWrapper.noOpRetain()
 						}
 					
-        return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: ShutdownScript_new_witness_program(version, programWrapper.cOpaqueStruct!));
+        return try Result_ShutdownScriptInvalidShutdownScriptZ(pointer: ShutdownScript_new_witness_program(version, programWrapper.cOpaqueStruct!)).getValue();
     }
 
     public func into_inner() -> [UInt8] {

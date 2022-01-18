@@ -107,14 +107,14 @@ QueryChannelRange_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_QueryChannelRangeDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> QueryChannelRange {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(serWrapper.cOpaqueStruct!));
+        return try Result_QueryChannelRangeDecodeErrorZ(pointer: QueryChannelRange_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

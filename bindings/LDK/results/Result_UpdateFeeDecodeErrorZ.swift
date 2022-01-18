@@ -45,13 +45,14 @@ public class Result_UpdateFeeDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> UpdateFee? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return UpdateFee(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> UpdateFee {
+			if self.cOpaqueStruct?.result_ok == true {
+				return UpdateFee(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: UpdateFee) -> Result_UpdateFeeDecodeErrorZ {
     	
         return Result_UpdateFeeDecodeErrorZ(pointer: CResult_UpdateFeeDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

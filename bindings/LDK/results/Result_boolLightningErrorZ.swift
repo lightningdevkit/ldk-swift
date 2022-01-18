@@ -45,13 +45,14 @@ public class Result_boolLightningErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Bool? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return self.cOpaqueStruct!.contents.result.pointee
-				}
-				return nil
+		public func getValue() throws -> Bool {
+			if self.cOpaqueStruct?.result_ok == true {
+				return self.cOpaqueStruct!.contents.result.pointee
 			}
-			
+			throw Bindings.Error.lightningError(LightningError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Bool) -> Result_boolLightningErrorZ {
     	
         return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_ok(o));

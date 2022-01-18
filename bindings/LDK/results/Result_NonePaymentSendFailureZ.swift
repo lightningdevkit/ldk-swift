@@ -45,6 +45,14 @@ public class Result_NonePaymentSendFailureZ: NativeTypeWrapper {
 				return nil
 			}
 			
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.paymentSendFailure(PaymentSendFailure(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok() -> Result_NonePaymentSendFailureZ {
     	
         return Result_NonePaymentSendFailureZ(pointer: CResult_NonePaymentSendFailureZ_ok());

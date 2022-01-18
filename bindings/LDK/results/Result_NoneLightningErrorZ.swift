@@ -45,6 +45,14 @@ public class Result_NoneLightningErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.lightningError(LightningError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok() -> Result_NoneLightningErrorZ {
     	
         return Result_NoneLightningErrorZ(pointer: CResult_NoneLightningErrorZ_ok());

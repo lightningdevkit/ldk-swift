@@ -38,13 +38,14 @@ public class Result_InvoiceNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> Invoice? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Invoice {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(o: Invoice) -> Result_InvoiceNoneZ {
     	
         return Result_InvoiceNoneZ(pointer: CResult_InvoiceNoneZ_ok(o.danglingClone().cOpaqueStruct!));

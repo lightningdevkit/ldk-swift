@@ -45,13 +45,14 @@ public class Result_GossipTimestampFilterDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> GossipTimestampFilter? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return GossipTimestampFilter(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> GossipTimestampFilter {
+			if self.cOpaqueStruct?.result_ok == true {
+				return GossipTimestampFilter(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: GossipTimestampFilter) -> Result_GossipTimestampFilterDecodeErrorZ {
     	
         return Result_GossipTimestampFilterDecodeErrorZ(pointer: CResult_GossipTimestampFilterDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

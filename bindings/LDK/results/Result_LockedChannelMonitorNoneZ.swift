@@ -38,13 +38,14 @@ public class Result_LockedChannelMonitorNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> LockedChannelMonitor? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return LockedChannelMonitor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> LockedChannelMonitor {
+			if self.cOpaqueStruct?.result_ok == true {
+				return LockedChannelMonitor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
 public class func ok(o: LockedChannelMonitor) -> Result_LockedChannelMonitorNoneZ {

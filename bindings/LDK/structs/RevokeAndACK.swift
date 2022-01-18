@@ -100,14 +100,14 @@ RevokeAndACK_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> RevokeAndACK {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(serWrapper.cOpaqueStruct!));
+        return try Result_RevokeAndACKDecodeErrorZ(pointer: RevokeAndACK_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

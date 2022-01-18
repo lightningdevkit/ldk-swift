@@ -45,13 +45,14 @@ public class Result_CVec_u8ZPeerHandleErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> [UInt8]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
-				}
-				return nil
+		public func getValue() throws -> [UInt8] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
 			}
-			
+			throw Bindings.Error.peerHandleError(PeerHandleError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: [UInt8]) -> Result_CVec_u8ZPeerHandleErrorZ {
     	
 						let oWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: o)

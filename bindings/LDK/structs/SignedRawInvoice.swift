@@ -75,11 +75,11 @@ SignedRawInvoice_signature(this_argPointer)
 });
     }
 
-    public func recover_payee_pub_key() -> Result_PayeePubKeyErrorZ {
+    public func recover_payee_pub_key() throws -> PayeePubKey {
     	
-        return Result_PayeePubKeyErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
+        return try Result_PayeePubKeyErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_recover_payee_pub_key(this_argPointer)
-});
+}).getValue();
     }
 
     public func check_signature() -> Bool {
@@ -89,9 +89,9 @@ SignedRawInvoice_check_signature(this_argPointer)
 };
     }
 
-    public class func from_str(s: String) -> Result_SignedRawInvoiceNoneZ {
+    public class func from_str(s: String) throws -> SignedRawInvoice {
     	
-        return Result_SignedRawInvoiceNoneZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s)));
+        return try Result_SignedRawInvoiceNoneZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s))).getValue();
     }
 
     public func to_str() -> String {

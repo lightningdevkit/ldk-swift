@@ -41,11 +41,11 @@ ChannelManager_get_current_default_configuration(this_argPointer)
 });
     }
 
-    public func create_channel(their_network_key: [UInt8], channel_value_satoshis: UInt64, push_msat: UInt64, user_channel_id: UInt64, override_config: UserConfig) -> Result__u832APIErrorZ {
+    public func create_channel(their_network_key: [UInt8], channel_value_satoshis: UInt64, push_msat: UInt64, user_channel_id: UInt64, override_config: UserConfig) throws -> [UInt8] {
     	
-        return Result__u832APIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result__u832APIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_create_channel(this_argPointer, Bindings.new_LDKPublicKey(array: their_network_key), channel_value_satoshis, push_msat, user_channel_id, override_config.danglingClone().cOpaqueStruct!)
-});
+}).getValue();
     }
 
     public func list_channels() -> [ChannelDetails] {
@@ -72,31 +72,31 @@ ChannelManager_list_usable_channels(this_argPointer)
 					;
     }
 
-    public func close_channel(channel_id: [UInt8]) -> Result_NoneAPIErrorZ {
+    public func close_channel(channel_id: [UInt8]) throws -> Void {
     	
-        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelManager_close_channel(this_argPointer, channel_idPointer)
 }
-});
+}).getValue();
     }
 
-    public func close_channel_with_target_feerate(channel_id: [UInt8], target_feerate_sats_per_1000_weight: UInt32) -> Result_NoneAPIErrorZ {
+    public func close_channel_with_target_feerate(channel_id: [UInt8], target_feerate_sats_per_1000_weight: UInt32) throws -> Void {
     	
-        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelManager_close_channel_with_target_feerate(this_argPointer, channel_idPointer, target_feerate_sats_per_1000_weight)
 }
-});
+}).getValue();
     }
 
-    public func force_close_channel(channel_id: [UInt8]) -> Result_NoneAPIErrorZ {
+    public func force_close_channel(channel_id: [UInt8]) throws -> Void {
     	
-        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelManager_force_close_channel(this_argPointer, channel_idPointer)
 }
-});
+}).getValue();
     }
 
     public func force_close_all_channels() -> Void {
@@ -106,22 +106,22 @@ ChannelManager_force_close_all_channels(this_argPointer)
 };
     }
 
-    public func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
+    public func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) throws -> [UInt8] {
     	
-        return Result_PaymentIdPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_PaymentIdPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
 ChannelManager_send_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret))
 }
-});
+}).getValue();
     }
 
-    public func retry_payment(route: Route, payment_id: [UInt8]) -> Result_NonePaymentSendFailureZ {
+    public func retry_payment(route: Route, payment_id: [UInt8]) throws -> Void {
     	
-        return Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_NonePaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
 ChannelManager_retry_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_id))
 }
-});
+}).getValue();
     }
 
     public func abandon_payment(payment_id: [UInt8]) -> Void {
@@ -131,27 +131,27 @@ ChannelManager_abandon_payment(this_argPointer, Bindings.new_LDKThirtyTwoBytes(a
 };
     }
 
-    public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
+    public func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) throws -> C2Tuple_PaymentHashPaymentIdZ {
     	
-        return Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: route.cOpaqueStruct!) { (routePointer: UnsafePointer<LDKRoute>) in
 ChannelManager_send_spontaneous_payment(this_argPointer, routePointer, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage))
 }
-});
+}).getValue();
     }
 
-    public func funding_transaction_generated(temporary_channel_id: [UInt8], funding_transaction: [UInt8]) -> Result_NoneAPIErrorZ {
+    public func funding_transaction_generated(temporary_channel_id: [UInt8], funding_transaction: [UInt8]) throws -> Void {
     	
 						let funding_transactionWrapper = Bindings.new_LDKTransactionWrapper(array: funding_transaction)
 						defer {
 							funding_transactionWrapper.noOpRetain()
 						}
 					
-        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: temporary_channel_id)) { (temporary_channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_idPointer, funding_transactionWrapper.dangle().cOpaqueStruct!)
 }
-});
+}).getValue();
     }
 
     public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) -> Void {
@@ -213,39 +213,39 @@ ChannelManager_get_our_node_id(this_argPointer)
 });
     }
 
-    public func create_inbound_payment(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_C2Tuple_PaymentHashPaymentSecretZNoneZ {
+    public func create_inbound_payment(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) throws -> C2Tuple_PaymentHashPaymentSecretZ {
     	
-        return Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_create_inbound_payment(this_argPointer, min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
-});
+}).getValue();
     }
 
-    public func create_inbound_payment_legacy(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ {
+    public func create_inbound_payment_legacy(min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) throws -> C2Tuple_PaymentHashPaymentSecretZ {
     	
-        return Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_create_inbound_payment_legacy(this_argPointer, min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
-});
+}).getValue();
     }
 
-    public func create_inbound_payment_for_hash(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_PaymentSecretNoneZ {
+    public func create_inbound_payment_for_hash(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) throws -> [UInt8] {
     	
-        return Result_PaymentSecretNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_PaymentSecretNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_create_inbound_payment_for_hash(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
-});
+}).getValue();
     }
 
-    public func create_inbound_payment_for_hash_legacy(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) -> Result_PaymentSecretAPIErrorZ {
+    public func create_inbound_payment_for_hash_legacy(payment_hash: [UInt8], min_value_msat: Option_u64Z, invoice_expiry_delta_secs: UInt32) throws -> [UInt8] {
     	
-        return Result_PaymentSecretAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_PaymentSecretAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_create_inbound_payment_for_hash_legacy(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), min_value_msat.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs)
-});
+}).getValue();
     }
 
-    public func get_payment_preimage(payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentPreimageAPIErrorZ {
+    public func get_payment_preimage(payment_hash: [UInt8], payment_secret: [UInt8]) throws -> [UInt8] {
     	
-        return Result_PaymentPreimageAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_PaymentPreimageAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_get_payment_preimage(this_argPointer, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret))
-});
+}).getValue();
     }
 
     public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {

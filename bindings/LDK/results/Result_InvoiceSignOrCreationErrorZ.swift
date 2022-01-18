@@ -45,13 +45,14 @@ public class Result_InvoiceSignOrCreationErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Invoice? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Invoice {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.signOrCreationError(SignOrCreationError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Invoice) -> Result_InvoiceSignOrCreationErrorZ {
     	
         return Result_InvoiceSignOrCreationErrorZ(pointer: CResult_InvoiceSignOrCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));

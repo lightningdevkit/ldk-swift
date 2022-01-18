@@ -45,13 +45,14 @@ public class Result_CounterpartyChannelTransactionParametersDecodeErrorZ: Native
 				return nil
 			}
 			
-			public func getValue() -> CounterpartyChannelTransactionParameters? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return CounterpartyChannelTransactionParameters(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> CounterpartyChannelTransactionParameters {
+			if self.cOpaqueStruct?.result_ok == true {
+				return CounterpartyChannelTransactionParameters(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: CounterpartyChannelTransactionParameters) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
     	
         return Result_CounterpartyChannelTransactionParametersDecodeErrorZ(pointer: CResult_CounterpartyChannelTransactionParametersDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

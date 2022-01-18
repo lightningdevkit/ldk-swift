@@ -145,14 +145,14 @@ UnsignedNodeAnnouncement_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> UnsignedNodeAnnouncement {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: UnsignedNodeAnnouncement_read(serWrapper.cOpaqueStruct!));
+        return try Result_UnsignedNodeAnnouncementDecodeErrorZ(pointer: UnsignedNodeAnnouncement_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

@@ -38,13 +38,14 @@ public class Result_SignedRawInvoiceNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> SignedRawInvoice? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return SignedRawInvoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> SignedRawInvoice {
+			if self.cOpaqueStruct?.result_ok == true {
+				return SignedRawInvoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(o: SignedRawInvoice) -> Result_SignedRawInvoiceNoneZ {
     	
         return Result_SignedRawInvoiceNoneZ(pointer: CResult_SignedRawInvoiceNoneZ_ok(o.danglingClone().cOpaqueStruct!));

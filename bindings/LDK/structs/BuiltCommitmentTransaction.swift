@@ -95,14 +95,14 @@ BuiltCommitmentTransaction_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_BuiltCommitmentTransactionDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> BuiltCommitmentTransaction {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_BuiltCommitmentTransactionDecodeErrorZ(pointer: BuiltCommitmentTransaction_read(serWrapper.cOpaqueStruct!));
+        return try Result_BuiltCommitmentTransactionDecodeErrorZ(pointer: BuiltCommitmentTransaction_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     public func get_sighash_all(funding_redeemscript: [UInt8], channel_value_satoshis: UInt64) -> [UInt8] {

@@ -45,13 +45,14 @@ public class Result_TxOutAccessErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> TxOut? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return TxOut(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> TxOut {
+			if self.cOpaqueStruct?.result_ok == true {
+				return TxOut(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.ldkAccessError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: LDKTxOut) -> Result_TxOutAccessErrorZ {
     	
         return Result_TxOutAccessErrorZ(pointer: CResult_TxOutAccessErrorZ_ok(o));

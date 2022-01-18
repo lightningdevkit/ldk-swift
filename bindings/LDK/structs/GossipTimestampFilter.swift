@@ -100,14 +100,14 @@ GossipTimestampFilter_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> GossipTimestampFilter {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(serWrapper.cOpaqueStruct!));
+        return try Result_GossipTimestampFilterDecodeErrorZ(pointer: GossipTimestampFilter_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

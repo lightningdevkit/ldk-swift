@@ -45,13 +45,14 @@ public class Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ: NativeTypeWrappe
 				return nil
 			}
 			
-			public func getValue() -> C2Tuple_PaymentHashPaymentSecretZ? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_PaymentHashPaymentSecretZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> C2Tuple_PaymentHashPaymentSecretZ {
+			if self.cOpaqueStruct?.result_ok == true {
+				return C2Tuple_PaymentHashPaymentSecretZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.apiError(APIError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: C2Tuple_PaymentHashPaymentSecretZ) -> Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ {
     	
         return Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(pointer: CResult_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ_ok(o.danglingClone().cOpaqueStruct!));

@@ -45,13 +45,14 @@ public class Result_RouteHintHopDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> RouteHintHop? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return RouteHintHop(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> RouteHintHop {
+			if self.cOpaqueStruct?.result_ok == true {
+				return RouteHintHop(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: RouteHintHop) -> Result_RouteHintHopDecodeErrorZ {
     	
         return Result_RouteHintHopDecodeErrorZ(pointer: CResult_RouteHintHopDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

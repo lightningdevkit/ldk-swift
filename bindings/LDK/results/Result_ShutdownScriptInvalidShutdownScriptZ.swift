@@ -45,13 +45,14 @@ public class Result_ShutdownScriptInvalidShutdownScriptZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> ShutdownScript? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return ShutdownScript(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> ShutdownScript {
+			if self.cOpaqueStruct?.result_ok == true {
+				return ShutdownScript(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.invalidShutdownScript(InvalidShutdownScript(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: ShutdownScript) -> Result_ShutdownScriptInvalidShutdownScriptZ {
     	
         return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: CResult_ShutdownScriptInvalidShutdownScriptZ_ok(o.danglingClone().cOpaqueStruct!));

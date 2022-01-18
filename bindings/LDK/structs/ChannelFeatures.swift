@@ -71,14 +71,14 @@ ChannelFeatures_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ChannelFeaturesDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ChannelFeatures {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(serWrapper.cOpaqueStruct!));
+        return try Result_ChannelFeaturesDecodeErrorZ(pointer: ChannelFeatures_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

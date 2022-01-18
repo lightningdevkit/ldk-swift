@@ -45,13 +45,14 @@ public class Result_TxCreationKeysDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> TxCreationKeys? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return TxCreationKeys(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> TxCreationKeys {
+			if self.cOpaqueStruct?.result_ok == true {
+				return TxCreationKeys(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: TxCreationKeys) -> Result_TxCreationKeysDecodeErrorZ {
     	
         return Result_TxCreationKeysDecodeErrorZ(pointer: CResult_TxCreationKeysDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

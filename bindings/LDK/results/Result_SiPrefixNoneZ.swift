@@ -38,13 +38,14 @@ public class Result_SiPrefixNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> LDKSiPrefix? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return self.cOpaqueStruct!.contents.result.pointee
-				}
-				return nil
+		public func getValue() throws -> LDKSiPrefix {
+			if self.cOpaqueStruct?.result_ok == true {
+				return self.cOpaqueStruct!.contents.result.pointee
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(o: LDKSiPrefix) -> Result_SiPrefixNoneZ {
     	
         return Result_SiPrefixNoneZ(pointer: CResult_SiPrefixNoneZ_ok(o));

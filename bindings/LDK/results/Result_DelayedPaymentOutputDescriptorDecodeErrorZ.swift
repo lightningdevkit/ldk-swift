@@ -45,13 +45,14 @@ public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrappe
 				return nil
 			}
 			
-			public func getValue() -> DelayedPaymentOutputDescriptor? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> DelayedPaymentOutputDescriptor {
+			if self.cOpaqueStruct?.result_ok == true {
+				return DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: DelayedPaymentOutputDescriptor) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
     	
         return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_DelayedPaymentOutputDescriptorDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

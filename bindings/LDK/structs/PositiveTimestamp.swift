@@ -49,14 +49,14 @@ PositiveTimestamp_clone(origPointer)
 					}
 				
 
-    public class func from_unix_timestamp(unix_seconds: UInt64) -> Result_PositiveTimestampCreationErrorZ {
+    public class func from_unix_timestamp(unix_seconds: UInt64) throws -> PositiveTimestamp {
     	
-        return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_unix_timestamp(unix_seconds));
+        return try Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_unix_timestamp(unix_seconds)).getValue();
     }
 
-    public class func from_system_time(time: UInt64) -> Result_PositiveTimestampCreationErrorZ {
+    public class func from_system_time(time: UInt64) throws -> PositiveTimestamp {
     	
-        return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_system_time(time));
+        return try Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_system_time(time)).getValue();
     }
 
     public func as_unix_timestamp() -> UInt64 {

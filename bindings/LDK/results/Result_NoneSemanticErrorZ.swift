@@ -45,6 +45,14 @@ public class Result_NoneSemanticErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.ldkSemanticError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok() -> Result_NoneSemanticErrorZ {
     	
         return Result_NoneSemanticErrorZ(pointer: CResult_NoneSemanticErrorZ_ok());

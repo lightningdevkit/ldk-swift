@@ -45,13 +45,14 @@ public class Result_ClosingSignedFeeRangeDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> ClosingSignedFeeRange? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return ClosingSignedFeeRange(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> ClosingSignedFeeRange {
+			if self.cOpaqueStruct?.result_ok == true {
+				return ClosingSignedFeeRange(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: ClosingSignedFeeRange) -> Result_ClosingSignedFeeRangeDecodeErrorZ {
     	
         return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: CResult_ClosingSignedFeeRangeDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

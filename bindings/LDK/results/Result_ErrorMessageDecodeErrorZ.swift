@@ -45,13 +45,14 @@ public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> ErrorMessage? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return ErrorMessage(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> ErrorMessage {
+			if self.cOpaqueStruct?.result_ok == true {
+				return ErrorMessage(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: ErrorMessage) -> Result_ErrorMessageDecodeErrorZ {
     	
         return Result_ErrorMessageDecodeErrorZ(pointer: CResult_ErrorMessageDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

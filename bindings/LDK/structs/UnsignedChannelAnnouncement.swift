@@ -152,14 +152,14 @@ UnsignedChannelAnnouncement_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> UnsignedChannelAnnouncement {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_UnsignedChannelAnnouncementDecodeErrorZ(pointer: UnsignedChannelAnnouncement_read(serWrapper.cOpaqueStruct!));
+        return try Result_UnsignedChannelAnnouncementDecodeErrorZ(pointer: UnsignedChannelAnnouncement_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

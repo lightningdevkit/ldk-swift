@@ -115,14 +115,14 @@ AnnouncementSignatures_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_AnnouncementSignaturesDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> AnnouncementSignatures {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_AnnouncementSignaturesDecodeErrorZ(pointer: AnnouncementSignatures_read(serWrapper.cOpaqueStruct!));
+        return try Result_AnnouncementSignaturesDecodeErrorZ(pointer: AnnouncementSignatures_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

@@ -45,13 +45,14 @@ public class Result_PositiveTimestampCreationErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> PositiveTimestamp? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return PositiveTimestamp(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> PositiveTimestamp {
+			if self.cOpaqueStruct?.result_ok == true {
+				return PositiveTimestamp(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.ldkCreationError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: PositiveTimestamp) -> Result_PositiveTimestampCreationErrorZ {
     	
         return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));

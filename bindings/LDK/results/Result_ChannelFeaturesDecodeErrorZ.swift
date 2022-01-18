@@ -45,13 +45,14 @@ public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> ChannelFeatures? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return ChannelFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> ChannelFeatures {
+			if self.cOpaqueStruct?.result_ok == true {
+				return ChannelFeatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: ChannelFeatures) -> Result_ChannelFeaturesDecodeErrorZ {
     	
         return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

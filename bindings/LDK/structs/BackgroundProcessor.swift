@@ -48,14 +48,14 @@ public init(pointer: LDKBackgroundProcessor, anchor: NativeTypeWrapper){
 
     /* STRUCT_METHODS_START */
 
-    public func join() -> Result_NoneErrorZ {
+    public func join() throws -> Void {
     	
-        return Result_NoneErrorZ(pointer: BackgroundProcessor_join(self.cOpaqueStruct!));
+        return try Result_NoneErrorZ(pointer: BackgroundProcessor_join(self.cOpaqueStruct!)).getValue();
     }
 
-    public func stop() -> Result_NoneErrorZ {
+    public func stop() throws -> Void {
     	
-        return Result_NoneErrorZ(pointer: BackgroundProcessor_stop(self.cOpaqueStruct!));
+        return try Result_NoneErrorZ(pointer: BackgroundProcessor_stop(self.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

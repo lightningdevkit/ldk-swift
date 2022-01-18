@@ -136,14 +136,14 @@ NetAddress_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> NetAddress {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_NetAddressDecodeErrorZ(pointer: NetAddress_read(serWrapper.cOpaqueStruct!));
+        return try Result_NetAddressDecodeErrorZ(pointer: NetAddress_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     /* OPTION_METHODS_END */

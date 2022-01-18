@@ -105,6 +105,29 @@ public class Bindings {
         Self.minimumPrintSeverity = severity
     }
 
+    /* ERROR_ENUM_START */
+
+			public enum Error: Swift.Error {
+				case void
+		
+				case lightningError(LightningError)
+				case ldkSecp256k1Error(LDKSecp256k1Error)
+				case invalidShutdownScript(InvalidShutdownScript)
+				case ldkAccessError(LDKAccessError)
+				case decodeError(DecodeError)
+				case ldkSemanticError(LDKSemanticError)
+				case ldkChannelMonitorUpdateErr(LDKChannelMonitorUpdateErr)
+				case apiError(APIError)
+				case ldkioError(LDKIOError)
+				case paymentError(PaymentError)
+				case peerHandleError(PeerHandleError)
+				case signOrCreationError(SignOrCreationError)
+				case paymentSendFailure(PaymentSendFailure)
+				case ldkCreationError(LDKCreationError)
+			}
+
+    /* ERROR_ENUM_END */
+
 	/* BYTE_ARRAY_METHODS_START */
 
 	public class func new_LDKFourBytes(array: [UInt8]) -> LDKFourBytes {
@@ -6057,7 +6080,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "ad87781697755854cb84ee584d82448b2c05a0bd"
+        return "bcd90ba1e5e0c367ab59decc81e9ea0ca57b56dc"
     }
 
 }

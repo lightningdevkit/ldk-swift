@@ -45,13 +45,14 @@ public class Result_AnnouncementSignaturesDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> AnnouncementSignatures? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return AnnouncementSignatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> AnnouncementSignatures {
+			if self.cOpaqueStruct?.result_ok == true {
+				return AnnouncementSignatures(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: AnnouncementSignatures) -> Result_AnnouncementSignaturesDecodeErrorZ {
     	
         return Result_AnnouncementSignaturesDecodeErrorZ(pointer: CResult_AnnouncementSignaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

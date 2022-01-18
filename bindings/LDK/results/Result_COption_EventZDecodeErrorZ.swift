@@ -45,13 +45,14 @@ public class Result_COption_EventZDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Option_EventZ? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Option_EventZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Option_EventZ {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Option_EventZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Option_EventZ) -> Result_COption_EventZDecodeErrorZ {
     	
         return Result_COption_EventZDecodeErrorZ(pointer: CResult_COption_EventZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

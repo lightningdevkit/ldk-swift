@@ -130,28 +130,28 @@ TxCreationKeys_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_TxCreationKeysDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> TxCreationKeys {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_TxCreationKeysDecodeErrorZ(pointer: TxCreationKeys_read(serWrapper.cOpaqueStruct!));
+        return try Result_TxCreationKeysDecodeErrorZ(pointer: TxCreationKeys_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
-    public class func derive_new(per_commitment_point: [UInt8], broadcaster_delayed_payment_base: [UInt8], broadcaster_htlc_base: [UInt8], countersignatory_revocation_base: [UInt8], countersignatory_htlc_base: [UInt8]) -> Result_TxCreationKeysErrorZ {
+    public class func derive_new(per_commitment_point: [UInt8], broadcaster_delayed_payment_base: [UInt8], broadcaster_htlc_base: [UInt8], countersignatory_revocation_base: [UInt8], countersignatory_htlc_base: [UInt8]) throws -> TxCreationKeys {
     	
-        return Result_TxCreationKeysErrorZ(pointer: TxCreationKeys_derive_new(Bindings.new_LDKPublicKey(array: per_commitment_point), Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_base), Bindings.new_LDKPublicKey(array: broadcaster_htlc_base), Bindings.new_LDKPublicKey(array: countersignatory_revocation_base), Bindings.new_LDKPublicKey(array: countersignatory_htlc_base)));
+        return try Result_TxCreationKeysErrorZ(pointer: TxCreationKeys_derive_new(Bindings.new_LDKPublicKey(array: per_commitment_point), Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_base), Bindings.new_LDKPublicKey(array: broadcaster_htlc_base), Bindings.new_LDKPublicKey(array: countersignatory_revocation_base), Bindings.new_LDKPublicKey(array: countersignatory_htlc_base))).getValue();
     }
 
-    public class func from_channel_static_keys(per_commitment_point: [UInt8], broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) -> Result_TxCreationKeysErrorZ {
+    public class func from_channel_static_keys(per_commitment_point: [UInt8], broadcaster_keys: ChannelPublicKeys, countersignatory_keys: ChannelPublicKeys) throws -> TxCreationKeys {
     	
-        return Result_TxCreationKeysErrorZ(pointer: withUnsafePointer(to: broadcaster_keys.cOpaqueStruct!) { (broadcaster_keysPointer: UnsafePointer<LDKChannelPublicKeys>) in
+        return try Result_TxCreationKeysErrorZ(pointer: withUnsafePointer(to: broadcaster_keys.cOpaqueStruct!) { (broadcaster_keysPointer: UnsafePointer<LDKChannelPublicKeys>) in
 withUnsafePointer(to: countersignatory_keys.cOpaqueStruct!) { (countersignatory_keysPointer: UnsafePointer<LDKChannelPublicKeys>) in
 TxCreationKeys_from_channel_static_keys(Bindings.new_LDKPublicKey(array: per_commitment_point), broadcaster_keysPointer, countersignatory_keysPointer)
 }
-});
+}).getValue();
     }
 
     internal func free() -> Void {

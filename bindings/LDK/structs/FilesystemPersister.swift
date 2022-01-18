@@ -41,18 +41,18 @@ FilesystemPersister_get_data_dir(this_argPointer)
 });
     }
 
-    public class func persist_manager(data_dir: String, manager: ChannelManager) -> Result_NoneErrorZ {
+    public class func persist_manager(data_dir: String, manager: ChannelManager) throws -> Void {
     	
-        return Result_NoneErrorZ(pointer: withUnsafePointer(to: manager.cOpaqueStruct!) { (managerPointer: UnsafePointer<LDKChannelManager>) in
+        return try Result_NoneErrorZ(pointer: withUnsafePointer(to: manager.cOpaqueStruct!) { (managerPointer: UnsafePointer<LDKChannelManager>) in
 FilesystemPersister_persist_manager(Bindings.new_LDKStr(string: data_dir), managerPointer)
-});
+}).getValue();
     }
 
-    public func read_channelmonitors(keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+    public func read_channelmonitors(keys_manager: KeysInterface) throws -> [C2Tuple_BlockHashChannelMonitorZ] {
     	
-        return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
+        return try Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueStruct!)
-});
+}).getValue();
     }
 
     public func as_Persist() -> NativelyImplementedPersist {

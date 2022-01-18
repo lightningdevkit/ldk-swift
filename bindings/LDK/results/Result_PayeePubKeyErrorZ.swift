@@ -45,13 +45,14 @@ public class Result_PayeePubKeyErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> PayeePubKey? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return PayeePubKey(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> PayeePubKey {
+			if self.cOpaqueStruct?.result_ok == true {
+				return PayeePubKey(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.ldkSecp256k1Error(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: PayeePubKey) -> Result_PayeePubKeyErrorZ {
     	
         return Result_PayeePubKeyErrorZ(pointer: CResult_PayeePubKeyErrorZ_ok(o.danglingClone().cOpaqueStruct!));

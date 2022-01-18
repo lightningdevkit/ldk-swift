@@ -45,6 +45,14 @@ public class Result_NoneChannelMonitorUpdateErrZ: NativeTypeWrapper {
 				return nil
 			}
 			
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.ldkChannelMonitorUpdateErr(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok() -> Result_NoneChannelMonitorUpdateErrZ {
     	
         return Result_NoneChannelMonitorUpdateErrZ(pointer: CResult_NoneChannelMonitorUpdateErrZ_ok());

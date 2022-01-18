@@ -45,13 +45,14 @@ public class Result_RouteHopDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> RouteHop? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return RouteHop(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> RouteHop {
+			if self.cOpaqueStruct?.result_ok == true {
+				return RouteHop(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: RouteHop) -> Result_RouteHopDecodeErrorZ {
     	
         return Result_RouteHopDecodeErrorZ(pointer: CResult_RouteHopDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

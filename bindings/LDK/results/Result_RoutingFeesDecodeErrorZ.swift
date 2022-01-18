@@ -45,13 +45,14 @@ public class Result_RoutingFeesDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> RoutingFees? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return RoutingFees(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> RoutingFees {
+			if self.cOpaqueStruct?.result_ok == true {
+				return RoutingFees(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: RoutingFees) -> Result_RoutingFeesDecodeErrorZ {
     	
         return Result_RoutingFeesDecodeErrorZ(pointer: CResult_RoutingFeesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

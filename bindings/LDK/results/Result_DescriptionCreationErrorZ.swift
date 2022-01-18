@@ -45,13 +45,14 @@ public class Result_DescriptionCreationErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Description? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Description(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Description {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Description(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.ldkCreationError(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: Description) -> Result_DescriptionCreationErrorZ {
     	
         return Result_DescriptionCreationErrorZ(pointer: CResult_DescriptionCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));

@@ -38,13 +38,14 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> C2Tuple_SignatureCVec_SignatureZZ? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_SignatureCVec_SignatureZZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> C2Tuple_SignatureCVec_SignatureZZ {
+			if self.cOpaqueStruct?.result_ok == true {
+				return C2Tuple_SignatureCVec_SignatureZZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(o: C2Tuple_SignatureCVec_SignatureZZ) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
     	
         return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.danglingClone().cOpaqueStruct!));

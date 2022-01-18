@@ -45,13 +45,14 @@ public class Result_COption_ClosureReasonZDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Option_ClosureReasonZ? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Option_ClosureReasonZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Option_ClosureReasonZ {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Option_ClosureReasonZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Option_ClosureReasonZ) -> Result_COption_ClosureReasonZDecodeErrorZ {
     	
         return Result_COption_ClosureReasonZDecodeErrorZ(pointer: CResult_COption_ClosureReasonZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

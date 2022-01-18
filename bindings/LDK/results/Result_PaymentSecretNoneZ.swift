@@ -38,13 +38,14 @@ public class Result_PaymentSecretNoneZ: NativeTypeWrapper {
 
     /* RESULT_METHODS_START */
 
-			public func getValue() -> [UInt8]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
-				}
-				return nil
+		public func getValue() throws -> [UInt8] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
 			}
-			
+			throw Bindings.Error.void
+			// return nil
+		}
+		
     public class func ok(o: [UInt8]) -> Result_PaymentSecretNoneZ {
     	
         return Result_PaymentSecretNoneZ(pointer: CResult_PaymentSecretNoneZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o)));

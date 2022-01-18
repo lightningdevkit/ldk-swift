@@ -45,13 +45,14 @@ public class Result_StringErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> String? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.contents.result.pointee)
-				}
-				return nil
+		public func getValue() throws -> String {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.contents.result.pointee)
 			}
-			
+			throw Bindings.Error.ldkSecp256k1Error(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: String) -> Result_StringErrorZ {
     	
         return Result_StringErrorZ(pointer: CResult_StringErrorZ_ok(Bindings.new_LDKStr(string: o)));

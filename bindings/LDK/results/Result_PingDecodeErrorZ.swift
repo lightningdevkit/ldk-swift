@@ -45,13 +45,14 @@ public class Result_PingDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> Ping? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Ping(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> Ping {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Ping(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: Ping) -> Result_PingDecodeErrorZ {
     	
         return Result_PingDecodeErrorZ(pointer: CResult_PingDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

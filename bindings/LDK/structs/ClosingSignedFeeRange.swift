@@ -85,14 +85,14 @@ ClosingSignedFeeRange_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_ClosingSignedFeeRangeDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> ClosingSignedFeeRange {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: ClosingSignedFeeRange_read(serWrapper.cOpaqueStruct!));
+        return try Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: ClosingSignedFeeRange_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

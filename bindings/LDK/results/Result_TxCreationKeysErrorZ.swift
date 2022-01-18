@@ -45,13 +45,14 @@ public class Result_TxCreationKeysErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> TxCreationKeys? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return TxCreationKeys(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> TxCreationKeys {
+			if self.cOpaqueStruct?.result_ok == true {
+				return TxCreationKeys(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.ldkSecp256k1Error(self.cOpaqueStruct!.contents.err.pointee)
+			// return nil
+		}
+		
     public class func ok(o: TxCreationKeys) -> Result_TxCreationKeysErrorZ {
     	
         return Result_TxCreationKeysErrorZ(pointer: CResult_TxCreationKeysErrorZ_ok(o.danglingClone().cOpaqueStruct!));

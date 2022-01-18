@@ -45,13 +45,14 @@ public class Result_StaticPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrapper
 				return nil
 			}
 			
-			public func getValue() -> StaticPaymentOutputDescriptor? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> StaticPaymentOutputDescriptor {
+			if self.cOpaqueStruct?.result_ok == true {
+				return StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: StaticPaymentOutputDescriptor) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
     	
         return Result_StaticPaymentOutputDescriptorDecodeErrorZ(pointer: CResult_StaticPaymentOutputDescriptorDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

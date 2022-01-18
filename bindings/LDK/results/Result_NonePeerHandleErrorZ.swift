@@ -45,6 +45,14 @@ public class Result_NonePeerHandleErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.peerHandleError(PeerHandleError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok() -> Result_NonePeerHandleErrorZ {
     	
         return Result_NonePeerHandleErrorZ(pointer: CResult_NonePeerHandleErrorZ_ok());

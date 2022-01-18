@@ -45,13 +45,14 @@ public class Result_NodeAnnouncementInfoDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> NodeAnnouncementInfo? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return NodeAnnouncementInfo(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
-				}
-				return nil
+		public func getValue() throws -> NodeAnnouncementInfo {
+			if self.cOpaqueStruct?.result_ok == true {
+				return NodeAnnouncementInfo(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: NodeAnnouncementInfo) -> Result_NodeAnnouncementInfoDecodeErrorZ {
     	
         return Result_NodeAnnouncementInfoDecodeErrorZ(pointer: CResult_NodeAnnouncementInfoDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

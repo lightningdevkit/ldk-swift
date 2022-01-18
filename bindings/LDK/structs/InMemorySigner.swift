@@ -196,32 +196,32 @@ InMemorySigner_opt_anchors(this_argPointer)
 };
     }
 
-    public func sign_counterparty_payment_input(spend_tx: [UInt8], input_idx: UInt, descriptor: StaticPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
+    public func sign_counterparty_payment_input(spend_tx: [UInt8], input_idx: UInt, descriptor: StaticPaymentOutputDescriptor) throws -> [[UInt8]] {
     	
 						let spend_txWrapper = Bindings.new_LDKTransactionWrapper(array: spend_tx)
 						defer {
 							spend_txWrapper.noOpRetain()
 						}
 					
-        return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
+        return try Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
 InMemorySigner_sign_counterparty_payment_input(this_argPointer, spend_txWrapper.dangle().cOpaqueStruct!, input_idx, descriptorPointer)
 }
-});
+}).getValue();
     }
 
-    public func sign_dynamic_p2wsh_input(spend_tx: [UInt8], input_idx: UInt, descriptor: DelayedPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
+    public func sign_dynamic_p2wsh_input(spend_tx: [UInt8], input_idx: UInt, descriptor: DelayedPaymentOutputDescriptor) throws -> [[UInt8]] {
     	
 						let spend_txWrapper = Bindings.new_LDKTransactionWrapper(array: spend_tx)
 						defer {
 							spend_txWrapper.noOpRetain()
 						}
 					
-        return Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
+        return try Result_CVec_CVec_u8ZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInMemorySigner>) in
 withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 InMemorySigner_sign_dynamic_p2wsh_input(this_argPointer, spend_txWrapper.dangle().cOpaqueStruct!, input_idx, descriptorPointer)
 }
-});
+}).getValue();
     }
 
     public func as_BaseSign() -> NativelyImplementedBaseSign {
@@ -245,14 +245,14 @@ InMemorySigner_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> InMemorySigner {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_InMemorySignerDecodeErrorZ(pointer: InMemorySigner_read(serWrapper.cOpaqueStruct!));
+        return try Result_InMemorySignerDecodeErrorZ(pointer: InMemorySigner_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

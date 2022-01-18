@@ -45,6 +45,14 @@ public class Result_NoneAPIErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
+		public func getValue() throws  {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+			}
+			throw Bindings.Error.apiError(APIError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok() -> Result_NoneAPIErrorZ {
     	
         return Result_NoneAPIErrorZ(pointer: CResult_NoneAPIErrorZ_ok());

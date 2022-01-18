@@ -85,14 +85,14 @@ Ping_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_PingDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> Ping {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_PingDecodeErrorZ(pointer: Ping_read(serWrapper.cOpaqueStruct!));
+        return try Result_PingDecodeErrorZ(pointer: Ping_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     internal func free() -> Void {

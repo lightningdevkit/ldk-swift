@@ -45,13 +45,14 @@ public class Result_PaymentIdPaymentErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> [UInt8]? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
-				}
-				return nil
+		public func getValue() throws -> [UInt8] {
+			if self.cOpaqueStruct?.result_ok == true {
+				return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee)
 			}
-			
+			throw Bindings.Error.paymentError(PaymentError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: [UInt8]) -> Result_PaymentIdPaymentErrorZ {
     	
         return Result_PaymentIdPaymentErrorZ(pointer: CResult_PaymentIdPaymentErrorZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o)));

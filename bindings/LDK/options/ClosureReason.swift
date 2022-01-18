@@ -138,14 +138,14 @@ ClosureReason_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_COption_ClosureReasonZDecodeErrorZ {
+    public class func read(ser: [UInt8]) throws -> Option_ClosureReasonZ {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_COption_ClosureReasonZDecodeErrorZ(pointer: ClosureReason_read(serWrapper.cOpaqueStruct!));
+        return try Result_COption_ClosureReasonZDecodeErrorZ(pointer: ClosureReason_read(serWrapper.cOpaqueStruct!)).getValue();
     }
 
     /* OPTION_METHODS_END */

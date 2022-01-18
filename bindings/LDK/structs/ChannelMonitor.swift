@@ -47,9 +47,9 @@ ChannelMonitor_write(objPointer)
 });
     }
 
-    public func update_monitor(updates: ChannelMonitorUpdate, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) -> Result_NoneNoneZ {
+    public func update_monitor(updates: ChannelMonitorUpdate, broadcaster: BroadcasterInterface, fee_estimator: FeeEstimator, logger: Logger) throws -> Void {
     	
-        return Result_NoneNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
+        return try Result_NoneNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 withUnsafePointer(to: updates.cOpaqueStruct!) { (updatesPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 withUnsafePointer(to: broadcaster.cOpaqueStruct!) { (broadcasterPointer: UnsafePointer<LDKBroadcasterInterface>) in
 withUnsafePointer(to: fee_estimator.cOpaqueStruct!) { (fee_estimatorPointer: UnsafePointer<LDKFeeEstimator>) in
@@ -59,7 +59,7 @@ ChannelMonitor_update_monitor(this_argPointer, updatesPointer, broadcasterPointe
 }
 }
 }
-});
+}).getValue();
     }
 
     public func get_latest_update_id() -> UInt64 {

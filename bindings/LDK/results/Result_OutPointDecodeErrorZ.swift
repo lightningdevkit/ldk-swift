@@ -45,22 +45,23 @@ public class Result_OutPointDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-			public func getValue() -> OutPoint? {
-				if self.cOpaqueStruct?.result_ok == true {
-					return 
-				{ () in
+		public func getValue() throws -> OutPoint {
+			if self.cOpaqueStruct?.result_ok == true {
+				return 
+				try { () in
 					let cStruct =
 				self.cOpaqueStruct!.contents.result.pointee;
 				if cStruct.inner == nil {
-					return nil
+					throw Bindings.Error.void
 				}	
 				return OutPoint(pointer: cStruct, anchor: self)
 				}()
 			
-				}
-				return nil
 			}
-			
+			throw Bindings.Error.decodeError(DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self))
+			// return nil
+		}
+		
     public class func ok(o: OutPoint) -> Result_OutPointDecodeErrorZ {
     	
         return Result_OutPointDecodeErrorZ(pointer: CResult_OutPointDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));

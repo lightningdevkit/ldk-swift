@@ -239,7 +239,8 @@ class OptionGenerator:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
 					force_pass_instance = True
 
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, unwrap_result=True)
+			actual_return_type = value_return_wrappers['swift_type']
 			current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}OptionType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 
@@ -251,6 +252,7 @@ class OptionGenerator:
 
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+			throws_infix = 'throws ' if value_return_wrappers['throws'] else ''
 			deprecation_prefix = ''
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
@@ -271,7 +273,7 @@ class OptionGenerator:
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
 			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
-			current_replacement = current_replacement.replace('-> Void {', f'-> {current_return_type} {{')
+			current_replacement = current_replacement.replace('-> Void {', f'{throws_infix}-> {actual_return_type} {{')
 
 			if is_clone_method:
 				current_replacement += f'''\n

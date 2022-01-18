@@ -1,9 +1,10 @@
 import enum
 import re
+
 from src.config import Config
 from src import swift_constants
 from src import swift_type_mapper
-import src.conversion_helper
+from src import conversion_helper
 
 
 class CTypes(enum.Enum):
@@ -278,6 +279,13 @@ class LightningHeaderParser():
 						self.type_details[struct_name].result_value_type = result_type_details
 						self.type_details[struct_name].result_error_type = error_type_details
 
+						# the error types need to be known to create the error type enum
+						if error_type_details.swift_type.startswith('LDK'):
+							# print(f'LDK error type: {struct_name} -> {error_type_details.swift_type}')
+							pass
+						conversion_helper.ConversionHelper.swift_error_types.add(error_type_details.swift_type)
+						conversion_helper.ConversionHelper.result_swift_value_types_by_wrapper[wrapper_type[:-3]] = result_type_details.swift_type # remove the ptr suffix
+
 					# map_result(struct_name, res_ty, err_ty)
 					elif struct_name.startswith("LDKCResult_") and struct_name.endswith("ZPtr"):
 						for current_line in field_lines:
@@ -321,21 +329,21 @@ class LightningHeaderParser():
 							iterated_type_details.primitive_swift_counterpart = 'UInt8'
 							vector_type_details.iteratee = iterated_type_details
 							vector_type_details.is_pointer_based_iterator = True
-							src.conversion_helper.pointer_iterating_vector_types.add(struct_name)
+							conversion_helper.pointer_iterating_vector_types.add(struct_name)
 						elif iterated_type in self.type_details:
 							iterated_type_details = self.type_details[iterated_type]
 							# vector_type_details.name = struct_name
 							vector_type_details.is_primitive = False
 							vector_type_details.is_pointer_based_iterator = True
 							vector_type_details.iteratee = iterated_type_details
-							src.conversion_helper.pointer_iterating_vector_types.add(struct_name)
+							conversion_helper.pointer_iterating_vector_types.add(struct_name)
 						else:
 							# it's a primitive
 							# print('Fallback primitive vector type:', struct_name)
 							vector_type_details.is_primitive = True
 							vector_type_details.is_pointer_based_iterator = True
 							vector_type_details.primitive_swift_counterpart = self.language_constants.c_type_map[iterated_type]
-							src.conversion_helper.pointer_iterating_vector_types.add(struct_name)
+							conversion_helper.pointer_iterating_vector_types.add(struct_name)
 						self.type_details[struct_name] = vector_type_details
 					# pass
 					elif is_union_enum:
@@ -365,7 +373,7 @@ class LightningHeaderParser():
 						pass
 					elif len(trait_fn_lines) > 0:
 						self.trait_structs.add(struct_name)
-						src.conversion_helper.ConversionHelper.trait_structs.add(struct_name)
+						conversion_helper.ConversionHelper.trait_structs.add(struct_name)
 						lambdas = self.parse_lambda_details(ordered_interpreted_lines)
 						current_type_detail.lambdas = lambdas
 					elif struct_name == "xxLDKTxOut":
@@ -425,7 +433,7 @@ class LightningHeaderParser():
 						associated_type_name = method_details['associated_type_name']['native']
 						if method_details['is_free']:
 							self.type_details[associated_type_name].free_method = method_details
-							src.conversion_helper.ConversionHelper.freeable_types.add(associated_type_name)
+							conversion_helper.ConversionHelper.freeable_types.add(associated_type_name)
 						elif method_details['is_constructor']:
 							# TODO: handle case for multiple constructors
 							self.type_details[associated_type_name].constructor_method = method_details
@@ -714,11 +722,11 @@ class LightningHeaderParser():
 		if is_clone:
 			if inferred_struct_name != inferred_tuple_name:
 				# print(f'unequal struct/tuple inference: "{inferred_struct_name}" vs. "{inferred_tuple_name}"')
-				src.conversion_helper.cloneable_types.add(inferred_tuple_name)
+				conversion_helper.cloneable_types.add(inferred_tuple_name)
 				self.cloneable_types.add(inferred_tuple_name)
 			else:
 				self.cloneable_types.add(inferred_struct_name)
-				src.conversion_helper.cloneable_types.add(inferred_struct_name)
+				conversion_helper.cloneable_types.add(inferred_struct_name)
 
 		return {'struct_method': inferred_struct_name, 'associated_type_name': None if associated_type_name is None else {'native': 'LDK' + associated_type_name, 'swift': associated_type_name},
 				'is_free': is_free, 'is_constructor': is_constructor, 'is_clone': is_clone, 'takes_self': takes_self, 'name': {'native': method_name, 'swift': clean_method_name},

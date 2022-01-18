@@ -8,6 +8,8 @@ detected_cloneable_types = set()
 class ConversionHelper:
 	trait_structs = set()
 	freeable_types = set()
+	swift_error_types = set()
+	result_swift_value_types_by_wrapper = {}
 	nullable_inner_types = {'LDKOutPoint'}
 
 	@classmethod
@@ -37,7 +39,32 @@ class ConversionHelper:
 		return swift_type.startswith('[')
 
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False, is_trait_default_redirect = False):
+	def swift_type_to_case_name(cls, swift_type: str):
+		# Examples:
+		# 	PeerHandleError -> peerHandlerError
+		# 	LDKCreationError -> ldkCreationError
+		# 	One consecutive capital letter: -> make it lowercase
+		# 	Multiple consecutive capital letters: make them all lowercase except the last one
+
+		case_name = ''
+		capital_count = 0
+		for i in range(0, len(swift_type) - 1):
+			current_letter = swift_type[i]
+			next_letter = swift_type[i + 1]
+			if current_letter.isupper():
+				capital_count += 1
+			if next_letter.isupper():
+				capital_count += 1
+			if capital_count > 1 and next_letter.islower():
+				break
+			case_name += current_letter.lower()
+		return case_name + swift_type[i:]
+
+	@classmethod
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False,
+										  is_free_method=False, is_returned_value_freeable=False,
+										  unwrap_complex_arrays=True, array_unwrapping_preparation_only=False,
+										  is_trait_default_redirect=False):
 		swift_arguments = []
 		swift_redirection_arguments = []
 		native_arguments = []
@@ -70,22 +97,23 @@ class ConversionHelper:
 					cloneability_lookup = cloneability_lookup[len('LDK'):]
 			is_cloneable = cloneability_lookup in cloneable_types
 
-			if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(argument_types) == 1:
+			if (argument_name == '' or argument_name is None) and current_argument_details.swift_type == 'Void' and len(
+				argument_types) == 1:
 				break
 
 			if argument_name == 'this_ptr' or argument_name == 'this_arg' or argument_name == 'orig' or force_pass_instance:
 				pass_instance = True
 				passed_argument_name = 'self'
 				static_eligible = False
-				
-				# if caller_is_nullable_inner_type:
-				# 	native_call_prep = f'''
-				# 		if self.cOpaqueStruct!.inner == nil {{
-				# 			return nil
-				# 		}}
-				# 		{native_call_prep}
-				# 	'''
-				# 	return_type_nullable = True
+
+			# if caller_is_nullable_inner_type:
+			# 	native_call_prep = f'''
+			# 		if self.cOpaqueStruct!.inner == nil {{
+			# 			return nil
+			# 		}}
+			# 		{native_call_prep}
+			# 	'''
+			# 	return_type_nullable = True
 
 			swift_argument_type = current_argument_details.swift_type
 			if not pass_instance:
@@ -95,13 +123,16 @@ class ConversionHelper:
 				if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(swift_argument_type):
 					has_unwrapped_arrays = True
 					if (is_trait_callback and not array_unwrapping_preparation_only) or not unwrap_complex_arrays:
-						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', swift_argument_type)
-						swift_argument_type = swift_argument_type.replace('[LDKResult_', '[LDKCResult_').replace('[LDKTuple_', '[LDKCTuple_')
+						swift_argument_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK',
+																									  swift_argument_type)
+						swift_argument_type = swift_argument_type.replace('[LDKResult_', '[LDKCResult_').replace(
+							'[LDKTuple_', '[LDKCTuple_')
 					else:
 						is_array_wrapper_extraction_required = True
 						individual_cloneability_lookup = swift_argument_type.lstrip('[').rstrip(']')
 						wrapper_depth = int((len(swift_argument_type) - len(individual_cloneability_lookup)) / 2)
-						if individual_cloneability_lookup.startswith('Result_') or individual_cloneability_lookup.startswith('Tuple_'):
+						if individual_cloneability_lookup.startswith(
+							'Result_') or individual_cloneability_lookup.startswith('Tuple_'):
 							individual_cloneability_lookup = f'C{individual_cloneability_lookup}'
 						is_individual_cloneable = individual_cloneability_lookup in cloneable_types
 						individual_clone_infix = '.danglingClone()'
@@ -172,7 +203,8 @@ class ConversionHelper:
 
 						initialization_target = f'{argument_name}Unwrapped.cOpaqueStruct!'
 
-						if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and current_argument_details.swift_type.startswith('['):
+						if current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
+							'LDK') and current_argument_details.swift_type.startswith('['):
 							# TODO: figure out why this never gets hit, or rather why I originally wrote this
 							initialization_target = f'Bindings.new_{current_argument_details.rust_obj}Wrapper(array: {argument_name}Unwrapped).cOpaqueStruct!'
 							is_pointer_to_array = True
@@ -209,8 +241,10 @@ class ConversionHelper:
 					pass
 				elif current_argument_details.rust_obj in ConversionHelper.trait_structs:
 					pass
-				elif current_argument_details.rust_obj.startswith('LDK') and not current_argument_details.swift_type.startswith('[') and not is_free_method:
-					non_cloneable_argument_indices_passed_by_ownership.append(argument_index)  # clone_infix = '.dangle()'
+				elif current_argument_details.rust_obj.startswith(
+					'LDK') and not current_argument_details.swift_type.startswith('[') and not is_free_method:
+					non_cloneable_argument_indices_passed_by_ownership.append(
+						argument_index)  # clone_infix = '.dangle()'
 				if current_argument_details.rust_obj is not None and (
 					'Option' in current_argument_details.rust_obj or 'Tuple' in current_argument_details.rust_obj or 'Result' in current_argument_details.rust_obj) and not current_argument_details.rust_obj.startswith(
 					'['):
@@ -219,7 +253,8 @@ class ConversionHelper:
 					pass
 
 			if is_trait_callback and current_argument_details.is_const:
-				if current_argument_details.swift_type.startswith('[') or current_argument_details.swift_type == 'String':
+				if current_argument_details.swift_type.startswith(
+					'[') or current_argument_details.swift_type == 'String':
 					mutabilityIndicatorSuffix = '?'
 
 			if not pass_instance:
@@ -230,13 +265,17 @@ class ConversionHelper:
 					swift_redirection_arguments.append(f'{argument_name}: {argument_name}')
 
 			# native_arguments.append(f'{passed_argument_name}')
-			if cls.is_instance_type(swift_argument_type, current_argument_details.rust_obj) and not current_argument_details.is_ptr:
+			if cls.is_instance_type(swift_argument_type,
+									current_argument_details.rust_obj) and not current_argument_details.is_ptr:
 				native_arguments.append(f'{passed_argument_name}{clone_infix}.cOpaqueStruct!')
-			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
+			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
+				'LDK') and swift_argument_type.startswith('[') and not is_pointer_to_array:
 				# if current_argument_details.swift_type == '[UInt8]' and not current_argument_details.swift_raw_type.startswith('LDKC'):
 				if current_argument_details.rust_obj in pointer_iterating_vector_types and not array_unwrapping_preparation_only:
 					# TODO: expand beyond 1-dimensional array support (as of writing only affects Route.swift)
-					cloneability_lookup = current_argument_details.swift_type[1:-1].replace('Result_', 'CResult_').replace('Tuple_', 'CTuple_')
+					cloneability_lookup = current_argument_details.swift_type[1:-1].replace('Result_',
+																							'CResult_').replace(
+						'Tuple_', 'CTuple_')
 					array_clone_prefix = ''
 					array_clone_suffix = ''
 					if cloneability_lookup in cloneable_types:
@@ -250,21 +289,26 @@ class ConversionHelper:
 							{argument_name}Wrapper.noOpRetain()
 						}}
 					'''
-					if current_argument_details.rust_obj.startswith('LDKCVec_') or current_argument_details.rust_obj == 'LDKTransaction':
+					if current_argument_details.rust_obj.startswith(
+						'LDKCVec_') or current_argument_details.rust_obj == 'LDKTransaction':
 						# vectors will be freed by the underlying function automatically
 						native_arguments.append(f'{argument_name}Wrapper.dangle().cOpaqueStruct!')
 					else:
 						native_arguments.append(f'{argument_name}Wrapper.cOpaqueStruct!')
 				else:
-					native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
-			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and current_argument_details.is_unary_tuple:
-				native_arguments.append(f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
+					native_arguments.append(
+						f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
+			elif current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith(
+				'LDK') and current_argument_details.is_unary_tuple:
+				native_arguments.append(
+					f'Bindings.new_{current_argument_details.rust_obj}(array: {passed_argument_name})')
 			elif swift_argument_type == 'String':
 				if is_trait_callback and current_argument_details.swift_raw_type == 'UnsafePointer<Int8>':
 					force_unwrap_suffix = ''
 					if mutabilityIndicatorSuffix == '?' and is_trait_callback:
 						force_unwrap_suffix = '!'
-					native_arguments.append(f'Bindings.string_to_unsafe_int8_pointer(string: {passed_argument_name}{force_unwrap_suffix})')
+					native_arguments.append(
+						f'Bindings.string_to_unsafe_int8_pointer(string: {passed_argument_name}{force_unwrap_suffix})')
 				else:
 					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name})')
 			elif current_argument_details.rust_obj is None and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
@@ -278,15 +322,20 @@ class ConversionHelper:
 					pointer_wrapping_suffix += '\n}'
 					native_arguments.append(passed_argument_name)
 				else:
-					native_arguments.append(f'Bindings.array_to_tuple{current_argument_details.arr_len}(array: {passed_argument_name})')
+					native_arguments.append(
+						f'Bindings.array_to_tuple{current_argument_details.arr_len}(array: {passed_argument_name})')
 			else:
 				native_arguments.append(f'{passed_argument_name}')
 
 		full_syntax = pointer_wrapping_prefix + ', '.join(native_arguments) + pointer_wrapping_suffix
 		# print(full_syntax)
-		return {"swift_arguments": swift_arguments, "native_arguments": native_arguments, "native_call_prefix": pointer_wrapping_prefix, "native_call_suffix": pointer_wrapping_suffix,
-				"native_call_prep": native_call_prep, "static_eligible": static_eligible, "non_cloneable_argument_indices_passed_by_ownership": non_cloneable_argument_indices_passed_by_ownership,
-				'has_unwrapped_arrays': has_unwrapped_arrays, 'swift_redirection_arguments': swift_redirection_arguments, 'return_type_nullable': return_type_nullable}
+		return {"swift_arguments": swift_arguments, "native_arguments": native_arguments,
+				"native_call_prefix": pointer_wrapping_prefix, "native_call_suffix": pointer_wrapping_suffix,
+				"native_call_prep": native_call_prep, "static_eligible": static_eligible,
+				"non_cloneable_argument_indices_passed_by_ownership": non_cloneable_argument_indices_passed_by_ownership,
+				'has_unwrapped_arrays': has_unwrapped_arrays,
+				'swift_redirection_arguments': swift_redirection_arguments,
+				'return_type_nullable': return_type_nullable}
 
 	# the arguments that we receive from a native lambda, before they get passed on to a human consumer
 	# Traits -> NATIVE_CALLBACKS -> SWIFT_CALLBACK_PREP, basically
@@ -344,12 +393,15 @@ class ConversionHelper:
 					# TODO: see if `current_argument_details.pass_by_ref` condition is necessary
 					if current_argument_details.passed_as_ptr and current_argument_details.pass_by_ref:
 						swift_local_conversion_suffix = ').dangle()'
-				elif received_raw_type.startswith('LDKCVec') and (published_swift_type.startswith('[C') or (not published_swift_type.startswith('[C') and inferred_raw_swift_type.startswith('[LDK'))):
+				elif received_raw_type.startswith('LDKCVec') and (published_swift_type.startswith('[C') or (
+					not published_swift_type.startswith('[C') and inferred_raw_swift_type.startswith('[LDK'))):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'
-					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(published_swift_type) and not array_unwrapping_preparation_only:
+					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(
+						published_swift_type) and not array_unwrapping_preparation_only:
 						# Bindings array converters cannot yet convert LDK types to wrapped types
-						published_swift_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', published_swift_type)
+						published_swift_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK',
+																									   published_swift_type)
 				received_raw_type = current_argument_details.rust_obj
 			# swift_callback_argument_value = f'{received_raw_type}(pointer: {received_var_name})'
 
@@ -362,7 +414,8 @@ class ConversionHelper:
 				if not received_raw_type.startswith('Unsafe'):
 					received_raw_type = f'UnsafePointer<{received_raw_type}>'
 					is_unsafe_pointer = True
-				if current_argument_details.swift_type.startswith('[') or current_argument_details.swift_type == 'String':
+				if current_argument_details.swift_type.startswith(
+					'[') or current_argument_details.swift_type == 'String':
 					is_optional = True
 					received_raw_type += '?'  # TODO: figure out when tf it actually becomes nullable!
 					published_swift_type += '?'  # the swift thing is obviously nullible, too
@@ -412,28 +465,33 @@ class ConversionHelper:
 			# native_arguments.insert(0, '')
 			pass
 
-		return {'raw_native_argument_list': native_arguments, 'swift_callback_arguments': swift_callback_arguments, 'public_swift_argument_list': public_swift_argument_list,
+		return {'raw_native_argument_list': native_arguments, 'swift_callback_arguments': swift_callback_arguments,
+				'public_swift_argument_list': public_swift_argument_list,
 				'swift_callback_prep': swift_callback_prep}
 
 	@classmethod
-	def prepare_return_value(cls, return_type, is_clone_method=False, is_trait_instantiator=False, is_raw_property_getter=False, is_trait_callback=False):
+	def prepare_return_value(cls, return_type, is_clone_method: bool = False, is_trait_instantiator: bool = False,
+							 is_raw_property_getter: bool = False, is_trait_callback: bool = False,
+							 unwrap_result: bool = False, is_result_value_accessor: bool = False):
 		rust_return_type = return_type.rust_obj
 		return_prefix = ''
 		return_suffix = ''
 		return_type_string = return_type.swift_type
+		throws = False
 		swift_return_instantiation_type = return_type_string
 		if is_trait_instantiator:
 			swift_return_instantiation_type = f'NativelyImplemented{return_type_string}'
-			# return_type_string = swift_return_instantiation_type
+		# return_type_string = swift_return_instantiation_type
 
 		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type_string.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
 			return_suffix = ')'
 			individual_map_suffix = ''
-			if (rust_return_type.startswith('LDKCVec_') or rust_return_type == 'LDKTransaction') and is_raw_property_getter:
+			if (rust_return_type.startswith(
+				'LDKCVec_') or rust_return_type == 'LDKTransaction') and is_raw_property_getter:
 				return_suffix = ', deallocate: false)'
 				individual_map_suffix = '.dangle()'
-				
+
 			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string) and not is_trait_callback:
 				# replace the last [ with [LDK (in case
 				constructor_type = return_type_string.lstrip('[').rstrip(']')
@@ -451,19 +509,19 @@ class ConversionHelper:
 				else:
 
 					map_prefix = f'''.map {{ (cOpaqueStruct) in 
-						cOpaqueStruct''' * (wrapper_depth-1)
-					
+						cOpaqueStruct''' * (wrapper_depth - 1)
+
 					map_suffix = '}' * wrapper_depth
-					
+
 					return_suffix += f'''
 						{map_prefix}
 						.map {{ (cOpaqueStruct) in
 							{constructor_type}(pointer: cOpaqueStruct){individual_map_suffix}
 						{map_suffix}
 					'''
-				
-				
-				
+
+
+
 		elif return_type.swift_raw_type.startswith('(UInt8'):
 			# TODO: get array length
 			array_length = return_type.arr_len
@@ -493,26 +551,43 @@ class ConversionHelper:
 			return_suffix = '.pointee)'
 			pass
 
+
+		nil_return = 'return nil'
+
+		if rust_return_type in ConversionHelper.result_swift_value_types_by_wrapper and unwrap_result:
+			return_prefix = 'try ' + return_prefix
+			return_suffix += '.getValue()'
+			return_type_string = ConversionHelper.result_swift_value_types_by_wrapper[rust_return_type]
+			throws = True
+
 		if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string) and is_trait_callback:
 			# replace the last [ with [LDK (in case
 			return_type_string = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', return_type_string)
-			return_type_string = return_type_string.replace('LDKResult_', 'LDKCResult_').replace('LDKTuple_', 'LDKCTuple_').replace('LDKVec_', 'LDKCVec_')
+			return_type_string = return_type_string.replace('LDKResult_', 'LDKCResult_').replace('LDKTuple_',
+																								 'LDKCTuple_').replace(
+				'LDKVec_', 'LDKCVec_')
 
 		if is_trait_instantiator:
 			return_type_string = swift_return_instantiation_type
 
 		if rust_return_type in ConversionHelper.nullable_inner_types and not is_clone_method:
+			nil_return = 'return nil'
+			try_prefix = ''
+			if is_result_value_accessor:
+				nil_return = 'throw Bindings.Error.void'
+				try_prefix = 'try '
+
 			return_suffix = f''';
 				if cStruct.inner == nil {{
-					return nil
+					{nil_return}
 				}}	
 				return {return_prefix}cStruct{return_suffix}
 				}}()
 			'''
 			return_prefix = f'''
-				{{ () in
+				{try_prefix}{{ () in
 					let cStruct =
 				'''
 			return_type_string += '?'
 
-		return {'prefix': return_prefix, 'suffix': return_suffix, 'swift_type': return_type_string}
+		return {'prefix': return_prefix, 'suffix': return_suffix, 'swift_type': return_type_string, 'throws': throws}

@@ -1,7 +1,7 @@
 import os
 
 import src.conversion_helper
-from src.generators.opaque_struct_generator import OpaqueStructGenerator
+from src.generators.struct_generator import StructGenerator
 from src.generators.option_generator import OptionGenerator
 from src.generators.result_generator import ResultGenerator
 from src.generators.trait_generator import TraitGenerator
@@ -10,6 +10,7 @@ from src.generators.util_generators.byte_array_generator import ByteArrayGenerat
 from src.generators.util_generators.static_method_generator import StaticMethodGenerator
 from src.generators.util_generators.vector_generator import VectorGenerator
 from src.generators.util_generators.version_string_generator import VersionStringGenerator
+from src.generators.util_generators.error_enum_generator import ErrorEnumGenerator
 from src.lightning_header_parser import LightningHeaderParser
 
 
@@ -27,6 +28,7 @@ def generate_binding_methods(parser: LightningHeaderParser):
 	vector_generator = VectorGenerator()
 	static_method_generator = StaticMethodGenerator()
 	version_string_generator = VersionStringGenerator()
+	error_enum_generator = ErrorEnumGenerator()
 
 	byte_arrays = sorted(parser.byte_arrays)
 	for current_byte_array_type in byte_arrays:
@@ -46,17 +48,20 @@ def generate_binding_methods(parser: LightningHeaderParser):
 	static_method_generator.generate_static_methods(parser.static_methods)
 	static_method_generator.finalize()
 
+	error_enum_generator.generate_error_enum()
+	error_enum_generator.finalize()
+
 	version_string_generator.obtain_version_string()
 	version_string_generator.finalize()
 
 
 def generate_opaque_struct_wrappers(parser: LightningHeaderParser, returned_trait_instances=set()):
-	opaque_struct_generator = OpaqueStructGenerator()
+	opaque_struct_generator = StructGenerator()
 
 	opaque_structs = parser.opaque_structs
 	for current_struct in opaque_structs:
 		current_struct_details = parser.type_details[current_struct]
-		opaque_struct_generator.generate_opaque_struct(
+		opaque_struct_generator.generate_struct(
 			current_struct,
 			current_struct_details,
 			all_type_details=parser.type_details,

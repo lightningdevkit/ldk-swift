@@ -105,6 +105,12 @@ public class Bindings {
         Self.minimumPrintSeverity = severity
     }
 
+    /* ERROR_ENUM_START */
+    public enum BindingError: Swift.Error {
+        case enumError(BindingError)
+    }
+    /* ERROR_ENUM_END */
+
 	/* BYTE_ARRAY_METHODS_START */
 	public class func new_LDKByteType(array: [UInt8]) -> LDKByteType {
 		let byteType = LDKByteType(fieldName: (tupleArguments))

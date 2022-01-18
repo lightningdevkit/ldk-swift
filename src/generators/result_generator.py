@@ -71,8 +71,12 @@ class ResultGenerator:
 		method_prefix = swift_struct_name + '_'
 		struct_methods = ''
 
+		error_enum_instance = 'Bindings.Error.void'
+
 		if struct_details.result_error_type.swift_type != 'Void':
 			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False, is_raw_property_getter=True)
+			enum_name = ConversionHelper.swift_type_to_case_name(error_return_wrappers['swift_type'])
+			error_enum_instance = f'''Bindings.Error.{enum_name}({error_return_wrappers['prefix']}self.cOpaqueStruct!.contents.err.pointee{error_return_wrappers['suffix']})'''
 
 			struct_methods += f'''
 			public func getError() -> {error_return_wrappers['swift_type']}? {{
@@ -83,17 +87,23 @@ class ResultGenerator:
 			}}
 			'''
 
-		if struct_details.result_value_type.swift_type != 'Void':
-			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False, is_raw_property_getter=True)
+		value_return_type_signature = ''
+		value_return_type_instantiation = ''
 
-			struct_methods += f'''
-			public func getValue() -> {value_return_wrappers['swift_type'].rstrip('?')}? {{
-				if self.cOpaqueStruct?.result_ok == true {{
-					return {value_return_wrappers['prefix']}self.cOpaqueStruct!.contents.result.pointee{value_return_wrappers['suffix']}
-				}}
-				return nil
+		if struct_details.result_value_type.swift_type != 'Void':
+			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False, is_raw_property_getter=True, is_result_value_accessor=True)
+			value_return_type_signature = f'''-> {value_return_wrappers['swift_type'].rstrip('?')}'''
+			value_return_type_instantiation = f'''{value_return_wrappers['prefix']}self.cOpaqueStruct!.contents.result.pointee{value_return_wrappers['suffix']}'''
+
+		struct_methods += f'''
+		public func getValue() throws {value_return_type_signature} {{
+			if self.cOpaqueStruct?.result_ok == true {{
+				return {value_return_type_instantiation}
 			}}
-			'''
+			throw {error_enum_instance}
+			// return nil
+		}}
+		'''
 
 		# fill templates
 		for current_method_details in struct_details.methods:

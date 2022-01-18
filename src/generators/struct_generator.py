@@ -6,7 +6,7 @@ from src.type_parsing_regeces import TypeParsingRegeces
 from src.conversion_helper import ConversionHelper
 
 
-class OpaqueStructGenerator:
+class StructGenerator:
 
 	def __init__(self) -> None:
 		super().__init__()
@@ -15,7 +15,7 @@ class OpaqueStructGenerator:
 			template = template_handle.read()
 			self.template = template
 
-	def generate_opaque_struct(self, struct_name, struct_details, all_type_details={}, trait_structs=set(), returned_trait_instances=set()):
+	def generate_struct(self, struct_name, struct_details, all_type_details={}, trait_structs=set(), returned_trait_instances=set()):
 		# method_names = ['openChannel', 'closeChannel']
 		# native_method_names = ['ChannelHandler_openChannel', 'ChannelHandler_closeChannel']
 
@@ -147,8 +147,10 @@ class OpaqueStructGenerator:
 
 			# replace arguments
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method, unwrap_complex_arrays=False)
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], is_clone_method, is_trait_instantiator)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], is_clone_method, is_trait_instantiator, unwrap_result=True)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
+			throws_infix = 'throws ' if value_return_wrappers['throws'] else ''
+			try_prefix = 'try ' if value_return_wrappers['throws'] else ''
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
@@ -171,17 +173,17 @@ class OpaqueStructGenerator:
 			current_replacement = current_replacement.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
 			current_replacement = current_replacement.replace('native_arguments', ', '.join(prepared_arguments['native_arguments']))
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
-			current_replacement = current_replacement.replace('-> Void {', f'-> {value_return_wrappers["swift_type"]} {{')
+			current_replacement = current_replacement.replace('-> Void {', f'{throws_infix}-> {value_return_wrappers["swift_type"]} {{')
 
 			if prepared_arguments['has_unwrapped_arrays']:
 				prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method, array_unwrapping_preparation_only=True)
 				current_addition = method_template
 				current_addition = current_addition.replace('OpaqueStructType_methodName(native_arguments)',
-																f'self.{current_method_name}(' + ', '.join(prepared_arguments['swift_redirection_arguments']) + ')')
+																f'{try_prefix}self.{current_method_name}(' + ', '.join(prepared_arguments['swift_redirection_arguments']) + ')')
 				current_addition = current_addition.replace('func methodName(', f'{static_infix}func {current_method_name}(')
 				current_addition = current_addition.replace('swift_arguments', ', '.join(prepared_arguments["swift_arguments"]))
 				current_addition = current_addition.replace('/* NATIVE_CALL_PREP */', prepared_arguments['native_call_prep'])
-				current_addition = current_addition.replace('-> Void {', f'-> {value_return_wrappers["swift_type"]} {{')
+				current_addition = current_addition.replace('-> Void {', f'{throws_infix}-> {value_return_wrappers["swift_type"]} {{')
 
 				current_replacement = current_addition + '\n\n' + current_replacement.replace('public func', 'internal func')
 

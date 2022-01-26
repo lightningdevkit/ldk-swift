@@ -60,8 +60,8 @@ import Foundation
 
 class MyLogger: Logger {
     
-    override func log(record: String?) {
-        print("record: \(record)")
+    override func log(record: Record) {
+        print("log event: \(record.get_args())")
     }
     
 }
@@ -112,24 +112,22 @@ import Foundation
 
 class MyPersister: Persist {
     
-    override func persist_new_channel(id: OutPoint, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
-        let idBytes: [UInt8] = id.write(obj: id)
-        let monitorBytes: [UInt8] = data.write(obj: data)
+    override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+        let idBytes: [UInt8] = channel_id.write()
+        let monitorBytes: [UInt8] = data.write()
         
         // persist monitorBytes to disk, keyed by idBytes
         
-        // simplified result instantiation calls coming shortly!
-        return Result_NoneChannelMonitorUpdateErrZ()
+        return Result_NoneChannelMonitorUpdateErrZ.ok()
     }
     
-    override func update_persisted_channel(id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
-        let idBytes: [UInt8] = id.write(obj: id)
-        let monitorBytes: [UInt8] = data.write(obj: data)
+    override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+        let idBytes: [UInt8] = channel_id.write()
+        let monitorBytes: [UInt8] = data.write()
         
         // modify persisted monitorBytes keyed by idBytes on disk
         
-        // simplified result instantiation calls coming shortly!
-        return Result_NoneChannelMonitorUpdateErrZ()
+        return Result_NoneChannelMonitorUpdateErrZ.ok()
     }
     
 }
@@ -160,7 +158,7 @@ class MyFilter: Filter {
     
     override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
         let scriptPubkeyBytes = output.get_script_pubkey()
-        let outpoint = output.get_outpoint()
+        let outpoint = output.get_outpoint()!
         let txid = outpoint.get_txid()
         let outputIndex = outpoint.get_index()
         
@@ -169,7 +167,7 @@ class MyFilter: Filter {
         let blockHashBytes = output.get_block_hash()
         // if block hash bytes are not null, return any transaction spending the output that is found in the corresponding block along with its index
         
-        return Option_C2Tuple_usizeTransactionZZ(value: nil)
+        return Option_C2Tuple_usizeTransactionZZ.none()
     }
 }
 ```
@@ -189,7 +187,8 @@ let filter = MyFilter()
 ```swift
 // main context (continued)
 
-let chainMonitor = ChainMonitor.init(chain_source: filter, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
+let filterOption = Option_FilterZ(value: filter)
+let chainMonitor = ChainMonitor(chain_source: filterOption.dangle(), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
 ```
 
 ### KeysManager
@@ -199,12 +198,15 @@ let chainMonitor = ChainMonitor.init(chain_source: filter, broadcaster: broadcas
 
 var keyData = Data(count: 32)
 keyData.withUnsafeMutableBytes {
-	SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+	// returns 0 on success
+	let didCopySucceed = SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+	assert(didCopySucceed == 0)
 }
 let seed = [UInt8](keyData)
 let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
 let timestamp_nanos = UInt32.init(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
 let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+let keysInterface = keysManager.as_KeysInterface()
 ```
 
 We will keep needing to pass around a keysInterface instance, and we will also need to 
@@ -225,23 +227,48 @@ First, we need the current block height and hash. For the sake of this example, 
 a random block at a height that does not exist at the time of this writing.
 
 ```swift
-let bestBlock = BestBlock(block_hash: [UInt8](Data(base64Encoded: "AAAAAAAAAAAABe5Xh25D12zkQuLAJQbBeLoF1tEQqR8=")!), height: 700123)
-let chainParameters = ChainParameters(network_arg: LDKNetwork_Bitcoin, best_block_arg: bestBlock)
+let latestBlockHash = [UInt8](Data(base64Encoded: "AAAAAAAAAAAABe5Xh25D12zkQuLAJQbBeLoF1tEQqR8=")!)
+let latestBlockHeight = 700123
 ```
 
 Second, we also need to initialize a default user config, which we simply do like this:
 
 ```swift
-let userConfig = UserConfig.init()
+let userConfig = UserConfig()
 ```
 
-Finally, we can proceed by instantiating the ChannelManager.
+Finally, we can proceed by instantiating the `ChannelManager` using `ChannelManagerConstructor`.
 
 ```swift
 // main context (continued)
 
-let channelManager = ChannelManager.init(fee_est: feeEstimator, chain_monitor: chainMonitor.as_Watch(), tx_broadcaster: broadcaster, logger: logger, keys_manager: keysInterface, config: userConfig, params: chainParameters)
+let channelManagerConstructor = ChannelManagerConstructor(
+	network: LDKNetwork_Bitcoin,
+	config: userConfig,
+	current_blockchain_tip_hash: latestBlockHash,
+	current_blockchain_tip_height: latestBlockHeight,
+	keys_interface: keysInterface,
+	fee_estimator: feeEstimator,
+	chain_monitor: chainMonitor,
+	net_graph: nil, // see `NetworkGraph`
+	tx_broadcaster: broadcaster,
+	logger: logger
+)
+let channelManager = channelManagerConstructor.channelManager
 ```
+
+### NetworkGraph
+
+If you intend to use the LDK's built-in routing algorithm, you will need to instantiate
+a `NetworkGraph` that can later be passed to the `ChannelManagerConstructor`:
+
+```swift
+// main context (continued)
+
+let networkGraph = NetworkGraph(genesis_hash: [UInt8](Data(base64Encoded: "AAAAAAAZ1micCFrhZYMek0/3Y65GoqbBcrPxtgqM4m8=")!))
+```
+
+Note that a network graph instance needs to be provided upon initialization, which in turn requires the genesis block hash.
 
 #### Serializing and restoring a ChannelManager
 
@@ -254,54 +281,31 @@ let serializedChannelManager: [UInt8] = channelManager.write(obj: channelManager
 If you have a channel manager you previously serialized, you can restore it like this:
 
 ```swift
-let serialized_channel_manager: [UInt8] = [2, 1, 111, 226, 140, 10, 182, 241, 179, 114, 193, 166, 162, 70, 174, 99, 247, 79, 147, 30, 131, 101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0, 0, 10, 174, 219, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 238, 87, 135, 110, 67, 215, 108, 228, 66, 226, 192, 37, 6, 193, 120, 186, 5, 214, 209, 16, 169, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // <insert bytes you would have written in following the later step "Persist channel manager">
+let serializedChannelManager: [UInt8] = [2, 1, 111, 226, 140, 10, 182, 241, 179, 114, 193, 166, 162, 70, 174, 99, 247, 79, 147, 30, 131, 101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0, 0, 10, 174, 219, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 238, 87, 135, 110, 67, 215, 108, 228, 66, 226, 192, 37, 6, 193, 120, 186, 5, 214, 209, 16, 169, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] // <insert bytes you would have written in following the later step "Persist channel manager">
 let serializedChannelMonitors: [[UInt8]] = []
-let channel_manager_constructor = try ChannelManagerConstructor(channel_manager_serialized: serialized_channel_manager, channel_monitors_serialized: serializedChannelMonitors, keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, filter: filter, tx_broadcaster: broadcaster, logger: logger)
+let channelManagerConstructor = try ChannelManagerConstructor(
+	channel_manager_serialized: serializedChannelManager,
+	channel_monitors_serialized: serializedChannelMonitors,
+	keys_interface: keysInterface,
+	fee_estimator: feeEstimator,
+	chain_monitor: chainMonitor,
+	filter: filter,
+	net_graph: nil, // or networkGraph
+	tx_broadcaster: broadcaster,
+	logger: logger
+)
 
-let channel_manager = channel_manager_constructor.channelManager;
+let channelManager = channelManagerConstructor.channelManager
 ```
-
-### NetGraphMsgHandler
-
-If you intend to use the LDK's built-in routing algorithm, you will need to instantiate
-a graph message handler:
-
-```swift
-// main context (continued)
-
-let networkGraph = NetworkGraph(genesis_hash: [UInt8](Data(base64Encoded: "AAAAAAAZ1micCFrhZYMek0/3Y65GoqbBcrPxtgqM4m8=")!))
-let router = NetGraphMsgHandler(chain_access: nil, logger: logger, network_graph: networkGraph)
-```
-
-Note that a network graph instance needs to be provided upon initialization, which in turn requires the genesis block hash.
 
 ### PeerHandler
 
-Finally, let's instantiate the peer handler. It requires a seed for ephemeral key generation,
-as well as a hybrid message handler for routing and channel events.
-
-Let's first set up the seed:
-
-```swift
-var keyData2 = Data(count: 32)
-keyData2.withUnsafeMutableBytes {
-	SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
-}
-let peerManagerSeed = [UInt8](keyData2)
-```
-
-Next, let's prepare the combined message handler:
-
-```swift
-let messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: router.as_RoutingMessageHandler())
-```
-
-And finally, let's instantiate the peer manager itself:
+Finally, let's get the peer handler. It has conveniently already been instantiated by the `ChannelManagerConstructor`.
 
 ```swift
 // main context (continued)
 
-let peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, ephemeral_random_data: peerManagerSeed, logger: logger)
+let peerManager = channelManagerConstructor.peerManager
 ```
 
 Now, all that remains is setting up the actual syscalls that are necessary within

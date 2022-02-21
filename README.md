@@ -13,6 +13,20 @@ from scratch.
 
 ## Compilation
 
+### Prerequisites
+
+- A Mac with Xcode
+- Python3
+- Rust
+
+For Rust specifically, there are a couple additional requirements that can be installed once the Rust toolchain
+is set up:
+
+```shell
+rustup target add aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
+cargo install cargo-lipo
+```
+
 ### Cloning Dependencies
 
 In order to generate these bindings from scratch, you will need to clone two dependency repositories:

@@ -10,6 +10,7 @@ import Foundation
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
     case invalidSerializedChannelManager
+    case duplicateSerializedChannelMonitor
 }
 
 public class ChannelManagerConstructor: NativeTypeWrapper {
@@ -49,6 +50,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
+        
+        var monitorFundingSet = Set<[UInt8]>()
 
         for currentSerializedChannelMonitor in channel_monitors_serialized {
             let channelMonitorResult: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
@@ -60,13 +63,19 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = channelMonitorResult.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             let b: LDKChannelMonitor = value.result!.pointee.b
+            
+            let nativeA = Bindings.LDKThirtyTwoBytes_to_array(nativeType: a);
+            if monitorFundingSet.contains(nativeA) {
+                throw InvalidSerializedDataError.duplicateSerializedChannelMonitor
+            }
+            monitorFundingSet.insert(nativeA)
 
             let clonedChannelMonitor = ChannelMonitor(pointer: b).dangle().clone()
             // var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
             clonedChannelMonitor.cOpaqueStruct?.is_owned = false // is_owned should never have to be modified
 
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
-            self.channel_monitors.append((clonedChannelMonitor, Bindings.LDKThirtyTwoBytes_to_array(nativeType: a)))
+            self.channel_monitors.append((clonedChannelMonitor, nativeA))
         }
 
         print("Collected channel monitors, reading channel manager")

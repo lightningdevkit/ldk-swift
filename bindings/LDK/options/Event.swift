@@ -26,7 +26,7 @@ public class Event: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum EventValueType {
-					case FundingGenerationReady, PaymentReceived, PaymentSent, PaymentPathFailed, PaymentFailed, PendingHTLCsForwardable, SpendableOutputs, PaymentForwarded, ChannelClosed, DiscardFunding, PaymentPathSuccessful
+					case FundingGenerationReady, PaymentReceived, PaymentSent, PaymentPathFailed, PaymentFailed, PendingHTLCsForwardable, SpendableOutputs, PaymentForwarded, ChannelClosed, DiscardFunding, PaymentPathSuccessful, OpenChannelRequest
 				}
 				
 				public func getValueType() -> EventValueType? {
@@ -54,6 +54,8 @@ public class Event: NativeTypeWrapper {
 						return .DiscardFunding
 					case LDKEvent_PaymentPathSuccessful:
 						return .PaymentPathSuccessful
+					case LDKEvent_OpenChannelRequest:
+						return .OpenChannelRequest
                     default:
                         return nil
                     }
@@ -135,6 +137,13 @@ public class Event: NativeTypeWrapper {
 							return nil
 						}
 						return PaymentPathSuccessful(pointer: self.cOpaqueStruct!.payment_path_successful, anchor: self)
+					}
+				
+					public func getValueAsOpenChannelRequest() -> OpenChannelRequest? {
+						if self.cOpaqueStruct?.tag != LDKEvent_OpenChannelRequest {
+							return nil
+						}
+						return OpenChannelRequest(pointer: self.cOpaqueStruct!.open_channel_request, anchor: self)
 					}
 				
 			
@@ -265,6 +274,11 @@ Event_clone(origPointer)
 						}
 					
         return Event(pointer: Event_payment_path_successful(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), pathWrapper.dangle().cOpaqueStruct!));
+    }
+
+    public class func open_channel_request(temporary_channel_id: [UInt8], counterparty_node_id: [UInt8], funding_satoshis: UInt64, push_msat: UInt64) -> Event {
+    	
+        return Event(pointer: Event_open_channel_request(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id), Bindings.new_LDKPublicKey(array: counterparty_node_id), funding_satoshis, push_msat));
     }
 
     public func write() -> [UInt8] {
@@ -660,6 +674,43 @@ Event_write(objPointer)
 							RouteHop(pointer: cOpaqueStruct).dangle()
 						}
 					
+					}
+				
+				
+			}
+		
+
+			public class OpenChannelRequest: NativeTypeWrapper {
+				
+				
+				var cOpaqueStruct: LDKEvent_LDKOpenChannelRequest_Body?;
+				fileprivate init(pointer: LDKEvent_LDKOpenChannelRequest_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKEvent_LDKOpenChannelRequest_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+				
+				
+					public func getTemporary_channel_id() -> [UInt8] {
+						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.temporary_channel_id)
+					}
+				
+					public func getCounterparty_node_id() -> [UInt8] {
+						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.counterparty_node_id)
+					}
+				
+					public func getFunding_satoshis() -> UInt64 {
+						return self.cOpaqueStruct!.funding_satoshis
+					}
+				
+					public func getPush_msat() -> UInt64 {
+						return self.cOpaqueStruct!.push_msat
 					}
 				
 				

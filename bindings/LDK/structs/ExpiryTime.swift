@@ -6,7 +6,15 @@ public class ExpiryTime: NativeTypeWrapper {
     internal var cOpaqueStruct: LDKExpiryTime?
 
 
-	
+	/* DEFAULT_CONSTRUCTOR_START */
+    public init(duration: UInt64) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+    	
+        self.cOpaqueStruct = ExpiryTime_from_duration(duration)
+        super.init(conflictAvoidingVariableName: 0)
+    }
+    /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKExpiryTime){
     	Self.instanceCounter += 1
@@ -54,16 +62,6 @@ withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKExpiryTime
 ExpiryTime_eq(aPointer, bPointer)
 }
 };
-    }
-
-    public class func from_seconds(seconds: UInt64) -> Result_ExpiryTimeCreationErrorZ {
-    	
-        return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_seconds(seconds));
-    }
-
-    public class func from_duration(duration: UInt64) -> Result_ExpiryTimeCreationErrorZ {
-    	
-        return Result_ExpiryTimeCreationErrorZ(pointer: ExpiryTime_from_duration(duration));
     }
 
     public func as_seconds() -> UInt64 {

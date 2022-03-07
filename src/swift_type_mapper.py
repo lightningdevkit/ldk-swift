@@ -43,6 +43,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		rust_obj = "LDKThirtyTwoBytes"
 		swift_raw_type = rust_obj
 		arr_access = "data"
+	elif fn_arg.startswith("LDKPaymentPreimage"): # disable this conversion using x prefix
+		prefix_length = len('LDKPaymentPreimage') + 1
+		fn_arg = "uint8_t (*" + fn_arg[prefix_length:] + ")[32]"
+		assert var_is_arr_regex.match(fn_arg[8:])
+		rust_obj = "LDKPaymentPreimage"
+		swift_raw_type = rust_obj
+		arr_access = "data"
 	elif fn_arg.startswith("LDKPublicKey"):
 		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[33]"
 		assert var_is_arr_regex.match(fn_arg[8:])
@@ -111,6 +118,13 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	elif fn_arg.startswith("LDKCVec_u8Z"):
 		fn_arg = "uint8_t (*" + fn_arg[12:] + ")[datalen]"
 		rust_obj = "LDKCVec_u8Z"
+		swift_raw_type = rust_obj
+		assert var_is_arr_regex.match(fn_arg[8:])
+		arr_access = "data"
+	elif fn_arg.startswith("LDKCVec_u5Z"):
+		prefix_length = len('LDKCVec_u5Z') + 1
+		fn_arg = "uint8_t (*" + fn_arg[prefix_length:] + ")[data]"
+		rust_obj = "LDKCVec_u5Z"
 		swift_raw_type = rust_obj
 		assert var_is_arr_regex.match(fn_arg[8:])
 		arr_access = "data"

@@ -109,6 +109,20 @@ ScoringParameters_get_failure_penalty_half_life(this_ptrPointer)
         return ScoringParameters_set_failure_penalty_half_life(this_ptrPointer, val);
     }
 
+    public func clone() -> ScoringParameters {
+    	
+        return ScoringParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKScoringParameters>) in
+ScoringParameters_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> ScoringParameters {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKScoringParameters>) in

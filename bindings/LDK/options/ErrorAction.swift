@@ -26,7 +26,7 @@ public class ErrorAction: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum ErrorActionValueType {
-					case DisconnectPeer, IgnoreAndLog, SendErrorMessage
+					case DisconnectPeer, IgnoreAndLog, SendErrorMessage, SendWarningMessage
 				}
 				
 				public func getValueType() -> ErrorActionValueType? {
@@ -38,6 +38,8 @@ public class ErrorAction: NativeTypeWrapper {
 						return .IgnoreAndLog
 					case LDKErrorAction_SendErrorMessage:
 						return .SendErrorMessage
+					case LDKErrorAction_SendWarningMessage:
+						return .SendWarningMessage
                     default:
                         return nil
                     }
@@ -63,6 +65,13 @@ public class ErrorAction: NativeTypeWrapper {
 							return nil
 						}
 						return SendErrorMessage(pointer: self.cOpaqueStruct!.send_error_message, anchor: self)
+					}
+				
+					public func getValueAsSendWarningMessage() -> SendWarningMessage? {
+						if self.cOpaqueStruct?.tag != LDKErrorAction_SendWarningMessage {
+							return nil
+						}
+						return SendWarningMessage(pointer: self.cOpaqueStruct!.send_warning_message, anchor: self)
 					}
 				
 			
@@ -125,6 +134,11 @@ ErrorAction_clone(origPointer)
         return ErrorAction(pointer: ErrorAction_send_error_message(msg.danglingClone().cOpaqueStruct!));
     }
 
+    public class func send_warning_message(msg: WarningMessage, log_level: LDKLevel) -> ErrorAction {
+    	
+        return ErrorAction(pointer: ErrorAction_send_warning_message(msg.danglingClone().cOpaqueStruct!, log_level));
+    }
+
     /* OPTION_METHODS_END */
 
 	
@@ -173,6 +187,35 @@ ErrorAction_clone(origPointer)
 				
 					public func getMsg() -> ErrorMessage {
 						return ErrorMessage(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					}
+				
+				
+			}
+		
+
+			public class SendWarningMessage: NativeTypeWrapper {
+				
+				
+				var cOpaqueStruct: LDKErrorAction_LDKSendWarningMessage_Body?;
+				fileprivate init(pointer: LDKErrorAction_LDKSendWarningMessage_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKErrorAction_LDKSendWarningMessage_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+				
+				
+					public func getMsg() -> WarningMessage {
+						return WarningMessage(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					}
+				
+					public func getLog_level() -> LDKLevel {
+						return self.cOpaqueStruct!.log_level
 					}
 				
 				

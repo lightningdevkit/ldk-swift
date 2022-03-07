@@ -13,6 +13,7 @@ import Foundation
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
+// public typealias LDKPaymentPreimage = LDKThirtyTwoBytes
 public typealias Txid = [UInt8]
 
 open class NativeTypeWrapper: Hashable {

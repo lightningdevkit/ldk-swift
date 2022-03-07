@@ -59,10 +59,22 @@ PositiveTimestamp_clone(origPointer)
         return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_system_time(time));
     }
 
+    public class func from_duration_since_epoch(duration: UInt64) -> Result_PositiveTimestampCreationErrorZ {
+    	
+        return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_duration_since_epoch(duration));
+    }
+
     public func as_unix_timestamp() -> UInt64 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPositiveTimestamp>) in
 PositiveTimestamp_as_unix_timestamp(this_argPointer)
+};
+    }
+
+    public func as_duration_since_epoch() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPositiveTimestamp>) in
+PositiveTimestamp_as_duration_since_epoch(this_argPointer)
 };
     }
 

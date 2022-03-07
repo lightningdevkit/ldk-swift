@@ -331,6 +331,10 @@ class ConversionHelper:
 					swift_local_conversion_prefix = f'Bindings.LDKu8slice_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'
 					published_swift_type = '[UInt8]'
+			elif published_swift_type == '[[UInt8]]':
+				if received_raw_type == 'LDKCVec_PaymentPreimageZ':
+					swift_local_conversion_prefix = f'Bindings.LDKCVec_PaymentPreimageZ_to_array(nativeType: '
+					swift_local_conversion_suffix = ')'
 			elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 				if cls.is_instance_type(published_swift_type, received_raw_type):
 					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '

@@ -13,12 +13,12 @@ open class Score: NativeTypeWrapper {
 
     	/* NATIVE_CALLBACKS_START */
 
-		func channel_penalty_msatCallback(pointer: UnsafeRawPointer?, short_channel_id: UInt64, send_amt_msat: UInt64, channel_capacity_msat: LDKCOption_u64Z, sourcePointer: UnsafePointer<LDKNodeId>, targetPointer: UnsafePointer<LDKNodeId>) -> UInt64 {
+		func channel_penalty_msatCallback(pointer: UnsafeRawPointer?, short_channel_id: UInt64, send_amt_msat: UInt64, capacity_msat: UInt64, sourcePointer: UnsafePointer<LDKNodeId>, targetPointer: UnsafePointer<LDKNodeId>) -> UInt64 {
 			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::channel_penalty_msat")
 			let source = NodeId(pointer: sourcePointer.pointee).dangle();
 let target = NodeId(pointer: targetPointer.pointee).dangle();
 
-			return instance.channel_penalty_msat(short_channel_id: short_channel_id, send_amt_msat: send_amt_msat, channel_capacity_msat: Option_u64Z(pointer: channel_capacity_msat), source: source, target: target)
+			return instance.channel_penalty_msat(short_channel_id: short_channel_id, send_amt_msat: send_amt_msat, capacity_msat: capacity_msat, source: source, target: target)
 		}
 
 		func payment_path_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
@@ -98,7 +98,7 @@ let target = NodeId(pointer: targetPointer.pointee).dangle();
 					}
 				
 
-    open func channel_penalty_msat(short_channel_id: UInt64, send_amt_msat: UInt64, channel_capacity_msat: Option_u64Z, source: NodeId, target: NodeId) -> UInt64 {
+    open func channel_penalty_msat(short_channel_id: UInt64, send_amt_msat: UInt64, capacity_msat: UInt64, source: NodeId, target: NodeId) -> UInt64 {
     	/* EDIT ME */
 		Bindings.print("Score::channel_penalty_msat should be overridden!", severity: .WARNING)
 
@@ -141,13 +141,13 @@ return [UInt8]()
 public class NativelyImplementedScore: Score {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
-	public override func channel_penalty_msat(short_channel_id: UInt64, send_amt_msat: UInt64, channel_capacity_msat: Option_u64Z, source: NodeId, target: NodeId) -> UInt64 {
+	public override func channel_penalty_msat(short_channel_id: UInt64, send_amt_msat: UInt64, capacity_msat: UInt64, source: NodeId, target: NodeId) -> UInt64 {
 		
 				
 				return withUnsafePointer(to: source.cOpaqueStruct!) { (sourcePointer: UnsafePointer<LDKNodeId>) in
 withUnsafePointer(to: target.cOpaqueStruct!) { (targetPointer: UnsafePointer<LDKNodeId>) in
 
-				self.cOpaqueStruct!.channel_penalty_msat(self.cOpaqueStruct!.this_arg, short_channel_id, send_amt_msat, channel_capacity_msat.danglingClone().cOpaqueStruct!, sourcePointer, targetPointer)
+				self.cOpaqueStruct!.channel_penalty_msat(self.cOpaqueStruct!.this_arg, short_channel_id, send_amt_msat, capacity_msat, sourcePointer, targetPointer)
 				
 }
 }

@@ -56,14 +56,14 @@ ChannelInfo_get_node_one(this_ptrPointer)
         return ChannelInfo_set_node_one(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_one_to_two() -> DirectionalChannelInfo {
+    public func get_one_to_two() -> ChannelUpdateInfo {
     	
-        return DirectionalChannelInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+        return ChannelUpdateInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
 ChannelInfo_get_one_to_two(this_ptrPointer)
 });
     }
 
-    public func set_one_to_two(val: DirectionalChannelInfo) -> Void {
+    public func set_one_to_two(val: ChannelUpdateInfo) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
@@ -86,14 +86,14 @@ ChannelInfo_get_node_two(this_ptrPointer)
         return ChannelInfo_set_node_two(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_two_to_one() -> DirectionalChannelInfo {
+    public func get_two_to_one() -> ChannelUpdateInfo {
     	
-        return DirectionalChannelInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
+        return ChannelUpdateInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelInfo>) in
 ChannelInfo_get_two_to_one(this_ptrPointer)
 });
     }
 
-    public func set_two_to_one(val: DirectionalChannelInfo) -> Void {
+    public func set_two_to_one(val: ChannelUpdateInfo) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)

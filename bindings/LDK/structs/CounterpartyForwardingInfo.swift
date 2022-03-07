@@ -93,6 +93,23 @@ CounterpartyForwardingInfo_clone(origPointer)
 					}
 				
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCounterpartyForwardingInfo>) in
+CounterpartyForwardingInfo_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_CounterpartyForwardingInfoDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_CounterpartyForwardingInfoDecodeErrorZ(pointer: CounterpartyForwardingInfo_read(serWrapper.cOpaqueStruct!));
+    }
+
     internal func free() -> Void {
     	
         return CounterpartyForwardingInfo_free(self.cOpaqueStruct!);

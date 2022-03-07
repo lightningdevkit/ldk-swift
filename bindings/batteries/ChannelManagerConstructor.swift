@@ -11,6 +11,7 @@ enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
     case invalidSerializedChannelManager
     case duplicateSerializedChannelMonitor
+    case badNodeSecret
 }
 
 public class ChannelManagerConstructor: NativeTypeWrapper {
@@ -83,11 +84,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         if channelManagerResult.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
-
+        
         for clonedChannelMonitor in self.channel_monitors {
             clonedChannelMonitor.0.cOpaqueStruct!.is_owned = true
         }
-
+        
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
         let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
         try! channelManager.dangle().addAnchor(anchor: channelManagerResult)
@@ -109,8 +110,10 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         } else {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         }
-        
-        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
+        guard let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue() else {
+            throw InvalidSerializedDataError.badNodeSecret
+        }
+        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
 
         if let filter = filter {
             for (currentMonitor, _) in self.channel_monitors {
@@ -150,7 +153,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         } else {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         }
-        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: keys_interface.get_node_secret(), ephemeral_random_data: random_data, logger: logger, custom_message_handler: noCustomMessages.as_CustomMessageHandler())
+        let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
+        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, ephemeral_random_data: random_data, logger: logger, custom_message_handler: noCustomMessages.as_CustomMessageHandler())
         
 
         super.init(conflictAvoidingVariableName: 0)

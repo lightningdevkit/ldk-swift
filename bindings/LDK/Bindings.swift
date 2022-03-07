@@ -13,6 +13,7 @@ import Foundation
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
+// public typealias LDKPaymentPreimage = LDKThirtyTwoBytes
 public typealias Txid = [UInt8]
 
 open class NativeTypeWrapper: Hashable {
@@ -2674,6 +2675,193 @@ public class Bindings {
 						
 
 	/* SWIFT_TO_RUST_START */
+	public class func new_LDKCVec_PaymentPreimageZWrapper(array: [[UInt8]]) -> LDKCVec_PaymentPreimageZWrapper {
+		
+					var lowerDimension = [LDKThirtyTwoBytes]()
+					// var subdimensionWrapper = [LDKThirtyTwoBytesWrapper]()
+					for currentEntry in array {
+						let convertedEntry = new_LDKThirtyTwoBytes(array: currentEntry)
+						lowerDimension.append(convertedEntry)
+						// subdimensionWrapper.append(convertedEntry)
+					}
+				
+
+		/*
+        let dataContainer = lowerDimension.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKThirtyTwoBytes>) -> UnsafeMutablePointer<LDKThirtyTwoBytes> in
+            let mutablePointer = UnsafeMutablePointer<LDKThirtyTwoBytes>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<LDKThirtyTwoBytes>.allocate(capacity: array.count)
+		dataContainer.initialize(from: lowerDimension, count: array.count)
+
+        let vector = LDKCVec_PaymentPreimageZ(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKCVec_PaymentPreimageZWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKCVec_PaymentPreimageZWrapper: NativeTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCVec_PaymentPreimageZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKCVec_PaymentPreimageZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		internal init(pointer: LDKCVec_PaymentPreimageZ, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public func noOpRetain(){}
+
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_PaymentPreimageZWrapper {
+			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_PaymentPreimageZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_PaymentPreimageZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKCVec_PaymentPreimageZ_to_array(nativeType: LDKCVec_PaymentPreimageZ, deallocate: Bool = true) -> [[UInt8]] {
+		var array = [[UInt8]]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			let convertedEntry = LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
+			array.append(convertedEntry)
+		}
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+
+	/* SWIFT_TO_RUST_START */
+	public class func new_LDKCVec_PhantomRouteHintsZWrapper(array: [LDKPhantomRouteHints]) -> LDKCVec_PhantomRouteHintsZWrapper {
+		/* DIMENSION_REDUCTION_PREP */
+
+		/*
+        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKPhantomRouteHints>) -> UnsafeMutablePointer<LDKPhantomRouteHints> in
+            let mutablePointer = UnsafeMutablePointer<LDKPhantomRouteHints>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<LDKPhantomRouteHints>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
+
+        let vector = LDKCVec_PhantomRouteHintsZ(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKCVec_PhantomRouteHintsZWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKCVec_PhantomRouteHintsZWrapper: NativeTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCVec_PhantomRouteHintsZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKCVec_PhantomRouteHintsZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		internal init(pointer: LDKCVec_PhantomRouteHintsZ, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public func noOpRetain(){}
+
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_PhantomRouteHintsZWrapper {
+			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_PhantomRouteHintsZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_PhantomRouteHintsZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKCVec_PhantomRouteHintsZ_to_array(nativeType: LDKCVec_PhantomRouteHintsZ, deallocate: Bool = true) -> [LDKPhantomRouteHints] {
+		var array = [LDKPhantomRouteHints]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKPhantomRouteHintsArray(array: [PhantomRouteHints]) -> [LDKPhantomRouteHints] {
+							return array.map { entry -> LDKPhantomRouteHints in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKPhantomRouteHintsArray(array: [LDKPhantomRouteHints]) -> [PhantomRouteHints] {
+							return array.map { entry -> PhantomRouteHints in
+								PhantomRouteHints(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKPhantomRouteHintsArray(array: [LDKPhantomRouteHints]) -> [PhantomRouteHints] {
+							return array.map { entry -> PhantomRouteHints in
+								PhantomRouteHints(pointer: entry).dangle()
+							}
+						}
+					
+							internal class func cloneNativeLDKPhantomRouteHintsArray(array: [LDKPhantomRouteHints]) -> [LDKPhantomRouteHints] {
+								return array.map { entry -> LDKPhantomRouteHints in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									PhantomRouteHints(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
+							}
+						
+
+	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_PrivateRouteZWrapper(array: [LDKPrivateRoute]) -> LDKCVec_PrivateRouteZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
@@ -4136,6 +4324,83 @@ public class Bindings {
 						
 
 	/* SWIFT_TO_RUST_START */
+	public class func new_LDKCVec_u5ZWrapper(array: [UInt8]) -> LDKCVec_u5ZWrapper {
+		let lowerDimension = array.map { v in LDKu5(_0: v) }
+
+		/*
+        let dataContainer = lowerDimension.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKu5>) -> UnsafeMutablePointer<LDKu5> in
+            let mutablePointer = UnsafeMutablePointer<LDKu5>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<LDKu5>.allocate(capacity: array.count)
+		dataContainer.initialize(from: lowerDimension, count: array.count)
+
+        let vector = LDKCVec_u5Z(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKCVec_u5ZWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKCVec_u5ZWrapper: NativeTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCVec_u5Z?
+		internal var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKCVec_u5Z){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		internal init(pointer: LDKCVec_u5Z, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public func noOpRetain(){}
+
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_u5ZWrapper {
+			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_u5ZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_u5ZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKCVec_u5Z_to_array(nativeType: LDKCVec_u5Z, deallocate: Bool = true) -> [UInt8] {
+		var array = [UInt8]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			let convertedEntry = currentEntry._0
+			array.append(convertedEntry)
+		}
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+
+	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_u64ZWrapper(array: [UInt64]) -> LDKCVec_u64ZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
@@ -4381,6 +4646,26 @@ public class Bindings {
 				
 			
 	}
+	public class func swift_CResult_NoneNoneZ_is_ok(o: Result_NoneNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneNoneZ>) in
+
+				CResult_NoneNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_CounterpartyCommitmentSecretsDecodeErrorZ_is_ok(o: Result_CounterpartyCommitmentSecretsDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CounterpartyCommitmentSecretsDecodeErrorZ>) in
+
+				CResult_CounterpartyCommitmentSecretsDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_SecretKeyErrorZ_is_ok(o: Result_SecretKeyErrorZ) -> Bool {
 		
 				
@@ -4581,12 +4866,12 @@ public class Bindings {
 }
 			
 	}
-	public class func swift_CResult_PayeeDecodeErrorZ_is_ok(o: Result_PayeeDecodeErrorZ) -> Bool {
+	public class func swift_CResult_PaymentParametersDecodeErrorZ_is_ok(o: Result_PaymentParametersDecodeErrorZ) -> Bool {
 		
 				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PayeeDecodeErrorZ>) in
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PaymentParametersDecodeErrorZ>) in
 
-				CResult_PayeeDecodeErrorZ_is_ok(oPointer)
+				CResult_PaymentParametersDecodeErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -4661,6 +4946,16 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_FixedPenaltyScorerDecodeErrorZ_is_ok(o: Result_FixedPenaltyScorerDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_FixedPenaltyScorerDecodeErrorZ>) in
+
+				CResult_FixedPenaltyScorerDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_ScoringParametersDecodeErrorZ_is_ok(o: Result_ScoringParametersDecodeErrorZ) -> Bool {
 		
 				
@@ -4677,6 +4972,16 @@ public class Bindings {
 				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ScorerDecodeErrorZ>) in
 
 				CResult_ScorerDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ProbabilisticScoringParametersDecodeErrorZ_is_ok(o: Result_ProbabilisticScoringParametersDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ProbabilisticScoringParametersDecodeErrorZ>) in
+
+				CResult_ProbabilisticScoringParametersDecodeErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -4761,16 +5066,6 @@ public class Bindings {
 }
 			
 	}
-	public class func swift_CResult_NoneNoneZ_is_ok(o: Result_NoneNoneZ) -> Bool {
-		
-				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneNoneZ>) in
-
-				CResult_NoneNoneZ_is_ok(oPointer)
-				
-}
-			
-	}
 	public class func swift_CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_is_ok(o: Result_C2Tuple_SignatureCVec_SignatureZZNoneZ) -> Bool {
 		
 				
@@ -4787,6 +5082,26 @@ public class Bindings {
 				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SignatureNoneZ>) in
 
 				CResult_SignatureNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_C2Tuple_SignatureSignatureZNoneZ_is_ok(o: Result_C2Tuple_SignatureSignatureZNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_SignatureSignatureZNoneZ>) in
+
+				CResult_C2Tuple_SignatureSignatureZNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_SecretKeyNoneZ_is_ok(o: Result_SecretKeyNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SecretKeyNoneZ>) in
+
+				CResult_SecretKeyNoneZ_is_ok(oPointer)
 				
 }
 			
@@ -4951,6 +5266,46 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_CounterpartyForwardingInfoDecodeErrorZ_is_ok(o: Result_CounterpartyForwardingInfoDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_CounterpartyForwardingInfoDecodeErrorZ>) in
+
+				CResult_CounterpartyForwardingInfoDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelCounterpartyDecodeErrorZ_is_ok(o: Result_ChannelCounterpartyDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelCounterpartyDecodeErrorZ>) in
+
+				CResult_ChannelCounterpartyDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_ChannelDetailsDecodeErrorZ_is_ok(o: Result_ChannelDetailsDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelDetailsDecodeErrorZ>) in
+
+				CResult_ChannelDetailsDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PhantomRouteHintsDecodeErrorZ_is_ok(o: Result_PhantomRouteHintsDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PhantomRouteHintsDecodeErrorZ>) in
+
+				CResult_PhantomRouteHintsDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ_is_ok(o: Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ) -> Bool {
 		
 				
@@ -5077,16 +5432,6 @@ public class Bindings {
 				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_DescriptionCreationErrorZ>) in
 
 				CResult_DescriptionCreationErrorZ_is_ok(oPointer)
-				
-}
-			
-	}
-	public class func swift_CResult_ExpiryTimeCreationErrorZ_is_ok(o: Result_ExpiryTimeCreationErrorZ) -> Bool {
-		
-				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ExpiryTimeCreationErrorZ>) in
-
-				CResult_ExpiryTimeCreationErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -5221,12 +5566,12 @@ public class Bindings {
 }
 			
 	}
-	public class func swift_CResult_DirectionalChannelInfoDecodeErrorZ_is_ok(o: Result_DirectionalChannelInfoDecodeErrorZ) -> Bool {
+	public class func swift_CResult_ChannelUpdateInfoDecodeErrorZ_is_ok(o: Result_ChannelUpdateInfoDecodeErrorZ) -> Bool {
 		
 				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_DirectionalChannelInfoDecodeErrorZ>) in
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ChannelUpdateInfoDecodeErrorZ>) in
 
-				CResult_DirectionalChannelInfoDecodeErrorZ_is_ok(oPointer)
+				CResult_ChannelUpdateInfoDecodeErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -5541,6 +5886,16 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_WarningMessageDecodeErrorZ_is_ok(o: Result_WarningMessageDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_WarningMessageDecodeErrorZ>) in
+
+				CResult_WarningMessageDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_UnsignedNodeAnnouncementDecodeErrorZ_is_ok(o: Result_UnsignedNodeAnnouncementDecodeErrorZ) -> Bool {
 		
 				
@@ -5669,6 +6024,24 @@ public class Bindings {
 					
 				return 
 				verify(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
+				
+			
+	}
+	public class func swift_construct_invoice_preimage(hrp_bytes: [UInt8], data_without_signature: [UInt8]) -> [UInt8] {
+		
+				
+						let hrp_bytesWrapper = Bindings.new_LDKu8sliceWrapper(array: hrp_bytes)
+						defer {
+							hrp_bytesWrapper.noOpRetain()
+						}
+					
+						let data_without_signatureWrapper = Bindings.new_LDKCVec_u5ZWrapper(array: data_without_signature)
+						defer {
+							data_without_signatureWrapper.noOpRetain()
+						}
+					
+				return 
+				Bindings.LDKCVec_u8Z_to_array(nativeType: construct_invoice_preimage(hrp_bytesWrapper.cOpaqueStruct!, data_without_signatureWrapper.dangle().cOpaqueStruct!))
 				
 			
 	}
@@ -5840,7 +6213,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				
 			
 	}
-	public class func swift_find_route(our_node_pubkey: [UInt8], params: RouteParameters, network: NetworkGraph, first_hops: [ChannelDetails]?, logger: Logger, scorer: Score) -> Result_RouteLightningErrorZ {
+	public class func swift_find_route(our_node_pubkey: [UInt8], route_params: RouteParameters, network: NetworkGraph, first_hops: [ChannelDetails]?, logger: Logger, scorer: Score) -> Result_RouteLightningErrorZ {
 		
 				
 							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
@@ -5855,22 +6228,32 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 								first_hopsPointer!.initialize(to: Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hopsUnwrapped).cOpaqueStruct!)
 							}
 						
-				return withUnsafePointer(to: params.cOpaqueStruct!) { (paramsPointer: UnsafePointer<LDKRouteParameters>) in
+				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
 withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 
-				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), paramsPointer, networkPointer, first_hopsPointer, logger.cOpaqueStruct!, scorerPointer))
+				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), route_paramsPointer, networkPointer, first_hopsPointer, logger.cOpaqueStruct!, scorerPointer))
 				
 }
 }
 }
 			
 	}
-	public class func swift_check_platform() -> Void {
+	public class func swift_create_phantom_invoice(amt_msat: Option_u64Z, description: String, payment_hash: [UInt8], payment_secret: [UInt8], phantom_route_hints: [PhantomRouteHints], keys_manager: KeysInterface, network: LDKCurrency) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
-				
-				check_platform()
+							let phantom_route_hintsUnwrapped = phantom_route_hints.map { (phantom_route_hintsCurrentValue) in
+							phantom_route_hintsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let phantom_route_hintsWrapper = Bindings.new_LDKCVec_PhantomRouteHintsZWrapper(array: phantom_route_hintsUnwrapped)
+						defer {
+							phantom_route_hintsWrapper.noOpRetain()
+						}
+					
+				return 
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.cOpaqueStruct!, network))
 				
 			
 	}
@@ -5880,6 +6263,16 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
 				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description)))
+				
+}
+			
+	}
+	public class func swift_create_invoice_from_channelmanager_and_duration_since_epoch(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description: String, duration_since_epoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
+		
+				
+				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
+
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_and_duration_since_epoch(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description), duration_since_epoch))
 				
 }
 			
@@ -6057,7 +6450,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "ad87781697755854cb84ee584d82448b2c05a0bd"
+        return "47640dd499c8281d857ae507bb64d829e1e558c8"
     }
 
 }

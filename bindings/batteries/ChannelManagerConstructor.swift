@@ -32,7 +32,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     fileprivate var customEventHandler: EventHandler?
     fileprivate var net_graph: NetworkGraph?
     fileprivate var graph_msg_handler: NetGraphMsgHandler?
-    fileprivate var payer: InvoicePayer?
+    public var payer: InvoicePayer?
     public let peerManager: PeerManager
 
 

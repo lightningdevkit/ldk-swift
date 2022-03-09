@@ -6450,7 +6450,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "47640dd499c8281d857ae507bb64d829e1e558c8"
+        return "722d6c573ab71c35eb9373e2d7b368f33c3a0dd0"
     }
 
 }

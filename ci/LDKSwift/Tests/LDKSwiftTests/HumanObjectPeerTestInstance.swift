@@ -195,7 +195,8 @@ public class HumanObjectPeerTestInstance {
                 self.channelManager = ChannelManager(fee_est: self.feeEstimator, chain_monitor: self.chainWatch!, tx_broadcaster: self.txBroadcaster, logger: self.logger, keys_manager: self.keysInterface, config: UserConfig(), params: chainParameters)
                 let randomData = self.keysInterface.get_secure_random_bytes()
                 let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.as_RoutingMessageHandler())
-                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: self.keysInterface.get_node_secret(), ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
+                let nodeSecret = self.keysInterface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
+				self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
             self.nodeId = self.channelManager.get_our_node_id()
             self.bindSocketHandler()

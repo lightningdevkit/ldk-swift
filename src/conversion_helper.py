@@ -11,7 +11,7 @@ class ArrayAccessorType:
 		self.length_key: str = length_key
 
 
-array_accessor_types: dict[str, ArrayAccessorType] = {
+array_accessor_types_fixed_length: dict[str, ArrayAccessorType] = {
 	"LDKThirtyTwoBytes": ArrayAccessorType(size=32, key='data'),
 	"LDKPaymentPreimage": ArrayAccessorType(size=32, key='data'),
 	"LDKPublicKey": ArrayAccessorType(size=33, key='compressed_form'),
@@ -23,11 +23,20 @@ array_accessor_types: dict[str, ArrayAccessorType] = {
 	"LDKTwelveBytes": ArrayAccessorType(size=12, key='data'),
 	"LDKSixteenBytes": ArrayAccessorType(size=16, key='data'),
 	"LDKTwentyBytes": ArrayAccessorType(size=20, key='data'),
-	"LDKRecoverableSignature": ArrayAccessorType(size=68, key='serialized_form'),
+	"LDKRecoverableSignature": ArrayAccessorType(size=68, key='serialized_form')
+}
+
+array_accessor_types_variable_length: dict[str, ArrayAccessorType] = {
+	"LDKu5slice": ArrayAccessorType(length_key='datalen', key='data'),
 	"LDKu8slice": ArrayAccessorType(length_key='datalen', key='data'),
 	"LDKCVec_u8Z": ArrayAccessorType(length_key='datalen', key='data'),
 	"LDKCVec_u5Z": ArrayAccessorType(length_key='datalen', key='data'),
-	"LDKTransaction": ArrayAccessorType(length_key='datalen', key='data'),
+	"LDKTransaction": ArrayAccessorType(length_key='datalen', key='data')
+}
+
+array_accessor_types: dict[str, ArrayAccessorType] = {
+	**array_accessor_types_fixed_length,
+	**array_accessor_types_variable_length
 }
 
 class ConversionHelper:
@@ -347,17 +356,6 @@ class ConversionHelper:
 						swift_local_conversion_suffix = f'.{current_argument_details.arr_access})'
 				elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
-					swift_local_conversion_suffix = ')'
-				elif received_raw_type == 'LDKTransaction':
-					swift_local_conversion_prefix = f'Bindings.LDKTransaction_to_array(nativeType: '
-					swift_local_conversion_suffix = ')'
-					published_swift_type = '[UInt8]'
-				elif received_raw_type == 'LDKu8slice':
-					swift_local_conversion_prefix = f'Bindings.LDKu8slice_to_array(nativeType: '
-					swift_local_conversion_suffix = ')'
-					published_swift_type = '[UInt8]'
-				elif received_raw_type == 'LDKCVec_PaymentPreimageZ':
-					swift_local_conversion_prefix = f'Bindings.LDKCVec_PaymentPreimageZ_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'
 			elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 				if cls.is_instance_type(published_swift_type, received_raw_type):

@@ -1,6 +1,7 @@
 from src.binding_types import TypeInfo
 from src.type_parsing_regeces import TypeParsingRegeces
 from src.conversion_helper import ConversionHelper
+from src.conversion_helper import array_accessor_types
 
 var_is_arr_regex = TypeParsingRegeces.IS_VARIABLE_AN_ARRAY_REGEX
 var_ty_regex = TypeParsingRegeces.VARIABLE_TYPE_REGEX
@@ -37,90 +38,20 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 	# the way that Swift automatically maps C types when divergent from what people use, like const char * not being a String
 	swift_raw_type = None
 
-	if fn_arg.startswith("LDKThirtyTwoBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[18:] + ")[32]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKThirtyTwoBytes"
-		swift_raw_type = rust_obj
-		arr_access = "data"
-	elif fn_arg.startswith("LDKPublicKey"):
-		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[33]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKPublicKey"
-		swift_raw_type = rust_obj
-		arr_access = "compressed_form"
-	elif fn_arg.startswith("LDKSecretKey"):
-		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[32]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKSecretKey"
-		swift_raw_type = rust_obj
-		arr_access = "bytes"
-	elif fn_arg.startswith("LDKSignature"):
-		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[64]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKSignature"
-		swift_raw_type = rust_obj
-		arr_access = "compact_form"
-	elif fn_arg.startswith("LDKThreeBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[14:] + ")[3]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKThreeBytes"
-		swift_raw_type = rust_obj
-		arr_access = "data"
-	elif fn_arg.startswith("LDKFourBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[13:] + ")[4]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKFourBytes"
-		swift_raw_type = rust_obj
-		arr_access = "data"
-	elif fn_arg.startswith("LDKTenBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[12:] + ")[10]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKTenBytes"
-		swift_raw_type = rust_obj
-		arr_access = "data"
-	elif fn_arg.startswith("LDKTwelveBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[len('LDKTwelveBytes '):] + ")[12]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKTwelveBytes"
-		swift_raw_type = rust_obj
-		arr_access = "data"
-	elif fn_arg.startswith("LDKSixteenBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[16:] + ")[16]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKSixteenBytes"
-		swift_raw_type = rust_obj
-		arr_access = "data"
-	elif fn_arg.startswith("LDKTwentyBytes"):
-		fn_arg = "uint8_t (*" + fn_arg[15:] + ")[20]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKTwentyBytes"
-		swift_raw_type = rust_obj
-		arr_access = "data"
-	elif fn_arg.startswith("LDKRecoverableSignature"):
-		fn_arg = "uint8_t (*serialized_form)[68]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKRecoverableSignature"
-		swift_raw_type = rust_obj
-		arr_access = "serialized_form"
-	elif fn_arg.startswith("LDKu8slice"):
-		fn_arg = "uint8_t (*" + fn_arg[11:] + ")[datalen]"
-		assert var_is_arr_regex.match(fn_arg[8:])
-		rust_obj = "LDKu8slice"
-		arr_access = "data"
-	elif fn_arg.startswith("LDKCVec_u8Z"):
-		fn_arg = "uint8_t (*" + fn_arg[12:] + ")[datalen]"
-		rust_obj = "LDKCVec_u8Z"
-		swift_raw_type = rust_obj
-		assert var_is_arr_regex.match(fn_arg[8:])
-		arr_access = "data"
-	elif fn_arg.startswith("LDKTransaction ") or fn_arg == "LDKTransaction":
-		fn_arg = "uint8_t (*" + fn_arg[15:] + ")[datalen]"
-		rust_obj = "LDKTransaction"
-		swift_raw_type = rust_obj
-		assert var_is_arr_regex.match(fn_arg[8:])
-		arr_access = "data"
-	elif fn_arg.startswith("LDKCVec_"):
+	for type_name, access_details in array_accessor_types.items():
+		if fn_arg.startswith(f'{type_name} ') or fn_arg == type_name: # include space
+			rust_obj = type_name
+			arr_access = access_details.key
+			prefix_length = len(type_name) + 1
+			if access_details.size > 0:
+				fn_arg = "uint8_t (*" + fn_arg[prefix_length:] + f")[{access_details.size}]"
+				assert var_is_arr_regex.match(fn_arg[8:])
+				swift_raw_type = rust_obj
+			elif access_details.size == -1 and access_details.length_key is not None:
+				fn_arg = "uint8_t (*" + fn_arg[prefix_length:] + f")[{access_details.length_key}]"
+				assert var_is_arr_regex.match(fn_arg[8:])
+			break
+	if fn_arg.startswith("LDKCVec_"):
 		is_ptr = False
 		if "*" in fn_arg:
 			fn_arg = fn_arg.replace("*", "")

@@ -16,18 +16,19 @@ jobs:
                     git config --global user.name "LDK CI"
                     # Note this is a different endpoint, as we need one non-upstream commit!
                     # git clone https://git.bitcoin.ninja/rust-lightning
-                    git clone https://github.com/TheBlueMatt/rust-lightning
+                    # git clone https://github.com/TheBlueMatt/rust-lightning
+                    git clone --branch 2021-03-java-bindings-base https://github.com/TheBlueMatt/rust-lightning
                     cd rust-lightning
                     # git checkout origin/2021-03-java-bindings-base
                     # git checkout v0.0.100
-                    git checkout 8966f8d3d4911e034621c6d3c3d20140d3a7e76a
+                    # git checkout 8966f8d3d4911e034621c6d3c3d20140d3a7e76a
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
-                    # git clone https://github.com/lightningdevkit/ldk-c-bindings
-                    git clone https://github.com/TheBlueMatt/ldk-c-bindings
+                    git clone https://github.com/lightningdevkit/ldk-c-bindings
+                    # git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
-                    git checkout 1bb5ae1b34aeb74009b7b4b5ebefc957cddc30a6
+                    # git checkout 1bb5ae1b34aeb74009b7b4b5ebefc957cddc30a6
                     echo "ldk-c-bindings commit hash:"
                     git rev-parse HEAD
                     cd ..

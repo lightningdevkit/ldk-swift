@@ -84,6 +84,20 @@ public class func err(e: LDKSecp256k1Error) -> Result_SecretKeyErrorZ {
 					}
 				
 
+    public func clone() -> Result_SecretKeyErrorZ {
+    	
+        return Result_SecretKeyErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SecretKeyErrorZ>) in
+CResult_SecretKeyErrorZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Result_SecretKeyErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     /* RESULT_METHODS_END */
 
 }

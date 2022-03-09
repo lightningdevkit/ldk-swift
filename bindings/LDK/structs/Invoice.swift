@@ -73,6 +73,13 @@ Invoice_timestamp(this_argPointer)
 };
     }
 
+    public func duration_since_epoch() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+Invoice_duration_since_epoch(this_argPointer)
+};
+    }
+
     public func payment_hash() -> [UInt8] {
     	
         return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
@@ -119,6 +126,13 @@ Invoice_expiry_time(this_argPointer)
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_is_expired(this_argPointer)
+};
+    }
+
+    public func would_expire(at_time: UInt64) -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
+Invoice_would_expire(this_argPointer, at_time)
 };
     }
 

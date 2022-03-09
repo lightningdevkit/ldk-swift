@@ -297,6 +297,23 @@ ChannelDetails_clone(origPointer)
 					}
 				
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelDetails>) in
+ChannelDetails_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_ChannelDetailsDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelDetailsDecodeErrorZ(pointer: ChannelDetails_read(serWrapper.cOpaqueStruct!));
+    }
+
     internal func free() -> Void {
     	
         return ChannelDetails_free(self.cOpaqueStruct!);

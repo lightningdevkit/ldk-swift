@@ -17,6 +17,9 @@ class VectorGenerator(UtilGenerator):
 		conversion_call = None
 		dimension_reduction_prep = None
 		is_primitive = vector_type_details.is_primitive
+		is_nested_primitive = False
+		nest_type = None
+		nest_accessor = None
 		pointerTypeName = 'UInt8'
 		shallowmost_iteratee_is_tuple_primitive = False
 		extraction_method = ''
@@ -26,6 +29,12 @@ class VectorGenerator(UtilGenerator):
 
 		if is_primitive:
 			swift_primitive = vector_type_details.primitive_swift_counterpart
+
+			if vector_name == 'LDKCVec_u5Z':
+				is_nested_primitive = True
+				nest_type = 'LDKu5'
+				nest_accessor = '_0'
+
 		else:
 			deepest_iteratee = vector_type_details
 			while deepest_iteratee.iteratee is not None:
@@ -120,6 +129,13 @@ class VectorGenerator(UtilGenerator):
 		for dim_delta in range(1, dimensions):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('[SwiftPrimitive]', '[[SwiftPrimitive]]')
 
+		if is_nested_primitive:
+			conversion_call = f'let convertedEntry = currentEntry.{nest_accessor}'
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* DIMENSION_REDUCTION_PREP */', f'let lowerDimension = array.map {{ v in {nest_type}({nest_accessor}: v) }}')
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('array.withUnsafeBufferPointer', 'lowerDimension.withUnsafeBufferPointer')
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('dataContainer.initialize(from: array,', 'dataContainer.initialize(from: lowerDimension,')
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('<SwiftPrimitive>', f'<{nest_type}>')
+
 		if conversion_call is not None:
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* CONVERSION_PREP */', conversion_call)
 		else:
@@ -165,7 +181,10 @@ class VectorGenerator(UtilGenerator):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_START */', '/* SWIFT_TO_RUST_START ')
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('/* SWIFT_TO_RUST_END */', 'SWIFT_TO_RUST_END */')  # pass
 
-		mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive', swift_primitive)
+		if is_nested_primitive and False:
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive', nest_type)
+		else:
+			mutating_current_vector_methods = mutating_current_vector_methods.replace('SwiftPrimitive', swift_primitive)
 
 		mutating_current_vector_methods += extraction_method
 

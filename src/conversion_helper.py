@@ -4,6 +4,40 @@ pointer_iterating_vector_types = set()
 cloneable_types = set()
 detected_cloneable_types = set()
 
+class ArrayAccessorType:
+	def __init__(self, key: str, size: int = -1, length_key = None):
+		self.size: int = size
+		self.key: str = key
+		self.length_key: str = length_key
+
+
+array_accessor_types_fixed_length: dict[str, ArrayAccessorType] = {
+	"LDKThirtyTwoBytes": ArrayAccessorType(size=32, key='data'),
+	"LDKPaymentPreimage": ArrayAccessorType(size=32, key='data'),
+	"LDKPublicKey": ArrayAccessorType(size=33, key='compressed_form'),
+	"LDKSecretKey": ArrayAccessorType(size=32, key='bytes'),
+	"LDKSignature": ArrayAccessorType(size=64, key='compact_form'),
+	"LDKThreeBytes": ArrayAccessorType(size=3, key='data'),
+	"LDKFourBytes": ArrayAccessorType(size=4, key='data'),
+	"LDKTenBytes": ArrayAccessorType(size=10, key='data'),
+	"LDKTwelveBytes": ArrayAccessorType(size=12, key='data'),
+	"LDKSixteenBytes": ArrayAccessorType(size=16, key='data'),
+	"LDKTwentyBytes": ArrayAccessorType(size=20, key='data'),
+	"LDKRecoverableSignature": ArrayAccessorType(size=68, key='serialized_form')
+}
+
+array_accessor_types_variable_length: dict[str, ArrayAccessorType] = {
+	"LDKu5slice": ArrayAccessorType(length_key='datalen', key='data'),
+	"LDKu8slice": ArrayAccessorType(length_key='datalen', key='data'),
+	"LDKCVec_u8Z": ArrayAccessorType(length_key='datalen', key='data'),
+	"LDKCVec_u5Z": ArrayAccessorType(length_key='datalen', key='data'),
+	"LDKTransaction": ArrayAccessorType(length_key='datalen', key='data')
+}
+
+array_accessor_types: dict[str, ArrayAccessorType] = {
+	**array_accessor_types_fixed_length,
+	**array_accessor_types_variable_length
+}
 
 class ConversionHelper:
 	trait_structs = set()
@@ -77,7 +111,7 @@ class ConversionHelper:
 				pass_instance = True
 				passed_argument_name = 'self'
 				static_eligible = False
-				
+
 				# if caller_is_nullable_inner_type:
 				# 	native_call_prep = f'''
 				# 		if self.cOpaqueStruct!.inner == nil {{
@@ -313,7 +347,7 @@ class ConversionHelper:
 			passed_var_name = received_var_name
 			swift_callback_argument_value = received_var_name
 
-			if published_swift_type == '[UInt8]':
+			if '[UInt8]' in published_swift_type:
 				if inferred_raw_swift_type.startswith('(UInt8'):
 					array_length = current_argument_details.arr_len
 					swift_local_conversion_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
@@ -323,14 +357,6 @@ class ConversionHelper:
 				elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
 					swift_local_conversion_suffix = ')'
-				elif received_raw_type == 'LDKTransaction':
-					swift_local_conversion_prefix = f'Bindings.LDKTransaction_to_array(nativeType: '
-					swift_local_conversion_suffix = ')'
-					published_swift_type = '[UInt8]'
-				elif received_raw_type == 'LDKu8slice':
-					swift_local_conversion_prefix = f'Bindings.LDKu8slice_to_array(nativeType: '
-					swift_local_conversion_suffix = ')'
-					published_swift_type = '[UInt8]'
 			elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 				if cls.is_instance_type(published_swift_type, received_raw_type):
 					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '
@@ -433,7 +459,7 @@ class ConversionHelper:
 			if (rust_return_type.startswith('LDKCVec_') or rust_return_type == 'LDKTransaction') and is_raw_property_getter:
 				return_suffix = ', deallocate: false)'
 				individual_map_suffix = '.dangle()'
-				
+
 			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string) and not is_trait_callback:
 				# replace the last [ with [LDK (in case
 				constructor_type = return_type_string.lstrip('[').rstrip(']')
@@ -452,18 +478,18 @@ class ConversionHelper:
 
 					map_prefix = f'''.map {{ (cOpaqueStruct) in 
 						cOpaqueStruct''' * (wrapper_depth-1)
-					
+
 					map_suffix = '}' * wrapper_depth
-					
+
 					return_suffix += f'''
 						{map_prefix}
 						.map {{ (cOpaqueStruct) in
 							{constructor_type}(pointer: cOpaqueStruct){individual_map_suffix}
 						{map_suffix}
 					'''
-				
-				
-				
+
+
+
 		elif return_type.swift_raw_type.startswith('(UInt8'):
 			# TODO: get array length
 			array_length = return_type.arr_len

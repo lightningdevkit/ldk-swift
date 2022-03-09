@@ -45,9 +45,9 @@ public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(serialized_form: [UInt8]) -> Result_RecoverableSignatureNoneZ {
+    public class func ok(o: [UInt8]) -> Result_RecoverableSignatureNoneZ {
     	
-        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: serialized_form)));
+        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: o)));
     }
 
     public class func err() -> Result_RecoverableSignatureNoneZ {

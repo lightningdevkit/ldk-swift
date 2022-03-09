@@ -236,6 +236,21 @@ AcceptChannel_get_first_per_commitment_point(this_ptrPointer)
         return AcceptChannel_set_first_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
     }
 
+    public func get_channel_type() -> ChannelTypeFeatures {
+    	
+        return ChannelTypeFeatures(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKAcceptChannel>) in
+AcceptChannel_get_channel_type(this_ptrPointer)
+});
+    }
+
+    public func set_channel_type(val: ChannelTypeFeatures) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKAcceptChannel>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return AcceptChannel_set_channel_type(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
     public func clone() -> AcceptChannel {
     	
         return AcceptChannel(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAcceptChannel>) in

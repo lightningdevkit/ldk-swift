@@ -108,6 +108,23 @@ ChannelCounterparty_clone(origPointer)
 					}
 				
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelCounterparty>) in
+ChannelCounterparty_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_ChannelCounterpartyDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_ChannelCounterpartyDecodeErrorZ(pointer: ChannelCounterparty_read(serWrapper.cOpaqueStruct!));
+    }
+
     internal func free() -> Void {
     	
         return ChannelCounterparty_free(self.cOpaqueStruct!);

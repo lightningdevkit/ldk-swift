@@ -7,11 +7,11 @@ public class RouteParameters: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(payee_arg: Payee, final_value_msat_arg: UInt64, final_cltv_expiry_delta_arg: UInt32) {
+    public init(payment_params_arg: PaymentParameters, final_value_msat_arg: UInt64, final_cltv_expiry_delta_arg: UInt32) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = RouteParameters_new(payee_arg.danglingClone().cOpaqueStruct!, final_value_msat_arg, final_cltv_expiry_delta_arg)
+        self.cOpaqueStruct = RouteParameters_new(payment_params_arg.danglingClone().cOpaqueStruct!, final_value_msat_arg, final_cltv_expiry_delta_arg)
         super.init(conflictAvoidingVariableName: 0)
     }
     /* DEFAULT_CONSTRUCTOR_END */
@@ -34,19 +34,19 @@ public class RouteParameters: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func get_payee() -> Payee {
+    public func get_payment_params() -> PaymentParameters {
     	
-        return Payee(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRouteParameters>) in
-RouteParameters_get_payee(this_ptrPointer)
+        return PaymentParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRouteParameters>) in
+RouteParameters_get_payment_params(this_ptrPointer)
 });
     }
 
-    public func set_payee(val: Payee) -> Void {
+    public func set_payment_params(val: PaymentParameters) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKRouteParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RouteParameters_set_payee(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+        return RouteParameters_set_payment_params(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_final_value_msat() -> UInt64 {

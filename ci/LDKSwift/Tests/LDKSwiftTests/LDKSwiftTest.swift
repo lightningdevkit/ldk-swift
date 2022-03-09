@@ -28,7 +28,7 @@ class LDKSwiftTest: XCTestCase {
     func testVersionSanity() throws {
         check_get_ldk_version()
         check_get_ldk_bindings_version()
-        check_platform()
+        // check_platform()
     }
 
     private func incrementalMemoryLeakTest() throws {
@@ -114,8 +114,8 @@ class LDKSwiftTest: XCTestCase {
             path.append(extraHop)
         }
 
-        let payee = Payee(pubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
-		let route = Route(paths_arg: [path], payee_arg: payee)
+        let paymentParams = PaymentParameters(payee_pubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
+		let route = Route(paths_arg: [path], payment_params_arg: paymentParams)
     }
 
     func testExtendedActivity() throws {

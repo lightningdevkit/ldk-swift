@@ -13,10 +13,10 @@ open class KeysInterface: NativeTypeWrapper {
 
     	/* NATIVE_CALLBACKS_START */
 
-		func get_node_secretCallback(pointer: UnsafeRawPointer?) -> LDKSecretKey {
+		func get_node_secretCallback(pointer: UnsafeRawPointer?, recipient: LDKRecipient) -> LDKCResult_SecretKeyNoneZ {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_node_secret")
 			
-			return Bindings.new_LDKSecretKey(array: instance.get_node_secret())
+			return instance.get_node_secret(recipient: recipient).cOpaqueStruct!
 		}
 
 		func get_destination_scriptCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
@@ -55,10 +55,10 @@ open class KeysInterface: NativeTypeWrapper {
 			return instance.read_chan_signer(reader: Bindings.LDKu8slice_to_array(nativeType: reader)).cOpaqueStruct!
 		}
 
-		func sign_invoiceCallback(pointer: UnsafeRawPointer?, invoice_preimage: LDKCVec_u8Z) -> LDKCResult_RecoverableSignatureNoneZ {
+		func sign_invoiceCallback(pointer: UnsafeRawPointer?, hrp_bytes: LDKu8slice, invoice_data: LDKCVec_u5Z, receipient: LDKRecipient) -> LDKCResult_RecoverableSignatureNoneZ {
 			let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::sign_invoice")
 			
-			return instance.sign_invoice(invoice_preimage: Bindings.LDKCVec_u8Z_to_array(nativeType: invoice_preimage)).cOpaqueStruct!
+			return instance.sign_invoice(hrp_bytes: Bindings.LDKu8slice_to_array(nativeType: hrp_bytes), invoice_data: Bindings.LDKCVec_u5Z_to_array(nativeType: invoice_data), receipient: receipient).cOpaqueStruct!
 		}
 
 		func get_inbound_payment_key_materialCallback(pointer: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
@@ -124,11 +124,11 @@ open class KeysInterface: NativeTypeWrapper {
 					}
 				
 
-    open func get_node_secret() -> [UInt8] {
+    open func get_node_secret(recipient: LDKRecipient) -> Result_SecretKeyNoneZ {
     	/* EDIT ME */
 		Bindings.print("KeysInterface::get_node_secret should be overridden!", severity: .WARNING)
 
-return [UInt8]()
+return Result_SecretKeyNoneZ()
     }
 
     open func get_destination_script() -> [UInt8] {
@@ -166,7 +166,7 @@ return [UInt8]()
 return Result_SignDecodeErrorZ()
     }
 
-    open func sign_invoice(invoice_preimage: [UInt8]) -> Result_RecoverableSignatureNoneZ {
+    open func sign_invoice(hrp_bytes: [UInt8], invoice_data: [UInt8], receipient: LDKRecipient) -> Result_RecoverableSignatureNoneZ {
     	/* EDIT ME */
 		Bindings.print("KeysInterface::sign_invoice should be overridden!", severity: .WARNING)
 
@@ -195,11 +195,11 @@ return [UInt8]()
 public class NativelyImplementedKeysInterface: KeysInterface {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
-	public override func get_node_secret() -> [UInt8] {
+	public override func get_node_secret(recipient: LDKRecipient) -> Result_SecretKeyNoneZ {
 		
 				
 				return 
-				Bindings.LDKSecretKey_to_array(nativeType: self.cOpaqueStruct!.get_node_secret(self.cOpaqueStruct!.this_arg))
+				Result_SecretKeyNoneZ(pointer: self.cOpaqueStruct!.get_node_secret(self.cOpaqueStruct!.this_arg, recipient))
 				
 			
 	}
@@ -254,16 +254,21 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 			
 	}
 
-	public override func sign_invoice(invoice_preimage: [UInt8]) -> Result_RecoverableSignatureNoneZ {
+	public override func sign_invoice(hrp_bytes: [UInt8], invoice_data: [UInt8], receipient: LDKRecipient) -> Result_RecoverableSignatureNoneZ {
 		
 				
-						let invoice_preimageWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: invoice_preimage)
+						let hrp_bytesWrapper = Bindings.new_LDKu8sliceWrapper(array: hrp_bytes)
 						defer {
-							invoice_preimageWrapper.noOpRetain()
+							hrp_bytesWrapper.noOpRetain()
+						}
+					
+						let invoice_dataWrapper = Bindings.new_LDKCVec_u5ZWrapper(array: invoice_data)
+						defer {
+							invoice_dataWrapper.noOpRetain()
 						}
 					
 				return 
-				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, invoice_preimageWrapper.dangle().cOpaqueStruct!))
+				Result_RecoverableSignatureNoneZ(pointer: self.cOpaqueStruct!.sign_invoice(self.cOpaqueStruct!.this_arg, hrp_bytesWrapper.cOpaqueStruct!, invoice_dataWrapper.dangle().cOpaqueStruct!, receipient))
 				
 			
 	}

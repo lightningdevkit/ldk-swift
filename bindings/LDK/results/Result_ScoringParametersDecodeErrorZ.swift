@@ -52,11 +52,9 @@ public class Result_ScoringParametersDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
-@available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public class func ok(o: ScoringParameters) -> Result_ScoringParametersDecodeErrorZ {
+    public class func ok(o: ScoringParameters) -> Result_ScoringParametersDecodeErrorZ {
     	
-        return Result_ScoringParametersDecodeErrorZ(pointer: CResult_ScoringParametersDecodeErrorZ_ok(o.cOpaqueStruct!));
+        return Result_ScoringParametersDecodeErrorZ(pointer: CResult_ScoringParametersDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
     }
 
     public class func err(e: DecodeError) -> Result_ScoringParametersDecodeErrorZ {
@@ -81,6 +79,20 @@ public class func ok(o: ScoringParameters) -> Result_ScoringParametersDecodeErro
 						} else {
 							Bindings.print("Not freeing Result_ScoringParametersDecodeErrorZ \(self.instanceNumber) due to dangle.")
 						}
+					}
+				
+
+    public func clone() -> Result_ScoringParametersDecodeErrorZ {
+    	
+        return Result_ScoringParametersDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ScoringParametersDecodeErrorZ>) in
+CResult_ScoringParametersDecodeErrorZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Result_ScoringParametersDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
 					}
 				
 

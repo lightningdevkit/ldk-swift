@@ -282,9 +282,9 @@ public class HumanObjectPeerTestInstance {
                 //                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: nil, tx_broadcaster: self.txBroadcaster, logger: self.logger)
 
                 let scoringParams = ProbabilisticScoringParameters()
-                let probabalisticScorer = ProbabilisticScorer(params: scoringParams.danglingClone(), network_graph: graph)
+                let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: graph)
                 let score = probabalisticScorer.as_Score()
-                let multiThreadedScorer = MultiThreadedLockableScore(score: score.dangle())
+                let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
                 self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self), scorer: multiThreadedScorer)
                 self.channelManager = self.constructor!.channelManager

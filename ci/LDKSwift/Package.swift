@@ -12,7 +12,9 @@ let package = Package(
                     targets: ["LDKSwift"]),
             // .library(name: "LDKSwift", type: .dynamic, targets: ["LDKSwift"])
         ],
-        dependencies: [],
+        dependencies: [
+        	.package(url: "https://github.com/apple/swift-crypto.git", "1.0.0" ..< "3.0.0")
+        ],
         targets: [
             // Targets are the basic building blocks of a package. A target can define a module or a test suite.
             // Targets can depend on other targets in this package, and on products in packages this package depends on.
@@ -50,7 +52,11 @@ let package = Package(
                     ]),
             .testTarget(
                     name: "LDKSwiftTests",
-                    dependencies: ["LDKSwift", "LDKHeaders"],
+                    dependencies: [
+                    	"LDKSwift",
+                    	"LDKHeaders",
+                    	.product(name: "Crypto", package: "swift-crypto")
+					],
                     path: nil,
                     exclude: [],
                     // exclude: ["SampleTest.swift"],

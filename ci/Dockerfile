@@ -1,5 +1,5 @@
 #FROM ubuntu:20.04
-FROM swift:bionic
+FROM swift:5.6-focal
 
 RUN apt-get -y update
 RUN apt-get -y dist-upgrade

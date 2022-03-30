@@ -44,7 +44,7 @@ jobs:
                     tar xvvf swift-5.6-RELEASE-ubuntu20.04.tar.gz
                 env:
                     EXPECTED_SWIFT_SHASUM: 3f0d926bfc08eea00a69b1d992f2ab5e08155d97476096a3ef959fe7c4cbd58b
-            -   name: Install native Rust toolchain, Valgrind, and build utilitis
+            -   name: Install native Rust toolchain, Valgrind, and build utilities
                 run: |
                     sudo apt-get update
                     sudo apt-get -y dist-upgrade

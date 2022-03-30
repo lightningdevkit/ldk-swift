@@ -15,7 +15,7 @@ class BTCTransaction: Equatable {
     var outputs: [Output] = []
     var lockTime: UInt32 = 0
     
-    public func serialize() -> [UInt8] {
+    public func serialize(useSegwit: Bool = true) -> [UInt8] {
         var transaction = [UInt8]()
         
         var witnessData = [UInt8]()
@@ -28,7 +28,7 @@ class BTCTransaction: Equatable {
             transaction.append(contentsOf: versionBytes)
         }
         
-        if let flag = self.flag {
+        if let flag = self.flag, useSegwit {
             let flagBytes = withUnsafeBytes(of: flag.littleEndian) { bytes in
                 Array(bytes)
             }
@@ -42,9 +42,9 @@ class BTCTransaction: Equatable {
             
             self.inputs.map { currentInput in
                 transaction.append(contentsOf: currentInput.serialize())
-                if let witness = currentInput.witness {
+                if let witness = currentInput.witness, useSegwit {
                     witnessData.append(contentsOf: witness.serialize())
-                } else if let _ = self.flag {
+                } else if let _ = self.flag, useSegwit {
                     witnessData.append(0) // empty witness for this particular input
                 }
             }
@@ -75,6 +75,11 @@ class BTCTransaction: Equatable {
     public func setWitnessForInput(inputIndex: Int, witness: Witness) {
         self.flag = 256
         self.inputs[inputIndex].witness = witness
+    }
+    
+    public func calculateId() -> [UInt8] {
+        let transactionData = self.serialize(useSegwit: false)
+        return BTCHashing.doubleSha256(transactionData)
     }
     
     public func calculateHash() -> [UInt8] {

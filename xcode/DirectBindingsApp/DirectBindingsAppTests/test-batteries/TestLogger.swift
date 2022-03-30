@@ -8,7 +8,7 @@
 class TestLogger: Logger {
 
     override func log(record: Record) {
-        print("some abstract log thing")
+        print("log event: \(record.get_args())")
     }
 
 }

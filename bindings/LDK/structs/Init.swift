@@ -13,7 +13,7 @@ public class Init: NativeTypeWrapper {
     	
         self.cOpaqueStruct = Init_new(features_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,7 +13,7 @@ public class UpdateFulfillHTLC: NativeTypeWrapper {
     	
         self.cOpaqueStruct = UpdateFulfillHTLC_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), htlc_id_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_preimage_arg))
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

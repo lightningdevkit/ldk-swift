@@ -13,7 +13,7 @@ public class RouteParameters: NativeTypeWrapper {
     	
         self.cOpaqueStruct = RouteParameters_new(payment_params_arg.danglingClone().cOpaqueStruct!, final_value_msat_arg, final_cltv_expiry_delta_arg)
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

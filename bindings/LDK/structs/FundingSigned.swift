@@ -13,7 +13,7 @@ public class FundingSigned: NativeTypeWrapper {
     	
         self.cOpaqueStruct = FundingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg))
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

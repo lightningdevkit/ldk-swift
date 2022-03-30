@@ -13,7 +13,7 @@ public class MultiThreadedLockableScore: NativeTypeWrapper {
     	
         self.cOpaqueStruct = MultiThreadedLockableScore_new(score.cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

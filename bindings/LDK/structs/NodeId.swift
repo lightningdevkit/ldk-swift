@@ -13,7 +13,7 @@ public class NodeId: NativeTypeWrapper {
     	
         self.cOpaqueStruct = NodeId_from_pubkey(Bindings.new_LDKPublicKey(array: pubkey))
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -1,4 +1,5 @@
 from src.type_parsing_regeces import TypeParsingRegeces
+from typing import Dict
 
 pointer_iterating_vector_types = set()
 cloneable_types = set()
@@ -11,7 +12,7 @@ class ArrayAccessorType:
 		self.length_key: str = length_key
 
 
-array_accessor_types_fixed_length: dict[str, ArrayAccessorType] = {
+array_accessor_types_fixed_length: Dict[str, ArrayAccessorType] = {
 	"LDKThirtyTwoBytes": ArrayAccessorType(size=32, key='data'),
 	"LDKPaymentPreimage": ArrayAccessorType(size=32, key='data'),
 	"LDKPublicKey": ArrayAccessorType(size=33, key='compressed_form'),
@@ -26,7 +27,7 @@ array_accessor_types_fixed_length: dict[str, ArrayAccessorType] = {
 	"LDKRecoverableSignature": ArrayAccessorType(size=68, key='serialized_form')
 }
 
-array_accessor_types_variable_length: dict[str, ArrayAccessorType] = {
+array_accessor_types_variable_length: Dict[str, ArrayAccessorType] = {
 	"LDKu5slice": ArrayAccessorType(length_key='datalen', key='data'),
 	"LDKu8slice": ArrayAccessorType(length_key='datalen', key='data'),
 	"LDKCVec_u8Z": ArrayAccessorType(length_key='datalen', key='data'),
@@ -34,7 +35,7 @@ array_accessor_types_variable_length: dict[str, ArrayAccessorType] = {
 	"LDKTransaction": ArrayAccessorType(length_key='datalen', key='data')
 }
 
-array_accessor_types: dict[str, ArrayAccessorType] = {
+array_accessor_types: Dict[str, ArrayAccessorType] = {
 	**array_accessor_types_fixed_length,
 	**array_accessor_types_variable_length
 }
@@ -78,6 +79,7 @@ class ConversionHelper:
 		pointer_wrapping_prefix = ''
 		pointer_wrapping_suffix = ''
 		native_call_prep = ''
+		constructor_post_init_anchoring = ''
 		pointer_wrapping_depth = 0
 		static_eligible = True
 		non_cloneable_argument_indices_passed_by_ownership = []
@@ -252,6 +254,10 @@ class ConversionHelper:
 					# print('Potentially undetected cloneable type?', current_argument_details.rust_obj)
 					pass
 
+			# it should not be cloneable, and it should be an object instance, and it should not be an array and not be an enum
+			if not is_cloneable and current_argument_details.rust_obj is not None and current_argument_details.rust_obj.startswith('LDK') and not current_argument_details.swift_type.startswith('[') and not current_argument_details.swift_type.startswith('LDK'):
+				constructor_post_init_anchoring += f'try? self.addAnchor(anchor: {argument_name})\n'
+
 			if is_trait_callback and current_argument_details.is_const:
 				if current_argument_details.swift_type.startswith('[') or current_argument_details.swift_type == 'String':
 					mutabilityIndicatorSuffix = '?'
@@ -320,7 +326,7 @@ class ConversionHelper:
 		# print(full_syntax)
 		return {"swift_arguments": swift_arguments, "native_arguments": native_arguments, "native_call_prefix": pointer_wrapping_prefix, "native_call_suffix": pointer_wrapping_suffix,
 				"native_call_prep": native_call_prep, "static_eligible": static_eligible, "non_cloneable_argument_indices_passed_by_ownership": non_cloneable_argument_indices_passed_by_ownership,
-				'has_unwrapped_arrays': has_unwrapped_arrays, 'swift_redirection_arguments': swift_redirection_arguments, 'return_type_nullable': return_type_nullable}
+				'has_unwrapped_arrays': has_unwrapped_arrays, 'swift_redirection_arguments': swift_redirection_arguments, 'return_type_nullable': return_type_nullable, 'constructor_post_init_anchoring': constructor_post_init_anchoring}
 
 	# the arguments that we receive from a native lambda, before they get passed on to a human consumer
 	# Traits -> NATIVE_CALLBACKS -> SWIFT_CALLBACK_PREP, basically

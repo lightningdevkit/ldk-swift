@@ -13,6 +13,7 @@ public class OpaqueStructName: NativeTypeWrapper {
     	/* NATIVE_CONSTRUCTOR_PREP */
         self.cOpaqueStruct = OpaqueStructType(native_constructor_arguments)
         super.init(conflictAvoidingVariableName: 0)
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

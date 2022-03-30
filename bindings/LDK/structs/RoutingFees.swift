@@ -13,7 +13,7 @@ public class RoutingFees: NativeTypeWrapper {
     	
         self.cOpaqueStruct = RoutingFees_new(base_msat_arg, proportional_millionths_arg)
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

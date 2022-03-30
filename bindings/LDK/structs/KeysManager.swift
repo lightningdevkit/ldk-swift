@@ -15,7 +15,7 @@ public class KeysManager: NativeTypeWrapper {
 KeysManager_new(seedPointer, starting_time_secs, starting_time_nanos)
 }
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

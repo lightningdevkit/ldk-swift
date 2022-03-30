@@ -46,6 +46,7 @@ class OpaqueStructGenerator:
 			constructor_native_call_prefix = constructor_prepared_arguments['native_call_prefix']
 			constructor_native_call_suffix = constructor_prepared_arguments['native_call_suffix']
 			constructor_native_call_prep = constructor_prepared_arguments['native_call_prep']
+			constructor_post_init_anchoring = constructor_prepared_arguments['constructor_post_init_anchoring']
 
 			if len(constructor_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'
@@ -69,6 +70,11 @@ class OpaqueStructGenerator:
 
 				constructor_swift_arguments[4] = new_swift_argument
 				constructor_native_call_prep += '\nlet graphMessageHandler = net_graph_msg_handler?.dangle().cOpaqueStruct! ?? LDKNetGraphMsgHandler(inner: nil, is_owned: true)\n'
+				constructor_post_init_anchoring = constructor_post_init_anchoring.replace('try? self.addAnchor(anchor: net_graph_msg_handler)', '''
+					if let handler = net_graph_msg_handler {
+						try? self.addAnchor(anchor: handler)
+					}
+				''')
 				constructor_native_arguments[4] = new_native_argument
 
 			
@@ -82,6 +88,7 @@ class OpaqueStructGenerator:
 				constructor_native_arguments) + ')' + constructor_native_call_suffix)
 
 			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */', constructor_native_call_prep)
+			# mutating_output_file_contents = mutating_output_file_contents.replace('/* POST_INIT_ANCHORING */', constructor_post_init_anchoring)
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(', f'{constructor_native_name}(')
 
 			if constructor_prepared_arguments['has_unwrapped_arrays']:

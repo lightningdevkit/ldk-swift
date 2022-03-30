@@ -18,7 +18,7 @@ public class NodeInfo: NativeTypeWrapper {
 					
         self.cOpaqueStruct = NodeInfo_new(channels_argWrapper.dangle().cOpaqueStruct!, lowest_inbound_channel_fees_arg.danglingClone().cOpaqueStruct!, announcement_info_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

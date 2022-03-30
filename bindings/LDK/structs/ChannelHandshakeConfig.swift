@@ -13,7 +13,7 @@ public class ChannelHandshakeConfig: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ChannelHandshakeConfig_default()
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

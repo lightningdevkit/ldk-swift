@@ -18,7 +18,7 @@ public class BuiltCommitmentTransaction: NativeTypeWrapper {
 					
         self.cOpaqueStruct = BuiltCommitmentTransaction_new(transaction_argWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: txid_arg))
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

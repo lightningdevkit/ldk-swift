@@ -13,7 +13,7 @@ public class CounterpartyForwardingInfo: NativeTypeWrapper {
     	
         self.cOpaqueStruct = CounterpartyForwardingInfo_new(fee_base_msat_arg, fee_proportional_millionths_arg, cltv_expiry_delta_arg)
         super.init(conflictAvoidingVariableName: 0)
-        
+        /* POST_INIT_ANCHORING */
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

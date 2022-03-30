@@ -32,6 +32,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     fileprivate var customEventHandler: EventHandler?
     fileprivate var net_graph: NetworkGraph?
     fileprivate var graph_msg_handler: NetGraphMsgHandler?
+    fileprivate var scorer: MultiThreadedLockableScore?
     public var payer: InvoicePayer?
     public let peerManager: PeerManager
 
@@ -196,10 +197,12 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
-//        let netGraphMessageHandler = NetGraphMsgHandler(pointer: LDKNetGraphMsgHandler(inner: nil, is_owned: false))
+        self.scorer = scorer
         
-        if let netGraph = self.net_graph, let scorer = scorer {
+        if let netGraph = self.net_graph, let scorer = self.scorer {
             let router = DefaultRouter(network_graph: netGraph, logger: self.logger)
+            // either dangle router, or set is_owned to false
+            router.cOpaqueStruct!.is_owned = false
             self.payer = InvoicePayer(payer: self.channelManager.as_Payer(), router: router.as_Router(), scorer: scorer, logger: self.logger, event_handler: self.customEventHandler!, retry_attempts: RetryAttempts(a_arg: 3))
             self.customEventHandler = self.payer!.as_EventHandler()
         }
@@ -232,6 +235,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             }
             print("removed background processor anchors")
         }
+        self.payer = nil
+        self.scorer = nil
         self.backgroundProcessor = nil
         print("unset background processor")
     }

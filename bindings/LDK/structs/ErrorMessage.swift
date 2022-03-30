@@ -13,6 +13,7 @@ public class ErrorMessage: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ErrorMessage_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKStr(string: data_arg))
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

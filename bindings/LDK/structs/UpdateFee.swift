@@ -13,6 +13,7 @@ public class UpdateFee: NativeTypeWrapper {
     	
         self.cOpaqueStruct = UpdateFee_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), feerate_per_kw_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

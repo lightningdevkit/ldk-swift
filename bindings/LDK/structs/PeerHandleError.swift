@@ -13,6 +13,7 @@ public class PeerHandleError: NativeTypeWrapper {
     	
         self.cOpaqueStruct = PeerHandleError_new(no_connection_possible_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

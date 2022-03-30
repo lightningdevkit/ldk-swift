@@ -13,6 +13,7 @@ public class RetryAttempts: NativeTypeWrapper {
     	
         self.cOpaqueStruct = RetryAttempts_new(a_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

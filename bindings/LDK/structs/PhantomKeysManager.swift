@@ -17,6 +17,7 @@ PhantomKeysManager_new(seedPointer, starting_time_secs, starting_time_nanos, cro
 }
 }
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -18,6 +18,7 @@ public class PhantomRouteHints: NativeTypeWrapper {
 					
         self.cOpaqueStruct = PhantomRouteHints_new(channels_argWrapper.dangle().cOpaqueStruct!, phantom_scid_arg, Bindings.new_LDKPublicKey(array: real_node_pubkey_arg))
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

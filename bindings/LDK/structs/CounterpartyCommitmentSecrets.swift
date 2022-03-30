@@ -13,6 +13,7 @@ public class CounterpartyCommitmentSecrets: NativeTypeWrapper {
     	
         self.cOpaqueStruct = CounterpartyCommitmentSecrets_new()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

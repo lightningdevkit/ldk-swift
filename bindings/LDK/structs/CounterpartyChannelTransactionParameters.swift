@@ -13,6 +13,7 @@ public class CounterpartyChannelTransactionParameters: NativeTypeWrapper {
     	
         self.cOpaqueStruct = CounterpartyChannelTransactionParameters_new(pubkeys_arg.danglingClone().cOpaqueStruct!, selected_contest_delay_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

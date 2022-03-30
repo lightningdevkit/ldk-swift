@@ -18,6 +18,7 @@ public class TxOut: NativeTypeWrapper {
 					
         self.cOpaqueStruct = TxOut_new(script_pubkeyWrapper.dangle().cOpaqueStruct!, value)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

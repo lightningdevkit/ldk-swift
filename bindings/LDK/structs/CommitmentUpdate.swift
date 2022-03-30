@@ -33,6 +33,7 @@ public class CommitmentUpdate: NativeTypeWrapper {
 					
         self.cOpaqueStruct = CommitmentUpdate_new(update_add_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fulfill_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fail_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fail_malformed_htlcs_argWrapper.dangle().cOpaqueStruct!, update_fee_arg.danglingClone().cOpaqueStruct!, commitment_signed_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

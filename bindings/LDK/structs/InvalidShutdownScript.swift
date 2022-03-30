@@ -18,6 +18,7 @@ public class InvalidShutdownScript: NativeTypeWrapper {
 					
         self.cOpaqueStruct = InvalidShutdownScript_new(script_argWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

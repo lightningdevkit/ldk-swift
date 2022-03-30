@@ -13,6 +13,7 @@ public class PaymentParameters: NativeTypeWrapper {
     	
         self.cOpaqueStruct = PaymentParameters_for_keysend(Bindings.new_LDKPublicKey(array: payee_pubkey))
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

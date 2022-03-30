@@ -13,6 +13,7 @@ public class FixedPenaltyScorer: NativeTypeWrapper {
     	
         self.cOpaqueStruct = FixedPenaltyScorer_with_penalty(penalty_msat)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

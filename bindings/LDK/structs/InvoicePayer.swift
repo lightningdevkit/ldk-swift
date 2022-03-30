@@ -15,6 +15,7 @@ public class InvoicePayer: NativeTypeWrapper {
 InvoicePayer_new(payer.cOpaqueStruct!, router.cOpaqueStruct!, scorerPointer, logger.cOpaqueStruct!, event_handler.cOpaqueStruct!, retry_attempts.danglingClone().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

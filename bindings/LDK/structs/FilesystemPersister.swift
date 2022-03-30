@@ -13,6 +13,7 @@ public class FilesystemPersister: NativeTypeWrapper {
     	
         self.cOpaqueStruct = FilesystemPersister_new(Bindings.new_LDKStr(string: path_to_channel_data))
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

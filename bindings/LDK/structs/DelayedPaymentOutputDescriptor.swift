@@ -13,6 +13,7 @@ public class DelayedPaymentOutputDescriptor: NativeTypeWrapper {
     	
         self.cOpaqueStruct = DelayedPaymentOutputDescriptor_new(outpoint_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: per_commitment_point_arg), to_self_delay_arg, output_arg, Bindings.new_LDKPublicKey(array: revocation_pubkey_arg), Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,6 +13,7 @@ public class ChannelConfig: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ChannelConfig_default()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

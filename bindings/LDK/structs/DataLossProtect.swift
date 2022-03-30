@@ -13,6 +13,7 @@ public class DataLossProtect: NativeTypeWrapper {
     	
         self.cOpaqueStruct = DataLossProtect_new(Bindings.new_LDKThirtyTwoBytes(array: your_last_per_commitment_secret_arg), Bindings.new_LDKPublicKey(array: my_current_per_commitment_point_arg))
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

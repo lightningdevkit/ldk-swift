@@ -13,7 +13,7 @@ public class ClosingSignedFeeRange: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ClosingSignedFeeRange_new(min_fee_satoshis_arg, max_fee_satoshis_arg)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

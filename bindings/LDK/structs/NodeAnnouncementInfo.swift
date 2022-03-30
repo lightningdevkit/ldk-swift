@@ -18,7 +18,7 @@ public class NodeAnnouncementInfo: NativeTypeWrapper {
 					
         self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), addresses_argWrapper.dangle().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

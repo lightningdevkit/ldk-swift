@@ -17,7 +17,10 @@ public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral
 PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.cOpaqueStruct!, custom_message_handler.cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        try? self.addAnchor(anchor: message_handler)
+try? self.addAnchor(anchor: logger)
+try? self.addAnchor(anchor: custom_message_handler)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

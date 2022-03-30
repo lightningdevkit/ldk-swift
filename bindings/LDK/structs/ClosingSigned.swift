@@ -13,7 +13,7 @@ public class ClosingSigned: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ClosingSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), fee_satoshis_arg, Bindings.new_LDKSignature(array: signature_arg), fee_range_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

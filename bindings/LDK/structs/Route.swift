@@ -18,7 +18,7 @@ public class Route: NativeTypeWrapper {
 					
         self.cOpaqueStruct = Route_new(paths_argWrapper.dangle().cOpaqueStruct!, payment_params_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

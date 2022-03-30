@@ -23,7 +23,7 @@ public class ClosingTransaction: NativeTypeWrapper {
 					
         self.cOpaqueStruct = ClosingTransaction_new(to_holder_value_sat, to_counterparty_value_sat, to_holder_scriptWrapper.dangle().cOpaqueStruct!, to_counterparty_scriptWrapper.dangle().cOpaqueStruct!, funding_outpoint.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,7 +13,7 @@ public class RouteHop: NativeTypeWrapper {
     	
         self.cOpaqueStruct = RouteHop_new(Bindings.new_LDKPublicKey(array: pubkey_arg), node_features_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg, channel_features_arg.danglingClone().cOpaqueStruct!, fee_msat_arg, cltv_expiry_delta_arg)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -18,7 +18,7 @@ public class QueryShortChannelIds: NativeTypeWrapper {
 					
         self.cOpaqueStruct = QueryShortChannelIds_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), short_channel_ids_argWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

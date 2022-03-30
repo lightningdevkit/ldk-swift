@@ -13,7 +13,7 @@ public class PayeePubKey: NativeTypeWrapper {
     	
         self.cOpaqueStruct = PayeePubKey_new(Bindings.new_LDKPublicKey(array: a_arg))
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

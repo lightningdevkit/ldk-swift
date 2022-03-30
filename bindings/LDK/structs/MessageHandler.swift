@@ -13,7 +13,9 @@ public class MessageHandler: NativeTypeWrapper {
     	
         self.cOpaqueStruct = MessageHandler_new(chan_handler_arg.cOpaqueStruct!, route_handler_arg.cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        try? self.addAnchor(anchor: chan_handler_arg)
+try? self.addAnchor(anchor: route_handler_arg)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -18,7 +18,7 @@ public class RouteHint: NativeTypeWrapper {
 					
         self.cOpaqueStruct = RouteHint_new(a_argWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

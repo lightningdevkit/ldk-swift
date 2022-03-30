@@ -18,7 +18,7 @@ public class CommitmentSigned: NativeTypeWrapper {
 					
         self.cOpaqueStruct = CommitmentSigned_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKSignature(array: signature_arg), htlc_signatures_argWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

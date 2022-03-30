@@ -13,7 +13,7 @@ public class Pong: NativeTypeWrapper {
     	
         self.cOpaqueStruct = Pong_new(byteslen_arg)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

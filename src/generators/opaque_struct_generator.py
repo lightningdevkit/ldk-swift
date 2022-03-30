@@ -88,7 +88,7 @@ class OpaqueStructGenerator:
 				constructor_native_arguments) + ')' + constructor_native_call_suffix)
 
 			mutating_output_file_contents = mutating_output_file_contents.replace('/* NATIVE_CONSTRUCTOR_PREP */', constructor_native_call_prep)
-			# mutating_output_file_contents = mutating_output_file_contents.replace('/* POST_INIT_ANCHORING */', constructor_post_init_anchoring)
+			mutating_output_file_contents = mutating_output_file_contents.replace('/* POST_INIT_ANCHORING */', constructor_post_init_anchoring)
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(', f'{constructor_native_name}(')
 
 			if constructor_prepared_arguments['has_unwrapped_arrays']:

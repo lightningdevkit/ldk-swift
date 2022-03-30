@@ -13,7 +13,7 @@ public class TxCreationKeys: NativeTypeWrapper {
     	
         self.cOpaqueStruct = TxCreationKeys_new(Bindings.new_LDKPublicKey(array: per_commitment_point_arg), Bindings.new_LDKPublicKey(array: revocation_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_htlc_key_arg), Bindings.new_LDKPublicKey(array: countersignatory_htlc_key_arg), Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key_arg))
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

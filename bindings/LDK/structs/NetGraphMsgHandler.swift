@@ -17,7 +17,9 @@ public init(network_graph: NetworkGraph, chain_access: Option_AccessZ, logger: L
 NetGraphMsgHandler_new(network_graphPointer, chain_access.cOpaqueStruct!, logger.cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        try? self.addAnchor(anchor: chain_access)
+try? self.addAnchor(anchor: logger)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

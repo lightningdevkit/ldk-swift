@@ -212,10 +212,10 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, net_graph_msg_handler: self.graph_msg_handler, peer_manager: self.peerManager, logger: self.logger)
         
-        try! self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
-        try! self.backgroundProcessor!.addAnchor(anchor: persister)
-        try! self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
-        try! self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
+        try? self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
+        try? self.backgroundProcessor!.addAnchor(anchor: persister)
+        try? self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
+        try? self.backgroundProcessor!.addAnchor(anchor: self.customPersister!)
 
     }
 

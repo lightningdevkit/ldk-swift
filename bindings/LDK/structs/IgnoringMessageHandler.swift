@@ -13,7 +13,7 @@ public class IgnoringMessageHandler: NativeTypeWrapper {
     	
         self.cOpaqueStruct = IgnoringMessageHandler_new()
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

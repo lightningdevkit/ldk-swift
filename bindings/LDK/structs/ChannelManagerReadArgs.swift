@@ -18,7 +18,12 @@ public class ChannelManagerReadArgs: NativeTypeWrapper {
 					
         self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.danglingClone().cOpaqueStruct!, channel_monitorsWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        try? self.addAnchor(anchor: keys_manager)
+try? self.addAnchor(anchor: fee_estimator)
+try? self.addAnchor(anchor: chain_monitor)
+try? self.addAnchor(anchor: tx_broadcaster)
+try? self.addAnchor(anchor: logger)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

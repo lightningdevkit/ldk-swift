@@ -15,7 +15,12 @@ public init(chain_source: Option_FilterZ, broadcaster: BroadcasterInterface, log
     	
         self.cOpaqueStruct = ChainMonitor_new(chain_source.cOpaqueStruct!, broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, feeest.cOpaqueStruct!, persister.cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        try? self.addAnchor(anchor: chain_source)
+try? self.addAnchor(anchor: broadcaster)
+try? self.addAnchor(anchor: logger)
+try? self.addAnchor(anchor: feeest)
+try? self.addAnchor(anchor: persister)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

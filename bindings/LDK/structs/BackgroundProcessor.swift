@@ -23,7 +23,18 @@ BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!
 }
 }
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        try? self.addAnchor(anchor: persister)
+try? self.addAnchor(anchor: event_handler)
+try? self.addAnchor(anchor: chain_monitor)
+try? self.addAnchor(anchor: channel_manager)
+
+					if let handler = net_graph_msg_handler {
+						try? self.addAnchor(anchor: handler)
+					}
+				
+try? self.addAnchor(anchor: peer_manager)
+try? self.addAnchor(anchor: logger)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

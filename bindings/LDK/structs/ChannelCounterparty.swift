@@ -13,7 +13,7 @@ public class ChannelCounterparty: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ChannelCounterparty_new(Bindings.new_LDKPublicKey(array: node_id_arg), features_arg.danglingClone().cOpaqueStruct!, unspendable_punishment_reserve_arg, forwarding_info_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

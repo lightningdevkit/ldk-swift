@@ -13,7 +13,7 @@ public class ChannelHandshakeLimits: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ChannelHandshakeLimits_default()
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

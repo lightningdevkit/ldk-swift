@@ -15,7 +15,12 @@ public class InvoicePayer: NativeTypeWrapper {
 InvoicePayer_new(payer.cOpaqueStruct!, router.cOpaqueStruct!, scorerPointer, logger.cOpaqueStruct!, event_handler.cOpaqueStruct!, retry_attempts.danglingClone().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
-        /* POST_INIT_ANCHORING */
+        try? self.addAnchor(anchor: payer)
+try? self.addAnchor(anchor: router)
+try? self.addAnchor(anchor: scorer)
+try? self.addAnchor(anchor: logger)
+try? self.addAnchor(anchor: event_handler)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

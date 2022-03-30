@@ -64,8 +64,10 @@ public class HumanObjectPeerTestInstance {
             private(set) var continuations: [CheckedContinuation<Void, Never>] = []
             
             private func triggerContinuations(){
-                for continuation in self.continuations {
-                    continuation.resume()
+                let continuations = self.continuations
+                self.continuations.removeAll()
+                for currentContinuation in continuations {
+                    currentContinuation.resume()
                 }
             }
             
@@ -125,8 +127,10 @@ public class HumanObjectPeerTestInstance {
             }
             
             private func triggerContinuations(){
-                for continuation in self.continuations {
-                    continuation.resume()
+                let continuations = self.continuations
+                self.continuations.removeAll()
+                for currentContinuation in continuations {
+                    currentContinuation.resume()
                 }
             }
             
@@ -208,6 +212,7 @@ public class HumanObjectPeerTestInstance {
             
             func handle_event(event: Event) {
                 let eventClone = event.clone()
+                print("peer \(self.master.seed) received event: \(eventClone.getValueType())")
                 Task {
                     // clone to avoid deallocation-related issues
                     await master.pendingEventTracker.addEvent(event: eventClone)
@@ -282,9 +287,9 @@ public class HumanObjectPeerTestInstance {
                 //                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: nil, tx_broadcaster: self.txBroadcaster, logger: self.logger)
                 
                 let scoringParams = ProbabilisticScoringParameters()
-                let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: graph)
+                let probabalisticScorer = ProbabilisticScorer(params: scoringParams.danglingClone(), network_graph: graph)
                 let score = probabalisticScorer.as_Score()
-                let multiThreadedScorer = MultiThreadedLockableScore(score: score)
+                let multiThreadedScorer = MultiThreadedLockableScore(score: score.dangle())
                 
                 self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self), scorer: multiThreadedScorer)
                 self.channelManager = self.constructor!.channelManager
@@ -419,6 +424,8 @@ public class HumanObjectPeerTestInstance {
     func do_test_message_handler() async {
         
         let FUNDING_SATOSHI_AMOUNT: UInt64 = 100_000 // 100k satoshis
+        let SEND_MSAT_AMOUNT_A_TO_B: UInt64 = 10_000_000 // 10k satoshis
+        let SEND_MSAT_AMOUNT_B_TO_A: UInt64 = 3_000_000 // 3k satoshis
         
         let peer1 = Peer(master: self, seed: 1)
         let peer2 = Peer(master: self, seed: 2)
@@ -523,7 +530,7 @@ public class HumanObjectPeerTestInstance {
         var usableChannelsB = [ChannelDetails]()
         while (usableChannelsA.isEmpty || usableChannelsB.isEmpty) {
             usableChannelsA = peer1.channelManager.list_usable_channels()
-            usableChannelsB = peer1.channelManager.list_usable_channels()
+            usableChannelsB = peer2.channelManager.list_usable_channels()
             // sleep for 100ms
             try! await Task.sleep(nanoseconds: 0_100_000_000)
         }
@@ -531,26 +538,175 @@ public class HumanObjectPeerTestInstance {
         XCTAssertEqual(usableChannelsA.count, 1)
         XCTAssertEqual(usableChannelsB.count, 1)
         
-        let channel = usableChannelsA[0]
-        XCTAssertEqual(channel.get_channel_value_satoshis(), FUNDING_SATOSHI_AMOUNT)
-        let shortChannelId = channel.get_short_channel_id().getValue()!
+        let channelAToB = usableChannelsA[0]
+        let channelBToA = usableChannelsB[0]
+        XCTAssertEqual(channelAToB.get_channel_value_satoshis(), FUNDING_SATOSHI_AMOUNT)
+        let shortChannelId = channelAToB.get_short_channel_id().getValue()!
         
         let fundingTxId = fundingTransaction.calculateId()
         XCTAssertEqual(usableChannelsA[0].get_channel_id(), fundingTxId)
         XCTAssertEqual(usableChannelsB[0].get_channel_id(), fundingTxId)
         
-        // create invoice for 10k satoshis to pay to peer2
-        let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer2.channelManager, keysManager: peer2.keysInterface, network: LDKCurrency_Bitcoin, amountMsat: 10_000_000, description: "Invoice description")
-        guard let invoice = invoiceResult.getValue() else {
-            XCTAssertTrue(invoiceResult.isOk()) // this step should fail
-            return
+        let originalChannelBalanceAToB = channelAToB.get_balance_msat()
+        let originalChannelBalanceBToA = channelBToA.get_balance_msat()
+        print("original balance A->B mSats: \(originalChannelBalanceAToB)")
+        print("original balance B->A mSats: \(originalChannelBalanceBToA)")
+        
+        do {
+            // create invoice for 10k satoshis to pay to peer2
+            
+            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer2.channelManager, keysManager: peer2.keysInterface, network: LDKCurrency_Bitcoin, amountMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description")
+            let invoice = invoiceResult.getValue()!
+            print("Invoice: \(invoice.to_str())")
+            
+            let recreatedInvoice = Invoice.from_str(s: invoice.to_str())
+            XCTAssertTrue(recreatedInvoice.isOk())
+            
+            let invoicePaymentResult = peer1.constructor!.payer!.pay_invoice(invoice: invoice)
+            XCTAssertTrue(invoicePaymentResult.isOk())
+            
+            do {
+                // process HTLCs
+                let peer2Event = await peer2.getManagerEvents(expectedCount: 1)[0]
+                XCTAssertEqual(peer2Event.getValueType(), .PendingHTLCsForwardable)
+                let pendingHTLCsForwardable = peer2Event.getValueAsPendingHTLCsForwardable()!
+                print("forwardable time: \(pendingHTLCsForwardable.getTime_forwardable())")
+                peer2.channelManager.process_pending_htlc_forwards()
+                print("processed pending HTLC forwards")
+            }
+            
+            do {
+                // process payment
+                let peer2Event = await peer2.getManagerEvents(expectedCount: 1)[0]
+                XCTAssertEqual(peer2Event.getValueType(), .PaymentReceived)
+                let paymentReceived = peer2Event.getValueAsPaymentReceived()!
+                let paymentHash = paymentReceived.getPayment_hash()
+                print("received payment of \(paymentReceived.getAmt()) with hash \(paymentHash)")
+                let paymentPurpose = paymentReceived.getPurpose()
+                XCTAssertEqual(paymentPurpose.getValueType(), .InvoicePayment)
+                let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
+                let preimage = invoicePayment.getPayment_preimage()
+                let secret = invoicePayment.getPayment_secret()
+                let claimResult = peer2.channelManager.claim_funds(payment_preimage: preimage)
+                XCTAssertTrue(claimResult)
+                print("claimed payment with secret \(secret) using preimage \(preimage)")
+            }
+            
+            do {
+                // process payment
+                let peer1Events = await peer1.getManagerEvents(expectedCount: 2)
+                let paymentSentEvent = peer1Events[0]
+                let paymentPathSuccessfulEvent = peer1Events[1]
+                XCTAssertEqual(paymentSentEvent.getValueType(), .PaymentSent)
+                XCTAssertEqual(paymentPathSuccessfulEvent.getValueType(), .PaymentPathSuccessful)
+                let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
+                let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
+                print("sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
+            }
+            
+            var currentChannelABalance = originalChannelBalanceAToB
+            var currentChannelBBalance = originalChannelBalanceBToA
+            while true {
+                let channelA = peer1.channelManager.list_usable_channels()[0]
+                let channelB = peer2.channelManager.list_usable_channels()[0]
+                currentChannelABalance = channelA.get_balance_msat()
+                currentChannelBBalance = channelB.get_balance_msat()
+                if currentChannelABalance != originalChannelBalanceAToB && currentChannelBBalance != originalChannelBalanceBToA {
+                    break
+                }
+                // sleep for 100ms
+                try! await Task.sleep(nanoseconds: 0_100_000_000)
+            }
+            
+            let invoicePayment = invoicePaymentResult.getValue()!
+            XCTAssertEqual(currentChannelABalance, originalChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B)
+            XCTAssertEqual(currentChannelBBalance, originalChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B)
         }
-        print("Invoice: \(invoice.to_str())")
         
-        let recreatedInvoice = Invoice.from_str(s: invoice.to_str())
-        XCTAssertTrue(recreatedInvoice.isOk())
+        do {
+            // send some money back
+            // create invoice for 10k satoshis to pay to peer2
+            let prePaymentBalanceAToB = peer1.channelManager.list_usable_channels()[0].get_balance_msat()
+            let prePaymentBalanceBToA = peer2.channelManager.list_usable_channels()[0].get_balance_msat()
+            print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
+            print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
+            
+            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer1.channelManager, keysManager: peer1.keysInterface, network: LDKCurrency_Bitcoin, amountMsat: nil, description: "Second invoice description")
+            let invoice = invoiceResult.getValue()!
+            print("Implicit amount invoice: \(invoice.to_str())")
+            
+            let recreatedInvoice = Invoice.from_str(s: invoice.to_str())
+            XCTAssertTrue(recreatedInvoice.isOk())
+            
+            let invoicePaymentResult = peer2.constructor!.payer!.pay_zero_value_invoice(invoice: invoice, amount_msats: SEND_MSAT_AMOUNT_B_TO_A)
+            if let error = invoicePaymentResult.getError() {
+                print("value type: \(error.getValueType())")
+                if let routingError = error.getValueAsRouting() {
+                    print("routing error: \(routingError.get_err())")
+                }
+            }
+            XCTAssertTrue(invoicePaymentResult.isOk())
+            
+            do {
+                // process HTLCs
+                let peer1Event = await peer1.getManagerEvents(expectedCount: 1)[0]
+                XCTAssertEqual(peer1Event.getValueType(), .PendingHTLCsForwardable)
+                let pendingHTLCsForwardable = peer1Event.getValueAsPendingHTLCsForwardable()!
+                print("forwardable time: \(pendingHTLCsForwardable.getTime_forwardable())")
+                peer1.channelManager.process_pending_htlc_forwards()
+                print("processed pending HTLC forwards")
+            }
+            
+            do {
+                // process payment
+                let peer1Event = await peer1.getManagerEvents(expectedCount: 1)[0]
+                XCTAssertEqual(peer1Event.getValueType(), .PaymentReceived)
+                let paymentReceived = peer1Event.getValueAsPaymentReceived()!
+                let paymentHash = paymentReceived.getPayment_hash()
+                print("received payment of \(paymentReceived.getAmt()) with hash \(paymentHash)")
+                let paymentPurpose = paymentReceived.getPurpose()
+                XCTAssertEqual(paymentPurpose.getValueType(), .InvoicePayment)
+                let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
+                let preimage = invoicePayment.getPayment_preimage()
+                let secret = invoicePayment.getPayment_secret()
+                let claimResult = peer1.channelManager.claim_funds(payment_preimage: preimage)
+                XCTAssertTrue(claimResult)
+                print("claimed payment with secret \(secret) using preimage \(preimage)")
+            }
+            
+            do {
+                // process payment
+                let peer2Events = await peer2.getManagerEvents(expectedCount: 2)
+                let paymentSentEvent = peer2Events[0]
+                let paymentPathSuccessfulEvent = peer2Events[1]
+                XCTAssertEqual(paymentSentEvent.getValueType(), .PaymentSent)
+                XCTAssertEqual(paymentPathSuccessfulEvent.getValueType(), .PaymentPathSuccessful)
+                let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
+                let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
+                print("sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
+            }
+            
+            var currentChannelABalance = prePaymentBalanceAToB
+            var currentChannelBBalance = prePaymentBalanceBToA
+            while true {
+                let channelA = peer1.channelManager.list_usable_channels()[0]
+                let channelB = peer2.channelManager.list_usable_channels()[0]
+                currentChannelABalance = channelA.get_balance_msat()
+                currentChannelBBalance = channelB.get_balance_msat()
+                if currentChannelABalance != prePaymentBalanceAToB && currentChannelBBalance != prePaymentBalanceBToA {
+                    break
+                }
+                // sleep for 100ms
+                try! await Task.sleep(nanoseconds: 0_100_000_000)
+            }
+            
+            let invoicePayment = invoicePaymentResult.getValue()!
+            XCTAssertEqual(currentChannelABalance, prePaymentBalanceAToB + SEND_MSAT_AMOUNT_B_TO_A)
+            XCTAssertEqual(currentChannelBBalance, prePaymentBalanceBToA - SEND_MSAT_AMOUNT_B_TO_A)
+            XCTAssertEqual(currentChannelABalance, originalChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B + SEND_MSAT_AMOUNT_B_TO_A)
+            XCTAssertEqual(currentChannelBBalance, originalChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B - SEND_MSAT_AMOUNT_B_TO_A)
+        }
         
-        let invoicePaymentResult = peer1.constructor!.payer!.pay_invoice(invoice: invoice)
         
         do {
             // sleep for 5 seconds to ensure sanity

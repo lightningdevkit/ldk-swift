@@ -121,10 +121,13 @@ jobs:
                 run: |
                     git diff --exit-code
 
+    test_bindings_with_sanitizer_prep:
+        uses: ./.github/workflows/swift-prep.yml
+
     test_bindings_with_sanitizer:
         runs-on: ubuntu-20.04
+        needs: test_bindings_with_sanitizer_prep
         steps:
-            -   uses: ./.github/workflows/swift-prep.yml
             -   name: Test Swift bindings package without address sanitizer
                 run: |
                     python ci/toggle_address_sanitation_library.py off

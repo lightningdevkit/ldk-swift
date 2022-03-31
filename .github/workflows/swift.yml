@@ -61,7 +61,7 @@ jobs:
                     cd ..
             -   name: Check that the latest headers are in the swift repo
                 run: |
-                    git diff --no-index --exit-code ci/bindings/LDK bindings/LDK
+                    git diff  --exit-code bindings/LDK ':(exclude)bindings/LDK/Bindings.swift'
             -   name: Debug bindings target directory structure
                 run: |
                     cd ci

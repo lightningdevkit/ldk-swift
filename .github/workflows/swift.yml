@@ -12,7 +12,7 @@ jobs:
                 uses: actions/checkout@v2
             -   name: Checkout Rust-Lightning and LDK-C-Bindings git
                 run: |
-                    ci ci
+                    cd ci
                     git config --global user.email "ldk-ci@example.com"
                     git config --global user.name "LDK CI"
                     # Note this is a different endpoint, as we need one non-upstream commit!

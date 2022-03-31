@@ -148,11 +148,11 @@ jobs:
                     sudo apt-get update
                     sudo apt-get -y dist-upgrade
                     sudo apt-get -y install valgrind lld g++ clang
-            -   name: Test Swift bindings package without address sanitizer
+            -   name: Test Swift bindings package with address sanitizer
                 run: |
                     python ci/toggle_address_sanitation_library.py on
                     cd ci/LDKSwift
-                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
+                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -Xswiftc -suppress-warnings
                 env:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a

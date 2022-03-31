@@ -90,7 +90,7 @@ jobs:
 
                     cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
                 env:
-                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ldk-c-bindings/lightning-c-bindings/include/lightning.h
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
                     LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift
             -   name: Fix Swift files
                 run: |
@@ -120,7 +120,7 @@ jobs:
                     cd ci/LDKSwift
                     ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
             -   name: Test Swift bindings package with address sanitizer
@@ -129,7 +129,7 @@ jobs:
                     cd ci/LDKSwift
                     ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
 
@@ -146,6 +146,11 @@ jobs:
                 with:
                     name: ci_archive
                     path: ci
+            -   name: Install Valgrind and build utilities
+                run: |
+                    sudo apt-get update
+                    sudo apt-get -y dist-upgrade
+                    sudo apt-get -y install valgrind lld g++ clang
             -   name: Test Swift bindings package without address sanitizer
                 run: |
                     python ci/toggle_address_sanitation_library.py off
@@ -153,7 +158,7 @@ jobs:
                     ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
                     cd ../
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
 

@@ -1,9 +1,8 @@
-name: Continuous Integration Checks
-
-on: [ push, pull_request ]
+on:
+    workflow_call:
 
 jobs:
-    check_bindings:
+    prepare_compilation:
         runs-on: ubuntu-20.04
         env:
             TOOLCHAIN: stable
@@ -73,11 +72,11 @@ jobs:
             -   name: Generate (copy for debugging) Swift bindings and copy batteries
                 run: |
                     python ./ # Generate bindings
-
+                    
                     # TODO: switch back to generation method after debugging
                     # mkdir -p ci/LDKSwift/Sources/LDKSwift
                     # cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
-
+                    
                     cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ldk-c-bindings/lightning-c-bindings/include/lightning.h
@@ -97,42 +96,3 @@ jobs:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
-            -   name: Test Swift bindings package without address sanitizer
-                run: |
-                    python ci/toggle_address_sanitation_library.py off
-                    cd ci/LDKSwift
-                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
-                    cd ../../
-                env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
-                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
-                    RUST_BACKTRACE: 1
-            -   name: Test Swift bindings package with address sanitizer
-                run: |
-                    python ci/toggle_address_sanitation_library.py on
-                    cd ci/LDKSwift
-                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
-                env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
-                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
-                    RUST_BACKTRACE: 1
-
-            -   name: Check that the latest headers are in the swift repo
-                run: |
-                    git diff --exit-code
-
-    test_bindings_with_sanitizer:
-        runs-on: ubuntu-20.04
-        steps:
-            -   uses: ./.github/workflows/swift-prep
-            -   name: Test Swift bindings package without address sanitizer
-                run: |
-                    python ci/toggle_address_sanitation_library.py off
-                    cd ci/LDKSwift
-                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
-                    cd ../../
-                env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
-                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
-                    RUST_BACKTRACE: 1
-

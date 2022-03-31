@@ -13,6 +13,7 @@ public class ExpiryTime: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ExpiryTime_from_duration(duration)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

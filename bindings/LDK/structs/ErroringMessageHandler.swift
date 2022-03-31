@@ -13,6 +13,7 @@ public class ErroringMessageHandler: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ErroringMessageHandler_new()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -15,6 +15,7 @@ public init(network_arg: LDKNetwork, best_block_arg: BestBlock) {
     	
         self.cOpaqueStruct = ChainParameters_new(network_arg, best_block_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

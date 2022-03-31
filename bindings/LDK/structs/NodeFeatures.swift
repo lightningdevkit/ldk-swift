@@ -13,6 +13,7 @@ public class NodeFeatures: NativeTypeWrapper {
     	
         self.cOpaqueStruct = NodeFeatures_known()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

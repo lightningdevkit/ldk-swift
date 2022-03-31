@@ -15,6 +15,8 @@ public class DefaultRouter: NativeTypeWrapper {
 DefaultRouter_new(network_graphPointer, logger.cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
+        try? self.addAnchor(anchor: logger)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,6 +13,7 @@ public class ChannelDetails: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.danglingClone().cOpaqueStruct!, funding_txo_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg.danglingClone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.danglingClone().cOpaqueStruct!, user_channel_id_arg, balance_msat_arg, outbound_capacity_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.danglingClone().cOpaqueStruct!, force_close_spend_delay_arg.danglingClone().cOpaqueStruct!, is_outbound_arg, is_funding_locked_arg, is_usable_arg, is_public_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,6 +13,7 @@ public class UserConfig: NativeTypeWrapper {
     	
         self.cOpaqueStruct = UserConfig_default()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

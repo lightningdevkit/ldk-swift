@@ -12,6 +12,9 @@ jobs:
                 uses: actions/checkout@v2
             -   name: Checkout Rust-Lightning and LDK-C-Bindings git
                 run: |
+                    cd bindings/LDK
+                    ls -ll
+                    cd ../../ci
                     git config --global user.email "ldk-ci@example.com"
                     git config --global user.name "LDK CI"
                     # Note this is a different endpoint, as we need one non-upstream commit!
@@ -31,20 +34,7 @@ jobs:
                     # git checkout 1bb5ae1b34aeb74009b7b4b5ebefc957cddc30a6
                     echo "ldk-c-bindings commit hash:"
                     git rev-parse HEAD
-                    cd ..
-            -   name: Install Swift Toolchain
-                run: |
-                    curl --verbose -L -o swift-5.4.2-RELEASE-ubuntu20.04.tar.gz https://swift.org/builds/swift-5.4.2-release/ubuntu2004/swift-5.4.2-RELEASE/swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
-                    echo "Sha sum: $(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
-                    if [ "$(sha256sum swift-5.4.2-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
-                      echo "Bad hash"
-                      echo "Contents: \n$(cat swift-5.4.2-RELEASE-ubuntu20.04.tar.gz)" 
-                      exit 1
-                    fi
-                    tar xvvf swift-5.4.2-RELEASE-ubuntu20.04.tar.gz
-                env:
-                    EXPECTED_SWIFT_SHASUM: 86b849d9f6ba2eda4e12ea5eafaa0748bffcd6272466b514c2b0fd4a829c63a4
-            -   name: Install native Rust toolchain, Valgrind, and build utilitis
+            -   name: Install native Rust toolchain, Valgrind, and build utilities
                 run: |
                     sudo apt-get update
                     sudo apt-get -y dist-upgrade
@@ -53,26 +43,28 @@ jobs:
                 run: cargo install --force cbindgen
             -   name: Regenerate C bindings
                 run: |
-                    cd ldk-c-bindings
+                    pwd
+                    cd ci/ldk-c-bindings
+                    pwd
                     ./genbindings.sh ../rust-lightning true
                     cd ..
-            -   name: Debug bindings target directory structure
-                run: |
-                    python ci/walker.py ldk-c-bindings/lightning-c-bindings/target
             -   name: Copy new headers into bindings
                 run: |
-                    mkdir -p ci/LDKSwift/Sources/LDKHeaders/include
-                    cp ldk-c-bindings/lightning-c-bindings/include/*.h ci/LDKSwift/Sources/LDKHeaders/include/
-                    cp ldk-c-bindings/ldk-net/ldk_net.h ci/LDKSwift/Sources/LDKHeaders/include/
-                    cp ldk-c-bindings/ldk-net/ldk_net.c ci/LDKSwift/Sources/LDKHeaders/
+                    cd ci
+                    mkdir -p ./LDKSwift/Sources/LDKHeaders/include
+                    cp ldk-c-bindings/lightning-c-bindings/include/*.h ./LDKSwift/Sources/LDKHeaders/include/
+                    cp ldk-c-bindings/ldk-net/ldk_net.h ./LDKSwift/Sources/LDKHeaders/include/
+                    cp ldk-c-bindings/ldk-net/ldk_net.c ./LDKSwift/Sources/LDKHeaders/
             -   name: Set up Python
                 uses: actions/setup-python@v2
             -   name: Fix header files
                 run: |
-                    python ci/fix_header_includes.py
+                    cd ci
+                    python ./fix_header_includes.py
             -   name: Generate (copy for debugging) Swift bindings and copy batteries
                 run: |
-                    python ./ # Generate bindings
+                    pwd
+                    python ./ # Generate bindings into ci subdirectory
 
                     # TODO: switch back to generation method after debugging
                     # mkdir -p ci/LDKSwift/Sources/LDKSwift
@@ -80,31 +72,89 @@ jobs:
 
                     cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
                 env:
-                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ldk-c-bindings/lightning-c-bindings/include/lightning.h
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
                     LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift
+            -   name: Check that the latest auto-generated Swift files are in the repo
+                run: |
+                    python ./ # Generate bindings into local directory
+                    python ci/walker.py bindings/LDK
+                    git diff --exit-code bindings/LDK ':(exclude)bindings/LDK/Bindings.swift'
+                env:
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
             -   name: Fix Swift files
                 run: |
-                    python ci/fix_swift_imports.py
-            -   name: Debug CI directory structure
+                    cd ci
+                    python ./fix_swift_imports.py
+            -   name: Install Swift Toolchain
                 run: |
-                    python ci/walker.py ci/
+                    curl --verbose -L -o swift-5.6-RELEASE-ubuntu20.04.tar.gz https://download.swift.org/swift-5.6-release/ubuntu2004/swift-5.6-RELEASE/swift-5.6-RELEASE-ubuntu20.04.tar.gz
+                    echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
+                    if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
+                      echo "Bad hash"
+                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)" 
+                      exit 1
+                    fi
+                    tar xvvf swift-5.6-RELEASE-ubuntu20.04.tar.gz
+                env:
+                    EXPECTED_SWIFT_SHASUM: 3f0d926bfc08eea00a69b1d992f2ab5e08155d97476096a3ef959fe7c4cbd58b
             -   name: Build Swift bindings package
                 run: |
                     cd ci/LDKSwift
-                    ../../swift-5.4.2-RELEASE-ubuntu20.04/usr/bin/swift build
-                    cd ../../
+                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift build
                 env:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
-            -   name: Test Swift bindings package
+            -   name: Test Swift bindings package without address sanitizer
                 run: |
+                    python ci/toggle_address_sanitation_library.py off
                     cd ci/LDKSwift
-                    ../../swift-5.4.2-RELEASE-ubuntu20.04/usr/bin/swift test -v
+                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
-            -   name: Check that the latest headers are in the swift repo
+            -   name: Archive code coverage results
+                uses: actions/upload-artifact@v3
+                with:
+                    name: ci_archive
+                    path: ci
+
+    test_bindings_with_sanitizer:
+        runs-on: ubuntu-20.04
+        needs: check_bindings
+        steps:
+            -   name: Download code coverage results archive
+                uses: actions/download-artifact@v3
+                with:
+                    name: ci_archive
+                    path: ci
+            -   name: Set up Python
+                uses: actions/setup-python@v2
+            -   name: Install Swift Toolchain
                 run: |
-                    git diff --exit-code
+                    curl --verbose -L -o swift-5.6-RELEASE-ubuntu20.04.tar.gz https://download.swift.org/swift-5.6-release/ubuntu2004/swift-5.6-RELEASE/swift-5.6-RELEASE-ubuntu20.04.tar.gz
+                    echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
+                    if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
+                      echo "Bad hash"
+                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)" 
+                      exit 1
+                    fi
+                    tar xvvf swift-5.6-RELEASE-ubuntu20.04.tar.gz
+                env:
+                    EXPECTED_SWIFT_SHASUM: 3f0d926bfc08eea00a69b1d992f2ab5e08155d97476096a3ef959fe7c4cbd58b
+            -   name: Install Valgrind and build utilities
+                run: |
+                    sudo apt-get update
+                    sudo apt-get -y dist-upgrade
+                    sudo apt-get -y install valgrind lld g++ clang
+            -   name: Test Swift bindings package with address sanitizer
+                run: |
+                    python ci/toggle_address_sanitation_library.py on
+                    cd ci/LDKSwift
+                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -Xswiftc -suppress-warnings
+                env:
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
+                    LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
+                    RUST_BACKTRACE: 1
+

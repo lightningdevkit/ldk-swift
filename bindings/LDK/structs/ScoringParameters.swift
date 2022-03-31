@@ -13,6 +13,7 @@ public class ScoringParameters: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ScoringParameters_default()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,6 +13,7 @@ public class ProbabilisticScoringParameters: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ProbabilisticScoringParameters_default()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

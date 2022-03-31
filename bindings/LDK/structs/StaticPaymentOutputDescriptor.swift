@@ -13,6 +13,7 @@ public class StaticPaymentOutputDescriptor: NativeTypeWrapper {
     	
         self.cOpaqueStruct = StaticPaymentOutputDescriptor_new(outpoint_arg.danglingClone().cOpaqueStruct!, output_arg, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

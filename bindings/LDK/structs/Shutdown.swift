@@ -18,6 +18,7 @@ public class Shutdown: NativeTypeWrapper {
 					
         self.cOpaqueStruct = Shutdown_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), scriptpubkey_argWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,6 +13,7 @@ public class InMemorySigner: NativeTypeWrapper {
     	
         self.cOpaqueStruct = InMemorySigner_new(Bindings.new_LDKSecretKey(array: node_secret), Bindings.new_LDKSecretKey(array: funding_key), Bindings.new_LDKSecretKey(array: revocation_base_key), Bindings.new_LDKSecretKey(array: payment_key), Bindings.new_LDKSecretKey(array: delayed_payment_base_key), Bindings.new_LDKSecretKey(array: htlc_base_key), Bindings.new_LDKThirtyTwoBytes(array: commitment_seed), channel_value_satoshis, Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id))
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

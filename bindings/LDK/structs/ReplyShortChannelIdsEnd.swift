@@ -13,6 +13,7 @@ public class ReplyShortChannelIdsEnd: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ReplyShortChannelIdsEnd_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), full_information_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,6 +13,7 @@ public class InvoiceFeatures: NativeTypeWrapper {
     	
         self.cOpaqueStruct = InvoiceFeatures_known()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

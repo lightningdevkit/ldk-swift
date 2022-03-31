@@ -15,6 +15,7 @@ public class ShutdownScript: NativeTypeWrapper {
 ShutdownScript_new_p2wsh(script_hashPointer)
 }
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

@@ -13,6 +13,7 @@ public class MinFinalCltvExpiry: NativeTypeWrapper {
     	
         self.cOpaqueStruct = MinFinalCltvExpiry_new(a_arg)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

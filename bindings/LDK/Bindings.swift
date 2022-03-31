@@ -4986,6 +4986,16 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_ProbabilisticScorerDecodeErrorZ_is_ok(o: Result_ProbabilisticScorerDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ProbabilisticScorerDecodeErrorZ>) in
+
+				CResult_ProbabilisticScorerDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_InitFeaturesDecodeErrorZ_is_ok(o: Result_InitFeaturesDecodeErrorZ) -> Bool {
 		
 				
@@ -6450,7 +6460,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "722d6c573ab71c35eb9373e2d7b368f33c3a0dd0"
+        return "a086cb7d66870a61b4c5b98ae5d293d840342ad0"
     }
 
 }

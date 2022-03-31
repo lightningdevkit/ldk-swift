@@ -13,6 +13,7 @@ public class LightningError: NativeTypeWrapper {
     	
         self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg), action_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

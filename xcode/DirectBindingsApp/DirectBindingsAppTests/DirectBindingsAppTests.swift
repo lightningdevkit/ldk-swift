@@ -31,7 +31,7 @@ class DirectBindingsAppTests: XCTestCase {
     func testVersionSanity() throws {
         check_get_ldk_version()
         check_get_ldk_bindings_version()
-        check_platform()
+        // check_platform()
     }
 
     private func incrementalMemoryLeakTest() throws {
@@ -44,6 +44,14 @@ class DirectBindingsAppTests: XCTestCase {
         let filterOption = Option_FilterZ(value: filter)
         let chainMonitor = ChainMonitor(chain_source: filterOption, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: persister)
 
+        
+        var keyData = Data(count: 32)
+        keyData.withUnsafeMutableBytes {
+            // returns 0 on success
+            let didCopySucceed = SecRandomCopyBytes(kSecRandomDefault, 32, $0.baseAddress!)
+            assert(didCopySucceed == 0)
+        }
+        
         let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
         let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
         let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
@@ -59,6 +67,7 @@ class DirectBindingsAppTests: XCTestCase {
 
         var monitors: [LDKChannelMonitor] = []
 
+        let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32))
         let channel_manager_constructor = try ChannelManagerConstructor(
                 channel_manager_serialized: serialized_channel_manager,
                 channel_monitors_serialized: serializedChannelMonitors,
@@ -66,7 +75,7 @@ class DirectBindingsAppTests: XCTestCase {
                 fee_estimator: feeEstimator,
                 chain_monitor: chainMonitor,
                 filter: filter,
-                net_graph: nil,
+                net_graph: graph,
                 tx_broadcaster: broadcaster,
                 logger: logger
         )
@@ -82,7 +91,25 @@ class DirectBindingsAppTests: XCTestCase {
         channel_manager.as_Confirm().transactions_confirmed(header: header, txdata: txdata, height: 525)
         
 
-        channel_manager_constructor.chain_sync_completed(persister: cmPersister, scorer: nil)
+        
+        let scorer = MultiThreadedLockableScore(score: Scorer().as_Score())
+        channel_manager_constructor.chain_sync_completed(persister: cmPersister, scorer: scorer)
+        
+        let payer = channel_manager_constructor.payer!
+        let parsedInvoice = Invoice.from_str(s: "lnbc30n1p3ry9kvpp5xxr7s4hj808x0z0zsqr3pdsgdynffz5fax804jfh52h4r2sm996qdzygf5hgun9ve5kcmpqg3jhqmmnd96zqd3jxverzdnrvvcrgc3hvserqvp58yck2e34xyuqcqzpgxqyz5vqsp5e969dx5ux24rsfnvth98y2l65kzp0rx6f3kqakktrh6nygudyp5s9qyyssq4m8watzx5hqpayadjt9m53jy2mzgmwuxpd2pzmjq3x0aqmck68dzrzgr0lhm8ud3z06zz3w3350f24hdew4rq6cq0qfy8gwss9y93zgqvajpek")
+        
+        assert(parsedInvoice.isOk())
+        let parsedInvoiceValue = parsedInvoice.getValue()!
+        
+        let amtSat: NSNumber = 2
+        let sendRes = payer.pay_invoice(invoice: parsedInvoiceValue)
+        if amtSat != 0 {
+            let sendRes = payer.pay_zero_value_invoice(invoice: parsedInvoiceValue, amount_msats: UInt64(truncating: amtSat) * 1000)
+            assert(sendRes.isOk())
+        } else {
+            let sendRes = payer.pay_invoice(invoice: parsedInvoiceValue)
+            assert(sendRes.isOk())
+        }
         
         channel_manager_constructor.interrupt()
         
@@ -124,11 +151,11 @@ class DirectBindingsAppTests: XCTestCase {
             path.append(extraHop)
         }
         
-        let payee = Payee(pubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
-        let route = Route(paths_arg: [path], payee_arg: payee)
+        let paymentParams = PaymentParameters(payee_pubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
+        let route = Route(paths_arg: [path], payment_params_arg: paymentParams)
     }
 
-    func testExtendedActivity() throws {
+    func testExtendedActivity() async throws {
         // for i in 0...(1 << 7) {
         for i in 0..<1 { // only do one test run initially
             let nice_close = (i & (1 << 0)) != 0;
@@ -150,24 +177,24 @@ class DirectBindingsAppTests: XCTestCase {
             }
 
             print("Running test with flags \(i)");
-            try SimulationRunner.do_test(nice_close: nice_close, use_km_wrapper: use_km_wrapper, use_manual_watch: use_manual_watch, reload_peers: reload_peers, break_cross_peer_refs: break_cross_refs, nio_peer_handler: nio_peer_handler, use_chan_manager_constructor: use_chan_manager_constructor)
+            try await SimulationRunner.do_test(nice_close: nice_close, use_km_wrapper: use_km_wrapper, use_manual_watch: use_manual_watch, reload_peers: reload_peers, break_cross_peer_refs: break_cross_refs, nio_peer_handler: nio_peer_handler, use_chan_manager_constructor: use_chan_manager_constructor)
         }
 
     }
 
     fileprivate class SimulationRunner {
 
-        class func do_test(nice_close: Bool, use_km_wrapper: Bool, use_manual_watch: Bool, reload_peers: Bool, break_cross_peer_refs: Bool, nio_peer_handler: Bool, use_chan_manager_constructor: Bool) throws {
+        class func do_test(nice_close: Bool, use_km_wrapper: Bool, use_manual_watch: Bool, reload_peers: Bool, break_cross_peer_refs: Bool, nio_peer_handler: Bool, use_chan_manager_constructor: Bool) async throws {
 
-            let instance = do_test_run(nice_close: nice_close, use_km_wrapper: use_km_wrapper, use_manual_watch: use_manual_watch, reload_peers: reload_peers, break_cross_peer_refs: break_cross_peer_refs, nio_peer_handler: nio_peer_handler, use_chan_manager_constructor: use_chan_manager_constructor)
+            let instance = await do_test_run(nice_close: nice_close, use_km_wrapper: use_km_wrapper, use_manual_watch: use_manual_watch, reload_peers: reload_peers, break_cross_peer_refs: break_cross_peer_refs, nio_peer_handler: nio_peer_handler, use_chan_manager_constructor: use_chan_manager_constructor)
 
         }
 
-        class func do_test_run(nice_close: Bool, use_km_wrapper: Bool, use_manual_watch: Bool, reload_peers: Bool, break_cross_peer_refs: Bool, nio_peer_handler: Bool, use_chan_manager_constructor: Bool) -> HumanObjectPeerTestInstance {
+        class func do_test_run(nice_close: Bool, use_km_wrapper: Bool, use_manual_watch: Bool, reload_peers: Bool, break_cross_peer_refs: Bool, nio_peer_handler: Bool, use_chan_manager_constructor: Bool) async -> HumanObjectPeerTestInstance {
 
             let instance = HumanObjectPeerTestInstance(nice_close: nice_close, use_km_wrapper: use_km_wrapper, use_manual_watch: use_manual_watch, reload_peers: reload_peers, break_cross_peer_refs: break_cross_peer_refs, use_nio_peer_handler: nio_peer_handler, use_filter: !nio_peer_handler, use_chan_manager_constructor: use_chan_manager_constructor)
 
-            instance.do_test_message_handler()
+            await instance.do_test_message_handler()
             return instance
         }
 

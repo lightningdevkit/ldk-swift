@@ -13,6 +13,7 @@ public class ChannelTypeFeatures: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ChannelTypeFeatures_known()
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

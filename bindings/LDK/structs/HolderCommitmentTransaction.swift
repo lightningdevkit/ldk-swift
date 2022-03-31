@@ -18,6 +18,7 @@ public class HolderCommitmentTransaction: NativeTypeWrapper {
 					
         self.cOpaqueStruct = HolderCommitmentTransaction_new(commitment_tx.danglingClone().cOpaqueStruct!, Bindings.new_LDKSignature(array: counterparty_sig), counterparty_htlc_sigsWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: holder_funding_key), Bindings.new_LDKPublicKey(array: counterparty_funding_key))
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

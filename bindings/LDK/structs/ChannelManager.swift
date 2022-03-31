@@ -13,6 +13,12 @@ public class ChannelManager: NativeTypeWrapper {
     	
         self.cOpaqueStruct = ChannelManager_new(fee_est.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, keys_manager.cOpaqueStruct!, config.danglingClone().cOpaqueStruct!, params.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
+        try? self.addAnchor(anchor: fee_est)
+try? self.addAnchor(anchor: chain_monitor)
+try? self.addAnchor(anchor: tx_broadcaster)
+try? self.addAnchor(anchor: logger)
+try? self.addAnchor(anchor: keys_manager)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

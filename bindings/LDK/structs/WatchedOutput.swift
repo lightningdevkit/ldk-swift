@@ -18,6 +18,7 @@ public class WatchedOutput: NativeTypeWrapper {
 					
         self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
+        
     }
     /* DEFAULT_CONSTRUCTOR_END */
 

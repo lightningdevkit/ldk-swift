@@ -35,6 +35,8 @@ jobs:
                     cd ..
             -   name: Install Swift Toolchain
                 run: |
+                    pwd
+                    echo `pwd`
                     curl --verbose -L -o swift-5.6-RELEASE-ubuntu20.04.tar.gz https://download.swift.org/swift-5.6-release/ubuntu2004/swift-5.6-RELEASE/swift-5.6-RELEASE-ubuntu20.04.tar.gz
                     echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
                     if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
@@ -54,7 +56,7 @@ jobs:
                 run: cargo install --force cbindgen
             -   name: Regenerate C bindings
                 run: |
-                    cd ldk-c-bindings
+                    cd ci/ldk-c-bindings
                     ./genbindings.sh ../rust-lightning true
                     cd ..
             -   name: Debug bindings target directory structure
@@ -135,12 +137,17 @@ jobs:
         runs-on: ubuntu-20.04
         needs: check_bindings
         steps:
+            -   name: Download code coverage results archive
+                uses: actions/download-artifact@v3
+                with:
+                    name: ci_archive
+                    path: ci
             -   name: Test Swift bindings package without address sanitizer
                 run: |
                     python ci/toggle_address_sanitation_library.py off
                     cd ci/LDKSwift
-                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
-                    cd ../../
+                    ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
+                    cd ../
                 env:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a

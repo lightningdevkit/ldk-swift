@@ -36,7 +36,7 @@ jobs:
             -   name: Install Swift Toolchain
                 run: |
                     pwd
-                    echo `pwd`
+                    cd ci
                     curl --verbose -L -o swift-5.6-RELEASE-ubuntu20.04.tar.gz https://download.swift.org/swift-5.6-release/ubuntu2004/swift-5.6-RELEASE/swift-5.6-RELEASE-ubuntu20.04.tar.gz
                     echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
                     if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
@@ -56,14 +56,19 @@ jobs:
                 run: cargo install --force cbindgen
             -   name: Regenerate C bindings
                 run: |
+                    pwd
                     cd ci/ldk-c-bindings
+                    pwd
                     ./genbindings.sh ../rust-lightning true
                     cd ..
             -   name: Debug bindings target directory structure
                 run: |
+                    cd ci
+                    pwd
                     python ./walker.py ldk-c-bindings/lightning-c-bindings/target
             -   name: Copy new headers into bindings
                 run: |
+                    cd ci
                     mkdir -p ./LDKSwift/Sources/LDKHeaders/include
                     cp ldk-c-bindings/lightning-c-bindings/include/*.h ./LDKSwift/Sources/LDKHeaders/include/
                     cp ldk-c-bindings/ldk-net/ldk_net.h ./LDKSwift/Sources/LDKHeaders/include/
@@ -72,10 +77,11 @@ jobs:
                 uses: actions/setup-python@v2
             -   name: Fix header files
                 run: |
+                    cd ci
                     python ./fix_header_includes.py
             -   name: Generate (copy for debugging) Swift bindings and copy batteries
                 run: |
-                    cd ../
+                    pwd
                     python ./ # Generate bindings
 
                     # TODO: switch back to generation method after debugging
@@ -83,21 +89,20 @@ jobs:
                     # cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
 
                     cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
-                    cd ci
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ldk-c-bindings/lightning-c-bindings/include/lightning.h
                     LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift
             -   name: Fix Swift files
                 run: |
+                    cd ci
                     python ./fix_swift_imports.py
             -   name: Debug CI directory structure
                 run: |
-                    python ./walker.py ci/
+                    python ci/walker.py ci/
             -   name: Build Swift bindings package
                 run: |
-                    cd LDKSwift
+                    cd ci/LDKSwift
                     ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift build
-                    cd ../
                 env:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
@@ -107,22 +112,21 @@ jobs:
                 uses: actions/upload-artifact@v3
                 with:
                     name: ci_archive
-                    path: ./
+                    path: ci
 
             -   name: Test Swift bindings package without address sanitizer
                 run: |
-                    python ./toggle_address_sanitation_library.py off
-                    cd LDKSwift
+                    python ci/toggle_address_sanitation_library.py off
+                    cd ci/LDKSwift
                     ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
-                    cd ../
                 env:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
             -   name: Test Swift bindings package with address sanitizer
                 run: |
-                    python ./toggle_address_sanitation_library.py on
-                    cd LDKSwift
+                    python ci/toggle_address_sanitation_library.py on
+                    cd ci/LDKSwift
                     ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
                 env:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ldk-c-bindings

@@ -12,7 +12,9 @@ jobs:
                 uses: actions/checkout@v2
             -   name: Checkout Rust-Lightning and LDK-C-Bindings git
                 run: |
-                    cd ci
+                    cd bindings/LDK
+                    ls -ll
+                    cd ../../ci
                     git config --global user.email "ldk-ci@example.com"
                     git config --global user.name "LDK CI"
                     # Note this is a different endpoint, as we need one non-upstream commit!
@@ -62,7 +64,7 @@ jobs:
             -   name: Generate (copy for debugging) Swift bindings and copy batteries
                 run: |
                     pwd
-                    python ./ # Generate bindings
+                    python ./ # Generate bindings into ci subdirectory
 
                     # TODO: switch back to generation method after debugging
                     # mkdir -p ci/LDKSwift/Sources/LDKSwift
@@ -72,12 +74,13 @@ jobs:
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
                     LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift
-            -   name: Debug generated Swift bindings directory structure
-                run: |
-                    python ci/walker.py bindings/LDK
             -   name: Check that the latest auto-generated Swift files are in the repo
                 run: |
+                    python ./ # Generate bindings into local directory
+                    python ci/walker.py bindings/LDK
                     git diff --exit-code bindings/LDK ':(exclude)bindings/LDK/Bindings.swift'
+                env:
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
             -   name: Fix Swift files
                 run: |
                     cd ci
@@ -126,6 +129,8 @@ jobs:
                 with:
                     name: ci_archive
                     path: ci
+            -   name: Set up Python
+                uses: actions/setup-python@v2
             -   name: Install Swift Toolchain
                 run: |
                     curl --verbose -L -o swift-5.6-RELEASE-ubuntu20.04.tar.gz https://download.swift.org/swift-5.6-release/ubuntu2004/swift-5.6-RELEASE/swift-5.6-RELEASE-ubuntu20.04.tar.gz
@@ -147,7 +152,7 @@ jobs:
                 run: |
                     python ci/toggle_address_sanitation_library.py on
                     cd ci/LDKSwift
-                    ../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
+                    ../../swift-5.6-RELEASE-ubuntu20.04/usr/bin/swift test -v
                 env:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a

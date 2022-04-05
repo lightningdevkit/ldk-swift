@@ -26,7 +26,7 @@ public class MessageSendEvent: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum MessageSendEventValueType {
-					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendFundingLocked, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange
+					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendFundingLocked, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange, SendGossipTimestampFilter
 				}
 				
 				public func getValueType() -> MessageSendEventValueType? {
@@ -70,6 +70,8 @@ public class MessageSendEvent: NativeTypeWrapper {
 						return .SendShortIdsQuery
 					case LDKMessageSendEvent_SendReplyChannelRange:
 						return .SendReplyChannelRange
+					case LDKMessageSendEvent_SendGossipTimestampFilter:
+						return .SendGossipTimestampFilter
                     default:
                         return nil
                     }
@@ -209,6 +211,13 @@ public class MessageSendEvent: NativeTypeWrapper {
 						return SendReplyChannelRange(pointer: self.cOpaqueStruct!.send_reply_channel_range, anchor: self)
 					}
 				
+					public func getValueAsSendGossipTimestampFilter() -> SendGossipTimestampFilter? {
+						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendGossipTimestampFilter {
+							return nil
+						}
+						return SendGossipTimestampFilter(pointer: self.cOpaqueStruct!.send_gossip_timestamp_filter, anchor: self)
+					}
+				
 			
     internal func free() -> Void {
     	
@@ -337,6 +346,11 @@ MessageSendEvent_clone(origPointer)
     public class func send_reply_channel_range(node_id: [UInt8], msg: ReplyChannelRange) -> MessageSendEvent {
     	
         return MessageSendEvent(pointer: MessageSendEvent_send_reply_channel_range(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+    }
+
+    public class func send_gossip_timestamp_filter(node_id: [UInt8], msg: GossipTimestampFilter) -> MessageSendEvent {
+    	
+        return MessageSendEvent(pointer: MessageSendEvent_send_gossip_timestamp_filter(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
     }
 
     /* OPTION_METHODS_END */
@@ -880,6 +894,35 @@ MessageSendEvent_clone(origPointer)
 				
 					public func getMsg() -> ReplyChannelRange {
 						return ReplyChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					}
+				
+				
+			}
+		
+
+			public class SendGossipTimestampFilter: NativeTypeWrapper {
+				
+				
+				var cOpaqueStruct: LDKMessageSendEvent_LDKSendGossipTimestampFilter_Body?;
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendGossipTimestampFilter_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendGossipTimestampFilter_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+				
+				
+					public func getNode_id() -> [UInt8] {
+						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
+					}
+				
+					public func getMsg() -> GossipTimestampFilter {
+						return GossipTimestampFilter(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				

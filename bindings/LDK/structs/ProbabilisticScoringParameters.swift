@@ -35,6 +35,21 @@ public class ProbabilisticScoringParameters: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
+    public func get_base_penalty_msat() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+ProbabilisticScoringParameters_get_base_penalty_msat(this_ptrPointer)
+};
+    }
+
+    public func set_base_penalty_msat(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ProbabilisticScoringParameters_set_base_penalty_msat(this_ptrPointer, val);
+    }
+
     public func get_liquidity_penalty_multiplier_msat() -> UInt64 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
@@ -65,6 +80,21 @@ ProbabilisticScoringParameters_get_liquidity_offset_half_life(this_ptrPointer)
         return ProbabilisticScoringParameters_set_liquidity_offset_half_life(this_ptrPointer, val);
     }
 
+    public func get_amount_penalty_multiplier_msat() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+ProbabilisticScoringParameters_get_amount_penalty_multiplier_msat(this_ptrPointer)
+};
+    }
+
+    public func set_amount_penalty_multiplier_msat(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ProbabilisticScoringParameters_set_amount_penalty_multiplier_msat(this_ptrPointer, val);
+    }
+
     public func clone() -> ProbabilisticScoringParameters {
     	
         return ProbabilisticScoringParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
@@ -78,23 +108,6 @@ ProbabilisticScoringParameters_clone(origPointer)
 						return dangledClone
 					}
 				
-
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
-ProbabilisticScoringParameters_write(objPointer)
-});
-    }
-
-    public class func read(ser: [UInt8]) -> Result_ProbabilisticScoringParametersDecodeErrorZ {
-    	
-						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
-						defer {
-							serWrapper.noOpRetain()
-						}
-					
-        return Result_ProbabilisticScoringParametersDecodeErrorZ(pointer: ProbabilisticScoringParameters_read(serWrapper.cOpaqueStruct!));
-    }
 
     internal func free() -> Void {
     	

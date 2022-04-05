@@ -7,11 +7,11 @@ public class FundingLocked: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(channel_id_arg: [UInt8], next_per_commitment_point_arg: [UInt8]) {
+    public init(channel_id_arg: [UInt8], next_per_commitment_point_arg: [UInt8], short_channel_id_alias_arg: Option_u64Z) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = FundingLocked_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg))
+        self.cOpaqueStruct = FundingLocked_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKPublicKey(array: next_per_commitment_point_arg), short_channel_id_alias_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -63,6 +63,21 @@ FundingLocked_get_next_per_commitment_point(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return FundingLocked_set_next_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+    }
+
+    public func get_short_channel_id_alias() -> Option_u64Z {
+    	
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKFundingLocked>) in
+FundingLocked_get_short_channel_id_alias(this_ptrPointer)
+});
+    }
+
+    public func set_short_channel_id_alias(val: Option_u64Z) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKFundingLocked>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return FundingLocked_set_short_channel_id_alias(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> FundingLocked {

@@ -25,6 +25,10 @@ class ByteArrayGenerator(UtilGenerator):
 		tupleReads = f'nativeType.{byte_array_field.var_name}.0'
 		rawTupleReads = f'nativeType.0'
 
+		if array_length == 0:
+			print('Skipping zero-length byte array generator for type:', byte_array_type_name)
+			# return
+
 		for i in range(1, array_length):
 			tupleArguments += f', array[{i}]'
 			tupleReads += f', nativeType.{byte_array_field.var_name}.{i}'

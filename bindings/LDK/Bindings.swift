@@ -4976,16 +4976,6 @@ public class Bindings {
 }
 			
 	}
-	public class func swift_CResult_ProbabilisticScoringParametersDecodeErrorZ_is_ok(o: Result_ProbabilisticScoringParametersDecodeErrorZ) -> Bool {
-		
-				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_ProbabilisticScoringParametersDecodeErrorZ>) in
-
-				CResult_ProbabilisticScoringParametersDecodeErrorZ_is_ok(oPointer)
-				
-}
-			
-	}
 	public class func swift_CResult_ProbabilisticScorerDecodeErrorZ_is_ok(o: Result_ProbabilisticScorerDecodeErrorZ) -> Bool {
 		
 				
@@ -5366,32 +5356,32 @@ public class Bindings {
 }
 			
 	}
-	public class func swift_CResult_SiPrefixNoneZ_is_ok(o: Result_SiPrefixNoneZ) -> Bool {
+	public class func swift_CResult_SiPrefixParseErrorZ_is_ok(o: Result_SiPrefixParseErrorZ) -> Bool {
 		
 				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SiPrefixNoneZ>) in
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SiPrefixParseErrorZ>) in
 
-				CResult_SiPrefixNoneZ_is_ok(oPointer)
+				CResult_SiPrefixParseErrorZ_is_ok(oPointer)
 				
 }
 			
 	}
-	public class func swift_CResult_InvoiceNoneZ_is_ok(o: Result_InvoiceNoneZ) -> Bool {
+	public class func swift_CResult_InvoiceParseOrSemanticErrorZ_is_ok(o: Result_InvoiceParseOrSemanticErrorZ) -> Bool {
 		
 				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InvoiceNoneZ>) in
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InvoiceParseOrSemanticErrorZ>) in
 
-				CResult_InvoiceNoneZ_is_ok(oPointer)
+				CResult_InvoiceParseOrSemanticErrorZ_is_ok(oPointer)
 				
 }
 			
 	}
-	public class func swift_CResult_SignedRawInvoiceNoneZ_is_ok(o: Result_SignedRawInvoiceNoneZ) -> Bool {
+	public class func swift_CResult_SignedRawInvoiceParseErrorZ_is_ok(o: Result_SignedRawInvoiceParseErrorZ) -> Bool {
 		
 				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SignedRawInvoiceNoneZ>) in
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SignedRawInvoiceParseErrorZ>) in
 
-				CResult_SignedRawInvoiceNoneZ_is_ok(oPointer)
+				CResult_SignedRawInvoiceParseErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -6223,7 +6213,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				
 			
 	}
-	public class func swift_find_route(our_node_pubkey: [UInt8], route_params: RouteParameters, network: NetworkGraph, first_hops: [ChannelDetails]?, logger: Logger, scorer: Score) -> Result_RouteLightningErrorZ {
+	public class func swift_find_route(our_node_pubkey: [UInt8], route_params: RouteParameters, network: NetworkGraph, first_hops: [ChannelDetails]?, logger: Logger, scorer: Score, random_seed_bytes: [UInt8]) -> Result_RouteLightningErrorZ {
 		
 				
 							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
@@ -6241,9 +6231,11 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
 withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
+withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (random_seed_bytesPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), route_paramsPointer, networkPointer, first_hopsPointer, logger.cOpaqueStruct!, scorerPointer))
+				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), route_paramsPointer, networkPointer, first_hopsPointer, logger.cOpaqueStruct!, scorerPointer, random_seed_bytesPointer))
 				
+}
 }
 }
 }
@@ -6267,12 +6259,50 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 				
 			
 	}
+	public class func swift_create_phantom_invoice_with_description_hash(amt_msat: Option_u64Z, description_hash: Sha256, payment_hash: [UInt8], payment_secret: [UInt8], phantom_route_hints: [PhantomRouteHints], keys_manager: KeysInterface, network: LDKCurrency) -> Result_InvoiceSignOrCreationErrorZ {
+		
+				
+							let phantom_route_hintsUnwrapped = phantom_route_hints.map { (phantom_route_hintsCurrentValue) in
+							phantom_route_hintsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+						let phantom_route_hintsWrapper = Bindings.new_LDKCVec_PhantomRouteHintsZWrapper(array: phantom_route_hintsUnwrapped)
+						defer {
+							phantom_route_hintsWrapper.noOpRetain()
+						}
+					
+				return 
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice_with_description_hash(amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.cOpaqueStruct!, network))
+				
+			
+	}
 	public class func swift_create_invoice_from_channelmanager(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description: String) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
 				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description)))
+				
+}
+			
+	}
+	public class func swift_create_invoice_from_channelmanager_with_description_hash(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description_hash: Sha256) -> Result_InvoiceSignOrCreationErrorZ {
+		
+				
+				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
+
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!))
+				
+}
+			
+	}
+	public class func swift_create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description_hash: Sha256, duration_since_epoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
+		
+				
+				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
+
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, duration_since_epoch))
 				
 }
 			
@@ -6460,7 +6490,7 @@ withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDK
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "a086cb7d66870a61b4c5b98ae5d293d840342ad0"
+        return "8e00d9af56a2d5df10febaa37026399f925b414b"
     }
 
 }

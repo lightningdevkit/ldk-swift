@@ -49,6 +49,13 @@ FixedPenaltyScorer_clone(origPointer)
 					}
 				
 
+    public func as_Score() -> NativelyImplementedScore {
+    	
+        return NativelyImplementedScore(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFixedPenaltyScorer>) in
+FixedPenaltyScorer_as_Score(this_argPointer)
+}, anchor: self);
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFixedPenaltyScorer>) in
@@ -56,21 +63,14 @@ FixedPenaltyScorer_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_FixedPenaltyScorerDecodeErrorZ {
+    public class func read(ser: [UInt8], arg: UInt64) -> Result_FixedPenaltyScorerDecodeErrorZ {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_FixedPenaltyScorerDecodeErrorZ(pointer: FixedPenaltyScorer_read(serWrapper.cOpaqueStruct!));
-    }
-
-    public func as_Score() -> NativelyImplementedScore {
-    	
-        return NativelyImplementedScore(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFixedPenaltyScorer>) in
-FixedPenaltyScorer_as_Score(this_argPointer)
-}, anchor: self);
+        return Result_FixedPenaltyScorerDecodeErrorZ(pointer: FixedPenaltyScorer_read(serWrapper.cOpaqueStruct!, arg));
     }
 
     internal func free() -> Void {

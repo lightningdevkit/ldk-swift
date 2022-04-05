@@ -181,9 +181,9 @@ Invoice_amount_milli_satoshis(this_argPointer)
 });
     }
 
-    public class func from_str(s: String) -> Result_InvoiceNoneZ {
+    public class func from_str(s: String) -> Result_InvoiceParseOrSemanticErrorZ {
     	
-        return Result_InvoiceNoneZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
+        return Result_InvoiceParseOrSemanticErrorZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
     }
 
     public func to_str() -> String {

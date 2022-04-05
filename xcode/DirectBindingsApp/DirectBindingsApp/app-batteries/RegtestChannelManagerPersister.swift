@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RegtestChannelManagerPersister : ChannelManagerPersister, ExtendedChannelManagerPersister {
+class RegtestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
     
     private let channelManager: ChannelManager?
     private let keysManager: KeysManager? = nil

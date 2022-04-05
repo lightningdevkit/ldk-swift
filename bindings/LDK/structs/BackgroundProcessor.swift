@@ -9,7 +9,7 @@ public class BackgroundProcessor: NativeTypeWrapper {
 	/* DEFAULT_CONSTRUCTOR_START */
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(persister: ChannelManagerPersister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, net_graph_msg_handler: NetGraphMsgHandler?, peer_manager: PeerManager, logger: Logger) {
+public init(persister: Persister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, net_graph_msg_handler: NetGraphMsgHandler?, peer_manager: PeerManager, logger: Logger) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	

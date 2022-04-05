@@ -58,11 +58,11 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 				
 		}
 
-		func sync_routing_tableCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> Void {
-			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::sync_routing_table")
+		func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> Void {
+			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::peer_connected")
 			let initValue = Init(pointer: initValuePointer.pointee).dangle();
 
-			return instance.sync_routing_table(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), initValue: initValue)
+			return instance.peer_connected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), initValue: initValue)
 		}
 
 		func handle_reply_channel_rangeCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: LDKReplyChannelRange) -> LDKCResult_NoneLightningErrorZ {
@@ -104,7 +104,7 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 			handle_channel_update: handle_channel_updateCallback,
 			get_next_channel_announcements: get_next_channel_announcementsCallback,
 			get_next_node_announcements: get_next_node_announcementsCallback,
-			sync_routing_table: sync_routing_tableCallback,
+			peer_connected: peer_connectedCallback,
 			handle_reply_channel_range: handle_reply_channel_rangeCallback,
 			handle_reply_short_channel_ids_end: handle_reply_short_channel_ids_endCallback,
 			handle_query_channel_range: handle_query_channel_rangeCallback,
@@ -184,9 +184,9 @@ return [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
 return [LDKNodeAnnouncement]()
     }
 
-    open func sync_routing_table(their_node_id: [UInt8], initValue: Init) -> Void {
+    open func peer_connected(their_node_id: [UInt8], initValue: Init) -> Void {
     	/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::sync_routing_table should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::peer_connected should be overridden!", severity: .WARNING)
 
 
     }
@@ -285,12 +285,12 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 			
 	}
 
-	public override func sync_routing_table(their_node_id: [UInt8], initValue: Init) -> Void {
+	public override func peer_connected(their_node_id: [UInt8], initValue: Init) -> Void {
 		
 				
 				withUnsafePointer(to: initValue.cOpaqueStruct!) { (initPointer: UnsafePointer<LDKInit>) in
 
-				self.cOpaqueStruct!.sync_routing_table(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), initPointer)
+				self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), initPointer)
 				
 }
 			

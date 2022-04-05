@@ -276,9 +276,9 @@ Event_clone(origPointer)
         return Event(pointer: Event_payment_path_successful(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), pathWrapper.dangle().cOpaqueStruct!));
     }
 
-    public class func open_channel_request(temporary_channel_id: [UInt8], counterparty_node_id: [UInt8], funding_satoshis: UInt64, push_msat: UInt64) -> Event {
+    public class func open_channel_request(temporary_channel_id: [UInt8], counterparty_node_id: [UInt8], funding_satoshis: UInt64, push_msat: UInt64, channel_type: ChannelTypeFeatures) -> Event {
     	
-        return Event(pointer: Event_open_channel_request(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id), Bindings.new_LDKPublicKey(array: counterparty_node_id), funding_satoshis, push_msat));
+        return Event(pointer: Event_open_channel_request(Bindings.new_LDKThirtyTwoBytes(array: temporary_channel_id), Bindings.new_LDKPublicKey(array: counterparty_node_id), funding_satoshis, push_msat, channel_type.danglingClone().cOpaqueStruct!));
     }
 
     public func write() -> [UInt8] {
@@ -711,6 +711,10 @@ Event_write(objPointer)
 				
 					public func getPush_msat() -> UInt64 {
 						return self.cOpaqueStruct!.push_msat
+					}
+				
+					public func getChannel_type() -> ChannelTypeFeatures {
+						return ChannelTypeFeatures(pointer: self.cOpaqueStruct!.channel_type, anchor: self)
 					}
 				
 				

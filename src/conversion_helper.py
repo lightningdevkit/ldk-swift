@@ -18,6 +18,7 @@ array_accessor_types_fixed_length: Dict[str, ArrayAccessorType] = {
 	"LDKPublicKey": ArrayAccessorType(size=33, key='compressed_form'),
 	"LDKSecretKey": ArrayAccessorType(size=32, key='bytes'),
 	"LDKSignature": ArrayAccessorType(size=64, key='compact_form'),
+	# "LDKError": ArrayAccessorType(size=0, key='_dummy'),
 	"LDKThreeBytes": ArrayAccessorType(size=3, key='data'),
 	"LDKFourBytes": ArrayAccessorType(size=4, key='data'),
 	"LDKTenBytes": ArrayAccessorType(size=10, key='data'),
@@ -49,6 +50,8 @@ class ConversionHelper:
 	def normalize_swift_type(cls, swift_type: str):
 		if swift_type == 'Type':
 			return 'BindingsType'
+		if swift_type == 'Error':
+			return 'BindingsError'
 
 		return swift_type
 

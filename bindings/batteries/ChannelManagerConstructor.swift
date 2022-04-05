@@ -33,6 +33,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     fileprivate var net_graph: NetworkGraph?
     fileprivate var graph_msg_handler: NetGraphMsgHandler?
     fileprivate var scorer: MultiThreadedLockableScore?
+    fileprivate let keysInterface: KeysInterface!
     public var payer: InvoicePayer?
     public let peerManager: PeerManager
 
@@ -98,6 +99,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.channelManager = channelManager
         self.channel_manager_latest_block_hash = latestBlockHash
         self.chain_monitor = chain_monitor
+        self.keysInterface = keys_interface
         self.logger = logger
 
         let random_data = keys_interface.get_secure_random_bytes();
@@ -143,6 +145,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.channelManager = ChannelManager(fee_est: fee_estimator, chain_monitor: chain_monitor.as_Watch(), tx_broadcaster: tx_broadcaster, logger: logger, keys_manager: keys_interface, config: config, params: chainParameters)
         self.logger = logger
 
+        self.keysInterface = keys_interface
         let random_data = keys_interface.get_secure_random_bytes();
         
         self.net_graph = net_graph
@@ -200,7 +203,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.scorer = scorer
         
         if let netGraph = self.net_graph, let scorer = self.scorer {
-            let router = DefaultRouter(network_graph: netGraph, logger: self.logger)
+            let router = DefaultRouter(network_graph: netGraph, logger: self.logger, random_seed_bytes: self.keysInterface.get_secure_random_bytes())
             // either dangle router, or set is_owned to false
             router.cOpaqueStruct!.is_owned = false
             self.payer = InvoicePayer(payer: self.channelManager.as_Payer(), router: router.as_Router(), scorer: scorer, logger: self.logger, event_handler: self.customEventHandler!, retry_attempts: RetryAttempts(a_arg: 3))
@@ -248,7 +251,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
 }
 
-fileprivate class CustomChannelManagerPersister: ChannelManagerPersister {
+fileprivate class CustomChannelManagerPersister: Persister {
 
     let handler: ExtendedChannelManagerPersister
 
@@ -278,6 +281,6 @@ fileprivate class CustomEventHandler: EventHandler {
 
 }
 
-public protocol ExtendedChannelManagerPersister: ChannelManagerPersister {
+public protocol ExtendedChannelManagerPersister: Persister {
     func handle_event(event: Event) -> Void;
 }

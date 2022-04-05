@@ -7,11 +7,11 @@ public class Init: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(features_arg: InitFeatures) {
+    public init(features_arg: InitFeatures, remote_network_address_arg: Option_NetAddressZ) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = Init_new(features_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = Init_new(features_arg.danglingClone().cOpaqueStruct!, remote_network_address_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -48,6 +48,21 @@ Init_get_features(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return Init_set_features(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
+    public func get_remote_network_address() -> Option_NetAddressZ {
+    	
+        return Option_NetAddressZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKInit>) in
+Init_get_remote_network_address(this_ptrPointer)
+});
+    }
+
+    public func set_remote_network_address(val: Option_NetAddressZ) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKInit>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return Init_set_remote_network_address(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> Init {

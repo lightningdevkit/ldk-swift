@@ -8,7 +8,7 @@
 import LDKSwift
 import LDKHeaders
 
-class TestChannelManagerPersister : ChannelManagerPersister, ExtendedChannelManagerPersister {
+class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
 
     private let channelManager: ChannelManager?
     private let keysManager: KeysManager? = nil

@@ -196,7 +196,7 @@ public class HumanObjectPeerTestInstance {
             }
         }
 
-        fileprivate class TestChannelManagerPersister: ChannelManagerPersister, ExtendedChannelManagerPersister {
+        fileprivate class TestChannelManagerPersister: Persister, ExtendedChannelManagerPersister {
 
             weak var master: Peer!
 

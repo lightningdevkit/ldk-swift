@@ -13,7 +13,8 @@ class CTypes(enum.Enum):
 	VECTOR = 4,
 	BYTE_ARRAY = 5,
 	OPTION = 6,
-	RESULT = 7
+	RESULT = 7,
+	DUMMY_OPTION = 8
 
 
 class TypeDetails:
@@ -377,7 +378,6 @@ class LightningHeaderParser():
 							continue
 
 						# print('byte array struct:', struct_name)
-						self.byte_arrays.add(struct_name)
 						self.type_details[struct_name].type = CTypes.BYTE_ARRAY
 
 						assert len(field_lines) == 3
@@ -389,7 +389,13 @@ class LightningHeaderParser():
 							byte_array_info.arr_len = 1
 							byte_array_info.is_unary_tuple = True
 							self.type_details[struct_name].is_unary_tuple = True
+						elif struct_name == 'LDKError':
+							self.type_details[struct_name].type = CTypes.DUMMY_OPTION
+							self.type_details[struct_name].option_value_type = []
+							self.option_types.add(struct_name)
+							continue
 
+						self.byte_arrays.add(struct_name)
 						self.type_details[struct_name].fields.append(byte_array_info)
 			else:
 				# there is no block-scoped object currently being parsed

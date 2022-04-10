@@ -80,6 +80,21 @@ ChannelHandshakeConfig_get_our_htlc_minimum_msat(this_ptrPointer)
         return ChannelHandshakeConfig_set_our_htlc_minimum_msat(this_ptrPointer, val);
     }
 
+    public func get_negotiate_scid_privacy() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_negotiate_scid_privacy(this_ptrPointer)
+};
+    }
+
+    public func set_negotiate_scid_privacy(val: Bool) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelHandshakeConfig_set_negotiate_scid_privacy(this_ptrPointer, val);
+    }
+
     public func clone() -> ChannelHandshakeConfig {
     	
         return ChannelHandshakeConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in

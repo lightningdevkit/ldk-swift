@@ -5,7 +5,7 @@
 //  Created by Arik Sosman on 5/27/21.
 //
 
-class TestChannelManagerPersister : ChannelManagerPersister, ExtendedChannelManagerPersister {
+class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
     
     private let channelManager: ChannelManager?
     private let keysManager: KeysManager? = nil

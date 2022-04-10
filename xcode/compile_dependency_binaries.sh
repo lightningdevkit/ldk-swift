@@ -45,13 +45,15 @@ export RUSTFLAGS="--cfg=c_bindings"
 #cargo build --target x86_64-apple-ios-macabi --release
 #exit
 
-# Mac ABI binary
+# Mac ABI binary (disable temporarily) TODO: reenable
+# it might be necessary to run "sudo xcode-select --switch /Library/Developer/CommandLineTools" here
 rustup override set nightly
 cargo clean
 cargo build -Z build-std=panic_abort,std --features "std" --target x86_64-apple-ios-macabi --release
 cp "${C_BINDINGS_SOURCE_DIRECTORY}/target/x86_64-apple-ios-macabi/release/libldk.a" $FRAMEWORK_PROJECT_DIRECTORY_MAC
 
 # iOS & Simulator binaries
+# it might be necessary to run "sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer"
 rustup override unset
 cargo clean
 cargo lipo --features "std" --release

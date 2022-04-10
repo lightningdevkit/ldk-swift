@@ -24,6 +24,7 @@ class OptionGenerator:
 		if swift_struct_name.startswith('COption'):
 			is_binary_option = True
 			swift_struct_name = struct_name[4:]
+		swift_struct_name = ConversionHelper.normalize_swift_type(swift_struct_name)
 
 		typed_class_names = []
 		typed_class_details = {}
@@ -230,6 +231,12 @@ class OptionGenerator:
 			# 	current_return_type = current_rust_return_type
 			# current_method_name = current_native_method_name[len(method_prefix):]
 
+			if len(current_method_details['argument_types']) == 1:
+				sole_argument_type = current_method_details['argument_types'][0]
+				if sole_argument_type.rust_obj is not None and sole_argument_type.rust_obj == 'LDKError':
+					print('Skipping method with sole LDKError argument:', current_native_method_name)
+					continue
+
 			current_replacement = method_template
 			is_clone_method = current_method_details['is_clone']
 			is_free_method = current_method_details['is_free']
@@ -301,6 +308,9 @@ class OptionGenerator:
 				'''
 
 			struct_methods += '\n' + current_replacement + '\n'
+
+		if struct_details.type.name == 'DUMMY_OPTION':
+			struct_methods = ''
 
 		mutating_output_file_contents = mutating_output_file_contents.replace('class OptionName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: OptionType', f'init(pointer: {struct_name}')
@@ -379,4 +389,8 @@ class OptionGenerator:
 		current_swift_return_type = value_return_wrappers['swift_type']
 		current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]
 		current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', f'self.cOpaqueStruct!.{type_details.var_name}')
+
+		if current_return_type.rust_obj is not None and current_return_type.rust_obj == 'LDKError':
+			current_swift_return_type = '()'
+			current_replacement = 'return ()'
 		return {"return_type": current_swift_return_type, "body": current_replacement}

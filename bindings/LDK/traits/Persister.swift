@@ -1,11 +1,11 @@
 import Foundation
 
-open class ChannelManagerPersister: NativeTypeWrapper {
+open class Persister: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    internal var cOpaqueStruct: LDKChannelManagerPersister?
+    internal var cOpaqueStruct: LDKPersister?
 
     public init() {
 		Self.instanceCounter += 1
@@ -14,14 +14,21 @@ open class ChannelManagerPersister: NativeTypeWrapper {
     	/* NATIVE_CALLBACKS_START */
 
 		func persist_managerCallback(pointer: UnsafeRawPointer?, channel_managerPointer: UnsafePointer<LDKChannelManager>) -> LDKCResult_NoneErrorZ {
-			let instance: ChannelManagerPersister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelManagerPersister.swift::persist_manager")
+			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_manager")
 			let channel_manager = ChannelManager(pointer: channel_managerPointer.pointee).dangle();
 
 			return instance.persist_manager(channel_manager: channel_manager).cOpaqueStruct!
 		}
 
+		func persist_graphCallback(pointer: UnsafeRawPointer?, network_graphPointer: UnsafePointer<LDKNetworkGraph>) -> LDKCResult_NoneErrorZ {
+			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_graph")
+			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle();
+
+			return instance.persist_graph(network_graph: network_graph).cOpaqueStruct!
+		}
+
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: ChannelManagerPersister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelManagerPersister.swift::free")
+			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::free")
 			
 			return instance.free()
 		}
@@ -29,20 +36,21 @@ open class ChannelManagerPersister: NativeTypeWrapper {
 		/* NATIVE_CALLBACKS_END */
 
 		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKChannelManagerPersister(this_arg: Bindings.instanceToPointer(instance: self), 
+        self.cOpaqueStruct = LDKPersister(this_arg: Bindings.instanceToPointer(instance: self), 
 			persist_manager: persist_managerCallback,
+			persist_graph: persist_graphCallback,
 			free: freeCallback)
 
     }
 
-    public init(pointer: LDKChannelManagerPersister){
+    public init(pointer: LDKPersister){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKChannelManagerPersister, anchor: NativeTypeWrapper){
+	public init(pointer: LDKPersister, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
@@ -55,31 +63,38 @@ open class ChannelManagerPersister: NativeTypeWrapper {
 
 
 
-					internal func dangle() -> ChannelManagerPersister {
+					internal func dangle() -> Persister {
         				self.dangling = true
 						return self
 					}
 					
 					deinit {
 						if !self.dangling {
-							Bindings.print("Freeing ChannelManagerPersister \(self.instanceNumber).")
+							Bindings.print("Freeing Persister \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing ChannelManagerPersister \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Persister \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
 
     open func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
     	/* EDIT ME */
-		Bindings.print("ChannelManagerPersister::persist_manager should be overridden!", severity: .WARNING)
+		Bindings.print("Persister::persist_manager should be overridden!", severity: .WARNING)
+
+return Result_NoneErrorZ()
+    }
+
+    open func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
+    	/* EDIT ME */
+		Bindings.print("Persister::persist_graph should be overridden!", severity: .WARNING)
 
 return Result_NoneErrorZ()
     }
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("ChannelManagerPersister::free should be overridden!", severity: .WARNING)
+		Bindings.print("Persister::free should be overridden!", severity: .WARNING)
 
 
     }
@@ -89,7 +104,7 @@ return Result_NoneErrorZ()
 }
 
 
-public class NativelyImplementedChannelManagerPersister: ChannelManagerPersister {
+public class NativelyImplementedPersister: Persister {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
 	public override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
@@ -98,6 +113,17 @@ public class NativelyImplementedChannelManagerPersister: ChannelManagerPersister
 				return withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
 
 				Result_NoneErrorZ(pointer: self.cOpaqueStruct!.persist_manager(self.cOpaqueStruct!.this_arg, channel_managerPointer))
+				
+}
+			
+	}
+
+	public override func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
+		
+				
+				return withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
+
+				Result_NoneErrorZ(pointer: self.cOpaqueStruct!.persist_graph(self.cOpaqueStruct!.this_arg, network_graphPointer))
 				
 }
 			

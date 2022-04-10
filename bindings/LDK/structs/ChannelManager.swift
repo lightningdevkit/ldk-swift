@@ -219,11 +219,11 @@ ChannelManager_get_our_node_id(this_argPointer)
 });
     }
 
-    public func accept_inbound_channel(temporary_channel_id: [UInt8]) -> Result_NoneAPIErrorZ {
+    public func accept_inbound_channel(temporary_channel_id: [UInt8], user_channel_id: UInt64) -> Result_NoneAPIErrorZ {
     	
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: temporary_channel_id)) { (temporary_channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-ChannelManager_accept_inbound_channel(this_argPointer, temporary_channel_idPointer)
+ChannelManager_accept_inbound_channel(this_argPointer, temporary_channel_idPointer, user_channel_id)
 }
 });
     }

@@ -168,6 +168,31 @@ static inline LDKSocketDescriptor get_descriptor(struct SocketHandler *handler, 
 	return ret;
 }
 
+static LDKCOption_NetAddressZ get_remote_network_address(int fd) {
+	struct sockaddr_storage sockaddr;
+	socklen_t remote_addr_len = sizeof(sockaddr);
+	if (getpeername(fd, (struct sockaddr*)&sockaddr, &remote_addr_len) == -1) {
+		return COption_NetAddressZ_none();
+	}
+
+	switch (sockaddr.ss_family) {
+	case AF_INET: {
+		const struct sockaddr_in *remote_addr = (struct sockaddr_in*)&sockaddr;
+		LDKFourBytes addr;
+		memcpy(&addr, &remote_addr->sin_addr.s_addr, 4);
+		return COption_NetAddressZ_some(NetAddress_ipv4(addr, ntohs(remote_addr->sin_port)));
+	}
+	case AF_INET6: {
+		const struct sockaddr_in6 *remote_addr = (struct sockaddr_in6*)&sockaddr;
+		LDKSixteenBytes addr;
+		memcpy(&addr, &remote_addr->sin6_addr.s6_addr, 16);
+		return COption_NetAddressZ_some(NetAddress_ipv6(addr, ntohs(remote_addr->sin6_port)));
+	}
+	default:
+		return COption_NetAddressZ_none();
+	}
+}
+
 static void *sock_thread_fn(void* arg) {
 	struct SocketHandler *handler = (struct SocketHandler*) arg;
 
@@ -214,7 +239,7 @@ static void *sock_thread_fn(void* arg) {
 								if (newfd >= 0) {
 									// Received a new connection, register it!
 									LDKSocketDescriptor new_descriptor = get_descriptor(handler, newfd);
-									LDKCResult_NonePeerHandleErrorZ con_res = PeerManager_new_inbound_connection(&handler->ldk_peer_manager, new_descriptor);
+									LDKCResult_NonePeerHandleErrorZ con_res = PeerManager_new_inbound_connection(&handler->ldk_peer_manager, new_descriptor, get_remote_network_address(newfd));
 									if (con_res.result_ok) {
 										if (register_socket(handler, newfd, 0))
 											shutdown(newfd, SHUT_RDWR);
@@ -378,7 +403,7 @@ int socket_connect(void* arg, LDKPublicKey pubkey, struct sockaddr *addr, size_t
 	if (register_socket(handler, fd, 0)) return -4;
 
 	LDKSocketDescriptor descriptor = get_descriptor(handler, fd);
-	LDKCResult_CVec_u8ZPeerHandleErrorZ con_res = PeerManager_new_outbound_connection(&handler->ldk_peer_manager, pubkey, descriptor);
+	LDKCResult_CVec_u8ZPeerHandleErrorZ con_res = PeerManager_new_outbound_connection(&handler->ldk_peer_manager, pubkey, descriptor, get_remote_network_address(fd));
 	if (con_res.result_ok) {
 		ssize_t write_count = send(fd, con_res.contents.result->data, con_res.contents.result->datalen, MSG_NOSIGNAL);
 		if (write_count != con_res.contents.result->datalen)

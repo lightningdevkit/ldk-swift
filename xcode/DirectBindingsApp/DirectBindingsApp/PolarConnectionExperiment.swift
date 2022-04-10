@@ -63,8 +63,16 @@ class PolarConnectionExperiment: ObservableObject {
             
             let networkGraph = NetworkGraph(genesis_hash: genesis_hash)
             
+
             
-//            self.channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: chainTipHash, current_blockchain_tip_height: chainTipHeight, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor, router: networkGraph, tx_broadcaster: self.broadcaster, logger: self.logger)
+            
+            
+            self.channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: chainTipHash, current_blockchain_tip_height: chainTipHeight, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor, net_graph: networkGraph, tx_broadcaster: self.broadcaster, logger: self.logger)
+            let userConfig = UserConfig()
+            let latestBlockHash = [UInt8](Data(base64Encoded: "AAAAAAAAAAAABe5Xh25D12zkQuLAJQbBeLoF1tEQqR8=")!)
+            let latestBlockHeight = 700123
+            
+
             
             self.channelManager = self.channelManagerConstructor.channelManager
             self.peerManager = self.channelManagerConstructor.peerManager
@@ -93,7 +101,7 @@ class PolarConnectionExperiment: ObservableObject {
             return
         }
         self.hasCompletedChainSync = true
-        self.channelManagerConstructor.chain_sync_completed(persister: self.cmPersister)
+        self.channelManagerConstructor.chain_sync_completed(persister: self.cmPersister, scorer: nil)
         self.objectWillChange.send()
     }
     
@@ -122,7 +130,7 @@ class PolarConnectionExperiment: ObservableObject {
         
         let config = UserConfig()
         let theirNodeId = Block.hexStringToBytes(hexString: "034c01a4a7344e41b0a989049fb631c648c5d27f6b3fa61c7c193b40dcc96a9341")!
-        let channelOpenResult = self.channelManager.create_channel(their_network_key: theirNodeId, channel_value_satoshis: 4000000, push_msat: 2000000, user_id: 42, override_config: config)
+        let channelOpenResult = self.channelManager.create_channel(their_network_key: theirNodeId, channel_value_satoshis: 4000000, push_msat: 2000000, user_channel_id: 42, override_config: config)
         
         self.objectWillChange.send()
         
@@ -143,6 +151,7 @@ class PolarConnectionExperiment: ObservableObject {
             }
             self.isChannelWithAliceOpen = false
             self.objectWillChange.send()
+            
         }
     }
     

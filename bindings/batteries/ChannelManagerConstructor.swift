@@ -10,6 +10,7 @@ import Foundation
 enum InvalidSerializedDataError: Error {
     case invalidSerializedChannelMonitor
     case invalidSerializedChannelManager
+    case invalidSerializedNetworkGraph
     case duplicateSerializedChannelMonitor
     case badNodeSecret
 }
@@ -49,7 +50,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     private let chain_monitor: ChainMonitor
 
 
-    public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, net_graph: NetworkGraph?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
+    public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, net_graph_serialized: [UInt8]?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
@@ -104,7 +105,14 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         let random_data = keys_interface.get_secure_random_bytes();
         
-        self.net_graph = net_graph
+        if let serializedNetworkGraph = net_graph_serialized {
+            let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph)
+            if !netGraphResult.isOk(){
+                throw InvalidSerializedDataError.invalidSerializedNetworkGraph
+            }
+            self.net_graph = netGraphResult.getValue()
+        }
+        
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
@@ -263,6 +271,10 @@ fileprivate class CustomChannelManagerPersister: Persister {
     override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
         return self.handler.persist_manager(channel_manager: channel_manager)
     }
+    
+    override func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
+        return self.handler.persist_graph(network_graph: network_graph)
+    }
 }
 
 fileprivate class CustomEventHandler: EventHandler {
@@ -277,7 +289,6 @@ fileprivate class CustomEventHandler: EventHandler {
     override func handle_event(event: Event) {
         self.handler.handle_event(event: event)
     }
-
 
 }
 

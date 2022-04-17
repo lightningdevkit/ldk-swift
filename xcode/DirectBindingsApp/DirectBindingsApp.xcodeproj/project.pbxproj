@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		071041C427DA763F00AE1175 /* PolarConnectionExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */; };
-		074A2DC426D957BC00370D0B /* RegtestBlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserver.swift */; };
+		074A2DC426D957BC00370D0B /* RegtestBlockchainObserverOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserverOld.swift */; };
 		074A2DCD26D970D500370D0B /* RegtestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074A2DCB26D970D400370D0B /* RegtestBroadcasterInterface.swift */; };
 		074A2DCE26D970D500370D0B /* RegtestChannelManagerPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074A2DCC26D970D500370D0B /* RegtestChannelManagerPersister.swift */; };
 		075E22A226FEF8540000A76B /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E22A126FEF8540000A76B /* NetGraphMsgHandlerConstructor.swift */; };
@@ -693,6 +693,8 @@
 		076D251827FC219300970AFC /* InvoicePayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D227727FC219000970AFC /* InvoicePayer.swift */; };
 		076D251927FC219300970AFC /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D227827FC219000970AFC /* DelayedPaymentOutputDescriptor.swift */; };
 		076D251A27FC219300970AFC /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D227827FC219000970AFC /* DelayedPaymentOutputDescriptor.swift */; };
+		076D2A6C280399F500970AFC /* RegtestBlockchainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */; };
+		076D2A6E28039ACB00970AFC /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
 		0780F9C7272865260095FD6A /* LNSyncHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780F9C6272865260095FD6A /* LNSyncHandler.swift */; };
 		07BBC76A26D02727000D96C4 /* DirectBindingsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBC76926D02727000D96C4 /* DirectBindingsAppApp.swift */; };
 		07BBC76C26D02727000D96C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBC76B26D02727000D96C4 /* ContentView.swift */; };
@@ -727,6 +729,8 @@
 		07BBCE7726D03B49000D96C4 /* TestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */; };
 		07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
 		07C753F326D9560200081BF8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 07C753F226D9560200081BF8 /* PromiseKit */; };
+		2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
+		2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1092,6 +1096,8 @@
 		076D227627FC219000970AFC /* OutPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutPoint.swift; sourceTree = "<group>"; };
 		076D227727FC219000970AFC /* InvoicePayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicePayer.swift; sourceTree = "<group>"; };
 		076D227827FC219000970AFC /* DelayedPaymentOutputDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedPaymentOutputDescriptor.swift; sourceTree = "<group>"; };
+		076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegtestBlockchainManager.swift; sourceTree = "<group>"; };
+		076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainObserver.swift; sourceTree = "<group>"; };
 		0780F9C6272865260095FD6A /* LNSyncHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LNSyncHandler.swift; sourceTree = "<group>"; };
 		07BBC76626D02727000D96C4 /* DirectBindingsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DirectBindingsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07BBC76926D02727000D96C4 /* DirectBindingsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectBindingsAppApp.swift; sourceTree = "<group>"; };
@@ -1115,7 +1121,7 @@
 		07BBCB1826D034B1000D96C4 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
 		07BBCB1A26D03571000D96C4 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		07BBCB2726D0369F000D96C4 /* SwiftSocketPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSocketPeerHandler.swift; sourceTree = "<group>"; };
-		07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegtestBlockchainObserver.swift; sourceTree = "<group>"; };
+		07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserverOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegtestBlockchainObserverOld.swift; sourceTree = "<group>"; };
 		07BBCB2926D0369F000D96C4 /* SwiftSocketEchoHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSocketEchoHandler.swift; sourceTree = "<group>"; };
 		07BBCB3426D036AC000D96C4 /* TCPPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPPeerHandler.swift; sourceTree = "<group>"; };
 		07BBCB3526D036AC000D96C4 /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
@@ -1652,9 +1658,11 @@
 				074A2DCB26D970D400370D0B /* RegtestBroadcasterInterface.swift */,
 				074A2DCC26D970D500370D0B /* RegtestChannelManagerPersister.swift */,
 				07BBCB2726D0369F000D96C4 /* SwiftSocketPeerHandler.swift */,
-				07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserver.swift */,
+				07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserverOld.swift */,
 				07BBCB2926D0369F000D96C4 /* SwiftSocketEchoHandler.swift */,
 				0780F9C6272865260095FD6A /* LNSyncHandler.swift */,
+				076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */,
+				076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */,
 			);
 			path = "app-batteries";
 			sourceTree = "<group>";
@@ -1781,8 +1789,8 @@
 			);
 			mainGroup = 07BBC75D26D02727000D96C4;
 			packageReferences = (
-				07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit" */,
-				076D1D2927F5163500970AFC /* XCRemoteSwiftPackageReference "swift-crypto" */,
+				07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit.git" */,
+				076D1D2927F5163500970AFC /* XCRemoteSwiftPackageReference "swift-crypto.git" */,
 			);
 			productRefGroup = 07BBC76726D02727000D96C4 /* Products */;
 			projectDirPath = "";
@@ -1909,11 +1917,12 @@
 				076D23EB27FC219100970AFC /* Result_PositiveTimestampCreationErrorZ.swift in Sources */,
 				076D244927FC219200970AFC /* InvoiceFeatures.swift in Sources */,
 				076D23A127FC219100970AFC /* Result_COption_EventZDecodeErrorZ.swift in Sources */,
+				076D2A6E28039ACB00970AFC /* BlockchainObserver.swift in Sources */,
 				076D23DD27FC219100970AFC /* Result_C2Tuple_SignatureCVec_SignatureZZNoneZ.swift in Sources */,
 				076D230127FC219000970AFC /* C2Tuple_SignatureSignatureZ.swift in Sources */,
 				076D22A327FC219000970AFC /* Option_u16Z.swift in Sources */,
 				076D24FB27FC219200970AFC /* LockedChannelMonitor.swift in Sources */,
-				074A2DC426D957BC00370D0B /* RegtestBlockchainObserver.swift in Sources */,
+				074A2DC426D957BC00370D0B /* RegtestBlockchainObserverOld.swift in Sources */,
 				076D231B27FC219000970AFC /* Result_ScorerDecodeErrorZ.swift in Sources */,
 				076D241327FC219100970AFC /* Result_ReplyShortChannelIdsEndDecodeErrorZ.swift in Sources */,
 				076D249D27FC219200970AFC /* HolderCommitmentTransaction.swift in Sources */,
@@ -2155,6 +2164,7 @@
 				076D22DF27FC219000970AFC /* Filter.swift in Sources */,
 				076D23EF27FC219100970AFC /* Result_NodeAnnouncementDecodeErrorZ.swift in Sources */,
 				076D23AB27FC219100970AFC /* Result_HTLCUpdateDecodeErrorZ.swift in Sources */,
+				076D2A6C280399F500970AFC /* RegtestBlockchainManager.swift in Sources */,
 				07BBCB1B26D03578000D96C4 /* ldk_net.c in Sources */,
 				076D245327FC219200970AFC /* BestBlock.swift in Sources */,
 				076D229D27FC219000970AFC /* Option_MonitorEventZ.swift in Sources */,
@@ -2547,6 +2557,8 @@
 				076D230C27FC219000970AFC /* C2Tuple_PaymentHashPaymentIdZ.swift in Sources */,
 				076D24C827FC219200970AFC /* ChannelDetails.swift in Sources */,
 				076D237227FC219100970AFC /* Result_NoneAPIErrorZ.swift in Sources */,
+				2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */,
+				2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2874,7 +2886,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		076D1D2927F5163500970AFC /* XCRemoteSwiftPackageReference "swift-crypto" */ = {
+		076D1D2927F5163500970AFC /* XCRemoteSwiftPackageReference "swift-crypto.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-crypto.git";
 			requirement = {
@@ -2882,7 +2894,7 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+		07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/PromiseKit.git";
 			requirement = {
@@ -2895,12 +2907,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		076D1D2A27F5163500970AFC /* Crypto */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 076D1D2927F5163500970AFC /* XCRemoteSwiftPackageReference "swift-crypto" */;
+			package = 076D1D2927F5163500970AFC /* XCRemoteSwiftPackageReference "swift-crypto.git" */;
 			productName = Crypto;
 		};
 		07C753F226D9560200081BF8 /* PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			package = 07C753F126D9560200081BF8 /* XCRemoteSwiftPackageReference "PromiseKit.git" */;
 			productName = PromiseKit;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -9,7 +9,7 @@ static inline int _ldk_strncmp(const char *s1, const char *s2, uint64_t n) {
 }
 
 #define _LDK_HEADER_VER "v0.0.106-10-ga86d8b78fedd014a"
-#define _LDK_C_BINDINGS_HEADER_VER "v0.0.106.0"
+#define _LDK_C_BINDINGS_HEADER_VER "v0.0.106.1"
 static inline const char* check_get_ldk_version() {
 	LDKStr bin_ver = _ldk_get_compiled_version();
 	if (_ldk_strncmp(_LDK_HEADER_VER, (const char*)bin_ver.chars, bin_ver.len) != 0) {

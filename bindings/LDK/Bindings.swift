@@ -6490,7 +6490,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "8e00d9af56a2d5df10febaa37026399f925b414b"
+        return "fe0ea5b41ca6eb7ef88a4d2fbd7dc1f647c89112"
     }
 
 }

@@ -68,6 +68,7 @@ class DirectBindingsAppTests: XCTestCase {
         var monitors: [LDKChannelMonitor] = []
 
         let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32))
+        let graphSerialization = graph.write()
         let channel_manager_constructor = try ChannelManagerConstructor(
                 channel_manager_serialized: serialized_channel_manager,
                 channel_monitors_serialized: serializedChannelMonitors,
@@ -75,7 +76,7 @@ class DirectBindingsAppTests: XCTestCase {
                 fee_estimator: feeEstimator,
                 chain_monitor: chainMonitor,
                 filter: filter,
-                net_graph: graph,
+                net_graph_serialized: graphSerialization,
                 tx_broadcaster: broadcaster,
                 logger: logger
         )
@@ -101,15 +102,47 @@ class DirectBindingsAppTests: XCTestCase {
         assert(parsedInvoice.isOk())
         let parsedInvoiceValue = parsedInvoice.getValue()!
         
+        /*
         let amtSat: NSNumber = 2
         let sendRes = payer.pay_invoice(invoice: parsedInvoiceValue)
         if amtSat != 0 {
             let sendRes = payer.pay_zero_value_invoice(invoice: parsedInvoiceValue, amount_msats: UInt64(truncating: amtSat) * 1000)
+            if let sendError = sendRes.getError(){
+                print("pay_zero_value_invoice error type: \(sendError.getValueType())")
+                if let sendRoutingError = sendError.getValueAsRouting() {
+                    print("pay_zero_value_invoice routing error: \(sendRoutingError.get_err())")
+                } else if let sendInvoiceError = sendError.getValueAsInvoice() {
+                    print("pay_zero_value_invoice invoice error: \(sendInvoiceError)")
+                } else if let sendSendingError = sendError.getValueAsSending() {
+                    print("pay_zero_value_invoice sending error type: \(sendSendingError.getValueType())")
+                    if let sendingParameterError = sendSendingError.getValueAsParameterError() {
+                        print("pay_zero_value_invoice sending parameter error type: \(sendingParameterError.getValueType())")
+                        if let parameterRouteError = sendingParameterError.getValueAsRouteError() {
+                            print("pay_zero_value_invoice sending parameter route error: \(parameterRouteError.getErr())")
+                        } else if let parameterChannelUnavailableError = sendingParameterError.getValueAsChannelUnavailable() {
+                            print("pay_zero_value_invoice sending parameter channel unavailable error: \(parameterChannelUnavailableError.getErr())")
+                        } else if let parameterAPIMisuseError = sendingParameterError.getValueAsAPIMisuseError() {
+                            print("pay_zero_value_invoice sending parameter API misuse error: \(parameterAPIMisuseError.getErr())")
+                        } else if let parameterFeeRateTooHighError = sendingParameterError.getValueAsFeeRateTooHigh() {
+                            print("pay_zero_value_invoice sending parameter excessive fee rate error: \(parameterFeeRateTooHighError.getErr())")
+                        } else if let parameterIncompatibleShutdownScriptError = sendingParameterError.getValueAsIncompatibleShutdownScript() {
+                            print("pay_zero_value_invoice sending parameter incompatible shutdown script error: \(parameterIncompatibleShutdownScriptError.getScript().write())")
+                        }
+                    } else if let sendingPartialFailureError = sendSendingError.getValueAsPartialFailure() {
+                        print("pay_zero_value_invoice sending parameter error payment id: \(sendingPartialFailureError.getPayment_id())")
+                    } else if let sendingPathParameterError = sendSendingError.getValueAsPathParameterError() {
+                        print("pay_zero_value_invoice sending path parameter errors: \(sendingPathParameterError.count)")
+                    } else if let sendingAllFailedError = sendSendingError.getValueAsAllFailedRetrySafe() {
+                        print("pay_zero_value_invoice sending all failed retry safe errors: \(sendingAllFailedError.count)")
+                    }
+                }
+            }
             assert(sendRes.isOk())
         } else {
             let sendRes = payer.pay_invoice(invoice: parsedInvoiceValue)
             assert(sendRes.isOk())
         }
+        */
         
         channel_manager_constructor.interrupt()
         

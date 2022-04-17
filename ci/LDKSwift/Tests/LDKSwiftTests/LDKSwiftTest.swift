@@ -63,7 +63,7 @@ class LDKSwiftTest: XCTestCase {
                 fee_estimator: feeEstimator,
                 chain_monitor: chainMonitor,
                 filter: filter,
-                net_graph: nil,
+                net_graph_serialized: nil,
                 tx_broadcaster: broadcaster,
                 logger: logger
         )

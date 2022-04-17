@@ -92,5 +92,61 @@ public class BitcoinTests: XCTestCase {
         let blockSerialization = block.serialize()
         XCTAssertEqual(blockSerialization, [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 255, 255, 255, 255, 1, 160, 134, 1, 0, 0, 0, 0, 0, 34, 0, 32, 214, 232, 96, 182, 226, 231, 42, 33, 219, 246, 121, 242, 58, 123, 110, 124, 118, 63, 70, 117, 109, 247, 0, 58, 172, 198, 127, 254, 216, 194, 41, 14, 1, 1, 1, 0, 0, 0, 0])
     }
+
+    @available(iOS 15.0, *)
+    func testRpcCall() async throws {
+        let username = ProcessInfo.processInfo.environment["BITCOIN_REGTEST_RPC_USERNAME"] ?? "polaruser" // "alice"
+        let password = ProcessInfo.processInfo.environment["BITCOIN_REGTEST_RPC_PASSWORD"] ?? "polarpass" // "DONT_USE_THIS_YOU_WILL_GET_ROBBED"
+        let port = NumberFormatter().number(from: ProcessInfo.processInfo.environment["BITCOIN_REGTEST_RPC_PORT"] ?? "") ?? 18443
+        let rpcInterface = try RegtestBlockchainManager(rpcProtocol: .http, rpcDomain: "localhost", rpcPort: (port as! UInt), rpcUsername: username, rpcPassword: password)
+        let chaintipHeight = try await rpcInterface.getChaintipHeight()
+        XCTAssertGreaterThanOrEqual(chaintipHeight, 0)
+        let chaintipHashImplicit = try await rpcInterface.getBlockHash(height: chaintipHeight)
+        let chaintipHashExplicit = try await rpcInterface.getChaintipHash()
+        XCTAssertEqual(chaintipHashImplicit, chaintipHashExplicit)
+        let blockDetails = try await rpcInterface.getBlock(hash: chaintipHashExplicit)
+        XCTAssertEqual(blockDetails.height, chaintipHeight)
+
+        let chainInfo = try await rpcInterface.getChainInfo()
+
+        let genesisHash = try await rpcInterface.getBlockHash(height: 1)
+        let genesisDetails = try await rpcInterface.getBlock(hash: genesisHash)
+        let genesisBinary = try await rpcInterface.getBlockBinary(hash: genesisHash)
+        let genesisHeader = try await rpcInterface.getBlockHeader(hash: genesisHash)
+
+        // let address = try await rpcInterface.generateAddress()
+        // let details = try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: address)
+        let helpDetails = try await rpcInterface.getHelp()
+        print(helpDetails)
+
+        class Listener: BlockchainListener {
+            var initializationComplete = false
+            var newBlockDetected = false
+            
+            func blockConnected(block: [UInt8], height: UInt32) {
+                if self.initializationComplete {
+                    self.newBlockDetected = true
+                }
+                print("block connected at height \(height): \(block)")
+            }
+
+            func blockDisconnected(header: [UInt8]?, height: UInt32) {
+                print("block disconnected from height \(height): \(header)")
+            }
+        }
+        
+        var listener = Listener()
+        rpcInterface.registerListener(listener)
+        
+        try await rpcInterface.preloadMonitor()
+        async let monitor = rpcInterface.monitorBlockchain()
+        listener.initializationComplete = true
+        
+        let testAddress = try await rpcInterface.generateAddress()
+        try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: testAddress)
+        // sleep for six seconds
+        try await Task.sleep(nanoseconds: 6_000_000_000)
+        XCTAssertEqual(listener.newBlockDetected, true)
+    }
     
 }

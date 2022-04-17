@@ -114,10 +114,20 @@ public class BitcoinTests: XCTestCase {
         let genesisBinary = try await rpcInterface.getBlockBinary(hash: genesisHash)
         let genesisHeader = try await rpcInterface.getBlockHeader(hash: genesisHash)
 
+        let genesisCoinbaseTxHash = genesisDetails.tx.first!
+        let genesisCoinbaseTx = try await rpcInterface.getTransaction(hash: genesisCoinbaseTxHash)
+        
+        
+        // try? await rpcInterface.submitTransaction(transaction: modifiedCoinbaseTx)
+        
         // let address = try await rpcInterface.generateAddress()
         // let details = try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: address)
         let helpDetails = try await rpcInterface.getHelp()
         print(helpDetails)
+        
+        let exampleFundingTx: [UInt8] = [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 255, 255, 255, 255, 1, 160, 134, 1, 0, 0, 0, 0, 0, 34, 0, 32, 15, 45, 153, 123, 98, 37, 242, 142, 113, 51, 126, 45, 206, 175, 66, 247, 173, 2, 141, 2, 27, 84, 38, 188, 34, 74, 82, 164, 28, 229, 39, 139, 1, 1, 1, 0, 0, 0, 0]
+        // try? await rpcInterface.submitTransaction(transaction: exampleFundingTx)
+        
 
         class Listener: BlockchainListener {
             var initializationComplete = false
@@ -143,7 +153,10 @@ public class BitcoinTests: XCTestCase {
         listener.initializationComplete = true
         
         let testAddress = try await rpcInterface.generateAddress()
-        try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: testAddress)
+        let exampleOutputScript: [UInt8] = [0, 32, 200, 194, 75, 55, 227, 33, 251, 71, 196, 33, 177, 196, 155, 145, 17, 78, 244, 226, 155, 141, 216, 230, 180, 183, 149, 172, 116, 249, 56, 6, 118, 255]
+        let scriptInfo = try await rpcInterface.decodeScript(script: exampleOutputScript)
+        let outputAddress = (scriptInfo["addresses"] as! [String]).first!
+        try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: outputAddress)
         // sleep for six seconds
         try await Task.sleep(nanoseconds: 6_000_000_000)
         XCTAssertEqual(listener.newBlockDetected, true)

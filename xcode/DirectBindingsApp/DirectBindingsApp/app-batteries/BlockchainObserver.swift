@@ -331,6 +331,13 @@ class BlockchainObserver {
         assert(blockHeader.count == 80)
         return blockHeader
     }
+    
+    public func getTransaction(hash: String) async throws -> [UInt8] {
+        let response = try await self.callRpcMethod(method: "getrawtransaction", params: [hash])
+        let txHex = response["result"] as! String
+        let transaction = hexStringToBytes(hexString: txHex)!
+        return transaction
+    }
 
     /**
      Get chain details such as the chaintip hash, the active soft forks, etc.
@@ -351,6 +358,21 @@ class BlockchainObserver {
     public func generateAddress() async throws -> String {
         let response = try await self.callRpcMethod(method: "getnewaddress", params: [])
         let result = response["result"] as! String
+        return result
+    }
+    
+    public func submitTransaction(transaction: [UInt8]) async throws -> String {
+        let txHex = bytesToHexString(bytes: transaction)
+        let response = try await self.callRpcMethod(method: "sendrawtransaction", params: [txHex])
+        // returns the txid
+        let result = response["result"] as! String
+        return result
+    }
+    
+    public func decodeScript(script: [UInt8]) async throws -> [String: Any] {
+        let scriptHex = bytesToHexString(bytes: script)
+        let response = try await self.callRpcMethod(method: "decodescript", params: [scriptHex])
+        let result = response["result"] as! [String: Any]
         return result
     }
 

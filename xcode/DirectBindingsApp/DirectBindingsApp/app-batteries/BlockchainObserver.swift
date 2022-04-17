@@ -193,7 +193,6 @@ class BlockchainObserver {
         }
 
         // create an array of the new blocks
-        // the variable is called anchored because there should be an overlap of one
         var addedBlocks = [RPCBlockDetails]()
         for addedBlockHeight in (knownChaintip.height + 1)...currentChaintipHeight {
             let addedBlockHash = try await self.getBlockHash(height: addedBlockHeight)
@@ -201,7 +200,7 @@ class BlockchainObserver {
             addedBlocks.append(addedBlock)
         }
 
-        while addedBlocks.first!.previousblockhash != self.connectedBlocks.last!.hash {
+        while addedBlocks.isEmpty || addedBlocks.first!.previousblockhash != self.connectedBlocks.last!.hash {
             // we must keep popping until it matches
             let trimmedLocalTip = try await self.disconnectBlock()
             let reorgedBlockHash = try await self.getBlockHash(height: trimmedLocalTip.height)

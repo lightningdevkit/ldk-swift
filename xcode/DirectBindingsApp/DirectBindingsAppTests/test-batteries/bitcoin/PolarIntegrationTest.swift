@@ -19,6 +19,7 @@ public class PolarIntegrationTest: XCTestCase {
 		// print(help)
 
 		try await self.ascertainSpareMoney(rpcInterface: rpcInterface)
+		try await rpcInterface.preloadMonitor(anchorHeight: .chaintip)
 
 		// let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
 		var seed = [UInt8](repeating: 0, count: 32)
@@ -34,7 +35,17 @@ public class PolarIntegrationTest: XCTestCase {
 		let lightningNetwork = LDKNetwork_Regtest
         let genesisHash = try await rpcInterface.getBlockHash(height: 0)
 		let reversedGenesisHash = [UInt8](genesisHash.reversed())
+        let chaintipHash = try await rpcInterface.getChaintipHash()
+		let reversedChaintipHash = [UInt8](chaintipHash.reversed())
+		let chaintipHeight = try await rpcInterface.getChaintipHeight()
 		let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
+
+		print("Genesis hash: \(PolarIntegrationTest.bytesToHexString(bytes: genesisHash))")
+		print("Genesis hash reversed: \(PolarIntegrationTest.bytesToHexString(bytes: reversedGenesisHash))")
+		print("Block 1 hash: \(try await rpcInterface.getBlockHashHex(height: 1))")
+		print("Block 2 hash: \(try await rpcInterface.getBlockHashHex(height: 2))")
+		print("Chaintip hash: \(PolarIntegrationTest.bytesToHexString(bytes: chaintipHash))")
+		print("Chaintip hash reversed: \(PolarIntegrationTest.bytesToHexString(bytes: reversedChaintipHash))")
 
 		let feeEstimator = LDKTraitImplementations.PolarFeeEstimator()
 		let broadcaster = LDKTraitImplementations.PolarBroadcaster(rpcInterface: rpcInterface)
@@ -43,7 +54,7 @@ public class PolarIntegrationTest: XCTestCase {
 		let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
 		let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-		let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: reversedGenesisHash, current_blockchain_tip_height: UInt32(0), keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph, tx_broadcaster: broadcaster, logger: logger)
+		let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: reversedChaintipHash, current_blockchain_tip_height: UInt32(chaintipHeight), keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph, tx_broadcaster: broadcaster, logger: logger)
 		let channelManager = channelManagerConstructor.channelManager
 		let peerManager = channelManagerConstructor.peerManager
 		let tcpPeerHandler = TCPPeerHandler(peerManager: peerManager)
@@ -71,9 +82,8 @@ public class PolarIntegrationTest: XCTestCase {
 
 		let listener = Listener(channelManager: channelManager, chainMonitor: chainMonitor)
 		rpcInterface.registerListener(listener);
-		try await rpcInterface.preloadMonitor(anchorHeight: .genesis);
-		channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: nil);
 		async let monitor = try rpcInterface.monitorBlockchain()
+		channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: nil)
 
 		let lndPubkey = PolarIntegrationTest.hexStringToBytes(hexString: PolarIntegrationTest.POLAR_LND_PEER_PUBKEY_HEX)!
 		let connectionSuccess = tcpPeerHandler.connect(address: "127.0.0.1", port: 9735, theirNodeId: lndPubkey)

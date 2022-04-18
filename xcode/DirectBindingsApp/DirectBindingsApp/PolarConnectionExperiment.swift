@@ -25,7 +25,7 @@ class PolarConnectionExperiment: ObservableObject {
     var keysManager: KeysManager
     var keysInterface: KeysInterface
     
-    var blockchainObserver: RegtestBlockchainObserver!
+    var blockchainObserver: RegtestBlockchainObserverOld!
     
     // reliant on async response from blockchain observer
     var channelManagerConstructor: ChannelManagerConstructor!
@@ -53,7 +53,7 @@ class PolarConnectionExperiment: ObservableObject {
         
         self.keysInterface = self.keysManager.as_KeysInterface()
         
-        self.blockchainObserver = RegtestBlockchainObserver(listeners: [], chainTip: nil) {
+        self.blockchainObserver = RegtestBlockchainObserverOld(listeners: [], chainTip: nil) {
             // sync complete
             let config = UserConfig()
             let lightningNetwork = LDKNetwork_Regtest

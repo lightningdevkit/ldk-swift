@@ -156,7 +156,7 @@ class Block {
     }
 }
 
-class RegtestBlockchainObserver {
+class RegtestBlockchainObserverOld {
 
     private var earliestBlockHeight: UInt? = nil
     private var latestBlockHeight: UInt = 0

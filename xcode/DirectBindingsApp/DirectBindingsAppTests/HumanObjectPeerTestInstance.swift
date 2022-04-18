@@ -205,11 +205,11 @@ public class HumanObjectPeerTestInstance {
             }
             
             func handle_event(event: Event) {
-                let eventClone = event.clone()
-                print("peer \(self.master.seed) received event: \(eventClone.getValueType())")
+                // let eventClone = event.clone()
+                print("peer \(self.master.seed) received event: \(event.getValueType())")
                 Task {
                     // clone to avoid deallocation-related issues
-                    await master.pendingEventTracker.addEvent(event: eventClone)
+                    await master.pendingEventTracker.addEvent(event: event)
                 }
             }
             

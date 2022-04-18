@@ -24,6 +24,10 @@ class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
         return Result_NoneErrorZ.ok()
     }
     
+    override func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
+        return Result_NoneErrorZ.ok()
+    }
+    
     deinit {
         print("deiniting TestChannelmanagerPersister")
     }

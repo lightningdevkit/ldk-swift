@@ -206,13 +206,20 @@ class BlockchainObserver {
 
 		while addedBlocks.isEmpty || addedBlocks.first!.previousblockhash != self.connectedBlocks.last!.hash {
 			// we must keep popping until it matches
-			let trimmedLocalTip = try await self.disconnectBlock()
-			if trimmedLocalTip.height <= currentChaintipHeight {
-				// if the trimmed block is simply gone, we cannot retrieve the current block hash hex
-				let reorgedBlockHash = try await self.getBlockHashHex(height: trimmedLocalTip.height)
-				let reorgedBlock = try await self.getBlock(hash: reorgedBlockHash)
-				addedBlocks.insert(reorgedBlock, at: 0)
+			let trimmingCandidate = self.connectedBlocks.last!
+			if trimmingCandidate.height > currentChaintipHeight {
+				// we can disconnect this block without prejudice
+				try await self.disconnectBlock()
+				continue
 			}
+			let reorgedBlockHash = try await self.getBlockHashHex(height: trimmingCandidate.height)
+			if reorgedBlockHash == trimmingCandidate.hash {
+				// this block matches the one we already have
+				break
+			}
+			let reorgedBlock = try await self.getBlock(hash: reorgedBlockHash)
+			try await self.disconnectBlock()
+			addedBlocks.insert(reorgedBlock, at: 0)
 		}
 
 		for addedBlock in addedBlocks {
@@ -228,6 +235,8 @@ class BlockchainObserver {
 		}
 
 		let poppedBlock = self.connectedBlocks.popLast()!
+
+		print("disconnecting block \(poppedBlock.height) with hex: \(poppedBlock.hash)")
 
 		if self.chainListeners.count > 0 {
 			let blockHeader = try await self.getBlockHeader(hash: poppedBlock.hash)
@@ -253,7 +262,7 @@ class BlockchainObserver {
 			}
 		}
 
-		// print("connecting block \(block.height) with hex: \(block.hash)")
+		print("connecting block    \(block.height) with hex: \(block.hash)")
 
 		if self.chainListeners.count > 0 {
 			let binary = try await self.getBlockBinary(hash: block.hash)

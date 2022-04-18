@@ -139,12 +139,13 @@ public class BitcoinTests: XCTestCase {
 				if self.initializationComplete {
 					self.newBlocksDetected += 1
 				}
-				print("block connected at height \(height): \(block)")
+				let blockHash = BTCHashing.bytesToHexString(bytes: BTCHashing.doubleSha256(block))
+				// print("block connected at height \(height): \(blockHash)")
 			}
 
 			func blockDisconnected(header: [UInt8]?, height: UInt32) {
 				self.blocksLost += 1
-				print("block disconnected from height \(height): \(header)")
+				// print("block disconnected from height \(height): \(header)")
 			}
 		}
 
@@ -152,7 +153,7 @@ public class BitcoinTests: XCTestCase {
 		rpcInterface.registerListener(listener)
 
 		try await rpcInterface.preloadMonitor();
-		async let monitor = try rpcInterface.monitorBlockchain()
+		// async let monitor = try rpcInterface.monitorBlockchain()
 		listener.initializationComplete = true
 
 		let testAddress = try await rpcInterface.generateAddress()
@@ -163,7 +164,8 @@ public class BitcoinTests: XCTestCase {
 		try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: outputAddress)
 
 		// sleep for six seconds
-		try await Task.sleep(nanoseconds: 6_000_000_000)
+		// try await Task.sleep(nanoseconds: 6_000_000_000)
+		try await rpcInterface.reconcileChaintips()
 		XCTAssertEqual(listener.newBlocksDetected, 2)
 		XCTAssertEqual(listener.blocksLost, 0)
 
@@ -182,12 +184,23 @@ public class BitcoinTests: XCTestCase {
 		do {
 			let testAddress = try await rpcInterface.generateAddress()
 			let chaintipHash = try await rpcInterface.getChaintipHashHex()
+			print("chaintip: \(chaintipHash)")
 			try await rpcInterface.unmineBlock(hash: chaintipHash)
 			try await rpcInterface.mineBlocks(number: 2, coinbaseDestinationAddress: testAddress)
 
 			try await rpcInterface.reconcileChaintips()
 			XCTAssertEqual(listener.newBlocksDetected, 5)
 			XCTAssertEqual(listener.blocksLost, 3)
+		}
+
+		do {
+			let chaintipHash = try await rpcInterface.getChaintipHashHex()
+			print("chaintip: \(chaintipHash)")
+			try await rpcInterface.unmineBlock(hash: chaintipHash)
+
+			try await rpcInterface.reconcileChaintips()
+			XCTAssertEqual(listener.newBlocksDetected, 5)
+			XCTAssertEqual(listener.blocksLost, 4)
 		}
 	}
 

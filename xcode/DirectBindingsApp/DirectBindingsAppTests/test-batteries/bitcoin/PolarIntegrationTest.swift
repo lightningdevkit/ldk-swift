@@ -12,6 +12,7 @@ public class PolarIntegrationTest: XCTestCase {
 
 	// EDIT ME
 	static let POLAR_LND_PEER_PUBKEY_HEX = "02e62868ab834e7c062a929ca2f22ee8707827a5821e3a8eec343f106cbee24e7c"
+	static let POLAR_LND_PEER_INVOICE = "lnbcrt200u1p39ea7ppp52w26dtzvj48272l5g974zdg85uqpyrp07clzdge09wzdvn2erxrqdqqcqzpgxqyz5vqsp5kgurpluuqr5ydzn2fsyqa364u5yzcm2d8qegkk0x0tj0mu9e37gs9qyyssqj9vj7ca9jj6qtu4s93qyd8tanlhv5jlws64qxagrjlpys4nk3m99hmcr73p052z6jyxym49adg5v72wegn6hpce22rrr24eha9rh5aqp5gyhkw"
 
 	func testPolarFlow() async throws {
 		let rpcInterface = try RegtestBlockchainManager(rpcProtocol: .http, rpcDomain: "localhost", rpcPort: 18443, rpcUsername: "polaruser", rpcPassword: "polarpass")
@@ -39,6 +40,11 @@ public class PolarIntegrationTest: XCTestCase {
 		let reversedChaintipHash = [UInt8](chaintipHash.reversed())
 		let chaintipHeight = try await rpcInterface.getChaintipHeight()
 		let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
+
+		let scoringParams = ProbabilisticScoringParameters()
+		let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph)
+		let score = probabalisticScorer.as_Score()
+		let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
 		print("Genesis hash: \(PolarIntegrationTest.bytesToHexString(bytes: genesisHash))")
 		print("Genesis hash reversed: \(PolarIntegrationTest.bytesToHexString(bytes: reversedGenesisHash))")
@@ -83,7 +89,7 @@ public class PolarIntegrationTest: XCTestCase {
 		let listener = Listener(channelManager: channelManager, chainMonitor: chainMonitor)
 		rpcInterface.registerListener(listener);
 		async let monitor = try rpcInterface.monitorBlockchain()
-		channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: nil)
+		channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
 
 		let lndPubkey = PolarIntegrationTest.hexStringToBytes(hexString: PolarIntegrationTest.POLAR_LND_PEER_PUBKEY_HEX)!
 		let connectionSuccess = tcpPeerHandler.connect(address: "127.0.0.1", port: 9735, theirNodeId: lndPubkey)
@@ -144,6 +150,27 @@ public class PolarIntegrationTest: XCTestCase {
 			try! await Task.sleep(nanoseconds: 0_100_000_000)
 		}
 		XCTAssertGreaterThanOrEqual(usableChannels.count, 1)
+
+		let invoicePayer = channelManagerConstructor.payer!
+		let invoiceResult = Invoice.from_str(s: PolarIntegrationTest.POLAR_LND_PEER_INVOICE)
+		XCTAssertTrue(invoiceResult.isOk())
+
+		let invoice = invoiceResult.getValue()!
+		let invoicePaymentResult = invoicePayer.pay_invoice(invoice: invoice)
+		XCTAssertTrue(invoicePaymentResult.isOk())
+
+		do {
+			// process payment
+			let events = await channelManagerAndNetworkGraphPersisterAndEventHandler.getManagerEvents(expectedCount: 2)
+			let paymentSentEvent = events[0]
+			let paymentPathSuccessfulEvent = events[1]
+			XCTAssertEqual(paymentSentEvent.getValueType(), .PaymentSent)
+			XCTAssertEqual(paymentPathSuccessfulEvent.getValueType(), .PaymentPathSuccessful)
+			let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
+			let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
+			print("sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
+		}
+
 	}
 
 	private func ascertainSpareMoney(rpcInterface: RegtestBlockchainManager) async throws {

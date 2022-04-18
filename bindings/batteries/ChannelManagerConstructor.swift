@@ -31,11 +31,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     let logger: Logger
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: EventHandler?
-    fileprivate var net_graph: NetworkGraph?
+    public private(set) var net_graph: NetworkGraph?
     fileprivate var graph_msg_handler: NetGraphMsgHandler?
     fileprivate var scorer: MultiThreadedLockableScore?
     fileprivate let keysInterface: KeysInterface!
-    public var payer: InvoicePayer?
+    public private(set) var payer: InvoicePayer?
     public let peerManager: PeerManager
 
 
@@ -287,7 +287,7 @@ fileprivate class CustomEventHandler: EventHandler {
     }
 
     override func handle_event(event: Event) {
-        self.handler.handle_event(event: event)
+        self.handler.handle_event(event: event.clone())
     }
 
 }

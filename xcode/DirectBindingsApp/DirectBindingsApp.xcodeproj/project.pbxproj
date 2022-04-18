@@ -730,6 +730,7 @@
 		07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
 		07C753F326D9560200081BF8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 07C753F226D9560200081BF8 /* PromiseKit */; };
 		2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
+		2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */; };
 		2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -1136,6 +1137,7 @@
 		07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBroadcasterInterface.swift; sourceTree = "<group>"; };
 		07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanObjectPeerTestInstance.swift; sourceTree = "<group>"; };
 		07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionExperiment.swift; sourceTree = "<group>"; };
+		2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarIntegrationTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1174,6 +1176,7 @@
 				076D1D2227F3828E00970AFC /* BTCVarInt.swift */,
 				076D1D2527F38FDD00970AFC /* BitcoinTests.swift */,
 				076D1D2727F397E600970AFC /* BTCHashing.swift */,
+				2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */,
 			);
 			path = bitcoin;
 			sourceTree = "<group>";
@@ -2559,6 +2562,7 @@
 				076D237227FC219100970AFC /* Result_NoneAPIErrorZ.swift in Sources */,
 				2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */,
 				2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */,
+				2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

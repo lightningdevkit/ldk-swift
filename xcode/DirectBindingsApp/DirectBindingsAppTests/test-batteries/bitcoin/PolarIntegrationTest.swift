@@ -34,9 +34,9 @@ public class PolarIntegrationTest: XCTestCase {
 
 		let config = UserConfig()
 		let lightningNetwork = LDKNetwork_Regtest
-        let genesisHash = try await rpcInterface.getBlockHash(height: 0)
+		let genesisHash = try await rpcInterface.getBlockHash(height: 0)
 		let reversedGenesisHash = [UInt8](genesisHash.reversed())
-        let chaintipHash = try await rpcInterface.getChaintipHash()
+		let chaintipHash = try await rpcInterface.getChaintipHash()
 		let reversedChaintipHash = [UInt8](chaintipHash.reversed())
 		let chaintipHeight = try await rpcInterface.getChaintipHeight()
 		let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
@@ -104,6 +104,22 @@ public class PolarIntegrationTest: XCTestCase {
 		let reserveAmount: UInt64 = 1000 // a thousand satoshis rserve
 		let channelOpenResult = channelManager.create_channel(their_network_key: lndPubkey, channel_value_satoshis: channelValue, push_msat: reserveAmount, user_channel_id: 42, override_config: config)
 		XCTAssertTrue(channelOpenResult.isOk())
+
+		if let channelOpenError = channelOpenResult.getError() {
+			print("error type: \(channelOpenError.getValueType())")
+			if let error = channelOpenError.getValueAsAPIMisuseError() {
+				print("API misuse error: \(error.getErr())")
+			} else if let error = channelOpenError.getValueAsChannelUnavailable() {
+				print("channel unavailable error: \(error.getErr())")
+			} else if let error = channelOpenError.getValueAsFeeRateTooHigh() {
+				print("excessive fee rate error: \(error.getErr())")
+			} else if let error = channelOpenError.getValueAsIncompatibleShutdownScript() {
+				print("incompatible shutdown script: \(error.getScript())")
+			} else if let error = channelOpenError.getValueAsRouteError() {
+				print("route error: \(error.getErr())")
+			}
+			return
+		}
 
 		let managerEvents = await channelManagerAndNetworkGraphPersisterAndEventHandler.getManagerEvents(expectedCount: 1)
 		XCTAssertEqual(managerEvents.count, 1)
@@ -280,9 +296,8 @@ public class PolarIntegrationTest: XCTestCase {
 			}
 
 			func handle_event(event: Event) {
-				let clonedEvent = event.dangle().clone()
 				Task {
-					await self.eventTracker.addEvent(event: clonedEvent)
+					await self.eventTracker.addEvent(event: event)
 				}
 			}
 
@@ -299,7 +314,7 @@ public class PolarIntegrationTest: XCTestCase {
 				private(set) var pendingEvents: [Event] = []
 				private(set) var continuations: [CheckedContinuation<Void, Never>] = []
 
-				private func triggerContinuations(){
+				private func triggerContinuations() {
 					let continuations = self.continuations
 					self.continuations.removeAll()
 					for currentContinuation in continuations {
@@ -325,7 +340,7 @@ public class PolarIntegrationTest: XCTestCase {
 					return self.pendingEvents
 				}
 
-				func getAndClearEvents() -> [Event]{
+				func getAndClearEvents() -> [Event] {
 					let events = self.pendingEvents
 					self.pendingEvents.removeAll()
 					return events
@@ -353,7 +368,9 @@ public class PolarIntegrationTest: XCTestCase {
 	private class func hexStringToBytes(hexString: String) -> [UInt8]? {
 		let hexStr = hexString.dropFirst(hexString.hasPrefix("0x") ? 2 : 0)
 
-		guard hexStr.count % 2 == 0 else { return nil }
+		guard hexStr.count % 2 == 0 else {
+			return nil
+		}
 
 		var newData = [UInt8]()
 
@@ -361,7 +378,9 @@ public class PolarIntegrationTest: XCTestCase {
 		for i in hexStr.indices {
 			if indexIsEven {
 				let byteRange = i...hexStr.index(after: i)
-				guard let byte = UInt8(hexStr[byteRange], radix: 16) else { return nil }
+				guard let byte = UInt8(hexStr[byteRange], radix: 16) else {
+					return nil
+				}
 				newData.append(byte)
 			}
 			indexIsEven.toggle()

@@ -123,7 +123,7 @@ public class BitcoinTests: XCTestCase {
 		// let address = try await rpcInterface.generateAddress()
 		// let details = try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: address)
 		let helpDetails = try await rpcInterface.getHelp()
-		print(helpDetails)
+		// print(helpDetails)
 
 		let exampleFundingTx: [UInt8] = [1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 255, 255, 255, 255, 1, 160, 134, 1, 0, 0, 0, 0, 0, 34, 0, 32, 15, 45, 153, 123, 98, 37, 242, 142, 113, 51, 126, 45, 206, 175, 66, 247, 173, 2, 141, 2, 27, 84, 38, 188, 34, 74, 82, 164, 28, 229, 39, 139, 1, 1, 1, 0, 0, 0, 0]
 
@@ -132,16 +132,18 @@ public class BitcoinTests: XCTestCase {
 
 		class Listener: BlockchainListener {
 			var initializationComplete = false
-			var newBlockDetected = false
+			var newBlocksDetected = 0
+			var blocksLost = 0
 
 			func blockConnected(block: [UInt8], height: UInt32) {
 				if self.initializationComplete {
-					self.newBlockDetected = true
+					self.newBlocksDetected += 1
 				}
 				print("block connected at height \(height): \(block)")
 			}
 
 			func blockDisconnected(header: [UInt8]?, height: UInt32) {
+				self.blocksLost += 1
 				print("block disconnected from height \(height): \(header)")
 			}
 		}
@@ -157,10 +159,36 @@ public class BitcoinTests: XCTestCase {
 		let exampleOutputScript: [UInt8] = [0, 32, 200, 194, 75, 55, 227, 33, 251, 71, 196, 33, 177, 196, 155, 145, 17, 78, 244, 226, 155, 141, 216, 230, 180, 183, 149, 172, 116, 249, 56, 6, 118, 255]
 		let scriptInfo = try await rpcInterface.decodeScript(script: exampleOutputScript)
 		let outputAddress = (scriptInfo["addresses"] as! [String]).first!
+		try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: testAddress)
 		try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: outputAddress)
+
 		// sleep for six seconds
 		try await Task.sleep(nanoseconds: 6_000_000_000)
-		XCTAssertEqual(listener.newBlockDetected, true)
+		XCTAssertEqual(listener.newBlocksDetected, 2)
+		XCTAssertEqual(listener.blocksLost, 0)
+
+		do {
+			let testAddress = try await rpcInterface.generateAddress()
+			let chaintip = try await rpcInterface.getChaintipHeight()
+			let penultimateBlockHash = try await rpcInterface.getBlockHashHex(height: chaintip - 1)
+			try await rpcInterface.unmineBlock(hash: penultimateBlockHash)
+			try await rpcInterface.mineBlocks(number: 1, coinbaseDestinationAddress: testAddress)
+
+			try await rpcInterface.reconcileChaintips()
+			XCTAssertEqual(listener.newBlocksDetected, 3)
+			XCTAssertEqual(listener.blocksLost, 2)
+		}
+
+		do {
+			let testAddress = try await rpcInterface.generateAddress()
+			let chaintipHash = try await rpcInterface.getChaintipHashHex()
+			try await rpcInterface.unmineBlock(hash: chaintipHash)
+			try await rpcInterface.mineBlocks(number: 2, coinbaseDestinationAddress: testAddress)
+
+			try await rpcInterface.reconcileChaintips()
+			XCTAssertEqual(listener.newBlocksDetected, 5)
+			XCTAssertEqual(listener.blocksLost, 3)
+		}
 	}
 
 }

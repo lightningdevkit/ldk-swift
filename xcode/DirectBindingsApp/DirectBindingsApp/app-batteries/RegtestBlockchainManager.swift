@@ -29,4 +29,14 @@ class RegtestBlockchainManager: BlockchainObserver {
         return result
     }
 
+    /**
+     Invalidate or un-mine a block
+     - Parameter hash: The block hash hex to invalidate
+     - Returns:
+     - Throws:
+     */
+    public func unmineBlock(hash: String) async throws {
+        let response = try await self.callRpcMethod(method: "invalidateblock", params: [hash])
+    }
+
 }

@@ -195,18 +195,24 @@ class BlockchainObserver {
 
 		// create an array of the new blocks
 		var addedBlocks = [RPCBlockDetails]()
-		for addedBlockHeight in (knownChaintip.height + 1)...currentChaintipHeight {
-			let addedBlockHash = try await self.getBlockHashHex(height: addedBlockHeight)
-			let addedBlock = try await self.getBlock(hash: addedBlockHash)
-			addedBlocks.append(addedBlock)
+		if knownChaintip.height < currentChaintipHeight {
+			// without this precondition, the range won't even work to begin with
+			for addedBlockHeight in (knownChaintip.height + 1)...currentChaintipHeight {
+				let addedBlockHash = try await self.getBlockHashHex(height: addedBlockHeight)
+				let addedBlock = try await self.getBlock(hash: addedBlockHash)
+				addedBlocks.append(addedBlock)
+			}
 		}
 
 		while addedBlocks.isEmpty || addedBlocks.first!.previousblockhash != self.connectedBlocks.last!.hash {
 			// we must keep popping until it matches
 			let trimmedLocalTip = try await self.disconnectBlock()
-			let reorgedBlockHash = try await self.getBlockHashHex(height: trimmedLocalTip.height)
-			let reorgedBlock = try await self.getBlock(hash: reorgedBlockHash)
-			addedBlocks.insert(reorgedBlock, at: 0)
+			if trimmedLocalTip.height <= currentChaintipHeight {
+				// if the trimmed block is simply gone, we cannot retrieve the current block hash hex
+				let reorgedBlockHash = try await self.getBlockHashHex(height: trimmedLocalTip.height)
+				let reorgedBlock = try await self.getBlock(hash: reorgedBlockHash)
+				addedBlocks.insert(reorgedBlock, at: 0)
+			}
 		}
 
 		for addedBlock in addedBlocks {
@@ -247,7 +253,7 @@ class BlockchainObserver {
 			}
 		}
 
-		print("connecting block \(block.height) with hex: \(block.hash)")
+		// print("connecting block \(block.height) with hex: \(block.hash)")
 
 		if self.chainListeners.count > 0 {
 			let binary = try await self.getBlockBinary(hash: block.hash)

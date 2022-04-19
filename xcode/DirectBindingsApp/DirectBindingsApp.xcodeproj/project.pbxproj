@@ -729,6 +729,7 @@
 		07BBCE7726D03B49000D96C4 /* TestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */; };
 		07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
 		07C753F326D9560200081BF8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 07C753F226D9560200081BF8 /* PromiseKit */; };
+		28F5174A280E7903009A7D10 /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F51749280E7903009A7D10 /* CombineUtils.swift */; };
 		2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
 		2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */; };
 		2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */; };
@@ -1137,6 +1138,7 @@
 		07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestBroadcasterInterface.swift; sourceTree = "<group>"; };
 		07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanObjectPeerTestInstance.swift; sourceTree = "<group>"; };
 		07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionExperiment.swift; sourceTree = "<group>"; };
+		28F51749280E7903009A7D10 /* CombineUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtils.swift; sourceTree = "<group>"; };
 		2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarIntegrationTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1666,6 +1668,7 @@
 				0780F9C6272865260095FD6A /* LNSyncHandler.swift */,
 				076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */,
 				076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */,
+				28F51749280E7903009A7D10 /* CombineUtils.swift */,
 			);
 			path = "app-batteries";
 			sourceTree = "<group>";
@@ -1880,6 +1883,7 @@
 				076D24A927FC219200970AFC /* RouteParameters.swift in Sources */,
 				076D230927FC219000970AFC /* C2Tuple_usizeTransactionZ.swift in Sources */,
 				076D238527FC219100970AFC /* Result_FundingSignedDecodeErrorZ.swift in Sources */,
+				28F5174A280E7903009A7D10 /* CombineUtils.swift in Sources */,
 				076D235327FC219100970AFC /* Result_PaymentPreimageAPIErrorZ.swift in Sources */,
 				076D22FB27FC219000970AFC /* C2Tuple_PaymentHashPaymentSecretZ.swift in Sources */,
 				076D232727FC219100970AFC /* Result_UpdateFulfillHTLCDecodeErrorZ.swift in Sources */,

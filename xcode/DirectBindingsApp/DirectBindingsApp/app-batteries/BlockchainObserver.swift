@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Combine
 
 @available(iOS 15.0, *)
 class BlockchainObserver {
@@ -478,6 +478,18 @@ class BlockchainObserver {
 		return result
 	}
 
+    public func isMonitoring() async throws -> Bool {
+        await monitoringTracker.isTracking
+    }
+    
+    public var blockchainMonitorPublisher: AnyPublisher<Void, Error> {
+        Timer.publish(every: 5.0, on: RunLoop.main, in: .default)
+            .autoconnect()
+            .asyncMap { [unowned self] _ in
+                try await self.reconcileChaintips()
+            }
+            .eraseToAnyPublisher()
+    }
 }
 
 public protocol BlockchainListener {

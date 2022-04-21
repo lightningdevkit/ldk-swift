@@ -37,7 +37,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     fileprivate let keysInterface: KeysInterface!
     public private(set) var payer: InvoicePayer?
     public let peerManager: PeerManager
-
+    private var tcpPeerHandler: TCPPeerHandler?
 
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
@@ -230,9 +230,14 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
     }
 
-    public func interrupt(tcpPeerHandler: TCPPeerHandler? = nil) {
+    public func interrupt() {
+        if self.shutdown {
+            Bindings.print("ChannelManagerConstructor previously interrupted, nothing to do.")
+            return
+        }
+
         self.shutdown = true
-        if let tcpHandler = tcpPeerHandler {
+        if let tcpHandler = self.tcpPeerHandler {
             print("stopping TCP peer handler")
             tcpHandler.interrupt()
             print("stopped TCP peer handler")
@@ -252,8 +257,18 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         print("unset background processor")
     }
 
+    public func getTCPPeerHandler() -> TCPPeerHandler {
+        if let handler = self.tcpPeerHandler {
+            return handler
+        }
+        let handler = TCPPeerHandler(peerManager: self.peerManager)
+        self.tcpPeerHandler = handler
+        return handler
+    }
+
     deinit {
-        print("deiniting ChannelManagerConstructor")
+        Bindings.print("Freeing and interrupting ChannelManagerConstructor")
+        self.interrupt()
     }
 
 
@@ -294,4 +309,111 @@ fileprivate class CustomEventHandler: EventHandler {
 
 public protocol ExtendedChannelManagerPersister: Persister {
     func handle_event(event: Event) -> Void;
+}
+
+public class TCPPeerHandler {
+
+    private let peerManager: PeerManager
+    private let socketHandler: UnsafeMutableRawPointer?
+    private var isBound = false
+    private var isInterrupted = false
+
+    fileprivate init(peerManager: PeerManager) {
+        self.peerManager = peerManager
+
+        /*
+        let socketHandler = withUnsafePointer(to: self.peerManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPeerManager>) -> UnsafeMutableRawPointer? in
+            let socketHandler = init_socket_handling(pointer)
+            return socketHandler
+        }
+        self.socketHandler = socketHandler
+		*/
+
+
+        // self.socketHandler = UnsafeMutableRawPointer(bitPattern: 0)
+
+
+
+        let peerManagerPointer: UnsafeRawPointer = UnsafeRawPointer(&self.peerManager.cOpaqueStruct)
+        Bindings.print("TCPPeerHandler peer manager pointer address: \(peerManagerPointer)")
+        let memoryReboundPeerManagerPointer: UnsafePointer<LDKPeerManager> = peerManagerPointer.assumingMemoryBound(to: LDKPeerManager.self)
+        Bindings.print("TCPPeerHandler peer manager rebound memory address: \(memoryReboundPeerManagerPointer)")
+        self.socketHandler = init_socket_handling(memoryReboundPeerManagerPointer)
+        print("TCPPeerHandler self address: \(Unmanaged<TCPPeerHandler>.passUnretained(self).toOpaque())")
+    }
+
+    public func bind(address: String, port: UInt16) -> Bool {
+        if(self.isBound){
+            // already bound
+            return false
+        }
+        self.isBound = true
+        var addressObject = sockaddr_in()
+        addressObject.sin_family = sa_family_t(AF_INET)
+        addressObject.sin_port = port.bigEndian
+
+        addressObject.sin_addr.s_addr = inet_addr(address)
+
+        let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
+
+        let result = withUnsafePointer(to: &addressObject, { addressPointer in
+
+            addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
+                let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
+                let result = socket_bind(self.socketHandler, addressMutablePointer, socklen_t(sin_length))
+                return result
+            }
+        })
+        if result != 0 {
+            // something failed
+            self.isBound = false
+            return false
+        }
+        return true
+
+    }
+
+    public func connect(address: String, port: UInt16, theirNodeId: [UInt8]) -> Bool {
+
+        var addressObject = sockaddr_in()
+        addressObject.sin_family = sa_family_t(AF_INET)
+        addressObject.sin_port = port.bigEndian
+
+        addressObject.sin_addr.s_addr = inet_addr(address)
+
+        let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
+        let publicKey = Bindings.new_LDKPublicKey(array: theirNodeId)
+
+        let result = withUnsafePointer(to: &addressObject, { addressPointer in
+
+            addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
+                let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
+                let result = socket_connect(self.socketHandler, publicKey, addressMutablePointer, Int(socklen_t(sin_length)))
+                return result
+            }
+        })
+
+        if result != 0 {
+            // something failed
+            return false
+        }
+        return true
+
+    }
+
+    fileprivate func interrupt() {
+        if self.isInterrupted {
+            Bindings.print("TCPPeerHandler previously interrupted, nothing to do.")
+            return
+        }
+        self.isInterrupted = true
+        interrupt_socket_handling(self.socketHandler)
+        Bindings.print("TCPPeerHandler successfully interrupted.")
+    }
+
+    deinit {
+        Bindings.print("Freeing and interrupting TCPPeerHandler.")
+        self.interrupt()
+    }
+
 }

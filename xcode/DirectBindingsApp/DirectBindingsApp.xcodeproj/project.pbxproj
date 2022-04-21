@@ -705,8 +705,6 @@
 		07BBCB1926D034B7000D96C4 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BBCB1826D034B1000D96C4 /* libldk.a */; };
 		07BBCB1B26D03578000D96C4 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCAFD26D029AB000D96C4 /* ldk_net.c */; };
 		07BBCB1F26D03579000D96C4 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCAFD26D029AB000D96C4 /* ldk_net.c */; };
-		07BBCB3726D036AC000D96C4 /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB3426D036AC000D96C4 /* TCPPeerHandler.swift */; };
-		07BBCB3826D036AC000D96C4 /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB3426D036AC000D96C4 /* TCPPeerHandler.swift */; };
 		07BBCB3926D036AC000D96C4 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB3526D036AC000D96C4 /* ChannelManagerConstructor.swift */; };
 		07BBCB3A26D036AC000D96C4 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB3526D036AC000D96C4 /* ChannelManagerConstructor.swift */; };
 		07BBCB3B26D036AC000D96C4 /* UtilMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB3626D036AC000D96C4 /* UtilMethods.swift */; };
@@ -730,6 +728,7 @@
 		07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
 		07C753F326D9560200081BF8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 07C753F226D9560200081BF8 /* PromiseKit */; };
 		28F5174A280E7903009A7D10 /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F51749280E7903009A7D10 /* CombineUtils.swift */; };
+		2DD1139D4337E24B8A37948F /* PolarIntegrationSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1159E9DE3166EE7B79886 /* PolarIntegrationSample.swift */; };
 		2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
 		2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */; };
 		2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */; };
@@ -1125,7 +1124,6 @@
 		07BBCB2726D0369F000D96C4 /* SwiftSocketPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSocketPeerHandler.swift; sourceTree = "<group>"; };
 		07BBCB2826D0369F000D96C4 /* RegtestBlockchainObserverOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegtestBlockchainObserverOld.swift; sourceTree = "<group>"; };
 		07BBCB2926D0369F000D96C4 /* SwiftSocketEchoHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSocketEchoHandler.swift; sourceTree = "<group>"; };
-		07BBCB3426D036AC000D96C4 /* TCPPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPPeerHandler.swift; sourceTree = "<group>"; };
 		07BBCB3526D036AC000D96C4 /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
 		07BBCB3626D036AC000D96C4 /* UtilMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilMethods.swift; sourceTree = "<group>"; };
 		07BBCE6026D03B49000D96C4 /* TestPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestPersister.swift; sourceTree = "<group>"; };
@@ -1139,6 +1137,7 @@
 		07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HumanObjectPeerTestInstance.swift; sourceTree = "<group>"; };
 		07C753E826D954B100081BF8 /* PolarConnectionExperiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolarConnectionExperiment.swift; sourceTree = "<group>"; };
 		28F51749280E7903009A7D10 /* CombineUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtils.swift; sourceTree = "<group>"; };
+		2DD1159E9DE3166EE7B79886 /* PolarIntegrationSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarIntegrationSample.swift; sourceTree = "<group>"; };
 		2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarIntegrationTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1669,6 +1668,7 @@
 				076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */,
 				076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */,
 				28F51749280E7903009A7D10 /* CombineUtils.swift */,
+				2DD1159E9DE3166EE7B79886 /* PolarIntegrationSample.swift */,
 			);
 			path = "app-batteries";
 			sourceTree = "<group>";
@@ -1676,7 +1676,6 @@
 		07BBCB3326D036AC000D96C4 /* batteries */ = {
 			isa = PBXGroup;
 			children = (
-				07BBCB3426D036AC000D96C4 /* TCPPeerHandler.swift */,
 				07BBCB3526D036AC000D96C4 /* ChannelManagerConstructor.swift */,
 				07BBCB3626D036AC000D96C4 /* UtilMethods.swift */,
 				075E22A126FEF8540000A76B /* NetGraphMsgHandlerConstructor.swift */,
@@ -2004,7 +2003,6 @@
 				076D24E127FC219200970AFC /* Record.swift in Sources */,
 				076D241927FC219100970AFC /* Result_InMemorySignerDecodeErrorZ.swift in Sources */,
 				076D22D927FC219000970AFC /* Listen.swift in Sources */,
-				07BBCB3726D036AC000D96C4 /* TCPPeerHandler.swift in Sources */,
 				076D238B27FC219100970AFC /* Result_NetworkGraphDecodeErrorZ.swift in Sources */,
 				076D22BD27FC219000970AFC /* Persist.swift in Sources */,
 				076D24DB27FC219200970AFC /* RouteHop.swift in Sources */,
@@ -2200,6 +2198,7 @@
 				076D230B27FC219000970AFC /* C2Tuple_PaymentHashPaymentIdZ.swift in Sources */,
 				076D24C727FC219200970AFC /* ChannelDetails.swift in Sources */,
 				076D237127FC219100970AFC /* Result_NoneAPIErrorZ.swift in Sources */,
+				2DD1139D4337E24B8A37948F /* PolarIntegrationSample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2282,7 +2281,6 @@
 				076D243C27FC219200970AFC /* HTLCOutputInCommitment.swift in Sources */,
 				076D247827FC219200970AFC /* UpdateFailHTLC.swift in Sources */,
 				076D245827FC219200970AFC /* UnsignedChannelUpdate.swift in Sources */,
-				07BBCB3826D036AC000D96C4 /* TCPPeerHandler.swift in Sources */,
 				076D22E627FC219000970AFC /* Access.swift in Sources */,
 				076D249827FC219200970AFC /* ChannelConfig.swift in Sources */,
 				076D250227FC219200970AFC /* Init.swift in Sources */,

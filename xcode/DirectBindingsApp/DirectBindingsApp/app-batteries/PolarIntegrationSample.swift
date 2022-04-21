@@ -2,20 +2,31 @@
 // Created by Arik Sosman on 4/17/22.
 //
 
-import XCTest
+import Foundation
+
 
 @available(iOS 15.0, *)
-public class PolarIntegrationTest: XCTestCase {
+public class PolarIntegrationSample {
+
+	enum TestFlowExceptions: Error {
+		case unexpectedChannelManagerEventType
+		case missingInvoicePayer
+		case invoiceParsingError(ParseOrSemanticError)
+		case hexParsingError
+		case invalidOutputScript
+		case outputScriptMissingAddresses
+		case paymentPathUnsuccessful
+	}
 
 	static let WALLET_NAME = "POLAR_LDK_INTEGRATION_TEST_WALLET"
 	static let BOGUS_OUTPUT_SCRIPT: [UInt8] = [0, 1, 0]
 
 	// EDIT ME
 	static let POLAR_LND_PEER_PUBKEY_HEX = "02e62868ab834e7c062a929ca2f22ee8707827a5821e3a8eec343f106cbee24e7c"
-	static let POLAR_LND_PEER_INVOICE = "lnbcrt200u1p39ea7ppp52w26dtzvj48272l5g974zdg85uqpyrp07clzdge09wzdvn2erxrqdqqcqzpgxqyz5vqsp5kgurpluuqr5ydzn2fsyqa364u5yzcm2d8qegkk0x0tj0mu9e37gs9qyyssqj9vj7ca9jj6qtu4s93qyd8tanlhv5jlws64qxagrjlpys4nk3m99hmcr73p052z6jyxym49adg5v72wegn6hpce22rrr24eha9rh5aqp5gyhkw"
+	static let POLAR_LND_PEER_INVOICE = "lnbcrt130u1p3xpylgpp5zj0gn583pxdhmhynpj5am4ucyjy5emv68jvuutry3j4pnpvkr0ysdqqcqzpgxqyz5vqsp5j9t3slasvjhd5j8g9hzrcgwje9qya3550tvg9re8lxymra5tpess9qyyssqntel03t02muzwjls6nqghqtrkjxjn0qs3ygn52he8rsuh5vvmv2xzqqyxj5a8jwae3uq0ypwl9sr806xf2lxl0h6f7cp2r7jwcfwpucqpd788r"
 
 	func testPolarFlow() async throws {
-		let rpcInterface = try RegtestBlockchainManager(rpcProtocol: .http, rpcDomain: "localhost", rpcPort: 18443, rpcUsername: "polaruser", rpcPassword: "polarpass")
+		let rpcInterface = try RegtestBlockchainManager(rpcProtocol: .https, rpcDomain: "arik.ngrok.io", rpcPort: 443, rpcUsername: "polaruser", rpcPassword: "polarpass")
 		// let help = try await rpcInterface.getHelp()
 		// print(help)
 
@@ -25,7 +36,6 @@ public class PolarIntegrationTest: XCTestCase {
 		// let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
 		var seed = [UInt8](repeating: 0, count: 32)
 		let status = SecRandomCopyBytes(kSecRandomDefault, seed.count, &seed)
-		XCTAssertEqual(status, errSecSuccess)
 
 		let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
 		let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
@@ -46,12 +56,12 @@ public class PolarIntegrationTest: XCTestCase {
 		let score = probabalisticScorer.as_Score()
 		let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
-		print("Genesis hash: \(PolarIntegrationTest.bytesToHexString(bytes: genesisHash))")
-		print("Genesis hash reversed: \(PolarIntegrationTest.bytesToHexString(bytes: reversedGenesisHash))")
+		print("Genesis hash: \(PolarIntegrationSample.bytesToHexString(bytes: genesisHash))")
+		print("Genesis hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedGenesisHash))")
 		print("Block 1 hash: \(try await rpcInterface.getBlockHashHex(height: 1))")
 		print("Block 2 hash: \(try await rpcInterface.getBlockHashHex(height: 2))")
-		print("Chaintip hash: \(PolarIntegrationTest.bytesToHexString(bytes: chaintipHash))")
-		print("Chaintip hash reversed: \(PolarIntegrationTest.bytesToHexString(bytes: reversedChaintipHash))")
+		print("Chaintip hash: \(PolarIntegrationSample.bytesToHexString(bytes: chaintipHash))")
+		print("Chaintip hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedChaintipHash))")
 
 		let feeEstimator = LDKTraitImplementations.PolarFeeEstimator()
 		let broadcaster = LDKTraitImplementations.PolarBroadcaster(rpcInterface: rpcInterface)
@@ -91,19 +101,19 @@ public class PolarIntegrationTest: XCTestCase {
 		async let monitor = try rpcInterface.monitorBlockchain()
 		channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
 
-		let lndPubkey = PolarIntegrationTest.hexStringToBytes(hexString: PolarIntegrationTest.POLAR_LND_PEER_PUBKEY_HEX)!
-		let connectionSuccess = tcpPeerHandler.connect(address: "127.0.0.1", port: 9735, theirNodeId: lndPubkey)
+		guard let lndPubkey = PolarIntegrationSample.hexStringToBytes(hexString: PolarIntegrationSample.POLAR_LND_PEER_PUBKEY_HEX) else {
+			throw TestFlowExceptions.hexParsingError
+		}
+		let connectionSuccess = tcpPeerHandler.connect(address: "172.20.2.30", port: 9735, theirNodeId: lndPubkey)
 
 		// sleep for one second
-		try! await Task.sleep(nanoseconds: 1_000_000_000)
+		try await Task.sleep(nanoseconds: 1_000_000_000)
 		let connectedPeers = peerManager.get_peer_node_ids()
-		XCTAssertGreaterThanOrEqual(connectedPeers.count, 1)
 
 		let channelValue: UInt64 = 1_300_000 // 1.3 million satoshis, or 0.013 BTC
 		let channelValueBtcString = "0.013"
 		let reserveAmount: UInt64 = 1000 // a thousand satoshis rserve
 		let channelOpenResult = channelManager.create_channel(their_network_key: lndPubkey, channel_value_satoshis: channelValue, push_msat: reserveAmount, user_channel_id: 42, override_config: config)
-		XCTAssertTrue(channelOpenResult.isOk())
 
 		if let channelOpenError = channelOpenResult.getError() {
 			print("error type: \(channelOpenError.getValueType())")
@@ -122,11 +132,10 @@ public class PolarIntegrationTest: XCTestCase {
 		}
 
 		let managerEvents = await channelManagerAndNetworkGraphPersisterAndEventHandler.getManagerEvents(expectedCount: 1)
-		XCTAssertEqual(managerEvents.count, 1)
+
 
 		let managerEvent = managerEvents[0]
 		print("value type: \(managerEvent.getValueType())")
-		XCTAssertEqual(managerEvent.getValueType(), .FundingGenerationReady)
 
 		if let channelClosedEvent = managerEvent.getValueAsChannelClosed() {
 			let reason = channelClosedEvent.getReason()
@@ -139,18 +148,19 @@ public class PolarIntegrationTest: XCTestCase {
 			}
 		}
 
-		let fundingReadyEvent = managerEvent.getValueAsFundingGenerationReady()!
-		XCTAssertEqual(fundingReadyEvent.getChannel_value_satoshis(), channelValue)
-		XCTAssertEqual(fundingReadyEvent.getUser_channel_id(), 42)
+		guard let fundingReadyEvent = managerEvent.getValueAsFundingGenerationReady() else {
+			throw TestFlowExceptions.unexpectedChannelManagerEventType
+		}
 		let fundingOutputScript = fundingReadyEvent.getOutput_script();
 		let temporaryChannelId = fundingReadyEvent.getTemporary_channel_id();
 
-		XCTAssertEqual(fundingOutputScript.count, 34)
-		XCTAssertEqual(fundingOutputScript[0], 0)
-		XCTAssertEqual(fundingOutputScript[1], 32)
-
 		let outputScriptDetails = try await rpcInterface.decodeScript(script: fundingOutputScript)
-		let outputAddress = (outputScriptDetails["addresses"] as! [String]).first!
+		guard let outputScriptAddresses = outputScriptDetails["addresses"] as? [String] else {
+			throw TestFlowExceptions.invalidOutputScript
+		}
+		guard let outputAddress = outputScriptAddresses.first else {
+			throw TestFlowExceptions.outputScriptMissingAddresses
+		}
 		let fundingTxid = try await rpcInterface.sendMoney(destinationAddress: outputAddress, amount: channelValueBtcString)
 		let fundingTransaction = try await rpcInterface.getTransaction(hash: fundingTxid)
 		channelManager.funding_transaction_generated(temporary_channel_id: temporaryChannelId, funding_transaction: fundingTransaction)
@@ -163,27 +173,36 @@ public class PolarIntegrationTest: XCTestCase {
 		while (usableChannels.isEmpty) {
 			usableChannels = channelManager.list_usable_channels()
 			// sleep for 100ms
-			try! await Task.sleep(nanoseconds: 0_100_000_000)
+			try await Task.sleep(nanoseconds: 0_100_000_000)
 		}
-		XCTAssertGreaterThanOrEqual(usableChannels.count, 1)
 
-		let invoicePayer = channelManagerConstructor.payer!
-		let invoiceResult = Invoice.from_str(s: PolarIntegrationTest.POLAR_LND_PEER_INVOICE)
-		XCTAssertTrue(invoiceResult.isOk())
+		guard let invoicePayer = channelManagerConstructor.payer else {
+			throw TestFlowExceptions.missingInvoicePayer
+		}
+		let invoiceResult = Invoice.from_str(s: PolarIntegrationSample.POLAR_LND_PEER_INVOICE)
 
-		let invoice = invoiceResult.getValue()!
+
+		guard let invoice = invoiceResult.getValue() else {
+			throw TestFlowExceptions.invoiceParsingError(invoiceResult.getError()!)
+		}
+
+        // let's not pay any invoices
+        // channelManagerConstructor.interrupt(tcpPeerHandler: tcpPeerHandler)
+        // return
+        
 		let invoicePaymentResult = invoicePayer.pay_invoice(invoice: invoice)
-		XCTAssertTrue(invoicePaymentResult.isOk())
 
 		do {
 			// process payment
 			let events = await channelManagerAndNetworkGraphPersisterAndEventHandler.getManagerEvents(expectedCount: 2)
 			let paymentSentEvent = events[0]
 			let paymentPathSuccessfulEvent = events[1]
-			XCTAssertEqual(paymentSentEvent.getValueType(), .PaymentSent)
-			XCTAssertEqual(paymentPathSuccessfulEvent.getValueType(), .PaymentPathSuccessful)
-			let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
-			let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
+			guard let paymentSent = paymentSentEvent.getValueAsPaymentSent() else {
+				throw TestFlowExceptions.unexpectedChannelManagerEventType
+			}
+			guard let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful() else {
+				throw TestFlowExceptions.paymentPathUnsuccessful
+			}
 			print("sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
 		}
 
@@ -195,22 +214,22 @@ public class PolarIntegrationTest: XCTestCase {
 			dictionary["name"] as! String
 		}
 
-		if !walletNames.contains(PolarIntegrationTest.WALLET_NAME) {
+		if !walletNames.contains(PolarIntegrationSample.WALLET_NAME) {
 			// if a wallet is already loaded, this will load it also
-			try await rpcInterface.createWallet(name: PolarIntegrationTest.WALLET_NAME)
+			try await rpcInterface.createWallet(name: PolarIntegrationSample.WALLET_NAME)
 		}
 
 		let loadedWallets = try await rpcInterface.listLoadedWallets()
-		let isPolarWalletLoaded = loadedWallets.contains(PolarIntegrationTest.WALLET_NAME)
+		let isPolarWalletLoaded = loadedWallets.contains(PolarIntegrationSample.WALLET_NAME)
 		for currentWalletName in loadedWallets {
-			if currentWalletName == PolarIntegrationTest.WALLET_NAME {
+			if currentWalletName == PolarIntegrationSample.WALLET_NAME {
 				continue
 			}
 			try await rpcInterface.unloadWallet(name: currentWalletName)
 		}
 
 		if !isPolarWalletLoaded {
-			try await rpcInterface.loadWallet(name: PolarIntegrationTest.WALLET_NAME)
+			try await rpcInterface.loadWallet(name: PolarIntegrationSample.WALLET_NAME)
 		}
 
 		try await rpcInterface.getWalletInfo()
@@ -231,7 +250,7 @@ public class PolarIntegrationTest: XCTestCase {
 	}
 
 	private func getBogusAddress(rpcInterface: RegtestBlockchainManager) async throws -> String {
-		let scriptDetails = try await rpcInterface.decodeScript(script: PolarIntegrationTest.BOGUS_OUTPUT_SCRIPT)
+		let scriptDetails = try await rpcInterface.decodeScript(script: PolarIntegrationSample.BOGUS_OUTPUT_SCRIPT)
 		let fakeAddress = ((scriptDetails["segwit"] as! [String: Any])["addresses"] as! [String]).first!
 		return fakeAddress
 	}

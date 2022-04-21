@@ -8,7 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var experiment = PolarConnectionExperiment()
+
+    @State private var isRunningTestFlow = false
+
+    var body: some View {
+
+        Button(action: {
+            self.isRunningTestFlow = true
+            if #available(iOS 15.0, *) {
+                let sample = PolarIntegrationSample()
+                Task {
+                    try? await sample.testPolarFlow()
+                    self.isRunningTestFlow = false
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+            
+        }, label: {
+            Text("Hello World")
+        }).disabled(self.isRunningTestFlow)
+
+
+    }
+
+    /*@StateObject private var experiment = PolarConnectionExperiment()
     var body: some View {
         if !self.experiment.isMonitoring {
             Button("Monitor Chain") {
@@ -45,7 +69,7 @@ struct ContentView: View {
                 }
             }
         }
-    }
+    }*/
 }
 
 struct ContentView_Previews: PreviewProvider {

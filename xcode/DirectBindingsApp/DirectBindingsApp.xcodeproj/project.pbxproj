@@ -729,6 +729,7 @@
 		07C753F326D9560200081BF8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 07C753F226D9560200081BF8 /* PromiseKit */; };
 		28F5174A280E7903009A7D10 /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F51749280E7903009A7D10 /* CombineUtils.swift */; };
 		2DD1139D4337E24B8A37948F /* PolarIntegrationSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1159E9DE3166EE7B79886 /* PolarIntegrationSample.swift */; };
+		2DD1182C341A00AE1DA7C9E4 /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F51749280E7903009A7D10 /* CombineUtils.swift */; };
 		2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
 		2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */; };
 		2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */; };
@@ -2565,6 +2566,7 @@
 				2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */,
 				2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */,
 				2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */,
+				2DD1182C341A00AE1DA7C9E4 /* CombineUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

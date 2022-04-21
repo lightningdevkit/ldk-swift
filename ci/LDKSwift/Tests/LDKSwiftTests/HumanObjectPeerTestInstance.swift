@@ -330,7 +330,7 @@ public class HumanObjectPeerTestInstance {
             if !self.master.use_nio_peer_handler {
                 return
             }
-            self.tcpSocketHandler = TCPPeerHandler(peerManager: self.peerManager)
+            self.tcpSocketHandler = self.constructor!.getTCPPeerHandler()
             for i in 1...10000 {
                 let port = UInt16(i)
                 let bound = self.tcpSocketHandler!.bind(address: "127.0.0.1", port: port)
@@ -707,8 +707,8 @@ public class HumanObjectPeerTestInstance {
             // sleep for 5 seconds to ensure sanity
             try! await Task.sleep(nanoseconds: 5_000_000_000)
 
-            peer1.constructor?.interrupt(tcpPeerHandler: peer1.tcpSocketHandler)
-            peer2.constructor?.interrupt(tcpPeerHandler: peer2.tcpSocketHandler)
+            peer1.constructor?.interrupt()
+			peer2.constructor?.interrupt()
         }
 
     }

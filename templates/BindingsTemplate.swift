@@ -376,13 +376,13 @@ public class Bindings {
         return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: chars_is_owned)
     }
 
-    public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrency, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
+    public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrencyType, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
 		let nativeKeysManager = keysManager.cOpaqueStruct!
 		let amount = Option_u64Z(value: amountMsat)
 		let nativeAmount = amount.cOpaqueStruct!
 		let nativeDescription = Self.new_LDKStr(string: description)
 		return withUnsafePointer(to: channelManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) -> Result_InvoiceSignOrCreationErrorZ in
-			let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network, nativeAmount, nativeDescription)
+			let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network.ldkCurrency, nativeAmount, nativeDescription)
 			return Result_InvoiceSignOrCreationErrorZ(pointer: nativeResult)
 		}
 	}
@@ -414,5 +414,51 @@ public class InstanceCrashSimulator: NativeTypeWrapper {
         let pointer = Bindings.instanceToPointer(instance: self)
         return pointer
     }
+}
 
+public enum LDKCurrencyType {
+    case bitcoin
+	case bitcoinTestnet
+	case regtest
+	case simnet
+	case signet
+	case sentinel
+}
+
+extension LDKCurrencyType {
+	init(_ currency: LDKCurrency) {
+		switch currency {
+		case LDKCurrency_Bitcoin:
+			self = .bitcoin
+		case LDKCurrency_BitcoinTestnet:
+            self = .bitcoinTestnet
+		case LDKCurrency_Regtest:
+            self = .regtest
+		case LDKCurrency_Simnet:
+			self = .simnet
+		case LDKCurrency_Signet:
+			self = .signet
+		case LDKCurrency_Sentinel:
+			self = .sentinel
+        default:
+            self = .bitcoin
+        }
+	}
+
+	var ldkCurrency: LDKCurrency {
+		switch self {
+		case .bitcoin:
+			return LDKCurrency_Bitcoin
+		case .bitcoinTestnet:
+			return LDKCurrency_BitcoinTestnet
+		case .regtest:
+			return LDKCurrency_Regtest
+		case .signet:
+			return LDKCurrency_Signet
+		case .sentinel:
+			return LDKCurrency_Sentinel
+        case .simnet:
+            return LDKCurrency_Simnet
+        }
+	}
 }

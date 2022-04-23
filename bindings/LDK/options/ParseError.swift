@@ -120,7 +120,7 @@ ParseError_clone(origPointer)
 
     public class func bech32_error(a: Bech32Error) -> ParseError {
     	
-        return ParseError(pointer: ParseError_bech32_error(a.danglingClone().cOpaqueStruct!));
+        return ParseError(pointer: ParseError_bech32_error(a.cOpaqueStruct!));
     }
 
     public class func malformed_signature(a: LDKSecp256k1Error) -> ParseError {

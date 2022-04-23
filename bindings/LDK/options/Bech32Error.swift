@@ -57,40 +57,6 @@ public class Bech32Error: NativeTypeWrapper {
 					}
 				
 			
-    public func clone() -> Bech32Error {
-    	
-        return Bech32Error(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBech32Error>) in
-Bech32Error_clone(origPointer)
-});
-    }
-
-					internal func danglingClone() -> Bech32Error {
-        				let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-				
-
-    internal func free() -> Void {
-    	
-        return Bech32Error_free(self.cOpaqueStruct!);
-    }
-
-					internal func dangle() -> Bech32Error {
-        				self.dangling = true
-						return self
-					}
-					
-					deinit {
-						if !self.dangling {
-							Bindings.print("Freeing Bech32Error \(self.instanceNumber).")
-							self.free()
-						} else {
-							Bindings.print("Not freeing Bech32Error \(self.instanceNumber) due to dangle.")
-						}
-					}
-				
-
     /* OPTION_METHODS_END */
 
 	/* TYPE_CLASSES */

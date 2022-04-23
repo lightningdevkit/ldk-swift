@@ -549,7 +549,7 @@ public class HumanObjectPeerTestInstance {
         do {
             // create invoice for 10k satoshis to pay to peer2
             
-            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer2.channelManager, keysManager: peer2.keysInterface, network: LDKCurrency_Bitcoin, amountMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description")
+            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer2.channelManager, keysManager: peer2.keysInterface, network: .bitcoin, amountMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description")
             let invoice = invoiceResult.getValue()!
             print("Invoice: \(invoice.to_str())")
             
@@ -625,7 +625,7 @@ public class HumanObjectPeerTestInstance {
             print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
             print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
             
-            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer1.channelManager, keysManager: peer1.keysInterface, network: LDKCurrency_Bitcoin, amountMsat: nil, description: "Second invoice description")
+            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer1.channelManager, keysManager: peer1.keysInterface, network: .bitcoin, amountMsat: nil, description: "Second invoice description")
             let invoice = invoiceResult.getValue()!
             print("Implicit amount invoice: \(invoice.to_str())")
             

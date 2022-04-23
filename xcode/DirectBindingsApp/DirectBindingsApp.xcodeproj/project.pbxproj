@@ -729,6 +729,7 @@
 		07BBCE7726D03B49000D96C4 /* TestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCE6726D03B49000D96C4 /* TestBroadcasterInterface.swift */; };
 		07C753E126D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C753DF26D6BE4E00081BF8 /* HumanObjectPeerTestInstance.swift */; };
 		07C753F326D9560200081BF8 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = 07C753F226D9560200081BF8 /* PromiseKit */; };
+		2883B5462814BA5E00D36423 /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F51749280E7903009A7D10 /* CombineUtils.swift */; };
 		28F5174A280E7903009A7D10 /* CombineUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F51749280E7903009A7D10 /* CombineUtils.swift */; };
 		2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
 		2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */; };
@@ -2499,6 +2500,7 @@
 				076D251027FC219300970AFC /* BuiltCommitmentTransaction.swift in Sources */,
 				076D23F227FC219100970AFC /* Result_PayeePubKeyErrorZ.swift in Sources */,
 				076D237627FC219100970AFC /* Result_PublicKeyErrorZ.swift in Sources */,
+				2883B5462814BA5E00D36423 /* CombineUtils.swift in Sources */,
 				076D22D027FC219000970AFC /* BroadcasterInterface.swift in Sources */,
 				076D23E027FC219100970AFC /* Result_ReplyChannelRangeDecodeErrorZ.swift in Sources */,
 				076D231627FC219000970AFC /* Result_QueryChannelRangeDecodeErrorZ.swift in Sources */,

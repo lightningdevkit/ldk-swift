@@ -12,8 +12,6 @@
 		07344C65264277ED001CD90E /* LDKFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 07344C57264277ED001CD90E /* LDKFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07344C8726427F95001CD90E /* LDKExampleClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07344C8626427F95001CD90E /* LDKExampleClass.swift */; };
 		07344C8826427F95001CD90E /* LDKExampleClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07344C8626427F95001CD90E /* LDKExampleClass.swift */; };
-		075E294926FEFFAF0000A76B /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E294526FEFFAF0000A76B /* TCPPeerHandler.swift */; };
-		075E294A26FEFFAF0000A76B /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E294526FEFFAF0000A76B /* TCPPeerHandler.swift */; };
 		075E294B26FEFFAF0000A76B /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E294626FEFFAF0000A76B /* NetGraphMsgHandlerConstructor.swift */; };
 		075E294C26FEFFAF0000A76B /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E294626FEFFAF0000A76B /* NetGraphMsgHandlerConstructor.swift */; };
 		075E294D26FEFFAF0000A76B /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E294726FEFFAF0000A76B /* ChannelManagerConstructor.swift */; };
@@ -385,7 +383,6 @@
 		07344C64264277ED001CD90E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07344C8626427F95001CD90E /* LDKExampleClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDKExampleClass.swift; sourceTree = "<group>"; };
 		07344FCD26428DD2001CD90E /* LDKFramework.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LDKFramework.modulemap; sourceTree = "<group>"; };
-		075E294526FEFFAF0000A76B /* TCPPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPPeerHandler.swift; sourceTree = "<group>"; };
 		075E294626FEFFAF0000A76B /* NetGraphMsgHandlerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetGraphMsgHandlerConstructor.swift; sourceTree = "<group>"; };
 		075E294726FEFFAF0000A76B /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
 		075E294826FEFFAF0000A76B /* UtilMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilMethods.swift; sourceTree = "<group>"; };
@@ -812,7 +809,6 @@
 		075E294426FEFFAF0000A76B /* batteries */ = {
 			isa = PBXGroup;
 			children = (
-				075E294526FEFFAF0000A76B /* TCPPeerHandler.swift */,
 				075E294626FEFFAF0000A76B /* NetGraphMsgHandlerConstructor.swift */,
 				075E294726FEFFAF0000A76B /* ChannelManagerConstructor.swift */,
 				075E294826FEFFAF0000A76B /* UtilMethods.swift */,
@@ -1536,7 +1532,6 @@
 				076D2A4427FC271400970AFC /* TrustedClosingTransaction.swift in Sources */,
 				076D293A27FC271300970AFC /* Option_CVec_NetAddressZZ.swift in Sources */,
 				076D29C027FC271400970AFC /* Result_NoneErrorZ.swift in Sources */,
-				075E294926FEFFAF0000A76B /* TCPPeerHandler.swift in Sources */,
 				076D29AE27FC271400970AFC /* Result_COption_EventZDecodeErrorZ.swift in Sources */,
 				076D298C27FC271400970AFC /* Result_AnnouncementSignaturesDecodeErrorZ.swift in Sources */,
 				076D298127FC271400970AFC /* Result_PaymentSecretAPIErrorZ.swift in Sources */,
@@ -1686,7 +1681,6 @@
 				075E294E26FEFFAF0000A76B /* ChannelManagerConstructor.swift in Sources */,
 				07344C63264277ED001CD90E /* LDKFrameworkTests.swift in Sources */,
 				07344C8826427F95001CD90E /* LDKExampleClass.swift in Sources */,
-				075E294A26FEFFAF0000A76B /* TCPPeerHandler.swift in Sources */,
 				0767D03F2698BB9800BEB4CC /* ldk_net.c in Sources */,
 				075E294C26FEFFAF0000A76B /* NetGraphMsgHandlerConstructor.swift in Sources */,
 				075E295026FEFFAF0000A76B /* UtilMethods.swift in Sources */,

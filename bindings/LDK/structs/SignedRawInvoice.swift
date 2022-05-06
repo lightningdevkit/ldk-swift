@@ -91,7 +91,7 @@ SignedRawInvoice_check_signature(this_argPointer)
 
     public class func from_str(s: String) -> Result_SignedRawInvoiceParseErrorZ {
     	
-        return Result_SignedRawInvoiceParseErrorZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s)));
+        return Result_SignedRawInvoiceParseErrorZ(pointer: SignedRawInvoice_from_str(Bindings.new_LDKStr(string: s, chars_is_owned: true)));
     }
 
     public func to_str() -> String {

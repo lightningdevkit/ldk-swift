@@ -15,15 +15,15 @@ open class Persist: NativeTypeWrapper {
 
 		func persist_new_channelCallback(pointer: UnsafeRawPointer?, channel_id: LDKOutPoint, dataPointer: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::persist_new_channel")
-			let data = ChannelMonitor(pointer: dataPointer.pointee).dangle();
+			let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 
 			return instance.persist_new_channel(channel_id: OutPoint(pointer: channel_id), data: data, update_id: MonitorUpdateId(pointer: update_id)).cOpaqueStruct!
 		}
 
 		func update_persisted_channelCallback(pointer: UnsafeRawPointer?, channel_id: LDKOutPoint, updatePointer: UnsafePointer<LDKChannelMonitorUpdate>, dataPointer: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
 			let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::update_persisted_channel")
-			let update = ChannelMonitorUpdate(pointer: updatePointer.pointee).dangle();
-let data = ChannelMonitor(pointer: dataPointer.pointee).dangle();
+			let update = ChannelMonitorUpdate(pointer: updatePointer.pointee).dangle().clone();
+let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 
 			return instance.update_persisted_channel(channel_id: OutPoint(pointer: channel_id), update: update, data: data, update_id: MonitorUpdateId(pointer: update_id)).cOpaqueStruct!
 		}

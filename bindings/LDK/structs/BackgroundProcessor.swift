@@ -13,7 +13,7 @@ public init(persister: Persister, event_handler: EventHandler, chain_monitor: Ch
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-let graphMessageHandler = net_graph_msg_handler?.dangle().cOpaqueStruct! ?? LDKNetGraphMsgHandler(inner: nil, is_owned: true)
+let graphMessageHandler = net_graph_msg_handler?.cOpaqueStruct! ?? LDKNetGraphMsgHandler(inner: nil, is_owned: true)
 
         self.cOpaqueStruct = withUnsafePointer(to: chain_monitor.cOpaqueStruct!) { (chain_monitorPointer: UnsafePointer<LDKChainMonitor>) in
 withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in

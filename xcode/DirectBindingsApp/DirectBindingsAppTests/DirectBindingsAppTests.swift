@@ -214,6 +214,20 @@ class DirectBindingsAppTests: XCTestCase {
         }
 
     }
+    
+    func testInvoiceSerialization() throws {
+        let invoiceString = "lnbc100u1p38tg4pdqlf9h8vmmfvdjjqer9wd3hy6tsw35k7msnp4qvwaqdzmlur2m5hea2da3c4zhwhyxrgxe49yrq854vqw4kckrtvygpp58qkwaky9l09g332372qnr8kcdafvrf7re9z0l5vw9xa2kvdhglfqsp5axgjhklwf08jg7w57wvlk8yksgttcxkl7rjmjy8zqzpxslme5xcs9qyysgqcqpcrzjqve0ahnleay8csatqrugw062f43cyxhxq4gj6c4a2fgr5alr84a3wp66yqqqslcqqqqqqqlgqqqqqqqqfqfjudghme9fqk4mrqmw9n2g44navk3dnvn4en8yxxf7fcwhk7wp884j43etfyc5vzp2ss6g2dgrr285kd0lmsa5mjtnzd4d583rfjl3gpprr8ru"
+        let invoiceResult = Invoice.from_str(s: invoiceString)
+        XCTAssertEqual(invoiceResult.isOk(), true)
+        guard let invoice = invoiceResult.getValue() else { return }
+        let regeneratedInvoiceString = invoice.to_str()
+        print("restored invoice string: \(regeneratedInvoiceString)")
+    }
+    
+    func testPeerGraphConnectivity() async throws {
+        let instance = HumanObjectPeerTestInstance(nice_close: true, use_km_wrapper: false, use_manual_watch: false, reload_peers: false, break_cross_peer_refs: false, use_nio_peer_handler: true, use_filter: false, use_chan_manager_constructor: true)
+        await instance.test_multiple_peer_connections()
+    }
 
     fileprivate class SimulationRunner {
 

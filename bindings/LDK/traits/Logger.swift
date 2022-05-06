@@ -15,7 +15,7 @@ open class Logger: NativeTypeWrapper {
 
 		func logCallback(pointer: UnsafeRawPointer?, recordPointer: UnsafePointer<LDKRecord>) -> Void {
 			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::log")
-			let record = Record(pointer: recordPointer.pointee).dangle();
+			let record = Record(pointer: recordPointer.pointee).dangle().clone();
 
 			return instance.log(record: record)
 		}

@@ -15,7 +15,7 @@ open class EventHandler: NativeTypeWrapper {
 
 		func handle_eventCallback(pointer: UnsafeRawPointer?, eventPointer: UnsafePointer<LDKEvent>) -> Void {
 			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::handle_event")
-			let event = Event(pointer: eventPointer.pointee).dangle();
+			let event = Event(pointer: eventPointer.pointee).dangle().clone();
 
 			return instance.handle_event(event: event)
 		}

@@ -630,7 +630,8 @@ public class HumanObjectPeerTestInstance {
             let invoice = invoiceResult.getValue()!
             print("Implicit amount invoice: \(invoice.to_str())")
 
-            let recreatedInvoice = Invoice.from_str(s: invoice.to_str())
+			let invoiceString = invoice.to_str()
+            let recreatedInvoice = Invoice.from_str(s: invoiceString)
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let invoicePaymentResult = peer2.constructor!.payer!.pay_zero_value_invoice(invoice: invoice, amount_msats: SEND_MSAT_AMOUNT_B_TO_A)

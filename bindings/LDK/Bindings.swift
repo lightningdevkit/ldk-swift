@@ -6010,7 +6010,7 @@ public class Bindings {
 						}
 					
 				return 
-				Result_PublicKeyErrorZ(pointer: recover_pk(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig)))
+				Result_PublicKeyErrorZ(pointer: recover_pk(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig, chars_is_owned: true)))
 				
 			
 	}
@@ -6023,7 +6023,7 @@ public class Bindings {
 						}
 					
 				return 
-				verify(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
+				verify(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig, chars_is_owned: true), Bindings.new_LDKPublicKey(array: pk))
 				
 			
 	}
@@ -6255,7 +6255,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 						}
 					
 				return 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.cOpaqueStruct!, network))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.cOpaqueStruct!, network))
 				
 			
 	}
@@ -6282,7 +6282,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description)))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true)))
 				
 }
 			
@@ -6312,7 +6312,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_and_duration_since_epoch(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description), duration_since_epoch))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_and_duration_since_epoch(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), duration_since_epoch))
 				
 }
 			
@@ -6429,7 +6429,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	}
 	/* RUST_TO_SWIFT_END */
 
-    public class func LDKStr_to_string(nativeType: LDKStr) -> String {
+    public class func LDKStr_to_string(nativeType: LDKStr, deallocate: Bool = true) -> String {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.len) {
 			let currentEntry = nativeType.chars[index]
@@ -6438,6 +6438,9 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 		}
 		let data = Data(bytes: array)
 		let string = String(data: data, encoding: .utf8)!
+		if deallocate && nativeType.len > 0{
+			Str_free(nativeType)
+		}
 		return string
 	}
 
@@ -6471,7 +6474,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 		let nativeKeysManager = keysManager.cOpaqueStruct!
 		let amount = Option_u64Z(value: amountMsat)
 		let nativeAmount = amount.cOpaqueStruct!
-		let nativeDescription = Self.new_LDKStr(string: description)
+		let nativeDescription = Self.new_LDKStr(string: description, chars_is_owned: true)
 		return withUnsafePointer(to: channelManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) -> Result_InvoiceSignOrCreationErrorZ in
 			let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network, nativeAmount, nativeDescription)
 			return Result_InvoiceSignOrCreationErrorZ(pointer: nativeResult)
@@ -6490,7 +6493,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 	
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "fe0ea5b41ca6eb7ef88a4d2fbd7dc1f647c89112"
+        return "2d6e99262b4c9728e43b7292a393e4100219a298"
     }
 
 }

@@ -11,7 +11,7 @@ public class WarningMessage: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = WarningMessage_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKStr(string: data_arg))
+        self.cOpaqueStruct = WarningMessage_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), Bindings.new_LDKStr(string: data_arg, chars_is_owned: true))
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -62,7 +62,7 @@ WarningMessage_get_data(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKWarningMessage>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return WarningMessage_set_data(this_ptrPointer, Bindings.new_LDKStr(string: val));
+        return WarningMessage_set_data(this_ptrPointer, Bindings.new_LDKStr(string: val, chars_is_owned: true));
     }
 
     public func clone() -> WarningMessage {

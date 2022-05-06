@@ -27,7 +27,7 @@ open class SocketDescriptor: NativeTypeWrapper {
 
 		func eqCallback(pointer: UnsafeRawPointer?, other_argPointer: UnsafePointer<LDKSocketDescriptor>) -> Bool {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::eq")
-			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee).dangle();
+			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee).dangle().clone();
 
 			return instance.eq(other_arg: other_arg)
 		}

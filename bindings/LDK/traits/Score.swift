@@ -15,8 +15,8 @@ open class Score: NativeTypeWrapper {
 
 		func channel_penalty_msatCallback(pointer: UnsafeRawPointer?, short_channel_id: UInt64, send_amt_msat: UInt64, capacity_msat: UInt64, sourcePointer: UnsafePointer<LDKNodeId>, targetPointer: UnsafePointer<LDKNodeId>) -> UInt64 {
 			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::channel_penalty_msat")
-			let source = NodeId(pointer: sourcePointer.pointee).dangle();
-let target = NodeId(pointer: targetPointer.pointee).dangle();
+			let source = NodeId(pointer: sourcePointer.pointee).dangle().clone();
+let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 
 			return instance.channel_penalty_msat(short_channel_id: short_channel_id, send_amt_msat: send_amt_msat, capacity_msat: capacity_msat, source: source, target: target)
 		}

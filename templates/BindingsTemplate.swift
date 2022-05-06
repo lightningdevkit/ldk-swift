@@ -338,7 +338,7 @@ public class Bindings {
 	}
 	/* RUST_TO_SWIFT_END */
 
-    public class func LDKStr_to_string(nativeType: LDKStr) -> String {
+    public class func LDKStr_to_string(nativeType: LDKStr, deallocate: Bool = true) -> String {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.len) {
 			let currentEntry = nativeType.chars[index]
@@ -347,6 +347,9 @@ public class Bindings {
 		}
 		let data = Data(bytes: array)
 		let string = String(data: data, encoding: .utf8)!
+		if deallocate && nativeType.len > 0{
+			Str_free(nativeType)
+		}
 		return string
 	}
 
@@ -380,7 +383,7 @@ public class Bindings {
 		let nativeKeysManager = keysManager.cOpaqueStruct!
 		let amount = Option_u64Z(value: amountMsat)
 		let nativeAmount = amount.cOpaqueStruct!
-		let nativeDescription = Self.new_LDKStr(string: description)
+		let nativeDescription = Self.new_LDKStr(string: description, chars_is_owned: true)
 		return withUnsafePointer(to: channelManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) -> Result_InvoiceSignOrCreationErrorZ in
 			let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network, nativeAmount, nativeDescription)
 			return Result_InvoiceSignOrCreationErrorZ(pointer: nativeResult)

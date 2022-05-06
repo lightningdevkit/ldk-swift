@@ -75,6 +75,17 @@ class ConversionHelper:
 		return swift_type.startswith('[')
 
 	@classmethod
+	def is_type_cloneable(cls, raw_rust_type: str):
+		cloneability_lookup = 'x-uncloneable'
+		individual_cloneability_lookup = None
+		if raw_rust_type is not None:
+			cloneability_lookup = raw_rust_type
+			if cloneability_lookup.startswith('LDK'):
+				cloneability_lookup = cloneability_lookup[len('LDK'):]
+		is_cloneable = cloneability_lookup in cloneable_types
+		return is_cloneable
+
+	@classmethod
 	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False, is_trait_default_redirect = False):
 		swift_arguments = []
 		swift_redirection_arguments = []
@@ -309,7 +320,7 @@ class ConversionHelper:
 						force_unwrap_suffix = '!'
 					native_arguments.append(f'Bindings.string_to_unsafe_int8_pointer(string: {passed_argument_name}{force_unwrap_suffix})')
 				else:
-					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name})')
+					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name}, chars_is_owned: true)')
 			elif current_argument_details.rust_obj is None and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
 				if current_argument_details.is_const:
 					force_unwrap_suffix = ''
@@ -372,7 +383,16 @@ class ConversionHelper:
 					swift_local_conversion_suffix = ')'
 					# TODO: see if `current_argument_details.pass_by_ref` condition is necessary
 					if current_argument_details.passed_as_ptr and current_argument_details.pass_by_ref:
+						# this is useful for traits, but some types may not have cloneability support
 						swift_local_conversion_suffix = ').dangle()'
+						is_cloneable = ConversionHelper.is_type_cloneable(received_raw_type)
+						if is_cloneable:
+							swift_local_conversion_suffix += '.clone()'
+						else:
+							print(f"trait callback uncloneable type danger: {received_raw_type} / {published_swift_type}")
+					elif current_argument_details.passed_as_ptr or current_argument_details.pass_by_ref:
+						descriptor = 'passed_as_ptr' if current_argument_details.passed_as_ptr else 'pass_by_ref'
+						print(f'{descriptor}: {received_raw_type} / {published_swift_type}')
 				elif received_raw_type.startswith('LDKCOption_') and received_raw_type == 'LDKC' + published_swift_type:
 					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '
 					swift_local_conversion_suffix = ')'

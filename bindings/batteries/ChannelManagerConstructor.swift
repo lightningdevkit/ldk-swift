@@ -54,7 +54,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
-        
+
         var monitorFundingSet = Set<[UInt8]>()
 
         for currentSerializedChannelMonitor in channel_monitors_serialized {
@@ -67,7 +67,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = channelMonitorResult.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             let b: LDKChannelMonitor = value.result!.pointee.b
-            
+
             let nativeA = Bindings.LDKThirtyTwoBytes_to_array(nativeType: a);
             if monitorFundingSet.contains(nativeA) {
                 throw InvalidSerializedDataError.duplicateSerializedChannelMonitor
@@ -87,11 +87,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         if channelManagerResult.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
-        
+
         for clonedChannelMonitor in self.channel_monitors {
             clonedChannelMonitor.0.cOpaqueStruct!.is_owned = true
         }
-        
+
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
         let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
         try! channelManager.dangle().addAnchor(anchor: channelManagerResult)
@@ -104,7 +104,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.logger = logger
 
         let random_data = keys_interface.get_secure_random_bytes();
-        
+
         if let serializedNetworkGraph = net_graph_serialized {
             let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph)
             if !netGraphResult.isOk(){
@@ -112,7 +112,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             }
             self.net_graph = netGraphResult.getValue()
         }
-        
+
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
@@ -144,7 +144,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
      * Constructs a channel manager from the given interface implementations
      */
     public init(network: LDKNetwork, config: UserConfig, current_blockchain_tip_hash: [UInt8], current_blockchain_tip_height: UInt32, keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, net_graph: NetworkGraph?, tx_broadcaster: BroadcasterInterface, logger: Logger) {
-        
+
         self.channel_monitors = []
         self.channel_manager_latest_block_hash = nil
         self.chain_monitor = chain_monitor
@@ -155,19 +155,20 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         self.keysInterface = keys_interface
         let random_data = keys_interface.get_secure_random_bytes();
-        
+
         self.net_graph = net_graph
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
-            self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
+            let noneOption = Option_AccessZ.none()
+            self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: noneOption, logger: logger)
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
         } else {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         }
         let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
         self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, ephemeral_random_data: random_data, logger: logger, custom_message_handler: noCustomMessages.as_CustomMessageHandler())
-        
+
 
         super.init(conflictAvoidingVariableName: 0)
         // try! self.peerManager.addAnchor(anchor: self)
@@ -209,20 +210,24 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
         self.scorer = scorer
-        
+
         if let netGraph = self.net_graph, let scorer = self.scorer {
             let router = DefaultRouter(network_graph: netGraph, logger: self.logger, random_seed_bytes: self.keysInterface.get_secure_random_bytes())
             // either dangle router, or set is_owned to false
             router.cOpaqueStruct!.is_owned = false
             self.payer = InvoicePayer(payer: self.channelManager.as_Payer(), router: router.as_Router(), scorer: scorer, logger: self.logger, event_handler: self.customEventHandler!, retry_attempts: RetryAttempts(a_arg: 3))
+            router.cOpaqueStruct!.is_owned = true
             self.customEventHandler = self.payer!.as_EventHandler()
         }
-        
+
         // if there is a graph msg handler, set its is_owned to false
         self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
-        
+
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, net_graph_msg_handler: self.graph_msg_handler, peer_manager: self.peerManager, logger: self.logger)
-        
+
+        // restore it back to true
+        self.graph_msg_handler?.cOpaqueStruct?.is_owned = true
+
         try? self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
         try? self.backgroundProcessor!.addAnchor(anchor: persister)
         try? self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
@@ -286,7 +291,7 @@ fileprivate class CustomChannelManagerPersister: Persister {
     override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
         return self.handler.persist_manager(channel_manager: channel_manager)
     }
-    
+
     override func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
         return self.handler.persist_graph(network_graph: network_graph)
     }
@@ -366,6 +371,12 @@ public class TCPPeerHandler {
         })
         if result != 0 {
             // something failed
+            print("TCP socket_bind error code: \(result)")
+            let errorDetails = strerror(result)
+            if let errorDetails = errorDetails {
+                let errorString = String(cString: errorDetails)
+                print("TCP socket_bind error: \(errorString)")
+            }
             self.isBound = false
             return false
         }

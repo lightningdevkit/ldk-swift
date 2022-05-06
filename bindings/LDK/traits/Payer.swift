@@ -33,21 +33,21 @@ open class Payer: NativeTypeWrapper {
 
 		func send_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_hash: LDKThirtyTwoBytes, payment_secret: LDKThirtyTwoBytes) -> LDKCResult_PaymentIdPaymentSendFailureZ {
 			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::send_payment")
-			let route = Route(pointer: routePointer.pointee).dangle();
+			let route = Route(pointer: routePointer.pointee).dangle().clone();
 
 			return instance.send_payment(route: route, payment_hash: Bindings.tuple32_to_array(nativeType: payment_hash.data), payment_secret: Bindings.tuple32_to_array(nativeType: payment_secret.data)).cOpaqueStruct!
 		}
 
 		func send_spontaneous_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_preimage: LDKThirtyTwoBytes) -> LDKCResult_PaymentIdPaymentSendFailureZ {
 			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::send_spontaneous_payment")
-			let route = Route(pointer: routePointer.pointee).dangle();
+			let route = Route(pointer: routePointer.pointee).dangle().clone();
 
 			return instance.send_spontaneous_payment(route: route, payment_preimage: Bindings.tuple32_to_array(nativeType: payment_preimage.data)).cOpaqueStruct!
 		}
 
 		func retry_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_id: LDKThirtyTwoBytes) -> LDKCResult_NonePaymentSendFailureZ {
 			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::retry_payment")
-			let route = Route(pointer: routePointer.pointee).dangle();
+			let route = Route(pointer: routePointer.pointee).dangle().clone();
 
 			return instance.retry_payment(route: route, payment_id: Bindings.tuple32_to_array(nativeType: payment_id.data)).cOpaqueStruct!
 		}

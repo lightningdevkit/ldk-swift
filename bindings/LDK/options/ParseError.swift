@@ -190,7 +190,7 @@ ParseError_clone(origPointer)
 
     public class func invalid_slice_length(a: String) -> ParseError {
     	
-        return ParseError(pointer: ParseError_invalid_slice_length(Bindings.new_LDKStr(string: a)));
+        return ParseError(pointer: ParseError_invalid_slice_length(Bindings.new_LDKStr(string: a, chars_is_owned: true)));
     }
 
     public class func skip() -> ParseError {

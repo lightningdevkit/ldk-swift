@@ -54,7 +54,7 @@ public class Result_StringErrorZ: NativeTypeWrapper {
 			
     public class func ok(o: String) -> Result_StringErrorZ {
     	
-        return Result_StringErrorZ(pointer: CResult_StringErrorZ_ok(Bindings.new_LDKStr(string: o)));
+        return Result_StringErrorZ(pointer: CResult_StringErrorZ_ok(Bindings.new_LDKStr(string: o, chars_is_owned: true)));
     }
 
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")

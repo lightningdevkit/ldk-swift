@@ -15,106 +15,106 @@ open class ChannelMessageHandler: NativeTypeWrapper {
 
 		func handle_open_channelCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, their_features: LDKInitFeatures, msgPointer: UnsafePointer<LDKOpenChannel>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_open_channel")
-			let msg = OpenChannel(pointer: msgPointer.pointee).dangle();
+			let msg = OpenChannel(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_open_channel(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), their_features: InitFeatures(pointer: their_features), msg: msg)
 		}
 
 		func handle_accept_channelCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, their_features: LDKInitFeatures, msgPointer: UnsafePointer<LDKAcceptChannel>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_accept_channel")
-			let msg = AcceptChannel(pointer: msgPointer.pointee).dangle();
+			let msg = AcceptChannel(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_accept_channel(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), their_features: InitFeatures(pointer: their_features), msg: msg)
 		}
 
 		func handle_funding_createdCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKFundingCreated>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_funding_created")
-			let msg = FundingCreated(pointer: msgPointer.pointee).dangle();
+			let msg = FundingCreated(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_funding_created(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_funding_signedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKFundingSigned>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_funding_signed")
-			let msg = FundingSigned(pointer: msgPointer.pointee).dangle();
+			let msg = FundingSigned(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_funding_signed(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_funding_lockedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKFundingLocked>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_funding_locked")
-			let msg = FundingLocked(pointer: msgPointer.pointee).dangle();
+			let msg = FundingLocked(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_funding_locked(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_shutdownCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, their_featuresPointer: UnsafePointer<LDKInitFeatures>, msgPointer: UnsafePointer<LDKShutdown>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_shutdown")
-			let their_features = InitFeatures(pointer: their_featuresPointer.pointee).dangle();
-let msg = Shutdown(pointer: msgPointer.pointee).dangle();
+			let their_features = InitFeatures(pointer: their_featuresPointer.pointee).dangle().clone();
+let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_shutdown(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), their_features: their_features, msg: msg)
 		}
 
 		func handle_closing_signedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKClosingSigned>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_closing_signed")
-			let msg = ClosingSigned(pointer: msgPointer.pointee).dangle();
+			let msg = ClosingSigned(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_closing_signed(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_update_add_htlcCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKUpdateAddHTLC>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_update_add_htlc")
-			let msg = UpdateAddHTLC(pointer: msgPointer.pointee).dangle();
+			let msg = UpdateAddHTLC(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_update_add_htlc(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_update_fulfill_htlcCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKUpdateFulfillHTLC>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_update_fulfill_htlc")
-			let msg = UpdateFulfillHTLC(pointer: msgPointer.pointee).dangle();
+			let msg = UpdateFulfillHTLC(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_update_fulfill_htlc(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_update_fail_htlcCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKUpdateFailHTLC>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_update_fail_htlc")
-			let msg = UpdateFailHTLC(pointer: msgPointer.pointee).dangle();
+			let msg = UpdateFailHTLC(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_update_fail_htlc(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_update_fail_malformed_htlcCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKUpdateFailMalformedHTLC>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_update_fail_malformed_htlc")
-			let msg = UpdateFailMalformedHTLC(pointer: msgPointer.pointee).dangle();
+			let msg = UpdateFailMalformedHTLC(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_update_fail_malformed_htlc(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_commitment_signedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKCommitmentSigned>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_commitment_signed")
-			let msg = CommitmentSigned(pointer: msgPointer.pointee).dangle();
+			let msg = CommitmentSigned(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_commitment_signed(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_revoke_and_ackCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKRevokeAndACK>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_revoke_and_ack")
-			let msg = RevokeAndACK(pointer: msgPointer.pointee).dangle();
+			let msg = RevokeAndACK(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_revoke_and_ack(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_update_feeCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKUpdateFee>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_update_fee")
-			let msg = UpdateFee(pointer: msgPointer.pointee).dangle();
+			let msg = UpdateFee(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_update_fee(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_announcement_signaturesCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKAnnouncementSignatures>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_announcement_signatures")
-			let msg = AnnouncementSignatures(pointer: msgPointer.pointee).dangle();
+			let msg = AnnouncementSignatures(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_announcement_signatures(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
@@ -127,28 +127,28 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle();
 
 		func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKInit>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::peer_connected")
-			let msg = Init(pointer: msgPointer.pointee).dangle();
+			let msg = Init(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.peer_connected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_channel_reestablishCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKChannelReestablish>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_channel_reestablish")
-			let msg = ChannelReestablish(pointer: msgPointer.pointee).dangle();
+			let msg = ChannelReestablish(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_channel_reestablish(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_channel_updateCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKChannelUpdate>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_channel_update")
-			let msg = ChannelUpdate(pointer: msgPointer.pointee).dangle();
+			let msg = ChannelUpdate(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_channel_update(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_errorCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKErrorMessage>) -> Void {
 			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_error")
-			let msg = ErrorMessage(pointer: msgPointer.pointee).dangle();
+			let msg = ErrorMessage(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_error(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}

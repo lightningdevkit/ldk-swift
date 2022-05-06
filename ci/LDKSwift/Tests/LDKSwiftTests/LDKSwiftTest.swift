@@ -83,6 +83,15 @@ class LDKSwiftTest: XCTestCase {
         try incrementalMemoryLeakTest()
     }
 
+    func testInvoiceSerialization() throws {
+		let invoiceString = "lnbc100u1p38tg4pdqlf9h8vmmfvdjjqer9wd3hy6tsw35k7msnp4qvwaqdzmlur2m5hea2da3c4zhwhyxrgxe49yrq854vqw4kckrtvygpp58qkwaky9l09g332372qnr8kcdafvrf7re9z0l5vw9xa2kvdhglfqsp5axgjhklwf08jg7w57wvlk8yksgttcxkl7rjmjy8zqzpxslme5xcs9qyysgqcqpcrzjqve0ahnleay8csatqrugw062f43cyxhxq4gj6c4a2fgr5alr84a3wp66yqqqslcqqqqqqqlgqqqqqqqqfqfjudghme9fqk4mrqmw9n2g44navk3dnvn4en8yxxf7fcwhk7wp884j43etfyc5vzp2ss6g2dgrr285kd0lmsa5mjtnzd4d583rfjl3gpprr8ru"
+		let invoiceResult = Invoice.from_str(s: invoiceString)
+		XCTAssertEqual(invoiceResult.isOk(), true)
+		guard let invoice = invoiceResult.getValue() else { return }
+		let regeneratedInvoiceString = invoice.to_str()
+		print("restored invoice string: \(regeneratedInvoiceString)")
+	}
+
     func testRouteConstruction() throws {
 
         let destPubkeyHex = "03c2abfa93eacec04721c019644584424aab2ba4dff3ac9bdab4e9c97007491dda"

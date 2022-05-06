@@ -22,7 +22,7 @@ open class Persister: NativeTypeWrapper {
 
 		func persist_graphCallback(pointer: UnsafeRawPointer?, network_graphPointer: UnsafePointer<LDKNetworkGraph>) -> LDKCResult_NoneErrorZ {
 			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_graph")
-			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle();
+			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle().clone();
 
 			return instance.persist_graph(network_graph: network_graph).cOpaqueStruct!
 		}

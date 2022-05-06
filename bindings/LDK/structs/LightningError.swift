@@ -11,7 +11,7 @@ public class LightningError: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg), action_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = LightningError_new(Bindings.new_LDKStr(string: err_arg, chars_is_owned: true), action_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -47,7 +47,7 @@ LightningError_get_err(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKLightningError>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return LightningError_set_err(this_ptrPointer, Bindings.new_LDKStr(string: val));
+        return LightningError_set_err(this_ptrPointer, Bindings.new_LDKStr(string: val, chars_is_owned: true));
     }
 
     public func get_action() -> ErrorAction {

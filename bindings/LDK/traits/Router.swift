@@ -15,7 +15,7 @@ open class Router: NativeTypeWrapper {
 
 		func find_routeCallback(pointer: UnsafeRawPointer?, payer: LDKPublicKey, route_paramsPointer: UnsafePointer<LDKRouteParameters>, payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, scorerPointer: UnsafePointer<LDKScore>) -> LDKCResult_RouteLightningErrorZ {
 			let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::find_route")
-			let route_params = RouteParameters(pointer: route_paramsPointer.pointee).dangle();
+			let route_params = RouteParameters(pointer: route_paramsPointer.pointee).dangle().clone();
 
 								var payment_hash: [UInt8]? = nil
 								if let payment_hashUnwrapped = payment_hashPointer {

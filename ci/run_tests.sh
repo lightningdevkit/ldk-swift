@@ -33,3 +33,4 @@ pushd LDKSwift/
 #swift test
 swift test -Xswiftc -suppress-warnings
 #swift test --filter 'testInvoiceSerialization' -Xswiftc -suppress-warnings
+#swift test --filter 'testMainnetGraphSync' -Xswiftc -suppress-warnings

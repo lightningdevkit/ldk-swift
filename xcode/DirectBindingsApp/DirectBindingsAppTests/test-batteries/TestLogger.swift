@@ -8,7 +8,7 @@
 class TestLogger: Logger {
 
     override func log(record: Record) {
-        print("\nRLLogger (\(record.get_level())): \(record.get_file()):\(record.get_line()):\n> \(record.get_args())\n")
+        print("\nRLTestLogger (\(record.get_level())): \(record.get_file()):\(record.get_line()):\n> \(record.get_args())\n")
     }
 
 }

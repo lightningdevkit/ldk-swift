@@ -69,7 +69,7 @@ class LDKSwiftTest: XCTestCase {
         )
 
         let channel_manager = channel_manager_constructor.channelManager;
-        let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
+        let cmPersister = TestChannelManagerPersister()
 
         let txdata = [C2Tuple_usizeTransactionZ.new(a: 2, b: Self.hexStringToBytes(hexString: "020000000001010000000000000000000000000000000000000000000000000000000000000000ffffffff03530101ffffffff0200f2052a0100000017a9149e6d815a46cd349527961f58cc20d41d15fcb99e870000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf90120000000000000000000000000000000000000000000000000000000000000000000000000")!)]
         let header = Self.hexStringToBytes(hexString: "f5591ea0b69ae3edc0de11497ffb0fdd91f769ede96c5d662c805364e9bf8b2243e8e5b9d1833eff7cb19abd9fc9da3cd26fe84d718bbf8a336966ae4f7dea6a81372961ffff7f200400000001020000")
@@ -113,7 +113,7 @@ class LDKSwiftTest: XCTestCase {
 
         let feeEstimator = TestFeeEstimator()
         let broadcaster = TestBroadcasterInterface()
-        let logger = TestLogger()
+        let logger = MuteLogger()
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
@@ -124,6 +124,9 @@ class LDKSwiftTest: XCTestCase {
         if let netGraph = channelManagerConstructor.net_graph {
             print("net graph available!")
         }
+
+
+        Bindings.setLogThreshold(severity: .WARNING)
 
         // bitrefill
         tcpPeerHandler.connect(address: "52.50.244.44", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "030c3f19d742ca294a55c00376b3b355c3c90d61c6b6b39554dbc7ac19b141c14f")!)
@@ -140,7 +143,8 @@ class LDKSwiftTest: XCTestCase {
         // Matt
         tcpPeerHandler.connect(address: "69.59.18.80", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "03db10aa09ff04d3568b0621750794063df401e6853c79a21a83e1a3f3b5bfb0c8")!)
 
-        let channelManagerAndNetworkGraphPersisterAndEventHandler = TestChannelManagerPersister(channelManager: channelManager)
+
+        let channelManagerAndNetworkGraphPersisterAndEventHandler = TestChannelManagerPersister()
         channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
 
         // run this for one minute
@@ -148,6 +152,9 @@ class LDKSwiftTest: XCTestCase {
             // sleep for 100ms
             try! await Task.sleep(nanoseconds: 0_100_000_000)
         }
+
+		Bindings.setLogThreshold(severity: .DEBUG)
+
     }
 
     func testRouteConstruction() throws {

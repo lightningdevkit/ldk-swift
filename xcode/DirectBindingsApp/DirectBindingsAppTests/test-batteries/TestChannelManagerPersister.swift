@@ -7,15 +7,6 @@
 
 class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
     
-    private let channelManager: ChannelManager?
-    private let keysManager: KeysManager? = nil
-    
-    init(channelManager: ChannelManager?) {
-        // self.channelManager = channelManager
-        self.channelManager = nil
-        super.init()
-    }
-    
     func handle_event(event: Event) {
         // privateHandleEvent(event: event)
     }

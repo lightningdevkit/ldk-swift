@@ -15,3 +15,11 @@ class TestLogger: Logger {
 	}
 
 }
+
+class MuteLogger: Logger {
+
+    override func log(record: Record) {
+		// do nothing
+	}
+
+}

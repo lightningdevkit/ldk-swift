@@ -82,6 +82,96 @@ InvoiceFeatures_write(objPointer)
         return Result_InvoiceFeaturesDecodeErrorZ(pointer: InvoiceFeatures_read(serWrapper.cOpaqueStruct!));
     }
 
+    public func set_variable_length_onion_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInvoiceFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InvoiceFeatures_set_variable_length_onion_optional(this_argPointer);
+    }
+
+    public func set_variable_length_onion_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInvoiceFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InvoiceFeatures_set_variable_length_onion_required(this_argPointer);
+    }
+
+    public func supports_variable_length_onion() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_supports_variable_length_onion(this_argPointer)
+};
+    }
+
+    public func requires_variable_length_onion() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_requires_variable_length_onion(this_argPointer)
+};
+    }
+
+    public func set_payment_secret_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInvoiceFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InvoiceFeatures_set_payment_secret_optional(this_argPointer);
+    }
+
+    public func set_payment_secret_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInvoiceFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InvoiceFeatures_set_payment_secret_required(this_argPointer);
+    }
+
+    public func supports_payment_secret() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_supports_payment_secret(this_argPointer)
+};
+    }
+
+    public func requires_payment_secret() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_requires_payment_secret(this_argPointer)
+};
+    }
+
+    public func set_basic_mpp_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInvoiceFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InvoiceFeatures_set_basic_mpp_optional(this_argPointer);
+    }
+
+    public func set_basic_mpp_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInvoiceFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InvoiceFeatures_set_basic_mpp_required(this_argPointer);
+    }
+
+    public func supports_basic_mpp() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_supports_basic_mpp(this_argPointer)
+};
+    }
+
+    public func requires_basic_mpp() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoiceFeatures>) in
+InvoiceFeatures_requires_basic_mpp(this_argPointer)
+};
+    }
+
     internal func free() -> Void {
     	
         return InvoiceFeatures_free(self.cOpaqueStruct!);

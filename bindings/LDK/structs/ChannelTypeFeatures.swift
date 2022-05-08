@@ -82,6 +82,66 @@ ChannelTypeFeatures_write(objPointer)
         return Result_ChannelTypeFeaturesDecodeErrorZ(pointer: ChannelTypeFeatures_read(serWrapper.cOpaqueStruct!));
     }
 
+    public func set_static_remote_key_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKChannelTypeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelTypeFeatures_set_static_remote_key_optional(this_argPointer);
+    }
+
+    public func set_static_remote_key_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKChannelTypeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelTypeFeatures_set_static_remote_key_required(this_argPointer);
+    }
+
+    public func supports_static_remote_key() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+ChannelTypeFeatures_supports_static_remote_key(this_argPointer)
+};
+    }
+
+    public func requires_static_remote_key() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+ChannelTypeFeatures_requires_static_remote_key(this_argPointer)
+};
+    }
+
+    public func set_scid_privacy_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKChannelTypeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelTypeFeatures_set_scid_privacy_optional(this_argPointer);
+    }
+
+    public func set_scid_privacy_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKChannelTypeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelTypeFeatures_set_scid_privacy_required(this_argPointer);
+    }
+
+    public func supports_scid_privacy() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+ChannelTypeFeatures_supports_scid_privacy(this_argPointer)
+};
+    }
+
+    public func requires_scid_privacy() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+ChannelTypeFeatures_requires_scid_privacy(this_argPointer)
+};
+    }
+
     internal func free() -> Void {
     	
         return ChannelTypeFeatures_free(self.cOpaqueStruct!);

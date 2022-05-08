@@ -82,7 +82,7 @@ class DirectBindingsAppTests: XCTestCase {
         )
 
         let channel_manager = channel_manager_constructor.channelManager;
-        let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
+        let cmPersister = TestChannelManagerPersister()
         
         
         let txdata = [C2Tuple_usizeTransactionZ.new(a: 2, b: Self.hexStringToBytes(hexString: "020000000001010000000000000000000000000000000000000000000000000000000000000000ffffffff03530101ffffffff0200f2052a0100000017a9149e6d815a46cd349527961f58cc20d41d15fcb99e870000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf90120000000000000000000000000000000000000000000000000000000000000000000000000")!)]
@@ -258,26 +258,78 @@ class DirectBindingsAppTests: XCTestCase {
             print("net graph available!")
         }
         
-        // bitrefill
-        tcpPeerHandler.connect(address: "52.50.244.44", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "030c3f19d742ca294a55c00376b3b355c3c90d61c6b6b39554dbc7ac19b141c14f")!)
-        
-        // River
-        tcpPeerHandler.connect(address: "104.196.249.140", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "03037dc08e9ac63b82581f79b662a4d0ceca8a8ca162b1af3551595b8f2d97b70a")!)
-        
-        // Acinq
-        tcpPeerHandler.connect(address: "3.33.236.230", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!)
-        
-        // Kraken
-        tcpPeerHandler.connect(address: "52.13.118.208", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "02f1a8c87607f415c8f22c00593002775941dea48869ce23096af27b0cfdcc0b69")!)
-        
-        // Matt
-        tcpPeerHandler.connect(address: "69.59.18.80", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "03db10aa09ff04d3568b0621750794063df401e6853c79a21a83e1a3f3b5bfb0c8")!)
-        
-        let channelManagerAndNetworkGraphPersisterAndEventHandler = TestChannelManagerPersister(channelManager: channelManager)
+        let channelManagerAndNetworkGraphPersisterAndEventHandler = TestChannelManagerPersister()
         channelManagerConstructor.chain_sync_completed(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
         
-        // run this for one minute
-        for _ in 0..<600 {
+        let interPeerConnectionInterval = 10
+        func pauseForNextPeer() async {
+            for _ in 0..<(interPeerConnectionInterval * 10) {
+                // sleep for 100ms
+                try! await Task.sleep(nanoseconds: 0_100_000_000)
+            }
+        }
+        
+        print("increasing log threshold")
+        Bindings.setLogThreshold(severity: .WARNING)
+        
+        do {
+            // bitrefill
+            print("connecting bitrefill")
+            let connectionResult = tcpPeerHandler.connect(address: "52.50.244.44", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "030c3f19d742ca294a55c00376b3b355c3c90d61c6b6b39554dbc7ac19b141c14f")!)
+            print("bitrefill connection success: \(connectionResult)")
+            await pauseForNextPeer()
+        }
+        
+        do {
+            // River
+            print("connecting river")
+            let connectionResult = tcpPeerHandler.connect(address: "104.196.249.140", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "03037dc08e9ac63b82581f79b662a4d0ceca8a8ca162b1af3551595b8f2d97b70a")!)
+            print("river connection success: \(connectionResult)")
+            await pauseForNextPeer()
+        }
+        
+        do {
+            // Acinq
+            print("connecting acinq")
+            let connectionResult = tcpPeerHandler.connect(address: "3.33.236.230", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!)
+            print("acinq connection success: \(connectionResult)")
+            await pauseForNextPeer()
+        }
+        
+        do {
+            // Kraken
+            print("connecting kraken")
+            let connectionResult = tcpPeerHandler.connect(address: "52.13.118.208", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "02f1a8c87607f415c8f22c00593002775941dea48869ce23096af27b0cfdcc0b69")!)
+            print("kraken connection success: \(connectionResult)")
+            await pauseForNextPeer()
+        }
+        
+        do {
+            // Matt
+            print("connecting matt")
+            let connectionResult = tcpPeerHandler.connect(address: "69.59.18.80", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "03db10aa09ff04d3568b0621750794063df401e6853c79a21a83e1a3f3b5bfb0c8")!)
+            print("matt connection success: \(connectionResult)")
+            await pauseForNextPeer()
+        }
+        
+        do {
+            // Fold
+            print("connecting fold")
+            let connectionResult = tcpPeerHandler.connect(address: "35.238.153.25", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774")!)
+            print("fold connection success: \(connectionResult)")
+            await pauseForNextPeer()
+        }
+        
+        do {
+            // wallet of satoshi
+            print("connecting wallet of satoshi")
+            let connectionResult = tcpPeerHandler.connect(address: "170.75.163.209", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226")!)
+            print("wallet of satoshi connection success: \(connectionResult)")
+            await pauseForNextPeer()
+        }
+        
+        // run this for twenty minutes
+        for _ in 0..<12000 {
             // sleep for 100ms
             try! await Task.sleep(nanoseconds: 0_100_000_000)
         }

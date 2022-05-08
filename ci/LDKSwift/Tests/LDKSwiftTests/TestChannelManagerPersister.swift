@@ -10,14 +10,6 @@ import LDKHeaders
 
 class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
 
-    private let channelManager: ChannelManager?
-    private let keysManager: KeysManager? = nil
-
-    init(channelManager: ChannelManager?) {
-        self.channelManager = channelManager
-        super.init()
-    }
-
     func handle_event(event: Event) {
         // privateHandleEvent(event: event)
     }

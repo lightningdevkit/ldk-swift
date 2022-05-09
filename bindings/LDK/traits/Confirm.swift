@@ -1,6 +1,6 @@
 import Foundation
 
-open class Confirm: NativeTypeWrapper {
+open class Confirm: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -100,7 +100,7 @@ open class Confirm: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Confirm \(self.instanceNumber).")
@@ -141,9 +141,7 @@ return [LDKTxid]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Confirm::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

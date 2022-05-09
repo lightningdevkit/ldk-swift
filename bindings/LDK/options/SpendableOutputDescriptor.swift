@@ -160,7 +160,7 @@ SpendableOutputDescriptor_write(objPointer)
 				self.cOpaqueStruct!.outpoint;
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct, anchor: self)
 				}()
 			

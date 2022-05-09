@@ -1,6 +1,6 @@
 import Foundation
 
-open class CustomMessageReader: NativeTypeWrapper {
+open class CustomMessageReader: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -58,7 +58,7 @@ open class CustomMessageReader: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing CustomMessageReader \(self.instanceNumber).")
@@ -78,9 +78,7 @@ return Result_COption_TypeZDecodeErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("CustomMessageReader::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

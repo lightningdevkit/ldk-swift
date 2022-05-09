@@ -1,6 +1,6 @@
 import Foundation
 
-open class BindingsType: NativeTypeWrapper {
+open class BindingsType: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -97,7 +97,7 @@ open class BindingsType: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing BindingsType \(self.instanceNumber).")
@@ -131,9 +131,7 @@ return [UInt8]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("BindingsType::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -1,6 +1,6 @@
 import Foundation
 
-open class ChannelMessageHandler: NativeTypeWrapper {
+open class ChannelMessageHandler: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -212,7 +212,7 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing ChannelMessageHandler \(self.instanceNumber).")
@@ -365,9 +365,7 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("ChannelMessageHandler::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

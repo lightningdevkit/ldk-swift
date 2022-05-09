@@ -64,7 +64,7 @@ DirectedChannelTransactionParameters_funding_outpoint(this_argPointer)
 };
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct)
 				}()
 			;

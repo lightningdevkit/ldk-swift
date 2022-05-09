@@ -53,7 +53,7 @@ public class Result_OutPointDecodeErrorZ: NativeTypeWrapper {
 				self.cOpaqueStruct!.contents.result.pointee;
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct, anchor: self)
 				}()
 			

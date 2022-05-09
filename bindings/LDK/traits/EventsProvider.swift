@@ -1,6 +1,6 @@
 import Foundation
 
-open class EventsProvider: NativeTypeWrapper {
+open class EventsProvider: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -58,7 +58,7 @@ open class EventsProvider: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing EventsProvider \(self.instanceNumber).")
@@ -78,9 +78,7 @@ open class EventsProvider: NativeTypeWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("EventsProvider::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */
@@ -95,7 +93,7 @@ public class NativelyImplementedEventsProvider: EventsProvider {
 		
 				
 				
-				self.cOpaqueStruct!.process_pending_events(self.cOpaqueStruct!.this_arg, handler.cOpaqueStruct!)
+				self.cOpaqueStruct!.process_pending_events(self.cOpaqueStruct!.this_arg, handler.activate().cOpaqueStruct!)
 				
 			
 	}

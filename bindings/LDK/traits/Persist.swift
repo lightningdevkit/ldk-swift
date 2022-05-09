@@ -1,6 +1,6 @@
 import Foundation
 
-open class Persist: NativeTypeWrapper {
+open class Persist: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -68,7 +68,7 @@ let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Persist \(self.instanceNumber).")
@@ -95,9 +95,7 @@ return Result_NoneChannelMonitorUpdateErrZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Persist::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

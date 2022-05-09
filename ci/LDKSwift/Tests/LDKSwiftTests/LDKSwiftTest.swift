@@ -69,7 +69,7 @@ class LDKSwiftTest: XCTestCase {
         )
 
         let channel_manager = channel_manager_constructor.channelManager;
-        let cmPersister = TestChannelManagerPersister()
+        let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
 
         let txdata = [C2Tuple_usizeTransactionZ.new(a: 2, b: Self.hexStringToBytes(hexString: "020000000001010000000000000000000000000000000000000000000000000000000000000000ffffffff03530101ffffffff0200f2052a0100000017a9149e6d815a46cd349527961f58cc20d41d15fcb99e870000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf90120000000000000000000000000000000000000000000000000000000000000000000000000")!)]
         let header = Self.hexStringToBytes(hexString: "f5591ea0b69ae3edc0de11497ffb0fdd91f769ede96c5d662c805364e9bf8b2243e8e5b9d1833eff7cb19abd9fc9da3cd26fe84d718bbf8a336966ae4f7dea6a81372961ffff7f200400000001020000")
@@ -91,6 +91,43 @@ class LDKSwiftTest: XCTestCase {
 		let regeneratedInvoiceString = invoice.to_str()
 		print("restored invoice string: \(regeneratedInvoiceString)")
 	}
+
+	func testWeirdChannelManagerMemoryLeak() async throws {
+        let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
+        let reversedGenesisHash = Self.hexStringToBytes(hexString: reversedGenesisHashHex)!
+
+        let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
+        let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
+        let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
+
+        let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+        let keysInterface = keysManager.as_KeysInterface()
+
+        let config = UserConfig()
+        let lightningNetwork = LDKNetwork_Bitcoin
+        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
+
+        let scoringParams = ProbabilisticScoringParameters()
+        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph)
+        let score = probabalisticScorer.as_Score()
+        let multiThreadedScorer = MultiThreadedLockableScore(score: score)
+
+        let feeEstimator = TestFeeEstimator()
+        let broadcaster = TestBroadcasterInterface()
+        let logger = TestLogger()
+        let channelMonitorPersister = TestPersister()
+        let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
+
+        let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: reversedGenesisHash, current_blockchain_tip_height: 0, keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph, tx_broadcaster: broadcaster, logger: logger)
+        let channelManager = channelManagerConstructor.channelManager
+        let peerManager = channelManagerConstructor.peerManager
+        let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
+        if let netGraph = channelManagerConstructor.net_graph {
+            print("net graph available!")
+        }
+
+        let channelManagerAndNetworkGraphPersisterAndEventHandler = FloatingChannelManagerPersister(channelManager: channelManager)
+    }
 
 	func testMainnetGraphSync() async throws {
         let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"

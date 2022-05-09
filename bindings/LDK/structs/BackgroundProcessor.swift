@@ -18,7 +18,7 @@ let graphMessageHandler = net_graph_msg_handler?.cOpaqueStruct! ?? LDKNetGraphMs
         self.cOpaqueStruct = withUnsafePointer(to: chain_monitor.cOpaqueStruct!) { (chain_monitorPointer: UnsafePointer<LDKChainMonitor>) in
 withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: peer_manager.cOpaqueStruct!) { (peer_managerPointer: UnsafePointer<LDKPeerManager>) in
-BackgroundProcessor_start(persister.cOpaqueStruct!, event_handler.cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, graphMessageHandler, peer_managerPointer, logger.cOpaqueStruct!)
+BackgroundProcessor_start(persister.activate().cOpaqueStruct!, event_handler.activate().cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, graphMessageHandler, peer_managerPointer, logger.activate().cOpaqueStruct!)
 }
 }
 }

@@ -16,7 +16,7 @@ public class ChannelManagerReadArgs: NativeTypeWrapper {
 							channel_monitorsWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.cOpaqueStruct!, fee_estimator.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, default_config.danglingClone().cOpaqueStruct!, channel_monitorsWrapper.dangle().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelManagerReadArgs_new(keys_manager.activate().cOpaqueStruct!, fee_estimator.activate().cOpaqueStruct!, chain_monitor.activate().cOpaqueStruct!, tx_broadcaster.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, default_config.danglingClone().cOpaqueStruct!, channel_monitorsWrapper.dangle().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: keys_manager)
 try? self.addAnchor(anchor: fee_estimator)
@@ -66,7 +66,7 @@ ChannelManagerReadArgs_get_keys_manager(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_keys_manager(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_keys_manager(this_ptrPointer, val.activate().cOpaqueStruct!);
     }
 
     public func get_fee_estimator() -> NativelyImplementedFeeEstimator {
@@ -81,7 +81,7 @@ ChannelManagerReadArgs_get_fee_estimator(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_fee_estimator(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_fee_estimator(this_ptrPointer, val.activate().cOpaqueStruct!);
     }
 
     public func get_chain_monitor() -> NativelyImplementedWatch {
@@ -96,7 +96,7 @@ ChannelManagerReadArgs_get_chain_monitor(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_chain_monitor(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_chain_monitor(this_ptrPointer, val.activate().cOpaqueStruct!);
     }
 
     public func get_tx_broadcaster() -> NativelyImplementedBroadcasterInterface {
@@ -111,7 +111,7 @@ ChannelManagerReadArgs_get_tx_broadcaster(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_tx_broadcaster(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_tx_broadcaster(this_ptrPointer, val.activate().cOpaqueStruct!);
     }
 
     public func get_logger() -> NativelyImplementedLogger {
@@ -126,7 +126,7 @@ ChannelManagerReadArgs_get_logger(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelManagerReadArgs>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelManagerReadArgs_set_logger(this_ptrPointer, val.cOpaqueStruct!);
+        return ChannelManagerReadArgs_set_logger(this_ptrPointer, val.activate().cOpaqueStruct!);
     }
 
     public func get_default_config() -> UserConfig {

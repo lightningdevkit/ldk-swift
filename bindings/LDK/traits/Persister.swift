@@ -1,6 +1,6 @@
 import Foundation
 
-open class Persister: NativeTypeWrapper {
+open class Persister: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -67,7 +67,7 @@ open class Persister: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Persister \(self.instanceNumber).")
@@ -94,9 +94,7 @@ return Result_NoneErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Persister::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

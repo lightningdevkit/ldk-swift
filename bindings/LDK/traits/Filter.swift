@@ -1,6 +1,6 @@
 import Foundation
 
-open class Filter: NativeTypeWrapper {
+open class Filter: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -70,7 +70,7 @@ open class Filter: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Filter \(self.instanceNumber).")
@@ -97,9 +97,7 @@ return Option_C2Tuple_usizeTransactionZZ.none()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Filter::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

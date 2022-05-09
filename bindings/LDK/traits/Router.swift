@@ -1,6 +1,6 @@
 import Foundation
 
-open class Router: NativeTypeWrapper {
+open class Router: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -70,7 +70,7 @@ open class Router: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Router \(self.instanceNumber).")
@@ -90,9 +90,7 @@ return Result_RouteLightningErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Router::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

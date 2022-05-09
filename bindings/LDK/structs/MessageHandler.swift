@@ -11,7 +11,7 @@ public class MessageHandler: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = MessageHandler_new(chan_handler_arg.cOpaqueStruct!, route_handler_arg.cOpaqueStruct!)
+        self.cOpaqueStruct = MessageHandler_new(chan_handler_arg.activate().cOpaqueStruct!, route_handler_arg.activate().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: chan_handler_arg)
 try? self.addAnchor(anchor: route_handler_arg)
@@ -49,7 +49,7 @@ MessageHandler_get_chan_handler(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKMessageHandler>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return MessageHandler_set_chan_handler(this_ptrPointer, val.cOpaqueStruct!);
+        return MessageHandler_set_chan_handler(this_ptrPointer, val.activate().cOpaqueStruct!);
     }
 
     public func get_route_handler() -> NativelyImplementedRoutingMessageHandler {
@@ -64,7 +64,7 @@ MessageHandler_get_route_handler(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKMessageHandler>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return MessageHandler_set_route_handler(this_ptrPointer, val.cOpaqueStruct!);
+        return MessageHandler_set_route_handler(this_ptrPointer, val.activate().cOpaqueStruct!);
     }
 
     internal func free() -> Void {

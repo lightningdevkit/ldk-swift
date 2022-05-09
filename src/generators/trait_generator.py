@@ -102,7 +102,7 @@ class TraitGenerator:
         				self.dangling = true
 						return self
 					}}
-					
+
 					deinit {{
 						if !self.dangling {{
 							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")
@@ -205,6 +205,9 @@ class TraitGenerator:
 			if is_default_return_error:
 				swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} MUST be overridden!", severity: .ERROR)\n\nabort()'
 
+			if current_lambda_name == 'free':
+				swift_default_return = 'Bindings.removeInstancePointer(instance: self)'
+
 			current_native_callback_replacement = native_callback_template
 			current_native_callback_replacement = current_native_callback_replacement.replace('func methodNameCallback(', f'func {current_lambda_name}Callback(')
 
@@ -229,6 +232,7 @@ class TraitGenerator:
 					let clonePointer: UnsafeMutableRawPointer? = UnsafeMutableRawPointer(&clone.cOpaqueStruct)
 					return clonePointer
 				''')
+
 			current_native_callback_replacement = current_native_callback_replacement.replace('instance.callbackName(swift_callback_arguments)',
 																							  f'{return_conversion_prefix}instance.callbackName(swift_callback_arguments){return_conversion_suffix}')
 			current_native_callback_replacement = current_native_callback_replacement.replace('instance.callbackName(', f'instance.{current_lambda_name}(')
@@ -262,7 +266,7 @@ class TraitGenerator:
 				# not yet possible due to override method's visibility requirements
 				# current_default_callback_replacement = current_default_callback_replacement.replace('public override func', 'internal override func')
 				pass
-				
+
 			current_default_callback_replacement = current_default_callback_replacement.replace('func methodName(', f'func {current_lambda_name}(')
 			default_native_call_arguments = default_callback_prepared_arguments['native_arguments']
 
@@ -324,7 +328,7 @@ class TraitGenerator:
 			if not is_clone:  # TODO: add support for natively implemented cloning
 				default_callbacks += '\n' + current_default_callback_replacement + '\n'
 
-		trait_file = self.template.replace('class TraitName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
+		trait_file = self.template.replace('class TraitName: NativeTraitWrapper', f'class {swift_struct_name}: NativeTraitWrapper')
 		trait_file = trait_file.replace('class NativelyImplementedTraitName: TraitName {', f'class NativelyImplemented{swift_struct_name}: {swift_struct_name} {{')
 		trait_file = trait_file.replace('init(pointer: TraitType', f'init(pointer: {struct_name}')
 		trait_file = trait_file.replace('var cOpaqueStruct: TraitType?', f'var cOpaqueStruct: {struct_name}?')

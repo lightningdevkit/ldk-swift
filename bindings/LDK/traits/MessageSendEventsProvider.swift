@@ -1,6 +1,6 @@
 import Foundation
 
-open class MessageSendEventsProvider: NativeTypeWrapper {
+open class MessageSendEventsProvider: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -64,7 +64,7 @@ open class MessageSendEventsProvider: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing MessageSendEventsProvider \(self.instanceNumber).")
@@ -84,9 +84,7 @@ return [LDKMessageSendEvent]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("MessageSendEventsProvider::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

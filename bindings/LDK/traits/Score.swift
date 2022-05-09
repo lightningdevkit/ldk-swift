@@ -1,6 +1,6 @@
 import Foundation
 
-open class Score: NativeTypeWrapper {
+open class Score: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -87,7 +87,7 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Score \(self.instanceNumber).")
@@ -128,9 +128,7 @@ return [UInt8]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Score::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -1,6 +1,6 @@
 import Foundation
 
-open class BaseSign: NativeTypeWrapper {
+open class BaseSign: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -167,7 +167,7 @@ open class BaseSign: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing BaseSign \(self.instanceNumber).")
@@ -271,9 +271,7 @@ return Result_C2Tuple_SignatureSignatureZNoneZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("BaseSign::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

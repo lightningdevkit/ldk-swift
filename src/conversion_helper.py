@@ -75,6 +75,10 @@ class ConversionHelper:
 		return swift_type.startswith('[')
 
 	@classmethod
+	def is_trait_type(cls, raw_rust_type: str):
+		return raw_rust_type in ConversionHelper.trait_structs
+
+	@classmethod
 	def is_type_cloneable(cls, raw_rust_type: str):
 		cloneability_lookup = 'x-uncloneable'
 		individual_cloneability_lookup = None
@@ -257,8 +261,8 @@ class ConversionHelper:
 			else:
 				if current_argument_details.rust_obj is None:
 					pass
-				elif current_argument_details.rust_obj in ConversionHelper.trait_structs:
-					pass
+				elif ConversionHelper.is_trait_type(current_argument_details.rust_obj):
+					clone_infix = '.activate()'
 				elif current_argument_details.rust_obj.startswith('LDK') and not current_argument_details.swift_type.startswith('[') and not is_free_method:
 					non_cloneable_argument_indices_passed_by_ownership.append(argument_index)  # clone_infix = '.dangle()'
 				if current_argument_details.rust_obj is not None and (
@@ -505,7 +509,7 @@ class ConversionHelper:
 				'''
 				else:
 
-					map_prefix = f'''.map {{ (cOpaqueStruct) in 
+					map_prefix = f'''.map {{ (cOpaqueStruct) in
 						cOpaqueStruct''' * (wrapper_depth-1)
 
 					map_suffix = '}' * wrapper_depth
@@ -560,7 +564,7 @@ class ConversionHelper:
 			return_suffix = f''';
 				if cStruct.inner == nil {{
 					return nil
-				}}	
+				}}
 				return {return_prefix}cStruct{return_suffix}
 				}}()
 			'''

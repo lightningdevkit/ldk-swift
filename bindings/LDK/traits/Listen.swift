@@ -1,6 +1,6 @@
 import Foundation
 
-open class Listen: NativeTypeWrapper {
+open class Listen: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -70,7 +70,7 @@ open class Listen: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Listen \(self.instanceNumber).")
@@ -97,9 +97,7 @@ open class Listen: NativeTypeWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Listen::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

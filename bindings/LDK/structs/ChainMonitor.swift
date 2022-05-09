@@ -13,7 +13,7 @@ public init(chain_source: Option_FilterZ, broadcaster: BroadcasterInterface, log
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChainMonitor_new(chain_source.cOpaqueStruct!, broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, feeest.cOpaqueStruct!, persister.cOpaqueStruct!)
+        self.cOpaqueStruct = ChainMonitor_new(chain_source.cOpaqueStruct!, broadcaster.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, feeest.activate().cOpaqueStruct!, persister.activate().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: chain_source)
 try? self.addAnchor(anchor: broadcaster)

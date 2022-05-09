@@ -59,7 +59,7 @@ FilesystemPersister_persist_network_graph(Bindings.new_LDKStr(string: data_dir, 
     public func read_channelmonitors(keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
         return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
-FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.cOpaqueStruct!)
+FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.activate().cOpaqueStruct!)
 });
     }
 

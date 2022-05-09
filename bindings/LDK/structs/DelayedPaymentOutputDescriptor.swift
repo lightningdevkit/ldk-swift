@@ -45,7 +45,7 @@ DelayedPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
 };
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct)
 				}()
 			;

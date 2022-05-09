@@ -1,6 +1,6 @@
 import Foundation
 
-open class Watch: NativeTypeWrapper {
+open class Watch: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -78,7 +78,7 @@ open class Watch: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Watch \(self.instanceNumber).")
@@ -112,9 +112,7 @@ return [LDKMonitorEvent]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Watch::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

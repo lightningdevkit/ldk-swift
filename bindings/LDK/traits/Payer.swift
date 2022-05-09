@@ -1,6 +1,6 @@
 import Foundation
 
-open class Payer: NativeTypeWrapper {
+open class Payer: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -102,7 +102,7 @@ open class Payer: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Payer \(self.instanceNumber).")
@@ -157,9 +157,7 @@ return Result_NonePaymentSendFailureZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Payer::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -1,6 +1,6 @@
 import Foundation
 
-open class SocketDescriptor: NativeTypeWrapper {
+open class SocketDescriptor: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -99,7 +99,7 @@ open class SocketDescriptor: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing SocketDescriptor \(self.instanceNumber).")
@@ -140,9 +140,7 @@ return 0
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("SocketDescriptor::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

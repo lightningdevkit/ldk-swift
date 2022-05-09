@@ -1,6 +1,6 @@
 import Foundation
 
-open class KeysInterface: NativeTypeWrapper {
+open class KeysInterface: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -113,7 +113,7 @@ open class KeysInterface: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing KeysInterface \(self.instanceNumber).")
@@ -182,9 +182,7 @@ return [UInt8]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("KeysInterface::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

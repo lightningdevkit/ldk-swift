@@ -1,6 +1,6 @@
 import Foundation
 
-open class CustomMessageHandler: NativeTypeWrapper {
+open class CustomMessageHandler: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -72,7 +72,7 @@ open class CustomMessageHandler: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing CustomMessageHandler \(self.instanceNumber).")
@@ -99,9 +99,7 @@ return [LDKC2Tuple_PublicKeyTypeZ]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("CustomMessageHandler::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

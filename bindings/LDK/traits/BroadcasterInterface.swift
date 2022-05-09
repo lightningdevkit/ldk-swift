@@ -1,6 +1,6 @@
 import Foundation
 
-open class BroadcasterInterface: NativeTypeWrapper {
+open class BroadcasterInterface: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -58,7 +58,7 @@ open class BroadcasterInterface: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing BroadcasterInterface \(self.instanceNumber).")
@@ -78,9 +78,7 @@ open class BroadcasterInterface: NativeTypeWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("BroadcasterInterface::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

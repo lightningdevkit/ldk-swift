@@ -65,6 +65,15 @@ open class NativeTypeWrapper: Hashable {
 
 }
 
+open class NativeTraitWrapper: NativeTypeWrapper {
+
+    public func activate() -> Self {
+        Bindings.cacheInstance(instance: self)
+        return self
+    }
+
+}
+
 public class Bindings {
 
 	internal static var minimumPrintSeverity: PrintSeverity = .WARNING
@@ -229,31 +238,27 @@ public class Bindings {
 	}
 	/* STATIC_METHODS_END */
 
-	static var nativelyExposedInstances = [String: NativeTypeWrapper]()
+	static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
 
-	public class func instanceToPointer(instance: NativeTypeWrapper) -> UnsafeMutableRawPointer {
-		let pointer = Unmanaged.passUnretained(instance).toOpaque()
-        instance.pointerDebugDescription = pointer.debugDescription
-		Self.nativelyExposedInstances[pointer.debugDescription] = instance
+	public class func cacheInstance(instance: NativeTraitWrapper) {
+        Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+    }
+
+	public class func instanceToPointer(instance: NativeTraitWrapper) -> UnsafeMutableRawPointer {
+        let pointer = UnsafeMutableRawPointer(bitPattern: instance.globalInstanceNumber)!
+		// don't automatically cache the trait instance
+		// Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
 		return pointer
 	}
 
-	public class func pointerToInstance<T: NativeTypeWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
-
-		let callStack = Thread.callStackSymbols
-		let caller = sourceMarker ?? callStack[1]
-		// print("Retrieving instance from pointer for caller: \(caller)")
-		// let value = Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
-		let value = Self.nativelyExposedInstances[pointer.debugDescription] as! T
-		// print("Instance retrieved for caller: \(caller)")
+	public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
+        let key = UInt(bitPattern: pointer)
+		let value = Self.nativelyExposedInstances[key] as! T
 		return value
 	}
 
     public class func removeInstancePointer(instance: NativeTypeWrapper) -> Bool {
-        guard let debugDescription = instance.pointerDebugDescription else {
-            return false
-        }
-        Self.nativelyExposedInstances.removeValue(forKey: debugDescription)
+        Self.nativelyExposedInstances.removeValue(forKey: instance.globalInstanceNumber)
         instance.pointerDebugDescription = nil
         return true
     }
@@ -400,14 +405,14 @@ public class Bindings {
 		}
 	}
 	*/
-	
+
 	public class func get_ldk_swift_bindings_version() -> String {
         return "/* SWIFT_BINDINGS_VERSION */"
     }
 
 }
 
-public class InstanceCrashSimulator: NativeTypeWrapper {
+public class InstanceCrashSimulator: NativeTraitWrapper {
 
     public init() {
 		super.init(conflictAvoidingVariableName: 0)

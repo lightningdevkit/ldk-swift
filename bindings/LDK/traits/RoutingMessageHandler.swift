@@ -1,6 +1,6 @@
 import Foundation
 
-open class RoutingMessageHandler: NativeTypeWrapper {
+open class RoutingMessageHandler: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -138,7 +138,7 @@ open class RoutingMessageHandler: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing RoutingMessageHandler \(self.instanceNumber).")
@@ -221,9 +221,7 @@ return Result_NoneLightningErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::free should be overridden!", severity: .WARNING)
-
-
+		Bindings.removeInstancePointer(instance: self)
     }
 
     /* SWIFT_CALLBACKS_END */

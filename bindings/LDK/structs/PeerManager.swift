@@ -102,7 +102,7 @@ PeerManager_process_events(this_argPointer)
     public func socket_disconnected(descriptor: SocketDescriptor) -> Void {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKSocketDescriptor>) in
+withUnsafePointer(to: descriptor.activateOnce().cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKSocketDescriptor>) in
 PeerManager_socket_disconnected(this_argPointer, descriptorPointer)
 }
 };

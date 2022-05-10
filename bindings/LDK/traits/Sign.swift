@@ -63,7 +63,7 @@ open class Sign: NativeTraitWrapper {
 
 				public func clone() -> Sign {
 					
-					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSign>) in
+					return withUnsafePointer(to: self.activateOnce().cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSign>) in
 
 					Sign(pointer: Sign_clone(origPointer))
 					

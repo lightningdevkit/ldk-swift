@@ -72,6 +72,11 @@ open class NativeTraitWrapper: NativeTypeWrapper {
         return self
     }
 
+    public func activateOnce() -> Self {
+        Bindings.cacheInstance(instance: self)
+        return self
+    }
+
 }
 
 public class Bindings {
@@ -6062,7 +6067,7 @@ public class Bindings {
 							serWrapper.noOpRetain()
 						}
 					
-				return withUnsafePointer(to: arg.cOpaqueStruct!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
+				return withUnsafePointer(to: arg.activateOnce().cOpaqueStruct!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
 
 				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(serWrapper.cOpaqueStruct!, argPointer))
 				
@@ -6239,7 +6244,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 						
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
 withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
-withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
+withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (random_seed_bytesPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
 				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), route_paramsPointer, networkPointer, first_hopsPointer, logger.activate().cOpaqueStruct!, scorerPointer, random_seed_bytesPointer))
@@ -6332,10 +6337,14 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
     static var nativelyExposedInstanceReferenceCounter = [UInt: Int]()
 
-	public class func cacheInstance(instance: NativeTraitWrapper) {
+    public class func cacheInstance(instance: NativeTraitWrapper, countIdempotently: Bool = false) {
         let key = instance.globalInstanceNumber
         let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) + 1
-        Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+        if (!countIdempotently || referenceCount == 1){
+            // if we count non-idempotently, always update the counter
+            // otherwise, only update the counter the first time
+            Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+        }
         if referenceCount == 1 {
             print("Caching global instance \(key). Cached instance count: \(nativelyExposedInstanceReferenceCounter.count)")
             Self.nativelyExposedInstances[key] = instance
@@ -6352,11 +6361,11 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 
 	public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
         let key = UInt(bitPattern: pointer)
-		let value = Self.nativelyExposedInstances[key] as! T
         let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
         if referenceCount < 1 {
             print("Bad lookup: non-positive reference count for instance \(key): \(referenceCount)!", severity: .ERROR)
         }
+        let value = Self.nativelyExposedInstances[key] as! T
 		return value
 	}
 
@@ -6519,7 +6528,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "eb40db30cfc9a35a8947dbbc17d7fdcc05bc3b50"
+        return "90b85905ad0889a5368bb8eee79bfbb4d0ff444e"
     }
 
 }

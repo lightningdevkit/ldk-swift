@@ -72,6 +72,11 @@ open class NativeTraitWrapper: NativeTypeWrapper {
         return self
     }
 
+    public func activateOnce() -> Self {
+        Bindings.cacheInstance(instance: self)
+        return self
+    }
+
 }
 
 public class Bindings {
@@ -241,10 +246,14 @@ public class Bindings {
 	static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
     static var nativelyExposedInstanceReferenceCounter = [UInt: Int]()
 
-	public class func cacheInstance(instance: NativeTraitWrapper) {
+    public class func cacheInstance(instance: NativeTraitWrapper, countIdempotently: Bool = false) {
         let key = instance.globalInstanceNumber
         let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) + 1
-        Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+        if (!countIdempotently || referenceCount == 1){
+            // if we count non-idempotently, always update the counter
+            // otherwise, only update the counter the first time
+            Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+        }
         if referenceCount == 1 {
             print("Caching global instance \(key). Cached instance count: \(nativelyExposedInstanceReferenceCounter.count)")
             Self.nativelyExposedInstances[key] = instance
@@ -261,11 +270,11 @@ public class Bindings {
 
 	public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
         let key = UInt(bitPattern: pointer)
-		let value = Self.nativelyExposedInstances[key] as! T
         let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
         if referenceCount < 1 {
             print("Bad lookup: non-positive reference count for instance \(key): \(referenceCount)!", severity: .ERROR)
         }
+        let value = Self.nativelyExposedInstances[key] as! T
 		return value
 	}
 
@@ -276,7 +285,7 @@ public class Bindings {
         if referenceCount == 0 {
             print("Uncaching global instance \(key)")
             // TODO: fix counting
-            // Self.nativelyExposedInstances.removeValue(forKey: key)
+            Self.nativelyExposedInstances.removeValue(forKey: key)
             instance.pointerDebugDescription = nil
         } else if referenceCount < 0 {
             print("Bad uncache: negative reference count (\(referenceCount)) for instance \(key)!", severity: .ERROR)

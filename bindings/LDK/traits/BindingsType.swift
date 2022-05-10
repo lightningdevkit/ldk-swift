@@ -76,7 +76,7 @@ open class BindingsType: NativeTraitWrapper {
 
 				public func clone() -> BindingsType {
 					
-					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKType>) in
+					return withUnsafePointer(to: self.activateOnce().cOpaqueStruct!) { (origPointer: UnsafePointer<LDKType>) in
 
 					BindingsType(pointer: Type_clone(origPointer))
 					

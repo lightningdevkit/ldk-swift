@@ -134,7 +134,7 @@ public class NativelyImplementedRouter: Router {
 						
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: payment_hash!)) { (payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
+withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 
 				Result_RouteLightningErrorZ(pointer: self.cOpaqueStruct!.find_route(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: payer), route_paramsPointer, payment_hashPointer, first_hopsPointer, scorerPointer))
 				

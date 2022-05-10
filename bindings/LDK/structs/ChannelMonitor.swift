@@ -51,9 +51,9 @@ ChannelMonitor_write(objPointer)
     	
         return Result_NoneNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 withUnsafePointer(to: updates.cOpaqueStruct!) { (updatesPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
-withUnsafePointer(to: broadcaster.cOpaqueStruct!) { (broadcasterPointer: UnsafePointer<LDKBroadcasterInterface>) in
-withUnsafePointer(to: fee_estimator.cOpaqueStruct!) { (fee_estimatorPointer: UnsafePointer<LDKFeeEstimator>) in
-withUnsafePointer(to: logger.cOpaqueStruct!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+withUnsafePointer(to: broadcaster.activateOnce().cOpaqueStruct!) { (broadcasterPointer: UnsafePointer<LDKBroadcasterInterface>) in
+withUnsafePointer(to: fee_estimator.activateOnce().cOpaqueStruct!) { (fee_estimatorPointer: UnsafePointer<LDKFeeEstimator>) in
+withUnsafePointer(to: logger.activateOnce().cOpaqueStruct!) { (loggerPointer: UnsafePointer<LDKLogger>) in
 ChannelMonitor_update_monitor(this_argPointer, updatesPointer, broadcasterPointer, fee_estimatorPointer, loggerPointer)
 }
 }
@@ -91,7 +91,7 @@ ChannelMonitor_get_outputs_to_watch(this_argPointer)
     public func load_outputs_to_watch(filter: Filter) -> Void {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
-withUnsafePointer(to: filter.cOpaqueStruct!) { (filterPointer: UnsafePointer<LDKFilter>) in
+withUnsafePointer(to: filter.activateOnce().cOpaqueStruct!) { (filterPointer: UnsafePointer<LDKFilter>) in
 ChannelMonitor_load_outputs_to_watch(this_argPointer, filterPointer)
 }
 };
@@ -124,7 +124,7 @@ ChannelMonitor_get_and_clear_pending_events(this_argPointer)
     public func get_latest_holder_commitment_txn(logger: Logger) -> [[UInt8]] {
     	
         return Bindings.LDKCVec_TransactionZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
-withUnsafePointer(to: logger.cOpaqueStruct!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+withUnsafePointer(to: logger.activateOnce().cOpaqueStruct!) { (loggerPointer: UnsafePointer<LDKLogger>) in
 ChannelMonitor_get_latest_holder_commitment_txn(this_argPointer, loggerPointer)
 }
 });

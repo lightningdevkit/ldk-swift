@@ -76,6 +76,8 @@ class ConversionHelper:
 
 	@classmethod
 	def is_trait_type(cls, raw_rust_type: str):
+		if raw_rust_type is None:
+			return False
 		return raw_rust_type in ConversionHelper.trait_structs
 
 	@classmethod
@@ -190,14 +192,18 @@ class ConversionHelper:
 					argument_name = 'initValue'
 
 				requires_mutability = not current_argument_details.is_const
+				is_trait = ConversionHelper.is_trait_type(current_argument_details.rust_obj)
 
 				reference_prefix = ''
 				mutability_infix = ''
+				trait_activation_infix = ''
 
 				non_nullable = current_argument_details.non_nullable
 
 				if pass_instance:
 					argument_name = 'self'
+				if is_trait:
+					trait_activation_infix = '.activateOnce()'
 				if requires_mutability:
 					# argument_name = '&' + argument_name
 					reference_prefix = '&'
@@ -249,7 +255,7 @@ class ConversionHelper:
 					'''  # print('optional argument:', argument_name, passed_argument_name)
 				else:
 					wrapper_return_prefix = '' if pointer_wrapping_depth == 0 else 'return '
-					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
+					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}{trait_activation_infix}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
 					pointer_wrapping_suffix += '\n}'
 			# native_call_prep += current_prep
 			elif is_cloneable:

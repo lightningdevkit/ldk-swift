@@ -78,7 +78,7 @@ open class SocketDescriptor: NativeTraitWrapper {
 
 				public func clone() -> SocketDescriptor {
 					
-					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSocketDescriptor>) in
+					return withUnsafePointer(to: self.activateOnce().cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSocketDescriptor>) in
 
 					SocketDescriptor(pointer: SocketDescriptor_clone(origPointer))
 					
@@ -180,7 +180,7 @@ public class NativelyImplementedSocketDescriptor: SocketDescriptor {
 	public override func eq(other_arg: SocketDescriptor) -> Bool {
 		
 				
-				return withUnsafePointer(to: other_arg.cOpaqueStruct!) { (other_argPointer: UnsafePointer<LDKSocketDescriptor>) in
+				return withUnsafePointer(to: other_arg.activateOnce().cOpaqueStruct!) { (other_argPointer: UnsafePointer<LDKSocketDescriptor>) in
 
 				self.cOpaqueStruct!.eq(self.cOpaqueStruct!.this_arg, other_argPointer)
 				

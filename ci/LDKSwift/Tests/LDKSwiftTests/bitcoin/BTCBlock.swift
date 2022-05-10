@@ -5,8 +5,11 @@
 //  Created by Arik Sosman on 3/28/22.
 //
 
+#if os(Linux)
 import LDKSwift
 import LDKHeaders
+#endif
+import XCTest
 
 /// serialization:
 /// 4 bytes: 0xD9B4BEF9

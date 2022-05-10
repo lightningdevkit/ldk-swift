@@ -206,8 +206,7 @@ class LDKSwiftTests: XCTestCase {
             print("net graph available!")
         }
 
-
-        Bindings.setLogThreshold(severity: .WARNING)
+        // Bindings.setLogThreshold(severity: .WARNING)
 
         // bitrefill
         tcpPeerHandler.connect(address: "52.50.244.44", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "030c3f19d742ca294a55c00376b3b355c3c90d61c6b6b39554dbc7ac19b141c14f")!)

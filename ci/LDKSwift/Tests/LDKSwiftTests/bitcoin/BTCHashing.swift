@@ -5,8 +5,10 @@
 //  Created by Arik Sosman on 3/29/22.
 //
 
+#if os(Linux)
 import LDKSwift
 import LDKHeaders
+#endif
 import Crypto
 
 class BTCHashing {

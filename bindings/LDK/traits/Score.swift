@@ -91,7 +91,7 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Score \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Score \(self.instanceNumber) due to dangle.")
 						}
@@ -128,7 +128,10 @@ return [UInt8]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating Score \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -62,7 +62,7 @@ open class BroadcasterInterface: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing BroadcasterInterface \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing BroadcasterInterface \(self.instanceNumber) due to dangle.")
 						}
@@ -78,7 +78,10 @@ open class BroadcasterInterface: NativeTraitWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating BroadcasterInterface \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

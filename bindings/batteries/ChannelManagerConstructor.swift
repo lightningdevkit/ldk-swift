@@ -250,12 +250,17 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         print("stopping background processor")
         self.backgroundProcessor?.dangle().stop()
         print("stopped background processor")
+        /*
         if let processor = self.backgroundProcessor {
             for currentAnchor in processor.anchors {
-                Bindings.removeInstancePointer(instance: currentAnchor)
+                if currentAnchor is NativeTraitWrapper {
+                    let traitAnchor = currentAnchor as! NativeTraitWrapper
+                    Bindings.removeInstancePointer(instance: traitAnchor)
+                }
             }
             print("removed background processor anchors")
         }
+        */
         self.payer = nil
         self.scorer = nil
         self.backgroundProcessor = nil

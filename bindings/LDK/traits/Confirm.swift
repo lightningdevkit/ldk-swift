@@ -104,7 +104,7 @@ open class Confirm: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Confirm \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Confirm \(self.instanceNumber) due to dangle.")
 						}
@@ -141,7 +141,10 @@ return [LDKTxid]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating Confirm \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

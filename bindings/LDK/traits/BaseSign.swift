@@ -171,7 +171,7 @@ open class BaseSign: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing BaseSign \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing BaseSign \(self.instanceNumber) due to dangle.")
 						}
@@ -271,7 +271,10 @@ return Result_C2Tuple_SignatureSignatureZNoneZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating BaseSign \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -5,11 +5,13 @@
 //  Created by Arik Sosman on 7/27/21.
 //
 
-import XCTest
+#if os(Linux)
 import LDKSwift
 import LDKHeaders
+#endif
+import XCTest
 
-class LDKSwiftTest: XCTestCase {
+class LDKSwiftTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -75,6 +77,48 @@ class LDKSwiftTest: XCTestCase {
         let header = Self.hexStringToBytes(hexString: "f5591ea0b69ae3edc0de11497ffb0fdd91f769ede96c5d662c805364e9bf8b2243e8e5b9d1833eff7cb19abd9fc9da3cd26fe84d718bbf8a336966ae4f7dea6a81372961ffff7f200400000001020000")
         channel_manager.as_Confirm().transactions_confirmed(header: header, txdata: txdata, height: 525)
 
+        /*
+        let amtSat: NSNumber = 2
+        let sendRes = payer.pay_invoice(invoice: parsedInvoiceValue)
+        if amtSat != 0 {
+            let sendRes = payer.pay_zero_value_invoice(invoice: parsedInvoiceValue, amount_msats: UInt64(truncating: amtSat) * 1000)
+            if let sendError = sendRes.getError(){
+                print("pay_zero_value_invoice error type: \(sendError.getValueType())")
+                if let sendRoutingError = sendError.getValueAsRouting() {
+                    print("pay_zero_value_invoice routing error: \(sendRoutingError.get_err())")
+                } else if let sendInvoiceError = sendError.getValueAsInvoice() {
+                    print("pay_zero_value_invoice invoice error: \(sendInvoiceError)")
+                } else if let sendSendingError = sendError.getValueAsSending() {
+                    print("pay_zero_value_invoice sending error type: \(sendSendingError.getValueType())")
+                    if let sendingParameterError = sendSendingError.getValueAsParameterError() {
+                        print("pay_zero_value_invoice sending parameter error type: \(sendingParameterError.getValueType())")
+                        if let parameterRouteError = sendingParameterError.getValueAsRouteError() {
+                            print("pay_zero_value_invoice sending parameter route error: \(parameterRouteError.getErr())")
+                        } else if let parameterChannelUnavailableError = sendingParameterError.getValueAsChannelUnavailable() {
+                            print("pay_zero_value_invoice sending parameter channel unavailable error: \(parameterChannelUnavailableError.getErr())")
+                        } else if let parameterAPIMisuseError = sendingParameterError.getValueAsAPIMisuseError() {
+                            print("pay_zero_value_invoice sending parameter API misuse error: \(parameterAPIMisuseError.getErr())")
+                        } else if let parameterFeeRateTooHighError = sendingParameterError.getValueAsFeeRateTooHigh() {
+                            print("pay_zero_value_invoice sending parameter excessive fee rate error: \(parameterFeeRateTooHighError.getErr())")
+                        } else if let parameterIncompatibleShutdownScriptError = sendingParameterError.getValueAsIncompatibleShutdownScript() {
+                            print("pay_zero_value_invoice sending parameter incompatible shutdown script error: \(parameterIncompatibleShutdownScriptError.getScript().write())")
+                        }
+                    } else if let sendingPartialFailureError = sendSendingError.getValueAsPartialFailure() {
+                        print("pay_zero_value_invoice sending parameter error payment id: \(sendingPartialFailureError.getPayment_id())")
+                    } else if let sendingPathParameterError = sendSendingError.getValueAsPathParameterError() {
+                        print("pay_zero_value_invoice sending path parameter errors: \(sendingPathParameterError.count)")
+                    } else if let sendingAllFailedError = sendSendingError.getValueAsAllFailedRetrySafe() {
+                        print("pay_zero_value_invoice sending all failed retry safe errors: \(sendingAllFailedError.count)")
+                    }
+                }
+            }
+            assert(sendRes.isOk())
+        } else {
+            let sendRes = payer.pay_invoice(invoice: parsedInvoiceValue)
+            assert(sendRes.isOk())
+        }
+        */
+        
         channel_manager_constructor.chain_sync_completed(persister: cmPersister, scorer: nil)
         channel_manager_constructor.interrupt()
     }
@@ -284,7 +328,7 @@ class LDKSwiftTest: XCTestCase {
         Bindings.setLogThreshold(severity: .DEBUG)
     }
 
-    private class func hexStringToBytes(hexString: String) -> [UInt8]? {
+    internal class func hexStringToBytes(hexString: String) -> [UInt8]? {
         let hexStr = hexString.dropFirst(hexString.hasPrefix("0x") ? 2 : 0)
 
         guard hexStr.count % 2 == 0 else {
@@ -307,7 +351,7 @@ class LDKSwiftTest: XCTestCase {
         return newData
     }
 
-    private class func bytesToHexString(bytes: [UInt8]) -> String {
+    internal class func bytesToHexString(bytes: [UInt8]) -> String {
         let format = "%02hhx" // "%02hhX" (uppercase)
         return bytes.map {
             String(format: format, $0)

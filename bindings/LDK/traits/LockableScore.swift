@@ -62,7 +62,7 @@ open class LockableScore: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing LockableScore \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing LockableScore \(self.instanceNumber) due to dangle.")
 						}
@@ -78,7 +78,10 @@ return Score()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating LockableScore \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

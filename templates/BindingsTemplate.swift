@@ -239,9 +239,13 @@ public class Bindings {
 	/* STATIC_METHODS_END */
 
 	static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
+    static var nativelyExposedInstanceReferenceCounter = [UInt: UInt]()
 
 	public class func cacheInstance(instance: NativeTraitWrapper) {
-        Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+        let key = instance.globalInstanceNumber
+        let counter = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
+        Self.nativelyExposedInstanceReferenceCounter[key] = counter + 1
+        Self.nativelyExposedInstances[key] = instance
     }
 
 	public class func instanceToPointer(instance: NativeTraitWrapper) -> UnsafeMutableRawPointer {
@@ -253,13 +257,19 @@ public class Bindings {
 
 	public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
         let key = UInt(bitPattern: pointer)
+        print("\(sourceMarker) > Releasing global instance \(key)", severity: .DEBUG)
 		let value = Self.nativelyExposedInstances[key] as! T
 		return value
 	}
 
-    public class func removeInstancePointer(instance: NativeTypeWrapper) -> Bool {
-        Self.nativelyExposedInstances.removeValue(forKey: instance.globalInstanceNumber)
-        instance.pointerDebugDescription = nil
+    public class func removeInstancePointer(instance: NativeTraitWrapper) -> Bool {
+        let key = instance.globalInstanceNumber
+        Self.nativelyExposedInstanceReferenceCounter[key] = Self.nativelyExposedInstanceReferenceCounter[key]! - 1
+        let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key]
+        if referenceCount == 0 {
+            Self.nativelyExposedInstances.removeValue(forKey: key)
+            instance.pointerDebugDescription = nil
+        }
         return true
     }
 

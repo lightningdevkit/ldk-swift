@@ -103,7 +103,7 @@ open class SocketDescriptor: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing SocketDescriptor \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing SocketDescriptor \(self.instanceNumber) due to dangle.")
 						}
@@ -140,7 +140,10 @@ return 0
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating SocketDescriptor \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

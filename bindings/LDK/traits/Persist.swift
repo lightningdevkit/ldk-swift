@@ -72,7 +72,7 @@ let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Persist \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Persist \(self.instanceNumber) due to dangle.")
 						}
@@ -95,7 +95,10 @@ return Result_NoneChannelMonitorUpdateErrZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating Persist \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

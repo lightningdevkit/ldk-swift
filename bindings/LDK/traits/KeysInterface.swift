@@ -117,7 +117,7 @@ open class KeysInterface: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing KeysInterface \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing KeysInterface \(self.instanceNumber) due to dangle.")
 						}
@@ -182,7 +182,10 @@ return [UInt8]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating KeysInterface \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -71,7 +71,7 @@ open class Persister: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Persister \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Persister \(self.instanceNumber) due to dangle.")
 						}
@@ -94,7 +94,10 @@ return Result_NoneErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating Persister \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

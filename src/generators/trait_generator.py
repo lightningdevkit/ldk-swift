@@ -106,7 +106,7 @@ class TraitGenerator:
 					deinit {{
 						if !self.dangling {{
 							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")
-							self.{current_method_details['name']['swift']}()
+							// self.{current_method_details['name']['swift']}()
 						}} else {{
 							Bindings.print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
 						}}
@@ -206,7 +206,10 @@ class TraitGenerator:
 				swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} MUST be overridden!", severity: .ERROR)\n\nabort()'
 
 			if current_lambda_name == 'free':
-				swift_default_return = 'Bindings.removeInstancePointer(instance: self)'
+				swift_default_return = f'''
+					Bindings.print("Deactivating {swift_struct_name} \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				'''
 
 			current_native_callback_replacement = native_callback_template
 			current_native_callback_replacement = current_native_callback_replacement.replace('func methodNameCallback(', f'func {current_lambda_name}Callback(')

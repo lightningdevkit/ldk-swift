@@ -62,7 +62,7 @@ open class EventsProvider: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing EventsProvider \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing EventsProvider \(self.instanceNumber) due to dangle.")
 						}
@@ -78,7 +78,10 @@ open class EventsProvider: NativeTraitWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating EventsProvider \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

@@ -106,7 +106,7 @@ open class Payer: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Payer \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Payer \(self.instanceNumber) due to dangle.")
 						}
@@ -157,7 +157,10 @@ return Result_NonePaymentSendFailureZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating Payer \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

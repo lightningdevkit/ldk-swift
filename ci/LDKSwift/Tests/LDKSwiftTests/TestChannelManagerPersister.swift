@@ -5,8 +5,10 @@
 //  Created by Arik Sosman on 5/27/21.
 //
 
+#if os(Linux)
 import LDKSwift
 import LDKHeaders
+#endif
 
 class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
 

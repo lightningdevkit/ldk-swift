@@ -67,7 +67,7 @@ open class Access: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Access \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Access \(self.instanceNumber) due to dangle.")
 						}
@@ -83,7 +83,10 @@ return Result_TxOutAccessErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating Access \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

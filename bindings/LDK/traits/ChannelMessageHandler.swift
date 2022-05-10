@@ -216,7 +216,7 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing ChannelMessageHandler \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing ChannelMessageHandler \(self.instanceNumber) due to dangle.")
 						}
@@ -365,7 +365,10 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating ChannelMessageHandler \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

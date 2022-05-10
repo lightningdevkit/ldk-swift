@@ -76,7 +76,7 @@ open class CustomMessageHandler: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing CustomMessageHandler \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing CustomMessageHandler \(self.instanceNumber) due to dangle.")
 						}
@@ -99,7 +99,10 @@ return [LDKC2Tuple_PublicKeyTypeZ]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating CustomMessageHandler \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

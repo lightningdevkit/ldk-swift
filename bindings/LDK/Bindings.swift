@@ -6330,9 +6330,16 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	/* STATIC_METHODS_END */
 
 	static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
+    static var nativelyExposedInstanceReferenceCounter = [UInt: UInt]()
 
 	public class func cacheInstance(instance: NativeTraitWrapper) {
-        Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+        let key = instance.globalInstanceNumber
+        let counter = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
+        Self.nativelyExposedInstanceReferenceCounter[key] = counter + 1
+        if counter == 0 {
+            print("Caching global instance \(key)")
+            Self.nativelyExposedInstances[key] = instance
+        }
     }
 
 	public class func instanceToPointer(instance: NativeTraitWrapper) -> UnsafeMutableRawPointer {
@@ -6344,13 +6351,20 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 
 	public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
         let key = UInt(bitPattern: pointer)
+        print("\(sourceMarker) > Releasing global instance \(key)", severity: .DEBUG)
 		let value = Self.nativelyExposedInstances[key] as! T
 		return value
 	}
 
-    public class func removeInstancePointer(instance: NativeTypeWrapper) -> Bool {
-        Self.nativelyExposedInstances.removeValue(forKey: instance.globalInstanceNumber)
-        instance.pointerDebugDescription = nil
+    public class func removeInstancePointer(instance: NativeTraitWrapper) -> Bool {
+        let key = instance.globalInstanceNumber
+        Self.nativelyExposedInstanceReferenceCounter[key] = Self.nativelyExposedInstanceReferenceCounter[key]! - 1
+        let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key]
+        if referenceCount == 0 {
+            print("Uncaching global instance \(key)")
+            Self.nativelyExposedInstances.removeValue(forKey: key)
+            instance.pointerDebugDescription = nil
+        }
         return true
     }
 
@@ -6498,7 +6512,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "b058a25ba435d31e8885e804c0a65425e456ea10"
+        return "be7ee7abb0bf358457f0e91a0403146885e9bc24"
     }
 
 }

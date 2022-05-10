@@ -5,8 +5,10 @@
 //  Created by Arik Sosman on 5/18/21.
 //
 
+#if os(Linux)
 import LDKSwift
 import LDKHeaders
+#endif
 
 class TestKeysInterface: KeysInterface {
 //     override func get_node_secret() -> [UInt8] {

@@ -63,7 +63,7 @@ open class Logger: NativeTraitWrapper {
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Logger \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Logger \(self.instanceNumber) due to dangle.")
 						}
@@ -79,7 +79,10 @@ open class Logger: NativeTraitWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.removeInstancePointer(instance: self)
+		
+					Bindings.print("Deactivating Logger \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

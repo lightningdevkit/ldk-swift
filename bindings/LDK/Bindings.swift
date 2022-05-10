@@ -6330,20 +6330,21 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	/* STATIC_METHODS_END */
 
 	static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
-    static var nativelyExposedInstanceReferenceCounter = [UInt: UInt]()
+    static var nativelyExposedInstanceReferenceCounter = [UInt: Int]()
 
 	public class func cacheInstance(instance: NativeTraitWrapper) {
         let key = instance.globalInstanceNumber
-        let counter = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
-        Self.nativelyExposedInstanceReferenceCounter[key] = counter + 1
-        if counter == 0 {
-            print("Caching global instance \(key)")
+        let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) + 1
+        Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+        if referenceCount == 1 {
+            print("Caching global instance \(key). Cached instance count: \(nativelyExposedInstanceReferenceCounter.count)")
             Self.nativelyExposedInstances[key] = instance
         }
     }
 
 	public class func instanceToPointer(instance: NativeTraitWrapper) -> UnsafeMutableRawPointer {
-        let pointer = UnsafeMutableRawPointer(bitPattern: instance.globalInstanceNumber)!
+        let key = instance.globalInstanceNumber
+        let pointer = UnsafeMutableRawPointer(bitPattern: key)!
 		// don't automatically cache the trait instance
 		// Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
 		return pointer
@@ -6351,19 +6352,25 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 
 	public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
         let key = UInt(bitPattern: pointer)
-        print("\(sourceMarker) > Releasing global instance \(key)", severity: .DEBUG)
 		let value = Self.nativelyExposedInstances[key] as! T
+        let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
+        if referenceCount < 1 {
+            print("Bad lookup: non-positive reference count for instance \(key): \(referenceCount)!", severity: .ERROR)
+        }
 		return value
 	}
 
     public class func removeInstancePointer(instance: NativeTraitWrapper) -> Bool {
         let key = instance.globalInstanceNumber
-        Self.nativelyExposedInstanceReferenceCounter[key] = Self.nativelyExposedInstanceReferenceCounter[key]! - 1
-        let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key]
+        let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) - 1
+        Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
         if referenceCount == 0 {
             print("Uncaching global instance \(key)")
+            // TODO: fix counting
             Self.nativelyExposedInstances.removeValue(forKey: key)
             instance.pointerDebugDescription = nil
+        } else if referenceCount < 0 {
+            print("Bad uncache: negative reference count (\(referenceCount)) for instance \(key)!", severity: .ERROR)
         }
         return true
     }
@@ -6512,7 +6519,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "be7ee7abb0bf358457f0e91a0403146885e9bc24"
+        return "eb40db30cfc9a35a8947dbbc17d7fdcc05bc3b50"
     }
 
 }

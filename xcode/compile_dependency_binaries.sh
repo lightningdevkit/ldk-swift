@@ -28,26 +28,25 @@ python3 ../ci/fix_header_includes.py $FRAMEWORK_PROJECT_DIRECTORY_IOS
 python3 ../ci/fix_header_includes.py $FRAMEWORK_PROJECT_DIRECTORY_MAC
 python3 ../ci/fix_header_includes.py $DIRECT_BINDINGS_PROJECT_DIRECTORY
 
-
-# build for Catalyst
 pushd $C_BINDINGS_SOURCE_DIRECTORY
 export RUSTFLAGS="--cfg=c_bindings"
 
-rustup override set nightly
-cargo clean
-cargo build -Z build-std=panic_abort,std --features "std" --target x86_64-apple-ios-macabi --release
-cp "${C_BINDINGS_SOURCE_DIRECTORY}/target/x86_64-apple-ios-macabi/release/libldk.a" $FRAMEWORK_PROJECT_DIRECTORY_MAC
+# Build for Catalyst
+# Unfortunately, this only works for x86_64-based Macs for now, since the `aarch64-apple-ios-macabi` target
+# currently does not have the standard library supported.
+ARCH=$(uname -m)
+if [ "$ARCH" != "arm64" ]; then
+	rustup override set nightly
+	cargo clean
 
-# iOS & Simulator binaries
-rustup override unset
-cargo clean
+	cargo build -Z build-std=panic_abort,std --features "std" --target x86_64-apple-ios-macabi --release
+	cp "${C_BINDINGS_SOURCE_DIRECTORY}/target/x86_64-apple-ios-macabi/release/libldk.a" $FRAMEWORK_PROJECT_DIRECTORY_MAC
+
+	rustup override unset
+	cargo clean
+fi
+
 cargo lipo --features "std" --release
 cp "${C_BINDINGS_SOURCE_DIRECTORY}/target/universal/release/libldk.a" $FRAMEWORK_PROJECT_DIRECTORY_IOS
 cargo lipo --features "std"
 cp "${C_BINDINGS_SOURCE_DIRECTORY}/target/universal/debug/libldk.a" $DIRECT_BINDINGS_PROJECT_DIRECTORY
-
-
-
-
-
-

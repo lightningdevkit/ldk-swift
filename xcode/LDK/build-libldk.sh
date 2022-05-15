@@ -28,6 +28,8 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
 
     if [[ $PLATFORM_NAME = "macosx" ]]; then
         RUST_TARGET_OS="darwin"
+    elif [[ $PLATFORM_NAME = "iphonesimulator" ]]; then
+        RUST_TARGET_OS="ios-simulator"
     else
         RUST_TARGET_OS="ios"
     fi

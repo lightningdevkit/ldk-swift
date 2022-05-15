@@ -1109,7 +1109,7 @@
 			);
 			name = headers;
 			path = LDKFramework;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		754BCE0F28308D6D0050F361 /* Frameworks */ = {
 			isa = PBXGroup;
@@ -1136,7 +1136,6 @@
 				754BD24F283159D60050F361 /* LDK */,
 			);
 			name = Common;
-			path = LDK;
 			sourceTree = "<group>";
 		};
 		754BD242283159D00050F361 /* batteries */ = {
@@ -1148,8 +1147,8 @@
 				754BD246283159D00050F361 /* UtilMethods.swift */,
 			);
 			name = batteries;
-			path = ../../../bindings/batteries;
-			sourceTree = "<group>";
+			path = ../../bindings/batteries;
+			sourceTree = SOURCE_ROOT;
 		};
 		754BD24F283159D60050F361 /* LDK */ = {
 			isa = PBXGroup;
@@ -1162,8 +1161,8 @@
 				754BD325283159D60050F361 /* structs */,
 			);
 			name = LDK;
-			path = ../../../bindings/LDK;
-			sourceTree = "<group>";
+			path = ../../bindings/LDK;
+			sourceTree = SOURCE_ROOT;
 		};
 		754BD250283159D60050F361 /* options */ = {
 			isa = PBXGroup;

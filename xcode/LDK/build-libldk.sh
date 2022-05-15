@@ -29,6 +29,7 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     if [[ $PLATFORM_NAME = "macosx" ]]; then
         RUST_TARGET_OS="darwin"
     else
+        echo "PLATFORM_NAME ${PLATFORM_NAME}"
         RUST_TARGET_OS="ios"
     fi
 
@@ -65,8 +66,12 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
                 RUST_TARGET_OS="ios-sim"
             fi
         else
-            RUST_TARGET_OS="ios"
+            if [[ $PLATFORM_NAME = "iphonesimulator" ]]; then
+                RUST_TARGET_OS="ios"
+            fi
         fi
+
+        echo "BUILDING ${RUST_ARCH}-apple-${RUST_TARGET_OS}"
 
         cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG
         EXECUTABLES+=("$C_BINDINGS_SOURCE_DIRECTORY/target/${RUST_ARCH}-apple-${RUST_TARGET_OS}/${RUST_CONFIGURATION}/${TARGET_NAME}.a")

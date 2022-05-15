@@ -12,7 +12,7 @@ runs:
     shell: bash
     run: |
       curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-      rustup target add aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
+      rustup target add -y aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
       cargo install cbindgen
   - name: Generate C Bindings
     shell: bash

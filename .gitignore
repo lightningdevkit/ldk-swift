@@ -17,4 +17,6 @@ ci/LDKSwift/.swiftpm
 /xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/xcuserdata/
 
 ## User settings
+xcode/LDK/*.h
+xcode/LDK/*.c
 xcuserdata/

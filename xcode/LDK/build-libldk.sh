@@ -15,6 +15,9 @@ set -e # stop execution upon the first error
 LDK_DIRECTORY=../../ldk-c-bindings # directory to compile the C bindings in
 C_BINDINGS_SOURCE_DIRECTORY="${LDK_DIRECTORY}/lightning-c-bindings"
 
+cp "${C_BINDINGS_SOURCE_DIRECTORY}/include/"*.h $PROJECT_DIR
+cp "${LDK_DIRECTORY}/ldk-net/ldk_net."{c,h} $PROJECT_DIR
+
 if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     TARGET_NAME="libldk"
 

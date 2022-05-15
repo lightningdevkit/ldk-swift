@@ -701,7 +701,7 @@
 		754BD64A283159DF0050F361 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5828308BFD0050F361 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD64B283159DF0050F361 /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5528308BFD0050F361 /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD64C283159DF0050F361 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5728308BFD0050F361 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BD65128315A460050F361 /* LDKFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD65028315A460050F361 /* LDKFramework.h */; };
+		754BD65128315A460050F361 /* LDKFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD65028315A460050F361 /* LDKFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65528315CDF0050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
 /* End PBXBuildFile section */
 

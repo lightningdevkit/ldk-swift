@@ -20,3 +20,4 @@ ci/LDKSwift/.swiftpm
 xcode/LDK/*.h
 xcode/LDK/*.c
 xcuserdata/
+/xcode/LDK/build

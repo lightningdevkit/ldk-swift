@@ -65,10 +65,9 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
         cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG
         EXECUTABLES+=("$C_BINDINGS_SOURCE_DIRECTORY/target/${RUST_ARCH}-apple-${RUST_TARGET_OS}/${RUST_CONFIGURATION}/${TARGET_NAME}.a")
     done
-    # cargo build -Z build-std=panic_abort,std --features "std" --target aarch64-apple-ios --release
 
     rustup override unset
 
     mkdir -p "${BUILT_PRODUCTS_DIR}"
-    xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${BUILT_PRODUCTS_DIR}/${TARGET_NAME}"
+    xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${PROJECT_DIR}/${TARGET_NAME}.a"
 fi

@@ -716,7 +716,6 @@
 		07BBC77126D0272D000D96C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07BBC77026D0272D000D96C4 /* Preview Assets.xcassets */; };
 		07BBC77C26D0272D000D96C4 /* DirectBindingsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBC77B26D0272D000D96C4 /* DirectBindingsAppTests.swift */; };
 		07BBC78726D0272D000D96C4 /* DirectBindingsAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBC78626D0272D000D96C4 /* DirectBindingsAppUITests.swift */; };
-		07BBCB1926D034B7000D96C4 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07BBCB1826D034B1000D96C4 /* libldk.a */; };
 		07BBCB1B26D03578000D96C4 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCAFD26D029AB000D96C4 /* ldk_net.c */; };
 		07BBCB1F26D03579000D96C4 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCAFD26D029AB000D96C4 /* ldk_net.c */; };
 		07BBCB3926D036AC000D96C4 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BBCB3526D036AC000D96C4 /* ChannelManagerConstructor.swift */; };
@@ -730,6 +729,9 @@
 		2DD11C86114C6827D6E338A2 /* BlockchainObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6D28039ACB00970AFC /* BlockchainObserver.swift */; };
 		2DD11F1338488839D8955B7A /* PolarIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */; };
 		2DD11F99CF6E547FA7FB9225 /* RegtestBlockchainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076D2A6B280399F500970AFC /* RegtestBlockchainManager.swift */; };
+		754BD65D28317F5A0050F361 /* LDKFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BD65C28317F5A0050F361 /* LDKFramework.framework */; };
+		754BD65E28317F5A0050F361 /* LDKFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 754BD65C28317F5A0050F361 /* LDKFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		754BD661283181290050F361 /* LDKFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BD660283181290050F361 /* LDKFramework.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -748,6 +750,20 @@
 			remoteInfo = DirectBindingsApp;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		754BD65F28317F5A0050F361 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				754BD65E28317F5A0050F361 /* LDKFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		074A2DCB26D970D400370D0B /* RegtestBroadcasterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegtestBroadcasterInterface.swift; sourceTree = "<group>"; };
@@ -1138,6 +1154,8 @@
 		28F51749280E7903009A7D10 /* CombineUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineUtils.swift; sourceTree = "<group>"; };
 		2DD1159E9DE3166EE7B79886 /* PolarIntegrationSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarIntegrationSample.swift; sourceTree = "<group>"; };
 		2DD1172C8DF0B244CF69B0FA /* PolarIntegrationTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolarIntegrationTest.swift; sourceTree = "<group>"; };
+		754BD65C28317F5A0050F361 /* LDKFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LDKFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		754BD660283181290050F361 /* LDKFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LDKFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1146,8 +1164,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				076D1D2B27F5163500970AFC /* Crypto in Frameworks */,
-				07BBCB1926D034B7000D96C4 /* libldk.a in Frameworks */,
 				07C753F326D9560200081BF8 /* PromiseKit in Frameworks */,
+				754BD65D28317F5A0050F361 /* LDKFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1155,6 +1173,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				754BD661283181290050F361 /* LDKFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1650,6 +1669,8 @@
 		07BBCB1726D034B1000D96C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				754BD660283181290050F361 /* LDKFramework.framework */,
+				754BD65C28317F5A0050F361 /* LDKFramework.framework */,
 				07BBCB1A26D03571000D96C4 /* libresolv.tbd */,
 				07BBCB1826D034B1000D96C4 /* libldk.a */,
 			);
@@ -1710,6 +1731,7 @@
 				07BBC76226D02727000D96C4 /* Sources */,
 				07BBC76326D02727000D96C4 /* Frameworks */,
 				07BBC76426D02727000D96C4 /* Resources */,
+				754BD65F28317F5A0050F361 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

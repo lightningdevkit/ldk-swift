@@ -1,0 +1,65 @@
+name: Build Frameworks
+permissions:
+  contents: read
+  statuses: read
+  pull-requests: read
+  actions: read
+  checks: write
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - "*"
+
+jobs:
+  build:
+    name: Build (${{ matrix.configuration['platform'] }})
+    runs-on: macos-12
+    strategy:
+      fail-fast: false
+      matrix:
+        configuration:
+        - scheme: LDKFramework
+          destination: generic/platform=iOS
+          platform: iOS
+          workspace: LDKFramework
+        - scheme: LDKFramework
+          destination: platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro
+          platform: iOS Simulator
+          xcode-unit-test: DirectBindingsAppTests
+          workspace: LDKFramework
+        - scheme: LDKFramework_Mac
+          destination: generic/platform=OS X
+          platform: OS X
+          workspace: LDKFramework
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+    steps:
+    - name: Configure Xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Install Dependencies
+      uses: ./.github/actions/install-dependencies
+    - name: Build
+      id: build
+      uses: ./.github/actions/build-for-testing
+      with:
+        workspace: ${{ matrix.configuration['workspace'] }}
+        scheme: ${{ matrix.configuration['scheme'] }}
+        destination: ${{ matrix.configuration['destination'] }}
+    - name: Xcode Unit Test
+      if: ${{ matrix.configuration['xcode-unit-test'] != '' }}
+      continue-on-error: true
+      uses: ./.github/actions/test-without-building
+      with:
+        workspace: ${{ matrix.configuration['workspace'] }}
+        scheme: ${{ matrix.configuration['scheme'] }}
+        destination: ${{ matrix.configuration['destination'] }}
+        test-plan: ${{ matrix.configuration['xcode-unit-test'] }}
+        artifact-name: ${{ matrix.configuration['xcode-unit-test'] }}-${{ matrix.configuration['platform'] }}
+        check-name: Xcode Unit Tests (${{ matrix.configuration['platform'] }})

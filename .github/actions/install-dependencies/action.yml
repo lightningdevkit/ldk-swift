@@ -1,0 +1,24 @@
+name: Install Dependencies
+runs:
+  using: composite
+  steps:
+  - name: Checkout Rust-Lightning and LDK-C-Bindings git
+    run: |
+      cd ..
+      git clone --branch 2021-03-java-bindings-base https://github.com/TheBlueMatt/rust-lightning
+      git clone https://github.com/lightningdevkit/ldk-c-bindings
+  - name: Install Rust, required targets
+    run: |
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+      rustup target add aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
+      cargo install cbindgen
+  - name: Generate C Bindings
+    run: |
+      pushd ldk-c-bindings
+      ./genbindings.sh ../rust-lightning true
+      export LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH=$(pwd)/lightning-c-bindings/include/lightning.h
+      popd
+  - name: Generate Swift Bindings
+    run: |
+      cd ldk-swift
+      python3 ./

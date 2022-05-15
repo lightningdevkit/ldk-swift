@@ -1,0 +1,26 @@
+name: Build For Testing
+inputs:
+  scheme:
+    description: Scheme
+    required: true
+  destination:
+    description: Destination
+    required: true
+  workspace:
+    description: Workspace Name
+    required: true
+runs:
+  using: composite
+  steps:
+  - shell: bash
+    working-directory: .
+    run: |
+      cd xcode/LDK
+
+      xcodebuild clean build-for-testing \
+        -allowProvisioningUpdates \
+        -allowProvisioningDeviceRegistration \
+        -workspace '${{ inputs.workspace }}' \
+        -scheme '${{ inputs.scheme }}' \
+        -destination '${{ inputs.destination }}' \
+        -resultBundlePath BuildResults.xcresult

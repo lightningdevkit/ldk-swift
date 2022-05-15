@@ -28,8 +28,6 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
 
     if [[ $PLATFORM_NAME = "macosx" ]]; then
         RUST_TARGET_OS="darwin"
-    elif [[ $PLATFORM_NAME = "iphonesimulator" ]]; then
-        RUST_TARGET_OS="ios-sim"
     else
         RUST_TARGET_OS="ios"
     fi
@@ -62,6 +60,12 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
         RUST_ARCH=$ARCH
         if [[ $RUST_ARCH = "arm64" ]]; then
             RUST_ARCH="aarch64"
+            # This is because iOS Simulator builds for x86_64 is `x86_64-apple-ios`, while arm64 is `aarch64-apple-ios-sim`
+            if [[ $PLATFORM_NAME = "iphonesimulator" ]]; then
+                RUST_TARGET_OS="ios-sim"
+            fi
+        else
+            RUST_TARGET_OS="ios"
         fi
 
         cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG

@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
 
     @State private var isRunningTestFlow = false
+    
+    @State private var multiPeerSimulation: PolarIntegrationSample.MultiPeerSimulator? = nil
 
     var body: some View {
 
@@ -29,7 +31,30 @@ struct ContentView: View {
             Text("Hello World")
         }).disabled(self.isRunningTestFlow)
 
-
+        if let simulation = self.multiPeerSimulation {
+            Button {
+                // self.multiPeerSimulation = nil
+                Task {
+                    await self.multiPeerSimulation?.interrupt()
+                    
+                    // freeing the simulation
+                    // try! await Task.sleep(nanoseconds: 5_000_000_000)
+                    // self.multiPeerSimulation = nil
+                }
+            } label: {
+                Text("Stop multi-peer simulation")
+            }
+        } else {
+            Button {
+                self.multiPeerSimulation = PolarIntegrationSample.MultiPeerSimulator()
+                Task {
+                    try? await self.multiPeerSimulation!.simulateMultiplePeers()
+                }
+            } label: {
+                Text("Simulate multiple peers")
+            }
+        }
+        
     }
 
     /*@StateObject private var experiment = PolarConnectionExperiment()

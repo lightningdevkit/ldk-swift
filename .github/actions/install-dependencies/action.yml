@@ -30,7 +30,7 @@ runs:
   - name: Generate C Bindings
     shell: bash
     run: |
-      export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+      export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
       pushd bindings/artifacts/ldk-c-bindings
       ./genbindings.sh ../rust-lightning true
       popd

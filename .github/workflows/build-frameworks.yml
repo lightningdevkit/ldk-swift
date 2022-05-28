@@ -34,7 +34,7 @@ jobs:
           platform: OS X
           workspace: LDKFramework.xcworkspace
         - scheme: LDKFramework
-          destination: generic/platform=macOS,variant=Mac Catalyst
+          destination: generic/platform=macOS,variant=Mac Catalyst,name=Any Mac
           platform: Mac Catalyst
           workspace: LDKFramework.xcworkspace
     env:

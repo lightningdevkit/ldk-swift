@@ -26,7 +26,7 @@ jobs:
           platform: iOS
           workspace: LDKFramework.xcworkspace
         - scheme: LDKFramework
-          destination: platform=iOS Simulator,OS=15.4,name=iPhone 13 Pro
+          destination: platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro
           platform: iOS Simulator
           workspace: LDKFramework.xcworkspace
         - scheme: LDKFramework_Mac
@@ -34,8 +34,12 @@ jobs:
           platform: OS X
           workspace: LDKFramework.xcworkspace
         - scheme: LDKFramework
-          destination: generic/platform=macOS,variant=Mac Catalyst,name=Any Mac
-          platform: Mac Catalyst
+          destination: platform=macOS,variant=Mac Catalyst,arch=x86_64
+          platform: Mac Catalyst (x86_64)
+          workspace: LDKFramework.xcworkspace
+        - scheme: LDKFramework
+          destination: platform=macOS,variant=Mac Catalyst,arch=arm64
+          platform: Mac Catalyst (arm64)
           workspace: LDKFramework.xcworkspace
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer

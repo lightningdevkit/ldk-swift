@@ -33,6 +33,10 @@ jobs:
           destination: generic/platform=OS X
           platform: OS X
           workspace: LDKFramework.xcworkspace
+        - scheme: LDKFramework
+          destination: generic/platform=macOS,variant=Mac Catalyst
+          platform: Mac Catalyst
+          workspace: LDKFramework.xcworkspace
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
     steps:

@@ -35,11 +35,7 @@ jobs:
           workspace: LDKFramework.xcworkspace
         - scheme: LDKFramework
           destination: platform=macOS,variant=Mac Catalyst,arch=x86_64
-          platform: Mac Catalyst (x86_64)
-          workspace: LDKFramework.xcworkspace
-        - scheme: LDKFramework
-          destination: platform=macOS,variant=Mac Catalyst,arch=arm64
-          platform: Mac Catalyst (arm64)
+          platform: Mac Catalyst
           workspace: LDKFramework.xcworkspace
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer

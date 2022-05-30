@@ -1,9 +1,10 @@
-name: Continuous Integration Checks
+name: Check Bindings
 
 on: [ push, pull_request ]
 
 jobs:
     check_bindings:
+        name: Build Bindings
         runs-on: ubuntu-20.04
         env:
             TOOLCHAIN: stable
@@ -91,7 +92,7 @@ jobs:
                     echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
                     if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
                       echo "Bad hash"
-                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)" 
+                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)"
                       exit 1
                     fi
                     tar xvvf swift-5.6-RELEASE-ubuntu20.04.tar.gz
@@ -121,6 +122,7 @@ jobs:
                     path: ci
 
     test_bindings_with_sanitizer:
+        name: Test Bindings with Sanitizer
         runs-on: ubuntu-20.04
         needs: check_bindings
         steps:
@@ -137,7 +139,7 @@ jobs:
                     echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
                     if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
                       echo "Bad hash"
-                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)" 
+                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)"
                       exit 1
                     fi
                     tar xvvf swift-5.6-RELEASE-ubuntu20.04.tar.gz
@@ -157,4 +159,3 @@ jobs:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-11/lib/clang/11.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
-

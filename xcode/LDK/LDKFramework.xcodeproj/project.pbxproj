@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		754BCB5928308BFD0050F361 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 754BCB5428308BFD0050F361 /* ldk_net.c */; };
 		754BCB5A28308BFD0050F361 /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5528308BFD0050F361 /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BCB5B28308BFD0050F361 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5628308BFD0050F361 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BCB5C28308BFD0050F361 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5728308BFD0050F361 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -703,6 +702,7 @@
 		754BD64C283159DF0050F361 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5728308BFD0050F361 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65128315A460050F361 /* LDKFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD65028315A460050F361 /* LDKFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65528315CDF0050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
+		75892D2528337060008F6E53 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 754BCB5428308BFD0050F361 /* ldk_net.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -724,11 +724,11 @@
 
 /* Begin PBXFileReference section */
 		754BCB5228308BDD0050F361 /* LDKFramework.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LDKFramework.modulemap; sourceTree = "<group>"; };
-		754BCB5428308BFD0050F361 /* ldk_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldk_net.c; sourceTree = SOURCE_ROOT; };
-		754BCB5528308BFD0050F361 /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_rust_types.h; sourceTree = SOURCE_ROOT; };
-		754BCB5628308BFD0050F361 /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_ver.h; sourceTree = SOURCE_ROOT; };
-		754BCB5728308BFD0050F361 /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightning.h; sourceTree = SOURCE_ROOT; };
-		754BCB5828308BFD0050F361 /* ldk_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_net.h; sourceTree = SOURCE_ROOT; };
+		754BCB5428308BFD0050F361 /* ldk_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldk_net.c; sourceTree = "<group>"; };
+		754BCB5528308BFD0050F361 /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_rust_types.h; sourceTree = "<group>"; };
+		754BCB5628308BFD0050F361 /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_ver.h; sourceTree = "<group>"; };
+		754BCB5728308BFD0050F361 /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightning.h; sourceTree = "<group>"; };
+		754BCB5828308BFD0050F361 /* ldk_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_net.h; sourceTree = "<group>"; };
 		754BCE1028308D6D0050F361 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
 		754BD0DE283158F70050F361 /* LDKFramework_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LDKFramework_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		754BD0E0283158F70050F361 /* LDKFramework_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDKFramework_Mac.h; sourceTree = "<group>"; };
@@ -1107,9 +1107,8 @@
 				754BCB5628308BFD0050F361 /* ldk_ver.h */,
 				754BCB5728308BFD0050F361 /* lightning.h */,
 			);
-			name = headers;
-			path = LDKFramework;
-			sourceTree = SOURCE_ROOT;
+			path = headers;
+			sourceTree = "<group>";
 		};
 		754BCE0F28308D6D0050F361 /* Frameworks */ = {
 			isa = PBXGroup;
@@ -1629,6 +1628,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 754BD0E4283158F70050F361 /* Build configuration list for PBXNativeTarget "LDKFramework_Mac" */;
 			buildPhases = (
+				75A1A50028344C1800543ACC /* Copy Files From C Bindings Folder */,
 				754BD0D9283158F70050F361 /* Headers */,
 				754BD0DA283158F70050F361 /* Sources */,
 				754BD0DB283158F70050F361 /* Frameworks */,
@@ -1648,6 +1648,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75D7576D28306A430005405B /* Build configuration list for PBXNativeTarget "LDKFramework" */;
 			buildPhases = (
+				75A1A4FF28343FBB00543ACC /* Copy Files from C Bindings Folder */,
 				75D7576128306A430005405B /* Headers */,
 				75D7576228306A430005405B /* Sources */,
 				75D7576328306A430005405B /* Frameworks */,
@@ -1720,6 +1721,55 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		75A1A4FF28343FBB00543ACC /* Copy Files from C Bindings Folder */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Files from C Bindings Folder";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${PROJECT_DIR}/headers/ldk_net.c",
+				"${PROJECT_DIR}/headers/ldk_net.h",
+				"${PROJECT_DIR}/headers/ldk_rust_types.h",
+				"${PROJECT_DIR}/headers/ldk_ver.h",
+				"${PROJECT_DIR}/headers/lightning.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "LDK_DIRECTORY=${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings # directory to compile the C bindings in\nC_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
+		};
+		75A1A50028344C1800543ACC /* Copy Files From C Bindings Folder */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Files From C Bindings Folder";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${PROJECT_DIR}/headers/ldk_net.c",
+				"${PROJECT_DIR}/headers/ldk_net.h",
+				"${PROJECT_DIR}/headers/ldk_rust_types.h",
+				"${PROJECT_DIR}/headers/ldk_ver.h",
+				"${PROJECT_DIR}/headers/lightning.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "LDK_DIRECTORY=${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings # directory to compile the C bindings in\nC_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		754BD0DA283158F70050F361 /* Sources */ = {
@@ -2075,6 +2125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75892D2528337060008F6E53 /* ldk_net.c in Sources */,
 				754BD5DC283159D70050F361 /* Shutdown.swift in Sources */,
 				754BD506283159D60050F361 /* Result_boolPeerHandleErrorZ.swift in Sources */,
 				754BD4D4283159D60050F361 /* Result_CVec_CVec_u8ZZNoneZ.swift in Sources */,
@@ -2241,7 +2292,6 @@
 				754BD504283159D60050F361 /* Result_SignDecodeErrorZ.swift in Sources */,
 				754BD464283159D60050F361 /* Result_OpenChannelDecodeErrorZ.swift in Sources */,
 				754BD616283159D70050F361 /* NodeAnnouncement.swift in Sources */,
-				754BCB5928308BFD0050F361 /* ldk_net.c in Sources */,
 				754BD526283159D70050F361 /* Result_NodeInfoDecodeErrorZ.swift in Sources */,
 				754BD614283159D70050F361 /* InitFeatures.swift in Sources */,
 				754BD560283159D70050F361 /* UpdateFailMalformedHTLC.swift in Sources */,

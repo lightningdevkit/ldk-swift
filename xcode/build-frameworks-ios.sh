@@ -5,16 +5,18 @@ BIN_OUTPUT_DIRECTORY="`pwd`/build"
 
 rm -rf $BIN_OUTPUT_DIRECTORY
 
-rm -f libldk.a
+rm -f LDK/libldk.a
 
 xcodebuild archive -scheme LDKFramework \
+  -workspace "LDKFramework.xcworkspace" \
   -destination "generic/platform=iOS Simulator" \
   -archivePath ${BIN_OUTPUT_DIRECTORY}/LDKFramework-Sim \
   SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
-rm -f libldk.a
+rm -f LDK/libldk.a
 
 xcodebuild archive -scheme LDKFramework \
+  -workspace "LDKFramework.xcworkspace" \
   -destination "generic/platform=iOS" \
   -archivePath ${BIN_OUTPUT_DIRECTORY}/LDKFramework-iOS \
   SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES

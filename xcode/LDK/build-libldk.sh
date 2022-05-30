@@ -6,17 +6,14 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 export PATH="$PATH:${HOME}/.cargo/bin"
 
 if ! [[ -x "$(command -v cargo)" ]]; then
-    echo 'error: Unable to find cargo command. If cargo is not installed visit rustup.rs, otherwise set CARGO_PATH in xi-mac/.env' >&2
+    echo 'error: Unable to find cargo command. Cargo is not installed visit rustup.rs.' >&2
     exit 127
 fi
 
 set -e # stop execution upon the first error
 
-LDK_DIRECTORY=../../ldk-c-bindings # directory to compile the C bindings in
-C_BINDINGS_SOURCE_DIRECTORY="${LDK_DIRECTORY}/lightning-c-bindings"
-
-cp "${C_BINDINGS_SOURCE_DIRECTORY}/include/"*.h $PROJECT_DIR
-cp "${LDK_DIRECTORY}/ldk-net/ldk_net."{c,h} $PROJECT_DIR
+LDK_DIRECTORY=../bindings/artifacts/ldk-c-bindings # directory to compile the C bindings in
+C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings"
 
 if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     TARGET_NAME="libldk"
@@ -27,7 +24,11 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     fi
 
     if [[ $PLATFORM_NAME = "macosx" ]]; then
-        RUST_TARGET_OS="darwin"
+        if [[ $LLVM_TARGET_TRIPLE_SUFFIX = "-macabi" ]]; then
+            RUST_TARGET_OS="ios-macabi"
+        else
+            RUST_TARGET_OS="darwin"
+        fi
     else
         echo "PLATFORM_NAME ${PLATFORM_NAME}"
         RUST_TARGET_OS="ios"

@@ -37,26 +37,6 @@
          </AdditionalOption>
       </AdditionalOptions>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "07BBC77626D0272D000D96C4"
-               BuildableName = "DirectBindingsAppTests.xctest"
-               BlueprintName = "DirectBindingsAppTests"
-               ReferencedContainer = "container:DirectBindingsApp.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "07BBC78126D0272D000D96C4"
-               BuildableName = "DirectBindingsAppUITests.xctest"
-               BlueprintName = "DirectBindingsAppUITests"
-               ReferencedContainer = "container:DirectBindingsApp.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

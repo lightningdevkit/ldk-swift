@@ -13,8 +13,6 @@
 		754BCB5D28308BFD0050F361 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5828308BFD0050F361 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BCE1128308D700050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
 		754BD0E1283158F70050F361 /* LDKFramework_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD0E0283158F70050F361 /* LDKFramework_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BD247283159D00050F361 /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BD243283159D00050F361 /* TCPPeerHandler.swift */; };
-		754BD248283159D00050F361 /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BD243283159D00050F361 /* TCPPeerHandler.swift */; };
 		754BD249283159D00050F361 /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BD244283159D00050F361 /* NetGraphMsgHandlerConstructor.swift */; };
 		754BD24A283159D00050F361 /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BD244283159D00050F361 /* NetGraphMsgHandlerConstructor.swift */; };
 		754BD24B283159D00050F361 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754BD245283159D00050F361 /* ChannelManagerConstructor.swift */; };
@@ -732,7 +730,6 @@
 		754BCE1028308D6D0050F361 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
 		754BD0DE283158F70050F361 /* LDKFramework_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LDKFramework_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		754BD0E0283158F70050F361 /* LDKFramework_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDKFramework_Mac.h; sourceTree = "<group>"; };
-		754BD243283159D00050F361 /* TCPPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPPeerHandler.swift; sourceTree = "<group>"; };
 		754BD244283159D00050F361 /* NetGraphMsgHandlerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetGraphMsgHandlerConstructor.swift; sourceTree = "<group>"; };
 		754BD245283159D00050F361 /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
 		754BD246283159D00050F361 /* UtilMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilMethods.swift; sourceTree = "<group>"; };
@@ -1140,7 +1137,6 @@
 		754BD242283159D00050F361 /* batteries */ = {
 			isa = PBXGroup;
 			children = (
-				754BD243283159D00050F361 /* TCPPeerHandler.swift */,
 				754BD244283159D00050F361 /* NetGraphMsgHandlerConstructor.swift */,
 				754BD245283159D00050F361 /* ChannelManagerConstructor.swift */,
 				754BD246283159D00050F361 /* UtilMethods.swift */,
@@ -2019,7 +2015,6 @@
 				754BD599283159D70050F361 /* CounterpartyChannelTransactionParameters.swift in Sources */,
 				754BD465283159D60050F361 /* Result_OpenChannelDecodeErrorZ.swift in Sources */,
 				754BD621283159D70050F361 /* OpenChannel.swift in Sources */,
-				754BD248283159D00050F361 /* TCPPeerHandler.swift in Sources */,
 				754BD3CF283159D60050F361 /* Option_u32Z.swift in Sources */,
 				754BD5E3283159D70050F361 /* FilesystemPersister.swift in Sources */,
 				754BD61F283159D70050F361 /* InvoiceSignature.swift in Sources */,
@@ -2254,7 +2249,6 @@
 				754BD3F4283159D60050F361 /* SocketDescriptor.swift in Sources */,
 				754BD3EA283159D60050F361 /* Persist.swift in Sources */,
 				754BD642283159D70050F361 /* OutPoint.swift in Sources */,
-				754BD247283159D00050F361 /* TCPPeerHandler.swift in Sources */,
 				754BD620283159D70050F361 /* OpenChannel.swift in Sources */,
 				754BD5DE283159D70050F361 /* ChainParameters.swift in Sources */,
 				754BD4A8283159D60050F361 /* Result_UpdateFeeDecodeErrorZ.swift in Sources */,
@@ -2509,7 +2503,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				MODULEMAP_FILE = LDKFramework_Mac/LDKFramework_Mac.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.undertide.LDKFramework-Mac";
@@ -2544,7 +2538,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 1.0;
 				MODULEMAP_FILE = LDKFramework_Mac/LDKFramework_Mac.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.undertide.LDKFramework-Mac";
@@ -2708,6 +2702,7 @@
 				HEADER_SEARCH_PATHS = "${PROJECT_DIR}";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2743,6 +2738,7 @@
 				HEADER_SEARCH_PATHS = "${PROJECT_DIR}";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

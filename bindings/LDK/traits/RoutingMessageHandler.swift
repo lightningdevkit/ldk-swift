@@ -1,6 +1,6 @@
 import Foundation
 
-open class RoutingMessageHandler: NativeTypeWrapper {
+open class RoutingMessageHandler: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -15,21 +15,21 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 
 		func handle_node_announcementCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKNodeAnnouncement>) -> LDKCResult_boolLightningErrorZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::handle_node_announcement")
-			let msg = NodeAnnouncement(pointer: msgPointer.pointee).dangle();
+			let msg = NodeAnnouncement(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_node_announcement(msg: msg).cOpaqueStruct!
 		}
 
 		func handle_channel_announcementCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKChannelAnnouncement>) -> LDKCResult_boolLightningErrorZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::handle_channel_announcement")
-			let msg = ChannelAnnouncement(pointer: msgPointer.pointee).dangle();
+			let msg = ChannelAnnouncement(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_channel_announcement(msg: msg).cOpaqueStruct!
 		}
 
 		func handle_channel_updateCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKChannelUpdate>) -> LDKCResult_boolLightningErrorZ {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::handle_channel_update")
-			let msg = ChannelUpdate(pointer: msgPointer.pointee).dangle();
+			let msg = ChannelUpdate(pointer: msgPointer.pointee).dangle().clone();
 
 			return instance.handle_channel_update(msg: msg).cOpaqueStruct!
 		}
@@ -60,7 +60,7 @@ open class RoutingMessageHandler: NativeTypeWrapper {
 
 		func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> Void {
 			let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::peer_connected")
-			let initValue = Init(pointer: initValuePointer.pointee).dangle();
+			let initValue = Init(pointer: initValuePointer.pointee).dangle().clone();
 
 			return instance.peer_connected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), initValue: initValue)
 		}
@@ -138,11 +138,11 @@ open class RoutingMessageHandler: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing RoutingMessageHandler \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing RoutingMessageHandler \(self.instanceNumber) due to dangle.")
 						}
@@ -221,9 +221,10 @@ return Result_NoneLightningErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating RoutingMessageHandler \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

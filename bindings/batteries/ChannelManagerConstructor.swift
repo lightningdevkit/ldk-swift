@@ -37,7 +37,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     fileprivate let keysInterface: KeysInterface!
     public private(set) var payer: InvoicePayer?
     public let peerManager: PeerManager
-
+    private var tcpPeerHandler: TCPPeerHandler?
 
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
@@ -54,7 +54,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
-        
+
         var monitorFundingSet = Set<[UInt8]>()
 
         for currentSerializedChannelMonitor in channel_monitors_serialized {
@@ -67,7 +67,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = channelMonitorResult.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             let b: LDKChannelMonitor = value.result!.pointee.b
-            
+
             let nativeA = Bindings.LDKThirtyTwoBytes_to_array(nativeType: a);
             if monitorFundingSet.contains(nativeA) {
                 throw InvalidSerializedDataError.duplicateSerializedChannelMonitor
@@ -87,11 +87,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         if channelManagerResult.isOk() != true {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
-        
+
         for clonedChannelMonitor in self.channel_monitors {
             clonedChannelMonitor.0.cOpaqueStruct!.is_owned = true
         }
-        
+
         let latestBlockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: channelManagerResult.cOpaqueStruct!.contents.result.pointee.a)
         let channelManager = ChannelManager(pointer: channelManagerResult.cOpaqueStruct!.contents.result.pointee.b)
         try! channelManager.dangle().addAnchor(anchor: channelManagerResult)
@@ -104,7 +104,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.logger = logger
 
         let random_data = keys_interface.get_secure_random_bytes();
-        
+
         if let serializedNetworkGraph = net_graph_serialized {
             let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph)
             if !netGraphResult.isOk(){
@@ -112,12 +112,15 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             }
             self.net_graph = netGraphResult.getValue()
         }
-        
+
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
             self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
+            
+            // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
+            // temporarily disable handling routing messages by the peer manager to avoid excessive memory growth
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         } else {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         }
@@ -144,7 +147,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
      * Constructs a channel manager from the given interface implementations
      */
     public init(network: LDKNetwork, config: UserConfig, current_blockchain_tip_hash: [UInt8], current_blockchain_tip_height: UInt32, keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, net_graph: NetworkGraph?, tx_broadcaster: BroadcasterInterface, logger: Logger) {
-        
+
         self.channel_monitors = []
         self.channel_manager_latest_block_hash = nil
         self.chain_monitor = chain_monitor
@@ -155,19 +158,24 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         self.keysInterface = keys_interface
         let random_data = keys_interface.get_secure_random_bytes();
-        
+
         self.net_graph = net_graph
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
-            self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
+            let noneOption = Option_AccessZ.none()
+            self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: noneOption, logger: logger)
+            
+            
+            // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
+            // temporarily disable handling routing messages by the peer manager to avoid excessive memory growth
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         } else {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         }
         let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
         self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, ephemeral_random_data: random_data, logger: logger, custom_message_handler: noCustomMessages.as_CustomMessageHandler())
-        
+
 
         super.init(conflictAvoidingVariableName: 0)
         // try! self.peerManager.addAnchor(anchor: self)
@@ -209,20 +217,24 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.customPersister = CustomChannelManagerPersister(handler: persister)
         self.customEventHandler = CustomEventHandler(handler: persister)
         self.scorer = scorer
-        
+
         if let netGraph = self.net_graph, let scorer = self.scorer {
             let router = DefaultRouter(network_graph: netGraph, logger: self.logger, random_seed_bytes: self.keysInterface.get_secure_random_bytes())
             // either dangle router, or set is_owned to false
             router.cOpaqueStruct!.is_owned = false
             self.payer = InvoicePayer(payer: self.channelManager.as_Payer(), router: router.as_Router(), scorer: scorer, logger: self.logger, event_handler: self.customEventHandler!, retry_attempts: RetryAttempts(a_arg: 3))
+            router.cOpaqueStruct!.is_owned = true
             self.customEventHandler = self.payer!.as_EventHandler()
         }
-        
+
         // if there is a graph msg handler, set its is_owned to false
         self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
-        
+
         self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, net_graph_msg_handler: self.graph_msg_handler, peer_manager: self.peerManager, logger: self.logger)
-        
+
+        // restore it back to true
+        self.graph_msg_handler?.cOpaqueStruct?.is_owned = true
+
         try? self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
         try? self.backgroundProcessor!.addAnchor(anchor: persister)
         try? self.backgroundProcessor!.addAnchor(anchor: self.customEventHandler!)
@@ -230,9 +242,14 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
     }
 
-    public func interrupt(tcpPeerHandler: TCPPeerHandler? = nil) {
+    public func interrupt() {
+        if self.shutdown {
+            Bindings.print("ChannelManagerConstructor previously interrupted, nothing to do.")
+            return
+        }
+
         self.shutdown = true
-        if let tcpHandler = tcpPeerHandler {
+        if let tcpHandler = self.tcpPeerHandler {
             print("stopping TCP peer handler")
             tcpHandler.interrupt()
             print("stopped TCP peer handler")
@@ -240,20 +257,35 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         print("stopping background processor")
         self.backgroundProcessor?.dangle().stop()
         print("stopped background processor")
+        /*
         if let processor = self.backgroundProcessor {
             for currentAnchor in processor.anchors {
-                Bindings.removeInstancePointer(instance: currentAnchor)
+                if currentAnchor is NativeTraitWrapper {
+                    let traitAnchor = currentAnchor as! NativeTraitWrapper
+                    Bindings.removeInstancePointer(instance: traitAnchor)
+                }
             }
             print("removed background processor anchors")
         }
+        */
         self.payer = nil
         self.scorer = nil
         self.backgroundProcessor = nil
         print("unset background processor")
     }
 
+    public func getTCPPeerHandler() -> TCPPeerHandler {
+        if let handler = self.tcpPeerHandler {
+            return handler
+        }
+        let handler = TCPPeerHandler(peerManager: self.peerManager)
+        self.tcpPeerHandler = handler
+        return handler
+    }
+
     deinit {
-        print("deiniting ChannelManagerConstructor")
+        Bindings.print("Freeing and interrupting ChannelManagerConstructor")
+        self.interrupt()
     }
 
 
@@ -271,7 +303,7 @@ fileprivate class CustomChannelManagerPersister: Persister {
     override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
         return self.handler.persist_manager(channel_manager: channel_manager)
     }
-    
+
     override func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
         return self.handler.persist_graph(network_graph: network_graph)
     }
@@ -294,4 +326,117 @@ fileprivate class CustomEventHandler: EventHandler {
 
 public protocol ExtendedChannelManagerPersister: Persister {
     func handle_event(event: Event) -> Void;
+}
+
+public class TCPPeerHandler {
+
+    private let peerManager: PeerManager
+    private let socketHandler: UnsafeMutableRawPointer?
+    private var isBound = false
+    private var isInterrupted = false
+
+    fileprivate init(peerManager: PeerManager) {
+        self.peerManager = peerManager
+
+        /*
+        let socketHandler = withUnsafePointer(to: self.peerManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKPeerManager>) -> UnsafeMutableRawPointer? in
+            let socketHandler = init_socket_handling(pointer)
+            return socketHandler
+        }
+        self.socketHandler = socketHandler
+		*/
+
+
+        // self.socketHandler = UnsafeMutableRawPointer(bitPattern: 0)
+
+
+
+        let peerManagerPointer: UnsafeRawPointer = UnsafeRawPointer(&self.peerManager.cOpaqueStruct)
+        Bindings.print("TCPPeerHandler peer manager pointer address: \(peerManagerPointer)")
+        let memoryReboundPeerManagerPointer: UnsafePointer<LDKPeerManager> = peerManagerPointer.assumingMemoryBound(to: LDKPeerManager.self)
+        Bindings.print("TCPPeerHandler peer manager rebound memory address: \(memoryReboundPeerManagerPointer)")
+        self.socketHandler = init_socket_handling(memoryReboundPeerManagerPointer)
+        print("TCPPeerHandler self address: \(Unmanaged<TCPPeerHandler>.passUnretained(self).toOpaque())")
+    }
+
+    public func bind(address: String, port: UInt16) -> Bool {
+        if(self.isBound){
+            // already bound
+            return false
+        }
+        self.isBound = true
+        var addressObject = sockaddr_in()
+        addressObject.sin_family = sa_family_t(AF_INET)
+        addressObject.sin_port = port.bigEndian
+
+        addressObject.sin_addr.s_addr = inet_addr(address)
+
+        let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
+
+        let result = withUnsafePointer(to: &addressObject, { addressPointer in
+
+            addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
+                let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
+                let result = socket_bind(self.socketHandler, addressMutablePointer, socklen_t(sin_length))
+                return result
+            }
+        })
+        if result != 0 {
+            // something failed
+            print("TCP socket_bind error code: \(result)")
+            let errorDetails = strerror(result)
+            if let errorDetails = errorDetails {
+                let errorString = String(cString: errorDetails)
+                print("TCP socket_bind error: \(errorString)")
+            }
+            self.isBound = false
+            return false
+        }
+        return true
+
+    }
+
+    public func connect(address: String, port: UInt16, theirNodeId: [UInt8]) -> Bool {
+
+        var addressObject = sockaddr_in()
+        addressObject.sin_family = sa_family_t(AF_INET)
+        addressObject.sin_port = port.bigEndian
+
+        addressObject.sin_addr.s_addr = inet_addr(address)
+
+        let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
+        let publicKey = Bindings.new_LDKPublicKey(array: theirNodeId)
+
+        let result = withUnsafePointer(to: &addressObject, { addressPointer in
+
+            addressPointer.withMemoryRebound(to: sockaddr.self, capacity: 1) { addressSecondPointer -> Int32 in
+                let addressMutablePointer = UnsafeMutablePointer(mutating: addressSecondPointer)
+                let result = socket_connect(self.socketHandler, publicKey, addressMutablePointer, Int(socklen_t(sin_length)))
+                return result
+            }
+        })
+
+        if result != 0 {
+            // something failed
+            return false
+        }
+        return true
+
+    }
+
+    fileprivate func interrupt() {
+        if self.isInterrupted {
+            Bindings.print("TCPPeerHandler previously interrupted, nothing to do.")
+            return
+        }
+        self.isInterrupted = true
+        interrupt_socket_handling(self.socketHandler)
+        Bindings.print("TCPPeerHandler successfully interrupted.")
+    }
+
+    deinit {
+        Bindings.print("Freeing and interrupting TCPPeerHandler.")
+        self.interrupt()
+    }
+
 }

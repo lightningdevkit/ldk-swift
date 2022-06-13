@@ -11,7 +11,7 @@ public class MultiThreadedLockableScore: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = MultiThreadedLockableScore_new(score.cOpaqueStruct!)
+        self.cOpaqueStruct = MultiThreadedLockableScore_new(score.activate().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: score)
 

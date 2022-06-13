@@ -14,7 +14,7 @@ public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: ephemeral_random_data)) { (ephemeral_random_dataPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.cOpaqueStruct!, custom_message_handler.cOpaqueStruct!)
+PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.activate().cOpaqueStruct!, custom_message_handler.activate().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: message_handler)
@@ -102,7 +102,7 @@ PeerManager_process_events(this_argPointer)
     public func socket_disconnected(descriptor: SocketDescriptor) -> Void {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
-withUnsafePointer(to: descriptor.cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKSocketDescriptor>) in
+withUnsafePointer(to: descriptor.activateOnce().cOpaqueStruct!) { (descriptorPointer: UnsafePointer<LDKSocketDescriptor>) in
 PeerManager_socket_disconnected(this_argPointer, descriptorPointer)
 }
 };

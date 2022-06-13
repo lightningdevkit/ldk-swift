@@ -1,6 +1,6 @@
 import Foundation
 
-open class Router: NativeTypeWrapper {
+open class Router: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -15,7 +15,7 @@ open class Router: NativeTypeWrapper {
 
 		func find_routeCallback(pointer: UnsafeRawPointer?, payer: LDKPublicKey, route_paramsPointer: UnsafePointer<LDKRouteParameters>, payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, scorerPointer: UnsafePointer<LDKScore>) -> LDKCResult_RouteLightningErrorZ {
 			let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::find_route")
-			let route_params = RouteParameters(pointer: route_paramsPointer.pointee).dangle();
+			let route_params = RouteParameters(pointer: route_paramsPointer.pointee).dangle().clone();
 
 								var payment_hash: [UInt8]? = nil
 								if let payment_hashUnwrapped = payment_hashPointer {
@@ -70,11 +70,11 @@ open class Router: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Router \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Router \(self.instanceNumber) due to dangle.")
 						}
@@ -90,9 +90,10 @@ return Result_RouteLightningErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Router::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating Router \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */
@@ -133,7 +134,7 @@ public class NativelyImplementedRouter: Router {
 						
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: payment_hash!)) { (payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
+withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 
 				Result_RouteLightningErrorZ(pointer: self.cOpaqueStruct!.find_route(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: payer), route_paramsPointer, payment_hashPointer, first_hopsPointer, scorerPointer))
 				

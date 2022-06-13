@@ -1,6 +1,6 @@
 import Foundation
 
-open class SocketDescriptor: NativeTypeWrapper {
+open class SocketDescriptor: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -27,7 +27,7 @@ open class SocketDescriptor: NativeTypeWrapper {
 
 		func eqCallback(pointer: UnsafeRawPointer?, other_argPointer: UnsafePointer<LDKSocketDescriptor>) -> Bool {
 			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::eq")
-			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee).dangle();
+			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee).dangle().clone();
 
 			return instance.eq(other_arg: other_arg)
 		}
@@ -78,7 +78,7 @@ open class SocketDescriptor: NativeTypeWrapper {
 
 				public func clone() -> SocketDescriptor {
 					
-					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSocketDescriptor>) in
+					return withUnsafePointer(to: self.activateOnce().cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSocketDescriptor>) in
 
 					SocketDescriptor(pointer: SocketDescriptor_clone(origPointer))
 					
@@ -99,11 +99,11 @@ open class SocketDescriptor: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing SocketDescriptor \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing SocketDescriptor \(self.instanceNumber) due to dangle.")
 						}
@@ -140,9 +140,10 @@ return 0
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("SocketDescriptor::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating SocketDescriptor \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */
@@ -179,7 +180,7 @@ public class NativelyImplementedSocketDescriptor: SocketDescriptor {
 	public override func eq(other_arg: SocketDescriptor) -> Bool {
 		
 				
-				return withUnsafePointer(to: other_arg.cOpaqueStruct!) { (other_argPointer: UnsafePointer<LDKSocketDescriptor>) in
+				return withUnsafePointer(to: other_arg.activateOnce().cOpaqueStruct!) { (other_argPointer: UnsafePointer<LDKSocketDescriptor>) in
 
 				self.cOpaqueStruct!.eq(self.cOpaqueStruct!.this_arg, other_argPointer)
 				

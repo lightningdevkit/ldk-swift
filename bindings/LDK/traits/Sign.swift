@@ -1,6 +1,6 @@
 import Foundation
 
-open class Sign: NativeTypeWrapper {
+open class Sign: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -63,7 +63,7 @@ open class Sign: NativeTypeWrapper {
 
 				public func clone() -> Sign {
 					
-					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSign>) in
+					return withUnsafePointer(to: self.activateOnce().cOpaqueStruct!) { (origPointer: UnsafePointer<LDKSign>) in
 
 					Sign(pointer: Sign_clone(origPointer))
 					
@@ -84,11 +84,11 @@ open class Sign: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Sign \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Sign \(self.instanceNumber) due to dangle.")
 						}
@@ -104,9 +104,10 @@ return [UInt8]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Sign::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating Sign \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

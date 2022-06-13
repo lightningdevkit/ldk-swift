@@ -82,6 +82,329 @@ InitFeatures_write(objPointer)
         return Result_InitFeaturesDecodeErrorZ(pointer: InitFeatures_read(serWrapper.cOpaqueStruct!));
     }
 
+    public func set_data_loss_protect_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_data_loss_protect_optional(this_argPointer);
+    }
+
+    public func set_data_loss_protect_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_data_loss_protect_required(this_argPointer);
+    }
+
+    public func supports_data_loss_protect() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_data_loss_protect(this_argPointer)
+};
+    }
+
+    public func requires_data_loss_protect() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_data_loss_protect(this_argPointer)
+};
+    }
+
+    public func set_initial_routing_sync_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_initial_routing_sync_optional(this_argPointer);
+    }
+
+    public func set_initial_routing_sync_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_initial_routing_sync_required(this_argPointer);
+    }
+
+    public func initial_routing_sync() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_initial_routing_sync(this_argPointer)
+};
+    }
+
+    public func set_upfront_shutdown_script_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_upfront_shutdown_script_optional(this_argPointer);
+    }
+
+    public func set_upfront_shutdown_script_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_upfront_shutdown_script_required(this_argPointer);
+    }
+
+    public func supports_upfront_shutdown_script() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_upfront_shutdown_script(this_argPointer)
+};
+    }
+
+    public func requires_upfront_shutdown_script() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_upfront_shutdown_script(this_argPointer)
+};
+    }
+
+    public func set_gossip_queries_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_gossip_queries_optional(this_argPointer);
+    }
+
+    public func set_gossip_queries_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_gossip_queries_required(this_argPointer);
+    }
+
+    public func supports_gossip_queries() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_gossip_queries(this_argPointer)
+};
+    }
+
+    public func requires_gossip_queries() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_gossip_queries(this_argPointer)
+};
+    }
+
+    public func set_variable_length_onion_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_variable_length_onion_optional(this_argPointer);
+    }
+
+    public func set_variable_length_onion_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_variable_length_onion_required(this_argPointer);
+    }
+
+    public func supports_variable_length_onion() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_variable_length_onion(this_argPointer)
+};
+    }
+
+    public func requires_variable_length_onion() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_variable_length_onion(this_argPointer)
+};
+    }
+
+    public func set_static_remote_key_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_static_remote_key_optional(this_argPointer);
+    }
+
+    public func set_static_remote_key_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_static_remote_key_required(this_argPointer);
+    }
+
+    public func supports_static_remote_key() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_static_remote_key(this_argPointer)
+};
+    }
+
+    public func requires_static_remote_key() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_static_remote_key(this_argPointer)
+};
+    }
+
+    public func set_payment_secret_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_payment_secret_optional(this_argPointer);
+    }
+
+    public func set_payment_secret_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_payment_secret_required(this_argPointer);
+    }
+
+    public func supports_payment_secret() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_payment_secret(this_argPointer)
+};
+    }
+
+    public func requires_payment_secret() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_payment_secret(this_argPointer)
+};
+    }
+
+    public func set_basic_mpp_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_basic_mpp_optional(this_argPointer);
+    }
+
+    public func set_basic_mpp_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_basic_mpp_required(this_argPointer);
+    }
+
+    public func supports_basic_mpp() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_basic_mpp(this_argPointer)
+};
+    }
+
+    public func requires_basic_mpp() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_basic_mpp(this_argPointer)
+};
+    }
+
+    public func set_shutdown_any_segwit_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_shutdown_any_segwit_optional(this_argPointer);
+    }
+
+    public func set_shutdown_any_segwit_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_shutdown_any_segwit_required(this_argPointer);
+    }
+
+    public func supports_shutdown_anysegwit() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_shutdown_anysegwit(this_argPointer)
+};
+    }
+
+    public func requires_shutdown_anysegwit() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_shutdown_anysegwit(this_argPointer)
+};
+    }
+
+    public func set_channel_type_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_channel_type_optional(this_argPointer);
+    }
+
+    public func set_channel_type_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_channel_type_required(this_argPointer);
+    }
+
+    public func supports_channel_type() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_channel_type(this_argPointer)
+};
+    }
+
+    public func requires_channel_type() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_channel_type(this_argPointer)
+};
+    }
+
+    public func set_scid_privacy_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_scid_privacy_optional(this_argPointer);
+    }
+
+    public func set_scid_privacy_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return InitFeatures_set_scid_privacy_required(this_argPointer);
+    }
+
+    public func supports_scid_privacy() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_scid_privacy(this_argPointer)
+};
+    }
+
+    public func requires_scid_privacy() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_scid_privacy(this_argPointer)
+};
+    }
+
     internal func free() -> Void {
     	
         return InitFeatures_free(self.cOpaqueStruct!);

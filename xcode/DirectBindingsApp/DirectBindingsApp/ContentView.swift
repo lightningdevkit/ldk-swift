@@ -8,7 +8,56 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var experiment = PolarConnectionExperiment()
+
+    @State private var isRunningTestFlow = false
+    
+    @State private var multiPeerSimulation: PolarIntegrationSample.MultiPeerSimulator? = nil
+
+    var body: some View {
+
+        Button(action: {
+            self.isRunningTestFlow = true
+            if #available(iOS 15.0, *) {
+                let sample = PolarIntegrationSample()
+                Task {
+                    try? await sample.testPolarFlow()
+                    self.isRunningTestFlow = false
+                }
+            } else {
+                // Fallback on earlier versions
+            }
+            
+        }, label: {
+            Text("Hello World")
+        }).disabled(self.isRunningTestFlow)
+
+        if let simulation = self.multiPeerSimulation {
+            Button {
+                // self.multiPeerSimulation = nil
+                Task {
+                    await self.multiPeerSimulation?.interrupt()
+                    
+                    // freeing the simulation
+                    // try! await Task.sleep(nanoseconds: 5_000_000_000)
+                    // self.multiPeerSimulation = nil
+                }
+            } label: {
+                Text("Stop multi-peer simulation")
+            }
+        } else {
+            Button {
+                self.multiPeerSimulation = PolarIntegrationSample.MultiPeerSimulator()
+                Task {
+                    try? await self.multiPeerSimulation!.simulateMultiplePeers()
+                }
+            } label: {
+                Text("Simulate multiple peers")
+            }
+        }
+        
+    }
+
+    /*@StateObject private var experiment = PolarConnectionExperiment()
     var body: some View {
         if !self.experiment.isMonitoring {
             Button("Monitor Chain") {
@@ -45,7 +94,7 @@ struct ContentView: View {
                 }
             }
         }
-    }
+    }*/
 }
 
 struct ContentView_Previews: PreviewProvider {

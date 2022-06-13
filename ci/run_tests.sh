@@ -30,5 +30,7 @@ python3 ./fix_header_includes.py
 python3 ./fix_swift_imports.py
 
 pushd LDKSwift/
-swift test # -Xswiftc -suppress-warnings
-#swift test -Xswiftc -suppress-warnings
+#swift test
+swift test -Xswiftc -suppress-warnings
+#swift test --filter 'testInvoiceSerialization' -Xswiftc -suppress-warnings
+#swift test --filter 'testMainnetGraphSync' -Xswiftc -suppress-warnings

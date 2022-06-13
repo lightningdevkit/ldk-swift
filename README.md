@@ -67,10 +67,10 @@ folder due to the previous `genbindings.sh` step. As Docker won't have access to
 replace those lines with the following:
 
 ```yaml
-lightning = { git = "https://github.com/thebluematt/rust-lightning", rev = "xxx", features = ["std"] }
-lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", rev = "xxx" }
-lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", rev = "xxx" }
-lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", rev = "xxx" }
+lightning = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
+lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
+lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
+lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
 ```
 
 You will note that the revision is unspecified and is currently just placeholder `xxx`s. To obtain the revision, 

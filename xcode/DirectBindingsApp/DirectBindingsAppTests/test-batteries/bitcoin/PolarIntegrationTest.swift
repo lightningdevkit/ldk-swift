@@ -12,7 +12,7 @@ public class PolarIntegrationTest: XCTestCase {
 
 	// EDIT ME
 	static let POLAR_LND_PEER_PUBKEY_HEX = "02e62868ab834e7c062a929ca2f22ee8707827a5821e3a8eec343f106cbee24e7c"
-	static let POLAR_LND_PEER_INVOICE = "lnbcrt200u1p39ea7ppp52w26dtzvj48272l5g974zdg85uqpyrp07clzdge09wzdvn2erxrqdqqcqzpgxqyz5vqsp5kgurpluuqr5ydzn2fsyqa364u5yzcm2d8qegkk0x0tj0mu9e37gs9qyyssqj9vj7ca9jj6qtu4s93qyd8tanlhv5jlws64qxagrjlpys4nk3m99hmcr73p052z6jyxym49adg5v72wegn6hpce22rrr24eha9rh5aqp5gyhkw"
+	static let POLAR_LND_PEER_INVOICE = "lnbcrt17230n1p3xsf4mpp59s27yq8m4tdj3a8jhl48kedseapeh7mxmwejkqcepafgs3mnqm6qdqqcqzpgxqyz5vqsp50u85xyx3874ymvm3x0dcsy328wr74t47uyf78kl44kwrat0ypzgq9qyyssq9jgqksxzme9r5yd0agflpm67m0w25wedmuppgxg9avckrffn4jq556897pdq7txtg95mjvdvhlh2ynkvwha587xleyk5ytga347w32gqurgf0c"
 
 	func testPolarFlow() async throws {
 		let rpcInterface = try RegtestBlockchainManager(rpcProtocol: .http, rpcDomain: "localhost", rpcPort: 18443, rpcUsername: "polaruser", rpcPassword: "polarpass")
@@ -63,7 +63,7 @@ public class PolarIntegrationTest: XCTestCase {
 		let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: reversedChaintipHash, current_blockchain_tip_height: UInt32(chaintipHeight), keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph, tx_broadcaster: broadcaster, logger: logger)
 		let channelManager = channelManagerConstructor.channelManager
 		let peerManager = channelManagerConstructor.peerManager
-		let tcpPeerHandler = TCPPeerHandler(peerManager: peerManager)
+        let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
 
 		struct Listener: BlockchainListener {
 			private let channelManager: ChannelManager

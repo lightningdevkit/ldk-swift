@@ -75,6 +75,23 @@ class ConversionHelper:
 		return swift_type.startswith('[')
 
 	@classmethod
+	def is_trait_type(cls, raw_rust_type: str):
+		if raw_rust_type is None:
+			return False
+		return raw_rust_type in ConversionHelper.trait_structs
+
+	@classmethod
+	def is_type_cloneable(cls, raw_rust_type: str):
+		cloneability_lookup = 'x-uncloneable'
+		individual_cloneability_lookup = None
+		if raw_rust_type is not None:
+			cloneability_lookup = raw_rust_type
+			if cloneability_lookup.startswith('LDK'):
+				cloneability_lookup = cloneability_lookup[len('LDK'):]
+		is_cloneable = cloneability_lookup in cloneable_types
+		return is_cloneable
+
+	@classmethod
 	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False, is_trait_default_redirect = False):
 		swift_arguments = []
 		swift_redirection_arguments = []
@@ -175,14 +192,18 @@ class ConversionHelper:
 					argument_name = 'initValue'
 
 				requires_mutability = not current_argument_details.is_const
+				is_trait = ConversionHelper.is_trait_type(current_argument_details.rust_obj)
 
 				reference_prefix = ''
 				mutability_infix = ''
+				trait_activation_infix = ''
 
 				non_nullable = current_argument_details.non_nullable
 
 				if pass_instance:
 					argument_name = 'self'
+				if is_trait:
+					trait_activation_infix = '.activateOnce()'
 				if requires_mutability:
 					# argument_name = '&' + argument_name
 					reference_prefix = '&'
@@ -234,7 +255,7 @@ class ConversionHelper:
 					'''  # print('optional argument:', argument_name, passed_argument_name)
 				else:
 					wrapper_return_prefix = '' if pointer_wrapping_depth == 0 else 'return '
-					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
+					pointer_wrapping_prefix += f'{wrapper_return_prefix}withUnsafe{mutability_infix}Pointer(to: {reference_prefix}{argument_name}{trait_activation_infix}.cOpaqueStruct!) {{ ({passed_argument_name}: Unsafe{mutability_infix}Pointer<{current_argument_details.rust_obj}>) in\n'
 					pointer_wrapping_suffix += '\n}'
 			# native_call_prep += current_prep
 			elif is_cloneable:
@@ -246,8 +267,8 @@ class ConversionHelper:
 			else:
 				if current_argument_details.rust_obj is None:
 					pass
-				elif current_argument_details.rust_obj in ConversionHelper.trait_structs:
-					pass
+				elif ConversionHelper.is_trait_type(current_argument_details.rust_obj):
+					clone_infix = '.activate()'
 				elif current_argument_details.rust_obj.startswith('LDK') and not current_argument_details.swift_type.startswith('[') and not is_free_method:
 					non_cloneable_argument_indices_passed_by_ownership.append(argument_index)  # clone_infix = '.dangle()'
 				if current_argument_details.rust_obj is not None and (
@@ -309,7 +330,7 @@ class ConversionHelper:
 						force_unwrap_suffix = '!'
 					native_arguments.append(f'Bindings.string_to_unsafe_int8_pointer(string: {passed_argument_name}{force_unwrap_suffix})')
 				else:
-					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name})')
+					native_arguments.append(f'Bindings.new_LDKStr(string: {passed_argument_name}, chars_is_owned: true)')
 			elif current_argument_details.rust_obj is None and current_argument_details.arr_len is not None and current_argument_details.arr_len.isnumeric():
 				if current_argument_details.is_const:
 					force_unwrap_suffix = ''
@@ -372,7 +393,16 @@ class ConversionHelper:
 					swift_local_conversion_suffix = ')'
 					# TODO: see if `current_argument_details.pass_by_ref` condition is necessary
 					if current_argument_details.passed_as_ptr and current_argument_details.pass_by_ref:
+						# this is useful for traits, but some types may not have cloneability support
 						swift_local_conversion_suffix = ').dangle()'
+						is_cloneable = ConversionHelper.is_type_cloneable(received_raw_type)
+						if is_cloneable:
+							swift_local_conversion_suffix += '.clone()'
+						else:
+							print(f"trait callback uncloneable type danger: {received_raw_type} / {published_swift_type}")
+					elif current_argument_details.passed_as_ptr or current_argument_details.pass_by_ref:
+						descriptor = 'passed_as_ptr' if current_argument_details.passed_as_ptr else 'pass_by_ref'
+						print(f'{descriptor}: {received_raw_type} / {published_swift_type}')
 				elif received_raw_type.startswith('LDKCOption_') and received_raw_type == 'LDKC' + published_swift_type:
 					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '
 					swift_local_conversion_suffix = ')'
@@ -485,7 +515,7 @@ class ConversionHelper:
 				'''
 				else:
 
-					map_prefix = f'''.map {{ (cOpaqueStruct) in 
+					map_prefix = f'''.map {{ (cOpaqueStruct) in
 						cOpaqueStruct''' * (wrapper_depth-1)
 
 					map_suffix = '}' * wrapper_depth
@@ -540,7 +570,7 @@ class ConversionHelper:
 			return_suffix = f''';
 				if cStruct.inner == nil {{
 					return nil
-				}}	
+				}}
 				return {return_prefix}cStruct{return_suffix}
 				}}()
 			'''

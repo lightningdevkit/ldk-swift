@@ -1,6 +1,6 @@
 import Foundation
 
-open class TraitName: NativeTypeWrapper {
+open class TraitName: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt

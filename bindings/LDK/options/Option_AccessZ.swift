@@ -59,7 +59,7 @@ public class Option_AccessZ: NativeTypeWrapper {
 
     public class func some(o: Access) -> Option_AccessZ {
     	
-        return Option_AccessZ(pointer: COption_AccessZ_some(o.cOpaqueStruct!));
+        return Option_AccessZ(pointer: COption_AccessZ_some(o.activate().cOpaqueStruct!));
     }
 
     public class func none() -> Option_AccessZ {

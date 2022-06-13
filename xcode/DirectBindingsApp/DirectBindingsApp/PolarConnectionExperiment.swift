@@ -76,7 +76,7 @@ class PolarConnectionExperiment: ObservableObject {
             
             self.channelManager = self.channelManagerConstructor.channelManager
             self.peerManager = self.channelManagerConstructor.peerManager
-            self.peerNetworkHandler = TCPPeerHandler(peerManager: self.peerManager)
+            self.peerNetworkHandler = self.channelManagerConstructor.getTCPPeerHandler()
             
             self.cmPersister = RegtestChannelManagerPersister(channelManager: self.channelManager)
             self.hasCaughtUpToChainTip = true

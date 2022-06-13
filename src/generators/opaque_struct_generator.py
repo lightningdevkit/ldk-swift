@@ -69,7 +69,7 @@ class OpaqueStructGenerator:
 				''')
 
 				constructor_swift_arguments[4] = new_swift_argument
-				constructor_native_call_prep += '\nlet graphMessageHandler = net_graph_msg_handler?.dangle().cOpaqueStruct! ?? LDKNetGraphMsgHandler(inner: nil, is_owned: true)\n'
+				constructor_native_call_prep += '\nlet graphMessageHandler = net_graph_msg_handler?.cOpaqueStruct! ?? LDKNetGraphMsgHandler(inner: nil, is_owned: true)\n'
 				constructor_post_init_anchoring = constructor_post_init_anchoring.replace('try? self.addAnchor(anchor: net_graph_msg_handler)', '''
 					if let handler = net_graph_msg_handler {
 						try? self.addAnchor(anchor: handler)

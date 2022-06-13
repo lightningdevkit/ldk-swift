@@ -14,8 +14,6 @@
 		07344C8826427F95001CD90E /* LDKExampleClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07344C8626427F95001CD90E /* LDKExampleClass.swift */; };
 		07344FE626429524001CD90E /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07344FE526429524001CD90E /* libldk.a */; };
 		07344FE926429536001CD90E /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07344FE526429524001CD90E /* libldk.a */; };
-		075E25F426FEFF5A0000A76B /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E25F026FEFF5A0000A76B /* TCPPeerHandler.swift */; };
-		075E25F526FEFF5A0000A76B /* TCPPeerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E25F026FEFF5A0000A76B /* TCPPeerHandler.swift */; };
 		075E25F626FEFF5A0000A76B /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E25F126FEFF5A0000A76B /* NetGraphMsgHandlerConstructor.swift */; };
 		075E25F726FEFF5A0000A76B /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E25F126FEFF5A0000A76B /* NetGraphMsgHandlerConstructor.swift */; };
 		075E25F826FEFF5A0000A76B /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075E25F226FEFF5A0000A76B /* ChannelManagerConstructor.swift */; };
@@ -394,7 +392,6 @@
 		07344C8626427F95001CD90E /* LDKExampleClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LDKExampleClass.swift; sourceTree = "<group>"; };
 		07344FCD26428DD2001CD90E /* LDKFramework.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LDKFramework.modulemap; sourceTree = "<group>"; };
 		07344FE526429524001CD90E /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
-		075E25F026FEFF5A0000A76B /* TCPPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TCPPeerHandler.swift; sourceTree = "<group>"; };
 		075E25F126FEFF5A0000A76B /* NetGraphMsgHandlerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetGraphMsgHandlerConstructor.swift; sourceTree = "<group>"; };
 		075E25F226FEFF5A0000A76B /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
 		075E25F326FEFF5A0000A76B /* UtilMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilMethods.swift; sourceTree = "<group>"; };
@@ -830,7 +827,6 @@
 		075E25EF26FEFF5A0000A76B /* batteries */ = {
 			isa = PBXGroup;
 			children = (
-				075E25F026FEFF5A0000A76B /* TCPPeerHandler.swift */,
 				075E25F126FEFF5A0000A76B /* NetGraphMsgHandlerConstructor.swift */,
 				075E25F226FEFF5A0000A76B /* ChannelManagerConstructor.swift */,
 				075E25F326FEFF5A0000A76B /* UtilMethods.swift */,
@@ -1572,7 +1568,6 @@
 				076D270027FC26F600970AFC /* Result_RoutingFeesDecodeErrorZ.swift in Sources */,
 				076D273627FC26F600970AFC /* Result_PaymentSecretNoneZ.swift in Sources */,
 				076D26CF27FC26F600970AFC /* Result_RevokeAndACKDecodeErrorZ.swift in Sources */,
-				075E25F426FEFF5A0000A76B /* TCPPeerHandler.swift in Sources */,
 				076D26BD27FC26F600970AFC /* Result_ChannelConfigDecodeErrorZ.swift in Sources */,
 				076D269627FC26F600970AFC /* KeysInterface.swift in Sources */,
 				076D279527FC26F700970AFC /* AnnouncementSignatures.swift in Sources */,
@@ -1742,7 +1737,6 @@
 				075E25F926FEFF5A0000A76B /* ChannelManagerConstructor.swift in Sources */,
 				07344C63264277ED001CD90E /* LDKFrameworkTests.swift in Sources */,
 				07344C8826427F95001CD90E /* LDKExampleClass.swift in Sources */,
-				075E25F526FEFF5A0000A76B /* TCPPeerHandler.swift in Sources */,
 				075E25F726FEFF5A0000A76B /* NetGraphMsgHandlerConstructor.swift in Sources */,
 				0767D03F2698BB9800BEB4CC /* ldk_net.c in Sources */,
 				075E25FB26FEFF5A0000A76B /* UtilMethods.swift in Sources */,

@@ -1,6 +1,6 @@
 import Foundation
 
-open class EventHandler: NativeTypeWrapper {
+open class EventHandler: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -15,7 +15,7 @@ open class EventHandler: NativeTypeWrapper {
 
 		func handle_eventCallback(pointer: UnsafeRawPointer?, eventPointer: UnsafePointer<LDKEvent>) -> Void {
 			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::handle_event")
-			let event = Event(pointer: eventPointer.pointee).dangle();
+			let event = Event(pointer: eventPointer.pointee).dangle().clone();
 
 			return instance.handle_event(event: event)
 		}
@@ -59,11 +59,11 @@ open class EventHandler: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing EventHandler \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing EventHandler \(self.instanceNumber) due to dangle.")
 						}
@@ -79,9 +79,10 @@ open class EventHandler: NativeTypeWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("EventHandler::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating EventHandler \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

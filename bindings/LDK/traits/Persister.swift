@@ -1,6 +1,6 @@
 import Foundation
 
-open class Persister: NativeTypeWrapper {
+open class Persister: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -22,7 +22,7 @@ open class Persister: NativeTypeWrapper {
 
 		func persist_graphCallback(pointer: UnsafeRawPointer?, network_graphPointer: UnsafePointer<LDKNetworkGraph>) -> LDKCResult_NoneErrorZ {
 			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_graph")
-			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle();
+			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle().clone();
 
 			return instance.persist_graph(network_graph: network_graph).cOpaqueStruct!
 		}
@@ -67,11 +67,11 @@ open class Persister: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Persister \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Persister \(self.instanceNumber) due to dangle.")
 						}
@@ -94,9 +94,10 @@ return Result_NoneErrorZ()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Persister::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating Persister \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

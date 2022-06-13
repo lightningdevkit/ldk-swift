@@ -5,9 +5,11 @@
 //  Created by Arik Sosman on 7/22/21.
 //
 
-import XCTest
+#if os(Linux)
 import LDKSwift
 import LDKHeaders
+#endif
+import XCTest
 
 public class HumanObjectPeerTestInstance {
 
@@ -52,6 +54,10 @@ public class HumanObjectPeerTestInstance {
         private(set) var constructor: ChannelManagerConstructor?
         private(set) var tcpSocketHandler: TCPPeerHandler?
         private(set) var tcpPort: UInt16?
+
+        fileprivate enum SocketBindError: Error {
+            case failedToBindSocket
+        }
 
         fileprivate actor PendingEventTracker {
 
@@ -206,11 +212,11 @@ public class HumanObjectPeerTestInstance {
             }
 
             func handle_event(event: Event) {
-                let eventClone = event.clone()
-                print("peer \(self.master.seed) received event: \(eventClone.getValueType())")
+                // let eventClone = event.clone()
+                print("peer \(self.master.seed) received event: \(event.getValueType())")
                 Task {
                     // clone to avoid deallocation-related issues
-                    await master.pendingEventTracker.addEvent(event: eventClone)
+                    await master.pendingEventTracker.addEvent(event: event)
                 }
             }
 
@@ -298,7 +304,7 @@ public class HumanObjectPeerTestInstance {
                 self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
             self.nodeId = self.channelManager.get_our_node_id()
-            self.bindSocketHandler()
+            try! self.bindSocketHandler()
         }
 
         fileprivate convenience init(original: Peer) {
@@ -323,15 +329,15 @@ public class HumanObjectPeerTestInstance {
                 managerResult.getValue()!
             }
             self.nodeId = self.channelManager.get_our_node_id()
-            self.bindSocketHandler()
+            try! self.bindSocketHandler()
         }
 
-        private func bindSocketHandler() {
+        private func bindSocketHandler() throws {
             if !self.master.use_nio_peer_handler {
                 return
             }
-            self.tcpSocketHandler = TCPPeerHandler(peerManager: self.peerManager)
-            for i in 1...10000 {
+            self.tcpSocketHandler = self.constructor!.getTCPPeerHandler()
+            for i in 10000...65535 {
                 let port = UInt16(i)
                 let bound = self.tcpSocketHandler!.bind(address: "127.0.0.1", port: port)
                 if bound {
@@ -339,6 +345,7 @@ public class HumanObjectPeerTestInstance {
                     return
                 }
             }
+            throw SocketBindError.failedToBindSocket
         }
 
         fileprivate func payInvoice() {
@@ -413,6 +420,53 @@ public class HumanObjectPeerTestInstance {
             print("connection result: \(connectionResult)")
         } else {
             // not currently relevant; we need the TCP connection simulation
+        }
+    }
+
+    func test_multiple_peer_connections() async {
+        let peerA = Peer(master: self, seed: 1)
+        let peerB = Peer(master: self, seed: 2)
+        let peerC = Peer(master: self, seed: 3)
+
+        let originalPeersA = peerA.peerManager.get_peer_node_ids()
+        let originalPeersB = peerB.peerManager.get_peer_node_ids()
+        let originalPeersC = peerC.peerManager.get_peer_node_ids()
+        XCTAssertEqual(originalPeersA.count, 0)
+        XCTAssertEqual(originalPeersB.count, 0)
+        XCTAssertEqual(originalPeersC.count, 0)
+
+        do {
+            connectPeers(peerA: peerA, peerB: peerB)
+
+            // sleep for one second
+            try! await Task.sleep(nanoseconds: 1_000_000_000)
+            let connectedPeersA = peerA.peerManager.get_peer_node_ids()
+            let connectedPeersB = peerB.peerManager.get_peer_node_ids()
+            XCTAssertEqual(connectedPeersA.count, 1)
+            XCTAssertEqual(connectedPeersB.count, 1)
+        }
+
+        do {
+            connectPeers(peerA: peerA, peerB: peerC)
+
+            // sleep for one second
+            try! await Task.sleep(nanoseconds: 1_000_000_000)
+            let connectedPeersA = peerA.peerManager.get_peer_node_ids()
+            let connectedPeersC = peerC.peerManager.get_peer_node_ids()
+            XCTAssertEqual(connectedPeersA.count, 2)
+            XCTAssertEqual(connectedPeersC.count, 1)
+        }
+
+        do {
+            // sleep for a total of 10 seconds
+            for i in 0..<100 {
+                // sleep for 100ms
+                try! await Task.sleep(nanoseconds: 0_100_000_000)
+            }
+
+            peerA.constructor?.interrupt()
+            peerB.constructor?.interrupt()
+            peerC.constructor?.interrupt()
         }
     }
 
@@ -630,7 +684,8 @@ public class HumanObjectPeerTestInstance {
             let invoice = invoiceResult.getValue()!
             print("Implicit amount invoice: \(invoice.to_str())")
 
-            let recreatedInvoice = Invoice.from_str(s: invoice.to_str())
+			let invoiceString = invoice.to_str()
+            let recreatedInvoice = Invoice.from_str(s: invoiceString)
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let invoicePaymentResult = peer2.constructor!.payer!.pay_zero_value_invoice(invoice: invoice, amount_msats: SEND_MSAT_AMOUNT_B_TO_A)
@@ -707,8 +762,8 @@ public class HumanObjectPeerTestInstance {
             // sleep for 5 seconds to ensure sanity
             try! await Task.sleep(nanoseconds: 5_000_000_000)
 
-            peer1.constructor?.interrupt(tcpPeerHandler: peer1.tcpSocketHandler)
-            peer2.constructor?.interrupt(tcpPeerHandler: peer2.tcpSocketHandler)
+            peer1.constructor?.interrupt()
+			peer2.constructor?.interrupt()
         }
 
     }

@@ -266,8 +266,8 @@ static void *sock_thread_fn(void* arg) {
 								if (*res.contents.result) {
 									lockres = pthread_mutex_lock(&handler->sockets_mutex);
 									assert(lockres == 0);
-									assert(handler->pollfds[i - 1].fd == pollfds[i].fd); // Only we change fd order!
-									handler->pollfds[i - 1].events = POLLOUT;
+									assert(handler->pollfds[i].fd == pollfds[i].fd); // Only we change fd order!
+									handler->pollfds[i].events = POLLOUT;
 									lockres = pthread_mutex_unlock(&handler->sockets_mutex);
 									assert(lockres == 0);
 								}

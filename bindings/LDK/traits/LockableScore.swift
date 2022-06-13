@@ -1,6 +1,6 @@
 import Foundation
 
-open class LockableScore: NativeTypeWrapper {
+open class LockableScore: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -58,11 +58,11 @@ open class LockableScore: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing LockableScore \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing LockableScore \(self.instanceNumber) due to dangle.")
 						}
@@ -78,9 +78,10 @@ return Score()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("LockableScore::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating LockableScore \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

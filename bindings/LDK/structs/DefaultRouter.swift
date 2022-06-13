@@ -12,7 +12,7 @@ public class DefaultRouter: NativeTypeWrapper {
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
-DefaultRouter_new(network_graphPointer, logger.cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: random_seed_bytes))
+DefaultRouter_new(network_graphPointer, logger.activate().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: random_seed_bytes))
 }
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: logger)

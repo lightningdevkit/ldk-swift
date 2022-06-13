@@ -59,7 +59,7 @@ public class Option_FilterZ: NativeTypeWrapper {
 
     public class func some(o: Filter) -> Option_FilterZ {
     	
-        return Option_FilterZ(pointer: COption_FilterZ_some(o.cOpaqueStruct!));
+        return Option_FilterZ(pointer: COption_FilterZ_some(o.activate().cOpaqueStruct!));
     }
 
     public class func none() -> Option_FilterZ {

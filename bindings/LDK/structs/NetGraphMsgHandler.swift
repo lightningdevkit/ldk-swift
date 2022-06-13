@@ -14,7 +14,7 @@ public init(network_graph: NetworkGraph, chain_access: Option_AccessZ, logger: L
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
-NetGraphMsgHandler_new(network_graphPointer, chain_access.cOpaqueStruct!, logger.cOpaqueStruct!)
+NetGraphMsgHandler_new(network_graphPointer, chain_access.cOpaqueStruct!, logger.activate().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: chain_access)

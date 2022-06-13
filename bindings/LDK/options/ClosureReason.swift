@@ -93,7 +93,7 @@ ClosureReason_clone(origPointer)
 
     public class func counterparty_force_closed(peer_msg: String) -> ClosureReason {
     	
-        return ClosureReason(pointer: ClosureReason_counterparty_force_closed(Bindings.new_LDKStr(string: peer_msg)));
+        return ClosureReason(pointer: ClosureReason_counterparty_force_closed(Bindings.new_LDKStr(string: peer_msg, chars_is_owned: true)));
     }
 
     public class func holder_force_closed() -> ClosureReason {
@@ -118,7 +118,7 @@ ClosureReason_clone(origPointer)
 
     public class func processing_error(err: String) -> ClosureReason {
     	
-        return ClosureReason(pointer: ClosureReason_processing_error(Bindings.new_LDKStr(string: err)));
+        return ClosureReason(pointer: ClosureReason_processing_error(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
     }
 
     public class func disconnected_peer() -> ClosureReason {

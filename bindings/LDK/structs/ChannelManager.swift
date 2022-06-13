@@ -11,7 +11,7 @@ public class ChannelManager: NativeTypeWrapper {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelManager_new(fee_est.cOpaqueStruct!, chain_monitor.cOpaqueStruct!, tx_broadcaster.cOpaqueStruct!, logger.cOpaqueStruct!, keys_manager.cOpaqueStruct!, config.danglingClone().cOpaqueStruct!, params.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelManager_new(fee_est.activate().cOpaqueStruct!, chain_monitor.activate().cOpaqueStruct!, tx_broadcaster.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, keys_manager.activate().cOpaqueStruct!, config.danglingClone().cOpaqueStruct!, params.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: fee_est)
 try? self.addAnchor(anchor: chain_monitor)

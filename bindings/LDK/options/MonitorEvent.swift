@@ -63,7 +63,7 @@ public class MonitorEvent: NativeTypeWrapper {
 				self.cOpaqueStruct!.commitment_tx_confirmed;
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct, anchor: self)
 				}()
 			
@@ -86,7 +86,7 @@ public class MonitorEvent: NativeTypeWrapper {
 				self.cOpaqueStruct!.update_failed;
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct, anchor: self)
 				}()
 			
@@ -192,7 +192,7 @@ MonitorEvent_write(objPointer)
 				self.cOpaqueStruct!.funding_txo;
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct, anchor: self)
 				}()
 			

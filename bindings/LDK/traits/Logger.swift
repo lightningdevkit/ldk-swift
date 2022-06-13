@@ -1,6 +1,6 @@
 import Foundation
 
-open class Logger: NativeTypeWrapper {
+open class Logger: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -15,7 +15,7 @@ open class Logger: NativeTypeWrapper {
 
 		func logCallback(pointer: UnsafeRawPointer?, recordPointer: UnsafePointer<LDKRecord>) -> Void {
 			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::log")
-			let record = Record(pointer: recordPointer.pointee).dangle();
+			let record = Record(pointer: recordPointer.pointee).dangle().clone();
 
 			return instance.log(record: record)
 		}
@@ -59,11 +59,11 @@ open class Logger: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Logger \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing Logger \(self.instanceNumber) due to dangle.")
 						}
@@ -79,9 +79,10 @@ open class Logger: NativeTypeWrapper {
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("Logger::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating Logger \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

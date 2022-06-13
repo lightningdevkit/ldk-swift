@@ -102,7 +102,7 @@ PaymentError_clone(origPointer)
 
     public class func invoice(a: String) -> PaymentError {
     	
-        return PaymentError(pointer: PaymentError_invoice(Bindings.new_LDKStr(string: a)));
+        return PaymentError(pointer: PaymentError_invoice(Bindings.new_LDKStr(string: a, chars_is_owned: true)));
     }
 
     public class func routing(a: LightningError) -> PaymentError {

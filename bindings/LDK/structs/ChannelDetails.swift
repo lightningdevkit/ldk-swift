@@ -75,7 +75,7 @@ ChannelDetails_get_funding_txo(this_ptrPointer)
 };
 				if cStruct.inner == nil {
 					return nil
-				}	
+				}
 				return OutPoint(pointer: cStruct)
 				}()
 			;

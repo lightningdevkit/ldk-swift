@@ -1,6 +1,6 @@
 import Foundation
 
-open class BindingsType: NativeTypeWrapper {
+open class BindingsType: NativeTraitWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
@@ -76,7 +76,7 @@ open class BindingsType: NativeTypeWrapper {
 
 				public func clone() -> BindingsType {
 					
-					return withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKType>) in
+					return withUnsafePointer(to: self.activateOnce().cOpaqueStruct!) { (origPointer: UnsafePointer<LDKType>) in
 
 					BindingsType(pointer: Type_clone(origPointer))
 					
@@ -97,11 +97,11 @@ open class BindingsType: NativeTypeWrapper {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing BindingsType \(self.instanceNumber).")
-							self.free()
+							// self.free()
 						} else {
 							Bindings.print("Not freeing BindingsType \(self.instanceNumber) due to dangle.")
 						}
@@ -131,9 +131,10 @@ return [UInt8]()
 
     open func free() -> Void {
     	/* EDIT ME */
-		Bindings.print("BindingsType::free should be overridden!", severity: .WARNING)
-
-
+		
+					Bindings.print("Deactivating BindingsType \(self.instanceNumber).")
+					Bindings.removeInstancePointer(instance: self)
+				
     }
 
     /* SWIFT_CALLBACKS_END */

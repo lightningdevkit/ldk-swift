@@ -120,22 +120,22 @@ APIError_clone(origPointer)
 
     public class func apimisuse_error(err: String) -> APIError {
     	
-        return APIError(pointer: APIError_apimisuse_error(Bindings.new_LDKStr(string: err)));
+        return APIError(pointer: APIError_apimisuse_error(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
     }
 
     public class func fee_rate_too_high(err: String, feerate: UInt32) -> APIError {
     	
-        return APIError(pointer: APIError_fee_rate_too_high(Bindings.new_LDKStr(string: err), feerate));
+        return APIError(pointer: APIError_fee_rate_too_high(Bindings.new_LDKStr(string: err, chars_is_owned: true), feerate));
     }
 
     public class func route_error(err: String) -> APIError {
     	
-        return APIError(pointer: APIError_route_error(Bindings.new_LDKStr(string: err)));
+        return APIError(pointer: APIError_route_error(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
     }
 
     public class func channel_unavailable(err: String) -> APIError {
     	
-        return APIError(pointer: APIError_channel_unavailable(Bindings.new_LDKStr(string: err)));
+        return APIError(pointer: APIError_channel_unavailable(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
     }
 
     public class func monitor_update_failed() -> APIError {

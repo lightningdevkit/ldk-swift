@@ -53,7 +53,7 @@ Record_get_args(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRecord>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Record_set_args(this_ptrPointer, Bindings.new_LDKStr(string: val));
+        return Record_set_args(this_ptrPointer, Bindings.new_LDKStr(string: val, chars_is_owned: true));
     }
 
     public func get_module_path() -> String {
@@ -68,7 +68,7 @@ Record_get_module_path(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRecord>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Record_set_module_path(this_ptrPointer, Bindings.new_LDKStr(string: val));
+        return Record_set_module_path(this_ptrPointer, Bindings.new_LDKStr(string: val, chars_is_owned: true));
     }
 
     public func get_file() -> String {
@@ -83,7 +83,7 @@ Record_get_file(this_ptrPointer)
 							let this_ptrPointer = UnsafeMutablePointer<LDKRecord>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return Record_set_file(this_ptrPointer, Bindings.new_LDKStr(string: val));
+        return Record_set_file(this_ptrPointer, Bindings.new_LDKStr(string: val, chars_is_owned: true));
     }
 
     public func get_line() -> UInt32 {

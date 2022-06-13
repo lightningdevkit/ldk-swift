@@ -65,6 +65,20 @@ open class NativeTypeWrapper: Hashable {
 
 }
 
+open class NativeTraitWrapper: NativeTypeWrapper {
+
+    public func activate() -> Self {
+        Bindings.cacheInstance(instance: self)
+        return self
+    }
+
+    public func activateOnce() -> Self {
+        Bindings.cacheInstance(instance: self)
+        return self
+    }
+
+}
+
 public class Bindings {
 
 	internal static var minimumPrintSeverity: PrintSeverity = .WARNING
@@ -6010,7 +6024,7 @@ public class Bindings {
 						}
 					
 				return 
-				Result_PublicKeyErrorZ(pointer: recover_pk(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig)))
+				Result_PublicKeyErrorZ(pointer: recover_pk(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig, chars_is_owned: true)))
 				
 			
 	}
@@ -6023,7 +6037,7 @@ public class Bindings {
 						}
 					
 				return 
-				verify(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig), Bindings.new_LDKPublicKey(array: pk))
+				verify(msgWrapper.cOpaqueStruct!, Bindings.new_LDKStr(string: sig, chars_is_owned: true), Bindings.new_LDKPublicKey(array: pk))
 				
 			
 	}
@@ -6053,7 +6067,7 @@ public class Bindings {
 							serWrapper.noOpRetain()
 						}
 					
-				return withUnsafePointer(to: arg.cOpaqueStruct!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
+				return withUnsafePointer(to: arg.activateOnce().cOpaqueStruct!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
 
 				Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(pointer: C2Tuple_BlockHashChannelMonitorZ_read(serWrapper.cOpaqueStruct!, argPointer))
 				
@@ -6230,10 +6244,10 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 						
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
 withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
-withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
+withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (random_seed_bytesPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
-				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), route_paramsPointer, networkPointer, first_hopsPointer, logger.cOpaqueStruct!, scorerPointer, random_seed_bytesPointer))
+				Result_RouteLightningErrorZ(pointer: find_route(Bindings.new_LDKPublicKey(array: our_node_pubkey), route_paramsPointer, networkPointer, first_hopsPointer, logger.activate().cOpaqueStruct!, scorerPointer, random_seed_bytesPointer))
 				
 }
 }
@@ -6255,7 +6269,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 						}
 					
 				return 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.cOpaqueStruct!, network))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.activate().cOpaqueStruct!, network))
 				
 			
 	}
@@ -6273,7 +6287,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 						}
 					
 				return 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice_with_description_hash(amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.cOpaqueStruct!, network))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice_with_description_hash(amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKThirtyTwoBytes(array: payment_secret), phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.activate().cOpaqueStruct!, network))
 				
 			
 	}
@@ -6282,7 +6296,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description)))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true)))
 				
 }
 			
@@ -6292,7 +6306,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!))
 				
 }
 			
@@ -6302,7 +6316,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, duration_since_epoch))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, duration_since_epoch))
 				
 }
 			
@@ -6312,7 +6326,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_and_duration_since_epoch(channelmanagerPointer, keys_manager.cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description), duration_since_epoch))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_and_duration_since_epoch(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), duration_since_epoch))
 				
 }
 			
@@ -6320,32 +6334,53 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 
 	/* STATIC_METHODS_END */
 
-	static var nativelyExposedInstances = [String: NativeTypeWrapper]()
+	static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
+    static var nativelyExposedInstanceReferenceCounter = [UInt: Int]()
 
-	public class func instanceToPointer(instance: NativeTypeWrapper) -> UnsafeMutableRawPointer {
-		let pointer = Unmanaged.passUnretained(instance).toOpaque()
-        instance.pointerDebugDescription = pointer.debugDescription
-		Self.nativelyExposedInstances[pointer.debugDescription] = instance
+    public class func cacheInstance(instance: NativeTraitWrapper, countIdempotently: Bool = false) {
+        let key = instance.globalInstanceNumber
+        let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) + 1
+        if (!countIdempotently || referenceCount == 1){
+            // if we count non-idempotently, always update the counter
+            // otherwise, only update the counter the first time
+            Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+        }
+        if referenceCount == 1 {
+            print("Caching global instance \(key). Cached instance count: \(nativelyExposedInstanceReferenceCounter.count)")
+            Self.nativelyExposedInstances[key] = instance
+        }
+    }
+
+	public class func instanceToPointer(instance: NativeTraitWrapper) -> UnsafeMutableRawPointer {
+        let key = instance.globalInstanceNumber
+        let pointer = UnsafeMutableRawPointer(bitPattern: key)!
+		// don't automatically cache the trait instance
+		// Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
 		return pointer
 	}
 
-	public class func pointerToInstance<T: NativeTypeWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
-
-		let callStack = Thread.callStackSymbols
-		let caller = sourceMarker ?? callStack[1]
-		// print("Retrieving instance from pointer for caller: \(caller)")
-		// let value = Unmanaged<T>.fromOpaque(pointer).takeUnretainedValue()
-		let value = Self.nativelyExposedInstances[pointer.debugDescription] as! T
-		// print("Instance retrieved for caller: \(caller)")
+	public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
+        let key = UInt(bitPattern: pointer)
+        let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
+        if referenceCount < 1 {
+            print("Bad lookup: non-positive reference count for instance \(key): \(referenceCount)!", severity: .ERROR)
+        }
+        let value = Self.nativelyExposedInstances[key] as! T
 		return value
 	}
 
-    public class func removeInstancePointer(instance: NativeTypeWrapper) -> Bool {
-        guard let debugDescription = instance.pointerDebugDescription else {
-            return false
+    public class func removeInstancePointer(instance: NativeTraitWrapper) -> Bool {
+        let key = instance.globalInstanceNumber
+        let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) - 1
+        Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+        if referenceCount == 0 {
+            print("Uncaching global instance \(key)")
+            // TODO: fix counting
+            Self.nativelyExposedInstances.removeValue(forKey: key)
+            instance.pointerDebugDescription = nil
+        } else if referenceCount < 0 {
+            print("Bad uncache: negative reference count (\(referenceCount)) for instance \(key)!", severity: .ERROR)
         }
-        Self.nativelyExposedInstances.removeValue(forKey: debugDescription)
-        instance.pointerDebugDescription = nil
         return true
     }
 
@@ -6429,7 +6464,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	}
 	/* RUST_TO_SWIFT_END */
 
-    public class func LDKStr_to_string(nativeType: LDKStr) -> String {
+    public class func LDKStr_to_string(nativeType: LDKStr, deallocate: Bool = true) -> String {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.len) {
 			let currentEntry = nativeType.chars[index]
@@ -6438,6 +6473,9 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 		}
 		let data = Data(bytes: array)
 		let string = String(data: data, encoding: .utf8)!
+		if deallocate && nativeType.len > 0{
+			Str_free(nativeType)
+		}
 		return string
 	}
 
@@ -6471,7 +6509,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 		let nativeKeysManager = keysManager.cOpaqueStruct!
 		let amount = Option_u64Z(value: amountMsat)
 		let nativeAmount = amount.cOpaqueStruct!
-		let nativeDescription = Self.new_LDKStr(string: description)
+		let nativeDescription = Self.new_LDKStr(string: description, chars_is_owned: true)
 		return withUnsafePointer(to: channelManager.cOpaqueStruct!) { (pointer: UnsafePointer<LDKChannelManager>) -> Result_InvoiceSignOrCreationErrorZ in
 			let nativeResult = create_invoice_from_channelmanager(pointer, nativeKeysManager, network, nativeAmount, nativeDescription)
 			return Result_InvoiceSignOrCreationErrorZ(pointer: nativeResult)
@@ -6488,14 +6526,14 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 		}
 	}
 	*/
-	
+
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "fe0ea5b41ca6eb7ef88a4d2fbd7dc1f647c89112"
+        return "90b85905ad0889a5368bb8eee79bfbb4d0ff444e"
     }
 
 }
 
-public class InstanceCrashSimulator: NativeTypeWrapper {
+public class InstanceCrashSimulator: NativeTraitWrapper {
 
     public init() {
 		super.init(conflictAvoidingVariableName: 0)

@@ -183,7 +183,7 @@ Invoice_amount_milli_satoshis(this_argPointer)
 
     public class func from_str(s: String) -> Result_InvoiceParseOrSemanticErrorZ {
     	
-        return Result_InvoiceParseOrSemanticErrorZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s)));
+        return Result_InvoiceParseOrSemanticErrorZ(pointer: Invoice_from_str(Bindings.new_LDKStr(string: s, chars_is_owned: true)));
     }
 
     public func to_str() -> String {

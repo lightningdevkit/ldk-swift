@@ -56,7 +56,7 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C2Tuple_OutPointScriptZ \(self.instanceNumber).")
@@ -67,6 +67,23 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> OutPoint? {
+					return 
+				{ () in
+					let cStruct =
+				self.cOpaqueStruct!.a;
+				if cStruct.inner == nil {
+					return nil
+				}
+				return OutPoint(pointer: cStruct, anchor: self)
+				}()
+			;
+				}
+			
+				public func getB() -> [UInt8] {
+					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

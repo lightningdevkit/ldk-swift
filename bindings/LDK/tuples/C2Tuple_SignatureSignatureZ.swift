@@ -51,7 +51,7 @@ C2Tuple_SignatureSignatureZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C2Tuple_SignatureSignatureZ \(self.instanceNumber).")
@@ -62,6 +62,14 @@ C2Tuple_SignatureSignatureZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> [UInt8] {
+					return Bindings.LDKSignature_to_array(nativeType: self.cOpaqueStruct!.a);
+				}
+			
+				public func getB() -> [UInt8] {
+					return Bindings.LDKSignature_to_array(nativeType: self.cOpaqueStruct!.b);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

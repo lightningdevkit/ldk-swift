@@ -51,7 +51,7 @@ C2Tuple_u32TxOutZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C2Tuple_u32TxOutZ \(self.instanceNumber).")
@@ -62,6 +62,14 @@ C2Tuple_u32TxOutZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> UInt32 {
+					return self.cOpaqueStruct!.a;
+				}
+			
+				public func getB() -> TxOut {
+					return TxOut(pointer: self.cOpaqueStruct!.b, anchor: self);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

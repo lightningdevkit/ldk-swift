@@ -113,7 +113,7 @@ class TupleGenerator:
         				self.dangling = true
 						return self
 					}}
-					
+
 					deinit {{
 						if !self.dangling {{
 							Bindings.print("Freeing {swift_tuple_name} \(self.instanceNumber).")
@@ -125,6 +125,18 @@ class TupleGenerator:
 				'''
 
 			struct_methods += '\n' + current_replacement + '\n'
+
+		for current_tuple_field in struct_details.fields:
+			current_field_name: str = current_tuple_field.var_name
+			current_accessor_name = 'get'+current_field_name.capitalize()
+
+			return_value_details = ConversionHelper.prepare_return_value(current_tuple_field, is_clone_method=False, is_raw_property_getter=True)
+
+			struct_methods += f'''
+				public func {current_accessor_name}() -> {return_value_details['swift_type']} {{
+					return {return_value_details['prefix']}self.cOpaqueStruct!.{current_field_name}{return_value_details['suffix']};
+				}}
+			'''
 
 		mutating_output_file_contents = mutating_output_file_contents.replace('class TupleName: NativeTypeWrapper', f'class {swift_tuple_name}: NativeTypeWrapper')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: TupleType', f'init(pointer: {struct_name}')

@@ -56,7 +56,7 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C2Tuple_usizeTransactionZ \(self.instanceNumber).")
@@ -67,6 +67,14 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> UInt {
+					return self.cOpaqueStruct!.a;
+				}
+			
+				public func getB() -> [UInt8] {
+					return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

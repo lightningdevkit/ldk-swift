@@ -117,7 +117,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
             self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
-            
+
             // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
             // temporarily disable handling routing messages by the peer manager to avoid excessive memory growth
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
@@ -165,8 +165,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         if let netGraph = net_graph {
             let noneOption = Option_AccessZ.none()
             self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: noneOption, logger: logger)
-            
-            
+
+
             // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
             // temporarily disable handling routing messages by the peer manager to avoid excessive memory growth
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())

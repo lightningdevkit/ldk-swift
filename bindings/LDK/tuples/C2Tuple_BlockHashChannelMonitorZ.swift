@@ -51,7 +51,7 @@ C2Tuple_BlockHashChannelMonitorZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C2Tuple_BlockHashChannelMonitorZ \(self.instanceNumber).")
@@ -62,6 +62,14 @@ C2Tuple_BlockHashChannelMonitorZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> [UInt8] {
+					return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.a);
+				}
+			
+				public func getB() -> ChannelMonitor {
+					return ChannelMonitor(pointer: self.cOpaqueStruct!.b, anchor: self);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

@@ -60,7 +60,7 @@ class OpaqueStructGenerator:
 			if constructor_native_name == 'BackgroundProcessor_start':
 				previous_swift_argument = constructor_swift_arguments[4]
 				previous_native_argument = constructor_native_arguments[4]
-				new_swift_argument = 'net_graph_msg_handler: NetGraphMsgHandler?'
+				new_swift_argument = 'gossip_sync: GossipSync?'
 				new_native_argument = 'graphMessageHandler'
 				print(f'''
 					Replacing {constructor_native_name}:
@@ -69,20 +69,20 @@ class OpaqueStructGenerator:
 				''')
 
 				constructor_swift_arguments[4] = new_swift_argument
-				constructor_native_call_prep += '\nlet graphMessageHandler = net_graph_msg_handler?.cOpaqueStruct! ?? LDKNetGraphMsgHandler(inner: nil, is_owned: true)\n'
-				constructor_post_init_anchoring = constructor_post_init_anchoring.replace('try? self.addAnchor(anchor: net_graph_msg_handler)', '''
-					if let handler = net_graph_msg_handler {
+				constructor_native_call_prep += '\nlet graphMessageHandler = gossip_sync?.cOpaqueStruct! ?? GossipSync_none()\n'
+				constructor_post_init_anchoring = constructor_post_init_anchoring.replace('try? self.addAnchor(anchor: gossip_sync)', '''
+					if let handler = gossip_sync {
 						try? self.addAnchor(anchor: handler)
 					}
 				''')
 				constructor_native_arguments[4] = new_native_argument
 
-			
+
 			mutating_output_file_contents = mutating_output_file_contents.replace('public init', f'{deprecation_prefix}public init')
 
 			if constructor_prepared_arguments['has_unwrapped_arrays']:
 				mutating_output_file_contents = mutating_output_file_contents.replace('public init(swift_constructor_arguments)', 'internal init(swift_constructor_arguments)')
-			
+
 			mutating_output_file_contents = mutating_output_file_contents.replace('swift_constructor_arguments', ', '.join(constructor_swift_arguments))
 			mutating_output_file_contents = mutating_output_file_contents.replace('OpaqueStructType(native_constructor_arguments)', constructor_native_call_prefix + 'OpaqueStructType(' + ', '.join(
 				constructor_native_arguments) + ')' + constructor_native_call_suffix)
@@ -208,7 +208,7 @@ class OpaqueStructGenerator:
         				self.dangling = true
 						return self
 					}}
-					
+
 					deinit {{
 						if !self.dangling {{
 							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")

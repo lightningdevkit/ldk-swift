@@ -46,7 +46,7 @@ public class HumanObjectPeerTestInstance {
         private(set) var filter: Option_FilterZ!
         private(set) var keysInterface: KeysInterface!
         private(set) var explicitKeysManager: KeysManager?
-        private(set) var router: NetGraphMsgHandler!
+        private(set) var router: GossipSync!
         private(set) var channelManager: ChannelManager!
         private(set) var peerManager: PeerManager!
 
@@ -273,7 +273,8 @@ public class HumanObjectPeerTestInstance {
                 self.explicitKeysManager = keysManager
             }
 
-            self.router = NetGraphMsgHandlerConstructor.initNetGraphMsgHandler(networkGraph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)), chainAccess: nil, logger: self.logger)
+            // self.router = NetGraphMsgHandlerConstructor.initNetGraphMsgHandler(networkGraph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)), chainAccess: nil, logger: self.logger)
+            self.router = GossipSync.none()
         }
 
         fileprivate convenience init(master: HumanObjectPeerTestInstance, seed: UInt8) {
@@ -281,14 +282,14 @@ public class HumanObjectPeerTestInstance {
 
             if master.use_chan_manager_constructor {
 
-                let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32))
+                let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32), logger: self.logger)
 
                 self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: graph, tx_broadcaster: self.txBroadcaster, logger: self.logger)
 
                 //                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: nil, tx_broadcaster: self.txBroadcaster, logger: self.logger)
 
                 let scoringParams = ProbabilisticScoringParameters()
-                let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: graph)
+                let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: graph, logger: self.logger)
                 let score = probabalisticScorer.as_Score()
                 let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -299,7 +300,7 @@ public class HumanObjectPeerTestInstance {
                 let chainParameters = ChainParameters(network_arg: LDKNetwork_Bitcoin, best_block_arg: BestBlock(block_hash: [UInt8](repeating: 0, count: 32), height: 0))
                 self.channelManager = ChannelManager(fee_est: self.feeEstimator, chain_monitor: self.chainWatch!, tx_broadcaster: self.txBroadcaster, logger: self.logger, keys_manager: self.keysInterface, config: UserConfig(), params: chainParameters)
                 let randomData = self.keysInterface.get_secure_random_bytes()
-                let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.as_RoutingMessageHandler())
+                let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.getValueAsP2P()!.as_RoutingMessageHandler())
                 let nodeSecret = self.keysInterface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
                 self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
@@ -311,7 +312,7 @@ public class HumanObjectPeerTestInstance {
             self.init(master: original.master, _dummy: (), seed: original.seed)
 
             if master.use_chan_manager_constructor {
-                let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32))
+                let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32), logger: self.logger)
                 self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: graph, tx_broadcaster: self.txBroadcaster, logger: self.logger)
                 self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self), scorer: nil)
                 self.channelManager = self.constructor!.channelManager
@@ -540,7 +541,7 @@ public class HumanObjectPeerTestInstance {
         let output = BTCTransaction.Output(value: FUNDING_SATOSHI_AMOUNT, script: fundingOutputScript)
         fundingTransaction.outputs = [output]
         let serializedFundingTx = fundingTransaction.serialize()
-        let fundingResult = peer1.channelManager.funding_transaction_generated(temporary_channel_id: temporaryChannelId, funding_transaction: serializedFundingTx)
+        let fundingResult = peer1.channelManager.funding_transaction_generated(temporary_channel_id: temporaryChannelId, counterparty_node_id: peer2.channelManager.get_our_node_id(), funding_transaction: serializedFundingTx)
         XCTAssertTrue(fundingResult.isOk())
 
         let pendingBroadcasts = await peer1.getPendingBroadcasts(expectedCount: 1)
@@ -604,7 +605,7 @@ public class HumanObjectPeerTestInstance {
         do {
             // create invoice for 10k satoshis to pay to peer2
 
-            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer2.channelManager, keysManager: peer2.keysInterface, network: LDKCurrency_Bitcoin, amountMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description")
+            let invoiceResult = Bindings.swift_create_invoice_from_channelmanager(channelmanager: peer2.channelManager, keys_manager: peer2.keysInterface, network: LDKCurrency_Bitcoin, amt_msat: Option_u64Z.some(o: SEND_MSAT_AMOUNT_A_TO_B), description: "Invoice description", invoice_expiry_delta_secs: 60)
             let invoice = invoiceResult.getValue()!
             print("Invoice: \(invoice.to_str())")
 
@@ -630,14 +631,13 @@ public class HumanObjectPeerTestInstance {
                 XCTAssertEqual(peer2Event.getValueType(), .PaymentReceived)
                 let paymentReceived = peer2Event.getValueAsPaymentReceived()!
                 let paymentHash = paymentReceived.getPayment_hash()
-                print("received payment of \(paymentReceived.getAmt()) with hash \(paymentHash)")
+                print("received payment of \(paymentReceived.getAmount_msat()) with hash \(paymentHash)")
                 let paymentPurpose = paymentReceived.getPurpose()
                 XCTAssertEqual(paymentPurpose.getValueType(), .InvoicePayment)
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
                 let preimage = invoicePayment.getPayment_preimage()
                 let secret = invoicePayment.getPayment_secret()
-                let claimResult = peer2.channelManager.claim_funds(payment_preimage: preimage)
-                XCTAssertTrue(claimResult)
+                peer2.channelManager.claim_funds(payment_preimage: preimage)
                 print("claimed payment with secret \(secret) using preimage \(preimage)")
             }
 
@@ -680,7 +680,7 @@ public class HumanObjectPeerTestInstance {
             print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
             print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
 
-            let invoiceResult = Bindings.createInvoiceFromChannelManager(channelManager: peer1.channelManager, keysManager: peer1.keysInterface, network: LDKCurrency_Bitcoin, amountMsat: nil, description: "Second invoice description")
+            let invoiceResult = Bindings.swift_create_invoice_from_channelmanager(channelmanager: peer1.channelManager, keys_manager: peer1.keysInterface, network: LDKCurrency_Bitcoin, amt_msat: Option_u64Z.none(), description: "Second invoice description", invoice_expiry_delta_secs: 60)
             let invoice = invoiceResult.getValue()!
             print("Implicit amount invoice: \(invoice.to_str())")
 
@@ -713,14 +713,13 @@ public class HumanObjectPeerTestInstance {
                 XCTAssertEqual(peer1Event.getValueType(), .PaymentReceived)
                 let paymentReceived = peer1Event.getValueAsPaymentReceived()!
                 let paymentHash = paymentReceived.getPayment_hash()
-                print("received payment of \(paymentReceived.getAmt()) with hash \(paymentHash)")
+                print("received payment of \(paymentReceived.getAmount_msat()) with hash \(paymentHash)")
                 let paymentPurpose = paymentReceived.getPurpose()
                 XCTAssertEqual(paymentPurpose.getValueType(), .InvoicePayment)
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
                 let preimage = invoicePayment.getPayment_preimage()
                 let secret = invoicePayment.getPayment_secret()
-                let claimResult = peer1.channelManager.claim_funds(payment_preimage: preimage)
-                XCTAssertTrue(claimResult)
+                peer1.channelManager.claim_funds(payment_preimage: preimage)
                 print("claimed payment with secret \(secret) using preimage \(preimage)")
             }
 

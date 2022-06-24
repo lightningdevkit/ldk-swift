@@ -22,7 +22,7 @@ let package = Package(
         products: [
             .library(
                     name: "LDKSwift",
-                    targets: ["LDKBindings", "LDKBatteries"]),
+                    targets: ["LDKSwift"]),
             // .library(name: "LDKSwift", type: .dynamic, targets: ["LDKSwift"])
         ],
         dependencies: [
@@ -34,7 +34,7 @@ let package = Package(
             .target(name: "LDKHeaders"),
             // .systemLibrary(name: "LDKHeaders"),
             .target(
-                    name: "LDKBindings",
+                    name: "LDKSwift",
                     dependencies: [
                         "LDKHeaders"
                     ],
@@ -59,38 +59,10 @@ let package = Package(
                     swiftSettings: nil,
                     linkerSettings: linkerSettings
             ),
-            .target(
-                name: "LDKBatteries",
-                dependencies: [
-                    "LDKHeaders",
-                    "LDKBindings"
-                ],
-                path: nil,
-                exclude: [],
-                sources: nil,
-                // sources: [
-                //     "ldk_net.h",
-                //     "ldk_net.c",
-                //     "ldk_rust_types.h",
-                //     "ldk_ver.h",
-                //     "lightning.h",
-                //     "SanitySample.swift"
-                // ],
-                resources: nil,
-                publicHeadersPath: "include",
-                cSettings: nil,
-                // cSettings: [
-                //     .headerSearchPath("include"),
-                // ],
-                cxxSettings: nil,
-                swiftSettings: nil,
-                linkerSettings: linkerSettings
-            ),
             .testTarget(
                     name: "LDKSwiftTests",
                     dependencies: [
-                        "LDKBindings",
-                        "LDKBatteries",
+                        "LDKSwift",
                         "LDKHeaders",
                         .product(name: "Crypto", package: "swift-crypto")
                     ],

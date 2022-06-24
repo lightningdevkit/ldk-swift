@@ -76,11 +76,11 @@ jobs:
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
                     LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift
-            -   name: Check that the latest auto-generated Swift files are in the repo
+            -   name: (Suspended) Check that the latest auto-generated Swift files are in the repo
                 run: |
                     python ./ # Generate bindings into local directory
-                    python ci/walker.py bindings/LDK
-                    git diff --exit-code bindings/LDK ':(exclude)bindings/LDK/Bindings.swift'
+                    # python ci/walker.py bindings/LDK
+                    # git diff --exit-code bindings/LDK ':(exclude)bindings/LDK/Bindings.swift'
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
             -   name: Fix Swift files

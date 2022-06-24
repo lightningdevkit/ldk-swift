@@ -397,6 +397,9 @@ class LightningHeaderParser():
 
 						self.byte_arrays.add(struct_name)
 						self.type_details[struct_name].fields.append(byte_array_info)
+						if self.type_details[struct_name].is_unary_tuple:
+							src.conversion_helper.unary_tuple_type_details[struct_name] = self.type_details[struct_name]
+
 			else:
 				# there is no block-scoped object currently being parsed
 				fn_ptr = fn_ptr_regex.match(current_line)

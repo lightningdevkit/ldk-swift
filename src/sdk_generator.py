@@ -125,7 +125,7 @@ def generate_sdk():
 
 def cleanup_bindings():
 	directory_path = os.path.dirname(os.path.realpath(__file__))
-	header_directory = os.path.realpath(f'{directory_path}/../bindings/LDK')
+	header_directory = os.path.realpath(f'{directory_path}/../ci/LDKSwift/Sources/LDKBindings')
 	print("Cleaning up bindings/LDK directory:", header_directory)
 	for current_directory, current_subdirectories, current_files in os.walk(header_directory):
 		for current_file in current_files:

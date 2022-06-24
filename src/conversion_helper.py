@@ -41,6 +41,7 @@ array_accessor_types: Dict[str, ArrayAccessorType] = {
 }
 
 unary_tuples: [str] = ["LDKu5", "LDKWitnessVersion"]
+unary_tuple_type_details: Dict[str, object] = {}
 
 class ConversionHelper:
 	trait_structs = set()

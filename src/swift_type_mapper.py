@@ -1,7 +1,9 @@
+import src.conversion_helper
 from src.binding_types import TypeInfo
 from src.type_parsing_regeces import TypeParsingRegeces
 from src.conversion_helper import ConversionHelper
 from src.conversion_helper import array_accessor_types
+from src.conversion_helper import unary_tuples
 
 var_is_arr_regex = TypeParsingRegeces.IS_VARIABLE_AN_ARRAY_REGEX
 var_ty_regex = TypeParsingRegeces.VARIABLE_TYPE_REGEX
@@ -99,12 +101,18 @@ def map_types_to_swift(fn_arg, ret_arr_len, java_c_types_none_allowed, tuple_typ
 		c_ty = "int8_t"
 		fn_arg = fn_arg[7:].strip()
 		is_primitive = True
-	elif fn_arg.startswith("LDKu5"):
-		mapped_type = language_constants.c_type_map['uint8_t']
+	elif any(fn_arg.startswith(current_unary_tuple) for current_unary_tuple in unary_tuples):
+		current_unary_tuple = None
+		for current_unary_tuple in unary_tuples:
+			if fn_arg.startswith(current_unary_tuple):
+				break
+		auxiliary_type_details = src.conversion_helper.unary_tuple_type_details[current_unary_tuple]
+		primary_field = auxiliary_type_details.fields[0]
+		c_ty = primary_field.c_ty
+		mapped_type = language_constants.c_type_map['u'+c_ty]
 		java_ty = mapped_type
-		c_ty = "int8_t"
-		fn_arg = fn_arg[6:].strip()
-		rust_obj = 'LDKu5'
+		fn_arg = fn_arg[len(current_unary_tuple)+1:].strip()
+		rust_obj = current_unary_tuple
 		is_unary_tuple = True
 		arr_len = 1
 		is_primitive = True

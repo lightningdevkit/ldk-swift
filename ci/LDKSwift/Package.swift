@@ -4,12 +4,25 @@
 import PackageDescription
 import Foundation
 
+var cBindingsBase = "/Users/arik/Developer/ldk-c-bindings"
+if let bindingsBase = getenv("LDK_C_BINDINGS_BASE") {
+    cBindingsBase = String(utf8String: bindingsBase)!
+}
+
+let linkerSettings: [PackageDescription.LinkerSetting] = [
+    .linkedLibrary(cBindingsBase + "/lightning-c-bindings/target/debug/libldk.a")
+]
+
+#if os(Linux)
+    linkerSettings.append(.linkedLibrary(String(utf8String: getenv("LLVM_CLANG_ASAN_PATH")!)!))
+#endif
+
 let package = Package(
         name: "LDKSwift",
         products: [
             .library(
                     name: "LDKSwift",
-                    targets: ["LDKSwift"]),
+                    targets: ["LDKBindings", "LDKBatteries"]),
             // .library(name: "LDKSwift", type: .dynamic, targets: ["LDKSwift"])
         ],
         dependencies: [
@@ -21,7 +34,7 @@ let package = Package(
             .target(name: "LDKHeaders"),
             // .systemLibrary(name: "LDKHeaders"),
             .target(
-                    name: "LDKSwift",
+                    name: "LDKBindings",
                     dependencies: [
                         "LDKHeaders"
                     ],
@@ -44,14 +57,40 @@ let package = Package(
                     // ],
                     cxxSettings: nil,
                     swiftSettings: nil,
-                    linkerSettings: [
-                        .linkedLibrary(String(utf8String: getenv("LDK_C_BINDINGS_BASE")!)! + "/lightning-c-bindings/target/debug/libldk.a"),
-                        .linkedLibrary(String(utf8String: getenv("LLVM_CLANG_ASAN_PATH")!)!),
-                    ]),
+                    linkerSettings: linkerSettings
+            ),
+            .target(
+                name: "LDKBatteries",
+                dependencies: [
+                    "LDKHeaders",
+                    "LDKBindings"
+                ],
+                path: nil,
+                exclude: [],
+                sources: nil,
+                // sources: [
+                //     "ldk_net.h",
+                //     "ldk_net.c",
+                //     "ldk_rust_types.h",
+                //     "ldk_ver.h",
+                //     "lightning.h",
+                //     "SanitySample.swift"
+                // ],
+                resources: nil,
+                publicHeadersPath: "include",
+                cSettings: nil,
+                // cSettings: [
+                //     .headerSearchPath("include"),
+                // ],
+                cxxSettings: nil,
+                swiftSettings: nil,
+                linkerSettings: linkerSettings
+            ),
             .testTarget(
                     name: "LDKSwiftTests",
                     dependencies: [
-                        "LDKSwift",
+                        "LDKBindings",
+                        "LDKBatteries",
                         "LDKHeaders",
                         .product(name: "Crypto", package: "swift-crypto")
                     ],

@@ -418,6 +418,7 @@ public class Bindings {
         return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: chars_is_owned)
     }
 
+	/*
     public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrency, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
 		let nativeKeysManager = keysManager.cOpaqueStruct!
 		let amount = Option_u64Z(value: amountMsat)
@@ -429,7 +430,6 @@ public class Bindings {
 		}
 	}
 
-	/*
 	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hops).cOpaqueStruct!

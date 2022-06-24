@@ -5,6 +5,9 @@ header_directory = f'{directory_path}/LDKSwift/Sources/LDKSwift'
 
 swift_files = []
 
+print("Should no longer be necessary due to #if SWIFT_PACKAGE checks")
+exit(0)
+
 # Create a collection of local header (or C) files
 for current_directory, current_subdirectories, current_files in os.walk(header_directory):
 	for current_file in current_files:

@@ -10,6 +10,10 @@ import Foundation
 //     import os
 // #endif
 
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes

@@ -10,6 +10,10 @@ import Foundation
 //     import os
 // #endif
 
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -6711,7 +6715,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "2500c1ebdb44fd46d9e3ae4e5001ea2e7eb5781c"
+        return "4d534f7b0c82debeacb2f195af0edfbf87060c98"
     }
 
 }

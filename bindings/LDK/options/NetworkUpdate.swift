@@ -1,3 +1,7 @@
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public class NetworkUpdate: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

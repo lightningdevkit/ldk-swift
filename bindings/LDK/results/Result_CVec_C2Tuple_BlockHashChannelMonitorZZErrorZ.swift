@@ -1,3 +1,7 @@
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public class Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

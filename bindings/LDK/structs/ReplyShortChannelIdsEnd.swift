@@ -1,3 +1,7 @@
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public class ReplyShortChannelIdsEnd: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

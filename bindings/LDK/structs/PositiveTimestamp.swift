@@ -1,3 +1,7 @@
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public class PositiveTimestamp: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

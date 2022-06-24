@@ -5,7 +5,7 @@
 //  Created by Arik Sosman on 7/27/21.
 //
 
-#if os(Linux)
+#if SWIFT_PACKAGE
 import LDKSwift
 import LDKHeaders
 #endif

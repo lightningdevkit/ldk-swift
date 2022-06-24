@@ -1,3 +1,7 @@
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public class C3Tuple_RawInvoice_u832InvoiceSignatureZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

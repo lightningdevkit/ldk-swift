@@ -1,3 +1,7 @@
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public class C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0

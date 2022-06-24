@@ -145,6 +145,13 @@ ChannelInfo_clone(origPointer)
 					}
 				
 
+    public func get_directional_info(channel_flags: UInt8) -> ChannelUpdateInfo {
+    	
+        return ChannelUpdateInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_get_directional_info(this_argPointer, channel_flags)
+});
+    }
+
     public func write() -> [UInt8] {
     	
         return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelInfo>) in

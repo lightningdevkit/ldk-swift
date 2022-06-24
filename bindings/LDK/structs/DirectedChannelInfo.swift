@@ -54,6 +54,13 @@ DirectedChannelInfo_direction(this_argPointer)
 });
     }
 
+    public func htlc_maximum_msat() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKDirectedChannelInfo>) in
+DirectedChannelInfo_htlc_maximum_msat(this_argPointer)
+};
+    }
+
     public func effective_capacity() -> EffectiveCapacity {
     	
         return EffectiveCapacity(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKDirectedChannelInfo>) in

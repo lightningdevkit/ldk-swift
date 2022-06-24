@@ -26,7 +26,7 @@ public class MessageSendEvent: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum MessageSendEventValueType {
-					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendFundingLocked, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange, SendGossipTimestampFilter
+					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendChannelReady, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange, SendGossipTimestampFilter
 				}
 				
 				public func getValueType() -> MessageSendEventValueType? {
@@ -40,8 +40,8 @@ public class MessageSendEvent: NativeTypeWrapper {
 						return .SendFundingCreated
 					case LDKMessageSendEvent_SendFundingSigned:
 						return .SendFundingSigned
-					case LDKMessageSendEvent_SendFundingLocked:
-						return .SendFundingLocked
+					case LDKMessageSendEvent_SendChannelReady:
+						return .SendChannelReady
 					case LDKMessageSendEvent_SendAnnouncementSignatures:
 						return .SendAnnouncementSignatures
 					case LDKMessageSendEvent_UpdateHTLCs:
@@ -106,11 +106,11 @@ public class MessageSendEvent: NativeTypeWrapper {
 						return SendFundingSigned(pointer: self.cOpaqueStruct!.send_funding_signed, anchor: self)
 					}
 				
-					public func getValueAsSendFundingLocked() -> SendFundingLocked? {
-						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendFundingLocked {
+					public func getValueAsSendChannelReady() -> SendChannelReady? {
+						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendChannelReady {
 							return nil
 						}
-						return SendFundingLocked(pointer: self.cOpaqueStruct!.send_funding_locked, anchor: self)
+						return SendChannelReady(pointer: self.cOpaqueStruct!.send_channel_ready, anchor: self)
 					}
 				
 					public func getValueAsSendAnnouncementSignatures() -> SendAnnouncementSignatures? {
@@ -273,9 +273,9 @@ MessageSendEvent_clone(origPointer)
         return MessageSendEvent(pointer: MessageSendEvent_send_funding_signed(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
     }
 
-    public class func send_funding_locked(node_id: [UInt8], msg: FundingLocked) -> MessageSendEvent {
+    public class func send_channel_ready(node_id: [UInt8], msg: ChannelReady) -> MessageSendEvent {
     	
-        return MessageSendEvent(pointer: MessageSendEvent_send_funding_locked(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+        return MessageSendEvent(pointer: MessageSendEvent_send_channel_ready(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
     }
 
     public class func send_announcement_signatures(node_id: [UInt8], msg: AnnouncementSignatures) -> MessageSendEvent {
@@ -473,15 +473,15 @@ MessageSendEvent_clone(origPointer)
 			}
 		
 
-			public class SendFundingLocked: NativeTypeWrapper {
+			public class SendChannelReady: NativeTypeWrapper {
 				
 				
-				var cOpaqueStruct: LDKMessageSendEvent_LDKSendFundingLocked_Body?;
-				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingLocked_Body) {
+				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelReady_Body?;
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelReady_Body) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 				}
-				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingLocked_Body, anchor: NativeTypeWrapper) {
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelReady_Body, anchor: NativeTypeWrapper) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 					self.dangling = true
@@ -494,8 +494,8 @@ MessageSendEvent_clone(origPointer)
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> FundingLocked {
-						return FundingLocked(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> ChannelReady {
+						return ChannelReady(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 				

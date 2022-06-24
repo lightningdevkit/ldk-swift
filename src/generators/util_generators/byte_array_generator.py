@@ -1,4 +1,5 @@
 import re
+import sys
 
 from src.generators.util_generators import UtilGenerator
 
@@ -28,6 +29,10 @@ class ByteArrayGenerator(UtilGenerator):
 		if array_length == 0:
 			print('Skipping zero-length byte array generator for type:', byte_array_type_name)
 			# return
+
+		if array_length is None:
+			print('Unknown array length source:', byte_array_type_name, file=sys.stderr)
+			exit(1)
 
 		for i in range(1, array_length):
 			tupleArguments += f', array[{i}]'
@@ -78,7 +83,7 @@ class ByteArrayGenerator(UtilGenerator):
 			public class func array_to_tuple{array_length}(array: [UInt8]) -> {swift_raw_type} {{
 				return ({tupleArguments})
 			}}
-	
+
 			public class func tuple{array_length}_to_array(nativeType: {swift_raw_type}) -> [UInt8] {{
 				let array = [{rawTupleReads}]
 				return array

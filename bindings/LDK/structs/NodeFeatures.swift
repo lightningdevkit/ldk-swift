@@ -292,6 +292,36 @@ NodeFeatures_requires_basic_mpp(this_argPointer)
 };
     }
 
+    public func set_wumbo_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKNodeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return NodeFeatures_set_wumbo_optional(this_argPointer);
+    }
+
+    public func set_wumbo_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKNodeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return NodeFeatures_set_wumbo_required(this_argPointer);
+    }
+
+    public func supports_wumbo() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_supports_wumbo(this_argPointer)
+};
+    }
+
+    public func requires_wumbo() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_requires_wumbo(this_argPointer)
+};
+    }
+
     public func set_shutdown_any_segwit_optional() -> Void {
     	
 							let this_argPointer = UnsafeMutablePointer<LDKNodeFeatures>.allocate(capacity: 1)
@@ -379,6 +409,36 @@ NodeFeatures_supports_scid_privacy(this_argPointer)
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
 NodeFeatures_requires_scid_privacy(this_argPointer)
+};
+    }
+
+    public func set_zero_conf_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKNodeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return NodeFeatures_set_zero_conf_optional(this_argPointer);
+    }
+
+    public func set_zero_conf_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKNodeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return NodeFeatures_set_zero_conf_required(this_argPointer);
+    }
+
+    public func supports_zero_conf() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_supports_zero_conf(this_argPointer)
+};
+    }
+
+    public func requires_zero_conf() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNodeFeatures>) in
+NodeFeatures_requires_zero_conf(this_argPointer)
 };
     }
 

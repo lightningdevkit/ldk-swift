@@ -42,32 +42,11 @@ FilesystemPersister_get_data_dir(this_argPointer)
 });
     }
 
-    public class func persist_manager(data_dir: String, manager: ChannelManager) -> Result_NoneErrorZ {
-    	
-        return Result_NoneErrorZ(pointer: withUnsafePointer(to: manager.cOpaqueStruct!) { (managerPointer: UnsafePointer<LDKChannelManager>) in
-FilesystemPersister_persist_manager(Bindings.new_LDKStr(string: data_dir, chars_is_owned: true), managerPointer)
-});
-    }
-
-    public class func persist_network_graph(data_dir: String, network_graph: NetworkGraph) -> Result_NoneErrorZ {
-    	
-        return Result_NoneErrorZ(pointer: withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
-FilesystemPersister_persist_network_graph(Bindings.new_LDKStr(string: data_dir, chars_is_owned: true), network_graphPointer)
-});
-    }
-
     public func read_channelmonitors(keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
     	
         return Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_read_channelmonitors(this_argPointer, keys_manager.activate().cOpaqueStruct!)
 });
-    }
-
-    public func as_Persist() -> NativelyImplementedPersist {
-    	
-        return NativelyImplementedPersist(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
-FilesystemPersister_as_Persist(this_argPointer)
-}, anchor: self);
     }
 
     internal func free() -> Void {

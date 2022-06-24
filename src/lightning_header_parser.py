@@ -385,7 +385,7 @@ class LightningHeaderParser():
 						# custom_line = 'uint8_t[32] data'
 						byte_array_info = swift_type_mapper.map_types_to_swift(byte_array_line, None, True, self.tuple_types, self.unitary_enums, self.language_constants)
 
-						if struct_name == 'LDKu5':
+						if struct_name in src.conversion_helper.unary_tuples:
 							byte_array_info.arr_len = 1
 							byte_array_info.is_unary_tuple = True
 							self.type_details[struct_name].is_unary_tuple = True

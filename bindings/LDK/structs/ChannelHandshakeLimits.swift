@@ -50,6 +50,21 @@ ChannelHandshakeLimits_get_min_funding_satoshis(this_ptrPointer)
         return ChannelHandshakeLimits_set_min_funding_satoshis(this_ptrPointer, val);
     }
 
+    public func get_max_funding_satoshis() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeLimits>) in
+ChannelHandshakeLimits_get_max_funding_satoshis(this_ptrPointer)
+};
+    }
+
+    public func set_max_funding_satoshis(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeLimits>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelHandshakeLimits_set_max_funding_satoshis(this_ptrPointer, val);
+    }
+
     public func get_max_htlc_minimum_msat() -> UInt64 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeLimits>) in
@@ -123,6 +138,21 @@ ChannelHandshakeLimits_get_max_minimum_depth(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return ChannelHandshakeLimits_set_max_minimum_depth(this_ptrPointer, val);
+    }
+
+    public func get_trust_own_funding_0conf() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeLimits>) in
+ChannelHandshakeLimits_get_trust_own_funding_0conf(this_ptrPointer)
+};
+    }
+
+    public func set_trust_own_funding_0conf(val: Bool) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeLimits>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelHandshakeLimits_set_trust_own_funding_0conf(this_ptrPointer, val);
     }
 
     public func get_force_announced_channel_preference() -> Bool {

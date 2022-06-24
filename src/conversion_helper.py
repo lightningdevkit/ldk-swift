@@ -11,7 +11,6 @@ class ArrayAccessorType:
 		self.key: str = key
 		self.length_key: str = length_key
 
-
 array_accessor_types_fixed_length: Dict[str, ArrayAccessorType] = {
 	"LDKThirtyTwoBytes": ArrayAccessorType(size=32, key='data'),
 	"LDKPaymentPreimage": ArrayAccessorType(size=32, key='data'),
@@ -40,6 +39,8 @@ array_accessor_types: Dict[str, ArrayAccessorType] = {
 	**array_accessor_types_fixed_length,
 	**array_accessor_types_variable_length
 }
+
+unary_tuples: [str] = ["LDKu5", "LDKWitnessVersion"]
 
 class ConversionHelper:
 	trait_structs = set()

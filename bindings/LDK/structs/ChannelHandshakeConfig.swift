@@ -80,6 +80,21 @@ ChannelHandshakeConfig_get_our_htlc_minimum_msat(this_ptrPointer)
         return ChannelHandshakeConfig_set_our_htlc_minimum_msat(this_ptrPointer, val);
     }
 
+    public func get_max_inbound_htlc_value_in_flight_percent_of_channel() -> UInt8 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_max_inbound_htlc_value_in_flight_percent_of_channel(this_ptrPointer)
+};
+    }
+
+    public func set_max_inbound_htlc_value_in_flight_percent_of_channel(val: UInt8) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelHandshakeConfig_set_max_inbound_htlc_value_in_flight_percent_of_channel(this_ptrPointer, val);
+    }
+
     public func get_negotiate_scid_privacy() -> Bool {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in

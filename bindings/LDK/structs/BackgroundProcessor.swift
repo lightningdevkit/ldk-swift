@@ -9,7 +9,7 @@ public class BackgroundProcessor: NativeTypeWrapper {
 	/* DEFAULT_CONSTRUCTOR_START */
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(persister: Persister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, net_graph_msg_handler: NetGraphMsgHandler?, peer_manager: PeerManager, logger: Logger) {
+public init(persister: Persister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, net_graph_msg_handler: NetGraphMsgHandler?, peer_manager: PeerManager, logger: Logger, scorer: Option_WriteableScoreZ) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -18,7 +18,7 @@ let graphMessageHandler = net_graph_msg_handler?.cOpaqueStruct! ?? LDKNetGraphMs
         self.cOpaqueStruct = withUnsafePointer(to: chain_monitor.cOpaqueStruct!) { (chain_monitorPointer: UnsafePointer<LDKChainMonitor>) in
 withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: peer_manager.cOpaqueStruct!) { (peer_managerPointer: UnsafePointer<LDKPeerManager>) in
-BackgroundProcessor_start(persister.activate().cOpaqueStruct!, event_handler.activate().cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, graphMessageHandler, peer_managerPointer, logger.activate().cOpaqueStruct!)
+BackgroundProcessor_start(persister.activate().cOpaqueStruct!, event_handler.activate().cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, graphMessageHandler, peer_managerPointer, logger.activate().cOpaqueStruct!, scorer.cOpaqueStruct!)
 }
 }
 }
@@ -27,13 +27,10 @@ BackgroundProcessor_start(persister.activate().cOpaqueStruct!, event_handler.act
 try? self.addAnchor(anchor: event_handler)
 try? self.addAnchor(anchor: chain_monitor)
 try? self.addAnchor(anchor: channel_manager)
-
-					if let handler = net_graph_msg_handler {
-						try? self.addAnchor(anchor: handler)
-					}
-				
+try? self.addAnchor(anchor: gossip_sync)
 try? self.addAnchor(anchor: peer_manager)
 try? self.addAnchor(anchor: logger)
+try? self.addAnchor(anchor: scorer)
 
     }
     /* DEFAULT_CONSTRUCTOR_END */

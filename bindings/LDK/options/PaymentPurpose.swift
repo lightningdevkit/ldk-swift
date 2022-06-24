@@ -101,6 +101,23 @@ PaymentPurpose_clone(origPointer)
         return PaymentPurpose(pointer: PaymentPurpose_spontaneous_payment(Bindings.new_LDKThirtyTwoBytes(array: a)));
     }
 
+    public func write() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKPaymentPurpose>) in
+PaymentPurpose_write(objPointer)
+});
+    }
+
+    public class func read(ser: [UInt8]) -> Result_PaymentPurposeDecodeErrorZ {
+    	
+						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
+						defer {
+							serWrapper.noOpRetain()
+						}
+					
+        return Result_PaymentPurposeDecodeErrorZ(pointer: PaymentPurpose_read(serWrapper.cOpaqueStruct!));
+    }
+
     /* OPTION_METHODS_END */
 
 	

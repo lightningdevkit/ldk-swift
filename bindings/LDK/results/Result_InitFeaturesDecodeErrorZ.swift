@@ -82,6 +82,20 @@ public class Result_InitFeaturesDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
+    public func clone() -> Result_InitFeaturesDecodeErrorZ {
+    	
+        return Result_InitFeaturesDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_InitFeaturesDecodeErrorZ>) in
+CResult_InitFeaturesDecodeErrorZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Result_InitFeaturesDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     /* RESULT_METHODS_END */
 
 }

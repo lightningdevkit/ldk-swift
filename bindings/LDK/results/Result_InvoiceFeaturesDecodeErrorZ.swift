@@ -82,6 +82,20 @@ public class Result_InvoiceFeaturesDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
+    public func clone() -> Result_InvoiceFeaturesDecodeErrorZ {
+    	
+        return Result_InvoiceFeaturesDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_InvoiceFeaturesDecodeErrorZ>) in
+CResult_InvoiceFeaturesDecodeErrorZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Result_InvoiceFeaturesDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     /* RESULT_METHODS_END */
 
 }

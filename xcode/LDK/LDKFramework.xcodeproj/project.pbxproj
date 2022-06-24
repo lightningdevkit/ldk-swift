@@ -1744,7 +1744,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LDK_DIRECTORY=${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings # directory to compile the C bindings in\nC_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
+			shellScript = "C_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
 		};
 		75A1A50028344C1800543ACC /* Copy Files From C Bindings Folder */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1767,7 +1767,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LDK_DIRECTORY=${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings # directory to compile the C bindings in\nC_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
+			shellScript = "C_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2500,6 +2500,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2535,6 +2536,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -2559,6 +2561,7 @@
 		754BD6582831607A0050F361 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2568,6 +2571,7 @@
 		754BD6592831607A0050F361 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2708,6 +2712,8 @@
 				HEADER_SEARCH_PATHS = "${PROJECT_DIR}";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2743,6 +2749,8 @@
 				HEADER_SEARCH_PATHS = "${PROJECT_DIR}";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2767,6 +2775,7 @@
 		75D7577328306AD40005405B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2775,6 +2784,7 @@
 		75D7577428306AD40005405B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

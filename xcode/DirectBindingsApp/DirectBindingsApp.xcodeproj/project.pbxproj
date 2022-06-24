@@ -1853,7 +1853,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LDK_DIRECTORY=${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings # directory to compile the C bindings in\nC_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n";
+			shellScript = "C_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2734,6 +2734,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = DirectBindingsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2764,6 +2765,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)";
 				INFOPLIST_FILE = DirectBindingsApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

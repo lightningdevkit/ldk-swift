@@ -12,7 +12,6 @@ fi
 
 set -e # stop execution upon the first error
 
-LDK_DIRECTORY=../bindings/artifacts/ldk-c-bindings # directory to compile the C bindings in
 C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings"
 
 if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then

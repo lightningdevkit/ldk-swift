@@ -20,7 +20,10 @@ BUILD_LOG_PATH="${BASEDIR}/build_libldk.log"
 # echo -n "" > $BUILD_LOG_PATH
 touch $BUILD_LOG_PATH
 
-echo "\n\nPlatform name: ${PLATFORM_NAME}" >> $BUILD_LOG_PATH
+# create two newlines at the beginning
+echo "" >> $BUILD_LOG_PATH
+
+echo "Platform name: ${PLATFORM_NAME}" >> $BUILD_LOG_PATH
 echo "Configuration: ${CONFIGURATION}" >> $BUILD_LOG_PATH
 echo "LLVM Target Triple Suffix: ${LLVM_TARGET_TRIPLE_SUFFIX}" >> $BUILD_LOG_PATH
 
@@ -93,4 +96,7 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
 
     mkdir -p "${BUILT_PRODUCTS_DIR}"
     xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${PROJECT_DIR}/${TARGET_NAME}.a"
+
+    # print a newline at the end
+    echo "" >> $BUILD_LOG_PATH
 fi

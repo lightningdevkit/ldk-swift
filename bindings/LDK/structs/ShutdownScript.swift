@@ -68,14 +68,14 @@ ShutdownScript_write(objPointer)
         return Result_ShutdownScriptDecodeErrorZ(pointer: ShutdownScript_read(serWrapper.cOpaqueStruct!));
     }
 
-    public class func new_witness_program(version: UInt8, program: [UInt8]) -> Result_ShutdownScriptInvalidShutdownScriptZ {
+    public class func new_witness_program(version: WitnessVersion, program: [UInt8]) -> Result_ShutdownScriptInvalidShutdownScriptZ {
     	
 						let programWrapper = Bindings.new_LDKu8sliceWrapper(array: program)
 						defer {
 							programWrapper.noOpRetain()
 						}
 					
-        return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: ShutdownScript_new_witness_program(version, programWrapper.cOpaqueStruct!));
+        return Result_ShutdownScriptInvalidShutdownScriptZ(pointer: ShutdownScript_new_witness_program(version.cOpaqueStruct!, programWrapper.cOpaqueStruct!));
     }
 
     public func into_inner() -> [UInt8] {

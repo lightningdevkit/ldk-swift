@@ -142,6 +142,36 @@ ChannelTypeFeatures_requires_scid_privacy(this_argPointer)
 };
     }
 
+    public func set_zero_conf_optional() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKChannelTypeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelTypeFeatures_set_zero_conf_optional(this_argPointer);
+    }
+
+    public func set_zero_conf_required() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKChannelTypeFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelTypeFeatures_set_zero_conf_required(this_argPointer);
+    }
+
+    public func supports_zero_conf() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+ChannelTypeFeatures_supports_zero_conf(this_argPointer)
+};
+    }
+
+    public func requires_zero_conf() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+ChannelTypeFeatures_requires_zero_conf(this_argPointer)
+};
+    }
+
     internal func free() -> Void {
     	
         return ChannelTypeFeatures_free(self.cOpaqueStruct!);

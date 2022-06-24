@@ -25,11 +25,11 @@ open class Watch: NativeTraitWrapper {
 			return instance.update_channel(funding_txo: OutPoint(pointer: funding_txo), update: ChannelMonitorUpdate(pointer: update)).cOpaqueStruct!
 		}
 
-		func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_MonitorEventZ {
+		func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ {
 			let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::release_pending_monitor_events")
 			
 			
-					let returnWrapper = Bindings.new_LDKCVec_MonitorEventZWrapper(array: instance.release_pending_monitor_events())
+					let returnWrapper = Bindings.new_LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper(array: instance.release_pending_monitor_events())
 					defer {
 						returnWrapper.noOpRetain()
 					}
@@ -103,11 +103,11 @@ return Result_NoneChannelMonitorUpdateErrZ()
 return Result_NoneChannelMonitorUpdateErrZ()
     }
 
-    open func release_pending_monitor_events() -> [LDKMonitorEvent] {
+    open func release_pending_monitor_events() -> [LDKC2Tuple_OutPointCVec_MonitorEventZZ] {
     	/* EDIT ME */
 		Bindings.print("Watch::release_pending_monitor_events should be overridden!", severity: .WARNING)
 
-return [LDKMonitorEvent]()
+return [LDKC2Tuple_OutPointCVec_MonitorEventZZ]()
     }
 
     open func free() -> Void {
@@ -144,11 +144,11 @@ public class NativelyImplementedWatch: Watch {
 			
 	}
 
-	public override func release_pending_monitor_events() -> [LDKMonitorEvent] {
+	public override func release_pending_monitor_events() -> [LDKC2Tuple_OutPointCVec_MonitorEventZZ] {
 		
 				
 				return 
-				Bindings.LDKCVec_MonitorEventZ_to_array(nativeType: self.cOpaqueStruct!.release_pending_monitor_events(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ_to_array(nativeType: self.cOpaqueStruct!.release_pending_monitor_events(self.cOpaqueStruct!.this_arg))
 				
 			
 	}

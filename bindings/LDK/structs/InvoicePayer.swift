@@ -7,12 +7,12 @@ public class InvoicePayer: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(payer: Payer, router: Router, scorer: MultiThreadedLockableScore, logger: Logger, event_handler: EventHandler, retry_attempts: RetryAttempts) {
+    public init(payer: Payer, router: Router, scorer: MultiThreadedLockableScore, logger: Logger, event_handler: EventHandler, retry: Retry) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
-InvoicePayer_new(payer.activate().cOpaqueStruct!, router.activate().cOpaqueStruct!, scorerPointer, logger.activate().cOpaqueStruct!, event_handler.activate().cOpaqueStruct!, retry_attempts.danglingClone().cOpaqueStruct!)
+InvoicePayer_new(payer.activate().cOpaqueStruct!, router.activate().cOpaqueStruct!, scorerPointer, logger.activate().cOpaqueStruct!, event_handler.activate().cOpaqueStruct!, retry.danglingClone().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
         try? self.addAnchor(anchor: payer)

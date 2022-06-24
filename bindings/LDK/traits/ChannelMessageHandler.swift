@@ -41,11 +41,11 @@ open class ChannelMessageHandler: NativeTraitWrapper {
 			return instance.handle_funding_signed(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
-		func handle_funding_lockedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKFundingLocked>) -> Void {
-			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_funding_locked")
-			let msg = FundingLocked(pointer: msgPointer.pointee).dangle().clone();
+		func handle_channel_readyCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKChannelReady>) -> Void {
+			let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::handle_channel_ready")
+			let msg = ChannelReady(pointer: msgPointer.pointee).dangle().clone();
 
-			return instance.handle_funding_locked(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
+			return instance.handle_channel_ready(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
 		}
 
 		func handle_shutdownCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, their_featuresPointer: UnsafePointer<LDKInitFeatures>, msgPointer: UnsafePointer<LDKShutdown>) -> Void {
@@ -167,7 +167,7 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 			handle_accept_channel: handle_accept_channelCallback,
 			handle_funding_created: handle_funding_createdCallback,
 			handle_funding_signed: handle_funding_signedCallback,
-			handle_funding_locked: handle_funding_lockedCallback,
+			handle_channel_ready: handle_channel_readyCallback,
 			handle_shutdown: handle_shutdownCallback,
 			handle_closing_signed: handle_closing_signedCallback,
 			handle_update_add_htlc: handle_update_add_htlcCallback,
@@ -251,9 +251,9 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 
     }
 
-    open func handle_funding_locked(their_node_id: [UInt8], msg: FundingLocked) -> Void {
+    open func handle_channel_ready(their_node_id: [UInt8], msg: ChannelReady) -> Void {
     	/* EDIT ME */
-		Bindings.print("ChannelMessageHandler::handle_funding_locked should be overridden!", severity: .WARNING)
+		Bindings.print("ChannelMessageHandler::handle_channel_ready should be overridden!", severity: .WARNING)
 
 
     }
@@ -423,12 +423,12 @@ public class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 			
 	}
 
-	public override func handle_funding_locked(their_node_id: [UInt8], msg: FundingLocked) -> Void {
+	public override func handle_channel_ready(their_node_id: [UInt8], msg: ChannelReady) -> Void {
 		
 				
-				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKFundingLocked>) in
+				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKChannelReady>) in
 
-				self.cOpaqueStruct!.handle_funding_locked(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				self.cOpaqueStruct!.handle_channel_ready(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
 				
 }
 			

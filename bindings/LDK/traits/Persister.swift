@@ -22,9 +22,16 @@ open class Persister: NativeTraitWrapper {
 
 		func persist_graphCallback(pointer: UnsafeRawPointer?, network_graphPointer: UnsafePointer<LDKNetworkGraph>) -> LDKCResult_NoneErrorZ {
 			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_graph")
-			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle().clone();
+			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle();
 
 			return instance.persist_graph(network_graph: network_graph).cOpaqueStruct!
+		}
+
+		func persist_scorerCallback(pointer: UnsafeRawPointer?, scorerPointer: UnsafePointer<LDKWriteableScore>) -> LDKCResult_NoneErrorZ {
+			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_scorer")
+			let scorer = WriteableScore(pointer: scorerPointer.pointee).dangle();
+
+			return instance.persist_scorer(scorer: scorer).cOpaqueStruct!
 		}
 
 		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
@@ -39,6 +46,7 @@ open class Persister: NativeTraitWrapper {
         self.cOpaqueStruct = LDKPersister(this_arg: Bindings.instanceToPointer(instance: self), 
 			persist_manager: persist_managerCallback,
 			persist_graph: persist_graphCallback,
+			persist_scorer: persist_scorerCallback,
 			free: freeCallback)
 
     }
@@ -92,6 +100,13 @@ return Result_NoneErrorZ()
 return Result_NoneErrorZ()
     }
 
+    open func persist_scorer(scorer: WriteableScore) -> Result_NoneErrorZ {
+    	/* EDIT ME */
+		Bindings.print("Persister::persist_scorer should be overridden!", severity: .WARNING)
+
+return Result_NoneErrorZ()
+    }
+
     open func free() -> Void {
     	/* EDIT ME */
 		
@@ -125,6 +140,17 @@ public class NativelyImplementedPersister: Persister {
 				return withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
 
 				Result_NoneErrorZ(pointer: self.cOpaqueStruct!.persist_graph(self.cOpaqueStruct!.this_arg, network_graphPointer))
+				
+}
+			
+	}
+
+	public override func persist_scorer(scorer: WriteableScore) -> Result_NoneErrorZ {
+		
+				
+				return withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKWriteableScore>) in
+
+				Result_NoneErrorZ(pointer: self.cOpaqueStruct!.persist_scorer(self.cOpaqueStruct!.this_arg, scorerPointer))
 				
 }
 			

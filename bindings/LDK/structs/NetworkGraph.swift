@@ -7,13 +7,14 @@ public class NetworkGraph: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(genesis_hash: [UInt8]) {
+    public init(genesis_hash: [UInt8], logger: Logger) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = NetworkGraph_new(Bindings.new_LDKThirtyTwoBytes(array: genesis_hash))
+        self.cOpaqueStruct = NetworkGraph_new(Bindings.new_LDKThirtyTwoBytes(array: genesis_hash), logger.activate().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
-        
+        try? self.addAnchor(anchor: logger)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -35,19 +36,12 @@ public class NetworkGraph: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func clone() -> NetworkGraph {
+    public func as_EventHandler() -> NativelyImplementedEventHandler {
     	
-        return NetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph_clone(origPointer)
-});
+        return NativelyImplementedEventHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_as_EventHandler(this_argPointer)
+}, anchor: self);
     }
-
-					internal func danglingClone() -> NetworkGraph {
-        				let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-				
 
     public func write() -> [UInt8] {
     	
@@ -56,14 +50,14 @@ NetworkGraph_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8]) -> Result_NetworkGraphDecodeErrorZ {
+    public class func read(ser: [UInt8], arg: Logger) -> Result_NetworkGraphDecodeErrorZ {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(serWrapper.cOpaqueStruct!));
+        return Result_NetworkGraphDecodeErrorZ(pointer: NetworkGraph_read(serWrapper.cOpaqueStruct!, arg.activate().cOpaqueStruct!));
     }
 
     public func read_only() -> ReadOnlyNetworkGraph {
@@ -71,6 +65,20 @@ NetworkGraph_write(objPointer)
         return ReadOnlyNetworkGraph(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
 NetworkGraph_read_only(this_argPointer)
 });
+    }
+
+    public func get_last_rapid_gossip_sync_timestamp() -> Option_u32Z {
+    	
+        return Option_u32Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_get_last_rapid_gossip_sync_timestamp(this_argPointer)
+});
+    }
+
+    public func set_last_rapid_gossip_sync_timestamp(last_rapid_gossip_sync_timestamp: UInt32) -> Void {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_set_last_rapid_gossip_sync_timestamp(this_argPointer, last_rapid_gossip_sync_timestamp)
+};
     }
 
     public func update_node_from_announcement(msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {
@@ -109,17 +117,24 @@ NetworkGraph_update_channel_from_unsigned_announcement(this_argPointer, msgPoint
 });
     }
 
-    public func close_channel_from_update(short_channel_id: UInt64, is_permanent: Bool) -> Void {
+    public func add_channel_from_partial_announcement(short_channel_id: UInt64, timestamp: UInt64, features: ChannelFeatures, node_id_1: [UInt8], node_id_2: [UInt8]) -> Result_NoneLightningErrorZ {
+    	
+        return Result_NoneLightningErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
+NetworkGraph_add_channel_from_partial_announcement(this_argPointer, short_channel_id, timestamp, features.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: node_id_1), Bindings.new_LDKPublicKey(array: node_id_2))
+});
+    }
+
+    public func channel_failed(short_channel_id: UInt64, is_permanent: Bool) -> Void {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph_close_channel_from_update(this_argPointer, short_channel_id, is_permanent)
+NetworkGraph_channel_failed(this_argPointer, short_channel_id, is_permanent)
 };
     }
 
-    public func fail_node(_node_id: [UInt8], is_permanent: Bool) -> Void {
+    public func node_failed(_node_id: [UInt8], is_permanent: Bool) -> Void {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph_fail_node(this_argPointer, Bindings.new_LDKPublicKey(array: _node_id), is_permanent)
+NetworkGraph_node_failed(this_argPointer, Bindings.new_LDKPublicKey(array: _node_id), is_permanent)
 };
     }
 

@@ -7,15 +7,17 @@ public class ProbabilisticScorer: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(params: ProbabilisticScoringParameters, network_graph: NetworkGraph) {
+    public init(params: ProbabilisticScoringParameters, network_graph: NetworkGraph, logger: Logger) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
-ProbabilisticScorer_new(params.danglingClone().cOpaqueStruct!, network_graphPointer)
+ProbabilisticScorer_new(params.danglingClone().cOpaqueStruct!, network_graphPointer, logger.activate().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
-        
+        try? self.addAnchor(anchor: network_graph)
+try? self.addAnchor(anchor: logger)
+
     }
     /* DEFAULT_CONSTRUCTOR_END */
 
@@ -37,6 +39,13 @@ ProbabilisticScorer_new(params.danglingClone().cOpaqueStruct!, network_graphPoin
 
     /* STRUCT_METHODS_START */
 
+    public func debug_log_liquidity_stats() -> Void {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKProbabilisticScorer>) in
+ProbabilisticScorer_debug_log_liquidity_stats(this_argPointer)
+};
+    }
+
     public func as_Score() -> NativelyImplementedScore {
     	
         return NativelyImplementedScore(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKProbabilisticScorer>) in
@@ -51,7 +60,7 @@ ProbabilisticScorer_write(objPointer)
 });
     }
 
-    public class func read(ser: [UInt8], arg_a: ProbabilisticScoringParameters, arg_b: NetworkGraph) -> Result_ProbabilisticScorerDecodeErrorZ {
+    public class func read(ser: [UInt8], arg_a: ProbabilisticScoringParameters, arg_b: NetworkGraph, arg_c: Logger) -> Result_ProbabilisticScorerDecodeErrorZ {
     	
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
@@ -59,7 +68,7 @@ ProbabilisticScorer_write(objPointer)
 						}
 					
         return Result_ProbabilisticScorerDecodeErrorZ(pointer: withUnsafePointer(to: arg_b.cOpaqueStruct!) { (arg_bPointer: UnsafePointer<LDKNetworkGraph>) in
-ProbabilisticScorer_read(serWrapper.cOpaqueStruct!, arg_a.danglingClone().cOpaqueStruct!, arg_bPointer)
+ProbabilisticScorer_read(serWrapper.cOpaqueStruct!, arg_a.danglingClone().cOpaqueStruct!, arg_bPointer, arg_c.activate().cOpaqueStruct!)
 });
     }
 

@@ -82,6 +82,20 @@ public class Result_ChannelTypeFeaturesDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
+    public func clone() -> Result_ChannelTypeFeaturesDecodeErrorZ {
+    	
+        return Result_ChannelTypeFeaturesDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ChannelTypeFeaturesDecodeErrorZ>) in
+CResult_ChannelTypeFeaturesDecodeErrorZ_clone(origPointer)
+});
+    }
+
+					internal func danglingClone() -> Result_ChannelTypeFeaturesDecodeErrorZ {
+        				let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+				
+
     /* RESULT_METHODS_END */
 
 }

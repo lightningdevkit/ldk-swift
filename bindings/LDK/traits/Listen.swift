@@ -13,6 +13,17 @@ open class Listen: NativeTraitWrapper {
 
     	/* NATIVE_CALLBACKS_START */
 
+		func filtered_block_connectedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, txdata: LDKCVec_C2Tuple_usizeTransactionZZ, height: UInt32) -> Void {
+			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::filtered_block_connected")
+			
+								var header: [UInt8]? = nil
+								if let headerUnwrapped = headerPointer {
+									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
+								}
+							
+			return instance.filtered_block_connected(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata), height: height)
+		}
+
 		func block_connectedCallback(pointer: UnsafeRawPointer?, block: LDKu8slice, height: UInt32) -> Void {
 			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::block_connected")
 			
@@ -40,6 +51,7 @@ open class Listen: NativeTraitWrapper {
 
 		super.init(conflictAvoidingVariableName: 0)
         self.cOpaqueStruct = LDKListen(this_arg: Bindings.instanceToPointer(instance: self), 
+			filtered_block_connected: filtered_block_connectedCallback,
 			block_connected: block_connectedCallback,
 			block_disconnected: block_disconnectedCallback,
 			free: freeCallback)
@@ -81,6 +93,13 @@ open class Listen: NativeTraitWrapper {
 					}
 				
 
+    open func filtered_block_connected(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
+    	/* EDIT ME */
+		Bindings.print("Listen::filtered_block_connected should be overridden!", severity: .WARNING)
+
+
+    }
+
     open func block_connected(block: [UInt8], height: UInt32) -> Void {
     	/* EDIT ME */
 		Bindings.print("Listen::block_connected should be overridden!", severity: .WARNING)
@@ -110,6 +129,35 @@ open class Listen: NativeTraitWrapper {
 
 public class NativelyImplementedListen: Listen {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
+
+	public func filtered_block_connected(header: [UInt8]?, txdata: [C2Tuple_usizeTransactionZ], height: UInt32) -> Void {
+		
+					
+							let txdataUnwrapped = txdata.map { (txdataCurrentValue) in
+							txdataCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.filtered_block_connected(header: header, txdata: txdataUnwrapped, height: height)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
+	public override func filtered_block_connected(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
+		
+				
+						let txdataWrapper = Bindings.new_LDKCVec_C2Tuple_usizeTransactionZZWrapper(array: txdata)
+						defer {
+							txdataWrapper.noOpRetain()
+						}
+					
+				withUnsafePointer(to: Bindings.array_to_tuple80(array: header!)) { (headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+
+				self.cOpaqueStruct!.filtered_block_connected(self.cOpaqueStruct!.this_arg, headerPointer, txdataWrapper.dangle().cOpaqueStruct!, height)
+				
+}
+			
+	}
 
 	public override func block_connected(block: [UInt8], height: UInt32) -> Void {
 		

@@ -7,11 +7,11 @@ public class ChannelCounterparty: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(node_id_arg: [UInt8], features_arg: InitFeatures, unspendable_punishment_reserve_arg: UInt64, forwarding_info_arg: CounterpartyForwardingInfo) {
+    public init(node_id_arg: [UInt8], features_arg: InitFeatures, unspendable_punishment_reserve_arg: UInt64, forwarding_info_arg: CounterpartyForwardingInfo, outbound_htlc_minimum_msat_arg: Option_u64Z, outbound_htlc_maximum_msat_arg: Option_u64Z) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelCounterparty_new(Bindings.new_LDKPublicKey(array: node_id_arg), features_arg.danglingClone().cOpaqueStruct!, unspendable_punishment_reserve_arg, forwarding_info_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelCounterparty_new(Bindings.new_LDKPublicKey(array: node_id_arg), features_arg.danglingClone().cOpaqueStruct!, unspendable_punishment_reserve_arg, forwarding_info_arg.danglingClone().cOpaqueStruct!, outbound_htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, outbound_htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -93,6 +93,36 @@ ChannelCounterparty_get_forwarding_info(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return ChannelCounterparty_set_forwarding_info(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
+    public func get_outbound_htlc_minimum_msat() -> Option_u64Z {
+    	
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelCounterparty>) in
+ChannelCounterparty_get_outbound_htlc_minimum_msat(this_ptrPointer)
+});
+    }
+
+    public func set_outbound_htlc_minimum_msat(val: Option_u64Z) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelCounterparty>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelCounterparty_set_outbound_htlc_minimum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
+    public func get_outbound_htlc_maximum_msat() -> Option_u64Z {
+    	
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelCounterparty>) in
+ChannelCounterparty_get_outbound_htlc_maximum_msat(this_ptrPointer)
+});
+    }
+
+    public func set_outbound_htlc_maximum_msat(val: Option_u64Z) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelCounterparty>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelCounterparty_set_outbound_htlc_maximum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelCounterparty {

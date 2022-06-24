@@ -7,11 +7,11 @@ public class ChannelDetails: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(channel_id_arg: [UInt8], counterparty_arg: ChannelCounterparty, funding_txo_arg: OutPoint, channel_type_arg: ChannelTypeFeatures, short_channel_id_arg: Option_u64Z, inbound_scid_alias_arg: Option_u64Z, channel_value_satoshis_arg: UInt64, unspendable_punishment_reserve_arg: Option_u64Z, user_channel_id_arg: UInt64, balance_msat_arg: UInt64, outbound_capacity_msat_arg: UInt64, inbound_capacity_msat_arg: UInt64, confirmations_required_arg: Option_u32Z, force_close_spend_delay_arg: Option_u16Z, is_outbound_arg: Bool, is_funding_locked_arg: Bool, is_usable_arg: Bool, is_public_arg: Bool) {
+    public init(channel_id_arg: [UInt8], counterparty_arg: ChannelCounterparty, funding_txo_arg: OutPoint, channel_type_arg: ChannelTypeFeatures, short_channel_id_arg: Option_u64Z, outbound_scid_alias_arg: Option_u64Z, inbound_scid_alias_arg: Option_u64Z, channel_value_satoshis_arg: UInt64, unspendable_punishment_reserve_arg: Option_u64Z, user_channel_id_arg: UInt64, balance_msat_arg: UInt64, outbound_capacity_msat_arg: UInt64, next_outbound_htlc_limit_msat_arg: UInt64, inbound_capacity_msat_arg: UInt64, confirmations_required_arg: Option_u32Z, force_close_spend_delay_arg: Option_u16Z, is_outbound_arg: Bool, is_channel_ready_arg: Bool, is_usable_arg: Bool, is_public_arg: Bool, inbound_htlc_minimum_msat_arg: Option_u64Z, inbound_htlc_maximum_msat_arg: Option_u64Z) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.danglingClone().cOpaqueStruct!, funding_txo_arg.danglingClone().cOpaqueStruct!, channel_type_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg.danglingClone().cOpaqueStruct!, inbound_scid_alias_arg.danglingClone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.danglingClone().cOpaqueStruct!, user_channel_id_arg, balance_msat_arg, outbound_capacity_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.danglingClone().cOpaqueStruct!, force_close_spend_delay_arg.danglingClone().cOpaqueStruct!, is_outbound_arg, is_funding_locked_arg, is_usable_arg, is_public_arg)
+        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.danglingClone().cOpaqueStruct!, funding_txo_arg.danglingClone().cOpaqueStruct!, channel_type_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg.danglingClone().cOpaqueStruct!, outbound_scid_alias_arg.danglingClone().cOpaqueStruct!, inbound_scid_alias_arg.danglingClone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.danglingClone().cOpaqueStruct!, user_channel_id_arg, balance_msat_arg, outbound_capacity_msat_arg, next_outbound_htlc_limit_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.danglingClone().cOpaqueStruct!, force_close_spend_delay_arg.danglingClone().cOpaqueStruct!, is_outbound_arg, is_channel_ready_arg, is_usable_arg, is_public_arg, inbound_htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, inbound_htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -119,6 +119,21 @@ ChannelDetails_get_short_channel_id(this_ptrPointer)
         return ChannelDetails_set_short_channel_id(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
+    public func get_outbound_scid_alias() -> Option_u64Z {
+    	
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
+ChannelDetails_get_outbound_scid_alias(this_ptrPointer)
+});
+    }
+
+    public func set_outbound_scid_alias(val: Option_u64Z) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelDetails_set_outbound_scid_alias(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
     public func get_inbound_scid_alias() -> Option_u64Z {
     	
         return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
@@ -209,6 +224,21 @@ ChannelDetails_get_outbound_capacity_msat(this_ptrPointer)
         return ChannelDetails_set_outbound_capacity_msat(this_ptrPointer, val);
     }
 
+    public func get_next_outbound_htlc_limit_msat() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
+ChannelDetails_get_next_outbound_htlc_limit_msat(this_ptrPointer)
+};
+    }
+
+    public func set_next_outbound_htlc_limit_msat(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelDetails_set_next_outbound_htlc_limit_msat(this_ptrPointer, val);
+    }
+
     public func get_inbound_capacity_msat() -> UInt64 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
@@ -269,19 +299,19 @@ ChannelDetails_get_is_outbound(this_ptrPointer)
         return ChannelDetails_set_is_outbound(this_ptrPointer, val);
     }
 
-    public func get_is_funding_locked() -> Bool {
+    public func get_is_channel_ready() -> Bool {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
-ChannelDetails_get_is_funding_locked(this_ptrPointer)
+ChannelDetails_get_is_channel_ready(this_ptrPointer)
 };
     }
 
-    public func set_is_funding_locked(val: Bool) -> Void {
+    public func set_is_channel_ready(val: Bool) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelDetails_set_is_funding_locked(this_ptrPointer, val);
+        return ChannelDetails_set_is_channel_ready(this_ptrPointer, val);
     }
 
     public func get_is_usable() -> Bool {
@@ -314,6 +344,36 @@ ChannelDetails_get_is_public(this_ptrPointer)
         return ChannelDetails_set_is_public(this_ptrPointer, val);
     }
 
+    public func get_inbound_htlc_minimum_msat() -> Option_u64Z {
+    	
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
+ChannelDetails_get_inbound_htlc_minimum_msat(this_ptrPointer)
+});
+    }
+
+    public func set_inbound_htlc_minimum_msat(val: Option_u64Z) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelDetails_set_inbound_htlc_minimum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
+    public func get_inbound_htlc_maximum_msat() -> Option_u64Z {
+    	
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
+ChannelDetails_get_inbound_htlc_maximum_msat(this_ptrPointer)
+});
+    }
+
+    public func set_inbound_htlc_maximum_msat(val: Option_u64Z) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelDetails_set_inbound_htlc_maximum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
     public func clone() -> ChannelDetails {
     	
         return ChannelDetails(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelDetails>) in
@@ -332,6 +392,13 @@ ChannelDetails_clone(origPointer)
     	
         return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelDetails>) in
 ChannelDetails_get_inbound_payment_scid(this_argPointer)
+});
+    }
+
+    public func get_outbound_payment_scid() -> Option_u64Z {
+    	
+        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelDetails>) in
+ChannelDetails_get_outbound_payment_scid(this_argPointer)
 });
     }
 

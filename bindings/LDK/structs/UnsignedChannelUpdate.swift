@@ -146,6 +146,19 @@ UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer)
         return UnsignedChannelUpdate_set_fee_proportional_millionths(this_ptrPointer, val);
     }
 
+    public func set_excess_data(val: [UInt8]) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+						let valWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return UnsignedChannelUpdate_set_excess_data(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
+    }
+
     public func clone() -> UnsignedChannelUpdate {
     	
         return UnsignedChannelUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in

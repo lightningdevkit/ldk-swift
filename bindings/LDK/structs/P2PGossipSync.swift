@@ -1,9 +1,9 @@
-public class NetGraphMsgHandler: NativeTypeWrapper {
+public class P2PGossipSync: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    internal var cOpaqueStruct: LDKNetGraphMsgHandler?
+    internal var cOpaqueStruct: LDKP2PGossipSync?
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
@@ -14,10 +14,11 @@ public init(network_graph: NetworkGraph, chain_access: Option_AccessZ, logger: L
 		self.instanceNumber = Self.instanceCounter
     	
         self.cOpaqueStruct = withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
-NetGraphMsgHandler_new(network_graphPointer, chain_access.cOpaqueStruct!, logger.activate().cOpaqueStruct!)
+P2PGossipSync_new(network_graphPointer, chain_access.cOpaqueStruct!, logger.activate().cOpaqueStruct!)
 }
         super.init(conflictAvoidingVariableName: 0)
-        try? self.addAnchor(anchor: chain_access)
+        try? self.addAnchor(anchor: network_graph)
+try? self.addAnchor(anchor: chain_access)
 try? self.addAnchor(anchor: logger)
 
     }
@@ -25,7 +26,7 @@ try? self.addAnchor(anchor: logger)
 
     #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(pointer: LDKNetGraphMsgHandler){
+public init(pointer: LDKP2PGossipSync){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
@@ -34,7 +35,7 @@ public init(pointer: LDKNetGraphMsgHandler){
 
 	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(pointer: LDKNetGraphMsgHandler, anchor: NativeTypeWrapper){
+public init(pointer: LDKP2PGossipSync, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
@@ -45,51 +46,44 @@ public init(pointer: LDKNetGraphMsgHandler, anchor: NativeTypeWrapper){
 
     /* STRUCT_METHODS_START */
 
-    public func as_EventHandler() -> NativelyImplementedEventHandler {
-    	
-        return NativelyImplementedEventHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
-NetGraphMsgHandler_as_EventHandler(this_argPointer)
-}, anchor: self);
-    }
-
     public func add_chain_access(chain_access: Option_AccessZ) -> Void {
     	
-							let this_argPointer = UnsafeMutablePointer<LDKNetGraphMsgHandler>.allocate(capacity: 1)
+							let this_argPointer = UnsafeMutablePointer<LDKP2PGossipSync>.allocate(capacity: 1)
 							this_argPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NetGraphMsgHandler_add_chain_access(this_argPointer, chain_access.cOpaqueStruct!);
+        return P2PGossipSync_add_chain_access(this_argPointer, chain_access.cOpaqueStruct!);
     }
 
     public func as_RoutingMessageHandler() -> NativelyImplementedRoutingMessageHandler {
     	
-        return NativelyImplementedRoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
-NetGraphMsgHandler_as_RoutingMessageHandler(this_argPointer)
+        return NativelyImplementedRoutingMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKP2PGossipSync>) in
+P2PGossipSync_as_RoutingMessageHandler(this_argPointer)
 }, anchor: self);
     }
 
     public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {
     	
-        return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetGraphMsgHandler>) in
-NetGraphMsgHandler_as_MessageSendEventsProvider(this_argPointer)
+        return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKP2PGossipSync>) in
+P2PGossipSync_as_MessageSendEventsProvider(this_argPointer)
 }, anchor: self);
     }
 
     internal func free() -> Void {
     	
-        return NetGraphMsgHandler_free(self.cOpaqueStruct!);
+        return P2PGossipSync_free(self.cOpaqueStruct!);
     }
 
-					internal func dangle() -> NetGraphMsgHandler {
+					internal func dangle() -> P2PGossipSync {
         				self.dangling = true
 						return self
 					}
 					
 					deinit {
 						if !self.dangling {
-							Bindings.print("Freeing NetGraphMsgHandler \(self.instanceNumber).")
+							Bindings.print("Freeing P2PGossipSync \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing NetGraphMsgHandler \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing P2PGossipSync \(self.instanceNumber) due to dangle.")
 						}
 					}
 				

@@ -26,7 +26,7 @@ public class NetworkUpdate: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum NetworkUpdateValueType {
-					case ChannelUpdateMessage, ChannelClosed, NodeFailure
+					case ChannelUpdateMessage, ChannelFailure, NodeFailure
 				}
 				
 				public func getValueType() -> NetworkUpdateValueType? {
@@ -34,8 +34,8 @@ public class NetworkUpdate: NativeTypeWrapper {
                     
 					case LDKNetworkUpdate_ChannelUpdateMessage:
 						return .ChannelUpdateMessage
-					case LDKNetworkUpdate_ChannelClosed:
-						return .ChannelClosed
+					case LDKNetworkUpdate_ChannelFailure:
+						return .ChannelFailure
 					case LDKNetworkUpdate_NodeFailure:
 						return .NodeFailure
                     default:
@@ -51,11 +51,11 @@ public class NetworkUpdate: NativeTypeWrapper {
 						return ChannelUpdateMessage(pointer: self.cOpaqueStruct!.channel_update_message, anchor: self)
 					}
 				
-					public func getValueAsChannelClosed() -> ChannelClosed? {
-						if self.cOpaqueStruct?.tag != LDKNetworkUpdate_ChannelClosed {
+					public func getValueAsChannelFailure() -> ChannelFailure? {
+						if self.cOpaqueStruct?.tag != LDKNetworkUpdate_ChannelFailure {
 							return nil
 						}
-						return ChannelClosed(pointer: self.cOpaqueStruct!.channel_closed, anchor: self)
+						return ChannelFailure(pointer: self.cOpaqueStruct!.channel_failure, anchor: self)
 					}
 				
 					public func getValueAsNodeFailure() -> NodeFailure? {
@@ -105,9 +105,9 @@ NetworkUpdate_clone(origPointer)
         return NetworkUpdate(pointer: NetworkUpdate_channel_update_message(msg.danglingClone().cOpaqueStruct!));
     }
 
-    public class func channel_closed(short_channel_id: UInt64, is_permanent: Bool) -> NetworkUpdate {
+    public class func channel_failure(short_channel_id: UInt64, is_permanent: Bool) -> NetworkUpdate {
     	
-        return NetworkUpdate(pointer: NetworkUpdate_channel_closed(short_channel_id, is_permanent));
+        return NetworkUpdate(pointer: NetworkUpdate_channel_failure(short_channel_id, is_permanent));
     }
 
     public class func node_failure(node_id: [UInt8], is_permanent: Bool) -> NetworkUpdate {
@@ -161,15 +161,15 @@ NetworkUpdate_write(objPointer)
 			}
 		
 
-			public class ChannelClosed: NativeTypeWrapper {
+			public class ChannelFailure: NativeTypeWrapper {
 				
 				
-				var cOpaqueStruct: LDKNetworkUpdate_LDKChannelClosed_Body?;
-				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelClosed_Body) {
+				var cOpaqueStruct: LDKNetworkUpdate_LDKChannelFailure_Body?;
+				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelFailure_Body) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 				}
-				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelClosed_Body, anchor: NativeTypeWrapper) {
+				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelFailure_Body, anchor: NativeTypeWrapper) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 					self.dangling = true

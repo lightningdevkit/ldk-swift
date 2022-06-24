@@ -24,7 +24,9 @@ fi
 set -e # stop execution upon the first error
 
 C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings"
-BUILT_PRODUCTS_DIR="`pwd`/binaries" # directory to copy the shared library and headers into
+
+BASEDIR=$(dirname "$0")
+BUILT_PRODUCTS_DIR="${BASEDIR}/binaries" # directory to copy the shared library and headers into
 
 
 TARGET_NAME="libldk"

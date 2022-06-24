@@ -2561,7 +2561,7 @@
 		754BD6582831607A0050F361 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2571,7 +2571,7 @@
 		754BD6592831607A0050F361 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2775,7 +2775,7 @@
 		75D7577328306AD40005405B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2784,7 +2784,7 @@
 		75D7577428306AD40005405B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../bindings/artifacts/ldk-c-bindings";
+				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

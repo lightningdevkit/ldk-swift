@@ -47,7 +47,7 @@ export RUSTFLAGS="--cfg=c_bindings"
 
 # Mac ABI binary (disable temporarily) TODO: reenable
 # it might be necessary to run "sudo xcode-select --switch /Library/Developer/CommandLineTools" here
-# sudo xcode-select --switch /Library/Developer/CommandLineTools
+sudo xcode-select --switch /Library/Developer/CommandLineTools
 rustup override set nightly
 cargo clean
 cargo build -Z build-std=panic_abort,std --features "std" --target x86_64-apple-ios-macabi --release
@@ -55,7 +55,7 @@ cp "${C_BINDINGS_SOURCE_DIRECTORY}/target/x86_64-apple-ios-macabi/release/libldk
 
 # iOS & Simulator binaries
 # it might be necessary to run "sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer"
-# sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 rustup override unset
 cargo clean
 cargo lipo --features "std" --release

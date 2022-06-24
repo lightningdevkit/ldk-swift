@@ -8,6 +8,7 @@ ci/Build
 ci/LDKSwift/Sources
 ci/LDKSwift/.build
 ci/LDKSwift/.swiftpm
+!ci/LDKSwift/Sources/LDKBatteries/*
 
 /xcode/LDKFramework/Build/
 /xcode/LDKFramework/LDKFramework.xcodeproj/project.xcworkspace/

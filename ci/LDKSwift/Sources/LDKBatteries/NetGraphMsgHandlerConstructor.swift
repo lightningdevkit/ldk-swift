@@ -5,6 +5,11 @@
 //  Created by Arik Sosman on 9/24/21.
 //
 
+#if SWIFT_PACKAGE
+import LDKHeaders
+import LDKBindings
+#endif
+
 import Foundation
 
 public class NetGraphMsgHandlerConstructor {

@@ -20,7 +20,8 @@ jobs:
                     # Note this is a different endpoint, as we need one non-upstream commit!
                     # git clone https://git.bitcoin.ninja/rust-lightning
                     # git clone https://github.com/TheBlueMatt/rust-lightning
-                    git clone --branch 2021-03-java-bindings-base https://github.com/TheBlueMatt/rust-lightning
+                    # git clone --branch 2021-03-java-bindings-base https://github.com/TheBlueMatt/rust-lightning
+                    git clone --branch 2022-05-107-bindings-scratch https://github.com/TheBlueMatt/rust-lightning
                     cd rust-lightning
                     # git checkout origin/2021-03-java-bindings-base
                     # git checkout v0.0.100
@@ -28,8 +29,8 @@ jobs:
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
-                    git clone https://github.com/lightningdevkit/ldk-c-bindings
-                    # git clone https://github.com/TheBlueMatt/ldk-c-bindings
+                    # git clone https://github.com/lightningdevkit/ldk-c-bindings
+                    git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
                     # git checkout 1bb5ae1b34aeb74009b7b4b5ebefc957cddc30a6
                     echo "ldk-c-bindings commit hash:"
@@ -91,7 +92,7 @@ jobs:
                     echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
                     if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
                       echo "Bad hash"
-                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)" 
+                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)"
                       exit 1
                     fi
                     tar xvvf swift-5.6-RELEASE-ubuntu20.04.tar.gz
@@ -137,7 +138,7 @@ jobs:
                     echo "Sha sum: $(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')"
                     if [ "$(sha256sum swift-5.6-RELEASE-ubuntu20.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
                       echo "Bad hash"
-                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)" 
+                      echo "Contents: \n$(cat swift-5.6-RELEASE-ubuntu20.04.tar.gz)"
                       exit 1
                     fi
                     tar xvvf swift-5.6-RELEASE-ubuntu20.04.tar.gz

@@ -9,8 +9,13 @@ if let bindingsBase = getenv("LDK_C_BINDINGS_BASE") {
     cBindingsBase = String(utf8String: bindingsBase)!
 }
 
-let linkerSettings: [PackageDescription.LinkerSetting] = [
-    .linkedLibrary(cBindingsBase + "/lightning-c-bindings/target/debug/libldk.a")
+var fileExtension = ".dylib"
+#if os(Linux)
+fileExtension = ".a"
+#endif
+
+var linkerSettings: [PackageDescription.LinkerSetting] = [
+    .linkedLibrary("\(cBindingsBase)/lightning-c-bindings/target/debug/libldk\(fileExtension)")
 ]
 
 #if os(Linux)

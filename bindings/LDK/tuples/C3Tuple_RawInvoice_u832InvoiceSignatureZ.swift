@@ -51,7 +51,7 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C3Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber).")
@@ -62,6 +62,18 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> RawInvoice {
+					return RawInvoice(pointer: self.cOpaqueStruct!.a, anchor: self);
+				}
+			
+				public func getB() -> [UInt8] {
+					return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.b);
+				}
+			
+				public func getC() -> InvoiceSignature {
+					return InvoiceSignature(pointer: self.cOpaqueStruct!.c, anchor: self);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

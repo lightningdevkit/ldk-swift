@@ -39,7 +39,7 @@ public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannel
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C2Tuple_BlockHashChannelManagerZ \(self.instanceNumber).")
@@ -50,6 +50,14 @@ public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannel
 					}
 				
 
+				public func getA() -> [UInt8] {
+					return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.a);
+				}
+			
+				public func getB() -> ChannelManager {
+					return ChannelManager(pointer: self.cOpaqueStruct!.b, anchor: self);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

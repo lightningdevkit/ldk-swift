@@ -61,7 +61,7 @@ C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ \(self.instanceNumber).")
@@ -72,6 +72,19 @@ C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> [UInt8] {
+					return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.a);
+				}
+			
+				public func getB() -> [C2Tuple_u32TxOutZ] {
+					return Bindings.LDKCVec_C2Tuple_u32TxOutZZ_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false)
+						
+						.map { (cOpaqueStruct) in
+							C2Tuple_u32TxOutZ(pointer: cOpaqueStruct).dangle()
+						}
+					;
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

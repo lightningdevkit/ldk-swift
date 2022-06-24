@@ -51,7 +51,7 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ \(self.instanceNumber).")
@@ -62,6 +62,18 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 					}
 				
 
+				public func getA() -> ChannelAnnouncement {
+					return ChannelAnnouncement(pointer: self.cOpaqueStruct!.a, anchor: self);
+				}
+			
+				public func getB() -> ChannelUpdate {
+					return ChannelUpdate(pointer: self.cOpaqueStruct!.b, anchor: self);
+				}
+			
+				public func getC() -> ChannelUpdate {
+					return ChannelUpdate(pointer: self.cOpaqueStruct!.c, anchor: self);
+				}
+			
     /* TUPLE_METHODS_END */
 
 }

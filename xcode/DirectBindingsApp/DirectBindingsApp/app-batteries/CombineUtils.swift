@@ -11,7 +11,7 @@ import Foundation
 import Combine
 
 extension Publisher {
-    func asyncMap<T>(
+    public func asyncMap<T>(
         _ transform: @escaping (Output) async throws -> T
     ) -> Publishers.FlatMap<Future<T, Error>,
                             Publishers.SetFailureType<Self, Error>> {

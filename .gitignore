@@ -15,3 +15,10 @@ ci/LDKSwift/.swiftpm
 /xcode/DirectBindingsApp/Build/
 /xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/project.xcworkspace/
 /xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/xcuserdata/
+
+## User settings
+xcode/build
+xcode/LDK/headers/*
+xcuserdata/
+/bindings/artifacts
+/xcode/DirectBindingsApp/headers

@@ -10,15 +10,15 @@ The `*.xcframework` files are either available on
 the [Releases](https://github.com/lightningdevkit/ldk-swift/releases) page, or can be [compiled](#Compilation)
 from scratch.
 
-
 ## Compilation
 
 ### Prerequisites
 
-- A Mac with Xcode 13.2.1 or lower (this is because there is a bug with `cc` that prevents it from compiling for Mac Catalyst targets with clang 13)
-- Python3
-- Rust
-- `gnu-sed` (optional; but will cut your compile times significantly!)
+-   A machine running macOS
+-   Xcode 13.2.1 or lower (this is because there is a bug with `cc` that prevents it from compiling for Mac Catalyst targets with clang 13)
+-   [Python3](https://programwithus.com/learn/python/install-python3-mac)
+-   [Rust](https://www.rust-lang.org/tools/install)
+-   [GNU sed](https://formulae.brew.sh/formula/gnu-sed) (optional, but will cut your compile times significantly!)
 
 For Rust specifically, there are a couple additional requirements that can be installed once the Rust toolchain
 is set up:
@@ -33,12 +33,14 @@ cargo install cbindgen
 
 In order to generate these bindings from scratch, you will need to clone two dependency repositories:
 
-**rust-lightning**, (a specific branch built for bindings compatibility)
+**[rust-lightning](https://github.com/lightningdevkit/rust-lightning)**, (a specific branch built for bindings compatibility):
+
 ```shell
 git clone --branch 2021-03-java-bindings-base https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
 ```
 
-**ldk-c-bindings**
+**[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:
+
 ```shell
 git clone https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
 ```
@@ -86,6 +88,7 @@ git rev-parse HEAD
 ```
 
 Take that commit hash and replace the `xxx` instances with it.
+
 </details>
 
 #### Generating the Swift files
@@ -100,19 +103,20 @@ python3 ./
 Now, the contents of the `bindings/LDK` folder will have been completely regenerated.
 
 ### Configuring Xcode for Framework Compilation
+
 Go to the `xcode` folder and open `LDKFramework.xcworkspace`.
 
-Then, navigate to the "LDKFramework" project and click on the LDKFramework target:
+Then, navigate to the "LDKFramework" project and click on the LDKFramework target, and open up the `Build Settings` tab:
 ![](https://user-images.githubusercontent.com/5944973/175575527-97073a18-76fc-4ab0-928f-d40ac643e607.png)
 
 Search for "LDK_DIRECTORY":
 ![](https://user-images.githubusercontent.com/5944973/175575621-38224096-4baa-44cc-8345-ec2b871fcbe6.png)
 
-Here, enter the absolute path you to ldk-c-bindings you saved above.
+Here, enter the absolute path to `ldk-c-bindings` that you saved above.
 
 Now, do the same for the "LDKFramework_Mac" target.
 
-#### Generating the *.xcframework files
+#### Generating the \*.xcframework files
 
 With all the bindings generated, you will just have to run two commands to generate the xcframework:
 

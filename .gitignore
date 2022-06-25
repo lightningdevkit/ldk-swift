@@ -22,3 +22,9 @@ xcode/LDK/headers/*
 xcuserdata/
 /bindings/artifacts
 /xcode/DirectBindingsApp/headers
+
+# VSCode
+.vscode/*
+
+!.vscode/launch.json
+!.vscode/extensions.json

@@ -1,0 +1,15 @@
+{
+	"configurations": [
+		{
+			"name": "Python: Generate Swift Files",
+			"type": "python",
+			"request": "launch",
+			"program": "${workspaceRoot}/__main__.py",
+			"console": "integratedTerminal",
+			"env": {
+				"LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH": "${workspaceRoot}/ldk-c-bindings/lightning-c-bindings/include/lightning.h"
+			},
+			"justMyCode": true
+		}
+	]
+}

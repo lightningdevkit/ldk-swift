@@ -21,8 +21,10 @@ else
 	RUST_CONFIGURATION_FLAG="--release"
 fi
 
-declare -a destinationNames=( "iOS Simulator" )
-declare -a lipoDirectoryNames=( "iphonesimulator" )
+XCFRAMEWORK_INPUT_FLAGS=""
+
+declare -a destinationNames=( "iOS Simulator" "iOS" )
+declare -a lipoDirectoryNames=( "iphonesimulator" "iphoneos" )
 
 declare archiveCount=${#lipoDirectoryNames[@]}
 for (( i=0; i<$archiveCount; i++ ));
@@ -39,10 +41,12 @@ do
 	echo "Current lipo input directory: ${CURRENT_LIPO_DIRECTORY_PATH}" >> $BUILD_LOG_PATH
 	echo "Current xcarchive archive directory: ${CURRENT_ARCHIVE_PATH}" >> $BUILD_LOG_PATH
 
-	pushd "${BASEDIR}/LDKSwift"
-
 	mkdir -p "${CURRENT_ARCHIVE_DIRECTORY}"
-	xcodebuild archive -scheme LDKSwift -destination "generic/platform=${CURRENT_DESTINATION_NAME}" -archivePath "${CURRENT_ARCHIVE_PATH}" ENABLE_BITCODE=NO SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
+	pushd "${BASEDIR}/LDKSwift"
+	xcodebuild archive -scheme LDKSwift -destination "generic/platform=${CURRENT_DESTINATION_NAME}" -archivePath "${CURRENT_ARCHIVE_PATH}" ENABLE_BITCODE=NO SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 	popd
+
+	XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKSwift.framework "
+	echo "Current xcframework flags: ${XCFRAMEWORK_INPUT_FLAGS}" >> $BUILD_LOG_PATH
 done

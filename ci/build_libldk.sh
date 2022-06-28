@@ -28,12 +28,23 @@ C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings"
 # https://stackoverflow.com/a/4774063/299711
 BASEDIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
-BUILT_PRODUCTS_DIR="${BASEDIR}/binaries" # directory to copy the shared library and headers into
+BUILD_PRODUCTS_DIR="${BASEDIR}/../bindings/bin" # directory to copy the shared library and headers into
 BUILD_LOG_PATH="${BASEDIR}/build_libldk.log"
 TARGET_NAME="libldk"
 
 # initialize the build log
 echo -n "" > $BUILD_LOG_PATH
+
+# force xcode 13.2.1 for the tuple fix for macabi
+sudo xcode-select -s /Applications/Xcode\ 13.2.1.app/Contents/Developer/
+
+if [[ $CONFIGURATION = "Debug" ]]; then
+	RUST_CONFIGURATION="debug"
+	RUST_CONFIGURATION_FLAG=""
+else
+	RUST_CONFIGURATION="release"
+	RUST_CONFIGURATION_FLAG="--release"
+fi
 
 declare -a platforms=("iphoneos" "iphonesimulator" "macosx" "macosx")
 declare -a llvm_target_triple_suffixes=("" "-simulator" "" "-macabi")
@@ -47,7 +58,6 @@ do
 	ARCHS=${architectures[$i]}
 
 	# sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-	sudo xcode-select -s /Applications/Xcode\ 13.2.1.app/Contents/Developer/
 
 	if [[ $PLATFORM_NAME = "macosx" ]]; then
 		if [[ $LLVM_TARGET_TRIPLE_SUFFIX = "-macabi" ]]; then
@@ -63,20 +73,12 @@ do
 
 	# Clean any pre-existing static libraries that doesn't align with what we're currently trying to build
 
-	if [[ $CONFIGURATION = "Debug" ]]; then
-		RUST_CONFIGURATION="debug"
-		RUST_CONFIGURATION_FLAG=""
-	else
-		RUST_CONFIGURATION="release"
-		RUST_CONFIGURATION_FLAG="--release"
-	fi
-
 	echo "Platform name: ${PLATFORM_NAME}" >> $BUILD_LOG_PATH
     echo "Configuration: ${RUST_CONFIGURATION}" >> $BUILD_LOG_PATH
     echo "LLVM Target Triple Suffix: ${LLVM_TARGET_TRIPLE_SUFFIX}" >> $BUILD_LOG_PATH
 
-	INDIVIDUAL_ARCH_BINARY_DIR="${BUILT_PRODUCTS_DIR}/${RUST_CONFIGURATION}/${PLATFORM_HUMAN_NAME}/raw"
-	LIPO_BINARY_DIR="${BUILT_PRODUCTS_DIR}/${RUST_CONFIGURATION}/${PLATFORM_HUMAN_NAME}/lipo"
+	INDIVIDUAL_ARCH_BINARY_DIR="${BUILD_PRODUCTS_DIR}/${RUST_CONFIGURATION}/${PLATFORM_HUMAN_NAME}/raw"
+	LIPO_BINARY_DIR="${BUILD_PRODUCTS_DIR}/${RUST_CONFIGURATION}/${PLATFORM_HUMAN_NAME}/lipo"
 
 	for ARCH in $ARCHS
 	do

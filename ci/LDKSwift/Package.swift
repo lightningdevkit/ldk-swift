@@ -39,7 +39,7 @@ let package = Package(
 	products: [
 		.library(
 			name: "LDKSwift",
-			// type: .dynamic,
+			type: .dynamic,
 			targets: ["LDKSwift"]),
 	],
 	dependencies: [

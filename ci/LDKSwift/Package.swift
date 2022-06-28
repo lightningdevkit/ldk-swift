@@ -4,7 +4,7 @@
 import PackageDescription
 import Foundation
 
-var cBindingsBase = "/Users/arik/Developer/ldk-c-bindings"
+var cBindingsBase = "../../../ldk-c-bindings"
 if let bindingsBase = getenv("LDK_C_BINDINGS_BASE") {
 	cBindingsBase = String(utf8String: bindingsBase)!
 }
@@ -24,16 +24,22 @@ var linkerSettings: [PackageDescription.LinkerSetting] = [
 	linkerSettings.append(.linkedLibrary(String(utf8String: getenv("LLVM_CLANG_ASAN_PATH")!)!, .when(platforms: [.linux])))
 #else
 	linkerSettings = [
-		.unsafeFlags(["-L\(cBindingsBase)/lightning-c-bindings/target/debug"]),
+		.unsafeFlags(["-L\(bindingsDirectory)"]),
 		.linkedLibrary("ldk")
 	]
 #endif
 
 let package = Package(
 	name: "LDKSwift",
+	// platforms: [
+	// 	// .macOS(.v11),
+	// 	// .macCatalyst(.v13),
+	// 	.iOS(.v14),
+	// ],
 	products: [
 		.library(
 			name: "LDKSwift",
+			// type: .dynamic,
 			targets: ["LDKSwift"]),
 	],
 	dependencies: [

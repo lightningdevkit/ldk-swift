@@ -9,17 +9,24 @@ if let bindingsBase = getenv("LDK_C_BINDINGS_BASE") {
 	cBindingsBase = String(utf8String: bindingsBase)!
 }
 
+var bindingsDirectory = "\(cBindingsBase)/lightning-c-bindings/target/debug"
+if let ldkBinaryDirectory = getenv("LDK_C_BINDINGS_BINARY_DIRECTORY") {
+	bindingsDirectory = String(utf8String: ldkBinaryDirectory)!
+}
+
+var bindingsLibraryPath = "\(bindingsDirectory)/libldk.a"
+
 var linkerSettings: [PackageDescription.LinkerSetting] = [
-	.linkedLibrary("\(cBindingsBase)/lightning-c-bindings/target/debug/libldk.a")
+	.linkedLibrary(bindingsLibraryPath)
 ]
 
-#if os(macOS)
+#if os(Linux)
+	linkerSettings.append(.linkedLibrary(String(utf8String: getenv("LLVM_CLANG_ASAN_PATH")!)!, .when(platforms: [.linux])))
+#else
 	linkerSettings = [
 		.unsafeFlags(["-L\(cBindingsBase)/lightning-c-bindings/target/debug"]),
 		.linkedLibrary("ldk")
 	]
-#elseif os(Linux)
-	linkerSettings.append(.linkedLibrary(String(utf8String: getenv("LLVM_CLANG_ASAN_PATH")!)!, .when(platforms: [.linux])))
 #endif
 
 let package = Package(
@@ -63,6 +70,5 @@ let package = Package(
 			sources: nil,
 			cSettings: nil, cxxSettings: nil, swiftSettings: nil,
 			linkerSettings: nil)
-
 	]
 )

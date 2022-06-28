@@ -14,7 +14,8 @@ set -e # stop execution upon the first error
 
 C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings"
 
-BASEDIR=$(dirname "$0")
+# https://stackoverflow.com/a/4774063/299711
+BASEDIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 BUILD_LOG_PATH="${BASEDIR}/build_libldk.log"
 
 # echo -n "" > $BUILD_LOG_PATH

@@ -58,3 +58,7 @@ do
 	echo "Current xcframework flags: ${XCFRAMEWORK_INPUT_FLAGS}" >> $BUILD_LOG_PATH
 	echo "" >> $BUILD_LOG_PATH
 done
+
+XCODEBUILD_COMMAND="xcodebuild -create-xcframework ${XCFRAMEWORK_INPUT_FLAGS} -output ${BUILD_PRODUCTS_DIR}/LDKFramework.xcframework"
+echo "Xcode build command: ${XCODEBUILD_COMMAND}" >> $BUILD_LOG_PATH
+eval "${XCODEBUILD_COMMAND}"

@@ -13,7 +13,7 @@ usage() {
 	exit 1
 }
 
-[ "${LDK_DIRECTORY}" = "" ] && echo "Usage: ./compile_dependency_binaries.sh /path/to/ldk-c-bindings" && exit 1;
+[ "${LDK_DIRECTORY}" = "" ] && echo "Usage: ./build_libldk.sh /path/to/ldk-c-bindings" && exit 1;
 [ ! -d "${LDK_DIRECTORY}" ] && echo "Provided directory does not exist" && exit 1;
 
 if ! [[ -x "$(command -v cargo)" ]]; then

@@ -21,19 +21,14 @@ jobs:
                     # Note this is a different endpoint, as we need one non-upstream commit!
                     # git clone https://git.bitcoin.ninja/rust-lightning
                     # git clone https://github.com/TheBlueMatt/rust-lightning
-                    # git clone --branch 2021-03-java-bindings-base https://github.com/TheBlueMatt/rust-lightning
-                    git clone --branch 2022-05-107-bindings-scratch https://github.com/TheBlueMatt/rust-lightning
+                    git clone --branch 2022-06-108-java-bindings https://github.com/TheBlueMatt/rust-lightning
                     cd rust-lightning
-                    # git checkout origin/2021-03-java-bindings-base
-                    # git checkout v0.0.100
-                    # git checkout 8966f8d3d4911e034621c6d3c3d20140d3a7e76a
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
-                    # git clone https://github.com/lightningdevkit/ldk-c-bindings
-                    git clone https://github.com/TheBlueMatt/ldk-c-bindings
+                    git clone --branch https://github.com/lightningdevkit/ldk-c-bindings
+                    # git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
-                    # git checkout 1bb5ae1b34aeb74009b7b4b5ebefc957cddc30a6
                     echo "ldk-c-bindings commit hash:"
                     git rev-parse HEAD
             -   name: Install native Rust toolchain, Valgrind, and build utilities
@@ -59,10 +54,6 @@ jobs:
                     cp ldk-c-bindings/ldk-net/ldk_net.c ./LDKSwift/Sources/LDKHeaders/
             -   name: Set up Python
                 uses: actions/setup-python@v2
-            -   name: Fix header files
-                run: |
-                    cd ci
-                    python ./fix_header_includes.py
             -   name: Generate (copy for debugging) Swift bindings and copy batteries
                 run: |
                     pwd
@@ -71,11 +62,9 @@ jobs:
                     # TODO: switch back to generation method after debugging
                     # mkdir -p ci/LDKSwift/Sources/LDKSwift
                     # cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
-
-                    cp -R bindings/batteries ci/LDKSwift/Sources/LDKSwift
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
-                    LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift
+                    LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift/bindings
             -   name: (Suspended) Check that the latest auto-generated Swift files are in the repo
                 run: |
                     python ./ # Generate bindings into local directory
@@ -83,10 +72,6 @@ jobs:
                     # git diff --exit-code bindings/LDK ':(exclude)bindings/LDK/Bindings.swift'
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
-            -   name: Fix Swift files
-                run: |
-                    cd ci
-                    python ./fix_swift_imports.py
             -   name: Install Swift Toolchain
                 run: |
                     curl --verbose -L -o swift-5.6-RELEASE-ubuntu20.04.tar.gz https://download.swift.org/swift-5.6-release/ubuntu2004/swift-5.6-RELEASE/swift-5.6-RELEASE-ubuntu20.04.tar.gz

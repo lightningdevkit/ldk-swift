@@ -54,36 +54,39 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     private let chain_monitor: ChainMonitor
 
 
-    public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, net_graph_serialized: [UInt8]?, tx_broadcaster: BroadcasterInterface, logger: Logger) throws {
+    public init(channel_manager_serialized: [UInt8], channel_monitors_serialized: [[UInt8]], keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, filter: Filter?, net_graph_serialized: [UInt8]?, tx_broadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false) throws {
 
         var monitors: [LDKChannelMonitor] = []
         self.channel_monitors = []
 
-        var monitorFundingSet = Set<[UInt8]>()
+        var monitorFundingSet = Set<String>()
 
         for currentSerializedChannelMonitor in channel_monitors_serialized {
             let channelMonitorResult: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = UtilMethods.constructor_BlockHashChannelMonitorZ_read(ser: currentSerializedChannelMonitor, arg: keys_interface)
             if channelMonitorResult.cOpaqueStruct?.result_ok != true {
                 throw InvalidSerializedDataError.invalidSerializedChannelMonitor
             }
-            // res
 
             let value: LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZPtr = channelMonitorResult.cOpaqueStruct!.contents
             let a: LDKThirtyTwoBytes = value.result!.pointee.a
             let b: LDKChannelMonitor = value.result!.pointee.b
 
-            let nativeA = Bindings.LDKThirtyTwoBytes_to_array(nativeType: a);
-            if monitorFundingSet.contains(nativeA) {
-                throw InvalidSerializedDataError.duplicateSerializedChannelMonitor
-            }
-            monitorFundingSet.insert(nativeA)
-
+            let blockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: a);
             let clonedChannelMonitor = ChannelMonitor(pointer: b).dangle().clone()
-            // var clonedChannelMonitor = currentChannelMonitor.clone(orig: currentChannelMonitor)
+            
+            if let channelFundingOutpoint = clonedChannelMonitor.get_funding_txo().getA() {
+                let fundingOutpointHash = "\(channelFundingOutpoint.get_txid()):\(channelFundingOutpoint.get_index())"
+                if monitorFundingSet.contains(fundingOutpointHash) {
+                    Bindings.print("Duplicate channel monitor funding txo: \(fundingOutpointHash)", severity: .ERROR)
+                    throw InvalidSerializedDataError.duplicateSerializedChannelMonitor
+                }
+                monitorFundingSet.insert(fundingOutpointHash)
+            }
+            
             clonedChannelMonitor.cOpaqueStruct?.is_owned = false // is_owned should never have to be modified
 
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
-            self.channel_monitors.append((clonedChannelMonitor, nativeA))
+            self.channel_monitors.append((clonedChannelMonitor, blockHash))
         }
 
         print("Collected channel monitors, reading channel manager")
@@ -119,13 +122,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
-        if let netGraph = net_graph {
-            // TODO: fix
-            // self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
-
-            // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
-            // temporarily disable handling routing messages by the peer manager to avoid excessive memory growth
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
+        if let netGraph = net_graph, enableP2PGossip {
+            let noneOption = Option_AccessZ.none()
+            let p2pGossipSync = P2PGossipSync(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
+            self.graph_msg_handler = GossipSync.p2_p(a: p2pGossipSync)
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: p2pGossipSync.as_RoutingMessageHandler())
         } else {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         }
@@ -151,7 +152,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     /**
      * Constructs a channel manager from the given interface implementations
      */
-    public init(network: LDKNetwork, config: UserConfig, current_blockchain_tip_hash: [UInt8], current_blockchain_tip_height: UInt32, keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, net_graph: NetworkGraph?, tx_broadcaster: BroadcasterInterface, logger: Logger) {
+    public init(network: LDKNetwork, config: UserConfig, current_blockchain_tip_hash: [UInt8], current_blockchain_tip_height: UInt32, keys_interface: KeysInterface, fee_estimator: FeeEstimator, chain_monitor: ChainMonitor, net_graph: NetworkGraph?, tx_broadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false) {
 
         self.channel_monitors = []
         self.channel_manager_latest_block_hash = nil
@@ -167,16 +168,11 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.net_graph = net_graph
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
-        if let netGraph = net_graph {
+        if let netGraph = net_graph, enableP2PGossip {
             let noneOption = Option_AccessZ.none()
-            
-            // TODO: fix
-            // self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: noneOption, logger: logger)
-
-
-            // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
-            // temporarily disable handling routing messages by the peer manager to avoid excessive memory growth
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
+            let p2pGossipSync = P2PGossipSync(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
+            self.graph_msg_handler = GossipSync.p2_p(a: p2pGossipSync)
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: p2pGossipSync.as_RoutingMessageHandler())
         } else {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler())
         }

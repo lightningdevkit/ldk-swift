@@ -24,7 +24,7 @@ jobs:
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
-                    git clone --branch https://github.com/lightningdevkit/ldk-c-bindings
+                    git clone --branch v0.0.108.0 https://github.com/lightningdevkit/ldk-c-bindings
                     # git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
                     echo "ldk-c-bindings commit hash:"
@@ -63,11 +63,10 @@ jobs:
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
                     LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift/bindings
-            -   name: (Suspended) Check that the latest auto-generated Swift files are in the repo
+            -   name: Check that the latest auto-generated Swift files are in the repo
                 run: |
                     python ./ # Generate bindings into local directory
-                    # python ci/walker.py bindings/LDK
-                    # git diff --exit-code bindings/LDK ':(exclude)bindings/LDK/Bindings.swift'
+                    git diff --exit-code ci/LDKSwift/Sources/LDKSwift ':(exclude)ci/LDKSwift/Sources/LDKSwift/bindings/Bindings.swift'
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
             -   name: Install Swift Toolchain

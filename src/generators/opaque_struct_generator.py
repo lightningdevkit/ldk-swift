@@ -58,24 +58,25 @@ class OpaqueStructGenerator:
 				print(f'(opaque_struct_generator.py#constructor, warned, deprecated) {cloneability_warning}: {constructor_native_name} [{cloneability_type_message}]')
 
 			if constructor_native_name == 'BackgroundProcessor_start':
-				previous_swift_argument = constructor_swift_arguments[4]
-				previous_native_argument = constructor_native_arguments[4]
-				new_swift_argument = 'gossip_sync: GossipSync?'
-				new_native_argument = 'graphMessageHandler'
+				replaced_argument_index = 7
+				previous_swift_argument = constructor_swift_arguments[replaced_argument_index]
+				previous_native_argument = constructor_native_arguments[replaced_argument_index]
+				new_swift_argument = 'scorer: MultiThreadedLockableScore?'
+				new_native_argument = 'nativeScorer'
 				print(f'''
 					Replacing {constructor_native_name}:
 						Swift argument `{previous_swift_argument}` -> `{new_swift_argument}`
 						Native argument `{previous_native_argument}` -> `{new_native_argument}`
 				''')
 
-				constructor_swift_arguments[4] = new_swift_argument
-				constructor_native_call_prep += '\nlet graphMessageHandler = gossip_sync?.cOpaqueStruct! ?? GossipSync_none()\n'
-				constructor_post_init_anchoring = constructor_post_init_anchoring.replace('try? self.addAnchor(anchor: gossip_sync)', '''
-					if let handler = gossip_sync {
-						try? self.addAnchor(anchor: handler)
+				constructor_swift_arguments[replaced_argument_index] = new_swift_argument
+				constructor_native_call_prep += '\nlet nativeScorer = scorer?.cOpaqueStruct! ?? LDKMultiThreadedLockableScore(inner: nil, is_owned: true)\n'
+				constructor_post_init_anchoring = constructor_post_init_anchoring.replace('try? self.addAnchor(anchor: scorer)', '''
+					if let certainScorer = scorer {
+						try? self.addAnchor(anchor: certainScorer)
 					}
 				''')
-				constructor_native_arguments[4] = new_native_argument
+				constructor_native_arguments[replaced_argument_index] = new_native_argument
 
 
 			mutating_output_file_contents = mutating_output_file_contents.replace('public init', f'{deprecation_prefix}public init')

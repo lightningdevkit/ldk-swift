@@ -237,7 +237,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         // if there is a graph msg handler, set its is_owned to false
         // self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
 
-        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, gossip_sync: self.graph_msg_handler, peer_manager: self.peerManager, logger: self.logger, scorer: Option_WriteableScoreZ.none())
+        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, gossip_sync: self.graph_msg_handler ?? GossipSync.none(), peer_manager: self.peerManager, logger: self.logger, scorer: self.scorer)
 
         // restore it back to true
         // self.graph_msg_handler?.cOpaqueStruct?.is_owned = true

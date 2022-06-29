@@ -6542,7 +6542,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
         let key = instance.globalInstanceNumber
         let pointer = UnsafeMutableRawPointer(bitPattern: key)!
 		// don't automatically cache the trait instance
-		// Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+		Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
 		return pointer
 	}
 
@@ -6563,20 +6563,22 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
         if referenceCount == 0 {
             print("Uncaching global instance \(key)")
             // TODO: fix counting
-            Self.nativelyExposedInstances.removeValue(forKey: key)
-            instance.pointerDebugDescription = nil
+            // Self.nativelyExposedInstances.removeValue(forKey: key)
+            // instance.pointerDebugDescription = nil
         } else if referenceCount < 0 {
             print("Bad uncache: negative reference count (\(referenceCount)) for instance \(key)!", severity: .ERROR)
         }
         return true
     }
 
+	/*
     public class func clearInstancePointers() {
         for (_, currentInstance) in Self.nativelyExposedInstances {
             currentInstance.pointerDebugDescription = nil
         }
         Self.nativelyExposedInstances.removeAll()
     }
+    */
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKTransactionWrapper(array: [UInt8]) -> LDKTransactionWrapper {
@@ -6715,7 +6717,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "359c70d09b6d7b80af69e225352cb2f2449dc35d"
+        return "e3dda300a8ce01a15c2f550de4e3b2ca966127a8"
     }
 
 }

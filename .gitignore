@@ -5,9 +5,11 @@ lib*.a
 __pycache__
 
 ci/Build
-ci/LDKSwift/Sources
 ci/LDKSwift/.build
 ci/LDKSwift/.swiftpm
+
+ci/LDKSwift/Sources/*
+!ci/LDKSwift/Sources/LDKSwift/
 !ci/LDKSwift/Sources/LDKSwift/batteries/*
 !ci/LDKSwift/Sources/LDKSwift/bindings/Bindings.swift
 

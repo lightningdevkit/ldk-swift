@@ -64,10 +64,12 @@ do
 	echo "" >> $BUILD_LOG_PATH
 done
 
+# sudo xcode-select -s /Applications/Xcode.app/Contents/Developer/
+
 XCFRAMEWORK_OUTPUT_PATH="${BUILD_PRODUCTS_DIR}/${RUST_CONFIGURATION}/LDKFramework.xcframework"
 echo "Xcframework output path: ${XCFRAMEWORK_OUTPUT_PATH}" >> $BUILD_LOG_PATH
 
-rm -f "${XCFRAMEWORK_OUTPUT_PATH}"
+rm -f -R "${XCFRAMEWORK_OUTPUT_PATH}"
 
 XCODEBUILD_COMMAND="xcodebuild -create-xcframework ${XCFRAMEWORK_INPUT_FLAGS} -output ${XCFRAMEWORK_OUTPUT_PATH}"
 echo "Xcode build command: ${XCODEBUILD_COMMAND}" >> $BUILD_LOG_PATH

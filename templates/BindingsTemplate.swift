@@ -268,7 +268,7 @@ public class Bindings {
         let key = instance.globalInstanceNumber
         let pointer = UnsafeMutableRawPointer(bitPattern: key)!
 		// don't automatically cache the trait instance
-		// Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+		Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
 		return pointer
 	}
 
@@ -289,20 +289,22 @@ public class Bindings {
         if referenceCount == 0 {
             print("Uncaching global instance \(key)")
             // TODO: fix counting
-            Self.nativelyExposedInstances.removeValue(forKey: key)
-            instance.pointerDebugDescription = nil
+            // Self.nativelyExposedInstances.removeValue(forKey: key)
+            // instance.pointerDebugDescription = nil
         } else if referenceCount < 0 {
             print("Bad uncache: negative reference count (\(referenceCount)) for instance \(key)!", severity: .ERROR)
         }
         return true
     }
 
+	/*
     public class func clearInstancePointers() {
         for (_, currentInstance) in Self.nativelyExposedInstances {
             currentInstance.pointerDebugDescription = nil
         }
         Self.nativelyExposedInstances.removeAll()
     }
+    */
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKTransactionWrapper(array: [UInt8]) -> LDKTransactionWrapper {

@@ -7,6 +7,16 @@ BASEDIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 BUILD_PRODUCTS_DIR="${BASEDIR}/../bindings/bin" # directory to copy the shared library and headers into
 BUILD_LOG_PATH="${BASEDIR}/build_xcode_frameworks.log"
 
+LDK_DIRECTORY=$1 # directory to compile the C bindings in
+
+usage() {
+	echo "USAGE: path/to/ldk-c-bindings"
+	exit 1
+}
+
+[ "${LDK_DIRECTORY}" = "" ] && echo "Usage: ./build_xcode_frameworks.sh /path/to/ldk-c-bindings" && exit 1;
+[ ! -d "${LDK_DIRECTORY}" ] && echo "Provided directory does not exist" && exit 1;
+
 # initialize the build log
 echo -n "" > $BUILD_LOG_PATH
 
@@ -47,13 +57,18 @@ do
 	find "${CURRENT_ARCHIVE_DIRECTORY}" -mindepth 1 -delete
 	find "${CURRENT_DERIVED_DATA_DIRECTORY}" -mindepth 1 -delete
 
-	LDK_C_BINDINGS_BINARY_DIRECTORY="${CURRENT_LIPO_DIRECTORY_PATH}" xcodebuild archive -verbose -project "${BASEDIR}/LDKFramework/LDKFramework.xcodeproj" -scheme LDKFramework -destination "generic/platform=${CURRENT_DESTINATION_NAME}" -derivedDataPath "${CURRENT_DERIVED_DATA_DIRECTORY}" -archivePath "${CURRENT_ARCHIVE_PATH}" ENABLE_BITCODE=NO EXCLUDED_ARCHS="i386 armv7" SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+	LDK_C_BINDINGS_BASE="${LDK_DIRECTORY}" LDK_C_BINDINGS_BINARY_DIRECTORY="${CURRENT_LIPO_DIRECTORY_PATH}" xcodebuild archive -verbose -project "${BASEDIR}/LDKFramework/LDKFramework.xcodeproj" -scheme LDKFramework -destination "generic/platform=${CURRENT_DESTINATION_NAME}" -derivedDataPath "${CURRENT_DERIVED_DATA_DIRECTORY}" -archivePath "${CURRENT_ARCHIVE_PATH}" ENABLE_BITCODE=NO EXCLUDED_ARCHS="i386 armv7" SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
 
 	XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKFramework.framework "
 	echo "Current xcframework flags: ${XCFRAMEWORK_INPUT_FLAGS}" >> $BUILD_LOG_PATH
 	echo "" >> $BUILD_LOG_PATH
 done
 
-XCODEBUILD_COMMAND="xcodebuild -create-xcframework ${XCFRAMEWORK_INPUT_FLAGS} -output ${BUILD_PRODUCTS_DIR}/LDKFramework.xcframework"
+XCFRAMEWORK_OUTPUT_PATH="${BUILD_PRODUCTS_DIR}/${RUST_CONFIGURATION}/LDKFramework.xcframework"
+echo "Xcframework output path: ${XCFRAMEWORK_OUTPUT_PATH}" >> $BUILD_LOG_PATH
+
+rm -f "${XCFRAMEWORK_OUTPUT_PATH}"
+
+XCODEBUILD_COMMAND="xcodebuild -create-xcframework ${XCFRAMEWORK_INPUT_FLAGS} -output ${XCFRAMEWORK_OUTPUT_PATH}"
 echo "Xcode build command: ${XCODEBUILD_COMMAND}" >> $BUILD_LOG_PATH
 eval "${XCODEBUILD_COMMAND}"

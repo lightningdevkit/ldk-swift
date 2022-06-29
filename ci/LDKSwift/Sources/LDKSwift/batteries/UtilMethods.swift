@@ -7,7 +7,6 @@
 
 #if SWIFT_PACKAGE
 import LDKHeaders
-import LDKBindings
 #endif
 
 import Foundation

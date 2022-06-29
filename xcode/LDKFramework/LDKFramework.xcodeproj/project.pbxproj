@@ -363,8 +363,6 @@
 		07D3E7BE286C0B710095CCD8 /* InvoicePayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3E666286C0B700095CCD8 /* InvoicePayer.swift */; };
 		07D3E7BF286C0B710095CCD8 /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3E667286C0B700095CCD8 /* DelayedPaymentOutputDescriptor.swift */; };
 		07D3E7C6286C14360095CCD8 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D3E7C5286C142F0095CCD8 /* libldk.a */; };
-		07D3E7CB286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3E7C8286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift */; };
-		07D3E7CC286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3E7C8286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift */; };
 		07D3E7CD286C21AA0095CCD8 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3E7C9286C21AA0095CCD8 /* ChannelManagerConstructor.swift */; };
 		07D3E7CE286C21AA0095CCD8 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3E7C9286C21AA0095CCD8 /* ChannelManagerConstructor.swift */; };
 		07D3E7CF286C21AA0095CCD8 /* UtilMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3E7CA286C21AA0095CCD8 /* UtilMethods.swift */; };
@@ -742,7 +740,6 @@
 		07D3E666286C0B700095CCD8 /* InvoicePayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicePayer.swift; sourceTree = "<group>"; };
 		07D3E667286C0B700095CCD8 /* DelayedPaymentOutputDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedPaymentOutputDescriptor.swift; sourceTree = "<group>"; };
 		07D3E7C5286C142F0095CCD8 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
-		07D3E7C8286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetGraphMsgHandlerConstructor.swift; sourceTree = "<group>"; };
 		07D3E7C9286C21AA0095CCD8 /* ChannelManagerConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagerConstructor.swift; sourceTree = "<group>"; };
 		07D3E7CA286C21AA0095CCD8 /* UtilMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilMethods.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1226,7 +1223,6 @@
 		07D3E7C7286C21AA0095CCD8 /* batteries */ = {
 			isa = PBXGroup;
 			children = (
-				07D3E7C8286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift */,
 				07D3E7C9286C21AA0095CCD8 /* ChannelManagerConstructor.swift */,
 				07D3E7CA286C21AA0095CCD8 /* UtilMethods.swift */,
 			);
@@ -1635,7 +1631,6 @@
 				07D3E6BF286C0B700095CCD8 /* Result_FundingCreatedDecodeErrorZ.swift in Sources */,
 				07D3E683286C0B700095CCD8 /* NetworkUpdate.swift in Sources */,
 				07D3E6B5286C0B700095CCD8 /* C2Tuple_usizeTransactionZ.swift in Sources */,
-				07D3E7CB286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift in Sources */,
 				07D3E7AC286C0B710095CCD8 /* FundingSigned.swift in Sources */,
 				07D3E6DE286C0B700095CCD8 /* Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ.swift in Sources */,
 				07D3E6C3286C0B700095CCD8 /* Result_PingDecodeErrorZ.swift in Sources */,
@@ -1707,7 +1702,6 @@
 				07D3E7D0286C21AA0095CCD8 /* UtilMethods.swift in Sources */,
 				07344C63264277ED001CD90E /* LDKFrameworkTests.swift in Sources */,
 				07344C8826427F95001CD90E /* LDKExampleClass.swift in Sources */,
-				07D3E7CC286C21AA0095CCD8 /* NetGraphMsgHandlerConstructor.swift in Sources */,
 				0767D03F2698BB9800BEB4CC /* ldk_net.c in Sources */,
 				07D3E7CE286C21AA0095CCD8 /* ChannelManagerConstructor.swift in Sources */,
 			);

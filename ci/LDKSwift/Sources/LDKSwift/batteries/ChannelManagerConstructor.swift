@@ -7,7 +7,6 @@
 
 #if SWIFT_PACKAGE
 import LDKHeaders
-import LDKBindings
 #endif
 
 import Foundation
@@ -37,7 +36,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     fileprivate var customPersister: CustomChannelManagerPersister?
     fileprivate var customEventHandler: EventHandler?
     public private(set) var net_graph: NetworkGraph?
-    fileprivate var graph_msg_handler: NetGraphMsgHandler?
+    fileprivate var graph_msg_handler: GossipSync?
     fileprivate var scorer: MultiThreadedLockableScore?
     fileprivate let keysInterface: KeysInterface!
     public private(set) var payer: InvoicePayer?
@@ -111,7 +110,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let random_data = keys_interface.get_secure_random_bytes();
 
         if let serializedNetworkGraph = net_graph_serialized {
-            let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph)
+            let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph, arg: self.logger)
             if !netGraphResult.isOk(){
                 throw InvalidSerializedDataError.invalidSerializedNetworkGraph
             }
@@ -121,7 +120,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
-            self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
+            // TODO: fix
+            // self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
 
             // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
             // temporarily disable handling routing messages by the peer manager to avoid excessive memory growth
@@ -169,7 +169,9 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         var messageHandler: MessageHandler!
         if let netGraph = net_graph {
             let noneOption = Option_AccessZ.none()
-            self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: noneOption, logger: logger)
+            
+            // TODO: fix
+            // self.graph_msg_handler = NetGraphMsgHandler(network_graph: netGraph, chain_access: noneOption, logger: logger)
 
 
             // messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: self.graph_msg_handler!.as_RoutingMessageHandler())
@@ -227,18 +229,18 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let router = DefaultRouter(network_graph: netGraph, logger: self.logger, random_seed_bytes: self.keysInterface.get_secure_random_bytes())
             // either dangle router, or set is_owned to false
             router.cOpaqueStruct!.is_owned = false
-            self.payer = InvoicePayer(payer: self.channelManager.as_Payer(), router: router.as_Router(), scorer: scorer, logger: self.logger, event_handler: self.customEventHandler!, retry_attempts: RetryAttempts(a_arg: 3))
+            self.payer = InvoicePayer(payer: self.channelManager.as_Payer(), router: router.as_Router(), scorer: scorer, logger: self.logger, event_handler: self.customEventHandler!, retry: Retry.attempts(a: 3))
             router.cOpaqueStruct!.is_owned = true
             self.customEventHandler = self.payer!.as_EventHandler()
         }
 
         // if there is a graph msg handler, set its is_owned to false
-        self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
+        // self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
 
-        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, net_graph_msg_handler: self.graph_msg_handler, peer_manager: self.peerManager, logger: self.logger)
+        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, gossip_sync: self.graph_msg_handler, peer_manager: self.peerManager, logger: self.logger, scorer: Option_WriteableScoreZ.none())
 
         // restore it back to true
-        self.graph_msg_handler?.cOpaqueStruct?.is_owned = true
+        // self.graph_msg_handler?.cOpaqueStruct?.is_owned = true
 
         try? self.backgroundProcessor!.addAnchor(anchor: self.peerManager)
         try? self.backgroundProcessor!.addAnchor(anchor: persister)

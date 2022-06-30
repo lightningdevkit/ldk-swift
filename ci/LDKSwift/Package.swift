@@ -21,7 +21,9 @@ var linkerSettings: [PackageDescription.LinkerSetting] = [
 ]
 
 #if os(Linux)
-	linkerSettings.append(.linkedLibrary(String(utf8String: getenv("LLVM_CLANG_ASAN_PATH")!)!, .when(platforms: [.linux])))
+	if let addressSanitizerBinaryPath = getenv("LLVM_CLANG_ASAN_PATH") {
+		linkerSettings.append(.linkedLibrary(String(utf8String: addressSanitizerBinaryPath)!, .when(platforms: [.linux])))
+	}
 #else
 	linkerSettings = [
 		.unsafeFlags(["-L\(bindingsDirectory)"]),

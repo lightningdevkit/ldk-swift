@@ -59,6 +59,10 @@ public class HumanObjectPeerTestInstance {
             case failedToBindSocket
         }
 
+        fileprivate enum ChannelManagerEventError: Error {
+            case notUsingChannelManagerConstructor
+        }
+
         fileprivate actor PendingEventTracker {
 
             private(set) var pendingManagerEvents: [Event] = []
@@ -357,17 +361,19 @@ public class HumanObjectPeerTestInstance {
 
         }
 
-        fileprivate func getManagerEvents(expectedCount: UInt) async -> [Event] {
-            var response = [Event]();
-            if self.master.use_chan_manager_constructor {
-                while true {
-                    if await self.pendingEventTracker.getCount() >= expectedCount {
-                        return await self.pendingEventTracker.getAndClearEvents()
-                    }
-                    await self.pendingEventTracker.awaitAddition()
-                }
+        fileprivate func getManagerEvents(expectedCount: UInt) async throws -> [Event] {
+            guard self.master.use_chan_manager_constructor else {
+                throw ChannelManagerEventError.notUsingChannelManagerConstructor
             }
-            return response
+            while true {
+                if await self.pendingEventTracker.getCount() >= expectedCount {
+                    print("Found enough events for expected count of \(expectedCount)")
+                    let events = await self.pendingEventTracker.getAndClearEvents()
+                    print("Found event count: \(events.count)")
+                    return events
+                }
+                await self.pendingEventTracker.awaitAddition()
+            }
         }
 
         fileprivate func getPendingBroadcasts(expectedCount: UInt) async -> Set<[UInt8]> {
@@ -511,11 +517,13 @@ public class HumanObjectPeerTestInstance {
             XCTAssertNil(fundingTxo)
         }
 
-        let managerEvents = await peer1.getManagerEvents(expectedCount: 1)
+        let managerEvents = try! await peer1.getManagerEvents(expectedCount: 1)
         XCTAssertEqual(managerEvents.count, 1)
 
         let managerEvent = managerEvents[0]
-        XCTAssertEqual(managerEvent.getValueType(), .FundingGenerationReady)
+        guard case .FundingGenerationReady = managerEvent.getValueType() else {
+            return XCTAssert(false, "Expected .FundingGenerationReady, got \(managerEvent.getValueType())")
+        }
 
         let fundingReadyEvent = managerEvent.getValueAsFundingGenerationReady()!
         XCTAssertEqual(fundingReadyEvent.getChannel_value_satoshis(), FUNDING_SATOSHI_AMOUNT)
@@ -612,13 +620,17 @@ public class HumanObjectPeerTestInstance {
             let recreatedInvoice = Invoice.from_str(s: invoice.to_str())
             XCTAssertTrue(recreatedInvoice.isOk())
 
-            let invoicePaymentResult = peer1.constructor!.payer!.pay_invoice(invoice: invoice)
+            let channelManagerConstructor = peer1.constructor!
+            let invoicePayer = channelManagerConstructor.payer!
+            let invoicePaymentResult = invoicePayer.pay_invoice(invoice: invoice)
             XCTAssertTrue(invoicePaymentResult.isOk())
 
             do {
                 // process HTLCs
-                let peer2Event = await peer2.getManagerEvents(expectedCount: 1)[0]
-                XCTAssertEqual(peer2Event.getValueType(), .PendingHTLCsForwardable)
+                let peer2Event = try! await peer2.getManagerEvents(expectedCount: 1)[0]
+                guard case .PendingHTLCsForwardable = peer2Event.getValueType() else {
+                    return XCTAssert(false, "Expected .PendingHTLCsForwardable, got \(peer2Event.getValueType())")
+                }
                 let pendingHTLCsForwardable = peer2Event.getValueAsPendingHTLCsForwardable()!
                 print("forwardable time: \(pendingHTLCsForwardable.getTime_forwardable())")
                 peer2.channelManager.process_pending_htlc_forwards()
@@ -627,13 +639,17 @@ public class HumanObjectPeerTestInstance {
 
             do {
                 // process payment
-                let peer2Event = await peer2.getManagerEvents(expectedCount: 1)[0]
-                XCTAssertEqual(peer2Event.getValueType(), .PaymentReceived)
+                let peer2Event = try! await peer2.getManagerEvents(expectedCount: 1)[0]
+                guard case .PaymentReceived = peer2Event.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentReceived, got \(peer2Event.getValueType())")
+                }
                 let paymentReceived = peer2Event.getValueAsPaymentReceived()!
                 let paymentHash = paymentReceived.getPayment_hash()
                 print("received payment of \(paymentReceived.getAmount_msat()) with hash \(paymentHash)")
                 let paymentPurpose = paymentReceived.getPurpose()
-                XCTAssertEqual(paymentPurpose.getValueType(), .InvoicePayment)
+                guard case .InvoicePayment = paymentPurpose.getValueType() else {
+                    return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
+                }
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
                 let preimage = invoicePayment.getPayment_preimage()
                 let secret = invoicePayment.getPayment_secret()
@@ -643,11 +659,15 @@ public class HumanObjectPeerTestInstance {
 
             do {
                 // process payment
-                let peer1Events = await peer1.getManagerEvents(expectedCount: 2)
+                let peer1Events = try! await peer1.getManagerEvents(expectedCount: 2)
                 let paymentSentEvent = peer1Events[0]
                 let paymentPathSuccessfulEvent = peer1Events[1]
-                XCTAssertEqual(paymentSentEvent.getValueType(), .PaymentSent)
-                XCTAssertEqual(paymentPathSuccessfulEvent.getValueType(), .PaymentPathSuccessful)
+                guard case .PaymentSent = paymentSentEvent.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentSent, got \(paymentSentEvent.getValueType())")
+                }
+                guard case .PaymentPathSuccessful = paymentPathSuccessfulEvent.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentPathSuccessful, got \(paymentPathSuccessfulEvent.getValueType())")
+                }
                 let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
                 let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
                 print("sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
@@ -699,8 +719,10 @@ public class HumanObjectPeerTestInstance {
 
             do {
                 // process HTLCs
-                let peer1Event = await peer1.getManagerEvents(expectedCount: 1)[0]
-                XCTAssertEqual(peer1Event.getValueType(), .PendingHTLCsForwardable)
+                let peer1Event = try! await peer1.getManagerEvents(expectedCount: 1)[0]
+                guard case .PendingHTLCsForwardable = peer1Event.getValueType() else {
+                    return XCTAssert(false, "Expected .PendingHTLCsForwardable, got \(peer1Event.getValueType())")
+                }
                 let pendingHTLCsForwardable = peer1Event.getValueAsPendingHTLCsForwardable()!
                 print("forwardable time: \(pendingHTLCsForwardable.getTime_forwardable())")
                 peer1.channelManager.process_pending_htlc_forwards()
@@ -709,13 +731,17 @@ public class HumanObjectPeerTestInstance {
 
             do {
                 // process payment
-                let peer1Event = await peer1.getManagerEvents(expectedCount: 1)[0]
-                XCTAssertEqual(peer1Event.getValueType(), .PaymentReceived)
+                let peer1Event = try! await peer1.getManagerEvents(expectedCount: 1)[0]
+                guard case .PaymentReceived = peer1Event.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentReceived, got \(peer1Event.getValueType())")
+                }
                 let paymentReceived = peer1Event.getValueAsPaymentReceived()!
                 let paymentHash = paymentReceived.getPayment_hash()
                 print("received payment of \(paymentReceived.getAmount_msat()) with hash \(paymentHash)")
                 let paymentPurpose = paymentReceived.getPurpose()
-                XCTAssertEqual(paymentPurpose.getValueType(), .InvoicePayment)
+                guard case .InvoicePayment = paymentPurpose.getValueType() else {
+                    return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
+                }
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
                 let preimage = invoicePayment.getPayment_preimage()
                 let secret = invoicePayment.getPayment_secret()
@@ -725,14 +751,24 @@ public class HumanObjectPeerTestInstance {
 
             do {
                 // process payment
-                let peer2Events = await peer2.getManagerEvents(expectedCount: 2)
-                let paymentSentEvent = peer2Events[0]
-                let paymentPathSuccessfulEvent = peer2Events[1]
-                XCTAssertEqual(paymentSentEvent.getValueType(), .PaymentSent)
-                XCTAssertEqual(paymentPathSuccessfulEvent.getValueType(), .PaymentPathSuccessful)
+                let peer2Events = try! await peer2.getManagerEvents(expectedCount: 3)
+                print("received event count: \(peer2Events.count)")
+                let paymentClaimedEvent = peer2Events[0]
+                let paymentSentEvent = peer2Events[1]
+                let paymentPathSuccessfulEvent = peer2Events[2]
+                guard case .PaymentClaimed = paymentClaimedEvent.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentClaimed, got \(paymentClaimedEvent.getValueType())")
+                }
+                guard case .PaymentSent = paymentSentEvent.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentSent, got \(paymentSentEvent.getValueType())")
+                }
+                guard case .PaymentPathSuccessful = paymentPathSuccessfulEvent.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentPathSuccessful, got \(paymentPathSuccessfulEvent.getValueType())")
+                }
+                let paymentClaimed = paymentClaimedEvent.getValueAsPaymentClaimed()!
                 let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
                 let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
-                print("sent payment \(paymentSent.getPayment_id()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
+                print("sent payment \(paymentSent.getPayment_id()) worth \(paymentClaimed.getAmount_msat()) with fee \(paymentSent.getFee_paid_msat().getValue()) via \(paymentPathSuccessful.getPath().map { h in h.get_short_channel_id() })")
             }
 
             var currentChannelABalance = prePaymentBalanceAToB

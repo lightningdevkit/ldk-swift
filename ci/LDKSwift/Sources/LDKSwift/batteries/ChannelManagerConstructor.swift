@@ -224,6 +224,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         if let netGraph = self.net_graph, let scorer = self.scorer {
             let router = DefaultRouter(network_graph: netGraph, logger: self.logger, random_seed_bytes: self.keysInterface.get_secure_random_bytes())
             // either dangle router, or set is_owned to false
+            scorer.cOpaqueStruct!.is_owned = false
             router.cOpaqueStruct!.is_owned = false
             self.payer = InvoicePayer(payer: self.channelManager.as_Payer(), router: router.as_Router(), scorer: scorer, logger: self.logger, event_handler: self.customEventHandler!, retry: Retry.attempts(a: 3))
             router.cOpaqueStruct!.is_owned = true

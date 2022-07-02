@@ -9,6 +9,7 @@ inputs:
   workspace:
     description: Workspace Name
     required: true
+description: Build for testing.
 runs:
   using: composite
   steps:

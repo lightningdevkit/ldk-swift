@@ -11,11 +11,29 @@ if ! [[ -x "$(command -v cargo)" ]]; then
 fi
 
 set -e # stop execution upon the first error
-C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_C_BINDINGS_BASE}; pwd)/lightning-c-bindings"
+echo "LDK_C_BINDINGS_BASE: ${LDK_C_BINDINGS_BASE}"
+C_BINDINGS_SOURCE_DIRECTORY="${LDK_C_BINDINGS_BASE}/lightning-c-bindings"
+echo "C_BINDINGS_SOURCE_DIRECTORY: ${C_BINDINGS_SOURCE_DIRECTORY}"
+
+# C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_C_BINDINGS_BASE}; pwd)/lightning-c-bindings"
 
 # https://stackoverflow.com/a/4774063/299711
 BASEDIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 BUILD_LOG_PATH="${BASEDIR}/build_libldk.log"
+
+echo "BASEDIR: ${BASEDIR}"
+
+echo ""
+echo ""
+echo "ENVIRONMENT START"
+env
+echo "ENVIRONMENT END"
+echo ""
+echo ""
+
+
+cd "${LDK_C_BINDINGS_BASE}"
+echo "WORKING DIRECTORY: `pwd`"
 
 # echo -n "" > $BUILD_LOG_PATH
 touch $BUILD_LOG_PATH

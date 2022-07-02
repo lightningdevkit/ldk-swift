@@ -697,20 +697,20 @@
 		07D3F2B62870C9FA0095CCD8 /* InvoicePayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F00B2870C9F80095CCD8 /* InvoicePayer.swift */; };
 		07D3F2B72870C9FA0095CCD8 /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F00C2870C9F80095CCD8 /* DelayedPaymentOutputDescriptor.swift */; };
 		07D3F2B82870C9FA0095CCD8 /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F00C2870C9F80095CCD8 /* DelayedPaymentOutputDescriptor.swift */; };
-		754BCB5A28308BFD0050F361 /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5528308BFD0050F361 /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BCB5B28308BFD0050F361 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5628308BFD0050F361 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BCB5C28308BFD0050F361 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5728308BFD0050F361 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BCB5D28308BFD0050F361 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5828308BFD0050F361 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2BC2870DE990095CCD8 /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2B92870DE990095CCD8 /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2BD2870DE990095CCD8 /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2B92870DE990095CCD8 /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2BE2870DE990095CCD8 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2BA2870DE990095CCD8 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2BF2870DE990095CCD8 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2BA2870DE990095CCD8 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2C02870DE990095CCD8 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2BB2870DE990095CCD8 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2C12870DE990095CCD8 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2BB2870DE990095CCD8 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2C42870DEA70095CCD8 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F2C22870DEA70095CCD8 /* ldk_net.c */; };
+		07D3F2C52870DEA70095CCD8 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F2C22870DEA70095CCD8 /* ldk_net.c */; };
+		07D3F2C62870DEA70095CCD8 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2C32870DEA70095CCD8 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07D3F2C72870DEA70095CCD8 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2C32870DEA70095CCD8 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BCE1128308D700050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
 		754BD0E1283158F70050F361 /* LDKFramework_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD0E0283158F70050F361 /* LDKFramework_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BD648283159DF0050F361 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5628308BFD0050F361 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BD649283159DF0050F361 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 754BCB5428308BFD0050F361 /* ldk_net.c */; };
-		754BD64A283159DF0050F361 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5828308BFD0050F361 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BD64B283159DF0050F361 /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5528308BFD0050F361 /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BD64C283159DF0050F361 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BCB5728308BFD0050F361 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65128315A460050F361 /* LDKFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD65028315A460050F361 /* LDKFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65528315CDF0050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
-		75892D2528337060008F6E53 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 754BCB5428308BFD0050F361 /* ldk_net.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1076,12 +1076,12 @@
 		07D3F00A2870C9F80095CCD8 /* OutPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutPoint.swift; sourceTree = "<group>"; };
 		07D3F00B2870C9F80095CCD8 /* InvoicePayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicePayer.swift; sourceTree = "<group>"; };
 		07D3F00C2870C9F80095CCD8 /* DelayedPaymentOutputDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedPaymentOutputDescriptor.swift; sourceTree = "<group>"; };
+		07D3F2B92870DE990095CCD8 /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ldk_rust_types.h; path = "../../../../ldk-c-bindings/lightning-c-bindings/include/ldk_rust_types.h"; sourceTree = "<group>"; };
+		07D3F2BA2870DE990095CCD8 /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ldk_ver.h; path = "../../../../ldk-c-bindings/lightning-c-bindings/include/ldk_ver.h"; sourceTree = "<group>"; };
+		07D3F2BB2870DE990095CCD8 /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightning.h; path = "../../../../ldk-c-bindings/lightning-c-bindings/include/lightning.h"; sourceTree = "<group>"; };
+		07D3F2C22870DEA70095CCD8 /* ldk_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = ldk_net.c; path = "../../../../ldk-c-bindings/ldk-net/ldk_net.c"; sourceTree = "<group>"; };
+		07D3F2C32870DEA70095CCD8 /* ldk_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ldk_net.h; path = "../../../../ldk-c-bindings/ldk-net/ldk_net.h"; sourceTree = "<group>"; };
 		754BCB5228308BDD0050F361 /* LDKFramework.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LDKFramework.modulemap; sourceTree = "<group>"; };
-		754BCB5428308BFD0050F361 /* ldk_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldk_net.c; sourceTree = "<group>"; };
-		754BCB5528308BFD0050F361 /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_rust_types.h; sourceTree = "<group>"; };
-		754BCB5628308BFD0050F361 /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_ver.h; sourceTree = "<group>"; };
-		754BCB5728308BFD0050F361 /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lightning.h; sourceTree = "<group>"; };
-		754BCB5828308BFD0050F361 /* ldk_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_net.h; sourceTree = "<group>"; };
 		754BCE1028308D6D0050F361 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
 		754BD0DE283158F70050F361 /* LDKFramework_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LDKFramework_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		754BD0E0283158F70050F361 /* LDKFramework_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDKFramework_Mac.h; sourceTree = "<group>"; };
@@ -1514,11 +1514,11 @@
 		754BCB5328308BEF0050F361 /* headers */ = {
 			isa = PBXGroup;
 			children = (
-				754BCB5428308BFD0050F361 /* ldk_net.c */,
-				754BCB5828308BFD0050F361 /* ldk_net.h */,
-				754BCB5528308BFD0050F361 /* ldk_rust_types.h */,
-				754BCB5628308BFD0050F361 /* ldk_ver.h */,
-				754BCB5728308BFD0050F361 /* lightning.h */,
+				07D3F2B92870DE990095CCD8 /* ldk_rust_types.h */,
+				07D3F2BA2870DE990095CCD8 /* ldk_ver.h */,
+				07D3F2BB2870DE990095CCD8 /* lightning.h */,
+				07D3F2C22870DEA70095CCD8 /* ldk_net.c */,
+				07D3F2C32870DEA70095CCD8 /* ldk_net.h */,
 			);
 			path = headers;
 			sourceTree = "<group>";
@@ -1586,11 +1586,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				754BD648283159DF0050F361 /* ldk_ver.h in Headers */,
-				754BD64C283159DF0050F361 /* lightning.h in Headers */,
+				07D3F2BD2870DE990095CCD8 /* ldk_rust_types.h in Headers */,
+				07D3F2C12870DE990095CCD8 /* lightning.h in Headers */,
+				07D3F2BF2870DE990095CCD8 /* ldk_ver.h in Headers */,
+				07D3F2C72870DEA70095CCD8 /* ldk_net.h in Headers */,
 				754BD0E1283158F70050F361 /* LDKFramework_Mac.h in Headers */,
-				754BD64B283159DF0050F361 /* ldk_rust_types.h in Headers */,
-				754BD64A283159DF0050F361 /* ldk_net.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1598,10 +1598,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				754BCB5A28308BFD0050F361 /* ldk_rust_types.h in Headers */,
-				754BCB5C28308BFD0050F361 /* lightning.h in Headers */,
-				754BCB5B28308BFD0050F361 /* ldk_ver.h in Headers */,
-				754BCB5D28308BFD0050F361 /* ldk_net.h in Headers */,
+				07D3F2BC2870DE990095CCD8 /* ldk_rust_types.h in Headers */,
+				07D3F2C02870DE990095CCD8 /* lightning.h in Headers */,
+				07D3F2BE2870DE990095CCD8 /* ldk_ver.h in Headers */,
+				07D3F2C62870DEA70095CCD8 /* ldk_net.h in Headers */,
 				754BD65128315A460050F361 /* LDKFramework.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1644,7 +1644,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 754BD0E4283158F70050F361 /* Build configuration list for PBXNativeTarget "LDKFramework_Mac" */;
 			buildPhases = (
-				75A1A50028344C1800543ACC /* Copy Files From C Bindings Folder */,
 				754BD0D9283158F70050F361 /* Headers */,
 				754BD0DA283158F70050F361 /* Sources */,
 				754BD0DB283158F70050F361 /* Frameworks */,
@@ -1664,7 +1663,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75D7576D28306A430005405B /* Build configuration list for PBXNativeTarget "LDKFramework" */;
 			buildPhases = (
-				75A1A4FF28343FBB00543ACC /* Copy Files from C Bindings Folder */,
 				75D7576128306A430005405B /* Headers */,
 				75D7576228306A430005405B /* Sources */,
 				75D7576328306A430005405B /* Frameworks */,
@@ -1691,9 +1689,11 @@
 				TargetAttributes = {
 					754BD0DD283158F70050F361 = {
 						CreatedOnToolsVersion = 13.3.1;
+						LastSwiftMigration = 1340;
 					};
 					75D7576528306A430005405B = {
 						CreatedOnToolsVersion = 13.3.1;
+						LastSwiftMigration = 1340;
 					};
 					75D7577128306AD40005405B = {
 						CreatedOnToolsVersion = 13.3.1;
@@ -1739,55 +1739,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		75A1A4FF28343FBB00543ACC /* Copy Files from C Bindings Folder */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Files from C Bindings Folder";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${PROJECT_DIR}/headers/ldk_net.c",
-				"${PROJECT_DIR}/headers/ldk_net.h",
-				"${PROJECT_DIR}/headers/ldk_rust_types.h",
-				"${PROJECT_DIR}/headers/ldk_ver.h",
-				"${PROJECT_DIR}/headers/lightning.h",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "C_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
-		};
-		75A1A50028344C1800543ACC /* Copy Files From C Bindings Folder */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Files From C Bindings Folder";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${PROJECT_DIR}/headers/ldk_net.c",
-				"${PROJECT_DIR}/headers/ldk_net.h",
-				"${PROJECT_DIR}/headers/ldk_rust_types.h",
-				"${PROJECT_DIR}/headers/ldk_ver.h",
-				"${PROJECT_DIR}/headers/lightning.h",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "C_BINDINGS_SOURCE_DIRECTORY=\"$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings\"\n\nmkdir -p $PROJECT_DIR/headers\ncp \"${C_BINDINGS_SOURCE_DIRECTORY}/include/\"*.h $PROJECT_DIR/headers\ncp \"${LDK_DIRECTORY}/ldk-net/ldk_net.\"{c,h} $PROJECT_DIR/headers\n\nls -ll $PROJECT_DIR\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		754BD0DA283158F70050F361 /* Sources */ = {
@@ -1868,6 +1819,7 @@
 				07D3F2122870C9F90095CCD8 /* ShutdownScript.swift in Sources */,
 				07D3F03A2870C9F80095CCD8 /* Option_u16Z.swift in Sources */,
 				07D3F1CA2870C9F90095CCD8 /* Ping.swift in Sources */,
+				07D3F2C52870DEA70095CCD8 /* ldk_net.c in Sources */,
 				07D3F0CC2870C9F80095CCD8 /* Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift in Sources */,
 				07D3F0482870C9F80095CCD8 /* ClosureReason.swift in Sources */,
 				07D3F19E2870C9F90095CCD8 /* Result_InvoiceParseOrSemanticErrorZ.swift in Sources */,
@@ -2088,7 +2040,6 @@
 				07D3F1542870C9F90095CCD8 /* Result_WarningMessageDecodeErrorZ.swift in Sources */,
 				07D3F08E2870C9F80095CCD8 /* C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ.swift in Sources */,
 				07D3F21A2870C9F90095CCD8 /* HTLCUpdate.swift in Sources */,
-				754BD649283159DF0050F361 /* ldk_net.c in Sources */,
 				07D3F0A22870C9F80095CCD8 /* C2Tuple_u32ScriptZ.swift in Sources */,
 				07D3F1822870C9F90095CCD8 /* Result_TxCreationKeysDecodeErrorZ.swift in Sources */,
 				07D3F00E2870C9F80095CCD8 /* PaymentSendFailure.swift in Sources */,
@@ -2220,6 +2171,7 @@
 				07D3F2112870C9F90095CCD8 /* ShutdownScript.swift in Sources */,
 				07D3F0392870C9F80095CCD8 /* Option_u16Z.swift in Sources */,
 				07D3F1C92870C9F90095CCD8 /* Ping.swift in Sources */,
+				07D3F2C42870DEA70095CCD8 /* ldk_net.c in Sources */,
 				07D3F0CB2870C9F80095CCD8 /* Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift in Sources */,
 				07D3F0472870C9F80095CCD8 /* ClosureReason.swift in Sources */,
 				07D3F19D2870C9F90095CCD8 /* Result_InvoiceParseOrSemanticErrorZ.swift in Sources */,
@@ -2440,7 +2392,6 @@
 				07D3F1532870C9F90095CCD8 /* Result_WarningMessageDecodeErrorZ.swift in Sources */,
 				07D3F08D2870C9F80095CCD8 /* C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ.swift in Sources */,
 				07D3F2192870C9F90095CCD8 /* HTLCUpdate.swift in Sources */,
-				75892D2528337060008F6E53 /* ldk_net.c in Sources */,
 				07D3F0A12870C9F80095CCD8 /* C2Tuple_u32ScriptZ.swift in Sources */,
 				07D3F1812870C9F90095CCD8 /* Result_TxCreationKeysDecodeErrorZ.swift in Sources */,
 				07D3F00D2870C9F80095CCD8 /* PaymentSendFailure.swift in Sources */,
@@ -2514,6 +2465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2542,6 +2494,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -2550,6 +2503,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2585,7 +2539,8 @@
 		754BD6582831607A0050F361 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
+				LDK_C_BINDINGS_BASE = "${LDK_C_BINDINGS_BASE}";
+				LDK_C_BINDINGS_BINARY_DIRECTORY = "${LDK_C_BINDINGS_BINARY_DIRECTORY}";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2595,7 +2550,8 @@
 		754BD6592831607A0050F361 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
+				LDK_C_BINDINGS_BASE = "${LDK_C_BINDINGS_BASE}";
+				LDK_C_BINDINGS_BINARY_DIRECTORY = "${LDK_C_BINDINGS_BINARY_DIRECTORY}";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2726,6 +2682,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2753,6 +2710,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2762,6 +2720,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2797,7 +2756,8 @@
 		75D7577328306AD40005405B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
+				LDK_C_BINDINGS_BASE = "${LDK_C_BINDINGS_BASE}";
+				LDK_C_BINDINGS_BINARY_DIRECTORY = "${LDK_C_BINDINGS_BINARY_DIRECTORY}";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2806,7 +2766,8 @@
 		75D7577428306AD40005405B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				LDK_DIRECTORY = "${PROJECT_DIR}/../../bindings/artifacts/ldk-c-bindings";
+				LDK_C_BINDINGS_BASE = "${LDK_C_BINDINGS_BASE}";
+				LDK_C_BINDINGS_BINARY_DIRECTORY = "${LDK_C_BINDINGS_BINARY_DIRECTORY}";
 				PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

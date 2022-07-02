@@ -11,8 +11,7 @@ if ! [[ -x "$(command -v cargo)" ]]; then
 fi
 
 set -e # stop execution upon the first error
-
-C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings"
+C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_C_BINDINGS_BASE}; pwd)/lightning-c-bindings"
 
 # https://stackoverflow.com/a/4774063/299711
 BASEDIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
@@ -96,7 +95,8 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     rustup override unset
 
     mkdir -p "${BUILT_PRODUCTS_DIR}"
-    xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${PROJECT_DIR}/${TARGET_NAME}.a"
+    # xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${PROJECT_DIR}/${TARGET_NAME}.a"
+    xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${LDK_C_BINDINGS_BINARY_DIRECTORY}/${TARGET_NAME}.a"
 
     # print a newline at the end
     echo "" >> $BUILD_LOG_PATH

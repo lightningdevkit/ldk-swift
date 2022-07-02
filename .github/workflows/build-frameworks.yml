@@ -39,6 +39,8 @@ jobs:
           workspace: LDKFramework.xcworkspace
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+      LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
+      LDK_C_BINDINGS_BINARY_DIRECTORY: /home/runner/work/ldk-swift/ldk-swift/xcode/LDK
     steps:
     - name: Configure Xcode
       uses: maxim-lobanov/setup-xcode@v1

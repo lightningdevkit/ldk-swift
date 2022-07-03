@@ -38,7 +38,7 @@ class LNSyncHandler: ObservableObject {
         if let network = networkGraph {
             self.network = network
         } else {
-            self.network = NetworkGraph(genesis_hash: [111, 226, 140, 10, 182, 241, 179, 114, 193, 166, 162, 70, 174, 99, 247, 79, 147, 30, 131, 101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0])
+            self.network = NetworkGraph(genesis_hash: [111, 226, 140, 10, 182, 241, 179, 114, 193, 166, 162, 70, 174, 99, 247, 79, 147, 30, 131, 101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0], logger: Logger())
         }
     }
     

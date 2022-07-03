@@ -5,7 +5,7 @@
 //  Created by Arik Sosman on 7/27/21.
 //
 
-#if os(Linux)
+#if SWIFT_PACKAGE
 import LDKSwift
 import LDKHeaders
 #endif
@@ -146,19 +146,21 @@ class LDKSwiftTests: XCTestCase {
 
         let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
         let keysInterface = keysManager.as_KeysInterface()
+        
+        let logger = TestLogger()
 
         let config = UserConfig()
         let lightningNetwork = LDKNetwork_Bitcoin
-        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
+        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
 
         let scoringParams = ProbabilisticScoringParameters()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph)
+        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
         let score = probabalisticScorer.as_Score()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
         let feeEstimator = TestFeeEstimator()
         let broadcaster = TestBroadcasterInterface()
-        let logger = TestLogger()
+        
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
@@ -182,19 +184,21 @@ class LDKSwiftTests: XCTestCase {
 		let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
         let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
         let keysInterface = keysManager.as_KeysInterface()
+        
+        let logger = MuteLogger()
 
         let config = UserConfig()
         let lightningNetwork = LDKNetwork_Bitcoin
-        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
+        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
 
         let scoringParams = ProbabilisticScoringParameters()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph)
+        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
         let score = probabalisticScorer.as_Score()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
         let feeEstimator = TestFeeEstimator()
         let broadcaster = TestBroadcasterInterface()
-        let logger = MuteLogger()
+        
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 

@@ -5,7 +5,7 @@
 //  Created by Arik Sosman on 3/29/22.
 //
 
-#if os(Linux)
+#if SWIFT_PACKAGE
 import LDKSwift
 import LDKHeaders
 #endif
@@ -97,7 +97,7 @@ public class BitcoinTests: XCTestCase {
         XCTAssertEqual(blockSerialization, [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 0, 255, 255, 255, 255, 1, 160, 134, 1, 0, 0, 0, 0, 0, 34, 0, 32, 214, 232, 96, 182, 226, 231, 42, 33, 219, 246, 121, 242, 58, 123, 110, 124, 118, 63, 70, 117, 109, 247, 0, 58, 172, 198, 127, 254, 216, 194, 41, 14, 1, 1, 1, 0, 0, 0, 0])
     }
 
-    #if !os(Linux)
+    #if !SWIFT_PACKAGE
     @available(iOS 15.0, *)
 	func testRpcCalls() async throws {
 		let username = ProcessInfo.processInfo.environment["BITCOIN_REGTEST_RPC_USERNAME"] ?? "polaruser" // "alice"

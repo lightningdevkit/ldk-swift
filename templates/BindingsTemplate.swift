@@ -10,6 +10,10 @@ import Foundation
 //     import os
 // #endif
 
+#if SWIFT_PACKAGE
+import LDKHeaders
+#endif
+
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -264,7 +268,7 @@ public class Bindings {
         let key = instance.globalInstanceNumber
         let pointer = UnsafeMutableRawPointer(bitPattern: key)!
 		// don't automatically cache the trait instance
-		// Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+		Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
 		return pointer
 	}
 
@@ -285,20 +289,22 @@ public class Bindings {
         if referenceCount == 0 {
             print("Uncaching global instance \(key)")
             // TODO: fix counting
-            Self.nativelyExposedInstances.removeValue(forKey: key)
-            instance.pointerDebugDescription = nil
+            // Self.nativelyExposedInstances.removeValue(forKey: key)
+            // instance.pointerDebugDescription = nil
         } else if referenceCount < 0 {
             print("Bad uncache: negative reference count (\(referenceCount)) for instance \(key)!", severity: .ERROR)
         }
         return true
     }
 
+	/*
     public class func clearInstancePointers() {
         for (_, currentInstance) in Self.nativelyExposedInstances {
             currentInstance.pointerDebugDescription = nil
         }
         Self.nativelyExposedInstances.removeAll()
     }
+    */
 
 	/* SWIFT_TO_RUST_START */
 	public class func new_LDKTransactionWrapper(array: [UInt8]) -> LDKTransactionWrapper {
@@ -414,6 +420,7 @@ public class Bindings {
         return LDKStr(chars: nativeType, len: UInt(string.count), chars_is_owned: chars_is_owned)
     }
 
+	/*
     public class func createInvoiceFromChannelManager(channelManager: ChannelManager, keysManager: KeysInterface, network: LDKCurrency, amountMsat: UInt64?, description: String) -> Result_InvoiceSignOrCreationErrorZ {
 		let nativeKeysManager = keysManager.cOpaqueStruct!
 		let amount = Option_u64Z(value: amountMsat)
@@ -425,7 +432,6 @@ public class Bindings {
 		}
 	}
 
-	/*
 	public class func getRoute(our_node_id: [UInt8], network: NetworkGraph, payee: [UInt8], payee_features: InvoiceFeatures, first_hops: [LDKChannelDetails], last_hops: [LDKRouteHint], final_value_msat: UInt64, final_cltv: UInt32, logger: Logger) -> Result_RouteLightningErrorZ {
 		return withUnsafePointer(to: network.cOpaqueStruct!) { (networkPointer: UnsafePointer<LDKNetworkGraph>) in
 			var mutableHops = Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: first_hops).cOpaqueStruct!

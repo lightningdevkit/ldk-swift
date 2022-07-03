@@ -17,6 +17,7 @@ jobs:
   build:
     name: Build (${{ matrix.configuration['scheme'] }} - ${{ matrix.configuration['platform'] }})
     runs-on: macos-12
+    continue-on-error: true
     strategy:
       fail-fast: false
       matrix:

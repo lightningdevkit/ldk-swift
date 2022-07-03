@@ -61,7 +61,7 @@ class PolarConnectionExperiment: ObservableObject {
             let chainTipHash = self.blockchainObserver.chainTipHash
             let chainTipHeight = self.blockchainObserver.chainTipHeight
             
-            let networkGraph = NetworkGraph(genesis_hash: genesis_hash)
+            let networkGraph = NetworkGraph(genesis_hash: genesis_hash, logger: self.logger)
             
 
             

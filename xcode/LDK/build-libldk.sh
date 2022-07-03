@@ -11,8 +11,40 @@ if ! [[ -x "$(command -v cargo)" ]]; then
 fi
 
 set -e # stop execution upon the first error
+echo "LDK_C_BINDINGS_BASE: ${LDK_C_BINDINGS_BASE}"
+C_BINDINGS_SOURCE_DIRECTORY="${LDK_C_BINDINGS_BASE}/lightning-c-bindings"
+echo "C_BINDINGS_SOURCE_DIRECTORY: ${C_BINDINGS_SOURCE_DIRECTORY}"
 
-C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_DIRECTORY}; pwd)/lightning-c-bindings"
+# C_BINDINGS_SOURCE_DIRECTORY="$(cd ${LDK_C_BINDINGS_BASE}; pwd)/lightning-c-bindings"
+
+# https://stackoverflow.com/a/4774063/299711
+BASEDIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+BUILD_LOG_PATH="${BASEDIR}/build_libldk.log"
+
+echo "BASEDIR: ${BASEDIR}"
+
+cd "${LDK_C_BINDINGS_BASE}"
+echo "WORKING DIRECTORY: `pwd`"
+
+echo -n "" > $BUILD_LOG_PATH
+# touch $BUILD_LOG_PATH
+
+# create two newlines at the beginning
+echo "" >> $BUILD_LOG_PATH
+
+echo "Platform name: ${PLATFORM_NAME}" >> $BUILD_LOG_PATH
+echo "Configuration: ${CONFIGURATION}" >> $BUILD_LOG_PATH
+echo "LLVM Target Triple Suffix: ${LLVM_TARGET_TRIPLE_SUFFIX}" >> $BUILD_LOG_PATH
+
+# copy headers
+HEADER_OUTPUT_DIRECTORY="${BASEDIR}/headers"
+echo "Copying headers to ${HEADER_OUTPUT_DIRECTORY}" >> $BUILD_LOG_PATH
+mkdir -p "${HEADER_OUTPUT_DIRECTORY}"
+cp "${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/ldk_rust_types.h" "${HEADER_OUTPUT_DIRECTORY}"
+cp "${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/ldk_ver.h" "${HEADER_OUTPUT_DIRECTORY}"
+cp "${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/lightning.h" "${HEADER_OUTPUT_DIRECTORY}"
+cp "${LDK_C_BINDINGS_BASE}/ldk-net/ldk_net.c" "${HEADER_OUTPUT_DIRECTORY}"
+cp "${LDK_C_BINDINGS_BASE}/ldk-net/ldk_net.h" "${HEADER_OUTPUT_DIRECTORY}"
 
 if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     TARGET_NAME="libldk"
@@ -36,6 +68,7 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     # Clean any pre-existing static libraries that doesn't align with what we're currently trying to build
     for ARCH in $ARCHS
     do
+    	echo "Current Architecture: ${ARCH}" >> $BUILD_LOG_PATH
         if [[ $(lipo -info "${BUILT_PRODUCTS_DIR}/${TARGET_NAME}" 2>&1) != *"${ARCH}"* ]]; then
             rm -f "${BUILT_PRODUCTS_DIR}/${TARGET_NAME}"
         fi
@@ -58,6 +91,7 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     EXECUTABLES=()
     for ARCH in $ARCHS
     do
+    	echo "CURRENT ARCHITECTURE: ${ARCH}"
         RUST_ARCH=$ARCH
         if [[ $RUST_ARCH = "arm64" ]]; then
             RUST_ARCH="aarch64"
@@ -80,5 +114,9 @@ if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     rustup override unset
 
     mkdir -p "${BUILT_PRODUCTS_DIR}"
-    xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${PROJECT_DIR}/${TARGET_NAME}.a"
+    # xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${PROJECT_DIR}/${TARGET_NAME}.a"
+    xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${LDK_C_BINDINGS_BINARY_DIRECTORY}/${TARGET_NAME}.a"
+
+    # print a newline at the end
+    echo "" >> $BUILD_LOG_PATH
 fi

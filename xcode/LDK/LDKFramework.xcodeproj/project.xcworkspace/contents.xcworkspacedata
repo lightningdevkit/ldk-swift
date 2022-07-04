@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/jurvistest/Projects/ldk/ldk-swift/xcode/LDK/LightningDevKit.xcodeproj">
+      location = "self:/Users/jurvistest/Projects/ldk/ldk-swift/xcode/LDK/LDKFramework.xcodeproj">
    </FileRef>
 </Workspace>

@@ -1,10 +1,10 @@
-framework module LightningDevKit_Mac {
-  umbrella header "LightningDevKit_Mac.h"
+framework module LDKFramework {
+  umbrella header "LDKFramework.h"
 
   module * { export * }
   export *
 
-  explicit module LightningDevKit {
+  explicit module LDK {
     header "ldk_rust_types.h"
     header "lightning.h"
     header "ldk_ver.h"

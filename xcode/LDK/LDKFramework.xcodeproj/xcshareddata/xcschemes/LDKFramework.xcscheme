@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "754BD0DD283158F70050F361"
-               BuildableName = "LightningDevKit_Mac.framework"
-               BlueprintName = "LightningDevKit_Mac"
-               ReferencedContainer = "container:LightningDevKit.xcodeproj">
+               BlueprintIdentifier = "75D7576528306A430005405B"
+               BuildableName = "LDKFramework.framework"
+               BlueprintName = "LDKFramework"
+               ReferencedContainer = "container:LDKFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,10 +50,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "754BD0DD283158F70050F361"
-            BuildableName = "LightningDevKit_Mac.framework"
-            BlueprintName = "LightningDevKit_Mac"
-            ReferencedContainer = "container:LightningDevKit.xcodeproj">
+            BlueprintIdentifier = "75D7576528306A430005405B"
+            BuildableName = "LDKFramework.framework"
+            BlueprintName = "LDKFramework"
+            ReferencedContainer = "container:LDKFramework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
@@ -63,5 +63,14 @@
    <ArchiveAction
       buildConfiguration = "Release"
       revealArchiveInOrganizer = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "# Type a script or drag a script file from your workspace to insert its path.&#10;rm -f libldk.a&#10;">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
    </ArchiveAction>
 </Scheme>

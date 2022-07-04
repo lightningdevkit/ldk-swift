@@ -14,10 +14,8 @@ ci/LDKSwift/Sources/*
 !ci/LDKSwift/Sources/LDKSwift/bindings/Bindings.swift
 
 /xcode/LDKFramework/Build/
-/xcode/LDKFramework/LDKFramework.xcodeproj/project.xcworkspace/
 /xcode/LDKFramework/LDKFramework.xcodeproj/xcuserdata/
 /xcode/DirectBindingsApp/Build/
-/xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/project.xcworkspace/
 /xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/xcuserdata/
 
 ## User settings

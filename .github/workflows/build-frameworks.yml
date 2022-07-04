@@ -24,19 +24,19 @@ jobs:
                     -   scheme: LDKFramework
                         destination: generic/platform=iOS
                         platform: iOS
-                        workspace: LDKFramework.xcworkspace
+                        project: LDK/LightningDevKit.xcodeproj
                     -   scheme: LDKFramework
                         destination: platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro
                         platform: iOS Simulator
-                        workspace: LDKFramework.xcworkspace
+                        project: LDK/LightningDevKit.xcodeproj
                     -   scheme: LDKFramework_Mac
                         destination: generic/platform=OS X
                         platform: OS X
-                        workspace: LDKFramework.xcworkspace
+                        project: LDK/LightningDevKit.xcodeproj
                     -   scheme: LDKFramework
                         destination: platform=macOS,variant=Mac Catalyst,arch=x86_64
                         platform: Mac Catalyst
-                        workspace: LDKFramework.xcworkspace
+                        project: LDK/LightningDevKit.xcodeproj
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
             LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
@@ -54,6 +54,6 @@ jobs:
                 id: build
                 uses: ./.github/actions/build-for-testing
                 with:
-                    workspace: ${{ matrix.configuration['workspace'] }}
+                    project: ${{ matrix.configuration['project'] }}
                     scheme: ${{ matrix.configuration['scheme'] }}
                     destination: ${{ matrix.configuration['destination'] }}

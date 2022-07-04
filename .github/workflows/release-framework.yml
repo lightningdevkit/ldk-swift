@@ -21,19 +21,19 @@ jobs:
         - scheme: LDKFramework
           destination: generic/platform=iOS
           platform: iOS
-          workspace: LDKFramework.xcworkspace
+          project: LDK/LightningDevKit.xcodeproj
         - scheme: LDKFramework
           destination: generic/platform=iOS Simulator
           platform: iOS Simulator
-          workspace: LDKFramework.xcworkspace
+          project: LDK/LightningDevKit.xcodeproj
         - scheme: LDKFramework_Mac
           destination: generic/platform=OS X
           platform: Darwin
-          workspace: LDKFramework.xcworkspace
+          project: LDK/LightningDevKit.xcodeproj
         - scheme: LDKFramework
           destination: generic/platform=macOS
           platform: Catalyst
-          workspace: LDKFramework.xcworkspace
+          project: LDK/LightningDevKit.xcodeproj
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
       BUILD_DIR: ./build
@@ -51,7 +51,7 @@ jobs:
     - name: Archive
       uses: ./.github/actions/archive-framework
       with:
-        workspace: ${{ matrix.configuration['workspace'] }}
+        project: ${{ matrix.configuration['project'] }}
         scheme: ${{ matrix.configuration['scheme'] }}
         destination: ${{ matrix.configuration['destination'] }}
         platform: ${{ matrix.configuration['platform'] }}

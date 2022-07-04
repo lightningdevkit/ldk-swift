@@ -19,7 +19,7 @@ rm -f LDK/libldk.a
 # Build for iOS
 xcodebuild archive \
     -scheme LDKFramework \
-    -workspace 'LDKFramework.xcworkspace' \
+    -project 'LDK/LightningDevKit.xcodeproj' \
     -destination 'generic/platform=iOS' \
     -archivePath ${BUILD_DIR}/LDKFramework-iOS \
     ENABLE_BITCODE=NO \
@@ -30,7 +30,7 @@ rm -f LDK/libldk.a
 # Build for iOS Simulator
 xcodebuild archive \
     -scheme LDKFramework \
-    -workspace 'LDKFramework.xcworkspace' \
+    -project 'LDK/LightningDevKit.xcodeproj' \
     -destination 'generic/platform=iOS Simulator' \
     -archivePath ${BUILD_DIR}/LDKFramework-Sim \
     ENABLE_BITCODE=NO \
@@ -41,7 +41,7 @@ rm -f LDK/libldk.a
 # Build for OS X Darwin
 xcodebuild archive \
     -scheme LDKFramework_Mac \
-    -workspace 'LDKFramework.xcworkspace' \
+    -project 'LDK/LightningDevKit.xcodeproj' \
     -destination 'generic/platform=OS X' \
     -archivePath ${BUILD_DIR}/LDKFramework-Darwin \
     ENABLE_BITCODE=NO \
@@ -52,7 +52,7 @@ rm -f LDK/libldk.a
 # Build for macOS Catalyst
 xcodebuild archive \
     -scheme LDKFramework \
-    -workspace 'LDKFramework.xcworkspace' \
+    -project 'LDK/LightningDevKit.xcodeproj' \
     -destination 'generic/platform=macOS' \
     -archivePath ${BUILD_DIR}/LDKFramework-Catalyst \
     ENABLE_BITCODE=NO \

@@ -708,8 +708,8 @@
 		07D3F2EE287107AB0095CCD8 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2E5287107AB0095CCD8 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3F2EF287107AB0095CCD8 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2E5287107AB0095CCD8 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BCE1128308D700050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
-		754BD0E1283158F70050F361 /* LDKFramework_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD0E0283158F70050F361 /* LDKFramework_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		754BD65128315A460050F361 /* LDKFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD65028315A460050F361 /* LDKFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		754BD0E1283158F70050F361 /* LightningDevKit_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD0E0283158F70050F361 /* LightningDevKit_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		754BD65128315A460050F361 /* LightningDevKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD65028315A460050F361 /* LightningDevKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65528315CDF0050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
 /* End PBXBuildFile section */
 
@@ -1081,13 +1081,13 @@
 		07D3F2E3287107AB0095CCD8 /* ldk_net.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_net.h; sourceTree = "<group>"; };
 		07D3F2E4287107AB0095CCD8 /* ldk_net.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ldk_net.c; sourceTree = "<group>"; };
 		07D3F2E5287107AB0095CCD8 /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ldk_ver.h; sourceTree = "<group>"; };
-		754BCB5228308BDD0050F361 /* LDKFramework.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LDKFramework.modulemap; sourceTree = "<group>"; };
+		754BCB5228308BDD0050F361 /* LightningDevKit.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LightningDevKit.modulemap; sourceTree = "<group>"; };
 		754BCE1028308D6D0050F361 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
-		754BD0DE283158F70050F361 /* LDKFramework_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LDKFramework_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		754BD0E0283158F70050F361 /* LDKFramework_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LDKFramework_Mac.h; sourceTree = "<group>"; };
-		754BD65028315A460050F361 /* LDKFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LDKFramework.h; sourceTree = "<group>"; };
-		754BD65228315A620050F361 /* LDKFramework_Mac.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LDKFramework_Mac.modulemap; sourceTree = "<group>"; };
-		75D7576628306A430005405B /* LDKFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LDKFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		754BD0DE283158F70050F361 /* LightningDevKit_Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LightningDevKit_Mac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		754BD0E0283158F70050F361 /* LightningDevKit_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LightningDevKit_Mac.h; sourceTree = "<group>"; };
+		754BD65028315A460050F361 /* LightningDevKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LightningDevKit.h; sourceTree = "<group>"; };
+		754BD65228315A620050F361 /* LightningDevKit_Mac.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = LightningDevKit_Mac.modulemap; sourceTree = "<group>"; };
+		75D7576628306A430005405B /* LightningDevKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LightningDevKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1531,13 +1531,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		754BD0DF283158F70050F361 /* LDKFramework_Mac */ = {
+		754BD0DF283158F70050F361 /* LightningDevKit_Mac */ = {
 			isa = PBXGroup;
 			children = (
-				754BD65228315A620050F361 /* LDKFramework_Mac.modulemap */,
-				754BD0E0283158F70050F361 /* LDKFramework_Mac.h */,
+				754BD65228315A620050F361 /* LightningDevKit_Mac.modulemap */,
+				754BD0E0283158F70050F361 /* LightningDevKit_Mac.h */,
 			);
-			path = LDKFramework_Mac;
+			path = LightningDevKit_Mac;
 			sourceTree = "<group>";
 		};
 		754BD2412831599B0050F361 /* Common */ = {
@@ -1554,8 +1554,8 @@
 			isa = PBXGroup;
 			children = (
 				754BD2412831599B0050F361 /* Common */,
-				75D7576828306A430005405B /* LDKFramework */,
-				754BD0DF283158F70050F361 /* LDKFramework_Mac */,
+				75D7576828306A430005405B /* LightningDevKit */,
+				754BD0DF283158F70050F361 /* LightningDevKit_Mac */,
 				75D7576728306A430005405B /* Products */,
 				754BCE0F28308D6D0050F361 /* Frameworks */,
 			);
@@ -1564,19 +1564,19 @@
 		75D7576728306A430005405B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				75D7576628306A430005405B /* LDKFramework.framework */,
-				754BD0DE283158F70050F361 /* LDKFramework_Mac.framework */,
+				75D7576628306A430005405B /* LightningDevKit.framework */,
+				754BD0DE283158F70050F361 /* LightningDevKit_Mac.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		75D7576828306A430005405B /* LDKFramework */ = {
+		75D7576828306A430005405B /* LightningDevKit */ = {
 			isa = PBXGroup;
 			children = (
-				754BCB5228308BDD0050F361 /* LDKFramework.modulemap */,
-				754BD65028315A460050F361 /* LDKFramework.h */,
+				754BCB5228308BDD0050F361 /* LightningDevKit.modulemap */,
+				754BD65028315A460050F361 /* LightningDevKit.h */,
 			);
-			path = LDKFramework;
+			path = LightningDevKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1590,7 +1590,7 @@
 				07D3F2E9287107AB0095CCD8 /* lightning.h in Headers */,
 				07D3F2E7287107AB0095CCD8 /* ldk_rust_types.h in Headers */,
 				07D3F2EF287107AB0095CCD8 /* ldk_ver.h in Headers */,
-				754BD0E1283158F70050F361 /* LDKFramework_Mac.h in Headers */,
+				754BD0E1283158F70050F361 /* LightningDevKit_Mac.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1602,7 +1602,7 @@
 				07D3F2E8287107AB0095CCD8 /* lightning.h in Headers */,
 				07D3F2E6287107AB0095CCD8 /* ldk_rust_types.h in Headers */,
 				07D3F2EE287107AB0095CCD8 /* ldk_ver.h in Headers */,
-				754BD65128315A460050F361 /* LDKFramework.h in Headers */,
+				754BD65128315A460050F361 /* LightningDevKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1640,9 +1640,9 @@
 /* End PBXLegacyTarget section */
 
 /* Begin PBXNativeTarget section */
-		754BD0DD283158F70050F361 /* LDKFramework_Mac */ = {
+		754BD0DD283158F70050F361 /* LightningDevKit_Mac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 754BD0E4283158F70050F361 /* Build configuration list for PBXNativeTarget "LDKFramework_Mac" */;
+			buildConfigurationList = 754BD0E4283158F70050F361 /* Build configuration list for PBXNativeTarget "LightningDevKit_Mac" */;
 			buildPhases = (
 				754BD0D9283158F70050F361 /* Headers */,
 				754BD0DA283158F70050F361 /* Sources */,
@@ -1654,14 +1654,14 @@
 			dependencies = (
 				754BD65B283160900050F361 /* PBXTargetDependency */,
 			);
-			name = LDKFramework_Mac;
+			name = LightningDevKit_Mac;
 			productName = LDKFramework_Mac;
-			productReference = 754BD0DE283158F70050F361 /* LDKFramework_Mac.framework */;
+			productReference = 754BD0DE283158F70050F361 /* LightningDevKit_Mac.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		75D7576528306A430005405B /* LDKFramework */ = {
+		75D7576528306A430005405B /* LightningDevKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 75D7576D28306A430005405B /* Build configuration list for PBXNativeTarget "LDKFramework" */;
+			buildConfigurationList = 75D7576D28306A430005405B /* Build configuration list for PBXNativeTarget "LightningDevKit" */;
 			buildPhases = (
 				75D7576128306A430005405B /* Headers */,
 				75D7576228306A430005405B /* Sources */,
@@ -1673,9 +1673,9 @@
 			dependencies = (
 				754BCE1628309A090050F361 /* PBXTargetDependency */,
 			);
-			name = LDKFramework;
+			name = LightningDevKit;
 			productName = LDK;
-			productReference = 75D7576628306A430005405B /* LDKFramework.framework */;
+			productReference = 75D7576628306A430005405B /* LightningDevKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -1700,7 +1700,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 75D7576028306A430005405B /* Build configuration list for PBXProject "LDKFramework" */;
+			buildConfigurationList = 75D7576028306A430005405B /* Build configuration list for PBXProject "LightningDevKit" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1713,9 +1713,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				75D7576528306A430005405B /* LDKFramework */,
+				75D7576528306A430005405B /* LightningDevKit */,
 				75D7577128306AD40005405B /* libldk */,
-				754BD0DD283158F70050F361 /* LDKFramework_Mac */,
+				754BD0DD283158F70050F361 /* LightningDevKit_Mac */,
 				754BD6562831607A0050F361 /* libldk_mac */,
 			);
 		};
@@ -2483,7 +2483,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				MODULEMAP_FILE = LDKFramework_Mac/LDKFramework_Mac.modulemap;
+				MODULEMAP_FILE = LightningDevKit_Mac/LightningDevKit_Mac.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.undertide.LDKFramework-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -2516,7 +2516,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
 				MARKETING_VERSION = 1.0;
-				MODULEMAP_FILE = LDKFramework_Mac/LDKFramework_Mac.modulemap;
+				MODULEMAP_FILE = LightningDevKit_Mac/LightningDevKit_Mac.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = "co.undertide.LDKFramework-Mac";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
@@ -2707,7 +2707,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				MODULEMAP_FILE = LDKFramework/LDKFramework.modulemap;
+				MODULEMAP_FILE = LightningDevKit/LightningDevKit.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = co.undertide.LDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -2740,7 +2740,7 @@
 					"@loader_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				MODULEMAP_FILE = LDKFramework/LDKFramework.modulemap;
+				MODULEMAP_FILE = LightningDevKit/LightningDevKit.modulemap;
 				PRODUCT_BUNDLE_IDENTIFIER = co.undertide.LDK;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -2770,7 +2770,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		754BD0E4283158F70050F361 /* Build configuration list for PBXNativeTarget "LDKFramework_Mac" */ = {
+		754BD0E4283158F70050F361 /* Build configuration list for PBXNativeTarget "LightningDevKit_Mac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				754BD0E2283158F70050F361 /* Debug */,
@@ -2788,7 +2788,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		75D7576028306A430005405B /* Build configuration list for PBXProject "LDKFramework" */ = {
+		75D7576028306A430005405B /* Build configuration list for PBXProject "LightningDevKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				75D7576B28306A430005405B /* Debug */,
@@ -2797,7 +2797,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		75D7576D28306A430005405B /* Build configuration list for PBXNativeTarget "LDKFramework" */ = {
+		75D7576D28306A430005405B /* Build configuration list for PBXNativeTarget "LightningDevKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				75D7576E28306A430005405B /* Debug */,

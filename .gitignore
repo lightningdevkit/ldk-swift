@@ -26,3 +26,4 @@ xcode/LDK/headers/*
 xcuserdata/
 /bindings/artifacts
 /xcode/DirectBindingsApp/headers
+/xcode/LDK/build_libldk.log

@@ -25,11 +25,11 @@ jobs:
         - scheme: DirectBindingsApp
           destination: platform=iOS Simulator,OS=15.4,name=iPhone 13 Pro
           platform: iOS Simulator
-          project: DirectBindingsApp/DirectBindingsApp.xcodeproj
+          workspace: LDKFramework.xcworkspace
         - scheme: DirectBindingsAppTests
           destination: platform=iOS Simulator,OS=15.4,name=iPhone 13 Pro
           platform: iOS Simulator
-          project: DirectBindingsApp/DirectBindingsApp.xcodeproj
+          workspace: LDKFramework.xcworkspace
           xcode-unit-test: DirectBindingsAppTests
     env:
       DEVELOPER_DIR: /Applications/Xcode_13.3.1.app/Contents/Developer
@@ -46,7 +46,7 @@ jobs:
       id: build
       uses: ./.github/actions/build-for-testing
       with:
-        project: ${{ matrix.configuration['project'] }}
+        workspace: ${{ matrix.configuration['workspace'] }}
         scheme: ${{ matrix.configuration['scheme'] }}
         destination: ${{ matrix.configuration['destination'] }}
     - name: Xcode Unit Test
@@ -54,7 +54,7 @@ jobs:
       continue-on-error: true
       uses: ./.github/actions/test-without-building
       with:
-        project: ${{ matrix.configuration['project'] }}
+        workspace: ${{ matrix.configuration['workspace'] }}
         scheme: ${{ matrix.configuration['scheme'] }}
         destination: ${{ matrix.configuration['destination'] }}
         test-plan: ${{ matrix.configuration['xcode-unit-test'] }}

@@ -15,8 +15,8 @@ inputs:
   check-name:
     description: The check name
     required: true
-  project:
-    description: Project directory, relative to the xcode folder
+  workspace:
+    description: Workspace Name
     required: true
 runs:
   using: composite
@@ -30,7 +30,7 @@ runs:
       cd xcode
 
       xcodebuild test-without-building \
-      -project '${{ inputs.project }}' \
+      -workspace '${{ inputs.workspace }}' \
       -scheme '${{ inputs.scheme }}' \
       -destination '${{ inputs.destination }}' \
       -resultBundlePath "${{ inputs.artifact-prefix }}-${{ steps.vars.outputs.sha_short }}.xcresult"

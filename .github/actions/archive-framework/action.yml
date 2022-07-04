@@ -6,8 +6,8 @@ inputs:
   destination:
     description: Destination
     required: true
-  project:
-    description: Project directory, relative to the xcode folder
+  workspace:
+    description: Workspace Name
     required: true
   platform:
     description: Platform Name
@@ -22,7 +22,7 @@ runs:
 
       xcodebuild archive \
         -scheme '${{ inputs.scheme }}' \
-        -project '${{ inputs.project }}' \
+        -workspace '${{ inputs.workspace }}' \
         -destination '${{ inputs.destination }}' \
         -archivePath "$BUILD_DIR/LDKFramework-${{ inputs.platform }}" \
         ENABLE_BITCODE=NO \

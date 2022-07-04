@@ -6,8 +6,8 @@ inputs:
   destination:
     description: Destination
     required: true
-  project:
-    description: Project directory, relative to the xcode folder
+  workspace:
+    description: Workspace Name
     required: true
 description: Build for testing.
 runs:
@@ -21,7 +21,7 @@ runs:
       xcodebuild clean build-for-testing \
         -allowProvisioningUpdates \
         -allowProvisioningDeviceRegistration \
-        -project '${{ inputs.project }}' \
+        -workspace '${{ inputs.workspace }}' \
         -scheme '${{ inputs.scheme }}' \
         -destination '${{ inputs.destination }}' \
         -resultBundlePath BuildResults.xcresult \

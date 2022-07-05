@@ -25,7 +25,6 @@ jobs:
                         destination: generic/platform=iOS
                         platform: iOS
                         project: LDK/LDKFramework.xcodeproj
-                        workspace: LDKFramework.xcworkspace
                     -   scheme: LDKFramework
                         destination: platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro
                         platform: iOS Simulator

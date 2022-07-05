@@ -6,8 +6,8 @@ inputs:
   destination:
     description: Destination
     required: true
-  workspace:
-    description: Workspace Name
+  platform:
+    description: Platform Name
     required: true
   project:
     description: Project directory, relative to the xcode folder

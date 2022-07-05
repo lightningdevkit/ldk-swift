@@ -703,14 +703,14 @@
 		07D3F2E9287107AB0095CCD8 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2E2287107AB0095CCD8 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3F2EA287107AB0095CCD8 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2E3287107AB0095CCD8 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3F2EB287107AB0095CCD8 /* ldk_net.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2E3287107AB0095CCD8 /* ldk_net.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		07D3F2EC287107AB0095CCD8 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F2E4287107AB0095CCD8 /* ldk_net.c */; };
-		07D3F2ED287107AB0095CCD8 /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F2E4287107AB0095CCD8 /* ldk_net.c */; };
 		07D3F2EE287107AB0095CCD8 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2E5287107AB0095CCD8 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07D3F2EF287107AB0095CCD8 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D3F2E5287107AB0095CCD8 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BCE1128308D700050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
 		754BD0E1283158F70050F361 /* LDKFramework_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD0E0283158F70050F361 /* LDKFramework_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65128315A460050F361 /* LDKFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 754BD65028315A460050F361 /* LDKFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754BD65528315CDF0050F361 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 754BCE1028308D6D0050F361 /* libldk.a */; };
+		75D9B6B628740A7600CB299A /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F2E4287107AB0095CCD8 /* ldk_net.c */; };
+		75D9B6B728740A7800CB299A /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07D3F2E4287107AB0095CCD8 /* ldk_net.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1819,7 +1819,7 @@
 				07D3F2122870C9F90095CCD8 /* ShutdownScript.swift in Sources */,
 				07D3F03A2870C9F80095CCD8 /* Option_u16Z.swift in Sources */,
 				07D3F1CA2870C9F90095CCD8 /* Ping.swift in Sources */,
-				07D3F2ED287107AB0095CCD8 /* ldk_net.c in Sources */,
+				75D9B6B628740A7600CB299A /* ldk_net.c in Sources */,
 				07D3F0CC2870C9F80095CCD8 /* Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift in Sources */,
 				07D3F0482870C9F80095CCD8 /* ClosureReason.swift in Sources */,
 				07D3F19E2870C9F90095CCD8 /* Result_InvoiceParseOrSemanticErrorZ.swift in Sources */,
@@ -2171,7 +2171,7 @@
 				07D3F2112870C9F90095CCD8 /* ShutdownScript.swift in Sources */,
 				07D3F0392870C9F80095CCD8 /* Option_u16Z.swift in Sources */,
 				07D3F1C92870C9F90095CCD8 /* Ping.swift in Sources */,
-				07D3F2EC287107AB0095CCD8 /* ldk_net.c in Sources */,
+				75D9B6B728740A7800CB299A /* ldk_net.c in Sources */,
 				07D3F0CB2870C9F80095CCD8 /* Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift in Sources */,
 				07D3F0472870C9F80095CCD8 /* ClosureReason.swift in Sources */,
 				07D3F19D2870C9F90095CCD8 /* Result_InvoiceParseOrSemanticErrorZ.swift in Sources */,

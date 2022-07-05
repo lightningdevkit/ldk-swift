@@ -36,16 +36,6 @@ echo "Platform name: ${PLATFORM_NAME}" >> $BUILD_LOG_PATH
 echo "Configuration: ${CONFIGURATION}" >> $BUILD_LOG_PATH
 echo "LLVM Target Triple Suffix: ${LLVM_TARGET_TRIPLE_SUFFIX}" >> $BUILD_LOG_PATH
 
-# copy headers
-HEADER_OUTPUT_DIRECTORY="${BASEDIR}/headers"
-echo "Copying headers to ${HEADER_OUTPUT_DIRECTORY}" >> $BUILD_LOG_PATH
-mkdir -p "${HEADER_OUTPUT_DIRECTORY}"
-cp "${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/ldk_rust_types.h" "${HEADER_OUTPUT_DIRECTORY}"
-cp "${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/ldk_ver.h" "${HEADER_OUTPUT_DIRECTORY}"
-cp "${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/lightning.h" "${HEADER_OUTPUT_DIRECTORY}"
-cp "${LDK_C_BINDINGS_BASE}/ldk-net/ldk_net.c" "${HEADER_OUTPUT_DIRECTORY}"
-cp "${LDK_C_BINDINGS_BASE}/ldk-net/ldk_net.h" "${HEADER_OUTPUT_DIRECTORY}"
-
 if [[ ${ACTION:-build} = "build" || $ACTION = "install" ]]; then
     TARGET_NAME="libldk"
 

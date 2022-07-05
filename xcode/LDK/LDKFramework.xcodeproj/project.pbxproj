@@ -1644,6 +1644,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 754BD0E4283158F70050F361 /* Build configuration list for PBXNativeTarget "LDKFramework_Mac" */;
 			buildPhases = (
+				75DC70B72874ABB500BB04A0 /* Copy Files from C Bindings Folder */,
 				754BD0D9283158F70050F361 /* Headers */,
 				754BD0DA283158F70050F361 /* Sources */,
 				754BD0DB283158F70050F361 /* Frameworks */,
@@ -1663,6 +1664,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 75D7576D28306A430005405B /* Build configuration list for PBXNativeTarget "LDKFramework" */;
 			buildPhases = (
+				75DC70B62874A1A500BB04A0 /* Copy Files from C Bindings Folder */,
 				75D7576128306A430005405B /* Headers */,
 				75D7576228306A430005405B /* Sources */,
 				75D7576328306A430005405B /* Frameworks */,
@@ -1739,6 +1741,55 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		75DC70B62874A1A500BB04A0 /* Copy Files from C Bindings Folder */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Files from C Bindings Folder";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(PROJECT_DIR)/headers/ldk_net.c",
+				"$(PROJECT_DIR)/headers/ldk_net.h",
+				"$(PROJECT_DIR)/headers/ldk_rust_types.h",
+				"$(PROJECT_DIR)/headers/ldk_ver.h",
+				"$(PROJECT_DIR)/headers/lightning.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export BUILD_LOG_PATH=\"${PROJECT_DIR}/build_libldk.log\"\nexport HEADER_OUTPUT_DIRECTORY=\"$PROJECT_DIR/headers\"\n\necho \"Copying headers to ${HEADER_OUTPUT_DIRECTORY}\" >> $BUILD_LOG_PATH\n\nmkdir -p $HEADER_OUTPUT_DIRECTORY\n\ncp \"${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/\"*.h $HEADER_OUTPUT_DIRECTORY\ncp \"${LDK_C_BINDINGS_BASE}/ldk-net/ldk_net.\"{c,h} $HEADER_OUTPUT_DIRECTORY\n\nls -ll $PROJECT_DIR\n";
+		};
+		75DC70B72874ABB500BB04A0 /* Copy Files from C Bindings Folder */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Files from C Bindings Folder";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(PROJECT_DIR)/headers/ldk_net.c",
+				"$(PROJECT_DIR)/headers/ldk_net.h",
+				"$(PROJECT_DIR)/headers/ldk_rust_types.h",
+				"$(PROJECT_DIR)/headers/ldk_ver.h",
+				"$(PROJECT_DIR)/headers/lightning.h",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export BUILD_LOG_PATH=\"${PROJECT_DIR}/build_libldk.log\"\nexport HEADER_OUTPUT_DIRECTORY=\"$PROJECT_DIR/headers\"\n\necho \"Copying headers to ${HEADER_OUTPUT_DIRECTORY}\" >> $BUILD_LOG_PATH\n\nmkdir -p $HEADER_OUTPUT_DIRECTORY\n\ncp \"${LDK_C_BINDINGS_BASE}/lightning-c-bindings/include/\"*.h $HEADER_OUTPUT_DIRECTORY\ncp \"${LDK_C_BINDINGS_BASE}/ldk-net/ldk_net.\"{c,h} $HEADER_OUTPUT_DIRECTORY\n\nls -ll $PROJECT_DIR\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		754BD0DA283158F70050F361 /* Sources */ = {

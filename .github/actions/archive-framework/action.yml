@@ -1,0 +1,30 @@
+name: Archive Framework
+inputs:
+  scheme:
+    description: Scheme
+    required: true
+  destination:
+    description: Destination
+    required: true
+  platform:
+    description: Platform Name
+    required: true
+  project:
+    description: Project directory, relative to the xcode folder
+    required: true
+runs:
+  using: composite
+  steps:
+  - shell: bash
+    working-directory: .
+    run: |
+      cd xcode
+
+      xcodebuild archive \
+        -scheme '${{ inputs.scheme }}' \
+        -project '${{ inputs.project }}' \
+        -destination '${{ inputs.destination }}' \
+        -archivePath "$BUILD_DIR/LDKFramework-${{ inputs.platform }}" \
+        ENABLE_BITCODE=NO \
+        CLANG_ADDRESS_SANITIZER=NO CLANG_ADDRESS_SANITIZER_ALLOW_ERROR_RECOVERY=NO CLANG_ADDRESS_SANITIZER_USE_AFTER_SCOPE=NO \
+        SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES

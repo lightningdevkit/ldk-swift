@@ -70,16 +70,11 @@ def run(config: ScriptConfig):
 				'xcodebuild',
 				'archive',
 				'-verbose',
-				'-project',
-				xcode_project_path,
-				'-scheme',
-				'LDKFramework',
-				'-destination',
-				f'generic/platform={current_destination}',
-				'-derivedDataPath',
-				derived_data_directory,
-				'-archivePath',
-				xcarchive_output_path,
+				'-project', xcode_project_path,
+				'-scheme', 'LDKFramework',
+				'-destination', f'generic/platform={current_destination}',
+				'-derivedDataPath', derived_data_directory,
+				'-archivePath', xcarchive_output_path,
 				'ENABLE_BITCODE=NO',
 				'EXCLUDED_ARCHS="i386 armv7"',
 				'SKIP_INSTALL=NO',
@@ -94,12 +89,18 @@ def run(config: ScriptConfig):
 		shutil.rmtree(derived_data_directory)
 
 		# XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKFramework.framework "
-		framework_input_flags += ['-framework', f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LDKFramework.framework']
+		framework_input_flags += [
+			'-framework',
+			f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LDKFramework.framework'
+		]
 
 	# xcodebuild -create-xcframework ${XCFRAMEWORK_INPUT_FLAGS} -output ${XCFRAMEWORK_OUTPUT_PATH}"
 	if os.path.exists(xcframework_output_path):
 		shutil.rmtree(xcframework_output_path)
-	subprocess.check_call(['xcodebuild', '-create-xcframework', *framework_input_flags, '-output', xcframework_output_path])
+
+	subprocess.check_call(
+		['xcodebuild', '-create-xcframework', *framework_input_flags, '-output', xcframework_output_path]
+	)
 
 
 if __name__ == '__main__':

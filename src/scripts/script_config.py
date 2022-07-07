@@ -16,11 +16,18 @@ class BuildConfig:
 			self.human_readable_platform = 'catalyst'
 
 
+class ArchiveConfig:
+	def __init__(self, destination: str, human_readable_platform: str):
+		self.destination = destination
+		self.human_readable_platform = human_readable_platform
+
+
 class ScriptConfig:
 	def __init__(self):
 		self.LDK_C_BINDINGS_BASE: str = ''
 		self.LDK_C_BINDINGS_DIRECTORY: str = ''
 		self.LIBLDK_BUILD_CONFIGURATIONS: [BuildConfig] = []
+		self.XCARCHIVE_GENERATION_CONFIGURATIONS: [ArchiveConfig] = []
 		self.CONFIGURATION: str = ''
 		self.RUST_CONFIGURATION: str = ''
 		self.RUST_CONFIGURATION_FLAG: str = ''

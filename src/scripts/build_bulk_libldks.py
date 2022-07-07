@@ -20,7 +20,6 @@ def parse_config() -> ScriptConfig:
 		BuildConfig('macosx', '', ['arm64', 'x86_64']),
 		BuildConfig('macosx', '-macabi', ['arm64', 'x86_64'])
 	]
-
 	config.LIBLDK_BUILD_CONFIGURATIONS = individual_configurations
 
 	return config

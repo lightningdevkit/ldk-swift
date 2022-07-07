@@ -1,4 +1,5 @@
 import os
+import shutil
 import subprocess
 import sys
 
@@ -35,13 +36,12 @@ def run(config: ScriptConfig):
 		build_products_directory,
 		config.RUST_CONFIGURATION,
 		human_readable_platform,
-		'raw'
+		'architectures'
 	)
 	lipo_binary_directory = os.path.join(
 		build_products_directory,
 		config.RUST_CONFIGURATION,
-		human_readable_platform,
-		'lipo'
+		human_readable_platform
 	)
 	if config.LIPO_BINARY_OUTPUT_DIRECTORY:
 		lipo_binary_directory = config.LIPO_BINARY_OUTPUT_DIRECTORY
@@ -77,9 +77,9 @@ def run(config: ScriptConfig):
 		print('Rust architecture:', rust_architecture)
 		print('Rust target OS:', rust_target_os)
 
+		cargo_target_directory = os.path.join(config.LDK_C_BINDINGS_DIRECTORY, 'target')
 		cargo_raw_binary_origin = os.path.join(
-			config.LDK_C_BINDINGS_DIRECTORY,
-			'target',
+			cargo_target_directory,
 			f'{rust_architecture}-apple-{rust_target_os}',
 			config.RUST_CONFIGURATION,
 			'libldk.a'
@@ -90,6 +90,8 @@ def run(config: ScriptConfig):
 		# create the directory if it doesn't exist
 		os.makedirs(current_architecture_binary_directory, exist_ok=True)
 
+		# stop the complaints about directories not being empty
+		shutil.rmtree(cargo_target_directory)
 		subprocess.check_call([CARGO_PATH, 'clean'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 		# cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG

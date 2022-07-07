@@ -2,15 +2,15 @@ import os
 import subprocess
 import sys
 
-from script_config import BuildConfig, LibldkBuildConfiguration
+from script_config import ScriptConfig, BuildConfig
 
 
-def parse_config() -> BuildConfig:
-	config = BuildConfig.parse(allow_ldk_argument=False, parse_configuration=True)
+def parse_config() -> ScriptConfig:
+	config = ScriptConfig.parse(allow_ldk_argument=False, parse_configuration=True)
 	return config
 
 
-def run(config: BuildConfig):
+def run(config: ScriptConfig):
 	if len(config.LIBLDK_BUILD_CONFIGURATIONS) != 1:
 		print('Individual libldk build must have exactly 1 build configuration.')
 		sys.exit(1)
@@ -87,13 +87,13 @@ def run(config: BuildConfig):
 
 
 if __name__ == '__main__':
-	config = parse_config()
+	script_config = parse_config()
 
 	platform = os.getenv('PLATFORM')
 	llvm_target_triple_suffix = os.getenv('LLVM_TARGET_TRIPLE_SUFFIX')
 	architectures = os.getenv('ARCHS').split(' ')
 
-	ldkBuildConfig = LibldkBuildConfiguration(platform, llvm_target_triple_suffix, architectures)
-	config.LIBLDK_BUILD_CONFIGURATIONS = [ldkBuildConfig]
+	ldkBuildConfig = BuildConfig(platform, llvm_target_triple_suffix, architectures)
+	script_config.LIBLDK_BUILD_CONFIGURATIONS = [ldkBuildConfig]
 
-	run(config=config)
+	run(script_config)

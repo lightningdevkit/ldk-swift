@@ -1,10 +1,10 @@
 import os.path
 import subprocess
 
-from script_config import BuildConfig
+from script_config import ScriptConfig
 
 
-def run(config: BuildConfig):
+def run(config: ScriptConfig):
 	header_directories = [
 		os.path.join(config.LDK_C_BINDINGS_DIRECTORY, 'include'),
 		os.path.join(config.LDK_C_BINDINGS_BASE, 'ldk-net'),
@@ -28,5 +28,5 @@ def run(config: BuildConfig):
 
 
 if __name__ == '__main__':
-	config = BuildConfig.parse(allow_ldk_argument=True)
-	run(config)
+	script_config = ScriptConfig.parse(allow_ldk_argument=True)
+	run(script_config)

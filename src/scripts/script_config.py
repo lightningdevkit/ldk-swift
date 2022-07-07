@@ -2,18 +2,18 @@ import os
 import sys
 
 
-class LibldkBuildConfiguration:
+class BuildConfig:
 	def __init__(self, platform: str, llvm_target_triple_suffix: str, architectures: [str]):
 		self.platform = platform
 		self.llvm_target_triple_suffix = llvm_target_triple_suffix
 		self.architectures = architectures
 
 
-class BuildConfig:
+class ScriptConfig:
 	def __init__(self):
 		self.LDK_C_BINDINGS_BASE: str = ''
 		self.LDK_C_BINDINGS_DIRECTORY: str = ''
-		self.LIBLDK_BUILD_CONFIGURATIONS: [LibldkBuildConfiguration] = []
+		self.LIBLDK_BUILD_CONFIGURATIONS: [BuildConfig] = []
 		self.CONFIGURATION: str = ''
 		self.RUST_CONFIGURATION: str = ''
 		self.RUST_CONFIGURATION_FLAG: str = ''
@@ -39,7 +39,7 @@ class BuildConfig:
 			print('lightning-c-bindings is not a directory')
 			sys.exit(1)
 
-		config = BuildConfig()
+		config = ScriptConfig()
 		config.LDK_C_BINDINGS_BASE = ldk_directory
 		config.LDK_C_BINDINGS_DIRECTORY = c_bindings_directory
 

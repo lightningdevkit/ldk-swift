@@ -3,25 +3,25 @@ import subprocess
 import sys
 
 import build_individual_libldk
-from script_config import BuildConfig, LibldkBuildConfiguration
+from script_config import ScriptConfig, BuildConfig
 
 CALL_INDIVIDUAL_BUILD_METHOD_VIA_SHELL = False
 
 
-def parse_config() -> BuildConfig:
-	config = BuildConfig.parse(allow_ldk_argument=True, parse_configuration=(not CALL_INDIVIDUAL_BUILD_METHOD_VIA_SHELL))
+def parse_config() -> ScriptConfig:
+	config = ScriptConfig.parse(allow_ldk_argument=True, parse_configuration=(not CALL_INDIVIDUAL_BUILD_METHOD_VIA_SHELL))
 
-	individual_configurations: [LibldkBuildConfiguration] = [LibldkBuildConfiguration('iphoneos', '', ['arm64']),
-		LibldkBuildConfiguration('iphonesimulator', '-simulator', ['arm64', 'x86_64']),
-		LibldkBuildConfiguration('macosx', '', ['arm64', 'x86_64']),
-		LibldkBuildConfiguration('macosx', '-macabi', ['arm64', 'x86_64']), ]
+	individual_configurations: [BuildConfig] = [BuildConfig('iphoneos', '', ['arm64']),
+												BuildConfig('iphonesimulator', '-simulator', ['arm64', 'x86_64']),
+												BuildConfig('macosx', '', ['arm64', 'x86_64']),
+												BuildConfig('macosx', '-macabi', ['arm64', 'x86_64']), ]
 
 	config.LIBLDK_BUILD_CONFIGURATIONS = individual_configurations
 
 	return config
 
 
-def run(config: BuildConfig):
+def run(config: ScriptConfig):
 	child_environment = dict(os.environ)
 	child_environment['LDK_C_BINDINGS_BASE'] = config.LDK_C_BINDINGS_BASE
 	child_environment['LDK_C_BINDINGS_DIRECTORY'] = config.LDK_C_BINDINGS_DIRECTORY

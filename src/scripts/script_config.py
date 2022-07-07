@@ -8,6 +8,13 @@ class BuildConfig:
 		self.llvm_target_triple_suffix = llvm_target_triple_suffix
 		self.architectures = architectures
 
+		if not self.platform:
+			self.platform = 'macosx'
+
+		self.human_readable_platform = self.platform
+		if self.platform == 'macosx' and llvm_target_triple_suffix == '-macabi':
+			self.human_readable_platform = 'catalyst'
+
 
 class ScriptConfig:
 	def __init__(self):

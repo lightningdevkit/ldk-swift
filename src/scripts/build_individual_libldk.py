@@ -4,6 +4,9 @@ import sys
 
 from script_config import ScriptConfig, BuildConfig
 
+RUSTUP_PATH = os.getenv('HOME') + '/.cargo/bin/rustup'
+CARGO_PATH = os.getenv('HOME') + '/.cargo/bin/cargo'
+
 
 def run(config: ScriptConfig):
 	if len(config.LIBLDK_BUILD_CONFIGURATIONS) != 1:
@@ -12,15 +15,14 @@ def run(config: ScriptConfig):
 
 	ldkBuildConfig = config.LIBLDK_BUILD_CONFIGURATIONS[0]
 	platform = ldkBuildConfig.platform
+	human_readable_platform = ldkBuildConfig.human_readable_platform
 	llvm_target_triple_suffix = ldkBuildConfig.llvm_target_triple_suffix
 	architectures = ldkBuildConfig.architectures
 
 	build_products_directory = os.path.realpath(os.path.join(os.path.dirname(__file__), '../../bindings/bin'))
 
-	human_readable_platform = platform
 	rust_target_os = 'ios'
 	if platform == 'macosx' and llvm_target_triple_suffix == '-macabi':
-		human_readable_platform = 'catalyst'
 		rust_target_os = 'ios-macabi'
 	elif platform == 'macosx':
 		rust_target_os = 'darwin'
@@ -51,8 +53,9 @@ def run(config: ScriptConfig):
 
 	child_environment = dict(os.environ)
 	child_environment['RUSTFLAGS'] = '--cfg=c_bindings'
+	child_environment['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
-	subprocess.check_call(['rustup', 'override', 'set', 'nightly'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
+	subprocess.check_call([RUSTUP_PATH, 'override', 'set', 'nightly'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 	lipo_executables_input: [str] = []
 
@@ -87,12 +90,14 @@ def run(config: ScriptConfig):
 		# create the directory if it doesn't exist
 		os.makedirs(current_architecture_binary_directory, exist_ok=True)
 
-		subprocess.check_call(['cargo', 'clean'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
+		subprocess.check_call([CARGO_PATH, 'clean'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 		# cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG
+		build_arguments = [CARGO_PATH, 'build', '-Z', 'build-std=panic_abort,std', '--features', 'std', '--target', f'{rust_architecture}-apple-{rust_target_os}']
+		if config.RUST_CONFIGURATION_FLAG:
+			build_arguments.append(config.RUST_CONFIGURATION_FLAG)
 		subprocess.check_call(
-			['cargo', 'build', '-Z', 'build-std=panic_abort,std', '--features', 'std', '--target',
-				f'{rust_architecture}-apple-{rust_target_os}', config.RUST_CONFIGURATION_FLAG],
+			build_arguments,
 			env=child_environment,
 			cwd=config.LDK_C_BINDINGS_DIRECTORY
 		)
@@ -101,7 +106,7 @@ def run(config: ScriptConfig):
 		subprocess.check_call(['cp', cargo_raw_binary_origin, current_architecture_binary_directory])
 		lipo_executables_input.append(os.path.join(current_architecture_binary_directory, 'libldk.a'))
 
-	subprocess.check_call(['rustup', 'override', 'unset'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
+	subprocess.check_call([RUSTUP_PATH, 'override', 'unset'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 	# xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${LIPO_BINARY_DIR}/${TARGET_NAME}.a"
 	subprocess.check_call(
@@ -116,7 +121,7 @@ if __name__ == '__main__':
 		parse_lipo_output_directory=True
 	)
 
-	platform = os.getenv('PLATFORM')
+	platform = os.getenv('PLATFORM_NAME')
 	llvm_target_triple_suffix = os.getenv('LLVM_TARGET_TRIPLE_SUFFIX')
 	architectures = os.getenv('ARCHS').split(' ')
 

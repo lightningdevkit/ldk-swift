@@ -17,9 +17,10 @@ class ScriptConfig:
 		self.CONFIGURATION: str = ''
 		self.RUST_CONFIGURATION: str = ''
 		self.RUST_CONFIGURATION_FLAG: str = ''
+		self.LIPO_BINARY_OUTPUT_DIRECTORY: str = ''
 
 	@classmethod
-	def parse(cls, allow_ldk_argument=True, parse_configuration=False):
+	def parse(cls, allow_ldk_argument=True, parse_configuration=False, parse_lipo_output_directory=False):
 
 		ldk_directory_string = os.getenv('LDK_C_BINDINGS_BASE')
 		if allow_ldk_argument and len(sys.argv) > 1:
@@ -51,5 +52,8 @@ class ScriptConfig:
 			else:
 				config.RUST_CONFIGURATION = 'release'
 				config.RUST_CONFIGURATION_FLAG = '--release'
+
+		if parse_lipo_output_directory:
+			config.LIPO_BINARY_OUTPUT_DIRECTORY = os.getenv('LDK_C_BINDINGS_BINARY_DIRECTORY')
 
 		return config

@@ -9,12 +9,17 @@ CALL_INDIVIDUAL_BUILD_METHOD_VIA_SHELL = False
 
 
 def parse_config() -> ScriptConfig:
-	config = ScriptConfig.parse(allow_ldk_argument=True, parse_configuration=(not CALL_INDIVIDUAL_BUILD_METHOD_VIA_SHELL))
+	config = ScriptConfig.parse(
+		allow_ldk_argument=True,
+		parse_configuration=(not CALL_INDIVIDUAL_BUILD_METHOD_VIA_SHELL)
+	)
 
-	individual_configurations: [BuildConfig] = [BuildConfig('iphoneos', '', ['arm64']),
-												BuildConfig('iphonesimulator', '-simulator', ['arm64', 'x86_64']),
-												BuildConfig('macosx', '', ['arm64', 'x86_64']),
-												BuildConfig('macosx', '-macabi', ['arm64', 'x86_64']), ]
+	individual_configurations: [BuildConfig] = [
+		BuildConfig('iphoneos', '', ['arm64']),
+		BuildConfig('iphonesimulator', '-simulator', ['arm64', 'x86_64']),
+		BuildConfig('macosx', '', ['arm64', 'x86_64']),
+		BuildConfig('macosx', '-macabi', ['arm64', 'x86_64'])
+	]
 
 	config.LIBLDK_BUILD_CONFIGURATIONS = individual_configurations
 

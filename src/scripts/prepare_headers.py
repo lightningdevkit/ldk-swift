@@ -10,7 +10,9 @@ def run(config: ScriptConfig):
 		os.path.join(config.LDK_C_BINDINGS_BASE, 'ldk-net'),
 	]
 
-	header_destination_directory = os.path.realpath(os.path.join(os.path.dirname(__file__), '../../xcode/LDKFramework/headers'))
+	header_destination_directory = os.path.realpath(
+		os.path.join(os.path.dirname(__file__), '../../xcode/LDKFramework/headers')
+	)
 	os.makedirs(header_destination_directory, exist_ok=True)
 
 	for current_directory in header_directories:

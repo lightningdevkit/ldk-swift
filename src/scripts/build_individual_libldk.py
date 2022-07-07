@@ -5,11 +5,6 @@ import sys
 from script_config import ScriptConfig, BuildConfig
 
 
-def parse_config() -> ScriptConfig:
-	config = ScriptConfig.parse(allow_ldk_argument=False, parse_configuration=True)
-	return config
-
-
 def run(config: ScriptConfig):
 	if len(config.LIBLDK_BUILD_CONFIGURATIONS) != 1:
 		print('Individual libldk build must have exactly 1 build configuration.')
@@ -34,8 +29,20 @@ def run(config: ScriptConfig):
 	print('Configuration:', config.RUST_CONFIGURATION)
 	print('LLVM Target Triple Suffix:', llvm_target_triple_suffix)
 
-	individual_architecture_binary_directory = os.path.join(build_products_directory, config.RUST_CONFIGURATION, human_readable_platform, 'raw')
-	lipo_binary_directory = os.path.join(build_products_directory, config.RUST_CONFIGURATION, human_readable_platform, 'lipo')
+	individual_architecture_binary_directory = os.path.join(
+		build_products_directory,
+		config.RUST_CONFIGURATION,
+		human_readable_platform,
+		'raw'
+	)
+	lipo_binary_directory = os.path.join(
+		build_products_directory,
+		config.RUST_CONFIGURATION,
+		human_readable_platform,
+		'lipo'
+	)
+	if config.LIPO_BINARY_OUTPUT_DIRECTORY:
+		lipo_binary_directory = config.LIPO_BINARY_OUTPUT_DIRECTORY
 	lipo_binary_output_path = os.path.join(lipo_binary_directory, 'libldk.a')
 
 	print(individual_architecture_binary_directory)
@@ -50,7 +57,10 @@ def run(config: ScriptConfig):
 	lipo_executables_input: [str] = []
 
 	for current_architecture in architectures:
-		current_architecture_binary_directory = os.path.join(individual_architecture_binary_directory, current_architecture)
+		current_architecture_binary_directory = os.path.join(
+			individual_architecture_binary_directory,
+			current_architecture
+		)
 		print(f'\nCurrent architecture:', current_architecture)
 
 		rust_architecture = current_architecture
@@ -64,7 +74,13 @@ def run(config: ScriptConfig):
 		print('Rust architecture:', rust_architecture)
 		print('Rust target OS:', rust_target_os)
 
-		cargo_raw_binary_origin = os.path.join(config.LDK_C_BINDINGS_DIRECTORY, 'target', f'{rust_architecture}-apple-{rust_target_os}', config.RUST_CONFIGURATION, 'libldk.a')
+		cargo_raw_binary_origin = os.path.join(
+			config.LDK_C_BINDINGS_DIRECTORY,
+			'target',
+			f'{rust_architecture}-apple-{rust_target_os}',
+			config.RUST_CONFIGURATION,
+			'libldk.a'
+		)
 		print('Raw binary origin:', cargo_raw_binary_origin)
 		print('Raw binary target:', current_architecture_binary_directory)
 
@@ -74,7 +90,12 @@ def run(config: ScriptConfig):
 		subprocess.check_call(['cargo', 'clean'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 		# cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG
-		subprocess.check_call(['cargo', 'build', '-Z', 'build-std=panic_abort,std', '--features', 'std', '--target', f'{rust_architecture}-apple-{rust_target_os}', config.RUST_CONFIGURATION_FLAG], env=child_environment, cwd=config.LDK_C_BINDINGS_DIRECTORY)
+		subprocess.check_call(
+			['cargo', 'build', '-Z', 'build-std=panic_abort,std', '--features', 'std', '--target',
+				f'{rust_architecture}-apple-{rust_target_os}', config.RUST_CONFIGURATION_FLAG],
+			env=child_environment,
+			cwd=config.LDK_C_BINDINGS_DIRECTORY
+		)
 
 		# copy the generated binary to a monitored directory
 		subprocess.check_call(['cp', cargo_raw_binary_origin, current_architecture_binary_directory])
@@ -83,11 +104,17 @@ def run(config: ScriptConfig):
 	subprocess.check_call(['rustup', 'override', 'unset'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 	# xcrun --sdk $PLATFORM_NAME lipo -create "${EXECUTABLES[@]}" -output "${LIPO_BINARY_DIR}/${TARGET_NAME}.a"
-	subprocess.check_call(['xcrun', '--sdk', platform, 'lipo', '-create', *lipo_executables_input, '-output', lipo_binary_output_path])
+	subprocess.check_call(
+		['xcrun', '--sdk', platform, 'lipo', '-create', *lipo_executables_input, '-output', lipo_binary_output_path]
+	)
 
 
 if __name__ == '__main__':
-	script_config = parse_config()
+	script_config = ScriptConfig.parse(
+		allow_ldk_argument=False,
+		parse_configuration=True,
+		parse_lipo_output_directory=True
+	)
 
 	platform = os.getenv('PLATFORM')
 	llvm_target_triple_suffix = os.getenv('LLVM_TARGET_TRIPLE_SUFFIX')

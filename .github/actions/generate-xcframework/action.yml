@@ -1,0 +1,13 @@
+name: Generate XCFramework
+description: Build xcarchives and combine them into an xcframework using Python scripts..
+runs:
+    using: composite
+    steps:
+        -   name: Build binaries
+            shell: bash
+            run:
+                python3 ./src/scripts/build_bulk_libldks.py
+        -   name: Generate xcframework
+            shell: bash
+            run:
+                python3 ./src/scripts/generate_xcframework.py

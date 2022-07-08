@@ -1,4 +1,4 @@
-name: Check Bindings
+name: Test Bindings
 
 on:
     push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
     check_bindings:
-        name: Build Bindings
+        name: Swift Package Manager Tests
         runs-on: ubuntu-20.04
         env:
             TOOLCHAIN: stable

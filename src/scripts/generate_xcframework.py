@@ -79,8 +79,8 @@ def run(config: ScriptConfig):
 				'EXCLUDED_ARCHS="i386 armv7"',
 				'SKIP_INSTALL=NO',
 				'BUILD_LIBRARY_FOR_DISTRIBUTION=YES',
-				f'LDK_C_BINDINGS_BASE="{config.LDK_C_BINDINGS_BASE}"',
-				f'LDK_C_BINDINGS_BINARY_DIRECTORY="{lipo_binary_directory}"',
+				f'LDK_C_BINDINGS_BASE={config.LDK_C_BINDINGS_BASE}',
+				f'LDK_C_BINDINGS_BINARY_DIRECTORY={lipo_binary_directory}',
 				f'LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY=""',
 			], env=child_environment
 		)

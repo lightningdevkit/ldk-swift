@@ -44,10 +44,16 @@ class ScriptConfig:
 			print('Missing LDK C-bindings base directory. Either call the value or set the environment variable.')
 			sys.exit(1)
 
+
 		ldk_directory = os.path.realpath(ldk_directory_string)
 		c_bindings_directory = os.path.join(ldk_directory, 'lightning-c-bindings')
+
+		print('ldk_directory_string (LDK_C_BINDINGS_BASE):', ldk_directory_string)
+		print('ldk_directory:', ldk_directory)
+		print('c_bindings_directory (LDK_C_BINDINGS_DIRECTORY):', c_bindings_directory)
+
 		if not os.path.exists(c_bindings_directory):
-			print('LDK C-bindings directory does not contain lightning-c-bindings')
+			print('LDK C-bindings directory does not contain lightning-c-bindings:', c_bindings_directory)
 			sys.exit(1)
 
 		if not os.path.isdir(c_bindings_directory):

@@ -91,7 +91,8 @@ def run(config: ScriptConfig):
 		os.makedirs(current_architecture_binary_directory, exist_ok=True)
 
 		# stop the complaints about directories not being empty
-		shutil.rmtree(cargo_target_directory)
+		if os.path.isdir(cargo_target_directory):
+			shutil.rmtree(cargo_target_directory)
 		subprocess.check_call([CARGO_PATH, 'clean'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 		# cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG

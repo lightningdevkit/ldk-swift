@@ -1349,6 +1349,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(PROJECT_DIR)/headers/ldk_net.c",
+				"$(PROJECT_DIR)/headers/ldk_net.h",
+				"$(PROJECT_DIR)/headers/ldk_rust_types.h",
+				"$(PROJECT_DIR)/headers/ldk_ver.h",
+				"$(PROJECT_DIR)/headers/lightning.h",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

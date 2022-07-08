@@ -1352,7 +1352,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Copying headers…\"\necho \"LDK_C_BINDINGS_BASE: ${LDK_C_BINDINGS_BASE}\"\nSCRIPT_PATH=\"${PROJECT_DIR}/../../src/scripts/prepare_headers.py\"\n# copy headers\n/usr/bin/python3 \"${SCRIPT_PATH}\"\n\necho \"Building LDK binaries if necessary…\"\necho \"LDK_C_BINDINGS_BINARY_DIRECTORY: ${LDK_C_BINDINGS_BINARY_DIRECTORY}\"\necho \"LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE: ${LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE}\"\n\nif [[ -z \"${LDK_C_BINDINGS_BINARY_DIRECTORY}\" ]]; then\n    echo \"LDK_C_BINDINGS_BINARY_DIRECTORY undefined, building deemed necessary\"\n    if [[ -z \"${LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE}\" ]]; then\n        echo \"LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE undefined, build impossible without destination\"\n        exit 1\n    fi\n    export LDK_C_BINDINGS_BINARY_DIRECTORY=\"${LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE}\"\n    SCRIPT_PATH=\"${PROJECT_DIR}/../../src/scripts/build_individual_libldk.py\"\n    # build binary\n    /usr/bin/python3 \"${SCRIPT_PATH}\"\nelse\n    echo \"LDK_C_BINDINGS_BINARY_DIRECTORY is set, building unnecessary.\"\nfi\n";
+			shellScript = "echo \"Copying headers…\"\necho \"LDK_C_BINDINGS_BASE: ${LDK_C_BINDINGS_BASE}\"\nSCRIPT_PATH=\"${PROJECT_DIR}/../../src/scripts/prepare_headers.py\"\n# copy headers\n/usr/bin/python3 \"${SCRIPT_PATH}\"\n\necho \"Building LDK binaries if necessary…\"\necho \"LDK_C_BINDINGS_BINARY_DIRECTORY: ${LDK_C_BINDINGS_BINARY_DIRECTORY}\"\necho \"LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY: ${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}\"\n\nif [[ -z \"${LDK_C_BINDINGS_BINARY_DIRECTORY}\" ]]; then\n    echo \"LDK_C_BINDINGS_BINARY_DIRECTORY undefined, building deemed necessary\"\n    if [[ -z \"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}\" ]]; then\n        echo \"LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY undefined, build impossible without destination\"\n        exit 1\n    fi\n    export LDK_C_BINDINGS_BINARY_DIRECTORY=\"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}\"\n    SCRIPT_PATH=\"${PROJECT_DIR}/../../src/scripts/build_individual_libldk.py\"\n    # build binary\n    /usr/bin/python3 \"${SCRIPT_PATH}\"\nelse\n    echo \"LDK_C_BINDINGS_BINARY_DIRECTORY is set, building unnecessary.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1790,10 +1790,10 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LDK_C_BINDINGS_BASE = "/Users/arik/Developer/ldk-c-bindings";
-				LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE = "${PROJECT_DIR}/binary";
+				LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY = "${PROJECT_DIR}/binary";
 				LIBRARY_SEARCH_PATHS = (
 					"${LDK_C_BINDINGS_BINARY_DIRECTORY}",
-					"${LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE}",
+					"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1857,10 +1857,10 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LDK_C_BINDINGS_BASE = "/Users/arik/Developer/ldk-c-bindings";
-				LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE = "${PROJECT_DIR}/binary";
+				LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY = "${PROJECT_DIR}/binary";
 				LIBRARY_SEARCH_PATHS = (
 					"${LDK_C_BINDINGS_BINARY_DIRECTORY}",
-					"${LDK_C_BINDINGS_BINARY_DIRECTORY_OVERRIDE}",
+					"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

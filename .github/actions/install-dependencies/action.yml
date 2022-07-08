@@ -20,8 +20,6 @@ runs:
                 rustup toolchain install nightly
                 rustup target add aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
                 rustup component add rust-src --toolchain nightly-x86_64-apple-darwin
-        -   name: Set up Python
-            uses: actions/setup-python@v2
         -   name: Load Cache
             uses: actions/cache@v3
             with:

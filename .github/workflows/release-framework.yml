@@ -6,6 +6,12 @@ permissions:
     actions: read
     checks: write
 on:
+    workflow_dispatch:
+        inputs:
+            tags:
+                description: 'Test scenario tags'
+                required: true
+                type: boolean
     push:
         tags:
             - "*"

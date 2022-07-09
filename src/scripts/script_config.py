@@ -32,9 +32,10 @@ class ScriptConfig:
 		self.RUST_CONFIGURATION: str = ''
 		self.RUST_CONFIGURATION_FLAG: str = ''
 		self.LIPO_BINARY_OUTPUT_DIRECTORY: str = ''
+		self.C_FILE_OUTPUT_DIRECTORY: str = ''
 
 	@classmethod
-	def parse(cls, allow_ldk_argument=True, parse_configuration=False, parse_lipo_output_directory=False):
+	def parse(cls, allow_ldk_argument=True, parse_configuration=False, parse_lipo_output_directory=False, parse_as_xcode_invocation=False):
 
 		ldk_directory_string = os.getenv('LDK_C_BINDINGS_BASE')
 		if allow_ldk_argument and len(sys.argv) > 1:
@@ -75,5 +76,24 @@ class ScriptConfig:
 
 		if parse_lipo_output_directory:
 			config.LIPO_BINARY_OUTPUT_DIRECTORY = os.getenv('LDK_C_BINDINGS_BINARY_DIRECTORY')
+
+		if parse_as_xcode_invocation:
+			# this script is being called from xcode
+			# that means we might get a PROJECT_DIR and a PLATFORM, ARCHS, etc.
+
+			# parse C file destination directory
+			config.C_FILE_OUTPUT_DIRECTORY = os.path.join(os.path.dirname(__file__), '../../xcode/LDKFramework/headers')
+			project_directory = os.getenv('PROJECT_DIR')
+			if project_directory:
+				config.C_FILE_OUTPUT_DIRECTORY = os.path.join(os.path.realpath(project_directory), 'headers')
+
+			# parse build config aspect
+			platform = os.getenv('PLATFORM_NAME')
+			llvm_target_triple_suffix = os.getenv('LLVM_TARGET_TRIPLE_SUFFIX')
+			architectures = os.getenv('ARCHS').split(' ')
+			ldkBuildConfig = BuildConfig(platform, llvm_target_triple_suffix, architectures)
+			config.LIBLDK_BUILD_CONFIGURATIONS = [ldkBuildConfig]
+
+			pass
 
 		return config

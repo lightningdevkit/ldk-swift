@@ -59,7 +59,7 @@ def run(config: ScriptConfig):
 
 		# create clean derived data directory
 		if os.path.exists(derived_data_directory):
-			shutil.rmtree(derived_data_directory)
+			shutil.rmtree(derived_data_directory, ignore_errors=True)
 		os.makedirs(derived_data_directory, exist_ok=False)
 
 		child_environment['LDK_C_BINDINGS_BINARY_DIRECTORY'] = lipo_binary_directory
@@ -86,7 +86,7 @@ def run(config: ScriptConfig):
 		)
 
 		# clean up the derived data
-		shutil.rmtree(derived_data_directory)
+		shutil.rmtree(derived_data_directory, ignore_errors=True)
 
 		# XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKFramework.framework "
 		framework_input_flags += [
@@ -96,7 +96,7 @@ def run(config: ScriptConfig):
 
 	# xcodebuild -create-xcframework ${XCFRAMEWORK_INPUT_FLAGS} -output ${XCFRAMEWORK_OUTPUT_PATH}"
 	if os.path.exists(xcframework_output_path):
-		shutil.rmtree(xcframework_output_path)
+		shutil.rmtree(xcframework_output_path, ignore_errors=True)
 
 	subprocess.check_call(
 		['xcodebuild', '-create-xcframework', *framework_input_flags, '-output', xcframework_output_path]

@@ -74,3 +74,11 @@ jobs:
                 uses: ./.github/actions/install-dependencies
             -   name: Generate XCFramework
                 uses: ./.github/actions/generate-xcframework
+            -   name: Zip Xcframework (remove before merging!)
+                run: |
+                    ditto -c -k --sequesterRsrc /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LDKFramework.xcframework LDKFramework.xcframework.zip
+            -   name: Upload Framework Artifact (remove before merging!)
+                uses: actions/upload-artifact@v3
+                with:
+                    name: LDKFramework.xcframework.zip
+                    path: LDKFramework.xcframework.zip

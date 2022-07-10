@@ -22,11 +22,11 @@ def run(config: ScriptConfig):
 	copy_c_files.run(config)
 
 	if bindings_binary_directory and forced_rebuild_override_directory:
-		print('LDK_C_BINDINGS_BINARY_DIRECTORY and LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY may not both be set at the same time!')
+		print('LDK_C_BINDINGS_BINARY_DIRECTORY and LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY may not both be set at the same time!', file=sys.stderr)
 		sys.exit(1)
 
 	if not bindings_binary_directory and not forced_rebuild_override_directory:
-		print('One of LDK_C_BINDINGS_BINARY_DIRECTORY and LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY must be set!')
+		print('One of LDK_C_BINDINGS_BINARY_DIRECTORY and LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY must be set!', file=sys.stderr)
 		sys.exit(1)
 
 	if not forced_rebuild_override_directory:

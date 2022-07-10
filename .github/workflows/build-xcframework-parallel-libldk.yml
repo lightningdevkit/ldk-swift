@@ -1,4 +1,4 @@
-name: Generate XCframework from parallel libldk.a builds
+name: XCframework from libldks
 permissions:
     contents: read
     statuses: read
@@ -15,9 +15,10 @@ on:
 
 jobs:
     build-libldks:
-        name: Build lipo libldk.a for ${{ matrix.configuration['human_readable_platform'] }}
+        name: Build & lipo libldk.a for ${{ matrix.configuration['human_readable_platform'] }}
         runs-on: macos-12
         env:
+            DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
             LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
         strategy:
             fail-fast: true
@@ -60,11 +61,13 @@ jobs:
             -   name: Upload binary
                 uses: actions/upload-artifact@v3
                 with:
-                    name: libldk-${{ matrix.configuration['human_readable_platform'] }}.a
+                    name: bindings
                     path: |
-                        /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}/libldk.a
+                        ./bindings/**/artifacts/ldk-c-bindings/lightning-c-bindings/include/*.h
+                        ./bindings/**/artifacts/ldk-c-bindings/ldk-net/ldk_net.*
+                        ./bindings/**/bin/release/${{ matrix.configuration['human_readable_platform'] }}/libldk.a
     generate-parallel:
-        name: Generate XCarchives and XCFramework based on parallelized libldk builds
+        name: Build xcarchives and generate xcframework
         needs: [ build-libldks ]
         runs-on: macos-12
         env:
@@ -77,7 +80,7 @@ jobs:
                     xcode-version: latest
             -   name: Checkout
                 uses: actions/checkout@v2
-            -   name: Download xcarchives
+            -   name: Download libldks
                 uses: actions/download-artifact@v3
             -   name: Generate Swift Bindings
                 shell: bash

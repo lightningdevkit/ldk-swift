@@ -11,7 +11,7 @@ CARGO_PATH = os.getenv('HOME') + '/.cargo/bin/cargo'
 
 def run(config: ScriptConfig):
 	if len(config.LIBLDK_BUILD_CONFIGURATIONS) != 1:
-		print('Individual libldk build must have exactly 1 build configuration.')
+		print('Individual libldk build must have exactly 1 build configuration.', file=sys.stderr)
 		sys.exit(1)
 
 	ldkBuildConfig = config.LIBLDK_BUILD_CONFIGURATIONS[0]

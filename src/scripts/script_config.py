@@ -33,18 +33,28 @@ class ScriptConfig:
 		self.RUST_CONFIGURATION_FLAG: str = ''
 		self.LIPO_BINARY_OUTPUT_DIRECTORY: str = ''
 		self.C_FILE_OUTPUT_DIRECTORY: str = ''
+		self.PRESERVE_XCARCHIVES: bool = False
 
 	@classmethod
-	def parse(cls, allow_ldk_argument=True, parse_configuration=False, parse_lipo_output_directory=False, parse_as_xcode_invocation=False):
+	def parse(cls, allow_ldk_argument=True, parse_configuration=False, parse_lipo_output_directory=False, parse_as_xcode_invocation=False, parse_xcarchive_preservation=False):
+
+		should_preserve_xcarchives = False
+		if parse_xcarchive_preservation:
+			preserve_xcarchives = os.getenv('PRESERVE_XCARCHIVES')
+			if preserve_xcarchives and preserve_xcarchives.strip().lower() in ['1', 'true']:
+				should_preserve_xcarchives = True
 
 		ldk_directory_string = os.getenv('LDK_C_BINDINGS_BASE')
 		if allow_ldk_argument and len(sys.argv) > 1:
 			ldk_directory_string = sys.argv[1]
 
 		if not ldk_directory_string:
-			print('Missing LDK C-bindings base directory. Either call the value or set the environment variable.')
-			sys.exit(1)
-
+			# if xcarchives are preserved, we don't need an LDK_C_BINDINGS_BASE
+			print('Missing LDK C-bindings base directory. Either call the value or set the environment variable.', file=sys.stderr)
+			if not should_preserve_xcarchives:
+				sys.exit(1)
+			else:
+				print('Ignoring because PRESERVE_XCARCHIVES is true.')
 
 		ldk_directory = os.path.realpath(ldk_directory_string)
 		c_bindings_directory = os.path.join(ldk_directory, 'lightning-c-bindings')
@@ -54,16 +64,23 @@ class ScriptConfig:
 		print('c_bindings_directory (LDK_C_BINDINGS_DIRECTORY):', c_bindings_directory)
 
 		if not os.path.exists(c_bindings_directory):
-			print('LDK C-bindings directory does not contain lightning-c-bindings:', c_bindings_directory)
-			sys.exit(1)
+			print('LDK C-bindings directory does not contain lightning-c-bindings:', c_bindings_directory, file=sys.stderr)
+			if not should_preserve_xcarchives:
+				sys.exit(1)
+			else:
+				print('Ignoring because PRESERVE_XCARCHIVES is true.')
 
 		if not os.path.isdir(c_bindings_directory):
-			print('lightning-c-bindings is not a directory')
-			sys.exit(1)
+			print('lightning-c-bindings is not a directory', file=sys.stderr)
+			if not should_preserve_xcarchives:
+				sys.exit(1)
+			else:
+				print('Ignoring because PRESERVE_XCARCHIVES is true.')
 
 		config = ScriptConfig()
 		config.LDK_C_BINDINGS_BASE = ldk_directory
 		config.LDK_C_BINDINGS_DIRECTORY = c_bindings_directory
+		config.PRESERVE_XCARCHIVES = should_preserve_xcarchives
 
 		if parse_configuration:
 			config.CONFIGURATION = os.getenv('CONFIGURATION')

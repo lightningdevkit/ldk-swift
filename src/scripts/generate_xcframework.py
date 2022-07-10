@@ -6,7 +6,7 @@ from script_config import ScriptConfig, ArchiveConfig
 
 
 def parse_config() -> ScriptConfig:
-	config = ScriptConfig.parse(allow_ldk_argument=True, parse_configuration=True)
+	config = ScriptConfig.parse(allow_ldk_argument=True, parse_configuration=True, parse_xcarchive_preservation=True)
 
 	individual_configurations: [ArchiveConfig] = [
 		ArchiveConfig('iOS Simulator', 'iphonesimulator'),
@@ -57,6 +57,16 @@ def run(config: ScriptConfig):
 			current_human_readable_platform  # the last component is the filename excluding .xcarchive
 		)
 
+		# XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKFramework.framework "
+		framework_input_flags += [
+			'-framework',
+			f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LDKFramework.framework'
+		]
+
+		if config.PRESERVE_XCARCHIVES:
+			# we don't regenerate any new xcarchives, and simply reuse the existing ones
+			break
+
 		# create clean derived data directory
 		if os.path.exists(derived_data_directory):
 			shutil.rmtree(derived_data_directory, ignore_errors=True)
@@ -87,12 +97,6 @@ def run(config: ScriptConfig):
 
 		# clean up the derived data
 		shutil.rmtree(derived_data_directory, ignore_errors=True)
-
-		# XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKFramework.framework "
-		framework_input_flags += [
-			'-framework',
-			f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LDKFramework.framework'
-		]
 
 	# xcodebuild -create-xcframework ${XCFRAMEWORK_INPUT_FLAGS} -output ${XCFRAMEWORK_OUTPUT_PATH}"
 	if os.path.exists(xcframework_output_path):

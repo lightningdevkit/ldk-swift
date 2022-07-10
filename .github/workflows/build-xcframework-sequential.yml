@@ -1,4 +1,4 @@
-name: Generate XCFramework from sequential bulk build script
+name: XCFramework from sequential Python script
 permissions:
     contents: read
     statuses: read
@@ -15,7 +15,7 @@ on:
 
 jobs:
     generate-sequential:
-        name: Generate XCFramework
+        name: Build libldks, xcarchives, and combine into xcframework
         runs-on: macos-12
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer

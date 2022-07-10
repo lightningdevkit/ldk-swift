@@ -15,7 +15,7 @@ on:
 
 jobs:
     generate-sequential:
-        name: Build libldks, xcarchives, and combine into xcframework
+        name: Build libldks, build xcarchives, and combine into xcframework
         runs-on: macos-12
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
@@ -31,3 +31,11 @@ jobs:
                 uses: ./.github/actions/install-dependencies
             -   name: Generate XCFramework
                 uses: ./.github/actions/generate-xcframework
+            -   name: Zip Xcframework
+                run: |
+                    ditto -c -k --sequesterRsrc /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LDKFramework.xcframework LDKFramework.xcframework.zip
+            -   name: Upload Framework Artifact
+                uses: actions/upload-artifact@v3
+                with:
+                    name: LDKFramework.xcframework.zip
+                    path: LDKFramework.xcframework.zip

@@ -2733,6 +2733,108 @@ public class Bindings {
 						
 
 	/* SWIFT_TO_RUST_START */
+	public class func new_LDKCVec_NodeIdZWrapper(array: [LDKNodeId]) -> LDKCVec_NodeIdZWrapper {
+		/* DIMENSION_REDUCTION_PREP */
+
+		/*
+        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKNodeId>) -> UnsafeMutablePointer<LDKNodeId> in
+            let mutablePointer = UnsafeMutablePointer<LDKNodeId>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<LDKNodeId>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
+
+        let vector = LDKCVec_NodeIdZ(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKCVec_NodeIdZWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKCVec_NodeIdZWrapper: NativeTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCVec_NodeIdZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKCVec_NodeIdZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		internal init(pointer: LDKCVec_NodeIdZ, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public func noOpRetain(){}
+
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_NodeIdZWrapper {
+			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_NodeIdZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_NodeIdZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKCVec_NodeIdZ_to_array(nativeType: LDKCVec_NodeIdZ, deallocate: Bool = true) -> [LDKNodeId] {
+		var array = [LDKNodeId]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKNodeIdArray(array: [NodeId]) -> [LDKNodeId] {
+							return array.map { entry -> LDKNodeId in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKNodeIdArray(array: [LDKNodeId]) -> [NodeId] {
+							return array.map { entry -> NodeId in
+								NodeId(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKNodeIdArray(array: [LDKNodeId]) -> [NodeId] {
+							return array.map { entry -> NodeId in
+								NodeId(pointer: entry).dangle()
+							}
+						}
+					
+							internal class func cloneNativeLDKNodeIdArray(array: [LDKNodeId]) -> [LDKNodeId] {
+								return array.map { entry -> LDKNodeId in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									NodeId(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
+							}
+						
+
+	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_OutPointZWrapper(array: [LDKOutPoint]) -> LDKCVec_OutPointZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
@@ -3702,6 +3804,91 @@ public class Bindings {
 						
 
 	/* SWIFT_TO_RUST_START */
+	public class func new_LDKCVec_ThirtyTwoBytesZWrapper(array: [[UInt8]]) -> LDKCVec_ThirtyTwoBytesZWrapper {
+		
+					var lowerDimension = [LDKThirtyTwoBytes]()
+					// var subdimensionWrapper = [LDKThirtyTwoBytesWrapper]()
+					for currentEntry in array {
+						let convertedEntry = new_LDKThirtyTwoBytes(array: currentEntry)
+						lowerDimension.append(convertedEntry)
+						// subdimensionWrapper.append(convertedEntry)
+					}
+				
+
+		/*
+        let dataContainer = lowerDimension.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKThirtyTwoBytes>) -> UnsafeMutablePointer<LDKThirtyTwoBytes> in
+            let mutablePointer = UnsafeMutablePointer<LDKThirtyTwoBytes>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<LDKThirtyTwoBytes>.allocate(capacity: array.count)
+		dataContainer.initialize(from: lowerDimension, count: array.count)
+
+        let vector = LDKCVec_ThirtyTwoBytesZ(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKCVec_ThirtyTwoBytesZWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKCVec_ThirtyTwoBytesZWrapper: NativeTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCVec_ThirtyTwoBytesZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKCVec_ThirtyTwoBytesZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		internal init(pointer: LDKCVec_ThirtyTwoBytesZ, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public func noOpRetain(){}
+
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_ThirtyTwoBytesZWrapper {
+			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_ThirtyTwoBytesZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_ThirtyTwoBytesZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKCVec_ThirtyTwoBytesZ_to_array(nativeType: LDKCVec_ThirtyTwoBytesZ, deallocate: Bool = true) -> [[UInt8]] {
+		var array = [[UInt8]]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			let convertedEntry = LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
+			array.append(convertedEntry)
+		}
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+
+	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_TransactionOutputsZWrapper(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> LDKCVec_TransactionOutputsZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
@@ -3999,18 +4186,26 @@ public class Bindings {
 						
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_TxidZWrapper(array: [LDKThirtyTwoBytes]) -> LDKCVec_TxidZWrapper {
-		/* DIMENSION_REDUCTION_PREP */
+	public class func new_LDKCVec_TxidZWrapper(array: [[UInt8]]) -> LDKCVec_TxidZWrapper {
+		
+					var lowerDimension = [LDKThirtyTwoBytes]()
+					// var subdimensionWrapper = [LDKThirtyTwoBytesWrapper]()
+					for currentEntry in array {
+						let convertedEntry = new_LDKThirtyTwoBytes(array: currentEntry)
+						lowerDimension.append(convertedEntry)
+						// subdimensionWrapper.append(convertedEntry)
+					}
+				
 
 		/*
-        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKThirtyTwoBytes>) -> UnsafeMutablePointer<LDKThirtyTwoBytes> in
+        let dataContainer = lowerDimension.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKThirtyTwoBytes>) -> UnsafeMutablePointer<LDKThirtyTwoBytes> in
             let mutablePointer = UnsafeMutablePointer<LDKThirtyTwoBytes>(mutating: pointer.baseAddress!)
             return mutablePointer
         }
         */
 
         let dataContainer = UnsafeMutablePointer<LDKThirtyTwoBytes>.allocate(capacity: array.count)
-		dataContainer.initialize(from: array, count: array.count)
+		dataContainer.initialize(from: lowerDimension, count: array.count)
 
         let vector = LDKCVec_TxidZ(data: dataContainer, datalen: UInt(array.count))
         let wrapper = LDKCVec_TxidZWrapper(pointer: vector)
@@ -4059,12 +4254,12 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TxidZ_to_array(nativeType: LDKCVec_TxidZ, deallocate: Bool = true) -> [LDKThirtyTwoBytes] {
-		var array = [LDKThirtyTwoBytes]()
+    public class func LDKCVec_TxidZ_to_array(nativeType: LDKCVec_TxidZ, deallocate: Bool = true) -> [[UInt8]] {
+		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			/* CONVERSION_PREP */
-			array.append(currentEntry)
+			let convertedEntry = LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
+			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
@@ -5266,6 +5461,16 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_NodeAliasDecodeErrorZ_is_ok(o: Result_NodeAliasDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NodeAliasDecodeErrorZ>) in
+
+				CResult_NodeAliasDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_NodeInfoDecodeErrorZ_is_ok(o: Result_NodeInfoDecodeErrorZ) -> Bool {
 		
 				
@@ -6395,7 +6600,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				
 			
 	}
-	public class func swift_find_route(our_node_pubkey: [UInt8], route_params: RouteParameters, network_graph: ReadOnlyNetworkGraph, first_hops: [ChannelDetails]?, logger: Logger, scorer: Score, random_seed_bytes: [UInt8]) -> Result_RouteLightningErrorZ {
+	public class func swift_find_route(our_node_pubkey: [UInt8], route_params: RouteParameters, network_graph: NetworkGraph, first_hops: [ChannelDetails]?, logger: Logger, scorer: Score, random_seed_bytes: [UInt8]) -> Result_RouteLightningErrorZ {
 		
 				
 							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
@@ -6411,7 +6616,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 							}
 						
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
-withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
+withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
 withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (random_seed_bytesPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
@@ -6423,7 +6628,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 }
 			
 	}
-	public class func swift_build_route_from_hops(our_node_pubkey: [UInt8], hops: [[UInt8]], route_params: RouteParameters, network_graph: ReadOnlyNetworkGraph, logger: Logger, random_seed_bytes: [UInt8]) -> Result_RouteLightningErrorZ {
+	public class func swift_build_route_from_hops(our_node_pubkey: [UInt8], hops: [[UInt8]], route_params: RouteParameters, network_graph: NetworkGraph, logger: Logger, random_seed_bytes: [UInt8]) -> Result_RouteLightningErrorZ {
 		
 				
 						let hopsWrapper = Bindings.new_LDKCVec_PublicKeyZWrapper(array: hops)
@@ -6432,7 +6637,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 						}
 					
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
-withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
+withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (random_seed_bytesPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 
 				Result_RouteLightningErrorZ(pointer: build_route_from_hops(Bindings.new_LDKPublicKey(array: our_node_pubkey), hopsWrapper.dangle().cOpaqueStruct!, route_paramsPointer, network_graphPointer, logger.activate().cOpaqueStruct!, random_seed_bytesPointer))
@@ -6717,7 +6922,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "e3dda300a8ce01a15c2f550de4e3b2ca966127a8"
+        return "bf16d08dc0183ae1d6b43c89990a25182f754675"
     }
 
 }

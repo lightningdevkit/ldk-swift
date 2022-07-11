@@ -114,6 +114,36 @@ ChannelHandshakeConfig_get_negotiate_scid_privacy(this_ptrPointer)
         return ChannelHandshakeConfig_set_negotiate_scid_privacy(this_ptrPointer, val);
     }
 
+    public func get_announced_channel() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_announced_channel(this_ptrPointer)
+};
+    }
+
+    public func set_announced_channel(val: Bool) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelHandshakeConfig_set_announced_channel(this_ptrPointer, val);
+    }
+
+    public func get_commit_upfront_shutdown_pubkey() -> Bool {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
+};
+    }
+
+    public func set_commit_upfront_shutdown_pubkey(val: Bool) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelHandshakeConfig_set_commit_upfront_shutdown_pubkey(this_ptrPointer, val);
+    }
+
     public func clone() -> ChannelHandshakeConfig {
     	
         return ChannelHandshakeConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in

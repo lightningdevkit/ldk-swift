@@ -23,12 +23,12 @@ jobs:
                     # Note this is a different endpoint, as we need one non-upstream commit!
                     # git clone https://git.bitcoin.ninja/rust-lightning
                     # git clone https://github.com/TheBlueMatt/rust-lightning
-                    git clone --branch 2022-06-108-java-bindings https://github.com/TheBlueMatt/rust-lightning
+                    git clone --branch 2022-07-109-java-bindings https://github.com/TheBlueMatt/rust-lightning
                     cd rust-lightning
                     echo "rust-lightning commit hash:"
                     git rev-parse HEAD
                     cd ..
-                    git clone --branch v0.0.108.2 https://github.com/lightningdevkit/ldk-c-bindings
+                    git clone --branch v0.0.109.0 https://github.com/lightningdevkit/ldk-c-bindings
                     # git clone https://github.com/TheBlueMatt/ldk-c-bindings
                     cd ldk-c-bindings
                     echo "ldk-c-bindings commit hash:"

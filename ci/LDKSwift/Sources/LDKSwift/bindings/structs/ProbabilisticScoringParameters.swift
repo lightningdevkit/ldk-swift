@@ -99,6 +99,21 @@ ProbabilisticScoringParameters_get_amount_penalty_multiplier_msat(this_ptrPointe
         return ProbabilisticScoringParameters_set_amount_penalty_multiplier_msat(this_ptrPointer, val);
     }
 
+    public func get_anti_probing_penalty_msat() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+ProbabilisticScoringParameters_get_anti_probing_penalty_msat(this_ptrPointer)
+};
+    }
+
+    public func set_anti_probing_penalty_msat(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ProbabilisticScoringParameters_set_anti_probing_penalty_msat(this_ptrPointer, val);
+    }
+
     public func clone() -> ProbabilisticScoringParameters {
     	
         return ProbabilisticScoringParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
@@ -112,6 +127,29 @@ ProbabilisticScoringParameters_clone(origPointer)
 						return dangledClone
 					}
 				
+
+    public func add_banned_from_list(node_ids: [NodeId]) -> Void {
+    	
+							let node_idsUnwrapped = node_ids.map { (node_idsCurrentValue) in
+							node_idsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+        return self.add_banned_from_list(node_ids: node_idsUnwrapped);
+    }
+
+    internal func add_banned_from_list(node_ids: [LDKNodeId]) -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+						let node_idsWrapper = Bindings.new_LDKCVec_NodeIdZWrapper(array: node_ids)
+						defer {
+							node_idsWrapper.noOpRetain()
+						}
+					
+        return ProbabilisticScoringParameters_add_banned_from_list(this_argPointer, node_idsWrapper.dangle().cOpaqueStruct!);
+    }
 
     internal func free() -> Void {
     	

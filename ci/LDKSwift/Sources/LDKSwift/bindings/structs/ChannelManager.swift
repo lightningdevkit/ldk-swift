@@ -100,19 +100,35 @@ ChannelManager_close_channel_with_target_feerate(this_argPointer, channel_idPoin
 });
     }
 
-    public func force_close_channel(channel_id: [UInt8], counterparty_node_id: [UInt8]) -> Result_NoneAPIErrorZ {
+    public func force_close_broadcasting_latest_txn(channel_id: [UInt8], counterparty_node_id: [UInt8]) -> Result_NoneAPIErrorZ {
     	
         return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-ChannelManager_force_close_channel(this_argPointer, channel_idPointer, Bindings.new_LDKPublicKey(array: counterparty_node_id))
+ChannelManager_force_close_broadcasting_latest_txn(this_argPointer, channel_idPointer, Bindings.new_LDKPublicKey(array: counterparty_node_id))
 }
 });
     }
 
-    public func force_close_all_channels() -> Void {
+    public func force_close_without_broadcasting_txn(channel_id: [UInt8], counterparty_node_id: [UInt8]) -> Result_NoneAPIErrorZ {
+    	
+        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+withUnsafePointer(to: Bindings.array_to_tuple32(array: channel_id)) { (channel_idPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
+ChannelManager_force_close_without_broadcasting_txn(this_argPointer, channel_idPointer, Bindings.new_LDKPublicKey(array: counterparty_node_id))
+}
+});
+    }
+
+    public func force_close_all_channels_broadcasting_latest_txn() -> Void {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_force_close_all_channels(this_argPointer)
+ChannelManager_force_close_all_channels_broadcasting_latest_txn(this_argPointer)
+};
+    }
+
+    public func force_close_all_channels_without_broadcasting_txn() -> Void {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_force_close_all_channels_without_broadcasting_txn(this_argPointer)
 };
     }
 
@@ -184,6 +200,20 @@ ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_broadcast_node_announcement(this_argPointer, Bindings.new_LDKThreeBytes(array: rgb), Bindings.new_LDKThirtyTwoBytes(array: alias), addressesWrapper.dangle().cOpaqueStruct!)
 };
+    }
+
+    public func update_channel_config(counterparty_node_id: [UInt8], channel_ids: [[UInt8]], config: ChannelConfig) -> Result_NoneAPIErrorZ {
+    	
+						let channel_idsWrapper = Bindings.new_LDKCVec_ThirtyTwoBytesZWrapper(array: channel_ids)
+						defer {
+							channel_idsWrapper.noOpRetain()
+						}
+					
+        return Result_NoneAPIErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+withUnsafePointer(to: config.cOpaqueStruct!) { (configPointer: UnsafePointer<LDKChannelConfig>) in
+ChannelManager_update_channel_config(this_argPointer, Bindings.new_LDKPublicKey(array: counterparty_node_id), channel_idsWrapper.dangle().cOpaqueStruct!, configPointer)
+}
+});
     }
 
     public func process_pending_htlc_forwards() -> Void {

@@ -134,6 +134,21 @@ PaymentParameters_get_max_total_cltv_expiry_delta(this_ptrPointer)
         return PaymentParameters_set_max_total_cltv_expiry_delta(this_ptrPointer, val);
     }
 
+    public func get_max_mpp_path_count() -> UInt8 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPaymentParameters>) in
+PaymentParameters_get_max_mpp_path_count(this_ptrPointer)
+};
+    }
+
+    public func set_max_mpp_path_count(val: UInt8) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKPaymentParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return PaymentParameters_set_max_mpp_path_count(this_ptrPointer, val);
+    }
+
     public func clone() -> PaymentParameters {
     	
         return PaymentParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentParameters>) in

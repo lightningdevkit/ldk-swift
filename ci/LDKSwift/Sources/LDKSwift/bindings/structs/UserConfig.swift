@@ -39,49 +39,49 @@ public class UserConfig: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
-    public func get_own_channel_config() -> ChannelHandshakeConfig {
+    public func get_channel_handshake_config() -> ChannelHandshakeConfig {
     	
         return ChannelHandshakeConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUserConfig>) in
-UserConfig_get_own_channel_config(this_ptrPointer)
+UserConfig_get_channel_handshake_config(this_ptrPointer)
 });
     }
 
-    public func set_own_channel_config(val: ChannelHandshakeConfig) -> Void {
+    public func set_channel_handshake_config(val: ChannelHandshakeConfig) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_own_channel_config(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+        return UserConfig_set_channel_handshake_config(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_peer_channel_config_limits() -> ChannelHandshakeLimits {
+    public func get_channel_handshake_limits() -> ChannelHandshakeLimits {
     	
         return ChannelHandshakeLimits(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUserConfig>) in
-UserConfig_get_peer_channel_config_limits(this_ptrPointer)
+UserConfig_get_channel_handshake_limits(this_ptrPointer)
 });
     }
 
-    public func set_peer_channel_config_limits(val: ChannelHandshakeLimits) -> Void {
+    public func set_channel_handshake_limits(val: ChannelHandshakeLimits) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_peer_channel_config_limits(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+        return UserConfig_set_channel_handshake_limits(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
-    public func get_channel_options() -> ChannelConfig {
+    public func get_channel_config() -> ChannelConfig {
     	
         return ChannelConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUserConfig>) in
-UserConfig_get_channel_options(this_ptrPointer)
+UserConfig_get_channel_config(this_ptrPointer)
 });
     }
 
-    public func set_channel_options(val: ChannelConfig) -> Void {
+    public func set_channel_config(val: ChannelConfig) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKUserConfig>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return UserConfig_set_channel_options(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+        return UserConfig_set_channel_config(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func get_accept_forwards_to_priv_channels() -> Bool {

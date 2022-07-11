@@ -34,14 +34,8 @@ jobs:
                 uses: ./.github/actions/install-dependencies
             -   name: Generate XCFramework
                 uses: ./.github/actions/generate-xcframework
-            -   name: Zip Xcframework
-                run: |
-                    ditto -c -k --sequesterRsrc /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LDKFramework.xcframework LDKFramework.xcframework.zip
-            -   name: Upload Framework Artifact
-                uses: actions/upload-artifact@v3
-                with:
-                    name: LDKFramework.xcframework.zip
-                    path: LDKFramework.xcframework.zip
+            -   name: Create XCFramework artifact
+                uses: ./.github/actions/upload-xcframework-artifact
     release:
         name: Publish Release
         runs-on: ubuntu-latest
@@ -50,8 +44,8 @@ jobs:
             -   name: Download Framework Artifact
                 uses: actions/download-artifact@v3
                 with:
-                    name: LDKFramework.xcframework.zip
+                    name: LightningDevKit
             -   name: Create Release
                 uses: softprops/action-gh-release@v1
                 with:
-                    files: LDKFramework.xcframework.zip
+                    files: LightningDevKit.xcframework.zip

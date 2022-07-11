@@ -84,36 +84,6 @@ ChannelConfig_get_cltv_expiry_delta(this_ptrPointer)
         return ChannelConfig_set_cltv_expiry_delta(this_ptrPointer, val);
     }
 
-    public func get_announced_channel() -> Bool {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelConfig>) in
-ChannelConfig_get_announced_channel(this_ptrPointer)
-};
-    }
-
-    public func set_announced_channel(val: Bool) -> Void {
-    	
-							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
-							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-						
-        return ChannelConfig_set_announced_channel(this_ptrPointer, val);
-    }
-
-    public func get_commit_upfront_shutdown_pubkey() -> Bool {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelConfig>) in
-ChannelConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
-};
-    }
-
-    public func set_commit_upfront_shutdown_pubkey(val: Bool) -> Void {
-    	
-							let this_ptrPointer = UnsafeMutablePointer<LDKChannelConfig>.allocate(capacity: 1)
-							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
-						
-        return ChannelConfig_set_commit_upfront_shutdown_pubkey(this_ptrPointer, val);
-    }
-
     public func get_max_dust_htlc_exposure_msat() -> UInt64 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelConfig>) in

@@ -136,11 +136,11 @@ open class Confirm: NativeTraitWrapper {
 
     }
 
-    open func get_relevant_txids() -> [LDKTxid] {
+    open func get_relevant_txids() -> [[UInt8]] {
     	/* EDIT ME */
 		Bindings.print("Confirm::get_relevant_txids should be overridden!", severity: .WARNING)
 
-return [LDKTxid]()
+return [[UInt8]]()
     }
 
     open func free() -> Void {
@@ -210,7 +210,7 @@ public class NativelyImplementedConfirm: Confirm {
 			
 	}
 
-	public override func get_relevant_txids() -> [LDKTxid] {
+	public override func get_relevant_txids() -> [[UInt8]] {
 		
 				
 				return 

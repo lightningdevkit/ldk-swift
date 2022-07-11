@@ -114,9 +114,9 @@ EffectiveCapacity_clone(origPointer)
         return EffectiveCapacity(pointer: EffectiveCapacity_maximum_htlc(amount_msat));
     }
 
-    public class func total(capacity_msat: UInt64) -> EffectiveCapacity {
+    public class func total(capacity_msat: UInt64, htlc_maximum_msat: Option_u64Z) -> EffectiveCapacity {
     	
-        return EffectiveCapacity(pointer: EffectiveCapacity_total(capacity_msat));
+        return EffectiveCapacity(pointer: EffectiveCapacity_total(capacity_msat, htlc_maximum_msat.danglingClone().cOpaqueStruct!));
     }
 
     public class func infinite() -> EffectiveCapacity {
@@ -209,6 +209,10 @@ EffectiveCapacity_as_msat(this_argPointer)
 				
 					public func getCapacity_msat() -> UInt64 {
 						return self.cOpaqueStruct!.capacity_msat
+					}
+				
+					public func getHtlc_maximum_msat() -> Option_u64Z {
+						return Option_u64Z(pointer: self.cOpaqueStruct!.htlc_maximum_msat, anchor: self)
 					}
 				
 				

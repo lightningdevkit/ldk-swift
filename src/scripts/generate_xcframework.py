@@ -22,13 +22,13 @@ def parse_config() -> ScriptConfig:
 def run(config: ScriptConfig):
 	build_products_directory = os.path.realpath(os.path.join(os.path.dirname(__file__), '../../bindings/bin'))
 	xcode_project_path = os.path.realpath(
-		os.path.join(os.path.dirname(__file__), '../../xcode/LDKFramework/LDKFramework.xcodeproj')
+		os.path.join(os.path.dirname(__file__), '../../xcode/LDKFramework/LDK.xcodeproj')
 	)
 	framework_input_flags: [str] = []
 	xcframework_output_path = os.path.join(
 		build_products_directory,
 		config.RUST_CONFIGURATION,
-		'LDKFramework.xcframework'
+		'LightningDevKit.xcframework'
 	)
 
 	child_environment = dict(os.environ)
@@ -60,7 +60,7 @@ def run(config: ScriptConfig):
 		# XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKFramework.framework "
 		framework_input_flags += [
 			'-framework',
-			f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LDKFramework.framework'
+			f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LightningDevKit.framework'
 		]
 
 		if config.PRESERVE_XCARCHIVES:
@@ -81,7 +81,7 @@ def run(config: ScriptConfig):
 				'archive',
 				'-verbose',
 				'-project', xcode_project_path,
-				'-scheme', 'LDKFramework',
+				'-scheme', 'LightningDevKit',
 				'-destination', f'generic/platform={current_destination}',
 				'-derivedDataPath', derived_data_directory,
 				'-archivePath', xcarchive_output_path,

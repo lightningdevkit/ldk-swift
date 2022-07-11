@@ -1,0 +1,14 @@
+name: Upload XCFramework
+description: Create artifact containing a zipped xcframework.
+runs:
+    using: composite
+    steps:
+        -   name: Zip Xcframework
+            shell: bash
+            run: |
+                ditto -c -k --sequesterRsrc /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LightningDevKit.xcframework LightningDevKit.xcframework.zip
+        -   name: Upload Framework Artifact
+            uses: actions/upload-artifact@v3
+            with:
+                name: LightningDevKit
+                path: LightningDevKit.xcframework.zip

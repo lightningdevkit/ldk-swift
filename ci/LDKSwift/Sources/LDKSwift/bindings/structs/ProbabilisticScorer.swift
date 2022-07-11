@@ -50,6 +50,43 @@ ProbabilisticScorer_debug_log_liquidity_stats(this_argPointer)
 };
     }
 
+    public func estimated_channel_liquidity_range(scid: UInt64, target: NodeId) -> Option_C2Tuple_u64u64ZZ {
+    	
+        return Option_C2Tuple_u64u64ZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKProbabilisticScorer>) in
+withUnsafePointer(to: target.cOpaqueStruct!) { (targetPointer: UnsafePointer<LDKNodeId>) in
+ProbabilisticScorer_estimated_channel_liquidity_range(this_argPointer, scid, targetPointer)
+}
+});
+    }
+
+    public func add_banned(node_id: NodeId) -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScorer>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return withUnsafePointer(to: node_id.cOpaqueStruct!) { (node_idPointer: UnsafePointer<LDKNodeId>) in
+ProbabilisticScorer_add_banned(this_argPointer, node_idPointer)
+};
+    }
+
+    public func remove_banned(node_id: NodeId) -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScorer>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return withUnsafePointer(to: node_id.cOpaqueStruct!) { (node_idPointer: UnsafePointer<LDKNodeId>) in
+ProbabilisticScorer_remove_banned(this_argPointer, node_idPointer)
+};
+    }
+
+    public func clear_banned() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScorer>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ProbabilisticScorer_clear_banned(this_argPointer);
+    }
+
     public func as_Score() -> NativelyImplementedScore {
     	
         return NativelyImplementedScore(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKProbabilisticScorer>) in

@@ -78,11 +78,5 @@ jobs:
                     python3 ./src/scripts/generate_xcframework.py
                 env:
                     PRESERVE_XCARCHIVES: true
-            -   name: Zip Xcframework
-                run: |
-                    ditto -c -k --sequesterRsrc /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LDKFramework.xcframework LDKFramework.xcframework.zip
-            -   name: Upload Framework Artifact
-                uses: actions/upload-artifact@v3
-                with:
-                    name: LDKFramework
-                    path: LDKFramework.xcframework.zip
+            -   name: Create XCFramework artifact
+                uses: ./.github/actions/upload-xcframework-artifact

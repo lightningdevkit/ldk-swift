@@ -17,8 +17,8 @@ runs:
 
                 LDK_C_BINDINGS_BINARY_DIRECTORY="" \
                 xcodebuild archive \
-                  -project 'LDKFramework/LDKFramework.xcodeproj' \
-                  -scheme 'LDKFramework' \
+                  -project 'LDKFramework/LDK.xcodeproj' \
+                  -scheme 'LightningDevKit' \
                   -destination 'generic/platform=${{ inputs.destination }}' \
                   -archivePath "/Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/${{ inputs.human_readable_platform }}/${{ inputs.human_readable_platform }}" \
                   ENABLE_BITCODE=NO \

@@ -12,8 +12,8 @@ runs:
             run: |
                 echo `pwd`
                 mkdir -p ./bindings/artifacts/bin
-                git clone --branch 2022-06-108-java-bindings https://github.com/TheBlueMatt/rust-lightning ./bindings/artifacts/rust-lightning
-                git clone --branch v0.0.108.2 https://github.com/lightningdevkit/ldk-c-bindings ./bindings/artifacts/ldk-c-bindings
+                git clone --branch 2022-07-109-java-bindings https://github.com/TheBlueMatt/rust-lightning ./bindings/artifacts/rust-lightning
+                git clone --branch v0.0.109.0 https://github.com/lightningdevkit/ldk-c-bindings ./bindings/artifacts/ldk-c-bindings
         -   name: Install Rust, required targets
             shell: bash
             run: |

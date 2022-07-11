@@ -50,7 +50,8 @@ class ScriptConfig:
 
 		if not ldk_directory_string:
 			# if xcarchives are preserved, we don't need an LDK_C_BINDINGS_BASE
-			print('Missing LDK C-bindings base directory. Either call the value or set the environment variable.', file=sys.stderr)
+			print('Missing LDK C-bindings base directory. Either run command with the value or set the environment variable.', file=sys.stderr)
+			print(f'Example usage: \npython3 {sys.argv[0]} /path/to/ldk-c-bindings')
 			if not should_preserve_xcarchives:
 				sys.exit(1)
 			else:

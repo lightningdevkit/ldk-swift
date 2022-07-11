@@ -11,7 +11,7 @@ CARGO_PATH = os.getenv('HOME') + '/.cargo/bin/cargo'
 
 def run(config: ScriptConfig):
 	if len(config.LIBLDK_BUILD_CONFIGURATIONS) != 1:
-		print('Individual libldk build must have exactly 1 build configuration.')
+		print('Individual libldk build must have exactly 1 build configuration.', file=sys.stderr)
 		sys.exit(1)
 
 	ldkBuildConfig = config.LIBLDK_BUILD_CONFIGURATIONS[0]
@@ -47,8 +47,8 @@ def run(config: ScriptConfig):
 		lipo_binary_directory = config.LIPO_BINARY_OUTPUT_DIRECTORY
 	lipo_binary_output_path = os.path.join(lipo_binary_directory, 'libldk.a')
 
-	print(individual_architecture_binary_directory)
-	print(lipo_binary_directory)
+	print('Building lipo binary into', lipo_binary_output_path)
+
 	os.makedirs(lipo_binary_directory, exist_ok=True)
 
 	child_environment = dict(os.environ)
@@ -92,7 +92,7 @@ def run(config: ScriptConfig):
 
 		# stop the complaints about directories not being empty
 		if os.path.isdir(cargo_target_directory):
-			shutil.rmtree(cargo_target_directory)
+			shutil.rmtree(cargo_target_directory, ignore_errors=True)
 		subprocess.check_call([CARGO_PATH, 'clean'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 		# cargo build -Z build-std=panic_abort,std --features "std" --target "${RUST_ARCH}-apple-${RUST_TARGET_OS}" $RUST_CONFIGURATION_FLAG

@@ -1,30 +1,29 @@
 name: Archive Framework
 inputs:
-  scheme:
-    description: Scheme
-    required: true
-  destination:
-    description: Destination
-    required: true
-  platform:
-    description: Platform Name
-    required: true
-  project:
-    description: Project directory, relative to the xcode folder
-    required: true
+    destination:
+        description: Destination platform/architecture details. Typically looks like "generic/platform=iOS" or "platform=macOS,variant=Mac Catalyst,arch=x86_64"
+        required: true
+    human_readable_platform:
+        description: Human-readable platform name, used for directory naming
+        required: true
+description: Framework archivation description.
 runs:
-  using: composite
-  steps:
-  - shell: bash
-    working-directory: .
-    run: |
-      cd xcode
+    using: composite
+    steps:
+        -   shell: bash
+            working-directory: .
+            run: |
+                cd xcode
 
-      xcodebuild archive \
-        -scheme '${{ inputs.scheme }}' \
-        -project '${{ inputs.project }}' \
-        -destination '${{ inputs.destination }}' \
-        -archivePath "$BUILD_DIR/LDKFramework-${{ inputs.platform }}" \
-        ENABLE_BITCODE=NO \
-        CLANG_ADDRESS_SANITIZER=NO CLANG_ADDRESS_SANITIZER_ALLOW_ERROR_RECOVERY=NO CLANG_ADDRESS_SANITIZER_USE_AFTER_SCOPE=NO \
-        SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES
+                LDK_C_BINDINGS_BINARY_DIRECTORY="" \
+                xcodebuild archive \
+                  -project 'LDKFramework/LDKFramework.xcodeproj' \
+                  -scheme 'LDKFramework' \
+                  -destination 'generic/platform=${{ inputs.destination }}' \
+                  -archivePath "/Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/${{ inputs.human_readable_platform }}/${{ inputs.human_readable_platform }}" \
+                  ENABLE_BITCODE=NO \
+                  EXCLUDED_ARCHS="i386 armv7" \
+                  SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+                  LDK_C_BINDINGS_BASE="${LDK_C_BINDINGS_BASE}" \
+                  LDK_C_BINDINGS_BINARY_DIRECTORY="" \
+                  LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY="${LDK_C_BINDINGS_BINARY_DIRECTORY}"

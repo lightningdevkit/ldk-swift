@@ -1,24 +1,21 @@
-name: Release Framework
+name: XCFramework from sequential Python script
 permissions:
-    contents: write
+    contents: read
     statuses: read
     pull-requests: read
     actions: read
     checks: write
 on:
-    workflow_dispatch:
-        inputs:
-            tags:
-                description: 'Test scenario tags'
-                required: true
-                type: boolean
     push:
-        tags:
+        branches:
+            - main
+    pull_request:
+        branches:
             - "*"
 
 jobs:
-    generate-xcframework:
-        name: Generate XCFramework
+    generate-sequential:
+        name: Build libldks, build xcarchives, and combine into xcframework
         runs-on: macos-12
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
@@ -40,18 +37,5 @@ jobs:
             -   name: Upload Framework Artifact
                 uses: actions/upload-artifact@v3
                 with:
-                    name: LDKFramework.xcframework.zip
+                    name: LDKFramework
                     path: LDKFramework.xcframework.zip
-    release:
-        name: Publish Release
-        runs-on: ubuntu-latest
-        needs: [ generate-xcframework ]
-        steps:
-            -   name: Download Framework Artifact
-                uses: actions/download-artifact@v3
-                with:
-                    name: LDKFramework.xcframework.zip
-            -   name: Create Release
-                uses: softprops/action-gh-release@v1
-                with:
-                    files: LDKFramework.xcframework.zip

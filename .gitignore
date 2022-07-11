@@ -13,17 +13,15 @@ ci/LDKSwift/Sources/*
 !ci/LDKSwift/Sources/LDKSwift/batteries/*
 !ci/LDKSwift/Sources/LDKSwift/bindings/Bindings.swift
 
-/xcode/LDKFramework/Build/
-/xcode/LDKFramework/LDKFramework.xcodeproj/project.xcworkspace/
-/xcode/LDKFramework/LDKFramework.xcodeproj/xcuserdata/
-/xcode/DirectBindingsApp/Build/
-/xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/project.xcworkspace/
-/xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/xcuserdata/
+/xcode/*/Build/
+/xcode/*/*.xcodeproj/project.xcworkspace/
+/xcode/*/*.xcodeproj/xcuserdata/
+/xcode/*/binary/*
+/xcode/*/headers/*
+/xcode/**/xcuserdata/*
+*.log
 
 ## User settings
 xcode/build
-xcode/LDK/headers/*
 xcuserdata/
 /bindings/artifacts
-/xcode/DirectBindingsApp/headers
-/xcode/LDK/build_libldk.log

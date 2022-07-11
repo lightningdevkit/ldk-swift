@@ -1357,7 +1357,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"Copying headers…\"\necho \"LDK_C_BINDINGS_BASE: ${LDK_C_BINDINGS_BASE}\"\nSCRIPT_PATH=\"${PROJECT_DIR}/../../src/scripts/prepare_headers.py\"\n# copy headers\n/usr/bin/python3 \"${SCRIPT_PATH}\"\n\necho \"Building LDK binaries if necessary…\"\necho \"LDK_C_BINDINGS_BINARY_DIRECTORY: ${LDK_C_BINDINGS_BINARY_DIRECTORY}\"\necho \"LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY: ${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}\"\n\nif [[ -z \"${LDK_C_BINDINGS_BINARY_DIRECTORY}\" ]]; then\n    echo \"LDK_C_BINDINGS_BINARY_DIRECTORY undefined, building deemed necessary\"\n    if [[ -z \"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}\" ]]; then\n        echo \"LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY undefined, build impossible without destination\"\n        exit 1\n    fi\n    export LDK_C_BINDINGS_BINARY_DIRECTORY=\"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}\"\n    SCRIPT_PATH=\"${PROJECT_DIR}/../../src/scripts/build_individual_libldk.py\"\n    # build binary\n    /usr/bin/python3 \"${SCRIPT_PATH}\"\nelse\n    echo \"LDK_C_BINDINGS_BINARY_DIRECTORY is set, building unnecessary.\"\nfi\n";
+			shellScript = "set -e\nSCRIPT_PATH=\"${PROJECT_DIR}/../../src/scripts/prepare_xcode_project.py\"\n/usr/bin/python3 \"${SCRIPT_PATH}\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

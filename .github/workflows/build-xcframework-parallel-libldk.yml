@@ -1,0 +1,102 @@
+name: XCFramework from libldks
+permissions:
+    contents: read
+    statuses: read
+    pull-requests: read
+    actions: read
+    checks: write
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - "*"
+
+jobs:
+    build-libldks:
+        name: Build & lipo libldk.a for ${{ matrix.configuration['human_readable_platform'] }}
+        runs-on: macos-12
+        env:
+            DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+            LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
+        strategy:
+            fail-fast: true
+            matrix:
+                configuration:
+                    -   platform_name: 'iphoneos'
+                        human_readable_platform: 'iphoneos'
+                        llvm_target_triple_suffix: ''
+                        architectures: 'arm64'
+                    -   platform_name: 'iphonesimulator'
+                        human_readable_platform: 'iphonesimulator'
+                        llvm_target_triple_suffix: '-simulator'
+                        architectures: 'arm64 x86_64'
+                    -   platform_name: 'macosx'
+                        human_readable_platform: 'macosx'
+                        llvm_target_triple_suffix: ''
+                        architectures: 'arm64 x86_64'
+                    -   platform_name: 'macosx'
+                        human_readable_platform: 'catalyst'
+                        llvm_target_triple_suffix: '-macabi'
+                        architectures: 'arm64 x86_64'
+        steps:
+            -   name: Configure Xcode
+                if: matrix.configuration['human_readable_platform'] == 'catalyst'
+                uses: maxim-lobanov/setup-xcode@v1
+                with:
+                    xcode-version: latest
+            -   name: Checkout
+                uses: actions/checkout@v2
+            -   name: Install Dependencies
+                uses: ./.github/actions/install-dependencies
+            -   name: Build libldk.a
+                shell: bash
+                run:
+                    python3 ./src/scripts/build_individual_libldk.py
+                env:
+                    PLATFORM_NAME: ${{ matrix.configuration['platform_name'] }}
+                    LLVM_TARGET_TRIPLE_SUFFIX: ${{ matrix.configuration['llvm_target_triple_suffix'] }}
+                    ARCHS: ${{ matrix.configuration['architectures'] }}
+            -   name: Upload binary
+                uses: actions/upload-artifact@v3
+                with:
+                    name: bindings
+                    path: |
+                        ./bindings/**/artifacts/ldk-c-bindings/lightning-c-bindings/include/*.h
+                        ./bindings/**/artifacts/ldk-c-bindings/ldk-net/ldk_net.*
+                        ./bindings/**/bin/release/${{ matrix.configuration['human_readable_platform'] }}/libldk.a
+    generate-parallel:
+        name: Build xcarchives and generate xcframework
+        needs: [ build-libldks ]
+        runs-on: macos-12
+        env:
+            DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+            LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
+        steps:
+            -   name: Configure Xcode
+                uses: maxim-lobanov/setup-xcode@v1
+                with:
+                    xcode-version: latest
+            -   name: Checkout
+                uses: actions/checkout@v2
+            -   name: Download libldks
+                uses: actions/download-artifact@v3
+            -   name: Generate Swift Bindings
+                shell: bash
+                run: |
+                    python3 ./
+                env:
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: bindings/artifacts/ldk-c-bindings/lightning-c-bindings/include/lightning.h
+            -   name: Generate xcframework
+                shell: bash
+                run:
+                    python3 ./src/scripts/generate_xcframework.py
+            -   name: Zip Xcframework
+                run: |
+                    ditto -c -k --sequesterRsrc /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LDKFramework.xcframework LDKFramework.xcframework.zip
+            -   name: Upload Framework Artifact
+                uses: actions/upload-artifact@v3
+                with:
+                    name: LDKFramework
+                    path: LDKFramework.xcframework.zip

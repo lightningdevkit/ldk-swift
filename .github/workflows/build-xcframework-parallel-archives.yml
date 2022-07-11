@@ -21,13 +21,13 @@ jobs:
             fail-fast: false
             matrix:
                 configuration:
-                    -   destination: generic/platform=iOS
-                        human_readable_platform: 'iphoneos'
-                    -   destination: platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro
+                    -   destination: 'iOS Simulator'
                         human_readable_platform: 'iphonesimulator'
-                    -   destination: generic/platform=OS X
+                    -   destination: 'iOS'
+                        human_readable_platform: 'iphoneos'
+                    -   destination: 'OS X'
                         human_readable_platform: 'macosx'
-                    -   destination: platform=macOS,variant=Mac Catalyst,arch=x86_64
+                    -   destination: 'macOS,variant=Mac Catalyst'
                         human_readable_platform: 'catalyst'
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
@@ -84,5 +84,5 @@ jobs:
             -   name: Upload Framework Artifact
                 uses: actions/upload-artifact@v3
                 with:
-                    name: LDKFramework.xcframework.zip
+                    name: LDKFramework
                     path: LDKFramework.xcframework.zip

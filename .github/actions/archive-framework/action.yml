@@ -17,12 +17,12 @@ runs:
 
                 LDK_C_BINDINGS_BINARY_DIRECTORY="" \
                 xcodebuild archive \
-                  -scheme 'LDKFramework' \
                   -project 'LDKFramework/LDKFramework.xcodeproj' \
-                  -destination '${{ inputs.destination }}' \
+                  -scheme 'LDKFramework' \
+                  -destination 'generic/platform=${{ inputs.destination }}' \
                   -archivePath "/Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/${{ inputs.human_readable_platform }}/${{ inputs.human_readable_platform }}" \
                   ENABLE_BITCODE=NO \
-                  CLANG_ADDRESS_SANITIZER=NO CLANG_ADDRESS_SANITIZER_ALLOW_ERROR_RECOVERY=NO CLANG_ADDRESS_SANITIZER_USE_AFTER_SCOPE=NO \
+                  EXCLUDED_ARCHS="i386 armv7" \
                   SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
                   LDK_C_BINDINGS_BASE="${LDK_C_BINDINGS_BASE}" \
                   LDK_C_BINDINGS_BINARY_DIRECTORY="" \

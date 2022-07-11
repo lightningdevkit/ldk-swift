@@ -65,7 +65,7 @@ def run(config: ScriptConfig):
 
 		if config.PRESERVE_XCARCHIVES:
 			# we don't regenerate any new xcarchives, and simply reuse the existing ones
-			break
+			continue
 
 		# create clean derived data directory
 		if os.path.exists(derived_data_directory):

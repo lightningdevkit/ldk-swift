@@ -37,5 +37,5 @@ jobs:
             -   name: Upload Framework Artifact
                 uses: actions/upload-artifact@v3
                 with:
-                    name: LDKFramework.xcframework.zip
+                    name: LDKFramework
                     path: LDKFramework.xcframework.zip

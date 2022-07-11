@@ -11,7 +11,7 @@ public class NodeAnnouncementInfo: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    internal init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: [UInt8], addresses_arg: [LDKNetAddress], announcement_message_arg: NodeAnnouncement) {
+    internal init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: NodeAlias, addresses_arg: [LDKNetAddress], announcement_message_arg: NodeAnnouncement) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
@@ -20,7 +20,7 @@ public class NodeAnnouncementInfo: NativeTypeWrapper {
 							addresses_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), Bindings.new_LDKThirtyTwoBytes(array: alias_arg), addresses_argWrapper.dangle().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = NodeAnnouncementInfo_new(features_arg.danglingClone().cOpaqueStruct!, last_update_arg, Bindings.new_LDKThreeBytes(array: rgb_arg), alias_arg.danglingClone().cOpaqueStruct!, addresses_argWrapper.dangle().cOpaqueStruct!, announcement_message_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -43,7 +43,7 @@ public class NodeAnnouncementInfo: NativeTypeWrapper {
 	}
 
     /* STRUCT_METHODS_START */
-    public convenience init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: [UInt8], addresses_arg: [NetAddress], announcement_message_arg: NodeAnnouncement)  {
+    public convenience init(features_arg: NodeFeatures, last_update_arg: UInt32, rgb_arg: [UInt8], alias_arg: NodeAlias, addresses_arg: [NetAddress], announcement_message_arg: NodeAnnouncement)  {
     	
 							let addresses_argUnwrapped = addresses_arg.map { (addresses_argCurrentValue) in
 							addresses_argCurrentValue
@@ -98,19 +98,19 @@ NodeAnnouncementInfo_get_rgb(this_ptrPointer)
         return NodeAnnouncementInfo_set_rgb(this_ptrPointer, Bindings.new_LDKThreeBytes(array: val));
     }
 
-    public func get_alias() -> [UInt8] {
+    public func get_alias() -> NodeAlias {
     	
-        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+        return NodeAlias(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
 NodeAnnouncementInfo_get_alias(this_ptrPointer)
-}.pointee);
+});
     }
 
-    public func set_alias(val: [UInt8]) -> Void {
+    public func set_alias(val: NodeAlias) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeAnnouncementInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return NodeAnnouncementInfo_set_alias(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+        return NodeAnnouncementInfo_set_alias(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func set_addresses(val: [NetAddress]) -> Void {

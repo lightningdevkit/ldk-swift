@@ -11,11 +11,11 @@ public class ChannelDetails: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(channel_id_arg: [UInt8], counterparty_arg: ChannelCounterparty, funding_txo_arg: OutPoint, channel_type_arg: ChannelTypeFeatures, short_channel_id_arg: Option_u64Z, outbound_scid_alias_arg: Option_u64Z, inbound_scid_alias_arg: Option_u64Z, channel_value_satoshis_arg: UInt64, unspendable_punishment_reserve_arg: Option_u64Z, user_channel_id_arg: UInt64, balance_msat_arg: UInt64, outbound_capacity_msat_arg: UInt64, next_outbound_htlc_limit_msat_arg: UInt64, inbound_capacity_msat_arg: UInt64, confirmations_required_arg: Option_u32Z, force_close_spend_delay_arg: Option_u16Z, is_outbound_arg: Bool, is_channel_ready_arg: Bool, is_usable_arg: Bool, is_public_arg: Bool, inbound_htlc_minimum_msat_arg: Option_u64Z, inbound_htlc_maximum_msat_arg: Option_u64Z) {
+    public init(channel_id_arg: [UInt8], counterparty_arg: ChannelCounterparty, funding_txo_arg: OutPoint, channel_type_arg: ChannelTypeFeatures, short_channel_id_arg: Option_u64Z, outbound_scid_alias_arg: Option_u64Z, inbound_scid_alias_arg: Option_u64Z, channel_value_satoshis_arg: UInt64, unspendable_punishment_reserve_arg: Option_u64Z, user_channel_id_arg: UInt64, balance_msat_arg: UInt64, outbound_capacity_msat_arg: UInt64, next_outbound_htlc_limit_msat_arg: UInt64, inbound_capacity_msat_arg: UInt64, confirmations_required_arg: Option_u32Z, force_close_spend_delay_arg: Option_u16Z, is_outbound_arg: Bool, is_channel_ready_arg: Bool, is_usable_arg: Bool, is_public_arg: Bool, inbound_htlc_minimum_msat_arg: Option_u64Z, inbound_htlc_maximum_msat_arg: Option_u64Z, config_arg: ChannelConfig) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.danglingClone().cOpaqueStruct!, funding_txo_arg.danglingClone().cOpaqueStruct!, channel_type_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg.danglingClone().cOpaqueStruct!, outbound_scid_alias_arg.danglingClone().cOpaqueStruct!, inbound_scid_alias_arg.danglingClone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.danglingClone().cOpaqueStruct!, user_channel_id_arg, balance_msat_arg, outbound_capacity_msat_arg, next_outbound_htlc_limit_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.danglingClone().cOpaqueStruct!, force_close_spend_delay_arg.danglingClone().cOpaqueStruct!, is_outbound_arg, is_channel_ready_arg, is_usable_arg, is_public_arg, inbound_htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, inbound_htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelDetails_new(Bindings.new_LDKThirtyTwoBytes(array: channel_id_arg), counterparty_arg.danglingClone().cOpaqueStruct!, funding_txo_arg.danglingClone().cOpaqueStruct!, channel_type_arg.danglingClone().cOpaqueStruct!, short_channel_id_arg.danglingClone().cOpaqueStruct!, outbound_scid_alias_arg.danglingClone().cOpaqueStruct!, inbound_scid_alias_arg.danglingClone().cOpaqueStruct!, channel_value_satoshis_arg, unspendable_punishment_reserve_arg.danglingClone().cOpaqueStruct!, user_channel_id_arg, balance_msat_arg, outbound_capacity_msat_arg, next_outbound_htlc_limit_msat_arg, inbound_capacity_msat_arg, confirmations_required_arg.danglingClone().cOpaqueStruct!, force_close_spend_delay_arg.danglingClone().cOpaqueStruct!, is_outbound_arg, is_channel_ready_arg, is_usable_arg, is_public_arg, inbound_htlc_minimum_msat_arg.danglingClone().cOpaqueStruct!, inbound_htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!, config_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -376,6 +376,21 @@ ChannelDetails_get_inbound_htlc_maximum_msat(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return ChannelDetails_set_inbound_htlc_maximum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+    }
+
+    public func get_config() -> ChannelConfig {
+    	
+        return ChannelConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelDetails>) in
+ChannelDetails_get_config(this_ptrPointer)
+});
+    }
+
+    public func set_config(val: ChannelConfig) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelDetails>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ChannelDetails_set_config(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
     public func clone() -> ChannelDetails {

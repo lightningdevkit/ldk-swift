@@ -224,15 +224,11 @@ ChannelMonitor_best_block_updated(this_argPointer, headerPointer, height, broadc
 					;
     }
 
-    public func get_relevant_txids() -> [Txid] {
+    public func get_relevant_txids() -> [[UInt8]] {
     	
         return Bindings.LDKCVec_TxidZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_relevant_txids(this_argPointer)
-})
-					.map { (bytes) in
-						   Bindings.LDKThirtyTwoBytes_to_array(nativeType: bytes)
-					}
-				;
+});
     }
 
     public func current_best_block() -> BestBlock {

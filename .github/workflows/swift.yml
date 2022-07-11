@@ -15,38 +15,18 @@ jobs:
         steps:
             -   name: Checkout source code
                 uses: actions/checkout@v2
-            -   name: Checkout Rust-Lightning and LDK-C-Bindings git
-                run: |
-                    cd ./ci
-                    git config --global user.email "ldk-ci@example.com"
-                    git config --global user.name "LDK CI"
-                    # Note this is a different endpoint, as we need one non-upstream commit!
-                    # git clone https://git.bitcoin.ninja/rust-lightning
-                    # git clone https://github.com/TheBlueMatt/rust-lightning
-                    git clone --branch 2022-07-109-java-bindings https://github.com/TheBlueMatt/rust-lightning
-                    cd rust-lightning
-                    echo "rust-lightning commit hash:"
-                    git rev-parse HEAD
-                    cd ..
-                    git clone --branch v0.0.109.0 https://github.com/lightningdevkit/ldk-c-bindings
-                    # git clone https://github.com/TheBlueMatt/ldk-c-bindings
-                    cd ldk-c-bindings
-                    echo "ldk-c-bindings commit hash:"
-                    git rev-parse HEAD
             -   name: Install native Rust toolchain, Valgrind, and build utilities
                 run: |
                     sudo apt-get update
                     sudo apt-get -y dist-upgrade
                     sudo apt-get -y install cargo valgrind lld git g++ clang curl
-            -   name: Install cbindgen
-                run: cargo install --force cbindgen
-            -   name: Regenerate C bindings
-                run: |
-                    pwd
-                    cd ci/ldk-c-bindings
-                    pwd
-                    ./genbindings.sh ../rust-lightning true
-                    cd ..
+            -   name: Install Dependencies
+                uses: ./.github/actions/install-dependencies
+                with:
+                    destination: ./ci
+                    configureRustNightly: false
+                env:
+                    LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift/bindings
             -   name: Copy new headers into bindings
                 run: |
                     cd ci
@@ -54,17 +34,6 @@ jobs:
                     cp ldk-c-bindings/lightning-c-bindings/include/*.h ./LDKSwift/Sources/LDKHeaders/include/
                     cp ldk-c-bindings/ldk-net/ldk_net.h ./LDKSwift/Sources/LDKHeaders/include/
                     cp ldk-c-bindings/ldk-net/ldk_net.c ./LDKSwift/Sources/LDKHeaders/
-            -   name: Generate (copy for debugging) Swift bindings and copy batteries
-                run: |
-                    pwd
-                    python3 ./ # Generate bindings into ci subdirectory
-
-                    # TODO: switch back to generation method after debugging
-                    # mkdir -p ci/LDKSwift/Sources/LDKSwift
-                    # cp -a bindings/LDK/. ci/LDKSwift/Sources/LDKSwift
-                env:
-                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
-                    LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift/bindings
             -   name: Check that the latest auto-generated Swift files are in the repo
                 run: |
                     python3 ./ # Generate bindings into local directory

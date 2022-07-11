@@ -1,5 +1,5 @@
-framework module LDKFramework {
-  umbrella header "LDKFramework.h"
+framework module LightningDevKit {
+  umbrella header "Framework.h"
 
   module * { export * }
   export *

@@ -101,7 +101,7 @@ export LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="/path/to/ldk-c-bindings/lightning-
 python3 ./
 ```
 
-Now, the contents of the `bindings/LDK` folder will have been completely regenerated.
+Now, the contents of `./ci/LDKSwift/Sources/LDKSwift/bindings` will have been completely regenerated.
 
 ### Preparing the correct Xcode version
 

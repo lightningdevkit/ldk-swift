@@ -8,13 +8,10 @@ permissions:
 on:
     workflow_dispatch:
         inputs:
-            tags:
-                description: 'Test scenario tags'
+            tag:
+                description: 'Tag for next release'
                 required: true
-                type: boolean
-    push:
-        tags:
-            - "*"
+                type: string
 
 jobs:
     generate-xcframework:
@@ -38,6 +35,13 @@ jobs:
                 uses: ./.github/actions/generate-xcframework
             -   name: Create XCFramework artifact
                 uses: ./.github/actions/upload-xcframework-artifact
+            -   name: Update Package.swift checksum
+                if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
+                run: |
+                    python3 ./src/scripts/update_swift_package_checksum.py `swift package compute-checksum LightningDevKit.xcframework.zip`
+                    git commit -m "Update Package.swift for ${{ github.event.inputs.tag }} release." ./Package.swift
+                    git tag ${{ github.event.inputs.tag }}
+                    git push origin HEAD:main --tags
     release:
         name: Publish Release
         runs-on: ubuntu-latest
@@ -48,6 +52,8 @@ jobs:
                 with:
                     name: LightningDevKit
             -   name: Create Release
-                uses: softprops/action-gh-release@v1
+                uses: ncipollo/release-action@v1
+                if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 with:
-                    files: LightningDevKit.xcframework.zip
+                    tag: ${{ github.event.inputs.tag }}
+                    artifacts: LightningDevKit.xcframework.zip

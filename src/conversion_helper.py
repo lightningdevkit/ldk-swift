@@ -13,6 +13,7 @@ class ArrayAccessorType:
 
 array_accessor_types_fixed_length: Dict[str, ArrayAccessorType] = {
 	"LDKThirtyTwoBytes": ArrayAccessorType(size=32, key='data'),
+	"LDKTxid": ArrayAccessorType(size=32, key='data'),
 	"LDKPaymentPreimage": ArrayAccessorType(size=32, key='data'),
 	"LDKPublicKey": ArrayAccessorType(size=33, key='compressed_form'),
 	"LDKSecretKey": ArrayAccessorType(size=32, key='bytes'),
@@ -41,6 +42,7 @@ array_accessor_types: Dict[str, ArrayAccessorType] = {
 }
 
 unary_tuples: [str] = ["LDKu5", "LDKWitnessVersion"]
+unary_tuple_type_details: Dict[str, object] = {}
 
 class ConversionHelper:
 	trait_structs = set()

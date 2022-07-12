@@ -1,0 +1,37 @@
+name: XCFramework from sequential Python script
+permissions:
+    contents: read
+    statuses: read
+    pull-requests: read
+    actions: read
+    checks: write
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - "*"
+
+jobs:
+    generate-sequential:
+        name: Build libldks, build xcarchives, and combine into xcframework
+        runs-on: macos-12
+        env:
+            DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
+            LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
+        steps:
+            -   name: Configure Xcode
+                uses: maxim-lobanov/setup-xcode@v1
+                with:
+                    xcode-version: latest
+            -   name: Checkout
+                uses: actions/checkout@v2
+            -   name: Install Dependencies
+                uses: ./.github/actions/install-dependencies
+                with:
+                    destination: ./bindings/artifacts
+            -   name: Generate XCFramework
+                uses: ./.github/actions/generate-xcframework
+            -   name: Create XCFramework artifact
+                uses: ./.github/actions/upload-xcframework-artifact

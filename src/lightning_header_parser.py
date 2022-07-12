@@ -313,7 +313,8 @@ class LightningHeaderParser():
 						vector_type_details.name = struct_name  # this is the iterator
 
 						# if 'LDKTransaction' not in self.type_details:
-						if iterated_type in ['LDKSignature', 'LDKPublicKey'] or (struct_name == 'LDKCVec_PaymentPreimageZ' and iterated_type in ['LDKPaymentPreimage', 'LDKThirtyTwoBytes']):
+						# if iterated_type in ['LDKSignature', 'LDKPublicKey'] or (struct_name == 'LDKCVec_PaymentPreimageZ' and iterated_type in ['LDKPaymentPreimage', 'LDKThirtyTwoBytes']):
+						if iterated_type in src.conversion_helper.array_accessor_types_fixed_length.keys():
 							iterated_type_details = TypeDetails()
 							iterated_type_details.type = CTypes.VECTOR
 							iterated_type_details.name = iterated_type
@@ -397,6 +398,9 @@ class LightningHeaderParser():
 
 						self.byte_arrays.add(struct_name)
 						self.type_details[struct_name].fields.append(byte_array_info)
+						if self.type_details[struct_name].is_unary_tuple:
+							src.conversion_helper.unary_tuple_type_details[struct_name] = self.type_details[struct_name]
+
 			else:
 				# there is no block-scoped object currently being parsed
 				fn_ptr = fn_ptr_regex.match(current_line)

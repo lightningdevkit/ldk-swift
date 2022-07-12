@@ -1,0 +1,29 @@
+name: Archive Framework
+inputs:
+    destination:
+        description: Destination platform/architecture details. Typically looks like "generic/platform=iOS" or "platform=macOS,variant=Mac Catalyst,arch=x86_64"
+        required: true
+    human_readable_platform:
+        description: Human-readable platform name, used for directory naming
+        required: true
+description: Framework archivation description.
+runs:
+    using: composite
+    steps:
+        -   shell: bash
+            working-directory: .
+            run: |
+                cd xcode
+
+                LDK_C_BINDINGS_BINARY_DIRECTORY="" \
+                xcodebuild archive \
+                  -project 'LDKFramework/LDK.xcodeproj' \
+                  -scheme 'LightningDevKit' \
+                  -destination 'generic/platform=${{ inputs.destination }}' \
+                  -archivePath "/Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/${{ inputs.human_readable_platform }}/${{ inputs.human_readable_platform }}" \
+                  ENABLE_BITCODE=NO \
+                  EXCLUDED_ARCHS="i386 armv7" \
+                  SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
+                  LDK_C_BINDINGS_BASE="${LDK_C_BINDINGS_BASE}" \
+                  LDK_C_BINDINGS_BINARY_DIRECTORY="" \
+                  LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY="${LDK_C_BINDINGS_BINARY_DIRECTORY}"

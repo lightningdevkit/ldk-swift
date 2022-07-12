@@ -1,0 +1,54 @@
+name: Test Artifacts
+permissions:
+    contents: read
+    statuses: read
+    pull-requests: read
+    actions: read
+    checks: write
+on:
+    workflow_dispatch:
+
+jobs:
+    create-artifact:
+        name: Add ${{ matrix.configuration['human_readable_platform'] }} to artifact
+        runs-on: macos-12
+        strategy:
+            fail-fast: false
+            matrix:
+                configuration:
+                    -   destination: generic/platform=iOS
+                        human_readable_platform: 'iphoneos'
+                    -   destination: platform=iOS Simulator,OS=15.2,name=iPhone 13 Pro
+                        human_readable_platform: 'iphonesimulator'
+                    -   destination: generic/platform=OS X
+                        human_readable_platform: 'macosx'
+                    -   destination: platform=macOS,variant=Mac Catalyst,arch=x86_64
+                        human_readable_platform: 'catalyst'
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+            -   name: Xcarchive emulation
+                run: |
+                    mkdir -p ./bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}
+                    touch ./bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}/${{ matrix.configuration['human_readable_platform'] }}.xcarchive
+            -   name: Upload emulated xcarchive
+                uses: actions/upload-artifact@v3
+                with:
+                    name: uploaded-artifact-name
+                    path: ./bindings/**/bin/release/${{ matrix.configuration['human_readable_platform'] }}/${{ matrix.configuration['human_readable_platform'] }}.xcarchive
+
+    download-artifact:
+        name: Download artifact
+        runs-on: macos-12
+        needs: [ create-artifact ]
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v2
+            -   name: Download emulated xcarchives
+                uses: actions/download-artifact@v3
+                with:
+                    path: ./downloaded-artifact-name
+            -   name: Preview download result
+                run: |
+                    ls -ll -R
+

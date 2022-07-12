@@ -36,13 +36,13 @@ In order to generate these bindings from scratch, you will need to clone two dep
 **[rust-lightning](https://github.com/lightningdevkit/rust-lightning)**, (a specific branch built for bindings compatibility):
 
 ```shell
-git clone --branch 2021-03-java-bindings-base https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
+git clone --branch 2022-06-108-java-bindings https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
 ```
 
 **[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:
 
 ```shell
-git clone https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
+git clone --branch v0.0.108.2 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
 ```
 
 Take note of where you clone these directories, it's best you save the absolute path somewhere handy for the rest of the remaining steps.
@@ -96,33 +96,54 @@ Take that commit hash and replace the `xxx` instances with it.
 To generate the Swift files, navigate to the `ldk-swift` repository and run the following:
 
 ```shell
-export LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="$(pwd)/path/to/ldk-c-bindings/lightning-c-bindings/include/lightning.h"
+export LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="/path/to/ldk-c-bindings/lightning-c-bindings/include/lightning.h"
 python3 ./
 ```
 
 Now, the contents of the `bindings/LDK` folder will have been completely regenerated.
 
-### Configuring Xcode for Framework Compilation
+### Preparing the correct Xcode version
 
-Go to the `xcode` folder and open `LDKFramework.xcworkspace`.
+To make sure the next two steps work correctly, you need to verify that you're using Xcode 13.2.1.
+If you have a later version, you can download the correct version from here: https://xcodereleases.com/
 
-Then, navigate to the "LDKFramework" project and click on the LDKFramework target, and open up the `Build Settings` tab:
-![](https://user-images.githubusercontent.com/5944973/175575527-97073a18-76fc-4ab0-928f-d40ac643e607.png)
+The direct download link is
 
-Search for "LDK_DIRECTORY":
-![](https://user-images.githubusercontent.com/5944973/175575621-38224096-4baa-44cc-8345-ec2b871fcbe6.png)
+https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_13.2.1/Xcode_13.2.1.xip
 
-Here, enter the absolute path to `ldk-c-bindings` that you saved above.
+You may be asked to log in to your Apple developer account.
 
-Now, do the same for the "LDKFramework_Mac" target.
+After downloading the correct Xcode version and copying it to Applications, you might also need to run
+the following command with root privileges:
+
+```shell
+sudo xcode-select -s /Applications/Xcode\ 13.2.1.app/Contents/Developer/
+```
+
+### Building requisite binaries
+
+Navigate (`cd`) to the `./src/scripts` folder, and run the following Python script:
+
+```shell
+python3 ./build_bulk_libldks.py /path/to/ldk-c-bindings
+```
+
+This command will take a while, but it will eventually produce a set of binaries for all the
+platform/architecture combinations we're trying to support. Those binaries should adhere to the
+`./bindings/bin/release/<platform>/` folder pattern.
+
+Each of those folders will contain an `architectures` directory with subdirectories such as `arm64`
+or `x86_64`, as well as a `libldk.a` file, which is the `lipo` product of all the targeted
+architectures.
 
 #### Generating the \*.xcframework files
 
-With all the bindings generated, you will just have to run two commands to generate the xcframework:
+With all the binaries generated, still in the `./src/scripts` directory, you just need to run one
+last Python script to produce the framework:
 
 ```shell
-cd xcode
-./build_framework.sh
+python3 ./generate_xcframework.py /path/to/ldk-c-bindings
 ```
 
-Once the script finishes running, you should see `LDKFramework.xcframework` in the `xcode/build` folder. Drag that into your project, and you're done!
+Once the script finishes running, you should see `LightningDevKit.xcframework` in the
+`./bindings/bin/release` folder. Drag that into your project, and you're done!

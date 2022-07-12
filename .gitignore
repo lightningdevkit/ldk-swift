@@ -5,26 +5,26 @@ lib*.a
 __pycache__
 
 ci/Build
-ci/LDKSwift/Sources
 ci/LDKSwift/.build
 ci/LDKSwift/.swiftpm
 
-/xcode/LDKFramework/Build/
-/xcode/LDKFramework/LDKFramework.xcodeproj/project.xcworkspace/
-/xcode/LDKFramework/LDKFramework.xcodeproj/xcuserdata/
-/xcode/DirectBindingsApp/Build/
-/xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/project.xcworkspace/
-/xcode/DirectBindingsApp/DirectBindingsApp.xcodeproj/xcuserdata/
+ci/LDKSwift/Sources/*
+!ci/LDKSwift/Sources/LDKSwift/
+!ci/LDKSwift/Sources/LDKSwift/batteries/*
+!ci/LDKSwift/Sources/LDKSwift/bindings/Bindings.swift
+
+/xcode/*/Build/
+/xcode/*/*.xcodeproj/project.xcworkspace/
+/xcode/*/*.xcodeproj/xcuserdata/
+/xcode/*/binary/*
+/xcode/*/headers/*
+/xcode/**/xcuserdata/*
+*.log
 
 ## User settings
 xcode/build
-xcode/LDK/headers/*
 xcuserdata/
 /bindings/artifacts
-/xcode/DirectBindingsApp/headers
 
 # VSCode
 .vscode/*
-
-!.vscode/launch.json
-!.vscode/extensions.json

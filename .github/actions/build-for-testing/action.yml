@@ -1,27 +1,32 @@
 name: Build For Testing
 inputs:
-  scheme:
-    description: Scheme
-    required: true
-  destination:
-    description: Destination
-    required: true
-  workspace:
-    description: Workspace Name
-    required: true
+    scheme:
+        description: Scheme
+        required: true
+    destination:
+        description: Destination
+        required: true
+    project:
+        description: Project directory, relative to the xcode folder
+        required: true
+description: Build for testing.
 runs:
-  using: composite
-  steps:
-  - shell: bash
-    working-directory: .
-    run: |
-      cd xcode
+    using: composite
+    steps:
+        -   shell: bash
+            working-directory: .
+            run: |
+                cd xcode
 
-      xcodebuild clean build-for-testing \
-        -allowProvisioningUpdates \
-        -allowProvisioningDeviceRegistration \
-        -workspace '${{ inputs.workspace }}' \
-        -scheme '${{ inputs.scheme }}' \
-        -destination '${{ inputs.destination }}' \
-        -resultBundlePath BuildResults.xcresult \
-        CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+                LDK_C_BINDINGS_BINARY_DIRECTORY="" \
+                xcodebuild clean build-for-testing \
+                  -allowProvisioningUpdates \
+                  -allowProvisioningDeviceRegistration \
+                  -project '${{ inputs.project }}' \
+                  -scheme '${{ inputs.scheme }}' \
+                  -destination '${{ inputs.destination }}' \
+                  -resultBundlePath BuildResults.xcresult \
+                  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO \
+                  LDK_C_BINDINGS_BASE="${LDK_C_BINDINGS_BASE}" \
+                  LDK_C_BINDINGS_BINARY_DIRECTORY="" \
+                  LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY="${LDK_C_BINDINGS_BINARY_DIRECTORY}"

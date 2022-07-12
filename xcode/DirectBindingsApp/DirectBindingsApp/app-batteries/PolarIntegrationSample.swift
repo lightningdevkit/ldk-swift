@@ -42,6 +42,7 @@ public class PolarIntegrationSample {
         let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
         let keysInterface = keysManager.as_KeysInterface()
 
+        let logger = LDKTraitImplementations.PolarLogger()
         let config = UserConfig()
         let lightningNetwork = LDKNetwork_Regtest
         let genesisHash = try await rpcInterface.getBlockHash(height: 0)
@@ -49,10 +50,10 @@ public class PolarIntegrationSample {
         let chaintipHash = try await rpcInterface.getChaintipHash()
         let reversedChaintipHash = [UInt8](chaintipHash.reversed())
         let chaintipHeight = try await rpcInterface.getChaintipHeight()
-        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
+        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
 
         let scoringParams = ProbabilisticScoringParameters()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph)
+        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
         let score = probabalisticScorer.as_Score()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -65,7 +66,6 @@ public class PolarIntegrationSample {
 
         let feeEstimator = LDKTraitImplementations.PolarFeeEstimator()
         let broadcaster = LDKTraitImplementations.PolarBroadcaster(rpcInterface: rpcInterface)
-        let logger = LDKTraitImplementations.PolarLogger()
         let channelMonitorPersister = LDKTraitImplementations.PolarChannelMonitorPersister()
         let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
         let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
@@ -166,7 +166,7 @@ public class PolarIntegrationSample {
         }
         let fundingTxid = try await rpcInterface.sendMoney(destinationAddress: outputAddress, amount: channelValueBtcString)
         let fundingTransaction = try await rpcInterface.getTransaction(hash: fundingTxid)
-        channelManager.funding_transaction_generated(temporary_channel_id: temporaryChannelId, funding_transaction: fundingTransaction)
+        channelManager.funding_transaction_generated(temporary_channel_id: temporaryChannelId, counterparty_node_id: lndPubkey, funding_transaction: fundingTransaction)
 
         // let's add a couple confirmations
         let fakeAddress = try await self.getBogusAddress(rpcInterface: rpcInterface)
@@ -434,6 +434,7 @@ public class PolarIntegrationSample {
             keysInterface = keysManager.as_KeysInterface()
 
             config = UserConfig()
+            let logger = LDKTraitImplementations.MuteLogger()
             let lightningNetwork = LDKNetwork_Bitcoin
             /*
             let genesisHash = try await rpcInterface.getBlockHash(height: 0)
@@ -446,12 +447,12 @@ public class PolarIntegrationSample {
             let reversedGenesisHash = PolarIntegrationSample.hexStringToBytes(hexString: reversedGenesisHashHex)!
             let chaintipHeight = 0
             let reversedChaintipHash = reversedGenesisHash
-            let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash)
+            let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
             
             print("Genesis hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedGenesisHash))")
 
             let scoringParams = ProbabilisticScoringParameters()
-            let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph)
+            let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
             let score = probabalisticScorer.as_Score()
             let multiThreadedScorer = MultiThreadedLockableScore(score: score)
             
@@ -459,7 +460,7 @@ public class PolarIntegrationSample {
             // broadcaster = LDKTraitImplementations.PolarBroadcaster(rpcInterface: rpcInterface)
             let broadcaster = LDKTraitImplementations.MuteBroadcaster()
             // logger = LDKTraitImplementations.PolarLogger()
-            let logger = LDKTraitImplementations.MuteLogger()
+            
             let channelMonitorPersister = LDKTraitImplementations.PolarChannelMonitorPersister()
             let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
             let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)

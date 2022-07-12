@@ -121,6 +121,24 @@ the following command with root privileges:
 sudo xcode-select -s /Applications/Xcode\ 13.2.1.app/Contents/Developer/
 ```
 
+#### Updating Swift files in Xcode project
+
+To make sure the correct bindings files are referenced in the project, open `./xcode/LDKFramework/LDK.xcodeproj`.
+
+In the sidebar, navigate to the `LDK/bindings` group, and delete it by removing references.
+
+<img width="417" alt="Screen Shot 2022-07-12 at 2 36 52 PM" src="https://user-images.githubusercontent.com/927534/178599884-36737de9-ae57-4d13-9617-5c12af2a7d5e.png">
+
+<img width="820" alt="Screen Shot 2022-07-12 at 2 38 31 PM" src="https://user-images.githubusercontent.com/927534/178600008-9baa0d92-7c3f-499d-88b8-c86b19ab057f.png">
+
+Then, open a Finder window, and drag the `bindings` folder (`./ci/LDKSwift/Sources/LDKSwift/bindings`) into the same location in Xcode that you just deleted.
+
+<img width="1110" alt="Screen Shot 2022-07-12 at 2 45 27 PM" src="https://user-images.githubusercontent.com/927534/178600978-9221e3e1-d227-450e-8937-dd2ad486975e.png">
+
+Finally, make sure you leave the "Copy items if needed" box unchecked, and pick at least `LightningDevKit` as a target to add the references to. Depending on what you intend to do later on, it's easiest to simply add it to all the targets.
+
+<img width="1313" alt="Screen Shot 2022-07-12 at 2 44 55 PM" src="https://user-images.githubusercontent.com/927534/178601275-7688b088-8349-4dcb-ac1b-a56c2dffdaa2.png">
+
 ### Building requisite binaries
 
 Navigate (`cd`) to the `./src/scripts` folder, and run the following Python script:

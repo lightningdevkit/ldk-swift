@@ -1,5 +1,14 @@
 name: Install Dependencies
 description: Install dependencies
+inputs:
+    destination:
+        description: Location to check out rust-lightning and ldk-c-bindings repositories
+        default: '.'
+        required: true
+    configureRustNightly:
+        description: Flag whether or not to install rust, which is not necessary on Ubuntu machines
+        default: 'true'
+        required: false
 runs:
     using: composite
     steps:
@@ -11,16 +20,18 @@ runs:
             shell: bash
             run: |
                 echo `pwd`
-                mkdir -p ./bindings/artifacts/bin
-                git clone --branch 2022-07-109-java-bindings https://github.com/TheBlueMatt/rust-lightning ./bindings/artifacts/rust-lightning
-                git clone --branch v0.0.109.0 https://github.com/lightningdevkit/ldk-c-bindings ./bindings/artifacts/ldk-c-bindings
+                mkdir -p ${{ inputs.destination }}/bin
+                git clone --branch 2022-07-109-java-bindings https://github.com/TheBlueMatt/rust-lightning ${{ inputs.destination }}/rust-lightning
+                git clone --branch v0.0.109.0 https://github.com/lightningdevkit/ldk-c-bindings ${{ inputs.destination }}/ldk-c-bindings
         -   name: Install Rust, required targets
+            if: ${{ inputs.configureRustNightly == 'true' }}
             shell: bash
             run: |
                 rustup toolchain install nightly
                 rustup target add aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
                 rustup component add rust-src --toolchain nightly-x86_64-apple-darwin
         -   name: Load Cache
+            if: ${{ inputs.configureRustNightly == 'true' }}
             uses: actions/cache@v3
             with:
                 path: |
@@ -34,7 +45,7 @@ runs:
             shell: bash
             run: |
                 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-                pushd bindings/artifacts/ldk-c-bindings
+                pushd ${{ inputs.destination }}/ldk-c-bindings
                 ./genbindings.sh ../rust-lightning true
                 popd
         -   name: Generate Swift Bindings
@@ -42,4 +53,4 @@ runs:
             run: |
                 python3 ./
             env:
-                LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: bindings/artifacts/ldk-c-bindings/lightning-c-bindings/include/lightning.h
+                LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ${{ inputs.destination }}/ldk-c-bindings/lightning-c-bindings/include/lightning.h

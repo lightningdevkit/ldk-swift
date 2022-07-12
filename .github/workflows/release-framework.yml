@@ -32,6 +32,8 @@ jobs:
                 uses: actions/checkout@v2
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
+                with:
+                    destination: ./bindings/artifacts
             -   name: Generate XCFramework
                 uses: ./.github/actions/generate-xcframework
             -   name: Create XCFramework artifact

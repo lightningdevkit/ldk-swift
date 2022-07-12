@@ -98,26 +98,46 @@ python3 ./
 
 Now, the contents of the `bindings/LDK` folder will have been completely regenerated.
 
-### Configuring Xcode for Framework Compilation
-Go to the `xcode` folder and open `LDKFramework.xcworkspace`.
+### Preparing the correct Xcode version
+To make sure the next two steps work correctly, you need to verify that you're using Xcode 13.2.1.
+If you have a later version, you can download the correct version from here: https://xcodereleases.com/
 
-Then, navigate to the "LDKFramework" project and click on the LDKFramework project target:
-![](https://user-images.githubusercontent.com/5944973/175575527-97073a18-76fc-4ab0-928f-d40ac643e607.png)
+The direct download link is
 
-Search for `LDK_C_BINDINGS_BASE`:
-![](https://user-images.githubusercontent.com/5944973/177420117-bcf7fc32-b07d-440f-84d1-fe2d373c355b.png)
+https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_13.2.1/Xcode_13.2.1.xip
 
-Here, enter the absolute path, pointing to your `ldk-c-bindings`.
+You may be asked to log in to your Apple developer account.
 
-You will now also have to do the same for `LDK_C_BINDINGS_BINARY_DIRECTORY`, and enter any directory you wish. We like to use just `bin/`.
+After downloading the correct Xcode version and copying it to Applications, you might also need to run
+the following command with root privileges:
+
+```shell
+sudo xcode-select -s /Applications/Xcode\ 13.2.1.app/Contents/Developer/
+```
+
+### Building requisite binaries
+Navigate (`cd`) to the `./src/scripts` folder, and run the following Python script:
+
+```shell
+python3 ./build_bulk_libldks.py /path/to/ldk-c-bindings
+```
+
+This command will take a while, but it will eventually produce a set of binaries for all the
+platform/architecture combinations we're trying to support. Those binaries should adhere to the
+`./bindings/bin/release/<platform>/` folder pattern.
+
+Each of those folders will contain an `architectures` directory with subdirectories such as `arm64`
+or `x86_64`, as well as a `libldk.a` file, which is the `lipo` product of all the targeted
+architectures.
 
 #### Generating the *.xcframework files
 
-With all the bindings generated, you will just have to run two commands to generate the xcframework:
+With all the binaries generated, still in the `./src/scripts` directory, you just need to run one
+last Python script to produce the framework:
 
 ```shell
-cd xcode
-./build_framework.sh
+python3 ./generate_xcframework.py /path/to/ldk-c-bindings
 ```
 
-Once the script finishes running, you should see `LDKFramework.xcframework` in the `xcode/build` folder. Drag that into your project, and you're done!
+Once the script finishes running, you should see `LightningDevKit.xcframework` in the
+`./bindings/bin/release` folder. Drag that into your project, and you're done!

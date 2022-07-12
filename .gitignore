@@ -25,3 +25,6 @@ ci/LDKSwift/Sources/*
 xcode/build
 xcuserdata/
 /bindings/artifacts
+
+# VSCode
+.vscode/*

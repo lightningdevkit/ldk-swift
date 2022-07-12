@@ -10,15 +10,15 @@ The `*.xcframework` files are either available on
 the [Releases](https://github.com/lightningdevkit/ldk-swift/releases) page, or can be [compiled](#Compilation)
 from scratch.
 
-
 ## Compilation
 
 ### Prerequisites
 
-- A Mac with Xcode 13.2.1 or lower (this is because there is a bug with `cc` that prevents it from compiling for Mac Catalyst targets with clang 13)
-- Python3
-- Rust
-- `gnu-sed` (optional; but will cut your compile times significantly!)
+-   A machine running macOS
+-   Xcode 13.2.1 or lower (this is because there is a bug with `cc` that prevents it from compiling for Mac Catalyst targets with clang 13)
+-   [Python3](https://programwithus.com/learn/python/install-python3-mac)
+-   [Rust](https://www.rust-lang.org/tools/install)
+-   [GNU sed](https://formulae.brew.sh/formula/gnu-sed) (optional, but will cut your compile times significantly!)
 
 For Rust specifically, there are a couple additional requirements that can be installed once the Rust toolchain
 is set up:
@@ -33,17 +33,20 @@ cargo install cbindgen
 
 In order to generate these bindings from scratch, you will need to clone two dependency repositories:
 
-**rust-lightning**, (a specific branch built for bindings compatibility)
+**[rust-lightning](https://github.com/lightningdevkit/rust-lightning)**, (a specific branch built for bindings compatibility):
+
 ```shell
 git clone --branch 2022-06-108-java-bindings https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
 ```
 
-**ldk-c-bindings**
+**[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:
+
 ```shell
 git clone --branch v0.0.108.2 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
 ```
 
 Take note of where you clone these directories, it's best you save the absolute path somewhere handy for the rest of the remaining steps.
+
 ### Generating Rust-to-C-bindings
 
 Now, navigate to the `ldk-c-bindings` directory and run the `genbindings.sh` script:
@@ -85,6 +88,7 @@ git rev-parse HEAD
 ```
 
 Take that commit hash and replace the `xxx` instances with it.
+
 </details>
 
 #### Generating the Swift files
@@ -99,6 +103,7 @@ python3 ./
 Now, the contents of the `bindings/LDK` folder will have been completely regenerated.
 
 ### Preparing the correct Xcode version
+
 To make sure the next two steps work correctly, you need to verify that you're using Xcode 13.2.1.
 If you have a later version, you can download the correct version from here: https://xcodereleases.com/
 
@@ -116,6 +121,7 @@ sudo xcode-select -s /Applications/Xcode\ 13.2.1.app/Contents/Developer/
 ```
 
 ### Building requisite binaries
+
 Navigate (`cd`) to the `./src/scripts` folder, and run the following Python script:
 
 ```shell
@@ -130,7 +136,7 @@ Each of those folders will contain an `architectures` directory with subdirector
 or `x86_64`, as well as a `libldk.a` file, which is the `lipo` product of all the targeted
 architectures.
 
-#### Generating the *.xcframework files
+#### Generating the \*.xcframework files
 
 With all the binaries generated, still in the `./src/scripts` directory, you just need to run one
 last Python script to produce the framework:

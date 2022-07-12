@@ -3,7 +3,7 @@ description: Install dependencies
 inputs:
     destination:
         description: Location to check out rust-lightning and ldk-c-bindings repositories
-        default: ''
+        default: '.'
         required: true
     configureRustNightly:
         description: Flag whether or not to install rust, which is not necessary on Ubuntu machines

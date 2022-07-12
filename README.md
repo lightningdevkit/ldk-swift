@@ -15,7 +15,7 @@ from scratch.
 ### Prerequisites
 
 -   A machine running macOS
--   Xcode 13.2.1 or lower (this is because there is a bug with `cc` that prevents it from compiling for Mac Catalyst targets with clang 13)
+-   [Xcode 13.2.1](https://xcodereleases.com/) or lower (this is because there is a bug with `cc` that prevents it from compiling for Mac Catalyst targets with clang 13)
 -   [Python3](https://programwithus.com/learn/python/install-python3-mac)
 -   [Rust](https://www.rust-lang.org/tools/install)
 -   [GNU sed](https://formulae.brew.sh/formula/gnu-sed) (optional, but will cut your compile times significantly!)
@@ -36,13 +36,13 @@ In order to generate these bindings from scratch, you will need to clone two dep
 **[rust-lightning](https://github.com/lightningdevkit/rust-lightning)**, (a specific branch built for bindings compatibility):
 
 ```shell
-git clone --branch 2022-06-108-java-bindings https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
+git clone --branch 2022-07-109-java-bindings https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
 ```
 
 **[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:
 
 ```shell
-git clone --branch v0.0.108.2 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
+git clone --branch v0.0.109.0 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
 ```
 
 Take note of where you clone these directories, it's best you save the absolute path somewhere handy for the rest of the remaining steps.
@@ -73,10 +73,11 @@ folder due to the previous `genbindings.sh` step. As Docker won't have access to
 replace those lines with the following:
 
 ```yaml
-lightning = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
-lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
-lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
-lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", branch = "2021-03-java-bindings-base", default-features = false }
+lightning = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
+lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
+lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
+lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
+lightning-rapid-gossip-sync = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
 ```
 
 You will note that the revision is unspecified and is currently just placeholder `xxx`s. To obtain the revision,
@@ -136,7 +137,7 @@ Each of those folders will contain an `architectures` directory with subdirector
 or `x86_64`, as well as a `libldk.a` file, which is the `lipo` product of all the targeted
 architectures.
 
-#### Generating the \*.xcframework files
+### Generating the \*.xcframework files
 
 With all the binaries generated, still in the `./src/scripts` directory, you just need to run one
 last Python script to produce the framework:

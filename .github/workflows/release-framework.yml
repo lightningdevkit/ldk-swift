@@ -27,6 +27,10 @@ jobs:
                     xcode-version: latest
             -   name: Checkout
                 uses: actions/checkout@v2
+            -   name: Update Package.swift tag to ${{ github.event.inputs.tag }}
+                if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
+                run: |
+                    python3 ./src/scripts/update_swift_package_checksum.py --tag ${{ github.event.inputs.tag }}
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:
@@ -38,7 +42,8 @@ jobs:
             -   name: Update Package.swift checksum
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 run: |
-                    python3 ./src/scripts/update_swift_package_checksum.py `swift package compute-checksum LightningDevKit.xcframework.zip`
+                    CHECKSUM=`swift package compute-checksum LightningDevKit.xcframework.zip`
+                    python3 ./src/scripts/update_swift_package_checksum.py --checksum "${CHECKSUM}"
                     git commit -m "Update Package.swift for ${{ github.event.inputs.tag }} release." ./Package.swift
                     git tag ${{ github.event.inputs.tag }}
                     git push origin HEAD:main --tags

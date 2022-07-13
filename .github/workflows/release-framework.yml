@@ -45,8 +45,13 @@ jobs:
                     CHECKSUM=`swift package compute-checksum LightningDevKit.xcframework.zip`
                     python3 ./src/scripts/update_swift_package_checksum.py --checksum "${CHECKSUM}"
                     git commit -m "Update Package.swift for ${{ github.event.inputs.tag }} release." ./Package.swift
+            -   name: Push and tag commit
+                if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
+                run: |
                     git tag ${{ github.event.inputs.tag }}
-                    git push origin HEAD:main --tags
+                    git push origin HEAD:main
+                    git push origin --tags
+
     release:
         name: Publish Release
         runs-on: ubuntu-latest

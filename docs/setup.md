@@ -13,7 +13,7 @@ abstract classes. However, as Swift does not allow abstract classes, and using p
 would shift both implementation and boilerplate burden on developers, I instead recommend
 an override pattern, which I will describe in the next step.
 
-This guide is essentially a conversion of the [Java guide](https://lightningdevkit.org/docs/build_node)
+This guide is essentially a conversion of the [Java guide](https://lightningdevkit.org/tutorials/build_a_node_in_java)
 for Swift.
 
 ## Phase 1: Trait Overrides

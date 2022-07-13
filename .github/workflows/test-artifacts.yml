@@ -34,8 +34,8 @@ jobs:
             -   name: Upload emulated xcarchive
                 uses: actions/upload-artifact@v3
                 with:
-                    name: uploaded-artifact-name
-                    path: ./bindings/**/bin/release/${{ matrix.configuration['human_readable_platform'] }}/${{ matrix.configuration['human_readable_platform'] }}.xcarchive
+                    name: ${{ matrix.configuration['human_readable_platform'] }}
+                    path: ./bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}/**/${{ matrix.configuration['human_readable_platform'] }}.xcarchive
 
     download-artifact:
         name: Download artifact
@@ -47,8 +47,9 @@ jobs:
             -   name: Download emulated xcarchives
                 uses: actions/download-artifact@v3
                 with:
-                    path: ./downloaded-artifact-name
+                    path: ./bindings/bin/release/
             -   name: Preview download result
                 run: |
+                    cd ./bindings/bin/release
                     ls -ll -R
 

@@ -55,8 +55,8 @@ jobs:
             -   name: Upload xcarchive
                 uses: actions/upload-artifact@v3
                 with:
-                    name: bindings
-                    path: ./bindings/**/bin/release/${{ matrix.configuration['human_readable_platform'] }}/${{ matrix.configuration['human_readable_platform'] }}.xcarchive
+                    name: ${{ matrix.configuration['human_readable_platform'] }}
+                    path: ./bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}/**/${{ matrix.configuration['human_readable_platform'] }}.xcarchive
 
     generate:
         name: Combine xcarchives into xcframework
@@ -74,6 +74,8 @@ jobs:
                 uses: actions/checkout@v2
             -   name: Download xcarchives
                 uses: actions/download-artifact@v3
+                with:
+                    path: ./bindings/bin/release/
             -   name: Generate xcframework
                 shell: bash
                 run:

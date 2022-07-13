@@ -33,6 +33,7 @@ class ScriptConfig:
 		self.RUST_CONFIGURATION_FLAG: str = ''
 		self.LIPO_BINARY_OUTPUT_DIRECTORY: str = ''
 		self.C_FILE_OUTPUT_DIRECTORY: str = ''
+		self.H_FILE_OUTPUT_DIRECTORY: str = ''
 		self.PRESERVE_XCARCHIVES: bool = False
 
 	@classmethod
@@ -108,10 +109,19 @@ class ScriptConfig:
 			# parse build config aspect
 			platform = os.getenv('PLATFORM_NAME')
 			llvm_target_triple_suffix = os.getenv('LLVM_TARGET_TRIPLE_SUFFIX')
-			architectures = os.getenv('ARCHS').split(' ')
-			ldkBuildConfig = BuildConfig(platform, llvm_target_triple_suffix, architectures)
-			config.LIBLDK_BUILD_CONFIGURATIONS = [ldkBuildConfig]
+			architecture_input_string = os.getenv('ARCHS')
+			if platform and architecture_input_string:
+				architectures = architecture_input_string.split(' ')
+				ldkBuildConfig = BuildConfig(platform, llvm_target_triple_suffix, architectures)
+				config.LIBLDK_BUILD_CONFIGURATIONS = [ldkBuildConfig]
 
-			pass
+		output_directory_override = os.getenv('C_FILE_OUTPUT_DIRECTORY')
+		if output_directory_override:
+			config.C_FILE_OUTPUT_DIRECTORY = output_directory_override
+
+		config.H_FILE_OUTPUT_DIRECTORY = config.C_FILE_OUTPUT_DIRECTORY
+		header_output_directory_override = os.getenv('H_FILE_OUTPUT_DIRECTORY')
+		if header_output_directory_override:
+			config.H_FILE_OUTPUT_DIRECTORY = header_output_directory_override
 
 		return config

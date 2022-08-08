@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_FundingSignedDecodeErrorZ: NativeTypeWrapper {
+public typealias Result_FundingSignedDecodeErrorZ = Bindings.Result_FundingSignedDecodeErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_FundingSignedDecodeErrorZ?
+	public class Result_FundingSignedDecodeErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_FundingSignedDecodeErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_FundingSignedDecodeErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_FundingSignedDecodeErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_FundingSignedDecodeErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_FundingSignedDecodeErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_FundingSignedDecodeErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_FundingSignedDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: FundingSigned) -> Result_FundingSignedDecodeErrorZ {
-    	
-        return Result_FundingSignedDecodeErrorZ(pointer: CResult_FundingSignedDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func ok(o: FundingSigned) -> Result_FundingSignedDecodeErrorZ {
+			
+			return Result_FundingSignedDecodeErrorZ(pointer: CResult_FundingSignedDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func err(e: DecodeError) -> Result_FundingSignedDecodeErrorZ {
-    	
-        return Result_FundingSignedDecodeErrorZ(pointer: CResult_FundingSignedDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
-    }
+		public class func err(e: DecodeError) -> Result_FundingSignedDecodeErrorZ {
+			
+			return Result_FundingSignedDecodeErrorZ(pointer: CResult_FundingSignedDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_FundingSignedDecodeErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_FundingSignedDecodeErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_FundingSignedDecodeErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_FundingSignedDecodeErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_FundingSignedDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_FundingSignedDecodeErrorZ {
-    	
-        return Result_FundingSignedDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_FundingSignedDecodeErrorZ>) in
+		public func clone() -> Result_FundingSignedDecodeErrorZ {
+			
+			return Result_FundingSignedDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_FundingSignedDecodeErrorZ>) in
 CResult_FundingSignedDecodeErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_FundingSignedDecodeErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_FundingSignedDecodeErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

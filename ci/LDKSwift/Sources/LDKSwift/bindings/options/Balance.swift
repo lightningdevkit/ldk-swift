@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class Balance: NativeTypeWrapper {
+public typealias Balance = Bindings.Balance
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKBalance?
+	public class Balance: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKBalance){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKBalance?
 
-	public init(pointer: LDKBalance, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKBalance){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKBalance, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum BalanceValueType {
 					case ClaimableOnChannelClose, ClaimableAwaitingConfirmations, ContentiousClaimable, MaybeClaimableHTLCAwaitingTimeout
 				}
-				
+
 				public func getValueType() -> BalanceValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -48,7 +52,7 @@ public class Balance: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsClaimableOnChannelClose() -> ClaimableOnChannelClose? {
 						if self.cOpaqueStruct?.tag != LDKBalance_ClaimableOnChannelClose {
@@ -79,16 +83,16 @@ public class Balance: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return Balance_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return Balance_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Balance {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Balance \(self.instanceNumber).")
@@ -99,12 +103,12 @@ public class Balance: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Balance {
-    	
-        return Balance(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBalance>) in
+		public func clone() -> Balance {
+			
+			return Balance(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKBalance>) in
 Balance_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Balance {
         				let dangledClone = self.clone()
@@ -113,41 +117,41 @@ Balance_clone(origPointer)
 					}
 				
 
-    public class func claimable_on_channel_close(claimable_amount_satoshis: UInt64) -> Balance {
-    	
-        return Balance(pointer: Balance_claimable_on_channel_close(claimable_amount_satoshis));
-    }
+		public class func claimable_on_channel_close(claimable_amount_satoshis: UInt64) -> Balance {
+			
+			return Balance(pointer: Balance_claimable_on_channel_close(claimable_amount_satoshis));
+		}
 
-    public class func claimable_awaiting_confirmations(claimable_amount_satoshis: UInt64, confirmation_height: UInt32) -> Balance {
-    	
-        return Balance(pointer: Balance_claimable_awaiting_confirmations(claimable_amount_satoshis, confirmation_height));
-    }
+		public class func claimable_awaiting_confirmations(claimable_amount_satoshis: UInt64, confirmation_height: UInt32) -> Balance {
+			
+			return Balance(pointer: Balance_claimable_awaiting_confirmations(claimable_amount_satoshis, confirmation_height));
+		}
 
-    public class func contentious_claimable(claimable_amount_satoshis: UInt64, timeout_height: UInt32) -> Balance {
-    	
-        return Balance(pointer: Balance_contentious_claimable(claimable_amount_satoshis, timeout_height));
-    }
+		public class func contentious_claimable(claimable_amount_satoshis: UInt64, timeout_height: UInt32) -> Balance {
+			
+			return Balance(pointer: Balance_contentious_claimable(claimable_amount_satoshis, timeout_height));
+		}
 
-    public class func maybe_claimable_htlcawaiting_timeout(claimable_amount_satoshis: UInt64, claimable_height: UInt32) -> Balance {
-    	
-        return Balance(pointer: Balance_maybe_claimable_htlcawaiting_timeout(claimable_amount_satoshis, claimable_height));
-    }
+		public class func maybe_claimable_htlcawaiting_timeout(claimable_amount_satoshis: UInt64, claimable_height: UInt32) -> Balance {
+			
+			return Balance(pointer: Balance_maybe_claimable_htlcawaiting_timeout(claimable_amount_satoshis, claimable_height));
+		}
 
-    public class func eq(a: Balance, b: Balance) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKBalance>) in
+		public class func eq(a: Bindings.Balance, b: Bindings.Balance) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKBalance>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKBalance>) in
 Balance_eq(aPointer, bPointer)
 }
 };
-    }
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class ClaimableOnChannelClose: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKBalance_LDKClaimableOnChannelClose_Body?;
 				fileprivate init(pointer: LDKBalance_LDKClaimableOnChannelClose_Body) {
@@ -161,18 +165,18 @@ Balance_eq(aPointer, bPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getClaimable_amount_satoshis() -> UInt64 {
 						return self.cOpaqueStruct!.claimable_amount_satoshis
 					}
 				
-				
+
 			}
 		
 
 			public class ClaimableAwaitingConfirmations: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKBalance_LDKClaimableAwaitingConfirmations_Body?;
 				fileprivate init(pointer: LDKBalance_LDKClaimableAwaitingConfirmations_Body) {
@@ -186,7 +190,7 @@ Balance_eq(aPointer, bPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getClaimable_amount_satoshis() -> UInt64 {
 						return self.cOpaqueStruct!.claimable_amount_satoshis
@@ -196,12 +200,12 @@ Balance_eq(aPointer, bPointer)
 						return self.cOpaqueStruct!.confirmation_height
 					}
 				
-				
+
 			}
 		
 
 			public class ContentiousClaimable: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKBalance_LDKContentiousClaimable_Body?;
 				fileprivate init(pointer: LDKBalance_LDKContentiousClaimable_Body) {
@@ -215,7 +219,7 @@ Balance_eq(aPointer, bPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getClaimable_amount_satoshis() -> UInt64 {
 						return self.cOpaqueStruct!.claimable_amount_satoshis
@@ -225,12 +229,12 @@ Balance_eq(aPointer, bPointer)
 						return self.cOpaqueStruct!.timeout_height
 					}
 				
-				
+
 			}
 		
 
 			public class MaybeClaimableHTLCAwaitingTimeout: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKBalance_LDKMaybeClaimableHTLCAwaitingTimeout_Body?;
 				fileprivate init(pointer: LDKBalance_LDKMaybeClaimableHTLCAwaitingTimeout_Body) {
@@ -244,7 +248,7 @@ Balance_eq(aPointer, bPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getClaimable_amount_satoshis() -> UInt64 {
 						return self.cOpaqueStruct!.claimable_amount_satoshis
@@ -254,7 +258,9 @@ Balance_eq(aPointer, bPointer)
 						return self.cOpaqueStruct!.claimable_height
 					}
 				
-				
+
 			}
 		
+	}
+
 }

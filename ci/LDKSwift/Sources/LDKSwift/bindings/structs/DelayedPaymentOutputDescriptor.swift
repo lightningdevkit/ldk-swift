@@ -2,46 +2,50 @@
 import LDKHeaders
 #endif
 
-public class DelayedPaymentOutputDescriptor: NativeTypeWrapper {
+public typealias DelayedPaymentOutputDescriptor = Bindings.DelayedPaymentOutputDescriptor
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?
+	public class DelayedPaymentOutputDescriptor: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKDelayedPaymentOutputDescriptor?
 
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init(outpoint_arg: OutPoint, per_commitment_point_arg: [UInt8], to_self_delay_arg: UInt16, output_arg: LDKTxOut, revocation_pubkey_arg: [UInt8], channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
-        self.cOpaqueStruct = DelayedPaymentOutputDescriptor_new(outpoint_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: per_commitment_point_arg), to_self_delay_arg, output_arg, Bindings.new_LDKPublicKey(array: revocation_pubkey_arg), Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
-        super.init(conflictAvoidingVariableName: 0)
-        
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_START */
+		public init(outpoint_arg: OutPoint, per_commitment_point_arg: [UInt8], to_self_delay_arg: UInt16, output_arg: LDKTxOut, revocation_pubkey_arg: [UInt8], channel_keys_id_arg: [UInt8], channel_value_satoshis_arg: UInt64) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			
+			self.cOpaqueStruct = DelayedPaymentOutputDescriptor_new(outpoint_arg.danglingClone().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: per_commitment_point_arg), to_self_delay_arg, output_arg, Bindings.new_LDKPublicKey(array: revocation_pubkey_arg), Bindings.new_LDKThirtyTwoBytes(array: channel_keys_id_arg), channel_value_satoshis_arg)
+			super.init(conflictAvoidingVariableName: 0)
+			
+		}
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKDelayedPaymentOutputDescriptor){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKDelayedPaymentOutputDescriptor){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKDelayedPaymentOutputDescriptor, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKDelayedPaymentOutputDescriptor, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func get_outpoint() -> OutPoint? {
-    	
-        return 
+		public func get_outpoint() -> OutPoint? {
+			
+			return 
 				{ () in
 					let cStruct =
 				withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
@@ -53,112 +57,112 @@ DelayedPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
 				return OutPoint(pointer: cStruct)
 				}()
 			;
-    }
+		}
 
-    public func set_outpoint(val: OutPoint) -> Void {
-    	
+		public func set_outpoint(val: OutPoint) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
-    }
+			return DelayedPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+		}
 
-    public func get_per_commitment_point() -> [UInt8] {
-    	
-        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func get_per_commitment_point() -> [UInt8] {
+			
+			return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_per_commitment_point(this_ptrPointer)
 });
-    }
+		}
 
-    public func set_per_commitment_point(val: [UInt8]) -> Void {
-    	
+		public func set_per_commitment_point(val: [UInt8]) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
-    }
+			return DelayedPaymentOutputDescriptor_set_per_commitment_point(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+		}
 
-    public func get_to_self_delay() -> UInt16 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func get_to_self_delay() -> UInt16 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_to_self_delay(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_to_self_delay(val: UInt16) -> Void {
-    	
+		public func set_to_self_delay(val: UInt16) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_to_self_delay(this_ptrPointer, val);
-    }
+			return DelayedPaymentOutputDescriptor_set_to_self_delay(this_ptrPointer, val);
+		}
 
-    public func get_output() -> TxOut {
-    	
-        return TxOut(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func get_output() -> TxOut {
+			
+			return TxOut(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_output(this_ptrPointer)
 });
-    }
+		}
 
-    public func set_output(val: LDKTxOut) -> Void {
-    	
+		public func set_output(val: LDKTxOut) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_output(this_ptrPointer, val);
-    }
+			return DelayedPaymentOutputDescriptor_set_output(this_ptrPointer, val);
+		}
 
-    public func get_revocation_pubkey() -> [UInt8] {
-    	
-        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func get_revocation_pubkey() -> [UInt8] {
+			
+			return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_revocation_pubkey(this_ptrPointer)
 });
-    }
+		}
 
-    public func set_revocation_pubkey(val: [UInt8]) -> Void {
-    	
+		public func set_revocation_pubkey(val: [UInt8]) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_revocation_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
-    }
+			return DelayedPaymentOutputDescriptor_set_revocation_pubkey(this_ptrPointer, Bindings.new_LDKPublicKey(array: val));
+		}
 
-    public func get_channel_keys_id() -> [UInt8] {
-    	
-        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func get_channel_keys_id() -> [UInt8] {
+			
+			return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_channel_keys_id(this_ptrPointer)
 }.pointee);
-    }
+		}
 
-    public func set_channel_keys_id(val: [UInt8]) -> Void {
-    	
+		public func set_channel_keys_id(val: [UInt8]) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_channel_keys_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
-    }
+			return DelayedPaymentOutputDescriptor_set_channel_keys_id(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+		}
 
-    public func get_channel_value_satoshis() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func get_channel_value_satoshis() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_get_channel_value_satoshis(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_channel_value_satoshis(val: UInt64) -> Void {
-    	
+		public func set_channel_value_satoshis(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return DelayedPaymentOutputDescriptor_set_channel_value_satoshis(this_ptrPointer, val);
-    }
+			return DelayedPaymentOutputDescriptor_set_channel_value_satoshis(this_ptrPointer, val);
+		}
 
-    public func clone() -> DelayedPaymentOutputDescriptor {
-    	
-        return DelayedPaymentOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func clone() -> DelayedPaymentOutputDescriptor {
+			
+			return DelayedPaymentOutputDescriptor(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> DelayedPaymentOutputDescriptor {
         				let dangledClone = self.clone()
@@ -167,27 +171,27 @@ DelayedPaymentOutputDescriptor_clone(origPointer)
 					}
 				
 
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_write(objPointer)
 });
-    }
+		}
 
-    public class func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
-    	
+		public class func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
+			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(serWrapper.cOpaqueStruct!));
-    }
+			return Result_DelayedPaymentOutputDescriptorDecodeErrorZ(pointer: DelayedPaymentOutputDescriptor_read(serWrapper.cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return DelayedPaymentOutputDescriptor_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> DelayedPaymentOutputDescriptor {
         				self.dangling = true
@@ -204,6 +208,8 @@ DelayedPaymentOutputDescriptor_write(objPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

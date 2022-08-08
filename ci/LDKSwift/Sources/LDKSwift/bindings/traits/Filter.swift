@@ -4,69 +4,73 @@ import LDKHeaders
 
 import Foundation
 
-open class Filter: NativeTraitWrapper {
+public typealias Filter = Bindings.Filter
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKFilter?
+	open class Filter: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKFilter?
 
-		func register_txCallback(pointer: UnsafeRawPointer?, txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, script_pubkey: LDKu8slice) -> Void {
-			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::register_tx")
-			
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+
+			/* NATIVE_CALLBACKS_START */
+
+			func register_txCallback(pointer: UnsafeRawPointer?, txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, script_pubkey: LDKu8slice) -> Void {
+				let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::register_tx")
+				
 								var txid: [UInt8]? = nil
 								if let txidUnwrapped = txidPointer {
 									txid = Bindings.tuple32_to_array(nativeType: txidUnwrapped.pointee)
 								}
 							
-			return instance.register_tx(txid: txid, script_pubkey: Bindings.LDKu8slice_to_array(nativeType: script_pubkey))
-		}
+				return instance.register_tx(txid: txid, script_pubkey: Bindings.LDKu8slice_to_array(nativeType: script_pubkey))
+			}
 
-		func register_outputCallback(pointer: UnsafeRawPointer?, output: LDKWatchedOutput) -> LDKCOption_C2Tuple_usizeTransactionZZ {
-			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::register_output")
-			
-			return instance.register_output(output: WatchedOutput(pointer: output)).cOpaqueStruct!
-		}
+			func register_outputCallback(pointer: UnsafeRawPointer?, output: LDKWatchedOutput) -> LDKCOption_C2Tuple_usizeTransactionZZ {
+				let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::register_output")
+				
+				return instance.register_output(output: WatchedOutput(pointer: output)).cOpaqueStruct!
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKFilter(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKFilter(this_arg: Bindings.instanceToPointer(instance: self), 
 			register_tx: register_txCallback,
 			register_output: register_outputCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKFilter){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKFilter){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKFilter, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKFilter, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -85,29 +89,31 @@ open class Filter: NativeTraitWrapper {
 					}
 				
 
-    open func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
-    	/* EDIT ME */
+		open func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
+			/* EDIT ME */
 		Bindings.print("Filter::register_tx should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
-    	/* EDIT ME */
+		open func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+			/* EDIT ME */
 		Bindings.print("Filter::register_output should be overridden!", severity: .WARNING)
 
 return Option_C2Tuple_usizeTransactionZZ.none()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Filter \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

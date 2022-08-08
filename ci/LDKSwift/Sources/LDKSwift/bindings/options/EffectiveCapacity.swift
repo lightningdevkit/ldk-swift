@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class EffectiveCapacity: NativeTypeWrapper {
+public typealias EffectiveCapacity = Bindings.EffectiveCapacity
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKEffectiveCapacity?
+	public class EffectiveCapacity: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKEffectiveCapacity){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKEffectiveCapacity?
 
-	public init(pointer: LDKEffectiveCapacity, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKEffectiveCapacity){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKEffectiveCapacity, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum EffectiveCapacityValueType {
 					case ExactLiquidity, MaximumHTLC, Total
 				}
-				
+
 				public func getValueType() -> EffectiveCapacityValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -46,7 +50,7 @@ public class EffectiveCapacity: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsExactLiquidity() -> ExactLiquidity? {
 						if self.cOpaqueStruct?.tag != LDKEffectiveCapacity_ExactLiquidity {
@@ -70,16 +74,16 @@ public class EffectiveCapacity: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return EffectiveCapacity_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return EffectiveCapacity_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> EffectiveCapacity {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing EffectiveCapacity \(self.instanceNumber).")
@@ -90,12 +94,12 @@ public class EffectiveCapacity: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> EffectiveCapacity {
-    	
-        return EffectiveCapacity(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKEffectiveCapacity>) in
+		public func clone() -> EffectiveCapacity {
+			
+			return EffectiveCapacity(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKEffectiveCapacity>) in
 EffectiveCapacity_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> EffectiveCapacity {
         				let dangledClone = self.clone()
@@ -104,44 +108,44 @@ EffectiveCapacity_clone(origPointer)
 					}
 				
 
-    public class func exact_liquidity(liquidity_msat: UInt64) -> EffectiveCapacity {
-    	
-        return EffectiveCapacity(pointer: EffectiveCapacity_exact_liquidity(liquidity_msat));
-    }
+		public class func exact_liquidity(liquidity_msat: UInt64) -> EffectiveCapacity {
+			
+			return EffectiveCapacity(pointer: EffectiveCapacity_exact_liquidity(liquidity_msat));
+		}
 
-    public class func maximum_htlc(amount_msat: UInt64) -> EffectiveCapacity {
-    	
-        return EffectiveCapacity(pointer: EffectiveCapacity_maximum_htlc(amount_msat));
-    }
+		public class func maximum_htlc(amount_msat: UInt64) -> EffectiveCapacity {
+			
+			return EffectiveCapacity(pointer: EffectiveCapacity_maximum_htlc(amount_msat));
+		}
 
-    public class func total(capacity_msat: UInt64, htlc_maximum_msat: Option_u64Z) -> EffectiveCapacity {
-    	
-        return EffectiveCapacity(pointer: EffectiveCapacity_total(capacity_msat, htlc_maximum_msat.danglingClone().cOpaqueStruct!));
-    }
+		public class func total(capacity_msat: UInt64, htlc_maximum_msat: Bindings.Option_u64Z) -> EffectiveCapacity {
+			
+			return EffectiveCapacity(pointer: EffectiveCapacity_total(capacity_msat, htlc_maximum_msat.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func infinite() -> EffectiveCapacity {
-    	
-        return EffectiveCapacity(pointer: EffectiveCapacity_infinite());
-    }
+		public class func infinite() -> EffectiveCapacity {
+			
+			return EffectiveCapacity(pointer: EffectiveCapacity_infinite());
+		}
 
-    public class func unknown() -> EffectiveCapacity {
-    	
-        return EffectiveCapacity(pointer: EffectiveCapacity_unknown());
-    }
+		public class func unknown() -> EffectiveCapacity {
+			
+			return EffectiveCapacity(pointer: EffectiveCapacity_unknown());
+		}
 
-    public func as_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKEffectiveCapacity>) in
+		public func as_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKEffectiveCapacity>) in
 EffectiveCapacity_as_msat(this_argPointer)
 };
-    }
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class ExactLiquidity: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKEffectiveCapacity_LDKExactLiquidity_Body?;
 				fileprivate init(pointer: LDKEffectiveCapacity_LDKExactLiquidity_Body) {
@@ -155,18 +159,18 @@ EffectiveCapacity_as_msat(this_argPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getLiquidity_msat() -> UInt64 {
 						return self.cOpaqueStruct!.liquidity_msat
 					}
 				
-				
+
 			}
 		
 
 			public class MaximumHTLC: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKEffectiveCapacity_LDKMaximumHTLC_Body?;
 				fileprivate init(pointer: LDKEffectiveCapacity_LDKMaximumHTLC_Body) {
@@ -180,18 +184,18 @@ EffectiveCapacity_as_msat(this_argPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getAmount_msat() -> UInt64 {
 						return self.cOpaqueStruct!.amount_msat
 					}
 				
-				
+
 			}
 		
 
 			public class Total: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKEffectiveCapacity_LDKTotal_Body?;
 				fileprivate init(pointer: LDKEffectiveCapacity_LDKTotal_Body) {
@@ -205,17 +209,19 @@ EffectiveCapacity_as_msat(this_argPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getCapacity_msat() -> UInt64 {
 						return self.cOpaqueStruct!.capacity_msat
 					}
 				
-					public func getHtlc_maximum_msat() -> Option_u64Z {
-						return Option_u64Z(pointer: self.cOpaqueStruct!.htlc_maximum_msat, anchor: self)
+					public func getHtlc_maximum_msat() -> Bindings.Option_u64Z {
+						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.htlc_maximum_msat, anchor: self)
 					}
 				
-				
+
 			}
 		
+	}
+
 }

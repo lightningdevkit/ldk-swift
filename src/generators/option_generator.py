@@ -89,7 +89,7 @@ class OptionGenerator:
 			swift_type = field_details.swift_type
 			nullable_swift_type = swift_type + '?'
 
-			
+
 			array_parsing_prep = ''
 			array_return_line = None
 
@@ -119,7 +119,7 @@ class OptionGenerator:
 				current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]
 				current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', f'self.cOpaqueStruct!.{field_details.var_name}')
 				array_return_line = current_replacement
-			
+
 
 			# DEFAULT CONSTRUCTOR
 
@@ -142,13 +142,13 @@ class OptionGenerator:
 			current_replacement = current_replacement.replace('methodName', current_method_name)
 			current_replacement = current_replacement.replace('swift_arguments', '')
 			current_replacement = current_replacement.replace('-> Void', '-> ' + nullable_swift_type)
-			
+
 			some_return_line = f'''return {swift_local_conversion_prefix}self.cOpaqueStruct!.some{swift_local_conversion_suffix}'''
 			if array_return_line is not None:
 				some_return_line = array_return_line
-			
+
 			current_replacement = current_replacement.replace('/* NATIVE_CALL_PREP */', f'''
-			
+
 				if self.cOpaqueStruct!.tag == {none_variant_name} {{
 						return nil
 				}}
@@ -204,7 +204,7 @@ class OptionGenerator:
 				public enum {swift_enum_type_name} {{
 					case {enum_value_list_string}
 				}}
-				
+
 				public func getValueType() -> {swift_enum_type_name}? {{
 					switch self.cOpaqueStruct?.tag {{
                     {enum_switch_cases}
@@ -212,7 +212,7 @@ class OptionGenerator:
                         return nil
                     }}
 				}}
-				
+
 				{value_getters}
 			'''  # print('here we are')
 
@@ -256,7 +256,7 @@ class OptionGenerator:
 			# 	current_replacement = current_replacement.replace('OptionType_methodName(', f'{current_native_method_name}(')
 			# replace arguments
 
-			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
+			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method, prefix_namespace=True)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 			deprecation_prefix = ''
 
@@ -296,7 +296,7 @@ class OptionGenerator:
         				self.dangling = true
 						return self
 					}}
-					
+
 					deinit {{
 						if !self.dangling {{
 							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")
@@ -313,6 +313,7 @@ class OptionGenerator:
 			struct_methods = ''
 
 		mutating_output_file_contents = mutating_output_file_contents.replace('class OptionName: NativeTypeWrapper', f'class {swift_struct_name}: NativeTypeWrapper')
+		mutating_output_file_contents = mutating_output_file_contents.replace('typealias OptionName = Bindings.OptionName', f'typealias {swift_struct_name} = Bindings.{swift_struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: OptionType', f'init(pointer: {struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: OptionType?', f'var cOpaqueStruct: {struct_name}?')
 		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)
@@ -374,17 +375,17 @@ class OptionGenerator:
 
 		return f'''
 			public class {class_name}{extension_suffix} {{
-				
+
 				{pointer_constructor}
-				
+
 				{value_getters}
-				
+
 			}}
 		'''
 
 	def prepare_return_body(self, type_details):
 		current_return_type = type_details
-		value_return_wrappers = ConversionHelper.prepare_return_value(current_return_type, is_clone_method=False, is_raw_property_getter=True)
+		value_return_wrappers = ConversionHelper.prepare_return_value(current_return_type, is_clone_method=False, is_raw_property_getter=True, prefix_namespace=True)
 
 		current_swift_return_type = value_return_wrappers['swift_type']
 		current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]

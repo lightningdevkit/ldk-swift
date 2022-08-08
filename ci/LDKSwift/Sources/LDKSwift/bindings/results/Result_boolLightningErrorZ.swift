@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_boolLightningErrorZ: NativeTypeWrapper {
+public typealias Result_boolLightningErrorZ = Bindings.Result_boolLightningErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_boolLightningErrorZ?
+	public class Result_boolLightningErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_boolLightningErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_boolLightningErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_boolLightningErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_boolLightningErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_boolLightningErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_boolLightningErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> LightningError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_boolLightningErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: Bool) -> Result_boolLightningErrorZ {
-    	
-        return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_ok(o));
-    }
+		public class func ok(o: Bool) -> Result_boolLightningErrorZ {
+			
+			return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_ok(o));
+		}
 
-    public class func err(e: LightningError) -> Result_boolLightningErrorZ {
-    	
-        return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_err(e.danglingClone().cOpaqueStruct!));
-    }
+		public class func err(e: LightningError) -> Result_boolLightningErrorZ {
+			
+			return Result_boolLightningErrorZ(pointer: CResult_boolLightningErrorZ_err(e.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_boolLightningErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_boolLightningErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_boolLightningErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_boolLightningErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_boolLightningErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_boolLightningErrorZ {
-    	
-        return Result_boolLightningErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_boolLightningErrorZ>) in
+		public func clone() -> Result_boolLightningErrorZ {
+			
+			return Result_boolLightningErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_boolLightningErrorZ>) in
 CResult_boolLightningErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_boolLightningErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_boolLightningErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

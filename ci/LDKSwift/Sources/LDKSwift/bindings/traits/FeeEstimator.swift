@@ -4,57 +4,61 @@ import LDKHeaders
 
 import Foundation
 
-open class FeeEstimator: NativeTraitWrapper {
+public typealias FeeEstimator = Bindings.FeeEstimator
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKFeeEstimator?
+	open class FeeEstimator: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKFeeEstimator?
 
-		func get_est_sat_per_1000_weightCallback(pointer: UnsafeRawPointer?, confirmation_target: LDKConfirmationTarget) -> UInt32 {
-			let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "FeeEstimator.swift::get_est_sat_per_1000_weight")
-			
-			return instance.get_est_sat_per_1000_weight(confirmation_target: confirmation_target)
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "FeeEstimator.swift::free")
-			
-			return instance.free()
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		/* NATIVE_CALLBACKS_END */
+			func get_est_sat_per_1000_weightCallback(pointer: UnsafeRawPointer?, confirmation_target: LDKConfirmationTarget) -> UInt32 {
+				let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "FeeEstimator.swift::get_est_sat_per_1000_weight")
+				
+				return instance.get_est_sat_per_1000_weight(confirmation_target: confirmation_target)
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKFeeEstimator(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: FeeEstimator = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "FeeEstimator.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKFeeEstimator(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_est_sat_per_1000_weight: get_est_sat_per_1000_weightCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKFeeEstimator){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKFeeEstimator){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKFeeEstimator, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKFeeEstimator, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -73,22 +77,24 @@ open class FeeEstimator: NativeTraitWrapper {
 					}
 				
 
-    open func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
-    	/* EDIT ME */
+		open func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
+			/* EDIT ME */
 		Bindings.print("FeeEstimator::get_est_sat_per_1000_weight should be overridden!", severity: .WARNING)
 
 return 0
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating FeeEstimator \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

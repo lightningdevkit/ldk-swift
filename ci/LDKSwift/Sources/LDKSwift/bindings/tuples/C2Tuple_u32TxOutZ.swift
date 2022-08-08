@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class C2Tuple_u32TxOutZ: NativeTypeWrapper {
+public typealias C2Tuple_u32TxOutZ = Bindings.C2Tuple_u32TxOutZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKC2Tuple_u32TxOutZ?
+	public class C2Tuple_u32TxOutZ: NativeTypeWrapper {
 
-    public init(pointer: LDKC2Tuple_u32TxOutZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-	public init(pointer: LDKC2Tuple_u32TxOutZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		internal var cOpaqueStruct: LDKC2Tuple_u32TxOutZ?
 
-    /* TUPLE_METHODS_START */
+		public init(pointer: LDKC2Tuple_u32TxOutZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-    public func clone() -> C2Tuple_u32TxOutZ {
-    	
-        return C2Tuple_u32TxOutZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_u32TxOutZ>) in
+		public init(pointer: LDKC2Tuple_u32TxOutZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* TUPLE_METHODS_START */
+
+		public func clone() -> C2Tuple_u32TxOutZ {
+			
+			return C2Tuple_u32TxOutZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_u32TxOutZ>) in
 C2Tuple_u32TxOutZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> C2Tuple_u32TxOutZ {
         				let dangledClone = self.clone()
@@ -41,15 +45,15 @@ C2Tuple_u32TxOutZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
-    	
-        return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b));
-    }
+		public class func new(a: UInt32, b: LDKTxOut) -> C2Tuple_u32TxOutZ {
+			
+			return C2Tuple_u32TxOutZ(pointer: C2Tuple_u32TxOutZ_new(a, b));
+		}
 
-    internal func free() -> Void {
-    	
-        return C2Tuple_u32TxOutZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return C2Tuple_u32TxOutZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> C2Tuple_u32TxOutZ {
         				self.dangling = true
@@ -74,6 +78,8 @@ C2Tuple_u32TxOutZ_clone(origPointer)
 					return TxOut(pointer: self.cOpaqueStruct!.b, anchor: self);
 				}
 			
-    /* TUPLE_METHODS_END */
+		/* TUPLE_METHODS_END */
+
+	}
 
 }

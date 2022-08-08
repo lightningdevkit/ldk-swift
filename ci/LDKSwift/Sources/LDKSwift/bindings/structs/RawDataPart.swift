@@ -2,64 +2,68 @@
 import LDKHeaders
 #endif
 
-public class RawDataPart: NativeTypeWrapper {
+public typealias RawDataPart = Bindings.RawDataPart
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKRawDataPart?
+	public class RawDataPart: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKRawDataPart?
 
 
-	
+		
 
-    public init(pointer: LDKRawDataPart){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKRawDataPart){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKRawDataPart, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKRawDataPart, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func get_timestamp() -> PositiveTimestamp {
-    	
-        return PositiveTimestamp(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRawDataPart>) in
+		public func get_timestamp() -> PositiveTimestamp {
+			
+			return PositiveTimestamp(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRawDataPart>) in
 RawDataPart_get_timestamp(this_ptrPointer)
 });
-    }
+		}
 
-    public func set_timestamp(val: PositiveTimestamp) -> Void {
-    	
+		public func set_timestamp(val: PositiveTimestamp) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKRawDataPart>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return RawDataPart_set_timestamp(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
-    }
+			return RawDataPart_set_timestamp(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+		}
 
-    public class func eq(a: RawDataPart, b: RawDataPart) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRawDataPart>) in
+		public class func eq(a: RawDataPart, b: RawDataPart) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRawDataPart>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRawDataPart>) in
 RawDataPart_eq(aPointer, bPointer)
 }
 };
-    }
+		}
 
-    public func clone() -> RawDataPart {
-    	
-        return RawDataPart(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawDataPart>) in
+		public func clone() -> RawDataPart {
+			
+			return RawDataPart(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRawDataPart>) in
 RawDataPart_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> RawDataPart {
         				let dangledClone = self.clone()
@@ -68,10 +72,10 @@ RawDataPart_clone(origPointer)
 					}
 				
 
-    internal func free() -> Void {
-    	
-        return RawDataPart_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return RawDataPart_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> RawDataPart {
         				self.dangling = true
@@ -88,6 +92,8 @@ RawDataPart_clone(origPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

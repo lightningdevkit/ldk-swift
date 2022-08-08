@@ -2,18 +2,22 @@
 import LDKHeaders
 #endif
 
-public class Option_C2Tuple_u64u64ZZ: NativeTypeWrapper {
+public typealias Option_C2Tuple_u64u64ZZ = Bindings.Option_C2Tuple_u64u64ZZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCOption_C2Tuple_u64u64ZZ?
+	public class Option_C2Tuple_u64u64ZZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init(value: C2Tuple_u64u64Z?) {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCOption_C2Tuple_u64u64ZZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
+		public init(value: C2Tuple_u64u64Z?) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			
 				self.cOpaqueStruct = LDKCOption_C2Tuple_u64u64ZZ()
 				if let value = value {
 					self.cOpaqueStruct!.tag = LDKCOption_C2Tuple_u64u64ZZ_Some
@@ -23,32 +27,32 @@ public class Option_C2Tuple_u64u64ZZ: NativeTypeWrapper {
 					self.cOpaqueStruct!.tag = LDKCOption_C2Tuple_u64u64ZZ_None
 				}
 			
-        
-        super.init(conflictAvoidingVariableName: 0)
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
-
-    public init(pointer: LDKCOption_C2Tuple_u64u64ZZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
-
-	public init(pointer: LDKCOption_C2Tuple_u64u64ZZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
-
-    /* OPTION_METHODS_START */
-
-    public func getValue() -> C2Tuple_u64u64Z? {
-    	
 			
+			super.init(conflictAvoidingVariableName: 0)
+		}
+		/* DEFAULT_CONSTRUCTOR_END */
+
+		public init(pointer: LDKCOption_C2Tuple_u64u64ZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKCOption_C2Tuple_u64u64ZZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
+
+		public func getValue() -> C2Tuple_u64u64Z? {
+			
+
 				if self.cOpaqueStruct!.tag == LDKCOption_C2Tuple_u64u64ZZ_None {
 						return nil
 				}
@@ -58,29 +62,29 @@ public class Option_C2Tuple_u64u64ZZ: NativeTypeWrapper {
 				assert(false, "invalid option enum value")
 				return nil
 			
-        
-    }
+			
+		}
 
-    public class func some(o: C2Tuple_u64u64Z) -> Option_C2Tuple_u64u64ZZ {
-    	
-        return Option_C2Tuple_u64u64ZZ(pointer: COption_C2Tuple_u64u64ZZ_some(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func some(o: Bindings.C2Tuple_u64u64Z) -> Option_C2Tuple_u64u64ZZ {
+			
+			return Option_C2Tuple_u64u64ZZ(pointer: COption_C2Tuple_u64u64ZZ_some(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func none() -> Option_C2Tuple_u64u64ZZ {
-    	
-        return Option_C2Tuple_u64u64ZZ(pointer: COption_C2Tuple_u64u64ZZ_none());
-    }
+		public class func none() -> Option_C2Tuple_u64u64ZZ {
+			
+			return Option_C2Tuple_u64u64ZZ(pointer: COption_C2Tuple_u64u64ZZ_none());
+		}
 
-    internal func free() -> Void {
-    	
-        return COption_C2Tuple_u64u64ZZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return COption_C2Tuple_u64u64ZZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Option_C2Tuple_u64u64ZZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Option_C2Tuple_u64u64ZZ \(self.instanceNumber).")
@@ -91,12 +95,12 @@ public class Option_C2Tuple_u64u64ZZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Option_C2Tuple_u64u64ZZ {
-    	
-        return Option_C2Tuple_u64u64ZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCOption_C2Tuple_u64u64ZZ>) in
+		public func clone() -> Option_C2Tuple_u64u64ZZ {
+			
+			return Option_C2Tuple_u64u64ZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCOption_C2Tuple_u64u64ZZ>) in
 COption_C2Tuple_u64u64ZZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Option_C2Tuple_u64u64ZZ {
         				let dangledClone = self.clone()
@@ -105,7 +109,9 @@ COption_C2Tuple_u64u64ZZ_clone(origPointer)
 					}
 				
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	/* TYPE_CLASSES */
+		/* TYPE_CLASSES */
+	}
+
 }

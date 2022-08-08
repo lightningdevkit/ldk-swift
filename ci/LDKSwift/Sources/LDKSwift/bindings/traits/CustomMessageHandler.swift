@@ -4,71 +4,75 @@ import LDKHeaders
 
 import Foundation
 
-open class CustomMessageHandler: NativeTraitWrapper {
+public typealias CustomMessageHandler = Bindings.CustomMessageHandler
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCustomMessageHandler?
+	open class CustomMessageHandler: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKCustomMessageHandler?
 
-		func handle_custom_messageCallback(pointer: UnsafeRawPointer?, msg: LDKType, sender_node_id: LDKPublicKey) -> LDKCResult_NoneLightningErrorZ {
-			let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageHandler.swift::handle_custom_message")
-			
-			return instance.handle_custom_message(msg: BindingsType(pointer: msg), sender_node_id: Bindings.tuple33_to_array(nativeType: sender_node_id.compressed_form)).cOpaqueStruct!
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func get_and_clear_pending_msgCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C2Tuple_PublicKeyTypeZZ {
-			let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageHandler.swift::get_and_clear_pending_msg")
-			
-			
+			/* NATIVE_CALLBACKS_START */
+
+			func handle_custom_messageCallback(pointer: UnsafeRawPointer?, msg: LDKType, sender_node_id: LDKPublicKey) -> LDKCResult_NoneLightningErrorZ {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageHandler.swift::handle_custom_message")
+				
+				return instance.handle_custom_message(msg: BindingsType(pointer: msg), sender_node_id: Bindings.tuple33_to_array(nativeType: sender_node_id.compressed_form)).cOpaqueStruct!
+			}
+
+			func get_and_clear_pending_msgCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C2Tuple_PublicKeyTypeZZ {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageHandler.swift::get_and_clear_pending_msg")
+				
+				
 					let returnWrapper = Bindings.new_LDKCVec_C2Tuple_PublicKeyTypeZZWrapper(array: instance.get_and_clear_pending_msg())
 					defer {
 						returnWrapper.noOpRetain()
 					}
 					return returnWrapper.dangle().cOpaqueStruct!
 				
-		}
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageHandler.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageHandler.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKCustomMessageHandler(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKCustomMessageHandler(this_arg: Bindings.instanceToPointer(instance: self), 
 			handle_custom_message: handle_custom_messageCallback,
 			get_and_clear_pending_msg: get_and_clear_pending_msgCallback,
 			CustomMessageReader: LDKCustomMessageReader(),
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKCustomMessageHandler){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCustomMessageHandler){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCustomMessageHandler, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCustomMessageHandler, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -87,29 +91,31 @@ open class CustomMessageHandler: NativeTraitWrapper {
 					}
 				
 
-    open func handle_custom_message(msg: BindingsType, sender_node_id: [UInt8]) -> Result_NoneLightningErrorZ {
-    	/* EDIT ME */
+		open func handle_custom_message(msg: BindingsType, sender_node_id: [UInt8]) -> Result_NoneLightningErrorZ {
+			/* EDIT ME */
 		Bindings.print("CustomMessageHandler::handle_custom_message should be overridden!", severity: .WARNING)
 
 return Result_NoneLightningErrorZ()
-    }
+		}
 
-    open func get_and_clear_pending_msg() -> [LDKC2Tuple_PublicKeyTypeZ] {
-    	/* EDIT ME */
+		open func get_and_clear_pending_msg() -> [LDKC2Tuple_PublicKeyTypeZ] {
+			/* EDIT ME */
 		Bindings.print("CustomMessageHandler::get_and_clear_pending_msg should be overridden!", severity: .WARNING)
 
 return [LDKC2Tuple_PublicKeyTypeZ]()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating CustomMessageHandler \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

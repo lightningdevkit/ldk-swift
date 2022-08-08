@@ -2,40 +2,44 @@
 import LDKHeaders
 #endif
 
-public class HTLCUpdate: NativeTypeWrapper {
+public typealias HTLCUpdate = Bindings.HTLCUpdate
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKHTLCUpdate?
+	public class HTLCUpdate: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKHTLCUpdate?
 
 
-	
+		
 
-    public init(pointer: LDKHTLCUpdate){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKHTLCUpdate){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKHTLCUpdate, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKHTLCUpdate, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func clone() -> HTLCUpdate {
-    	
-        return HTLCUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
+		public func clone() -> HTLCUpdate {
+			
+			return HTLCUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCUpdate>) in
 HTLCUpdate_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> HTLCUpdate {
         				let dangledClone = self.clone()
@@ -44,27 +48,27 @@ HTLCUpdate_clone(origPointer)
 					}
 				
 
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
 HTLCUpdate_write(objPointer)
 });
-    }
+		}
 
-    public class func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
-    	
+		public class func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {
+			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(serWrapper.cOpaqueStruct!));
-    }
+			return Result_HTLCUpdateDecodeErrorZ(pointer: HTLCUpdate_read(serWrapper.cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return HTLCUpdate_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return HTLCUpdate_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> HTLCUpdate {
         				self.dangling = true
@@ -81,6 +85,8 @@ HTLCUpdate_write(objPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

@@ -4,57 +4,61 @@ import LDKHeaders
 
 import Foundation
 
-open class EventsProvider: NativeTraitWrapper {
+public typealias EventsProvider = Bindings.EventsProvider
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKEventsProvider?
+	open class EventsProvider: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKEventsProvider?
 
-		func process_pending_eventsCallback(pointer: UnsafeRawPointer?, handler: LDKEventHandler) -> Void {
-			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::process_pending_events")
-			
-			return instance.process_pending_events(handler: EventHandler(pointer: handler))
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::free")
-			
-			return instance.free()
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		/* NATIVE_CALLBACKS_END */
+			func process_pending_eventsCallback(pointer: UnsafeRawPointer?, handler: LDKEventHandler) -> Void {
+				let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::process_pending_events")
+				
+				return instance.process_pending_events(handler: EventHandler(pointer: handler))
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKEventsProvider(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: EventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventsProvider.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKEventsProvider(this_arg: Bindings.instanceToPointer(instance: self), 
 			process_pending_events: process_pending_eventsCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKEventsProvider){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKEventsProvider){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKEventsProvider, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKEventsProvider, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -73,22 +77,24 @@ open class EventsProvider: NativeTraitWrapper {
 					}
 				
 
-    open func process_pending_events(handler: EventHandler) -> Void {
-    	/* EDIT ME */
+		open func process_pending_events(handler: EventHandler) -> Void {
+			/* EDIT ME */
 		Bindings.print("EventsProvider::process_pending_events should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating EventsProvider \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

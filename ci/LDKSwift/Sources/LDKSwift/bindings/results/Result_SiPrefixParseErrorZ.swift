@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_SiPrefixParseErrorZ: NativeTypeWrapper {
+public typealias Result_SiPrefixParseErrorZ = Bindings.Result_SiPrefixParseErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_SiPrefixParseErrorZ?
+	public class Result_SiPrefixParseErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_SiPrefixParseErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_SiPrefixParseErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_SiPrefixParseErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_SiPrefixParseErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_SiPrefixParseErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_SiPrefixParseErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> ParseError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_SiPrefixParseErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: LDKSiPrefix) -> Result_SiPrefixParseErrorZ {
-    	
-        return Result_SiPrefixParseErrorZ(pointer: CResult_SiPrefixParseErrorZ_ok(o));
-    }
+		public class func ok(o: LDKSiPrefix) -> Result_SiPrefixParseErrorZ {
+			
+			return Result_SiPrefixParseErrorZ(pointer: CResult_SiPrefixParseErrorZ_ok(o));
+		}
 
-    public class func err(e: ParseError) -> Result_SiPrefixParseErrorZ {
-    	
-        return Result_SiPrefixParseErrorZ(pointer: CResult_SiPrefixParseErrorZ_err(e.danglingClone().cOpaqueStruct!));
-    }
+		public class func err(e: ParseError) -> Result_SiPrefixParseErrorZ {
+			
+			return Result_SiPrefixParseErrorZ(pointer: CResult_SiPrefixParseErrorZ_err(e.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_SiPrefixParseErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_SiPrefixParseErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_SiPrefixParseErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_SiPrefixParseErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_SiPrefixParseErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_SiPrefixParseErrorZ {
-    	
-        return Result_SiPrefixParseErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SiPrefixParseErrorZ>) in
+		public func clone() -> Result_SiPrefixParseErrorZ {
+			
+			return Result_SiPrefixParseErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SiPrefixParseErrorZ>) in
 CResult_SiPrefixParseErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_SiPrefixParseErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_SiPrefixParseErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

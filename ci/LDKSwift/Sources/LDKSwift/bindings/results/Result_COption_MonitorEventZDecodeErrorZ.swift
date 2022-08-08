@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_COption_MonitorEventZDecodeErrorZ: NativeTypeWrapper {
+public typealias Result_COption_MonitorEventZDecodeErrorZ = Bindings.Result_COption_MonitorEventZDecodeErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_COption_MonitorEventZDecodeErrorZ?
+	public class Result_COption_MonitorEventZDecodeErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_COption_MonitorEventZDecodeErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_COption_MonitorEventZDecodeErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_COption_MonitorEventZDecodeErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_COption_MonitorEventZDecodeErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_COption_MonitorEventZDecodeErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_COption_MonitorEventZDecodeErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_COption_MonitorEventZDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: Option_MonitorEventZ) -> Result_COption_MonitorEventZDecodeErrorZ {
-    	
-        return Result_COption_MonitorEventZDecodeErrorZ(pointer: CResult_COption_MonitorEventZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func ok(o: Option_MonitorEventZ) -> Result_COption_MonitorEventZDecodeErrorZ {
+			
+			return Result_COption_MonitorEventZDecodeErrorZ(pointer: CResult_COption_MonitorEventZDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func err(e: DecodeError) -> Result_COption_MonitorEventZDecodeErrorZ {
-    	
-        return Result_COption_MonitorEventZDecodeErrorZ(pointer: CResult_COption_MonitorEventZDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
-    }
+		public class func err(e: DecodeError) -> Result_COption_MonitorEventZDecodeErrorZ {
+			
+			return Result_COption_MonitorEventZDecodeErrorZ(pointer: CResult_COption_MonitorEventZDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_COption_MonitorEventZDecodeErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_COption_MonitorEventZDecodeErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_COption_MonitorEventZDecodeErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_COption_MonitorEventZDecodeErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_COption_MonitorEventZDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_COption_MonitorEventZDecodeErrorZ {
-    	
-        return Result_COption_MonitorEventZDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_COption_MonitorEventZDecodeErrorZ>) in
+		public func clone() -> Result_COption_MonitorEventZDecodeErrorZ {
+			
+			return Result_COption_MonitorEventZDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_COption_MonitorEventZDecodeErrorZ>) in
 CResult_COption_MonitorEventZDecodeErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_COption_MonitorEventZDecodeErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_COption_MonitorEventZDecodeErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class PaymentPurpose: NativeTypeWrapper {
+public typealias PaymentPurpose = Bindings.PaymentPurpose
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKPaymentPurpose?
+	public class PaymentPurpose: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKPaymentPurpose){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKPaymentPurpose?
 
-	public init(pointer: LDKPaymentPurpose, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKPaymentPurpose){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKPaymentPurpose, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum PaymentPurposeValueType {
 					case InvoicePayment, SpontaneousPayment
 				}
-				
+
 				public func getValueType() -> PaymentPurposeValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -44,7 +48,7 @@ public class PaymentPurpose: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsInvoicePayment() -> InvoicePayment? {
 						if self.cOpaqueStruct?.tag != LDKPaymentPurpose_InvoicePayment {
@@ -61,16 +65,16 @@ public class PaymentPurpose: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return PaymentPurpose_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return PaymentPurpose_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> PaymentPurpose {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing PaymentPurpose \(self.instanceNumber).")
@@ -81,12 +85,12 @@ public class PaymentPurpose: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> PaymentPurpose {
-    	
-        return PaymentPurpose(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentPurpose>) in
+		public func clone() -> PaymentPurpose {
+			
+			return PaymentPurpose(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentPurpose>) in
 PaymentPurpose_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> PaymentPurpose {
         				let dangledClone = self.clone()
@@ -95,39 +99,39 @@ PaymentPurpose_clone(origPointer)
 					}
 				
 
-    public class func invoice_payment(payment_preimage: [UInt8], payment_secret: [UInt8]) -> PaymentPurpose {
-    	
-        return PaymentPurpose(pointer: PaymentPurpose_invoice_payment(Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), Bindings.new_LDKThirtyTwoBytes(array: payment_secret)));
-    }
+		public class func invoice_payment(payment_preimage: [UInt8], payment_secret: [UInt8]) -> PaymentPurpose {
+			
+			return PaymentPurpose(pointer: PaymentPurpose_invoice_payment(Bindings.new_LDKThirtyTwoBytes(array: payment_preimage), Bindings.new_LDKThirtyTwoBytes(array: payment_secret)));
+		}
 
-    public class func spontaneous_payment(a: [UInt8]) -> PaymentPurpose {
-    	
-        return PaymentPurpose(pointer: PaymentPurpose_spontaneous_payment(Bindings.new_LDKThirtyTwoBytes(array: a)));
-    }
+		public class func spontaneous_payment(a: [UInt8]) -> PaymentPurpose {
+			
+			return PaymentPurpose(pointer: PaymentPurpose_spontaneous_payment(Bindings.new_LDKThirtyTwoBytes(array: a)));
+		}
 
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKPaymentPurpose>) in
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKPaymentPurpose>) in
 PaymentPurpose_write(objPointer)
 });
-    }
+		}
 
-    public class func read(ser: [UInt8]) -> Result_PaymentPurposeDecodeErrorZ {
-    	
+		public class func read(ser: [UInt8]) -> Result_PaymentPurposeDecodeErrorZ {
+			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_PaymentPurposeDecodeErrorZ(pointer: PaymentPurpose_read(serWrapper.cOpaqueStruct!));
-    }
+			return Result_PaymentPurposeDecodeErrorZ(pointer: PaymentPurpose_read(serWrapper.cOpaqueStruct!));
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class InvoicePayment: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKPaymentPurpose_LDKInvoicePayment_Body?;
 				fileprivate init(pointer: LDKPaymentPurpose_LDKInvoicePayment_Body) {
@@ -141,7 +145,7 @@ PaymentPurpose_write(objPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getPayment_preimage() -> [UInt8] {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_preimage)
@@ -151,7 +155,9 @@ PaymentPurpose_write(objPointer)
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_secret)
 					}
 				
-				
+
 			}
 		
+	}
+
 }

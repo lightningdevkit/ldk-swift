@@ -2,61 +2,65 @@
 import LDKHeaders
 #endif
 
-public class ErroringMessageHandler: NativeTypeWrapper {
+public typealias ErroringMessageHandler = Bindings.ErroringMessageHandler
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKErroringMessageHandler?
+	public class ErroringMessageHandler: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKErroringMessageHandler?
 
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init() {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
-        self.cOpaqueStruct = ErroringMessageHandler_new()
-        super.init(conflictAvoidingVariableName: 0)
-        
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_START */
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			
+			self.cOpaqueStruct = ErroringMessageHandler_new()
+			super.init(conflictAvoidingVariableName: 0)
+			
+		}
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKErroringMessageHandler){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKErroringMessageHandler){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKErroringMessageHandler, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKErroringMessageHandler, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {
-    	
-        return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
+		public func as_MessageSendEventsProvider() -> NativelyImplementedMessageSendEventsProvider {
+			
+			return NativelyImplementedMessageSendEventsProvider(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_MessageSendEventsProvider(this_argPointer)
 }, anchor: self);
-    }
+		}
 
-    public func as_ChannelMessageHandler() -> NativelyImplementedChannelMessageHandler {
-    	
-        return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
+		public func as_ChannelMessageHandler() -> NativelyImplementedChannelMessageHandler {
+			
+			return NativelyImplementedChannelMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKErroringMessageHandler>) in
 ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 }, anchor: self);
-    }
+		}
 
-    internal func free() -> Void {
-    	
-        return ErroringMessageHandler_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return ErroringMessageHandler_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> ErroringMessageHandler {
         				self.dangling = true
@@ -73,6 +77,8 @@ ErroringMessageHandler_as_ChannelMessageHandler(this_argPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

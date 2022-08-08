@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class PaymentError: NativeTypeWrapper {
+public typealias PaymentError = Bindings.PaymentError
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKPaymentError?
+	public class PaymentError: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKPaymentError){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKPaymentError?
 
-	public init(pointer: LDKPaymentError, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKPaymentError){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKPaymentError, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum PaymentErrorValueType {
 					case Invoice, Routing, Sending
 				}
-				
+
 				public func getValueType() -> PaymentErrorValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -46,7 +50,7 @@ public class PaymentError: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsInvoice() -> String? {
 						if self.cOpaqueStruct?.tag != LDKPaymentError_Invoice {
@@ -55,31 +59,31 @@ public class PaymentError: NativeTypeWrapper {
 						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.invoice)
 					}
 				
-					public func getValueAsRouting() -> LightningError? {
+					public func getValueAsRouting() -> Bindings.LightningError? {
 						if self.cOpaqueStruct?.tag != LDKPaymentError_Routing {
 							return nil
 						}
-						return LightningError(pointer: self.cOpaqueStruct!.routing, anchor: self)
+						return Bindings.LightningError(pointer: self.cOpaqueStruct!.routing, anchor: self)
 					}
 				
-					public func getValueAsSending() -> PaymentSendFailure? {
+					public func getValueAsSending() -> Bindings.PaymentSendFailure? {
 						if self.cOpaqueStruct?.tag != LDKPaymentError_Sending {
 							return nil
 						}
-						return PaymentSendFailure(pointer: self.cOpaqueStruct!.sending, anchor: self)
+						return Bindings.PaymentSendFailure(pointer: self.cOpaqueStruct!.sending, anchor: self)
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return PaymentError_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return PaymentError_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> PaymentError {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing PaymentError \(self.instanceNumber).")
@@ -90,12 +94,12 @@ public class PaymentError: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> PaymentError {
-    	
-        return PaymentError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentError>) in
+		public func clone() -> PaymentError {
+			
+			return PaymentError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentError>) in
 PaymentError_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> PaymentError {
         				let dangledClone = self.clone()
@@ -104,22 +108,24 @@ PaymentError_clone(origPointer)
 					}
 				
 
-    public class func invoice(a: String) -> PaymentError {
-    	
-        return PaymentError(pointer: PaymentError_invoice(Bindings.new_LDKStr(string: a, chars_is_owned: true)));
-    }
+		public class func invoice(a: String) -> PaymentError {
+			
+			return PaymentError(pointer: PaymentError_invoice(Bindings.new_LDKStr(string: a, chars_is_owned: true)));
+		}
 
-    public class func routing(a: LightningError) -> PaymentError {
-    	
-        return PaymentError(pointer: PaymentError_routing(a.danglingClone().cOpaqueStruct!));
-    }
+		public class func routing(a: Bindings.LightningError) -> PaymentError {
+			
+			return PaymentError(pointer: PaymentError_routing(a.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func sending(a: PaymentSendFailure) -> PaymentError {
-    	
-        return PaymentError(pointer: PaymentError_sending(a.danglingClone().cOpaqueStruct!));
-    }
+		public class func sending(a: Bindings.PaymentSendFailure) -> PaymentError {
+			
+			return PaymentError(pointer: PaymentError_sending(a.danglingClone().cOpaqueStruct!));
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	/* TYPE_CLASSES */
+		/* TYPE_CLASSES */
+	}
+
 }

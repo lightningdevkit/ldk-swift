@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class APIError: NativeTypeWrapper {
+public typealias APIError = Bindings.APIError
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKAPIError?
+	public class APIError: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKAPIError){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKAPIError?
 
-	public init(pointer: LDKAPIError, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKAPIError){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKAPIError, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum APIErrorValueType {
 					case APIMisuseError, FeeRateTooHigh, RouteError, ChannelUnavailable, IncompatibleShutdownScript
 				}
-				
+
 				public func getValueType() -> APIErrorValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -50,7 +54,7 @@ public class APIError: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsAPIMisuseError() -> APIMisuseError? {
 						if self.cOpaqueStruct?.tag != LDKAPIError_APIMisuseError {
@@ -88,16 +92,16 @@ public class APIError: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return APIError_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return APIError_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> APIError {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing APIError \(self.instanceNumber).")
@@ -108,12 +112,12 @@ public class APIError: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> APIError {
-    	
-        return APIError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAPIError>) in
+		public func clone() -> APIError {
+			
+			return APIError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKAPIError>) in
 APIError_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> APIError {
         				let dangledClone = self.clone()
@@ -122,42 +126,42 @@ APIError_clone(origPointer)
 					}
 				
 
-    public class func apimisuse_error(err: String) -> APIError {
-    	
-        return APIError(pointer: APIError_apimisuse_error(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
-    }
+		public class func apimisuse_error(err: String) -> APIError {
+			
+			return APIError(pointer: APIError_apimisuse_error(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
+		}
 
-    public class func fee_rate_too_high(err: String, feerate: UInt32) -> APIError {
-    	
-        return APIError(pointer: APIError_fee_rate_too_high(Bindings.new_LDKStr(string: err, chars_is_owned: true), feerate));
-    }
+		public class func fee_rate_too_high(err: String, feerate: UInt32) -> APIError {
+			
+			return APIError(pointer: APIError_fee_rate_too_high(Bindings.new_LDKStr(string: err, chars_is_owned: true), feerate));
+		}
 
-    public class func route_error(err: String) -> APIError {
-    	
-        return APIError(pointer: APIError_route_error(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
-    }
+		public class func route_error(err: String) -> APIError {
+			
+			return APIError(pointer: APIError_route_error(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
+		}
 
-    public class func channel_unavailable(err: String) -> APIError {
-    	
-        return APIError(pointer: APIError_channel_unavailable(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
-    }
+		public class func channel_unavailable(err: String) -> APIError {
+			
+			return APIError(pointer: APIError_channel_unavailable(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
+		}
 
-    public class func monitor_update_failed() -> APIError {
-    	
-        return APIError(pointer: APIError_monitor_update_failed());
-    }
+		public class func monitor_update_failed() -> APIError {
+			
+			return APIError(pointer: APIError_monitor_update_failed());
+		}
 
-    public class func incompatible_shutdown_script(script: ShutdownScript) -> APIError {
-    	
-        return APIError(pointer: APIError_incompatible_shutdown_script(script.danglingClone().cOpaqueStruct!));
-    }
+		public class func incompatible_shutdown_script(script: Bindings.ShutdownScript) -> APIError {
+			
+			return APIError(pointer: APIError_incompatible_shutdown_script(script.danglingClone().cOpaqueStruct!));
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class APIMisuseError: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKAPIError_LDKAPIMisuseError_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKAPIMisuseError_Body) {
@@ -171,18 +175,18 @@ APIError_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getErr() -> String {
 						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
 					}
 				
-				
+
 			}
 		
 
 			public class FeeRateTooHigh: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKAPIError_LDKFeeRateTooHigh_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKFeeRateTooHigh_Body) {
@@ -196,7 +200,7 @@ APIError_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getErr() -> String {
 						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
@@ -206,12 +210,12 @@ APIError_clone(origPointer)
 						return self.cOpaqueStruct!.feerate
 					}
 				
-				
+
 			}
 		
 
 			public class RouteError: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKAPIError_LDKRouteError_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKRouteError_Body) {
@@ -225,18 +229,18 @@ APIError_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getErr() -> String {
 						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
 					}
 				
-				
+
 			}
 		
 
 			public class ChannelUnavailable: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKAPIError_LDKChannelUnavailable_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKChannelUnavailable_Body) {
@@ -250,18 +254,18 @@ APIError_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getErr() -> String {
 						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
 					}
 				
-				
+
 			}
 		
 
 			public class IncompatibleShutdownScript: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKAPIError_LDKIncompatibleShutdownScript_Body?;
 				fileprivate init(pointer: LDKAPIError_LDKIncompatibleShutdownScript_Body) {
@@ -275,13 +279,15 @@ APIError_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
+
 				
-				
-					public func getScript() -> ShutdownScript {
-						return ShutdownScript(pointer: self.cOpaqueStruct!.script, anchor: self)
+					public func getScript() -> Bindings.ShutdownScript {
+						return Bindings.ShutdownScript(pointer: self.cOpaqueStruct!.script, anchor: self)
 					}
 				
-				
+
 			}
 		
+	}
+
 }

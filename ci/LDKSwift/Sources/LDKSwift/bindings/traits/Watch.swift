@@ -4,77 +4,81 @@ import LDKHeaders
 
 import Foundation
 
-open class Watch: NativeTraitWrapper {
+public typealias Watch = Bindings.Watch
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKWatch?
+	open class Watch: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKWatch?
 
-		func watch_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, monitor: LDKChannelMonitor) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
-			let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::watch_channel")
-			
-			return instance.watch_channel(funding_txo: OutPoint(pointer: funding_txo), monitor: ChannelMonitor(pointer: monitor)).cOpaqueStruct!
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func update_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, update: LDKChannelMonitorUpdate) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
-			let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::update_channel")
-			
-			return instance.update_channel(funding_txo: OutPoint(pointer: funding_txo), update: ChannelMonitorUpdate(pointer: update)).cOpaqueStruct!
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ {
-			let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::release_pending_monitor_events")
-			
-			
+			func watch_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, monitor: LDKChannelMonitor) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
+				let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::watch_channel")
+				
+				return instance.watch_channel(funding_txo: OutPoint(pointer: funding_txo), monitor: ChannelMonitor(pointer: monitor)).cOpaqueStruct!
+			}
+
+			func update_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, update: LDKChannelMonitorUpdate) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
+				let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::update_channel")
+				
+				return instance.update_channel(funding_txo: OutPoint(pointer: funding_txo), update: ChannelMonitorUpdate(pointer: update)).cOpaqueStruct!
+			}
+
+			func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ {
+				let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::release_pending_monitor_events")
+				
+				
 					let returnWrapper = Bindings.new_LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper(array: instance.release_pending_monitor_events())
 					defer {
 						returnWrapper.noOpRetain()
 					}
 					return returnWrapper.dangle().cOpaqueStruct!
 				
-		}
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKWatch(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKWatch(this_arg: Bindings.instanceToPointer(instance: self), 
 			watch_channel: watch_channelCallback,
 			update_channel: update_channelCallback,
 			release_pending_monitor_events: release_pending_monitor_eventsCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKWatch){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKWatch){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKWatch, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKWatch, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -93,36 +97,38 @@ open class Watch: NativeTraitWrapper {
 					}
 				
 
-    open func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
-    	/* EDIT ME */
+		open func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+			/* EDIT ME */
 		Bindings.print("Watch::watch_channel should be overridden!", severity: .WARNING)
 
 return Result_NoneChannelMonitorUpdateErrZ()
-    }
+		}
 
-    open func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
-    	/* EDIT ME */
+		open func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
+			/* EDIT ME */
 		Bindings.print("Watch::update_channel should be overridden!", severity: .WARNING)
 
 return Result_NoneChannelMonitorUpdateErrZ()
-    }
+		}
 
-    open func release_pending_monitor_events() -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
-    	/* EDIT ME */
+		open func release_pending_monitor_events() -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
+			/* EDIT ME */
 		Bindings.print("Watch::release_pending_monitor_events should be overridden!", severity: .WARNING)
 
 return [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Watch \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

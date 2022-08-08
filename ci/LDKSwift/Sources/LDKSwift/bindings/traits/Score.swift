@@ -4,73 +4,77 @@ import LDKHeaders
 
 import Foundation
 
-open class Score: NativeTraitWrapper {
+public typealias Score = Bindings.Score
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKScore?
+	open class Score: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKScore?
 
-		func channel_penalty_msatCallback(pointer: UnsafeRawPointer?, short_channel_id: UInt64, sourcePointer: UnsafePointer<LDKNodeId>, targetPointer: UnsafePointer<LDKNodeId>, usage: LDKChannelUsage) -> UInt64 {
-			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::channel_penalty_msat")
-			let source = NodeId(pointer: sourcePointer.pointee).dangle().clone();
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+
+			/* NATIVE_CALLBACKS_START */
+
+			func channel_penalty_msatCallback(pointer: UnsafeRawPointer?, short_channel_id: UInt64, sourcePointer: UnsafePointer<LDKNodeId>, targetPointer: UnsafePointer<LDKNodeId>, usage: LDKChannelUsage) -> UInt64 {
+				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::channel_penalty_msat")
+				let source = NodeId(pointer: sourcePointer.pointee).dangle().clone();
 let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 
-			return instance.channel_penalty_msat(short_channel_id: short_channel_id, source: source, target: target, usage: ChannelUsage(pointer: usage))
-		}
+				return instance.channel_penalty_msat(short_channel_id: short_channel_id, source: source, target: target, usage: ChannelUsage(pointer: usage))
+			}
 
-		func payment_path_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
-			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::payment_path_failed")
-			
-			return instance.payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
-		}
+			func payment_path_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
+				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::payment_path_failed")
+				
+				return instance.payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+			}
 
-		func payment_path_successfulCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
-			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::payment_path_successful")
-			
-			return instance.payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
-		}
+			func payment_path_successfulCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
+				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::payment_path_successful")
+				
+				return instance.payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+			}
 
-		func probe_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
-			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_failed")
-			
-			return instance.probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
-		}
+			func probe_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
+				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_failed")
+				
+				return instance.probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+			}
 
-		func probe_successfulCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
-			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_successful")
-			
-			return instance.probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
-		}
+			func probe_successfulCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
+				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_successful")
+				
+				return instance.probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+			}
 
-		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
-			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::write")
-			
-			
+			func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
+				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::write")
+				
+				
 					let returnWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: instance.write())
 					defer {
 						returnWrapper.noOpRetain()
 					}
 					return returnWrapper.dangle().cOpaqueStruct!
 				
-		}
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKScore(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKScore(this_arg: Bindings.instanceToPointer(instance: self), 
 			channel_penalty_msat: channel_penalty_msatCallback,
 			payment_path_failed: payment_path_failedCallback,
 			payment_path_successful: payment_path_successfulCallback,
@@ -79,25 +83,25 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 			write: writeCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKScore){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKScore){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKScore, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKScore, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -116,57 +120,59 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 					}
 				
 
-    open func channel_penalty_msat(short_channel_id: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage) -> UInt64 {
-    	/* EDIT ME */
+		open func channel_penalty_msat(short_channel_id: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage) -> UInt64 {
+			/* EDIT ME */
 		Bindings.print("Score::channel_penalty_msat should be overridden!", severity: .WARNING)
 
 return 0
-    }
+		}
 
-    open func payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
-    	/* EDIT ME */
+		open func payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+			/* EDIT ME */
 		Bindings.print("Score::payment_path_failed should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func payment_path_successful(path: [LDKRouteHop]) -> Void {
-    	/* EDIT ME */
+		open func payment_path_successful(path: [LDKRouteHop]) -> Void {
+			/* EDIT ME */
 		Bindings.print("Score::payment_path_successful should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
-    	/* EDIT ME */
+		open func probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+			/* EDIT ME */
 		Bindings.print("Score::probe_failed should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func probe_successful(path: [LDKRouteHop]) -> Void {
-    	/* EDIT ME */
+		open func probe_successful(path: [LDKRouteHop]) -> Void {
+			/* EDIT ME */
 		Bindings.print("Score::probe_successful should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func write() -> [UInt8] {
-    	/* EDIT ME */
+		open func write() -> [UInt8] {
+			/* EDIT ME */
 		Bindings.print("Score::write should be overridden!", severity: .WARNING)
 
 return [UInt8]()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Score \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

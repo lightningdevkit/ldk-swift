@@ -139,6 +139,7 @@ class TupleGenerator:
 			'''
 
 		mutating_output_file_contents = mutating_output_file_contents.replace('class TupleName: NativeTypeWrapper', f'class {swift_tuple_name}: NativeTypeWrapper')
+		mutating_output_file_contents = mutating_output_file_contents.replace('typealias TupleName = Bindings.TupleName', f'typealias {swift_tuple_name} = Bindings.{swift_tuple_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('init(pointer: TupleType', f'init(pointer: {struct_name}')
 		mutating_output_file_contents = mutating_output_file_contents.replace('var cOpaqueStruct: TupleType?', f'var cOpaqueStruct: {struct_name}?')
 		mutating_output_file_contents = method_template_regex.sub(f'\g<1>{struct_methods}\g<3>', mutating_output_file_contents)

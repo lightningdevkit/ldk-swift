@@ -2,40 +2,44 @@
 import LDKHeaders
 #endif
 
-public class Hostname: NativeTypeWrapper {
+public typealias Hostname = Bindings.Hostname
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKHostname?
+	public class Hostname: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKHostname?
 
 
-	
+		
 
-    public init(pointer: LDKHostname){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKHostname){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKHostname, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKHostname, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func clone() -> Hostname {
-    	
-        return Hostname(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHostname>) in
+		public func clone() -> Hostname {
+			
+			return Hostname(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHostname>) in
 Hostname_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Hostname {
         				let dangledClone = self.clone()
@@ -44,17 +48,17 @@ Hostname_clone(origPointer)
 					}
 				
 
-    public func len() -> UInt8 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKHostname>) in
+		public func len() -> UInt8 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKHostname>) in
 Hostname_len(this_argPointer)
 };
-    }
+		}
 
-    internal func free() -> Void {
-    	
-        return Hostname_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return Hostname_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Hostname {
         				self.dangling = true
@@ -71,6 +75,8 @@ Hostname_len(this_argPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

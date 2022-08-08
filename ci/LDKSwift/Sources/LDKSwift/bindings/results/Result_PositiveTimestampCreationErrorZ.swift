@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_PositiveTimestampCreationErrorZ: NativeTypeWrapper {
+public typealias Result_PositiveTimestampCreationErrorZ = Bindings.Result_PositiveTimestampCreationErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_PositiveTimestampCreationErrorZ?
+	public class Result_PositiveTimestampCreationErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_PositiveTimestampCreationErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_PositiveTimestampCreationErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_PositiveTimestampCreationErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_PositiveTimestampCreationErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_PositiveTimestampCreationErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_PositiveTimestampCreationErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> LDKCreationError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_PositiveTimestampCreationErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: PositiveTimestamp) -> Result_PositiveTimestampCreationErrorZ {
-    	
-        return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func ok(o: PositiveTimestamp) -> Result_PositiveTimestampCreationErrorZ {
+			
+			return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func err(e: LDKCreationError) -> Result_PositiveTimestampCreationErrorZ {
-    	
-        return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_err(e));
-    }
+		public class func err(e: LDKCreationError) -> Result_PositiveTimestampCreationErrorZ {
+			
+			return Result_PositiveTimestampCreationErrorZ(pointer: CResult_PositiveTimestampCreationErrorZ_err(e));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_PositiveTimestampCreationErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_PositiveTimestampCreationErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_PositiveTimestampCreationErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_PositiveTimestampCreationErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_PositiveTimestampCreationErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_PositiveTimestampCreationErrorZ {
-    	
-        return Result_PositiveTimestampCreationErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PositiveTimestampCreationErrorZ>) in
+		public func clone() -> Result_PositiveTimestampCreationErrorZ {
+			
+			return Result_PositiveTimestampCreationErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PositiveTimestampCreationErrorZ>) in
 CResult_PositiveTimestampCreationErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_PositiveTimestampCreationErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_PositiveTimestampCreationErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class Retry: NativeTypeWrapper {
+public typealias Retry = Bindings.Retry
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKRetry?
+	public class Retry: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKRetry){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKRetry?
 
-	public init(pointer: LDKRetry, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKRetry){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKRetry, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum RetryValueType {
 					case Attempts, Timeout
 				}
-				
+
 				public func getValueType() -> RetryValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -44,7 +48,7 @@ public class Retry: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsAttempts() -> UInt? {
 						if self.cOpaqueStruct?.tag != LDKRetry_Attempts {
@@ -61,16 +65,16 @@ public class Retry: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return Retry_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return Retry_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Retry {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Retry \(self.instanceNumber).")
@@ -81,12 +85,12 @@ public class Retry: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Retry {
-    	
-        return Retry(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRetry>) in
+		public func clone() -> Retry {
+			
+			return Retry(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKRetry>) in
 Retry_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Retry {
         				let dangledClone = self.clone()
@@ -95,33 +99,35 @@ Retry_clone(origPointer)
 					}
 				
 
-    public class func attempts(a: UInt) -> Retry {
-    	
-        return Retry(pointer: Retry_attempts(a));
-    }
+		public class func attempts(a: UInt) -> Retry {
+			
+			return Retry(pointer: Retry_attempts(a));
+		}
 
-    public class func timeout(a: UInt64) -> Retry {
-    	
-        return Retry(pointer: Retry_timeout(a));
-    }
+		public class func timeout(a: UInt64) -> Retry {
+			
+			return Retry(pointer: Retry_timeout(a));
+		}
 
-    public class func eq(a: Retry, b: Retry) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRetry>) in
+		public class func eq(a: Bindings.Retry, b: Bindings.Retry) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRetry>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRetry>) in
 Retry_eq(aPointer, bPointer)
 }
 };
-    }
+		}
 
-    public func hash() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRetry>) in
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRetry>) in
 Retry_hash(oPointer)
 };
-    }
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	/* TYPE_CLASSES */
+		/* TYPE_CLASSES */
+	}
+
 }

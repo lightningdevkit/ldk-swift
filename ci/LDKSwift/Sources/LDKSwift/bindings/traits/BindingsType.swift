@@ -4,78 +4,82 @@ import LDKHeaders
 
 import Foundation
 
-open class BindingsType: NativeTraitWrapper {
+public typealias BindingsType = Bindings.BindingsType
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKType?
+	open class BindingsType: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKType?
 
-		func type_idCallback(pointer: UnsafeRawPointer?) -> UInt16 {
-			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::type_id")
-			
-			return instance.type_id()
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func debug_strCallback(pointer: UnsafeRawPointer?) -> LDKStr {
-			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::debug_str")
-			
-			return Bindings.new_LDKStr(string: instance.debug_str(), chars_is_owned: true)
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
-			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::write")
-			
-			
+			func type_idCallback(pointer: UnsafeRawPointer?) -> UInt16 {
+				let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::type_id")
+				
+				return instance.type_id()
+			}
+
+			func debug_strCallback(pointer: UnsafeRawPointer?) -> LDKStr {
+				let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::debug_str")
+				
+				return Bindings.new_LDKStr(string: instance.debug_str(), chars_is_owned: true)
+			}
+
+			func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
+				let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::write")
+				
+				
 					let returnWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: instance.write())
 					defer {
 						returnWrapper.noOpRetain()
 					}
 					return returnWrapper.dangle().cOpaqueStruct!
 				
-		}
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: BindingsType = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BindingsType.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKType(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKType(this_arg: Bindings.instanceToPointer(instance: self), 
 			type_id: type_idCallback,
 			debug_str: debug_strCallback,
 			write: writeCallback,
 			cloned: nil,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKType){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKType){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKType, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKType, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 				public func clone() -> BindingsType {
@@ -112,36 +116,38 @@ open class BindingsType: NativeTraitWrapper {
 					}
 				
 
-    open func type_id() -> UInt16 {
-    	/* EDIT ME */
+		open func type_id() -> UInt16 {
+			/* EDIT ME */
 		Bindings.print("BindingsType::type_id should be overridden!", severity: .WARNING)
 
 return 0
-    }
+		}
 
-    open func debug_str() -> String {
-    	/* EDIT ME */
+		open func debug_str() -> String {
+			/* EDIT ME */
 		Bindings.print("BindingsType::debug_str MUST be overridden!", severity: .ERROR)
 
 abort()
-    }
+		}
 
-    open func write() -> [UInt8] {
-    	/* EDIT ME */
+		open func write() -> [UInt8] {
+			/* EDIT ME */
 		Bindings.print("BindingsType::write should be overridden!", severity: .WARNING)
 
 return [UInt8]()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating BindingsType \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

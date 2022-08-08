@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_PaymentSecretNoneZ: NativeTypeWrapper {
+public typealias Result_PaymentSecretNoneZ = Bindings.Result_PaymentSecretNoneZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_PaymentSecretNoneZ?
+	public class Result_PaymentSecretNoneZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_PaymentSecretNoneZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_PaymentSecretNoneZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_PaymentSecretNoneZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_PaymentSecretNoneZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_PaymentSecretNoneZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_PaymentSecretNoneZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getValue() -> [UInt8]? {
 				if self.cOpaqueStruct?.result_ok == true {
@@ -49,26 +53,26 @@ public class Result_PaymentSecretNoneZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: [UInt8]) -> Result_PaymentSecretNoneZ {
-    	
-        return Result_PaymentSecretNoneZ(pointer: CResult_PaymentSecretNoneZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o)));
-    }
+		public class func ok(o: [UInt8]) -> Result_PaymentSecretNoneZ {
+			
+			return Result_PaymentSecretNoneZ(pointer: CResult_PaymentSecretNoneZ_ok(Bindings.new_LDKThirtyTwoBytes(array: o)));
+		}
 
-    public class func err() -> Result_PaymentSecretNoneZ {
-    	
-        return Result_PaymentSecretNoneZ(pointer: CResult_PaymentSecretNoneZ_err());
-    }
+		public class func err() -> Result_PaymentSecretNoneZ {
+			
+			return Result_PaymentSecretNoneZ(pointer: CResult_PaymentSecretNoneZ_err());
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_PaymentSecretNoneZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_PaymentSecretNoneZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_PaymentSecretNoneZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_PaymentSecretNoneZ \(self.instanceNumber).")
@@ -79,12 +83,12 @@ public class Result_PaymentSecretNoneZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_PaymentSecretNoneZ {
-    	
-        return Result_PaymentSecretNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PaymentSecretNoneZ>) in
+		public func clone() -> Result_PaymentSecretNoneZ {
+			
+			return Result_PaymentSecretNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_PaymentSecretNoneZ>) in
 CResult_PaymentSecretNoneZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_PaymentSecretNoneZ {
         				let dangledClone = self.clone()
@@ -93,6 +97,8 @@ CResult_PaymentSecretNoneZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

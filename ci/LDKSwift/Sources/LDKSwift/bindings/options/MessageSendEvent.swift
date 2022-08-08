@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class MessageSendEvent: NativeTypeWrapper {
+public typealias MessageSendEvent = Bindings.MessageSendEvent
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKMessageSendEvent?
+	public class MessageSendEvent: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKMessageSendEvent){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKMessageSendEvent?
 
-	public init(pointer: LDKMessageSendEvent, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKMessageSendEvent){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKMessageSendEvent, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum MessageSendEventValueType {
 					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendChannelReady, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange, SendGossipTimestampFilter
 				}
-				
+
 				public func getValueType() -> MessageSendEventValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -80,7 +84,7 @@ public class MessageSendEvent: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsSendAcceptChannel() -> SendAcceptChannel? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendAcceptChannel {
@@ -223,16 +227,16 @@ public class MessageSendEvent: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return MessageSendEvent_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return MessageSendEvent_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> MessageSendEvent {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing MessageSendEvent \(self.instanceNumber).")
@@ -243,12 +247,12 @@ public class MessageSendEvent: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMessageSendEvent>) in
+		public func clone() -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMessageSendEvent>) in
 MessageSendEvent_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> MessageSendEvent {
         				let dangledClone = self.clone()
@@ -257,112 +261,112 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 
-    public class func send_accept_channel(node_id: [UInt8], msg: AcceptChannel) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_accept_channel(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_accept_channel(node_id: [UInt8], msg: Bindings.AcceptChannel) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_accept_channel(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_open_channel(node_id: [UInt8], msg: OpenChannel) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_open_channel(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_open_channel(node_id: [UInt8], msg: Bindings.OpenChannel) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_open_channel(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_funding_created(node_id: [UInt8], msg: FundingCreated) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_funding_created(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_funding_created(node_id: [UInt8], msg: Bindings.FundingCreated) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_funding_created(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_funding_signed(node_id: [UInt8], msg: FundingSigned) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_funding_signed(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_funding_signed(node_id: [UInt8], msg: Bindings.FundingSigned) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_funding_signed(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_channel_ready(node_id: [UInt8], msg: ChannelReady) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_channel_ready(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_channel_ready(node_id: [UInt8], msg: Bindings.ChannelReady) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_channel_ready(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_announcement_signatures(node_id: [UInt8], msg: AnnouncementSignatures) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_announcement_signatures(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_announcement_signatures(node_id: [UInt8], msg: Bindings.AnnouncementSignatures) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_announcement_signatures(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func update_htlcs(node_id: [UInt8], updates: CommitmentUpdate) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_update_htlcs(Bindings.new_LDKPublicKey(array: node_id), updates.danglingClone().cOpaqueStruct!));
-    }
+		public class func update_htlcs(node_id: [UInt8], updates: Bindings.CommitmentUpdate) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_update_htlcs(Bindings.new_LDKPublicKey(array: node_id), updates.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_revoke_and_ack(node_id: [UInt8], msg: RevokeAndACK) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_revoke_and_ack(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_revoke_and_ack(node_id: [UInt8], msg: Bindings.RevokeAndACK) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_revoke_and_ack(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_closing_signed(node_id: [UInt8], msg: ClosingSigned) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_closing_signed(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_closing_signed(node_id: [UInt8], msg: Bindings.ClosingSigned) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_closing_signed(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_shutdown(node_id: [UInt8], msg: Shutdown) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_shutdown(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_shutdown(node_id: [UInt8], msg: Bindings.Shutdown) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_shutdown(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_channel_reestablish(node_id: [UInt8], msg: ChannelReestablish) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_channel_reestablish(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_channel_reestablish(node_id: [UInt8], msg: Bindings.ChannelReestablish) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_channel_reestablish(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func broadcast_channel_announcement(msg: ChannelAnnouncement, update_msg: ChannelUpdate) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_broadcast_channel_announcement(msg.danglingClone().cOpaqueStruct!, update_msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func broadcast_channel_announcement(msg: Bindings.ChannelAnnouncement, update_msg: Bindings.ChannelUpdate) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_broadcast_channel_announcement(msg.danglingClone().cOpaqueStruct!, update_msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func broadcast_node_announcement(msg: NodeAnnouncement) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_broadcast_node_announcement(msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func broadcast_node_announcement(msg: Bindings.NodeAnnouncement) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_broadcast_node_announcement(msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func broadcast_channel_update(msg: ChannelUpdate) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_broadcast_channel_update(msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func broadcast_channel_update(msg: Bindings.ChannelUpdate) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_broadcast_channel_update(msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_channel_update(node_id: [UInt8], msg: ChannelUpdate) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_channel_update(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_channel_update(node_id: [UInt8], msg: Bindings.ChannelUpdate) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_channel_update(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func handle_error(node_id: [UInt8], action: ErrorAction) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_handle_error(Bindings.new_LDKPublicKey(array: node_id), action.danglingClone().cOpaqueStruct!));
-    }
+		public class func handle_error(node_id: [UInt8], action: Bindings.ErrorAction) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_handle_error(Bindings.new_LDKPublicKey(array: node_id), action.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_channel_range_query(node_id: [UInt8], msg: QueryChannelRange) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_channel_range_query(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_channel_range_query(node_id: [UInt8], msg: Bindings.QueryChannelRange) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_channel_range_query(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_short_ids_query(node_id: [UInt8], msg: QueryShortChannelIds) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_short_ids_query(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_short_ids_query(node_id: [UInt8], msg: Bindings.QueryShortChannelIds) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_short_ids_query(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_reply_channel_range(node_id: [UInt8], msg: ReplyChannelRange) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_reply_channel_range(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_reply_channel_range(node_id: [UInt8], msg: Bindings.ReplyChannelRange) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_reply_channel_range(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func send_gossip_timestamp_filter(node_id: [UInt8], msg: GossipTimestampFilter) -> MessageSendEvent {
-    	
-        return MessageSendEvent(pointer: MessageSendEvent_send_gossip_timestamp_filter(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func send_gossip_timestamp_filter(node_id: [UInt8], msg: Bindings.GossipTimestampFilter) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_gossip_timestamp_filter(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class SendAcceptChannel: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendAcceptChannel_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendAcceptChannel_Body) {
@@ -376,22 +380,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> AcceptChannel {
-						return AcceptChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.AcceptChannel {
+						return Bindings.AcceptChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendOpenChannel: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendOpenChannel_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendOpenChannel_Body) {
@@ -405,22 +409,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> OpenChannel {
-						return OpenChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.OpenChannel {
+						return Bindings.OpenChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendFundingCreated: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendFundingCreated_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingCreated_Body) {
@@ -434,22 +438,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> FundingCreated {
-						return FundingCreated(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.FundingCreated {
+						return Bindings.FundingCreated(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendFundingSigned: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendFundingSigned_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendFundingSigned_Body) {
@@ -463,22 +467,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> FundingSigned {
-						return FundingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.FundingSigned {
+						return Bindings.FundingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendChannelReady: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelReady_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelReady_Body) {
@@ -492,22 +496,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> ChannelReady {
-						return ChannelReady(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ChannelReady {
+						return Bindings.ChannelReady(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendAnnouncementSignatures: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendAnnouncementSignatures_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendAnnouncementSignatures_Body) {
@@ -521,22 +525,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> AnnouncementSignatures {
-						return AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.AnnouncementSignatures {
+						return Bindings.AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class UpdateHTLCs: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKUpdateHTLCs_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKUpdateHTLCs_Body) {
@@ -550,22 +554,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getUpdates() -> CommitmentUpdate {
-						return CommitmentUpdate(pointer: self.cOpaqueStruct!.updates, anchor: self)
+					public func getUpdates() -> Bindings.CommitmentUpdate {
+						return Bindings.CommitmentUpdate(pointer: self.cOpaqueStruct!.updates, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendRevokeAndACK: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendRevokeAndACK_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendRevokeAndACK_Body) {
@@ -579,22 +583,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> RevokeAndACK {
-						return RevokeAndACK(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.RevokeAndACK {
+						return Bindings.RevokeAndACK(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendClosingSigned: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendClosingSigned_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendClosingSigned_Body) {
@@ -608,22 +612,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> ClosingSigned {
-						return ClosingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ClosingSigned {
+						return Bindings.ClosingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendShutdown: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendShutdown_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendShutdown_Body) {
@@ -637,22 +641,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> Shutdown {
-						return Shutdown(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.Shutdown {
+						return Bindings.Shutdown(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendChannelReestablish: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelReestablish_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelReestablish_Body) {
@@ -666,22 +670,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> ChannelReestablish {
-						return ChannelReestablish(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ChannelReestablish {
+						return Bindings.ChannelReestablish(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class BroadcastChannelAnnouncement: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKBroadcastChannelAnnouncement_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastChannelAnnouncement_Body) {
@@ -695,22 +699,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
+
 				
-				
-					public func getMsg() -> ChannelAnnouncement {
-						return ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ChannelAnnouncement {
+						return Bindings.ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-					public func getUpdate_msg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self)
+					public func getUpdate_msg() -> Bindings.ChannelUpdate {
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class BroadcastNodeAnnouncement: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body) {
@@ -724,18 +728,18 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
+
 				
-				
-					public func getMsg() -> NodeAnnouncement {
-						return NodeAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.NodeAnnouncement {
+						return Bindings.NodeAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class BroadcastChannelUpdate: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKBroadcastChannelUpdate_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastChannelUpdate_Body) {
@@ -749,18 +753,18 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
+
 				
-				
-					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ChannelUpdate {
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendChannelUpdate: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelUpdate_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelUpdate_Body) {
@@ -774,22 +778,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ChannelUpdate {
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class HandleError: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKHandleError_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKHandleError_Body) {
@@ -803,22 +807,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getAction() -> ErrorAction {
-						return ErrorAction(pointer: self.cOpaqueStruct!.action, anchor: self)
+					public func getAction() -> Bindings.ErrorAction {
+						return Bindings.ErrorAction(pointer: self.cOpaqueStruct!.action, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendChannelRangeQuery: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelRangeQuery_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelRangeQuery_Body) {
@@ -832,22 +836,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> QueryChannelRange {
-						return QueryChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.QueryChannelRange {
+						return Bindings.QueryChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendShortIdsQuery: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendShortIdsQuery_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendShortIdsQuery_Body) {
@@ -861,22 +865,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> QueryShortChannelIds {
-						return QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.QueryShortChannelIds {
+						return Bindings.QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendReplyChannelRange: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendReplyChannelRange_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendReplyChannelRange_Body) {
@@ -890,22 +894,22 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> ReplyChannelRange {
-						return ReplyChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ReplyChannelRange {
+						return Bindings.ReplyChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class SendGossipTimestampFilter: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKMessageSendEvent_LDKSendGossipTimestampFilter_Body?;
 				fileprivate init(pointer: LDKMessageSendEvent_LDKSendGossipTimestampFilter_Body) {
@@ -919,17 +923,19 @@ MessageSendEvent_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
 					}
 				
-					public func getMsg() -> GossipTimestampFilter {
-						return GossipTimestampFilter(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.GossipTimestampFilter {
+						return Bindings.GossipTimestampFilter(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
+	}
+
 }

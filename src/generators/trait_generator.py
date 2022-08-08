@@ -332,6 +332,7 @@ class TraitGenerator:
 				default_callbacks += '\n' + current_default_callback_replacement + '\n'
 
 		trait_file = self.template.replace('class TraitName: NativeTraitWrapper', f'class {swift_struct_name}: NativeTraitWrapper')
+		trait_file = trait_file.replace('typealias TraitName = Bindings.TraitName', f'typealias {swift_struct_name} = Bindings.{swift_struct_name}')
 		trait_file = trait_file.replace('class NativelyImplementedTraitName: TraitName {', f'class NativelyImplemented{swift_struct_name}: {swift_struct_name} {{')
 		trait_file = trait_file.replace('init(pointer: TraitType', f'init(pointer: {struct_name}')
 		trait_file = trait_file.replace('var cOpaqueStruct: TraitType?', f'var cOpaqueStruct: {struct_name}?')

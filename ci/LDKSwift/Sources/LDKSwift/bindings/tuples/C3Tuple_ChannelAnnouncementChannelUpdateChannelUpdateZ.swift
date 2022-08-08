@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ: NativeTypeWrapper {
+public typealias C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ = Bindings.C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?
+	public class C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ: NativeTypeWrapper {
 
-    public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-	public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		internal var cOpaqueStruct: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ?
 
-    /* TUPLE_METHODS_START */
+		public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-    public func clone() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
-    	
-        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ>) in
+		public init(pointer: LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* TUPLE_METHODS_START */
+
+		public func clone() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+			
+			return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ>) in
 C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
         				let dangledClone = self.clone()
@@ -41,15 +45,15 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
-    	
-        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.danglingClone().cOpaqueStruct!, b.danglingClone().cOpaqueStruct!, c.danglingClone().cOpaqueStruct!));
-    }
+		public class func new(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
+			
+			return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_new(a.danglingClone().cOpaqueStruct!, b.danglingClone().cOpaqueStruct!, c.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
         				self.dangling = true
@@ -78,6 +82,8 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 					return ChannelUpdate(pointer: self.cOpaqueStruct!.c, anchor: self);
 				}
 			
-    /* TUPLE_METHODS_END */
+		/* TUPLE_METHODS_END */
+
+	}
 
 }

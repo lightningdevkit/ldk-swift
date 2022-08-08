@@ -2,154 +2,158 @@
 import LDKHeaders
 #endif
 
-public class ProbabilisticScoringParameters: NativeTypeWrapper {
+public typealias ProbabilisticScoringParameters = Bindings.ProbabilisticScoringParameters
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKProbabilisticScoringParameters?
+	public class ProbabilisticScoringParameters: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKProbabilisticScoringParameters?
 
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init() {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
-        self.cOpaqueStruct = ProbabilisticScoringParameters_default()
-        super.init(conflictAvoidingVariableName: 0)
-        
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_START */
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			
+			self.cOpaqueStruct = ProbabilisticScoringParameters_default()
+			super.init(conflictAvoidingVariableName: 0)
+			
+		}
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKProbabilisticScoringParameters){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKProbabilisticScoringParameters){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKProbabilisticScoringParameters, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKProbabilisticScoringParameters, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func get_base_penalty_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func get_base_penalty_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_get_base_penalty_msat(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_base_penalty_msat(val: UInt64) -> Void {
-    	
+		public func set_base_penalty_msat(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScoringParameters_set_base_penalty_msat(this_ptrPointer, val);
-    }
+			return ProbabilisticScoringParameters_set_base_penalty_msat(this_ptrPointer, val);
+		}
 
-    public func get_base_penalty_amount_multiplier_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func get_base_penalty_amount_multiplier_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_get_base_penalty_amount_multiplier_msat(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_base_penalty_amount_multiplier_msat(val: UInt64) -> Void {
-    	
+		public func set_base_penalty_amount_multiplier_msat(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScoringParameters_set_base_penalty_amount_multiplier_msat(this_ptrPointer, val);
-    }
+			return ProbabilisticScoringParameters_set_base_penalty_amount_multiplier_msat(this_ptrPointer, val);
+		}
 
-    public func get_liquidity_penalty_multiplier_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func get_liquidity_penalty_multiplier_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_get_liquidity_penalty_multiplier_msat(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_liquidity_penalty_multiplier_msat(val: UInt64) -> Void {
-    	
+		public func set_liquidity_penalty_multiplier_msat(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScoringParameters_set_liquidity_penalty_multiplier_msat(this_ptrPointer, val);
-    }
+			return ProbabilisticScoringParameters_set_liquidity_penalty_multiplier_msat(this_ptrPointer, val);
+		}
 
-    public func get_liquidity_offset_half_life() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func get_liquidity_offset_half_life() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_get_liquidity_offset_half_life(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_liquidity_offset_half_life(val: UInt64) -> Void {
-    	
+		public func set_liquidity_offset_half_life(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScoringParameters_set_liquidity_offset_half_life(this_ptrPointer, val);
-    }
+			return ProbabilisticScoringParameters_set_liquidity_offset_half_life(this_ptrPointer, val);
+		}
 
-    public func get_liquidity_penalty_amount_multiplier_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func get_liquidity_penalty_amount_multiplier_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_get_liquidity_penalty_amount_multiplier_msat(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_liquidity_penalty_amount_multiplier_msat(val: UInt64) -> Void {
-    	
+		public func set_liquidity_penalty_amount_multiplier_msat(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScoringParameters_set_liquidity_penalty_amount_multiplier_msat(this_ptrPointer, val);
-    }
+			return ProbabilisticScoringParameters_set_liquidity_penalty_amount_multiplier_msat(this_ptrPointer, val);
+		}
 
-    public func get_anti_probing_penalty_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func get_anti_probing_penalty_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_get_anti_probing_penalty_msat(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_anti_probing_penalty_msat(val: UInt64) -> Void {
-    	
+		public func set_anti_probing_penalty_msat(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScoringParameters_set_anti_probing_penalty_msat(this_ptrPointer, val);
-    }
+			return ProbabilisticScoringParameters_set_anti_probing_penalty_msat(this_ptrPointer, val);
+		}
 
-    public func get_considered_impossible_penalty_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func get_considered_impossible_penalty_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_get_considered_impossible_penalty_msat(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_considered_impossible_penalty_msat(val: UInt64) -> Void {
-    	
+		public func set_considered_impossible_penalty_msat(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScoringParameters_set_considered_impossible_penalty_msat(this_ptrPointer, val);
-    }
+			return ProbabilisticScoringParameters_set_considered_impossible_penalty_msat(this_ptrPointer, val);
+		}
 
-    public func clone() -> ProbabilisticScoringParameters {
-    	
-        return ProbabilisticScoringParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+		public func clone() -> ProbabilisticScoringParameters {
+			
+			return ProbabilisticScoringParameters(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
 ProbabilisticScoringParameters_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> ProbabilisticScoringParameters {
         				let dangledClone = self.clone()
@@ -158,18 +162,18 @@ ProbabilisticScoringParameters_clone(origPointer)
 					}
 				
 
-    public func add_banned_from_list(node_ids: [NodeId]) -> Void {
-    	
+		public func add_banned_from_list(node_ids: [NodeId]) -> Void {
+			
 							let node_idsUnwrapped = node_ids.map { (node_idsCurrentValue) in
 							node_idsCurrentValue
 								.danglingClone().cOpaqueStruct!
 							}
 						
-        return self.add_banned_from_list(node_ids: node_idsUnwrapped);
-    }
+			return self.add_banned_from_list(node_ids: node_idsUnwrapped);
+		}
 
-    internal func add_banned_from_list(node_ids: [LDKNodeId]) -> Void {
-    	
+		internal func add_banned_from_list(node_ids: [LDKNodeId]) -> Void {
+			
 							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
 							this_argPointer.initialize(to: self.cOpaqueStruct!)
 						
@@ -178,13 +182,13 @@ ProbabilisticScoringParameters_clone(origPointer)
 							node_idsWrapper.noOpRetain()
 						}
 					
-        return ProbabilisticScoringParameters_add_banned_from_list(this_argPointer, node_idsWrapper.dangle().cOpaqueStruct!);
-    }
+			return ProbabilisticScoringParameters_add_banned_from_list(this_argPointer, node_idsWrapper.dangle().cOpaqueStruct!);
+		}
 
-    internal func free() -> Void {
-    	
-        return ProbabilisticScoringParameters_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return ProbabilisticScoringParameters_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> ProbabilisticScoringParameters {
         				self.dangling = true
@@ -201,6 +205,8 @@ ProbabilisticScoringParameters_clone(origPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

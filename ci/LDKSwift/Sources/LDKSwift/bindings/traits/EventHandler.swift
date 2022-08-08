@@ -4,58 +4,62 @@ import LDKHeaders
 
 import Foundation
 
-open class EventHandler: NativeTraitWrapper {
+public typealias EventHandler = Bindings.EventHandler
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKEventHandler?
+	open class EventHandler: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKEventHandler?
 
-		func handle_eventCallback(pointer: UnsafeRawPointer?, eventPointer: UnsafePointer<LDKEvent>) -> Void {
-			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::handle_event")
-			let event = Event(pointer: eventPointer.pointee).dangle().clone();
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-			return instance.handle_event(event: event)
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::free")
-			
-			return instance.free()
-		}
+			func handle_eventCallback(pointer: UnsafeRawPointer?, eventPointer: UnsafePointer<LDKEvent>) -> Void {
+				let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::handle_event")
+				let event = Event(pointer: eventPointer.pointee).dangle().clone();
 
-		/* NATIVE_CALLBACKS_END */
+				return instance.handle_event(event: event)
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKEventHandler(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: EventHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "EventHandler.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKEventHandler(this_arg: Bindings.instanceToPointer(instance: self), 
 			handle_event: handle_eventCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKEventHandler){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKEventHandler){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKEventHandler, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKEventHandler, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -74,22 +78,24 @@ open class EventHandler: NativeTraitWrapper {
 					}
 				
 
-    open func handle_event(event: Event) -> Void {
-    	/* EDIT ME */
+		open func handle_event(event: Event) -> Void {
+			/* EDIT ME */
 		Bindings.print("EventHandler::handle_event should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating EventHandler \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

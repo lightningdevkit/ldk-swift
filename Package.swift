@@ -1,8 +1,8 @@
 // swift-tools-version:5.3
 import PackageDescription
 
-let tag = "0.0.109"
-let checksum = "a94b4b81b31f0bbbc6ee4fcc67fc3d7cb8c3550255c9e2af3933a75841119314"
+let tag = "0.0.110"
+let checksum = "cad578bbc25eefade02140535b82f9f1d471e2d11b1ba501943b6f74afb13236"
 let url = "https://github.com/lightningdevkit/ldk-swift/releases/download/\(tag)/LightningDevKit.xcframework.zip"
 
 let package = Package(

@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class C3Tuple_RawInvoice_u832InvoiceSignatureZ: NativeTypeWrapper {
+public typealias C3Tuple_RawInvoice_u832InvoiceSignatureZ = Bindings.C3Tuple_RawInvoice_u832InvoiceSignatureZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?
+	public class C3Tuple_RawInvoice_u832InvoiceSignatureZ: NativeTypeWrapper {
 
-    public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-	public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		internal var cOpaqueStruct: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?
 
-    /* TUPLE_METHODS_START */
+		public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-    public func clone() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
-    	
-        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ>) in
+		public init(pointer: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* TUPLE_METHODS_START */
+
+		public func clone() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+			
+			return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ>) in
 C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
         				let dangledClone = self.clone()
@@ -41,15 +45,15 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: RawInvoice, b: [UInt8], c: InvoiceSignature) -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
-    	
-        return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: C3Tuple_RawInvoice_u832InvoiceSignatureZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b), c.danglingClone().cOpaqueStruct!));
-    }
+		public class func new(a: RawInvoice, b: [UInt8], c: InvoiceSignature) -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
+			
+			return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: C3Tuple_RawInvoice_u832InvoiceSignatureZ_new(a.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: b), c.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return C3Tuple_RawInvoice_u832InvoiceSignatureZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return C3Tuple_RawInvoice_u832InvoiceSignatureZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
         				self.dangling = true
@@ -78,6 +82,8 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 					return InvoiceSignature(pointer: self.cOpaqueStruct!.c, anchor: self);
 				}
 			
-    /* TUPLE_METHODS_END */
+		/* TUPLE_METHODS_END */
+
+	}
 
 }

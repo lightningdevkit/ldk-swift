@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class NetworkUpdate: NativeTypeWrapper {
+public typealias NetworkUpdate = Bindings.NetworkUpdate
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKNetworkUpdate?
+	public class NetworkUpdate: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKNetworkUpdate){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKNetworkUpdate?
 
-	public init(pointer: LDKNetworkUpdate, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKNetworkUpdate){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKNetworkUpdate, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum NetworkUpdateValueType {
 					case ChannelUpdateMessage, ChannelFailure, NodeFailure
 				}
-				
+
 				public func getValueType() -> NetworkUpdateValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -46,7 +50,7 @@ public class NetworkUpdate: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsChannelUpdateMessage() -> ChannelUpdateMessage? {
 						if self.cOpaqueStruct?.tag != LDKNetworkUpdate_ChannelUpdateMessage {
@@ -70,16 +74,16 @@ public class NetworkUpdate: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return NetworkUpdate_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return NetworkUpdate_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> NetworkUpdate {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing NetworkUpdate \(self.instanceNumber).")
@@ -90,12 +94,12 @@ public class NetworkUpdate: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> NetworkUpdate {
-    	
-        return NetworkUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkUpdate>) in
+		public func clone() -> NetworkUpdate {
+			
+			return NetworkUpdate(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetworkUpdate>) in
 NetworkUpdate_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> NetworkUpdate {
         				let dangledClone = self.clone()
@@ -104,44 +108,44 @@ NetworkUpdate_clone(origPointer)
 					}
 				
 
-    public class func channel_update_message(msg: ChannelUpdate) -> NetworkUpdate {
-    	
-        return NetworkUpdate(pointer: NetworkUpdate_channel_update_message(msg.danglingClone().cOpaqueStruct!));
-    }
+		public class func channel_update_message(msg: Bindings.ChannelUpdate) -> NetworkUpdate {
+			
+			return NetworkUpdate(pointer: NetworkUpdate_channel_update_message(msg.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func channel_failure(short_channel_id: UInt64, is_permanent: Bool) -> NetworkUpdate {
-    	
-        return NetworkUpdate(pointer: NetworkUpdate_channel_failure(short_channel_id, is_permanent));
-    }
+		public class func channel_failure(short_channel_id: UInt64, is_permanent: Bool) -> NetworkUpdate {
+			
+			return NetworkUpdate(pointer: NetworkUpdate_channel_failure(short_channel_id, is_permanent));
+		}
 
-    public class func node_failure(node_id: [UInt8], is_permanent: Bool) -> NetworkUpdate {
-    	
-        return NetworkUpdate(pointer: NetworkUpdate_node_failure(Bindings.new_LDKPublicKey(array: node_id), is_permanent));
-    }
+		public class func node_failure(node_id: [UInt8], is_permanent: Bool) -> NetworkUpdate {
+			
+			return NetworkUpdate(pointer: NetworkUpdate_node_failure(Bindings.new_LDKPublicKey(array: node_id), is_permanent));
+		}
 
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkUpdate>) in
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkUpdate>) in
 NetworkUpdate_write(objPointer)
 });
-    }
+		}
 
-    public class func read(ser: [UInt8]) -> Result_COption_NetworkUpdateZDecodeErrorZ {
-    	
+		public class func read(ser: [UInt8]) -> Result_COption_NetworkUpdateZDecodeErrorZ {
+			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_COption_NetworkUpdateZDecodeErrorZ(pointer: NetworkUpdate_read(serWrapper.cOpaqueStruct!));
-    }
+			return Result_COption_NetworkUpdateZDecodeErrorZ(pointer: NetworkUpdate_read(serWrapper.cOpaqueStruct!));
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class ChannelUpdateMessage: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKNetworkUpdate_LDKChannelUpdateMessage_Body?;
 				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelUpdateMessage_Body) {
@@ -155,18 +159,18 @@ NetworkUpdate_write(objPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
+
 				
-				
-					public func getMsg() -> ChannelUpdate {
-						return ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					public func getMsg() -> Bindings.ChannelUpdate {
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
-				
+
 			}
 		
 
 			public class ChannelFailure: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKNetworkUpdate_LDKChannelFailure_Body?;
 				fileprivate init(pointer: LDKNetworkUpdate_LDKChannelFailure_Body) {
@@ -180,7 +184,7 @@ NetworkUpdate_write(objPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getShort_channel_id() -> UInt64 {
 						return self.cOpaqueStruct!.short_channel_id
@@ -190,12 +194,12 @@ NetworkUpdate_write(objPointer)
 						return self.cOpaqueStruct!.is_permanent
 					}
 				
-				
+
 			}
 		
 
 			public class NodeFailure: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKNetworkUpdate_LDKNodeFailure_Body?;
 				fileprivate init(pointer: LDKNetworkUpdate_LDKNodeFailure_Body) {
@@ -209,7 +213,7 @@ NetworkUpdate_write(objPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getNode_id() -> [UInt8] {
 						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
@@ -219,7 +223,9 @@ NetworkUpdate_write(objPointer)
 						return self.cOpaqueStruct!.is_permanent
 					}
 				
-				
+
 			}
 		
+	}
+
 }

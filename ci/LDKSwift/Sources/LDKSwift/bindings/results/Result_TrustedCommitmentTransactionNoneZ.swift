@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
+public typealias Result_TrustedCommitmentTransactionNoneZ = Bindings.Result_TrustedCommitmentTransactionNoneZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?
+	public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_TrustedCommitmentTransactionNoneZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_TrustedCommitmentTransactionNoneZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_TrustedCommitmentTransactionNoneZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_TrustedCommitmentTransactionNoneZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_TrustedCommitmentTransactionNoneZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getValue() -> TrustedCommitmentTransaction? {
 				if self.cOpaqueStruct?.result_ok == true {
@@ -49,28 +53,28 @@ public class Result_TrustedCommitmentTransactionNoneZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+		#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
 public class func ok(o: TrustedCommitmentTransaction) -> Result_TrustedCommitmentTransactionNoneZ {
-    	
-        return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_ok(o.cOpaqueStruct!));
-    }
+			
+			return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_ok(o.cOpaqueStruct!));
+		}
 
-    public class func err() -> Result_TrustedCommitmentTransactionNoneZ {
-    	
-        return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_err());
-    }
+		public class func err() -> Result_TrustedCommitmentTransactionNoneZ {
+			
+			return Result_TrustedCommitmentTransactionNoneZ(pointer: CResult_TrustedCommitmentTransactionNoneZ_err());
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_TrustedCommitmentTransactionNoneZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_TrustedCommitmentTransactionNoneZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_TrustedCommitmentTransactionNoneZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_TrustedCommitmentTransactionNoneZ \(self.instanceNumber).")
@@ -81,6 +85,8 @@ public class func ok(o: TrustedCommitmentTransaction) -> Result_TrustedCommitmen
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

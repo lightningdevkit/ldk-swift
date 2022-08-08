@@ -2,124 +2,128 @@
 import LDKHeaders
 #endif
 
-public class HTLCOutputInCommitment: NativeTypeWrapper {
+public typealias HTLCOutputInCommitment = Bindings.HTLCOutputInCommitment
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKHTLCOutputInCommitment?
+	public class HTLCOutputInCommitment: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKHTLCOutputInCommitment?
 
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init(offered_arg: Bool, amount_msat_arg: UInt64, cltv_expiry_arg: UInt32, payment_hash_arg: [UInt8], transaction_output_index_arg: Option_u32Z) {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
-        self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg), transaction_output_index_arg.danglingClone().cOpaqueStruct!)
-        super.init(conflictAvoidingVariableName: 0)
-        
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_START */
+		public init(offered_arg: Bool, amount_msat_arg: UInt64, cltv_expiry_arg: UInt32, payment_hash_arg: [UInt8], transaction_output_index_arg: Option_u32Z) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			
+			self.cOpaqueStruct = HTLCOutputInCommitment_new(offered_arg, amount_msat_arg, cltv_expiry_arg, Bindings.new_LDKThirtyTwoBytes(array: payment_hash_arg), transaction_output_index_arg.danglingClone().cOpaqueStruct!)
+			super.init(conflictAvoidingVariableName: 0)
+			
+		}
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKHTLCOutputInCommitment){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKHTLCOutputInCommitment){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKHTLCOutputInCommitment, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKHTLCOutputInCommitment, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func get_offered() -> Bool {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+		public func get_offered() -> Bool {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_get_offered(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_offered(val: Bool) -> Void {
-    	
+		public func set_offered(val: Bool) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_offered(this_ptrPointer, val);
-    }
+			return HTLCOutputInCommitment_set_offered(this_ptrPointer, val);
+		}
 
-    public func get_amount_msat() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+		public func get_amount_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_get_amount_msat(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_amount_msat(val: UInt64) -> Void {
-    	
+		public func set_amount_msat(val: UInt64) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_amount_msat(this_ptrPointer, val);
-    }
+			return HTLCOutputInCommitment_set_amount_msat(this_ptrPointer, val);
+		}
 
-    public func get_cltv_expiry() -> UInt32 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+		public func get_cltv_expiry() -> UInt32 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_get_cltv_expiry(this_ptrPointer)
 };
-    }
+		}
 
-    public func set_cltv_expiry(val: UInt32) -> Void {
-    	
+		public func set_cltv_expiry(val: UInt32) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_cltv_expiry(this_ptrPointer, val);
-    }
+			return HTLCOutputInCommitment_set_cltv_expiry(this_ptrPointer, val);
+		}
 
-    public func get_payment_hash() -> [UInt8] {
-    	
-        return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+		public func get_payment_hash() -> [UInt8] {
+			
+			return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_get_payment_hash(this_ptrPointer)
 }.pointee);
-    }
+		}
 
-    public func set_payment_hash(val: [UInt8]) -> Void {
-    	
+		public func set_payment_hash(val: [UInt8]) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_payment_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
-    }
+			return HTLCOutputInCommitment_set_payment_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+		}
 
-    public func get_transaction_output_index() -> Option_u32Z {
-    	
-        return Option_u32Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+		public func get_transaction_output_index() -> Option_u32Z {
+			
+			return Option_u32Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_get_transaction_output_index(this_ptrPointer)
 });
-    }
+		}
 
-    public func set_transaction_output_index(val: Option_u32Z) -> Void {
-    	
+		public func set_transaction_output_index(val: Option_u32Z) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKHTLCOutputInCommitment>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
-    }
+			return HTLCOutputInCommitment_set_transaction_output_index(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+		}
 
-    public func clone() -> HTLCOutputInCommitment {
-    	
-        return HTLCOutputInCommitment(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+		public func clone() -> HTLCOutputInCommitment {
+			
+			return HTLCOutputInCommitment(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> HTLCOutputInCommitment {
         				let dangledClone = self.clone()
@@ -128,27 +132,27 @@ HTLCOutputInCommitment_clone(origPointer)
 					}
 				
 
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_write(objPointer)
 });
-    }
+		}
 
-    public class func read(ser: [UInt8]) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
-    	
+		public class func read(ser: [UInt8]) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
+			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: HTLCOutputInCommitment_read(serWrapper.cOpaqueStruct!));
-    }
+			return Result_HTLCOutputInCommitmentDecodeErrorZ(pointer: HTLCOutputInCommitment_read(serWrapper.cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return HTLCOutputInCommitment_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return HTLCOutputInCommitment_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> HTLCOutputInCommitment {
         				self.dangling = true
@@ -165,6 +169,8 @@ HTLCOutputInCommitment_write(objPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

@@ -4,62 +4,66 @@ import LDKHeaders
 
 import Foundation
 
-open class Access: NativeTraitWrapper {
+public typealias Access = Bindings.Access
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKAccess?
+	open class Access: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKAccess?
 
-		func get_utxoCallback(pointer: UnsafeRawPointer?, genesis_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, short_channel_id: UInt64) -> LDKCResult_TxOutAccessErrorZ {
-			let instance: Access = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Access.swift::get_utxo")
-			
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+
+			/* NATIVE_CALLBACKS_START */
+
+			func get_utxoCallback(pointer: UnsafeRawPointer?, genesis_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, short_channel_id: UInt64) -> LDKCResult_TxOutAccessErrorZ {
+				let instance: Access = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Access.swift::get_utxo")
+				
 								var genesis_hash: [UInt8]? = nil
 								if let genesis_hashUnwrapped = genesis_hashPointer {
 									genesis_hash = Bindings.tuple32_to_array(nativeType: genesis_hashUnwrapped.pointee)
 								}
 							
-			return instance.get_utxo(genesis_hash: genesis_hash, short_channel_id: short_channel_id).cOpaqueStruct!
-		}
+				return instance.get_utxo(genesis_hash: genesis_hash, short_channel_id: short_channel_id).cOpaqueStruct!
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Access = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Access.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Access = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Access.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKAccess(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKAccess(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_utxo: get_utxoCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKAccess){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKAccess){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKAccess, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKAccess, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -78,22 +82,24 @@ open class Access: NativeTraitWrapper {
 					}
 				
 
-    open func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
-    	/* EDIT ME */
+		open func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
+			/* EDIT ME */
 		Bindings.print("Access::get_utxo should be overridden!", severity: .WARNING)
 
 return Result_TxOutAccessErrorZ()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Access \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

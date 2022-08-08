@@ -4,81 +4,85 @@ import LDKHeaders
 
 import Foundation
 
-open class Listen: NativeTraitWrapper {
+public typealias Listen = Bindings.Listen
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKListen?
+	open class Listen: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKListen?
 
-		func filtered_block_connectedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, txdata: LDKCVec_C2Tuple_usizeTransactionZZ, height: UInt32) -> Void {
-			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::filtered_block_connected")
-			
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+
+			/* NATIVE_CALLBACKS_START */
+
+			func filtered_block_connectedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, txdata: LDKCVec_C2Tuple_usizeTransactionZZ, height: UInt32) -> Void {
+				let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::filtered_block_connected")
+				
 								var header: [UInt8]? = nil
 								if let headerUnwrapped = headerPointer {
 									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
 								}
 							
-			return instance.filtered_block_connected(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata), height: height)
-		}
+				return instance.filtered_block_connected(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata), height: height)
+			}
 
-		func block_connectedCallback(pointer: UnsafeRawPointer?, block: LDKu8slice, height: UInt32) -> Void {
-			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::block_connected")
-			
-			return instance.block_connected(block: Bindings.LDKu8slice_to_array(nativeType: block), height: height)
-		}
+			func block_connectedCallback(pointer: UnsafeRawPointer?, block: LDKu8slice, height: UInt32) -> Void {
+				let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::block_connected")
+				
+				return instance.block_connected(block: Bindings.LDKu8slice_to_array(nativeType: block), height: height)
+			}
 
-		func block_disconnectedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, height: UInt32) -> Void {
-			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::block_disconnected")
-			
+			func block_disconnectedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, height: UInt32) -> Void {
+				let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::block_disconnected")
+				
 								var header: [UInt8]? = nil
 								if let headerUnwrapped = headerPointer {
 									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
 								}
 							
-			return instance.block_disconnected(header: header, height: height)
-		}
+				return instance.block_disconnected(header: header, height: height)
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Listen = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Listen.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKListen(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKListen(this_arg: Bindings.instanceToPointer(instance: self), 
 			filtered_block_connected: filtered_block_connectedCallback,
 			block_connected: block_connectedCallback,
 			block_disconnected: block_disconnectedCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKListen){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKListen){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKListen, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKListen, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -97,36 +101,38 @@ open class Listen: NativeTraitWrapper {
 					}
 				
 
-    open func filtered_block_connected(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
-    	/* EDIT ME */
+		open func filtered_block_connected(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
+			/* EDIT ME */
 		Bindings.print("Listen::filtered_block_connected should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func block_connected(block: [UInt8], height: UInt32) -> Void {
-    	/* EDIT ME */
+		open func block_connected(block: [UInt8], height: UInt32) -> Void {
+			/* EDIT ME */
 		Bindings.print("Listen::block_connected should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
-    	/* EDIT ME */
+		open func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
+			/* EDIT ME */
 		Bindings.print("Listen::block_disconnected should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Listen \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

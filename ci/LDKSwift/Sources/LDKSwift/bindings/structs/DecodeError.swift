@@ -2,40 +2,44 @@
 import LDKHeaders
 #endif
 
-public class DecodeError: NativeTypeWrapper {
+public typealias DecodeError = Bindings.DecodeError
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKDecodeError?
+	public class DecodeError: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKDecodeError?
 
 
-	
+		
 
-    public init(pointer: LDKDecodeError){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKDecodeError){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKDecodeError, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKDecodeError, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func clone() -> DecodeError {
-    	
-        return DecodeError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDecodeError>) in
+		public func clone() -> DecodeError {
+			
+			return DecodeError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKDecodeError>) in
 DecodeError_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> DecodeError {
         				let dangledClone = self.clone()
@@ -44,10 +48,10 @@ DecodeError_clone(origPointer)
 					}
 				
 
-    internal func free() -> Void {
-    	
-        return DecodeError_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return DecodeError_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> DecodeError {
         				self.dangling = true
@@ -64,6 +68,8 @@ DecodeError_clone(origPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

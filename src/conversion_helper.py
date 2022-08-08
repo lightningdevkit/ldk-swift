@@ -95,7 +95,7 @@ class ConversionHelper:
 		return is_cloneable
 
 	@classmethod
-	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False, is_trait_default_redirect = False):
+	def prepare_swift_to_native_arguments(cls, argument_types, is_trait_callback=False, force_pass_instance=False, is_free_method=False, is_returned_value_freeable=False, unwrap_complex_arrays = True, array_unwrapping_preparation_only = False, is_trait_default_redirect = False, prefix_namespace=False):
 		swift_arguments = []
 		swift_redirection_arguments = []
 		native_arguments = []
@@ -148,6 +148,7 @@ class ConversionHelper:
 
 			swift_argument_type = current_argument_details.swift_type
 			if not pass_instance:
+				# TODO: remove magic type!
 				if swift_argument_type == 'TxOut':
 					swift_argument_type = 'LDKTxOut'
 
@@ -290,7 +291,10 @@ class ConversionHelper:
 					mutabilityIndicatorSuffix = '?'
 
 			if not pass_instance:
-				swift_arguments.append(f'{argument_name}: {swift_argument_type}{mutabilityIndicatorSuffix}')
+				if cls.is_instance_type(swift_argument_type, current_argument_details.rust_obj) and prefix_namespace:
+					swift_arguments.append(f'{argument_name}: Bindings.{swift_argument_type}{mutabilityIndicatorSuffix}')
+				else:
+					swift_arguments.append(f'{argument_name}: {swift_argument_type}{mutabilityIndicatorSuffix}')
 				if is_array_wrapper_extraction_required and array_unwrapping_preparation_only:
 					swift_redirection_arguments.append(f'{argument_name}: {passed_argument_name}')
 				else:
@@ -484,7 +488,7 @@ class ConversionHelper:
 				'swift_callback_prep': swift_callback_prep}
 
 	@classmethod
-	def prepare_return_value(cls, return_type, is_clone_method=False, is_trait_instantiator=False, is_raw_property_getter=False, is_trait_callback=False):
+	def prepare_return_value(cls, return_type, is_clone_method=False, is_trait_instantiator=False, is_raw_property_getter=False, is_trait_callback=False, prefix_namespace=False):
 		rust_return_type = return_type.rust_obj
 		return_prefix = ''
 		return_suffix = ''
@@ -538,6 +542,9 @@ class ConversionHelper:
 			return_prefix = f'Bindings.tuple{array_length}_to_array(nativeType: '
 			return_suffix = ')'
 		elif cls.is_instance_type(return_type_string, rust_return_type):
+			if prefix_namespace:
+				swift_return_instantiation_type = f'Bindings.{swift_return_instantiation_type}'
+				return_type_string = f'Bindings.{return_type_string}'
 			return_prefix = f'{swift_return_instantiation_type}(pointer: '
 			if is_clone_method:
 				# return_prefix = 'Self(pointer: '

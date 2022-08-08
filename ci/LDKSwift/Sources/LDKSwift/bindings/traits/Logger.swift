@@ -4,58 +4,62 @@ import LDKHeaders
 
 import Foundation
 
-open class Logger: NativeTraitWrapper {
+public typealias Logger = Bindings.Logger
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKLogger?
+	open class Logger: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKLogger?
 
-		func logCallback(pointer: UnsafeRawPointer?, recordPointer: UnsafePointer<LDKRecord>) -> Void {
-			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::log")
-			let record = Record(pointer: recordPointer.pointee).dangle().clone();
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-			return instance.log(record: record)
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::free")
-			
-			return instance.free()
-		}
+			func logCallback(pointer: UnsafeRawPointer?, recordPointer: UnsafePointer<LDKRecord>) -> Void {
+				let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::log")
+				let record = Record(pointer: recordPointer.pointee).dangle().clone();
 
-		/* NATIVE_CALLBACKS_END */
+				return instance.log(record: record)
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKLogger(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Logger = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Logger.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKLogger(this_arg: Bindings.instanceToPointer(instance: self), 
 			log: logCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKLogger){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKLogger){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKLogger, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKLogger, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -74,22 +78,24 @@ open class Logger: NativeTraitWrapper {
 					}
 				
 
-    open func log(record: Record) -> Void {
-    	/* EDIT ME */
+		open func log(record: Record) -> Void {
+			/* EDIT ME */
 		Bindings.print("Logger::log should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Logger \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

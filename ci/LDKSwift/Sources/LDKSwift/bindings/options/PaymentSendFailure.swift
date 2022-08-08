@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class PaymentSendFailure: NativeTypeWrapper {
+public typealias PaymentSendFailure = Bindings.PaymentSendFailure
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKPaymentSendFailure?
+	public class PaymentSendFailure: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKPaymentSendFailure){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKPaymentSendFailure?
 
-	public init(pointer: LDKPaymentSendFailure, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKPaymentSendFailure){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKPaymentSendFailure, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum PaymentSendFailureValueType {
 					case ParameterError, PathParameterError, AllFailedRetrySafe, PartialFailure
 				}
-				
+
 				public func getValueType() -> PaymentSendFailureValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -48,13 +52,13 @@ public class PaymentSendFailure: NativeTypeWrapper {
                         return nil
                     }
 				}
+
 				
-				
-					public func getValueAsParameterError() -> APIError? {
+					public func getValueAsParameterError() -> Bindings.APIError? {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_ParameterError {
 							return nil
 						}
-						return APIError(pointer: self.cOpaqueStruct!.parameter_error, anchor: self)
+						return Bindings.APIError(pointer: self.cOpaqueStruct!.parameter_error, anchor: self)
 					}
 				
 					public func getValueAsPathParameterError() -> [Result_NoneAPIErrorZ]? {
@@ -89,16 +93,16 @@ public class PaymentSendFailure: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return PaymentSendFailure_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return PaymentSendFailure_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> PaymentSendFailure {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing PaymentSendFailure \(self.instanceNumber).")
@@ -109,12 +113,12 @@ public class PaymentSendFailure: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> PaymentSendFailure {
-    	
-        return PaymentSendFailure(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentSendFailure>) in
+		public func clone() -> PaymentSendFailure {
+			
+			return PaymentSendFailure(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKPaymentSendFailure>) in
 PaymentSendFailure_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> PaymentSendFailure {
         				let dangledClone = self.clone()
@@ -123,13 +127,13 @@ PaymentSendFailure_clone(origPointer)
 					}
 				
 
-    public class func parameter_error(a: APIError) -> PaymentSendFailure {
-    	
-        return PaymentSendFailure(pointer: PaymentSendFailure_parameter_error(a.danglingClone().cOpaqueStruct!));
-    }
+		public class func parameter_error(a: Bindings.APIError) -> PaymentSendFailure {
+			
+			return PaymentSendFailure(pointer: PaymentSendFailure_parameter_error(a.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func path_parameter_error(a: [Result_NoneAPIErrorZ]) -> PaymentSendFailure {
-    	
+		public class func path_parameter_error(a: [Result_NoneAPIErrorZ]) -> PaymentSendFailure {
+			
 							let aUnwrapped = a.map { (aCurrentValue) in
 							aCurrentValue
 								.danglingClone().cOpaqueStruct!
@@ -140,11 +144,11 @@ PaymentSendFailure_clone(origPointer)
 							aWrapper.noOpRetain()
 						}
 					
-        return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.dangle().cOpaqueStruct!));
-    }
+			return PaymentSendFailure(pointer: PaymentSendFailure_path_parameter_error(aWrapper.dangle().cOpaqueStruct!));
+		}
 
-    public class func all_failed_retry_safe(a: [APIError]) -> PaymentSendFailure {
-    	
+		public class func all_failed_retry_safe(a: [APIError]) -> PaymentSendFailure {
+			
 							let aUnwrapped = a.map { (aCurrentValue) in
 							aCurrentValue
 								.danglingClone().cOpaqueStruct!
@@ -155,11 +159,11 @@ PaymentSendFailure_clone(origPointer)
 							aWrapper.noOpRetain()
 						}
 					
-        return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.dangle().cOpaqueStruct!));
-    }
+			return PaymentSendFailure(pointer: PaymentSendFailure_all_failed_retry_safe(aWrapper.dangle().cOpaqueStruct!));
+		}
 
-    public class func partial_failure(results: [Result_NoneAPIErrorZ], failed_paths_retry: RouteParameters, payment_id: [UInt8]) -> PaymentSendFailure {
-    	
+		public class func partial_failure(results: [Result_NoneAPIErrorZ], failed_paths_retry: Bindings.RouteParameters, payment_id: [UInt8]) -> PaymentSendFailure {
+			
 							let resultsUnwrapped = results.map { (resultsCurrentValue) in
 							resultsCurrentValue
 								.danglingClone().cOpaqueStruct!
@@ -170,15 +174,15 @@ PaymentSendFailure_clone(origPointer)
 							resultsWrapper.noOpRetain()
 						}
 					
-        return PaymentSendFailure(pointer: PaymentSendFailure_partial_failure(resultsWrapper.dangle().cOpaqueStruct!, failed_paths_retry.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_id)));
-    }
+			return PaymentSendFailure(pointer: PaymentSendFailure_partial_failure(resultsWrapper.dangle().cOpaqueStruct!, failed_paths_retry.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_id)));
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class PartialFailure: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKPaymentSendFailure_LDKPartialFailure_Body?;
 				fileprivate init(pointer: LDKPaymentSendFailure_LDKPartialFailure_Body) {
@@ -192,7 +196,7 @@ PaymentSendFailure_clone(origPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getResults() -> [Result_NoneAPIErrorZ] {
 						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.results, deallocate: false)
@@ -203,15 +207,17 @@ PaymentSendFailure_clone(origPointer)
 					
 					}
 				
-					public func getFailed_paths_retry() -> RouteParameters {
-						return RouteParameters(pointer: self.cOpaqueStruct!.failed_paths_retry, anchor: self)
+					public func getFailed_paths_retry() -> Bindings.RouteParameters {
+						return Bindings.RouteParameters(pointer: self.cOpaqueStruct!.failed_paths_retry, anchor: self)
 					}
 				
 					public func getPayment_id() -> [UInt8] {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_id)
 					}
 				
-				
+
 			}
 		
+	}
+
 }

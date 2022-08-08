@@ -4,54 +4,58 @@ import LDKHeaders
 
 import Foundation
 
-open class SocketDescriptor: NativeTraitWrapper {
+public typealias SocketDescriptor = Bindings.SocketDescriptor
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKSocketDescriptor?
+	open class SocketDescriptor: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKSocketDescriptor?
 
-		func send_dataCallback(pointer: UnsafeMutableRawPointer?, data: LDKu8slice, resume_read: Bool) -> UInt {
-			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::send_data")
-			
-			return instance.send_data(data: Bindings.LDKu8slice_to_array(nativeType: data), resume_read: resume_read)
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func disconnect_socketCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::disconnect_socket")
-			
-			return instance.disconnect_socket()
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		func eqCallback(pointer: UnsafeRawPointer?, other_argPointer: UnsafePointer<LDKSocketDescriptor>) -> Bool {
-			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::eq")
-			let other_arg = SocketDescriptor(pointer: other_argPointer.pointee).dangle().clone();
+			func send_dataCallback(pointer: UnsafeMutableRawPointer?, data: LDKu8slice, resume_read: Bool) -> UInt {
+				let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::send_data")
+				
+				return instance.send_data(data: Bindings.LDKu8slice_to_array(nativeType: data), resume_read: resume_read)
+			}
 
-			return instance.eq(other_arg: other_arg)
-		}
+			func disconnect_socketCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::disconnect_socket")
+				
+				return instance.disconnect_socket()
+			}
 
-		func hashCallback(pointer: UnsafeRawPointer?) -> UInt64 {
-			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::hash")
-			
-			return instance.hash()
-		}
+			func eqCallback(pointer: UnsafeRawPointer?, other_argPointer: UnsafePointer<LDKSocketDescriptor>) -> Bool {
+				let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::eq")
+				let other_arg = SocketDescriptor(pointer: other_argPointer.pointee).dangle().clone();
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::free")
-			
-			return instance.free()
-		}
+				return instance.eq(other_arg: other_arg)
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			func hashCallback(pointer: UnsafeRawPointer?) -> UInt64 {
+				let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::hash")
+				
+				return instance.hash()
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKSocketDescriptor(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: SocketDescriptor = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "SocketDescriptor.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKSocketDescriptor(this_arg: Bindings.instanceToPointer(instance: self), 
 			send_data: send_dataCallback,
 			disconnect_socket: disconnect_socketCallback,
 			eq: eqCallback,
@@ -59,25 +63,25 @@ open class SocketDescriptor: NativeTraitWrapper {
 			cloned: nil,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKSocketDescriptor){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKSocketDescriptor){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKSocketDescriptor, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKSocketDescriptor, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 				public func clone() -> SocketDescriptor {
@@ -114,43 +118,45 @@ open class SocketDescriptor: NativeTraitWrapper {
 					}
 				
 
-    open func send_data(data: [UInt8], resume_read: Bool) -> UInt {
-    	/* EDIT ME */
+		open func send_data(data: [UInt8], resume_read: Bool) -> UInt {
+			/* EDIT ME */
 		Bindings.print("SocketDescriptor::send_data should be overridden!", severity: .WARNING)
 
 return 0
-    }
+		}
 
-    open func disconnect_socket() -> Void {
-    	/* EDIT ME */
+		open func disconnect_socket() -> Void {
+			/* EDIT ME */
 		Bindings.print("SocketDescriptor::disconnect_socket should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func eq(other_arg: SocketDescriptor) -> Bool {
-    	/* EDIT ME */
+		open func eq(other_arg: SocketDescriptor) -> Bool {
+			/* EDIT ME */
 		Bindings.print("SocketDescriptor::eq should be overridden!", severity: .WARNING)
 
 return false
-    }
+		}
 
-    open func hash() -> UInt64 {
-    	/* EDIT ME */
+		open func hash() -> UInt64 {
+			/* EDIT ME */
 		Bindings.print("SocketDescriptor::hash should be overridden!", severity: .WARNING)
 
 return 0
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating SocketDescriptor \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

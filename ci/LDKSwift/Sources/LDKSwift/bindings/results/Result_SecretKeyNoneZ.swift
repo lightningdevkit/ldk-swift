@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_SecretKeyNoneZ: NativeTypeWrapper {
+public typealias Result_SecretKeyNoneZ = Bindings.Result_SecretKeyNoneZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_SecretKeyNoneZ?
+	public class Result_SecretKeyNoneZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_SecretKeyNoneZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_SecretKeyNoneZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_SecretKeyNoneZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_SecretKeyNoneZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_SecretKeyNoneZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_SecretKeyNoneZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getValue() -> [UInt8]? {
 				if self.cOpaqueStruct?.result_ok == true {
@@ -49,26 +53,26 @@ public class Result_SecretKeyNoneZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: [UInt8]) -> Result_SecretKeyNoneZ {
-    	
-        return Result_SecretKeyNoneZ(pointer: CResult_SecretKeyNoneZ_ok(Bindings.new_LDKSecretKey(array: o)));
-    }
+		public class func ok(o: [UInt8]) -> Result_SecretKeyNoneZ {
+			
+			return Result_SecretKeyNoneZ(pointer: CResult_SecretKeyNoneZ_ok(Bindings.new_LDKSecretKey(array: o)));
+		}
 
-    public class func err() -> Result_SecretKeyNoneZ {
-    	
-        return Result_SecretKeyNoneZ(pointer: CResult_SecretKeyNoneZ_err());
-    }
+		public class func err() -> Result_SecretKeyNoneZ {
+			
+			return Result_SecretKeyNoneZ(pointer: CResult_SecretKeyNoneZ_err());
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_SecretKeyNoneZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_SecretKeyNoneZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_SecretKeyNoneZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_SecretKeyNoneZ \(self.instanceNumber).")
@@ -79,12 +83,12 @@ public class Result_SecretKeyNoneZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_SecretKeyNoneZ {
-    	
-        return Result_SecretKeyNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SecretKeyNoneZ>) in
+		public func clone() -> Result_SecretKeyNoneZ {
+			
+			return Result_SecretKeyNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_SecretKeyNoneZ>) in
 CResult_SecretKeyNoneZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_SecretKeyNoneZ {
         				let dangledClone = self.clone()
@@ -93,6 +97,8 @@ CResult_SecretKeyNoneZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class NetAddress: NativeTypeWrapper {
+public typealias NetAddress = Bindings.NetAddress
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKNetAddress?
+	public class NetAddress: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKNetAddress){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKNetAddress?
 
-	public init(pointer: LDKNetAddress, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKNetAddress){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKNetAddress, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum NetAddressValueType {
-					case IPv4, IPv6, OnionV2, OnionV3
+					case IPv4, IPv6, OnionV2, OnionV3, Hostname
 				}
-				
+
 				public func getValueType() -> NetAddressValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -44,11 +48,13 @@ public class NetAddress: NativeTypeWrapper {
 						return .OnionV2
 					case LDKNetAddress_OnionV3:
 						return .OnionV3
+					case LDKNetAddress_Hostname:
+						return .Hostname
                     default:
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsIPv4() -> IPv4? {
 						if self.cOpaqueStruct?.tag != LDKNetAddress_IPv4 {
@@ -78,17 +84,24 @@ public class NetAddress: NativeTypeWrapper {
 						return OnionV3(pointer: self.cOpaqueStruct!.onion_v3, anchor: self)
 					}
 				
+					public func getValueAsHostname() -> Hostname? {
+						if self.cOpaqueStruct?.tag != LDKNetAddress_Hostname {
+							return nil
+						}
+						return Hostname(pointer: self.cOpaqueStruct!.hostname, anchor: self)
+					}
+				
 			
-    internal func free() -> Void {
-    	
-        return NetAddress_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return NetAddress_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> NetAddress {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing NetAddress \(self.instanceNumber).")
@@ -99,12 +112,12 @@ public class NetAddress: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> NetAddress {
-    	
-        return NetAddress(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetAddress>) in
+		public func clone() -> NetAddress {
+			
+			return NetAddress(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKNetAddress>) in
 NetAddress_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> NetAddress {
         				let dangledClone = self.clone()
@@ -113,49 +126,54 @@ NetAddress_clone(origPointer)
 					}
 				
 
-    public class func ipv4(addr: [UInt8], port: UInt16) -> NetAddress {
-    	
-        return NetAddress(pointer: NetAddress_ipv4(Bindings.new_LDKFourBytes(array: addr), port));
-    }
+		public class func ipv4(addr: [UInt8], port: UInt16) -> NetAddress {
+			
+			return NetAddress(pointer: NetAddress_ipv4(Bindings.new_LDKFourBytes(array: addr), port));
+		}
 
-    public class func ipv6(addr: [UInt8], port: UInt16) -> NetAddress {
-    	
-        return NetAddress(pointer: NetAddress_ipv6(Bindings.new_LDKSixteenBytes(array: addr), port));
-    }
+		public class func ipv6(addr: [UInt8], port: UInt16) -> NetAddress {
+			
+			return NetAddress(pointer: NetAddress_ipv6(Bindings.new_LDKSixteenBytes(array: addr), port));
+		}
 
-    public class func onion_v2(a: [UInt8]) -> NetAddress {
-    	
-        return NetAddress(pointer: NetAddress_onion_v2(Bindings.new_LDKTwelveBytes(array: a)));
-    }
+		public class func onion_v2(a: [UInt8]) -> NetAddress {
+			
+			return NetAddress(pointer: NetAddress_onion_v2(Bindings.new_LDKTwelveBytes(array: a)));
+		}
 
-    public class func onion_v3(ed25519_pubkey: [UInt8], checksum: UInt16, version: UInt8, port: UInt16) -> NetAddress {
-    	
-        return NetAddress(pointer: NetAddress_onion_v3(Bindings.new_LDKThirtyTwoBytes(array: ed25519_pubkey), checksum, version, port));
-    }
+		public class func onion_v3(ed25519_pubkey: [UInt8], checksum: UInt16, version: UInt8, port: UInt16) -> NetAddress {
+			
+			return NetAddress(pointer: NetAddress_onion_v3(Bindings.new_LDKThirtyTwoBytes(array: ed25519_pubkey), checksum, version, port));
+		}
 
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetAddress>) in
+		public class func hostname(hostname: Bindings.Hostname, port: UInt16) -> NetAddress {
+			
+			return NetAddress(pointer: NetAddress_hostname(hostname.danglingClone().cOpaqueStruct!, port));
+		}
+
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetAddress>) in
 NetAddress_write(objPointer)
 });
-    }
+		}
 
-    public class func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
-    	
+		public class func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
+			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)
 						defer {
 							serWrapper.noOpRetain()
 						}
 					
-        return Result_NetAddressDecodeErrorZ(pointer: NetAddress_read(serWrapper.cOpaqueStruct!));
-    }
+			return Result_NetAddressDecodeErrorZ(pointer: NetAddress_read(serWrapper.cOpaqueStruct!));
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class IPv4: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKNetAddress_LDKIPv4_Body?;
 				fileprivate init(pointer: LDKNetAddress_LDKIPv4_Body) {
@@ -169,7 +187,7 @@ NetAddress_write(objPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getAddr() -> [UInt8] {
 						return Bindings.LDKFourBytes_to_array(nativeType: self.cOpaqueStruct!.addr)
@@ -179,12 +197,12 @@ NetAddress_write(objPointer)
 						return self.cOpaqueStruct!.port
 					}
 				
-				
+
 			}
 		
 
 			public class IPv6: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKNetAddress_LDKIPv6_Body?;
 				fileprivate init(pointer: LDKNetAddress_LDKIPv6_Body) {
@@ -198,7 +216,7 @@ NetAddress_write(objPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getAddr() -> [UInt8] {
 						return Bindings.LDKSixteenBytes_to_array(nativeType: self.cOpaqueStruct!.addr)
@@ -208,12 +226,12 @@ NetAddress_write(objPointer)
 						return self.cOpaqueStruct!.port
 					}
 				
-				
+
 			}
 		
 
 			public class OnionV3: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKNetAddress_LDKOnionV3_Body?;
 				fileprivate init(pointer: LDKNetAddress_LDKOnionV3_Body) {
@@ -227,7 +245,7 @@ NetAddress_write(objPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getEd25519_pubkey() -> [UInt8] {
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.ed25519_pubkey)
@@ -245,7 +263,38 @@ NetAddress_write(objPointer)
 						return self.cOpaqueStruct!.port
 					}
 				
-				
+
 			}
 		
+
+			public class Hostname: NativeTypeWrapper {
+
+				
+				var cOpaqueStruct: LDKNetAddress_LDKHostname_Body?;
+				fileprivate init(pointer: LDKNetAddress_LDKHostname_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKNetAddress_LDKHostname_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+
+				
+					public func getHostname() -> Bindings.Hostname {
+						return Bindings.Hostname(pointer: self.cOpaqueStruct!.hostname, anchor: self)
+					}
+				
+					public func getPort() -> UInt16 {
+						return self.cOpaqueStruct!.port
+					}
+				
+
+			}
+		
+	}
+
 }

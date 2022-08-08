@@ -1017,108 +1017,6 @@ public class Bindings {
 						
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper(array: [LDKC2Tuple_OutPointCVec_MonitorEventZZ]) -> LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper {
-		/* DIMENSION_REDUCTION_PREP */
-
-		/*
-        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKC2Tuple_OutPointCVec_MonitorEventZZ>) -> UnsafeMutablePointer<LDKC2Tuple_OutPointCVec_MonitorEventZZ> in
-            let mutablePointer = UnsafeMutablePointer<LDKC2Tuple_OutPointCVec_MonitorEventZZ>(mutating: pointer.baseAddress!)
-            return mutablePointer
-        }
-        */
-
-        let dataContainer = UnsafeMutablePointer<LDKC2Tuple_OutPointCVec_MonitorEventZZ>.allocate(capacity: array.count)
-		dataContainer.initialize(from: array, count: array.count)
-
-        let vector = LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ(data: dataContainer, datalen: UInt(array.count))
-        let wrapper = LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper(pointer: vector)
-        return wrapper
-    }
-
-    public class LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper: NativeTypeWrapper {
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
-
-		internal var cOpaqueStruct: LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ?
-		internal var subdimensionWrapper: [AnyObject]? = nil
-
-		public init(pointer: LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ){
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cOpaqueStruct = pointer
-			super.init(conflictAvoidingVariableName: 0)
-		}
-
-		internal init(pointer: LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ, subdimensionWrapper: [AnyObject]){
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.subdimensionWrapper = subdimensionWrapper
-			self.cOpaqueStruct = pointer
-			super.init(conflictAvoidingVariableName: 0)
-		}
-
-		public func noOpRetain(){}
-
-		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper {
-			self.dangling = true
-			/* SUBDIMENSION_DANGLE_PREP */
-			return self
-		}
-
-		deinit {
-			if !self.dangling {
-				print("Freeing LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper \(self.instanceNumber).")
-				self.cOpaqueStruct!.data.deallocate()
-			} else {
-				print("Not freeing LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper \(self.instanceNumber) due to dangle.")
-			}
-		}
-	}
-    /* SWIFT_TO_RUST_END */
-
-	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ_to_array(nativeType: LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ, deallocate: Bool = true) -> [LDKC2Tuple_OutPointCVec_MonitorEventZZ] {
-		var array = [LDKC2Tuple_OutPointCVec_MonitorEventZZ]()
-		for index in 0..<Int(nativeType.datalen) {
-			let currentEntry = nativeType.data[index]
-			/* CONVERSION_PREP */
-			array.append(currentEntry)
-		}
-		
-					if deallocate && nativeType.datalen > 0 {
-						nativeType.data.deallocate()
-					}
-				
-		return array
-	}
-	/* RUST_TO_SWIFT_END */
-						public class func extractNativeLDKC2Tuple_OutPointCVec_MonitorEventZZArray(array: [C2Tuple_OutPointCVec_MonitorEventZZ]) -> [LDKC2Tuple_OutPointCVec_MonitorEventZZ] {
-							return array.map { entry -> LDKC2Tuple_OutPointCVec_MonitorEventZZ in
-								entry.danglingClone().cOpaqueStruct!
-							}
-						}
-						
-						public class func wrapNativeLDKC2Tuple_OutPointCVec_MonitorEventZZArray(array: [LDKC2Tuple_OutPointCVec_MonitorEventZZ]) -> [C2Tuple_OutPointCVec_MonitorEventZZ] {
-							return array.map { entry -> C2Tuple_OutPointCVec_MonitorEventZZ in
-								C2Tuple_OutPointCVec_MonitorEventZZ(pointer: entry)
-							}
-						}
-						
-						public class func wrapDanglingNativeLDKC2Tuple_OutPointCVec_MonitorEventZZArray(array: [LDKC2Tuple_OutPointCVec_MonitorEventZZ]) -> [C2Tuple_OutPointCVec_MonitorEventZZ] {
-							return array.map { entry -> C2Tuple_OutPointCVec_MonitorEventZZ in
-								C2Tuple_OutPointCVec_MonitorEventZZ(pointer: entry).dangle()
-							}
-						}
-					
-							internal class func cloneNativeLDKC2Tuple_OutPointCVec_MonitorEventZZArray(array: [LDKC2Tuple_OutPointCVec_MonitorEventZZ]) -> [LDKC2Tuple_OutPointCVec_MonitorEventZZ] {
-								return array.map { entry -> LDKC2Tuple_OutPointCVec_MonitorEventZZ in
-									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									C2Tuple_OutPointCVec_MonitorEventZZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
-								}
-							}
-						
-
-	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C2Tuple_PublicKeyTypeZZWrapper(array: [LDKC2Tuple_PublicKeyTypeZ]) -> LDKCVec_C2Tuple_PublicKeyTypeZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
@@ -1726,6 +1624,108 @@ public class Bindings {
 								return array.map { entry -> LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
 									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
 									C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
+								}
+							}
+						
+
+	/* SWIFT_TO_RUST_START */
+	public class func new_LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper(array: [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper {
+		/* DIMENSION_REDUCTION_PREP */
+
+		/*
+        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ>) -> UnsafeMutablePointer<LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ> in
+            let mutablePointer = UnsafeMutablePointer<LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ>(mutating: pointer.baseAddress!)
+            return mutablePointer
+        }
+        */
+
+        let dataContainer = UnsafeMutablePointer<LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ>.allocate(capacity: array.count)
+		dataContainer.initialize(from: array, count: array.count)
+
+        let vector = LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(data: dataContainer, datalen: UInt(array.count))
+        let wrapper = LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper(pointer: vector)
+        return wrapper
+    }
+
+    public class LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper: NativeTypeWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ?
+		internal var subdimensionWrapper: [AnyObject]? = nil
+
+		public init(pointer: LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		internal init(pointer: LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ, subdimensionWrapper: [AnyObject]){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.subdimensionWrapper = subdimensionWrapper
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public func noOpRetain(){}
+
+		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper {
+			self.dangling = true
+			/* SUBDIMENSION_DANGLE_PREP */
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.data.deallocate()
+			} else {
+				print("Not freeing LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+    /* SWIFT_TO_RUST_END */
+
+	/* RUST_TO_SWIFT_START */
+    public class func LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ_to_array(nativeType: LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ, deallocate: Bool = true) -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
+		var array = [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]()
+		for index in 0..<Int(nativeType.datalen) {
+			let currentEntry = nativeType.data[index]
+			/* CONVERSION_PREP */
+			array.append(currentEntry)
+		}
+		
+					if deallocate && nativeType.datalen > 0 {
+						nativeType.data.deallocate()
+					}
+				
+		return array
+	}
+	/* RUST_TO_SWIFT_END */
+						public class func extractNativeLDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZArray(array: [C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
+							return array.map { entry -> LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ in
+								entry.danglingClone().cOpaqueStruct!
+							}
+						}
+						
+						public class func wrapNativeLDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZArray(array: [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> [C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
+							return array.map { entry -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ in
+								C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ(pointer: entry)
+							}
+						}
+						
+						public class func wrapDanglingNativeLDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZArray(array: [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> [C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
+							return array.map { entry -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ in
+								C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ(pointer: entry).dangle()
+							}
+						}
+					
+							internal class func cloneNativeLDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZArray(array: [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
+								return array.map { entry -> LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ in
+									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
+									C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
 								}
 							}
 						
@@ -5281,6 +5281,16 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_COption_HTLCDestinationZDecodeErrorZ_is_ok(o: Result_COption_HTLCDestinationZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_COption_HTLCDestinationZDecodeErrorZ>) in
+
+				CResult_COption_HTLCDestinationZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_COption_EventZDecodeErrorZ_is_ok(o: Result_COption_EventZDecodeErrorZ) -> Bool {
 		
 				
@@ -6922,7 +6932,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "bf16d08dc0183ae1d6b43c89990a25182f754675"
+        return "2c965bf89139f2fb238b461d0af3d494d4d5384c"
     }
 
 }

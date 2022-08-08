@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
+public typealias Result_RecoverableSignatureNoneZ = Bindings.Result_RecoverableSignatureNoneZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?
+	public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_RecoverableSignatureNoneZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_RecoverableSignatureNoneZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_RecoverableSignatureNoneZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_RecoverableSignatureNoneZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_RecoverableSignatureNoneZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getValue() -> [UInt8]? {
 				if self.cOpaqueStruct?.result_ok == true {
@@ -49,26 +53,26 @@ public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: [UInt8]) -> Result_RecoverableSignatureNoneZ {
-    	
-        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: o)));
-    }
+		public class func ok(o: [UInt8]) -> Result_RecoverableSignatureNoneZ {
+			
+			return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_ok(Bindings.new_LDKRecoverableSignature(array: o)));
+		}
 
-    public class func err() -> Result_RecoverableSignatureNoneZ {
-    	
-        return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_err());
-    }
+		public class func err() -> Result_RecoverableSignatureNoneZ {
+			
+			return Result_RecoverableSignatureNoneZ(pointer: CResult_RecoverableSignatureNoneZ_err());
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_RecoverableSignatureNoneZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_RecoverableSignatureNoneZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_RecoverableSignatureNoneZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_RecoverableSignatureNoneZ \(self.instanceNumber).")
@@ -79,12 +83,12 @@ public class Result_RecoverableSignatureNoneZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_RecoverableSignatureNoneZ {
-    	
-        return Result_RecoverableSignatureNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_RecoverableSignatureNoneZ>) in
+		public func clone() -> Result_RecoverableSignatureNoneZ {
+			
+			return Result_RecoverableSignatureNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_RecoverableSignatureNoneZ>) in
 CResult_RecoverableSignatureNoneZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_RecoverableSignatureNoneZ {
         				let dangledClone = self.clone()
@@ -93,6 +97,8 @@ CResult_RecoverableSignatureNoneZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ: NativeTypeWrapper {
+public typealias C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ = Bindings.C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?
+	public class C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ: NativeTypeWrapper {
 
-    public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-	public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		internal var cOpaqueStruct: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ?
 
-    /* TUPLE_METHODS_START */
+		public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-    public func clone() -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
-    	
-        return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ>) in
+		public init(pointer: LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* TUPLE_METHODS_START */
+
+		public func clone() -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
+			
+			return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ>) in
 C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
         				let dangledClone = self.clone()
@@ -41,8 +45,8 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 					}
 				
 
-    public class func new(a: [UInt8], b: [C2Tuple_u32ScriptZ]) -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
-    	
+		public class func new(a: [UInt8], b: [C2Tuple_u32ScriptZ]) -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
+			
 							let bUnwrapped = b.map { (bCurrentValue) in
 							bCurrentValue
 								.danglingClone().cOpaqueStruct!
@@ -53,13 +57,13 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 							bWrapper.noOpRetain()
 						}
 					
-        return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), bWrapper.dangle().cOpaqueStruct!));
-    }
+			return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), bWrapper.dangle().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ {
         				self.dangling = true
@@ -89,6 +93,8 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 					;
 				}
 			
-    /* TUPLE_METHODS_END */
+		/* TUPLE_METHODS_END */
+
+	}
 
 }

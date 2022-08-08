@@ -4,74 +4,78 @@ import LDKHeaders
 
 import Foundation
 
-open class Persister: NativeTraitWrapper {
+public typealias Persister = Bindings.Persister
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKPersister?
+	open class Persister: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKPersister?
 
-		func persist_managerCallback(pointer: UnsafeRawPointer?, channel_managerPointer: UnsafePointer<LDKChannelManager>) -> LDKCResult_NoneErrorZ {
-			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_manager")
-			let channel_manager = ChannelManager(pointer: channel_managerPointer.pointee).dangle();
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-			return instance.persist_manager(channel_manager: channel_manager).cOpaqueStruct!
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		func persist_graphCallback(pointer: UnsafeRawPointer?, network_graphPointer: UnsafePointer<LDKNetworkGraph>) -> LDKCResult_NoneErrorZ {
-			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_graph")
-			let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle();
+			func persist_managerCallback(pointer: UnsafeRawPointer?, channel_managerPointer: UnsafePointer<LDKChannelManager>) -> LDKCResult_NoneErrorZ {
+				let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_manager")
+				let channel_manager = ChannelManager(pointer: channel_managerPointer.pointee).dangle();
 
-			return instance.persist_graph(network_graph: network_graph).cOpaqueStruct!
-		}
+				return instance.persist_manager(channel_manager: channel_manager).cOpaqueStruct!
+			}
 
-		func persist_scorerCallback(pointer: UnsafeRawPointer?, scorerPointer: UnsafePointer<LDKMultiThreadedLockableScore>) -> LDKCResult_NoneErrorZ {
-			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_scorer")
-			let scorer = MultiThreadedLockableScore(pointer: scorerPointer.pointee).dangle();
+			func persist_graphCallback(pointer: UnsafeRawPointer?, network_graphPointer: UnsafePointer<LDKNetworkGraph>) -> LDKCResult_NoneErrorZ {
+				let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_graph")
+				let network_graph = NetworkGraph(pointer: network_graphPointer.pointee).dangle();
 
-			return instance.persist_scorer(scorer: scorer).cOpaqueStruct!
-		}
+				return instance.persist_graph(network_graph: network_graph).cOpaqueStruct!
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::free")
-			
-			return instance.free()
-		}
+			func persist_scorerCallback(pointer: UnsafeRawPointer?, scorerPointer: UnsafePointer<LDKMultiThreadedLockableScore>) -> LDKCResult_NoneErrorZ {
+				let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_scorer")
+				let scorer = MultiThreadedLockableScore(pointer: scorerPointer.pointee).dangle();
 
-		/* NATIVE_CALLBACKS_END */
+				return instance.persist_scorer(scorer: scorer).cOpaqueStruct!
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKPersister(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKPersister(this_arg: Bindings.instanceToPointer(instance: self), 
 			persist_manager: persist_managerCallback,
 			persist_graph: persist_graphCallback,
 			persist_scorer: persist_scorerCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKPersister){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKPersister){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKPersister, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKPersister, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -90,36 +94,38 @@ open class Persister: NativeTraitWrapper {
 					}
 				
 
-    open func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
-    	/* EDIT ME */
+		open func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
+			/* EDIT ME */
 		Bindings.print("Persister::persist_manager should be overridden!", severity: .WARNING)
 
 return Result_NoneErrorZ()
-    }
+		}
 
-    open func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
-    	/* EDIT ME */
+		open func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
+			/* EDIT ME */
 		Bindings.print("Persister::persist_graph should be overridden!", severity: .WARNING)
 
 return Result_NoneErrorZ()
-    }
+		}
 
-    open func persist_scorer(scorer: MultiThreadedLockableScore) -> Result_NoneErrorZ {
-    	/* EDIT ME */
+		open func persist_scorer(scorer: MultiThreadedLockableScore) -> Result_NoneErrorZ {
+			/* EDIT ME */
 		Bindings.print("Persister::persist_scorer should be overridden!", severity: .WARNING)
 
 return Result_NoneErrorZ()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Persister \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

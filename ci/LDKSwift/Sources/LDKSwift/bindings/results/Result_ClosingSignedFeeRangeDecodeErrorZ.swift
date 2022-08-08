@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_ClosingSignedFeeRangeDecodeErrorZ: NativeTypeWrapper {
+public typealias Result_ClosingSignedFeeRangeDecodeErrorZ = Bindings.Result_ClosingSignedFeeRangeDecodeErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_ClosingSignedFeeRangeDecodeErrorZ?
+	public class Result_ClosingSignedFeeRangeDecodeErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_ClosingSignedFeeRangeDecodeErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_ClosingSignedFeeRangeDecodeErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_ClosingSignedFeeRangeDecodeErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_ClosingSignedFeeRangeDecodeErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_ClosingSignedFeeRangeDecodeErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_ClosingSignedFeeRangeDecodeErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_ClosingSignedFeeRangeDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: ClosingSignedFeeRange) -> Result_ClosingSignedFeeRangeDecodeErrorZ {
-    	
-        return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: CResult_ClosingSignedFeeRangeDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func ok(o: ClosingSignedFeeRange) -> Result_ClosingSignedFeeRangeDecodeErrorZ {
+			
+			return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: CResult_ClosingSignedFeeRangeDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func err(e: DecodeError) -> Result_ClosingSignedFeeRangeDecodeErrorZ {
-    	
-        return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: CResult_ClosingSignedFeeRangeDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
-    }
+		public class func err(e: DecodeError) -> Result_ClosingSignedFeeRangeDecodeErrorZ {
+			
+			return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: CResult_ClosingSignedFeeRangeDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_ClosingSignedFeeRangeDecodeErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_ClosingSignedFeeRangeDecodeErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_ClosingSignedFeeRangeDecodeErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_ClosingSignedFeeRangeDecodeErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_ClosingSignedFeeRangeDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_ClosingSignedFeeRangeDecodeErrorZ {
-    	
-        return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ClosingSignedFeeRangeDecodeErrorZ>) in
+		public func clone() -> Result_ClosingSignedFeeRangeDecodeErrorZ {
+			
+			return Result_ClosingSignedFeeRangeDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ClosingSignedFeeRangeDecodeErrorZ>) in
 CResult_ClosingSignedFeeRangeDecodeErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_ClosingSignedFeeRangeDecodeErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_ClosingSignedFeeRangeDecodeErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

@@ -4,99 +4,103 @@ import LDKHeaders
 
 import Foundation
 
-open class Confirm: NativeTraitWrapper {
+public typealias Confirm = Bindings.Confirm
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKConfirm?
+	open class Confirm: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKConfirm?
 
-		func transactions_confirmedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, txdata: LDKCVec_C2Tuple_usizeTransactionZZ, height: UInt32) -> Void {
-			let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::transactions_confirmed")
-			
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+
+			/* NATIVE_CALLBACKS_START */
+
+			func transactions_confirmedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, txdata: LDKCVec_C2Tuple_usizeTransactionZZ, height: UInt32) -> Void {
+				let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::transactions_confirmed")
+				
 								var header: [UInt8]? = nil
 								if let headerUnwrapped = headerPointer {
 									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
 								}
 							
-			return instance.transactions_confirmed(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata), height: height)
-		}
+				return instance.transactions_confirmed(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata), height: height)
+			}
 
-		func transaction_unconfirmedCallback(pointer: UnsafeRawPointer?, txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?) -> Void {
-			let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::transaction_unconfirmed")
-			
+			func transaction_unconfirmedCallback(pointer: UnsafeRawPointer?, txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?) -> Void {
+				let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::transaction_unconfirmed")
+				
 								var txid: [UInt8]? = nil
 								if let txidUnwrapped = txidPointer {
 									txid = Bindings.tuple32_to_array(nativeType: txidUnwrapped.pointee)
 								}
 							
-			return instance.transaction_unconfirmed(txid: txid)
-		}
+				return instance.transaction_unconfirmed(txid: txid)
+			}
 
-		func best_block_updatedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, height: UInt32) -> Void {
-			let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::best_block_updated")
-			
+			func best_block_updatedCallback(pointer: UnsafeRawPointer?, headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, height: UInt32) -> Void {
+				let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::best_block_updated")
+				
 								var header: [UInt8]? = nil
 								if let headerUnwrapped = headerPointer {
 									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
 								}
 							
-			return instance.best_block_updated(header: header, height: height)
-		}
+				return instance.best_block_updated(header: header, height: height)
+			}
 
-		func get_relevant_txidsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_TxidZ {
-			let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::get_relevant_txids")
-			
-			
+			func get_relevant_txidsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_TxidZ {
+				let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::get_relevant_txids")
+				
+				
 					let returnWrapper = Bindings.new_LDKCVec_TxidZWrapper(array: instance.get_relevant_txids())
 					defer {
 						returnWrapper.noOpRetain()
 					}
 					return returnWrapper.dangle().cOpaqueStruct!
 				
-		}
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Confirm = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Confirm.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKConfirm(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKConfirm(this_arg: Bindings.instanceToPointer(instance: self), 
 			transactions_confirmed: transactions_confirmedCallback,
 			transaction_unconfirmed: transaction_unconfirmedCallback,
 			best_block_updated: best_block_updatedCallback,
 			get_relevant_txids: get_relevant_txidsCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKConfirm){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKConfirm){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKConfirm, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKConfirm, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -115,43 +119,45 @@ open class Confirm: NativeTraitWrapper {
 					}
 				
 
-    open func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
-    	/* EDIT ME */
+		open func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
+			/* EDIT ME */
 		Bindings.print("Confirm::transactions_confirmed should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func transaction_unconfirmed(txid: [UInt8]?) -> Void {
-    	/* EDIT ME */
+		open func transaction_unconfirmed(txid: [UInt8]?) -> Void {
+			/* EDIT ME */
 		Bindings.print("Confirm::transaction_unconfirmed should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func best_block_updated(header: [UInt8]?, height: UInt32) -> Void {
-    	/* EDIT ME */
+		open func best_block_updated(header: [UInt8]?, height: UInt32) -> Void {
+			/* EDIT ME */
 		Bindings.print("Confirm::best_block_updated should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func get_relevant_txids() -> [[UInt8]] {
-    	/* EDIT ME */
+		open func get_relevant_txids() -> [[UInt8]] {
+			/* EDIT ME */
 		Bindings.print("Confirm::get_relevant_txids should be overridden!", severity: .WARNING)
 
 return [[UInt8]]()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Confirm \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

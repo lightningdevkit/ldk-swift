@@ -4,63 +4,67 @@ import LDKHeaders
 
 import Foundation
 
-open class MessageSendEventsProvider: NativeTraitWrapper {
+public typealias MessageSendEventsProvider = Bindings.MessageSendEventsProvider
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKMessageSendEventsProvider?
+	open class MessageSendEventsProvider: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKMessageSendEventsProvider?
 
-		func get_and_clear_pending_msg_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_MessageSendEventZ {
-			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::get_and_clear_pending_msg_events")
-			
-			
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+
+			/* NATIVE_CALLBACKS_START */
+
+			func get_and_clear_pending_msg_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_MessageSendEventZ {
+				let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::get_and_clear_pending_msg_events")
+				
+				
 					let returnWrapper = Bindings.new_LDKCVec_MessageSendEventZWrapper(array: instance.get_and_clear_pending_msg_events())
 					defer {
 						returnWrapper.noOpRetain()
 					}
 					return returnWrapper.dangle().cOpaqueStruct!
 				
-		}
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "MessageSendEventsProvider.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKMessageSendEventsProvider(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKMessageSendEventsProvider(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_and_clear_pending_msg_events: get_and_clear_pending_msg_eventsCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKMessageSendEventsProvider){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKMessageSendEventsProvider){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKMessageSendEventsProvider, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKMessageSendEventsProvider, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -79,22 +83,24 @@ open class MessageSendEventsProvider: NativeTraitWrapper {
 					}
 				
 
-    open func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
-    	/* EDIT ME */
+		open func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
+			/* EDIT ME */
 		Bindings.print("MessageSendEventsProvider::get_and_clear_pending_msg_events should be overridden!", severity: .WARNING)
 
 return [LDKMessageSendEvent]()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating MessageSendEventsProvider \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

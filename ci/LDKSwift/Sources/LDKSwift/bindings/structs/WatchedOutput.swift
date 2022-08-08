@@ -2,66 +2,70 @@
 import LDKHeaders
 #endif
 
-public class WatchedOutput: NativeTypeWrapper {
+public typealias WatchedOutput = Bindings.WatchedOutput
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKWatchedOutput?
+	public class WatchedOutput: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKWatchedOutput?
 
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init(block_hash_arg: [UInt8], outpoint_arg: OutPoint, script_pubkey_arg: [UInt8]) {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
+		/* DEFAULT_CONSTRUCTOR_START */
+		public init(block_hash_arg: [UInt8], outpoint_arg: OutPoint, script_pubkey_arg: [UInt8]) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			
 						let script_pubkey_argWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: script_pubkey_arg)
 						defer {
 							script_pubkey_argWrapper.noOpRetain()
 						}
 					
-        self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.dangle().cOpaqueStruct!)
-        super.init(conflictAvoidingVariableName: 0)
-        
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
+			self.cOpaqueStruct = WatchedOutput_new(Bindings.new_LDKThirtyTwoBytes(array: block_hash_arg), outpoint_arg.danglingClone().cOpaqueStruct!, script_pubkey_argWrapper.dangle().cOpaqueStruct!)
+			super.init(conflictAvoidingVariableName: 0)
+			
+		}
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKWatchedOutput){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKWatchedOutput){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKWatchedOutput, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKWatchedOutput, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func get_block_hash() -> [UInt8] {
-    	
-        return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
+		public func get_block_hash() -> [UInt8] {
+			
+			return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
 WatchedOutput_get_block_hash(this_ptrPointer)
 });
-    }
+		}
 
-    public func set_block_hash(val: [UInt8]) -> Void {
-    	
+		public func set_block_hash(val: [UInt8]) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKWatchedOutput>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return WatchedOutput_set_block_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
-    }
+			return WatchedOutput_set_block_hash(this_ptrPointer, Bindings.new_LDKThirtyTwoBytes(array: val));
+		}
 
-    public func get_outpoint() -> OutPoint? {
-    	
-        return 
+		public func get_outpoint() -> OutPoint? {
+			
+			return 
 				{ () in
 					let cStruct =
 				withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
@@ -73,25 +77,25 @@ WatchedOutput_get_outpoint(this_ptrPointer)
 				return OutPoint(pointer: cStruct)
 				}()
 			;
-    }
+		}
 
-    public func set_outpoint(val: OutPoint) -> Void {
-    	
+		public func set_outpoint(val: OutPoint) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKWatchedOutput>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return WatchedOutput_set_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
-    }
+			return WatchedOutput_set_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+		}
 
-    public func get_script_pubkey() -> [UInt8] {
-    	
-        return Bindings.LDKu8slice_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
+		public func get_script_pubkey() -> [UInt8] {
+			
+			return Bindings.LDKu8slice_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWatchedOutput>) in
 WatchedOutput_get_script_pubkey(this_ptrPointer)
 });
-    }
+		}
 
-    public func set_script_pubkey(val: [UInt8]) -> Void {
-    	
+		public func set_script_pubkey(val: [UInt8]) -> Void {
+			
 							let this_ptrPointer = UnsafeMutablePointer<LDKWatchedOutput>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
@@ -100,15 +104,15 @@ WatchedOutput_get_script_pubkey(this_ptrPointer)
 							valWrapper.noOpRetain()
 						}
 					
-        return WatchedOutput_set_script_pubkey(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
-    }
+			return WatchedOutput_set_script_pubkey(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
+		}
 
-    public func clone() -> WatchedOutput {
-    	
-        return WatchedOutput(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKWatchedOutput>) in
+		public func clone() -> WatchedOutput {
+			
+			return WatchedOutput(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKWatchedOutput>) in
 WatchedOutput_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> WatchedOutput {
         				let dangledClone = self.clone()
@@ -117,17 +121,17 @@ WatchedOutput_clone(origPointer)
 					}
 				
 
-    public func hash() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKWatchedOutput>) in
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKWatchedOutput>) in
 WatchedOutput_hash(oPointer)
 };
-    }
+		}
 
-    internal func free() -> Void {
-    	
-        return WatchedOutput_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return WatchedOutput_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> WatchedOutput {
         				self.dangling = true
@@ -144,6 +148,8 @@ WatchedOutput_hash(oPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

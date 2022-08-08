@@ -4,22 +4,26 @@ import LDKHeaders
 
 import Foundation
 
-open class Router: NativeTraitWrapper {
+public typealias Router = Bindings.Router
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKRouter?
+	open class Router: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKRouter?
 
-		func find_routeCallback(pointer: UnsafeRawPointer?, payer: LDKPublicKey, route_paramsPointer: UnsafePointer<LDKRouteParameters>, payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, scorerPointer: UnsafePointer<LDKScore>) -> LDKCResult_RouteLightningErrorZ {
-			let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::find_route")
-			let route_params = RouteParameters(pointer: route_paramsPointer.pointee).dangle().clone();
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+
+			/* NATIVE_CALLBACKS_START */
+
+			func find_routeCallback(pointer: UnsafeRawPointer?, payer: LDKPublicKey, route_paramsPointer: UnsafePointer<LDKRouteParameters>, payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, scorerPointer: UnsafePointer<LDKScore>) -> LDKCResult_RouteLightningErrorZ {
+				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::find_route")
+				let route_params = RouteParameters(pointer: route_paramsPointer.pointee).dangle().clone();
 
 								var payment_hash: [UInt8]? = nil
 								if let payment_hashUnwrapped = payment_hashPointer {
@@ -32,41 +36,41 @@ open class Router: NativeTraitWrapper {
 					}
 				let scorer = Score(pointer: scorerPointer.pointee).dangle();
 
-			return instance.find_route(payer: Bindings.tuple33_to_array(nativeType: payer.compressed_form), route_params: route_params, payment_hash: payment_hash, first_hops: first_hops, scorer: scorer).cOpaqueStruct!
-		}
+				return instance.find_route(payer: Bindings.tuple33_to_array(nativeType: payer.compressed_form), route_params: route_params, payment_hash: payment_hash, first_hops: first_hops, scorer: scorer).cOpaqueStruct!
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKRouter(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKRouter(this_arg: Bindings.instanceToPointer(instance: self), 
 			find_route: find_routeCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKRouter){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKRouter){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKRouter, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKRouter, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -85,22 +89,24 @@ open class Router: NativeTraitWrapper {
 					}
 				
 
-    open func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [LDKChannelDetails]?, scorer: Score) -> Result_RouteLightningErrorZ {
-    	/* EDIT ME */
+		open func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [LDKChannelDetails]?, scorer: Score) -> Result_RouteLightningErrorZ {
+			/* EDIT ME */
 		Bindings.print("Router::find_route should be overridden!", severity: .WARNING)
 
 return Result_RouteLightningErrorZ()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Router \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

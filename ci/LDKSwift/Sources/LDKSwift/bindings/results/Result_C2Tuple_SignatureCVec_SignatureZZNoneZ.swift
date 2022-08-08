@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
+public typealias Result_C2Tuple_SignatureCVec_SignatureZZNoneZ = Bindings.Result_C2Tuple_SignatureCVec_SignatureZZNoneZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?
+	public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getValue() -> C2Tuple_SignatureCVec_SignatureZZ? {
 				if self.cOpaqueStruct?.result_ok == true {
@@ -49,26 +53,26 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: C2Tuple_SignatureCVec_SignatureZZ) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
-    	
-        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func ok(o: C2Tuple_SignatureCVec_SignatureZZ) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+			
+			return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_ok(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func err() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
-    	
-        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_err());
-    }
+		public class func err() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+			
+			return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_err());
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_C2Tuple_SignatureCVec_SignatureZZNoneZ \(self.instanceNumber).")
@@ -79,12 +83,12 @@ public class Result_C2Tuple_SignatureCVec_SignatureZZNoneZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
-    	
-        return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ>) in
+		public func clone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+			
+			return Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ>) in
 CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
         				let dangledClone = self.clone()
@@ -93,6 +97,8 @@ CResult_C2Tuple_SignatureCVec_SignatureZZNoneZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

@@ -4,57 +4,61 @@ import LDKHeaders
 
 import Foundation
 
-open class LockableScore: NativeTraitWrapper {
+public typealias LockableScore = Bindings.LockableScore
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKLockableScore?
+	open class LockableScore: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKLockableScore?
 
-		func lockCallback(pointer: UnsafeRawPointer?) -> LDKScore {
-			let instance: LockableScore = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "LockableScore.swift::lock")
-			
-			return instance.lock().cOpaqueStruct!
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: LockableScore = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "LockableScore.swift::free")
-			
-			return instance.free()
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		/* NATIVE_CALLBACKS_END */
+			func lockCallback(pointer: UnsafeRawPointer?) -> LDKScore {
+				let instance: LockableScore = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "LockableScore.swift::lock")
+				
+				return instance.lock().cOpaqueStruct!
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKLockableScore(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: LockableScore = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "LockableScore.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKLockableScore(this_arg: Bindings.instanceToPointer(instance: self), 
 			lock: lockCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKLockableScore){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKLockableScore){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKLockableScore, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKLockableScore, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -73,22 +77,24 @@ open class LockableScore: NativeTraitWrapper {
 					}
 				
 
-    open func lock() -> Score {
-    	/* EDIT ME */
+		open func lock() -> Score {
+			/* EDIT ME */
 		Bindings.print("LockableScore::lock should be overridden!", severity: .WARNING)
 
 return Score()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating LockableScore \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

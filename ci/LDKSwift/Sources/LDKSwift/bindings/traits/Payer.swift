@@ -4,74 +4,78 @@ import LDKHeaders
 
 import Foundation
 
-open class Payer: NativeTraitWrapper {
+public typealias Payer = Bindings.Payer
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKPayer?
+	open class Payer: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKPayer?
 
-		func node_idCallback(pointer: UnsafeRawPointer?) -> LDKPublicKey {
-			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::node_id")
-			
-			return Bindings.new_LDKPublicKey(array: instance.node_id())
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func first_hopsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_ChannelDetailsZ {
-			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::first_hops")
-			
-			
+			/* NATIVE_CALLBACKS_START */
+
+			func node_idCallback(pointer: UnsafeRawPointer?) -> LDKPublicKey {
+				let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::node_id")
+				
+				return Bindings.new_LDKPublicKey(array: instance.node_id())
+			}
+
+			func first_hopsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_ChannelDetailsZ {
+				let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::first_hops")
+				
+				
 					let returnWrapper = Bindings.new_LDKCVec_ChannelDetailsZWrapper(array: instance.first_hops())
 					defer {
 						returnWrapper.noOpRetain()
 					}
 					return returnWrapper.dangle().cOpaqueStruct!
 				
-		}
+			}
 
-		func send_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_hash: LDKThirtyTwoBytes, payment_secret: LDKThirtyTwoBytes) -> LDKCResult_PaymentIdPaymentSendFailureZ {
-			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::send_payment")
-			let route = Route(pointer: routePointer.pointee).dangle().clone();
+			func send_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_hash: LDKThirtyTwoBytes, payment_secret: LDKThirtyTwoBytes) -> LDKCResult_PaymentIdPaymentSendFailureZ {
+				let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::send_payment")
+				let route = Route(pointer: routePointer.pointee).dangle().clone();
 
-			return instance.send_payment(route: route, payment_hash: Bindings.tuple32_to_array(nativeType: payment_hash.data), payment_secret: Bindings.tuple32_to_array(nativeType: payment_secret.data)).cOpaqueStruct!
-		}
+				return instance.send_payment(route: route, payment_hash: Bindings.tuple32_to_array(nativeType: payment_hash.data), payment_secret: Bindings.tuple32_to_array(nativeType: payment_secret.data)).cOpaqueStruct!
+			}
 
-		func send_spontaneous_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_preimage: LDKThirtyTwoBytes) -> LDKCResult_PaymentIdPaymentSendFailureZ {
-			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::send_spontaneous_payment")
-			let route = Route(pointer: routePointer.pointee).dangle().clone();
+			func send_spontaneous_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_preimage: LDKThirtyTwoBytes) -> LDKCResult_PaymentIdPaymentSendFailureZ {
+				let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::send_spontaneous_payment")
+				let route = Route(pointer: routePointer.pointee).dangle().clone();
 
-			return instance.send_spontaneous_payment(route: route, payment_preimage: Bindings.tuple32_to_array(nativeType: payment_preimage.data)).cOpaqueStruct!
-		}
+				return instance.send_spontaneous_payment(route: route, payment_preimage: Bindings.tuple32_to_array(nativeType: payment_preimage.data)).cOpaqueStruct!
+			}
 
-		func retry_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_id: LDKThirtyTwoBytes) -> LDKCResult_NonePaymentSendFailureZ {
-			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::retry_payment")
-			let route = Route(pointer: routePointer.pointee).dangle().clone();
+			func retry_paymentCallback(pointer: UnsafeRawPointer?, routePointer: UnsafePointer<LDKRoute>, payment_id: LDKThirtyTwoBytes) -> LDKCResult_NonePaymentSendFailureZ {
+				let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::retry_payment")
+				let route = Route(pointer: routePointer.pointee).dangle().clone();
 
-			return instance.retry_payment(route: route, payment_id: Bindings.tuple32_to_array(nativeType: payment_id.data)).cOpaqueStruct!
-		}
+				return instance.retry_payment(route: route, payment_id: Bindings.tuple32_to_array(nativeType: payment_id.data)).cOpaqueStruct!
+			}
 
-		func abandon_paymentCallback(pointer: UnsafeRawPointer?, payment_id: LDKThirtyTwoBytes) -> Void {
-			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::abandon_payment")
-			
-			return instance.abandon_payment(payment_id: Bindings.tuple32_to_array(nativeType: payment_id.data))
-		}
+			func abandon_paymentCallback(pointer: UnsafeRawPointer?, payment_id: LDKThirtyTwoBytes) -> Void {
+				let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::abandon_payment")
+				
+				return instance.abandon_payment(payment_id: Bindings.tuple32_to_array(nativeType: payment_id.data))
+			}
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::free")
-			
-			return instance.free()
-		}
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: Payer = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Payer.swift::free")
+				
+				return instance.free()
+			}
 
-		/* NATIVE_CALLBACKS_END */
+			/* NATIVE_CALLBACKS_END */
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKPayer(this_arg: Bindings.instanceToPointer(instance: self), 
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKPayer(this_arg: Bindings.instanceToPointer(instance: self), 
 			node_id: node_idCallback,
 			first_hops: first_hopsCallback,
 			send_payment: send_paymentCallback,
@@ -80,25 +84,25 @@ open class Payer: NativeTraitWrapper {
 			abandon_payment: abandon_paymentCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKPayer){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKPayer){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKPayer, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKPayer, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -117,57 +121,59 @@ open class Payer: NativeTraitWrapper {
 					}
 				
 
-    open func node_id() -> [UInt8] {
-    	/* EDIT ME */
+		open func node_id() -> [UInt8] {
+			/* EDIT ME */
 		Bindings.print("Payer::node_id should be overridden!", severity: .WARNING)
 
 return [UInt8]()
-    }
+		}
 
-    open func first_hops() -> [LDKChannelDetails] {
-    	/* EDIT ME */
+		open func first_hops() -> [LDKChannelDetails] {
+			/* EDIT ME */
 		Bindings.print("Payer::first_hops should be overridden!", severity: .WARNING)
 
 return [LDKChannelDetails]()
-    }
+		}
 
-    open func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
-    	/* EDIT ME */
+		open func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
+			/* EDIT ME */
 		Bindings.print("Payer::send_payment should be overridden!", severity: .WARNING)
 
 return Result_PaymentIdPaymentSendFailureZ()
-    }
+		}
 
-    open func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
-    	/* EDIT ME */
+		open func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
+			/* EDIT ME */
 		Bindings.print("Payer::send_spontaneous_payment should be overridden!", severity: .WARNING)
 
 return Result_PaymentIdPaymentSendFailureZ()
-    }
+		}
 
-    open func retry_payment(route: Route, payment_id: [UInt8]) -> Result_NonePaymentSendFailureZ {
-    	/* EDIT ME */
+		open func retry_payment(route: Route, payment_id: [UInt8]) -> Result_NonePaymentSendFailureZ {
+			/* EDIT ME */
 		Bindings.print("Payer::retry_payment should be overridden!", severity: .WARNING)
 
 return Result_NonePaymentSendFailureZ()
-    }
+		}
 
-    open func abandon_payment(payment_id: [UInt8]) -> Void {
-    	/* EDIT ME */
+		open func abandon_payment(payment_id: [UInt8]) -> Void {
+			/* EDIT ME */
 		Bindings.print("Payer::abandon_payment should be overridden!", severity: .WARNING)
 
 
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating Payer \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

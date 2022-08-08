@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
+public typealias Result_ErrorMessageDecodeErrorZ = Bindings.Result_ErrorMessageDecodeErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_ErrorMessageDecodeErrorZ?
+	public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_ErrorMessageDecodeErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_ErrorMessageDecodeErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_ErrorMessageDecodeErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_ErrorMessageDecodeErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_ErrorMessageDecodeErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: ErrorMessage) -> Result_ErrorMessageDecodeErrorZ {
-    	
-        return Result_ErrorMessageDecodeErrorZ(pointer: CResult_ErrorMessageDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func ok(o: ErrorMessage) -> Result_ErrorMessageDecodeErrorZ {
+			
+			return Result_ErrorMessageDecodeErrorZ(pointer: CResult_ErrorMessageDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func err(e: DecodeError) -> Result_ErrorMessageDecodeErrorZ {
-    	
-        return Result_ErrorMessageDecodeErrorZ(pointer: CResult_ErrorMessageDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
-    }
+		public class func err(e: DecodeError) -> Result_ErrorMessageDecodeErrorZ {
+			
+			return Result_ErrorMessageDecodeErrorZ(pointer: CResult_ErrorMessageDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_ErrorMessageDecodeErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_ErrorMessageDecodeErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_ErrorMessageDecodeErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_ErrorMessageDecodeErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_ErrorMessageDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_ErrorMessageDecodeErrorZ {
-    	
-        return Result_ErrorMessageDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ErrorMessageDecodeErrorZ>) in
+		public func clone() -> Result_ErrorMessageDecodeErrorZ {
+			
+			return Result_ErrorMessageDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ErrorMessageDecodeErrorZ>) in
 CResult_ErrorMessageDecodeErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_ErrorMessageDecodeErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_ErrorMessageDecodeErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

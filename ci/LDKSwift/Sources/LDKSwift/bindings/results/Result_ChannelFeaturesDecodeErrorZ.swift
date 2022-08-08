@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
+public typealias Result_ChannelFeaturesDecodeErrorZ = Bindings.Result_ChannelFeaturesDecodeErrorZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_ChannelFeaturesDecodeErrorZ?
+	public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_ChannelFeaturesDecodeErrorZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_ChannelFeaturesDecodeErrorZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_ChannelFeaturesDecodeErrorZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_ChannelFeaturesDecodeErrorZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_ChannelFeaturesDecodeErrorZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -56,26 +60,26 @@ public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok(o: ChannelFeatures) -> Result_ChannelFeaturesDecodeErrorZ {
-    	
-        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
-    }
+		public class func ok(o: ChannelFeatures) -> Result_ChannelFeaturesDecodeErrorZ {
+			
+			return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_ok(o.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func err(e: DecodeError) -> Result_ChannelFeaturesDecodeErrorZ {
-    	
-        return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
-    }
+		public class func err(e: DecodeError) -> Result_ChannelFeaturesDecodeErrorZ {
+			
+			return Result_ChannelFeaturesDecodeErrorZ(pointer: CResult_ChannelFeaturesDecodeErrorZ_err(e.danglingClone().cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_ChannelFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_ChannelFeaturesDecodeErrorZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_ChannelFeaturesDecodeErrorZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_ChannelFeaturesDecodeErrorZ \(self.instanceNumber).")
@@ -86,12 +90,12 @@ public class Result_ChannelFeaturesDecodeErrorZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_ChannelFeaturesDecodeErrorZ {
-    	
-        return Result_ChannelFeaturesDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ChannelFeaturesDecodeErrorZ>) in
+		public func clone() -> Result_ChannelFeaturesDecodeErrorZ {
+			
+			return Result_ChannelFeaturesDecodeErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_ChannelFeaturesDecodeErrorZ>) in
 CResult_ChannelFeaturesDecodeErrorZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_ChannelFeaturesDecodeErrorZ {
         				let dangledClone = self.clone()
@@ -100,6 +104,8 @@ CResult_ChannelFeaturesDecodeErrorZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

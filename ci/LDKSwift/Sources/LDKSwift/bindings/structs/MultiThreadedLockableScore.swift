@@ -2,55 +2,59 @@
 import LDKHeaders
 #endif
 
-public class MultiThreadedLockableScore: NativeTypeWrapper {
+public typealias MultiThreadedLockableScore = Bindings.MultiThreadedLockableScore
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKMultiThreadedLockableScore?
+	public class MultiThreadedLockableScore: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKMultiThreadedLockableScore?
 
 
-	/* DEFAULT_CONSTRUCTOR_START */
-    public init(score: Score) {
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-    	
-        self.cOpaqueStruct = MultiThreadedLockableScore_new(score.activate().cOpaqueStruct!)
-        super.init(conflictAvoidingVariableName: 0)
-        try? self.addAnchor(anchor: score)
+		/* DEFAULT_CONSTRUCTOR_START */
+		public init(score: Score) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			
+			self.cOpaqueStruct = MultiThreadedLockableScore_new(score.activate().cOpaqueStruct!)
+			super.init(conflictAvoidingVariableName: 0)
+			try? self.addAnchor(anchor: score)
 
-    }
-    /* DEFAULT_CONSTRUCTOR_END */
+		}
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKMultiThreadedLockableScore){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKMultiThreadedLockableScore){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKMultiThreadedLockableScore, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKMultiThreadedLockableScore, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func write() -> [UInt8] {
-    	
-        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
 MultiThreadedLockableScore_write(objPointer)
 });
-    }
+		}
 
-    internal func free() -> Void {
-    	
-        return MultiThreadedLockableScore_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return MultiThreadedLockableScore_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> MultiThreadedLockableScore {
         				self.dangling = true
@@ -67,6 +71,8 @@ MultiThreadedLockableScore_write(objPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

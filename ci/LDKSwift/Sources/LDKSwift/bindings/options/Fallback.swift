@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class Fallback: NativeTypeWrapper {
+public typealias Fallback = Bindings.Fallback
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKFallback?
+	public class Fallback: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKFallback){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKFallback?
 
-	public init(pointer: LDKFallback, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKFallback){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKFallback, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum FallbackValueType {
 					case SegWitProgram, PubKeyHash, ScriptHash
 				}
-				
+
 				public func getValueType() -> FallbackValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -46,7 +50,7 @@ public class Fallback: NativeTypeWrapper {
                         return nil
                     }
 				}
-				
+
 				
 					public func getValueAsSegWitProgram() -> SegWitProgram? {
 						if self.cOpaqueStruct?.tag != LDKFallback_SegWitProgram {
@@ -70,16 +74,16 @@ public class Fallback: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return Fallback_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return Fallback_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Fallback {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Fallback \(self.instanceNumber).")
@@ -90,12 +94,12 @@ public class Fallback: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Fallback {
-    	
-        return Fallback(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFallback>) in
+		public func clone() -> Fallback {
+			
+			return Fallback(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKFallback>) in
 Fallback_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Fallback {
         				let dangledClone = self.clone()
@@ -104,48 +108,48 @@ Fallback_clone(origPointer)
 					}
 				
 
-    public class func seg_wit_program(version: UInt8, program: [UInt8]) -> Fallback {
-    	
+		public class func seg_wit_program(version: UInt8, program: [UInt8]) -> Fallback {
+			
 						let programWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: program)
 						defer {
 							programWrapper.noOpRetain()
 						}
 					
-        return Fallback(pointer: Fallback_seg_wit_program(Bindings.new_LDKu5(array: version), programWrapper.dangle().cOpaqueStruct!));
-    }
+			return Fallback(pointer: Fallback_seg_wit_program(Bindings.new_LDKu5(array: version), programWrapper.dangle().cOpaqueStruct!));
+		}
 
-    public class func pub_key_hash(a: [UInt8]) -> Fallback {
-    	
-        return Fallback(pointer: Fallback_pub_key_hash(Bindings.new_LDKTwentyBytes(array: a)));
-    }
+		public class func pub_key_hash(a: [UInt8]) -> Fallback {
+			
+			return Fallback(pointer: Fallback_pub_key_hash(Bindings.new_LDKTwentyBytes(array: a)));
+		}
 
-    public class func script_hash(a: [UInt8]) -> Fallback {
-    	
-        return Fallback(pointer: Fallback_script_hash(Bindings.new_LDKTwentyBytes(array: a)));
-    }
+		public class func script_hash(a: [UInt8]) -> Fallback {
+			
+			return Fallback(pointer: Fallback_script_hash(Bindings.new_LDKTwentyBytes(array: a)));
+		}
 
-    public func hash() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKFallback>) in
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKFallback>) in
 Fallback_hash(oPointer)
 };
-    }
+		}
 
-    public class func eq(a: Fallback, b: Fallback) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKFallback>) in
+		public class func eq(a: Bindings.Fallback, b: Bindings.Fallback) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKFallback>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKFallback>) in
 Fallback_eq(aPointer, bPointer)
 }
 };
-    }
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	
+		
 
 			public class SegWitProgram: NativeTypeWrapper {
-				
+
 				
 				var cOpaqueStruct: LDKFallback_LDKSegWitProgram_Body?;
 				fileprivate init(pointer: LDKFallback_LDKSegWitProgram_Body) {
@@ -159,7 +163,7 @@ Fallback_eq(aPointer, bPointer)
 					try! self.addAnchor(anchor: anchor)
 				}
 			
-				
+
 				
 					public func getVersion() -> UInt8 {
 						return self.cOpaqueStruct!.version._0
@@ -169,7 +173,9 @@ Fallback_eq(aPointer, bPointer)
 						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.program, deallocate: false)
 					}
 				
-				
+
 			}
 		
+	}
+
 }

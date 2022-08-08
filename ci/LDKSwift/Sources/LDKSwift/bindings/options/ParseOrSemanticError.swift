@@ -2,37 +2,41 @@
 import LDKHeaders
 #endif
 
-public class ParseOrSemanticError: NativeTypeWrapper {
+public typealias ParseOrSemanticError = Bindings.ParseOrSemanticError
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKParseOrSemanticError?
+	public class ParseOrSemanticError: NativeTypeWrapper {
 
-	
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    public init(pointer: LDKParseOrSemanticError){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		internal var cOpaqueStruct: LDKParseOrSemanticError?
 
-	public init(pointer: LDKParseOrSemanticError, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		
 
-    /* OPTION_METHODS_START */
+		public init(pointer: LDKParseOrSemanticError){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
+
+		public init(pointer: LDKParseOrSemanticError, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* OPTION_METHODS_START */
 
 				public enum ParseOrSemanticErrorValueType {
 					case ParseError, SemanticError
 				}
-				
+
 				public func getValueType() -> ParseOrSemanticErrorValueType? {
 					switch self.cOpaqueStruct?.tag {
                     
@@ -44,13 +48,13 @@ public class ParseOrSemanticError: NativeTypeWrapper {
                         return nil
                     }
 				}
+
 				
-				
-					public func getValueAsParseError() -> ParseError? {
+					public func getValueAsParseError() -> Bindings.ParseError? {
 						if self.cOpaqueStruct?.tag != LDKParseOrSemanticError_ParseError {
 							return nil
 						}
-						return ParseError(pointer: self.cOpaqueStruct!.parse_error, anchor: self)
+						return Bindings.ParseError(pointer: self.cOpaqueStruct!.parse_error, anchor: self)
 					}
 				
 					public func getValueAsSemanticError() -> LDKSemanticError? {
@@ -61,16 +65,16 @@ public class ParseOrSemanticError: NativeTypeWrapper {
 					}
 				
 			
-    internal func free() -> Void {
-    	
-        return ParseOrSemanticError_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return ParseOrSemanticError_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> ParseOrSemanticError {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing ParseOrSemanticError \(self.instanceNumber).")
@@ -81,12 +85,12 @@ public class ParseOrSemanticError: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> ParseOrSemanticError {
-    	
-        return ParseOrSemanticError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKParseOrSemanticError>) in
+		public func clone() -> ParseOrSemanticError {
+			
+			return ParseOrSemanticError(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKParseOrSemanticError>) in
 ParseOrSemanticError_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> ParseOrSemanticError {
         				let dangledClone = self.clone()
@@ -95,24 +99,26 @@ ParseOrSemanticError_clone(origPointer)
 					}
 				
 
-    public class func parse_error(a: ParseError) -> ParseOrSemanticError {
-    	
-        return ParseOrSemanticError(pointer: ParseOrSemanticError_parse_error(a.danglingClone().cOpaqueStruct!));
-    }
+		public class func parse_error(a: Bindings.ParseError) -> ParseOrSemanticError {
+			
+			return ParseOrSemanticError(pointer: ParseOrSemanticError_parse_error(a.danglingClone().cOpaqueStruct!));
+		}
 
-    public class func semantic_error(a: LDKSemanticError) -> ParseOrSemanticError {
-    	
-        return ParseOrSemanticError(pointer: ParseOrSemanticError_semantic_error(a));
-    }
+		public class func semantic_error(a: LDKSemanticError) -> ParseOrSemanticError {
+			
+			return ParseOrSemanticError(pointer: ParseOrSemanticError_semantic_error(a));
+		}
 
-    public func to_str() -> String {
-    	
-        return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKParseOrSemanticError>) in
+		public func to_str() -> String {
+			
+			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKParseOrSemanticError>) in
 ParseOrSemanticError_to_str(oPointer)
 });
-    }
+		}
 
-    /* OPTION_METHODS_END */
+		/* OPTION_METHODS_END */
 
-	/* TYPE_CLASSES */
+		/* TYPE_CLASSES */
+	}
+
 }

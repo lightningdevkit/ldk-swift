@@ -4,57 +4,61 @@ import LDKHeaders
 
 import Foundation
 
-open class CustomMessageReader: NativeTraitWrapper {
+public typealias CustomMessageReader = Bindings.CustomMessageReader
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCustomMessageReader?
+	open class CustomMessageReader: NativeTraitWrapper {
 
-    public init() {
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-    	/* NATIVE_CALLBACKS_START */
+		internal var cOpaqueStruct: LDKCustomMessageReader?
 
-		func readCallback(pointer: UnsafeRawPointer?, message_type: UInt16, buffer: LDKu8slice) -> LDKCResult_COption_TypeZDecodeErrorZ {
-			let instance: CustomMessageReader = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageReader.swift::read")
-			
-			return instance.read(message_type: message_type, buffer: Bindings.LDKu8slice_to_array(nativeType: buffer)).cOpaqueStruct!
-		}
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
 
-		func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
-			let instance: CustomMessageReader = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageReader.swift::free")
-			
-			return instance.free()
-		}
+			/* NATIVE_CALLBACKS_START */
 
-		/* NATIVE_CALLBACKS_END */
+			func readCallback(pointer: UnsafeRawPointer?, message_type: UInt16, buffer: LDKu8slice) -> LDKCResult_COption_TypeZDecodeErrorZ {
+				let instance: CustomMessageReader = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageReader.swift::read")
+				
+				return instance.read(message_type: message_type, buffer: Bindings.LDKu8slice_to_array(nativeType: buffer)).cOpaqueStruct!
+			}
 
-		super.init(conflictAvoidingVariableName: 0)
-        self.cOpaqueStruct = LDKCustomMessageReader(this_arg: Bindings.instanceToPointer(instance: self), 
+			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
+				let instance: CustomMessageReader = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "CustomMessageReader.swift::free")
+				
+				return instance.free()
+			}
+
+			/* NATIVE_CALLBACKS_END */
+
+			super.init(conflictAvoidingVariableName: 0)
+			self.cOpaqueStruct = LDKCustomMessageReader(this_arg: Bindings.instanceToPointer(instance: self), 
 			read: readCallback,
 			free: freeCallback)
 
-    }
+		}
 
-    public init(pointer: LDKCustomMessageReader){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCustomMessageReader){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCustomMessageReader, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCustomMessageReader, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* SWIFT_CALLBACKS_START */
+		/* SWIFT_CALLBACKS_START */
 
 
 
@@ -73,22 +77,24 @@ open class CustomMessageReader: NativeTraitWrapper {
 					}
 				
 
-    open func read(message_type: UInt16, buffer: [UInt8]) -> Result_COption_TypeZDecodeErrorZ {
-    	/* EDIT ME */
+		open func read(message_type: UInt16, buffer: [UInt8]) -> Result_COption_TypeZDecodeErrorZ {
+			/* EDIT ME */
 		Bindings.print("CustomMessageReader::read should be overridden!", severity: .WARNING)
 
 return Result_COption_TypeZDecodeErrorZ()
-    }
+		}
 
-    open func free() -> Void {
-    	/* EDIT ME */
+		open func free() -> Void {
+			/* EDIT ME */
 		
 					Bindings.print("Deactivating CustomMessageReader \(self.instanceNumber).")
 					Bindings.removeInstancePointer(instance: self)
 				
-    }
+		}
 
-    /* SWIFT_CALLBACKS_END */
+		/* SWIFT_CALLBACKS_END */
+
+	}
 
 }
 

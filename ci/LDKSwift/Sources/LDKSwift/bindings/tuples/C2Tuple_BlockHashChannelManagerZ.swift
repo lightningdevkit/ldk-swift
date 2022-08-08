@@ -2,42 +2,46 @@
 import LDKHeaders
 #endif
 
-public class C2Tuple_BlockHashChannelManagerZ: NativeTypeWrapper {
+public typealias C2Tuple_BlockHashChannelManagerZ = Bindings.C2Tuple_BlockHashChannelManagerZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKC2Tuple_BlockHashChannelManagerZ?
+	public class C2Tuple_BlockHashChannelManagerZ: NativeTypeWrapper {
 
-    public init(pointer: LDKC2Tuple_BlockHashChannelManagerZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-	public init(pointer: LDKC2Tuple_BlockHashChannelManagerZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		internal var cOpaqueStruct: LDKC2Tuple_BlockHashChannelManagerZ?
 
-    /* TUPLE_METHODS_START */
+		public init(pointer: LDKC2Tuple_BlockHashChannelManagerZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-    #warning("This method passes non-cloneable objects by owned value. Here be dragons.")
+		public init(pointer: LDKC2Tuple_BlockHashChannelManagerZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
+
+		/* TUPLE_METHODS_START */
+
+		#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
 public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannelManagerZ {
-    	
-        return C2Tuple_BlockHashChannelManagerZ(pointer: C2Tuple_BlockHashChannelManagerZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
-    }
+			
+			return C2Tuple_BlockHashChannelManagerZ(pointer: C2Tuple_BlockHashChannelManagerZ_new(Bindings.new_LDKThirtyTwoBytes(array: a), b.cOpaqueStruct!));
+		}
 
-    internal func free() -> Void {
-    	
-        return C2Tuple_BlockHashChannelManagerZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return C2Tuple_BlockHashChannelManagerZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> C2Tuple_BlockHashChannelManagerZ {
         				self.dangling = true
@@ -62,6 +66,8 @@ public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannel
 					return ChannelManager(pointer: self.cOpaqueStruct!.b, anchor: self);
 				}
 			
-    /* TUPLE_METHODS_END */
+		/* TUPLE_METHODS_END */
+
+	}
 
 }

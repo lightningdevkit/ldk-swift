@@ -2,40 +2,44 @@
 import LDKHeaders
 #endif
 
-public class MonitorUpdateId: NativeTypeWrapper {
+public typealias MonitorUpdateId = Bindings.MonitorUpdateId
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKMonitorUpdateId?
+	public class MonitorUpdateId: NativeTypeWrapper {
+
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKMonitorUpdateId?
 
 
-	
+		
 
-    public init(pointer: LDKMonitorUpdateId){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKMonitorUpdateId){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKMonitorUpdateId, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKMonitorUpdateId, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-    /* STRUCT_METHODS_START */
+		/* STRUCT_METHODS_START */
 
-    public func clone() -> MonitorUpdateId {
-    	
-        return MonitorUpdateId(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMonitorUpdateId>) in
+		public func clone() -> MonitorUpdateId {
+			
+			return MonitorUpdateId(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKMonitorUpdateId>) in
 MonitorUpdateId_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> MonitorUpdateId {
         				let dangledClone = self.clone()
@@ -44,26 +48,26 @@ MonitorUpdateId_clone(origPointer)
 					}
 				
 
-    public func hash() -> UInt64 {
-    	
-        return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKMonitorUpdateId>) in
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKMonitorUpdateId>) in
 MonitorUpdateId_hash(oPointer)
 };
-    }
+		}
 
-    public class func eq(a: MonitorUpdateId, b: MonitorUpdateId) -> Bool {
-    	
-        return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKMonitorUpdateId>) in
+		public class func eq(a: MonitorUpdateId, b: MonitorUpdateId) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKMonitorUpdateId>) in
 withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKMonitorUpdateId>) in
 MonitorUpdateId_eq(aPointer, bPointer)
 }
 };
-    }
+		}
 
-    internal func free() -> Void {
-    	
-        return MonitorUpdateId_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return MonitorUpdateId_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> MonitorUpdateId {
         				self.dangling = true
@@ -80,6 +84,8 @@ MonitorUpdateId_eq(aPointer, bPointer)
 					}
 				
 
-    /* STRUCT_METHODS_END */
+		/* STRUCT_METHODS_END */
+
+	}
 
 }

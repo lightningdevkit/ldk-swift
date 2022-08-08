@@ -2,14 +2,18 @@
 import LDKHeaders
 #endif
 
-public class Result_NoneChannelMonitorUpdateErrZ: NativeTypeWrapper {
+public typealias Result_NoneChannelMonitorUpdateErrZ = Bindings.Result_NoneChannelMonitorUpdateErrZ
 
-	private static var instanceCounter: UInt = 0
-	internal let instanceNumber: UInt
+extension Bindings {
 
-    internal var cOpaqueStruct: LDKCResult_NoneChannelMonitorUpdateErrZ?
+	public class Result_NoneChannelMonitorUpdateErrZ: NativeTypeWrapper {
 
-	/* DEFAULT_CONSTRUCTOR_START */
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+
+		internal var cOpaqueStruct: LDKCResult_NoneChannelMonitorUpdateErrZ?
+
+		/* DEFAULT_CONSTRUCTOR_START */
 
 				public init() {
 					Self.instanceCounter += 1
@@ -18,29 +22,29 @@ public class Result_NoneChannelMonitorUpdateErrZ: NativeTypeWrapper {
         			super.init(conflictAvoidingVariableName: 0)
 				}
 			
-    /* DEFAULT_CONSTRUCTOR_END */
+		/* DEFAULT_CONSTRUCTOR_END */
 
-    public init(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ){
-    	Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-	}
+		public init(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+		}
 
-	public init(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ, anchor: NativeTypeWrapper){
-		Self.instanceCounter += 1
-		self.instanceNumber = Self.instanceCounter
-		self.cOpaqueStruct = pointer
-		super.init(conflictAvoidingVariableName: 0)
-		self.dangling = true
-		try! self.addAnchor(anchor: anchor)
-	}
+		public init(pointer: LDKCResult_NoneChannelMonitorUpdateErrZ, anchor: NativeTypeWrapper){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+			super.init(conflictAvoidingVariableName: 0)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-	public func isOk() -> Bool {
-		return self.cOpaqueStruct?.result_ok == true
-	}
+		public func isOk() -> Bool {
+			return self.cOpaqueStruct?.result_ok == true
+		}
 
-    /* RESULT_METHODS_START */
+		/* RESULT_METHODS_START */
 
 			public func getError() -> LDKChannelMonitorUpdateErr? {
 				if self.cOpaqueStruct?.result_ok == false {
@@ -49,26 +53,26 @@ public class Result_NoneChannelMonitorUpdateErrZ: NativeTypeWrapper {
 				return nil
 			}
 			
-    public class func ok() -> Result_NoneChannelMonitorUpdateErrZ {
-    	
-        return Result_NoneChannelMonitorUpdateErrZ(pointer: CResult_NoneChannelMonitorUpdateErrZ_ok());
-    }
+		public class func ok() -> Result_NoneChannelMonitorUpdateErrZ {
+			
+			return Result_NoneChannelMonitorUpdateErrZ(pointer: CResult_NoneChannelMonitorUpdateErrZ_ok());
+		}
 
-    public class func err(e: LDKChannelMonitorUpdateErr) -> Result_NoneChannelMonitorUpdateErrZ {
-    	
-        return Result_NoneChannelMonitorUpdateErrZ(pointer: CResult_NoneChannelMonitorUpdateErrZ_err(e));
-    }
+		public class func err(e: LDKChannelMonitorUpdateErr) -> Result_NoneChannelMonitorUpdateErrZ {
+			
+			return Result_NoneChannelMonitorUpdateErrZ(pointer: CResult_NoneChannelMonitorUpdateErrZ_err(e));
+		}
 
-    internal func free() -> Void {
-    	
-        return CResult_NoneChannelMonitorUpdateErrZ_free(self.cOpaqueStruct!);
-    }
+		internal func free() -> Void {
+			
+			return CResult_NoneChannelMonitorUpdateErrZ_free(self.cOpaqueStruct!);
+		}
 
 					internal func dangle() -> Result_NoneChannelMonitorUpdateErrZ {
         				self.dangling = true
 						return self
 					}
-					
+
 					deinit {
 						if !self.dangling {
 							Bindings.print("Freeing Result_NoneChannelMonitorUpdateErrZ \(self.instanceNumber).")
@@ -79,12 +83,12 @@ public class Result_NoneChannelMonitorUpdateErrZ: NativeTypeWrapper {
 					}
 				
 
-    public func clone() -> Result_NoneChannelMonitorUpdateErrZ {
-    	
-        return Result_NoneChannelMonitorUpdateErrZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NoneChannelMonitorUpdateErrZ>) in
+		public func clone() -> Result_NoneChannelMonitorUpdateErrZ {
+			
+			return Result_NoneChannelMonitorUpdateErrZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKCResult_NoneChannelMonitorUpdateErrZ>) in
 CResult_NoneChannelMonitorUpdateErrZ_clone(origPointer)
 });
-    }
+		}
 
 					internal func danglingClone() -> Result_NoneChannelMonitorUpdateErrZ {
         				let dangledClone = self.clone()
@@ -93,6 +97,8 @@ CResult_NoneChannelMonitorUpdateErrZ_clone(origPointer)
 					}
 				
 
-    /* RESULT_METHODS_END */
+		/* RESULT_METHODS_END */
+
+	}
 
 }

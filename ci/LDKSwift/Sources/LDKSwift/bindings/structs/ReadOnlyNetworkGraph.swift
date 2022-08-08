@@ -30,6 +30,41 @@ public class ReadOnlyNetworkGraph: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
+    public func channel(short_channel_id: UInt64) -> ChannelInfo {
+    	
+        return ChannelInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
+ReadOnlyNetworkGraph_channel(this_argPointer, short_channel_id)
+});
+    }
+
+    public func list_channels() -> [UInt64] {
+    	
+        return Bindings.LDKCVec_u64Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
+ReadOnlyNetworkGraph_list_channels(this_argPointer)
+});
+    }
+
+    public func node(node_id: NodeId) -> NodeInfo {
+    	
+        return NodeInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
+withUnsafePointer(to: node_id.cOpaqueStruct!) { (node_idPointer: UnsafePointer<LDKNodeId>) in
+ReadOnlyNetworkGraph_node(this_argPointer, node_idPointer)
+}
+});
+    }
+
+    public func list_nodes() -> [NodeId] {
+    	
+        return Bindings.LDKCVec_NodeIdZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
+ReadOnlyNetworkGraph_list_nodes(this_argPointer)
+})
+						
+						.map { (cOpaqueStruct) in
+							NodeId(pointer: cOpaqueStruct)
+						}
+					;
+    }
+
     public func get_addresses(pubkey: [UInt8]) -> Option_CVec_NetAddressZZ {
     	
         return Option_CVec_NetAddressZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in

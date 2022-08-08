@@ -74,6 +74,13 @@ CommitmentSigned_get_signature(this_ptrPointer)
         return CommitmentSigned_set_signature(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
+    public func get_htlc_signatures() -> [[UInt8]] {
+    	
+        return Bindings.LDKCVec_SignatureZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentSigned>) in
+CommitmentSigned_get_htlc_signatures(this_ptrPointer)
+});
+    }
+
     public func set_htlc_signatures(val: [[UInt8]]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKCommitmentSigned>.allocate(capacity: 1)

@@ -63,6 +63,13 @@ StaticPaymentOutputDescriptor_get_outpoint(this_ptrPointer)
         return StaticPaymentOutputDescriptor_set_outpoint(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
+    public func get_output() -> TxOut {
+    	
+        return TxOut(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+StaticPaymentOutputDescriptor_get_output(this_ptrPointer)
+});
+    }
+
     public func set_output(val: LDKTxOut) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>.allocate(capacity: 1)

@@ -29,11 +29,11 @@ open class Watch: NativeTraitWrapper {
 			return instance.update_channel(funding_txo: OutPoint(pointer: funding_txo), update: ChannelMonitorUpdate(pointer: update)).cOpaqueStruct!
 		}
 
-		func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ {
+		func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ {
 			let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::release_pending_monitor_events")
 			
 			
-					let returnWrapper = Bindings.new_LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZWrapper(array: instance.release_pending_monitor_events())
+					let returnWrapper = Bindings.new_LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper(array: instance.release_pending_monitor_events())
 					defer {
 						returnWrapper.noOpRetain()
 					}
@@ -107,11 +107,11 @@ return Result_NoneChannelMonitorUpdateErrZ()
 return Result_NoneChannelMonitorUpdateErrZ()
     }
 
-    open func release_pending_monitor_events() -> [LDKC2Tuple_OutPointCVec_MonitorEventZZ] {
+    open func release_pending_monitor_events() -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
     	/* EDIT ME */
 		Bindings.print("Watch::release_pending_monitor_events should be overridden!", severity: .WARNING)
 
-return [LDKC2Tuple_OutPointCVec_MonitorEventZZ]()
+return [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]()
     }
 
     open func free() -> Void {
@@ -148,11 +148,11 @@ public class NativelyImplementedWatch: Watch {
 			
 	}
 
-	public override func release_pending_monitor_events() -> [LDKC2Tuple_OutPointCVec_MonitorEventZZ] {
+	public override func release_pending_monitor_events() -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
 		
 				
 				return 
-				Bindings.LDKCVec_C2Tuple_OutPointCVec_MonitorEventZZZ_to_array(nativeType: self.cOpaqueStruct!.release_pending_monitor_events(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ_to_array(nativeType: self.cOpaqueStruct!.release_pending_monitor_events(self.cOpaqueStruct!.this_arg))
 				
 			
 	}

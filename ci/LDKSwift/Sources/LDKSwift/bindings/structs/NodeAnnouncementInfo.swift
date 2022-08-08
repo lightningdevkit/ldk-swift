@@ -113,6 +113,18 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
         return NodeAnnouncementInfo_set_alias(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
     }
 
+    public func get_addresses() -> [NetAddress] {
+    	
+        return Bindings.LDKCVec_NetAddressZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+NodeAnnouncementInfo_get_addresses(this_ptrPointer)
+})
+						
+						.map { (cOpaqueStruct) in
+							NetAddress(pointer: cOpaqueStruct)
+						}
+					;
+    }
+
     public func set_addresses(val: [NetAddress]) -> Void {
     	
 							let valUnwrapped = val.map { (valCurrentValue) in

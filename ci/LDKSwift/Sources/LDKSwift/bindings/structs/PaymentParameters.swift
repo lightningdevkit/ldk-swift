@@ -134,19 +134,54 @@ PaymentParameters_get_max_total_cltv_expiry_delta(this_ptrPointer)
         return PaymentParameters_set_max_total_cltv_expiry_delta(this_ptrPointer, val);
     }
 
-    public func get_max_mpp_path_count() -> UInt8 {
+    public func get_max_path_count() -> UInt8 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPaymentParameters>) in
-PaymentParameters_get_max_mpp_path_count(this_ptrPointer)
+PaymentParameters_get_max_path_count(this_ptrPointer)
 };
     }
 
-    public func set_max_mpp_path_count(val: UInt8) -> Void {
+    public func set_max_path_count(val: UInt8) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKPaymentParameters>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return PaymentParameters_set_max_mpp_path_count(this_ptrPointer, val);
+        return PaymentParameters_set_max_path_count(this_ptrPointer, val);
+    }
+
+    public func get_max_channel_saturation_power_of_half() -> UInt8 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPaymentParameters>) in
+PaymentParameters_get_max_channel_saturation_power_of_half(this_ptrPointer)
+};
+    }
+
+    public func set_max_channel_saturation_power_of_half(val: UInt8) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKPaymentParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return PaymentParameters_set_max_channel_saturation_power_of_half(this_ptrPointer, val);
+    }
+
+    public func get_previously_failed_channels() -> [UInt64] {
+    	
+        return Bindings.LDKCVec_u64Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPaymentParameters>) in
+PaymentParameters_get_previously_failed_channels(this_ptrPointer)
+});
+    }
+
+    public func set_previously_failed_channels(val: [UInt64]) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKPaymentParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+						let valWrapper = Bindings.new_LDKCVec_u64ZWrapper(array: val)
+						defer {
+							valWrapper.noOpRetain()
+						}
+					
+        return PaymentParameters_set_previously_failed_channels(this_ptrPointer, valWrapper.dangle().cOpaqueStruct!);
     }
 
     public func clone() -> PaymentParameters {

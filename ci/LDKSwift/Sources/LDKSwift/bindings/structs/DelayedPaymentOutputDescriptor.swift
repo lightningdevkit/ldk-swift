@@ -93,6 +93,13 @@ DelayedPaymentOutputDescriptor_get_to_self_delay(this_ptrPointer)
         return DelayedPaymentOutputDescriptor_set_to_self_delay(this_ptrPointer, val);
     }
 
+    public func get_output() -> TxOut {
+    	
+        return TxOut(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+DelayedPaymentOutputDescriptor_get_output(this_ptrPointer)
+});
+    }
+
     public func set_output(val: LDKTxOut) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKDelayedPaymentOutputDescriptor>.allocate(capacity: 1)

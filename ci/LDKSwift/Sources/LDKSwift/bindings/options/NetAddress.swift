@@ -30,7 +30,7 @@ public class NetAddress: NativeTypeWrapper {
     /* OPTION_METHODS_START */
 
 				public enum NetAddressValueType {
-					case IPv4, IPv6, OnionV2, OnionV3
+					case IPv4, IPv6, OnionV2, OnionV3, Hostname
 				}
 				
 				public func getValueType() -> NetAddressValueType? {
@@ -44,6 +44,8 @@ public class NetAddress: NativeTypeWrapper {
 						return .OnionV2
 					case LDKNetAddress_OnionV3:
 						return .OnionV3
+					case LDKNetAddress_Hostname:
+						return .Hostname
                     default:
                         return nil
                     }
@@ -76,6 +78,13 @@ public class NetAddress: NativeTypeWrapper {
 							return nil
 						}
 						return OnionV3(pointer: self.cOpaqueStruct!.onion_v3, anchor: self)
+					}
+				
+					public func getValueAsHostname() -> Hostname? {
+						if self.cOpaqueStruct?.tag != LDKNetAddress_Hostname {
+							return nil
+						}
+						return Hostname(pointer: self.cOpaqueStruct!.hostname, anchor: self)
 					}
 				
 			
@@ -131,6 +140,11 @@ NetAddress_clone(origPointer)
     public class func onion_v3(ed25519_pubkey: [UInt8], checksum: UInt16, version: UInt8, port: UInt16) -> NetAddress {
     	
         return NetAddress(pointer: NetAddress_onion_v3(Bindings.new_LDKThirtyTwoBytes(array: ed25519_pubkey), checksum, version, port));
+    }
+
+    public class func hostname(hostname: Hostname, port: UInt16) -> NetAddress {
+    	
+        return NetAddress(pointer: NetAddress_hostname(hostname.danglingClone().cOpaqueStruct!, port));
     }
 
     public func write() -> [UInt8] {
@@ -239,6 +253,35 @@ NetAddress_write(objPointer)
 				
 					public func getVersion() -> UInt8 {
 						return self.cOpaqueStruct!.version
+					}
+				
+					public func getPort() -> UInt16 {
+						return self.cOpaqueStruct!.port
+					}
+				
+				
+			}
+		
+
+			public class Hostname: NativeTypeWrapper {
+				
+				
+				var cOpaqueStruct: LDKNetAddress_LDKHostname_Body?;
+				fileprivate init(pointer: LDKNetAddress_LDKHostname_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKNetAddress_LDKHostname_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+				
+				
+					public func getHostname() -> Hostname {
+						return Hostname(pointer: self.cOpaqueStruct!.hostname, anchor: self)
 					}
 				
 					public func getPort() -> UInt16 {

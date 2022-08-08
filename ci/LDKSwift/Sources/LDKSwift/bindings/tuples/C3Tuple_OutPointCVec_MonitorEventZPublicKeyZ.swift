@@ -2,21 +2,21 @@
 import LDKHeaders
 #endif
 
-public class C2Tuple_OutPointCVec_MonitorEventZZ: NativeTypeWrapper {
+public class C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ: NativeTypeWrapper {
 
 	private static var instanceCounter: UInt = 0
 	internal let instanceNumber: UInt
 
-    internal var cOpaqueStruct: LDKC2Tuple_OutPointCVec_MonitorEventZZ?
+    internal var cOpaqueStruct: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ?
 
-    public init(pointer: LDKC2Tuple_OutPointCVec_MonitorEventZZ){
+    public init(pointer: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ){
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
 		super.init(conflictAvoidingVariableName: 0)
 	}
 
-	public init(pointer: LDKC2Tuple_OutPointCVec_MonitorEventZZ, anchor: NativeTypeWrapper){
+	public init(pointer: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ, anchor: NativeTypeWrapper){
 		Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
 		self.cOpaqueStruct = pointer
@@ -27,21 +27,21 @@ public class C2Tuple_OutPointCVec_MonitorEventZZ: NativeTypeWrapper {
 
     /* TUPLE_METHODS_START */
 
-    public func clone() -> C2Tuple_OutPointCVec_MonitorEventZZ {
+    public func clone() -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
     	
-        return C2Tuple_OutPointCVec_MonitorEventZZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC2Tuple_OutPointCVec_MonitorEventZZ>) in
-C2Tuple_OutPointCVec_MonitorEventZZ_clone(origPointer)
+        return C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ>) in
+C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ_clone(origPointer)
 });
     }
 
-					internal func danglingClone() -> C2Tuple_OutPointCVec_MonitorEventZZ {
+					internal func danglingClone() -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
         				let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}
 				
 
-    public class func new(a: OutPoint, b: [MonitorEvent]) -> C2Tuple_OutPointCVec_MonitorEventZZ {
+    public class func new(a: OutPoint, b: [MonitorEvent], c: [UInt8]) -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
     	
 							let bUnwrapped = b.map { (bCurrentValue) in
 							bCurrentValue
@@ -53,25 +53,25 @@ C2Tuple_OutPointCVec_MonitorEventZZ_clone(origPointer)
 							bWrapper.noOpRetain()
 						}
 					
-        return C2Tuple_OutPointCVec_MonitorEventZZ(pointer: C2Tuple_OutPointCVec_MonitorEventZZ_new(a.danglingClone().cOpaqueStruct!, bWrapper.dangle().cOpaqueStruct!));
+        return C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ(pointer: C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ_new(a.danglingClone().cOpaqueStruct!, bWrapper.dangle().cOpaqueStruct!, Bindings.new_LDKPublicKey(array: c)));
     }
 
     internal func free() -> Void {
     	
-        return C2Tuple_OutPointCVec_MonitorEventZZ_free(self.cOpaqueStruct!);
+        return C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ_free(self.cOpaqueStruct!);
     }
 
-					internal func dangle() -> C2Tuple_OutPointCVec_MonitorEventZZ {
+					internal func dangle() -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
         				self.dangling = true
 						return self
 					}
 
 					deinit {
 						if !self.dangling {
-							Bindings.print("Freeing C2Tuple_OutPointCVec_MonitorEventZZ \(self.instanceNumber).")
+							Bindings.print("Freeing C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing C2Tuple_OutPointCVec_MonitorEventZZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 				
@@ -96,6 +96,10 @@ C2Tuple_OutPointCVec_MonitorEventZZ_clone(origPointer)
 							MonitorEvent(pointer: cOpaqueStruct).dangle()
 						}
 					;
+				}
+			
+				public func getC() -> [UInt8] {
+					return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.c);
 				}
 			
     /* TUPLE_METHODS_END */

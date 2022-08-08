@@ -56,10 +56,8 @@ ChannelMonitor_write(objPointer)
         return Result_NoneNoneZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 withUnsafePointer(to: updates.cOpaqueStruct!) { (updatesPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 withUnsafePointer(to: broadcaster.activateOnce().cOpaqueStruct!) { (broadcasterPointer: UnsafePointer<LDKBroadcasterInterface>) in
-withUnsafePointer(to: fee_estimator.activateOnce().cOpaqueStruct!) { (fee_estimatorPointer: UnsafePointer<LDKFeeEstimator>) in
 withUnsafePointer(to: logger.activateOnce().cOpaqueStruct!) { (loggerPointer: UnsafePointer<LDKLogger>) in
-ChannelMonitor_update_monitor(this_argPointer, updatesPointer, broadcasterPointer, fee_estimatorPointer, loggerPointer)
-}
+ChannelMonitor_update_monitor(this_argPointer, updatesPointer, broadcasterPointer, fee_estimator.activate().cOpaqueStruct!, loggerPointer)
 }
 }
 }
@@ -123,6 +121,13 @@ ChannelMonitor_get_and_clear_pending_events(this_argPointer)
 							Event(pointer: cOpaqueStruct)
 						}
 					;
+    }
+
+    public func get_counterparty_node_id() -> [UInt8] {
+    	
+        return Bindings.LDKPublicKey_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
+ChannelMonitor_get_counterparty_node_id(this_argPointer)
+});
     }
 
     public func get_latest_holder_commitment_txn(logger: Logger) -> [[UInt8]] {

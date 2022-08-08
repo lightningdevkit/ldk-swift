@@ -10,7 +10,21 @@ public class UnsignedChannelUpdate: NativeTypeWrapper {
     internal var cOpaqueStruct: LDKUnsignedChannelUpdate?
 
 
-	
+	/* DEFAULT_CONSTRUCTOR_START */
+    public init(chain_hash_arg: [UInt8], short_channel_id_arg: UInt64, timestamp_arg: UInt32, flags_arg: UInt8, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: UInt64, htlc_maximum_msat_arg: UInt64, fee_base_msat_arg: UInt32, fee_proportional_millionths_arg: UInt32, excess_data_arg: [UInt8]) {
+    	Self.instanceCounter += 1
+		self.instanceNumber = Self.instanceCounter
+    	
+						let excess_data_argWrapper = Bindings.new_LDKCVec_u8ZWrapper(array: excess_data_arg)
+						defer {
+							excess_data_argWrapper.noOpRetain()
+						}
+					
+        self.cOpaqueStruct = UnsignedChannelUpdate_new(Bindings.new_LDKThirtyTwoBytes(array: chain_hash_arg), short_channel_id_arg, timestamp_arg, flags_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg, fee_base_msat_arg, fee_proportional_millionths_arg, excess_data_argWrapper.dangle().cOpaqueStruct!)
+        super.init(conflictAvoidingVariableName: 0)
+        
+    }
+    /* DEFAULT_CONSTRUCTOR_END */
 
     public init(pointer: LDKUnsignedChannelUpdate){
     	Self.instanceCounter += 1
@@ -120,6 +134,21 @@ UnsignedChannelUpdate_get_htlc_minimum_msat(this_ptrPointer)
         return UnsignedChannelUpdate_set_htlc_minimum_msat(this_ptrPointer, val);
     }
 
+    public func get_htlc_maximum_msat() -> UInt64 {
+    	
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+UnsignedChannelUpdate_get_htlc_maximum_msat(this_ptrPointer)
+};
+    }
+
+    public func set_htlc_maximum_msat(val: UInt64) -> Void {
+    	
+							let this_ptrPointer = UnsafeMutablePointer<LDKUnsignedChannelUpdate>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return UnsignedChannelUpdate_set_htlc_maximum_msat(this_ptrPointer, val);
+    }
+
     public func get_fee_base_msat() -> UInt32 {
     	
         return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
@@ -148,6 +177,13 @@ UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
         return UnsignedChannelUpdate_set_fee_proportional_millionths(this_ptrPointer, val);
+    }
+
+    public func get_excess_data() -> [UInt8] {
+    	
+        return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+UnsignedChannelUpdate_get_excess_data(this_ptrPointer)
+});
     }
 
     public func set_excess_data(val: [UInt8]) -> Void {

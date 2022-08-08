@@ -166,6 +166,28 @@ ChannelManager_send_spontaneous_payment(this_argPointer, routePointer, Bindings.
 });
     }
 
+    public func send_probe(hops: [RouteHop]) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
+    	
+							let hopsUnwrapped = hops.map { (hopsCurrentValue) in
+							hopsCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+        return self.send_probe(hops: hopsUnwrapped);
+    }
+
+    internal func send_probe(hops: [LDKRouteHop]) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
+    	
+						let hopsWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: hops)
+						defer {
+							hopsWrapper.noOpRetain()
+						}
+					
+        return Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_send_probe(this_argPointer, hopsWrapper.dangle().cOpaqueStruct!)
+});
+    }
+
     public func funding_transaction_generated(temporary_channel_id: [UInt8], counterparty_node_id: [UInt8], funding_transaction: [UInt8]) -> Result_NoneAPIErrorZ {
     	
 						let funding_transactionWrapper = Bindings.new_LDKTransactionWrapper(array: funding_transaction)

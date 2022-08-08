@@ -79,12 +79,32 @@ ProbabilisticScorer_remove_banned(this_argPointer, node_idPointer)
 };
     }
 
-    public func clear_banned() -> Void {
+    public func set_manual_penalty(node_id: NodeId, penalty: UInt64) -> Void {
     	
 							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScorer>.allocate(capacity: 1)
 							this_argPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ProbabilisticScorer_clear_banned(this_argPointer);
+        return withUnsafePointer(to: node_id.cOpaqueStruct!) { (node_idPointer: UnsafePointer<LDKNodeId>) in
+ProbabilisticScorer_set_manual_penalty(this_argPointer, node_idPointer, penalty)
+};
+    }
+
+    public func remove_manual_penalty(node_id: NodeId) -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScorer>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return withUnsafePointer(to: node_id.cOpaqueStruct!) { (node_idPointer: UnsafePointer<LDKNodeId>) in
+ProbabilisticScorer_remove_manual_penalty(this_argPointer, node_idPointer)
+};
+    }
+
+    public func clear_manual_penalties() -> Void {
+    	
+							let this_argPointer = UnsafeMutablePointer<LDKProbabilisticScorer>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+        return ProbabilisticScorer_clear_manual_penalties(this_argPointer);
     }
 
     public func as_Score() -> NativelyImplementedScore {

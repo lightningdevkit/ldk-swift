@@ -37,6 +37,18 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 			return instance.payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
 		}
 
+		func probe_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
+			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_failed")
+			
+			return instance.probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+		}
+
+		func probe_successfulCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
+			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_successful")
+			
+			return instance.probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+		}
+
 		func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
 			let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::write")
 			
@@ -62,6 +74,8 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 			channel_penalty_msat: channel_penalty_msatCallback,
 			payment_path_failed: payment_path_failedCallback,
 			payment_path_successful: payment_path_successfulCallback,
+			probe_failed: probe_failedCallback,
+			probe_successful: probe_successfulCallback,
 			write: writeCallback,
 			free: freeCallback)
 
@@ -119,6 +133,20 @@ return 0
     open func payment_path_successful(path: [LDKRouteHop]) -> Void {
     	/* EDIT ME */
 		Bindings.print("Score::payment_path_successful should be overridden!", severity: .WARNING)
+
+
+    }
+
+    open func probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+    	/* EDIT ME */
+		Bindings.print("Score::probe_failed should be overridden!", severity: .WARNING)
+
+
+    }
+
+    open func probe_successful(path: [LDKRouteHop]) -> Void {
+    	/* EDIT ME */
+		Bindings.print("Score::probe_successful should be overridden!", severity: .WARNING)
 
 
     }
@@ -209,6 +237,60 @@ withUnsafePointer(to: target.cOpaqueStruct!) { (targetPointer: UnsafePointer<LDK
 					
 				
 				self.cOpaqueStruct!.payment_path_successful(self.cOpaqueStruct!.this_arg, pathWrapper.dangle().cOpaqueStruct!)
+				
+			
+	}
+
+	public func probe_failed(path: [RouteHop], short_channel_id: UInt64) -> Void {
+		
+					
+							let pathUnwrapped = path.map { (pathCurrentValue) in
+							pathCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.probe_failed(path: pathUnwrapped, short_channel_id: short_channel_id)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
+	public override func probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+		
+				
+						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: path)
+						defer {
+							pathWrapper.noOpRetain()
+						}
+					
+				
+				self.cOpaqueStruct!.probe_failed(self.cOpaqueStruct!.this_arg, pathWrapper.dangle().cOpaqueStruct!, short_channel_id)
+				
+			
+	}
+
+	public func probe_successful(path: [RouteHop]) -> Void {
+		
+					
+							let pathUnwrapped = path.map { (pathCurrentValue) in
+							pathCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.probe_successful(path: pathUnwrapped)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
+	public override func probe_successful(path: [LDKRouteHop]) -> Void {
+		
+				
+						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: path)
+						defer {
+							pathWrapper.noOpRetain()
+						}
+					
+				
+				self.cOpaqueStruct!.probe_successful(self.cOpaqueStruct!.this_arg, pathWrapper.dangle().cOpaqueStruct!)
 				
 			
 	}

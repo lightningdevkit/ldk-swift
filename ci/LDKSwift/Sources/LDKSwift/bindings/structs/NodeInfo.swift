@@ -44,6 +44,13 @@ public class NodeInfo: NativeTypeWrapper {
 
     /* STRUCT_METHODS_START */
 
+    public func get_channels() -> [UInt64] {
+    	
+        return Bindings.LDKCVec_u64Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeInfo>) in
+NodeInfo_get_channels(this_ptrPointer)
+});
+    }
+
     public func set_channels(val: [UInt64]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKNodeInfo>.allocate(capacity: 1)

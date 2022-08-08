@@ -11,11 +11,11 @@ public class ChannelUpdateInfo: NativeTypeWrapper {
 
 
 	/* DEFAULT_CONSTRUCTOR_START */
-    public init(last_update_arg: UInt32, enabled_arg: Bool, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: UInt64, htlc_maximum_msat_arg: Option_u64Z, fees_arg: RoutingFees, last_update_message_arg: ChannelUpdate) {
+    public init(last_update_arg: UInt32, enabled_arg: Bool, cltv_expiry_delta_arg: UInt16, htlc_minimum_msat_arg: UInt64, htlc_maximum_msat_arg: UInt64, fees_arg: RoutingFees, last_update_message_arg: ChannelUpdate) {
     	Self.instanceCounter += 1
 		self.instanceNumber = Self.instanceCounter
     	
-        self.cOpaqueStruct = ChannelUpdateInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg.danglingClone().cOpaqueStruct!, fees_arg.danglingClone().cOpaqueStruct!, last_update_message_arg.danglingClone().cOpaqueStruct!)
+        self.cOpaqueStruct = ChannelUpdateInfo_new(last_update_arg, enabled_arg, cltv_expiry_delta_arg, htlc_minimum_msat_arg, htlc_maximum_msat_arg, fees_arg.danglingClone().cOpaqueStruct!, last_update_message_arg.danglingClone().cOpaqueStruct!)
         super.init(conflictAvoidingVariableName: 0)
         
     }
@@ -99,19 +99,19 @@ ChannelUpdateInfo_get_htlc_minimum_msat(this_ptrPointer)
         return ChannelUpdateInfo_set_htlc_minimum_msat(this_ptrPointer, val);
     }
 
-    public func get_htlc_maximum_msat() -> Option_u64Z {
+    public func get_htlc_maximum_msat() -> UInt64 {
     	
-        return Option_u64Z(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
+        return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelUpdateInfo>) in
 ChannelUpdateInfo_get_htlc_maximum_msat(this_ptrPointer)
-});
+};
     }
 
-    public func set_htlc_maximum_msat(val: Option_u64Z) -> Void {
+    public func set_htlc_maximum_msat(val: UInt64) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKChannelUpdateInfo>.allocate(capacity: 1)
 							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
 						
-        return ChannelUpdateInfo_set_htlc_maximum_msat(this_ptrPointer, val.danglingClone().cOpaqueStruct!);
+        return ChannelUpdateInfo_set_htlc_maximum_msat(this_ptrPointer, val);
     }
 
     public func get_fees() -> RoutingFees {

@@ -59,6 +59,13 @@ HolderCommitmentTransaction_get_counterparty_sig(this_ptrPointer)
         return HolderCommitmentTransaction_set_counterparty_sig(this_ptrPointer, Bindings.new_LDKSignature(array: val));
     }
 
+    public func get_counterparty_htlc_sigs() -> [[UInt8]] {
+    	
+        return Bindings.LDKCVec_SignatureZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
+HolderCommitmentTransaction_get_counterparty_htlc_sigs(this_ptrPointer)
+});
+    }
+
     public func set_counterparty_htlc_sigs(val: [[UInt8]]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKHolderCommitmentTransaction>.allocate(capacity: 1)

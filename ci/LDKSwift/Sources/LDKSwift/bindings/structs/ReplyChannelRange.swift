@@ -104,6 +104,13 @@ ReplyChannelRange_get_sync_complete(this_ptrPointer)
         return ReplyChannelRange_set_sync_complete(this_ptrPointer, val);
     }
 
+    public func get_short_channel_ids() -> [UInt64] {
+    	
+        return Bindings.LDKCVec_u64Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_get_short_channel_ids(this_ptrPointer)
+});
+    }
+
     public func set_short_channel_ids(val: [UInt64]) -> Void {
     	
 							let this_ptrPointer = UnsafeMutablePointer<LDKReplyChannelRange>.allocate(capacity: 1)

@@ -31,8 +31,6 @@ jobs:
           platform: iOS Simulator
           project: DirectBindingsApp/DirectBindingsApp.xcodeproj
           xcode-unit-test: DirectBindingsAppTests
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_13.3.1.app/Contents/Developer
     steps:
     - name: Configure Xcode
       uses: maxim-lobanov/setup-xcode@v1

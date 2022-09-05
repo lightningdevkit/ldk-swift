@@ -30,7 +30,6 @@ jobs:
                     -   destination: 'macOS,variant=Mac Catalyst'
                         human_readable_platform: 'catalyst'
         env:
-            DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
             LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
             LDK_C_BINDINGS_BINARY_DIRECTORY: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/bin
         steps:
@@ -63,7 +62,6 @@ jobs:
         runs-on: macos-12
         needs: [ build-xcarchives ]
         env:
-            DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
             LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
         steps:
             -   name: Configure Xcode

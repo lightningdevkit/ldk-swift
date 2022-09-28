@@ -126,6 +126,56 @@ public class Bindings {
 
 	/* BYTE_ARRAY_METHODS_START */
 
+	public class func new_LDKBigEndianScalar(array: [UInt8]) -> LDKBigEndianScalar {
+		let byteType = LDKBigEndianScalar(big_endian_bytes: (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18], array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27], array[28], array[29], array[30], array[31]))
+		// let wrapper = LDKBigEndianScalarWrapper(pointer: byteType)
+		return byteType
+	}
+
+	public class func LDKBigEndianScalar_to_array(nativeType: LDKBigEndianScalar) -> [UInt8] {
+		let array = [nativeType.big_endian_bytes.0, nativeType.big_endian_bytes.1, nativeType.big_endian_bytes.2, nativeType.big_endian_bytes.3, nativeType.big_endian_bytes.4, nativeType.big_endian_bytes.5, nativeType.big_endian_bytes.6, nativeType.big_endian_bytes.7, nativeType.big_endian_bytes.8, nativeType.big_endian_bytes.9, nativeType.big_endian_bytes.10, nativeType.big_endian_bytes.11, nativeType.big_endian_bytes.12, nativeType.big_endian_bytes.13, nativeType.big_endian_bytes.14, nativeType.big_endian_bytes.15, nativeType.big_endian_bytes.16, nativeType.big_endian_bytes.17, nativeType.big_endian_bytes.18, nativeType.big_endian_bytes.19, nativeType.big_endian_bytes.20, nativeType.big_endian_bytes.21, nativeType.big_endian_bytes.22, nativeType.big_endian_bytes.23, nativeType.big_endian_bytes.24, nativeType.big_endian_bytes.25, nativeType.big_endian_bytes.26, nativeType.big_endian_bytes.27, nativeType.big_endian_bytes.28, nativeType.big_endian_bytes.29, nativeType.big_endian_bytes.30, nativeType.big_endian_bytes.31]
+		return array
+	}
+	/*
+	public class LDKBigEndianScalarWrapper {
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
+		internal private(set) var dangling = false
+
+		public var cOpaqueStruct: LDKBigEndianScalar?
+
+		public init(pointer: LDKBigEndianScalar){
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cOpaqueStruct = pointer
+		}
+
+		internal func dangle() -> LDKBigEndianScalarWrapper {
+			self.dangling = true
+			return self
+		}
+
+		deinit {
+			if !self.dangling {
+				print("Freeing LDKBigEndianScalarWrapper \(self.instanceNumber).")
+				self.cOpaqueStruct!.big_endian_bytes.deallocate()
+			} else {
+				print("Not freeing LDKBigEndianScalarWrapper \(self.instanceNumber) due to dangle.")
+			}
+		}
+	}
+	*/
+
+			public class func array_to_tuple32(array: [UInt8]) -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
+				return (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18], array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27], array[28], array[29], array[30], array[31])
+			}
+
+			public class func tuple32_to_array(nativeType: (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)) -> [UInt8] {
+				let array = [nativeType.0, nativeType.1, nativeType.2, nativeType.3, nativeType.4, nativeType.5, nativeType.6, nativeType.7, nativeType.8, nativeType.9, nativeType.10, nativeType.11, nativeType.12, nativeType.13, nativeType.14, nativeType.15, nativeType.16, nativeType.17, nativeType.18, nativeType.19, nativeType.20, nativeType.21, nativeType.22, nativeType.23, nativeType.24, nativeType.25, nativeType.26, nativeType.27, nativeType.28, nativeType.29, nativeType.30, nativeType.31]
+				return array
+			}
+		
+
 	public class func new_LDKFourBytes(array: [UInt8]) -> LDKFourBytes {
 		let byteType = LDKFourBytes(data: (array[0], array[1], array[2], array[3]))
 		// let wrapper = LDKFourBytesWrapper(pointer: byteType)
@@ -315,16 +365,6 @@ public class Bindings {
 		}
 	}
 	*/
-
-			public class func array_to_tuple32(array: [UInt8]) -> (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8) {
-				return (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18], array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27], array[28], array[29], array[30], array[31])
-			}
-
-			public class func tuple32_to_array(nativeType: (UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)) -> [UInt8] {
-				let array = [nativeType.0, nativeType.1, nativeType.2, nativeType.3, nativeType.4, nativeType.5, nativeType.6, nativeType.7, nativeType.8, nativeType.9, nativeType.10, nativeType.11, nativeType.12, nativeType.13, nativeType.14, nativeType.15, nativeType.16, nativeType.17, nativeType.18, nativeType.19, nativeType.20, nativeType.21, nativeType.22, nativeType.23, nativeType.24, nativeType.25, nativeType.26, nativeType.27, nativeType.28, nativeType.29, nativeType.30, nativeType.31]
-				return array
-			}
-		
 
 	public class func new_LDKSignature(array: [UInt8]) -> LDKSignature {
 		let byteType = LDKSignature(compact_form: (array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9], array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18], array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27], array[28], array[29], array[30], array[31], array[32], array[33], array[34], array[35], array[36], array[37], array[38], array[39], array[40], array[41], array[42], array[43], array[44], array[45], array[46], array[47], array[48], array[49], array[50], array[51], array[52], array[53], array[54], array[55], array[56], array[57], array[58], array[59], array[60], array[61], array[62], array[63]))
@@ -1527,108 +1567,6 @@ public class Bindings {
 						
 
 	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
-		/* DIMENSION_REDUCTION_PREP */
-
-		/*
-        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ>) -> UnsafeMutablePointer<LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ> in
-            let mutablePointer = UnsafeMutablePointer<LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ>(mutating: pointer.baseAddress!)
-            return mutablePointer
-        }
-        */
-
-        let dataContainer = UnsafeMutablePointer<LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ>.allocate(capacity: array.count)
-		dataContainer.initialize(from: array, count: array.count)
-
-        let vector = LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(data: dataContainer, datalen: UInt(array.count))
-        let wrapper = LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(pointer: vector)
-        return wrapper
-    }
-
-    public class LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper: NativeTypeWrapper {
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
-
-		internal var cOpaqueStruct: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ?
-		internal var subdimensionWrapper: [AnyObject]? = nil
-
-		public init(pointer: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ){
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cOpaqueStruct = pointer
-			super.init(conflictAvoidingVariableName: 0)
-		}
-
-		internal init(pointer: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ, subdimensionWrapper: [AnyObject]){
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.subdimensionWrapper = subdimensionWrapper
-			self.cOpaqueStruct = pointer
-			super.init(conflictAvoidingVariableName: 0)
-		}
-
-		public func noOpRetain(){}
-
-		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper {
-			self.dangling = true
-			/* SUBDIMENSION_DANGLE_PREP */
-			return self
-		}
-
-		deinit {
-			if !self.dangling {
-				print("Freeing LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper \(self.instanceNumber).")
-				self.cOpaqueStruct!.data.deallocate()
-			} else {
-				print("Not freeing LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper \(self.instanceNumber) due to dangle.")
-			}
-		}
-	}
-    /* SWIFT_TO_RUST_END */
-
-	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_to_array(nativeType: LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ, deallocate: Bool = true) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
-		var array = [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
-		for index in 0..<Int(nativeType.datalen) {
-			let currentEntry = nativeType.data[index]
-			/* CONVERSION_PREP */
-			array.append(currentEntry)
-		}
-		
-					if deallocate && nativeType.datalen > 0 {
-						nativeType.data.deallocate()
-					}
-				
-		return array
-	}
-	/* RUST_TO_SWIFT_END */
-						public class func extractNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
-							return array.map { entry -> LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
-								entry.danglingClone().cOpaqueStruct!
-							}
-						}
-						
-						public class func wrapNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
-							return array.map { entry -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
-								C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: entry)
-							}
-						}
-						
-						public class func wrapDanglingNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
-							return array.map { entry -> C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
-								C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: entry).dangle()
-							}
-						}
-					
-							internal class func cloneNativeLDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZArray(array: [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
-								return array.map { entry -> LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ in
-									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
-								}
-							}
-						
-
-	/* SWIFT_TO_RUST_START */
 	public class func new_LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper(array: [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZWrapper {
 		/* DIMENSION_REDUCTION_PREP */
 
@@ -2626,108 +2564,6 @@ public class Bindings {
 								return array.map { entry -> LDKNetAddress in
 									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
 									NetAddress(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
-								}
-							}
-						
-
-	/* SWIFT_TO_RUST_START */
-	public class func new_LDKCVec_NodeAnnouncementZWrapper(array: [LDKNodeAnnouncement]) -> LDKCVec_NodeAnnouncementZWrapper {
-		/* DIMENSION_REDUCTION_PREP */
-
-		/*
-        let dataContainer = array.withUnsafeBufferPointer { (pointer: UnsafeBufferPointer<LDKNodeAnnouncement>) -> UnsafeMutablePointer<LDKNodeAnnouncement> in
-            let mutablePointer = UnsafeMutablePointer<LDKNodeAnnouncement>(mutating: pointer.baseAddress!)
-            return mutablePointer
-        }
-        */
-
-        let dataContainer = UnsafeMutablePointer<LDKNodeAnnouncement>.allocate(capacity: array.count)
-		dataContainer.initialize(from: array, count: array.count)
-
-        let vector = LDKCVec_NodeAnnouncementZ(data: dataContainer, datalen: UInt(array.count))
-        let wrapper = LDKCVec_NodeAnnouncementZWrapper(pointer: vector)
-        return wrapper
-    }
-
-    public class LDKCVec_NodeAnnouncementZWrapper: NativeTypeWrapper {
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
-
-		internal var cOpaqueStruct: LDKCVec_NodeAnnouncementZ?
-		internal var subdimensionWrapper: [AnyObject]? = nil
-
-		public init(pointer: LDKCVec_NodeAnnouncementZ){
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cOpaqueStruct = pointer
-			super.init(conflictAvoidingVariableName: 0)
-		}
-
-		internal init(pointer: LDKCVec_NodeAnnouncementZ, subdimensionWrapper: [AnyObject]){
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.subdimensionWrapper = subdimensionWrapper
-			self.cOpaqueStruct = pointer
-			super.init(conflictAvoidingVariableName: 0)
-		}
-
-		public func noOpRetain(){}
-
-		internal func dangle(dangleSubdimensions: Bool = true) -> LDKCVec_NodeAnnouncementZWrapper {
-			self.dangling = true
-			/* SUBDIMENSION_DANGLE_PREP */
-			return self
-		}
-
-		deinit {
-			if !self.dangling {
-				print("Freeing LDKCVec_NodeAnnouncementZWrapper \(self.instanceNumber).")
-				self.cOpaqueStruct!.data.deallocate()
-			} else {
-				print("Not freeing LDKCVec_NodeAnnouncementZWrapper \(self.instanceNumber) due to dangle.")
-			}
-		}
-	}
-    /* SWIFT_TO_RUST_END */
-
-	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_NodeAnnouncementZ_to_array(nativeType: LDKCVec_NodeAnnouncementZ, deallocate: Bool = true) -> [LDKNodeAnnouncement] {
-		var array = [LDKNodeAnnouncement]()
-		for index in 0..<Int(nativeType.datalen) {
-			let currentEntry = nativeType.data[index]
-			/* CONVERSION_PREP */
-			array.append(currentEntry)
-		}
-		
-					if deallocate && nativeType.datalen > 0 {
-						nativeType.data.deallocate()
-					}
-				
-		return array
-	}
-	/* RUST_TO_SWIFT_END */
-						public class func extractNativeLDKNodeAnnouncementArray(array: [NodeAnnouncement]) -> [LDKNodeAnnouncement] {
-							return array.map { entry -> LDKNodeAnnouncement in
-								entry.danglingClone().cOpaqueStruct!
-							}
-						}
-						
-						public class func wrapNativeLDKNodeAnnouncementArray(array: [LDKNodeAnnouncement]) -> [NodeAnnouncement] {
-							return array.map { entry -> NodeAnnouncement in
-								NodeAnnouncement(pointer: entry)
-							}
-						}
-						
-						public class func wrapDanglingNativeLDKNodeAnnouncementArray(array: [LDKNodeAnnouncement]) -> [NodeAnnouncement] {
-							return array.map { entry -> NodeAnnouncement in
-								NodeAnnouncement(pointer: entry).dangle()
-							}
-						}
-					
-							internal class func cloneNativeLDKNodeAnnouncementArray(array: [LDKNodeAnnouncement]) -> [LDKNodeAnnouncement] {
-								return array.map { entry -> LDKNodeAnnouncement in
-									// create a wrapper around the native object, dangle it to make it non-destructive, clone it, and then dangle the clone
-									NodeAnnouncement(pointer: entry).dangle().clone().dangle().cOpaqueStruct!
 								}
 							}
 						
@@ -5001,6 +4837,36 @@ public class Bindings {
 				
 			
 	}
+	public class func swift_CResult_BlindedRouteNoneZ_is_ok(o: Result_BlindedRouteNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_BlindedRouteNoneZ>) in
+
+				CResult_BlindedRouteNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_BlindedRouteDecodeErrorZ_is_ok(o: Result_BlindedRouteDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_BlindedRouteDecodeErrorZ>) in
+
+				CResult_BlindedRouteDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_BlindedHopDecodeErrorZ_is_ok(o: Result_BlindedHopDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_BlindedHopDecodeErrorZ>) in
+
+				CResult_BlindedHopDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_NoneNoneZ_is_ok(o: Result_NoneNoneZ) -> Bool {
 		
 				
@@ -5571,6 +5437,16 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_SharedSecretNoneZ_is_ok(o: Result_SharedSecretNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SharedSecretNoneZ>) in
+
+				CResult_SharedSecretNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_SignDecodeErrorZ_is_ok(o: Result_SignDecodeErrorZ) -> Bool {
 		
 				
@@ -5821,6 +5697,16 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_CResult_InFlightHtlcsDecodeErrorZ_is_ok(o: Result_InFlightHtlcsDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_InFlightHtlcsDecodeErrorZ>) in
+
+				CResult_InFlightHtlcsDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
 	public class func swift_CResult_SiPrefixParseErrorZ_is_ok(o: Result_SiPrefixParseErrorZ) -> Bool {
 		
 				
@@ -5987,6 +5873,16 @@ public class Bindings {
 				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_boolPeerHandleErrorZ>) in
 
 				CResult_boolPeerHandleErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_NoneSendErrorZ_is_ok(o: Result_NoneSendErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneSendErrorZ>) in
+
+				CResult_NoneSendErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -6187,6 +6083,16 @@ public class Bindings {
 				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_UpdateAddHTLCDecodeErrorZ>) in
 
 				CResult_UpdateAddHTLCDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_OnionMessageDecodeErrorZ_is_ok(o: Result_OnionMessageDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_OnionMessageDecodeErrorZ>) in
+
+				CResult_OnionMessageDecodeErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -6932,7 +6838,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "c1a673f17afc0189c1eb0c45ef135abbe92bf81e"
+        return "61a9c100adcdb0bd928dac9dd48369fa6dbf6b94"
     }
 
 }

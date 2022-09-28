@@ -57,6 +57,13 @@ PositiveTimestamp_clone(origPointer)
 					}
 				
 
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKPositiveTimestamp>) in
+PositiveTimestamp_hash(oPointer)
+};
+		}
+
 		public class func from_unix_timestamp(unix_seconds: UInt64) -> Result_PositiveTimestampCreationErrorZ {
 			
 			return Result_PositiveTimestampCreationErrorZ(pointer: PositiveTimestamp_from_unix_timestamp(unix_seconds));

@@ -113,6 +113,12 @@ class OptionGenerator:
 				"""
 				native_conversion_prefix = 'some'
 				native_conversion_suffix = '.cOpaqueStruct!'
+				if ConversionHelper.is_byte_array_type(constructor_argument_types[0].rust_obj):
+					array_parsing_prep = f"""
+						{prepared_arguments['native_call_prep'].replace('some', 'value')}
+						let somevalue = {prepared_arguments['native_arguments'][0].replace('some', 'value')}
+					"""
+					native_conversion_suffix = ''
 
 				value_return_wrappers = ConversionHelper.prepare_return_value(field_details, is_clone_method=False, is_raw_property_getter=True)
 				current_swift_return_type = value_return_wrappers['swift_type']

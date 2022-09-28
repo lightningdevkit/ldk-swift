@@ -383,6 +383,36 @@ InitFeatures_requires_shutdown_anysegwit(this_argPointer)
 };
 		}
 
+		public func set_onion_messages_optional() -> Void {
+			
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+			return InitFeatures_set_onion_messages_optional(this_argPointer);
+		}
+
+		public func set_onion_messages_required() -> Void {
+			
+							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)
+							this_argPointer.initialize(to: self.cOpaqueStruct!)
+						
+			return InitFeatures_set_onion_messages_required(this_argPointer);
+		}
+
+		public func supports_onion_messages() -> Bool {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_supports_onion_messages(this_argPointer)
+};
+		}
+
+		public func requires_onion_messages() -> Bool {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInitFeatures>) in
+InitFeatures_requires_onion_messages(this_argPointer)
+};
+		}
+
 		public func set_channel_type_optional() -> Void {
 			
 							let this_argPointer = UnsafeMutablePointer<LDKInitFeatures>.allocate(capacity: 1)

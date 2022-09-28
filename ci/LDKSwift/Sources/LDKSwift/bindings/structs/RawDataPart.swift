@@ -72,6 +72,13 @@ RawDataPart_clone(origPointer)
 					}
 				
 
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRawDataPart>) in
+RawDataPart_hash(oPointer)
+};
+		}
+
 		internal func free() -> Void {
 			
 			return RawDataPart_free(self.cOpaqueStruct!);

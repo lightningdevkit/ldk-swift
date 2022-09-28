@@ -121,30 +121,30 @@ extension Bindings {
 
 		open func transactions_confirmed(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
 			/* EDIT ME */
-		Bindings.print("Confirm::transactions_confirmed should be overridden!", severity: .WARNING)
+		Bindings.print("Confirm::transactions_confirmed MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func transaction_unconfirmed(txid: [UInt8]?) -> Void {
 			/* EDIT ME */
-		Bindings.print("Confirm::transaction_unconfirmed should be overridden!", severity: .WARNING)
+		Bindings.print("Confirm::transaction_unconfirmed MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func best_block_updated(header: [UInt8]?, height: UInt32) -> Void {
 			/* EDIT ME */
-		Bindings.print("Confirm::best_block_updated should be overridden!", severity: .WARNING)
+		Bindings.print("Confirm::best_block_updated MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func get_relevant_txids() -> [[UInt8]] {
 			/* EDIT ME */
-		Bindings.print("Confirm::get_relevant_txids should be overridden!", severity: .WARNING)
+		Bindings.print("Confirm::get_relevant_txids MUST be overridden!", severity: .ERROR)
 
-return [[UInt8]]()
+abort()
 		}
 
 		open func free() -> Void {

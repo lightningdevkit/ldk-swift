@@ -27,6 +27,12 @@ extension Bindings {
 				return instance.get_node_secret(recipient: recipient).cOpaqueStruct!
 			}
 
+			func ecdhCallback(pointer: UnsafeRawPointer?, recipient: LDKRecipient, other_key: LDKPublicKey, tweak: LDKCOption_ScalarZ) -> LDKCResult_SharedSecretNoneZ {
+				let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::ecdh")
+				
+				return instance.ecdh(recipient: recipient, other_key: Bindings.tuple33_to_array(nativeType: other_key.compressed_form), tweak: Option_ScalarZ(pointer: tweak)).cOpaqueStruct!
+			}
+
 			func get_destination_scriptCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
 				let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_destination_script")
 				
@@ -86,6 +92,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0)
 			self.cOpaqueStruct = LDKKeysInterface(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_node_secret: get_node_secretCallback,
+			ecdh: ecdhCallback,
 			get_destination_script: get_destination_scriptCallback,
 			get_shutdown_scriptpubkey: get_shutdown_scriptpubkeyCallback,
 			get_channel_signer: get_channel_signerCallback,
@@ -134,16 +141,23 @@ extension Bindings {
 
 		open func get_node_secret(recipient: LDKRecipient) -> Result_SecretKeyNoneZ {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_node_secret should be overridden!", severity: .WARNING)
+		Bindings.print("KeysInterface::get_node_secret MUST be overridden!", severity: .ERROR)
 
-return Result_SecretKeyNoneZ()
+abort()
+		}
+
+		open func ecdh(recipient: LDKRecipient, other_key: [UInt8], tweak: Option_ScalarZ) -> Result_SharedSecretNoneZ {
+			/* EDIT ME */
+		Bindings.print("KeysInterface::ecdh MUST be overridden!", severity: .ERROR)
+
+abort()
 		}
 
 		open func get_destination_script() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_destination_script should be overridden!", severity: .WARNING)
+		Bindings.print("KeysInterface::get_destination_script MUST be overridden!", severity: .ERROR)
 
-return [UInt8]()
+abort()
 		}
 
 		open func get_shutdown_scriptpubkey() -> ShutdownScript {
@@ -155,37 +169,37 @@ abort()
 
 		open func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_channel_signer should be overridden!", severity: .WARNING)
+		Bindings.print("KeysInterface::get_channel_signer MUST be overridden!", severity: .ERROR)
 
-return Sign()
+abort()
 		}
 
 		open func get_secure_random_bytes() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_secure_random_bytes should be overridden!", severity: .WARNING)
+		Bindings.print("KeysInterface::get_secure_random_bytes MUST be overridden!", severity: .ERROR)
 
-return [UInt8]()
+abort()
 		}
 
 		open func read_chan_signer(reader: [UInt8]) -> Result_SignDecodeErrorZ {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::read_chan_signer should be overridden!", severity: .WARNING)
+		Bindings.print("KeysInterface::read_chan_signer MUST be overridden!", severity: .ERROR)
 
-return Result_SignDecodeErrorZ()
+abort()
 		}
 
 		open func sign_invoice(hrp_bytes: [UInt8], invoice_data: [UInt8], receipient: LDKRecipient) -> Result_RecoverableSignatureNoneZ {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::sign_invoice should be overridden!", severity: .WARNING)
+		Bindings.print("KeysInterface::sign_invoice MUST be overridden!", severity: .ERROR)
 
-return Result_RecoverableSignatureNoneZ()
+abort()
 		}
 
 		open func get_inbound_payment_key_material() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_inbound_payment_key_material should be overridden!", severity: .WARNING)
+		Bindings.print("KeysInterface::get_inbound_payment_key_material MUST be overridden!", severity: .ERROR)
 
-return [UInt8]()
+abort()
 		}
 
 		open func free() -> Void {
@@ -211,6 +225,15 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 				
 				return 
 				Result_SecretKeyNoneZ(pointer: self.cOpaqueStruct!.get_node_secret(self.cOpaqueStruct!.this_arg, recipient))
+				
+			
+	}
+
+	public override func ecdh(recipient: LDKRecipient, other_key: [UInt8], tweak: Option_ScalarZ) -> Result_SharedSecretNoneZ {
+		
+				
+				return 
+				Result_SharedSecretNoneZ(pointer: self.cOpaqueStruct!.ecdh(self.cOpaqueStruct!.this_arg, recipient, Bindings.new_LDKPublicKey(array: other_key), tweak.cOpaqueStruct!))
 				
 			
 	}

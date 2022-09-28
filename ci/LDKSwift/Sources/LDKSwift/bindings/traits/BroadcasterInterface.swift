@@ -79,9 +79,9 @@ extension Bindings {
 
 		open func broadcast_transaction(tx: [UInt8]) -> Void {
 			/* EDIT ME */
-		Bindings.print("BroadcasterInterface::broadcast_transaction should be overridden!", severity: .WARNING)
+		Bindings.print("BroadcasterInterface::broadcast_transaction MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func free() -> Void {

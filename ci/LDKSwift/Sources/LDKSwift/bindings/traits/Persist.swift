@@ -89,16 +89,16 @@ let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 
 		open func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
 			/* EDIT ME */
-		Bindings.print("Persist::persist_new_channel should be overridden!", severity: .WARNING)
+		Bindings.print("Persist::persist_new_channel MUST be overridden!", severity: .ERROR)
 
-return Result_NoneChannelMonitorUpdateErrZ()
+abort()
 		}
 
 		open func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
 			/* EDIT ME */
-		Bindings.print("Persist::update_persisted_channel should be overridden!", severity: .WARNING)
+		Bindings.print("Persist::update_persisted_channel MUST be overridden!", severity: .ERROR)
 
-return Result_NoneChannelMonitorUpdateErrZ()
+abort()
 		}
 
 		open func free() -> Void {

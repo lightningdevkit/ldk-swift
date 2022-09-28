@@ -270,7 +270,7 @@ Event_clone(origPointer)
 			return Event(pointer: Event_payment_path_successful(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), pathWrapper.dangle().cOpaqueStruct!));
 		}
 
-		public class func payment_path_failed(payment_id: [UInt8], payment_hash: [UInt8], rejected_by_dest: Bool, network_update: Bindings.Option_NetworkUpdateZ, all_paths_failed: Bool, path: [RouteHop], short_channel_id: Bindings.Option_u64Z, retry: Bindings.RouteParameters) -> Event {
+		public class func payment_path_failed(payment_id: [UInt8], payment_hash: [UInt8], payment_failed_permanently: Bool, network_update: Bindings.Option_NetworkUpdateZ, all_paths_failed: Bool, path: [RouteHop], short_channel_id: Bindings.Option_u64Z, retry: Bindings.RouteParameters) -> Event {
 			
 							let pathUnwrapped = path.map { (pathCurrentValue) in
 							pathCurrentValue
@@ -282,7 +282,7 @@ Event_clone(origPointer)
 							pathWrapper.noOpRetain()
 						}
 					
-			return Event(pointer: Event_payment_path_failed(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), rejected_by_dest, network_update.danglingClone().cOpaqueStruct!, all_paths_failed, pathWrapper.dangle().cOpaqueStruct!, short_channel_id.danglingClone().cOpaqueStruct!, retry.danglingClone().cOpaqueStruct!));
+			return Event(pointer: Event_payment_path_failed(Bindings.new_LDKThirtyTwoBytes(array: payment_id), Bindings.new_LDKThirtyTwoBytes(array: payment_hash), payment_failed_permanently, network_update.danglingClone().cOpaqueStruct!, all_paths_failed, pathWrapper.dangle().cOpaqueStruct!, short_channel_id.danglingClone().cOpaqueStruct!, retry.danglingClone().cOpaqueStruct!));
 		}
 
 		public class func probe_successful(payment_id: [UInt8], payment_hash: [UInt8], path: [RouteHop]) -> Event {
@@ -622,8 +622,8 @@ Event_write(objPointer)
 						return Bindings.LDKThirtyTwoBytes_to_array(nativeType: self.cOpaqueStruct!.payment_hash)
 					}
 				
-					public func getRejected_by_dest() -> Bool {
-						return self.cOpaqueStruct!.rejected_by_dest
+					public func getPayment_failed_permanently() -> Bool {
+						return self.cOpaqueStruct!.payment_failed_permanently
 					}
 				
 					public func getNetwork_update() -> Bindings.Option_NetworkUpdateZ {

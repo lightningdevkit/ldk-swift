@@ -72,10 +72,17 @@ RawInvoice_clone(origPointer)
 					}
 				
 
-		public func hash() -> [UInt8] {
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKRawInvoice>) in
+RawInvoice_hash(oPointer)
+};
+		}
+
+		public func signable_hash() -> [UInt8] {
 			
 			return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRawInvoice>) in
-RawInvoice_hash(this_argPointer)
+RawInvoice_signable_hash(this_argPointer)
 });
 		}
 

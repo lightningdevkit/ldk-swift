@@ -42,28 +42,16 @@ extension Bindings {
 				return instance.handle_channel_update(msg: msg).cOpaqueStruct!
 			}
 
-			func get_next_channel_announcementsCallback(pointer: UnsafeRawPointer?, starting_point: UInt64, batch_amount: UInt8) -> LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
-				let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::get_next_channel_announcements")
+			func get_next_channel_announcementCallback(pointer: UnsafeRawPointer?, starting_point: UInt64) -> LDKCOption_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
+				let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::get_next_channel_announcement")
 				
-				
-					let returnWrapper = Bindings.new_LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZWrapper(array: instance.get_next_channel_announcements(starting_point: starting_point, batch_amount: batch_amount))
-					defer {
-						returnWrapper.noOpRetain()
-					}
-					return returnWrapper.dangle().cOpaqueStruct!
-				
+				return instance.get_next_channel_announcement(starting_point: starting_point).cOpaqueStruct!
 			}
 
-			func get_next_node_announcementsCallback(pointer: UnsafeRawPointer?, starting_point: LDKPublicKey, batch_amount: UInt8) -> LDKCVec_NodeAnnouncementZ {
-				let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::get_next_node_announcements")
+			func get_next_node_announcementCallback(pointer: UnsafeRawPointer?, starting_point: LDKPublicKey) -> LDKNodeAnnouncement {
+				let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::get_next_node_announcement")
 				
-				
-					let returnWrapper = Bindings.new_LDKCVec_NodeAnnouncementZWrapper(array: instance.get_next_node_announcements(starting_point: Bindings.tuple33_to_array(nativeType: starting_point.compressed_form), batch_amount: batch_amount))
-					defer {
-						returnWrapper.noOpRetain()
-					}
-					return returnWrapper.dangle().cOpaqueStruct!
-				
+				return instance.get_next_node_announcement(starting_point: Bindings.tuple33_to_array(nativeType: starting_point.compressed_form)).cOpaqueStruct!
 			}
 
 			func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> Void {
@@ -97,6 +85,18 @@ extension Bindings {
 				return instance.handle_query_short_channel_ids(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: QueryShortChannelIds(pointer: msg)).cOpaqueStruct!
 			}
 
+			func provided_node_featuresCallback(pointer: UnsafeRawPointer?) -> LDKNodeFeatures {
+				let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::provided_node_features")
+				
+				return instance.provided_node_features().cOpaqueStruct!
+			}
+
+			func provided_init_featuresCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey) -> LDKInitFeatures {
+				let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::provided_init_features")
+				
+				return instance.provided_init_features(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form)).cOpaqueStruct!
+			}
+
 			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
 				let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "RoutingMessageHandler.swift::free")
 				
@@ -110,13 +110,15 @@ extension Bindings {
 			handle_node_announcement: handle_node_announcementCallback,
 			handle_channel_announcement: handle_channel_announcementCallback,
 			handle_channel_update: handle_channel_updateCallback,
-			get_next_channel_announcements: get_next_channel_announcementsCallback,
-			get_next_node_announcements: get_next_node_announcementsCallback,
+			get_next_channel_announcement: get_next_channel_announcementCallback,
+			get_next_node_announcement: get_next_node_announcementCallback,
 			peer_connected: peer_connectedCallback,
 			handle_reply_channel_range: handle_reply_channel_rangeCallback,
 			handle_reply_short_channel_ids_end: handle_reply_short_channel_ids_endCallback,
 			handle_query_channel_range: handle_query_channel_rangeCallback,
 			handle_query_short_channel_ids: handle_query_short_channel_idsCallback,
+			provided_node_features: provided_node_featuresCallback,
+			provided_init_features: provided_init_featuresCallback,
 			MessageSendEventsProvider: LDKMessageSendEventsProvider(),
 			free: freeCallback)
 
@@ -159,72 +161,86 @@ extension Bindings {
 
 		open func handle_node_announcement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_node_announcement should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::handle_node_announcement MUST be overridden!", severity: .ERROR)
 
-return Result_boolLightningErrorZ()
+abort()
 		}
 
 		open func handle_channel_announcement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_channel_announcement should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::handle_channel_announcement MUST be overridden!", severity: .ERROR)
 
-return Result_boolLightningErrorZ()
+abort()
 		}
 
 		open func handle_channel_update(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_channel_update should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::handle_channel_update MUST be overridden!", severity: .ERROR)
 
-return Result_boolLightningErrorZ()
+abort()
 		}
 
-		open func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+		open func get_next_channel_announcement(starting_point: UInt64) -> Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::get_next_channel_announcements should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::get_next_channel_announcement MUST be overridden!", severity: .ERROR)
 
-return [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ]()
+abort()
 		}
 
-		open func get_next_node_announcements(starting_point: [UInt8], batch_amount: UInt8) -> [LDKNodeAnnouncement] {
+		open func get_next_node_announcement(starting_point: [UInt8]) -> NodeAnnouncement {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::get_next_node_announcements should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::get_next_node_announcement MUST be overridden!", severity: .ERROR)
 
-return [LDKNodeAnnouncement]()
+abort()
 		}
 
 		open func peer_connected(their_node_id: [UInt8], initValue: Init) -> Void {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::peer_connected should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::peer_connected MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func handle_reply_channel_range(their_node_id: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_reply_channel_range should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::handle_reply_channel_range MUST be overridden!", severity: .ERROR)
 
-return Result_NoneLightningErrorZ()
+abort()
 		}
 
 		open func handle_reply_short_channel_ids_end(their_node_id: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_reply_short_channel_ids_end should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::handle_reply_short_channel_ids_end MUST be overridden!", severity: .ERROR)
 
-return Result_NoneLightningErrorZ()
+abort()
 		}
 
 		open func handle_query_channel_range(their_node_id: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_query_channel_range should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::handle_query_channel_range MUST be overridden!", severity: .ERROR)
 
-return Result_NoneLightningErrorZ()
+abort()
 		}
 
 		open func handle_query_short_channel_ids(their_node_id: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_query_short_channel_ids should be overridden!", severity: .WARNING)
+		Bindings.print("RoutingMessageHandler::handle_query_short_channel_ids MUST be overridden!", severity: .ERROR)
 
-return Result_NoneLightningErrorZ()
+abort()
+		}
+
+		open func provided_node_features() -> NodeFeatures {
+			/* EDIT ME */
+		Bindings.print("RoutingMessageHandler::provided_node_features MUST be overridden!", severity: .ERROR)
+
+abort()
+		}
+
+		open func provided_init_features(their_node_id: [UInt8]) -> InitFeatures {
+			/* EDIT ME */
+		Bindings.print("RoutingMessageHandler::provided_init_features MUST be overridden!", severity: .ERROR)
+
+abort()
 		}
 
 		open func free() -> Void {
@@ -278,20 +294,20 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 			
 	}
 
-	public override func get_next_channel_announcements(starting_point: UInt64, batch_amount: UInt8) -> [LDKC3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ] {
+	public override func get_next_channel_announcement(starting_point: UInt64) -> Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
 		
 				
 				return 
-				Bindings.LDKCVec_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_to_array(nativeType: self.cOpaqueStruct!.get_next_channel_announcements(self.cOpaqueStruct!.this_arg, starting_point, batch_amount))
+				Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(pointer: self.cOpaqueStruct!.get_next_channel_announcement(self.cOpaqueStruct!.this_arg, starting_point))
 				
 			
 	}
 
-	public override func get_next_node_announcements(starting_point: [UInt8], batch_amount: UInt8) -> [LDKNodeAnnouncement] {
+	public override func get_next_node_announcement(starting_point: [UInt8]) -> NodeAnnouncement {
 		
 				
 				return 
-				Bindings.LDKCVec_NodeAnnouncementZ_to_array(nativeType: self.cOpaqueStruct!.get_next_node_announcements(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: starting_point), batch_amount))
+				NodeAnnouncement(pointer: self.cOpaqueStruct!.get_next_node_announcement(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: starting_point)))
 				
 			
 	}
@@ -339,6 +355,24 @@ public class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 				
 				return 
 				Result_NoneLightningErrorZ(pointer: self.cOpaqueStruct!.handle_query_short_channel_ids(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msg.danglingClone().cOpaqueStruct!))
+				
+			
+	}
+
+	public override func provided_node_features() -> NodeFeatures {
+		
+				
+				return 
+				NodeFeatures(pointer: self.cOpaqueStruct!.provided_node_features(self.cOpaqueStruct!.this_arg))
+				
+			
+	}
+
+	public override func provided_init_features(their_node_id: [UInt8]) -> InitFeatures {
+		
+				
+				return 
+				InitFeatures(pointer: self.cOpaqueStruct!.provided_init_features(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id)))
 				
 			
 	}

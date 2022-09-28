@@ -44,11 +44,11 @@ extension Bindings {
 
 		/* STRUCT_METHODS_START */
 
-		public func write() -> [UInt8] {
+		public func as_LockableScore() -> NativelyImplementedLockableScore {
 			
-			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
-MultiThreadedLockableScore_write(objPointer)
-});
+			return NativelyImplementedLockableScore(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
+MultiThreadedLockableScore_as_LockableScore(this_argPointer)
+}, anchor: self);
 		}
 
 		internal func free() -> Void {

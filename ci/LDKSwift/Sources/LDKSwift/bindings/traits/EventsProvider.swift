@@ -79,9 +79,9 @@ extension Bindings {
 
 		open func process_pending_events(handler: EventHandler) -> Void {
 			/* EDIT ME */
-		Bindings.print("EventsProvider::process_pending_events should be overridden!", severity: .WARNING)
+		Bindings.print("EventsProvider::process_pending_events MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func free() -> Void {

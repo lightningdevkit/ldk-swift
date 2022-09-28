@@ -21,7 +21,7 @@ extension Bindings {
 
 			/* NATIVE_CALLBACKS_START */
 
-			func find_routeCallback(pointer: UnsafeRawPointer?, payer: LDKPublicKey, route_paramsPointer: UnsafePointer<LDKRouteParameters>, payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, scorerPointer: UnsafePointer<LDKScore>) -> LDKCResult_RouteLightningErrorZ {
+			func find_routeCallback(pointer: UnsafeRawPointer?, payer: LDKPublicKey, route_paramsPointer: UnsafePointer<LDKRouteParameters>, payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, inflight_htlcs: LDKInFlightHtlcs) -> LDKCResult_RouteLightningErrorZ {
 				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::find_route")
 				let route_params = RouteParameters(pointer: route_paramsPointer.pointee).dangle().clone();
 
@@ -34,9 +34,32 @@ extension Bindings {
 					if let first_hopsUnwrapped = first_hopsPointer {
 						first_hops = Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: first_hopsUnwrapped.pointee)
 					}
-				let scorer = Score(pointer: scorerPointer.pointee).dangle();
+				
+				return instance.find_route(payer: Bindings.tuple33_to_array(nativeType: payer.compressed_form), route_params: route_params, payment_hash: payment_hash, first_hops: first_hops, inflight_htlcs: InFlightHtlcs(pointer: inflight_htlcs)).cOpaqueStruct!
+			}
 
-				return instance.find_route(payer: Bindings.tuple33_to_array(nativeType: payer.compressed_form), route_params: route_params, payment_hash: payment_hash, first_hops: first_hops, scorer: scorer).cOpaqueStruct!
+			func notify_payment_path_failedCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
+				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_path_failed")
+				
+				return instance.notify_payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+			}
+
+			func notify_payment_path_successfulCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
+				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_path_successful")
+				
+				return instance.notify_payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+			}
+
+			func notify_payment_probe_successfulCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
+				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_probe_successful")
+				
+				return instance.notify_payment_probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+			}
+
+			func notify_payment_probe_failedCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
+				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_probe_failed")
+				
+				return instance.notify_payment_probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
 			}
 
 			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
@@ -50,6 +73,10 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0)
 			self.cOpaqueStruct = LDKRouter(this_arg: Bindings.instanceToPointer(instance: self), 
 			find_route: find_routeCallback,
+			notify_payment_path_failed: notify_payment_path_failedCallback,
+			notify_payment_path_successful: notify_payment_path_successfulCallback,
+			notify_payment_probe_successful: notify_payment_probe_successfulCallback,
+			notify_payment_probe_failed: notify_payment_probe_failedCallback,
 			free: freeCallback)
 
 		}
@@ -89,11 +116,39 @@ extension Bindings {
 					}
 				
 
-		open func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [LDKChannelDetails]?, scorer: Score) -> Result_RouteLightningErrorZ {
+		open func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [LDKChannelDetails]?, inflight_htlcs: InFlightHtlcs) -> Result_RouteLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("Router::find_route should be overridden!", severity: .WARNING)
+		Bindings.print("Router::find_route MUST be overridden!", severity: .ERROR)
 
-return Result_RouteLightningErrorZ()
+abort()
+		}
+
+		open func notify_payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+			/* EDIT ME */
+		Bindings.print("Router::notify_payment_path_failed MUST be overridden!", severity: .ERROR)
+
+abort()
+		}
+
+		open func notify_payment_path_successful(path: [LDKRouteHop]) -> Void {
+			/* EDIT ME */
+		Bindings.print("Router::notify_payment_path_successful MUST be overridden!", severity: .ERROR)
+
+abort()
+		}
+
+		open func notify_payment_probe_successful(path: [LDKRouteHop]) -> Void {
+			/* EDIT ME */
+		Bindings.print("Router::notify_payment_probe_successful MUST be overridden!", severity: .ERROR)
+
+abort()
+		}
+
+		open func notify_payment_probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+			/* EDIT ME */
+		Bindings.print("Router::notify_payment_probe_failed MUST be overridden!", severity: .ERROR)
+
+abort()
 		}
 
 		open func free() -> Void {
@@ -114,7 +169,7 @@ return Result_RouteLightningErrorZ()
 public class NativelyImplementedRouter: Router {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
-	public func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [ChannelDetails]?, scorer: Score) -> Result_RouteLightningErrorZ {
+	public func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [ChannelDetails]?, inflight_htlcs: InFlightHtlcs) -> Result_RouteLightningErrorZ {
 		
 					
 						var first_hopsNative: [LDKChannelDetails]? = nil
@@ -127,12 +182,12 @@ public class NativelyImplementedRouter: Router {
 						
 						}
 					
-					return self.find_route(payer: payer, route_params: route_params, payment_hash: payment_hash, first_hops: first_hopsNative, scorer: scorer)
+					return self.find_route(payer: payer, route_params: route_params, payment_hash: payment_hash, first_hops: first_hopsNative, inflight_htlcs: inflight_htlcs)
 				
 	}
 
 @available(*, deprecated, message: "Use method taking Swift object array type instead.")
-	public override func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [LDKChannelDetails]?, scorer: Score) -> Result_RouteLightningErrorZ {
+	public override func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [LDKChannelDetails]?, inflight_htlcs: InFlightHtlcs) -> Result_RouteLightningErrorZ {
 		
 				
 							var first_hopsPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
@@ -144,13 +199,119 @@ public class NativelyImplementedRouter: Router {
 						
 				return withUnsafePointer(to: route_params.cOpaqueStruct!) { (route_paramsPointer: UnsafePointer<LDKRouteParameters>) in
 withUnsafePointer(to: Bindings.array_to_tuple32(array: payment_hash!)) { (payment_hashPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKScore>) in
 
-				Result_RouteLightningErrorZ(pointer: self.cOpaqueStruct!.find_route(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: payer), route_paramsPointer, payment_hashPointer, first_hopsPointer, scorerPointer))
+				Result_RouteLightningErrorZ(pointer: self.cOpaqueStruct!.find_route(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: payer), route_paramsPointer, payment_hashPointer, first_hopsPointer, inflight_htlcs.cOpaqueStruct!))
 				
 }
 }
-}
+			
+	}
+
+	public func notify_payment_path_failed(path: [RouteHop], short_channel_id: UInt64) -> Void {
+		
+					
+							let pathUnwrapped = path.map { (pathCurrentValue) in
+							pathCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.notify_payment_path_failed(path: pathUnwrapped, short_channel_id: short_channel_id)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
+	public override func notify_payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+		
+				
+						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: path)
+						defer {
+							pathWrapper.noOpRetain()
+						}
+					
+				
+				self.cOpaqueStruct!.notify_payment_path_failed(self.cOpaqueStruct!.this_arg, pathWrapper.dangle().cOpaqueStruct!, short_channel_id)
+				
+			
+	}
+
+	public func notify_payment_path_successful(path: [RouteHop]) -> Void {
+		
+					
+							let pathUnwrapped = path.map { (pathCurrentValue) in
+							pathCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.notify_payment_path_successful(path: pathUnwrapped)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
+	public override func notify_payment_path_successful(path: [LDKRouteHop]) -> Void {
+		
+				
+						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: path)
+						defer {
+							pathWrapper.noOpRetain()
+						}
+					
+				
+				self.cOpaqueStruct!.notify_payment_path_successful(self.cOpaqueStruct!.this_arg, pathWrapper.dangle().cOpaqueStruct!)
+				
+			
+	}
+
+	public func notify_payment_probe_successful(path: [RouteHop]) -> Void {
+		
+					
+							let pathUnwrapped = path.map { (pathCurrentValue) in
+							pathCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.notify_payment_probe_successful(path: pathUnwrapped)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
+	public override func notify_payment_probe_successful(path: [LDKRouteHop]) -> Void {
+		
+				
+						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: path)
+						defer {
+							pathWrapper.noOpRetain()
+						}
+					
+				
+				self.cOpaqueStruct!.notify_payment_probe_successful(self.cOpaqueStruct!.this_arg, pathWrapper.dangle().cOpaqueStruct!)
+				
+			
+	}
+
+	public func notify_payment_probe_failed(path: [RouteHop], short_channel_id: UInt64) -> Void {
+		
+					
+							let pathUnwrapped = path.map { (pathCurrentValue) in
+							pathCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+					return self.notify_payment_probe_failed(path: pathUnwrapped, short_channel_id: short_channel_id)
+				
+	}
+
+@available(*, deprecated, message: "Use method taking Swift object array type instead.")
+	public override func notify_payment_probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
+		
+				
+						let pathWrapper = Bindings.new_LDKCVec_RouteHopZWrapper(array: path)
+						defer {
+							pathWrapper.noOpRetain()
+						}
+					
+				
+				self.cOpaqueStruct!.notify_payment_probe_failed(self.cOpaqueStruct!.this_arg, pathWrapper.dangle().cOpaqueStruct!, short_channel_id)
+				
 			
 	}
 

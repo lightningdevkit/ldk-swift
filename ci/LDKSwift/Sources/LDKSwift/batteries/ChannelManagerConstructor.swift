@@ -126,14 +126,15 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let noneOption = Option_AccessZ.none()
             let p2pGossipSync = P2PGossipSync(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
             self.graph_msg_handler = GossipSync.p2_p(a: p2pGossipSync)
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: p2pGossipSync.as_RoutingMessageHandler(), onion_message_handler_arg: <#Bindings.OnionMessageHandler#>)
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: p2pGossipSync.as_RoutingMessageHandler(), onion_message_handler_arg: noCustomMessages.as_OnionMessageHandler())
         } else {
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler(), onion_message_handler_arg: <#Bindings.OnionMessageHandler#>)
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler(), onion_message_handler_arg: noCustomMessages.as_OnionMessageHandler())
         }
         guard let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue() else {
             throw InvalidSerializedDataError.badNodeSecret
         }
-        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, current_time: <#UInt64#>, ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
+        let timestampSeconds = UInt64(NSDate().timeIntervalSince1970)
+        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, current_time: timestampSeconds, ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
 
         if let filter = filter {
             for (currentMonitor, _) in self.channel_monitors {
@@ -172,12 +173,13 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let noneOption = Option_AccessZ.none()
             let p2pGossipSync = P2PGossipSync(network_graph: netGraph, chain_access: Option_AccessZ.none(), logger: logger)
             self.graph_msg_handler = GossipSync.p2_p(a: p2pGossipSync)
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: p2pGossipSync.as_RoutingMessageHandler(), onion_message_handler_arg: <#Bindings.OnionMessageHandler#>)
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: p2pGossipSync.as_RoutingMessageHandler(), onion_message_handler_arg: noCustomMessages.as_OnionMessageHandler())
         } else {
-            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler(), onion_message_handler_arg: <#Bindings.OnionMessageHandler#>)
+            messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler(), onion_message_handler_arg: noCustomMessages.as_OnionMessageHandler())
         }
         let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
-        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, current_time: <#UInt64#>, ephemeral_random_data: random_data, logger: logger, custom_message_handler: noCustomMessages.as_CustomMessageHandler())
+        let timestampSeconds = UInt64(NSDate().timeIntervalSince1970)
+        self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, current_time: timestampSeconds, ephemeral_random_data: random_data, logger: logger, custom_message_handler: noCustomMessages.as_CustomMessageHandler())
 
 
         super.init(conflictAvoidingVariableName: 0)
@@ -234,7 +236,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         // if there is a graph msg handler, set its is_owned to false
         // self.graph_msg_handler?.cOpaqueStruct?.is_owned = false
 
-        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, gossip_sync: self.graph_msg_handler ?? GossipSync.none(), peer_manager: self.peerManager, logger: self.logger, scorer: self.scorer?.as_LockableScore())
+        let scorerArgument = Option_WriteableScoreZ(value: self.scorer?.as_WriteableScore())
+        self.backgroundProcessor = BackgroundProcessor(persister: self.customPersister!, event_handler: self.customEventHandler!, chain_monitor: self.chain_monitor, channel_manager: self.channelManager, gossip_sync: self.graph_msg_handler ?? GossipSync.none(), peer_manager: self.peerManager, logger: self.logger, scorer: scorerArgument)
 
         // restore it back to true
         // self.graph_msg_handler?.cOpaqueStruct?.is_owned = true

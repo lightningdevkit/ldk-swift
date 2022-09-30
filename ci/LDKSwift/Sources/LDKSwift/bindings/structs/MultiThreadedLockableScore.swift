@@ -51,6 +51,20 @@ MultiThreadedLockableScore_as_LockableScore(this_argPointer)
 }, anchor: self);
 		}
 
+		public func write() -> [UInt8] {
+			
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
+MultiThreadedLockableScore_write(objPointer)
+});
+		}
+
+		public func as_WriteableScore() -> NativelyImplementedWriteableScore {
+			
+			return NativelyImplementedWriteableScore(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
+MultiThreadedLockableScore_as_WriteableScore(this_argPointer)
+}, anchor: self);
+		}
+
 		internal func free() -> Void {
 			
 			return MultiThreadedLockableScore_free(self.cOpaqueStruct!);

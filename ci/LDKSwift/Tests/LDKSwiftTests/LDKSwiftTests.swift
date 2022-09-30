@@ -289,9 +289,9 @@ class LDKSwiftTests: XCTestCase {
 		print("Received rapid gossip sync response: \(data.count) bytes! Time: \(elapsedA)s");
 
 		let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
-		let reversedGenesisHash = PolarIntegrationSample.hexStringToBytes(hexString: reversedGenesisHashHex)!
+		let reversedGenesisHash = LDKSwiftTests.hexStringToBytes(hexString: reversedGenesisHashHex)!
 
-		let logger = LDKTraitImplementations.PolarLogger()
+		let logger = TestLogger()
 		let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
 		let rapidSync = RapidGossipSync(network_graph: networkGraph)
 
@@ -315,16 +315,19 @@ class LDKSwiftTests: XCTestCase {
 		let elapsedC = Double(finishC.uptimeNanoseconds-startC.uptimeNanoseconds)/1_000_000_000
 		print("Network graph size: \(graphBytes.count)! Time: \(elapsedC)s")
 
-		let defaultRouter = DefaultRouter(network_graph: networkGraph, logger: logger, random_seed_bytes: [UInt8](repeating: 0, count: 32))
+        // let scoringParams = ProbabilisticScoringParameters()
+        // let scorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
+        // let score = scorer.as_Score()
+        let lockableScore = LockableScore()
+        let defaultRouter = DefaultRouter(network_graph: networkGraph, logger: logger, random_seed_bytes: [UInt8](repeating: 0, count: 32), scorer: lockableScore)
 		let router = defaultRouter.as_Router()
-		let scoringParams = ProbabilisticScoringParameters()
-		let scorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
-		let score = scorer.as_Score()
+		
 		// let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
 
-		let payerPubkey = hexStringToBytes(hexString: "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3")!
-		let recipientPubkey = hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!
+        
+        let payerPubkey = LDKSwiftTests.hexStringToBytes(hexString: "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3")!
+        let recipientPubkey = LDKSwiftTests.hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!
 
 		let paymentParameters = PaymentParameters(payee_pubkey: recipientPubkey)
 		let routeParameters = RouteParameters(payment_params_arg: paymentParameters, final_value_msat_arg: 500, final_cltv_expiry_delta_arg: 3)
@@ -333,8 +336,9 @@ class LDKSwiftTests: XCTestCase {
 
 		let firstHops: [ChannelDetails]? = nil
 		print("STEP B")
-		let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, scorer: score)
-		print("found route: \(foundRoute)")
+//        let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, inflight_htlcs: <#T##InFlightHtlcs#>)
+		// print("found route: \(foundRoute)")
+        
 	}
 
     func testExtendedActivity() async throws {

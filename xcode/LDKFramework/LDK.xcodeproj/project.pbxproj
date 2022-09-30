@@ -1506,12 +1506,26 @@
 		07A0937828E2353800A66BEB /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A08DAA28E2353300A66BEB /* DelayedPaymentOutputDescriptor.swift */; };
 		07A0937928E2353800A66BEB /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A08DAA28E2353300A66BEB /* DelayedPaymentOutputDescriptor.swift */; };
 		07A0937A28E2353800A66BEB /* DelayedPaymentOutputDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A08DAA28E2353300A66BEB /* DelayedPaymentOutputDescriptor.swift */; };
+		07CE1EB128E767DC00BB37E4 /* TestKeysInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA128E767DA00BB37E4 /* TestKeysInterface.swift */; };
+		07CE1EB228E767DC00BB37E4 /* TestPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA228E767DA00BB37E4 /* TestPersister.swift */; };
+		07CE1EB328E767DC00BB37E4 /* LDKTestFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA328E767DA00BB37E4 /* LDKTestFixtures.swift */; };
+		07CE1EB428E767DC00BB37E4 /* TestLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA428E767DB00BB37E4 /* TestLogger.swift */; };
+		07CE1EB528E767DC00BB37E4 /* TestFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA528E767DB00BB37E4 /* TestFilter.swift */; };
+		07CE1EB628E767DC00BB37E4 /* TestChannelManagerPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA628E767DB00BB37E4 /* TestChannelManagerPersister.swift */; };
+		07CE1EB728E767DC00BB37E4 /* HumanObjectPeerTestInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA728E767DB00BB37E4 /* HumanObjectPeerTestInstance.swift */; };
+		07CE1EB828E767DC00BB37E4 /* LDKSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA828E767DB00BB37E4 /* LDKSwiftTests.swift */; };
+		07CE1EB928E767DC00BB37E4 /* TestFeeEstimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EA928E767DB00BB37E4 /* TestFeeEstimator.swift */; };
+		07CE1EBA28E767DC00BB37E4 /* BTCVarInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EAB28E767DB00BB37E4 /* BTCVarInt.swift */; };
+		07CE1EBB28E767DC00BB37E4 /* BitcoinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EAC28E767DB00BB37E4 /* BitcoinTests.swift */; };
+		07CE1EBC28E767DC00BB37E4 /* BTCBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EAD28E767DB00BB37E4 /* BTCBlock.swift */; };
+		07CE1EBD28E767DC00BB37E4 /* BTCTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EAE28E767DB00BB37E4 /* BTCTransaction.swift */; };
+		07CE1EBE28E767DC00BB37E4 /* BTCHashing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EAF28E767DB00BB37E4 /* BTCHashing.swift */; };
+		07CE1EBF28E767DC00BB37E4 /* TestBroadcasterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CE1EB028E767DC00BB37E4 /* TestBroadcasterInterface.swift */; };
 		07D3E7C6286C14360095CCD8 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D3E7C5286C142F0095CCD8 /* libldk.a */; };
 		07E0646C287CAD0600CFA8BF /* DirectlyLinkedBindingsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E0646B287CAD0600CFA8BF /* DirectlyLinkedBindingsAppApp.swift */; };
 		07E0646E287CAD0600CFA8BF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E0646D287CAD0600CFA8BF /* ContentView.swift */; };
 		07E06470287CAD0700CFA8BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E0646F287CAD0700CFA8BF /* Assets.xcassets */; };
 		07E06473287CAD0700CFA8BF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E06472287CAD0700CFA8BF /* Preview Assets.xcassets */; };
-		07E0647D287CAD0800CFA8BF /* DirectlyLinkedBindingsAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E0647C287CAD0800CFA8BF /* DirectlyLinkedBindingsAppTests.swift */; };
 		07E06495287CAE6800CFA8BF /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07D3E7C5286C142F0095CCD8 /* libldk.a */; };
 		07E0674F287CAEC200CFA8BF /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07012E9B287753D000148346 /* ldk_net.c */; };
 		07E06750287CAEC400CFA8BF /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07012E9B287753D000148346 /* ldk_net.c */; };
@@ -1943,6 +1957,21 @@
 		07A08DA828E2353300A66BEB /* OutPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutPoint.swift; sourceTree = "<group>"; };
 		07A08DA928E2353300A66BEB /* InvoicePayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InvoicePayer.swift; sourceTree = "<group>"; };
 		07A08DAA28E2353300A66BEB /* DelayedPaymentOutputDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelayedPaymentOutputDescriptor.swift; sourceTree = "<group>"; };
+		07CE1EA128E767DA00BB37E4 /* TestKeysInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestKeysInterface.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/TestKeysInterface.swift; sourceTree = "<group>"; };
+		07CE1EA228E767DA00BB37E4 /* TestPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestPersister.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/TestPersister.swift; sourceTree = "<group>"; };
+		07CE1EA328E767DA00BB37E4 /* LDKTestFixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LDKTestFixtures.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/LDKTestFixtures.swift; sourceTree = "<group>"; };
+		07CE1EA428E767DB00BB37E4 /* TestLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestLogger.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/TestLogger.swift; sourceTree = "<group>"; };
+		07CE1EA528E767DB00BB37E4 /* TestFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestFilter.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/TestFilter.swift; sourceTree = "<group>"; };
+		07CE1EA628E767DB00BB37E4 /* TestChannelManagerPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestChannelManagerPersister.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/TestChannelManagerPersister.swift; sourceTree = "<group>"; };
+		07CE1EA728E767DB00BB37E4 /* HumanObjectPeerTestInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HumanObjectPeerTestInstance.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/HumanObjectPeerTestInstance.swift; sourceTree = "<group>"; };
+		07CE1EA828E767DB00BB37E4 /* LDKSwiftTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LDKSwiftTests.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/LDKSwiftTests.swift; sourceTree = "<group>"; };
+		07CE1EA928E767DB00BB37E4 /* TestFeeEstimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestFeeEstimator.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/TestFeeEstimator.swift; sourceTree = "<group>"; };
+		07CE1EAB28E767DB00BB37E4 /* BTCVarInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCVarInt.swift; sourceTree = "<group>"; };
+		07CE1EAC28E767DB00BB37E4 /* BitcoinTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinTests.swift; sourceTree = "<group>"; };
+		07CE1EAD28E767DB00BB37E4 /* BTCBlock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCBlock.swift; sourceTree = "<group>"; };
+		07CE1EAE28E767DB00BB37E4 /* BTCTransaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCTransaction.swift; sourceTree = "<group>"; };
+		07CE1EAF28E767DB00BB37E4 /* BTCHashing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCHashing.swift; sourceTree = "<group>"; };
+		07CE1EB028E767DC00BB37E4 /* TestBroadcasterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestBroadcasterInterface.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/TestBroadcasterInterface.swift; sourceTree = "<group>"; };
 		07D3E7C5286C142F0095CCD8 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libldk.a; sourceTree = "<group>"; };
 		07E06469287CAD0600CFA8BF /* DirectlyLinkedBindingsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DirectlyLinkedBindingsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E0646B287CAD0600CFA8BF /* DirectlyLinkedBindingsAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectlyLinkedBindingsAppApp.swift; sourceTree = "<group>"; };
@@ -1950,7 +1979,6 @@
 		07E0646F287CAD0700CFA8BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07E06472287CAD0700CFA8BF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		07E06478287CAD0800CFA8BF /* DirectlyLinkedBindingsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DirectlyLinkedBindingsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		07E0647C287CAD0800CFA8BF /* DirectlyLinkedBindingsAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectlyLinkedBindingsAppTests.swift; sourceTree = "<group>"; };
 		07E06757287CB0E200CFA8BF /* LNSyncHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LNSyncHandler.swift; sourceTree = "<group>"; };
 		07E06758287CB0E200CFA8BF /* RegtestChannelManagerPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegtestChannelManagerPersister.swift; sourceTree = "<group>"; };
 		07E06759287CB0E200CFA8BF /* SwiftSocketPeerHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSocketPeerHandler.swift; sourceTree = "<group>"; };
@@ -2489,6 +2517,19 @@
 			path = structs;
 			sourceTree = "<group>";
 		};
+		07CE1EAA28E767DB00BB37E4 /* bitcoin */ = {
+			isa = PBXGroup;
+			children = (
+				07CE1EAB28E767DB00BB37E4 /* BTCVarInt.swift */,
+				07CE1EAC28E767DB00BB37E4 /* BitcoinTests.swift */,
+				07CE1EAD28E767DB00BB37E4 /* BTCBlock.swift */,
+				07CE1EAE28E767DB00BB37E4 /* BTCTransaction.swift */,
+				07CE1EAF28E767DB00BB37E4 /* BTCHashing.swift */,
+			);
+			name = bitcoin;
+			path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/bitcoin;
+			sourceTree = "<group>";
+		};
 		07E0646A287CAD0600CFA8BF /* DirectlyLinkedBindingsApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -2513,7 +2554,17 @@
 		07E0647B287CAD0800CFA8BF /* DirectlyLinkedBindingsAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				07E0647C287CAD0800CFA8BF /* DirectlyLinkedBindingsAppTests.swift */,
+				07CE1EAA28E767DB00BB37E4 /* bitcoin */,
+				07CE1EA728E767DB00BB37E4 /* HumanObjectPeerTestInstance.swift */,
+				07CE1EA828E767DB00BB37E4 /* LDKSwiftTests.swift */,
+				07CE1EA328E767DA00BB37E4 /* LDKTestFixtures.swift */,
+				07CE1EB028E767DC00BB37E4 /* TestBroadcasterInterface.swift */,
+				07CE1EA628E767DB00BB37E4 /* TestChannelManagerPersister.swift */,
+				07CE1EA928E767DB00BB37E4 /* TestFeeEstimator.swift */,
+				07CE1EA528E767DB00BB37E4 /* TestFilter.swift */,
+				07CE1EA128E767DA00BB37E4 /* TestKeysInterface.swift */,
+				07CE1EA428E767DB00BB37E4 /* TestLogger.swift */,
+				07CE1EA228E767DA00BB37E4 /* TestPersister.swift */,
 			);
 			path = DirectlyLinkedBindingsAppTests;
 			sourceTree = "<group>";
@@ -3938,6 +3989,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07CE1EBB28E767DC00BB37E4 /* BitcoinTests.swift in Sources */,
 				07A0925228E2353700A66BEB /* CommitmentSigned.swift in Sources */,
 				07A08E4A28E2353300A66BEB /* SpendableOutputDescriptor.swift in Sources */,
 				07A092CA28E2353700A66BEB /* DefaultRouter.swift in Sources */,
@@ -3990,6 +4042,7 @@
 				07A090AA28E2353500A66BEB /* Result_ChannelUpdateInfoDecodeErrorZ.swift in Sources */,
 				07A091A628E2353600A66BEB /* ChannelReestablish.swift in Sources */,
 				07A0903A28E2353500A66BEB /* Result_RoutingFeesDecodeErrorZ.swift in Sources */,
+				07CE1EB328E767DC00BB37E4 /* LDKTestFixtures.swift in Sources */,
 				07A08EB228E2353400A66BEB /* Filter.swift in Sources */,
 				07A08F6A28E2353400A66BEB /* Result_COption_ClosureReasonZDecodeErrorZ.swift in Sources */,
 				07A0912A28E2353600A66BEB /* Result_ChannelReadyDecodeErrorZ.swift in Sources */,
@@ -4026,6 +4079,7 @@
 				07A0915A28E2353600A66BEB /* InFlightHtlcs.swift in Sources */,
 				07A0921228E2353600A66BEB /* CounterpartyChannelTransactionParameters.swift in Sources */,
 				07A08E7628E2353400A66BEB /* Payer.swift in Sources */,
+				07CE1EBE28E767DC00BB37E4 /* BTCHashing.swift in Sources */,
 				07A0931228E2353700A66BEB /* NodeAnnouncement.swift in Sources */,
 				07A08FC228E2353500A66BEB /* Result_AnnouncementSignaturesDecodeErrorZ.swift in Sources */,
 				07A0910228E2353600A66BEB /* Result_NodeAnnouncementInfoDecodeErrorZ.swift in Sources */,
@@ -4048,6 +4102,8 @@
 				07A0929A28E2353700A66BEB /* Shutdown.swift in Sources */,
 				07A0937228E2353800A66BEB /* OutPoint.swift in Sources */,
 				07A08F7A28E2353400A66BEB /* Result__u832APIErrorZ.swift in Sources */,
+				07CE1EB628E767DC00BB37E4 /* TestChannelManagerPersister.swift in Sources */,
+				07CE1EB528E767DC00BB37E4 /* TestFilter.swift in Sources */,
 				07A0913A28E2353600A66BEB /* Result_NoneChannelMonitorUpdateErrZ.swift in Sources */,
 				07A091DE28E2353600A66BEB /* OnionMessenger.swift in Sources */,
 				07A091F628E2353600A66BEB /* QueryShortChannelIds.swift in Sources */,
@@ -4105,6 +4161,7 @@
 				07A08EEA28E2353400A66BEB /* C2Tuple_PaymentHashPaymentSecretZ.swift in Sources */,
 				07E06768287CB0E200CFA8BF /* CombineUtils.swift in Sources */,
 				07A0903628E2353500A66BEB /* Result_SiPrefixParseErrorZ.swift in Sources */,
+				07CE1EBC28E767DC00BB37E4 /* BTCBlock.swift in Sources */,
 				07A08DBA28E2353300A66BEB /* Bech32Error.swift in Sources */,
 				07A0927E28E2353700A66BEB /* NodeInfo.swift in Sources */,
 				07A08FA228E2353400A66BEB /* Result_ErrorMessageDecodeErrorZ.swift in Sources */,
@@ -4128,9 +4185,11 @@
 				07A0925A28E2353700A66BEB /* RawInvoice.swift in Sources */,
 				07A090BA28E2353500A66BEB /* Result_C2Tuple_PaymentHashPaymentSecretZNoneZ.swift in Sources */,
 				07A0902E28E2353500A66BEB /* Result_NoneSemanticErrorZ.swift in Sources */,
+				07CE1EB428E767DC00BB37E4 /* TestLogger.swift in Sources */,
 				07A08E3A28E2353300A66BEB /* ClosureReason.swift in Sources */,
 				07A092F228E2353700A66BEB /* ChannelCounterparty.swift in Sources */,
 				07A0909628E2353500A66BEB /* Result_NoneErrorZ.swift in Sources */,
+				07CE1EBD28E767DC00BB37E4 /* BTCTransaction.swift in Sources */,
 				07A092AE28E2353700A66BEB /* ChannelHandshakeLimits.swift in Sources */,
 				07A0918228E2353600A66BEB /* PositiveTimestamp.swift in Sources */,
 				07A0915228E2353600A66BEB /* Result_InMemorySignerDecodeErrorZ.swift in Sources */,
@@ -4145,6 +4204,7 @@
 				07A092FA28E2353700A66BEB /* WatchedOutput.swift in Sources */,
 				07A08FB228E2353400A66BEB /* Result_UnsignedNodeAnnouncementDecodeErrorZ.swift in Sources */,
 				07A08F1228E2353400A66BEB /* C2Tuple_PaymentHashPaymentIdZ.swift in Sources */,
+				07CE1EB228E767DC00BB37E4 /* TestPersister.swift in Sources */,
 				07A090C628E2353500A66BEB /* Result_boolPeerHandleErrorZ.swift in Sources */,
 				07A08DEA28E2353300A66BEB /* PaymentPurpose.swift in Sources */,
 				07A08E0E28E2353300A66BEB /* Option_NetworkUpdateZ.swift in Sources */,
@@ -4167,6 +4227,7 @@
 				07A0908E28E2353500A66BEB /* Result_ChannelMonitorUpdateDecodeErrorZ.swift in Sources */,
 				07A08EA628E2353400A66BEB /* ChannelMessageHandler.swift in Sources */,
 				07A092D628E2353700A66BEB /* UnsignedChannelAnnouncement.swift in Sources */,
+				07CE1EB928E767DC00BB37E4 /* TestFeeEstimator.swift in Sources */,
 				07A0900628E2353500A66BEB /* Result_DescriptionCreationErrorZ.swift in Sources */,
 				07A08EB628E2353400A66BEB /* CustomMessageReader.swift in Sources */,
 				07A092CE28E2353700A66BEB /* ChannelDetails.swift in Sources */,
@@ -4182,6 +4243,7 @@
 				07A090DE28E2353500A66BEB /* Result_ProbabilisticScorerDecodeErrorZ.swift in Sources */,
 				07A08E0A28E2353300A66BEB /* Option_MonitorEventZ.swift in Sources */,
 				07A0913228E2353600A66BEB /* Result_InitDecodeErrorZ.swift in Sources */,
+				07CE1EBF28E767DC00BB37E4 /* TestBroadcasterInterface.swift in Sources */,
 				07A08E1E28E2353300A66BEB /* BindingsError.swift in Sources */,
 				07A08E8A28E2353400A66BEB /* MessageSendEventsProvider.swift in Sources */,
 				07A091CA28E2353600A66BEB /* ChannelMonitor.swift in Sources */,
@@ -4235,6 +4297,7 @@
 				07A0917E28E2353600A66BEB /* Ping.swift in Sources */,
 				07A08EAA28E2353400A66BEB /* WriteableScore.swift in Sources */,
 				07A08F2A28E2353400A66BEB /* Result_C2Tuple_SignatureSignatureZNoneZ.swift in Sources */,
+				07CE1EBA28E767DC00BB37E4 /* BTCVarInt.swift in Sources */,
 				07A08F6628E2353400A66BEB /* Result_RevokeAndACKDecodeErrorZ.swift in Sources */,
 				07A0919228E2353600A66BEB /* UpdateFailMalformedHTLC.swift in Sources */,
 				07A0929228E2353700A66BEB /* ChannelManager.swift in Sources */,
@@ -4272,6 +4335,7 @@
 				07A0936E28E2353800A66BEB /* ChannelReady.swift in Sources */,
 				07A091FE28E2353600A66BEB /* DirectedChannelInfo.swift in Sources */,
 				07A0925E28E2353700A66BEB /* Pong.swift in Sources */,
+				07CE1EB828E767DC00BB37E4 /* LDKSwiftTests.swift in Sources */,
 				07A0908228E2353500A66BEB /* Result_RecoverableSignatureNoneZ.swift in Sources */,
 				07A090CE28E2353500A66BEB /* Result_C2Tuple_SignatureCVec_SignatureZZNoneZ.swift in Sources */,
 				07A0933628E2353800A66BEB /* ClosingTransaction.swift in Sources */,
@@ -4290,7 +4354,6 @@
 				07A08EFE28E2353400A66BEB /* C3Tuple_RawInvoice_u832InvoiceSignatureZ.swift in Sources */,
 				07A08F7228E2353400A66BEB /* Result_ChannelInfoDecodeErrorZ.swift in Sources */,
 				07A0921E28E2353700A66BEB /* IgnoringMessageHandler.swift in Sources */,
-				07E0647D287CAD0800CFA8BF /* DirectlyLinkedBindingsAppTests.swift in Sources */,
 				07A0904A28E2353500A66BEB /* Result_RouteParametersDecodeErrorZ.swift in Sources */,
 				07A0907628E2353500A66BEB /* Result_InitFeaturesDecodeErrorZ.swift in Sources */,
 				07A08EFA28E2353400A66BEB /* C2Tuple_SignatureSignatureZ.swift in Sources */,
@@ -4300,6 +4363,7 @@
 				07A0909E28E2353500A66BEB /* Result_UpdateAddHTLCDecodeErrorZ.swift in Sources */,
 				07A08F4628E2353400A66BEB /* Result_InFlightHtlcsDecodeErrorZ.swift in Sources */,
 				07A090FE28E2353600A66BEB /* Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ.swift in Sources */,
+				07CE1EB128E767DC00BB37E4 /* TestKeysInterface.swift in Sources */,
 				07A0924628E2353700A66BEB /* GossipTimestampFilter.swift in Sources */,
 				07A0933A28E2353800A66BEB /* LockedChannelMonitor.swift in Sources */,
 				07A08FEE28E2353500A66BEB /* Result_ChannelTypeFeaturesDecodeErrorZ.swift in Sources */,
@@ -4317,6 +4381,7 @@
 				07A0927A28E2353700A66BEB /* ChannelTransactionParameters.swift in Sources */,
 				07E06764287CB0E200CFA8BF /* RegtestChannelManagerPersister.swift in Sources */,
 				07A08E4E28E2353300A66BEB /* Option_CVec_NetAddressZZ.swift in Sources */,
+				07CE1EB728E767DC00BB37E4 /* HumanObjectPeerTestInstance.swift in Sources */,
 				07E06770287CB0E200CFA8BF /* RegtestBlockchainManager.swift in Sources */,
 				07A08FDA28E2353500A66BEB /* Result_NonePeerHandleErrorZ.swift in Sources */,
 				07A08FC628E2353500A66BEB /* Result_StringErrorZ.swift in Sources */,
@@ -4396,8 +4461,8 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LDK_C_BINDINGS_BASE = "/Users/arik/Developer/ldk-c-bindings";
-				LDK_C_BINDINGS_BINARY_DIRECTORY = "";
-				LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY = "${PROJECT_DIR}/binary";
+				LDK_C_BINDINGS_BINARY_DIRECTORY = "${PROJECT_DIR}/binary";
+				LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY = "";
 				LIBRARY_SEARCH_PATHS = (
 					"${LDK_C_BINDINGS_BINARY_DIRECTORY}",
 					"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}",
@@ -4464,8 +4529,8 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LDK_C_BINDINGS_BASE = "/Users/arik/Developer/ldk-c-bindings";
-				LDK_C_BINDINGS_BINARY_DIRECTORY = "";
-				LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY = "${PROJECT_DIR}/binary";
+				LDK_C_BINDINGS_BINARY_DIRECTORY = "${PROJECT_DIR}/binary";
+				LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY = "";
 				LIBRARY_SEARCH_PATHS = (
 					"${LDK_C_BINDINGS_BINARY_DIRECTORY}",
 					"${LDK_C_BINDINGS_BINARY_FORCED_REBUILD_OUTPUT_DIRECTORY}",
@@ -4688,6 +4753,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.lightningdevkit.DirectlyLinkedBindingsAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Framework/Framework.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DirectlyLinkedBindingsApp.app/DirectlyLinkedBindingsApp";
@@ -4714,6 +4780,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.lightningdevkit.DirectlyLinkedBindingsAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_DIR}/Framework/Framework.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DirectlyLinkedBindingsApp.app/DirectlyLinkedBindingsApp";

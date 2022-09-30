@@ -176,11 +176,10 @@ public class HumanObjectPeerTestInstance {
                 super.init()
             }
 
-            override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+            override func register_output(output: WatchedOutput) {
                 if let outpoint = output.get_outpoint() {
                     self.master.filterAdditions.insert("\(outpoint.get_txid()):\(outpoint.get_index())")
                 }
-                return Option_C2Tuple_usizeTransactionZZ(value: nil)
             }
 
             override func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) {
@@ -304,9 +303,11 @@ public class HumanObjectPeerTestInstance {
                 let chainParameters = ChainParameters(network_arg: LDKNetwork_Bitcoin, best_block_arg: BestBlock(block_hash: [UInt8](repeating: 0, count: 32), height: 0))
                 self.channelManager = ChannelManager(fee_est: self.feeEstimator, chain_monitor: self.chainWatch!, tx_broadcaster: self.txBroadcaster, logger: self.logger, keys_manager: self.keysInterface, config: UserConfig(), params: chainParameters)
                 let randomData = self.keysInterface.get_secure_random_bytes()
-                let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.getValueAsP2P()!.as_RoutingMessageHandler())
+                let ignoringMessageHandler = IgnoringMessageHandler()
+                let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.getValueAsP2P()!.as_RoutingMessageHandler(), onion_message_handler_arg: ignoringMessageHandler.as_OnionMessageHandler())
                 let nodeSecret = self.keysInterface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
-                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
+                let timestampSeconds = UInt64(NSDate().timeIntervalSince1970)
+                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, current_time: timestampSeconds, ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
             self.nodeId = self.channelManager.get_our_node_id()
             try! self.bindSocketHandler()

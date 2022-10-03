@@ -350,7 +350,7 @@ class LDKSwiftTests: XCTestCase {
             let paths = route.get_paths()
             print("found route with \(paths.count) paths!")
             for currentPath in paths {
-                print("\n\nPath Option:")
+                print("\nPath Option:")
                 for currentHop in currentPath {
                     print("scid: \(currentHop.get_short_channel_id()), pubkey: \(currentHop.get_pubkey()), fee (msat): \(currentHop.get_fee_msat()), CLTV delta: \(currentHop.get_cltv_expiry_delta())")
                 }

@@ -2809,6 +2809,7 @@
 		};
 		07E06E52287CB2AB00CFA8BF /* Run Script: Copy Headers & Build Binary */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);

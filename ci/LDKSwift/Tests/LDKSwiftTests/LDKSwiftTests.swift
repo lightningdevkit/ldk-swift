@@ -308,19 +308,21 @@ class LDKSwiftTests: XCTestCase {
 		let elapsedB = Double(finishB.uptimeNanoseconds-startB.uptimeNanoseconds)/1_000_000_000
 		print("Applied rapid sync data: \(timestamp.getValue())! Time: \(elapsedB)s")
 
+        /*
 		print("Measuring graph size…")
 		let startC = DispatchTime.now()
 		let graphBytes = networkGraph.write()
 		let finishC = DispatchTime.now()
 		let elapsedC = Double(finishC.uptimeNanoseconds-startC.uptimeNanoseconds)/1_000_000_000
 		print("Network graph size: \(graphBytes.count)! Time: \(elapsedC)s")
+        */
 
-        // let scoringParams = ProbabilisticScoringParameters()
-        // let scorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
-        // let score = scorer.as_Score()
-        let lockableScore = LockableScore()
-        let defaultRouter = DefaultRouter(network_graph: networkGraph, logger: logger, random_seed_bytes: [UInt8](repeating: 0, count: 32), scorer: lockableScore)
-		let router = defaultRouter.as_Router()
+        let scoringParams = ProbabilisticScoringParameters()
+        let scorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
+        let score = scorer.as_Score()
+        // let lockableScore = LockableScore()
+        // let defaultRouter = DefaultRouter(network_graph: networkGraph, logger: logger, random_seed_bytes: [UInt8](repeating: 0, count: 32), scorer: lockableScore)
+		// let router = defaultRouter.as_Router()
 		
 		// let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -336,8 +338,24 @@ class LDKSwiftTests: XCTestCase {
 
 		let firstHops: [ChannelDetails]? = nil
 		print("STEP B")
+        let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
+        let foundRoute = Bindings.swift_find_route(our_node_pubkey: payerPubkey, route_params: routeParameters, network_graph: networkGraph, first_hops: nil, logger: logger, scorer: score, random_seed_bytes: randomSeedBytes)
 //        let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, inflight_htlcs: <#T##InFlightHtlcs#>)
-		// print("found route: \(foundRoute)")
+        
+        if let routeError = foundRoute.getError() {
+            print("routing error: \(routeError.get_err())")
+        }
+        
+        if let route = foundRoute.getValue() {
+            let paths = route.get_paths()
+            print("found route with \(paths.count) paths!")
+            for currentPath in paths {
+                print("\n\nPath Option:")
+                for currentHop in currentPath {
+                    print("scid: \(currentHop.get_short_channel_id()), pubkey: \(currentHop.get_pubkey()), fee (msat): \(currentHop.get_fee_msat()), CLTV delta: \(currentHop.get_cltv_expiry_delta())")
+                }
+            }
+        }
         
 	}
 

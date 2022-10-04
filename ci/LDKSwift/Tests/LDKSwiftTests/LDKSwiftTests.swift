@@ -11,10 +11,6 @@ import LDKHeaders
 #endif
 import XCTest
 
-#if canImport(FoundationNetworking)
-import FoundationNetworking
-#endif
-
 class LDKSwiftTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -280,6 +276,7 @@ class LDKSwiftTests: XCTestCase {
 		let route = Route(paths_arg: [path], payment_params_arg: paymentParams)
     }
 
+    #if !SWIFT_PACKAGE
     public func testRapidGossipSync() async throws {
 		// first, download the gossip data
 		print("Sending rapid gossip sync request…");
@@ -362,6 +359,7 @@ class LDKSwiftTests: XCTestCase {
         }
         
 	}
+    #endif
 
     func testExtendedActivity() async throws {
 		// for i in 0...(1 << 7) {

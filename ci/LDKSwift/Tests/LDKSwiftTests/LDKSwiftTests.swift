@@ -11,6 +11,10 @@ import LDKHeaders
 #endif
 import XCTest
 
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
+
 class LDKSwiftTests: XCTestCase {
 
     override func setUpWithError() throws {

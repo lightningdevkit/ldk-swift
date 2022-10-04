@@ -28,7 +28,7 @@ runs:
             if: ${{ inputs.configureRustNightly == 'true' }}
             shell: bash
             run: |
-                rustup toolchain install nightly
+                rustup toolchain install nightly-2022-05-13
                 rustup target add aarch64-apple-darwin aarch64-apple-ios x86_64-apple-ios
                 rustup component add rust-src --toolchain nightly-x86_64-apple-darwin
         -   name: Load Cache

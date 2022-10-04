@@ -123,44 +123,50 @@ extension Bindings {
 
 		open func node_id() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Error: Payer::node_id MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Payer::node_id MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func first_hops() -> [LDKChannelDetails] {
 			/* EDIT ME */
-		Bindings.print("Error: Payer::first_hops MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Payer::first_hops MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
 			/* EDIT ME */
-		Bindings.print("Error: Payer::send_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Payer::send_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
 			/* EDIT ME */
-		Bindings.print("Error: Payer::send_spontaneous_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Payer::send_spontaneous_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func retry_payment(route: Route, payment_id: [UInt8]) -> Result_NonePaymentSendFailureZ {
 			/* EDIT ME */
-		Bindings.print("Error: Payer::retry_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Payer::retry_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func abandon_payment(payment_id: [UInt8]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: Payer::abandon_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Payer::abandon_payment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

@@ -84,9 +84,10 @@ extension Bindings {
 
 		open func get_utxo(genesis_hash: [UInt8]?, short_channel_id: UInt64) -> Result_TxOutAccessErrorZ {
 			/* EDIT ME */
-		Bindings.print("Error: Access::get_utxo MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Access::get_utxo MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

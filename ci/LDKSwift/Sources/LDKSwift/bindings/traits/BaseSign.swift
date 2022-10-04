@@ -188,93 +188,106 @@ extension Bindings {
 
 		open func get_per_commitment_point(idx: UInt64) -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::get_per_commitment_point MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::get_per_commitment_point MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func release_commitment_secret(idx: UInt64) -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::release_commitment_secret MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::release_commitment_secret MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func validate_holder_commitment(holder_tx: HolderCommitmentTransaction, preimages: [[UInt8]]) -> Result_NoneNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::validate_holder_commitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::validate_holder_commitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func channel_keys_id() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::channel_keys_id MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::channel_keys_id MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_counterparty_commitment(commitment_tx: CommitmentTransaction, preimages: [[UInt8]]) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::sign_counterparty_commitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::sign_counterparty_commitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func validate_counterparty_revocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::validate_counterparty_revocation MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::validate_counterparty_revocation MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_holder_commitment_and_htlcs(commitment_tx: HolderCommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::sign_holder_commitment_and_htlcs MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::sign_holder_commitment_and_htlcs MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_justice_revoked_output(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?) -> Result_SignatureNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::sign_justice_revoked_output MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::sign_justice_revoked_output MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_justice_revoked_htlc(justice_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_key: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::sign_justice_revoked_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::sign_justice_revoked_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_counterparty_htlc_transaction(htlc_tx: [UInt8], input: UInt, amount: UInt64, per_commitment_point: [UInt8], htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::sign_counterparty_htlc_transaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::sign_counterparty_htlc_transaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_closing_transaction(closing_tx: ClosingTransaction) -> Result_SignatureNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::sign_closing_transaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::sign_closing_transaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_channel_announcement(msg: UnsignedChannelAnnouncement) -> Result_C2Tuple_SignatureSignatureZNoneZ {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::sign_channel_announcement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::sign_channel_announcement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func ready_channel(channel_parameters: ChannelTransactionParameters) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: BaseSign::ready_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: BaseSign::ready_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

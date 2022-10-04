@@ -175,7 +175,7 @@ class LDKSwiftTests: XCTestCase {
         let channelManagerAndNetworkGraphPersisterAndEventHandler = FloatingChannelManagerPersister(channelManager: channelManager)
     }
 
-    #if !SWIFT_PACKAGE
+    
 	func testMainnetGraphSync() async throws {
         let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
         let reversedGenesisHash = Self.hexStringToBytes(hexString: reversedGenesisHashHex)!
@@ -240,7 +240,6 @@ class LDKSwiftTests: XCTestCase {
 
 		Bindings.setLogThreshold(severity: .DEBUG)
     }
-    #endif
     
 
     func testRouteConstruction() throws {

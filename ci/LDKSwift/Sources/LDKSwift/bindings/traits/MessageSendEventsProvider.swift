@@ -85,9 +85,10 @@ extension Bindings {
 
 		open func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
 			/* EDIT ME */
-		Bindings.print("Error: MessageSendEventsProvider::get_and_clear_pending_msg_events MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: MessageSendEventsProvider::get_and_clear_pending_msg_events MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

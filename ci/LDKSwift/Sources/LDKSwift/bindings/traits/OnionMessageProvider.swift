@@ -79,9 +79,10 @@ extension Bindings {
 
 		open func next_onion_message_for_peer(peer_node_id: [UInt8]) -> OnionMessage {
 			/* EDIT ME */
-		Bindings.print("Error: OnionMessageProvider::next_onion_message_for_peer MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: OnionMessageProvider::next_onion_message_for_peer MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

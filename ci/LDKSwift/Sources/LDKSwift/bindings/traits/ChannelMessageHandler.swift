@@ -247,156 +247,178 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 
 		open func handle_open_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: OpenChannel) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_open_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_open_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_accept_channel(their_node_id: [UInt8], their_features: InitFeatures, msg: AcceptChannel) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_accept_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_accept_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_funding_created(their_node_id: [UInt8], msg: FundingCreated) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_funding_created MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_funding_created MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_funding_signed(their_node_id: [UInt8], msg: FundingSigned) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_funding_signed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_funding_signed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_channel_ready(their_node_id: [UInt8], msg: ChannelReady) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_channel_ready MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_channel_ready MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_shutdown(their_node_id: [UInt8], their_features: InitFeatures, msg: Shutdown) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_shutdown MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_shutdown MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_closing_signed(their_node_id: [UInt8], msg: ClosingSigned) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_closing_signed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_closing_signed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_update_add_htlc(their_node_id: [UInt8], msg: UpdateAddHTLC) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_update_add_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_update_add_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_update_fulfill_htlc(their_node_id: [UInt8], msg: UpdateFulfillHTLC) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_update_fulfill_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_update_fulfill_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_update_fail_htlc(their_node_id: [UInt8], msg: UpdateFailHTLC) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_update_fail_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_update_fail_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_update_fail_malformed_htlc(their_node_id: [UInt8], msg: UpdateFailMalformedHTLC) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_update_fail_malformed_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_update_fail_malformed_htlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_commitment_signed(their_node_id: [UInt8], msg: CommitmentSigned) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_commitment_signed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_commitment_signed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_revoke_and_ack(their_node_id: [UInt8], msg: RevokeAndACK) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_revoke_and_ack MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_revoke_and_ack MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_update_fee(their_node_id: [UInt8], msg: UpdateFee) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_update_fee MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_update_fee MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_announcement_signatures(their_node_id: [UInt8], msg: AnnouncementSignatures) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_announcement_signatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_announcement_signatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func peer_disconnected(their_node_id: [UInt8], no_connection_possible: Bool) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::peer_disconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::peer_disconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func peer_connected(their_node_id: [UInt8], msg: Init) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::peer_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::peer_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_channel_reestablish(their_node_id: [UInt8], msg: ChannelReestablish) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_channel_reestablish MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_channel_reestablish MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_channel_update(their_node_id: [UInt8], msg: ChannelUpdate) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_channel_update MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_channel_update MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_error(their_node_id: [UInt8], msg: ErrorMessage) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::handle_error MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::handle_error MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func provided_node_features() -> NodeFeatures {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::provided_node_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::provided_node_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func provided_init_features(their_node_id: [UInt8]) -> InitFeatures {
 			/* EDIT ME */
-		Bindings.print("Error: ChannelMessageHandler::provided_init_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: ChannelMessageHandler::provided_init_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

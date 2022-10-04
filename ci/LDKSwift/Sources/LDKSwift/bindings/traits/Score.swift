@@ -122,44 +122,50 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 
 		open func channel_penalty_msat(short_channel_id: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage) -> UInt64 {
 			/* EDIT ME */
-		Bindings.print("Error: Score::channel_penalty_msat MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Score::channel_penalty_msat MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: Score::payment_path_failed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Score::payment_path_failed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func payment_path_successful(path: [LDKRouteHop]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: Score::payment_path_successful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Score::payment_path_successful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: Score::probe_failed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Score::probe_failed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func probe_successful(path: [LDKRouteHop]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Error: Score::probe_successful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Score::probe_successful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func write() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Error: Score::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Score::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

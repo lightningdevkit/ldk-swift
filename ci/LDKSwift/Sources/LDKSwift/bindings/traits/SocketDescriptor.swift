@@ -120,30 +120,34 @@ extension Bindings {
 
 		open func send_data(data: [UInt8], resume_read: Bool) -> UInt {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::send_data MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: SocketDescriptor::send_data MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func disconnect_socket() -> Void {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::disconnect_socket MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: SocketDescriptor::disconnect_socket MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func eq(other_arg: SocketDescriptor) -> Bool {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::eq MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: SocketDescriptor::eq MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func hash() -> UInt64 {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::hash MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: SocketDescriptor::hash MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

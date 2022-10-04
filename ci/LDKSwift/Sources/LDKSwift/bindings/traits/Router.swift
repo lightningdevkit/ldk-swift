@@ -118,37 +118,42 @@ extension Bindings {
 
 		open func find_route(payer: [UInt8], route_params: RouteParameters, payment_hash: [UInt8]?, first_hops: [LDKChannelDetails]?, inflight_htlcs: InFlightHtlcs) -> Result_RouteLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("Router::find_route MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Router::find_route MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func notify_payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
 			/* EDIT ME */
-		Bindings.print("Router::notify_payment_path_failed MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Router::notify_payment_path_failed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func notify_payment_path_successful(path: [LDKRouteHop]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Router::notify_payment_path_successful MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Router::notify_payment_path_successful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func notify_payment_probe_successful(path: [LDKRouteHop]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Router::notify_payment_probe_successful MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Router::notify_payment_probe_successful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func notify_payment_probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
 			/* EDIT ME */
-		Bindings.print("Router::notify_payment_probe_failed MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Router::notify_payment_probe_failed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

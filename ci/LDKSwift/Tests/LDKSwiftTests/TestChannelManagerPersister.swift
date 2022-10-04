@@ -26,6 +26,10 @@ class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
     override func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
         return Result_NoneErrorZ()
     }
+    
+    override func persist_scorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
+        Result_NoneErrorZ()
+    }
 }
 
 class FloatingChannelManagerPersister : Persister{

@@ -161,86 +161,98 @@ extension Bindings {
 
 		open func handle_node_announcement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_node_announcement MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::handle_node_announcement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_channel_announcement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_channel_announcement MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::handle_channel_announcement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_channel_update(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_channel_update MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::handle_channel_update MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func get_next_channel_announcement(starting_point: UInt64) -> Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::get_next_channel_announcement MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::get_next_channel_announcement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func get_next_node_announcement(starting_point: [UInt8]) -> NodeAnnouncement {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::get_next_node_announcement MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::get_next_node_announcement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func peer_connected(their_node_id: [UInt8], initValue: Init) -> Void {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::peer_connected MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::peer_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_reply_channel_range(their_node_id: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_reply_channel_range MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::handle_reply_channel_range MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_reply_short_channel_ids_end(their_node_id: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_reply_short_channel_ids_end MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::handle_reply_short_channel_ids_end MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_query_channel_range(their_node_id: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_query_channel_range MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::handle_query_channel_range MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func handle_query_short_channel_ids(their_node_id: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::handle_query_short_channel_ids MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::handle_query_short_channel_ids MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func provided_node_features() -> NodeFeatures {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::provided_node_features MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::provided_node_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func provided_init_features(their_node_id: [UInt8]) -> InitFeatures {
 			/* EDIT ME */
-		Bindings.print("RoutingMessageHandler::provided_init_features MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: RoutingMessageHandler::provided_init_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

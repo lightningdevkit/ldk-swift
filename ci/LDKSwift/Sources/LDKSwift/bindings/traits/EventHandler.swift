@@ -80,9 +80,10 @@ extension Bindings {
 
 		open func handle_event(event: Event) -> Void {
 			/* EDIT ME */
-		Bindings.print("EventHandler::handle_event MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: EventHandler::handle_event MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

@@ -42,7 +42,7 @@ git clone --branch 2022-09-111-java-bindings https://github.com/TheBlueMatt/rust
 **[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:
 
 ```shell
-git clone --branch v0.0.110.1 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
+git clone --branch v0.0.111.0 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
 ```
 
 Take note of where you clone these directories, it's best you save the absolute path somewhere handy for the rest of the remaining steps.

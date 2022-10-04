@@ -141,65 +141,74 @@ extension Bindings {
 
 		open func get_node_secret(recipient: LDKRecipient) -> Result_SecretKeyNoneZ {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_node_secret MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::get_node_secret MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func ecdh(recipient: LDKRecipient, other_key: [UInt8], tweak: Option_ScalarZ) -> Result_SharedSecretNoneZ {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::ecdh MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::ecdh MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func get_destination_script() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_destination_script MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::get_destination_script MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func get_shutdown_scriptpubkey() -> ShutdownScript {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_shutdown_scriptpubkey MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::get_shutdown_scriptpubkey MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func get_channel_signer(inbound: Bool, channel_value_satoshis: UInt64) -> Sign {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_channel_signer MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::get_channel_signer MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func get_secure_random_bytes() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_secure_random_bytes MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::get_secure_random_bytes MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func read_chan_signer(reader: [UInt8]) -> Result_SignDecodeErrorZ {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::read_chan_signer MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::read_chan_signer MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func sign_invoice(hrp_bytes: [UInt8], invoice_data: [UInt8], receipient: LDKRecipient) -> Result_RecoverableSignatureNoneZ {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::sign_invoice MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::sign_invoice MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func get_inbound_payment_key_material() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("KeysInterface::get_inbound_payment_key_material MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: KeysInterface::get_inbound_payment_key_material MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

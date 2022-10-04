@@ -79,9 +79,10 @@ extension Bindings {
 
 		open func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
 			/* EDIT ME */
-		Bindings.print("FeeEstimator::get_est_sat_per_1000_weight MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: FeeEstimator::get_est_sat_per_1000_weight MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

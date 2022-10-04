@@ -96,23 +96,26 @@ extension Bindings {
 
 		open func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
 			/* EDIT ME */
-		Bindings.print("Persister::persist_manager MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Persister::persist_manager MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
 			/* EDIT ME */
-		Bindings.print("Persister::persist_graph MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Persister::persist_graph MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func persist_scorer(scorer: WriteableScore) -> Result_NoneErrorZ {
 			/* EDIT ME */
-		Bindings.print("Persister::persist_scorer MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Persister::persist_scorer MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

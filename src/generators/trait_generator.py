@@ -204,7 +204,10 @@ class TraitGenerator:
 
 			swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} should be overridden!", severity: .WARNING)\n\n{swift_default_return}'
 			if is_default_return_error or ALWAYS_ABORT_ON_UNIMPLEMENTED:
-				swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} MUST be overridden!", severity: .ERROR)\n\nabort()'
+				swift_default_return = f'''
+					Bindings.print("Error: {swift_struct_name}::{current_lambda_name} MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				'''
 
 			if current_lambda_name == 'free':
 				swift_default_return = f'''

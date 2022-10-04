@@ -175,6 +175,7 @@ class LDKSwiftTests: XCTestCase {
         let channelManagerAndNetworkGraphPersisterAndEventHandler = FloatingChannelManagerPersister(channelManager: channelManager)
     }
 
+    
 	func testMainnetGraphSync() async throws {
         let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
         let reversedGenesisHash = Self.hexStringToBytes(hexString: reversedGenesisHashHex)!
@@ -210,7 +211,7 @@ class LDKSwiftTests: XCTestCase {
             print("net graph available!")
         }
 
-        // Bindings.setLogThreshold(severity: .WARNING)
+        Bindings.setLogThreshold(severity: .WARNING)
 
         // bitrefill
         tcpPeerHandler.connect(address: "52.50.244.44", port: 9735, theirNodeId: Self.hexStringToBytes(hexString: "030c3f19d742ca294a55c00376b3b355c3c90d61c6b6b39554dbc7ac19b141c14f")!)
@@ -238,8 +239,8 @@ class LDKSwiftTests: XCTestCase {
         }
 
 		Bindings.setLogThreshold(severity: .DEBUG)
-
     }
+    
 
     func testRouteConstruction() throws {
 
@@ -276,6 +277,7 @@ class LDKSwiftTests: XCTestCase {
 		let route = Route(paths_arg: [path], payment_params_arg: paymentParams)
     }
 
+    #if !SWIFT_PACKAGE
     public func testRapidGossipSync() async throws {
 		// first, download the gossip data
 		print("Sending rapid gossip sync request…");
@@ -350,7 +352,7 @@ class LDKSwiftTests: XCTestCase {
             let paths = route.get_paths()
             print("found route with \(paths.count) paths!")
             for currentPath in paths {
-                print("\n\nPath Option:")
+                print("\nPath Option:")
                 for currentHop in currentPath {
                     print("scid: \(currentHop.get_short_channel_id()), pubkey: \(currentHop.get_pubkey()), fee (msat): \(currentHop.get_fee_msat()), CLTV delta: \(currentHop.get_cltv_expiry_delta())")
                 }
@@ -358,6 +360,7 @@ class LDKSwiftTests: XCTestCase {
         }
         
 	}
+    #endif
 
     func testExtendedActivity() async throws {
 		// for i in 0...(1 << 7) {

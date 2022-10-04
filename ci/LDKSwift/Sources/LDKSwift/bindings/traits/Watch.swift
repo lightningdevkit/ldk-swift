@@ -99,23 +99,26 @@ extension Bindings {
 
 		open func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
 			/* EDIT ME */
-		Bindings.print("Watch::watch_channel MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Watch::watch_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
 			/* EDIT ME */
-		Bindings.print("Watch::update_channel MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Watch::update_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func release_pending_monitor_events() -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
 			/* EDIT ME */
-		Bindings.print("Watch::release_pending_monitor_events MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Watch::release_pending_monitor_events MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

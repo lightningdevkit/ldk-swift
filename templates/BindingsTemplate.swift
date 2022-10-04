@@ -14,6 +14,12 @@ import Foundation
 import LDKHeaders
 #endif
 
+#if os(Linux)
+    import Glibc
+#else
+    import Darwin.C
+#endif
+
 public typealias LDKTransactionOutputs = LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias TransactionOutputs = C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ
 public typealias LDKTxid = LDKThirtyTwoBytes
@@ -98,7 +104,11 @@ public class Bindings {
 
     internal class func print(_ string: String, severity: PrintSeverity = .DEBUG) {
         if severity.rawValue >= Self.minimumPrintSeverity.rawValue {
-            Swift.print(string)
+
+            // Swift.print(string)
+			NSLog(string)
+			fflush(stdout)
+
 			// if #available(iOS 14.0, *) {
 			// 	#if canImport(os)
 			// 	if severity == Self.PrintSeverity.DEBUG {

@@ -103,23 +103,26 @@ extension Bindings {
 
 		open func filtered_block_connected(header: [UInt8]?, txdata: [LDKC2Tuple_usizeTransactionZ], height: UInt32) -> Void {
 			/* EDIT ME */
-		Bindings.print("Listen::filtered_block_connected MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Listen::filtered_block_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func block_connected(block: [UInt8], height: UInt32) -> Void {
 			/* EDIT ME */
-		Bindings.print("Listen::block_connected MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Listen::block_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func block_disconnected(header: [UInt8]?, height: UInt32) -> Void {
 			/* EDIT ME */
-		Bindings.print("Listen::block_disconnected MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: Listen::block_disconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

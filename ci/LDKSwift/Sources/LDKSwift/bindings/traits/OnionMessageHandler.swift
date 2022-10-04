@@ -110,37 +110,42 @@ extension Bindings {
 
 		open func handle_onion_message(peer_node_id: [UInt8], msg: OnionMessage) -> Void {
 			/* EDIT ME */
-		Bindings.print("OnionMessageHandler::handle_onion_message MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: OnionMessageHandler::handle_onion_message MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func peer_connected(their_node_id: [UInt8], initValue: Init) -> Void {
 			/* EDIT ME */
-		Bindings.print("OnionMessageHandler::peer_connected MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: OnionMessageHandler::peer_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func peer_disconnected(their_node_id: [UInt8], no_connection_possible: Bool) -> Void {
 			/* EDIT ME */
-		Bindings.print("OnionMessageHandler::peer_disconnected MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: OnionMessageHandler::peer_disconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func provided_node_features() -> NodeFeatures {
 			/* EDIT ME */
-		Bindings.print("OnionMessageHandler::provided_node_features MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: OnionMessageHandler::provided_node_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func provided_init_features(their_node_id: [UInt8]) -> InitFeatures {
 			/* EDIT ME */
-		Bindings.print("OnionMessageHandler::provided_init_features MUST be overridden!", severity: .ERROR)
-
-abort()
+		
+					Bindings.print("Error: OnionMessageHandler::provided_init_features MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
 		}
 
 		open func free() -> Void {

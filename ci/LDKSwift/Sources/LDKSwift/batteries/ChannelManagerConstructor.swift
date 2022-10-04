@@ -314,6 +314,10 @@ fileprivate class CustomChannelManagerPersister: Persister {
     override func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
         return self.handler.persist_graph(network_graph: network_graph)
     }
+    
+    override func persist_scorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
+        return self.handler.persist_scorer(scorer: scorer)
+    }
 }
 
 fileprivate class CustomEventHandler: EventHandler {

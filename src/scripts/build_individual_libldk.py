@@ -55,7 +55,7 @@ def run(config: ScriptConfig):
 	child_environment['RUSTFLAGS'] = '--cfg=c_bindings'
 	child_environment['PATH'] = '/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'
 
-	subprocess.check_call([RUSTUP_PATH, 'override', 'set', 'nightly'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
+	subprocess.check_call([RUSTUP_PATH, 'override', 'set', 'nightly-2022-05-13'], cwd=config.LDK_C_BINDINGS_DIRECTORY)
 
 	lipo_executables_input: [str] = []
 

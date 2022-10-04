@@ -86,7 +86,7 @@ extension Bindings {
 
 		open func write() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("WriteableScore::write MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: WriteableScore::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}

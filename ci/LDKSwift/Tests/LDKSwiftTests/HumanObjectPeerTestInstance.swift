@@ -222,6 +222,18 @@ public class HumanObjectPeerTestInstance {
                     await master.pendingEventTracker.addEvent(event: event)
                 }
             }
+            
+            override func persist_manager(channel_manager: Bindings.ChannelManager) -> Bindings.Result_NoneErrorZ {
+                Result_NoneErrorZ()
+            }
+            
+            override func persist_scorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
+                Result_NoneErrorZ()
+            }
+            
+            override func persist_graph(network_graph: Bindings.NetworkGraph) -> Bindings.Result_NoneErrorZ {
+                Result_NoneErrorZ()
+            }
 
         }
 

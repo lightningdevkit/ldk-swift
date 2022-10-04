@@ -91,14 +91,14 @@ extension Bindings {
 
 		open func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Filter::register_tx MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: Filter::register_tx MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}
 
 		open func register_output(output: WatchedOutput) -> Void {
 			/* EDIT ME */
-		Bindings.print("Filter::register_output MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: Filter::register_output MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}

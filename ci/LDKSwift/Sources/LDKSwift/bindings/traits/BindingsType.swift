@@ -118,21 +118,21 @@ extension Bindings {
 
 		open func type_id() -> UInt16 {
 			/* EDIT ME */
-		Bindings.print("BindingsType::type_id MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: BindingsType::type_id MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}
 
 		open func debug_str() -> String {
 			/* EDIT ME */
-		Bindings.print("BindingsType::debug_str MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: BindingsType::debug_str MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}
 
 		open func write() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("BindingsType::write MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: BindingsType::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}

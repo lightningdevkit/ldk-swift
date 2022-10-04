@@ -79,7 +79,7 @@ extension Bindings {
 
 		open func call() -> Void {
 			/* EDIT ME */
-		Bindings.print("FutureCallback::call MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: FutureCallback::call MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}

@@ -79,7 +79,7 @@ extension Bindings {
 
 		open func lock() -> Score {
 			/* EDIT ME */
-		Bindings.print("LockableScore::lock MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: LockableScore::lock MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}

@@ -79,7 +79,7 @@ extension Bindings {
 
 		open func read(message_type: UInt16, buffer: [UInt8]) -> Result_COption_TypeZDecodeErrorZ {
 			/* EDIT ME */
-		Bindings.print("CustomMessageReader::read MUST be overridden!", severity: .ERROR)
+		Bindings.print("Error: CustomMessageReader::read MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 
 abort()
 		}

@@ -17,12 +17,12 @@ extension Bindings {
 		/* DEFAULT_CONSTRUCTOR_START */
 		#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(message_handler: MessageHandler, our_node_secret: [UInt8], ephemeral_random_data: [UInt8], logger: Logger, custom_message_handler: CustomMessageHandler) {
+public init(message_handler: MessageHandler, our_node_secret: [UInt8], current_time: UInt64, ephemeral_random_data: [UInt8], logger: Logger, custom_message_handler: CustomMessageHandler) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			
 			self.cOpaqueStruct = withUnsafePointer(to: Bindings.array_to_tuple32(array: ephemeral_random_data)) { (ephemeral_random_dataPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
-PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), ephemeral_random_dataPointer, logger.activate().cOpaqueStruct!, custom_message_handler.activate().cOpaqueStruct!)
+PeerManager_new(message_handler.cOpaqueStruct!, Bindings.new_LDKSecretKey(array: our_node_secret), current_time, ephemeral_random_dataPointer, logger.activate().cOpaqueStruct!, custom_message_handler.activate().cOpaqueStruct!)
 }
 			super.init(conflictAvoidingVariableName: 0)
 			try? self.addAnchor(anchor: message_handler)
@@ -134,6 +134,28 @@ PeerManager_disconnect_all_peers(this_argPointer)
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_timer_tick_occurred(this_argPointer)
+};
+		}
+
+		public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) -> Void {
+			
+							let addressesUnwrapped = addresses.map { (addressesCurrentValue) in
+							addressesCurrentValue
+								.danglingClone().cOpaqueStruct!
+							}
+						
+			return self.broadcast_node_announcement(rgb: rgb, alias: alias, addresses: addressesUnwrapped);
+		}
+
+		internal func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
+			
+						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses)
+						defer {
+							addressesWrapper.noOpRetain()
+						}
+					
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
+PeerManager_broadcast_node_announcement(this_argPointer, Bindings.new_LDKThreeBytes(array: rgb), Bindings.new_LDKThirtyTwoBytes(array: alias), addressesWrapper.dangle().cOpaqueStruct!)
 };
 		}
 

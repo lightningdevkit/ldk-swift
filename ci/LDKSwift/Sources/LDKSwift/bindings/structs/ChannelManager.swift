@@ -206,28 +206,6 @@ ChannelManager_funding_transaction_generated(this_argPointer, temporary_channel_
 });
 		}
 
-		public func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) -> Void {
-			
-							let addressesUnwrapped = addresses.map { (addressesCurrentValue) in
-							addressesCurrentValue
-								.danglingClone().cOpaqueStruct!
-							}
-						
-			return self.broadcast_node_announcement(rgb: rgb, alias: alias, addresses: addressesUnwrapped);
-		}
-
-		internal func broadcast_node_announcement(rgb: [UInt8], alias: [UInt8], addresses: [LDKNetAddress]) -> Void {
-			
-						let addressesWrapper = Bindings.new_LDKCVec_NetAddressZWrapper(array: addresses)
-						defer {
-							addressesWrapper.noOpRetain()
-						}
-					
-			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
-ChannelManager_broadcast_node_announcement(this_argPointer, Bindings.new_LDKThreeBytes(array: rgb), Bindings.new_LDKThirtyTwoBytes(array: alias), addressesWrapper.dangle().cOpaqueStruct!)
-};
-		}
-
 		public func update_channel_config(counterparty_node_id: [UInt8], channel_ids: [[UInt8]], config: ChannelConfig) -> Result_NoneAPIErrorZ {
 			
 						let channel_idsWrapper = Bindings.new_LDKCVec_ThirtyTwoBytesZWrapper(array: channel_ids)
@@ -386,6 +364,13 @@ ChannelManager_await_persistable_update_timeout(this_argPointer, max_wait)
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
 ChannelManager_await_persistable_update(this_argPointer)
 };
+		}
+
+		public func get_persistable_update_future() -> Future {
+			
+			return Future(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelManager>) in
+ChannelManager_get_persistable_update_future(this_argPointer)
+});
 		}
 
 		public func current_best_block() -> BestBlock {

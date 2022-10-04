@@ -85,9 +85,9 @@ extension Bindings {
 
 		open func get_and_clear_pending_msg_events() -> [LDKMessageSendEvent] {
 			/* EDIT ME */
-		Bindings.print("MessageSendEventsProvider::get_and_clear_pending_msg_events should be overridden!", severity: .WARNING)
+		Bindings.print("MessageSendEventsProvider::get_and_clear_pending_msg_events MUST be overridden!", severity: .ERROR)
 
-return [LDKMessageSendEvent]()
+abort()
 		}
 
 		open func free() -> Void {

@@ -105,9 +105,9 @@ extension Bindings {
 
 		open func write() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Sign::write should be overridden!", severity: .WARNING)
+		Bindings.print("Sign::write MUST be overridden!", severity: .ERROR)
 
-return [UInt8]()
+abort()
 		}
 
 		open func free() -> Void {

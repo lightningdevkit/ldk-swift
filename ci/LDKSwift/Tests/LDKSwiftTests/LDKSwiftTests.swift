@@ -118,7 +118,7 @@ class LDKSwiftTests: XCTestCase {
             assert(sendRes.isOk())
         }
         */
-        
+
         channel_manager_constructor.chain_sync_completed(persister: cmPersister, scorer: nil)
         channel_manager_constructor.interrupt()
     }
@@ -146,7 +146,7 @@ class LDKSwiftTests: XCTestCase {
 
         let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
         let keysInterface = keysManager.as_KeysInterface()
-        
+
         let logger = TestLogger()
 
         let config = UserConfig()
@@ -160,7 +160,7 @@ class LDKSwiftTests: XCTestCase {
 
         let feeEstimator = TestFeeEstimator()
         let broadcaster = TestBroadcasterInterface()
-        
+
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
@@ -184,7 +184,7 @@ class LDKSwiftTests: XCTestCase {
 		let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
         let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
         let keysInterface = keysManager.as_KeysInterface()
-        
+
         let logger = MuteLogger()
 
         let config = UserConfig()
@@ -198,7 +198,7 @@ class LDKSwiftTests: XCTestCase {
 
         let feeEstimator = TestFeeEstimator()
         let broadcaster = TestBroadcasterInterface()
-        
+
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
@@ -275,6 +275,89 @@ class LDKSwiftTests: XCTestCase {
         let paymentParams = PaymentParameters(payee_pubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
 		let route = Route(paths_arg: [path], payment_params_arg: paymentParams)
     }
+
+    public func testRapidGossipSync() async throws {
+		// first, download the gossip data
+		print("Sending rapid gossip sync request…");
+		var request = URLRequest(url: URL(string: "https://rapidsync.lightningdevkit.org/snapshot/0")!)
+		request.httpMethod = "GET"
+
+		let startA = DispatchTime.now()
+		let (data, _) = try await URLSession.shared.data(for: request)
+		let finishA = DispatchTime.now()
+		let elapsedA = Double(finishA.uptimeNanoseconds-startA.uptimeNanoseconds)/1_000_000_000
+		print("Received rapid gossip sync response: \(data.count) bytes! Time: \(elapsedA)s");
+
+		let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
+		let reversedGenesisHash = LDKSwiftTests.hexStringToBytes(hexString: reversedGenesisHashHex)!
+
+		let logger = TestLogger()
+		let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
+		let rapidSync = RapidGossipSync(network_graph: networkGraph)
+
+		let gossipDataRaw = [UInt8](data)
+		print("Applying rapid sync data…")
+		let startB = DispatchTime.now()
+		let timestamp = rapidSync.update_network_graph(update_data: gossipDataRaw)
+		if let error = timestamp.getError() {
+			print("error! type: \(error.getValueType())")
+			let specificError = error.getValueAsLightningError()
+			print("details: \(specificError?.get_err())")
+		}
+		let finishB = DispatchTime.now()
+		let elapsedB = Double(finishB.uptimeNanoseconds-startB.uptimeNanoseconds)/1_000_000_000
+		print("Applied rapid sync data: \(timestamp.getValue())! Time: \(elapsedB)s")
+
+        /*
+		print("Measuring graph size…")
+		let startC = DispatchTime.now()
+		let graphBytes = networkGraph.write()
+		let finishC = DispatchTime.now()
+		let elapsedC = Double(finishC.uptimeNanoseconds-startC.uptimeNanoseconds)/1_000_000_000
+		print("Network graph size: \(graphBytes.count)! Time: \(elapsedC)s")
+        */
+
+        let scoringParams = ProbabilisticScoringParameters()
+        let scorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
+        let score = scorer.as_Score()
+        // let lockableScore = LockableScore()
+        // let defaultRouter = DefaultRouter(network_graph: networkGraph, logger: logger, random_seed_bytes: [UInt8](repeating: 0, count: 32), scorer: lockableScore)
+		// let router = defaultRouter.as_Router()
+		
+		// let multiThreadedScorer = MultiThreadedLockableScore(score: score)
+
+
+        
+        let payerPubkey = LDKSwiftTests.hexStringToBytes(hexString: "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3")!
+        let recipientPubkey = LDKSwiftTests.hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!
+
+		let paymentParameters = PaymentParameters(payee_pubkey: recipientPubkey)
+		let routeParameters = RouteParameters(payment_params_arg: paymentParameters, final_value_msat_arg: 500, final_cltv_expiry_delta_arg: 3)
+
+		print("STEP A")
+
+		let firstHops: [ChannelDetails]? = nil
+		print("STEP B")
+        let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
+        let foundRoute = Bindings.swift_find_route(our_node_pubkey: payerPubkey, route_params: routeParameters, network_graph: networkGraph, first_hops: nil, logger: logger, scorer: score, random_seed_bytes: randomSeedBytes)
+//        let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, inflight_htlcs: <#T##InFlightHtlcs#>)
+        
+        if let routeError = foundRoute.getError() {
+            print("routing error: \(routeError.get_err())")
+        }
+        
+        if let route = foundRoute.getValue() {
+            let paths = route.get_paths()
+            print("found route with \(paths.count) paths!")
+            for currentPath in paths {
+                print("\n\nPath Option:")
+                for currentHop in currentPath {
+                    print("scid: \(currentHop.get_short_channel_id()), pubkey: \(currentHop.get_pubkey()), fee (msat): \(currentHop.get_fee_msat()), CLTV delta: \(currentHop.get_cltv_expiry_delta())")
+                }
+            }
+        }
+        
+	}
 
     func testExtendedActivity() async throws {
 		// for i in 0...(1 << 7) {

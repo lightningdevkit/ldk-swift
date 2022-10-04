@@ -25,7 +25,8 @@ array_accessor_types_fixed_length: Dict[str, ArrayAccessorType] = {
 	"LDKTwelveBytes": ArrayAccessorType(size=12, key='data'),
 	"LDKSixteenBytes": ArrayAccessorType(size=16, key='data'),
 	"LDKTwentyBytes": ArrayAccessorType(size=20, key='data'),
-	"LDKRecoverableSignature": ArrayAccessorType(size=68, key='serialized_form')
+	"LDKRecoverableSignature": ArrayAccessorType(size=68, key='serialized_form'),
+	"LDKBigEndianScalar": ArrayAccessorType(size=32, key='big_endian_bytes')
 }
 
 array_accessor_types_variable_length: Dict[str, ArrayAccessorType] = {
@@ -76,6 +77,10 @@ class ConversionHelper:
 	@classmethod
 	def is_array_type(cls, swift_type: str):
 		return swift_type.startswith('[')
+
+	@classmethod
+	def is_byte_array_type(cls, rust_type: str):
+		return rust_type in array_accessor_types
 
 	@classmethod
 	def is_trait_type(cls, raw_rust_type: str):

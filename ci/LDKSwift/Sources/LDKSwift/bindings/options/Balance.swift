@@ -34,7 +34,7 @@ extension Bindings {
 		/* OPTION_METHODS_START */
 
 				public enum BalanceValueType {
-					case ClaimableOnChannelClose, ClaimableAwaitingConfirmations, ContentiousClaimable, MaybeClaimableHTLCAwaitingTimeout
+					case ClaimableOnChannelClose, ClaimableAwaitingConfirmations, ContentiousClaimable, MaybeTimeoutClaimableHTLC, MaybePreimageClaimableHTLC, CounterpartyRevokedOutputClaimable
 				}
 
 				public func getValueType() -> BalanceValueType? {
@@ -46,8 +46,12 @@ extension Bindings {
 						return .ClaimableAwaitingConfirmations
 					case LDKBalance_ContentiousClaimable:
 						return .ContentiousClaimable
-					case LDKBalance_MaybeClaimableHTLCAwaitingTimeout:
-						return .MaybeClaimableHTLCAwaitingTimeout
+					case LDKBalance_MaybeTimeoutClaimableHTLC:
+						return .MaybeTimeoutClaimableHTLC
+					case LDKBalance_MaybePreimageClaimableHTLC:
+						return .MaybePreimageClaimableHTLC
+					case LDKBalance_CounterpartyRevokedOutputClaimable:
+						return .CounterpartyRevokedOutputClaimable
                     default:
                         return nil
                     }
@@ -75,11 +79,25 @@ extension Bindings {
 						return ContentiousClaimable(pointer: self.cOpaqueStruct!.contentious_claimable, anchor: self)
 					}
 				
-					public func getValueAsMaybeClaimableHTLCAwaitingTimeout() -> MaybeClaimableHTLCAwaitingTimeout? {
-						if self.cOpaqueStruct?.tag != LDKBalance_MaybeClaimableHTLCAwaitingTimeout {
+					public func getValueAsMaybeTimeoutClaimableHTLC() -> MaybeTimeoutClaimableHTLC? {
+						if self.cOpaqueStruct?.tag != LDKBalance_MaybeTimeoutClaimableHTLC {
 							return nil
 						}
-						return MaybeClaimableHTLCAwaitingTimeout(pointer: self.cOpaqueStruct!.maybe_claimable_htlc_awaiting_timeout, anchor: self)
+						return MaybeTimeoutClaimableHTLC(pointer: self.cOpaqueStruct!.maybe_timeout_claimable_htlc, anchor: self)
+					}
+				
+					public func getValueAsMaybePreimageClaimableHTLC() -> MaybePreimageClaimableHTLC? {
+						if self.cOpaqueStruct?.tag != LDKBalance_MaybePreimageClaimableHTLC {
+							return nil
+						}
+						return MaybePreimageClaimableHTLC(pointer: self.cOpaqueStruct!.maybe_preimage_claimable_htlc, anchor: self)
+					}
+				
+					public func getValueAsCounterpartyRevokedOutputClaimable() -> CounterpartyRevokedOutputClaimable? {
+						if self.cOpaqueStruct?.tag != LDKBalance_CounterpartyRevokedOutputClaimable {
+							return nil
+						}
+						return CounterpartyRevokedOutputClaimable(pointer: self.cOpaqueStruct!.counterparty_revoked_output_claimable, anchor: self)
 					}
 				
 			
@@ -132,9 +150,19 @@ Balance_clone(origPointer)
 			return Balance(pointer: Balance_contentious_claimable(claimable_amount_satoshis, timeout_height));
 		}
 
-		public class func maybe_claimable_htlcawaiting_timeout(claimable_amount_satoshis: UInt64, claimable_height: UInt32) -> Balance {
+		public class func maybe_timeout_claimable_htlc(claimable_amount_satoshis: UInt64, claimable_height: UInt32) -> Balance {
 			
-			return Balance(pointer: Balance_maybe_claimable_htlcawaiting_timeout(claimable_amount_satoshis, claimable_height));
+			return Balance(pointer: Balance_maybe_timeout_claimable_htlc(claimable_amount_satoshis, claimable_height));
+		}
+
+		public class func maybe_preimage_claimable_htlc(claimable_amount_satoshis: UInt64, expiry_height: UInt32) -> Balance {
+			
+			return Balance(pointer: Balance_maybe_preimage_claimable_htlc(claimable_amount_satoshis, expiry_height));
+		}
+
+		public class func counterparty_revoked_output_claimable(claimable_amount_satoshis: UInt64) -> Balance {
+			
+			return Balance(pointer: Balance_counterparty_revoked_output_claimable(claimable_amount_satoshis));
 		}
 
 		public class func eq(a: Bindings.Balance, b: Bindings.Balance) -> Bool {
@@ -233,15 +261,15 @@ Balance_eq(aPointer, bPointer)
 			}
 		
 
-			public class MaybeClaimableHTLCAwaitingTimeout: NativeTypeWrapper {
+			public class MaybeTimeoutClaimableHTLC: NativeTypeWrapper {
 
 				
-				var cOpaqueStruct: LDKBalance_LDKMaybeClaimableHTLCAwaitingTimeout_Body?;
-				fileprivate init(pointer: LDKBalance_LDKMaybeClaimableHTLCAwaitingTimeout_Body) {
+				var cOpaqueStruct: LDKBalance_LDKMaybeTimeoutClaimableHTLC_Body?;
+				fileprivate init(pointer: LDKBalance_LDKMaybeTimeoutClaimableHTLC_Body) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 				}
-				fileprivate init(pointer: LDKBalance_LDKMaybeClaimableHTLCAwaitingTimeout_Body, anchor: NativeTypeWrapper) {
+				fileprivate init(pointer: LDKBalance_LDKMaybeTimeoutClaimableHTLC_Body, anchor: NativeTypeWrapper) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 					self.dangling = true
@@ -256,6 +284,60 @@ Balance_eq(aPointer, bPointer)
 				
 					public func getClaimable_height() -> UInt32 {
 						return self.cOpaqueStruct!.claimable_height
+					}
+				
+
+			}
+		
+
+			public class MaybePreimageClaimableHTLC: NativeTypeWrapper {
+
+				
+				var cOpaqueStruct: LDKBalance_LDKMaybePreimageClaimableHTLC_Body?;
+				fileprivate init(pointer: LDKBalance_LDKMaybePreimageClaimableHTLC_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKBalance_LDKMaybePreimageClaimableHTLC_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+
+				
+					public func getClaimable_amount_satoshis() -> UInt64 {
+						return self.cOpaqueStruct!.claimable_amount_satoshis
+					}
+				
+					public func getExpiry_height() -> UInt32 {
+						return self.cOpaqueStruct!.expiry_height
+					}
+				
+
+			}
+		
+
+			public class CounterpartyRevokedOutputClaimable: NativeTypeWrapper {
+
+				
+				var cOpaqueStruct: LDKBalance_LDKCounterpartyRevokedOutputClaimable_Body?;
+				fileprivate init(pointer: LDKBalance_LDKCounterpartyRevokedOutputClaimable_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKBalance_LDKCounterpartyRevokedOutputClaimable_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+
+				
+					public func getClaimable_amount_satoshis() -> UInt64 {
+						return self.cOpaqueStruct!.claimable_amount_satoshis
 					}
 				
 

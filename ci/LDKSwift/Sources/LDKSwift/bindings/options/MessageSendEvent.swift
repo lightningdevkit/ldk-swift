@@ -34,7 +34,7 @@ extension Bindings {
 		/* OPTION_METHODS_START */
 
 				public enum MessageSendEventValueType {
-					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendChannelReady, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, BroadcastChannelAnnouncement, BroadcastNodeAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange, SendGossipTimestampFilter
+					case SendAcceptChannel, SendOpenChannel, SendFundingCreated, SendFundingSigned, SendChannelReady, SendAnnouncementSignatures, UpdateHTLCs, SendRevokeAndACK, SendClosingSigned, SendShutdown, SendChannelReestablish, SendChannelAnnouncement, BroadcastChannelAnnouncement, BroadcastChannelUpdate, SendChannelUpdate, HandleError, SendChannelRangeQuery, SendShortIdsQuery, SendReplyChannelRange, SendGossipTimestampFilter
 				}
 
 				public func getValueType() -> MessageSendEventValueType? {
@@ -62,10 +62,10 @@ extension Bindings {
 						return .SendShutdown
 					case LDKMessageSendEvent_SendChannelReestablish:
 						return .SendChannelReestablish
+					case LDKMessageSendEvent_SendChannelAnnouncement:
+						return .SendChannelAnnouncement
 					case LDKMessageSendEvent_BroadcastChannelAnnouncement:
 						return .BroadcastChannelAnnouncement
-					case LDKMessageSendEvent_BroadcastNodeAnnouncement:
-						return .BroadcastNodeAnnouncement
 					case LDKMessageSendEvent_BroadcastChannelUpdate:
 						return .BroadcastChannelUpdate
 					case LDKMessageSendEvent_SendChannelUpdate:
@@ -163,18 +163,18 @@ extension Bindings {
 						return SendChannelReestablish(pointer: self.cOpaqueStruct!.send_channel_reestablish, anchor: self)
 					}
 				
+					public func getValueAsSendChannelAnnouncement() -> SendChannelAnnouncement? {
+						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_SendChannelAnnouncement {
+							return nil
+						}
+						return SendChannelAnnouncement(pointer: self.cOpaqueStruct!.send_channel_announcement, anchor: self)
+					}
+				
 					public func getValueAsBroadcastChannelAnnouncement() -> BroadcastChannelAnnouncement? {
 						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_BroadcastChannelAnnouncement {
 							return nil
 						}
 						return BroadcastChannelAnnouncement(pointer: self.cOpaqueStruct!.broadcast_channel_announcement, anchor: self)
-					}
-				
-					public func getValueAsBroadcastNodeAnnouncement() -> BroadcastNodeAnnouncement? {
-						if self.cOpaqueStruct?.tag != LDKMessageSendEvent_BroadcastNodeAnnouncement {
-							return nil
-						}
-						return BroadcastNodeAnnouncement(pointer: self.cOpaqueStruct!.broadcast_node_announcement, anchor: self)
 					}
 				
 					public func getValueAsBroadcastChannelUpdate() -> BroadcastChannelUpdate? {
@@ -316,14 +316,14 @@ MessageSendEvent_clone(origPointer)
 			return MessageSendEvent(pointer: MessageSendEvent_send_channel_reestablish(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!));
 		}
 
+		public class func send_channel_announcement(node_id: [UInt8], msg: Bindings.ChannelAnnouncement, update_msg: Bindings.ChannelUpdate) -> MessageSendEvent {
+			
+			return MessageSendEvent(pointer: MessageSendEvent_send_channel_announcement(Bindings.new_LDKPublicKey(array: node_id), msg.danglingClone().cOpaqueStruct!, update_msg.danglingClone().cOpaqueStruct!));
+		}
+
 		public class func broadcast_channel_announcement(msg: Bindings.ChannelAnnouncement, update_msg: Bindings.ChannelUpdate) -> MessageSendEvent {
 			
 			return MessageSendEvent(pointer: MessageSendEvent_broadcast_channel_announcement(msg.danglingClone().cOpaqueStruct!, update_msg.danglingClone().cOpaqueStruct!));
-		}
-
-		public class func broadcast_node_announcement(msg: Bindings.NodeAnnouncement) -> MessageSendEvent {
-			
-			return MessageSendEvent(pointer: MessageSendEvent_broadcast_node_announcement(msg.danglingClone().cOpaqueStruct!));
 		}
 
 		public class func broadcast_channel_update(msg: Bindings.ChannelUpdate) -> MessageSendEvent {
@@ -684,6 +684,39 @@ MessageSendEvent_clone(origPointer)
 			}
 		
 
+			public class SendChannelAnnouncement: NativeTypeWrapper {
+
+				
+				var cOpaqueStruct: LDKMessageSendEvent_LDKSendChannelAnnouncement_Body?;
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelAnnouncement_Body) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+				}
+				fileprivate init(pointer: LDKMessageSendEvent_LDKSendChannelAnnouncement_Body, anchor: NativeTypeWrapper) {
+					self.cOpaqueStruct = pointer
+					super.init(conflictAvoidingVariableName: 0)
+					self.dangling = true
+					try! self.addAnchor(anchor: anchor)
+				}
+			
+
+				
+					public func getNode_id() -> [UInt8] {
+						return Bindings.LDKPublicKey_to_array(nativeType: self.cOpaqueStruct!.node_id)
+					}
+				
+					public func getMsg() -> Bindings.ChannelAnnouncement {
+						return Bindings.ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
+					}
+				
+					public func getUpdate_msg() -> Bindings.ChannelUpdate {
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self)
+					}
+				
+
+			}
+		
+
 			public class BroadcastChannelAnnouncement: NativeTypeWrapper {
 
 				
@@ -707,31 +740,6 @@ MessageSendEvent_clone(origPointer)
 				
 					public func getUpdate_msg() -> Bindings.ChannelUpdate {
 						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self)
-					}
-				
-
-			}
-		
-
-			public class BroadcastNodeAnnouncement: NativeTypeWrapper {
-
-				
-				var cOpaqueStruct: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body?;
-				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body) {
-					self.cOpaqueStruct = pointer
-					super.init(conflictAvoidingVariableName: 0)
-				}
-				fileprivate init(pointer: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body, anchor: NativeTypeWrapper) {
-					self.cOpaqueStruct = pointer
-					super.init(conflictAvoidingVariableName: 0)
-					self.dangling = true
-					try! self.addAnchor(anchor: anchor)
-				}
-			
-
-				
-					public func getMsg() -> Bindings.NodeAnnouncement {
-						return Bindings.NodeAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
 					}
 				
 

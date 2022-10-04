@@ -122,44 +122,44 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 
 		open func channel_penalty_msat(short_channel_id: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage) -> UInt64 {
 			/* EDIT ME */
-		Bindings.print("Score::channel_penalty_msat should be overridden!", severity: .WARNING)
+		Bindings.print("Score::channel_penalty_msat MUST be overridden!", severity: .ERROR)
 
-return 0
+abort()
 		}
 
 		open func payment_path_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
 			/* EDIT ME */
-		Bindings.print("Score::payment_path_failed should be overridden!", severity: .WARNING)
+		Bindings.print("Score::payment_path_failed MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func payment_path_successful(path: [LDKRouteHop]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Score::payment_path_successful should be overridden!", severity: .WARNING)
+		Bindings.print("Score::payment_path_successful MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func probe_failed(path: [LDKRouteHop], short_channel_id: UInt64) -> Void {
 			/* EDIT ME */
-		Bindings.print("Score::probe_failed should be overridden!", severity: .WARNING)
+		Bindings.print("Score::probe_failed MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func probe_successful(path: [LDKRouteHop]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Score::probe_successful should be overridden!", severity: .WARNING)
+		Bindings.print("Score::probe_successful MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func write() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Score::write should be overridden!", severity: .WARNING)
+		Bindings.print("Score::write MUST be overridden!", severity: .ERROR)
 
-return [UInt8]()
+abort()
 		}
 
 		open func free() -> Void {

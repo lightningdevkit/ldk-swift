@@ -120,30 +120,30 @@ extension Bindings {
 
 		open func send_data(data: [UInt8], resume_read: Bool) -> UInt {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::send_data should be overridden!", severity: .WARNING)
+		Bindings.print("SocketDescriptor::send_data MUST be overridden!", severity: .ERROR)
 
-return 0
+abort()
 		}
 
 		open func disconnect_socket() -> Void {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::disconnect_socket should be overridden!", severity: .WARNING)
+		Bindings.print("SocketDescriptor::disconnect_socket MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func eq(other_arg: SocketDescriptor) -> Bool {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::eq should be overridden!", severity: .WARNING)
+		Bindings.print("SocketDescriptor::eq MUST be overridden!", severity: .ERROR)
 
-return false
+abort()
 		}
 
 		open func hash() -> UInt64 {
 			/* EDIT ME */
-		Bindings.print("SocketDescriptor::hash should be overridden!", severity: .WARNING)
+		Bindings.print("SocketDescriptor::hash MUST be overridden!", severity: .ERROR)
 
-return 0
+abort()
 		}
 
 		open func free() -> Void {

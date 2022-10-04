@@ -16,7 +16,7 @@ class TestFilter: Filter {
         // watch this transaction on-chain
     }
     
-    override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+    override func register_output(output: WatchedOutput) {
         let scriptPubkeyBytes = output.get_script_pubkey()
         let outpoint = output.get_outpoint()!
         let txid = outpoint.get_txid()
@@ -26,7 +26,5 @@ class TestFilter: Filter {
         
         let blockHashBytes = output.get_block_hash()
         // if block hash bytes are not null, return any transaction spending the output that is found in the corresponding block along with its index
-        
-        return Option_C2Tuple_usizeTransactionZZ(value: nil)
     }
 }

@@ -32,10 +32,10 @@ extension Bindings {
 				return instance.register_tx(txid: txid, script_pubkey: Bindings.LDKu8slice_to_array(nativeType: script_pubkey))
 			}
 
-			func register_outputCallback(pointer: UnsafeRawPointer?, output: LDKWatchedOutput) -> LDKCOption_C2Tuple_usizeTransactionZZ {
+			func register_outputCallback(pointer: UnsafeRawPointer?, output: LDKWatchedOutput) -> Void {
 				let instance: Filter = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Filter.swift::register_output")
 				
-				return instance.register_output(output: WatchedOutput(pointer: output)).cOpaqueStruct!
+				return instance.register_output(output: WatchedOutput(pointer: output))
 			}
 
 			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
@@ -91,16 +91,16 @@ extension Bindings {
 
 		open func register_tx(txid: [UInt8]?, script_pubkey: [UInt8]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Filter::register_tx should be overridden!", severity: .WARNING)
+		Bindings.print("Filter::register_tx MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
-		open func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+		open func register_output(output: WatchedOutput) -> Void {
 			/* EDIT ME */
-		Bindings.print("Filter::register_output should be overridden!", severity: .WARNING)
+		Bindings.print("Filter::register_output MUST be overridden!", severity: .ERROR)
 
-return Option_C2Tuple_usizeTransactionZZ.none()
+abort()
 		}
 
 		open func free() -> Void {
@@ -137,11 +137,11 @@ public class NativelyImplementedFilter: Filter {
 			
 	}
 
-	public override func register_output(output: WatchedOutput) -> Option_C2Tuple_usizeTransactionZZ {
+	public override func register_output(output: WatchedOutput) -> Void {
 		
 				
-				return 
-				Option_C2Tuple_usizeTransactionZZ(pointer: self.cOpaqueStruct!.register_output(self.cOpaqueStruct!.this_arg, output.danglingClone().cOpaqueStruct!))
+				
+				self.cOpaqueStruct!.register_output(self.cOpaqueStruct!.this_arg, output.danglingClone().cOpaqueStruct!)
 				
 			
 	}

@@ -15,16 +15,17 @@ extension Bindings {
 
 
 		/* DEFAULT_CONSTRUCTOR_START */
-		public init(network_graph: NetworkGraph, logger: Logger, random_seed_bytes: [UInt8]) {
+		public init(network_graph: NetworkGraph, logger: Logger, random_seed_bytes: [UInt8], scorer: LockableScore) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			
 			self.cOpaqueStruct = withUnsafePointer(to: network_graph.cOpaqueStruct!) { (network_graphPointer: UnsafePointer<LDKNetworkGraph>) in
-DefaultRouter_new(network_graphPointer, logger.activate().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: random_seed_bytes))
+DefaultRouter_new(network_graphPointer, logger.activate().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: random_seed_bytes), scorer.activate().cOpaqueStruct!)
 }
 			super.init(conflictAvoidingVariableName: 0)
 			try? self.addAnchor(anchor: network_graph)
 try? self.addAnchor(anchor: logger)
+try? self.addAnchor(anchor: scorer)
 
 		}
 		/* DEFAULT_CONSTRUCTOR_END */

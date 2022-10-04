@@ -123,44 +123,44 @@ extension Bindings {
 
 		open func node_id() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("Payer::node_id should be overridden!", severity: .WARNING)
+		Bindings.print("Payer::node_id MUST be overridden!", severity: .ERROR)
 
-return [UInt8]()
+abort()
 		}
 
 		open func first_hops() -> [LDKChannelDetails] {
 			/* EDIT ME */
-		Bindings.print("Payer::first_hops should be overridden!", severity: .WARNING)
+		Bindings.print("Payer::first_hops MUST be overridden!", severity: .ERROR)
 
-return [LDKChannelDetails]()
+abort()
 		}
 
 		open func send_payment(route: Route, payment_hash: [UInt8], payment_secret: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
 			/* EDIT ME */
-		Bindings.print("Payer::send_payment should be overridden!", severity: .WARNING)
+		Bindings.print("Payer::send_payment MUST be overridden!", severity: .ERROR)
 
-return Result_PaymentIdPaymentSendFailureZ()
+abort()
 		}
 
 		open func send_spontaneous_payment(route: Route, payment_preimage: [UInt8]) -> Result_PaymentIdPaymentSendFailureZ {
 			/* EDIT ME */
-		Bindings.print("Payer::send_spontaneous_payment should be overridden!", severity: .WARNING)
+		Bindings.print("Payer::send_spontaneous_payment MUST be overridden!", severity: .ERROR)
 
-return Result_PaymentIdPaymentSendFailureZ()
+abort()
 		}
 
 		open func retry_payment(route: Route, payment_id: [UInt8]) -> Result_NonePaymentSendFailureZ {
 			/* EDIT ME */
-		Bindings.print("Payer::retry_payment should be overridden!", severity: .WARNING)
+		Bindings.print("Payer::retry_payment MUST be overridden!", severity: .ERROR)
 
-return Result_NonePaymentSendFailureZ()
+abort()
 		}
 
 		open func abandon_payment(payment_id: [UInt8]) -> Void {
 			/* EDIT ME */
-		Bindings.print("Payer::abandon_payment should be overridden!", severity: .WARNING)
+		Bindings.print("Payer::abandon_payment MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func free() -> Void {

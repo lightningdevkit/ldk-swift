@@ -35,9 +35,9 @@ extension Bindings {
 				return instance.persist_graph(network_graph: network_graph).cOpaqueStruct!
 			}
 
-			func persist_scorerCallback(pointer: UnsafeRawPointer?, scorerPointer: UnsafePointer<LDKMultiThreadedLockableScore>) -> LDKCResult_NoneErrorZ {
+			func persist_scorerCallback(pointer: UnsafeRawPointer?, scorerPointer: UnsafePointer<LDKWriteableScore>) -> LDKCResult_NoneErrorZ {
 				let instance: Persister = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persister.swift::persist_scorer")
-				let scorer = MultiThreadedLockableScore(pointer: scorerPointer.pointee).dangle();
+				let scorer = WriteableScore(pointer: scorerPointer.pointee).dangle();
 
 				return instance.persist_scorer(scorer: scorer).cOpaqueStruct!
 			}
@@ -96,23 +96,23 @@ extension Bindings {
 
 		open func persist_manager(channel_manager: ChannelManager) -> Result_NoneErrorZ {
 			/* EDIT ME */
-		Bindings.print("Persister::persist_manager should be overridden!", severity: .WARNING)
+		Bindings.print("Persister::persist_manager MUST be overridden!", severity: .ERROR)
 
-return Result_NoneErrorZ()
+abort()
 		}
 
 		open func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
 			/* EDIT ME */
-		Bindings.print("Persister::persist_graph should be overridden!", severity: .WARNING)
+		Bindings.print("Persister::persist_graph MUST be overridden!", severity: .ERROR)
 
-return Result_NoneErrorZ()
+abort()
 		}
 
-		open func persist_scorer(scorer: MultiThreadedLockableScore) -> Result_NoneErrorZ {
+		open func persist_scorer(scorer: WriteableScore) -> Result_NoneErrorZ {
 			/* EDIT ME */
-		Bindings.print("Persister::persist_scorer should be overridden!", severity: .WARNING)
+		Bindings.print("Persister::persist_scorer MUST be overridden!", severity: .ERROR)
 
-return Result_NoneErrorZ()
+abort()
 		}
 
 		open func free() -> Void {
@@ -155,10 +155,10 @@ public class NativelyImplementedPersister: Persister {
 			
 	}
 
-	public override func persist_scorer(scorer: MultiThreadedLockableScore) -> Result_NoneErrorZ {
+	public override func persist_scorer(scorer: WriteableScore) -> Result_NoneErrorZ {
 		
 				
-				return withUnsafePointer(to: scorer.cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKMultiThreadedLockableScore>) in
+				return withUnsafePointer(to: scorer.activateOnce().cOpaqueStruct!) { (scorerPointer: UnsafePointer<LDKWriteableScore>) in
 
 				Result_NoneErrorZ(pointer: self.cOpaqueStruct!.persist_scorer(self.cOpaqueStruct!.this_arg, scorerPointer))
 				

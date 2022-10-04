@@ -57,6 +57,13 @@ SignedRawInvoice_clone(origPointer)
 					}
 				
 
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSignedRawInvoice>) in
+SignedRawInvoice_hash(oPointer)
+};
+		}
+
 		public func into_parts() -> C3Tuple_RawInvoice_u832InvoiceSignatureZ {
 			
 			return C3Tuple_RawInvoice_u832InvoiceSignatureZ(pointer: SignedRawInvoice_into_parts(self.danglingClone().cOpaqueStruct!));
@@ -69,10 +76,10 @@ SignedRawInvoice_raw_invoice(this_argPointer)
 });
 		}
 
-		public func hash() -> [UInt8] {
+		public func signable_hash() -> [UInt8] {
 			
 			return Bindings.tuple32_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKSignedRawInvoice>) in
-SignedRawInvoice_hash(this_argPointer)
+SignedRawInvoice_signable_hash(this_argPointer)
 }.pointee);
 		}
 

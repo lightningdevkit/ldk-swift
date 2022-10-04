@@ -148,6 +148,21 @@ ChannelHandshakeConfig_get_commit_upfront_shutdown_pubkey(this_ptrPointer)
 			return ChannelHandshakeConfig_set_commit_upfront_shutdown_pubkey(this_ptrPointer, val);
 		}
 
+		public func get_their_channel_reserve_proportional_millionths() -> UInt32 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+ChannelHandshakeConfig_get_their_channel_reserve_proportional_millionths(this_ptrPointer)
+};
+		}
+
+		public func set_their_channel_reserve_proportional_millionths(val: UInt32) -> Void {
+			
+							let this_ptrPointer = UnsafeMutablePointer<LDKChannelHandshakeConfig>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+			return ChannelHandshakeConfig_set_their_channel_reserve_proportional_millionths(this_ptrPointer, val);
+		}
+
 		public func clone() -> ChannelHandshakeConfig {
 			
 			return ChannelHandshakeConfig(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (origPointer: UnsafePointer<LDKChannelHandshakeConfig>) in

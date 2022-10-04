@@ -17,16 +17,14 @@ extension Bindings {
 		/* DEFAULT_CONSTRUCTOR_START */
 		#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(persister: Persister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, gossip_sync: GossipSync, peer_manager: PeerManager, logger: Logger, scorer: MultiThreadedLockableScore?) {
+public init(persister: Persister, event_handler: EventHandler, chain_monitor: ChainMonitor, channel_manager: ChannelManager, gossip_sync: GossipSync, peer_manager: PeerManager, logger: Logger, scorer: Option_WriteableScoreZ) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			
-let nativeScorer = scorer?.cOpaqueStruct! ?? LDKMultiThreadedLockableScore(inner: nil, is_owned: true)
-
 			self.cOpaqueStruct = withUnsafePointer(to: chain_monitor.cOpaqueStruct!) { (chain_monitorPointer: UnsafePointer<LDKChainMonitor>) in
 withUnsafePointer(to: channel_manager.cOpaqueStruct!) { (channel_managerPointer: UnsafePointer<LDKChannelManager>) in
 withUnsafePointer(to: peer_manager.cOpaqueStruct!) { (peer_managerPointer: UnsafePointer<LDKPeerManager>) in
-BackgroundProcessor_start(persister.activate().cOpaqueStruct!, event_handler.activate().cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, gossip_sync.cOpaqueStruct!, peer_managerPointer, logger.activate().cOpaqueStruct!, nativeScorer)
+BackgroundProcessor_start(persister.activate().cOpaqueStruct!, event_handler.activate().cOpaqueStruct!, chain_monitorPointer, channel_managerPointer, gossip_sync.cOpaqueStruct!, peer_managerPointer, logger.activate().cOpaqueStruct!, scorer.cOpaqueStruct!)
 }
 }
 }
@@ -38,11 +36,7 @@ try? self.addAnchor(anchor: channel_manager)
 try? self.addAnchor(anchor: gossip_sync)
 try? self.addAnchor(anchor: peer_manager)
 try? self.addAnchor(anchor: logger)
-
-					if let certainScorer = scorer {
-						try? self.addAnchor(anchor: certainScorer)
-					}
-				
+try? self.addAnchor(anchor: scorer)
 
 		}
 		/* DEFAULT_CONSTRUCTOR_END */

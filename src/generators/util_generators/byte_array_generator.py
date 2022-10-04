@@ -52,19 +52,7 @@ class ByteArrayGenerator(UtilGenerator):
 		self.filled_template += "\n" + mutating_current_byte_array_methods + "\n"
 
 		if not array_length in self.raw_tuple_generators and not byte_array_type_details.is_unary_tuple:
-			self.raw_tuple_generators[array_length] = True
-			current_generator = f"""
-			static func array_to_tuple{array_length}(array: [UInt8]) -> {byte_array_field.swift_raw_type} {{
-        		return ({tupleArguments})
-			}}
-
-    		static func tuple{array_length}_to_array(nativeType: {byte_array_field.swift_raw_type}) -> [UInt8] {{
-				let array = [{rawTupleReads}]
-				return array
-			}}
-			"""
-
-			self.filled_template += current_generator + "\n"
+			self.generate_tuple_converter(array_length)
 
 	def generate_tuple_converter(self, array_length):
 		if array_length in self.raw_tuple_generators:

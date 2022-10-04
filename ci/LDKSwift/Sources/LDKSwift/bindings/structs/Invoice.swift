@@ -57,6 +57,13 @@ Invoice_clone(origPointer)
 					}
 				
 
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKInvoice>) in
+Invoice_hash(oPointer)
+};
+		}
+
 		public func into_signed_raw() -> SignedRawInvoice {
 			
 			return SignedRawInvoice(pointer: Invoice_into_signed_raw(self.danglingClone().cOpaqueStruct!));

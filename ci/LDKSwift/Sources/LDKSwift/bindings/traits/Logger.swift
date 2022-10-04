@@ -80,9 +80,9 @@ extension Bindings {
 
 		open func log(record: Record) -> Void {
 			/* EDIT ME */
-		Bindings.print("Logger::log should be overridden!", severity: .WARNING)
+		Bindings.print("Logger::log MUST be overridden!", severity: .ERROR)
 
-
+abort()
 		}
 
 		open func free() -> Void {

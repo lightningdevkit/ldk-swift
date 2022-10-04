@@ -5,6 +5,8 @@ from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
 from src.conversion_helper import ConversionHelper
 
+# This replacement no longer seems to be necessary
+REPLACE_BACKGROUND_PROCESSOR_CONSTRUCTOR_ARGUMENTS = False
 
 class OpaqueStructGenerator:
 
@@ -57,7 +59,7 @@ class OpaqueStructGenerator:
 				cloneability_type_message = '; '.join(cloneability_types)
 				print(f'(opaque_struct_generator.py#constructor, warned, deprecated) {cloneability_warning}: {constructor_native_name} [{cloneability_type_message}]')
 
-			if constructor_native_name == 'BackgroundProcessor_start':
+			if constructor_native_name == 'BackgroundProcessor_start' and REPLACE_BACKGROUND_PROCESSOR_CONSTRUCTOR_ARGUMENTS:
 				replaced_argument_index = 7
 				previous_swift_argument = constructor_swift_arguments[replaced_argument_index]
 				previous_native_argument = constructor_native_arguments[replaced_argument_index]

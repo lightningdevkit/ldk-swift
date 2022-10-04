@@ -48,6 +48,13 @@ InvoiceSignature_clone(origPointer)
 					}
 				
 
+		public func hash() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKInvoiceSignature>) in
+InvoiceSignature_hash(oPointer)
+};
+		}
+
 		public class func eq(a: InvoiceSignature, b: InvoiceSignature) -> Bool {
 			
 			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKInvoiceSignature>) in

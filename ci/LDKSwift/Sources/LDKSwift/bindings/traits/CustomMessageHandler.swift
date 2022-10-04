@@ -93,16 +93,16 @@ extension Bindings {
 
 		open func handle_custom_message(msg: BindingsType, sender_node_id: [UInt8]) -> Result_NoneLightningErrorZ {
 			/* EDIT ME */
-		Bindings.print("CustomMessageHandler::handle_custom_message should be overridden!", severity: .WARNING)
+		Bindings.print("CustomMessageHandler::handle_custom_message MUST be overridden!", severity: .ERROR)
 
-return Result_NoneLightningErrorZ()
+abort()
 		}
 
 		open func get_and_clear_pending_msg() -> [LDKC2Tuple_PublicKeyTypeZ] {
 			/* EDIT ME */
-		Bindings.print("CustomMessageHandler::get_and_clear_pending_msg should be overridden!", severity: .WARNING)
+		Bindings.print("CustomMessageHandler::get_and_clear_pending_msg MUST be overridden!", severity: .ERROR)
 
-return [LDKC2Tuple_PublicKeyTypeZ]()
+abort()
 		}
 
 		open func free() -> Void {

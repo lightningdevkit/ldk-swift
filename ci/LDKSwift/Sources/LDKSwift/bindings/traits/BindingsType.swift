@@ -118,9 +118,9 @@ extension Bindings {
 
 		open func type_id() -> UInt16 {
 			/* EDIT ME */
-		Bindings.print("BindingsType::type_id should be overridden!", severity: .WARNING)
+		Bindings.print("BindingsType::type_id MUST be overridden!", severity: .ERROR)
 
-return 0
+abort()
 		}
 
 		open func debug_str() -> String {
@@ -132,9 +132,9 @@ abort()
 
 		open func write() -> [UInt8] {
 			/* EDIT ME */
-		Bindings.print("BindingsType::write should be overridden!", severity: .WARNING)
+		Bindings.print("BindingsType::write MUST be overridden!", severity: .ERROR)
 
-return [UInt8]()
+abort()
 		}
 
 		open func free() -> Void {

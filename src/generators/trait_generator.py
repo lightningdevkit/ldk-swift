@@ -6,6 +6,7 @@ from src.type_parsing_regeces import TypeParsingRegeces
 from src.conversion_helper import ConversionHelper
 import src.conversion_helper
 
+ALWAYS_ABORT_ON_UNIMPLEMENTED = True
 
 class TraitGenerator:
 
@@ -202,7 +203,7 @@ class TraitGenerator:
 					swift_default_return = f'return {swift_return_type}()'  # swift_default_return = f'return {swift_return_type}(pointer: {current_return_type_details.rust_obj}())'
 
 			swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} should be overridden!", severity: .WARNING)\n\n{swift_default_return}'
-			if is_default_return_error:
+			if is_default_return_error or ALWAYS_ABORT_ON_UNIMPLEMENTED:
 				swift_default_return = f'Bindings.print("{swift_struct_name}::{current_lambda_name} MUST be overridden!", severity: .ERROR)\n\nabort()'
 
 			if current_lambda_name == 'free':

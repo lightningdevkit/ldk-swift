@@ -343,14 +343,17 @@ public class HumanObjectPeerTestInstance {
                 return
             }
             self.tcpSocketHandler = self.constructor!.getTCPPeerHandler()
+            print("Attempting to bind socket…")
             for i in 10000...65535 {
                 let port = UInt16(i)
                 let bound = self.tcpSocketHandler!.bind(address: "127.0.0.1", port: port)
                 if bound {
+                    print("Bound socket to port \(port) on attempt \(i)")
                     self.tcpPort = port
                     return
                 }
             }
+            print("Failed to bind on any port")
             throw SocketBindError.failedToBindSocket
         }
 

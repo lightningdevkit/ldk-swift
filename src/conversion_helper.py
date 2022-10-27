@@ -566,6 +566,8 @@ class ConversionHelper:
 		elif return_type_string == 'String':
 			return_prefix = 'Bindings.LDKStr_to_string(nativeType: '
 			return_suffix = ')'
+			if is_raw_property_getter:
+				return_suffix = ', deallocate: false)'
 		# elif is_clone_method:
 		# 	return_prefix = 'Self(pointer: ',
 		# 	return_suffix = ')'

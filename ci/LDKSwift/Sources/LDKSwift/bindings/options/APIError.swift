@@ -178,7 +178,7 @@ APIError_clone(origPointer)
 
 				
 					public func getErr() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err, deallocate: false)
 					}
 				
 
@@ -203,7 +203,7 @@ APIError_clone(origPointer)
 
 				
 					public func getErr() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err, deallocate: false)
 					}
 				
 					public func getFeerate() -> UInt32 {
@@ -232,7 +232,7 @@ APIError_clone(origPointer)
 
 				
 					public func getErr() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err, deallocate: false)
 					}
 				
 
@@ -257,7 +257,7 @@ APIError_clone(origPointer)
 
 				
 					public func getErr() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err, deallocate: false)
 					}
 				
 

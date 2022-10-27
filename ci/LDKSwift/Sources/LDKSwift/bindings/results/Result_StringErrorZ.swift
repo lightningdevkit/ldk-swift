@@ -55,7 +55,7 @@ extension Bindings {
 			
 			public func getValue() -> String? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.contents.result.pointee)
+					return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
 				}
 				return nil
 			}

@@ -178,7 +178,7 @@ ClosureReason_write(objPointer)
 
 				
 					public func getPeer_msg() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.peer_msg)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.peer_msg, deallocate: false)
 					}
 				
 
@@ -203,7 +203,7 @@ ClosureReason_write(objPointer)
 
 				
 					public func getErr() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err, deallocate: false)
 					}
 				
 

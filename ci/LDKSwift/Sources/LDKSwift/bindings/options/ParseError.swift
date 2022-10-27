@@ -88,7 +88,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKParseError_InvalidSliceLength {
 							return nil
 						}
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.invalid_slice_length)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.invalid_slice_length, deallocate: false)
 					}
 				
 			

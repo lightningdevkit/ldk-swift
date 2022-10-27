@@ -174,6 +174,50 @@ class LDKSwiftTests: XCTestCase {
 
         let channelManagerAndNetworkGraphPersisterAndEventHandler = FloatingChannelManagerPersister(channelManager: channelManager)
     }
+    
+    func testChannelCreationResultError() async throws {
+        let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
+        let reversedGenesisHash = Self.hexStringToBytes(hexString: reversedGenesisHashHex)!
+
+        let seed: [UInt8] = [UInt8](Data(base64Encoded: "//////////////////////////////////////////8=")!)
+        let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
+        let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
+
+        let keysManager = KeysManager(seed: seed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+        let keysInterface = keysManager.as_KeysInterface()
+
+        let logger = TestLogger()
+
+        let config = UserConfig()
+        let lightningNetwork = LDKNetwork_Bitcoin
+        let networkGraph = NetworkGraph(genesis_hash: reversedGenesisHash, logger: logger)
+
+        let scoringParams = ProbabilisticScoringParameters()
+        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: networkGraph, logger: logger)
+        let score = probabalisticScorer.as_Score()
+        let multiThreadedScorer = MultiThreadedLockableScore(score: score)
+
+        let feeEstimator = TestFeeEstimator()
+        let broadcaster = TestBroadcasterInterface()
+
+        let channelMonitorPersister = TestPersister()
+        let chainMonitor = ChainMonitor(chain_source: Option_FilterZ(value: nil), broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
+
+        let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: reversedGenesisHash, current_blockchain_tip_height: 0, keys_interface: keysInterface, fee_estimator: feeEstimator, chain_monitor: chainMonitor, net_graph: networkGraph, tx_broadcaster: broadcaster, logger: logger)
+        let channelManager = channelManagerConstructor.channelManager
+        
+        let channelValue: UInt64 = 1_300_000 // 1.3 million satoshis, or 0.013 BTC
+        let channelValueBtcString = "0.013"
+        let reserveAmount: UInt64 = 1000 // a thousand satoshis rserve
+        let peerPubkey = Self.hexStringToBytes(hexString: "02deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef")!
+        let channelOpenResult = channelManager.create_channel(their_network_key: peerPubkey, channel_value_satoshis: channelValue, push_msat: reserveAmount, user_channel_id: 42, override_config: config)
+        
+        let channelOpenError = channelOpenResult.getError()!
+        print("error type: \(channelOpenError.getValueType())")
+        
+        let channelUnavailableError = channelOpenError.getValueAsChannelUnavailable()!
+        print("channel unavailable error: \(channelUnavailableError.getErr())")
+    }
 
     
 	func testMainnetGraphSync() async throws {

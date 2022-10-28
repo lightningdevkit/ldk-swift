@@ -383,7 +383,10 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		if deallocate && nativeType.datalen > 0 {
+			print("Deallocating LDKTransaction")
 			nativeType.data.deallocate()
+		} else {
+			print("Not deallocating LDKTransaction")
 		}
 		return array
 	}
@@ -398,8 +401,11 @@ public class Bindings {
 		}
 		let data = Data(bytes: array)
 		let string = String(data: data, encoding: .utf8)!
-		if deallocate && nativeType.len > 0{
+		if deallocate && nativeType.len > 0 {
+			print("Deallocating LDKStr")
 			Str_free(nativeType)
+		} else {
+			print("Not deallocating LDKStr")
 		}
 		return string
 	}

@@ -101,13 +101,13 @@ class VectorGenerator(UtilGenerator):
 								entry{cloneability_infix}.cOpaqueStruct!
 							}}
 						}}
-						
+
 						public class func wrapNative{shallowmost_iteratee.name}Array(array: [{shallowmost_iteratee.name}]) -> [{shallowmost_swift_type_name}] {{
 							return array.map {{ entry -> {shallowmost_swift_type_name} in
 								{shallowmost_swift_type_name}(pointer: entry)
 							}}
 						}}
-						
+
 						public class func wrapDanglingNative{shallowmost_iteratee.name}Array(array: [{shallowmost_iteratee.name}]) -> [{shallowmost_swift_type_name}] {{
 							return array.map {{ entry -> {shallowmost_swift_type_name} in
 								{shallowmost_swift_type_name}(pointer: entry).dangle()
@@ -166,12 +166,16 @@ class VectorGenerator(UtilGenerator):
 			if is_deepest_iteratee_primitive:
 				mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'''
 					if deallocate && nativeType.datalen > 0 {{
+						print("Deallocating {vector_name}")
 						nativeType.data.deallocate()
+					}} else {{
+						print("Not deallocating {vector_name}")
 					}}
 				''')
 			else:
 				mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'''
 					if deallocate {{
+						print("Deallocating {vector_name}")
 						{vector_type_details.name[3:]}_free(nativeType)
 					}}
 				''')

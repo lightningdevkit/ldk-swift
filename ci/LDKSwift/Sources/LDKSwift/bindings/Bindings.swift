@@ -830,7 +830,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_APIErrorZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_APIErrorZ")
 					}
 				
 		return array
@@ -841,13 +844,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKAPIErrorArray(array: [LDKAPIError]) -> [APIError] {
 							return array.map { entry -> APIError in
 								APIError(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKAPIErrorArray(array: [LDKAPIError]) -> [APIError] {
 							return array.map { entry -> APIError in
 								APIError(pointer: entry).dangle()
@@ -932,7 +935,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_BalanceZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_BalanceZ")
 					}
 				
 		return array
@@ -943,13 +949,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKBalanceArray(array: [LDKBalance]) -> [Balance] {
 							return array.map { entry -> Balance in
 								Balance(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKBalanceArray(array: [LDKBalance]) -> [Balance] {
 							return array.map { entry -> Balance in
 								Balance(pointer: entry).dangle()
@@ -1034,7 +1040,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_C2Tuple_BlockHashChannelMonitorZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_C2Tuple_BlockHashChannelMonitorZZ")
 					}
 				
 		return array
@@ -1045,13 +1054,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> [C2Tuple_BlockHashChannelMonitorZ] {
 							return array.map { entry -> C2Tuple_BlockHashChannelMonitorZ in
 								C2Tuple_BlockHashChannelMonitorZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC2Tuple_BlockHashChannelMonitorZArray(array: [LDKC2Tuple_BlockHashChannelMonitorZ]) -> [C2Tuple_BlockHashChannelMonitorZ] {
 							return array.map { entry -> C2Tuple_BlockHashChannelMonitorZ in
 								C2Tuple_BlockHashChannelMonitorZ(pointer: entry).dangle()
@@ -1136,7 +1145,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_C2Tuple_PublicKeyTypeZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_C2Tuple_PublicKeyTypeZZ")
 					}
 				
 		return array
@@ -1147,13 +1159,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC2Tuple_PublicKeyTypeZArray(array: [LDKC2Tuple_PublicKeyTypeZ]) -> [C2Tuple_PublicKeyTypeZ] {
 							return array.map { entry -> C2Tuple_PublicKeyTypeZ in
 								C2Tuple_PublicKeyTypeZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC2Tuple_PublicKeyTypeZArray(array: [LDKC2Tuple_PublicKeyTypeZ]) -> [C2Tuple_PublicKeyTypeZ] {
 							return array.map { entry -> C2Tuple_PublicKeyTypeZ in
 								C2Tuple_PublicKeyTypeZ(pointer: entry).dangle()
@@ -1238,7 +1250,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ")
 					}
 				
 		return array
@@ -1249,13 +1264,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
 							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ in
 								C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
 							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ in
 								C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: entry).dangle()
@@ -1340,7 +1355,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_C2Tuple_u32ScriptZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_C2Tuple_u32ScriptZZ")
 					}
 				
 		return array
@@ -1351,13 +1369,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC2Tuple_u32ScriptZArray(array: [LDKC2Tuple_u32ScriptZ]) -> [C2Tuple_u32ScriptZ] {
 							return array.map { entry -> C2Tuple_u32ScriptZ in
 								C2Tuple_u32ScriptZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC2Tuple_u32ScriptZArray(array: [LDKC2Tuple_u32ScriptZ]) -> [C2Tuple_u32ScriptZ] {
 							return array.map { entry -> C2Tuple_u32ScriptZ in
 								C2Tuple_u32ScriptZ(pointer: entry).dangle()
@@ -1442,7 +1460,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_C2Tuple_u32TxOutZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_C2Tuple_u32TxOutZZ")
 					}
 				
 		return array
@@ -1453,13 +1474,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC2Tuple_u32TxOutZArray(array: [LDKC2Tuple_u32TxOutZ]) -> [C2Tuple_u32TxOutZ] {
 							return array.map { entry -> C2Tuple_u32TxOutZ in
 								C2Tuple_u32TxOutZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC2Tuple_u32TxOutZArray(array: [LDKC2Tuple_u32TxOutZ]) -> [C2Tuple_u32TxOutZ] {
 							return array.map { entry -> C2Tuple_u32TxOutZ in
 								C2Tuple_u32TxOutZ(pointer: entry).dangle()
@@ -1544,7 +1565,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_C2Tuple_usizeTransactionZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_C2Tuple_usizeTransactionZZ")
 					}
 				
 		return array
@@ -1555,13 +1579,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC2Tuple_usizeTransactionZArray(array: [LDKC2Tuple_usizeTransactionZ]) -> [C2Tuple_usizeTransactionZ] {
 							return array.map { entry -> C2Tuple_usizeTransactionZ in
 								C2Tuple_usizeTransactionZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC2Tuple_usizeTransactionZArray(array: [LDKC2Tuple_usizeTransactionZ]) -> [C2Tuple_usizeTransactionZ] {
 							return array.map { entry -> C2Tuple_usizeTransactionZ in
 								C2Tuple_usizeTransactionZ(pointer: entry).dangle()
@@ -1646,7 +1670,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ")
 					}
 				
 		return array
@@ -1657,13 +1684,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZArray(array: [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> [C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
 							return array.map { entry -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ in
 								C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZArray(array: [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]) -> [C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
 							return array.map { entry -> C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ in
 								C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ(pointer: entry).dangle()
@@ -1748,7 +1775,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_CResult_NoneAPIErrorZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_CResult_NoneAPIErrorZZ")
 					}
 				
 		return array
@@ -1759,13 +1789,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKCResult_NoneAPIErrorZArray(array: [LDKCResult_NoneAPIErrorZ]) -> [Result_NoneAPIErrorZ] {
 							return array.map { entry -> Result_NoneAPIErrorZ in
 								Result_NoneAPIErrorZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKCResult_NoneAPIErrorZArray(array: [LDKCResult_NoneAPIErrorZ]) -> [Result_NoneAPIErrorZ] {
 							return array.map { entry -> Result_NoneAPIErrorZ in
 								Result_NoneAPIErrorZ(pointer: entry).dangle()
@@ -1866,7 +1896,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_CVec_RouteHopZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_CVec_RouteHopZZ")
 					}
 				
 		return array
@@ -1959,7 +1992,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_CVec_u8ZZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_CVec_u8ZZ")
 					}
 				
 		return array
@@ -2036,7 +2072,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_ChannelDetailsZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_ChannelDetailsZ")
 					}
 				
 		return array
@@ -2047,13 +2086,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKChannelDetailsArray(array: [LDKChannelDetails]) -> [ChannelDetails] {
 							return array.map { entry -> ChannelDetails in
 								ChannelDetails(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKChannelDetailsArray(array: [LDKChannelDetails]) -> [ChannelDetails] {
 							return array.map { entry -> ChannelDetails in
 								ChannelDetails(pointer: entry).dangle()
@@ -2138,7 +2177,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_ChannelMonitorZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_ChannelMonitorZ")
 					}
 				
 		return array
@@ -2149,13 +2191,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [ChannelMonitor] {
 							return array.map { entry -> ChannelMonitor in
 								ChannelMonitor(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKChannelMonitorArray(array: [LDKChannelMonitor]) -> [ChannelMonitor] {
 							return array.map { entry -> ChannelMonitor in
 								ChannelMonitor(pointer: entry).dangle()
@@ -2240,7 +2282,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_EventZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_EventZ")
 					}
 				
 		return array
@@ -2251,13 +2296,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKEventArray(array: [LDKEvent]) -> [Event] {
 							return array.map { entry -> Event in
 								Event(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKEventArray(array: [LDKEvent]) -> [Event] {
 							return array.map { entry -> Event in
 								Event(pointer: entry).dangle()
@@ -2342,7 +2387,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_MessageSendEventZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_MessageSendEventZ")
 					}
 				
 		return array
@@ -2353,13 +2401,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKMessageSendEventArray(array: [LDKMessageSendEvent]) -> [MessageSendEvent] {
 							return array.map { entry -> MessageSendEvent in
 								MessageSendEvent(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKMessageSendEventArray(array: [LDKMessageSendEvent]) -> [MessageSendEvent] {
 							return array.map { entry -> MessageSendEvent in
 								MessageSendEvent(pointer: entry).dangle()
@@ -2444,7 +2492,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_MonitorEventZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_MonitorEventZ")
 					}
 				
 		return array
@@ -2455,13 +2506,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKMonitorEventArray(array: [LDKMonitorEvent]) -> [MonitorEvent] {
 							return array.map { entry -> MonitorEvent in
 								MonitorEvent(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKMonitorEventArray(array: [LDKMonitorEvent]) -> [MonitorEvent] {
 							return array.map { entry -> MonitorEvent in
 								MonitorEvent(pointer: entry).dangle()
@@ -2546,7 +2597,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_NetAddressZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_NetAddressZ")
 					}
 				
 		return array
@@ -2557,13 +2611,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKNetAddressArray(array: [LDKNetAddress]) -> [NetAddress] {
 							return array.map { entry -> NetAddress in
 								NetAddress(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKNetAddressArray(array: [LDKNetAddress]) -> [NetAddress] {
 							return array.map { entry -> NetAddress in
 								NetAddress(pointer: entry).dangle()
@@ -2648,7 +2702,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_NodeIdZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_NodeIdZ")
 					}
 				
 		return array
@@ -2659,13 +2716,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKNodeIdArray(array: [LDKNodeId]) -> [NodeId] {
 							return array.map { entry -> NodeId in
 								NodeId(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKNodeIdArray(array: [LDKNodeId]) -> [NodeId] {
 							return array.map { entry -> NodeId in
 								NodeId(pointer: entry).dangle()
@@ -2750,7 +2807,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_OutPointZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_OutPointZ")
 					}
 				
 		return array
@@ -2761,13 +2821,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKOutPointArray(array: [LDKOutPoint]) -> [OutPoint] {
 							return array.map { entry -> OutPoint in
 								OutPoint(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKOutPointArray(array: [LDKOutPoint]) -> [OutPoint] {
 							return array.map { entry -> OutPoint in
 								OutPoint(pointer: entry).dangle()
@@ -2860,7 +2920,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_PaymentPreimageZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_PaymentPreimageZ")
 					}
 				
 		return array
@@ -2937,7 +3000,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_PhantomRouteHintsZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_PhantomRouteHintsZ")
 					}
 				
 		return array
@@ -2948,13 +3014,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKPhantomRouteHintsArray(array: [LDKPhantomRouteHints]) -> [PhantomRouteHints] {
 							return array.map { entry -> PhantomRouteHints in
 								PhantomRouteHints(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKPhantomRouteHintsArray(array: [LDKPhantomRouteHints]) -> [PhantomRouteHints] {
 							return array.map { entry -> PhantomRouteHints in
 								PhantomRouteHints(pointer: entry).dangle()
@@ -3039,7 +3105,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_PrivateRouteZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_PrivateRouteZ")
 					}
 				
 		return array
@@ -3050,13 +3119,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKPrivateRouteArray(array: [LDKPrivateRoute]) -> [PrivateRoute] {
 							return array.map { entry -> PrivateRoute in
 								PrivateRoute(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKPrivateRouteArray(array: [LDKPrivateRoute]) -> [PrivateRoute] {
 							return array.map { entry -> PrivateRoute in
 								PrivateRoute(pointer: entry).dangle()
@@ -3149,7 +3218,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_PublicKeyZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_PublicKeyZ")
 					}
 				
 		return array
@@ -3226,7 +3298,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_RouteHintHopZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_RouteHintHopZ")
 					}
 				
 		return array
@@ -3237,13 +3312,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKRouteHintHopArray(array: [LDKRouteHintHop]) -> [RouteHintHop] {
 							return array.map { entry -> RouteHintHop in
 								RouteHintHop(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKRouteHintHopArray(array: [LDKRouteHintHop]) -> [RouteHintHop] {
 							return array.map { entry -> RouteHintHop in
 								RouteHintHop(pointer: entry).dangle()
@@ -3328,7 +3403,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_RouteHintZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_RouteHintZ")
 					}
 				
 		return array
@@ -3339,13 +3417,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKRouteHintArray(array: [LDKRouteHint]) -> [RouteHint] {
 							return array.map { entry -> RouteHint in
 								RouteHint(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKRouteHintArray(array: [LDKRouteHint]) -> [RouteHint] {
 							return array.map { entry -> RouteHint in
 								RouteHint(pointer: entry).dangle()
@@ -3430,7 +3508,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_RouteHopZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_RouteHopZ")
 					}
 				
 		return array
@@ -3441,13 +3522,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKRouteHopArray(array: [LDKRouteHop]) -> [RouteHop] {
 							return array.map { entry -> RouteHop in
 								RouteHop(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKRouteHopArray(array: [LDKRouteHop]) -> [RouteHop] {
 							return array.map { entry -> RouteHop in
 								RouteHop(pointer: entry).dangle()
@@ -3540,7 +3621,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_SignatureZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_SignatureZ")
 					}
 				
 		return array
@@ -3617,7 +3701,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_SpendableOutputDescriptorZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_SpendableOutputDescriptorZ")
 					}
 				
 		return array
@@ -3628,13 +3715,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKSpendableOutputDescriptorArray(array: [LDKSpendableOutputDescriptor]) -> [SpendableOutputDescriptor] {
 							return array.map { entry -> SpendableOutputDescriptor in
 								SpendableOutputDescriptor(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKSpendableOutputDescriptorArray(array: [LDKSpendableOutputDescriptor]) -> [SpendableOutputDescriptor] {
 							return array.map { entry -> SpendableOutputDescriptor in
 								SpendableOutputDescriptor(pointer: entry).dangle()
@@ -3727,7 +3814,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_ThirtyTwoBytesZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_ThirtyTwoBytesZ")
 					}
 				
 		return array
@@ -3804,7 +3894,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_TransactionOutputsZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_TransactionOutputsZ")
 					}
 				
 		return array
@@ -3815,13 +3908,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
 							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ in
 								C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZArray(array: [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]) -> [C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
 							return array.map { entry -> C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ in
 								C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(pointer: entry).dangle()
@@ -3922,7 +4015,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_TransactionZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_TransactionZ")
 					}
 				
 		return array
@@ -3999,7 +4095,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_TxOutZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_TxOutZ")
 					}
 				
 		return array
@@ -4010,13 +4109,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKTxOutArray(array: [LDKTxOut]) -> [TxOut] {
 							return array.map { entry -> TxOut in
 								TxOut(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKTxOutArray(array: [LDKTxOut]) -> [TxOut] {
 							return array.map { entry -> TxOut in
 								TxOut(pointer: entry).dangle()
@@ -4109,7 +4208,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_TxidZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_TxidZ")
 					}
 				
 		return array
@@ -4186,7 +4288,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_UpdateAddHTLCZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_UpdateAddHTLCZ")
 					}
 				
 		return array
@@ -4197,13 +4302,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKUpdateAddHTLCArray(array: [LDKUpdateAddHTLC]) -> [UpdateAddHTLC] {
 							return array.map { entry -> UpdateAddHTLC in
 								UpdateAddHTLC(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKUpdateAddHTLCArray(array: [LDKUpdateAddHTLC]) -> [UpdateAddHTLC] {
 							return array.map { entry -> UpdateAddHTLC in
 								UpdateAddHTLC(pointer: entry).dangle()
@@ -4288,7 +4393,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_UpdateFailHTLCZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_UpdateFailHTLCZ")
 					}
 				
 		return array
@@ -4299,13 +4407,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKUpdateFailHTLCArray(array: [LDKUpdateFailHTLC]) -> [UpdateFailHTLC] {
 							return array.map { entry -> UpdateFailHTLC in
 								UpdateFailHTLC(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKUpdateFailHTLCArray(array: [LDKUpdateFailHTLC]) -> [UpdateFailHTLC] {
 							return array.map { entry -> UpdateFailHTLC in
 								UpdateFailHTLC(pointer: entry).dangle()
@@ -4390,7 +4498,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_UpdateFailMalformedHTLCZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_UpdateFailMalformedHTLCZ")
 					}
 				
 		return array
@@ -4401,13 +4512,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKUpdateFailMalformedHTLCArray(array: [LDKUpdateFailMalformedHTLC]) -> [UpdateFailMalformedHTLC] {
 							return array.map { entry -> UpdateFailMalformedHTLC in
 								UpdateFailMalformedHTLC(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKUpdateFailMalformedHTLCArray(array: [LDKUpdateFailMalformedHTLC]) -> [UpdateFailMalformedHTLC] {
 							return array.map { entry -> UpdateFailMalformedHTLC in
 								UpdateFailMalformedHTLC(pointer: entry).dangle()
@@ -4492,7 +4603,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_UpdateFulfillHTLCZ")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_UpdateFulfillHTLCZ")
 					}
 				
 		return array
@@ -4503,13 +4617,13 @@ public class Bindings {
 								entry.danglingClone().cOpaqueStruct!
 							}
 						}
-						
+
 						public class func wrapNativeLDKUpdateFulfillHTLCArray(array: [LDKUpdateFulfillHTLC]) -> [UpdateFulfillHTLC] {
 							return array.map { entry -> UpdateFulfillHTLC in
 								UpdateFulfillHTLC(pointer: entry)
 							}
 						}
-						
+
 						public class func wrapDanglingNativeLDKUpdateFulfillHTLCArray(array: [LDKUpdateFulfillHTLC]) -> [UpdateFulfillHTLC] {
 							return array.map { entry -> UpdateFulfillHTLC in
 								UpdateFulfillHTLC(pointer: entry).dangle()
@@ -4594,7 +4708,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_u5Z")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_u5Z")
 					}
 				
 		return array
@@ -4671,7 +4788,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_u64Z")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_u64Z")
 					}
 				
 		return array
@@ -4748,7 +4868,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
+						print("Deallocating LDKCVec_u8Z")
 						nativeType.data.deallocate()
+					} else {
+						print("Not deallocating LDKCVec_u8Z")
 					}
 				
 		return array
@@ -6778,7 +6901,10 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 			array.append(currentEntry)
 		}
 		if deallocate && nativeType.datalen > 0 {
+			print("Deallocating LDKTransaction")
 			nativeType.data.deallocate()
+		} else {
+			print("Not deallocating LDKTransaction")
 		}
 		return array
 	}
@@ -6793,8 +6919,11 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 		}
 		let data = Data(bytes: array)
 		let string = String(data: data, encoding: .utf8)!
-		if deallocate && nativeType.len > 0{
+		if deallocate && nativeType.len > 0 {
+			print("Deallocating LDKStr")
 			Str_free(nativeType)
+		} else {
+			print("Not deallocating LDKStr")
 		}
 		return string
 	}
@@ -6848,7 +6977,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "87d5cecf63ba461d2b11da3c7798ada0cd7f6c9e"
+        return "c6eca5906aa681d42dc0225797b85097e0bbb1b9"
     }
 
 }

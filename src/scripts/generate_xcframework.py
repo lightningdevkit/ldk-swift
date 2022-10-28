@@ -60,7 +60,9 @@ def run(config: ScriptConfig):
 		# XCFRAMEWORK_INPUT_FLAGS="${XCFRAMEWORK_INPUT_FLAGS}-framework ${CURRENT_ARCHIVE_PATH}.xcarchive/Products/Library/Frameworks/LDKFramework.framework "
 		framework_input_flags += [
 			'-framework',
-			f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LightningDevKit.framework'
+			f'{xcarchive_output_path}.xcarchive/Products/Library/Frameworks/LightningDevKit.framework',
+			'-debug-symbols',
+			f'{xcarchive_output_path}.xcarchive/dSYMs/LightningDevKit.framework.dSYM'
 		]
 
 		if config.PRESERVE_XCARCHIVES:

@@ -159,7 +159,7 @@ MonitorEvent_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKMonitorEvent>) in
 MonitorEvent_write(objPointer)
-});
+}, callerContext: "MonitorEvent::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_COption_MonitorEventZDecodeErrorZ {

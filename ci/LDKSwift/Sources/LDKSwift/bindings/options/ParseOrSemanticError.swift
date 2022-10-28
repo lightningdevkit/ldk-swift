@@ -113,7 +113,7 @@ ParseOrSemanticError_clone(origPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKParseOrSemanticError>) in
 ParseOrSemanticError_to_str(oPointer)
-});
+}, callerContext: "ParseOrSemanticError::to_str");
 		}
 
 		/* OPTION_METHODS_END */

@@ -91,7 +91,7 @@ CounterpartyChannelTransactionParameters_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCounterpartyChannelTransactionParameters>) in
 CounterpartyChannelTransactionParameters_write(objPointer)
-});
+}, callerContext: "CounterpartyChannelTransactionParameters::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {

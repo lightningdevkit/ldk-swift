@@ -164,7 +164,7 @@ ChannelInfo_get_directional_info(this_argPointer, channel_flags)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelInfo>) in
 ChannelInfo_write(objPointer)
-});
+}, callerContext: "ChannelInfo::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {

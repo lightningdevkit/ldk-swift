@@ -38,7 +38,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKBlindedHop>) in
 BlindedHop_write(objPointer)
-});
+}, callerContext: "BlindedHop::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_BlindedHopDecodeErrorZ {

@@ -85,7 +85,7 @@ C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer)
 				}
 			
 				public func getB() -> [C2Tuple_u32TxOutZ] {
-					return Bindings.LDKCVec_C2Tuple_u32TxOutZZ_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false)
+					return Bindings.LDKCVec_C2Tuple_u32TxOutZZ_to_array(nativeType: self.cOpaqueStruct!.b, callerContext: "LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ::getB", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							C2Tuple_u32TxOutZ(pointer: cOpaqueStruct).dangle()

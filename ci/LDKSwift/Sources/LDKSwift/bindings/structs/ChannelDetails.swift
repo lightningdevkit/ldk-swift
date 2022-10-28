@@ -429,7 +429,7 @@ ChannelDetails_get_outbound_payment_scid(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelDetails>) in
 ChannelDetails_write(objPointer)
-});
+}, callerContext: "ChannelDetails::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelDetailsDecodeErrorZ {

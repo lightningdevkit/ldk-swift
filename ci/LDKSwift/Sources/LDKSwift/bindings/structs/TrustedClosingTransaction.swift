@@ -38,7 +38,7 @@ extension Bindings {
 			
 			return Bindings.LDKTransaction_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKTrustedClosingTransaction>) in
 TrustedClosingTransaction_built_transaction(this_argPointer)
-});
+}, callerContext: "TrustedClosingTransaction::built_transaction");
 		}
 
 		public func get_sighash_all(funding_redeemscript: [UInt8], channel_value_satoshis: UInt64) -> [UInt8] {

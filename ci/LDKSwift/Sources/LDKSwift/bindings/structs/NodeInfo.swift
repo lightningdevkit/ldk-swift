@@ -52,7 +52,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_u64Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeInfo>) in
 NodeInfo_get_channels(this_ptrPointer)
-});
+}, callerContext: "NodeInfo::get_channels");
 		}
 
 		public func set_channels(val: [UInt64]) -> Void {
@@ -116,7 +116,7 @@ NodeInfo_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeInfo>) in
 NodeInfo_write(objPointer)
-});
+}, callerContext: "NodeInfo::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {

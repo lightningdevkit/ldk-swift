@@ -55,7 +55,7 @@ extension Bindings {
 			
 			public func getValue() -> [UInt8]? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
+					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, callerContext: "Result_CVec_u8ZPeerHandleErrorZ::getValue", deallocate: false)
 				}
 				return nil
 			}

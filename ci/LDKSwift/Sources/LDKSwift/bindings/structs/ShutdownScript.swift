@@ -63,7 +63,7 @@ ShutdownScript_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKShutdownScript>) in
 ShutdownScript_write(objPointer)
-});
+}, callerContext: "ShutdownScript::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ShutdownScriptDecodeErrorZ {
@@ -88,7 +88,7 @@ ShutdownScript_write(objPointer)
 
 		public func into_inner() -> [UInt8] {
 			
-			return Bindings.LDKCVec_u8Z_to_array(nativeType: ShutdownScript_into_inner(self.danglingClone().cOpaqueStruct!));
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: ShutdownScript_into_inner(self.danglingClone().cOpaqueStruct!), callerContext: "ShutdownScript::into_inner");
 		}
 
 		public func as_legacy_pubkey() -> [UInt8] {

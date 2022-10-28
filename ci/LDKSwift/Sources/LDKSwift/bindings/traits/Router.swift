@@ -32,7 +32,7 @@ extension Bindings {
 							
 					var first_hops: [LDKChannelDetails]? = nil
 					if let first_hopsUnwrapped = first_hopsPointer {
-						first_hops = Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: first_hopsUnwrapped.pointee)
+						first_hops = Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: first_hopsUnwrapped.pointee, callerContext: "Router::init::find_routeCallback")
 					}
 				
 				return instance.find_route(payer: Bindings.tuple33_to_array(nativeType: payer.compressed_form), route_params: route_params, payment_hash: payment_hash, first_hops: first_hops, inflight_htlcs: InFlightHtlcs(pointer: inflight_htlcs)).cOpaqueStruct!
@@ -41,25 +41,25 @@ extension Bindings {
 			func notify_payment_path_failedCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
 				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_path_failed")
 				
-				return instance.notify_payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+				return instance.notify_payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Router::init::notify_payment_path_failedCallback"), short_channel_id: short_channel_id)
 			}
 
 			func notify_payment_path_successfulCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
 				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_path_successful")
 				
-				return instance.notify_payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+				return instance.notify_payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Router::init::notify_payment_path_successfulCallback"))
 			}
 
 			func notify_payment_probe_successfulCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
 				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_probe_successful")
 				
-				return instance.notify_payment_probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+				return instance.notify_payment_probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Router::init::notify_payment_probe_successfulCallback"))
 			}
 
 			func notify_payment_probe_failedCallback(pointer: UnsafeRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
 				let instance: Router = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Router.swift::notify_payment_probe_failed")
 				
-				return instance.notify_payment_probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+				return instance.notify_payment_probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Router::init::notify_payment_probe_failedCallback"), short_channel_id: short_channel_id)
 			}
 
 			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {

@@ -113,7 +113,7 @@ QueryChannelRange_end_blocknum(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKQueryChannelRange>) in
 QueryChannelRange_write(objPointer)
-});
+}, callerContext: "QueryChannelRange::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_QueryChannelRangeDecodeErrorZ {

@@ -89,7 +89,7 @@ C2Tuple_OutPointScriptZ_clone(origPointer)
 				}
 			
 				public func getB() -> [UInt8] {
-					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false);
+					return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.b, callerContext: "LDKC2Tuple_OutPointScriptZ::getB", deallocate: false);
 				}
 			
 		/* TUPLE_METHODS_END */

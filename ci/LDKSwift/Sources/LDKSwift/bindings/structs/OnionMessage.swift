@@ -77,7 +77,7 @@ OnionMessage_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOnionMessage>) in
 OnionMessage_write(objPointer)
-});
+}, callerContext: "OnionMessage::write");
 		}
 
 		internal func free() -> Void {

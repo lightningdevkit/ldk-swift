@@ -75,7 +75,7 @@ NodeId_hash(oPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeId>) in
 NodeId_write(objPointer)
-});
+}, callerContext: "NodeId::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_NodeIdDecodeErrorZ {

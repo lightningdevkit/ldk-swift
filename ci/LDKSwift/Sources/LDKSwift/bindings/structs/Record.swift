@@ -53,7 +53,7 @@ Record_get_level(this_ptrPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRecord>) in
 Record_get_args(this_ptrPointer)
-});
+}, callerContext: "Record::get_args");
 		}
 
 		public func set_args(val: String) -> Void {
@@ -68,7 +68,7 @@ Record_get_args(this_ptrPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRecord>) in
 Record_get_module_path(this_ptrPointer)
-});
+}, callerContext: "Record::get_module_path");
 		}
 
 		public func set_module_path(val: String) -> Void {
@@ -83,7 +83,7 @@ Record_get_module_path(this_ptrPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRecord>) in
 Record_get_file(this_ptrPointer)
-});
+}, callerContext: "Record::get_file");
 		}
 
 		public func set_file(val: String) -> Void {

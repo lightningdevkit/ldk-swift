@@ -62,7 +62,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_CVec_RouteHopZZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRoute>) in
 Route_get_paths(this_ptrPointer)
-})
+}, callerContext: "Route::get_paths")
 						.map { (cOpaqueStruct) in
 						cOpaqueStruct
 						.map { (cOpaqueStruct) in
@@ -158,7 +158,7 @@ Route_get_total_amount(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRoute>) in
 Route_write(objPointer)
-});
+}, callerContext: "Route::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {

@@ -133,7 +133,7 @@ public class NativelyImplementedSign: Sign {
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.write(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.write(self.cOpaqueStruct!.this_arg), callerContext: "Sign::NativelyImplementedSign::write")
 				
 			
 	}

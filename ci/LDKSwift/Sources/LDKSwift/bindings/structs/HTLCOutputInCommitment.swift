@@ -136,7 +136,7 @@ HTLCOutputInCommitment_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 HTLCOutputInCommitment_write(objPointer)
-});
+}, callerContext: "HTLCOutputInCommitment::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_HTLCOutputInCommitmentDecodeErrorZ {

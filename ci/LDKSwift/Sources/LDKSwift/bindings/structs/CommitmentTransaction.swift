@@ -52,7 +52,7 @@ CommitmentTransaction_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentTransaction>) in
 CommitmentTransaction_write(objPointer)
-});
+}, callerContext: "CommitmentTransaction::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_CommitmentTransactionDecodeErrorZ {

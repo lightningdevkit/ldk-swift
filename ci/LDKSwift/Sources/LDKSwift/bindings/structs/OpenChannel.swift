@@ -337,7 +337,7 @@ OpenChannel_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOpenChannel>) in
 OpenChannel_write(objPointer)
-});
+}, callerContext: "OpenChannel::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_OpenChannelDecodeErrorZ {

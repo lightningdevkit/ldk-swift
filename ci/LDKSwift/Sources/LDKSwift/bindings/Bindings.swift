@@ -821,7 +821,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_APIErrorZ_to_array(nativeType: LDKCVec_APIErrorZ, deallocate: Bool = true) -> [LDKAPIError] {
+    public class func LDKCVec_APIErrorZ_to_array(nativeType: LDKCVec_APIErrorZ, callerContext: String, deallocate: Bool = true) -> [LDKAPIError] {
 		var array = [LDKAPIError]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -829,11 +829,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_APIErrorZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_APIErrorZ")
+					if deallocate {
+						print("Deallocating LDKCVec_APIErrorZ (called from \(callerContext))")
+						CVec_APIErrorZ_free(nativeType)
 					}
 				
 		return array
@@ -926,7 +924,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_BalanceZ_to_array(nativeType: LDKCVec_BalanceZ, deallocate: Bool = true) -> [LDKBalance] {
+    public class func LDKCVec_BalanceZ_to_array(nativeType: LDKCVec_BalanceZ, callerContext: String, deallocate: Bool = true) -> [LDKBalance] {
 		var array = [LDKBalance]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -934,11 +932,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_BalanceZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_BalanceZ")
+					if deallocate {
+						print("Deallocating LDKCVec_BalanceZ (called from \(callerContext))")
+						CVec_BalanceZ_free(nativeType)
 					}
 				
 		return array
@@ -1031,7 +1027,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ, deallocate: Bool = true) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
+    public class func LDKCVec_C2Tuple_BlockHashChannelMonitorZZ_to_array(nativeType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ, callerContext: String, deallocate: Bool = true) -> [LDKC2Tuple_BlockHashChannelMonitorZ] {
 		var array = [LDKC2Tuple_BlockHashChannelMonitorZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1039,11 +1035,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_C2Tuple_BlockHashChannelMonitorZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_C2Tuple_BlockHashChannelMonitorZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_C2Tuple_BlockHashChannelMonitorZZ (called from \(callerContext))")
+						CVec_C2Tuple_BlockHashChannelMonitorZZ_free(nativeType)
 					}
 				
 		return array
@@ -1136,7 +1130,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_PublicKeyTypeZZ_to_array(nativeType: LDKCVec_C2Tuple_PublicKeyTypeZZ, deallocate: Bool = true) -> [LDKC2Tuple_PublicKeyTypeZ] {
+    public class func LDKCVec_C2Tuple_PublicKeyTypeZZ_to_array(nativeType: LDKCVec_C2Tuple_PublicKeyTypeZZ, callerContext: String, deallocate: Bool = true) -> [LDKC2Tuple_PublicKeyTypeZ] {
 		var array = [LDKC2Tuple_PublicKeyTypeZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1144,11 +1138,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_C2Tuple_PublicKeyTypeZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_C2Tuple_PublicKeyTypeZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_C2Tuple_PublicKeyTypeZZ (called from \(callerContext))")
+						CVec_C2Tuple_PublicKeyTypeZZ_free(nativeType)
 					}
 				
 		return array
@@ -1241,7 +1233,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ_to_array(nativeType: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ, deallocate: Bool = true) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
+    public class func LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ_to_array(nativeType: LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ, callerContext: String, deallocate: Bool = true) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ] {
 		var array = [LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1249,11 +1241,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ (called from \(callerContext))")
+						CVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ_free(nativeType)
 					}
 				
 		return array
@@ -1346,7 +1336,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_u32ScriptZZ_to_array(nativeType: LDKCVec_C2Tuple_u32ScriptZZ, deallocate: Bool = true) -> [LDKC2Tuple_u32ScriptZ] {
+    public class func LDKCVec_C2Tuple_u32ScriptZZ_to_array(nativeType: LDKCVec_C2Tuple_u32ScriptZZ, callerContext: String, deallocate: Bool = true) -> [LDKC2Tuple_u32ScriptZ] {
 		var array = [LDKC2Tuple_u32ScriptZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1354,11 +1344,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_C2Tuple_u32ScriptZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_C2Tuple_u32ScriptZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_C2Tuple_u32ScriptZZ (called from \(callerContext))")
+						CVec_C2Tuple_u32ScriptZZ_free(nativeType)
 					}
 				
 		return array
@@ -1451,7 +1439,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_u32TxOutZZ_to_array(nativeType: LDKCVec_C2Tuple_u32TxOutZZ, deallocate: Bool = true) -> [LDKC2Tuple_u32TxOutZ] {
+    public class func LDKCVec_C2Tuple_u32TxOutZZ_to_array(nativeType: LDKCVec_C2Tuple_u32TxOutZZ, callerContext: String, deallocate: Bool = true) -> [LDKC2Tuple_u32TxOutZ] {
 		var array = [LDKC2Tuple_u32TxOutZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1459,11 +1447,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_C2Tuple_u32TxOutZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_C2Tuple_u32TxOutZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_C2Tuple_u32TxOutZZ (called from \(callerContext))")
+						CVec_C2Tuple_u32TxOutZZ_free(nativeType)
 					}
 				
 		return array
@@ -1556,7 +1542,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: LDKCVec_C2Tuple_usizeTransactionZZ, deallocate: Bool = true) -> [LDKC2Tuple_usizeTransactionZ] {
+    public class func LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: LDKCVec_C2Tuple_usizeTransactionZZ, callerContext: String, deallocate: Bool = true) -> [LDKC2Tuple_usizeTransactionZ] {
 		var array = [LDKC2Tuple_usizeTransactionZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1564,11 +1550,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_C2Tuple_usizeTransactionZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_C2Tuple_usizeTransactionZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_C2Tuple_usizeTransactionZZ (called from \(callerContext))")
+						CVec_C2Tuple_usizeTransactionZZ_free(nativeType)
 					}
 				
 		return array
@@ -1661,7 +1645,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ_to_array(nativeType: LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ, deallocate: Bool = true) -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
+    public class func LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ_to_array(nativeType: LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ, callerContext: String, deallocate: Bool = true) -> [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ] {
 		var array = [LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1669,11 +1653,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ (called from \(callerContext))")
+						CVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ_free(nativeType)
 					}
 				
 		return array
@@ -1766,7 +1748,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: LDKCVec_CResult_NoneAPIErrorZZ, deallocate: Bool = true) -> [LDKCResult_NoneAPIErrorZ] {
+    public class func LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: LDKCVec_CResult_NoneAPIErrorZZ, callerContext: String, deallocate: Bool = true) -> [LDKCResult_NoneAPIErrorZ] {
 		var array = [LDKCResult_NoneAPIErrorZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -1774,11 +1756,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_CResult_NoneAPIErrorZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_CResult_NoneAPIErrorZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_CResult_NoneAPIErrorZZ (called from \(callerContext))")
+						CVec_CResult_NoneAPIErrorZZ_free(nativeType)
 					}
 				
 		return array
@@ -1816,7 +1796,7 @@ public class Bindings {
 					var lowerDimension = [LDKCVec_RouteHopZ]()
 					var subdimensionWrapper = [LDKCVec_RouteHopZWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKCVec_RouteHopZWrapper(array: currentEntry)
+						let convertedEntry = Self.new_LDKCVec_RouteHopZWrapper(array: currentEntry)
 						lowerDimension.append(convertedEntry.cOpaqueStruct!)
 						subdimensionWrapper.append(convertedEntry)
 					}
@@ -1887,19 +1867,17 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_CVec_RouteHopZZ_to_array(nativeType: LDKCVec_CVec_RouteHopZZ, deallocate: Bool = true) -> [[LDKRouteHop]] {
+    public class func LDKCVec_CVec_RouteHopZZ_to_array(nativeType: LDKCVec_CVec_RouteHopZZ, callerContext: String, deallocate: Bool = true) -> [[LDKRouteHop]] {
 		var array = [[LDKRouteHop]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKCVec_RouteHopZ_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKCVec_RouteHopZ_to_array(nativeType: currentEntry, callerContext: "\(callerContext) > LDKCVec_CVec_RouteHopZZ_to_array", deallocate: deallocate)
 			array.append(convertedEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_CVec_RouteHopZZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_CVec_RouteHopZZ")
+					if deallocate {
+						print("Deallocating LDKCVec_CVec_RouteHopZZ (called from \(callerContext))")
+						CVec_CVec_RouteHopZZ_free(nativeType)
 					}
 				
 		return array
@@ -1912,7 +1890,7 @@ public class Bindings {
 					var lowerDimension = [LDKCVec_u8Z]()
 					var subdimensionWrapper = [LDKCVec_u8ZWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKCVec_u8ZWrapper(array: currentEntry)
+						let convertedEntry = Self.new_LDKCVec_u8ZWrapper(array: currentEntry)
 						lowerDimension.append(convertedEntry.cOpaqueStruct!)
 						subdimensionWrapper.append(convertedEntry)
 					}
@@ -1983,19 +1961,19 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_CVec_u8ZZ_to_array(nativeType: LDKCVec_CVec_u8ZZ, deallocate: Bool = true) -> [[UInt8]] {
+    public class func LDKCVec_CVec_u8ZZ_to_array(nativeType: LDKCVec_CVec_u8ZZ, callerContext: String, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKCVec_u8Z_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKCVec_u8Z_to_array(nativeType: currentEntry, callerContext: "\(callerContext) > LDKCVec_CVec_u8ZZ_to_array", deallocate: deallocate)
 			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_CVec_u8ZZ")
+						print("Deallocating LDKCVec_CVec_u8ZZ (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_CVec_u8ZZ")
+						print("Not deallocating LDKCVec_CVec_u8ZZ (called from \(callerContext))")
 					}
 				
 		return array
@@ -2063,7 +2041,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_ChannelDetailsZ_to_array(nativeType: LDKCVec_ChannelDetailsZ, deallocate: Bool = true) -> [LDKChannelDetails] {
+    public class func LDKCVec_ChannelDetailsZ_to_array(nativeType: LDKCVec_ChannelDetailsZ, callerContext: String, deallocate: Bool = true) -> [LDKChannelDetails] {
 		var array = [LDKChannelDetails]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2071,11 +2049,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_ChannelDetailsZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_ChannelDetailsZ")
+					if deallocate {
+						print("Deallocating LDKCVec_ChannelDetailsZ (called from \(callerContext))")
+						CVec_ChannelDetailsZ_free(nativeType)
 					}
 				
 		return array
@@ -2168,7 +2144,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_ChannelMonitorZ_to_array(nativeType: LDKCVec_ChannelMonitorZ, deallocate: Bool = true) -> [LDKChannelMonitor] {
+    public class func LDKCVec_ChannelMonitorZ_to_array(nativeType: LDKCVec_ChannelMonitorZ, callerContext: String, deallocate: Bool = true) -> [LDKChannelMonitor] {
 		var array = [LDKChannelMonitor]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2176,11 +2152,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_ChannelMonitorZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_ChannelMonitorZ")
+					if deallocate {
+						print("Deallocating LDKCVec_ChannelMonitorZ (called from \(callerContext))")
+						CVec_ChannelMonitorZ_free(nativeType)
 					}
 				
 		return array
@@ -2273,7 +2247,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_EventZ_to_array(nativeType: LDKCVec_EventZ, deallocate: Bool = true) -> [LDKEvent] {
+    public class func LDKCVec_EventZ_to_array(nativeType: LDKCVec_EventZ, callerContext: String, deallocate: Bool = true) -> [LDKEvent] {
 		var array = [LDKEvent]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2281,11 +2255,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_EventZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_EventZ")
+					if deallocate {
+						print("Deallocating LDKCVec_EventZ (called from \(callerContext))")
+						CVec_EventZ_free(nativeType)
 					}
 				
 		return array
@@ -2378,7 +2350,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_MessageSendEventZ_to_array(nativeType: LDKCVec_MessageSendEventZ, deallocate: Bool = true) -> [LDKMessageSendEvent] {
+    public class func LDKCVec_MessageSendEventZ_to_array(nativeType: LDKCVec_MessageSendEventZ, callerContext: String, deallocate: Bool = true) -> [LDKMessageSendEvent] {
 		var array = [LDKMessageSendEvent]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2386,11 +2358,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_MessageSendEventZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_MessageSendEventZ")
+					if deallocate {
+						print("Deallocating LDKCVec_MessageSendEventZ (called from \(callerContext))")
+						CVec_MessageSendEventZ_free(nativeType)
 					}
 				
 		return array
@@ -2483,7 +2453,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_MonitorEventZ_to_array(nativeType: LDKCVec_MonitorEventZ, deallocate: Bool = true) -> [LDKMonitorEvent] {
+    public class func LDKCVec_MonitorEventZ_to_array(nativeType: LDKCVec_MonitorEventZ, callerContext: String, deallocate: Bool = true) -> [LDKMonitorEvent] {
 		var array = [LDKMonitorEvent]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2491,11 +2461,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_MonitorEventZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_MonitorEventZ")
+					if deallocate {
+						print("Deallocating LDKCVec_MonitorEventZ (called from \(callerContext))")
+						CVec_MonitorEventZ_free(nativeType)
 					}
 				
 		return array
@@ -2588,7 +2556,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_NetAddressZ_to_array(nativeType: LDKCVec_NetAddressZ, deallocate: Bool = true) -> [LDKNetAddress] {
+    public class func LDKCVec_NetAddressZ_to_array(nativeType: LDKCVec_NetAddressZ, callerContext: String, deallocate: Bool = true) -> [LDKNetAddress] {
 		var array = [LDKNetAddress]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2596,11 +2564,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_NetAddressZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_NetAddressZ")
+					if deallocate {
+						print("Deallocating LDKCVec_NetAddressZ (called from \(callerContext))")
+						CVec_NetAddressZ_free(nativeType)
 					}
 				
 		return array
@@ -2693,7 +2659,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_NodeIdZ_to_array(nativeType: LDKCVec_NodeIdZ, deallocate: Bool = true) -> [LDKNodeId] {
+    public class func LDKCVec_NodeIdZ_to_array(nativeType: LDKCVec_NodeIdZ, callerContext: String, deallocate: Bool = true) -> [LDKNodeId] {
 		var array = [LDKNodeId]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2701,11 +2667,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_NodeIdZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_NodeIdZ")
+					if deallocate {
+						print("Deallocating LDKCVec_NodeIdZ (called from \(callerContext))")
+						CVec_NodeIdZ_free(nativeType)
 					}
 				
 		return array
@@ -2798,7 +2762,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_OutPointZ_to_array(nativeType: LDKCVec_OutPointZ, deallocate: Bool = true) -> [LDKOutPoint] {
+    public class func LDKCVec_OutPointZ_to_array(nativeType: LDKCVec_OutPointZ, callerContext: String, deallocate: Bool = true) -> [LDKOutPoint] {
 		var array = [LDKOutPoint]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2806,11 +2770,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_OutPointZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_OutPointZ")
+					if deallocate {
+						print("Deallocating LDKCVec_OutPointZ (called from \(callerContext))")
+						CVec_OutPointZ_free(nativeType)
 					}
 				
 		return array
@@ -2848,7 +2810,7 @@ public class Bindings {
 					var lowerDimension = [LDKThirtyTwoBytes]()
 					// var subdimensionWrapper = [LDKThirtyTwoBytesWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKThirtyTwoBytes(array: currentEntry)
+						let convertedEntry = Self.new_LDKThirtyTwoBytes(array: currentEntry)
 						lowerDimension.append(convertedEntry)
 						// subdimensionWrapper.append(convertedEntry)
 					}
@@ -2911,19 +2873,19 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_PaymentPreimageZ_to_array(nativeType: LDKCVec_PaymentPreimageZ, deallocate: Bool = true) -> [[UInt8]] {
+    public class func LDKCVec_PaymentPreimageZ_to_array(nativeType: LDKCVec_PaymentPreimageZ, callerContext: String, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_PaymentPreimageZ")
+						print("Deallocating LDKCVec_PaymentPreimageZ (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_PaymentPreimageZ")
+						print("Not deallocating LDKCVec_PaymentPreimageZ (called from \(callerContext))")
 					}
 				
 		return array
@@ -2991,7 +2953,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_PhantomRouteHintsZ_to_array(nativeType: LDKCVec_PhantomRouteHintsZ, deallocate: Bool = true) -> [LDKPhantomRouteHints] {
+    public class func LDKCVec_PhantomRouteHintsZ_to_array(nativeType: LDKCVec_PhantomRouteHintsZ, callerContext: String, deallocate: Bool = true) -> [LDKPhantomRouteHints] {
 		var array = [LDKPhantomRouteHints]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -2999,11 +2961,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_PhantomRouteHintsZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_PhantomRouteHintsZ")
+					if deallocate {
+						print("Deallocating LDKCVec_PhantomRouteHintsZ (called from \(callerContext))")
+						CVec_PhantomRouteHintsZ_free(nativeType)
 					}
 				
 		return array
@@ -3096,7 +3056,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_PrivateRouteZ_to_array(nativeType: LDKCVec_PrivateRouteZ, deallocate: Bool = true) -> [LDKPrivateRoute] {
+    public class func LDKCVec_PrivateRouteZ_to_array(nativeType: LDKCVec_PrivateRouteZ, callerContext: String, deallocate: Bool = true) -> [LDKPrivateRoute] {
 		var array = [LDKPrivateRoute]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -3104,11 +3064,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_PrivateRouteZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_PrivateRouteZ")
+					if deallocate {
+						print("Deallocating LDKCVec_PrivateRouteZ (called from \(callerContext))")
+						CVec_PrivateRouteZ_free(nativeType)
 					}
 				
 		return array
@@ -3146,7 +3104,7 @@ public class Bindings {
 					var lowerDimension = [LDKPublicKey]()
 					// var subdimensionWrapper = [LDKPublicKeyWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKPublicKey(array: currentEntry)
+						let convertedEntry = Self.new_LDKPublicKey(array: currentEntry)
 						lowerDimension.append(convertedEntry)
 						// subdimensionWrapper.append(convertedEntry)
 					}
@@ -3209,19 +3167,19 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_PublicKeyZ_to_array(nativeType: LDKCVec_PublicKeyZ, deallocate: Bool = true) -> [[UInt8]] {
+    public class func LDKCVec_PublicKeyZ_to_array(nativeType: LDKCVec_PublicKeyZ, callerContext: String, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKPublicKey_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKPublicKey_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_PublicKeyZ")
+						print("Deallocating LDKCVec_PublicKeyZ (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_PublicKeyZ")
+						print("Not deallocating LDKCVec_PublicKeyZ (called from \(callerContext))")
 					}
 				
 		return array
@@ -3289,7 +3247,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_RouteHintHopZ_to_array(nativeType: LDKCVec_RouteHintHopZ, deallocate: Bool = true) -> [LDKRouteHintHop] {
+    public class func LDKCVec_RouteHintHopZ_to_array(nativeType: LDKCVec_RouteHintHopZ, callerContext: String, deallocate: Bool = true) -> [LDKRouteHintHop] {
 		var array = [LDKRouteHintHop]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -3297,11 +3255,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_RouteHintHopZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_RouteHintHopZ")
+					if deallocate {
+						print("Deallocating LDKCVec_RouteHintHopZ (called from \(callerContext))")
+						CVec_RouteHintHopZ_free(nativeType)
 					}
 				
 		return array
@@ -3394,7 +3350,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_RouteHintZ_to_array(nativeType: LDKCVec_RouteHintZ, deallocate: Bool = true) -> [LDKRouteHint] {
+    public class func LDKCVec_RouteHintZ_to_array(nativeType: LDKCVec_RouteHintZ, callerContext: String, deallocate: Bool = true) -> [LDKRouteHint] {
 		var array = [LDKRouteHint]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -3402,11 +3358,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_RouteHintZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_RouteHintZ")
+					if deallocate {
+						print("Deallocating LDKCVec_RouteHintZ (called from \(callerContext))")
+						CVec_RouteHintZ_free(nativeType)
 					}
 				
 		return array
@@ -3499,7 +3453,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_RouteHopZ_to_array(nativeType: LDKCVec_RouteHopZ, deallocate: Bool = true) -> [LDKRouteHop] {
+    public class func LDKCVec_RouteHopZ_to_array(nativeType: LDKCVec_RouteHopZ, callerContext: String, deallocate: Bool = true) -> [LDKRouteHop] {
 		var array = [LDKRouteHop]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -3507,11 +3461,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_RouteHopZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_RouteHopZ")
+					if deallocate {
+						print("Deallocating LDKCVec_RouteHopZ (called from \(callerContext))")
+						CVec_RouteHopZ_free(nativeType)
 					}
 				
 		return array
@@ -3549,7 +3501,7 @@ public class Bindings {
 					var lowerDimension = [LDKSignature]()
 					// var subdimensionWrapper = [LDKSignatureWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKSignature(array: currentEntry)
+						let convertedEntry = Self.new_LDKSignature(array: currentEntry)
 						lowerDimension.append(convertedEntry)
 						// subdimensionWrapper.append(convertedEntry)
 					}
@@ -3612,19 +3564,19 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_SignatureZ_to_array(nativeType: LDKCVec_SignatureZ, deallocate: Bool = true) -> [[UInt8]] {
+    public class func LDKCVec_SignatureZ_to_array(nativeType: LDKCVec_SignatureZ, callerContext: String, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKSignature_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKSignature_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_SignatureZ")
+						print("Deallocating LDKCVec_SignatureZ (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_SignatureZ")
+						print("Not deallocating LDKCVec_SignatureZ (called from \(callerContext))")
 					}
 				
 		return array
@@ -3692,7 +3644,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: LDKCVec_SpendableOutputDescriptorZ, deallocate: Bool = true) -> [LDKSpendableOutputDescriptor] {
+    public class func LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: LDKCVec_SpendableOutputDescriptorZ, callerContext: String, deallocate: Bool = true) -> [LDKSpendableOutputDescriptor] {
 		var array = [LDKSpendableOutputDescriptor]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -3700,11 +3652,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_SpendableOutputDescriptorZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_SpendableOutputDescriptorZ")
+					if deallocate {
+						print("Deallocating LDKCVec_SpendableOutputDescriptorZ (called from \(callerContext))")
+						CVec_SpendableOutputDescriptorZ_free(nativeType)
 					}
 				
 		return array
@@ -3742,7 +3692,7 @@ public class Bindings {
 					var lowerDimension = [LDKThirtyTwoBytes]()
 					// var subdimensionWrapper = [LDKThirtyTwoBytesWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKThirtyTwoBytes(array: currentEntry)
+						let convertedEntry = Self.new_LDKThirtyTwoBytes(array: currentEntry)
 						lowerDimension.append(convertedEntry)
 						// subdimensionWrapper.append(convertedEntry)
 					}
@@ -3805,19 +3755,19 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_ThirtyTwoBytesZ_to_array(nativeType: LDKCVec_ThirtyTwoBytesZ, deallocate: Bool = true) -> [[UInt8]] {
+    public class func LDKCVec_ThirtyTwoBytesZ_to_array(nativeType: LDKCVec_ThirtyTwoBytesZ, callerContext: String, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_ThirtyTwoBytesZ")
+						print("Deallocating LDKCVec_ThirtyTwoBytesZ (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_ThirtyTwoBytesZ")
+						print("Not deallocating LDKCVec_ThirtyTwoBytesZ (called from \(callerContext))")
 					}
 				
 		return array
@@ -3885,7 +3835,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TransactionOutputsZ_to_array(nativeType: LDKCVec_TransactionOutputsZ, deallocate: Bool = true) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
+    public class func LDKCVec_TransactionOutputsZ_to_array(nativeType: LDKCVec_TransactionOutputsZ, callerContext: String, deallocate: Bool = true) -> [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ] {
 		var array = [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -3893,11 +3843,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_TransactionOutputsZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_TransactionOutputsZ")
+					if deallocate {
+						print("Deallocating LDKCVec_TransactionOutputsZ (called from \(callerContext))")
+						CVec_TransactionOutputsZ_free(nativeType)
 					}
 				
 		return array
@@ -3935,7 +3883,7 @@ public class Bindings {
 					var lowerDimension = [LDKTransaction]()
 					var subdimensionWrapper = [LDKTransactionWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKTransactionWrapper(array: currentEntry)
+						let convertedEntry = Self.new_LDKTransactionWrapper(array: currentEntry)
 						lowerDimension.append(convertedEntry.cOpaqueStruct!)
 						subdimensionWrapper.append(convertedEntry)
 					}
@@ -4006,19 +3954,19 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TransactionZ_to_array(nativeType: LDKCVec_TransactionZ, deallocate: Bool = true) -> [[UInt8]] {
+    public class func LDKCVec_TransactionZ_to_array(nativeType: LDKCVec_TransactionZ, callerContext: String, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKTransaction_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKTransaction_to_array(nativeType: currentEntry, callerContext: "\(callerContext) > LDKCVec_TransactionZ_to_array", deallocate: deallocate)
 			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_TransactionZ")
+						print("Deallocating LDKCVec_TransactionZ (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_TransactionZ")
+						print("Not deallocating LDKCVec_TransactionZ (called from \(callerContext))")
 					}
 				
 		return array
@@ -4086,7 +4034,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TxOutZ_to_array(nativeType: LDKCVec_TxOutZ, deallocate: Bool = true) -> [LDKTxOut] {
+    public class func LDKCVec_TxOutZ_to_array(nativeType: LDKCVec_TxOutZ, callerContext: String, deallocate: Bool = true) -> [LDKTxOut] {
 		var array = [LDKTxOut]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4094,11 +4042,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_TxOutZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_TxOutZ")
+					if deallocate {
+						print("Deallocating LDKCVec_TxOutZ (called from \(callerContext))")
+						CVec_TxOutZ_free(nativeType)
 					}
 				
 		return array
@@ -4136,7 +4082,7 @@ public class Bindings {
 					var lowerDimension = [LDKThirtyTwoBytes]()
 					// var subdimensionWrapper = [LDKThirtyTwoBytesWrapper]()
 					for currentEntry in array {
-						let convertedEntry = new_LDKThirtyTwoBytes(array: currentEntry)
+						let convertedEntry = Self.new_LDKThirtyTwoBytes(array: currentEntry)
 						lowerDimension.append(convertedEntry)
 						// subdimensionWrapper.append(convertedEntry)
 					}
@@ -4199,19 +4145,19 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_TxidZ_to_array(nativeType: LDKCVec_TxidZ, deallocate: Bool = true) -> [[UInt8]] {
+    public class func LDKCVec_TxidZ_to_array(nativeType: LDKCVec_TxidZ, callerContext: String, deallocate: Bool = true) -> [[UInt8]] {
 		var array = [[UInt8]]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
-			let convertedEntry = LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
+			let convertedEntry = Self.LDKThirtyTwoBytes_to_array(nativeType: currentEntry)
 			array.append(convertedEntry)
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_TxidZ")
+						print("Deallocating LDKCVec_TxidZ (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_TxidZ")
+						print("Not deallocating LDKCVec_TxidZ (called from \(callerContext))")
 					}
 				
 		return array
@@ -4279,7 +4225,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateAddHTLCZ_to_array(nativeType: LDKCVec_UpdateAddHTLCZ, deallocate: Bool = true) -> [LDKUpdateAddHTLC] {
+    public class func LDKCVec_UpdateAddHTLCZ_to_array(nativeType: LDKCVec_UpdateAddHTLCZ, callerContext: String, deallocate: Bool = true) -> [LDKUpdateAddHTLC] {
 		var array = [LDKUpdateAddHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4287,11 +4233,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_UpdateAddHTLCZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_UpdateAddHTLCZ")
+					if deallocate {
+						print("Deallocating LDKCVec_UpdateAddHTLCZ (called from \(callerContext))")
+						CVec_UpdateAddHTLCZ_free(nativeType)
 					}
 				
 		return array
@@ -4384,7 +4328,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateFailHTLCZ_to_array(nativeType: LDKCVec_UpdateFailHTLCZ, deallocate: Bool = true) -> [LDKUpdateFailHTLC] {
+    public class func LDKCVec_UpdateFailHTLCZ_to_array(nativeType: LDKCVec_UpdateFailHTLCZ, callerContext: String, deallocate: Bool = true) -> [LDKUpdateFailHTLC] {
 		var array = [LDKUpdateFailHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4392,11 +4336,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_UpdateFailHTLCZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_UpdateFailHTLCZ")
+					if deallocate {
+						print("Deallocating LDKCVec_UpdateFailHTLCZ (called from \(callerContext))")
+						CVec_UpdateFailHTLCZ_free(nativeType)
 					}
 				
 		return array
@@ -4489,7 +4431,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateFailMalformedHTLCZ_to_array(nativeType: LDKCVec_UpdateFailMalformedHTLCZ, deallocate: Bool = true) -> [LDKUpdateFailMalformedHTLC] {
+    public class func LDKCVec_UpdateFailMalformedHTLCZ_to_array(nativeType: LDKCVec_UpdateFailMalformedHTLCZ, callerContext: String, deallocate: Bool = true) -> [LDKUpdateFailMalformedHTLC] {
 		var array = [LDKUpdateFailMalformedHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4497,11 +4439,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_UpdateFailMalformedHTLCZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_UpdateFailMalformedHTLCZ")
+					if deallocate {
+						print("Deallocating LDKCVec_UpdateFailMalformedHTLCZ (called from \(callerContext))")
+						CVec_UpdateFailMalformedHTLCZ_free(nativeType)
 					}
 				
 		return array
@@ -4594,7 +4534,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_UpdateFulfillHTLCZ_to_array(nativeType: LDKCVec_UpdateFulfillHTLCZ, deallocate: Bool = true) -> [LDKUpdateFulfillHTLC] {
+    public class func LDKCVec_UpdateFulfillHTLCZ_to_array(nativeType: LDKCVec_UpdateFulfillHTLCZ, callerContext: String, deallocate: Bool = true) -> [LDKUpdateFulfillHTLC] {
 		var array = [LDKUpdateFulfillHTLC]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4602,11 +4542,9 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		
-					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_UpdateFulfillHTLCZ")
-						nativeType.data.deallocate()
-					} else {
-						print("Not deallocating LDKCVec_UpdateFulfillHTLCZ")
+					if deallocate {
+						print("Deallocating LDKCVec_UpdateFulfillHTLCZ (called from \(callerContext))")
+						CVec_UpdateFulfillHTLCZ_free(nativeType)
 					}
 				
 		return array
@@ -4699,7 +4637,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_u5Z_to_array(nativeType: LDKCVec_u5Z, deallocate: Bool = true) -> [UInt8] {
+    public class func LDKCVec_u5Z_to_array(nativeType: LDKCVec_u5Z, callerContext: String, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4708,10 +4646,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_u5Z")
+						print("Deallocating LDKCVec_u5Z (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_u5Z")
+						print("Not deallocating LDKCVec_u5Z (called from \(callerContext))")
 					}
 				
 		return array
@@ -4779,7 +4717,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_u64Z_to_array(nativeType: LDKCVec_u64Z, deallocate: Bool = true) -> [UInt64] {
+    public class func LDKCVec_u64Z_to_array(nativeType: LDKCVec_u64Z, callerContext: String, deallocate: Bool = true) -> [UInt64] {
 		var array = [UInt64]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4788,10 +4726,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_u64Z")
+						print("Deallocating LDKCVec_u64Z (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_u64Z")
+						print("Not deallocating LDKCVec_u64Z (called from \(callerContext))")
 					}
 				
 		return array
@@ -4859,7 +4797,7 @@ public class Bindings {
     /* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-    public class func LDKCVec_u8Z_to_array(nativeType: LDKCVec_u8Z, deallocate: Bool = true) -> [UInt8] {
+    public class func LDKCVec_u8Z_to_array(nativeType: LDKCVec_u8Z, callerContext: String, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -4868,10 +4806,10 @@ public class Bindings {
 		}
 		
 					if deallocate && nativeType.datalen > 0 {
-						print("Deallocating LDKCVec_u8Z")
+						print("Deallocating LDKCVec_u8Z (called from \(callerContext))")
 						nativeType.data.deallocate()
 					} else {
-						print("Not deallocating LDKCVec_u8Z")
+						print("Not deallocating LDKCVec_u8Z (called from \(callerContext))")
 					}
 				
 		return array
@@ -4958,7 +4896,7 @@ public class Bindings {
 		
 				
 				return 
-				Bindings.LDKStr_to_string(nativeType: _ldk_get_compiled_version())
+				Bindings.LDKStr_to_string(nativeType: _ldk_get_compiled_version(), callerContext: "Bindings::swift_ldk_get_compiled_version")
 				
 			
 	}
@@ -4966,7 +4904,7 @@ public class Bindings {
 		
 				
 				return 
-				Bindings.LDKStr_to_string(nativeType: _ldk_c_bindings_get_compiled_version())
+				Bindings.LDKStr_to_string(nativeType: _ldk_c_bindings_get_compiled_version(), callerContext: "Bindings::swift_ldk_c_bindings_get_compiled_version")
 				
 			
 	}
@@ -6455,7 +6393,7 @@ public class Bindings {
 						}
 					
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: construct_invoice_preimage(hrp_bytesWrapper.cOpaqueStruct!, data_without_signatureWrapper.dangle().cOpaqueStruct!))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: construct_invoice_preimage(hrp_bytesWrapper.cOpaqueStruct!, data_without_signatureWrapper.dangle().cOpaqueStruct!), callerContext: "Bindings::swift_construct_invoice_preimage")
 				
 			
 	}
@@ -6551,7 +6489,7 @@ withUnsafePointer(to: keys_manager.activateOnce().cOpaqueStruct!) { (keys_manage
 						}
 					
 				return 
-				Bindings.LDKTransaction_to_array(nativeType: build_closing_transaction(to_holder_value_sat, to_counterparty_value_sat, to_holder_scriptWrapper.dangle().cOpaqueStruct!, to_counterparty_scriptWrapper.dangle().cOpaqueStruct!, funding_outpoint.danglingClone().cOpaqueStruct!))
+				Bindings.LDKTransaction_to_array(nativeType: build_closing_transaction(to_holder_value_sat, to_counterparty_value_sat, to_holder_scriptWrapper.dangle().cOpaqueStruct!, to_counterparty_scriptWrapper.dangle().cOpaqueStruct!, funding_outpoint.danglingClone().cOpaqueStruct!), callerContext: "Bindings::swift_build_closing_transaction")
 				
 			
 	}
@@ -6597,7 +6535,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: countersignatory_revocati
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: get_revokeable_redeemscript(Bindings.new_LDKPublicKey(array: revocation_key), contest_delay, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key)))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: get_revokeable_redeemscript(Bindings.new_LDKPublicKey(array: revocation_key), contest_delay, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key)), callerContext: "Bindings::swift_get_revokeable_redeemscript")
 				
 			
 	}
@@ -6607,7 +6545,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: countersignatory_revocati
 				return withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 withUnsafePointer(to: keys.cOpaqueStruct!) { (keysPointer: UnsafePointer<LDKTxCreationKeys>) in
 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: get_htlc_redeemscript(htlcPointer, opt_anchors, keysPointer))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: get_htlc_redeemscript(htlcPointer, opt_anchors, keysPointer), callerContext: "Bindings::swift_get_htlc_redeemscript")
 				
 }
 }
@@ -6617,7 +6555,7 @@ withUnsafePointer(to: keys.cOpaqueStruct!) { (keysPointer: UnsafePointer<LDKTxCr
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: make_funding_redeemscript(Bindings.new_LDKPublicKey(array: broadcaster), Bindings.new_LDKPublicKey(array: countersignatory)))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: make_funding_redeemscript(Bindings.new_LDKPublicKey(array: broadcaster), Bindings.new_LDKPublicKey(array: countersignatory)), callerContext: "Bindings::swift_make_funding_redeemscript")
 				
 			
 	}
@@ -6627,7 +6565,7 @@ withUnsafePointer(to: keys.cOpaqueStruct!) { (keysPointer: UnsafePointer<LDKTxCr
 				return withUnsafePointer(to: Bindings.array_to_tuple32(array: commitment_txid)) { (commitment_txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				Bindings.LDKTransaction_to_array(nativeType: build_htlc_transaction(commitment_txidPointer, feerate_per_kw, contest_delay, htlcPointer, opt_anchors, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key), Bindings.new_LDKPublicKey(array: revocation_key)))
+				Bindings.LDKTransaction_to_array(nativeType: build_htlc_transaction(commitment_txidPointer, feerate_per_kw, contest_delay, htlcPointer, opt_anchors, Bindings.new_LDKPublicKey(array: broadcaster_delayed_payment_key), Bindings.new_LDKPublicKey(array: revocation_key)), callerContext: "Bindings::swift_build_htlc_transaction")
 				
 }
 }
@@ -6637,7 +6575,7 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: get_anchor_redeemscript(Bindings.new_LDKPublicKey(array: funding_pubkey)))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: get_anchor_redeemscript(Bindings.new_LDKPublicKey(array: funding_pubkey)), callerContext: "Bindings::swift_get_anchor_redeemscript")
 				
 			
 	}
@@ -6893,7 +6831,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	/* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-	public class func LDKTransaction_to_array(nativeType: LDKTransaction, deallocate: Bool = true) -> [UInt8] {
+	public class func LDKTransaction_to_array(nativeType: LDKTransaction, callerContext: String, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -6901,16 +6839,16 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 			array.append(currentEntry)
 		}
 		if deallocate && nativeType.datalen > 0 {
-			print("Deallocating LDKTransaction")
+			print("Deallocating LDKTransaction (called from \(callerContext))")
 			nativeType.data.deallocate()
 		} else {
-			print("Not deallocating LDKTransaction")
+			print("Not deallocating LDKTransaction (called from \(callerContext))")
 		}
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
 
-    public class func LDKStr_to_string(nativeType: LDKStr, deallocate: Bool = true) -> String {
+    public class func LDKStr_to_string(nativeType: LDKStr, callerContext: String, deallocate: Bool = true) -> String {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.len) {
 			let currentEntry = nativeType.chars[index]
@@ -6920,10 +6858,10 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 		let data = Data(bytes: array)
 		let string = String(data: data, encoding: .utf8)!
 		if deallocate && nativeType.len > 0 {
-			print("Deallocating LDKStr")
+			print("Deallocating LDKStr (called from \(callerContext))")
 			Str_free(nativeType)
 		} else {
-			print("Not deallocating LDKStr")
+			print("Not deallocating LDKStr (called from \(callerContext))")
 		}
 		return string
 	}
@@ -6977,7 +6915,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "c6eca5906aa681d42dc0225797b85097e0bbb1b9"
+        return "a184e59437fe43f8e02f8e09c6a5a50745f4bf34"
     }
 
 }

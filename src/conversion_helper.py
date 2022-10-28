@@ -45,6 +45,12 @@ array_accessor_types: Dict[str, ArrayAccessorType] = {
 unary_tuples: [str] = ["LDKu5", "LDKWitnessVersion"]
 unary_tuple_type_details: Dict[str, object] = {}
 
+class CallerContext:
+	def __init__(self, class_name: str, method_name: str, subclass_name: str = None):
+		self.class_name = class_name
+		self.method_name = method_name
+		self.subclass_name = subclass_name
+
 class ConversionHelper:
 	trait_structs = set()
 	freeable_types = set()
@@ -81,6 +87,16 @@ class ConversionHelper:
 	@classmethod
 	def is_byte_array_type(cls, rust_type: str):
 		return rust_type in array_accessor_types
+
+	@classmethod
+	def caller_context_to_string(cls, context: CallerContext = None):
+		if context is None:
+			return ''
+		context_string = context.class_name
+		if context.subclass_name is not None:
+			context_string += f'::{context.subclass_name}'
+		context_string += f'::{context.method_name}'
+		return context_string
 
 	@classmethod
 	def is_trait_type(cls, raw_rust_type: str):
@@ -367,13 +383,14 @@ class ConversionHelper:
 	# the arguments that we receive from a native lambda, before they get passed on to a human consumer
 	# Traits -> NATIVE_CALLBACKS -> SWIFT_CALLBACK_PREP, basically
 	@classmethod
-	def prepare_native_to_swift_callback_arguments(cls, argument_types, array_unwrapping_preparation_only=False):
+	def prepare_native_to_swift_callback_arguments(cls, argument_types, array_unwrapping_preparation_only=False, context: CallerContext = None):
 		# let's get the current native arguments, i. e. the arguments we get from C into the native callback
 		native_arguments = []
 		swift_callback_arguments = []
 		swift_callback_prep = ''
 		public_swift_arguments = []
 		public_swift_argument_list = ''
+		context_string = cls.caller_context_to_string(context)
 		for current_argument_details in argument_types:
 			published_swift_type = current_argument_details.swift_type
 			inferred_raw_swift_type = current_argument_details.swift_raw_type
@@ -398,7 +415,12 @@ class ConversionHelper:
 						swift_local_conversion_suffix = f'.{current_argument_details.arr_access})'
 				elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
-					swift_local_conversion_suffix = ')'
+					swift_local_conversion_suffix = f', callerContext: "{context_string}")'
+					if received_raw_type in array_accessor_types_fixed_length or received_raw_type in ['LDKu8slice']:
+						# LDKu8Slice's data field is an UnsafePointer, as opposed to an UnsafeMutablePointer
+						# it therefore cannot be deallocated
+						# TODO: figure out why that is and make this more canonical somehow
+						swift_local_conversion_suffix = ')'
 			elif received_raw_type is not None and received_raw_type.startswith('LDK'):
 				if cls.is_instance_type(published_swift_type, received_raw_type):
 					swift_local_conversion_prefix = f'{published_swift_type}(pointer: '
@@ -423,7 +445,7 @@ class ConversionHelper:
 						swift_local_conversion_suffix = ').dangle()'
 				elif received_raw_type.startswith('LDKCVec') and (published_swift_type.startswith('[C') or (not published_swift_type.startswith('[C') and inferred_raw_swift_type.startswith('[LDK'))):
 					swift_local_conversion_prefix = f'Bindings.{received_raw_type}_to_array(nativeType: '
-					swift_local_conversion_suffix = ')'
+					swift_local_conversion_suffix = f', callerContext: "{context_string}")'
 					if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(published_swift_type) and not array_unwrapping_preparation_only:
 						# Bindings array converters cannot yet convert LDK types to wrapped types
 						published_swift_type = TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.sub('[LDK', published_swift_type)
@@ -432,6 +454,7 @@ class ConversionHelper:
 
 			if received_raw_type is None:
 				received_raw_type = inferred_raw_swift_type
+
 
 			if current_argument_details.is_const:
 				is_unsafe_pointer = received_raw_type.startswith('Unsafe')
@@ -493,11 +516,12 @@ class ConversionHelper:
 				'swift_callback_prep': swift_callback_prep}
 
 	@classmethod
-	def prepare_return_value(cls, return_type, is_clone_method=False, is_trait_instantiator=False, is_raw_property_getter=False, is_trait_callback=False, prefix_namespace=False):
+	def prepare_return_value(cls, return_type, is_clone_method=False, is_trait_instantiator=False, is_raw_property_getter=False, is_trait_callback=False, prefix_namespace=False, context: CallerContext = None):
 		rust_return_type = return_type.rust_obj
 		return_prefix = ''
 		return_suffix = ''
 		return_type_string = return_type.swift_type
+		context_string = cls.caller_context_to_string(context)
 		swift_return_instantiation_type = return_type_string
 		if is_trait_instantiator:
 			swift_return_instantiation_type = f'NativelyImplemented{return_type_string}'
@@ -505,10 +529,13 @@ class ConversionHelper:
 
 		if rust_return_type is not None and rust_return_type.startswith('LDK') and return_type_string.startswith('['):
 			return_prefix = f'Bindings.{rust_return_type}_to_array(nativeType: '
-			return_suffix = ')'
+			return_suffix = f', callerContext: "{context_string}")'
+			if rust_return_type in array_accessor_types_fixed_length or rust_return_type in ['LDKu8slice']:
+				# fixed length objects don't get freed
+				return_suffix = ')'
 			individual_map_suffix = ''
 			if (rust_return_type.startswith('LDKCVec_') or rust_return_type == 'LDKTransaction') and is_raw_property_getter:
-				return_suffix = ', deallocate: false)'
+				return_suffix = f', callerContext: "{context_string}", deallocate: false)'
 				individual_map_suffix = '.dangle()'
 
 			if TypeParsingRegeces.WRAPPER_TYPE_ARRAY_BRACKET_REGEX.search(return_type_string) and not is_trait_callback:
@@ -565,9 +592,9 @@ class ConversionHelper:
 		# return_suffix = ', anchor: self)'
 		elif return_type_string == 'String':
 			return_prefix = 'Bindings.LDKStr_to_string(nativeType: '
-			return_suffix = ')'
+			return_suffix = f', callerContext: "{context_string}")'
 			if is_raw_property_getter:
-				return_suffix = ', deallocate: false)'
+				return_suffix = f', callerContext: "{context_string}", deallocate: false)'
 		# elif is_clone_method:
 		# 	return_prefix = 'Self(pointer: ',
 		# 	return_suffix = ')'

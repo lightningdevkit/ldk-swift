@@ -29,7 +29,7 @@ extension Bindings {
 									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
 								}
 							
-				return instance.transactions_confirmed(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata), height: height)
+				return instance.transactions_confirmed(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata, callerContext: "Confirm::init::transactions_confirmedCallback"), height: height)
 			}
 
 			func transaction_unconfirmedCallback(pointer: UnsafeRawPointer?, txidPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?) -> Void {
@@ -224,7 +224,7 @@ public class NativelyImplementedConfirm: Confirm {
 		
 				
 				return 
-				Bindings.LDKCVec_TxidZ_to_array(nativeType: self.cOpaqueStruct!.get_relevant_txids(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_TxidZ_to_array(nativeType: self.cOpaqueStruct!.get_relevant_txids(self.cOpaqueStruct!.this_arg), callerContext: "Confirm::NativelyImplementedConfirm::get_relevant_txids")
 				
 			
 	}

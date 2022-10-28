@@ -56,7 +56,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKPaymentError_Invoice {
 							return nil
 						}
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.invoice, deallocate: false)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.invoice, callerContext: "PaymentError::getValueAsInvoice", deallocate: false)
 					}
 				
 					public func getValueAsRouting() -> Bindings.LightningError? {

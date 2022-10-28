@@ -94,7 +94,7 @@ C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ_clone(origPointer)
 				}
 			
 				public func getB() -> [MonitorEvent] {
-					return Bindings.LDKCVec_MonitorEventZ_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false)
+					return Bindings.LDKCVec_MonitorEventZ_to_array(nativeType: self.cOpaqueStruct!.b, callerContext: "LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ::getB", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							MonitorEvent(pointer: cOpaqueStruct).dangle()

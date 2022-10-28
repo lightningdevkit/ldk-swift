@@ -88,7 +88,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKParseError_InvalidSliceLength {
 							return nil
 						}
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.invalid_slice_length, deallocate: false)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.invalid_slice_length, callerContext: "ParseError::getValueAsInvalidSliceLength", deallocate: false)
 					}
 				
 			
@@ -210,7 +210,7 @@ ParseError_clone(origPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKParseError>) in
 ParseError_to_str(oPointer)
-});
+}, callerContext: "ParseError::to_str");
 		}
 
 		/* OPTION_METHODS_END */

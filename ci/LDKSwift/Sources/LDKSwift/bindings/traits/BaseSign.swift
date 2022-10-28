@@ -37,7 +37,7 @@ extension Bindings {
 				let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::validate_holder_commitment")
 				let holder_tx = HolderCommitmentTransaction(pointer: holder_txPointer.pointee).dangle().clone();
 
-				return instance.validate_holder_commitment(holder_tx: holder_tx, preimages: Bindings.LDKCVec_PaymentPreimageZ_to_array(nativeType: preimages)).cOpaqueStruct!
+				return instance.validate_holder_commitment(holder_tx: holder_tx, preimages: Bindings.LDKCVec_PaymentPreimageZ_to_array(nativeType: preimages, callerContext: "BaseSign::init::validate_holder_commitmentCallback")).cOpaqueStruct!
 			}
 
 			func channel_keys_idCallback(pointer: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
@@ -50,7 +50,7 @@ extension Bindings {
 				let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::sign_counterparty_commitment")
 				let commitment_tx = CommitmentTransaction(pointer: commitment_txPointer.pointee).dangle().clone();
 
-				return instance.sign_counterparty_commitment(commitment_tx: commitment_tx, preimages: Bindings.LDKCVec_PaymentPreimageZ_to_array(nativeType: preimages)).cOpaqueStruct!
+				return instance.sign_counterparty_commitment(commitment_tx: commitment_tx, preimages: Bindings.LDKCVec_PaymentPreimageZ_to_array(nativeType: preimages, callerContext: "BaseSign::init::sign_counterparty_commitmentCallback")).cOpaqueStruct!
 			}
 
 			func validate_counterparty_revocationCallback(pointer: UnsafeRawPointer?, idx: UInt64, secretPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?) -> LDKCResult_NoneNoneZ {
@@ -79,7 +79,7 @@ extension Bindings {
 									per_commitment_key = Bindings.tuple32_to_array(nativeType: per_commitment_keyUnwrapped.pointee)
 								}
 							
-				return instance.sign_justice_revoked_output(justice_tx: Bindings.LDKTransaction_to_array(nativeType: justice_tx), input: input, amount: amount, per_commitment_key: per_commitment_key).cOpaqueStruct!
+				return instance.sign_justice_revoked_output(justice_tx: Bindings.LDKTransaction_to_array(nativeType: justice_tx, callerContext: "BaseSign::init::sign_justice_revoked_outputCallback"), input: input, amount: amount, per_commitment_key: per_commitment_key).cOpaqueStruct!
 			}
 
 			func sign_justice_revoked_htlcCallback(pointer: UnsafeRawPointer?, justice_tx: LDKTransaction, input: uintptr_t, amount: UInt64, per_commitment_keyPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>?, htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) -> LDKCResult_SignatureNoneZ {
@@ -91,14 +91,14 @@ extension Bindings {
 								}
 							let htlc = HTLCOutputInCommitment(pointer: htlcPointer.pointee).dangle().clone();
 
-				return instance.sign_justice_revoked_htlc(justice_tx: Bindings.LDKTransaction_to_array(nativeType: justice_tx), input: input, amount: amount, per_commitment_key: per_commitment_key, htlc: htlc).cOpaqueStruct!
+				return instance.sign_justice_revoked_htlc(justice_tx: Bindings.LDKTransaction_to_array(nativeType: justice_tx, callerContext: "BaseSign::init::sign_justice_revoked_htlcCallback"), input: input, amount: amount, per_commitment_key: per_commitment_key, htlc: htlc).cOpaqueStruct!
 			}
 
 			func sign_counterparty_htlc_transactionCallback(pointer: UnsafeRawPointer?, htlc_tx: LDKTransaction, input: uintptr_t, amount: UInt64, per_commitment_point: LDKPublicKey, htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) -> LDKCResult_SignatureNoneZ {
 				let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::sign_counterparty_htlc_transaction")
 				let htlc = HTLCOutputInCommitment(pointer: htlcPointer.pointee).dangle().clone();
 
-				return instance.sign_counterparty_htlc_transaction(htlc_tx: Bindings.LDKTransaction_to_array(nativeType: htlc_tx), input: input, amount: amount, per_commitment_point: Bindings.tuple33_to_array(nativeType: per_commitment_point.compressed_form), htlc: htlc).cOpaqueStruct!
+				return instance.sign_counterparty_htlc_transaction(htlc_tx: Bindings.LDKTransaction_to_array(nativeType: htlc_tx, callerContext: "BaseSign::init::sign_counterparty_htlc_transactionCallback"), input: input, amount: amount, per_commitment_point: Bindings.tuple33_to_array(nativeType: per_commitment_point.compressed_form), htlc: htlc).cOpaqueStruct!
 			}
 
 			func sign_closing_transactionCallback(pointer: UnsafeRawPointer?, closing_txPointer: UnsafePointer<LDKClosingTransaction>) -> LDKCResult_SignatureNoneZ {

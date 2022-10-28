@@ -157,7 +157,7 @@ UnsignedChannelAnnouncement_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
 UnsignedChannelAnnouncement_write(objPointer)
-});
+}, callerContext: "UnsignedChannelAnnouncement::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_UnsignedChannelAnnouncementDecodeErrorZ {

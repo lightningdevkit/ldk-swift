@@ -51,11 +51,11 @@ class VectorGenerator(UtilGenerator):
 				swift_primitive = deepest_iteratee.name
 
 				# don't deinit the underlying type for complex arrays – the wrappers will do that when appropriate
-				# is_deepest_iteratee_primitive = False
+				is_deepest_iteratee_primitive = False
 			if dimensions > 1:
-				conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry)'
-				if (shallowmost_iteratee.name.startswith('LDKCVec_') or shallowmost_iteratee.name) == 'LDKTransaction' and not is_deepest_iteratee_primitive:
-					conversion_call = f'let convertedEntry = {shallowmost_iteratee.name}_to_array(nativeType: currentEntry, deallocate: deallocate)'
+				conversion_call = f'let convertedEntry = Self.{shallowmost_iteratee.name}_to_array(nativeType: currentEntry)'
+				if (shallowmost_iteratee.name.startswith('LDKCVec_') or shallowmost_iteratee.name == 'LDKTransaction'): # and not is_deepest_iteratee_primitive:
+					conversion_call = f'let convertedEntry = Self.{shallowmost_iteratee.name}_to_array(nativeType: currentEntry, callerContext: "\(callerContext) > {vector_name}_to_array", deallocate: deallocate)'
 				pointerTypeName = shallowmost_iteratee.name
 				subdimension_prefix = ''
 				subdimension_suffix = '.cOpaqueStruct!'
@@ -69,7 +69,7 @@ class VectorGenerator(UtilGenerator):
 					var lowerDimension = [{shallowmost_iteratee.name}]()
 					{subdimension_prefix}var subdimensionWrapper = [{shallowmost_iteratee.name}Wrapper]()
 					for currentEntry in array {{
-						let convertedEntry = new_{shallowmost_iteratee.name + subdimension_call_suffix}(array: currentEntry)
+						let convertedEntry = Self.new_{shallowmost_iteratee.name + subdimension_call_suffix}(array: currentEntry)
 						lowerDimension.append(convertedEntry{subdimension_suffix})
 						{subdimension_prefix}subdimensionWrapper.append(convertedEntry)
 					}}
@@ -162,20 +162,20 @@ class VectorGenerator(UtilGenerator):
 
 		if vector_name.startswith('LDKCVec_'):
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive)',
-																					  f'LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive, deallocate: Bool = true)')
+																					  f'LDKCVec_rust_primitive_to_array(nativeType: LDKCVec_rust_primitive, callerContext: String, deallocate: Bool = true)')
 			if is_deepest_iteratee_primitive:
 				mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'''
 					if deallocate && nativeType.datalen > 0 {{
-						print("Deallocating {vector_name}")
+						print("Deallocating {vector_name} (called from \(callerContext))")
 						nativeType.data.deallocate()
 					}} else {{
-						print("Not deallocating {vector_name}")
+						print("Not deallocating {vector_name} (called from \(callerContext))")
 					}}
 				''')
 			else:
 				mutating_current_vector_methods = mutating_current_vector_methods.replace('/* RUST_PRIMITIVE_CLEANUP */', f'''
 					if deallocate {{
-						print("Deallocating {vector_name}")
+						print("Deallocating {vector_name} (called from \(callerContext))")
 						{vector_type_details.name[3:]}_free(nativeType)
 					}}
 				''')

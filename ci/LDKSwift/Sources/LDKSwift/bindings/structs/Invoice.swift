@@ -162,7 +162,7 @@ Invoice_min_final_cltv_expiry(this_argPointer)
 			
 			return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_private_routes(this_argPointer)
-})
+}, callerContext: "Invoice::private_routes")
 						
 						.map { (cOpaqueStruct) in
 							PrivateRoute(pointer: cOpaqueStruct)
@@ -174,7 +174,7 @@ Invoice_private_routes(this_argPointer)
 			
 			return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_route_hints(this_argPointer)
-})
+}, callerContext: "Invoice::route_hints")
 						
 						.map { (cOpaqueStruct) in
 							RouteHint(pointer: cOpaqueStruct)
@@ -205,7 +205,7 @@ Invoice_amount_milli_satoshis(this_argPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKInvoice>) in
 Invoice_to_str(oPointer)
-});
+}, callerContext: "Invoice::to_str");
 		}
 
 		internal func free() -> Void {

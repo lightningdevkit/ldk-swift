@@ -65,7 +65,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_PathParameterError {
 							return nil
 						}
-						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error, deallocate: false)
+						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.path_parameter_error, callerContext: "PaymentSendFailure::getValueAsPathParameterError", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							Result_NoneAPIErrorZ(pointer: cOpaqueStruct).dangle()
@@ -77,7 +77,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_AllFailedRetrySafe {
 							return nil
 						}
-						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe, deallocate: false)
+						return Bindings.LDKCVec_APIErrorZ_to_array(nativeType: self.cOpaqueStruct!.all_failed_retry_safe, callerContext: "PaymentSendFailure::getValueAsAllFailedRetrySafe", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							APIError(pointer: cOpaqueStruct).dangle()
@@ -199,7 +199,7 @@ PaymentSendFailure_clone(origPointer)
 
 				
 					public func getResults() -> [Result_NoneAPIErrorZ] {
-						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.results, deallocate: false)
+						return Bindings.LDKCVec_CResult_NoneAPIErrorZZ_to_array(nativeType: self.cOpaqueStruct!.results, callerContext: "PaymentSendFailure::PartialFailure::getResults", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							Result_NoneAPIErrorZ(pointer: cOpaqueStruct).dangle()

@@ -187,7 +187,7 @@ UnsignedChannelUpdate_get_fee_proportional_millionths(this_ptrPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
 UnsignedChannelUpdate_get_excess_data(this_ptrPointer)
-});
+}, callerContext: "UnsignedChannelUpdate::get_excess_data");
 		}
 
 		public func set_excess_data(val: [UInt8]) -> Void {
@@ -221,7 +221,7 @@ UnsignedChannelUpdate_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
 UnsignedChannelUpdate_write(objPointer)
-});
+}, callerContext: "UnsignedChannelUpdate::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_UnsignedChannelUpdateDecodeErrorZ {

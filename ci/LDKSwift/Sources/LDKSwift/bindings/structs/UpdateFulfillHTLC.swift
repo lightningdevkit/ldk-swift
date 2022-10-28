@@ -106,7 +106,7 @@ UpdateFulfillHTLC_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFulfillHTLC>) in
 UpdateFulfillHTLC_write(objPointer)
-});
+}, callerContext: "UpdateFulfillHTLC::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_UpdateFulfillHTLCDecodeErrorZ {

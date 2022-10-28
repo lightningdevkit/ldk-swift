@@ -91,7 +91,7 @@ NodeAnnouncement_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeAnnouncement>) in
 NodeAnnouncement_write(objPointer)
-});
+}, callerContext: "NodeAnnouncement::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {

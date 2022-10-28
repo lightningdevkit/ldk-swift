@@ -29,7 +29,7 @@ extension Bindings {
 									header = Bindings.tuple80_to_array(nativeType: headerUnwrapped.pointee)
 								}
 							
-				return instance.filtered_block_connected(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata), height: height)
+				return instance.filtered_block_connected(header: header, txdata: Bindings.LDKCVec_C2Tuple_usizeTransactionZZ_to_array(nativeType: txdata, callerContext: "Listen::init::filtered_block_connectedCallback"), height: height)
 			}
 
 			func block_connectedCallback(pointer: UnsafeRawPointer?, block: LDKu8slice, height: UInt32) -> Void {

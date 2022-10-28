@@ -375,7 +375,7 @@ public class Bindings {
 	/* SWIFT_TO_RUST_END */
 
 	/* RUST_TO_SWIFT_START */
-	public class func LDKTransaction_to_array(nativeType: LDKTransaction, deallocate: Bool = true) -> [UInt8] {
+	public class func LDKTransaction_to_array(nativeType: LDKTransaction, callerContext: String, deallocate: Bool = true) -> [UInt8] {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
@@ -383,16 +383,16 @@ public class Bindings {
 			array.append(currentEntry)
 		}
 		if deallocate && nativeType.datalen > 0 {
-			print("Deallocating LDKTransaction")
+			print("Deallocating LDKTransaction (called from \(callerContext))")
 			nativeType.data.deallocate()
 		} else {
-			print("Not deallocating LDKTransaction")
+			print("Not deallocating LDKTransaction (called from \(callerContext))")
 		}
 		return array
 	}
 	/* RUST_TO_SWIFT_END */
 
-    public class func LDKStr_to_string(nativeType: LDKStr, deallocate: Bool = true) -> String {
+    public class func LDKStr_to_string(nativeType: LDKStr, callerContext: String, deallocate: Bool = true) -> String {
 		var array = [UInt8]()
 		for index in 0..<Int(nativeType.len) {
 			let currentEntry = nativeType.chars[index]
@@ -402,10 +402,10 @@ public class Bindings {
 		let data = Data(bytes: array)
 		let string = String(data: data, encoding: .utf8)!
 		if deallocate && nativeType.len > 0 {
-			print("Deallocating LDKStr")
+			print("Deallocating LDKStr (called from \(callerContext))")
 			Str_free(nativeType)
 		} else {
-			print("Not deallocating LDKStr")
+			print("Not deallocating LDKStr (called from \(callerContext))")
 		}
 		return string
 	}

@@ -77,7 +77,7 @@ InitFeatures_requires_unknown_bits(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInitFeatures>) in
 InitFeatures_write(objPointer)
-});
+}, callerContext: "InitFeatures::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_InitFeaturesDecodeErrorZ {

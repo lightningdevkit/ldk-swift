@@ -91,7 +91,7 @@ FundingSigned_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFundingSigned>) in
 FundingSigned_write(objPointer)
-});
+}, callerContext: "FundingSigned::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_FundingSignedDecodeErrorZ {

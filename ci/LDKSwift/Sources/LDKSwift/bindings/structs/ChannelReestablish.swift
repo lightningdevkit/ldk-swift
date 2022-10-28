@@ -97,7 +97,7 @@ ChannelReestablish_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelReestablish>) in
 ChannelReestablish_write(objPointer)
-});
+}, callerContext: "ChannelReestablish::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelReestablishDecodeErrorZ {

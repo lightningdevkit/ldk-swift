@@ -67,7 +67,7 @@ extension Bindings {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_CVec_NetAddressZZ_Some {
-					return Bindings.LDKCVec_NetAddressZ_to_array(nativeType: self.cOpaqueStruct!.some, deallocate: false)
+					return Bindings.LDKCVec_NetAddressZ_to_array(nativeType: self.cOpaqueStruct!.some, callerContext: "Option_CVec_NetAddressZZ::getValue", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							NetAddress(pointer: cOpaqueStruct).dangle()

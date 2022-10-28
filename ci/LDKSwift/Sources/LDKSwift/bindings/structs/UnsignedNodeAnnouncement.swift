@@ -113,7 +113,7 @@ UnsignedNodeAnnouncement_get_alias(this_ptrPointer)
 			
 			return Bindings.LDKCVec_NetAddressZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement_get_addresses(this_ptrPointer)
-})
+}, callerContext: "UnsignedNodeAnnouncement::get_addresses")
 						
 						.map { (cOpaqueStruct) in
 							NetAddress(pointer: cOpaqueStruct)
@@ -162,7 +162,7 @@ UnsignedNodeAnnouncement_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
 UnsignedNodeAnnouncement_write(objPointer)
-});
+}, callerContext: "UnsignedNodeAnnouncement::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {

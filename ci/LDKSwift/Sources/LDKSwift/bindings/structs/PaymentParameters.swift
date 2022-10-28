@@ -77,7 +77,7 @@ PaymentParameters_get_features(this_ptrPointer)
 			
 			return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPaymentParameters>) in
 PaymentParameters_get_route_hints(this_ptrPointer)
-})
+}, callerContext: "PaymentParameters::get_route_hints")
 						
 						.map { (cOpaqueStruct) in
 							RouteHint(pointer: cOpaqueStruct)
@@ -172,7 +172,7 @@ PaymentParameters_get_max_channel_saturation_power_of_half(this_ptrPointer)
 			
 			return Bindings.LDKCVec_u64Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPaymentParameters>) in
 PaymentParameters_get_previously_failed_channels(this_ptrPointer)
-});
+}, callerContext: "PaymentParameters::get_previously_failed_channels");
 		}
 
 		public func set_previously_failed_channels(val: [UInt64]) -> Void {
@@ -222,7 +222,7 @@ PaymentParameters_eq(aPointer, bPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKPaymentParameters>) in
 PaymentParameters_write(objPointer)
-});
+}, callerContext: "PaymentParameters::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_PaymentParametersDecodeErrorZ {

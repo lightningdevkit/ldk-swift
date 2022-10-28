@@ -68,7 +68,7 @@ FixedPenaltyScorer_as_Score(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKFixedPenaltyScorer>) in
 FixedPenaltyScorer_write(objPointer)
-});
+}, callerContext: "FixedPenaltyScorer::write");
 		}
 
 		public class func read(ser: [UInt8], arg: UInt64) -> Result_FixedPenaltyScorerDecodeErrorZ {

@@ -61,7 +61,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPhantomRouteHints>) in
 PhantomRouteHints_get_channels(this_ptrPointer)
-})
+}, callerContext: "PhantomRouteHints::get_channels")
 						
 						.map { (cOpaqueStruct) in
 							ChannelDetails(pointer: cOpaqueStruct)
@@ -140,7 +140,7 @@ PhantomRouteHints_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKPhantomRouteHints>) in
 PhantomRouteHints_write(objPointer)
-});
+}, callerContext: "PhantomRouteHints::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_PhantomRouteHintsDecodeErrorZ {

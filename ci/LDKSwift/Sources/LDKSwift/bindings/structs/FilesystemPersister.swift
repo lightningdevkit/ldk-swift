@@ -47,7 +47,7 @@ extension Bindings {
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKFilesystemPersister>) in
 FilesystemPersister_get_data_dir(this_argPointer)
-});
+}, callerContext: "FilesystemPersister::get_data_dir");
 		}
 
 		public func read_channelmonitors(keys_manager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {

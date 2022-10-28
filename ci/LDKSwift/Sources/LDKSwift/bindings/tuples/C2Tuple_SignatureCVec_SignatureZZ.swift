@@ -80,7 +80,7 @@ C2Tuple_SignatureCVec_SignatureZZ_clone(origPointer)
 				}
 			
 				public func getB() -> [[UInt8]] {
-					return Bindings.LDKCVec_SignatureZ_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false);
+					return Bindings.LDKCVec_SignatureZ_to_array(nativeType: self.cOpaqueStruct!.b, callerContext: "LDKC2Tuple_SignatureCVec_SignatureZZ::getB", deallocate: false);
 				}
 			
 		/* TUPLE_METHODS_END */

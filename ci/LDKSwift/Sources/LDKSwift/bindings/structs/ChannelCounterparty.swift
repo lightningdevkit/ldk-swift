@@ -151,7 +151,7 @@ ChannelCounterparty_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelCounterparty>) in
 ChannelCounterparty_write(objPointer)
-});
+}, callerContext: "ChannelCounterparty::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelCounterpartyDecodeErrorZ {

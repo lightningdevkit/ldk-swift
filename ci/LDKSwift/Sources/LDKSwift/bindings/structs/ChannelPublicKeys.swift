@@ -136,7 +136,7 @@ ChannelPublicKeys_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelPublicKeys>) in
 ChannelPublicKeys_write(objPointer)
-});
+}, callerContext: "ChannelPublicKeys::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelPublicKeysDecodeErrorZ {

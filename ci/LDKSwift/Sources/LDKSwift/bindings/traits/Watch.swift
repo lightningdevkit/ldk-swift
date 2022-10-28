@@ -161,7 +161,7 @@ public class NativelyImplementedWatch: Watch {
 		
 				
 				return 
-				Bindings.LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ_to_array(nativeType: self.cOpaqueStruct!.release_pending_monitor_events(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ_to_array(nativeType: self.cOpaqueStruct!.release_pending_monitor_events(self.cOpaqueStruct!.this_arg), callerContext: "Watch::NativelyImplementedWatch::release_pending_monitor_events")
 				
 			
 	}

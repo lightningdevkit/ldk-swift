@@ -77,7 +77,7 @@ NodeFeatures_requires_unknown_bits(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeFeatures>) in
 NodeFeatures_write(objPointer)
-});
+}, callerContext: "NodeFeatures::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_NodeFeaturesDecodeErrorZ {

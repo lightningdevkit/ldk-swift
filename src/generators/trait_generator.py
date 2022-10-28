@@ -3,7 +3,7 @@ import os
 
 from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
-from src.conversion_helper import ConversionHelper
+from src.conversion_helper import ConversionHelper, CallerContext
 import src.conversion_helper
 
 ALWAYS_ABORT_ON_UNIMPLEMENTED = True
@@ -49,6 +49,7 @@ class TraitGenerator:
 
 		for current_method_details in method_iterator:
 			current_native_method_name = current_method_details['name']['native']
+			current_method_name = current_method_details['name']['swift']
 			visibility_prefix = 'public '
 
 			is_clone_method = current_method_details['is_clone']
@@ -64,7 +65,8 @@ class TraitGenerator:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
 					force_pass_instance = True
 
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
+			caller_context = CallerContext(swift_struct_name, current_method_name)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, context=caller_context)
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance,
 																					is_free_method=current_method_details['is_free'])
 
@@ -80,7 +82,7 @@ class TraitGenerator:
 				default_return_prefix = ''
 
 			current_method_implementation = f'''
-				{visibility_prefix}func {current_method_details['name']['swift']}({swift_argument_list}) -> {swift_return_type} {{
+				{visibility_prefix}func {current_method_name}({swift_argument_list}) -> {swift_return_type} {{
 					{prepared_arguments['native_call_prep']}
 					{default_return_prefix}{prepared_arguments['native_call_prefix']}
 					{value_return_wrappers['prefix']}{current_method_details['name']['native']}({', '.join(native_arguments)}){value_return_wrappers['suffix']}
@@ -107,7 +109,7 @@ class TraitGenerator:
 					deinit {{
 						if !self.dangling {{
 							Bindings.print("Freeing {swift_struct_name} \(self.instanceNumber).")
-							// self.{current_method_details['name']['swift']}()
+							// self.{current_method_name}()
 						}} else {{
 							Bindings.print("Not freeing {swift_struct_name} \(self.instanceNumber) due to dangle.")
 						}}
@@ -248,7 +250,8 @@ class TraitGenerator:
 
 			# let's get the current native arguments, i. e. the arguments we get from C into the native callback
 			swift_argument_string = ''
-			swift_callback_prepared_arguments = ConversionHelper.prepare_native_to_swift_callback_arguments(current_lambda['argument_types'])
+			caller_context = CallerContext(swift_struct_name, f'init::{current_lambda_name}Callback')
+			swift_callback_prepared_arguments = ConversionHelper.prepare_native_to_swift_callback_arguments(current_lambda['argument_types'], context=caller_context)
 			native_arguments = swift_callback_prepared_arguments['raw_native_argument_list']
 			swift_callback_arguments = swift_callback_prepared_arguments['swift_callback_arguments']
 			public_swift_argument_list = swift_callback_prepared_arguments['public_swift_argument_list']
@@ -259,8 +262,9 @@ class TraitGenerator:
 				native_arguments.insert(0, '')
 
 			# let's create a native default implementation
+			caller_context = CallerContext(swift_struct_name, current_lambda_name, f'NativelyImplemented{swift_struct_name}')
 			default_callback_prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_lambda['argument_types'], True)
-			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone, is_trait_callback=True)
+			default_callback_return_wrappers = ConversionHelper.prepare_return_value(current_return_type_details, is_clone, is_trait_callback=True, context=caller_context)
 
 			if len(default_callback_prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
 				cloneability_warning = 'Non-cloneable types passed by ownership. Here be dragons!'

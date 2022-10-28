@@ -138,7 +138,7 @@ public class NativelyImplementedCustomMessageHandler: CustomMessageHandler {
 		
 				
 				return 
-				Bindings.LDKCVec_C2Tuple_PublicKeyTypeZZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_msg(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_C2Tuple_PublicKeyTypeZZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_msg(self.cOpaqueStruct!.this_arg), callerContext: "CustomMessageHandler::NativelyImplementedCustomMessageHandler::get_and_clear_pending_msg")
 				
 			
 	}

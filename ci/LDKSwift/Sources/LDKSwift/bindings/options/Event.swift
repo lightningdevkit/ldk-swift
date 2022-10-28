@@ -369,7 +369,7 @@ Event_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKEvent>) in
 Event_write(objPointer)
-});
+}, callerContext: "Event::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_COption_EventZDecodeErrorZ {
@@ -416,7 +416,7 @@ Event_write(objPointer)
 					}
 				
 					public func getOutput_script() -> [UInt8] {
-						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.output_script, deallocate: false)
+						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.output_script, callerContext: "Event::FundingGenerationReady::getOutput_script", deallocate: false)
 					}
 				
 					public func getUser_channel_id() -> UInt64 {
@@ -585,7 +585,7 @@ Event_write(objPointer)
 					}
 				
 					public func getPath() -> [RouteHop] {
-						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, deallocate: false)
+						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, callerContext: "Event::PaymentPathSuccessful::getPath", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							RouteHop(pointer: cOpaqueStruct).dangle()
@@ -635,7 +635,7 @@ Event_write(objPointer)
 					}
 				
 					public func getPath() -> [RouteHop] {
-						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, deallocate: false)
+						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, callerContext: "Event::PaymentPathFailed::getPath", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							RouteHop(pointer: cOpaqueStruct).dangle()
@@ -681,7 +681,7 @@ Event_write(objPointer)
 					}
 				
 					public func getPath() -> [RouteHop] {
-						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, deallocate: false)
+						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, callerContext: "Event::ProbeSuccessful::getPath", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							RouteHop(pointer: cOpaqueStruct).dangle()
@@ -719,7 +719,7 @@ Event_write(objPointer)
 					}
 				
 					public func getPath() -> [RouteHop] {
-						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, deallocate: false)
+						return Bindings.LDKCVec_RouteHopZ_to_array(nativeType: self.cOpaqueStruct!.path, callerContext: "Event::ProbeFailed::getPath", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							RouteHop(pointer: cOpaqueStruct).dangle()
@@ -778,7 +778,7 @@ Event_write(objPointer)
 
 				
 					public func getOutputs() -> [SpendableOutputDescriptor] {
-						return Bindings.LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: self.cOpaqueStruct!.outputs, deallocate: false)
+						return Bindings.LDKCVec_SpendableOutputDescriptorZ_to_array(nativeType: self.cOpaqueStruct!.outputs, callerContext: "Event::SpendableOutputs::getOutputs", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							SpendableOutputDescriptor(pointer: cOpaqueStruct).dangle()
@@ -882,7 +882,7 @@ Event_write(objPointer)
 					}
 				
 					public func getTransaction() -> [UInt8] {
-						return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.transaction, deallocate: false)
+						return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.transaction, callerContext: "Event::DiscardFunding::getTransaction", deallocate: false)
 					}
 				
 

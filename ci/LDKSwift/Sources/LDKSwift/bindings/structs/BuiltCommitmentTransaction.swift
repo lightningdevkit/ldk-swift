@@ -52,7 +52,7 @@ extension Bindings {
 			
 			return Bindings.LDKTransaction_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
 BuiltCommitmentTransaction_get_transaction(this_ptrPointer)
-});
+}, callerContext: "BuiltCommitmentTransaction::get_transaction");
 		}
 
 		public func set_transaction(val: [UInt8]) -> Void {
@@ -101,7 +101,7 @@ BuiltCommitmentTransaction_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
 BuiltCommitmentTransaction_write(objPointer)
-});
+}, callerContext: "BuiltCommitmentTransaction::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_BuiltCommitmentTransactionDecodeErrorZ {

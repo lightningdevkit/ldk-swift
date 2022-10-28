@@ -61,7 +61,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_RouteHintHopZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRouteHint>) in
 RouteHint_get_a(this_ptrPointer)
-})
+}, callerContext: "RouteHint::get_a")
 						
 						.map { (cOpaqueStruct) in
 							RouteHintHop(pointer: cOpaqueStruct)
@@ -126,7 +126,7 @@ RouteHint_eq(aPointer, bPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHint>) in
 RouteHint_write(objPointer)
-});
+}, callerContext: "RouteHint::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_RouteHintDecodeErrorZ {

@@ -82,12 +82,12 @@ TxOut_clone(origPointer)
 					}
 				
 
-		public func get_script_pubkey() -> [UInt8] {
+		public func getScript_pubkey() -> [UInt8] {
 			
-			return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey, deallocate: false);
+			return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.script_pubkey, callerContext: "TxOut::getScript_pubkey", deallocate: false);
 		}
 
-		public func get_value() -> UInt64 {
+		public func getValue() -> UInt64 {
 			
 			return self.cOpaqueStruct!.value;
 		}

@@ -167,7 +167,7 @@ RouteHop_eq(aPointer, bPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteHop>) in
 RouteHop_write(objPointer)
-});
+}, callerContext: "RouteHop::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {

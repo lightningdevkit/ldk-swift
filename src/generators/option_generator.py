@@ -3,7 +3,7 @@ import os
 
 from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
-from src.conversion_helper import ConversionHelper
+from src.conversion_helper import ConversionHelper, CallerContext
 
 
 class OptionGenerator:
@@ -120,7 +120,8 @@ class OptionGenerator:
 					"""
 					native_conversion_suffix = ''
 
-				value_return_wrappers = ConversionHelper.prepare_return_value(field_details, is_clone_method=False, is_raw_property_getter=True)
+				caller_context = CallerContext(swift_struct_name, current_method_name)
+				value_return_wrappers = ConversionHelper.prepare_return_value(field_details, is_clone_method=False, is_raw_property_getter=True, context=caller_context)
 				current_swift_return_type = value_return_wrappers['swift_type']
 				current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]
 				current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', f'self.cOpaqueStruct!.{field_details.var_name}')
@@ -179,6 +180,9 @@ class OptionGenerator:
 				getter_body = 'return nil'
 				value_type_name = current_option_details.container_type_name
 				return_type = value_type_name
+
+				caller_context = CallerContext(swift_struct_name, f'getValueAs{swift_tag_value}')
+
 				if not current_option_details.tuple_variant:
 					typed_class_names.append(swift_tag_value)
 					return_type = swift_tag_value
@@ -188,7 +192,7 @@ class OptionGenerator:
 					assert (len(current_option_details.fields) == 1)
 					current_return_field = current_option_details.fields[0]
 					current_var_name = current_return_field.var_name
-					return_body_details = self.prepare_return_body(current_return_field)
+					return_body_details = self.prepare_return_body(current_return_field, caller_context)
 					return_type = return_body_details['return_type']
 					getter_body = return_body_details['body']
 				# print('Tuple variant:', struct_name, swift_struct_name, swift_tag_value)
@@ -252,7 +256,8 @@ class OptionGenerator:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
 					force_pass_instance = True
 
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
+			caller_context = CallerContext(swift_struct_name, current_method_name)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, context=caller_context)
 			current_replacement = current_replacement.replace('return OptionType_methodName(native_arguments)',
 															  f'return {value_return_wrappers["prefix"]}OptionType_methodName(native_arguments){value_return_wrappers["suffix"]}')
 
@@ -368,7 +373,8 @@ class OptionGenerator:
 		for current_field in class_details.fields:
 			var_name: str = current_field.var_name
 			swift_var_name = var_name[0].upper() + var_name[1:]
-			return_body_details = self.prepare_return_body(current_field)
+			caller_context = CallerContext(parent_class_name, f'get{swift_var_name}', class_name)
+			return_body_details = self.prepare_return_body(current_field, caller_context)
 			return_body = return_body_details['body']
 			if class_name == 'SegWitProgram' and var_name == 'version':
 				return_body += '._0'  # one-time LDKu5 exception
@@ -389,9 +395,9 @@ class OptionGenerator:
 			}}
 		'''
 
-	def prepare_return_body(self, type_details):
+	def prepare_return_body(self, type_details, caller_context: CallerContext):
 		current_return_type = type_details
-		value_return_wrappers = ConversionHelper.prepare_return_value(current_return_type, is_clone_method=False, is_raw_property_getter=True, prefix_namespace=True)
+		value_return_wrappers = ConversionHelper.prepare_return_value(current_return_type, is_clone_method=False, is_raw_property_getter=True, prefix_namespace=True, context=caller_context)
 
 		current_swift_return_type = value_return_wrappers['swift_type']
 		current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]

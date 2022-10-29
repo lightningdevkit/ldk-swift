@@ -50,7 +50,7 @@ BlindedRoute_new(node_pksWrapper.dangle().cOpaqueStruct!, keys_managerPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKBlindedRoute>) in
 BlindedRoute_write(objPointer)
-});
+}, callerContext: "BlindedRoute::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_BlindedRouteDecodeErrorZ {

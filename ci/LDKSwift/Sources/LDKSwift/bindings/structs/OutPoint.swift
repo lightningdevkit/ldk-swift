@@ -114,7 +114,7 @@ OutPoint_to_channel_id(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOutPoint>) in
 OutPoint_write(objPointer)
-});
+}, callerContext: "OutPoint::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_OutPointDecodeErrorZ {

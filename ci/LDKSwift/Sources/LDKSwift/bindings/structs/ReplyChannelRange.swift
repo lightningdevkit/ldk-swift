@@ -112,7 +112,7 @@ ReplyChannelRange_get_sync_complete(this_ptrPointer)
 			
 			return Bindings.LDKCVec_u64Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKReplyChannelRange>) in
 ReplyChannelRange_get_short_channel_ids(this_ptrPointer)
-});
+}, callerContext: "ReplyChannelRange::get_short_channel_ids");
 		}
 
 		public func set_short_channel_ids(val: [UInt64]) -> Void {
@@ -156,7 +156,7 @@ ReplyChannelRange_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKReplyChannelRange>) in
 ReplyChannelRange_write(objPointer)
-});
+}, callerContext: "ReplyChannelRange::write");
 		}
 
 		internal func free() -> Void {

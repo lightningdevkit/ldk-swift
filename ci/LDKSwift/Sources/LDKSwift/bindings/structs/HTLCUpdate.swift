@@ -52,7 +52,7 @@ HTLCUpdate_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKHTLCUpdate>) in
 HTLCUpdate_write(objPointer)
-});
+}, callerContext: "HTLCUpdate::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_HTLCUpdateDecodeErrorZ {

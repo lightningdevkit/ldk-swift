@@ -58,7 +58,7 @@ public init(pointer: LDKPeerManager, anchor: NativeTypeWrapper){
 			
 			return Bindings.LDKCVec_PublicKeyZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKPeerManager>) in
 PeerManager_get_peer_node_ids(this_argPointer)
-});
+}, callerContext: "PeerManager::get_peer_node_ids");
 		}
 
 		public func new_outbound_connection(their_node_id: [UInt8], descriptor: SocketDescriptor, remote_network_address: Option_NetAddressZ) -> Result_CVec_u8ZPeerHandleErrorZ {

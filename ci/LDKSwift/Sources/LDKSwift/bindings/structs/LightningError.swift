@@ -47,7 +47,7 @@ extension Bindings {
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKLightningError>) in
 LightningError_get_err(this_ptrPointer)
-});
+}, callerContext: "LightningError::get_err");
 		}
 
 		public func set_err(val: String) -> Void {

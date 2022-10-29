@@ -77,7 +77,7 @@ ChannelTypeFeatures_requires_unknown_bits(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelTypeFeatures>) in
 ChannelTypeFeatures_write(objPointer)
-});
+}, callerContext: "ChannelTypeFeatures::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelTypeFeaturesDecodeErrorZ {

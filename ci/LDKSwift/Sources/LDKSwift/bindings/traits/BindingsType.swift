@@ -171,7 +171,7 @@ public class NativelyImplementedBindingsType: BindingsType {
 		
 				
 				return 
-				Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.debug_str(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.debug_str(self.cOpaqueStruct!.this_arg), callerContext: "BindingsType::NativelyImplementedBindingsType::debug_str")
 				
 			
 	}
@@ -180,7 +180,7 @@ public class NativelyImplementedBindingsType: BindingsType {
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.write(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.write(self.cOpaqueStruct!.this_arg), callerContext: "BindingsType::NativelyImplementedBindingsType::write")
 				
 			
 	}

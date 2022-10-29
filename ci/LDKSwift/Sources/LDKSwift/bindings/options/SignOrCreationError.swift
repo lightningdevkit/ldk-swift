@@ -113,7 +113,7 @@ SignOrCreationError_eq(aPointer, bPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSignOrCreationError>) in
 SignOrCreationError_to_str(oPointer)
-});
+}, callerContext: "SignOrCreationError::to_str");
 		}
 
 		/* OPTION_METHODS_END */

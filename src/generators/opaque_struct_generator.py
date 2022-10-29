@@ -3,7 +3,7 @@ import os
 
 from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
-from src.conversion_helper import ConversionHelper
+from src.conversion_helper import ConversionHelper, CallerContext
 
 # This replacement no longer seems to be necessary
 REPLACE_BACKGROUND_PROCESSOR_CONSTRUCTOR_ARGUMENTS = False
@@ -156,8 +156,9 @@ class OpaqueStructGenerator:
 					is_trait_instantiator = True
 
 			# replace arguments
+			caller_context = CallerContext(swift_struct_name, current_method_name)
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method, unwrap_complex_arrays=False)
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], is_clone_method, is_trait_instantiator)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], is_clone_method, is_trait_instantiator, context=caller_context)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 
 			if len(prepared_arguments['non_cloneable_argument_indices_passed_by_ownership']) > 0:
@@ -228,9 +229,10 @@ class OpaqueStructGenerator:
 			for current_field in struct_details.fields:
 				current_field_name = current_field['name']
 				current_field_type = current_field['field_details']
-				value_return_wrappers = ConversionHelper.prepare_return_value(current_field_type, is_raw_property_getter=True)
+				current_method_name = 'get' + current_field_name.capitalize()
+				caller_context = CallerContext(swift_struct_name, current_method_name)
+				value_return_wrappers = ConversionHelper.prepare_return_value(current_field_type, is_raw_property_getter=True, context=caller_context)
 				current_swift_return_type = value_return_wrappers['swift_type']
-				current_method_name = f'get_{current_field_name}'
 
 				current_replacement = method_template
 				current_replacement = current_replacement.replace('return OpaqueStructType_methodName(native_arguments)',

@@ -80,7 +80,7 @@ C2Tuple_usizeTransactionZ_clone(origPointer)
 				}
 			
 				public func getB() -> [UInt8] {
-					return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false);
+					return Bindings.LDKTransaction_to_array(nativeType: self.cOpaqueStruct!.b, callerContext: "LDKC2Tuple_usizeTransactionZ::getB", deallocate: false);
 				}
 			
 		/* TUPLE_METHODS_END */

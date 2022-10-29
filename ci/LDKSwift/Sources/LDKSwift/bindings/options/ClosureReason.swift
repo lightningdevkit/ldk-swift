@@ -143,7 +143,7 @@ ClosureReason_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKClosureReason>) in
 ClosureReason_write(objPointer)
-});
+}, callerContext: "ClosureReason::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_COption_ClosureReasonZDecodeErrorZ {
@@ -178,7 +178,7 @@ ClosureReason_write(objPointer)
 
 				
 					public func getPeer_msg() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.peer_msg)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.peer_msg, callerContext: "ClosureReason::CounterpartyForceClosed::getPeer_msg", deallocate: false)
 					}
 				
 
@@ -203,7 +203,7 @@ ClosureReason_write(objPointer)
 
 				
 					public func getErr() -> String {
-						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err)
+						return Bindings.LDKStr_to_string(nativeType: self.cOpaqueStruct!.err, callerContext: "ClosureReason::ProcessingError::getErr", deallocate: false)
 					}
 				
 

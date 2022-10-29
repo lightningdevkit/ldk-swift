@@ -49,7 +49,7 @@ InFlightHtlcs_used_liquidity_msat(this_argPointer, sourcePointer, targetPointer,
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInFlightHtlcs>) in
 InFlightHtlcs_write(objPointer)
-});
+}, callerContext: "InFlightHtlcs::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_InFlightHtlcsDecodeErrorZ {

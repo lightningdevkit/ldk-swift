@@ -1,7 +1,7 @@
 import re
 
 from src.generators.util_generators import UtilGenerator
-from src.conversion_helper import ConversionHelper
+from src.conversion_helper import ConversionHelper, CallerContext
 
 
 class StaticMethodGenerator(UtilGenerator):
@@ -30,8 +30,9 @@ class StaticMethodGenerator(UtilGenerator):
 			if native_method_name == '__unmangle_inner_ptr':
 				continue
 
+			caller_context = CallerContext('Bindings', method_name)
 			arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method['argument_types'], False)
-			return_wrappers = ConversionHelper.prepare_return_value(current_method['return_type'], False)
+			return_wrappers = ConversionHelper.prepare_return_value(current_method['return_type'], False, context=caller_context)
 
 			swift_argument_list = ', '.join(arguments['swift_arguments'])
 			swift_return_type = return_wrappers['swift_type']

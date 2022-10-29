@@ -127,7 +127,7 @@ NetworkUpdate_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkUpdate>) in
 NetworkUpdate_write(objPointer)
-});
+}, callerContext: "NetworkUpdate::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_COption_NetworkUpdateZDecodeErrorZ {

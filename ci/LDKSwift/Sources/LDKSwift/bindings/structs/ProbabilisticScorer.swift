@@ -122,7 +122,7 @@ ProbabilisticScorer_as_Score(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKProbabilisticScorer>) in
 ProbabilisticScorer_write(objPointer)
-});
+}, callerContext: "ProbabilisticScorer::write");
 		}
 
 		public class func read(ser: [UInt8], arg_a: ProbabilisticScoringParameters, arg_b: NetworkGraph, arg_c: Logger) -> Result_ProbabilisticScorerDecodeErrorZ {

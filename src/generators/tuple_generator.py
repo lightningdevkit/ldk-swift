@@ -3,7 +3,7 @@ import os
 
 from src.config import Config
 from src.type_parsing_regeces import TypeParsingRegeces
-from src.conversion_helper import ConversionHelper
+from src.conversion_helper import ConversionHelper, CallerContext
 
 
 # Tuples have only new, optionally clone, and free methods
@@ -130,7 +130,8 @@ class TupleGenerator:
 			current_field_name: str = current_tuple_field.var_name
 			current_accessor_name = 'get'+current_field_name.capitalize()
 
-			return_value_details = ConversionHelper.prepare_return_value(current_tuple_field, is_clone_method=False, is_raw_property_getter=True)
+			caller_context = CallerContext(struct_name, current_accessor_name)
+			return_value_details = ConversionHelper.prepare_return_value(current_tuple_field, is_clone_method=False, is_raw_property_getter=True, context=caller_context)
 
 			struct_methods += f'''
 				public func {current_accessor_name}() -> {return_value_details['swift_type']} {{

@@ -28,7 +28,7 @@ struct ContentView: View {
             }
             
         }, label: {
-            Text("Hello World")
+            Text("Test Polar Invoice Invoice Payment Flow")
         }).disabled(self.isRunningTestFlow)
 
         if let simulation = self.multiPeerSimulation {

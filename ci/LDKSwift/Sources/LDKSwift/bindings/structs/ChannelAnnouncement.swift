@@ -136,7 +136,7 @@ ChannelAnnouncement_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelAnnouncement>) in
 ChannelAnnouncement_write(objPointer)
-});
+}, callerContext: "ChannelAnnouncement::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelAnnouncementDecodeErrorZ {

@@ -76,7 +76,7 @@ NodeAlias_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNodeAlias>) in
 NodeAlias_write(objPointer)
-});
+}, callerContext: "NodeAlias::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_NodeAliasDecodeErrorZ {

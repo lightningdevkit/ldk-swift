@@ -200,7 +200,7 @@ public class NativelyImplementedPayer: Payer {
 		
 				
 				return 
-				Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: self.cOpaqueStruct!.first_hops(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: self.cOpaqueStruct!.first_hops(self.cOpaqueStruct!.this_arg), callerContext: "Payer::NativelyImplementedPayer::first_hops")
 				
 			
 	}

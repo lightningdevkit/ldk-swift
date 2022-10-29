@@ -91,7 +91,7 @@ ClosingSignedFeeRange_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKClosingSignedFeeRange>) in
 ClosingSignedFeeRange_write(objPointer)
-});
+}, callerContext: "ClosingSignedFeeRange::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ClosingSignedFeeRangeDecodeErrorZ {

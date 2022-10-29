@@ -101,7 +101,7 @@ Shutdown_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKShutdown>) in
 Shutdown_write(objPointer)
-});
+}, callerContext: "Shutdown::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {

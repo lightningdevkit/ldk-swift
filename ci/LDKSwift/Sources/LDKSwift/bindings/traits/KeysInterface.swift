@@ -72,7 +72,7 @@ extension Bindings {
 			func sign_invoiceCallback(pointer: UnsafeRawPointer?, hrp_bytes: LDKu8slice, invoice_data: LDKCVec_u5Z, receipient: LDKRecipient) -> LDKCResult_RecoverableSignatureNoneZ {
 				let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::sign_invoice")
 				
-				return instance.sign_invoice(hrp_bytes: Bindings.LDKu8slice_to_array(nativeType: hrp_bytes), invoice_data: Bindings.LDKCVec_u5Z_to_array(nativeType: invoice_data), receipient: receipient).cOpaqueStruct!
+				return instance.sign_invoice(hrp_bytes: Bindings.LDKu8slice_to_array(nativeType: hrp_bytes), invoice_data: Bindings.LDKCVec_u5Z_to_array(nativeType: invoice_data, callerContext: "KeysInterface::init::sign_invoiceCallback"), receipient: receipient).cOpaqueStruct!
 			}
 
 			func get_inbound_payment_key_materialCallback(pointer: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
@@ -251,7 +251,7 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.get_destination_script(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.get_destination_script(self.cOpaqueStruct!.this_arg), callerContext: "KeysInterface::NativelyImplementedKeysInterface::get_destination_script")
 				
 			
 	}

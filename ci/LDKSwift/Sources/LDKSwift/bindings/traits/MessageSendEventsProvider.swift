@@ -113,7 +113,7 @@ public class NativelyImplementedMessageSendEventsProvider: MessageSendEventsProv
 		
 				
 				return 
-				Bindings.LDKCVec_MessageSendEventZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_msg_events(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_MessageSendEventZ_to_array(nativeType: self.cOpaqueStruct!.get_and_clear_pending_msg_events(self.cOpaqueStruct!.this_arg), callerContext: "MessageSendEventsProvider::NativelyImplementedMessageSendEventsProvider::get_and_clear_pending_msg_events")
 				
 			
 	}

@@ -82,7 +82,7 @@ CommitmentSigned_get_signature(this_ptrPointer)
 			
 			return Bindings.LDKCVec_SignatureZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentSigned>) in
 CommitmentSigned_get_htlc_signatures(this_ptrPointer)
-});
+}, callerContext: "CommitmentSigned::get_htlc_signatures");
 		}
 
 		public func set_htlc_signatures(val: [[UInt8]]) -> Void {
@@ -116,7 +116,7 @@ CommitmentSigned_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentSigned>) in
 CommitmentSigned_write(objPointer)
-});
+}, callerContext: "CommitmentSigned::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {

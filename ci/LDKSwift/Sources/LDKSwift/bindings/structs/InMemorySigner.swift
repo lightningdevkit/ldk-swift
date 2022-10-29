@@ -251,7 +251,7 @@ InMemorySigner_as_Sign(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKInMemorySigner>) in
 InMemorySigner_write(objPointer)
-});
+}, callerContext: "InMemorySigner::write");
 		}
 
 		public class func read(ser: [UInt8], arg: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {

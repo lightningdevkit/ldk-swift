@@ -67,7 +67,7 @@ ChannelMonitorUpdate_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 ChannelMonitorUpdate_write(objPointer)
-});
+}, callerContext: "ChannelMonitorUpdate::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_ChannelMonitorUpdateDecodeErrorZ {

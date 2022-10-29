@@ -170,7 +170,7 @@ Fallback_eq(aPointer, bPointer)
 					}
 				
 					public func getProgram() -> [UInt8] {
-						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.program, deallocate: false)
+						return Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.program, callerContext: "Fallback::SegWitProgram::getProgram", deallocate: false)
 					}
 				
 

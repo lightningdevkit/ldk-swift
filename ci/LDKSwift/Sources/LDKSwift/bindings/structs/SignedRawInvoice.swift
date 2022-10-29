@@ -113,7 +113,7 @@ SignedRawInvoice_check_signature(this_argPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKSignedRawInvoice>) in
 SignedRawInvoice_to_str(oPointer)
-});
+}, callerContext: "SignedRawInvoice::to_str");
 		}
 
 		internal func free() -> Void {

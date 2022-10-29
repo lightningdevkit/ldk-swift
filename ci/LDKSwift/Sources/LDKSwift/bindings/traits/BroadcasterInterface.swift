@@ -24,7 +24,7 @@ extension Bindings {
 			func broadcast_transactionCallback(pointer: UnsafeRawPointer?, tx: LDKTransaction) -> Void {
 				let instance: BroadcasterInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BroadcasterInterface.swift::broadcast_transaction")
 				
-				return instance.broadcast_transaction(tx: Bindings.LDKTransaction_to_array(nativeType: tx))
+				return instance.broadcast_transaction(tx: Bindings.LDKTransaction_to_array(nativeType: tx, callerContext: "BroadcasterInterface::init::broadcast_transactionCallback"))
 			}
 
 			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {

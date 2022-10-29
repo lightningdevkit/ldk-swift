@@ -71,7 +71,7 @@ Description_eq(aPointer, bPointer)
 
 		public func into_inner() -> String {
 			
-			return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.danglingClone().cOpaqueStruct!));
+			return Bindings.LDKStr_to_string(nativeType: Description_into_inner(self.danglingClone().cOpaqueStruct!), callerContext: "Description::into_inner");
 		}
 
 		internal func free() -> Void {

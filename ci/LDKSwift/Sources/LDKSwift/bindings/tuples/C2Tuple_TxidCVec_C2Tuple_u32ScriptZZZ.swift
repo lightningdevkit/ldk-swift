@@ -85,7 +85,7 @@ C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer)
 				}
 			
 				public func getB() -> [C2Tuple_u32ScriptZ] {
-					return Bindings.LDKCVec_C2Tuple_u32ScriptZZ_to_array(nativeType: self.cOpaqueStruct!.b, deallocate: false)
+					return Bindings.LDKCVec_C2Tuple_u32ScriptZZ_to_array(nativeType: self.cOpaqueStruct!.b, callerContext: "LDKC2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ::getB", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							C2Tuple_u32ScriptZ(pointer: cOpaqueStruct).dangle()

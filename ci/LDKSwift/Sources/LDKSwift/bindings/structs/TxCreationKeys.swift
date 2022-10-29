@@ -136,7 +136,7 @@ TxCreationKeys_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKTxCreationKeys>) in
 TxCreationKeys_write(objPointer)
-});
+}, callerContext: "TxCreationKeys::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_TxCreationKeysDecodeErrorZ {

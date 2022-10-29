@@ -55,7 +55,7 @@ NetworkGraph_as_EventHandler(this_argPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkGraph>) in
 NetworkGraph_write(objPointer)
-});
+}, callerContext: "NetworkGraph::write");
 		}
 
 		public class func read(ser: [UInt8], arg: Logger) -> Result_NetworkGraphDecodeErrorZ {

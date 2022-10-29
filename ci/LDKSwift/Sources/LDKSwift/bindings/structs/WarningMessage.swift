@@ -62,7 +62,7 @@ WarningMessage_get_channel_id(this_ptrPointer)
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKWarningMessage>) in
 WarningMessage_get_data(this_ptrPointer)
-});
+}, callerContext: "WarningMessage::get_data");
 		}
 
 		public func set_data(val: String) -> Void {
@@ -91,7 +91,7 @@ WarningMessage_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKWarningMessage>) in
 WarningMessage_write(objPointer)
-});
+}, callerContext: "WarningMessage::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_WarningMessageDecodeErrorZ {

@@ -2,8 +2,7 @@ import re
 import os
 
 from src.config import Config
-from src.conversion_helper import ConversionHelper
-from src.conversion_helper import ConversionHelper
+from src.conversion_helper import ConversionHelper, CallerContext
 
 
 class ResultGenerator:
@@ -72,7 +71,8 @@ class ResultGenerator:
 		struct_methods = ''
 
 		if struct_details.result_error_type.swift_type != 'Void':
-			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False, is_raw_property_getter=True)
+			caller_context = CallerContext(swift_struct_name, 'getError')
+			error_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_error_type, False, is_raw_property_getter=True, context=caller_context)
 
 			struct_methods += f'''
 			public func getError() -> {error_return_wrappers['swift_type']}? {{
@@ -84,7 +84,8 @@ class ResultGenerator:
 			'''
 
 		if struct_details.result_value_type.swift_type != 'Void':
-			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False, is_raw_property_getter=True)
+			caller_context = CallerContext(swift_struct_name, 'getValue')
+			value_return_wrappers = ConversionHelper.prepare_return_value(struct_details.result_value_type, False, is_raw_property_getter=True, context=caller_context)
 
 			struct_methods += f'''
 			public func getValue() -> {value_return_wrappers['swift_type'].rstrip('?')}? {{
@@ -110,7 +111,8 @@ class ResultGenerator:
 			if len(current_method_details['argument_types']) == 1:
 				if current_method_details['argument_types'][0].swift_type == swift_struct_name:
 					force_pass_instance = True
-			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False)
+			caller_context = CallerContext(swift_struct_name, current_method_name)
+			value_return_wrappers = ConversionHelper.prepare_return_value(current_method_details['return_type'], False, context=caller_context)
 			prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(current_method_details['argument_types'], False, force_pass_instance, is_free_method)
 			static_infix = 'class ' if prepared_arguments['static_eligible'] else ''
 

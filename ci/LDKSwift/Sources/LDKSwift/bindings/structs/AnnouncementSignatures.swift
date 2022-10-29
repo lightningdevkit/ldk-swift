@@ -121,7 +121,7 @@ AnnouncementSignatures_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAnnouncementSignatures>) in
 AnnouncementSignatures_write(objPointer)
-});
+}, callerContext: "AnnouncementSignatures::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_AnnouncementSignaturesDecodeErrorZ {

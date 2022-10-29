@@ -175,7 +175,7 @@ DelayedPaymentOutputDescriptor_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
 DelayedPaymentOutputDescriptor_write(objPointer)
-});
+}, callerContext: "DelayedPaymentOutputDescriptor::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {

@@ -32,25 +32,25 @@ let target = NodeId(pointer: targetPointer.pointee).dangle().clone();
 			func payment_path_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
 				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::payment_path_failed")
 				
-				return instance.payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+				return instance.payment_path_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Score::init::payment_path_failedCallback"), short_channel_id: short_channel_id)
 			}
 
 			func payment_path_successfulCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
 				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::payment_path_successful")
 				
-				return instance.payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+				return instance.payment_path_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Score::init::payment_path_successfulCallback"))
 			}
 
 			func probe_failedCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
 				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_failed")
 				
-				return instance.probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path), short_channel_id: short_channel_id)
+				return instance.probe_failed(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Score::init::probe_failedCallback"), short_channel_id: short_channel_id)
 			}
 
 			func probe_successfulCallback(pointer: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
 				let instance: Score = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Score.swift::probe_successful")
 				
-				return instance.probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path))
+				return instance.probe_successful(path: Bindings.LDKCVec_RouteHopZ_to_array(nativeType: path, callerContext: "Score::init::probe_successfulCallback"))
 			}
 
 			func writeCallback(pointer: UnsafeRawPointer?) -> LDKCVec_u8Z {
@@ -311,7 +311,7 @@ withUnsafePointer(to: target.cOpaqueStruct!) { (targetPointer: UnsafePointer<LDK
 		
 				
 				return 
-				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.write(self.cOpaqueStruct!.this_arg))
+				Bindings.LDKCVec_u8Z_to_array(nativeType: self.cOpaqueStruct!.write(self.cOpaqueStruct!.this_arg), callerContext: "Score::NativelyImplementedScore::write")
 				
 			
 	}

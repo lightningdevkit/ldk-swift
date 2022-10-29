@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getValue() -> [[UInt8]]? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return Bindings.LDKCVec_SignatureZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, deallocate: false)
+					return Bindings.LDKCVec_SignatureZ_to_array(nativeType: self.cOpaqueStruct!.contents.result.pointee, callerContext: "Result_CVec_SignatureZNoneZ::getValue", deallocate: false)
 				}
 				return nil
 			}

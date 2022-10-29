@@ -83,7 +83,7 @@ CounterpartyCommitmentSecrets_get_secret(this_argPointer, idx)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCounterpartyCommitmentSecrets>) in
 CounterpartyCommitmentSecrets_write(objPointer)
-});
+}, callerContext: "CounterpartyCommitmentSecrets::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_CounterpartyCommitmentSecretsDecodeErrorZ {

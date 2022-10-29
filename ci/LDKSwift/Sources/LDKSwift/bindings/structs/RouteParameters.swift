@@ -106,7 +106,7 @@ RouteParameters_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRouteParameters>) in
 RouteParameters_write(objPointer)
-});
+}, callerContext: "RouteParameters::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_RouteParametersDecodeErrorZ {

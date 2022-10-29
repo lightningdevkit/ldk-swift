@@ -106,7 +106,7 @@ GossipTimestampFilter_clone(origPointer)
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKGossipTimestampFilter>) in
 GossipTimestampFilter_write(objPointer)
-});
+}, callerContext: "GossipTimestampFilter::write");
 		}
 
 		public class func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {

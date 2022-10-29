@@ -88,7 +88,7 @@ C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ_clone(origPointer)
 				if cStruct.inner == nil {
 					return nil
 				}
-				return OutPoint(pointer: cStruct, anchor: self)
+				return OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			;
 				}

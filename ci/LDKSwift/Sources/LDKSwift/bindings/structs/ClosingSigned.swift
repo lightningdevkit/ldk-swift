@@ -117,6 +117,15 @@ ClosingSigned_clone(origPointer)
 					}
 				
 
+		public class func eq(a: ClosingSigned, b: ClosingSigned) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKClosingSigned>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKClosingSigned>) in
+ClosingSigned_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKClosingSigned>) in

@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getError() -> LightningError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return LightningError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return LightningError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

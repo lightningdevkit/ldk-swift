@@ -121,6 +121,15 @@ WatchedOutput_clone(origPointer)
 					}
 				
 
+		public class func eq(a: WatchedOutput, b: WatchedOutput) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKWatchedOutput>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKWatchedOutput>) in
+WatchedOutput_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func hash() -> UInt64 {
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKWatchedOutput>) in

@@ -139,24 +139,24 @@ NetworkGraph_channel_failed(this_argPointer, short_channel_id, is_permanent)
 };
 		}
 
-		public func node_failed(_node_id: [UInt8], is_permanent: Bool) -> Void {
+		public func node_failed_permanent(node_id: [UInt8]) -> Void {
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph_node_failed(this_argPointer, Bindings.new_LDKPublicKey(array: _node_id), is_permanent)
+NetworkGraph_node_failed_permanent(this_argPointer, Bindings.new_LDKPublicKey(array: node_id))
 };
 		}
 
-		public func remove_stale_channels() -> Void {
+		public func remove_stale_channels_and_tracking() -> Void {
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph_remove_stale_channels(this_argPointer)
+NetworkGraph_remove_stale_channels_and_tracking(this_argPointer)
 };
 		}
 
-		public func remove_stale_channels_with_time(current_time_unix: UInt64) -> Void {
+		public func remove_stale_channels_and_tracking_with_time(current_time_unix: UInt64) -> Void {
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKNetworkGraph>) in
-NetworkGraph_remove_stale_channels_with_time(this_argPointer, current_time_unix)
+NetworkGraph_remove_stale_channels_and_tracking_with_time(this_argPointer, current_time_unix)
 };
 		}
 

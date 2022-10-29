@@ -58,7 +58,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKPaymentSendFailure_ParameterError {
 							return nil
 						}
-						return Bindings.APIError(pointer: self.cOpaqueStruct!.parameter_error, anchor: self)
+						return Bindings.APIError(pointer: self.cOpaqueStruct!.parameter_error, anchor: self).dangle()
 					}
 				
 					public func getValueAsPathParameterError() -> [Result_NoneAPIErrorZ]? {
@@ -208,7 +208,7 @@ PaymentSendFailure_clone(origPointer)
 					}
 				
 					public func getFailed_paths_retry() -> Bindings.RouteParameters {
-						return Bindings.RouteParameters(pointer: self.cOpaqueStruct!.failed_paths_retry, anchor: self)
+						return Bindings.RouteParameters(pointer: self.cOpaqueStruct!.failed_paths_retry, anchor: self).dangle()
 					}
 				
 					public func getPayment_id() -> [UInt8] {

@@ -97,6 +97,15 @@ QueryShortChannelIds_clone(origPointer)
 					}
 				
 
+		public class func eq(a: QueryShortChannelIds, b: QueryShortChannelIds) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKQueryShortChannelIds>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKQueryShortChannelIds>) in
+QueryShortChannelIds_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public class func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {
 			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)

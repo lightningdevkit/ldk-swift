@@ -27,6 +27,12 @@ extension Bindings {
 				return instance.get_node_secret(recipient: recipient).cOpaqueStruct!
 			}
 
+			func get_node_idCallback(pointer: UnsafeRawPointer?, recipient: LDKRecipient) -> LDKCResult_PublicKeyNoneZ {
+				let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::get_node_id")
+				
+				return instance.get_node_id(recipient: recipient).cOpaqueStruct!
+			}
+
 			func ecdhCallback(pointer: UnsafeRawPointer?, recipient: LDKRecipient, other_key: LDKPublicKey, tweak: LDKCOption_ScalarZ) -> LDKCResult_SharedSecretNoneZ {
 				let instance: KeysInterface = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "KeysInterface.swift::ecdh")
 				
@@ -92,6 +98,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0)
 			self.cOpaqueStruct = LDKKeysInterface(this_arg: Bindings.instanceToPointer(instance: self), 
 			get_node_secret: get_node_secretCallback,
+			get_node_id: get_node_idCallback,
 			ecdh: ecdhCallback,
 			get_destination_script: get_destination_scriptCallback,
 			get_shutdown_scriptpubkey: get_shutdown_scriptpubkeyCallback,
@@ -143,6 +150,14 @@ extension Bindings {
 			/* EDIT ME */
 		
 					Bindings.print("Error: KeysInterface::get_node_secret MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
+		}
+
+		open func get_node_id(recipient: LDKRecipient) -> Result_PublicKeyNoneZ {
+			/* EDIT ME */
+		
+					Bindings.print("Error: KeysInterface::get_node_id MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 					abort()
 				
 		}
@@ -234,6 +249,15 @@ public class NativelyImplementedKeysInterface: KeysInterface {
 				
 				return 
 				Result_SecretKeyNoneZ(pointer: self.cOpaqueStruct!.get_node_secret(self.cOpaqueStruct!.this_arg, recipient))
+				
+			
+	}
+
+	public override func get_node_id(recipient: LDKRecipient) -> Result_PublicKeyNoneZ {
+		
+				
+				return 
+				Result_PublicKeyNoneZ(pointer: self.cOpaqueStruct!.get_node_id(self.cOpaqueStruct!.this_arg, recipient))
 				
 			
 	}

@@ -126,6 +126,15 @@ StaticPaymentOutputDescriptor_clone(origPointer)
 					}
 				
 
+		public class func eq(a: StaticPaymentOutputDescriptor, b: StaticPaymentOutputDescriptor) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+StaticPaymentOutputDescriptor_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in

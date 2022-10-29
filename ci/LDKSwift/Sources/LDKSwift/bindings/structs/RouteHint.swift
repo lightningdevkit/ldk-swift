@@ -61,7 +61,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_RouteHintHopZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRouteHint>) in
 RouteHint_get_a(this_ptrPointer)
-}, callerContext: "RouteHint::get_a")
+}, callerContext: "RouteHint::get_a", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							RouteHintHop(pointer: cOpaqueStruct)

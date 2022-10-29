@@ -387,7 +387,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.AcceptChannel {
-						return Bindings.AcceptChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.AcceptChannel(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -416,7 +416,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.OpenChannel {
-						return Bindings.OpenChannel(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.OpenChannel(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -445,7 +445,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.FundingCreated {
-						return Bindings.FundingCreated(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.FundingCreated(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -474,7 +474,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.FundingSigned {
-						return Bindings.FundingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.FundingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -503,7 +503,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.ChannelReady {
-						return Bindings.ChannelReady(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ChannelReady(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -532,7 +532,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.AnnouncementSignatures {
-						return Bindings.AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.AnnouncementSignatures(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -561,7 +561,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getUpdates() -> Bindings.CommitmentUpdate {
-						return Bindings.CommitmentUpdate(pointer: self.cOpaqueStruct!.updates, anchor: self)
+						return Bindings.CommitmentUpdate(pointer: self.cOpaqueStruct!.updates, anchor: self).dangle()
 					}
 				
 
@@ -590,7 +590,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.RevokeAndACK {
-						return Bindings.RevokeAndACK(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.RevokeAndACK(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -619,7 +619,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.ClosingSigned {
-						return Bindings.ClosingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ClosingSigned(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -648,7 +648,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.Shutdown {
-						return Bindings.Shutdown(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.Shutdown(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -677,7 +677,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.ChannelReestablish {
-						return Bindings.ChannelReestablish(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ChannelReestablish(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -706,11 +706,11 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.ChannelAnnouncement {
-						return Bindings.ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 					public func getUpdate_msg() -> Bindings.ChannelUpdate {
-						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self)
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self).dangle()
 					}
 				
 
@@ -735,11 +735,11 @@ MessageSendEvent_clone(origPointer)
 
 				
 					public func getMsg() -> Bindings.ChannelAnnouncement {
-						return Bindings.ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ChannelAnnouncement(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 					public func getUpdate_msg() -> Bindings.ChannelUpdate {
-						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self)
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.update_msg, anchor: self).dangle()
 					}
 				
 
@@ -764,7 +764,7 @@ MessageSendEvent_clone(origPointer)
 
 				
 					public func getMsg() -> Bindings.ChannelUpdate {
-						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -793,7 +793,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.ChannelUpdate {
-						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -822,7 +822,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getAction() -> Bindings.ErrorAction {
-						return Bindings.ErrorAction(pointer: self.cOpaqueStruct!.action, anchor: self)
+						return Bindings.ErrorAction(pointer: self.cOpaqueStruct!.action, anchor: self).dangle()
 					}
 				
 
@@ -851,7 +851,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.QueryChannelRange {
-						return Bindings.QueryChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.QueryChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -880,7 +880,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.QueryShortChannelIds {
-						return Bindings.QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.QueryShortChannelIds(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -909,7 +909,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.ReplyChannelRange {
-						return Bindings.ReplyChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ReplyChannelRange(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -938,7 +938,7 @@ MessageSendEvent_clone(origPointer)
 					}
 				
 					public func getMsg() -> Bindings.GossipTimestampFilter {
-						return Bindings.GossipTimestampFilter(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.GossipTimestampFilter(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 

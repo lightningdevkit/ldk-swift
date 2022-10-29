@@ -57,6 +57,15 @@ BestBlock_clone(origPointer)
 					}
 				
 
+		public class func eq(a: BestBlock, b: BestBlock) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKBestBlock>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKBestBlock>) in
+BestBlock_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func block_hash() -> [UInt8] {
 			
 			return Bindings.LDKThirtyTwoBytes_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKBestBlock>) in

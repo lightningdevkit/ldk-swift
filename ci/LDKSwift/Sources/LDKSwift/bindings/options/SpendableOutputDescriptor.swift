@@ -63,14 +63,14 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_DelayedPaymentOutput {
 							return nil
 						}
-						return Bindings.DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output, anchor: self)
+						return Bindings.DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output, anchor: self).dangle()
 					}
 				
 					public func getValueAsStaticPaymentOutput() -> Bindings.StaticPaymentOutputDescriptor? {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_StaticPaymentOutput {
 							return nil
 						}
-						return Bindings.StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output, anchor: self)
+						return Bindings.StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output, anchor: self).dangle()
 					}
 				
 			
@@ -123,6 +123,15 @@ SpendableOutputDescriptor_clone(origPointer)
 			return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_static_payment_output(a.danglingClone().cOpaqueStruct!));
 		}
 
+		public class func eq(a: Bindings.SpendableOutputDescriptor, b: Bindings.SpendableOutputDescriptor) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
+SpendableOutputDescriptor_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
@@ -169,13 +178,13 @@ SpendableOutputDescriptor_write(objPointer)
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}
 				
 					public func getOutput() -> Bindings.TxOut {
-						return Bindings.TxOut(pointer: self.cOpaqueStruct!.output, anchor: self)
+						return Bindings.TxOut(pointer: self.cOpaqueStruct!.output, anchor: self).dangle()
 					}
 				
 

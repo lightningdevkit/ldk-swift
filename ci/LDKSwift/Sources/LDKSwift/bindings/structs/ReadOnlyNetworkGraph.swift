@@ -61,7 +61,7 @@ ReadOnlyNetworkGraph_node(this_argPointer, node_idPointer)
 			
 			return Bindings.LDKCVec_NodeIdZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKReadOnlyNetworkGraph>) in
 ReadOnlyNetworkGraph_list_nodes(this_argPointer)
-}, callerContext: "ReadOnlyNetworkGraph::list_nodes")
+}, callerContext: "ReadOnlyNetworkGraph::list_nodes", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							NodeId(pointer: cOpaqueStruct)

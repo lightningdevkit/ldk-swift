@@ -21,16 +21,16 @@ extension Bindings {
 
 			/* NATIVE_CALLBACKS_START */
 
-			func watch_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, monitor: LDKChannelMonitor) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
+			func watch_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, monitor: LDKChannelMonitor) -> LDKChannelMonitorUpdateStatus {
 				let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::watch_channel")
 				
-				return instance.watch_channel(funding_txo: OutPoint(pointer: funding_txo), monitor: ChannelMonitor(pointer: monitor)).cOpaqueStruct!
+				return instance.watch_channel(funding_txo: OutPoint(pointer: funding_txo), monitor: ChannelMonitor(pointer: monitor))
 			}
 
-			func update_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, update: LDKChannelMonitorUpdate) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
+			func update_channelCallback(pointer: UnsafeRawPointer?, funding_txo: LDKOutPoint, update: LDKChannelMonitorUpdate) -> LDKChannelMonitorUpdateStatus {
 				let instance: Watch = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Watch.swift::update_channel")
 				
-				return instance.update_channel(funding_txo: OutPoint(pointer: funding_txo), update: ChannelMonitorUpdate(pointer: update)).cOpaqueStruct!
+				return instance.update_channel(funding_txo: OutPoint(pointer: funding_txo), update: ChannelMonitorUpdate(pointer: update))
 			}
 
 			func release_pending_monitor_eventsCallback(pointer: UnsafeRawPointer?) -> LDKCVec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ {
@@ -97,7 +97,7 @@ extension Bindings {
 					}
 				
 
-		open func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+		open func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> LDKChannelMonitorUpdateStatus {
 			/* EDIT ME */
 		
 					Bindings.print("Error: Watch::watch_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -105,7 +105,7 @@ extension Bindings {
 				
 		}
 
-		open func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
+		open func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> LDKChannelMonitorUpdateStatus {
 			/* EDIT ME */
 		
 					Bindings.print("Error: Watch::update_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -139,20 +139,20 @@ extension Bindings {
 public class NativelyImplementedWatch: Watch {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
-	public override func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> Result_NoneChannelMonitorUpdateErrZ {
+	public override func watch_channel(funding_txo: OutPoint, monitor: ChannelMonitor) -> LDKChannelMonitorUpdateStatus {
 		
 				
 				return 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, monitor.danglingClone().cOpaqueStruct!))
+				self.cOpaqueStruct!.watch_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, monitor.danglingClone().cOpaqueStruct!)
 				
 			
 	}
 
-	public override func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> Result_NoneChannelMonitorUpdateErrZ {
+	public override func update_channel(funding_txo: OutPoint, update: ChannelMonitorUpdate) -> LDKChannelMonitorUpdateStatus {
 		
 				
 				return 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, update.danglingClone().cOpaqueStruct!))
+				self.cOpaqueStruct!.update_channel(self.cOpaqueStruct!.this_arg, funding_txo.danglingClone().cOpaqueStruct!, update.danglingClone().cOpaqueStruct!)
 				
 			
 	}

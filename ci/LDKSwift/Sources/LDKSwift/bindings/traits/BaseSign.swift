@@ -108,6 +108,12 @@ extension Bindings {
 				return instance.sign_closing_transaction(closing_tx: closing_tx).cOpaqueStruct!
 			}
 
+			func sign_holder_anchor_inputCallback(pointer: UnsafeRawPointer?, anchor_tx: LDKTransaction, input: uintptr_t) -> LDKCResult_SignatureNoneZ {
+				let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::sign_holder_anchor_input")
+				
+				return instance.sign_holder_anchor_input(anchor_tx: Bindings.LDKTransaction_to_array(nativeType: anchor_tx, callerContext: "BaseSign::init::sign_holder_anchor_inputCallback"), input: input).cOpaqueStruct!
+			}
+
 			func sign_channel_announcementCallback(pointer: UnsafeRawPointer?, msgPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) -> LDKCResult_C2Tuple_SignatureSignatureZNoneZ {
 				let instance: BaseSign = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "BaseSign.swift::sign_channel_announcement")
 				let msg = UnsignedChannelAnnouncement(pointer: msgPointer.pointee).dangle().clone();
@@ -145,6 +151,7 @@ extension Bindings {
 			sign_justice_revoked_htlc: sign_justice_revoked_htlcCallback,
 			sign_counterparty_htlc_transaction: sign_counterparty_htlc_transactionCallback,
 			sign_closing_transaction: sign_closing_transactionCallback,
+			sign_holder_anchor_input: sign_holder_anchor_inputCallback,
 			sign_channel_announcement: sign_channel_announcementCallback,
 			ready_channel: ready_channelCallback,
 			free: freeCallback)
@@ -270,6 +277,14 @@ extension Bindings {
 			/* EDIT ME */
 		
 					Bindings.print("Error: BaseSign::sign_closing_transaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+					abort()
+				
+		}
+
+		open func sign_holder_anchor_input(anchor_tx: [UInt8], input: UInt) -> Result_SignatureNoneZ {
+			/* EDIT ME */
+		
+					Bindings.print("Error: BaseSign::sign_holder_anchor_input MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 					abort()
 				
 		}
@@ -447,6 +462,20 @@ withUnsafePointer(to: htlc.cOpaqueStruct!) { (htlcPointer: UnsafePointer<LDKHTLC
 				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_closing_transaction(self.cOpaqueStruct!.this_arg, closing_txPointer))
 				
 }
+			
+	}
+
+	public override func sign_holder_anchor_input(anchor_tx: [UInt8], input: UInt) -> Result_SignatureNoneZ {
+		
+				
+						let anchor_txWrapper = Bindings.new_LDKTransactionWrapper(array: anchor_tx)
+						defer {
+							anchor_txWrapper.noOpRetain()
+						}
+					
+				return 
+				Result_SignatureNoneZ(pointer: self.cOpaqueStruct!.sign_holder_anchor_input(self.cOpaqueStruct!.this_arg, anchor_txWrapper.dangle().cOpaqueStruct!, input))
+				
 			
 	}
 

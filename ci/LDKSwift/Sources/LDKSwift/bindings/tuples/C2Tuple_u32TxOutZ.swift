@@ -75,7 +75,7 @@ C2Tuple_u32TxOutZ_clone(origPointer)
 				}
 			
 				public func getB() -> TxOut {
-					return TxOut(pointer: self.cOpaqueStruct!.b, anchor: self);
+					return TxOut(pointer: self.cOpaqueStruct!.b, anchor: self).dangle();
 				}
 			
 		/* TUPLE_METHODS_END */

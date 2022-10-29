@@ -453,7 +453,7 @@ Event_write(objPointer)
 					}
 				
 					public func getPurpose() -> Bindings.PaymentPurpose {
-						return Bindings.PaymentPurpose(pointer: self.cOpaqueStruct!.purpose, anchor: self)
+						return Bindings.PaymentPurpose(pointer: self.cOpaqueStruct!.purpose, anchor: self).dangle()
 					}
 				
 
@@ -486,7 +486,7 @@ Event_write(objPointer)
 					}
 				
 					public func getPurpose() -> Bindings.PaymentPurpose {
-						return Bindings.PaymentPurpose(pointer: self.cOpaqueStruct!.purpose, anchor: self)
+						return Bindings.PaymentPurpose(pointer: self.cOpaqueStruct!.purpose, anchor: self).dangle()
 					}
 				
 
@@ -523,7 +523,7 @@ Event_write(objPointer)
 					}
 				
 					public func getFee_paid_msat() -> Bindings.Option_u64Z {
-						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.fee_paid_msat, anchor: self)
+						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.fee_paid_msat, anchor: self).dangle()
 					}
 				
 
@@ -627,7 +627,7 @@ Event_write(objPointer)
 					}
 				
 					public func getNetwork_update() -> Bindings.Option_NetworkUpdateZ {
-						return Bindings.Option_NetworkUpdateZ(pointer: self.cOpaqueStruct!.network_update, anchor: self)
+						return Bindings.Option_NetworkUpdateZ(pointer: self.cOpaqueStruct!.network_update, anchor: self).dangle()
 					}
 				
 					public func getAll_paths_failed() -> Bool {
@@ -644,11 +644,11 @@ Event_write(objPointer)
 					}
 				
 					public func getShort_channel_id() -> Bindings.Option_u64Z {
-						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.short_channel_id, anchor: self)
+						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.short_channel_id, anchor: self).dangle()
 					}
 				
 					public func getRetry() -> Bindings.RouteParameters {
-						return Bindings.RouteParameters(pointer: self.cOpaqueStruct!.retry, anchor: self)
+						return Bindings.RouteParameters(pointer: self.cOpaqueStruct!.retry, anchor: self).dangle()
 					}
 				
 
@@ -728,7 +728,7 @@ Event_write(objPointer)
 					}
 				
 					public func getShort_channel_id() -> Bindings.Option_u64Z {
-						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.short_channel_id, anchor: self)
+						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.short_channel_id, anchor: self).dangle()
 					}
 				
 
@@ -816,7 +816,7 @@ Event_write(objPointer)
 					}
 				
 					public func getFee_earned_msat() -> Bindings.Option_u64Z {
-						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.fee_earned_msat, anchor: self)
+						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.fee_earned_msat, anchor: self).dangle()
 					}
 				
 					public func getClaim_from_onchain_tx() -> Bool {
@@ -853,7 +853,7 @@ Event_write(objPointer)
 					}
 				
 					public func getReason() -> Bindings.ClosureReason {
-						return Bindings.ClosureReason(pointer: self.cOpaqueStruct!.reason, anchor: self)
+						return Bindings.ClosureReason(pointer: self.cOpaqueStruct!.reason, anchor: self).dangle()
 					}
 				
 
@@ -923,7 +923,7 @@ Event_write(objPointer)
 					}
 				
 					public func getChannel_type() -> Bindings.ChannelTypeFeatures {
-						return Bindings.ChannelTypeFeatures(pointer: self.cOpaqueStruct!.channel_type, anchor: self)
+						return Bindings.ChannelTypeFeatures(pointer: self.cOpaqueStruct!.channel_type, anchor: self).dangle()
 					}
 				
 
@@ -952,7 +952,7 @@ Event_write(objPointer)
 					}
 				
 					public func getFailed_next_destination() -> Bindings.HTLCDestination {
-						return Bindings.HTLCDestination(pointer: self.cOpaqueStruct!.failed_next_destination, anchor: self)
+						return Bindings.HTLCDestination(pointer: self.cOpaqueStruct!.failed_next_destination, anchor: self).dangle()
 					}
 				
 

@@ -139,6 +139,15 @@ ClosureReason_clone(origPointer)
 			return ClosureReason(pointer: ClosureReason_outdated_channel_manager());
 		}
 
+		public class func eq(a: Bindings.ClosureReason, b: Bindings.ClosureReason) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKClosureReason>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKClosureReason>) in
+ClosureReason_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKClosureReason>) in

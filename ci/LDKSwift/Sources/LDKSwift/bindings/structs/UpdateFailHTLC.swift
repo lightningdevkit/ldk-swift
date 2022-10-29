@@ -78,6 +78,15 @@ UpdateFailHTLC_clone(origPointer)
 					}
 				
 
+		public class func eq(a: UpdateFailHTLC, b: UpdateFailHTLC) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKUpdateFailHTLC>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKUpdateFailHTLC>) in
+UpdateFailHTLC_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUpdateFailHTLC>) in

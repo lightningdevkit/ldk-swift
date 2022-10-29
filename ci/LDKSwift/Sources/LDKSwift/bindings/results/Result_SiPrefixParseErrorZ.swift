@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getError() -> ParseError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return ParseError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return ParseError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

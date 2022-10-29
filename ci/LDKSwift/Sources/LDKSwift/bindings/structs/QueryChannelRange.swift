@@ -102,6 +102,15 @@ QueryChannelRange_clone(origPointer)
 					}
 				
 
+		public class func eq(a: QueryChannelRange, b: QueryChannelRange) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKQueryChannelRange>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKQueryChannelRange>) in
+QueryChannelRange_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func end_blocknum() -> UInt32 {
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKQueryChannelRange>) in

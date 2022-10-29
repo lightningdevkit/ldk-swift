@@ -55,7 +55,7 @@ extension Bindings {
 			
 			public func getValue() -> Description? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return Description(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return Description(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

@@ -34,7 +34,7 @@ extension Bindings {
 		/* OPTION_METHODS_START */
 
 				public enum MonitorEventValueType {
-					case HTLCEvent, CommitmentTxConfirmed, UpdateCompleted, UpdateFailed
+					case HTLCEvent, CommitmentTxConfirmed, Completed, UpdateFailed
 				}
 
 				public func getValueType() -> MonitorEventValueType? {
@@ -44,8 +44,8 @@ extension Bindings {
 						return .HTLCEvent
 					case LDKMonitorEvent_CommitmentTxConfirmed:
 						return .CommitmentTxConfirmed
-					case LDKMonitorEvent_UpdateCompleted:
-						return .UpdateCompleted
+					case LDKMonitorEvent_Completed:
+						return .Completed
 					case LDKMonitorEvent_UpdateFailed:
 						return .UpdateFailed
                     default:
@@ -58,7 +58,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKMonitorEvent_HTLCEvent {
 							return nil
 						}
-						return Bindings.HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event, anchor: self)
+						return Bindings.HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event, anchor: self).dangle()
 					}
 				
 					public func getValueAsCommitmentTxConfirmed() -> Bindings.OutPoint? {
@@ -72,16 +72,16 @@ extension Bindings {
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}
 				
-					public func getValueAsUpdateCompleted() -> UpdateCompleted? {
-						if self.cOpaqueStruct?.tag != LDKMonitorEvent_UpdateCompleted {
+					public func getValueAsCompleted() -> Completed? {
+						if self.cOpaqueStruct?.tag != LDKMonitorEvent_Completed {
 							return nil
 						}
-						return UpdateCompleted(pointer: self.cOpaqueStruct!.update_completed, anchor: self)
+						return Completed(pointer: self.cOpaqueStruct!.completed, anchor: self)
 					}
 				
 					public func getValueAsUpdateFailed() -> Bindings.OutPoint? {
@@ -95,7 +95,7 @@ extension Bindings {
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}
@@ -145,14 +145,23 @@ MonitorEvent_clone(origPointer)
 			return MonitorEvent(pointer: MonitorEvent_commitment_tx_confirmed(a.danglingClone().cOpaqueStruct!));
 		}
 
-		public class func update_completed(funding_txo: Bindings.OutPoint, monitor_update_id: UInt64) -> MonitorEvent {
+		public class func completed(funding_txo: Bindings.OutPoint, monitor_update_id: UInt64) -> MonitorEvent {
 			
-			return MonitorEvent(pointer: MonitorEvent_update_completed(funding_txo.danglingClone().cOpaqueStruct!, monitor_update_id));
+			return MonitorEvent(pointer: MonitorEvent_completed(funding_txo.danglingClone().cOpaqueStruct!, monitor_update_id));
 		}
 
 		public class func update_failed(a: Bindings.OutPoint) -> MonitorEvent {
 			
 			return MonitorEvent(pointer: MonitorEvent_update_failed(a.danglingClone().cOpaqueStruct!));
+		}
+
+		public class func eq(a: Bindings.MonitorEvent, b: Bindings.MonitorEvent) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKMonitorEvent>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKMonitorEvent>) in
+MonitorEvent_eq(aPointer, bPointer)
+}
+};
 		}
 
 		public func write() -> [UInt8] {
@@ -176,15 +185,15 @@ MonitorEvent_write(objPointer)
 
 		
 
-			public class UpdateCompleted: NativeTypeWrapper {
+			public class Completed: NativeTypeWrapper {
 
 				
-				var cOpaqueStruct: LDKMonitorEvent_LDKUpdateCompleted_Body?;
-				fileprivate init(pointer: LDKMonitorEvent_LDKUpdateCompleted_Body) {
+				var cOpaqueStruct: LDKMonitorEvent_LDKCompleted_Body?;
+				fileprivate init(pointer: LDKMonitorEvent_LDKCompleted_Body) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 				}
-				fileprivate init(pointer: LDKMonitorEvent_LDKUpdateCompleted_Body, anchor: NativeTypeWrapper) {
+				fileprivate init(pointer: LDKMonitorEvent_LDKCompleted_Body, anchor: NativeTypeWrapper) {
 					self.cOpaqueStruct = pointer
 					super.init(conflictAvoidingVariableName: 0)
 					self.dangling = true
@@ -201,7 +210,7 @@ MonitorEvent_write(objPointer)
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}

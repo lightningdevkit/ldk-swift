@@ -153,6 +153,15 @@ ChannelInfo_clone(origPointer)
 					}
 				
 
+		public class func eq(a: ChannelInfo, b: ChannelInfo) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKChannelInfo>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKChannelInfo>) in
+ChannelInfo_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func get_directional_info(channel_flags: UInt8) -> ChannelUpdateInfo {
 			
 			return ChannelUpdateInfo(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelInfo>) in

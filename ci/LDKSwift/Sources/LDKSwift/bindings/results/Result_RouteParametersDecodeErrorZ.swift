@@ -48,14 +48,14 @@ extension Bindings {
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}
 			
 			public func getValue() -> RouteParameters? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return RouteParameters(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return RouteParameters(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

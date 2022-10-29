@@ -112,6 +112,15 @@ CommitmentSigned_clone(origPointer)
 					}
 				
 
+		public class func eq(a: CommitmentSigned, b: CommitmentSigned) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKCommitmentSigned>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKCommitmentSigned>) in
+CommitmentSigned_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKCommitmentSigned>) in

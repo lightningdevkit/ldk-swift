@@ -110,9 +110,23 @@ SendError_clone(origPointer)
 			return SendError(pointer: SendError_invalid_first_hop());
 		}
 
+		public class func invalid_message() -> SendError {
+			
+			return SendError(pointer: SendError_invalid_message());
+		}
+
 		public class func buffer_full() -> SendError {
 			
 			return SendError(pointer: SendError_buffer_full());
+		}
+
+		public class func eq(a: Bindings.SendError, b: Bindings.SendError) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSendError>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSendError>) in
+SendError_eq(aPointer, bPointer)
+}
+};
 		}
 
 		/* OPTION_METHODS_END */

@@ -46,20 +46,6 @@ RapidGossipSync_new(network_graphPointer)
 
 		/* STRUCT_METHODS_START */
 
-		public func sync_network_graph_with_file_path(sync_path: String) -> Result_u32GraphSyncErrorZ {
-			
-			return Result_u32GraphSyncErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRapidGossipSync>) in
-RapidGossipSync_sync_network_graph_with_file_path(this_argPointer, Bindings.new_LDKStr(string: sync_path, chars_is_owned: true))
-});
-		}
-
-		public func is_initial_sync_complete() -> Bool {
-			
-			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRapidGossipSync>) in
-RapidGossipSync_is_initial_sync_complete(this_argPointer)
-};
-		}
-
 		public func update_network_graph(update_data: [UInt8]) -> Result_u32GraphSyncErrorZ {
 			
 						let update_dataWrapper = Bindings.new_LDKu8sliceWrapper(array: update_data)
@@ -70,6 +56,13 @@ RapidGossipSync_is_initial_sync_complete(this_argPointer)
 			return Result_u32GraphSyncErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRapidGossipSync>) in
 RapidGossipSync_update_network_graph(this_argPointer, update_dataWrapper.cOpaqueStruct!)
 });
+		}
+
+		public func is_initial_sync_complete() -> Bool {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKRapidGossipSync>) in
+RapidGossipSync_is_initial_sync_complete(this_argPointer)
+};
 		}
 
 		internal func free() -> Void {

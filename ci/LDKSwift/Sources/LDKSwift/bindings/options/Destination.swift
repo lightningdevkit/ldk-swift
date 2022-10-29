@@ -61,7 +61,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKDestination_BlindedRoute {
 							return nil
 						}
-						return Bindings.BlindedRoute(pointer: self.cOpaqueStruct!.blinded_route, anchor: self)
+						return Bindings.BlindedRoute(pointer: self.cOpaqueStruct!.blinded_route, anchor: self).dangle()
 					}
 				
 			

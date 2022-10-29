@@ -48,14 +48,14 @@ extension Bindings {
 
 			public func getError() -> SignOrCreationError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return SignOrCreationError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return SignOrCreationError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}
 			
 			public func getValue() -> Invoice? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return Invoice(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getError() -> GraphSyncError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return GraphSyncError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return GraphSyncError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

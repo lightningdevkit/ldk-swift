@@ -102,6 +102,15 @@ GossipTimestampFilter_clone(origPointer)
 					}
 				
 
+		public class func eq(a: GossipTimestampFilter, b: GossipTimestampFilter) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKGossipTimestampFilter>) in
+GossipTimestampFilter_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKGossipTimestampFilter>) in

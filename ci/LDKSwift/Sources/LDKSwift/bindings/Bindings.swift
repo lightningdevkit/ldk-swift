@@ -5248,16 +5248,6 @@ public class Bindings {
 }
 			
 	}
-	public class func swift_CResult_NoneChannelMonitorUpdateErrZ_is_ok(o: Result_NoneChannelMonitorUpdateErrZ) -> Bool {
-		
-				
-				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_NoneChannelMonitorUpdateErrZ>) in
-
-				CResult_NoneChannelMonitorUpdateErrZ_is_ok(oPointer)
-				
-}
-			
-	}
 	public class func swift_CResult_FixedPenaltyScorerDecodeErrorZ_is_ok(o: Result_FixedPenaltyScorerDecodeErrorZ) -> Bool {
 		
 				
@@ -5504,6 +5494,16 @@ public class Bindings {
 				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_SecretKeyNoneZ>) in
 
 				CResult_SecretKeyNoneZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_PublicKeyNoneZ_is_ok(o: Result_PublicKeyNoneZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_PublicKeyNoneZ>) in
+
+				CResult_PublicKeyNoneZ_is_ok(oPointer)
 				
 }
 			
@@ -5914,6 +5914,16 @@ public class Bindings {
 				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ>) in
 
 				CResult_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ_is_ok(oPointer)
+				
+}
+			
+	}
+	public class func swift_CResult_COption_CustomOnionMessageContentsZDecodeErrorZ_is_ok(o: Result_COption_CustomOnionMessageContentsZDecodeErrorZ) -> Bool {
+		
+				
+				return withUnsafePointer(to: o.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKCResult_COption_CustomOnionMessageContentsZDecodeErrorZ>) in
+
+				CResult_COption_CustomOnionMessageContentsZDecodeErrorZ_is_ok(oPointer)
 				
 }
 			
@@ -6412,6 +6422,30 @@ public class Bindings {
 }
 			
 	}
+	public class func swift_provided_node_features() -> NodeFeatures {
+		
+				
+				return 
+				NodeFeatures(pointer: provided_node_features())
+				
+			
+	}
+	public class func swift_provided_channel_features() -> ChannelFeatures {
+		
+				
+				return 
+				ChannelFeatures(pointer: provided_channel_features())
+				
+			
+	}
+	public class func swift_provided_init_features() -> InitFeatures {
+		
+				
+				return 
+				InitFeatures(pointer: provided_init_features())
+				
+			
+	}
 	#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
 public class func swift_C2Tuple_BlockHashChannelManagerZ_read(ser: [UInt8], arg: ChannelManagerReadArgs) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
@@ -6634,7 +6668,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 }
 			
 	}
-	public class func swift_create_phantom_invoice(amt_msat: Option_u64Z, payment_hash: [UInt8], description: String, invoice_expiry_delta_secs: UInt32, phantom_route_hints: [PhantomRouteHints], keys_manager: KeysInterface, network: LDKCurrency) -> Result_InvoiceSignOrCreationErrorZ {
+	public class func swift_create_phantom_invoice(amt_msat: Option_u64Z, payment_hash: [UInt8], description: String, invoice_expiry_delta_secs: UInt32, phantom_route_hints: [PhantomRouteHints], keys_manager: KeysInterface, logger: Logger, network: LDKCurrency) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
 							let phantom_route_hintsUnwrapped = phantom_route_hints.map { (phantom_route_hintsCurrentValue) in
@@ -6648,11 +6682,11 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 						}
 					
 				return 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKStr(string: description, chars_is_owned: true), invoice_expiry_delta_secs, phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.activate().cOpaqueStruct!, network))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), Bindings.new_LDKStr(string: description, chars_is_owned: true), invoice_expiry_delta_secs, phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, network))
 				
 			
 	}
-	public class func swift_create_phantom_invoice_with_description_hash(amt_msat: Option_u64Z, payment_hash: [UInt8], invoice_expiry_delta_secs: UInt32, description_hash: Sha256, phantom_route_hints: [PhantomRouteHints], keys_manager: KeysInterface, network: LDKCurrency) -> Result_InvoiceSignOrCreationErrorZ {
+	public class func swift_create_phantom_invoice_with_description_hash(amt_msat: Option_u64Z, payment_hash: [UInt8], invoice_expiry_delta_secs: UInt32, description_hash: Sha256, phantom_route_hints: [PhantomRouteHints], keys_manager: KeysInterface, logger: Logger, network: LDKCurrency) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
 							let phantom_route_hintsUnwrapped = phantom_route_hints.map { (phantom_route_hintsCurrentValue) in
@@ -6666,46 +6700,46 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 						}
 					
 				return 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice_with_description_hash(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), invoice_expiry_delta_secs, description_hash.danglingClone().cOpaqueStruct!, phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.activate().cOpaqueStruct!, network))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_phantom_invoice_with_description_hash(amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKThirtyTwoBytes(array: payment_hash), invoice_expiry_delta_secs, description_hash.danglingClone().cOpaqueStruct!, phantom_route_hintsWrapper.dangle().cOpaqueStruct!, keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, network))
 				
 			
 	}
-	public class func swift_create_invoice_from_channelmanager(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description: String, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
+	public class func swift_create_invoice_from_channelmanager(channelmanager: ChannelManager, keys_manager: KeysInterface, logger: Logger, network: LDKCurrency, amt_msat: Option_u64Z, description: String, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), invoice_expiry_delta_secs))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), invoice_expiry_delta_secs))
 				
 }
 			
 	}
-	public class func swift_create_invoice_from_channelmanager_with_description_hash(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description_hash: Sha256, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
+	public class func swift_create_invoice_from_channelmanager_with_description_hash(channelmanager: ChannelManager, keys_manager: KeysInterface, logger: Logger, network: LDKCurrency, amt_msat: Option_u64Z, description_hash: Sha256, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, invoice_expiry_delta_secs))
 				
 }
 			
 	}
-	public class func swift_create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description_hash: Sha256, duration_since_epoch: UInt64, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
+	public class func swift_create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanager: ChannelManager, keys_manager: KeysInterface, logger: Logger, network: LDKCurrency, amt_msat: Option_u64Z, description_hash: Sha256, duration_since_epoch: UInt64, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, duration_since_epoch, invoice_expiry_delta_secs))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_with_description_hash_and_duration_since_epoch(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, description_hash.danglingClone().cOpaqueStruct!, duration_since_epoch, invoice_expiry_delta_secs))
 				
 }
 			
 	}
-	public class func swift_create_invoice_from_channelmanager_and_duration_since_epoch(channelmanager: ChannelManager, keys_manager: KeysInterface, network: LDKCurrency, amt_msat: Option_u64Z, description: String, duration_since_epoch: UInt64, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
+	public class func swift_create_invoice_from_channelmanager_and_duration_since_epoch(channelmanager: ChannelManager, keys_manager: KeysInterface, logger: Logger, network: LDKCurrency, amt_msat: Option_u64Z, description: String, duration_since_epoch: UInt64, invoice_expiry_delta_secs: UInt32) -> Result_InvoiceSignOrCreationErrorZ {
 		
 				
 				return withUnsafePointer(to: channelmanager.cOpaqueStruct!) { (channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
 
-				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_and_duration_since_epoch(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), duration_since_epoch, invoice_expiry_delta_secs))
+				Result_InvoiceSignOrCreationErrorZ(pointer: create_invoice_from_channelmanager_and_duration_since_epoch(channelmanagerPointer, keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, network, amt_msat.danglingClone().cOpaqueStruct!, Bindings.new_LDKStr(string: description, chars_is_owned: true), duration_since_epoch, invoice_expiry_delta_secs))
 				
 }
 			
@@ -6915,7 +6949,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "a184e59437fe43f8e02f8e09c6a5a50745f4bf34"
+        return "3f2c15ddca88239c3ddc57c1e4cf63a02dca5492"
     }
 
 }

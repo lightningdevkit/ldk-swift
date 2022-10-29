@@ -63,14 +63,14 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKPaymentError_Routing {
 							return nil
 						}
-						return Bindings.LightningError(pointer: self.cOpaqueStruct!.routing, anchor: self)
+						return Bindings.LightningError(pointer: self.cOpaqueStruct!.routing, anchor: self).dangle()
 					}
 				
 					public func getValueAsSending() -> Bindings.PaymentSendFailure? {
 						if self.cOpaqueStruct?.tag != LDKPaymentError_Sending {
 							return nil
 						}
-						return Bindings.PaymentSendFailure(pointer: self.cOpaqueStruct!.sending, anchor: self)
+						return Bindings.PaymentSendFailure(pointer: self.cOpaqueStruct!.sending, anchor: self).dangle()
 					}
 				
 			

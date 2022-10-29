@@ -91,7 +91,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_UpdateAddHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
 CommitmentUpdate_get_update_add_htlcs(this_ptrPointer)
-}, callerContext: "CommitmentUpdate::get_update_add_htlcs")
+}, callerContext: "CommitmentUpdate::get_update_add_htlcs", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							UpdateAddHTLC(pointer: cOpaqueStruct)
@@ -126,7 +126,7 @@ CommitmentUpdate_get_update_add_htlcs(this_ptrPointer)
 			
 			return Bindings.LDKCVec_UpdateFulfillHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
 CommitmentUpdate_get_update_fulfill_htlcs(this_ptrPointer)
-}, callerContext: "CommitmentUpdate::get_update_fulfill_htlcs")
+}, callerContext: "CommitmentUpdate::get_update_fulfill_htlcs", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							UpdateFulfillHTLC(pointer: cOpaqueStruct)
@@ -161,7 +161,7 @@ CommitmentUpdate_get_update_fulfill_htlcs(this_ptrPointer)
 			
 			return Bindings.LDKCVec_UpdateFailHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
 CommitmentUpdate_get_update_fail_htlcs(this_ptrPointer)
-}, callerContext: "CommitmentUpdate::get_update_fail_htlcs")
+}, callerContext: "CommitmentUpdate::get_update_fail_htlcs", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							UpdateFailHTLC(pointer: cOpaqueStruct)
@@ -196,7 +196,7 @@ CommitmentUpdate_get_update_fail_htlcs(this_ptrPointer)
 			
 			return Bindings.LDKCVec_UpdateFailMalformedHTLCZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKCommitmentUpdate>) in
 CommitmentUpdate_get_update_fail_malformed_htlcs(this_ptrPointer)
-}, callerContext: "CommitmentUpdate::get_update_fail_malformed_htlcs")
+}, callerContext: "CommitmentUpdate::get_update_fail_malformed_htlcs", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							UpdateFailMalformedHTLC(pointer: cOpaqueStruct)
@@ -270,6 +270,15 @@ CommitmentUpdate_clone(origPointer)
 						return dangledClone
 					}
 				
+
+		public class func eq(a: CommitmentUpdate, b: CommitmentUpdate) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKCommitmentUpdate>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_eq(aPointer, bPointer)
+}
+};
+		}
 
 		internal func free() -> Void {
 			

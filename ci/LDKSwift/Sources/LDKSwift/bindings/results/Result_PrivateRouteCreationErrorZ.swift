@@ -55,7 +55,7 @@ extension Bindings {
 			
 			public func getValue() -> PrivateRoute? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return PrivateRoute(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return PrivateRoute(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

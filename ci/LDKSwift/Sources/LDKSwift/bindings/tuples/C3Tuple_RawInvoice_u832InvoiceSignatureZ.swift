@@ -71,7 +71,7 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 				
 
 				public func getA() -> RawInvoice {
-					return RawInvoice(pointer: self.cOpaqueStruct!.a, anchor: self);
+					return RawInvoice(pointer: self.cOpaqueStruct!.a, anchor: self).dangle();
 				}
 			
 				public func getB() -> [UInt8] {
@@ -79,7 +79,7 @@ C3Tuple_RawInvoice_u832InvoiceSignatureZ_clone(origPointer)
 				}
 			
 				public func getC() -> InvoiceSignature {
-					return InvoiceSignature(pointer: self.cOpaqueStruct!.c, anchor: self);
+					return InvoiceSignature(pointer: self.cOpaqueStruct!.c, anchor: self).dangle();
 				}
 			
 		/* TUPLE_METHODS_END */

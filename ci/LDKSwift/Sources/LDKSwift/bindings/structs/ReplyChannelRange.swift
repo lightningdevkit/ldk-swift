@@ -142,6 +142,15 @@ ReplyChannelRange_clone(origPointer)
 					}
 				
 
+		public class func eq(a: ReplyChannelRange, b: ReplyChannelRange) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKReplyChannelRange>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKReplyChannelRange>) in
+ReplyChannelRange_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public class func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
 			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)

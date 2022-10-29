@@ -17,7 +17,7 @@ extension Bindings {
 		/* DEFAULT_CONSTRUCTOR_START */
 		#warning("This method passes non-cloneable objects by owned value. Here be dragons.")
 @available(*, deprecated, message: "This method passes non-cloneable objects by owned value. Here be dragons.")
-public init(message_handler: MessageHandler, our_node_secret: [UInt8], current_time: UInt64, ephemeral_random_data: [UInt8], logger: Logger, custom_message_handler: CustomMessageHandler) {
+public init(message_handler: MessageHandler, our_node_secret: [UInt8], current_time: UInt32, ephemeral_random_data: [UInt8], logger: Logger, custom_message_handler: CustomMessageHandler) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			

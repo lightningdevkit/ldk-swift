@@ -71,6 +71,13 @@ IgnoringMessageHandler_as_OnionMessageHandler(this_argPointer)
 }, anchor: self);
 		}
 
+		public func as_CustomOnionMessageHandler() -> NativelyImplementedCustomOnionMessageHandler {
+			
+			return NativelyImplementedCustomOnionMessageHandler(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
+IgnoringMessageHandler_as_CustomOnionMessageHandler(this_argPointer)
+}, anchor: self);
+		}
+
 		public func as_CustomMessageReader() -> NativelyImplementedCustomMessageReader {
 			
 			return NativelyImplementedCustomMessageReader(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKIgnoringMessageHandler>) in

@@ -19,7 +19,7 @@ extension Bindings {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			
-			self.cOpaqueStruct = ChannelTypeFeatures_known()
+			self.cOpaqueStruct = ChannelTypeFeatures_empty()
 			super.init(conflictAvoidingVariableName: 0)
 			
 		}

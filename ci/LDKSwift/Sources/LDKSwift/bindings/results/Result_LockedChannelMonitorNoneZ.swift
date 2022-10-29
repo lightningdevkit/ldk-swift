@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getValue() -> LockedChannelMonitor? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return LockedChannelMonitor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return LockedChannelMonitor(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

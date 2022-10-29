@@ -60,7 +60,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKParseError_Bech32Error {
 							return nil
 						}
-						return Bindings.Bech32Error(pointer: self.cOpaqueStruct!.bech32_error, anchor: self)
+						return Bindings.Bech32Error(pointer: self.cOpaqueStruct!.bech32_error, anchor: self).dangle()
 					}
 				
 					public func getValueAsParseAmountError() -> ()? {
@@ -204,6 +204,15 @@ ParseError_clone(origPointer)
 		public class func skip() -> ParseError {
 			
 			return ParseError(pointer: ParseError_skip());
+		}
+
+		public class func eq(a: Bindings.ParseError, b: Bindings.ParseError) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKParseError>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKParseError>) in
+ParseError_eq(aPointer, bPointer)
+}
+};
 		}
 
 		public func to_str() -> String {

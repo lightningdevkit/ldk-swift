@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getValue() -> BlindedRoute? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return BlindedRoute(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return BlindedRoute(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

@@ -121,7 +121,7 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
 			
 			return Bindings.LDKCVec_NetAddressZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
 NodeAnnouncementInfo_get_addresses(this_ptrPointer)
-}, callerContext: "NodeAnnouncementInfo::get_addresses")
+}, callerContext: "NodeAnnouncementInfo::get_addresses", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							NetAddress(pointer: cOpaqueStruct)
@@ -180,6 +180,15 @@ NodeAnnouncementInfo_clone(origPointer)
 						return dangledClone
 					}
 				
+
+		public class func eq(a: NodeAnnouncementInfo, b: NodeAnnouncementInfo) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+NodeAnnouncementInfo_eq(aPointer, bPointer)
+}
+};
+		}
 
 		public func write() -> [UInt8] {
 			

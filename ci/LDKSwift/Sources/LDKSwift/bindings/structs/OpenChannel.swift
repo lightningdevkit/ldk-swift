@@ -333,6 +333,15 @@ OpenChannel_clone(origPointer)
 					}
 				
 
+		public class func eq(a: OpenChannel, b: OpenChannel) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKOpenChannel>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKOpenChannel>) in
+OpenChannel_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKOpenChannel>) in

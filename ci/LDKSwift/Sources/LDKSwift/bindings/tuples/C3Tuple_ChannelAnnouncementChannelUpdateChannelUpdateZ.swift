@@ -71,15 +71,15 @@ C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ_clone(origPointer)
 				
 
 				public func getA() -> ChannelAnnouncement {
-					return ChannelAnnouncement(pointer: self.cOpaqueStruct!.a, anchor: self);
+					return ChannelAnnouncement(pointer: self.cOpaqueStruct!.a, anchor: self).dangle();
 				}
 			
 				public func getB() -> ChannelUpdate {
-					return ChannelUpdate(pointer: self.cOpaqueStruct!.b, anchor: self);
+					return ChannelUpdate(pointer: self.cOpaqueStruct!.b, anchor: self).dangle();
 				}
 			
 				public func getC() -> ChannelUpdate {
-					return ChannelUpdate(pointer: self.cOpaqueStruct!.c, anchor: self);
+					return ChannelUpdate(pointer: self.cOpaqueStruct!.c, anchor: self).dangle();
 				}
 			
 		/* TUPLE_METHODS_END */

@@ -55,7 +55,7 @@ extension Bindings {
 			
 			public func getValue() -> TxOut? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return TxOut(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return TxOut(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

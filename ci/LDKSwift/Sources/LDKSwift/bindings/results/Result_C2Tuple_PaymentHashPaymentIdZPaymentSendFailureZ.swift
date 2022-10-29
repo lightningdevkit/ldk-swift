@@ -48,14 +48,14 @@ extension Bindings {
 
 			public func getError() -> PaymentSendFailure? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return PaymentSendFailure(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return PaymentSendFailure(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}
 			
 			public func getValue() -> C2Tuple_PaymentHashPaymentIdZ? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_PaymentHashPaymentIdZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return C2Tuple_PaymentHashPaymentIdZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

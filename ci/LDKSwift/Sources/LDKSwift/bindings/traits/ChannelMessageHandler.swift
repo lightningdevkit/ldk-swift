@@ -133,11 +133,11 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 				return instance.peer_disconnected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), no_connection_possible: no_connection_possible)
 			}
 
-			func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKInit>) -> Void {
+			func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKInit>) -> LDKCResult_NoneNoneZ {
 				let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "ChannelMessageHandler.swift::peer_connected")
 				let msg = Init(pointer: msgPointer.pointee).dangle().clone();
 
-				return instance.peer_connected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg)
+				return instance.peer_connected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), msg: msg).cOpaqueStruct!
 			}
 
 			func handle_channel_reestablishCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, msgPointer: UnsafePointer<LDKChannelReestablish>) -> Void {
@@ -373,7 +373,7 @@ let msg = Shutdown(pointer: msgPointer.pointee).dangle().clone();
 				
 		}
 
-		open func peer_connected(their_node_id: [UInt8], msg: Init) -> Void {
+		open func peer_connected(their_node_id: [UInt8], msg: Init) -> Result_NoneNoneZ {
 			/* EDIT ME */
 		
 					Bindings.print("Error: ChannelMessageHandler::peer_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -615,12 +615,12 @@ withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKShutdo
 			
 	}
 
-	public override func peer_connected(their_node_id: [UInt8], msg: Init) -> Void {
+	public override func peer_connected(their_node_id: [UInt8], msg: Init) -> Result_NoneNoneZ {
 		
 				
-				withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKInit>) in
+				return withUnsafePointer(to: msg.cOpaqueStruct!) { (msgPointer: UnsafePointer<LDKInit>) in
 
-				self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer)
+				Result_NoneNoneZ(pointer: self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), msgPointer))
 				
 }
 			

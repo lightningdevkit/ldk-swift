@@ -74,6 +74,15 @@ ClosingTransaction_hash(oPointer)
 };
 		}
 
+		public class func eq(a: ClosingTransaction, b: ClosingTransaction) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKClosingTransaction>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKClosingTransaction>) in
+ClosingTransaction_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func trust() -> TrustedClosingTransaction {
 			
 			return TrustedClosingTransaction(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKClosingTransaction>) in

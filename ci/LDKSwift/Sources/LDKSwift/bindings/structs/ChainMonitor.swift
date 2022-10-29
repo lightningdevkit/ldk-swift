@@ -73,7 +73,7 @@ public init(pointer: LDKChainMonitor, anchor: NativeTypeWrapper){
 					
 			return Bindings.LDKCVec_BalanceZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_get_claimable_balances(this_argPointer, ignored_channelsWrapper.dangle().cOpaqueStruct!)
-}, callerContext: "ChainMonitor::get_claimable_balances")
+}, callerContext: "ChainMonitor::get_claimable_balances", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							Balance(pointer: cOpaqueStruct)
@@ -92,7 +92,7 @@ ChainMonitor_get_monitor(this_argPointer, funding_txo.danglingClone().cOpaqueStr
 			
 			return Bindings.LDKCVec_OutPointZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChainMonitor>) in
 ChainMonitor_list_monitors(this_argPointer)
-}, callerContext: "ChainMonitor::list_monitors")
+}, callerContext: "ChainMonitor::list_monitors", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							OutPoint(pointer: cOpaqueStruct)

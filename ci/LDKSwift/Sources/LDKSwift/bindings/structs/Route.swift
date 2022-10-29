@@ -62,7 +62,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_CVec_RouteHopZZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKRoute>) in
 Route_get_paths(this_ptrPointer)
-}, callerContext: "Route::get_paths")
+}, callerContext: "Route::get_paths", deallocate: false)
 						.map { (cOpaqueStruct) in
 						cOpaqueStruct
 						.map { (cOpaqueStruct) in

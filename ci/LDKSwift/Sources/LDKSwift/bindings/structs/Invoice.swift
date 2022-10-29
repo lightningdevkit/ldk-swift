@@ -162,7 +162,7 @@ Invoice_min_final_cltv_expiry(this_argPointer)
 			
 			return Bindings.LDKCVec_PrivateRouteZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_private_routes(this_argPointer)
-}, callerContext: "Invoice::private_routes")
+}, callerContext: "Invoice::private_routes", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							PrivateRoute(pointer: cOpaqueStruct)
@@ -174,7 +174,7 @@ Invoice_private_routes(this_argPointer)
 			
 			return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKInvoice>) in
 Invoice_route_hints(this_argPointer)
-}, callerContext: "Invoice::route_hints")
+}, callerContext: "Invoice::route_hints", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							RouteHint(pointer: cOpaqueStruct)

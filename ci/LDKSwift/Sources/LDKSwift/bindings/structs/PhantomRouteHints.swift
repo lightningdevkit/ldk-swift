@@ -61,7 +61,7 @@ extension Bindings {
 			
 			return Bindings.LDKCVec_ChannelDetailsZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPhantomRouteHints>) in
 PhantomRouteHints_get_channels(this_ptrPointer)
-}, callerContext: "PhantomRouteHints::get_channels")
+}, callerContext: "PhantomRouteHints::get_channels", deallocate: false)
 						
 						.map { (cOpaqueStruct) in
 							ChannelDetails(pointer: cOpaqueStruct)

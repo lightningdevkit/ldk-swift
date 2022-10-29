@@ -77,7 +77,7 @@ PaymentParameters_get_features(this_ptrPointer)
 			
 			return Bindings.LDKCVec_RouteHintZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKPaymentParameters>) in
 PaymentParameters_get_route_hints(this_ptrPointer)
-}, callerContext: "PaymentParameters::get_route_hints", deallocate: false)
+}, callerContext: "PaymentParameters::get_route_hints")
 						
 						.map { (cOpaqueStruct) in
 							RouteHint(pointer: cOpaqueStruct)

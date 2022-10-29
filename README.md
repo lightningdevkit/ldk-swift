@@ -4,6 +4,27 @@ Automatic Swift bindings generation for [`rust-lightning`](https://github.com/li
 
 ## Installation
 
+### Swift Package Manager
+To install using Swift Package Manager, add the following line to the depedencies array of your `Package.swift`:
+```
+.package(url: "https://github.com/lightningdevkit/ldk-swift/", exact: "0.0.110")
+```
+Be sure to also include "LightningDevKit" into your packages target like so:
+
+```
+targets: [
+    .target(
+        name: "YourPackage",
+        dependencies: [
+            .product(name: "LightningDevKit", package: "ldk-swift")
+        ]),
+    ...
+]
+```
+
+If you're importing directly into Xcode, just copy and paste `https://github.com/lightningdevkit/ldk-swift/` into the system dialog when you click "Add Package..."
+
+### Manual Installation
 In order to use the automatically generated bindings, simply drag `*.xcframework` file into an Xcode project.
 
 The `*.xcframework` files are either available on

@@ -73,7 +73,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
             let blockHash = Bindings.LDKThirtyTwoBytes_to_array(nativeType: a);
             let clonedChannelMonitor = ChannelMonitor(pointer: b).dangle().clone()
-            
+
             if let channelFundingOutpoint = clonedChannelMonitor.get_funding_txo().getA() {
                 let fundingOutpointHash = "\(channelFundingOutpoint.get_txid()):\(channelFundingOutpoint.get_index())"
                 if monitorFundingSet.contains(fundingOutpointHash) {
@@ -82,7 +82,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
                 }
                 monitorFundingSet.insert(fundingOutpointHash)
             }
-            
+
             clonedChannelMonitor.cOpaqueStruct?.is_owned = false // is_owned should never have to be modified
 
             monitors.append(clonedChannelMonitor.cOpaqueStruct!)
@@ -214,7 +214,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             print("watching channel")
             let monitorWatchResult = chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: monitorClone)
             if monitorWatchResult != LDKChannelMonitorUpdateStatus_Completed {
-                print("Some error occurred with a chainMonitorWatch.watch_channel call: \(monitorWatchResult)")
+                Bindings.print("Some issue occurred with a chainMonitorWatch.watch_channel call: \(monitorWatchResult)", severity: .WARNING)
             }
             monitorClone.cOpaqueStruct?.is_owned = true
         }
@@ -314,7 +314,7 @@ fileprivate class CustomChannelManagerPersister: Persister {
     override func persist_graph(network_graph: NetworkGraph) -> Result_NoneErrorZ {
         return self.handler.persist_graph(network_graph: network_graph)
     }
-    
+
     override func persist_scorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
         return self.handler.persist_scorer(scorer: scorer)
     }

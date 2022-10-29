@@ -826,7 +826,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in APIError_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in APIError_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -929,7 +935,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in Balance_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in Balance_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1032,7 +1044,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_BlockHashChannelMonitorZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_BlockHashChannelMonitorZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1135,7 +1153,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_PublicKeyTypeZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_PublicKeyTypeZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1238,7 +1262,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1341,7 +1371,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_u32ScriptZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_u32ScriptZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1444,7 +1480,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_u32TxOutZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_u32TxOutZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1547,7 +1589,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_usizeTransactionZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_usizeTransactionZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1650,7 +1698,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -1753,7 +1807,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in CResult_NoneAPIErrorZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in CResult_NoneAPIErrorZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2046,7 +2106,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in ChannelDetails_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in ChannelDetails_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2149,7 +2215,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in ChannelMonitor_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in ChannelMonitor_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2252,7 +2324,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in Event_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in Event_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2355,7 +2433,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in MessageSendEvent_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in MessageSendEvent_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2458,7 +2542,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in MonitorEvent_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in MonitorEvent_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2561,7 +2651,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in NetAddress_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in NetAddress_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2664,7 +2760,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in NodeId_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in NodeId_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2767,7 +2869,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in OutPoint_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in OutPoint_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -2958,7 +3066,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in PhantomRouteHints_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in PhantomRouteHints_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -3061,7 +3175,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in PrivateRoute_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in PrivateRoute_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -3252,7 +3372,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in RouteHintHop_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in RouteHintHop_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -3355,7 +3481,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in RouteHint_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in RouteHint_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -3458,7 +3590,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in RouteHop_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in RouteHop_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -3649,7 +3787,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in SpendableOutputDescriptor_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in SpendableOutputDescriptor_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -3840,7 +3984,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -4039,7 +4189,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in TxOut_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in TxOut_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -4230,7 +4386,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateAddHTLC_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateAddHTLC_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -4333,7 +4495,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateFailHTLC_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateFailHTLC_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -4436,7 +4604,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateFailMalformedHTLC_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateFailMalformedHTLC_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -4539,7 +4713,13 @@ public class Bindings {
 		for index in 0..<Int(nativeType.datalen) {
 			let currentEntry = nativeType.data[index]
 			/* CONVERSION_PREP */
-			array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateFulfillHTLC_clone(origPointer) })
+			
+						if deallocate {
+							array.append(withUnsafePointer(to: currentEntry){ origPointer in UpdateFulfillHTLC_clone(origPointer) })
+						} else {
+							array.append(currentEntry)
+						}
+					
 		}
 		
 					if deallocate {
@@ -6949,7 +7129,7 @@ withUnsafePointer(to: Bindings.array_to_tuple32(array: random_seed_bytes)) { (ra
 	*/
 
 	public class func get_ldk_swift_bindings_version() -> String {
-        return "d1e33c2692808b7eaf3ddb4411171f7c82857e4f"
+        return "5cd45049cfb8818d69252c0a918d3da044556c6e"
     }
 
 }

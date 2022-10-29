@@ -148,7 +148,14 @@ class VectorGenerator(UtilGenerator):
 					cloneability_lookup = cloneability_lookup[len('LDK'):]
 				is_cloneable = cloneability_lookup in src.conversion_helper.cloneable_types
 				if is_cloneable:
-					mutating_current_vector_methods = mutating_current_vector_methods.replace('(convertedEntry)', f'(withUnsafePointer(to: currentEntry){{ origPointer in {cloneability_lookup}_clone(origPointer) }})')
+					# mutating_current_vector_methods = mutating_current_vector_methods.replace('(convertedEntry)', f'(withUnsafePointer(to: currentEntry){{ origPointer in {cloneability_lookup}_clone(origPointer) }})')
+					mutating_current_vector_methods = mutating_current_vector_methods.replace('array.append(convertedEntry)', f'''
+						if deallocate {{
+							array.append(withUnsafePointer(to: currentEntry){{ origPointer in {cloneability_lookup}_clone(origPointer) }})
+						}} else {{
+							array.append(currentEntry)
+						}}
+					''')
 			# this is essentially an else
 			mutating_current_vector_methods = mutating_current_vector_methods.replace('(convertedEntry)', '(currentEntry)')
 

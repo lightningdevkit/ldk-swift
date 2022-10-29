@@ -86,7 +86,7 @@ ChannelMonitor_get_funding_txo(this_argPointer)
 			
 			return Bindings.LDKCVec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_outputs_to_watch(this_argPointer)
-}, callerContext: "ChannelMonitor::get_outputs_to_watch", deallocate: false)
+}, callerContext: "ChannelMonitor::get_outputs_to_watch")
 						
 						.map { (cOpaqueStruct) in
 							C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(pointer: cOpaqueStruct)
@@ -107,7 +107,7 @@ ChannelMonitor_load_outputs_to_watch(this_argPointer, filterPointer)
 			
 			return Bindings.LDKCVec_MonitorEventZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_and_clear_pending_monitor_events(this_argPointer)
-}, callerContext: "ChannelMonitor::get_and_clear_pending_monitor_events", deallocate: false)
+}, callerContext: "ChannelMonitor::get_and_clear_pending_monitor_events")
 						
 						.map { (cOpaqueStruct) in
 							MonitorEvent(pointer: cOpaqueStruct)
@@ -119,7 +119,7 @@ ChannelMonitor_get_and_clear_pending_monitor_events(this_argPointer)
 			
 			return Bindings.LDKCVec_EventZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_and_clear_pending_events(this_argPointer)
-}, callerContext: "ChannelMonitor::get_and_clear_pending_events", deallocate: false)
+}, callerContext: "ChannelMonitor::get_and_clear_pending_events")
 						
 						.map { (cOpaqueStruct) in
 							Event(pointer: cOpaqueStruct)
@@ -164,7 +164,7 @@ ChannelMonitor_get_latest_holder_commitment_txn(this_argPointer, loggerPointer)
 withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelMonitor_block_connected(this_argPointer, headerPointer, txdataWrapper.dangle().cOpaqueStruct!, height, broadcaster.activate().cOpaqueStruct!, fee_estimator.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!)
 }
-}, callerContext: "ChannelMonitor::block_connected", deallocate: false)
+}, callerContext: "ChannelMonitor::block_connected")
 						
 						.map { (cOpaqueStruct) in
 							TransactionOutputs(pointer: cOpaqueStruct)
@@ -202,7 +202,7 @@ ChannelMonitor_block_disconnected(this_argPointer, headerPointer, height, broadc
 withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelMonitor_transactions_confirmed(this_argPointer, headerPointer, txdataWrapper.dangle().cOpaqueStruct!, height, broadcaster.activate().cOpaqueStruct!, fee_estimator.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!)
 }
-}, callerContext: "ChannelMonitor::transactions_confirmed", deallocate: false)
+}, callerContext: "ChannelMonitor::transactions_confirmed")
 						
 						.map { (cOpaqueStruct) in
 							TransactionOutputs(pointer: cOpaqueStruct)
@@ -225,7 +225,7 @@ ChannelMonitor_transaction_unconfirmed(this_argPointer, txidPointer, broadcaster
 withUnsafePointer(to: Bindings.array_to_tuple80(array: header)) { (headerPointer: UnsafePointer<(UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8,UInt8)>) in
 ChannelMonitor_best_block_updated(this_argPointer, headerPointer, height, broadcaster.activate().cOpaqueStruct!, fee_estimator.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!)
 }
-}, callerContext: "ChannelMonitor::best_block_updated", deallocate: false)
+}, callerContext: "ChannelMonitor::best_block_updated")
 						
 						.map { (cOpaqueStruct) in
 							TransactionOutputs(pointer: cOpaqueStruct)
@@ -251,7 +251,7 @@ ChannelMonitor_current_best_block(this_argPointer)
 			
 			return Bindings.LDKCVec_BalanceZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKChannelMonitor>) in
 ChannelMonitor_get_claimable_balances(this_argPointer)
-}, callerContext: "ChannelMonitor::get_claimable_balances", deallocate: false)
+}, callerContext: "ChannelMonitor::get_claimable_balances")
 						
 						.map { (cOpaqueStruct) in
 							Balance(pointer: cOpaqueStruct)

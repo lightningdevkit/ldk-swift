@@ -554,7 +554,7 @@ class ConversionHelper:
 				'''
 				else:
 
-					return_suffix = f', callerContext: "{context_string}", deallocate: false)'
+					# return_suffix = f', callerContext: "{context_string}", deallocate: false)'
 
 					map_prefix = f'''.map {{ (cOpaqueStruct) in
 						cOpaqueStruct''' * (wrapper_depth-1)

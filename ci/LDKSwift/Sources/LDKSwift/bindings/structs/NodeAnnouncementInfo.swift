@@ -121,7 +121,7 @@ NodeAnnouncementInfo_get_alias(this_ptrPointer)
 			
 			return Bindings.LDKCVec_NetAddressZ_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
 NodeAnnouncementInfo_get_addresses(this_ptrPointer)
-}, callerContext: "NodeAnnouncementInfo::get_addresses", deallocate: false)
+}, callerContext: "NodeAnnouncementInfo::get_addresses")
 						
 						.map { (cOpaqueStruct) in
 							NetAddress(pointer: cOpaqueStruct)

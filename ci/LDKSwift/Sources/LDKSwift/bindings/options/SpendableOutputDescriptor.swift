@@ -123,6 +123,15 @@ SpendableOutputDescriptor_clone(origPointer)
 			return SpendableOutputDescriptor(pointer: SpendableOutputDescriptor_static_payment_output(a.danglingClone().cOpaqueStruct!));
 		}
 
+		public class func eq(a: Bindings.SpendableOutputDescriptor, b: Bindings.SpendableOutputDescriptor) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
+SpendableOutputDescriptor_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in

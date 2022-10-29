@@ -158,6 +158,15 @@ UnsignedNodeAnnouncement_clone(origPointer)
 					}
 				
 
+		public class func eq(a: UnsignedNodeAnnouncement, b: UnsignedNodeAnnouncement) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in
+UnsignedNodeAnnouncement_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedNodeAnnouncement>) in

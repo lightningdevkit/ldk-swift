@@ -151,6 +151,15 @@ NetAddress_clone(origPointer)
 			return NetAddress(pointer: NetAddress_hostname(hostname.danglingClone().cOpaqueStruct!, port));
 		}
 
+		public class func eq(a: Bindings.NetAddress, b: Bindings.NetAddress) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKNetAddress>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKNetAddress>) in
+NetAddress_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetAddress>) in

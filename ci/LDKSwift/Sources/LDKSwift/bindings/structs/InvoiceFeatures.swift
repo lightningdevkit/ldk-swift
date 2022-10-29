@@ -19,7 +19,7 @@ extension Bindings {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			
-			self.cOpaqueStruct = InvoiceFeatures_known()
+			self.cOpaqueStruct = InvoiceFeatures_empty()
 			super.init(conflictAvoidingVariableName: 0)
 			
 		}

@@ -87,6 +87,15 @@ WarningMessage_clone(origPointer)
 					}
 				
 
+		public class func eq(a: WarningMessage, b: WarningMessage) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKWarningMessage>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKWarningMessage>) in
+WarningMessage_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKWarningMessage>) in

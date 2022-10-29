@@ -118,6 +118,51 @@ ProbabilisticScoringParameters_get_liquidity_penalty_amount_multiplier_msat(this
 			return ProbabilisticScoringParameters_set_liquidity_penalty_amount_multiplier_msat(this_ptrPointer, val);
 		}
 
+		public func get_historical_liquidity_penalty_multiplier_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+ProbabilisticScoringParameters_get_historical_liquidity_penalty_multiplier_msat(this_ptrPointer)
+};
+		}
+
+		public func set_historical_liquidity_penalty_multiplier_msat(val: UInt64) -> Void {
+			
+							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+			return ProbabilisticScoringParameters_set_historical_liquidity_penalty_multiplier_msat(this_ptrPointer, val);
+		}
+
+		public func get_historical_liquidity_penalty_amount_multiplier_msat() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+ProbabilisticScoringParameters_get_historical_liquidity_penalty_amount_multiplier_msat(this_ptrPointer)
+};
+		}
+
+		public func set_historical_liquidity_penalty_amount_multiplier_msat(val: UInt64) -> Void {
+			
+							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+			return ProbabilisticScoringParameters_set_historical_liquidity_penalty_amount_multiplier_msat(this_ptrPointer, val);
+		}
+
+		public func get_historical_no_updates_half_life() -> UInt64 {
+			
+			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in
+ProbabilisticScoringParameters_get_historical_no_updates_half_life(this_ptrPointer)
+};
+		}
+
+		public func set_historical_no_updates_half_life(val: UInt64) -> Void {
+			
+							let this_ptrPointer = UnsafeMutablePointer<LDKProbabilisticScoringParameters>.allocate(capacity: 1)
+							this_ptrPointer.initialize(to: self.cOpaqueStruct!)
+						
+			return ProbabilisticScoringParameters_set_historical_no_updates_half_life(this_ptrPointer, val);
+		}
+
 		public func get_anti_probing_penalty_msat() -> UInt64 {
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_ptrPointer: UnsafePointer<LDKProbabilisticScoringParameters>) in

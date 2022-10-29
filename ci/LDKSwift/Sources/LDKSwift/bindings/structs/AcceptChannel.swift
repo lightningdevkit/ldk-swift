@@ -273,6 +273,15 @@ AcceptChannel_clone(origPointer)
 					}
 				
 
+		public class func eq(a: AcceptChannel, b: AcceptChannel) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKAcceptChannel>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKAcceptChannel>) in
+AcceptChannel_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKAcceptChannel>) in

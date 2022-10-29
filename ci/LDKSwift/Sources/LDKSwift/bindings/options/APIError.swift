@@ -146,14 +146,23 @@ APIError_clone(origPointer)
 			return APIError(pointer: APIError_channel_unavailable(Bindings.new_LDKStr(string: err, chars_is_owned: true)));
 		}
 
-		public class func monitor_update_failed() -> APIError {
+		public class func monitor_update_in_progress() -> APIError {
 			
-			return APIError(pointer: APIError_monitor_update_failed());
+			return APIError(pointer: APIError_monitor_update_in_progress());
 		}
 
 		public class func incompatible_shutdown_script(script: Bindings.ShutdownScript) -> APIError {
 			
 			return APIError(pointer: APIError_incompatible_shutdown_script(script.danglingClone().cOpaqueStruct!));
+		}
+
+		public class func eq(a: Bindings.APIError, b: Bindings.APIError) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKAPIError>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKAPIError>) in
+APIError_eq(aPointer, bPointer)
+}
+};
 		}
 
 		/* OPTION_METHODS_END */

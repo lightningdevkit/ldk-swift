@@ -15,14 +15,15 @@ extension Bindings {
 
 
 		/* DEFAULT_CONSTRUCTOR_START */
-		public init(keys_manager: KeysInterface, logger: Logger) {
+		public init(keys_manager: KeysInterface, logger: Logger, custom_handler: CustomOnionMessageHandler) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			
-			self.cOpaqueStruct = OnionMessenger_new(keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!)
+			self.cOpaqueStruct = OnionMessenger_new(keys_manager.activate().cOpaqueStruct!, logger.activate().cOpaqueStruct!, custom_handler.activate().cOpaqueStruct!)
 			super.init(conflictAvoidingVariableName: 0)
 			try? self.addAnchor(anchor: keys_manager)
 try? self.addAnchor(anchor: logger)
+try? self.addAnchor(anchor: custom_handler)
 
 		}
 		/* DEFAULT_CONSTRUCTOR_END */
@@ -45,7 +46,7 @@ try? self.addAnchor(anchor: logger)
 
 		/* STRUCT_METHODS_START */
 
-		public func send_onion_message(intermediate_nodes: [[UInt8]], destination: Destination, reply_path: BlindedRoute) -> Result_NoneSendErrorZ {
+		public func send_custom_onion_message(intermediate_nodes: [[UInt8]], destination: Destination, msg: CustomOnionMessageContents, reply_path: BlindedRoute) -> Result_NoneSendErrorZ {
 			
 						let intermediate_nodesWrapper = Bindings.new_LDKCVec_PublicKeyZWrapper(array: intermediate_nodes)
 						defer {
@@ -53,7 +54,7 @@ try? self.addAnchor(anchor: logger)
 						}
 					
 			return Result_NoneSendErrorZ(pointer: withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKOnionMessenger>) in
-OnionMessenger_send_onion_message(this_argPointer, intermediate_nodesWrapper.dangle().cOpaqueStruct!, destination.cOpaqueStruct!, reply_path.cOpaqueStruct!)
+OnionMessenger_send_custom_onion_message(this_argPointer, intermediate_nodesWrapper.dangle().cOpaqueStruct!, destination.cOpaqueStruct!, msg.danglingClone().cOpaqueStruct!, reply_path.cOpaqueStruct!)
 });
 		}
 

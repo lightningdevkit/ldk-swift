@@ -87,6 +87,15 @@ DataLossProtect_clone(origPointer)
 					}
 				
 
+		public class func eq(a: DataLossProtect, b: DataLossProtect) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKDataLossProtect>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKDataLossProtect>) in
+DataLossProtect_eq(aPointer, bPointer)
+}
+};
+		}
+
 		internal func free() -> Void {
 			
 			return DataLossProtect_free(self.cOpaqueStruct!);

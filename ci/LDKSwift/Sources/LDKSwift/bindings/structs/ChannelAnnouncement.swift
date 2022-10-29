@@ -132,6 +132,15 @@ ChannelAnnouncement_clone(origPointer)
 					}
 				
 
+		public class func eq(a: ChannelAnnouncement, b: ChannelAnnouncement) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKChannelAnnouncement>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKChannelAnnouncement>) in
+ChannelAnnouncement_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKChannelAnnouncement>) in

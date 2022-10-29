@@ -48,6 +48,15 @@ Hostname_clone(origPointer)
 					}
 				
 
+		public class func eq(a: Hostname, b: Hostname) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKHostname>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKHostname>) in
+Hostname_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func len() -> UInt8 {
 			
 			return withUnsafePointer(to: self.cOpaqueStruct!) { (this_argPointer: UnsafePointer<LDKHostname>) in

@@ -133,7 +133,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         guard let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue() else {
             throw InvalidSerializedDataError.badNodeSecret
         }
-        let timestampSeconds = UInt64(NSDate().timeIntervalSince1970)
+        let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
         self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, current_time: timestampSeconds, ephemeral_random_data: random_data, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
 
         if let filter = filter {
@@ -178,7 +178,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             messageHandler = MessageHandler(chan_handler_arg: channelManager.as_ChannelMessageHandler(), route_handler_arg: noCustomMessages.as_RoutingMessageHandler(), onion_message_handler_arg: noCustomMessages.as_OnionMessageHandler())
         }
         let nodeSecret = keys_interface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
-        let timestampSeconds = UInt64(NSDate().timeIntervalSince1970)
+        let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
         self.peerManager = PeerManager(message_handler: messageHandler.dangle(), our_node_secret: nodeSecret, current_time: timestampSeconds, ephemeral_random_data: random_data, logger: logger, custom_message_handler: noCustomMessages.as_CustomMessageHandler())
 
 
@@ -213,8 +213,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let outPoint = OutPoint(pointer: fundingTxo.cOpaqueStruct!.a).dangle()
             print("watching channel")
             let monitorWatchResult = chainMonitorWatch.watch_channel(funding_txo: outPoint, monitor: monitorClone)
-            if !monitorWatchResult.isOk() {
-                print("Some error occurred with a chainMonitorWatch.watch_channel call")
+            if monitorWatchResult != LDKChannelMonitorUpdateStatus_Completed {
+                print("Some error occurred with a chainMonitorWatch.watch_channel call: \(monitorWatchResult)")
             }
             monitorClone.cOpaqueStruct?.is_owned = true
         }

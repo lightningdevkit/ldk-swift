@@ -271,6 +271,15 @@ CommitmentUpdate_clone(origPointer)
 					}
 				
 
+		public class func eq(a: CommitmentUpdate, b: CommitmentUpdate) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKCommitmentUpdate>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKCommitmentUpdate>) in
+CommitmentUpdate_eq(aPointer, bPointer)
+}
+};
+		}
+
 		internal func free() -> Void {
 			
 			return CommitmentUpdate_free(self.cOpaqueStruct!);

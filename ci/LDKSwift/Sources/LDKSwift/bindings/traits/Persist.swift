@@ -21,19 +21,19 @@ extension Bindings {
 
 			/* NATIVE_CALLBACKS_START */
 
-			func persist_new_channelCallback(pointer: UnsafeRawPointer?, channel_id: LDKOutPoint, dataPointer: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
+			func persist_new_channelCallback(pointer: UnsafeRawPointer?, channel_id: LDKOutPoint, dataPointer: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
 				let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::persist_new_channel")
 				let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 
-				return instance.persist_new_channel(channel_id: OutPoint(pointer: channel_id), data: data, update_id: MonitorUpdateId(pointer: update_id)).cOpaqueStruct!
+				return instance.persist_new_channel(channel_id: OutPoint(pointer: channel_id), data: data, update_id: MonitorUpdateId(pointer: update_id))
 			}
 
-			func update_persisted_channelCallback(pointer: UnsafeRawPointer?, channel_id: LDKOutPoint, updatePointer: UnsafePointer<LDKChannelMonitorUpdate>, dataPointer: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKCResult_NoneChannelMonitorUpdateErrZ {
+			func update_persisted_channelCallback(pointer: UnsafeRawPointer?, channel_id: LDKOutPoint, updatePointer: UnsafePointer<LDKChannelMonitorUpdate>, dataPointer: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
 				let instance: Persist = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "Persist.swift::update_persisted_channel")
 				let update = ChannelMonitorUpdate(pointer: updatePointer.pointee).dangle().clone();
 let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 
-				return instance.update_persisted_channel(channel_id: OutPoint(pointer: channel_id), update: update, data: data, update_id: MonitorUpdateId(pointer: update_id)).cOpaqueStruct!
+				return instance.update_persisted_channel(channel_id: OutPoint(pointer: channel_id), update: update, data: data, update_id: MonitorUpdateId(pointer: update_id))
 			}
 
 			func freeCallback(pointer: UnsafeMutableRawPointer?) -> Void {
@@ -87,7 +87,7 @@ let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 					}
 				
 
-		open func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+		open func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
 			/* EDIT ME */
 		
 					Bindings.print("Error: Persist::persist_new_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -95,7 +95,7 @@ let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 				
 		}
 
-		open func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+		open func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
 			/* EDIT ME */
 		
 					Bindings.print("Error: Persist::update_persisted_channel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -121,24 +121,24 @@ let data = ChannelMonitor(pointer: dataPointer.pointee).dangle().clone();
 public class NativelyImplementedPersist: Persist {
 	/* SWIFT_DEFAULT_CALLBACKS_START */
 
-	public override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+	public override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
 		
 				
 				return withUnsafePointer(to: data.cOpaqueStruct!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.persist_new_channel(self.cOpaqueStruct!.this_arg, channel_id.danglingClone().cOpaqueStruct!, dataPointer, update_id.danglingClone().cOpaqueStruct!))
+				self.cOpaqueStruct!.persist_new_channel(self.cOpaqueStruct!.this_arg, channel_id.danglingClone().cOpaqueStruct!, dataPointer, update_id.danglingClone().cOpaqueStruct!)
 				
 }
 			
 	}
 
-	public override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+	public override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
 		
 				
 				return withUnsafePointer(to: update.cOpaqueStruct!) { (updatePointer: UnsafePointer<LDKChannelMonitorUpdate>) in
 withUnsafePointer(to: data.cOpaqueStruct!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
 
-				Result_NoneChannelMonitorUpdateErrZ(pointer: self.cOpaqueStruct!.update_persisted_channel(self.cOpaqueStruct!.this_arg, channel_id.danglingClone().cOpaqueStruct!, updatePointer, dataPointer, update_id.danglingClone().cOpaqueStruct!))
+				self.cOpaqueStruct!.update_persisted_channel(self.cOpaqueStruct!.this_arg, channel_id.danglingClone().cOpaqueStruct!, updatePointer, dataPointer, update_id.danglingClone().cOpaqueStruct!)
 				
 }
 }

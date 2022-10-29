@@ -171,6 +171,15 @@ DelayedPaymentOutputDescriptor_clone(origPointer)
 					}
 				
 
+		public class func eq(a: DelayedPaymentOutputDescriptor, b: DelayedPaymentOutputDescriptor) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in
+DelayedPaymentOutputDescriptor_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKDelayedPaymentOutputDescriptor>) in

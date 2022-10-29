@@ -63,6 +63,15 @@ OnionMessage_clone(origPointer)
 					}
 				
 
+		public class func eq(a: OnionMessage, b: OnionMessage) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKOnionMessage>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKOnionMessage>) in
+OnionMessage_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public class func read(ser: [UInt8]) -> Result_OnionMessageDecodeErrorZ {
 			
 						let serWrapper = Bindings.new_LDKu8sliceWrapper(array: ser)

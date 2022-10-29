@@ -206,6 +206,15 @@ ParseError_clone(origPointer)
 			return ParseError(pointer: ParseError_skip());
 		}
 
+		public class func eq(a: Bindings.ParseError, b: Bindings.ParseError) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKParseError>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKParseError>) in
+ParseError_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func to_str() -> String {
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKParseError>) in

@@ -28,11 +28,11 @@ extension Bindings {
 				return instance.handle_onion_message(peer_node_id: Bindings.tuple33_to_array(nativeType: peer_node_id.compressed_form), msg: msg)
 			}
 
-			func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> Void {
+			func peer_connectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, initValuePointer: UnsafePointer<LDKInit>) -> LDKCResult_NoneNoneZ {
 				let instance: OnionMessageHandler = Bindings.pointerToInstance(pointer: pointer!, sourceMarker: "OnionMessageHandler.swift::peer_connected")
 				let initValue = Init(pointer: initValuePointer.pointee).dangle().clone();
 
-				return instance.peer_connected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), initValue: initValue)
+				return instance.peer_connected(their_node_id: Bindings.tuple33_to_array(nativeType: their_node_id.compressed_form), initValue: initValue).cOpaqueStruct!
 			}
 
 			func peer_disconnectedCallback(pointer: UnsafeRawPointer?, their_node_id: LDKPublicKey, no_connection_possible: Bool) -> Void {
@@ -116,7 +116,7 @@ extension Bindings {
 				
 		}
 
-		open func peer_connected(their_node_id: [UInt8], initValue: Init) -> Void {
+		open func peer_connected(their_node_id: [UInt8], initValue: Init) -> Result_NoneNoneZ {
 			/* EDIT ME */
 		
 					Bindings.print("Error: OnionMessageHandler::peer_connected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -177,12 +177,12 @@ public class NativelyImplementedOnionMessageHandler: OnionMessageHandler {
 			
 	}
 
-	public override func peer_connected(their_node_id: [UInt8], initValue: Init) -> Void {
+	public override func peer_connected(their_node_id: [UInt8], initValue: Init) -> Result_NoneNoneZ {
 		
 				
-				withUnsafePointer(to: initValue.cOpaqueStruct!) { (initPointer: UnsafePointer<LDKInit>) in
+				return withUnsafePointer(to: initValue.cOpaqueStruct!) { (initPointer: UnsafePointer<LDKInit>) in
 
-				self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), initPointer)
+				Result_NoneNoneZ(pointer: self.cOpaqueStruct!.peer_connected(self.cOpaqueStruct!.this_arg, Bindings.new_LDKPublicKey(array: their_node_id), initPointer))
 				
 }
 			

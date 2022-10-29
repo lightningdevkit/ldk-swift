@@ -123,6 +123,15 @@ NetworkUpdate_clone(origPointer)
 			return NetworkUpdate(pointer: NetworkUpdate_node_failure(Bindings.new_LDKPublicKey(array: node_id), is_permanent));
 		}
 
+		public class func eq(a: Bindings.NetworkUpdate, b: Bindings.NetworkUpdate) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKNetworkUpdate>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKNetworkUpdate>) in
+NetworkUpdate_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKNetworkUpdate>) in

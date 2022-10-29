@@ -102,6 +102,15 @@ RevokeAndACK_clone(origPointer)
 					}
 				
 
+		public class func eq(a: RevokeAndACK, b: RevokeAndACK) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKRevokeAndACK>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKRevokeAndACK>) in
+RevokeAndACK_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKRevokeAndACK>) in

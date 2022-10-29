@@ -217,6 +217,15 @@ UnsignedChannelUpdate_clone(origPointer)
 					}
 				
 
+		public class func eq(a: UnsignedChannelUpdate, b: UnsignedChannelUpdate) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
+UnsignedChannelUpdate_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func write() -> [UInt8] {
 			
 			return Bindings.LDKCVec_u8Z_to_array(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (objPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in

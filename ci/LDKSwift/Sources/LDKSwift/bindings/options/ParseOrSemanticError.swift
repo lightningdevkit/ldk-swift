@@ -109,6 +109,15 @@ ParseOrSemanticError_clone(origPointer)
 			return ParseOrSemanticError(pointer: ParseOrSemanticError_semantic_error(a));
 		}
 
+		public class func eq(a: Bindings.ParseOrSemanticError, b: Bindings.ParseOrSemanticError) -> Bool {
+			
+			return withUnsafePointer(to: a.cOpaqueStruct!) { (aPointer: UnsafePointer<LDKParseOrSemanticError>) in
+withUnsafePointer(to: b.cOpaqueStruct!) { (bPointer: UnsafePointer<LDKParseOrSemanticError>) in
+ParseOrSemanticError_eq(aPointer, bPointer)
+}
+};
+		}
+
 		public func to_str() -> String {
 			
 			return Bindings.LDKStr_to_string(nativeType: withUnsafePointer(to: self.cOpaqueStruct!) { (oPointer: UnsafePointer<LDKParseOrSemanticError>) in

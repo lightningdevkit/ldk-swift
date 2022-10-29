@@ -63,7 +63,7 @@ public class func new(a: [UInt8], b: ChannelManager) -> C2Tuple_BlockHashChannel
 				}
 			
 				public func getB() -> ChannelManager {
-					return ChannelManager(pointer: self.cOpaqueStruct!.b, anchor: self);
+					return ChannelManager(pointer: self.cOpaqueStruct!.b, anchor: self).dangle();
 				}
 			
 		/* TUPLE_METHODS_END */

@@ -216,7 +216,7 @@ EffectiveCapacity_as_msat(this_argPointer)
 					}
 				
 					public func getHtlc_maximum_msat() -> Bindings.Option_u64Z {
-						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.htlc_maximum_msat, anchor: self)
+						return Bindings.Option_u64Z(pointer: self.cOpaqueStruct!.htlc_maximum_msat, anchor: self).dangle()
 					}
 				
 

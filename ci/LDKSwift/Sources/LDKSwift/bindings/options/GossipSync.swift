@@ -54,14 +54,14 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKGossipSync_P2P {
 							return nil
 						}
-						return Bindings.P2PGossipSync(pointer: self.cOpaqueStruct!.p2p, anchor: self)
+						return Bindings.P2PGossipSync(pointer: self.cOpaqueStruct!.p2p, anchor: self).dangle()
 					}
 				
 					public func getValueAsRapid() -> Bindings.RapidGossipSync? {
 						if self.cOpaqueStruct?.tag != LDKGossipSync_Rapid {
 							return nil
 						}
-						return Bindings.RapidGossipSync(pointer: self.cOpaqueStruct!.rapid, anchor: self)
+						return Bindings.RapidGossipSync(pointer: self.cOpaqueStruct!.rapid, anchor: self).dangle()
 					}
 				
 			

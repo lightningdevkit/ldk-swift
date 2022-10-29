@@ -55,7 +55,7 @@ extension Bindings {
 			
 			public func getValue() -> PositiveTimestamp? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return PositiveTimestamp(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return PositiveTimestamp(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

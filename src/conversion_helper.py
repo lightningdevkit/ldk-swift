@@ -587,6 +587,8 @@ class ConversionHelper:
 			if is_trait_instantiator or is_raw_property_getter:
 				# replace if with elif if it's only to be used for _as methods (ChannelManagerReadArgs with get_ vs KeysManager with as_)
 				return_suffix = return_suffix.rstrip(')') + ', anchor: self)'
+				if is_raw_property_getter:
+					return_suffix += '.dangle()'
 		# if is_trait_instantiator:
 		# only applies to tuples, but is never hit
 		# return_suffix = ', anchor: self)'

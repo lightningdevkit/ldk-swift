@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getError() -> APIError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return APIError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return APIError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

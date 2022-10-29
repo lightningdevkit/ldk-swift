@@ -63,14 +63,14 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_DelayedPaymentOutput {
 							return nil
 						}
-						return Bindings.DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output, anchor: self)
+						return Bindings.DelayedPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.delayed_payment_output, anchor: self).dangle()
 					}
 				
 					public func getValueAsStaticPaymentOutput() -> Bindings.StaticPaymentOutputDescriptor? {
 						if self.cOpaqueStruct?.tag != LDKSpendableOutputDescriptor_StaticPaymentOutput {
 							return nil
 						}
-						return Bindings.StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output, anchor: self)
+						return Bindings.StaticPaymentOutputDescriptor(pointer: self.cOpaqueStruct!.static_payment_output, anchor: self).dangle()
 					}
 				
 			
@@ -178,13 +178,13 @@ SpendableOutputDescriptor_write(objPointer)
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}
 				
 					public func getOutput() -> Bindings.TxOut {
-						return Bindings.TxOut(pointer: self.cOpaqueStruct!.output, anchor: self)
+						return Bindings.TxOut(pointer: self.cOpaqueStruct!.output, anchor: self).dangle()
 					}
 				
 

@@ -171,7 +171,7 @@ NetworkUpdate_write(objPointer)
 
 				
 					public func getMsg() -> Bindings.ChannelUpdate {
-						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ChannelUpdate(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 

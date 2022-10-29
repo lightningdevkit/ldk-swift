@@ -294,7 +294,7 @@ NetAddress_write(objPointer)
 
 				
 					public func getHostname() -> Bindings.Hostname {
-						return Bindings.Hostname(pointer: self.cOpaqueStruct!.hostname, anchor: self)
+						return Bindings.Hostname(pointer: self.cOpaqueStruct!.hostname, anchor: self).dangle()
 					}
 				
 					public func getPort() -> UInt16 {

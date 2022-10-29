@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getError() -> PaymentError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return PaymentError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return PaymentError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

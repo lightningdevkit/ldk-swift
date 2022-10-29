@@ -55,7 +55,7 @@ extension Bindings {
 			
 			public func getValue() -> PayeePubKey? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return PayeePubKey(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return PayeePubKey(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

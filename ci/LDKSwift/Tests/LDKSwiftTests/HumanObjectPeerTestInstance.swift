@@ -222,15 +222,15 @@ public class HumanObjectPeerTestInstance {
                     await master.pendingEventTracker.addEvent(event: event)
                 }
             }
-            
+
             override func persist_manager(channel_manager: Bindings.ChannelManager) -> Bindings.Result_NoneErrorZ {
                 Result_NoneErrorZ()
             }
-            
+
             override func persist_scorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
                 Result_NoneErrorZ()
             }
-            
+
             override func persist_graph(network_graph: Bindings.NetworkGraph) -> Bindings.Result_NoneErrorZ {
                 Result_NoneErrorZ()
             }
@@ -238,12 +238,12 @@ public class HumanObjectPeerTestInstance {
         }
 
         fileprivate class TestPersister: Persist {
-            override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
-                return Result_NoneChannelMonitorUpdateErrZ.ok()
+            override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
+                return LDKChannelMonitorUpdateStatus_Completed
             }
 
-            override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
-                return Result_NoneChannelMonitorUpdateErrZ.ok()
+            override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
+                return LDKChannelMonitorUpdateStatus_Completed
             }
         }
 
@@ -318,7 +318,7 @@ public class HumanObjectPeerTestInstance {
                 let ignoringMessageHandler = IgnoringMessageHandler()
                 let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.getValueAsP2P()!.as_RoutingMessageHandler(), onion_message_handler_arg: ignoringMessageHandler.as_OnionMessageHandler())
                 let nodeSecret = self.keysInterface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
-                let timestampSeconds = UInt64(NSDate().timeIntervalSince1970)
+                let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
                 self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, current_time: timestampSeconds, ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
             self.nodeId = self.channelManager.get_our_node_id()
@@ -625,11 +625,13 @@ public class HumanObjectPeerTestInstance {
         let originalChannelBalanceBToA = channelBToA.get_balance_msat()
         print("original balance A->B mSats: \(originalChannelBalanceAToB)")
         print("original balance B->A mSats: \(originalChannelBalanceBToA)")
+        
+        let logger = TestLogger()
 
         do {
             // create invoice for 10k satoshis to pay to peer2
 
-            let invoiceResult = Bindings.swift_create_invoice_from_channelmanager(channelmanager: peer2.channelManager, keys_manager: peer2.keysInterface, network: LDKCurrency_Bitcoin, amt_msat: Option_u64Z.some(o: SEND_MSAT_AMOUNT_A_TO_B), description: "Invoice description", invoice_expiry_delta_secs: 60)
+            let invoiceResult = Bindings.swift_create_invoice_from_channelmanager(channelmanager: peer2.channelManager, keys_manager: peer2.keysInterface, logger: logger, network: LDKCurrency_Bitcoin, amt_msat: Option_u64Z.some(o: SEND_MSAT_AMOUNT_A_TO_B), description: "Invoice description", invoice_expiry_delta_secs: 60)
             let invoice = invoiceResult.getValue()!
             print("Invoice: \(invoice.to_str())")
 
@@ -716,7 +718,7 @@ public class HumanObjectPeerTestInstance {
             print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
             print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
 
-            let invoiceResult = Bindings.swift_create_invoice_from_channelmanager(channelmanager: peer1.channelManager, keys_manager: peer1.keysInterface, network: LDKCurrency_Bitcoin, amt_msat: Option_u64Z.none(), description: "Second invoice description", invoice_expiry_delta_secs: 60)
+            let invoiceResult = Bindings.swift_create_invoice_from_channelmanager(channelmanager: peer1.channelManager, keys_manager: peer1.keysInterface, logger: logger, network: LDKCurrency_Bitcoin, amt_msat: Option_u64Z.none(), description: "Second invoice description", invoice_expiry_delta_secs: 60)
             let invoice = invoiceResult.getValue()!
             print("Implicit amount invoice: \(invoice.to_str())")
 

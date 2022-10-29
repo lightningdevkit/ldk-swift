@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getValue() -> C2Tuple_SignatureCVec_SignatureZZ? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_SignatureCVec_SignatureZZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return C2Tuple_SignatureCVec_SignatureZZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

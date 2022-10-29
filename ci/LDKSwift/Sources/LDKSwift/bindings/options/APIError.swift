@@ -291,7 +291,7 @@ APIError_eq(aPointer, bPointer)
 
 				
 					public func getScript() -> Bindings.ShutdownScript {
-						return Bindings.ShutdownScript(pointer: self.cOpaqueStruct!.script, anchor: self)
+						return Bindings.ShutdownScript(pointer: self.cOpaqueStruct!.script, anchor: self).dangle()
 					}
 				
 

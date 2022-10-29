@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getValue() -> C2Tuple_PaymentHashPaymentSecretZ? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return C2Tuple_PaymentHashPaymentSecretZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return C2Tuple_PaymentHashPaymentSecretZ(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

@@ -54,14 +54,14 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKGraphSyncError_DecodeError {
 							return nil
 						}
-						return Bindings.DecodeError(pointer: self.cOpaqueStruct!.decode_error, anchor: self)
+						return Bindings.DecodeError(pointer: self.cOpaqueStruct!.decode_error, anchor: self).dangle()
 					}
 				
 					public func getValueAsLightningError() -> Bindings.LightningError? {
 						if self.cOpaqueStruct?.tag != LDKGraphSyncError_LightningError {
 							return nil
 						}
-						return Bindings.LightningError(pointer: self.cOpaqueStruct!.lightning_error, anchor: self)
+						return Bindings.LightningError(pointer: self.cOpaqueStruct!.lightning_error, anchor: self).dangle()
 					}
 				
 			

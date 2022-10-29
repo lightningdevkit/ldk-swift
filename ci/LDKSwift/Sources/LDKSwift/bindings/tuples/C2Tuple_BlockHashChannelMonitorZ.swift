@@ -75,7 +75,7 @@ C2Tuple_BlockHashChannelMonitorZ_clone(origPointer)
 				}
 			
 				public func getB() -> ChannelMonitor {
-					return ChannelMonitor(pointer: self.cOpaqueStruct!.b, anchor: self);
+					return ChannelMonitor(pointer: self.cOpaqueStruct!.b, anchor: self).dangle();
 				}
 			
 		/* TUPLE_METHODS_END */

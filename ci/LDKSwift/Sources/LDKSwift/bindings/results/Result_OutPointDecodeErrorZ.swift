@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getError() -> DecodeError? {
 				if self.cOpaqueStruct?.result_ok == false {
-					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self)
+					return DecodeError(pointer: self.cOpaqueStruct!.contents.err.pointee, anchor: self).dangle()
 				}
 				return nil
 			}
@@ -62,7 +62,7 @@ extension Bindings {
 				if cStruct.inner == nil {
 					return nil
 				}
-				return OutPoint(pointer: cStruct, anchor: self)
+				return OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 				}

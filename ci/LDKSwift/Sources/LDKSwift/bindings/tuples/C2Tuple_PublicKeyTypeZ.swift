@@ -75,7 +75,7 @@ C2Tuple_PublicKeyTypeZ_clone(origPointer)
 				}
 			
 				public func getB() -> BindingsType {
-					return BindingsType(pointer: self.cOpaqueStruct!.b, anchor: self);
+					return BindingsType(pointer: self.cOpaqueStruct!.b, anchor: self).dangle();
 				}
 			
 		/* TUPLE_METHODS_END */

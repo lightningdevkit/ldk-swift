@@ -58,7 +58,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKMonitorEvent_HTLCEvent {
 							return nil
 						}
-						return Bindings.HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event, anchor: self)
+						return Bindings.HTLCUpdate(pointer: self.cOpaqueStruct!.htlc_event, anchor: self).dangle()
 					}
 				
 					public func getValueAsCommitmentTxConfirmed() -> Bindings.OutPoint? {
@@ -72,7 +72,7 @@ extension Bindings {
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}
@@ -95,7 +95,7 @@ extension Bindings {
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}
@@ -210,7 +210,7 @@ MonitorEvent_write(objPointer)
 				if cStruct.inner == nil {
 					return nil
 				}
-				return Bindings.OutPoint(pointer: cStruct, anchor: self)
+				return Bindings.OutPoint(pointer: cStruct, anchor: self).dangle()
 				}()
 			
 					}

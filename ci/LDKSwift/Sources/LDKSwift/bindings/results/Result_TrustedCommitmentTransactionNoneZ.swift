@@ -48,7 +48,7 @@ extension Bindings {
 
 			public func getValue() -> TrustedCommitmentTransaction? {
 				if self.cOpaqueStruct?.result_ok == true {
-					return TrustedCommitmentTransaction(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self)
+					return TrustedCommitmentTransaction(pointer: self.cOpaqueStruct!.contents.result.pointee, anchor: self).dangle()
 				}
 				return nil
 			}

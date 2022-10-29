@@ -54,7 +54,7 @@ extension Bindings {
 						if self.cOpaqueStruct?.tag != LDKParseOrSemanticError_ParseError {
 							return nil
 						}
-						return Bindings.ParseError(pointer: self.cOpaqueStruct!.parse_error, anchor: self)
+						return Bindings.ParseError(pointer: self.cOpaqueStruct!.parse_error, anchor: self).dangle()
 					}
 				
 					public func getValueAsSemanticError() -> LDKSemanticError? {

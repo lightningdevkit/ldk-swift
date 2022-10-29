@@ -169,7 +169,7 @@ ErrorAction_clone(origPointer)
 
 				
 					public func getMsg() -> Bindings.ErrorMessage {
-						return Bindings.ErrorMessage(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ErrorMessage(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -194,7 +194,7 @@ ErrorAction_clone(origPointer)
 
 				
 					public func getMsg() -> Bindings.ErrorMessage {
-						return Bindings.ErrorMessage(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.ErrorMessage(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 
@@ -219,7 +219,7 @@ ErrorAction_clone(origPointer)
 
 				
 					public func getMsg() -> Bindings.WarningMessage {
-						return Bindings.WarningMessage(pointer: self.cOpaqueStruct!.msg, anchor: self)
+						return Bindings.WarningMessage(pointer: self.cOpaqueStruct!.msg, anchor: self).dangle()
 					}
 				
 					public func getLog_level() -> LDKLevel {

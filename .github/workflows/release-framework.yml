@@ -49,8 +49,8 @@ jobs:
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 run: |
                     git tag ${{ github.event.inputs.tag }}
-                    git push origin HEAD:main
-                    git push origin --tags
+                    git push -u origin HEAD:release-${{ github.event.inputs.tag }}
+                    git push --tags
 
     release:
         name: Publish Release
@@ -66,4 +66,4 @@ jobs:
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 with:
                     tag: ${{ github.event.inputs.tag }}
-                    artifacts: LightningDevKit.xcframework.zip
+                    artifacts: LightningDevKit.xcframework.zip,LightningDevKit-no-symlinks.xcframework.zip

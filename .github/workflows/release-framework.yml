@@ -66,4 +66,4 @@ jobs:
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 with:
                     tag: ${{ github.event.inputs.tag }}
-                    artifacts: LightningDevKit.xcframework.zip
+                    artifacts: LightningDevKit.xcframework.zip,LightningDevKit-no-symlinks.xcframework.zip

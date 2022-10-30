@@ -49,8 +49,8 @@ jobs:
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 run: |
                     git tag ${{ github.event.inputs.tag }}
-                    git push origin HEAD:main
-                    git push origin --tags
+                    git push -u origin "release-${{ github.event.inputs.tag }}"
+                    git push --tags
 
     release:
         name: Publish Release

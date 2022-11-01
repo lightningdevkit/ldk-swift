@@ -57,7 +57,7 @@ extension Bindings {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_FilterZ_Some {
-					return Filter(pointer: self.cOpaqueStruct!.some)
+					return Filter(pointer: self.cOpaqueStruct!.some, anchor: self).dangle()
 				}
 				assert(false, "invalid option enum value")
 				return nil

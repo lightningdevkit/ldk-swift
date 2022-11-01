@@ -57,7 +57,7 @@ extension Bindings {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_TypeZ_Some {
-					return BindingsType(pointer: self.cOpaqueStruct!.some)
+					return BindingsType(pointer: self.cOpaqueStruct!.some, anchor: self).dangle()
 				}
 				assert(false, "invalid option enum value")
 				return nil

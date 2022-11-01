@@ -105,6 +105,18 @@ class ConversionHelper:
 		return raw_rust_type in ConversionHelper.trait_structs
 
 	@classmethod
+	def locate_type_details_by_swift_name(cls, swift_name: str, all_types):
+		raw_rust_name = 'LDK' + swift_name
+		if raw_rust_name in all_types:
+			return all_types[raw_rust_name]
+
+		raw_rust_name = 'LDKC' + swift_name
+		if raw_rust_name in all_types:
+			return all_types[raw_rust_name]
+
+		return None
+
+	@classmethod
 	def is_type_cloneable(cls, raw_rust_type: str):
 		cloneability_lookup = 'x-uncloneable'
 		individual_cloneability_lookup = None

@@ -98,11 +98,11 @@ class OptionGenerator:
 			swift_local_conversion_prefix = ''
 			swift_local_conversion_suffix = ''
 
+
+			# CONSTRUCTOR AND GET_VALUE METHOD PREP
 			if ConversionHelper.is_instance_type(swift_type, raw_rust_type):
 				native_conversion_prefix = ''
 				native_conversion_suffix = '.cOpaqueStruct!'
-				swift_local_conversion_prefix = f'{swift_type}(pointer: '
-				swift_local_conversion_suffix = ')'
 			elif swift_type.startswith('['):
 				prepared_arguments = ConversionHelper.prepare_swift_to_native_arguments(constructor_argument_types, array_unwrapping_preparation_only=True)
 				array_parsing_prep = f"""
@@ -122,7 +122,6 @@ class OptionGenerator:
 
 				caller_context = CallerContext(swift_struct_name, current_method_name)
 				value_return_wrappers = ConversionHelper.prepare_return_value(field_details, is_clone_method=False, is_raw_property_getter=True, context=caller_context)
-				current_swift_return_type = value_return_wrappers['swift_type']
 				current_replacement = 'return ' + value_return_wrappers["prefix"] + 'self.cOpaqueStruct!.varName' + value_return_wrappers["suffix"]
 				current_replacement = current_replacement.replace('self.cOpaqueStruct!.varName', f'self.cOpaqueStruct!.{field_details.var_name}')
 				array_return_line = current_replacement
@@ -150,6 +149,10 @@ class OptionGenerator:
 			current_replacement = current_replacement.replace('swift_arguments', '')
 			current_replacement = current_replacement.replace('-> Void', '-> ' + nullable_swift_type)
 
+			caller_context = CallerContext(swift_struct_name, 'getValue')
+			value_return_wrappers = ConversionHelper.prepare_return_value(field_details, is_clone_method=False, is_raw_property_getter=True, context=caller_context)
+			swift_local_conversion_prefix = value_return_wrappers['prefix']
+			swift_local_conversion_suffix = value_return_wrappers['suffix']
 			some_return_line = f'''return {swift_local_conversion_prefix}self.cOpaqueStruct!.some{swift_local_conversion_suffix}'''
 			if array_return_line is not None:
 				some_return_line = array_return_line

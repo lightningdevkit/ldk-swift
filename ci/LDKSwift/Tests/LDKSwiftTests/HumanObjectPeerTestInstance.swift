@@ -12,26 +12,36 @@ import LDKHeaders
 import XCTest
 
 public class HumanObjectPeerTestInstance {
-
-    private let nice_close: Bool;
-    private let use_km_wrapper: Bool;
-    private let use_manual_watch: Bool;
-    private let reload_peers: Bool;
-    private let break_cross_peer_refs: Bool;
-    private let use_nio_peer_handler: Bool;
-    private let use_filter: Bool;
-    private let use_chan_manager_constructor: Bool;
-
-
-    public init(nice_close: Bool, use_km_wrapper: Bool, use_manual_watch: Bool, reload_peers: Bool, break_cross_peer_refs: Bool, use_nio_peer_handler: Bool, use_filter: Bool, use_chan_manager_constructor: Bool) {
-        self.nice_close = nice_close
-        self.use_km_wrapper = use_km_wrapper
-        self.use_manual_watch = use_manual_watch
-        self.reload_peers = reload_peers
-        self.break_cross_peer_refs = break_cross_peer_refs
-        self.use_nio_peer_handler = use_nio_peer_handler
-        self.use_filter = use_filter
-        self.use_chan_manager_constructor = use_chan_manager_constructor
+    
+    private let configuration: Configuration
+    
+    public class Configuration {
+//
+        public var useFilter: Bool = false;
+        public var useRouter: Bool = false;
+        public var shouldRecipientRejectPayment: Bool = false;
+        
+        // public var nice_close: Bool = false;
+        // public var use_km_wrapper: Bool = false;
+        // public var use_manual_watch: Bool = false;
+        // public var reload_peers: Bool = false;
+        // public var break_cross_peer_refs: Bool = false;
+        // public var use_nio_peer_handler: Bool = false;
+        
+        private class func listCustomizeableProperties() -> [String] {
+            return ["useFilter", "useRouter", "shouldRecipientRejectPayment"]
+        }
+        
+        public class func combinationCount() -> UInt {
+            return 1 << self.listCustomizeableProperties().count
+        }
+        
+    }
+    
+    
+    
+    public init(configuration: Configuration) {
+        self.configuration = configuration
     }
 
     fileprivate class Peer {
@@ -259,15 +269,14 @@ public class HumanObjectPeerTestInstance {
 
             self.txBroadcaster = TestBroadcaster(master: self)
 
-            if master.use_filter {
+            if master.configuration.useFilter {
                 self.filter = Option_FilterZ(value: TestFilter(master: self))
             } else {
                 self.filter = Option_FilterZ(value: nil)
             }
 
-            if master.use_manual_watch || false { // don't support manual watch yet
-                // self.chainMonitor
-            } else {
+            // never use manual watch
+            do {
                 self.chainMonitor = ChainMonitor(chain_source: self.filter, broadcaster: self.txBroadcaster, logger: self.logger, feeest: self.feeEstimator, persister: persister)
                 self.chainWatch = self.chainMonitor!.as_Watch()
             }
@@ -280,28 +289,27 @@ public class HumanObjectPeerTestInstance {
             let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
             let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
             let keysManager = KeysManager(seed: keySeed, starting_time_secs: timestamp_seconds, starting_time_nanos: timestamp_nanos)
+            
+            self.keysInterface = keysManager.as_KeysInterface()
+            self.explicitKeysManager = keysManager
 
-            if master.use_km_wrapper {
-                // self.keysInterface = manual_
-            } else {
-                self.keysInterface = keysManager.as_KeysInterface()
-                self.explicitKeysManager = keysManager
+            if master.configuration.useRouter {
+                let networkGraph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32), logger: self.logger)
+                self.router = GossipSync.p2_p(a: P2PGossipSync(network_graph: networkGraph, chain_access: Option_AccessZ.none(), logger: self.logger))
+            }else{
+                self.router = GossipSync.none()
             }
-
-            // self.router = NetGraphMsgHandlerConstructor.initNetGraphMsgHandler(networkGraph: NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32)), chainAccess: nil, logger: self.logger)
-            self.router = GossipSync.none()
         }
 
         fileprivate convenience init(master: HumanObjectPeerTestInstance, seed: UInt8) {
             self.init(master: master, _dummy: (), seed: seed)
 
-            if master.use_chan_manager_constructor {
+            do {
+                // channel manager constructor is mandatory
 
                 let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32), logger: self.logger)
 
                 self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: graph, tx_broadcaster: self.txBroadcaster, logger: self.logger)
-
-                //                self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: nil, tx_broadcaster: self.txBroadcaster, logger: self.logger)
 
                 let scoringParams = ProbabilisticScoringParameters()
                 let probabalisticScorer = ProbabilisticScorer(params: scoringParams, network_graph: graph, logger: self.logger)
@@ -311,15 +319,6 @@ public class HumanObjectPeerTestInstance {
                 self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self), scorer: multiThreadedScorer)
                 self.channelManager = self.constructor!.channelManager
                 self.peerManager = self.constructor!.peerManager
-            } else {
-                let chainParameters = ChainParameters(network_arg: LDKNetwork_Bitcoin, best_block_arg: BestBlock(block_hash: [UInt8](repeating: 0, count: 32), height: 0))
-                self.channelManager = ChannelManager(fee_est: self.feeEstimator, chain_monitor: self.chainWatch!, tx_broadcaster: self.txBroadcaster, logger: self.logger, keys_manager: self.keysInterface, config: UserConfig(), params: chainParameters)
-                let randomData = self.keysInterface.get_secure_random_bytes()
-                let ignoringMessageHandler = IgnoringMessageHandler()
-                let messageHandler = MessageHandler(chan_handler_arg: self.channelManager.as_ChannelMessageHandler(), route_handler_arg: self.router.getValueAsP2P()!.as_RoutingMessageHandler(), onion_message_handler_arg: ignoringMessageHandler.as_OnionMessageHandler())
-                let nodeSecret = self.keysInterface.get_node_secret(recipient: LDKRecipient_Node).getValue()!
-                let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
-                self.peerManager = PeerManager(message_handler: messageHandler, our_node_secret: nodeSecret, current_time: timestampSeconds, ephemeral_random_data: randomData, logger: self.logger, custom_message_handler: IgnoringMessageHandler().as_CustomMessageHandler())
             }
             self.nodeId = self.channelManager.get_our_node_id()
             try! self.bindSocketHandler()
@@ -328,7 +327,8 @@ public class HumanObjectPeerTestInstance {
         fileprivate convenience init(original: Peer) {
             self.init(master: original.master, _dummy: (), seed: original.seed)
 
-            if master.use_chan_manager_constructor {
+            do {
+                // channel manager constructor is mandatory
                 let graph = NetworkGraph(genesis_hash: [UInt8](repeating: 0, count: 32), logger: self.logger)
                 self.constructor = ChannelManagerConstructor(network: LDKNetwork_Bitcoin, config: UserConfig(), current_blockchain_tip_hash: [UInt8](repeating: 0, count: 32), current_blockchain_tip_height: 0, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor!, net_graph: graph, tx_broadcaster: self.txBroadcaster, logger: self.logger)
                 self.constructor?.chain_sync_completed(persister: TestChannelManagerPersister(master: self), scorer: nil)
@@ -337,23 +337,12 @@ public class HumanObjectPeerTestInstance {
                     let events = await original.pendingEventTracker.getEvents()
                     await self.pendingEventTracker.addEvents(events: events)
                 }
-            } else {
-                var monitors: [ChannelMonitor] = []
-                var nativeMonitors: [LDKChannelMonitor] = []
-                // let serialized = original.monitors[0].wr
-                let serializedManager = original.channelManager.write()
-                let managerResult = UtilMethods.constructor_BlockHashChannelManagerZ_read(ser: serializedManager, arg_keys_manager: self.keysInterface, arg_fee_estimator: self.feeEstimator, arg_chain_monitor: self.chainWatch!, arg_tx_broadcaster: self.txBroadcaster, arg_logger: self.logger, arg_default_config: UserConfig(), arg_channel_monitors: nativeMonitors)
-                assert(managerResult.isOk())
-                managerResult.getValue()!
             }
             self.nodeId = self.channelManager.get_our_node_id()
             try! self.bindSocketHandler()
         }
 
         private func bindSocketHandler() throws {
-            if !self.master.use_nio_peer_handler {
-                return
-            }
             self.tcpSocketHandler = self.constructor!.getTCPPeerHandler()
             print("Attempting to bind socket…")
             for i in 10000...65535 {
@@ -378,9 +367,6 @@ public class HumanObjectPeerTestInstance {
         }
 
         fileprivate func getManagerEvents(expectedCount: UInt) async throws -> [Event] {
-            guard self.master.use_chan_manager_constructor else {
-                throw ChannelManagerEventError.notUsingChannelManagerConstructor
-            }
             while true {
                 if await self.pendingEventTracker.getCount() >= expectedCount {
                     print("Found enough events for expected count of \(expectedCount)")
@@ -388,6 +374,8 @@ public class HumanObjectPeerTestInstance {
                     print("Found event count: \(events.count)")
                     return events
                 }
+                // sleep for 0.1 seconds
+                // try await Task.sleep(nanoseconds: 0_100_000_000)
                 await self.pendingEventTracker.awaitAddition()
             }
         }
@@ -438,12 +426,10 @@ public class HumanObjectPeerTestInstance {
 
 
     fileprivate func connectPeers(peerA: Peer, peerB: Peer) {
-        if self.use_nio_peer_handler {
-            let connectionResult = peerA.tcpSocketHandler?.connect(address: "127.0.0.1", port: peerB.tcpPort!, theirNodeId: peerB.nodeId!)
-            print("connection result: \(connectionResult)")
-        } else {
-            // not currently relevant; we need the TCP connection simulation
-        }
+        
+        let connectionResult = peerA.tcpSocketHandler?.connect(address: "127.0.0.1", port: peerB.tcpPort!, theirNodeId: peerB.nodeId!)
+        print("connection result: \(connectionResult)")
+        
     }
 
     func test_multiple_peer_connections() async {
@@ -493,7 +479,7 @@ public class HumanObjectPeerTestInstance {
         }
     }
 
-    func do_test_message_handler() async {
+    func testMessageHandling() async {
 
         let FUNDING_SATOSHI_AMOUNT: UInt64 = 100_000 // 100k satoshis
         let SEND_MSAT_AMOUNT_A_TO_B: UInt64 = 10_000_000 // 10k satoshis
@@ -671,11 +657,42 @@ public class HumanObjectPeerTestInstance {
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
                 let preimage = invoicePayment.getPayment_preimage()
                 let secret = invoicePayment.getPayment_secret()
-                peer2.channelManager.claim_funds(payment_preimage: preimage)
-                print("claimed payment with secret \(secret) using preimage \(preimage)")
+                if self.configuration.shouldRecipientRejectPayment {
+                    print("about to fail payment because shouldRecipientRejectPayment flag is set")
+                    peer2.channelManager.fail_htlc_backwards(payment_hash: paymentHash)
+                    print("deliberately failed payment with hash \(paymentHash)")
+                    for _ in 0..<10{
+                        // this may have a random delay, run it repeatedly
+                        peer2.channelManager.process_pending_htlc_forwards()
+                        try! await Task.sleep(nanoseconds: 0_100_000_000)
+                    }
+                } else {
+                    peer2.channelManager.claim_funds(payment_preimage: preimage)
+                    print("claimed payment with secret \(secret) using preimage \(preimage)")
+                }
             }
 
-            do {
+            if self.configuration.shouldRecipientRejectPayment {
+                let peer1Events = try! await peer1.getManagerEvents(expectedCount: 1)
+                let paymentPathFailedEvent = peer1Events[0]
+                guard case .PaymentPathFailed = paymentPathFailedEvent.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentPathFailed, got \(paymentPathFailedEvent.getValueType())")
+                }
+                let paymentPathFailed = paymentPathFailedEvent.getValueAsPaymentPathFailed()!
+                let failureDescriptor: [String: Any] = [
+                    "payment_id": paymentPathFailed.getPayment_id(),
+                    "payment_hash": paymentPathFailed.getPayment_hash(),
+                    "payment_failed_permanently": paymentPathFailed.getPayment_failed_permanently(),
+                    "short_channel_id": paymentPathFailed.getShort_channel_id(),
+                    "path": paymentPathFailed.getPath().map { $0.get_short_channel_id() },
+                    "network_update": paymentPathFailed.getNetwork_update().getValue().debugDescription
+                ]
+                
+                print("payent path failure: \(failureDescriptor)")
+                print("here")
+                return
+                
+            } else {
                 // process payment
                 let peer1Events = try! await peer1.getManagerEvents(expectedCount: 2)
                 let paymentSentEvent = peer1Events[0]

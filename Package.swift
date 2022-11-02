@@ -2,7 +2,7 @@
 import PackageDescription
 
 let tag = "0.0.112"
-let checksum = "b7a005bacdba5bfcd119004989e9c5ce25894d83c054b0f62d3e136c76186018"
+let checksum = "942447464e519c29a07ff7690eed84d756ffcbbf1a65bec31f51ff7dbbe6e10a"
 let url = "https://github.com/lightningdevkit/ldk-swift/releases/download/\(tag)/LightningDevKit.xcframework.zip"
 
 let package = Package(

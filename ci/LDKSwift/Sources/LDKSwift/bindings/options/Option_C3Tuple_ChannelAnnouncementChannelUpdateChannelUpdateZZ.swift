@@ -57,7 +57,7 @@ extension Bindings {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_Some {
-					return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: self.cOpaqueStruct!.some)
+					return C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(pointer: self.cOpaqueStruct!.some, anchor: self).dangle()
 				}
 				assert(false, "invalid option enum value")
 				return nil

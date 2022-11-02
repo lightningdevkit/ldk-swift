@@ -57,7 +57,7 @@ extension Bindings {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_HTLCDestinationZ_Some {
-					return HTLCDestination(pointer: self.cOpaqueStruct!.some)
+					return HTLCDestination(pointer: self.cOpaqueStruct!.some, anchor: self).dangle()
 				}
 				assert(false, "invalid option enum value")
 				return nil

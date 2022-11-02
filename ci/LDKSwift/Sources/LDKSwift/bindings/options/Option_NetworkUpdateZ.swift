@@ -57,7 +57,7 @@ extension Bindings {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_NetworkUpdateZ_Some {
-					return NetworkUpdate(pointer: self.cOpaqueStruct!.some)
+					return NetworkUpdate(pointer: self.cOpaqueStruct!.some, anchor: self).dangle()
 				}
 				assert(false, "invalid option enum value")
 				return nil

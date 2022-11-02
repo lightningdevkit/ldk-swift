@@ -57,7 +57,7 @@ extension Bindings {
 						return nil
 				}
 				if self.cOpaqueStruct!.tag == LDKCOption_C2Tuple_u64u64ZZ_Some {
-					return C2Tuple_u64u64Z(pointer: self.cOpaqueStruct!.some)
+					return C2Tuple_u64u64Z(pointer: self.cOpaqueStruct!.some, anchor: self).dangle()
 				}
 				assert(false, "invalid option enum value")
 				return nil

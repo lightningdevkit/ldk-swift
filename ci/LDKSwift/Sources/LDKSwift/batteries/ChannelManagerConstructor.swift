@@ -54,7 +54,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     private let chain_monitor: ChainMonitor
 
 
-    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, filter: Filter?, netGraphSerialized: [UInt8]?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false) throws {
+    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, filter: Filter?, netGraphSerialized: [UInt8]?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, userConfig: UserConfig = UserConfig.initWithDefault()) throws {
 
         var monitors: [ChannelMonitor] = []
         self.channel_monitors = []
@@ -83,8 +83,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         }
 
         print("Collected channel monitors, reading channel manager")
-        let channelManagerReadArgs = ChannelManagerReadArgs(keysManager: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor.asWatch(), txBroadcaster: txBroadcaster, logger: logger, defaultConfig: UserConfig.initWithDefault(), channelMonitors: monitors)
-
+        let channelManagerReadArgs = ChannelManagerReadArgs(keysManager: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor.asWatch(), txBroadcaster: txBroadcaster, logger: logger, defaultConfig: userConfig, channelMonitors: monitors)
 
         guard let (latestBlockHash, channelManager) = Bindings.readBlockHashChannelManager(ser: channelManagerSerialized, arg: channelManagerReadArgs).getValue() else {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
@@ -143,14 +142,14 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     /**
      * Constructs a channel manager from the given interface implementations
      */
-    public init(network: Network, config: UserConfig, currentBlockchainTipHash: [UInt8], currentBlockchainTipHeight: UInt32, keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, netGraph: NetworkGraph?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false) {
+    public init(network: Network, userConfig: UserConfig, currentBlockchainTipHash: [UInt8], currentBlockchainTipHeight: UInt32, keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, netGraph: NetworkGraph?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false) {
 
         self.channel_monitors = []
         self.channel_manager_latest_block_hash = nil
         self.chain_monitor = chainMonitor
         let block = BestBlock(blockHash: currentBlockchainTipHash, height: currentBlockchainTipHeight)
         let chainParameters = ChainParameters(networkArg: network, bestBlockArg: block)
-        self.channelManager = ChannelManager(feeEst: feeEstimator, chainMonitor: chainMonitor.asWatch(), txBroadcaster: txBroadcaster, logger: logger, keysManager: keysInterface, config: config, params: chainParameters)
+        self.channelManager = ChannelManager(feeEst: feeEstimator, chainMonitor: chainMonitor.asWatch(), txBroadcaster: txBroadcaster, logger: logger, keysManager: keysInterface, config: userConfig, params: chainParameters)
         self.logger = logger
 
         self.keysInterface = keysInterface

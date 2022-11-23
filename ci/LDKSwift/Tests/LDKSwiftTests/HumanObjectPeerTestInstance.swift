@@ -304,7 +304,7 @@ public class HumanObjectPeerTestInstance {
 
                 let graph = NetworkGraph(genesisHash: [UInt8](repeating: 0, count: 32), logger: self.logger)
 
-                self.constructor = ChannelManagerConstructor(network: .Bitcoin, config: UserConfig.initWithDefault(), currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, keysInterface: self.keysInterface, feeEstimator: self.feeEstimator, chainMonitor: self.chainMonitor!, netGraph: graph, txBroadcaster: self.txBroadcaster, logger: self.logger)
+                self.constructor = ChannelManagerConstructor(network: .Bitcoin, userConfig: UserConfig.initWithDefault(), currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, keysInterface: self.keysInterface, feeEstimator: self.feeEstimator, chainMonitor: self.chainMonitor!, netGraph: graph, txBroadcaster: self.txBroadcaster, logger: self.logger)
 
                 let scoringParams = ProbabilisticScoringParameters.initWithDefault()
                 let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: graph, logger: self.logger)
@@ -325,7 +325,7 @@ public class HumanObjectPeerTestInstance {
             do {
                 // channel manager constructor is mandatory
                 let graph = NetworkGraph(genesisHash: [UInt8](repeating: 0, count: 32), logger: self.logger)
-                self.constructor = ChannelManagerConstructor(network: .Bitcoin, config: UserConfig.initWithDefault(), currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, keysInterface: self.keysInterface, feeEstimator: self.feeEstimator, chainMonitor: self.chainMonitor!, netGraph: graph, txBroadcaster: self.txBroadcaster, logger: self.logger)
+                self.constructor = ChannelManagerConstructor(network: .Bitcoin, userConfig: UserConfig.initWithDefault(), currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, keysInterface: self.keysInterface, feeEstimator: self.feeEstimator, chainMonitor: self.chainMonitor!, netGraph: graph, txBroadcaster: self.txBroadcaster, logger: self.logger)
                 self.constructor?.chainSyncCompleted(persister: TestChannelManagerPersister(master: self), scorer: nil)
                 self.channelManager = self.constructor!.channelManager
                 Task {

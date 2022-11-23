@@ -73,7 +73,7 @@ public class PolarIntegrationSample {
         let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
         let chainMonitor = ChainMonitor(chainSource: nil, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-        let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
+        let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
         let channelManager = channelManagerConstructor.channelManager
         let peerManager = channelManagerConstructor.peerManager
         let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
@@ -473,7 +473,7 @@ public class PolarIntegrationSample {
             let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
             let chainMonitor = ChainMonitor(chainSource: nil, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-            channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
+            channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
             let channelManager = channelManagerConstructor.channelManager
             let peerManager = channelManagerConstructor.peerManager
             let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()

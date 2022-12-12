@@ -112,22 +112,22 @@ import Foundation
 
 class MyPersister: Persist {
     
-    override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+    override func persist_new_channel(channel_id: OutPoint, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
         let idBytes: [UInt8] = channel_id.write()
         let monitorBytes: [UInt8] = data.write()
         
         // persist monitorBytes to disk, keyed by idBytes
         
-        return Result_NoneChannelMonitorUpdateErrZ.ok()
+        return LDKChannelMonitorUpdateStatus_Completed
     }
     
-    override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> Result_NoneChannelMonitorUpdateErrZ {
+    override func update_persisted_channel(channel_id: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, update_id: MonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
         let idBytes: [UInt8] = channel_id.write()
         let monitorBytes: [UInt8] = data.write()
         
         // modify persisted monitorBytes keyed by idBytes on disk
         
-        return Result_NoneChannelMonitorUpdateErrZ.ok()
+        return LDKChannelMonitorUpdateStatus_Completed
     }
     
 }

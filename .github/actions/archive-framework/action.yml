@@ -20,7 +20,7 @@ runs:
                   -project 'LDKFramework/LDK.xcodeproj' \
                   -scheme 'LightningDevKit' \
                   -destination 'generic/platform=${{ inputs.destination }}' \
-                  -archivePath "/Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/${{ inputs.human_readable_platform }}/${{ inputs.human_readable_platform }}" \
+                  -archivePath "/Users/runner/work/ldk-parser/ldk-parser/bindings/bin/release/${{ inputs.human_readable_platform }}/${{ inputs.human_readable_platform }}" \
                   ENABLE_BITCODE=NO \
                   EXCLUDED_ARCHS="i386 armv7" \
                   SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES \

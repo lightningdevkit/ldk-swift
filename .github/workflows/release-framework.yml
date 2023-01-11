@@ -19,18 +19,18 @@ jobs:
         runs-on: macos-12
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
-            LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
+            LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-parser/ldk-parser/bindings/artifacts/ldk-c-bindings
         steps:
             -   name: Configure Xcode
                 uses: maxim-lobanov/setup-xcode@v1
                 with:
                     xcode-version: latest
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
             -   name: Update Package.swift tag to ${{ github.event.inputs.tag }}
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 run: |
-                    python3 ./src/scripts/update_swift_package_checksum.py --tag ${{ github.event.inputs.tag }}
+                    python3 ./scripts/update_swift_package_checksum.py --tag ${{ github.event.inputs.tag }}
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:
@@ -43,7 +43,7 @@ jobs:
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}
                 run: |
                     CHECKSUM=`swift package compute-checksum LightningDevKit.xcframework.zip`
-                    python3 ./src/scripts/update_swift_package_checksum.py --checksum "${CHECKSUM}"
+                    python3 ./scripts/update_swift_package_checksum.py --checksum "${CHECKSUM}"
                     git commit -m "Update Package.swift for ${{ github.event.inputs.tag }} release." ./Package.swift
             -   name: Push and tag commit
                 if: ${{ github.event.inputs.tag != null && github.event.inputs.tag != '' }}

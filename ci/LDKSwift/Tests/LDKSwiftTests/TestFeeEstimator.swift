@@ -12,7 +12,7 @@ import LDKHeaders
 
 class TestFeeEstimator: FeeEstimator {
 
-    override func get_est_sat_per_1000_weight(confirmation_target: LDKConfirmationTarget) -> UInt32 {
+    override func getEstSatPer_1000Weight(confirmationTarget: Bindings.ConfirmationTarget) -> UInt32 {
         return 253
     }
 

@@ -26,7 +26,7 @@ jobs:
                         human_readable_platform: 'catalyst'
         steps:
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
             -   name: Xcarchive emulation
                 run: |
                     mkdir -p ./bindings/bin/release/${{ matrix.configuration['human_readable_platform'] }}
@@ -43,7 +43,7 @@ jobs:
         needs: [ create-artifact ]
         steps:
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
             -   name: Download emulated xcarchives
                 uses: actions/download-artifact@v3
                 with:

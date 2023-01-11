@@ -31,9 +31,9 @@ jobs:
                 run: |
                     python3 ./scripts/copy_c_files.py
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-parser/ldk-parser/ci/ldk-c-bindings
-                    H_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-parser/ldk-parser/ci/LDKSwift/Sources/LDKHeaders/include
-                    C_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-parser/ldk-parser/ci/LDKSwift/Sources/LDKHeaders
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
+                    H_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-swift/ldk-swift/ci/LDKSwift/Sources/LDKHeaders/include
+                    C_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-swift/ldk-swift/ci/LDKSwift/Sources/LDKHeaders
             -   name: Check that the latest auto-generated Swift files are in the repo
                 run: |
                     npm install
@@ -60,7 +60,7 @@ jobs:
                     cd ci/LDKSwift
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift build
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-parser/ldk-parser/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
             -   name: Test Swift bindings package without address sanitizer
@@ -68,7 +68,7 @@ jobs:
                     cd ci/LDKSwift
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-parser/ldk-parser/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     RUST_BACKTRACE: 1
             -   name: Test Swift bindings package with address sanitizer
                 continue-on-error: true
@@ -76,6 +76,6 @@ jobs:
                     cd ci/LDKSwift
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-parser/ldk-parser/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1

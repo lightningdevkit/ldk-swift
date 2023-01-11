@@ -6,13 +6,13 @@ runs:
         -   name: Zip Xcframework
             shell: bash
             run: |
-                ditto -c -k --sequesterRsrc --keepParent /Users/runner/work/ldk-parser/ldk-parser/bindings/bin/release/LightningDevKit.xcframework LightningDevKit.xcframework.zip
+                ditto -c -k --sequesterRsrc --keepParent /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LightningDevKit.xcframework LightningDevKit.xcframework.zip
         -   name: Create desymlinked xcframework variant
             shell: bash
             run: |
-                cp -r /Users/runner/work/ldk-parser/ldk-parser/bindings/bin/release/LightningDevKit.xcframework /Users/runner/work/ldk-parser/ldk-parser/bindings/bin/release/LightningDevKit-no-symlinks.xcframework
-                python3 ./scripts/symlink_resolver.py /Users/runner/work/ldk-parser/ldk-parser/bindings/bin/release/LightningDevKit-no-symlinks.xcframework
-                ditto -c -k --sequesterRsrc --keepParent /Users/runner/work/ldk-parser/ldk-parser/bindings/bin/release/LightningDevKit-no-symlinks.xcframework LightningDevKit-no-symlinks.xcframework.zip
+                cp -r /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LightningDevKit.xcframework /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LightningDevKit-no-symlinks.xcframework
+                python3 ./scripts/symlink_resolver.py /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LightningDevKit-no-symlinks.xcframework
+                ditto -c -k --sequesterRsrc --keepParent /Users/runner/work/ldk-swift/ldk-swift/bindings/bin/release/LightningDevKit-no-symlinks.xcframework LightningDevKit-no-symlinks.xcframework.zip
         -   name: Upload Framework Artifact
             uses: actions/upload-artifact@v3
             with:

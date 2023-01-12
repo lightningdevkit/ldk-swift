@@ -47,7 +47,7 @@ jobs:
                 with:
                     xcode-version: latest
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:
@@ -55,7 +55,7 @@ jobs:
             -   name: Build libldk.a
                 shell: bash
                 run:
-                    python3 ./src/scripts/build_individual_libldk.py
+                    python3 ./scripts/build_individual_libldk.py
                 env:
                     PLATFORM_NAME: ${{ matrix.configuration['platform_name'] }}
                     LLVM_TARGET_TRIPLE_SUFFIX: ${{ matrix.configuration['llvm_target_triple_suffix'] }}
@@ -81,18 +81,21 @@ jobs:
                 with:
                     xcode-version: latest
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
             -   name: Download libldks
                 uses: actions/download-artifact@v3
             -   name: Generate Swift Bindings
                 shell: bash
                 run: |
-                    python3 ./
+                    npm install
+                    # python3 ./
+                    npm run tsc
+                    node ./src/index.mjs
                 env:
                     LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: bindings/artifacts/ldk-c-bindings/lightning-c-bindings/include/lightning.h
             -   name: Generate xcframework
                 shell: bash
                 run:
-                    python3 ./src/scripts/generate_xcframework.py
+                    python3 ./scripts/generate_xcframework.py
             -   name: Create XCFramework artifact
                 uses: ./.github/actions/upload-xcframework-artifact

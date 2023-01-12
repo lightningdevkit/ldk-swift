@@ -6,8 +6,8 @@ runs:
         -   name: Build binaries
             shell: bash
             run:
-                python3 ./src/scripts/build_bulk_libldks.py
+                python3 ./scripts/build_bulk_libldks.py
         -   name: Generate xcframework
             shell: bash
             run:
-                python3 ./src/scripts/generate_xcframework.py
+                python3 ./scripts/generate_xcframework.py

@@ -1,0 +1,25 @@
+{
+	"name": "ldk-parser",
+	"version": "0.0.1",
+	"description": "Parser for LDK lightning.h header files",
+	"type": "module",
+	"main": "src/index.mjs",
+	"scripts": {
+		"test": "./node_modules/mocha/bin/_mocha ./test",
+		"tsc": "./node_modules/typescript/bin/tsc --build tsconfig.json"
+	},
+	"author": "Arik Sosman",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/chai": "^4.3.4",
+		"@types/debug": "^4.1.7",
+		"@types/mocha": "^10.0.1",
+		"@types/node": "^18.11.18",
+		"chai": "^4.3.7",
+		"mocha": "^10.1.0",
+		"typescript": "^4.9.4"
+	},
+	"dependencies": {
+		"debug": "^4.3.3"
+	}
+}

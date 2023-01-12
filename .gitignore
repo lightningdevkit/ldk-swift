@@ -1,17 +1,17 @@
 .idea
-/output
-lib*.a
-.DS_Store
-__pycache__
+.build
+/node_modules
 
-ci/Build
-ci/LDKSwift/.build
-ci/LDKSwift/.swiftpm
+/out/production
+/out/test
 
-ci/LDKSwift/Sources/*
-!ci/LDKSwift/Sources/LDKSwift/
-!ci/LDKSwift/Sources/LDKSwift/batteries/*
-!ci/LDKSwift/Sources/LDKSwift/bindings/Bindings.swift
+/src/lab/*
+/src/**/*.mjs
+/src/**/*.mjs.map
+/test/**/*.js
+/test/**/*.js.map
+
+/ci/LDKSwift/Sources/LDKHeaders
 
 /xcode/*/Build/
 /xcode/*/*.xcodeproj/project.xcworkspace/
@@ -19,7 +19,14 @@ ci/LDKSwift/Sources/*
 /xcode/*/binary/*
 /xcode/*/headers/*
 /xcode/**/xcuserdata/*
+/xcode/build
+/xcuserdata/
 *.log
+
+
+
+poetry.lock
+pyproject.toml
 
 ## User settings
 xcode/build
@@ -28,3 +35,4 @@ xcuserdata/
 
 # VSCode
 .vscode/*
+

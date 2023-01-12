@@ -39,7 +39,7 @@ jobs:
                 with:
                     xcode-version: latest
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:
@@ -71,13 +71,13 @@ jobs:
                 with:
                     xcode-version: latest
             -   name: Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
             -   name: Download xcarchives
                 uses: actions/download-artifact@v3
             -   name: Generate xcframework
                 shell: bash
                 run:
-                    python3 ./src/scripts/generate_xcframework.py
+                    python3 ./scripts/generate_xcframework.py
                 env:
                     PRESERVE_XCARCHIVES: true
             -   name: Create XCFramework artifact

@@ -13,7 +13,7 @@ import LDKHeaders
 class TestLogger: Logger {
 
     override func log(record: Record) {
-		print("\nRLTestLogger (\(record.get_level())): \(record.get_file()):\(record.get_line()):\n> \(record.get_args())\n")
+		print("\nRLTestLogger (\(record.getLevel())): \(record.getFile()):\(record.getLine()):\n> \(record.getArgs())\n")
 	}
 
 }

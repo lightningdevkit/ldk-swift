@@ -22,8 +22,8 @@ runs:
             run: |
                 echo `pwd`
                 mkdir -p ${{ inputs.destination }}/bin
-                git clone --branch 2022-10-112-java-bindings https://github.com/TheBlueMatt/rust-lightning ${{ inputs.destination }}/rust-lightning
-                git clone --branch v0.0.112.0 https://github.com/lightningdevkit/ldk-c-bindings ${{ inputs.destination }}/ldk-c-bindings
+                git clone --branch 2022-12-0.0.113-java-bindings https://github.com/TheBlueMatt/rust-lightning ${{ inputs.destination }}/rust-lightning
+                git clone --branch v0.0.113.0 https://github.com/lightningdevkit/ldk-c-bindings ${{ inputs.destination }}/ldk-c-bindings
         -   name: Install Rust, required targets
             if: ${{ inputs.configureRustNightly == 'true' }}
             shell: bash
@@ -52,6 +52,9 @@ runs:
         -   name: Generate Swift Bindings
             shell: bash
             run: |
-                python3 ./
+                npm install
+                # python3 ./
+                npm run tsc
+                node ./src/index.mjs
             env:
                 LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ${{ inputs.destination }}/ldk-c-bindings/lightning-c-bindings/include/lightning.h

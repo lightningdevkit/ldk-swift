@@ -40,6 +40,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     fileprivate var scorer: MultiThreadedLockableScore?
     fileprivate let keysInterface: KeysInterface!
     public private(set) var payer: InvoicePayer?
+    fileprivate var payerRetries: Retry!
     public let peerManager: PeerManager
     private var tcpPeerHandler: TCPPeerHandler?
 
@@ -54,7 +55,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     private let chain_monitor: ChainMonitor
 
 
-    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, filter: Filter?, netGraphSerialized: [UInt8]?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, userConfig: UserConfig = UserConfig.initWithDefault()) throws {
+    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, filter: Filter?, netGraphSerialized: [UInt8]?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, userConfig: UserConfig = UserConfig.initWithDefault(), payerRetries: Retry = Retry.initWithAttempts(a: UInt(3))) throws {
 
         var monitors: [ChannelMonitor] = []
         self.channel_monitors = []
@@ -98,6 +99,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         self.channel_manager_latest_block_hash = latestBlockHash
         self.chain_monitor = chainMonitor
         self.keysInterface = keysInterface
+		self.payerRetries = payerRetries
         self.logger = logger
 
         let random_data = keysInterface.getSecureRandomBytes();
@@ -142,7 +144,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     /**
      * Constructs a channel manager from the given interface implementations
      */
-    public init(network: Network, userConfig: UserConfig, currentBlockchainTipHash: [UInt8], currentBlockchainTipHeight: UInt32, keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, netGraph: NetworkGraph?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false) {
+    public init(network: Network, userConfig: UserConfig, currentBlockchainTipHash: [UInt8], currentBlockchainTipHeight: UInt32, keysInterface: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, netGraph: NetworkGraph?, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, payerRetries: Retry = Retry.initWithAttempts(a: UInt(3))) {
 
         self.channel_monitors = []
         self.channel_manager_latest_block_hash = nil
@@ -150,6 +152,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let block = BestBlock(blockHash: currentBlockchainTipHash, height: currentBlockchainTipHeight)
         let chainParameters = ChainParameters(networkArg: network, bestBlockArg: block)
         self.channelManager = ChannelManager(feeEst: feeEstimator, chainMonitor: chainMonitor.asWatch(), txBroadcaster: txBroadcaster, logger: logger, keysManager: keysInterface, config: userConfig, params: chainParameters)
+		self.payerRetries = payerRetries
         self.logger = logger
 
         self.keysInterface = keysInterface
@@ -214,7 +217,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             // either dangle router, or set is_owned to false
             // scorer.cType!.is_owned = false
             // router.cType!.is_owned = false
-            self.payer = InvoicePayer(payer: self.channelManager.asPayer(), router: router.asRouter(), logger: self.logger, eventHandler: self.customEventHandler!, retry: Retry.initWithAttempts(a: UInt(3)))
+            self.payer = InvoicePayer(payer: self.channelManager.asPayer(), router: router.asRouter(), logger: self.logger, eventHandler: self.customEventHandler!, retry: self.payerRetries)
             // router.cType!.is_owned = true
             self.customEventHandler = self.payer!.asEventHandler()
         }

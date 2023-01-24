@@ -7,7 +7,7 @@ Automatic Swift bindings generation for [`rust-lightning`](https://github.com/li
 ### Swift Package Manager
 To install using Swift Package Manager, add the following line to the depedencies array of your `Package.swift`:
 ```
-.package(url: "https://github.com/lightningdevkit/ldk-swift/", exact: "0.0.110")
+.package(url: "https://github.com/lightningdevkit/ldk-swift/", exact: "0.0.113")
 ```
 Be sure to also include "LightningDevKit" into your packages target like so:
 
@@ -36,9 +36,10 @@ from scratch.
 ### Prerequisites
 
 -   A machine running macOS
--   [Xcode 13.2.1](https://xcodereleases.com/) or lower (this is because there is a bug with `cc` that prevents it from compiling for Mac Catalyst targets with clang 13)
+-   [Xcode](https://xcodereleases.com/)
 -   [Python3](https://programwithus.com/learn/python/install-python3-mac)
 -   [Rust](https://www.rust-lang.org/tools/install)
+-	[NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
 -   [GNU sed](https://formulae.brew.sh/formula/gnu-sed) (optional, but will cut your compile times significantly!)
 
 For Rust specifically, there are a couple additional requirements that can be installed once the Rust toolchain
@@ -57,13 +58,13 @@ In order to generate these bindings from scratch, you will need to clone two dep
 **[rust-lightning](https://github.com/lightningdevkit/rust-lightning)**, (a specific branch built for bindings compatibility):
 
 ```shell
-git clone --branch 2022-10-112-java-bindings https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
+git clone --branch 2022-12-0.0.113-java-bindings https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
 ```
 
 **[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:
 
 ```shell
-git clone --branch v0.0.112.0 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
+git clone --branch v0.0.113.1 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
 ```
 
 Take note of where you clone these directories, it's best you save the absolute path somewhere handy for the rest of the remaining steps.
@@ -94,11 +95,11 @@ folder due to the previous `genbindings.sh` step. As Docker won't have access to
 replace those lines with the following:
 
 ```yaml
-lightning = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
-lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
-lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
-lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
-lightning-rapid-gossip-sync = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-07-109-java-bindings", default-features = false }
+lightning = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-12-0.0.113-java-bindings", default-features = false }
+lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-12-0.0.113-java-bindings", default-features = false }
+lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-12-0.0.113-java-bindings", default-features = false }
+lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-12-0.0.113-java-bindings", default-features = false }
+lightning-rapid-gossip-sync = { git = "https://github.com/thebluematt/rust-lightning", branch = "2022-12-0.0.113-java-bindings", default-features = false }
 ```
 
 You will note that the revision is unspecified and is currently just placeholder `xxx`s. To obtain the revision,
@@ -119,28 +120,10 @@ To generate the Swift files, navigate to the `ldk-swift` repository and run the 
 
 ```shell
 export LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH="/path/to/ldk-c-bindings/lightning-c-bindings/include/lightning.h"
-python3 ./
+npm i && npm run tsc && node ./src/index.mjs
 ```
 
 Now, the contents of `./ci/LDKSwift/Sources/LDKSwift/bindings` will have been completely regenerated.
-
-### Preparing the correct Xcode version
-
-To make sure the next two steps work correctly, you need to verify that you're using Xcode 13.2.1.
-If you have a later version, you can download the correct version from here: https://xcodereleases.com/
-
-The direct download link is
-
-https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_13.2.1/Xcode_13.2.1.xip
-
-You may be asked to log in to your Apple developer account.
-
-After downloading the correct Xcode version and copying it to Applications, you might also need to run
-the following command with root privileges:
-
-```shell
-sudo xcode-select -s /Applications/Xcode\ 13.2.1.app/Contents/Developer/
-```
 
 #### Updating Swift files in Xcode project
 
@@ -162,7 +145,7 @@ Finally, make sure you leave the "Copy items if needed" box unchecked, and pick 
 
 ### Building requisite binaries
 
-Navigate (`cd`) to the `./src/scripts` folder, and run the following Python script:
+Navigate (`cd`) to the `./scripts` folder, and run the following Python script:
 
 ```shell
 python3 ./build_bulk_libldks.py /path/to/ldk-c-bindings

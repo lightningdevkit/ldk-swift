@@ -67,7 +67,7 @@ class PolarConnectionExperiment: ObservableObject {
             
             
             
-            self.channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, config: config, current_blockchain_tip_hash: chainTipHash, current_blockchain_tip_height: chainTipHeight, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor, net_graph: networkGraph, tx_broadcaster: self.broadcaster, logger: self.logger)
+            self.channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, current_blockchain_tip_hash: chainTipHash, current_blockchain_tip_height: chainTipHeight, keys_interface: self.keysInterface, fee_estimator: self.feeEstimator, chain_monitor: self.chainMonitor, net_graph: networkGraph, tx_broadcaster: self.broadcaster, logger: self.logger)
             let userConfig = UserConfig()
             let latestBlockHash = [UInt8](Data(base64Encoded: "AAAAAAAAAAAABe5Xh25D12zkQuLAJQbBeLoF1tEQqR8=")!)
             let latestBlockHeight = 700123

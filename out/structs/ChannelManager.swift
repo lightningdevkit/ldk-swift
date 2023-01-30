@@ -371,7 +371,7 @@
 					/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`]: crate::util::config::ChannelConfig::force_close_avoidance_max_fee_satoshis
 					/// [`Background`]: crate::chain::chaininterface::ConfirmationTarget::Background
 					/// [`Normal`]: crate::chain::chaininterface::ConfirmationTarget::Normal
-					public func closeChannelWithTargetFeerate(channelId: [UInt8], counterpartyNodeId: [UInt8], targetFeerateSatsPer_1000Weight: UInt32) -> Result_NoneAPIErrorZ {
+					public func closeChannelWithTargetFeerate(channelId: [UInt8], counterpartyNodeId: [UInt8], targetFeerateSatsPer1000Weight: UInt32) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
@@ -384,7 +384,7 @@
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
 				
 						withUnsafePointer(to: tupledChannelId) { (tupledChannelIdPointer: UnsafePointer<UInt8Tuple32>) in
-				ChannelManager_close_channel_with_target_feerate(thisArgPointer, tupledChannelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!, targetFeerateSatsPer_1000Weight)
+				ChannelManager_close_channel_with_target_feerate(thisArgPointer, tupledChannelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!, targetFeerateSatsPer1000Weight)
 						}
 				
 						}
@@ -1247,7 +1247,7 @@
 					/// 
 					/// [`Event::OpenChannelRequest`]: events::Event::OpenChannelRequest
 					/// [`Event::ChannelClosed::user_channel_id`]: events::Event::ChannelClosed::user_channel_id
-					public func acceptInboundChannelFromTrustedPeer_0conf(temporaryChannelId: [UInt8], counterpartyNodeId: [UInt8], userChannelId: [UInt8]) -> Result_NoneAPIErrorZ {
+					public func acceptInboundChannelFromTrustedPeer0conf(temporaryChannelId: [UInt8], counterpartyNodeId: [UInt8], userChannelId: [UInt8]) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
 						let tupledTemporaryChannelId = Bindings.arrayToUInt8Tuple32(array: temporaryChannelId)

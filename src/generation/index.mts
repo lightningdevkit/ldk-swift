@@ -26,7 +26,7 @@ export default class Generator {
 	}
 
 	static snakeCaseToCamelCase(input: string, capitalizeFirst: boolean = false): string {
-		let output = input.replace(/([_][a-zA-Z])/g, group =>
+		let output = input.replace(/([_][a-zA-Z0-9])/g, group =>
 			group
 			.toUpperCase()
 			.replace('_', '')

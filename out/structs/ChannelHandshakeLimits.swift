@@ -467,7 +467,7 @@
 					/// `true` (0) and `false` (1).
 					/// 
 					/// Default value: true
-					public func getTrustOwnFunding_0conf() -> Bool {
+					public func getTrustOwnFunding0conf() -> Bool {
 						// native call variable prep
 						
 
@@ -506,7 +506,7 @@
 					/// `true` (0) and `false` (1).
 					/// 
 					/// Default value: true
-					public func setTrustOwnFunding_0conf(val: Bool) {
+					public func setTrustOwnFunding0conf(val: Bool) {
 						// native call variable prep
 						
 
@@ -647,12 +647,12 @@
 					}
 		
 					/// Constructs a new ChannelHandshakeLimits given each field
-					public init(minFundingSatoshisArg: UInt64, maxFundingSatoshisArg: UInt64, maxHtlcMinimumMsatArg: UInt64, minMaxHtlcValueInFlightMsatArg: UInt64, maxChannelReserveSatoshisArg: UInt64, minMaxAcceptedHtlcsArg: UInt16, maxMinimumDepthArg: UInt32, trustOwnFunding_0confArg: Bool, forceAnnouncedChannelPreferenceArg: Bool, theirToSelfDelayArg: UInt16) {
+					public init(minFundingSatoshisArg: UInt64, maxFundingSatoshisArg: UInt64, maxHtlcMinimumMsatArg: UInt64, minMaxHtlcValueInFlightMsatArg: UInt64, maxChannelReserveSatoshisArg: UInt64, minMaxAcceptedHtlcsArg: UInt16, maxMinimumDepthArg: UInt32, trustOwnFunding0confArg: Bool, forceAnnouncedChannelPreferenceArg: Bool, theirToSelfDelayArg: UInt16) {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = ChannelHandshakeLimits_new(minFundingSatoshisArg, maxFundingSatoshisArg, maxHtlcMinimumMsatArg, minMaxHtlcValueInFlightMsatArg, maxChannelReserveSatoshisArg, minMaxAcceptedHtlcsArg, maxMinimumDepthArg, trustOwnFunding_0confArg, forceAnnouncedChannelPreferenceArg, theirToSelfDelayArg)
+						let nativeCallResult = ChannelHandshakeLimits_new(minFundingSatoshisArg, maxFundingSatoshisArg, maxHtlcMinimumMsatArg, minMaxHtlcValueInFlightMsatArg, maxChannelReserveSatoshisArg, minMaxAcceptedHtlcsArg, maxMinimumDepthArg, trustOwnFunding0confArg, forceAnnouncedChannelPreferenceArg, theirToSelfDelayArg)
 
 						// cleanup
 						

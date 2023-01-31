@@ -435,7 +435,7 @@ describe('Parser Tests', () => {
 	describe('Complete Parser Tests', () => {
 		it('should parse everything completely', () => {
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 			const glossary = parser.glossary;

@@ -64,7 +64,7 @@ describe('Generator Tests', () => {
 			// only the new and get_claimable_balances methods are present
 			// some parameters have been removed
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 
@@ -208,7 +208,7 @@ describe('Generator Tests', () => {
 			// only the new and get_claimable_balances methods are present
 			// some parameters have been removed
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 
@@ -224,7 +224,7 @@ describe('Generator Tests', () => {
 			// only the new and get_claimable_balances methods are present
 			// some parameters have been removed
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 
@@ -239,7 +239,7 @@ describe('Generator Tests', () => {
 			// only the new and get_claimable_balances methods are present
 			// some parameters have been removed
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 
@@ -285,7 +285,7 @@ describe('Generator Tests', () => {
 	describe('Trait Generation Tests', () => {
 		it('should generate FeeEstimator', () => {
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 
@@ -300,7 +300,7 @@ describe('Generator Tests', () => {
 		});
 		it('should generate BaseSign completely', () => {
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 
@@ -311,7 +311,7 @@ describe('Generator Tests', () => {
 
 		it('should generate Router completely', () => {
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_01.h`);
 			const parser = new Parser(config);
 			parser.parse();
 

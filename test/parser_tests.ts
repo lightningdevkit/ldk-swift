@@ -392,7 +392,7 @@ describe('Parser Tests', () => {
 			chai.assert(!thirtyTwoBytes.lengthField);
 			chai.assert(!thirtyTwoBytes.ownershipField);
 
-			const u5 = glossary['LDKu5'];
+			const u5 = glossary['LDKU5'];
 			chai.assert(u5 instanceof RustPrimitiveWrapper);
 			chai.expect(u5.dataField.contextualName).equals('_0');
 			chai.assert(!u5.lengthField);

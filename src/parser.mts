@@ -228,10 +228,10 @@ export default class Parser {
 					 * A particularly hard to detect situation is when the struct is really
 					 * a wrapper around either a primitive or a primitive array that should be
 					 * elided. Examples of such types are
-					 * LDKStr, LDKBigEndianScalar, LDKu5, LDKTransaction, LDKu8slice, LDKBigEndianScalar,
+					 * LDKStr, LDKBigEndianScalar, LDKU5, LDKTransaction, LDKu8slice, LDKBigEndianScalar,
 					 * and many, many, more.
 					 * The indications are really varied, because there are multiple breakdowns:
-					 * a) is it a wrapper over one primitive (LDKu5, LDKWitnessVersion), or over an
+					 * a) is it a wrapper over one primitive (LDKU5, LDKWitnessVersion), or over an
 					 * array of primitives (all other instances)
 					 * b) if it's a wrapper over an array, is it fixed-length or variable-length?
 					 * Fixed-length examples are LDKRecoverableSignature, LDKBigEndianScalar.

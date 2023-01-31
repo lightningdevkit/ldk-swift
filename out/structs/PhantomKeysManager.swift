@@ -162,7 +162,7 @@
 					}
 		
 					/// See [`KeysManager::spend_spendable_outputs`] for documentation on this method.
-					public func spendSpendableOutputs(descriptors: [SpendableOutputDescriptor], outputs: [TxOut], changeDestinationScript: [UInt8], feerateSatPer_1000Weight: UInt32) -> Result_TransactionNoneZ {
+					public func spendSpendableOutputs(descriptors: [SpendableOutputDescriptor], outputs: [TxOut], changeDestinationScript: [UInt8], feerateSatPer1000Weight: UInt32) -> Result_TransactionNoneZ {
 						// native call variable prep
 						
 						let descriptorsVector = Vec_SpendableOutputDescriptorZ(array: descriptors).dangle()
@@ -175,7 +175,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPhantomKeysManager>) in
-				PhantomKeysManager_spend_spendable_outputs(thisArgPointer, descriptorsVector.cType!, outputsVector.cType!, changeDestinationScriptVector.cType!, feerateSatPer_1000Weight)
+				PhantomKeysManager_spend_spendable_outputs(thisArgPointer, descriptorsVector.cType!, outputsVector.cType!, changeDestinationScriptVector.cType!, feerateSatPer1000Weight)
 						}
 				
 

@@ -208,7 +208,7 @@
 					}
 		
 					/// One of the two node_ids which are endpoints of this channel
-					public func getNodeId_1() -> [UInt8] {
+					public func getNodeId1() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -231,7 +231,7 @@
 					}
 		
 					/// One of the two node_ids which are endpoints of this channel
-					public func setNodeId_1(val: [UInt8]) {
+					public func setNodeId1(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = PublicKey(value: val)
@@ -259,7 +259,7 @@
 					}
 		
 					/// The other of the two node_ids which are endpoints of this channel
-					public func getNodeId_2() -> [UInt8] {
+					public func getNodeId2() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -282,7 +282,7 @@
 					}
 		
 					/// The other of the two node_ids which are endpoints of this channel
-					public func setNodeId_2(val: [UInt8]) {
+					public func setNodeId2(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = PublicKey(value: val)
@@ -310,7 +310,7 @@
 					}
 		
 					/// The funding key for the first node
-					public func getBitcoinKey_1() -> [UInt8] {
+					public func getBitcoinKey1() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -333,7 +333,7 @@
 					}
 		
 					/// The funding key for the first node
-					public func setBitcoinKey_1(val: [UInt8]) {
+					public func setBitcoinKey1(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = PublicKey(value: val)
@@ -361,7 +361,7 @@
 					}
 		
 					/// The funding key for the second node
-					public func getBitcoinKey_2() -> [UInt8] {
+					public func getBitcoinKey2() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -384,7 +384,7 @@
 					}
 		
 					/// The funding key for the second node
-					public func setBitcoinKey_2(val: [UInt8]) {
+					public func setBitcoinKey2(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = PublicKey(value: val)

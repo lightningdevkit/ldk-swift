@@ -41,9 +41,9 @@ typedef struct LDKThirtyTwoBytes {
 /**
  * Integer in the range `0..32`
  */
-typedef struct LDKu5 {
+typedef struct LDKU5 {
    uint8_t _0;
-} LDKu5;
+} LDKU5;
 
 /**
  * A serialized transaction, in (pointer, length) form.

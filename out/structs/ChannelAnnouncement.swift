@@ -61,7 +61,7 @@
 					}
 		
 					/// Authentication of the announcement by the first public node
-					public func getNodeSignature_1() -> [UInt8] {
+					public func getNodeSignature1() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -84,7 +84,7 @@
 					}
 		
 					/// Authentication of the announcement by the first public node
-					public func setNodeSignature_1(val: [UInt8]) {
+					public func setNodeSignature1(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = Signature(value: val)
@@ -112,7 +112,7 @@
 					}
 		
 					/// Authentication of the announcement by the second public node
-					public func getNodeSignature_2() -> [UInt8] {
+					public func getNodeSignature2() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -135,7 +135,7 @@
 					}
 		
 					/// Authentication of the announcement by the second public node
-					public func setNodeSignature_2(val: [UInt8]) {
+					public func setNodeSignature2(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = Signature(value: val)
@@ -163,7 +163,7 @@
 					}
 		
 					/// Proof of funding UTXO ownership by the first public node
-					public func getBitcoinSignature_1() -> [UInt8] {
+					public func getBitcoinSignature1() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -186,7 +186,7 @@
 					}
 		
 					/// Proof of funding UTXO ownership by the first public node
-					public func setBitcoinSignature_1(val: [UInt8]) {
+					public func setBitcoinSignature1(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = Signature(value: val)
@@ -214,7 +214,7 @@
 					}
 		
 					/// Proof of funding UTXO ownership by the second public node
-					public func getBitcoinSignature_2() -> [UInt8] {
+					public func getBitcoinSignature2() -> [UInt8] {
 						// native call variable prep
 						
 
@@ -237,7 +237,7 @@
 					}
 		
 					/// Proof of funding UTXO ownership by the second public node
-					public func setBitcoinSignature_2(val: [UInt8]) {
+					public func setBitcoinSignature2(val: [UInt8]) {
 						// native call variable prep
 						
 						let valPrimitiveWrapper = Signature(value: val)
@@ -311,34 +311,34 @@
 					}
 		
 					/// Constructs a new ChannelAnnouncement given each field
-					public init(nodeSignature_1Arg: [UInt8], nodeSignature_2Arg: [UInt8], bitcoinSignature_1Arg: [UInt8], bitcoinSignature_2Arg: [UInt8], contentsArg: UnsignedChannelAnnouncement) {
+					public init(nodeSignature1Arg: [UInt8], nodeSignature2Arg: [UInt8], bitcoinSignature1Arg: [UInt8], bitcoinSignature2Arg: [UInt8], contentsArg: UnsignedChannelAnnouncement) {
 						// native call variable prep
 						
-						let nodeSignature_1ArgPrimitiveWrapper = Signature(value: nodeSignature_1Arg)
+						let nodeSignature1ArgPrimitiveWrapper = Signature(value: nodeSignature1Arg)
 				
-						let nodeSignature_2ArgPrimitiveWrapper = Signature(value: nodeSignature_2Arg)
+						let nodeSignature2ArgPrimitiveWrapper = Signature(value: nodeSignature2Arg)
 				
-						let bitcoinSignature_1ArgPrimitiveWrapper = Signature(value: bitcoinSignature_1Arg)
+						let bitcoinSignature1ArgPrimitiveWrapper = Signature(value: bitcoinSignature1Arg)
 				
-						let bitcoinSignature_2ArgPrimitiveWrapper = Signature(value: bitcoinSignature_2Arg)
+						let bitcoinSignature2ArgPrimitiveWrapper = Signature(value: bitcoinSignature2Arg)
 				
 
 						// native method call
-						let nativeCallResult = ChannelAnnouncement_new(nodeSignature_1ArgPrimitiveWrapper.cType!, nodeSignature_2ArgPrimitiveWrapper.cType!, bitcoinSignature_1ArgPrimitiveWrapper.cType!, bitcoinSignature_2ArgPrimitiveWrapper.cType!, contentsArg.dynamicallyDangledClone().cType!)
+						let nativeCallResult = ChannelAnnouncement_new(nodeSignature1ArgPrimitiveWrapper.cType!, nodeSignature2ArgPrimitiveWrapper.cType!, bitcoinSignature1ArgPrimitiveWrapper.cType!, bitcoinSignature2ArgPrimitiveWrapper.cType!, contentsArg.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						
 						// for elided types, we need this
-						nodeSignature_1ArgPrimitiveWrapper.noOpRetain()
+						nodeSignature1ArgPrimitiveWrapper.noOpRetain()
 				
 						// for elided types, we need this
-						nodeSignature_2ArgPrimitiveWrapper.noOpRetain()
+						nodeSignature2ArgPrimitiveWrapper.noOpRetain()
 				
 						// for elided types, we need this
-						bitcoinSignature_1ArgPrimitiveWrapper.noOpRetain()
+						bitcoinSignature1ArgPrimitiveWrapper.noOpRetain()
 				
 						// for elided types, we need this
-						bitcoinSignature_2ArgPrimitiveWrapper.noOpRetain()
+						bitcoinSignature2ArgPrimitiveWrapper.noOpRetain()
 				
 				self.initialCFreeability = nativeCallResult.is_owned
 			

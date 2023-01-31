@@ -57,14 +57,14 @@
 						
 
 						
-						func getEstSatPer_1000WeightLambda(this_arg: UnsafeRawPointer?, confirmation_target: LDKConfirmationTarget) -> UInt32 {
-							let instance: FeeEstimator = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "FeeEstimator::getEstSatPer_1000WeightLambda")
+						func getEstSatPer1000WeightLambda(this_arg: UnsafeRawPointer?, confirmation_target: LDKConfirmationTarget) -> UInt32 {
+							let instance: FeeEstimator = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "FeeEstimator::getEstSatPer1000WeightLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.getEstSatPer_1000Weight(confirmationTarget: ConfirmationTarget(value: confirmation_target))
+							let swiftCallbackResult = instance.getEstSatPer1000Weight(confirmationTarget: ConfirmationTarget(value: confirmation_target))
 
 							// cleanup
 							
@@ -96,7 +96,7 @@
 
 						self.cType = LDKFeeEstimator(							
 							this_arg: thisArg,
-							get_est_sat_per_1000_weight: getEstSatPer_1000WeightLambda,
+							get_est_sat_per_1000_weight: getEstSatPer1000WeightLambda,
 							free: freeLambda
 						)
 					}
@@ -110,9 +110,9 @@
 					/// The following unit conversions can be used to convert to sats/KW:
 					/// * satoshis-per-byte * 250
 					/// * satoshis-per-kbyte / 4
-					open func getEstSatPer_1000Weight(confirmationTarget: ConfirmationTarget) -> UInt32 {
+					open func getEstSatPer1000Weight(confirmationTarget: ConfirmationTarget) -> UInt32 {
 						
-						Bindings.print("Error: FeeEstimator::getEstSatPer_1000Weight MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: FeeEstimator::getEstSatPer1000Weight MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -161,7 +161,7 @@
 					/// The following unit conversions can be used to convert to sats/KW:
 					/// * satoshis-per-byte * 250
 					/// * satoshis-per-kbyte / 4
-					public override func getEstSatPer_1000Weight(confirmationTarget: ConfirmationTarget) -> UInt32 {
+					public override func getEstSatPer1000Weight(confirmationTarget: ConfirmationTarget) -> UInt32 {
 						// native call variable prep
 						
 

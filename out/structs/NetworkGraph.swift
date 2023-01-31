@@ -377,28 +377,28 @@
 					/// rapid gossip sync server)
 					/// 
 					/// All other parameters as used in [`msgs::UnsignedChannelAnnouncement`] fields.
-					public func addChannelFromPartialAnnouncement(shortChannelId: UInt64, timestamp: UInt64, features: ChannelFeatures, nodeId_1: [UInt8], nodeId_2: [UInt8]) -> Result_NoneLightningErrorZ {
+					public func addChannelFromPartialAnnouncement(shortChannelId: UInt64, timestamp: UInt64, features: ChannelFeatures, nodeId1: [UInt8], nodeId2: [UInt8]) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let nodeId_1PrimitiveWrapper = PublicKey(value: nodeId_1)
+						let nodeId1PrimitiveWrapper = PublicKey(value: nodeId1)
 				
-						let nodeId_2PrimitiveWrapper = PublicKey(value: nodeId_2)
+						let nodeId2PrimitiveWrapper = PublicKey(value: nodeId2)
 				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
-				NetworkGraph_add_channel_from_partial_announcement(thisArgPointer, shortChannelId, timestamp, features.dynamicallyDangledClone().cType!, nodeId_1PrimitiveWrapper.cType!, nodeId_2PrimitiveWrapper.cType!)
+				NetworkGraph_add_channel_from_partial_announcement(thisArgPointer, shortChannelId, timestamp, features.dynamicallyDangledClone().cType!, nodeId1PrimitiveWrapper.cType!, nodeId2PrimitiveWrapper.cType!)
 						}
 				
 
 						// cleanup
 						
 						// for elided types, we need this
-						nodeId_1PrimitiveWrapper.noOpRetain()
+						nodeId1PrimitiveWrapper.noOpRetain()
 				
 						// for elided types, we need this
-						nodeId_2PrimitiveWrapper.noOpRetain()
+						nodeId2PrimitiveWrapper.noOpRetain()
 				
 
 						

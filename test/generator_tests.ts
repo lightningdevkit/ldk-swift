@@ -283,6 +283,21 @@ describe('Generator Tests', () => {
 	});
 
 	describe('Trait Generation Tests', () => {
+		it('should generate FeeEstimator', () => {
+			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);
+			const parser = new Parser(config);
+			parser.parse();
+
+			const generator = new TraitGenerator(config, new AuxiliaryArtifacts());
+			const feeest = <RustTrait>parser.glossary['LDKFeeEstimator'];
+			const output = generator.generateFileContents(feeest);
+
+			chai.expect(output).includes('public init() {');
+			chai.expect(output).includes('self.cType = LDKFeeEstimator(');
+			chai.expect(output).includes('get_est_sat_per_1000_weight: getEstSatPer1000WeightLambda,');
+			chai.expect(output).includes('open func getEstSatPer1000Weight(confirmationTarget: ConfirmationTarget) -> UInt32 {');
+		});
 		it('should generate BaseSign completely', () => {
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 			const config = new TestConfig(`${__dirname}/../res/lightning_01.h`);

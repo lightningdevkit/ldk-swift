@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A channel_reestablish message to be sent or received from a peer
+			/// A [`channel_reestablish`] message to be sent to or received from a peer.
+			/// 
+			/// [`channel_reestablish`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#message-retransmission
 			public typealias ChannelReestablish = Bindings.ChannelReestablish
 
 			extension Bindings {
 		
 
-				/// A channel_reestablish message to be sent or received from a peer
+				/// A [`channel_reestablish`] message to be sent to or received from a peer.
+				/// 
+				/// [`channel_reestablish`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#message-retransmission
 				public class ChannelReestablish: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

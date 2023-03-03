@@ -49,7 +49,7 @@
 						
 
 						
-						func findRouteLambda(this_arg: UnsafeRawPointer?, payer: LDKPublicKey, route_params: UnsafePointer<LDKRouteParameters>, first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, inflight_htlcs: LDKInFlightHtlcs) -> LDKCResult_RouteLightningErrorZ {
+						func findRouteLambda(this_arg: UnsafeRawPointer?, payer: LDKPublicKey, route_params: UnsafePointer<LDKRouteParameters>, first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, inflight_htlcs: UnsafePointer<LDKInFlightHtlcs>) -> LDKCResult_RouteLightningErrorZ {
 							let instance: Router = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Router::findRouteLambda")
 
 							// Swift callback variable prep
@@ -61,7 +61,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.findRoute(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs))
+							let swiftCallbackResult = instance.findRoute(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -72,7 +72,7 @@
 							return returnValue
 						}
 		
-						func findRouteWithIdLambda(this_arg: UnsafeRawPointer?, payer: LDKPublicKey, route_params: UnsafePointer<LDKRouteParameters>, first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, inflight_htlcs: LDKInFlightHtlcs, _payment_hash: LDKThirtyTwoBytes, _payment_id: LDKThirtyTwoBytes) -> LDKCResult_RouteLightningErrorZ {
+						func findRouteWithIdLambda(this_arg: UnsafeRawPointer?, payer: LDKPublicKey, route_params: UnsafePointer<LDKRouteParameters>, first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, inflight_htlcs: UnsafePointer<LDKInFlightHtlcs>, _payment_hash: LDKThirtyTwoBytes, _payment_id: LDKThirtyTwoBytes) -> LDKCResult_RouteLightningErrorZ {
 							let instance: Router = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Router::findRouteWithIdLambda")
 
 							// Swift callback variable prep
@@ -84,85 +84,13 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs), PaymentHash: ThirtyTwoBytes(cType: _payment_hash).getValue(), PaymentId: ThirtyTwoBytes(cType: _payment_id).getValue())
+							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee).dangle().clone(), PaymentHash: ThirtyTwoBytes(cType: _payment_hash).getValue(), PaymentId: ThirtyTwoBytes(cType: _payment_id).getValue())
 
 							// cleanup
 							
 
 							// return value (do some wrapping)
 							let returnValue = swiftCallbackResult.cType!
-
-							return returnValue
-						}
-		
-						func notifyPaymentPathFailedLambda(this_arg: UnsafeRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
-							let instance: Router = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Router::notifyPaymentPathFailedLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.notifyPaymentPathFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult
-
-							return returnValue
-						}
-		
-						func notifyPaymentPathSuccessfulLambda(this_arg: UnsafeRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
-							let instance: Router = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Router::notifyPaymentPathSuccessfulLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.notifyPaymentPathSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult
-
-							return returnValue
-						}
-		
-						func notifyPaymentProbeSuccessfulLambda(this_arg: UnsafeRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
-							let instance: Router = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Router::notifyPaymentProbeSuccessfulLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.notifyPaymentProbeSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult
-
-							return returnValue
-						}
-		
-						func notifyPaymentProbeFailedLambda(this_arg: UnsafeRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
-							let instance: Router = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Router::notifyPaymentProbeFailedLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.notifyPaymentProbeFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult
 
 							return returnValue
 						}
@@ -190,10 +118,6 @@
 							this_arg: thisArg,
 							find_route: findRouteLambda,
 							find_route_with_id: findRouteWithIdLambda,
-							notify_payment_path_failed: notifyPaymentPathFailedLambda,
-							notify_payment_path_successful: notifyPaymentPathSuccessfulLambda,
-							notify_payment_probe_successful: notifyPaymentProbeSuccessfulLambda,
-							notify_payment_probe_failed: notifyPaymentProbeFailedLambda,
 							free: freeLambda
 						)
 					}
@@ -215,34 +139,6 @@
 					open func findRouteWithId(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs, PaymentHash: [UInt8], PaymentId: [UInt8]) -> Result_RouteLightningErrorZ {
 						
 						Bindings.print("Error: Router::findRouteWithId MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Lets the router know that payment through a specific path has failed.
-					open func notifyPaymentPathFailed(path: [RouteHop], shortChannelId: UInt64) -> Void {
-						
-						Bindings.print("Error: Router::notifyPaymentPathFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Lets the router know that payment through a specific path was successful.
-					open func notifyPaymentPathSuccessful(path: [RouteHop]) -> Void {
-						
-						Bindings.print("Error: Router::notifyPaymentPathSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Lets the router know that a payment probe was successful.
-					open func notifyPaymentProbeSuccessful(path: [RouteHop]) -> Void {
-						
-						Bindings.print("Error: Router::notifyPaymentProbeSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Lets the router know that a payment probe failed.
-					open func notifyPaymentProbeFailed(path: [RouteHop], shortChannelId: UInt64) -> Void {
-						
-						Bindings.print("Error: Router::notifyPaymentProbeFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -306,7 +202,11 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: routeParams.cType!) { (routeParamsPointer: UnsafePointer<LDKRouteParameters>) in
-				self.cType!.find_route(self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer, firstHopsVectorPointer, inflightHtlcs.dynamicallyDangledClone().cType!)
+				
+						withUnsafePointer(to: inflightHtlcs.cType!) { (inflightHtlcsPointer: UnsafePointer<LDKInFlightHtlcs>) in
+				self.cType!.find_route(self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer, firstHopsVectorPointer, inflightHtlcsPointer)
+						}
+				
 						}
 				
 
@@ -352,7 +252,11 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: routeParams.cType!) { (routeParamsPointer: UnsafePointer<LDKRouteParameters>) in
-				self.cType!.find_route_with_id(self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer, firstHopsVectorPointer, inflightHtlcs.dynamicallyDangledClone().cType!, PaymentHashPrimitiveWrapper.cType!, PaymentIdPrimitiveWrapper.cType!)
+				
+						withUnsafePointer(to: inflightHtlcs.cType!) { (inflightHtlcsPointer: UnsafePointer<LDKInFlightHtlcs>) in
+				self.cType!.find_route_with_id(self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer, firstHopsVectorPointer, inflightHtlcsPointer, PaymentHashPrimitiveWrapper.cType!, PaymentIdPrimitiveWrapper.cType!)
+						}
+				
 						}
 				
 
@@ -372,98 +276,6 @@
 
 						// return value (do some wrapping)
 						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult)
-
-						return returnValue
-					}
-		
-					/// Lets the router know that payment through a specific path has failed.
-					public override func notifyPaymentPathFailed(path: [RouteHop], shortChannelId: UInt64) {
-						// native call variable prep
-						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
-
-						
-
-						// native method call
-						let nativeCallResult = self.cType!.notify_payment_path_failed(self.cType!.this_arg, pathVector.cType!, shortChannelId)
-
-						// cleanup
-						
-						// pathVector.noOpRetain()
-				
-
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-
-						return returnValue
-					}
-		
-					/// Lets the router know that payment through a specific path was successful.
-					public override func notifyPaymentPathSuccessful(path: [RouteHop]) {
-						// native call variable prep
-						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
-
-						
-
-						// native method call
-						let nativeCallResult = self.cType!.notify_payment_path_successful(self.cType!.this_arg, pathVector.cType!)
-
-						// cleanup
-						
-						// pathVector.noOpRetain()
-				
-
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-
-						return returnValue
-					}
-		
-					/// Lets the router know that a payment probe was successful.
-					public override func notifyPaymentProbeSuccessful(path: [RouteHop]) {
-						// native call variable prep
-						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
-
-						
-
-						// native method call
-						let nativeCallResult = self.cType!.notify_payment_probe_successful(self.cType!.this_arg, pathVector.cType!)
-
-						// cleanup
-						
-						// pathVector.noOpRetain()
-				
-
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-
-						return returnValue
-					}
-		
-					/// Lets the router know that a payment probe failed.
-					public override func notifyPaymentProbeFailed(path: [RouteHop], shortChannelId: UInt64) {
-						// native call variable prep
-						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
-
-						
-
-						// native method call
-						let nativeCallResult = self.cType!.notify_payment_probe_failed(self.cType!.this_arg, pathVector.cType!, shortChannelId)
-
-						// cleanup
-						
-						// pathVector.noOpRetain()
-				
-
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
 
 						return returnValue
 					}

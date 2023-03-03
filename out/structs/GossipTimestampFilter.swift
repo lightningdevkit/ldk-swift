@@ -4,17 +4,21 @@
 			import LDKHeaders
 			#endif
 
-			/// A gossip_timestamp_filter message is used by a node to request
+			/// A [`gossip_timestamp_filter`] message is used by a node to request
 			/// gossip relay for messages in the requested time range when the
-			/// gossip_queries feature has been negotiated.
+			/// `gossip_queries` feature has been negotiated.
+			/// 
+			/// [`gossip_timestamp_filter`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-gossip_timestamp_filter-message
 			public typealias GossipTimestampFilter = Bindings.GossipTimestampFilter
 
 			extension Bindings {
 		
 
-				/// A gossip_timestamp_filter message is used by a node to request
+				/// A [`gossip_timestamp_filter`] message is used by a node to request
 				/// gossip relay for messages in the requested time range when the
-				/// gossip_queries feature has been negotiated.
+				/// `gossip_queries` feature has been negotiated.
+				/// 
+				/// [`gossip_timestamp_filter`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-gossip_timestamp_filter-message
 				public class GossipTimestampFilter: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

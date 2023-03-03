@@ -489,16 +489,16 @@
 						return returnValue
 					}
 		
-					/// Returns the invoice's `min_final_cltv_expiry` time, if present, otherwise
-					/// [`DEFAULT_MIN_FINAL_CLTV_EXPIRY`].
-					public func minFinalCltvExpiry() -> UInt64 {
+					/// Returns the invoice's `min_final_cltv_expiry_delta` time, if present, otherwise
+					/// [`DEFAULT_MIN_FINAL_CLTV_EXPIRY_DELTA`].
+					public func minFinalCltvExpiryDelta() -> UInt64 {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
-				Invoice_min_final_cltv_expiry(thisArgPointer)
+				Invoice_min_final_cltv_expiry_delta(thisArgPointer)
 						}
 				
 

@@ -88,16 +88,16 @@
 						return returnValue
 					}
 		
-					/// Constructs a new KeysInterface which calls the relevant methods on this_arg.
-					/// This copies the `inner` pointer in this_arg and thus the returned KeysInterface must be freed before this_arg is
-					public func asKeysInterface() -> KeysInterface {
+					/// Constructs a new EntropySource which calls the relevant methods on this_arg.
+					/// This copies the `inner` pointer in this_arg and thus the returned EntropySource must be freed before this_arg is
+					public func asEntropySource() -> EntropySource {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPhantomKeysManager>) in
-				PhantomKeysManager_as_KeysInterface(thisArgPointer)
+				PhantomKeysManager_as_EntropySource(thisArgPointer)
 						}
 				
 
@@ -106,7 +106,55 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedKeysInterface(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// Constructs a new NodeSigner which calls the relevant methods on this_arg.
+					/// This copies the `inner` pointer in this_arg and thus the returned NodeSigner must be freed before this_arg is
+					public func asNodeSigner() -> NodeSigner {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPhantomKeysManager>) in
+				PhantomKeysManager_as_NodeSigner(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// Constructs a new SignerProvider which calls the relevant methods on this_arg.
+					/// This copies the `inner` pointer in this_arg and thus the returned SignerProvider must be freed before this_arg is
+					public func asSignerProvider() -> SignerProvider {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPhantomKeysManager>) in
+				PhantomKeysManager_as_SignerProvider(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult, anchor: self)
 						
 
 						return returnValue
@@ -220,6 +268,53 @@
 						
 						// return value (do some wrapping)
 						let returnValue = InMemorySigner(cType: nativeCallResult, anchor: self).dangle(false)
+						
+
+						return returnValue
+					}
+		
+					/// Gets the \"node_id\" secret key used to sign gossip announcements, decode onion data, etc.
+					public func getNodeSecretKey() -> [UInt8] {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPhantomKeysManager>) in
+				PhantomKeysManager_get_node_secret_key(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = SecretKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						
+
+						return returnValue
+					}
+		
+					/// Gets the \"node_id\" secret key of the phantom node used to sign invoices, decode the
+					/// last-hop onion data, etc.
+					public func getPhantomNodeSecretKey() -> [UInt8] {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPhantomKeysManager>) in
+				PhantomKeysManager_get_phantom_node_secret_key(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = SecretKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

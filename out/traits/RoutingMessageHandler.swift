@@ -10,8 +10,8 @@
 			/// 
 			/// # Implementor DoS Warnings
 			/// 
-			/// For `gossip_queries` messages there are potential DoS vectors when handling
-			/// inbound queries. Implementors using an on-disk network graph should be aware of
+			/// For messages enabled with the `gossip_queries` feature there are potential DoS vectors when
+			/// handling inbound queries. Implementors using an on-disk network graph should be aware of
 			/// repeated disk I/O for queries accessing different parts of the network graph.
 			public typealias RoutingMessageHandler = Bindings.RoutingMessageHandler
 
@@ -21,8 +21,8 @@
 				/// 
 				/// # Implementor DoS Warnings
 				/// 
-				/// For `gossip_queries` messages there are potential DoS vectors when handling
-				/// inbound queries. Implementors using an on-disk network graph should be aware of
+				/// For messages enabled with the `gossip_queries` feature there are potential DoS vectors when
+				/// handling inbound queries. Implementors using an on-disk network graph should be aware of
 				/// repeated disk I/O for queries accessing different parts of the network graph.
 				open class RoutingMessageHandler: NativeTraitWrapper {
 
@@ -133,14 +133,14 @@
 							return returnValue
 						}
 		
-						func getNextNodeAnnouncementLambda(this_arg: UnsafeRawPointer?, starting_point: LDKPublicKey) -> LDKNodeAnnouncement {
+						func getNextNodeAnnouncementLambda(this_arg: UnsafeRawPointer?, starting_point: LDKNodeId) -> LDKNodeAnnouncement {
 							let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "RoutingMessageHandler::getNextNodeAnnouncementLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.getNextNodeAnnouncement(startingPoint: PublicKey(cType: starting_point).getValue())
+							let swiftCallbackResult = instance.getNextNodeAnnouncement(startingPoint: NodeId(cType: starting_point))
 
 							// cleanup
 							
@@ -151,14 +151,14 @@
 							return returnValue
 						}
 		
-						func peerConnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, initArgument: UnsafePointer<LDKInit>) -> LDKCResult_NoneNoneZ {
+						func peerConnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, initArgument: UnsafePointer<LDKInit>, inbound: Bool) -> LDKCResult_NoneNoneZ {
 							let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "RoutingMessageHandler::peerConnectedLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), initArgument: BindingsInit(cType: initArgument.pointee).dangle().clone())
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), initArgument: BindingsInit(cType: initArgument.pointee).dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -241,6 +241,24 @@
 							return returnValue
 						}
 		
+						func processingQueueHighLambda(this_arg: UnsafeRawPointer?) -> Bool {
+							let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "RoutingMessageHandler::processingQueueHighLambda")
+
+							// Swift callback variable prep
+											
+
+							// Swift callback call
+							let swiftCallbackResult = instance.processingQueueHigh()
+
+							// cleanup
+							
+
+							// return value (do some wrapping)
+							let returnValue = swiftCallbackResult
+
+							return returnValue
+						}
+		
 						func providedNodeFeaturesLambda(this_arg: UnsafeRawPointer?) -> LDKNodeFeatures {
 							let instance: RoutingMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "RoutingMessageHandler::providedNodeFeaturesLambda")
 
@@ -308,6 +326,7 @@
 							handle_reply_short_channel_ids_end: handleReplyShortChannelIdsEndLambda,
 							handle_query_channel_range: handleQueryChannelRangeLambda,
 							handle_query_short_channel_ids: handleQueryShortChannelIdsLambda,
+							processing_queue_high: processingQueueHighLambda,
 							provided_node_features: providedNodeFeaturesLambda,
 							provided_init_features: providedInitFeaturesLambda,
 							MessageSendEventsProvider: MessageSendEventsProvider.activate().cType!,
@@ -316,24 +335,24 @@
 					}
 
 					
-					/// Handle an incoming node_announcement message, returning true if it should be forwarded on,
-					/// false or returning an Err otherwise.
+					/// Handle an incoming `node_announcement` message, returning `true` if it should be forwarded on,
+					/// `false` or returning an `Err` otherwise.
 					open func handleNodeAnnouncement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
 						
 						Bindings.print("Error: RoutingMessageHandler::handleNodeAnnouncement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle a channel_announcement message, returning true if it should be forwarded on, false
-					/// or returning an Err otherwise.
+					/// Handle a `channel_announcement` message, returning `true` if it should be forwarded on, `false`
+					/// or returning an `Err` otherwise.
 					open func handleChannelAnnouncement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
 						
 						Bindings.print("Error: RoutingMessageHandler::handleChannelAnnouncement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming channel_update message, returning true if it should be forwarded on,
-					/// false or returning an Err otherwise.
+					/// Handle an incoming `channel_update` message, returning true if it should be forwarded on,
+					/// `false` or returning an `Err` otherwise.
 					open func handleChannelUpdate(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
 						
 						Bindings.print("Error: RoutingMessageHandler::handleChannelUpdate MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -341,7 +360,7 @@
 					}
 		
 					/// Gets channel announcements and updates required to dump our routing table to a remote node,
-					/// starting at the short_channel_id indicated by starting_point and including announcements
+					/// starting at the `short_channel_id` indicated by `starting_point` and including announcements
 					/// for a single channel.
 					open func getNextChannelAnnouncement(startingPoint: UInt64) -> (ChannelAnnouncement, ChannelUpdate, ChannelUpdate)? {
 						
@@ -351,12 +370,12 @@
 		
 					/// Gets a node announcement required to dump our routing table to a remote node, starting at
 					/// the node *after* the provided pubkey and including up to one announcement immediately
-					/// higher (as defined by <PublicKey as Ord>::cmp) than starting_point.
-					/// If None is provided for starting_point, we start at the first node.
+					/// higher (as defined by `<PublicKey as Ord>::cmp`) than `starting_point`.
+					/// If `None` is provided for `starting_point`, we start at the first node.
 					/// 
 					/// Note that starting_point (or a relevant inner pointer) may be NULL or all-0s to represent None
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-					open func getNextNodeAnnouncement(startingPoint: [UInt8]) -> NodeAnnouncement {
+					open func getNextNodeAnnouncement(startingPoint: NodeId) -> NodeAnnouncement {
 						
 						Bindings.print("Error: RoutingMessageHandler::getNextNodeAnnouncement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
@@ -369,7 +388,7 @@
 					/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
 					/// with us. Implementors should be somewhat conservative about doing so, however, as other
 					/// message handlers may still wish to communicate with this peer.
-					open func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit) -> Result_NoneNoneZ {
+					open func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						
 						Bindings.print("Error: RoutingMessageHandler::peerConnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
@@ -394,7 +413,7 @@
 						abort()
 					}
 		
-					/// Handles when a peer asks us to send a list of short_channel_ids
+					/// Handles when a peer asks us to send a list of `short_channel_id`s
 					/// for the requested range of blocks.
 					open func handleQueryChannelRange(theirNodeId: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 						
@@ -403,10 +422,20 @@
 					}
 		
 					/// Handles when a peer asks us to send routing gossip messages for a
-					/// list of short_channel_ids.
+					/// list of `short_channel_id`s.
 					open func handleQueryShortChannelIds(theirNodeId: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 						
 						Bindings.print("Error: RoutingMessageHandler::handleQueryShortChannelIds MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						abort()
+					}
+		
+					/// Indicates that there are a large number of [`ChannelAnnouncement`] (or other) messages
+					/// pending some async action. While there is no guarantee of the rate of future messages, the
+					/// caller should seek to reduce the rate of new gossip messages handled, especially
+					/// [`ChannelAnnouncement`]s.
+					open func processingQueueHigh() -> Bool {
+						
+						Bindings.print("Error: RoutingMessageHandler::processingQueueHigh MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -475,8 +504,8 @@
 
 				internal class NativelyImplementedRoutingMessageHandler: RoutingMessageHandler {
 					
-					/// Handle an incoming node_announcement message, returning true if it should be forwarded on,
-					/// false or returning an Err otherwise.
+					/// Handle an incoming `node_announcement` message, returning `true` if it should be forwarded on,
+					/// `false` or returning an `Err` otherwise.
 					public override func handleNodeAnnouncement(msg: NodeAnnouncement) -> Result_boolLightningErrorZ {
 						// native call variable prep
 						
@@ -499,8 +528,8 @@
 						return returnValue
 					}
 		
-					/// Handle a channel_announcement message, returning true if it should be forwarded on, false
-					/// or returning an Err otherwise.
+					/// Handle a `channel_announcement` message, returning `true` if it should be forwarded on, `false`
+					/// or returning an `Err` otherwise.
 					public override func handleChannelAnnouncement(msg: ChannelAnnouncement) -> Result_boolLightningErrorZ {
 						// native call variable prep
 						
@@ -523,8 +552,8 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming channel_update message, returning true if it should be forwarded on,
-					/// false or returning an Err otherwise.
+					/// Handle an incoming `channel_update` message, returning true if it should be forwarded on,
+					/// `false` or returning an `Err` otherwise.
 					public override func handleChannelUpdate(msg: ChannelUpdate) -> Result_boolLightningErrorZ {
 						// native call variable prep
 						
@@ -548,7 +577,7 @@
 					}
 		
 					/// Gets channel announcements and updates required to dump our routing table to a remote node,
-					/// starting at the short_channel_id indicated by starting_point and including announcements
+					/// starting at the `short_channel_id` indicated by `starting_point` and including announcements
 					/// for a single channel.
 					public override func getNextChannelAnnouncement(startingPoint: UInt64) -> (ChannelAnnouncement, ChannelUpdate, ChannelUpdate)? {
 						// native call variable prep
@@ -570,27 +599,22 @@
 		
 					/// Gets a node announcement required to dump our routing table to a remote node, starting at
 					/// the node *after* the provided pubkey and including up to one announcement immediately
-					/// higher (as defined by <PublicKey as Ord>::cmp) than starting_point.
-					/// If None is provided for starting_point, we start at the first node.
+					/// higher (as defined by `<PublicKey as Ord>::cmp`) than `starting_point`.
+					/// If `None` is provided for `starting_point`, we start at the first node.
 					/// 
 					/// Note that starting_point (or a relevant inner pointer) may be NULL or all-0s to represent None
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public override func getNextNodeAnnouncement(startingPoint: [UInt8]) -> NodeAnnouncement {
+					public override func getNextNodeAnnouncement(startingPoint: NodeId) -> NodeAnnouncement {
 						// native call variable prep
 						
-						let startingPointPrimitiveWrapper = PublicKey(value: startingPoint)
-				
 
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.get_next_node_announcement(self.cType!.this_arg, startingPointPrimitiveWrapper.cType!)
+						let nativeCallResult = self.cType!.get_next_node_announcement(self.cType!.this_arg, startingPoint.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						
-						// for elided types, we need this
-						startingPointPrimitiveWrapper.noOpRetain()
-				
 
 						// return value (do some wrapping)
 						let returnValue = NodeAnnouncement(cType: nativeCallResult)
@@ -605,7 +629,7 @@
 					/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
 					/// with us. Implementors should be somewhat conservative about doing so, however, as other
 					/// message handlers may still wish to communicate with this peer.
-					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit) -> Result_NoneNoneZ {
+					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -616,7 +640,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: initArgument.cType!) { (initArgumentPointer: UnsafePointer<LDKInit>) in
-				self.cType!.peer_connected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, initArgumentPointer)
+				self.cType!.peer_connected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, initArgumentPointer, inbound)
 						}
 				
 
@@ -685,7 +709,7 @@
 						return returnValue
 					}
 		
-					/// Handles when a peer asks us to send a list of short_channel_ids
+					/// Handles when a peer asks us to send a list of `short_channel_id`s
 					/// for the requested range of blocks.
 					public override func handleQueryChannelRange(theirNodeId: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 						// native call variable prep
@@ -711,7 +735,7 @@
 					}
 		
 					/// Handles when a peer asks us to send routing gossip messages for a
-					/// list of short_channel_ids.
+					/// list of `short_channel_id`s.
 					public override func handleQueryShortChannelIds(theirNodeId: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
@@ -731,6 +755,28 @@
 
 						// return value (do some wrapping)
 						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult)
+
+						return returnValue
+					}
+		
+					/// Indicates that there are a large number of [`ChannelAnnouncement`] (or other) messages
+					/// pending some async action. While there is no guarantee of the rate of future messages, the
+					/// caller should seek to reduce the rate of new gossip messages handled, especially
+					/// [`ChannelAnnouncement`]s.
+					public override func processingQueueHigh() -> Bool {
+						// native call variable prep
+						
+
+						
+
+						// native method call
+						let nativeCallResult = self.cType!.processing_queue_high(self.cType!.this_arg)
+
+						// cleanup
+						
+
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
 
 						return returnValue
 					}

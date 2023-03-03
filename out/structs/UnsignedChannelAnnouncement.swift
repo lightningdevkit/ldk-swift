@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// The unsigned part of a channel_announcement
+			/// The unsigned part of a [`channel_announcement`] message.
+			/// 
+			/// [`channel_announcement`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-channel_announcement-message
 			public typealias UnsignedChannelAnnouncement = Bindings.UnsignedChannelAnnouncement
 
 			extension Bindings {
 		
 
-				/// The unsigned part of a channel_announcement
+				/// The unsigned part of a [`channel_announcement`] message.
+				/// 
+				/// [`channel_announcement`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-channel_announcement-message
 				public class UnsignedChannelAnnouncement: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -207,8 +211,8 @@
 						return returnValue
 					}
 		
-					/// One of the two node_ids which are endpoints of this channel
-					public func getNodeId1() -> [UInt8] {
+					/// One of the two `node_id`s which are endpoints of this channel
+					public func getNodeId1() -> NodeId {
 						// native call variable prep
 						
 
@@ -224,31 +228,26 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = NodeId(cType: nativeCallResult, anchor: self).dangle(false)
 						
 
 						return returnValue
 					}
 		
-					/// One of the two node_ids which are endpoints of this channel
-					public func setNodeId1(val: [UInt8]) {
+					/// One of the two `node_id`s which are endpoints of this channel
+					public func setNodeId1(val: NodeId) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
-				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
-				UnsignedChannelAnnouncement_set_node_id_1(thisPtrPointer, valPrimitiveWrapper.cType!)
+				UnsignedChannelAnnouncement_set_node_id_1(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 						}
 				
 
 						// cleanup
 						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)
@@ -258,8 +257,8 @@
 						return returnValue
 					}
 		
-					/// The other of the two node_ids which are endpoints of this channel
-					public func getNodeId2() -> [UInt8] {
+					/// The other of the two `node_id`s which are endpoints of this channel
+					public func getNodeId2() -> NodeId {
 						// native call variable prep
 						
 
@@ -275,31 +274,26 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = NodeId(cType: nativeCallResult, anchor: self).dangle(false)
 						
 
 						return returnValue
 					}
 		
-					/// The other of the two node_ids which are endpoints of this channel
-					public func setNodeId2(val: [UInt8]) {
+					/// The other of the two `node_id`s which are endpoints of this channel
+					public func setNodeId2(val: NodeId) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
-				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
-				UnsignedChannelAnnouncement_set_node_id_2(thisPtrPointer, valPrimitiveWrapper.cType!)
+				UnsignedChannelAnnouncement_set_node_id_2(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 						}
 				
 
 						// cleanup
 						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)
@@ -310,7 +304,7 @@
 					}
 		
 					/// The funding key for the first node
-					public func getBitcoinKey1() -> [UInt8] {
+					public func getBitcoinKey1() -> NodeId {
 						// native call variable prep
 						
 
@@ -326,31 +320,26 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = NodeId(cType: nativeCallResult, anchor: self).dangle(false)
 						
 
 						return returnValue
 					}
 		
 					/// The funding key for the first node
-					public func setBitcoinKey1(val: [UInt8]) {
+					public func setBitcoinKey1(val: NodeId) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
-				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
-				UnsignedChannelAnnouncement_set_bitcoin_key_1(thisPtrPointer, valPrimitiveWrapper.cType!)
+				UnsignedChannelAnnouncement_set_bitcoin_key_1(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 						}
 				
 
 						// cleanup
 						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)
@@ -361,7 +350,7 @@
 					}
 		
 					/// The funding key for the second node
-					public func getBitcoinKey2() -> [UInt8] {
+					public func getBitcoinKey2() -> NodeId {
 						// native call variable prep
 						
 
@@ -377,31 +366,26 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = NodeId(cType: nativeCallResult, anchor: self).dangle(false)
 						
 
 						return returnValue
 					}
 		
 					/// The funding key for the second node
-					public func setBitcoinKey2(val: [UInt8]) {
+					public func setBitcoinKey2(val: NodeId) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
-				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
-				UnsignedChannelAnnouncement_set_bitcoin_key_2(thisPtrPointer, valPrimitiveWrapper.cType!)
+				UnsignedChannelAnnouncement_set_bitcoin_key_2(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 						}
 				
 
 						// cleanup
 						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)

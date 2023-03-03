@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A shutdown message to be sent or received from a peer
+			/// A [`shutdown`] message to be sent to or received from a peer.
+			/// 
+			/// [`shutdown`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#closing-initiation-shutdown
 			public typealias Shutdown = Bindings.Shutdown
 
 			extension Bindings {
 		
 
-				/// A shutdown message to be sent or received from a peer
+				/// A [`shutdown`] message to be sent to or received from a peer.
+				/// 
+				/// [`shutdown`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#closing-initiation-shutdown
 				public class Shutdown: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -116,7 +120,8 @@
 					}
 		
 					/// The destination of this peer's funds on closing.
-					/// Must be in one of these forms: p2pkh, p2sh, p2wpkh, p2wsh.
+					/// 
+					/// Must be in one of these forms: P2PKH, P2SH, P2WPKH, P2WSH, P2TR.
 					public func getScriptpubkey() -> [UInt8] {
 						// native call variable prep
 						
@@ -140,7 +145,8 @@
 					}
 		
 					/// The destination of this peer's funds on closing.
-					/// Must be in one of these forms: p2pkh, p2sh, p2wpkh, p2wsh.
+					/// 
+					/// Must be in one of these forms: P2PKH, P2SH, P2WPKH, P2WSH, P2TR.
 					public func setScriptpubkey(val: [UInt8]) {
 						// native call variable prep
 						

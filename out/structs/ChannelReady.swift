@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A channel_ready message to be sent or received from a peer
+			/// A [`channel_ready`] message to be sent to or received from a peer.
+			/// 
+			/// [`channel_ready`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-channel_ready-message
 			public typealias ChannelReady = Bindings.ChannelReady
 
 			extension Bindings {
 		
 
-				/// A channel_ready message to be sent or received from a peer
+				/// A [`channel_ready`] message to be sent to or received from a peer.
+				/// 
+				/// [`channel_ready`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-channel_ready-message
 				public class ChannelReady: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -166,8 +170,10 @@
 						return returnValue
 					}
 		
-					/// If set, provides a short_channel_id alias for this channel. The sender will accept payments
-					/// to be forwarded over this SCID and forward them to this messages' recipient.
+					/// If set, provides a `short_channel_id` alias for this channel.
+					/// 
+					/// The sender will accept payments to be forwarded over this SCID and forward them to this
+					/// messages' recipient.
 					public func getShortChannelIdAlias() -> UInt64? {
 						// native call variable prep
 						
@@ -190,8 +196,10 @@
 						return returnValue
 					}
 		
-					/// If set, provides a short_channel_id alias for this channel. The sender will accept payments
-					/// to be forwarded over this SCID and forward them to this messages' recipient.
+					/// If set, provides a `short_channel_id` alias for this channel.
+					/// 
+					/// The sender will accept payments to be forwarded over this SCID and forward them to this
+					/// messages' recipient.
 					public func setShortChannelIdAlias(val: UInt64?) {
 						// native call variable prep
 						

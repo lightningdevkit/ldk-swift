@@ -4,19 +4,23 @@
 			import LDKHeaders
 			#endif
 
-			/// A reply_short_channel_ids_end message is sent as a reply to a
-			/// query_short_channel_ids message. The query recipient makes a best
+			/// A [`reply_short_channel_ids_end`] message is sent as a reply to a
+			/// message. The query recipient makes a best
 			/// effort to respond based on their local network view which may not be
 			/// a perfect view of the network.
+			/// 
+			/// [`reply_short_channel_ids_end`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-query_short_channel_idsreply_short_channel_ids_end-messages
 			public typealias ReplyShortChannelIdsEnd = Bindings.ReplyShortChannelIdsEnd
 
 			extension Bindings {
 		
 
-				/// A reply_short_channel_ids_end message is sent as a reply to a
-				/// query_short_channel_ids message. The query recipient makes a best
+				/// A [`reply_short_channel_ids_end`] message is sent as a reply to a
+				/// message. The query recipient makes a best
 				/// effort to respond based on their local network view which may not be
 				/// a perfect view of the network.
+				/// 
+				/// [`reply_short_channel_ids_end`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-query_short_channel_idsreply_short_channel_ids_end-messages
 				public class ReplyShortChannelIdsEnd: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -122,7 +126,7 @@
 					}
 		
 					/// Indicates if the query recipient maintains up-to-date channel
-					/// information for the chain_hash
+					/// information for the `chain_hash`
 					public func getFullInformation() -> Bool {
 						// native call variable prep
 						
@@ -146,7 +150,7 @@
 					}
 		
 					/// Indicates if the query recipient maintains up-to-date channel
-					/// information for the chain_hash
+					/// information for the `chain_hash`
 					public func setFullInformation(val: Bool) {
 						// native call variable prep
 						

@@ -49,31 +49,29 @@ class LDKSwiftTests: XCTestCase {
         let keysManager = KeysManager(seed: seed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
         let config = UserConfig.initWithDefault()
 
-        let keysInterface = keysManager.asKeysInterface()
-
         let serialized_channel_manager = LDKTestFixtures.serializedChannelManager
 
         let serializedChannelMonitors: [[UInt8]] = LDKTestFixtures.serializedChannelMonitors
 
         var monitors: [LDKChannelMonitor] = []
 
-        let channel_manager_constructor = try ChannelManagerConstructor(
-                channelManagerSerialized: serialized_channel_manager,
-                channelMonitorsSerialized: serializedChannelMonitors,
-                keysInterface: keysInterface,
-                feeEstimator: feeEstimator,
-                chainMonitor: chainMonitor,
-                filter: filter,
-                netGraphSerialized: nil,
-                txBroadcaster: broadcaster,
-                logger: logger
+        let constructionParameters = ChannelManagerConstructionParameters(
+            config: config,
+            entropySource: keysManager.asEntropySource(),
+            nodeSigner: keysManager.asNodeSigner(),
+            signerProvider: keysManager.asSignerProvider(),
+            feeEstimator: feeEstimator,
+            chainMonitor: chainMonitor,
+            txBroadcaster: broadcaster,
+            logger: logger
         )
+        let channelManagerConstructor = try ChannelManagerConstructor(channelManagerSerialized: serialized_channel_manager, channelMonitorsSerialized: serializedChannelMonitors, netGraphSerialized: nil, filter: filter, params: constructionParameters)
 
-        let channel_manager = channel_manager_constructor.channelManager;
-        let cmPersister = TestChannelManagerPersister(channelManager: channel_manager)
+        let channelManager = channelManagerConstructor.channelManager;
+        let cmPersister = TestChannelManagerPersister(channelManager: channelManager)
 
         let header = Self.hexStringToBytes(hexString: "f5591ea0b69ae3edc0de11497ffb0fdd91f769ede96c5d662c805364e9bf8b2243e8e5b9d1833eff7cb19abd9fc9da3cd26fe84d718bbf8a336966ae4f7dea6a81372961ffff7f200400000001020000")
-        channel_manager.asConfirm().transactionsConfirmed(header: header, txdata: [(2, Self.hexStringToBytes(hexString: "020000000001010000000000000000000000000000000000000000000000000000000000000000ffffffff03530101ffffffff0200f2052a0100000017a9149e6d815a46cd349527961f58cc20d41d15fcb99e870000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf90120000000000000000000000000000000000000000000000000000000000000000000000000")!)], height: 525)
+        channelManager.asConfirm().transactionsConfirmed(header: header, txdata: [(2, Self.hexStringToBytes(hexString: "020000000001010000000000000000000000000000000000000000000000000000000000000000ffffffff03530101ffffffff0200f2052a0100000017a9149e6d815a46cd349527961f58cc20d41d15fcb99e870000000000000000266a24aa21a9ede2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf90120000000000000000000000000000000000000000000000000000000000000000000000000")!)], height: 525)
 
         /*
         let amtSat: NSNumber = 2
@@ -117,8 +115,8 @@ class LDKSwiftTests: XCTestCase {
         }
         */
 
-        channel_manager_constructor.chainSyncCompleted(persister: cmPersister, scorer: nil)
-        channel_manager_constructor.interrupt()
+        channelManagerConstructor.chainSyncCompleted(persister: cmPersister)
+        channelManagerConstructor.interrupt()
     }
 
     func testMemoryLeaksIncrementally() throws {
@@ -153,12 +151,11 @@ class LDKSwiftTests: XCTestCase {
         let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
 
         let keysManager = KeysManager(seed: seed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-        let keysInterface = keysManager.asKeysInterface()
 
         let logger = TestLogger()
 
         let config = UserConfig.initWithDefault()
-        let networkGraph = NetworkGraph(genesisHash: reversedGenesisHash, logger: logger)
+        let networkGraph = NetworkGraph(network: .Bitcoin, logger: logger)
 
         let scoringParams = ProbabilisticScoringParameters.initWithDefault()
         let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
@@ -171,7 +168,17 @@ class LDKSwiftTests: XCTestCase {
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chainSource: nil, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-        let channelManagerConstructor = ChannelManagerConstructor(network: .Bitcoin, userConfig: config, currentBlockchainTipHash: reversedGenesisHash, currentBlockchainTipHeight: 0, keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
+        let constructionParameters = ChannelManagerConstructionParameters(
+            config: config,
+            entropySource: keysManager.asEntropySource(),
+            nodeSigner: keysManager.asNodeSigner(),
+            signerProvider: keysManager.asSignerProvider(),
+            feeEstimator: feeEstimator,
+            chainMonitor: chainMonitor,
+            txBroadcaster: broadcaster,
+            logger: logger
+        )
+        let channelManagerConstructor = ChannelManagerConstructor(network: .Bitcoin, currentBlockchainTipHash: reversedGenesisHash, currentBlockchainTipHeight: 0, netGraph: networkGraph, params: constructionParameters)
         let channelManager = channelManagerConstructor.channelManager
         let peerManager = channelManagerConstructor.peerManager
         let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
@@ -191,13 +198,12 @@ class LDKSwiftTests: XCTestCase {
         let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
 
         let keysManager = KeysManager(seed: seed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-        let keysInterface = keysManager.asKeysInterface()
 
         let logger = TestLogger()
 
         let config = UserConfig.initWithDefault()
         let lightningNetwork = LDKNetwork_Bitcoin
-        let networkGraph = NetworkGraph(genesisHash: reversedGenesisHash, logger: logger)
+        let networkGraph = NetworkGraph(network: .Bitcoin, logger: logger)
 
         let scoringParams = ProbabilisticScoringParameters.initWithDefault()
         let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
@@ -210,7 +216,17 @@ class LDKSwiftTests: XCTestCase {
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chainSource: nil, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-        let channelManagerConstructor = ChannelManagerConstructor(network: .Bitcoin, userConfig: config, currentBlockchainTipHash: reversedGenesisHash, currentBlockchainTipHeight: 0, keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
+        let constructionParameters = ChannelManagerConstructionParameters(
+            config: config,
+            entropySource: keysManager.asEntropySource(),
+            nodeSigner: keysManager.asNodeSigner(),
+            signerProvider: keysManager.asSignerProvider(),
+            feeEstimator: feeEstimator,
+            chainMonitor: chainMonitor,
+            txBroadcaster: broadcaster,
+            logger: logger
+        )
+        let channelManagerConstructor = ChannelManagerConstructor(network: .Bitcoin, currentBlockchainTipHash: reversedGenesisHash, currentBlockchainTipHeight: 0, netGraph: networkGraph, params: constructionParameters)
         let channelManager = channelManagerConstructor.channelManager
 
         let channelValue: UInt64 = 1_300_000 // 1.3 million satoshis, or 0.013 BTC
@@ -219,12 +235,15 @@ class LDKSwiftTests: XCTestCase {
         let peerPubkey = Self.hexStringToBytes(hexString: "02deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef")!
 		let userChannelId: [UInt8] = [UInt8](repeating: 42, count: 16);
         let channelOpenResult = channelManager.createChannel(theirNetworkKey: peerPubkey, channelValueSatoshis: channelValue, pushMsat: reserveAmount, userChannelId: userChannelId, overrideConfig: config)
-
+        
         let channelOpenError = channelOpenResult.getError()!
         print("error type: \(channelOpenError.getValueType())")
-
-        let channelUnavailableError = channelOpenError.getValueAsChannelUnavailable()!
-        print("channel unavailable error: \(channelUnavailableError.getErr())")
+        
+        if let misuseError = channelOpenError.getValueAsApiMisuseError() {
+            print("misuse error: \(misuseError.getErr())")
+        } else if let unavailableError = channelOpenError.getValueAsChannelUnavailable() {
+            print("channel unavailable error: \(unavailableError.getErr())")
+        }
     }
 
 
@@ -236,13 +255,12 @@ class LDKSwiftTests: XCTestCase {
 		let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
 		let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
         let keysManager = KeysManager(seed: seed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-        let keysInterface = keysManager.asKeysInterface()
 
         let logger = MuteLogger()
 
         let config = UserConfig.initWithDefault()
         let lightningNetwork: Bindings.Network = .Bitcoin
-        let networkGraph = NetworkGraph(genesisHash: reversedGenesisHash, logger: logger)
+        let networkGraph = NetworkGraph(network: .Bitcoin, logger: logger)
 
         let scoringParams = ProbabilisticScoringParameters.initWithDefault()
         let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
@@ -255,7 +273,17 @@ class LDKSwiftTests: XCTestCase {
         let channelMonitorPersister = TestPersister()
         let chainMonitor = ChainMonitor(chainSource: nil, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-        let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, currentBlockchainTipHash: reversedGenesisHash, currentBlockchainTipHeight: 0, keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
+        let constructionParameters = ChannelManagerConstructionParameters(
+            config: config,
+            entropySource: keysManager.asEntropySource(),
+            nodeSigner: keysManager.asNodeSigner(),
+            signerProvider: keysManager.asSignerProvider(),
+            feeEstimator: feeEstimator,
+            chainMonitor: chainMonitor,
+            txBroadcaster: broadcaster,
+            logger: logger
+        )
+        let channelManagerConstructor = ChannelManagerConstructor(network: .Bitcoin, currentBlockchainTipHash: reversedGenesisHash, currentBlockchainTipHeight: 0, netGraph: networkGraph, params: constructionParameters)
         let channelManager = channelManagerConstructor.channelManager
         let peerManager = channelManagerConstructor.peerManager
         let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
@@ -282,7 +310,7 @@ class LDKSwiftTests: XCTestCase {
 
 
         let channelManagerAndNetworkGraphPersisterAndEventHandler = TestChannelManagerPersister()
-        channelManagerConstructor.chainSyncCompleted(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
+        channelManagerConstructor.chainSyncCompleted(persister: channelManagerAndNetworkGraphPersisterAndEventHandler)
 
         // run this for one minute
         for _ in 0..<600 {
@@ -325,7 +353,7 @@ class LDKSwiftTests: XCTestCase {
             path.append(extraHop)
         }
 
-        let paymentParams = PaymentParameters.initForKeysend(payeePubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!)
+        let paymentParams = PaymentParameters.initForKeysend(payeePubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!, finalCltvExpiryDelta: 3)
         let route = Route(pathsArg: [path], paymentParamsArg: paymentParams)
     }
 
@@ -346,8 +374,8 @@ class LDKSwiftTests: XCTestCase {
 		let reversedGenesisHash = LDKSwiftTests.hexStringToBytes(hexString: reversedGenesisHashHex)!
 
 		let logger = TestLogger()
-        let networkGraph = NetworkGraph(genesisHash: reversedGenesisHash, logger: logger)
-        let rapidSync = RapidGossipSync(networkGraph: networkGraph)
+        let networkGraph = NetworkGraph(network: .Bitcoin, logger: logger)
+        let rapidSync = RapidGossipSync(networkGraph: networkGraph, logger: logger)
 
 		let gossipDataRaw = [UInt8](data)
 		print("Applying rapid sync data…")
@@ -385,8 +413,8 @@ class LDKSwiftTests: XCTestCase {
         let payerPubkey = LDKSwiftTests.hexStringToBytes(hexString: "0242a4ae0c5bef18048fbecf995094b74bfb0f7391418d71ed394784373f41e4f3")!
         let recipientPubkey = LDKSwiftTests.hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!
 
-        let paymentParameters = PaymentParameters.initForKeysend(payeePubkey: recipientPubkey)
-        let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: 500, finalCltvExpiryDeltaArg: 3)
+        let paymentParameters = PaymentParameters.initForKeysend(payeePubkey: recipientPubkey, finalCltvExpiryDelta: 3)
+        let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: 500)
 
 		print("STEP A")
 

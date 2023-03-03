@@ -10,7 +10,7 @@
 
 			extension Bindings {
 
-				/// Used to put an error message in a LightningError
+				/// Used to put an error message in a [`LightningError`].
 				public class ErrorAction: NativeTypeWrapper {
 
 					

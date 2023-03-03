@@ -8,16 +8,16 @@
 
 			/// A trait to describe an object which can receive channel messages.
 			/// 
-			/// Messages MAY be called in parallel when they originate from different their_node_ids, however
-			/// they MUST NOT be called in parallel when the two calls have the same their_node_id.
+			/// Messages MAY be called in parallel when they originate from different `their_node_ids`, however
+			/// they MUST NOT be called in parallel when the two calls have the same `their_node_id`.
 			public typealias ChannelMessageHandler = Bindings.ChannelMessageHandler
 
 			extension Bindings {
 
 				/// A trait to describe an object which can receive channel messages.
 				/// 
-				/// Messages MAY be called in parallel when they originate from different their_node_ids, however
-				/// they MUST NOT be called in parallel when the two calls have the same their_node_id.
+				/// Messages MAY be called in parallel when they originate from different `their_node_ids`, however
+				/// they MUST NOT be called in parallel when the two calls have the same `their_node_id`.
 				open class ChannelMessageHandler: NativeTraitWrapper {
 
 					
@@ -55,14 +55,14 @@
 						
 
 						
-						func handleOpenChannelLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, their_features: LDKInitFeatures, msg: UnsafePointer<LDKOpenChannel>) -> Void {
+						func handleOpenChannelLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKOpenChannel>) -> Void {
 							let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleOpenChannelLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleOpenChannel(theirNodeId: PublicKey(cType: their_node_id).getValue(), theirFeatures: InitFeatures(cType: their_features), msg: OpenChannel(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleOpenChannel(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: OpenChannel(cType: msg.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -73,14 +73,14 @@
 							return returnValue
 						}
 		
-						func handleAcceptChannelLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, their_features: LDKInitFeatures, msg: UnsafePointer<LDKAcceptChannel>) -> Void {
+						func handleAcceptChannelLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKAcceptChannel>) -> Void {
 							let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleAcceptChannelLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleAcceptChannel(theirNodeId: PublicKey(cType: their_node_id).getValue(), theirFeatures: InitFeatures(cType: their_features), msg: AcceptChannel(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleAcceptChannel(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: AcceptChannel(cType: msg.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -145,14 +145,14 @@
 							return returnValue
 						}
 		
-						func handleShutdownLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, their_features: UnsafePointer<LDKInitFeatures>, msg: UnsafePointer<LDKShutdown>) -> Void {
+						func handleShutdownLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKShutdown>) -> Void {
 							let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleShutdownLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleShutdown(theirNodeId: PublicKey(cType: their_node_id).getValue(), theirFeatures: InitFeatures(cType: their_features.pointee).dangle().clone(), msg: Shutdown(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleShutdown(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: Shutdown(cType: msg.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -325,14 +325,14 @@
 							return returnValue
 						}
 		
-						func peerDisconnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, no_connection_possible: Bool) -> Void {
+						func peerDisconnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey) -> Void {
 							let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "ChannelMessageHandler::peerDisconnectedLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), noConnectionPossible: no_connection_possible)
+							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id).getValue())
 
 							// cleanup
 							
@@ -343,14 +343,14 @@
 							return returnValue
 						}
 		
-						func peerConnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKInit>) -> LDKCResult_NoneNoneZ {
+						func peerConnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKInit>, inbound: Bool) -> LDKCResult_NoneNoneZ {
 							let instance: ChannelMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "ChannelMessageHandler::peerConnectedLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: BindingsInit(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: BindingsInit(cType: msg.pointee).dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -500,150 +500,144 @@
 					}
 
 					
-					/// Handle an incoming open_channel message from the given peer.
-					open func handleOpenChannel(theirNodeId: [UInt8], theirFeatures: InitFeatures, msg: OpenChannel) -> Void {
+					/// Handle an incoming `open_channel` message from the given peer.
+					open func handleOpenChannel(theirNodeId: [UInt8], msg: OpenChannel) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleOpenChannel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming accept_channel message from the given peer.
-					open func handleAcceptChannel(theirNodeId: [UInt8], theirFeatures: InitFeatures, msg: AcceptChannel) -> Void {
+					/// Handle an incoming `accept_channel` message from the given peer.
+					open func handleAcceptChannel(theirNodeId: [UInt8], msg: AcceptChannel) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleAcceptChannel MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming funding_created message from the given peer.
+					/// Handle an incoming `funding_created` message from the given peer.
 					open func handleFundingCreated(theirNodeId: [UInt8], msg: FundingCreated) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleFundingCreated MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming funding_signed message from the given peer.
+					/// Handle an incoming `funding_signed` message from the given peer.
 					open func handleFundingSigned(theirNodeId: [UInt8], msg: FundingSigned) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleFundingSigned MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming channel_ready message from the given peer.
+					/// Handle an incoming `channel_ready` message from the given peer.
 					open func handleChannelReady(theirNodeId: [UInt8], msg: ChannelReady) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleChannelReady MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming shutdown message from the given peer.
-					open func handleShutdown(theirNodeId: [UInt8], theirFeatures: InitFeatures, msg: Shutdown) -> Void {
+					/// Handle an incoming `shutdown` message from the given peer.
+					open func handleShutdown(theirNodeId: [UInt8], msg: Shutdown) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleShutdown MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming closing_signed message from the given peer.
+					/// Handle an incoming `closing_signed` message from the given peer.
 					open func handleClosingSigned(theirNodeId: [UInt8], msg: ClosingSigned) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleClosingSigned MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming update_add_htlc message from the given peer.
+					/// Handle an incoming `update_add_htlc` message from the given peer.
 					open func handleUpdateAddHtlc(theirNodeId: [UInt8], msg: UpdateAddHTLC) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleUpdateAddHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming update_fulfill_htlc message from the given peer.
+					/// Handle an incoming `update_fulfill_htlc` message from the given peer.
 					open func handleUpdateFulfillHtlc(theirNodeId: [UInt8], msg: UpdateFulfillHTLC) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleUpdateFulfillHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming update_fail_htlc message from the given peer.
+					/// Handle an incoming `update_fail_htlc` message from the given peer.
 					open func handleUpdateFailHtlc(theirNodeId: [UInt8], msg: UpdateFailHTLC) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleUpdateFailHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming update_fail_malformed_htlc message from the given peer.
+					/// Handle an incoming `update_fail_malformed_htlc` message from the given peer.
 					open func handleUpdateFailMalformedHtlc(theirNodeId: [UInt8], msg: UpdateFailMalformedHTLC) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleUpdateFailMalformedHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming commitment_signed message from the given peer.
+					/// Handle an incoming `commitment_signed` message from the given peer.
 					open func handleCommitmentSigned(theirNodeId: [UInt8], msg: CommitmentSigned) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleCommitmentSigned MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming revoke_and_ack message from the given peer.
+					/// Handle an incoming `revoke_and_ack` message from the given peer.
 					open func handleRevokeAndAck(theirNodeId: [UInt8], msg: RevokeAndACK) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleRevokeAndAck MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming update_fee message from the given peer.
+					/// Handle an incoming `update_fee` message from the given peer.
 					open func handleUpdateFee(theirNodeId: [UInt8], msg: UpdateFee) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleUpdateFee MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming announcement_signatures message from the given peer.
+					/// Handle an incoming `announcement_signatures` message from the given peer.
 					open func handleAnnouncementSignatures(theirNodeId: [UInt8], msg: AnnouncementSignatures) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleAnnouncementSignatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Indicates a connection to the peer failed/an existing connection was lost. If no connection
-					/// is believed to be possible in the future (eg they're sending us messages we don't
-					/// understand or indicate they require unknown feature bits), no_connection_possible is set
-					/// and any outstanding channels should be failed.
-					/// 
-					/// Note that in some rare cases this may be called without a corresponding
-					/// [`Self::peer_connected`].
-					open func peerDisconnected(theirNodeId: [UInt8], noConnectionPossible: Bool) -> Void {
+					/// Indicates a connection to the peer failed/an existing connection was lost.
+					open func peerDisconnected(theirNodeId: [UInt8]) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::peerDisconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle a peer reconnecting, possibly generating channel_reestablish message(s).
+					/// Handle a peer reconnecting, possibly generating `channel_reestablish` message(s).
 					/// 
 					/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
 					/// with us. Implementors should be somewhat conservative about doing so, however, as other
 					/// message handlers may still wish to communicate with this peer.
-					open func peerConnected(theirNodeId: [UInt8], msg: BindingsInit) -> Result_NoneNoneZ {
+					open func peerConnected(theirNodeId: [UInt8], msg: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						
 						Bindings.print("Error: ChannelMessageHandler::peerConnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming channel_reestablish message from the given peer.
+					/// Handle an incoming `channel_reestablish` message from the given peer.
 					open func handleChannelReestablish(theirNodeId: [UInt8], msg: ChannelReestablish) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleChannelReestablish MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming channel update from the given peer.
+					/// Handle an incoming `channel_update` message from the given peer.
 					open func handleChannelUpdate(theirNodeId: [UInt8], msg: ChannelUpdate) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleChannelUpdate MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Handle an incoming error message from the given peer.
+					/// Handle an incoming `error` message from the given peer.
 					open func handleError(theirNodeId: [UInt8], msg: ErrorMessage) -> Void {
 						
 						Bindings.print("Error: ChannelMessageHandler::handleError MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -715,8 +709,8 @@
 
 				internal class NativelyImplementedChannelMessageHandler: ChannelMessageHandler {
 					
-					/// Handle an incoming open_channel message from the given peer.
-					public override func handleOpenChannel(theirNodeId: [UInt8], theirFeatures: InitFeatures, msg: OpenChannel) {
+					/// Handle an incoming `open_channel` message from the given peer.
+					public override func handleOpenChannel(theirNodeId: [UInt8], msg: OpenChannel) {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -727,7 +721,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKOpenChannel>) in
-				self.cType!.handle_open_channel(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, theirFeatures.dynamicallyDangledClone().cType!, msgPointer)
+				self.cType!.handle_open_channel(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
 						}
 				
 
@@ -743,8 +737,8 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming accept_channel message from the given peer.
-					public override func handleAcceptChannel(theirNodeId: [UInt8], theirFeatures: InitFeatures, msg: AcceptChannel) {
+					/// Handle an incoming `accept_channel` message from the given peer.
+					public override func handleAcceptChannel(theirNodeId: [UInt8], msg: AcceptChannel) {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -755,7 +749,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKAcceptChannel>) in
-				self.cType!.handle_accept_channel(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, theirFeatures.dynamicallyDangledClone().cType!, msgPointer)
+				self.cType!.handle_accept_channel(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
 						}
 				
 
@@ -771,7 +765,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming funding_created message from the given peer.
+					/// Handle an incoming `funding_created` message from the given peer.
 					public override func handleFundingCreated(theirNodeId: [UInt8], msg: FundingCreated) {
 						// native call variable prep
 						
@@ -799,7 +793,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming funding_signed message from the given peer.
+					/// Handle an incoming `funding_signed` message from the given peer.
 					public override func handleFundingSigned(theirNodeId: [UInt8], msg: FundingSigned) {
 						// native call variable prep
 						
@@ -827,7 +821,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming channel_ready message from the given peer.
+					/// Handle an incoming `channel_ready` message from the given peer.
 					public override func handleChannelReady(theirNodeId: [UInt8], msg: ChannelReady) {
 						// native call variable prep
 						
@@ -855,8 +849,8 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming shutdown message from the given peer.
-					public override func handleShutdown(theirNodeId: [UInt8], theirFeatures: InitFeatures, msg: Shutdown) {
+					/// Handle an incoming `shutdown` message from the given peer.
+					public override func handleShutdown(theirNodeId: [UInt8], msg: Shutdown) {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -866,12 +860,8 @@
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: theirFeatures.cType!) { (theirFeaturesPointer: UnsafePointer<LDKInitFeatures>) in
-				
 						withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKShutdown>) in
-				self.cType!.handle_shutdown(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, theirFeaturesPointer, msgPointer)
-						}
-				
+				self.cType!.handle_shutdown(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
 						}
 				
 
@@ -887,7 +877,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming closing_signed message from the given peer.
+					/// Handle an incoming `closing_signed` message from the given peer.
 					public override func handleClosingSigned(theirNodeId: [UInt8], msg: ClosingSigned) {
 						// native call variable prep
 						
@@ -915,7 +905,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming update_add_htlc message from the given peer.
+					/// Handle an incoming `update_add_htlc` message from the given peer.
 					public override func handleUpdateAddHtlc(theirNodeId: [UInt8], msg: UpdateAddHTLC) {
 						// native call variable prep
 						
@@ -943,7 +933,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming update_fulfill_htlc message from the given peer.
+					/// Handle an incoming `update_fulfill_htlc` message from the given peer.
 					public override func handleUpdateFulfillHtlc(theirNodeId: [UInt8], msg: UpdateFulfillHTLC) {
 						// native call variable prep
 						
@@ -971,7 +961,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming update_fail_htlc message from the given peer.
+					/// Handle an incoming `update_fail_htlc` message from the given peer.
 					public override func handleUpdateFailHtlc(theirNodeId: [UInt8], msg: UpdateFailHTLC) {
 						// native call variable prep
 						
@@ -999,7 +989,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming update_fail_malformed_htlc message from the given peer.
+					/// Handle an incoming `update_fail_malformed_htlc` message from the given peer.
 					public override func handleUpdateFailMalformedHtlc(theirNodeId: [UInt8], msg: UpdateFailMalformedHTLC) {
 						// native call variable prep
 						
@@ -1027,7 +1017,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming commitment_signed message from the given peer.
+					/// Handle an incoming `commitment_signed` message from the given peer.
 					public override func handleCommitmentSigned(theirNodeId: [UInt8], msg: CommitmentSigned) {
 						// native call variable prep
 						
@@ -1055,7 +1045,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming revoke_and_ack message from the given peer.
+					/// Handle an incoming `revoke_and_ack` message from the given peer.
 					public override func handleRevokeAndAck(theirNodeId: [UInt8], msg: RevokeAndACK) {
 						// native call variable prep
 						
@@ -1083,7 +1073,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming update_fee message from the given peer.
+					/// Handle an incoming `update_fee` message from the given peer.
 					public override func handleUpdateFee(theirNodeId: [UInt8], msg: UpdateFee) {
 						// native call variable prep
 						
@@ -1111,7 +1101,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming announcement_signatures message from the given peer.
+					/// Handle an incoming `announcement_signatures` message from the given peer.
 					public override func handleAnnouncementSignatures(theirNodeId: [UInt8], msg: AnnouncementSignatures) {
 						// native call variable prep
 						
@@ -1139,14 +1129,8 @@
 						return returnValue
 					}
 		
-					/// Indicates a connection to the peer failed/an existing connection was lost. If no connection
-					/// is believed to be possible in the future (eg they're sending us messages we don't
-					/// understand or indicate they require unknown feature bits), no_connection_possible is set
-					/// and any outstanding channels should be failed.
-					/// 
-					/// Note that in some rare cases this may be called without a corresponding
-					/// [`Self::peer_connected`].
-					public override func peerDisconnected(theirNodeId: [UInt8], noConnectionPossible: Bool) {
+					/// Indicates a connection to the peer failed/an existing connection was lost.
+					public override func peerDisconnected(theirNodeId: [UInt8]) {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -1155,7 +1139,7 @@
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.peer_disconnected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, noConnectionPossible)
+						let nativeCallResult = self.cType!.peer_disconnected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!)
 
 						// cleanup
 						
@@ -1169,12 +1153,12 @@
 						return returnValue
 					}
 		
-					/// Handle a peer reconnecting, possibly generating channel_reestablish message(s).
+					/// Handle a peer reconnecting, possibly generating `channel_reestablish` message(s).
 					/// 
 					/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
 					/// with us. Implementors should be somewhat conservative about doing so, however, as other
 					/// message handlers may still wish to communicate with this peer.
-					public override func peerConnected(theirNodeId: [UInt8], msg: BindingsInit) -> Result_NoneNoneZ {
+					public override func peerConnected(theirNodeId: [UInt8], msg: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -1185,7 +1169,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKInit>) in
-				self.cType!.peer_connected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				self.cType!.peer_connected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer, inbound)
 						}
 				
 
@@ -1201,7 +1185,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming channel_reestablish message from the given peer.
+					/// Handle an incoming `channel_reestablish` message from the given peer.
 					public override func handleChannelReestablish(theirNodeId: [UInt8], msg: ChannelReestablish) {
 						// native call variable prep
 						
@@ -1229,7 +1213,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming channel update from the given peer.
+					/// Handle an incoming `channel_update` message from the given peer.
 					public override func handleChannelUpdate(theirNodeId: [UInt8], msg: ChannelUpdate) {
 						// native call variable prep
 						
@@ -1257,7 +1241,7 @@
 						return returnValue
 					}
 		
-					/// Handle an incoming error message from the given peer.
+					/// Handle an incoming `error` message from the given peer.
 					public override func handleError(theirNodeId: [UInt8], msg: ErrorMessage) {
 						// native call variable prep
 						

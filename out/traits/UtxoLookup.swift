@@ -6,23 +6,21 @@
 			// necessary for abort() calls
 			import Foundation
 
-			/// The `Access` trait defines behavior for accessing chain data and state, such as blocks and
-			/// UTXOs.
-			public typealias Access = Bindings.Access
+			/// The `UtxoLookup` trait defines behavior for accessing on-chain UTXOs.
+			public typealias UtxoLookup = Bindings.UtxoLookup
 
 			extension Bindings {
 
-				/// The `Access` trait defines behavior for accessing chain data and state, such as blocks and
-				/// UTXOs.
-				open class Access: NativeTraitWrapper {
+				/// The `UtxoLookup` trait defines behavior for accessing on-chain UTXOs.
+				open class UtxoLookup: NativeTraitWrapper {
 
 					
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKAccess?
+					internal var cType: LDKUtxoLookup?
 
-					internal init(cType: LDKAccess) {
+					internal init(cType: LDKUtxoLookup) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -30,7 +28,7 @@
 						super.init(conflictAvoidingVariableName: 0)
 					}
 
-					internal init(cType: LDKAccess, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKUtxoLookup, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -51,8 +49,8 @@
 						
 
 						
-						func getUtxoLambda(this_arg: UnsafeRawPointer?, genesis_hash: UnsafePointer<UInt8Tuple32>?, short_channel_id: UInt64) -> LDKCResult_TxOutAccessErrorZ {
-							let instance: Access = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Access::getUtxoLambda")
+						func getUtxoLambda(this_arg: UnsafeRawPointer?, genesis_hash: UnsafePointer<UInt8Tuple32>?, short_channel_id: UInt64) -> LDKUtxoResult {
+							let instance: UtxoLookup = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "UtxoLookup::getUtxoLambda")
 
 							// Swift callback variable prep
 							
@@ -75,7 +73,7 @@
 						}
 		
 						func freeLambda(this_arg: UnsafeMutableRawPointer?) -> Void {
-							let instance: Access = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Access::freeLambda")
+							let instance: UtxoLookup = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "UtxoLookup::freeLambda")
 
 							// Swift callback variable prep
 											
@@ -93,7 +91,7 @@
 						}
 		
 
-						self.cType = LDKAccess(							
+						self.cType = LDKUtxoLookup(							
 							this_arg: thisArg,
 							get_utxo: getUtxoLambda,
 							free: freeLambda
@@ -106,9 +104,9 @@
 					/// is unknown.
 					/// 
 					/// [`short_channel_id`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#definition-of-short_channel_id
-					open func getUtxo(genesisHash: [UInt8]?, shortChannelId: UInt64) -> Result_TxOutAccessErrorZ {
+					open func getUtxo(genesisHash: [UInt8]?, shortChannelId: UInt64) -> UtxoResult {
 						
-						Bindings.print("Error: Access::getUtxo MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: UtxoLookup::getUtxo MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -119,7 +117,7 @@
 				// TODO: figure out something smarter
 				return; // the semicolon is necessary because Swift is whitespace-agnostic
 			
-						Bindings.print("Error: Access::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: UtxoLookup::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -128,7 +126,7 @@
 
 					
 
-					internal func dangle(_ shouldDangle: Bool = true) -> Access {
+					internal func dangle(_ shouldDangle: Bool = true) -> UtxoLookup {
         				self.dangling = shouldDangle
 						return self
 					}
@@ -139,22 +137,22 @@
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Access \(self.instanceNumber).")
+							Bindings.print("Freeing UtxoLookup \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing Access \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing UtxoLookup \(self.instanceNumber) due to dangle.")
 						}
 					}
 				}
 
-				internal class NativelyImplementedAccess: Access {
+				internal class NativelyImplementedUtxoLookup: UtxoLookup {
 					
 					/// Returns the transaction output of a funding transaction encoded by [`short_channel_id`].
 					/// Returns an error if `genesis_hash` is for a different chain or if such a transaction output
 					/// is unknown.
 					/// 
 					/// [`short_channel_id`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#definition-of-short_channel_id
-					public override func getUtxo(genesisHash: [UInt8]?, shortChannelId: UInt64) -> Result_TxOutAccessErrorZ {
+					public override func getUtxo(genesisHash: [UInt8]?, shortChannelId: UInt64) -> UtxoResult {
 						// native call variable prep
 						
 					var tupledGenesisHashPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
@@ -176,7 +174,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_TxOutAccessErrorZ(cType: nativeCallResult)
+						let returnValue = UtxoResult(cType: nativeCallResult)
 
 						return returnValue
 					}

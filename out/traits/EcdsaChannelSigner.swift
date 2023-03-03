@@ -13,7 +13,7 @@
 			/// policies in order to be secure. Please refer to the [VLS Policy
 			/// Controls](https://gitlab.com/lightning-signer/validating-lightning-signer/-/blob/main/docs/policy-controls.md)
 			/// for an example of such policies.
-			public typealias BaseSign = Bindings.BaseSign
+			public typealias EcdsaChannelSigner = Bindings.EcdsaChannelSigner
 
 			extension Bindings {
 
@@ -24,15 +24,15 @@
 				/// policies in order to be secure. Please refer to the [VLS Policy
 				/// Controls](https://gitlab.com/lightning-signer/validating-lightning-signer/-/blob/main/docs/policy-controls.md)
 				/// for an example of such policies.
-				open class BaseSign: NativeTraitWrapper {
+				open class EcdsaChannelSigner: NativeTraitWrapper {
 
 					
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKBaseSign?
+					internal var cType: LDKEcdsaChannelSigner?
 
-					internal init(cType: LDKBaseSign) {
+					internal init(cType: LDKEcdsaChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -40,7 +40,7 @@
 						super.init(conflictAvoidingVariableName: 0)
 					}
 
-					internal init(cType: LDKBaseSign, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKEcdsaChannelSigner, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -51,7 +51,7 @@
 					}
 		
 
-					public init(pubkeys: ChannelPublicKeys) {
+					public init(ChannelSigner: ChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -61,80 +61,8 @@
 						
 
 						
-						func getPerCommitmentPointLambda(this_arg: UnsafeRawPointer?, idx: UInt64) -> LDKPublicKey {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::getPerCommitmentPointLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.getPerCommitmentPoint(idx: idx)
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = PublicKey(value: swiftCallbackResult).dangle().cType!
-
-							return returnValue
-						}
-		
-						func releaseCommitmentSecretLambda(this_arg: UnsafeRawPointer?, idx: UInt64) -> LDKThirtyTwoBytes {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::releaseCommitmentSecretLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.releaseCommitmentSecret(idx: idx)
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
-
-							return returnValue
-						}
-		
-						func validateHolderCommitmentLambda(this_arg: UnsafeRawPointer?, holder_tx: UnsafePointer<LDKHolderCommitmentTransaction>, preimages: LDKCVec_PaymentPreimageZ) -> LDKCResult_NoneNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::validateHolderCommitmentLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.validateHolderCommitment(holderTx: HolderCommitmentTransaction(cType: holder_tx.pointee).dangle().clone(), preimages: Vec_PaymentPreimageZ(cType: preimages).getValue())
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult.cType!
-
-							return returnValue
-						}
-		
-						func channelKeysIdLambda(this_arg: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::channelKeysIdLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.channelKeysId()
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
-
-							return returnValue
-						}
-		
 						func signCounterpartyCommitmentLambda(this_arg: UnsafeRawPointer?, commitment_tx: UnsafePointer<LDKCommitmentTransaction>, preimages: LDKCVec_PaymentPreimageZ) -> LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signCounterpartyCommitmentLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signCounterpartyCommitmentLambda")
 
 							// Swift callback variable prep
 											
@@ -152,7 +80,7 @@
 						}
 		
 						func validateCounterpartyRevocationLambda(this_arg: UnsafeRawPointer?, idx: UInt64, secret: UnsafePointer<UInt8Tuple32>?) -> LDKCResult_NoneNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::validateCounterpartyRevocationLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::validateCounterpartyRevocationLambda")
 
 							// Swift callback variable prep
 							
@@ -175,7 +103,7 @@
 						}
 		
 						func signHolderCommitmentAndHtlcsLambda(this_arg: UnsafeRawPointer?, commitment_tx: UnsafePointer<LDKHolderCommitmentTransaction>) -> LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signHolderCommitmentAndHtlcsLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderCommitmentAndHtlcsLambda")
 
 							// Swift callback variable prep
 											
@@ -193,7 +121,7 @@
 						}
 		
 						func signJusticeRevokedOutputLambda(this_arg: UnsafeRawPointer?, justice_tx: LDKTransaction, input: UInt, amount: UInt64, per_commitment_key: UnsafePointer<UInt8Tuple32>?) -> LDKCResult_SignatureNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signJusticeRevokedOutputLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signJusticeRevokedOutputLambda")
 
 							// Swift callback variable prep
 							
@@ -216,7 +144,7 @@
 						}
 		
 						func signJusticeRevokedHtlcLambda(this_arg: UnsafeRawPointer?, justice_tx: LDKTransaction, input: UInt, amount: UInt64, per_commitment_key: UnsafePointer<UInt8Tuple32>?, htlc: UnsafePointer<LDKHTLCOutputInCommitment>) -> LDKCResult_SignatureNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signJusticeRevokedHtlcLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signJusticeRevokedHtlcLambda")
 
 							// Swift callback variable prep
 							
@@ -239,7 +167,7 @@
 						}
 		
 						func signCounterpartyHtlcTransactionLambda(this_arg: UnsafeRawPointer?, htlc_tx: LDKTransaction, input: UInt, amount: UInt64, per_commitment_point: LDKPublicKey, htlc: UnsafePointer<LDKHTLCOutputInCommitment>) -> LDKCResult_SignatureNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signCounterpartyHtlcTransactionLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signCounterpartyHtlcTransactionLambda")
 
 							// Swift callback variable prep
 											
@@ -257,7 +185,7 @@
 						}
 		
 						func signClosingTransactionLambda(this_arg: UnsafeRawPointer?, closing_tx: UnsafePointer<LDKClosingTransaction>) -> LDKCResult_SignatureNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signClosingTransactionLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signClosingTransactionLambda")
 
 							// Swift callback variable prep
 											
@@ -275,7 +203,7 @@
 						}
 		
 						func signHolderAnchorInputLambda(this_arg: UnsafeRawPointer?, anchor_tx: LDKTransaction, input: UInt) -> LDKCResult_SignatureNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signHolderAnchorInputLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderAnchorInputLambda")
 
 							// Swift callback variable prep
 											
@@ -292,14 +220,14 @@
 							return returnValue
 						}
 		
-						func signChannelAnnouncementLambda(this_arg: UnsafeRawPointer?, msg: UnsafePointer<LDKUnsignedChannelAnnouncement>) -> LDKCResult_C2Tuple_SignatureSignatureZNoneZ {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::signChannelAnnouncementLambda")
+						func signChannelAnnouncementWithFundingKeyLambda(this_arg: UnsafeRawPointer?, msg: UnsafePointer<LDKUnsignedChannelAnnouncement>) -> LDKCResult_SignatureNoneZ {
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signChannelAnnouncementWithFundingKeyLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signChannelAnnouncement(msg: UnsignedChannelAnnouncement(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement(cType: msg.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -310,26 +238,8 @@
 							return returnValue
 						}
 		
-						func provideChannelParametersLambda(this_arg: UnsafeMutableRawPointer?, channel_parameters: UnsafePointer<LDKChannelTransactionParameters>) -> Void {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::provideChannelParametersLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.provideChannelParameters(channelParameters: ChannelTransactionParameters(cType: channel_parameters.pointee).dangle().clone())
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult
-
-							return returnValue
-						}
-		
 						func freeLambda(this_arg: UnsafeMutableRawPointer?) -> Void {
-							let instance: BaseSign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "BaseSign::freeLambda")
+							let instance: EcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::freeLambda")
 
 							// Swift callback variable prep
 											
@@ -347,14 +257,8 @@
 						}
 		
 
-						self.cType = LDKBaseSign(							
+						self.cType = LDKEcdsaChannelSigner(							
 							this_arg: thisArg,
-							get_per_commitment_point: getPerCommitmentPointLambda,
-							release_commitment_secret: releaseCommitmentSecretLambda,
-							validate_holder_commitment: validateHolderCommitmentLambda,
-							pubkeys: pubkeys.dynamicallyDangledClone().cType!,
-							set_pubkeys: nil,
-							channel_keys_id: channelKeysIdLambda,
 							sign_counterparty_commitment: signCounterpartyCommitmentLambda,
 							validate_counterparty_revocation: validateCounterpartyRevocationLambda,
 							sign_holder_commitment_and_htlcs: signHolderCommitmentAndHtlcsLambda,
@@ -363,64 +267,13 @@
 							sign_counterparty_htlc_transaction: signCounterpartyHtlcTransactionLambda,
 							sign_closing_transaction: signClosingTransactionLambda,
 							sign_holder_anchor_input: signHolderAnchorInputLambda,
-							sign_channel_announcement: signChannelAnnouncementLambda,
-							provide_channel_parameters: provideChannelParametersLambda,
+							sign_channel_announcement_with_funding_key: signChannelAnnouncementWithFundingKeyLambda,
+							ChannelSigner: ChannelSigner.activate().cType!,
 							free: freeLambda
 						)
 					}
 
 					
-					/// Gets the per-commitment point for a specific commitment number
-					/// 
-					/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-					open func getPerCommitmentPoint(idx: UInt64) -> [UInt8] {
-						
-						Bindings.print("Error: BaseSign::getPerCommitmentPoint MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Gets the commitment secret for a specific commitment number as part of the revocation process
-					/// 
-					/// An external signer implementation should error here if the commitment was already signed
-					/// and should refuse to sign it in the future.
-					/// 
-					/// May be called more than once for the same index.
-					/// 
-					/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-					open func releaseCommitmentSecret(idx: UInt64) -> [UInt8] {
-						
-						Bindings.print("Error: BaseSign::releaseCommitmentSecret MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Validate the counterparty's signatures on the holder commitment transaction and HTLCs.
-					/// 
-					/// This is required in order for the signer to make sure that releasing a commitment
-					/// secret won't leave us without a broadcastable holder transaction.
-					/// Policy checks should be implemented in this function, including checking the amount
-					/// sent to us and checking the HTLCs.
-					/// 
-					/// The preimages of outgoing HTLCs that were fulfilled since the last commitment are provided.
-					/// A validating signer should ensure that an HTLC output is removed only when the matching
-					/// preimage is provided, or when the value to holder is restored.
-					/// 
-					/// Note that all the relevant preimages will be provided, but there may also be additional
-					/// irrelevant or duplicate preimages.
-					open func validateHolderCommitment(holderTx: HolderCommitmentTransaction, preimages: [[UInt8]]) -> Result_NoneNoneZ {
-						
-						Bindings.print("Error: BaseSign::validateHolderCommitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Returns an arbitrary identifier describing the set of keys which are provided back to you in
-					/// some [`SpendableOutputDescriptor`] types. This should be sufficient to identify this
-					/// [`BaseSign`] object uniquely and lookup or re-derive its keys.
-					open func channelKeysId() -> [UInt8] {
-						
-						Bindings.print("Error: BaseSign::channelKeysId MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
 					/// Create a signature for a counterparty's commitment transaction and associated HTLC transactions.
 					/// 
 					/// Note that if signing fails or is rejected, the channel will be force-closed.
@@ -436,7 +289,7 @@
 					/// irrelevant or duplicate preimages.
 					open func signCounterpartyCommitment(commitmentTx: CommitmentTransaction, preimages: [[UInt8]]) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 						
-						Bindings.print("Error: BaseSign::signCounterpartyCommitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signCounterpartyCommitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -446,7 +299,7 @@
 					/// forward and it is safe to sign the next counterparty commitment.
 					open func validateCounterpartyRevocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
 						
-						Bindings.print("Error: BaseSign::validateCounterpartyRevocation MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::validateCounterpartyRevocation MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -467,7 +320,7 @@
 					/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 					open func signHolderCommitmentAndHtlcs(commitmentTx: HolderCommitmentTransaction) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 						
-						Bindings.print("Error: BaseSign::signHolderCommitmentAndHtlcs MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signHolderCommitmentAndHtlcs MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -487,7 +340,7 @@
 					/// so).
 					open func signJusticeRevokedOutput(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?) -> Result_SignatureNoneZ {
 						
-						Bindings.print("Error: BaseSign::signJusticeRevokedOutput MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signJusticeRevokedOutput MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -511,7 +364,7 @@
 					/// (which is committed to in the BIP 143 signatures).
 					open func signJusticeRevokedHtlc(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 						
-						Bindings.print("Error: BaseSign::signJusticeRevokedHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signJusticeRevokedHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -534,7 +387,7 @@
 					/// BIP 143 signature.
 					open func signCounterpartyHtlcTransaction(htlcTx: [UInt8], input: UInt, amount: UInt64, perCommitmentPoint: [UInt8], htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 						
-						Bindings.print("Error: BaseSign::signCounterpartyHtlcTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signCounterpartyHtlcTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -544,7 +397,7 @@
 					/// chosen to forgo their output as dust.
 					open func signClosingTransaction(closingTx: ClosingTransaction) -> Result_SignatureNoneZ {
 						
-						Bindings.print("Error: BaseSign::signClosingTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signClosingTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -552,34 +405,22 @@
 					/// input within `anchor_tx`, which spends the commitment transaction, at index `input`.
 					open func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_SignatureNoneZ {
 						
-						Bindings.print("Error: BaseSign::signHolderAnchorInput MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signHolderAnchorInput MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
-					/// Signs a channel announcement message with our funding key and our node secret key (aka
-					/// node_id or network_key), proving it comes from one of the channel participants.
+					/// Signs a channel announcement message with our funding key proving it comes from one of the
+					/// channel participants.
 					/// 
-					/// The first returned signature should be from our node secret key, the second from our
-					/// funding key.
+					/// Channel announcements also require a signature from each node's network key. Our node
+					/// signature is computed through [`NodeSigner::sign_gossip_message`].
 					/// 
 					/// Note that if this fails or is rejected, the channel will not be publicly announced and
 					/// our counterparty may (though likely will not) close the channel on us for violating the
 					/// protocol.
-					open func signChannelAnnouncement(msg: UnsignedChannelAnnouncement) -> Result_C2Tuple_SignatureSignatureZNoneZ {
+					open func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement) -> Result_SignatureNoneZ {
 						
-						Bindings.print("Error: BaseSign::signChannelAnnouncement MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
-		
-					/// Set the counterparty static channel data, including basepoints,
-					/// `counterparty_selected`/`holder_selected_contest_delay` and funding outpoint. Since these
-					/// are static channel data, they MUST NOT be allowed to change to different values once set,
-					/// as LDK may call this method more than once.
-					/// 
-					/// channel_parameters.is_populated() MUST be true.
-					open func provideChannelParameters(channelParameters: ChannelTransactionParameters) -> Void {
-						
-						Bindings.print("Error: BaseSign::provideChannelParameters MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::signChannelAnnouncementWithFundingKey MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -590,7 +431,7 @@
 				// TODO: figure out something smarter
 				return; // the semicolon is necessary because Swift is whitespace-agnostic
 			
-						Bindings.print("Error: BaseSign::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: EcdsaChannelSigner::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -598,16 +439,16 @@
 					
 
 					
-					/// Returns the holder's channel public keys and basepoints.
-					public func getPubkeys() -> ChannelPublicKeys {
+					/// Implementation of ChannelSigner for this object.
+					public func getChannelSigner() -> ChannelSigner {
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: self.cType!.pubkeys, anchor: self)
+						let returnValue = NativelyImplementedChannelSigner(cType: self.cType!.ChannelSigner, anchor: self)
 
 						return returnValue;
 					}
 		
 
-					internal func dangle(_ shouldDangle: Bool = true) -> BaseSign {
+					internal func dangle(_ shouldDangle: Bool = true) -> EcdsaChannelSigner {
         				self.dangling = shouldDangle
 						return self
 					}
@@ -618,123 +459,16 @@
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing BaseSign \(self.instanceNumber).")
+							Bindings.print("Freeing EcdsaChannelSigner \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing BaseSign \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing EcdsaChannelSigner \(self.instanceNumber) due to dangle.")
 						}
 					}
 				}
 
-				internal class NativelyImplementedBaseSign: BaseSign {
+				internal class NativelyImplementedEcdsaChannelSigner: EcdsaChannelSigner {
 					
-					/// Gets the per-commitment point for a specific commitment number
-					/// 
-					/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-					public override func getPerCommitmentPoint(idx: UInt64) -> [UInt8] {
-						// native call variable prep
-						
-
-						
-
-						// native method call
-						let nativeCallResult = self.cType!.get_per_commitment_point(self.cType!.this_arg, idx)
-
-						// cleanup
-						
-
-						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult).getValue()
-
-						return returnValue
-					}
-		
-					/// Gets the commitment secret for a specific commitment number as part of the revocation process
-					/// 
-					/// An external signer implementation should error here if the commitment was already signed
-					/// and should refuse to sign it in the future.
-					/// 
-					/// May be called more than once for the same index.
-					/// 
-					/// Note that the commitment number starts at `(1 << 48) - 1` and counts backwards.
-					public override func releaseCommitmentSecret(idx: UInt64) -> [UInt8] {
-						// native call variable prep
-						
-
-						
-
-						// native method call
-						let nativeCallResult = self.cType!.release_commitment_secret(self.cType!.this_arg, idx)
-
-						// cleanup
-						
-
-						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
-
-						return returnValue
-					}
-		
-					/// Validate the counterparty's signatures on the holder commitment transaction and HTLCs.
-					/// 
-					/// This is required in order for the signer to make sure that releasing a commitment
-					/// secret won't leave us without a broadcastable holder transaction.
-					/// Policy checks should be implemented in this function, including checking the amount
-					/// sent to us and checking the HTLCs.
-					/// 
-					/// The preimages of outgoing HTLCs that were fulfilled since the last commitment are provided.
-					/// A validating signer should ensure that an HTLC output is removed only when the matching
-					/// preimage is provided, or when the value to holder is restored.
-					/// 
-					/// Note that all the relevant preimages will be provided, but there may also be additional
-					/// irrelevant or duplicate preimages.
-					public override func validateHolderCommitment(holderTx: HolderCommitmentTransaction, preimages: [[UInt8]]) -> Result_NoneNoneZ {
-						// native call variable prep
-						
-						let preimagesVector = Vec_PaymentPreimageZ(array: preimages).dangle()
-				
-
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: holderTx.cType!) { (holderTxPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
-				self.cType!.validate_holder_commitment(self.cType!.this_arg, holderTxPointer, preimagesVector.cType!)
-						}
-				
-
-						// cleanup
-						
-						// preimagesVector.noOpRetain()
-				
-
-						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult)
-
-						return returnValue
-					}
-		
-					/// Returns an arbitrary identifier describing the set of keys which are provided back to you in
-					/// some [`SpendableOutputDescriptor`] types. This should be sufficient to identify this
-					/// [`BaseSign`] object uniquely and lookup or re-derive its keys.
-					public override func channelKeysId() -> [UInt8] {
-						// native call variable prep
-						
-
-						
-
-						// native method call
-						let nativeCallResult = self.cType!.channel_keys_id(self.cType!.this_arg)
-
-						// cleanup
-						
-
-						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
-
-						return returnValue
-					}
-		
 					/// Create a signature for a counterparty's commitment transaction and associated HTLC transactions.
 					/// 
 					/// Note that if signing fails or is rejected, the channel will be force-closed.
@@ -1042,16 +776,16 @@
 						return returnValue
 					}
 		
-					/// Signs a channel announcement message with our funding key and our node secret key (aka
-					/// node_id or network_key), proving it comes from one of the channel participants.
+					/// Signs a channel announcement message with our funding key proving it comes from one of the
+					/// channel participants.
 					/// 
-					/// The first returned signature should be from our node secret key, the second from our
-					/// funding key.
+					/// Channel announcements also require a signature from each node's network key. Our node
+					/// signature is computed through [`NodeSigner::sign_gossip_message`].
 					/// 
 					/// Note that if this fails or is rejected, the channel will not be publicly announced and
 					/// our counterparty may (though likely will not) close the channel on us for violating the
 					/// protocol.
-					public override func signChannelAnnouncement(msg: UnsignedChannelAnnouncement) -> Result_C2Tuple_SignatureSignatureZNoneZ {
+					public override func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
 
@@ -1060,7 +794,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
-				self.cType!.sign_channel_announcement(self.cType!.this_arg, msgPointer)
+				self.cType!.sign_channel_announcement_with_funding_key(self.cType!.this_arg, msgPointer)
 						}
 				
 
@@ -1068,35 +802,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_SignatureSignatureZNoneZ(cType: nativeCallResult)
-
-						return returnValue
-					}
-		
-					/// Set the counterparty static channel data, including basepoints,
-					/// `counterparty_selected`/`holder_selected_contest_delay` and funding outpoint. Since these
-					/// are static channel data, they MUST NOT be allowed to change to different values once set,
-					/// as LDK may call this method more than once.
-					/// 
-					/// channel_parameters.is_populated() MUST be true.
-					public override func provideChannelParameters(channelParameters: ChannelTransactionParameters) {
-						// native call variable prep
-						
-
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: channelParameters.cType!) { (channelParametersPointer: UnsafePointer<LDKChannelTransactionParameters>) in
-				self.cType!.provide_channel_parameters(self.cType!.this_arg, channelParametersPointer)
-						}
-				
-
-						// cleanup
-						
-
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
 
 						return returnValue
 					}

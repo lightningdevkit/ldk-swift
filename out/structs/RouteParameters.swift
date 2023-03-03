@@ -7,7 +7,7 @@
 			/// Parameters needed to find a [`Route`].
 			/// 
 			/// Passed to [`find_route`] and [`build_route_from_hops`], but also provided in
-			/// [`Event::PaymentPathFailed`] for retrying a failed payment path.
+			/// [`Event::PaymentPathFailed`].
 			/// 
 			/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
 			public typealias RouteParameters = Bindings.RouteParameters
@@ -18,7 +18,7 @@
 				/// Parameters needed to find a [`Route`].
 				/// 
 				/// Passed to [`find_route`] and [`build_route_from_hops`], but also provided in
-				/// [`Event::PaymentPathFailed`] for retrying a failed payment path.
+				/// [`Event::PaymentPathFailed`].
 				/// 
 				/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
 				public class RouteParameters: NativeTypeWrapper {
@@ -162,59 +162,13 @@
 						return returnValue
 					}
 		
-					/// The CLTV on the final hop of the failed payment path.
-					public func getFinalCltvExpiryDelta() -> UInt32 {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKRouteParameters>) in
-				RouteParameters_get_final_cltv_expiry_delta(thisPtrPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
-					/// The CLTV on the final hop of the failed payment path.
-					public func setFinalCltvExpiryDelta(val: UInt32) {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKRouteParameters>) in
-				RouteParameters_set_final_cltv_expiry_delta(thisPtrPointer, val)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
 					/// Constructs a new RouteParameters given each field
-					public init(paymentParamsArg: PaymentParameters, finalValueMsatArg: UInt64, finalCltvExpiryDeltaArg: UInt32) {
+					public init(paymentParamsArg: PaymentParameters, finalValueMsatArg: UInt64) {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = RouteParameters_new(paymentParamsArg.dynamicallyDangledClone().cType!, finalValueMsatArg, finalCltvExpiryDeltaArg)
+						let nativeCallResult = RouteParameters_new(paymentParamsArg.dynamicallyDangledClone().cType!, finalValueMsatArg)
 
 						// cleanup
 						
@@ -253,6 +207,35 @@
 						
 						// return value (do some wrapping)
 						let returnValue = RouteParameters(cType: nativeCallResult)
+						
+
+						return returnValue
+					}
+		
+					/// Checks if two RouteParameterss contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					/// Two objects with NULL inner values will be considered "equal" here.
+					public class func eq(a: RouteParameters, b: RouteParameters) -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKRouteParameters>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKRouteParameters>) in
+				RouteParameters_eq(aPointer, bPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
 						
 
 						return returnValue

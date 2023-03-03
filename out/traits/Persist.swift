@@ -105,14 +105,14 @@
 							return returnValue
 						}
 		
-						func updatePersistedChannelLambda(this_arg: UnsafeRawPointer?, channel_id: LDKOutPoint, update: UnsafePointer<LDKChannelMonitorUpdate>, data: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
+						func updatePersistedChannelLambda(this_arg: UnsafeRawPointer?, channel_id: LDKOutPoint, update: LDKChannelMonitorUpdate, data: UnsafePointer<LDKChannelMonitor>, update_id: LDKMonitorUpdateId) -> LDKChannelMonitorUpdateStatus {
 							let instance: Persist = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Persist::updatePersistedChannelLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.updatePersistedChannel(channelId: OutPoint(cType: channel_id), update: ChannelMonitorUpdate(cType: update.pointee).dangle().clone(), data: ChannelMonitor(cType: data.pointee).dangle().clone(), updateId: MonitorUpdateId(cType: update_id))
+							let swiftCallbackResult = instance.updatePersistedChannel(channelId: OutPoint(cType: channel_id), update: ChannelMonitorUpdate(cType: update), data: ChannelMonitor(cType: data.pointee).dangle().clone(), updateId: MonitorUpdateId(cType: update_id))
 
 							// cleanup
 							
@@ -330,12 +330,8 @@
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: update.cType!) { (updatePointer: UnsafePointer<LDKChannelMonitorUpdate>) in
-				
 						withUnsafePointer(to: data.cType!) { (dataPointer: UnsafePointer<LDKChannelMonitor>) in
-				self.cType!.update_persisted_channel(self.cType!.this_arg, channelId.dynamicallyDangledClone().cType!, updatePointer, dataPointer, updateId.dynamicallyDangledClone().cType!)
-						}
-				
+				self.cType!.update_persisted_channel(self.cType!.this_arg, channelId.dynamicallyDangledClone().cType!, update.dynamicallyDangledClone().cType!, dataPointer, updateId.dynamicallyDangledClone().cType!)
 						}
 				
 

@@ -112,73 +112,6 @@
 						return returnValue
 					}
 		
-					/// Lowest fees enabling routing via any of the enabled, known channels to a node.
-					/// The two fields (flat and proportional fee) are independent,
-					/// meaning they don't have to refer to the same channel.
-					/// 
-					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public func getLowestInboundChannelFees() -> RoutingFees? {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeInfo>) in
-				NodeInfo_get_lowest_inbound_channel_fees(thisPtrPointer)
-						}
-				
-
-						// cleanup
-						
-				// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
-				// Type group: RustStruct
-				// Type: LDKRoutingFees
-			
-					if nativeCallResult.inner == nil {
-						return nil
-					}
-
-					let pointerValue = UInt(bitPattern: nativeCallResult.inner)
-					if pointerValue == 0 {
-						return nil
-					}
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = RoutingFees(cType: nativeCallResult, anchor: self).dangle(false)
-						
-
-						return returnValue
-					}
-		
-					/// Lowest fees enabling routing via any of the enabled, known channels to a node.
-					/// The two fields (flat and proportional fee) are independent,
-					/// meaning they don't have to refer to the same channel.
-					/// 
-					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public func setLowestInboundChannelFees(val: RoutingFees) {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeInfo>) in
-				NodeInfo_set_lowest_inbound_channel_fees(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
 					/// More information about a node from node_announcement.
 					/// Optional because we store a Node entry after learning about it from
 					/// a channel announcement, but before receiving a node announcement.
@@ -247,14 +180,14 @@
 					}
 		
 					/// Constructs a new NodeInfo given each field
-					public init(channelsArg: [UInt64], lowestInboundChannelFeesArg: RoutingFees, announcementInfoArg: NodeAnnouncementInfo) {
+					public init(channelsArg: [UInt64], announcementInfoArg: NodeAnnouncementInfo) {
 						// native call variable prep
 						
 						let channelsArgVector = Vec_u64Z(array: channelsArg).dangle()
 				
 
 						// native method call
-						let nativeCallResult = NodeInfo_new(channelsArgVector.cType!, lowestInboundChannelFeesArg.dynamicallyDangledClone().cType!, announcementInfoArg.dynamicallyDangledClone().cType!)
+						let nativeCallResult = NodeInfo_new(channelsArgVector.cType!, announcementInfoArg.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						

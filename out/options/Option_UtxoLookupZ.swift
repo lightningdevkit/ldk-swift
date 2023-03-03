@@ -4,20 +4,20 @@
 			#endif
 
 			/// 
-			internal typealias Option_AccessZ = Bindings.Option_AccessZ
+			internal typealias Option_UtxoLookupZ = Bindings.Option_UtxoLookupZ
 
 			extension Bindings {
 
-				/// An enum which can either contain a crate::lightning::chain::Access or not
-				internal class Option_AccessZ: NativeTypeWrapper {
+				/// An enum which can either contain a crate::lightning::routing::utxo::UtxoLookup or not
+				internal class Option_UtxoLookupZ: NativeTypeWrapper {
 
 					
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKCOption_AccessZ?
+					internal var cType: LDKCOption_UtxoLookupZ?
 
-					internal init(cType: LDKCOption_AccessZ) {
+					internal init(cType: LDKCOption_UtxoLookupZ) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -25,7 +25,7 @@
 						super.init(conflictAvoidingVariableName: 0)
 					}
 
-					internal init(cType: LDKCOption_AccessZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_UtxoLookupZ, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -36,28 +36,28 @@
 					}
 		
 
-					public init(some: Access?) {
+					public init(some: UtxoLookup?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 														
-							self.cType = COption_AccessZ_some(some.activate().cType!)
+							self.cType = COption_UtxoLookupZ_some(some.activate().cType!)
 						} else {
-							self.cType = COption_AccessZ_none()
+							self.cType = COption_UtxoLookupZ_none()
 						}
 
 						super.init(conflictAvoidingVariableName: 0)
 					}
 
 					
-					/// Frees any resources associated with the crate::lightning::chain::Access, if we are in the Some state
+					/// Frees any resources associated with the crate::lightning::routing::utxo::UtxoLookup, if we are in the Some state
 					internal func free() {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = COption_AccessZ_free(self.cType!)
+						let nativeCallResult = COption_UtxoLookupZ_free(self.cType!)
 
 						// cleanup
 						
@@ -71,18 +71,18 @@
 					}
 		
 
-					public func getValue() -> Access? {
-						if self.cType!.tag == LDKCOption_AccessZ_None {
+					public func getValue() -> UtxoLookup? {
+						if self.cType!.tag == LDKCOption_UtxoLookupZ_None {
 							return nil
 						}
-						if self.cType!.tag == LDKCOption_AccessZ_Some {
-							return NativelyImplementedAccess(cType: self.cType!.some, anchor: self).dangle()
+						if self.cType!.tag == LDKCOption_UtxoLookupZ_Some {
+							return NativelyImplementedUtxoLookup(cType: self.cType!.some, anchor: self).dangle()
 						}
 						assert(false, "invalid option enum value")
 						return nil
 					}
 
-					internal func dangle(_ shouldDangle: Bool = true) -> Option_AccessZ {
+					internal func dangle(_ shouldDangle: Bool = true) -> Option_UtxoLookupZ {
         				self.dangling = shouldDangle
 						return self
 					}
@@ -94,11 +94,11 @@
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Option_AccessZ \(self.instanceNumber).")
+							Bindings.print("Freeing Option_UtxoLookupZ \(self.instanceNumber).")
 							
 							self.free()
 						} else {
-							Bindings.print("Not freeing Option_AccessZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Option_UtxoLookupZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 			

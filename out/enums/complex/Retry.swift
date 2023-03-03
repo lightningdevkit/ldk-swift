@@ -10,7 +10,7 @@
 
 			extension Bindings {
 
-				/// Strategies available to retry payment path failures for an [`Invoice`].
+				/// Strategies available to retry payment path failures.
 				public class Retry: NativeTypeWrapper {
 
 					
@@ -42,12 +42,15 @@
 						
 						/// Max number of attempts to retry payment.
 						/// 
-						/// Note that this is the number of *path* failures, not full payment retries. For multi-path
-						/// payments, if this is less than the total number of paths, we will never even retry all of the
-						/// payment's paths.
+						/// Each attempt may be multiple HTLCs along multiple paths if the router decides to split up a
+						/// retry, and may retry multiple failed HTLCs at once if they failed around the same time and
+						/// were retried along a route from a single call to [`Router::find_route`].
 						case Attempts
 			
-						/// Time elapsed before abandoning retries for a payment.
+						/// Time elapsed before abandoning retries for a payment. At least one attempt at payment is made;
+						/// see [`PaymentParameters::expiry_time`] to avoid any attempt at payment after a specific time.
+						/// 
+						/// [`PaymentParameters::expiry_time`]: crate::routing::router::PaymentParameters::expiry_time
 						case Timeout
 			
 					}

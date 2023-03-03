@@ -3,25 +3,25 @@
 			import LDKHeaders
 			#endif
 
-			/// A CResult_TxOutAccessErrorZ represents the result of a fallible operation,
-			/// containing a crate::c_types::TxOut on success and a crate::lightning::chain::AccessError on failure.
+			/// A CResult_TxOutUtxoLookupErrorZ represents the result of a fallible operation,
+			/// containing a crate::c_types::TxOut on success and a crate::lightning::routing::utxo::UtxoLookupError on failure.
 			/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-			public typealias Result_TxOutAccessErrorZ = Bindings.Result_TxOutAccessErrorZ
+			public typealias Result_TxOutUtxoLookupErrorZ = Bindings.Result_TxOutUtxoLookupErrorZ
 
 			extension Bindings {
 
-				/// A CResult_TxOutAccessErrorZ represents the result of a fallible operation,
-				/// containing a crate::c_types::TxOut on success and a crate::lightning::chain::AccessError on failure.
+				/// A CResult_TxOutUtxoLookupErrorZ represents the result of a fallible operation,
+				/// containing a crate::c_types::TxOut on success and a crate::lightning::routing::utxo::UtxoLookupError on failure.
 				/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-				public class Result_TxOutAccessErrorZ: NativeTypeWrapper {
+				public class Result_TxOutUtxoLookupErrorZ: NativeTypeWrapper {
 
 					
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKCResult_TxOutAccessErrorZ?
+					internal var cType: LDKCResult_TxOutUtxoLookupErrorZ?
 
-					internal init(cType: LDKCResult_TxOutAccessErrorZ) {
+					internal init(cType: LDKCResult_TxOutUtxoLookupErrorZ) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -29,7 +29,7 @@
 						super.init(conflictAvoidingVariableName: 0)
 					}
 
-					internal init(cType: LDKCResult_TxOutAccessErrorZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCResult_TxOutUtxoLookupErrorZ, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -41,51 +41,51 @@
 		
 
 					
-					/// Creates a new CResult_TxOutAccessErrorZ in the success state.
-					public class func initWithOk(o: TxOut) -> Result_TxOutAccessErrorZ {
+					/// Creates a new CResult_TxOutUtxoLookupErrorZ in the success state.
+					public class func initWithOk(o: TxOut) -> Result_TxOutUtxoLookupErrorZ {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = CResult_TxOutAccessErrorZ_ok(o.danglingClone().cType!)
+						let nativeCallResult = CResult_TxOutUtxoLookupErrorZ_ok(o.danglingClone().cType!)
 
 						// cleanup
 						
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TxOutAccessErrorZ(cType: nativeCallResult)
+						let returnValue = Result_TxOutUtxoLookupErrorZ(cType: nativeCallResult)
 						
 
 						return returnValue
 					}
 		
-					/// Creates a new CResult_TxOutAccessErrorZ in the error state.
-					public class func initWithErr(e: AccessError) -> Result_TxOutAccessErrorZ {
+					/// Creates a new CResult_TxOutUtxoLookupErrorZ in the error state.
+					public class func initWithErr(e: UtxoLookupError) -> Result_TxOutUtxoLookupErrorZ {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = CResult_TxOutAccessErrorZ_err(e.getCValue())
+						let nativeCallResult = CResult_TxOutUtxoLookupErrorZ_err(e.getCValue())
 
 						// cleanup
 						
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TxOutAccessErrorZ(cType: nativeCallResult)
+						let returnValue = Result_TxOutUtxoLookupErrorZ(cType: nativeCallResult)
 						
 
 						return returnValue
 					}
 		
-					/// Frees any resources used by the CResult_TxOutAccessErrorZ.
+					/// Frees any resources used by the CResult_TxOutUtxoLookupErrorZ.
 					internal func free() {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = CResult_TxOutAccessErrorZ_free(self.cType!)
+						let nativeCallResult = CResult_TxOutUtxoLookupErrorZ_free(self.cType!)
 
 						// cleanup
 						
@@ -98,16 +98,16 @@
 						return returnValue
 					}
 		
-					/// Creates a new CResult_TxOutAccessErrorZ which has the same data as `orig`
+					/// Creates a new CResult_TxOutUtxoLookupErrorZ which has the same data as `orig`
 					/// but with all dynamically-allocated buffers duplicated in new buffers.
-					internal func clone() -> Result_TxOutAccessErrorZ {
+					internal func clone() -> Result_TxOutUtxoLookupErrorZ {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_TxOutAccessErrorZ>) in
-				CResult_TxOutAccessErrorZ_clone(origPointer)
+						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_TxOutUtxoLookupErrorZ>) in
+				CResult_TxOutUtxoLookupErrorZ_clone(origPointer)
 						}
 				
 
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TxOutAccessErrorZ(cType: nativeCallResult)
+						let returnValue = Result_TxOutUtxoLookupErrorZ(cType: nativeCallResult)
 						
 
 						return returnValue
@@ -128,9 +128,9 @@
 					}
 
 					
-					public func getError() -> AccessError? {
+					public func getError() -> UtxoLookupError? {
 						if self.cType?.result_ok == false {
-							return AccessError(value: self.cType!.contents.err.pointee)
+							return UtxoLookupError(value: self.cType!.contents.err.pointee)
 						}
 						return nil
 					}
@@ -145,13 +145,13 @@
 					}
 					
 
-					internal func dangle(_ shouldDangle: Bool = true) -> Result_TxOutAccessErrorZ {
+					internal func dangle(_ shouldDangle: Bool = true) -> Result_TxOutUtxoLookupErrorZ {
         				self.dangling = shouldDangle
 						return self
 					}
 
 					
-					internal func danglingClone() -> Result_TxOutAccessErrorZ {
+					internal func danglingClone() -> Result_TxOutUtxoLookupErrorZ {
 						let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
@@ -163,11 +163,11 @@
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Result_TxOutAccessErrorZ \(self.instanceNumber).")
+							Bindings.print("Freeing Result_TxOutUtxoLookupErrorZ \(self.instanceNumber).")
 							
 							self.free()
 						} else {
-							Bindings.print("Not freeing Result_TxOutAccessErrorZ \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing Result_TxOutUtxoLookupErrorZ \(self.instanceNumber) due to dangle.")
 						}
 					}
 			

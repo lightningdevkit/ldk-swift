@@ -43,9 +43,6 @@
 						/// An error resulting from the provided [`Invoice`] or payment hash.
 						case Invoice
 			
-						/// An error occurring when finding a route.
-						case Routing
-			
 						/// An error occurring when sending a payment.
 						case Sending
 			
@@ -55,9 +52,6 @@
 						switch self.cType!.tag {
 							case LDKPaymentError_Invoice:
 								return .Invoice
-			
-							case LDKPaymentError_Routing:
-								return .Routing
 			
 							case LDKPaymentError_Sending:
 								return .Sending
@@ -136,32 +130,13 @@
 						return returnValue
 					}
 		
-					/// Utility method to constructs a new Routing-variant PaymentError
-					public class func initWithRouting(a: Bindings.LightningError) -> PaymentError {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = PaymentError_routing(a.dynamicallyDangledClone().cType!)
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = PaymentError(cType: nativeCallResult)
-						
-
-						return returnValue
-					}
-		
 					/// Utility method to constructs a new Sending-variant PaymentError
-					public class func initWithSending(a: PaymentSendFailure) -> PaymentError {
+					public class func initWithSending(a: RetryableSendFailure) -> PaymentError {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = PaymentError_sending(a.danglingClone().cType!)
+						let nativeCallResult = PaymentError_sending(a.getCValue())
 
 						// cleanup
 						
@@ -184,20 +159,12 @@
 						return Str(cType: self.cType!.invoice, anchor: self).getValue()
 					}
 			
-					public func getValueAsRouting() -> Bindings.LightningError? {
-						if self.cType?.tag != LDKPaymentError_Routing {
-							return nil
-						}
-
-						return LightningError(cType: self.cType!.routing, anchor: self)
-					}
-			
-					public func getValueAsSending() -> PaymentSendFailure? {
+					public func getValueAsSending() -> RetryableSendFailure? {
 						if self.cType?.tag != LDKPaymentError_Sending {
 							return nil
 						}
 
-						return PaymentSendFailure(cType: self.cType!.sending, anchor: self)
+						return RetryableSendFailure(value: self.cType!.sending)
 					}
 			
 

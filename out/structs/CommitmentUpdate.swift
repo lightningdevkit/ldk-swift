@@ -4,14 +4,14 @@
 			import LDKHeaders
 			#endif
 
-			/// Struct used to return values from revoke_and_ack messages, containing a bunch of commitment
+			/// Struct used to return values from [`RevokeAndACK`] messages, containing a bunch of commitment
 			/// transaction updates if they were pending.
 			public typealias CommitmentUpdate = Bindings.CommitmentUpdate
 
 			extension Bindings {
 		
 
-				/// Struct used to return values from revoke_and_ack messages, containing a bunch of commitment
+				/// Struct used to return values from [`RevokeAndACK`] messages, containing a bunch of commitment
 				/// transaction updates if they were pending.
 				public class CommitmentUpdate: NativeTypeWrapper {
 
@@ -62,7 +62,7 @@
 						return returnValue
 					}
 		
-					/// update_add_htlc messages which should be sent
+					/// `update_add_htlc` messages which should be sent
 					public func getUpdateAddHtlcs() -> [UpdateAddHTLC] {
 						// native call variable prep
 						
@@ -85,7 +85,7 @@
 						return returnValue
 					}
 		
-					/// update_add_htlc messages which should be sent
+					/// `update_add_htlc` messages which should be sent
 					public func setUpdateAddHtlcs(val: [UpdateAddHTLC]) {
 						// native call variable prep
 						
@@ -112,7 +112,7 @@
 						return returnValue
 					}
 		
-					/// update_fulfill_htlc messages which should be sent
+					/// `update_fulfill_htlc` messages which should be sent
 					public func getUpdateFulfillHtlcs() -> [UpdateFulfillHTLC] {
 						// native call variable prep
 						
@@ -135,7 +135,7 @@
 						return returnValue
 					}
 		
-					/// update_fulfill_htlc messages which should be sent
+					/// `update_fulfill_htlc` messages which should be sent
 					public func setUpdateFulfillHtlcs(val: [UpdateFulfillHTLC]) {
 						// native call variable prep
 						
@@ -162,7 +162,7 @@
 						return returnValue
 					}
 		
-					/// update_fail_htlc messages which should be sent
+					/// `update_fail_htlc` messages which should be sent
 					public func getUpdateFailHtlcs() -> [UpdateFailHTLC] {
 						// native call variable prep
 						
@@ -185,7 +185,7 @@
 						return returnValue
 					}
 		
-					/// update_fail_htlc messages which should be sent
+					/// `update_fail_htlc` messages which should be sent
 					public func setUpdateFailHtlcs(val: [UpdateFailHTLC]) {
 						// native call variable prep
 						
@@ -212,7 +212,7 @@
 						return returnValue
 					}
 		
-					/// update_fail_malformed_htlc messages which should be sent
+					/// `update_fail_malformed_htlc` messages which should be sent
 					public func getUpdateFailMalformedHtlcs() -> [UpdateFailMalformedHTLC] {
 						// native call variable prep
 						
@@ -235,7 +235,7 @@
 						return returnValue
 					}
 		
-					/// update_fail_malformed_htlc messages which should be sent
+					/// `update_fail_malformed_htlc` messages which should be sent
 					public func setUpdateFailMalformedHtlcs(val: [UpdateFailMalformedHTLC]) {
 						// native call variable prep
 						
@@ -262,7 +262,7 @@
 						return returnValue
 					}
 		
-					/// An update_fee message which should be sent
+					/// An `update_fee` message which should be sent
 					/// 
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
 					public func getUpdateFee() -> UpdateFee? {
@@ -300,7 +300,7 @@
 						return returnValue
 					}
 		
-					/// An update_fee message which should be sent
+					/// An `update_fee` message which should be sent
 					/// 
 					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
 					public func setUpdateFee(val: UpdateFee) {
@@ -325,7 +325,7 @@
 						return returnValue
 					}
 		
-					/// Finally, the commitment_signed message which should be sent
+					/// A `commitment_signed` message which should be sent
 					public func getCommitmentSigned() -> CommitmentSigned {
 						// native call variable prep
 						
@@ -348,7 +348,7 @@
 						return returnValue
 					}
 		
-					/// Finally, the commitment_signed message which should be sent
+					/// A `commitment_signed` message which should be sent
 					public func setCommitmentSigned(val: CommitmentSigned) {
 						// native call variable prep
 						

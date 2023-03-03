@@ -64,71 +64,13 @@
 						return returnValue
 					}
 		
-					/// Used to indicate that we probably can't make any future connections to this peer (e.g.
-					/// because we required features that our peer was missing, or vice versa).
-					/// 
-					/// While LDK's [`ChannelManager`] will not do it automatically, you likely wish to force-close
-					/// any channels with this peer or check for new versions of LDK.
-					/// 
-					/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
-					public func getNoConnectionPossible() -> Bool {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPeerHandleError>) in
-				PeerHandleError_get_no_connection_possible(thisPtrPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
-					/// Used to indicate that we probably can't make any future connections to this peer (e.g.
-					/// because we required features that our peer was missing, or vice versa).
-					/// 
-					/// While LDK's [`ChannelManager`] will not do it automatically, you likely wish to force-close
-					/// any channels with this peer or check for new versions of LDK.
-					/// 
-					/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
-					public func setNoConnectionPossible(val: Bool) {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKPeerHandleError>) in
-				PeerHandleError_set_no_connection_possible(thisPtrPointer, val)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
 					/// Constructs a new PeerHandleError given each field
-					public init(noConnectionPossibleArg: Bool) {
+					public init() {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = PeerHandleError_new(noConnectionPossibleArg)
+						let nativeCallResult = PeerHandleError_new()
 
 						// cleanup
 						

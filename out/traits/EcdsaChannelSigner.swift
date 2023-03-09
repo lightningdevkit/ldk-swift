@@ -51,7 +51,7 @@
 					}
 		
 
-					public init(ChannelSigner: ChannelSigner) {
+					public init(channelSigner: ChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -268,7 +268,7 @@
 							sign_closing_transaction: signClosingTransactionLambda,
 							sign_holder_anchor_input: signHolderAnchorInputLambda,
 							sign_channel_announcement_with_funding_key: signChannelAnnouncementWithFundingKeyLambda,
-							ChannelSigner: ChannelSigner.activate().cType!,
+							ChannelSigner: channelSigner.activate().cType!,
 							free: freeLambda
 						)
 					}

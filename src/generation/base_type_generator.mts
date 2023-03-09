@@ -13,7 +13,6 @@ import {
 	RustPrimitiveEnumVariant,
 	RustPrimitiveWrapper,
 	RustResult,
-	RustResultValueEnum,
 	RustStruct,
 	RustStructField,
 	RustTaggedValueEnum,
@@ -408,6 +407,9 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				return 'init';
 			}
 			return Generator.snakeCaseToCamelCase(standaloneMethodName);
+		}
+		if (standaloneMethodName.includes('_')) {
+			return Generator.snakeCaseToCamelCase(standaloneMethodName, false);
 		}
 		return 'swift' + Generator.snakeCaseToCamelCase(standaloneMethodName, true);
 	}

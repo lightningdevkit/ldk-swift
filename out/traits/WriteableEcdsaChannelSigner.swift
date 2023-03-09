@@ -51,7 +51,7 @@
 					}
 		
 
-					public init(EcdsaChannelSigner: EcdsaChannelSigner) {
+					public init(ecdsaChannelSigner: EcdsaChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -100,7 +100,7 @@
 
 						self.cType = LDKWriteableEcdsaChannelSigner(							
 							this_arg: thisArg,
-							EcdsaChannelSigner: EcdsaChannelSigner.activate().cType!,
+							EcdsaChannelSigner: ecdsaChannelSigner.activate().cType!,
 							write: writeLambda,
 							cloned: nil,
 							free: freeLambda

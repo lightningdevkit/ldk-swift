@@ -645,7 +645,7 @@ public class HumanObjectPeerTestInstance {
         do {
             // create invoice for 10k satoshis to pay to peer2
 
-            let invoiceResult = Bindings.swiftCreateInvoiceFromChannelmanager(channelmanager: peer2.channelManager, nodeSigner: peer2.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
+            let invoiceResult = Bindings.createInvoiceFromChannelmanager(channelmanager: peer2.channelManager, nodeSigner: peer2.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
             if let invoiceError = invoiceResult.getError(){
                 let creationError = invoiceError.getValueAsCreationError()
                 print("creation error: \(creationError)")
@@ -657,7 +657,7 @@ public class HumanObjectPeerTestInstance {
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let channelManagerConstructor = peer1.constructor!
-            let invoicePaymentResult = Bindings.swiftPayInvoice(invoice: invoice, retryStrategy: Bindings.Retry.initWithAttempts(a: 3), channelmanager: channelManagerConstructor.channelManager)
+            let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: Bindings.Retry.initWithAttempts(a: 3), channelmanager: channelManagerConstructor.channelManager)
             XCTAssertTrue(invoicePaymentResult.isOk())
 
             do {
@@ -767,7 +767,7 @@ public class HumanObjectPeerTestInstance {
             print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
             print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
 
-            let invoiceResult = Bindings.swiftCreateInvoiceFromChannelmanager(channelmanager: peer1.channelManager, nodeSigner: peer1.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: nil, description: "Second invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
+            let invoiceResult = Bindings.createInvoiceFromChannelmanager(channelmanager: peer1.channelManager, nodeSigner: peer1.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: nil, description: "Second invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
             let invoice = invoiceResult.getValue()!
             print("Implicit amount invoice: \(invoice.toStr())")
 
@@ -775,7 +775,7 @@ public class HumanObjectPeerTestInstance {
             let recreatedInvoice = Invoice.fromStr(s: invoiceString)
             XCTAssertTrue(recreatedInvoice.isOk())
 
-            let invoicePaymentResult = Bindings.swiftPayZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A, retryStrategy: Retry.initWithAttempts(a: 3), channelmanager: peer2.channelManager)
+            let invoicePaymentResult = Bindings.payZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A, retryStrategy: Retry.initWithAttempts(a: 3), channelmanager: peer2.channelManager)
             if let error = invoicePaymentResult.getError() {
                 print("value type: \(error.getValueType())")
                 if let routingError = error.getValueAsSending() {

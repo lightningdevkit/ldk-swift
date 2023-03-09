@@ -30,6 +30,11 @@ class LDKSwiftTests: XCTestCase {
     func testVersionSanity() throws {
         check_get_ldk_version()
         check_get_ldk_bindings_version()
+        Bindings.getLDKSwiftBindingsSerializationHash()
+        Bindings.getLDKSwiftBindingsVersion()
+        Bindings.getLDKSwiftBindingsCommitHash()
+        Bindings.ldkGetCompiledVersion()
+        Bindings.ldkCBindingsGetCompiledVersion()
         // check_platform()
     }
 
@@ -421,7 +426,7 @@ class LDKSwiftTests: XCTestCase {
 		let firstHops: [ChannelDetails]? = nil
 		print("STEP B")
         let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
-        let foundRoute = Bindings.swiftFindRoute(ourNodePubkey: payerPubkey, routeParams: routeParameters, networkGraph: networkGraph, firstHops: [], logger: logger, scorer: score, randomSeedBytes: randomSeedBytes)
+        let foundRoute = Bindings.findRoute(ourNodePubkey: payerPubkey, routeParams: routeParameters, networkGraph: networkGraph, firstHops: [], logger: logger, scorer: score, randomSeedBytes: randomSeedBytes)
 //        let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, inflight_htlcs: <#T##InFlightHtlcs#>)
 
         if let routeError = foundRoute.getError() {

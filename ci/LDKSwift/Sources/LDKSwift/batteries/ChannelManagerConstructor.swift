@@ -57,7 +57,7 @@ public struct ChannelManagerConstructionParameters {
             Bindings.print(errorString, severity: .ERROR)
             return .initWithErr(e: LightningError(errArg: errorString, actionArg: ErrorAction.initWithIgnoreAndLog(a: .Error)))
         }
-        override func findRouteWithId(payer: [UInt8], routeParams: Bindings.RouteParameters, firstHops: [Bindings.ChannelDetails]?, inflightHtlcs: Bindings.InFlightHtlcs, PaymentHash: [UInt8], PaymentId: [UInt8]) -> Bindings.Result_RouteLightningErrorZ {
+        override func findRouteWithId(payer: [UInt8], routeParams: Bindings.RouteParameters, firstHops: [Bindings.ChannelDetails]?, inflightHtlcs: Bindings.InFlightHtlcs, paymentHash PaymentHash: [UInt8], paymentId PaymentId: [UInt8]) -> Bindings.Result_RouteLightningErrorZ {
             let errorString = "Error: Router unavailable: ChannelManagerConstructor initialized without Scorer or NetworkGraph."
             Bindings.print(errorString, severity: .ERROR)
             return .initWithErr(e: LightningError(errArg: errorString, actionArg: ErrorAction.initWithIgnoreAndLog(a: .Error)))

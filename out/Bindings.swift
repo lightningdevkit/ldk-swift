@@ -210,7 +210,7 @@
 
 				
 				/// 
-				public class func swiftLdkGetCompiledVersion() -> String {
+				public class func ldkGetCompiledVersion() -> String {
 					// native call variable prep
 					
 
@@ -229,7 +229,7 @@
 				}
 		
 				/// 
-				public class func swiftLdkCBindingsGetCompiledVersion() -> String {
+				public class func ldkCBindingsGetCompiledVersion() -> String {
 					// native call variable prep
 					
 
@@ -280,7 +280,7 @@
 				}
 		
 				/// Recovers the PublicKey of the signer of the message given the message and the signature.
-				public class func swiftRecoverPk(msg: [UInt8], sig: String) -> Result_PublicKeyErrorZ {
+				public class func recoverPk(msg: [UInt8], sig: String) -> Result_PublicKeyErrorZ {
 					// native call variable prep
 					
 					let msgPrimitiveWrapper = u8slice(value: msg)
@@ -344,7 +344,7 @@
 				}
 		
 				/// Construct the invoice's HRP and signatureless data into a preimage to be hashed.
-				public class func swiftConstructInvoicePreimage(hrpBytes: [UInt8], dataWithoutSignature: [UInt8]) -> [UInt8] {
+				public class func constructInvoicePreimage(hrpBytes: [UInt8], dataWithoutSignature: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let hrpBytesPrimitiveWrapper = u8slice(value: hrpBytes)
@@ -373,14 +373,14 @@
 		
 				/// Fetches the set of [`InitFeatures`] flags which are provided by or required by
 				/// [`ChannelManager`].
-				public class func swiftProvidedInitFeatures(Config: UserConfig) -> InitFeatures {
+				public class func providedInitFeatures(config: UserConfig) -> InitFeatures {
 					// native call variable prep
 					
 
 					// native method call
 					let nativeCallResult = 
-					withUnsafePointer(to: Config.cType!) { (ConfigPointer: UnsafePointer<LDKUserConfig>) in
-				provided_init_features(ConfigPointer)
+					withUnsafePointer(to: config.cType!) { (configPointer: UnsafePointer<LDKUserConfig>) in
+				provided_init_features(configPointer)
 					}
 				
 
@@ -450,7 +450,7 @@
 				/// on versions of LDK prior to 0.0.114.
 				/// 
 				/// [phantom node payments]: crate::chain::keysinterface::PhantomKeysManager
-				public class func swiftCreateFromHash(keys: ExpandedKey, minValueMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32, currentTime: UInt64, minFinalCltvExpiryDelta: UInt16?) -> Result_PaymentSecretNoneZ {
+				public class func createFromHash(keys: ExpandedKey, minValueMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32, currentTime: UInt64, minFinalCltvExpiryDelta: UInt16?) -> Result_PaymentSecretNoneZ {
 					// native call variable prep
 					
 					let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
@@ -482,7 +482,7 @@
 				}
 		
 				/// Gets the weight for an HTLC-Success transaction.
-				public class func swiftHtlcSuccessTxWeight(optAnchors: Bool) -> UInt64 {
+				public class func htlcSuccessTxWeight(optAnchors: Bool) -> UInt64 {
 					// native call variable prep
 					
 
@@ -501,7 +501,7 @@
 				}
 		
 				/// Gets the weight for an HTLC-Timeout transaction.
-				public class func swiftHtlcTimeoutTxWeight(optAnchors: Bool) -> UInt64 {
+				public class func htlcTimeoutTxWeight(optAnchors: Bool) -> UInt64 {
 					// native call variable prep
 					
 
@@ -520,7 +520,7 @@
 				}
 		
 				/// Build the commitment secret from the seed and the commitment number
-				public class func swiftBuildCommitmentSecret(commitmentSeed: [UInt8], idx: UInt64) -> [UInt8] {
+				public class func buildCommitmentSecret(commitmentSeed: [UInt8], idx: UInt64) -> [UInt8] {
 					// native call variable prep
 					
 					let tupledCommitmentSeed = Bindings.arrayToUInt8Tuple32(array: commitmentSeed)
@@ -545,7 +545,7 @@
 				}
 		
 				/// Build a closing transaction
-				public class func swiftBuildClosingTransaction(toHolderValueSat: UInt64, toCounterpartyValueSat: UInt64, toHolderScript: [UInt8], toCounterpartyScript: [UInt8], fundingOutpoint: OutPoint) -> [UInt8] {
+				public class func buildClosingTransaction(toHolderValueSat: UInt64, toCounterpartyValueSat: UInt64, toHolderScript: [UInt8], toCounterpartyScript: [UInt8], fundingOutpoint: OutPoint) -> [UInt8] {
 					// native call variable prep
 					
 					let toHolderScriptVector = Vec_u8Z(array: toHolderScript).dangle()
@@ -573,7 +573,7 @@
 		
 				/// Derives a per-commitment-transaction private key (eg an htlc key or delayed_payment key)
 				/// from the base secret and the per_commitment_point.
-				public class func swiftDerivePrivateKey(perCommitmentPoint: [UInt8], baseSecret: [UInt8]) -> [UInt8] {
+				public class func derivePrivateKey(perCommitmentPoint: [UInt8], baseSecret: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
@@ -605,7 +605,7 @@
 				/// Derives a per-commitment-transaction public key (eg an htlc key or a delayed_payment key)
 				/// from the base point and the per_commitment_key. This is the public equivalent of
 				/// derive_private_key - using only public keys to derive a public key instead of private keys.
-				public class func swiftDerivePublicKey(perCommitmentPoint: [UInt8], basePoint: [UInt8]) -> [UInt8] {
+				public class func derivePublicKey(perCommitmentPoint: [UInt8], basePoint: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
@@ -639,7 +639,7 @@
 				/// commitment transaction, thus per_commitment_secret always come from cheater
 				/// and revocation_base_secret always come from punisher, which is the broadcaster
 				/// of the transaction spending with this key knowledge.
-				public class func swiftDerivePrivateRevocationKey(perCommitmentSecret: [UInt8], countersignatoryRevocationBaseSecret: [UInt8]) -> [UInt8] {
+				public class func derivePrivateRevocationKey(perCommitmentSecret: [UInt8], countersignatoryRevocationBaseSecret: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let tupledPerCommitmentSecret = Bindings.arrayToUInt8Tuple32(array: perCommitmentSecret)
@@ -680,7 +680,7 @@
 				/// 
 				/// Note that this is infallible iff we trust that at least one of the two input keys are randomly
 				/// generated (ie our own).
-				public class func swiftDerivePublicRevocationKey(perCommitmentPoint: [UInt8], countersignatoryRevocationBasePoint: [UInt8]) -> [UInt8] {
+				public class func derivePublicRevocationKey(perCommitmentPoint: [UInt8], countersignatoryRevocationBasePoint: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
@@ -711,7 +711,7 @@
 				/// A script either spendable by the revocation
 				/// key or the broadcaster_delayed_payment_key and satisfying the relative-locktime OP_CSV constrain.
 				/// Encumbering a `to_holder` output on a commitment transaction or 2nd-stage HTLC transactions.
-				public class func swiftGetRevokeableRedeemscript(revocationKey: [UInt8], contestDelay: UInt16, broadcasterDelayedPaymentKey: [UInt8]) -> [UInt8] {
+				public class func getRevokeableRedeemscript(revocationKey: [UInt8], contestDelay: UInt16, broadcasterDelayedPaymentKey: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let revocationKeyPrimitiveWrapper = PublicKey(value: revocationKey)
@@ -741,7 +741,7 @@
 		
 				/// Gets the witness redeemscript for an HTLC output in a commitment transaction. Note that htlc
 				/// does not need to have its previous_output_index filled.
-				public class func swiftGetHtlcRedeemscript(htlc: HTLCOutputInCommitment, optAnchors: Bool, keys: TxCreationKeys) -> [UInt8] {
+				public class func getHtlcRedeemscript(htlc: HTLCOutputInCommitment, optAnchors: Bool, keys: TxCreationKeys) -> [UInt8] {
 					// native call variable prep
 					
 
@@ -769,7 +769,7 @@
 		
 				/// Gets the redeemscript for a funding output from the two funding public keys.
 				/// Note that the order of funding public keys does not matter.
-				public class func swiftMakeFundingRedeemscript(broadcaster: [UInt8], countersignatory: [UInt8]) -> [UInt8] {
+				public class func makeFundingRedeemscript(broadcaster: [UInt8], countersignatory: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let broadcasterPrimitiveWrapper = PublicKey(value: broadcaster)
@@ -804,7 +804,7 @@
 				/// 
 				/// Panics if htlc.transaction_output_index.is_none() (as such HTLCs do not appear in the
 				/// commitment transaction).
-				public class func swiftBuildHtlcTransaction(commitmentTxid: [UInt8], feeratePerKw: UInt32, contestDelay: UInt16, htlc: HTLCOutputInCommitment, optAnchors: Bool, useNonZeroFeeAnchors: Bool, broadcasterDelayedPaymentKey: [UInt8], revocationKey: [UInt8]) -> [UInt8] {
+				public class func buildHtlcTransaction(commitmentTxid: [UInt8], feeratePerKw: UInt32, contestDelay: UInt16, htlc: HTLCOutputInCommitment, optAnchors: Bool, useNonZeroFeeAnchors: Bool, broadcasterDelayedPaymentKey: [UInt8], revocationKey: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let tupledCommitmentTxid = Bindings.arrayToUInt8Tuple32(array: commitmentTxid)
@@ -845,7 +845,7 @@
 				/// Returns the witness required to satisfy and spend a HTLC input.
 				/// 
 				/// Note that preimage (or a relevant inner pointer) may be NULL or all-0s to represent None
-				public class func swiftBuildHtlcInputWitness(localSig: [UInt8], remoteSig: [UInt8], preimage: [UInt8], redeemScript: [UInt8], optAnchors: Bool) -> [UInt8] {
+				public class func buildHtlcInputWitness(localSig: [UInt8], remoteSig: [UInt8], preimage: [UInt8], redeemScript: [UInt8], optAnchors: Bool) -> [UInt8] {
 					// native call variable prep
 					
 					let localSigPrimitiveWrapper = Signature(value: localSig)
@@ -884,7 +884,7 @@
 				}
 		
 				/// Gets the witnessScript for the to_remote output when anchors are enabled.
-				public class func swiftGetToCountersignatoryWithAnchorsRedeemscript(paymentPoint: [UInt8]) -> [UInt8] {
+				public class func getToCountersignatoryWithAnchorsRedeemscript(paymentPoint: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let paymentPointPrimitiveWrapper = PublicKey(value: paymentPoint)
@@ -913,7 +913,7 @@
 				/// After 16 blocks of confirmation, an alternative satisfying witness could be:
 				/// <>
 				/// (empty vector required to satisfy compliance with MINIMALIF-standard rule)
-				public class func swiftGetAnchorRedeemscript(fundingPubkey: [UInt8]) -> [UInt8] {
+				public class func getAnchorRedeemscript(fundingPubkey: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let fundingPubkeyPrimitiveWrapper = PublicKey(value: fundingPubkey)
@@ -937,7 +937,7 @@
 				}
 		
 				/// Returns the witness required to satisfy and spend an anchor input.
-				public class func swiftBuildAnchorInputWitness(fundingKey: [UInt8], fundingSig: [UInt8]) -> [UInt8] {
+				public class func buildAnchorInputWitness(fundingKey: [UInt8], fundingSig: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
 					let fundingKeyPrimitiveWrapper = PublicKey(value: fundingKey)
@@ -971,7 +971,7 @@
 				/// 
 				/// This function gets the shared secret from relevant channel public keys and can be used to
 				/// \"decrypt\" the commitment transaction number given a commitment transaction on-chain.
-				public class func swiftGetCommitmentTransactionNumberObscureFactor(broadcasterPaymentBasepoint: [UInt8], countersignatoryPaymentBasepoint: [UInt8], outboundFromBroadcaster: Bool) -> UInt64 {
+				public class func getCommitmentTransactionNumberObscureFactor(broadcasterPaymentBasepoint: [UInt8], countersignatoryPaymentBasepoint: [UInt8], outboundFromBroadcaster: Bool) -> UInt64 {
 					// native call variable prep
 					
 					let broadcasterPaymentBasepointPrimitiveWrapper = PublicKey(value: broadcasterPaymentBasepoint)
@@ -1030,7 +1030,7 @@
 				/// [`NetworkGraph`]: crate::routing::gossip::NetworkGraph
 				/// 
 				/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
-				public class func swiftFindRoute(ourNodePubkey: [UInt8], routeParams: RouteParameters, networkGraph: NetworkGraph, firstHops: [ChannelDetails]?, logger: Logger, scorer: Score, randomSeedBytes: [UInt8]) -> Result_RouteLightningErrorZ {
+				public class func findRoute(ourNodePubkey: [UInt8], routeParams: RouteParameters, networkGraph: NetworkGraph, firstHops: [ChannelDetails]?, logger: Logger, scorer: Score, randomSeedBytes: [UInt8]) -> Result_RouteLightningErrorZ {
 					// native call variable prep
 					
 					let ourNodePubkeyPrimitiveWrapper = PublicKey(value: ourNodePubkey)
@@ -1086,7 +1086,7 @@
 				/// exclude the payer, but include the payee). This may be useful, e.g., for probing the chosen path.
 				/// 
 				/// Re-uses logic from `find_route`, so the restrictions described there also apply here.
-				public class func swiftBuildRouteFromHops(ourNodePubkey: [UInt8], hops: [[UInt8]], routeParams: RouteParameters, networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8]) -> Result_RouteLightningErrorZ {
+				public class func buildRouteFromHops(ourNodePubkey: [UInt8], hops: [[UInt8]], routeParams: RouteParameters, networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8]) -> Result_RouteLightningErrorZ {
 					// native call variable prep
 					
 					let ourNodePubkeyPrimitiveWrapper = PublicKey(value: ourNodePubkey)
@@ -1134,7 +1134,7 @@
 				/// a second payment with the same [`PaymentHash`] is never sent.
 				/// 
 				/// If you wish to use a different payment idempotency token, see [`pay_invoice_with_id`].
-				public class func swiftPayInvoice(invoice: Invoice, retryStrategy: Retry, channelmanager: ChannelManager) -> Result_PaymentIdPaymentErrorZ {
+				public class func payInvoice(invoice: Invoice, retryStrategy: Retry, channelmanager: ChannelManager) -> Result_PaymentIdPaymentErrorZ {
 					// native call variable prep
 					
 
@@ -1169,7 +1169,7 @@
 				/// has never been paid before.
 				/// 
 				/// See [`pay_invoice`] for a variant which uses the [`PaymentHash`] for the idempotency token.
-				public class func swiftPayInvoiceWithId(invoice: Invoice, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager) -> Result_NonePaymentErrorZ {
+				public class func payInvoiceWithId(invoice: Invoice, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager) -> Result_NonePaymentErrorZ {
 					// native call variable prep
 					
 					let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
@@ -1209,7 +1209,7 @@
 				/// 
 				/// If you wish to use a different payment idempotency token, see
 				/// [`pay_zero_value_invoice_with_id`].
-				public class func swiftPayZeroValueInvoice(invoice: Invoice, amountMsats: UInt64, retryStrategy: Retry, channelmanager: ChannelManager) -> Result_PaymentIdPaymentErrorZ {
+				public class func payZeroValueInvoice(invoice: Invoice, amountMsats: UInt64, retryStrategy: Retry, channelmanager: ChannelManager) -> Result_PaymentIdPaymentErrorZ {
 					// native call variable prep
 					
 
@@ -1246,7 +1246,7 @@
 				/// 
 				/// See [`pay_zero_value_invoice`] for a variant which uses the [`PaymentHash`] for the
 				/// idempotency token.
-				public class func swiftPayZeroValueInvoiceWithId(invoice: Invoice, amountMsats: UInt64, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager) -> Result_NonePaymentErrorZ {
+				public class func payZeroValueInvoiceWithId(invoice: Invoice, amountMsats: UInt64, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager) -> Result_NonePaymentErrorZ {
 					// native call variable prep
 					
 					let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
@@ -1319,7 +1319,7 @@
 				/// available and the current time is supplied by the caller.
 				/// 
 				/// Note that payment_hash (or a relevant inner pointer) may be NULL or all-0s to represent None
-				public class func swiftCreatePhantomInvoice(amtMsat: UInt64?, paymentHash: [UInt8], description: String, invoiceExpiryDeltaSecs: UInt32, phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
+				public class func createPhantomInvoice(amtMsat: UInt64?, paymentHash: [UInt8], description: String, invoiceExpiryDeltaSecs: UInt32, phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
 					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
@@ -1393,7 +1393,7 @@
 				/// available and the current time is supplied by the caller.
 				/// 
 				/// Note that payment_hash (or a relevant inner pointer) may be NULL or all-0s to represent None
-				public class func swiftCreatePhantomInvoiceWithDescriptionHash(amtMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32, descriptionHash: Sha256, phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
+				public class func createPhantomInvoiceWithDescriptionHash(amtMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32, descriptionHash: Sha256, phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
 					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
@@ -1439,7 +1439,7 @@
 				/// confirmations during routing.
 				/// 
 				/// [`MIN_FINAL_CLTV_EXPIRY_DETLA`]: lightning::ln::channelmanager::MIN_FINAL_CLTV_EXPIRY_DELTA
-				public class func swiftCreateInvoiceFromChannelmanager(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
+				public class func createInvoiceFromChannelmanager(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
 					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
@@ -1486,7 +1486,7 @@
 				/// confirmations during routing.
 				/// 
 				/// [`MIN_FINAL_CLTV_EXPIRY_DETLA`]: lightning::ln::channelmanager::MIN_FINAL_CLTV_EXPIRY_DELTA
-				public class func swiftCreateInvoiceFromChannelmanagerWithDescriptionHash(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, descriptionHash: Sha256, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
+				public class func createInvoiceFromChannelmanagerWithDescriptionHash(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, descriptionHash: Sha256, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
 					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
@@ -1515,7 +1515,7 @@
 				/// See [`create_invoice_from_channelmanager_with_description_hash`]
 				/// This version can be used in a `no_std` environment, where [`std::time::SystemTime`] is not
 				/// available and the current time is supplied by the caller.
-				public class func swiftCreateInvoiceFromChannelmanagerWithDescriptionHashAndDurationSinceEpoch(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, descriptionHash: Sha256, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
+				public class func createInvoiceFromChannelmanagerWithDescriptionHashAndDurationSinceEpoch(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, descriptionHash: Sha256, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
 					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
@@ -1544,7 +1544,7 @@
 				/// See [`create_invoice_from_channelmanager`]
 				/// This version can be used in a `no_std` environment, where [`std::time::SystemTime`] is not
 				/// available and the current time is supplied by the caller.
-				public class func swiftCreateInvoiceFromChannelmanagerAndDurationSinceEpoch(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
+				public class func createInvoiceFromChannelmanagerAndDurationSinceEpoch(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
 					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
@@ -1579,7 +1579,7 @@
 				/// This version allows for providing a custom [`PaymentHash`] for the invoice.
 				/// This may be useful if you're building an on-chain swap or involving another protocol where
 				/// the payment hash is also involved outside the scope of lightning.
-				public class func swiftCreateInvoiceFromChannelmanagerAndDurationSinceEpochWithPaymentHash(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, paymentHash: [UInt8], minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
+				public class func createInvoiceFromChannelmanagerAndDurationSinceEpochWithPaymentHash(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, paymentHash: [UInt8], minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
 					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()

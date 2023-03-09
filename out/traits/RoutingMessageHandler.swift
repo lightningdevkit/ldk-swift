@@ -51,7 +51,7 @@
 					}
 		
 
-					public init(MessageSendEventsProvider: MessageSendEventsProvider) {
+					public init(messageSendEventsProvider: MessageSendEventsProvider) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -329,7 +329,7 @@
 							processing_queue_high: processingQueueHighLambda,
 							provided_node_features: providedNodeFeaturesLambda,
 							provided_init_features: providedInitFeaturesLambda,
-							MessageSendEventsProvider: MessageSendEventsProvider.activate().cType!,
+							MessageSendEventsProvider: messageSendEventsProvider.activate().cType!,
 							free: freeLambda
 						)
 					}

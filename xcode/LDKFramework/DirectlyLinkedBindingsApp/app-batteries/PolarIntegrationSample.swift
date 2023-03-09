@@ -207,7 +207,7 @@ public class PolarIntegrationSample {
         // channelManagerConstructor.interrupt(tcpPeerHandler: tcpPeerHandler)
         // return
         
-        let invoicePaymentResult = Bindings.swiftPayInvoice(invoice: invoice, retryStrategy: constructionParameters.payerRetries, channelmanager: channelManager)
+        let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: constructionParameters.payerRetries, channelmanager: channelManager)
 
         do {
             // process payment

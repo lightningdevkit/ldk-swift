@@ -84,7 +84,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee).dangle().clone(), PaymentHash: ThirtyTwoBytes(cType: _payment_hash).getValue(), PaymentId: ThirtyTwoBytes(cType: _payment_id).getValue())
+							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee).dangle().clone(), paymentHash: ThirtyTwoBytes(cType: _payment_hash).getValue(), paymentId: ThirtyTwoBytes(cType: _payment_id).getValue())
 
 							// cleanup
 							
@@ -136,7 +136,7 @@
 					/// `PaymentHash` and `PaymentId` to be able to correlate the request with a specific payment.
 					/// 
 					/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
-					open func findRouteWithId(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs, PaymentHash: [UInt8], PaymentId: [UInt8]) -> Result_RouteLightningErrorZ {
+					open func findRouteWithId(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs, paymentHash: [UInt8], paymentId: [UInt8]) -> Result_RouteLightningErrorZ {
 						
 						Bindings.print("Error: Router::findRouteWithId MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
@@ -228,7 +228,7 @@
 					/// `PaymentHash` and `PaymentId` to be able to correlate the request with a specific payment.
 					/// 
 					/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public override func findRouteWithId(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs, PaymentHash: [UInt8], PaymentId: [UInt8]) -> Result_RouteLightningErrorZ {
+					public override func findRouteWithId(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs, paymentHash: [UInt8], paymentId: [UInt8]) -> Result_RouteLightningErrorZ {
 						// native call variable prep
 						
 						let payerPrimitiveWrapper = PublicKey(value: payer)
@@ -242,9 +242,9 @@
 						firstHopsVectorPointer!.initialize(to: firstHopsVector.cType!)
 					}
 				
-						let PaymentHashPrimitiveWrapper = ThirtyTwoBytes(value: PaymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
 				
-						let PaymentIdPrimitiveWrapper = ThirtyTwoBytes(value: PaymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
 				
 
 						
@@ -254,7 +254,7 @@
 						withUnsafePointer(to: routeParams.cType!) { (routeParamsPointer: UnsafePointer<LDKRouteParameters>) in
 				
 						withUnsafePointer(to: inflightHtlcs.cType!) { (inflightHtlcsPointer: UnsafePointer<LDKInFlightHtlcs>) in
-				self.cType!.find_route_with_id(self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer, firstHopsVectorPointer, inflightHtlcsPointer, PaymentHashPrimitiveWrapper.cType!, PaymentIdPrimitiveWrapper.cType!)
+				self.cType!.find_route_with_id(self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer, firstHopsVectorPointer, inflightHtlcsPointer, paymentHashPrimitiveWrapper.cType!, paymentIdPrimitiveWrapper.cType!)
 						}
 				
 						}
@@ -268,10 +268,10 @@
 						// firstHopsVector.noOpRetain()
 				
 						// for elided types, we need this
-						PaymentHashPrimitiveWrapper.noOpRetain()
+						paymentHashPrimitiveWrapper.noOpRetain()
 				
 						// for elided types, we need this
-						PaymentIdPrimitiveWrapper.noOpRetain()
+						paymentIdPrimitiveWrapper.noOpRetain()
 				
 
 						// return value (do some wrapping)

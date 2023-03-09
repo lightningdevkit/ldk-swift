@@ -53,7 +53,7 @@
 					}
 		
 
-					public init(CustomMessageReader: CustomMessageReader) {
+					public init(customMessageReader: CustomMessageReader) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -122,7 +122,7 @@
 							this_arg: thisArg,
 							handle_custom_message: handleCustomMessageLambda,
 							get_and_clear_pending_msg: getAndClearPendingMsgLambda,
-							CustomMessageReader: CustomMessageReader.activate().cType!,
+							CustomMessageReader: customMessageReader.activate().cType!,
 							free: freeLambda
 						)
 					}

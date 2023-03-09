@@ -39,7 +39,7 @@
 					}
 		
 
-					public init(OnionMessageProvider: OnionMessageProvider) {
+					public init(onionMessageProvider: OnionMessageProvider) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -165,7 +165,7 @@
 							peer_disconnected: peerDisconnectedLambda,
 							provided_node_features: providedNodeFeaturesLambda,
 							provided_init_features: providedInitFeaturesLambda,
-							OnionMessageProvider: OnionMessageProvider.activate().cType!,
+							OnionMessageProvider: onionMessageProvider.activate().cType!,
 							free: freeLambda
 						)
 					}

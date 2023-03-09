@@ -1965,7 +1965,6 @@
 		07DF14B229412AF900531169 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF14AF29412AF900531169 /* ChannelManagerConstructor.swift */; };
 		07DF14B329412AF900531169 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF14AF29412AF900531169 /* ChannelManagerConstructor.swift */; };
 		07DF14B429412AF900531169 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF14AF29412AF900531169 /* ChannelManagerConstructor.swift */; };
-		07DF1E032941318D00531169 /* Crypto in Frameworks */ = {isa = PBXBuildFile; productRef = 07DF1E022941318D00531169 /* Crypto */; };
 		07E0646C287CAD0600CFA8BF /* DirectlyLinkedBindingsAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E0646B287CAD0600CFA8BF /* DirectlyLinkedBindingsAppApp.swift */; };
 		07E0646E287CAD0600CFA8BF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E0646D287CAD0600CFA8BF /* ContentView.swift */; };
 		07E0674F287CAEC200CFA8BF /* ldk_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 07012E9B287753D000148346 /* ldk_net.c */; };
@@ -2537,7 +2536,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07DF1E032941318D00531169 /* Crypto in Frameworks */,
 				072B063129431EA50007BC53 /* libldk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3326,7 +3324,6 @@
 			);
 			name = LightningDevKit;
 			packageProductDependencies = (
-				07DF1E022941318D00531169 /* Crypto */,
 			);
 			productName = LDKFramework;
 			productReference = 07344C54264277EC001CD90E /* LightningDevKit.framework */;
@@ -5970,11 +5967,6 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		07BFB99F2943C0D000D93FAA /* Crypto */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 07DF1E012941318D00531169 /* XCRemoteSwiftPackageReference "swift-crypto" */;
-			productName = Crypto;
-		};
-		07DF1E022941318D00531169 /* Crypto */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 07DF1E012941318D00531169 /* XCRemoteSwiftPackageReference "swift-crypto" */;
 			productName = Crypto;

@@ -103,7 +103,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     /**
      * A list of ChannelMonitors and the last block they each saw. You should sync the blockchain on each individually
      * starting with the block that builds on the hash given.
-     * After doing so (and syncing the blockchain on the channel manager as well), you should call chain_sync_completed()
+     * After doing so (and syncing the blockchain on the channel manager as well), you should call chainSyncCompleted()
      * and then continue to normal application operation.
      */
     public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]

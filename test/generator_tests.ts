@@ -9,7 +9,8 @@ import {
 	RustPrimitiveWrapper,
 	RustResult,
 	RustStruct,
-	RustTaggedValueEnum, RustTrait,
+	RustTaggedValueEnum,
+	RustTrait,
 	RustVector
 } from '../src/rust_types.mjs';
 import NullableOptionGenerator from '../src/generation/nullable_option_generator.mjs';
@@ -119,14 +120,16 @@ describe('Generator Tests', () => {
 			chai.expect(vectorVectorOutput).includes('var convertedEntry1 = [LDKRouteHop]()');
 			chai.expect(vectorVectorOutput).includes('let currentEntry2 = currentEntry1.data[index2]');
 			chai.expect(vectorVectorOutput).includes('convertedEntry1.append(currentEntry2)');
-			chai.expect(vectorVectorOutput).includes('let swiftArray = array.map { (currentCType: [LDKRouteHop]) -> [RouteHop] in');
+			chai.expect(vectorVectorOutput)
+			.includes('let swiftArray = array.map { (currentCType: [LDKRouteHop]) -> [RouteHop] in');
 			chai.expect(vectorVectorOutput).includes('currentCType.map { (currentCType: LDKRouteHop) -> RouteHop in');
 			chai.expect(vectorVectorOutput).includes('RouteHop(cType: currentCType, anchor: self).dangle()');
 
 			const routeVector = <RustVector>glossary['LDKCVec_RouteHopZ'];
 			const vectorOutput = generator.generateFileContents(routeVector);
 			chai.expect(vectorOutput).includes('public init(array: [RouteHop]) {');
-			chai.expect(vectorOutput).includes('let rustArray = array.map { (currentValueDepth1: RouteHop) -> LDKRouteHop in');
+			chai.expect(vectorOutput)
+			.includes('let rustArray = array.map { (currentValueDepth1: RouteHop) -> LDKRouteHop in');
 			chai.expect(vectorOutput).includes('return currentValueDepth1.cType!');
 			chai.expect(vectorOutput)
 			.includes('let dataContainer = UnsafeMutablePointer<LDKRouteHop>.allocate(capacity: array.count)');
@@ -135,7 +138,8 @@ describe('Generator Tests', () => {
 
 			chai.expect(vectorOutput).includes('public func getValue() -> [RouteHop] {');
 			chai.expect(vectorOutput).includes('var array = [LDKRouteHop]()');
-			chai.expect(vectorOutput).includes('let swiftArray = array.map { (currentCType: LDKRouteHop) -> RouteHop in');
+			chai.expect(vectorOutput)
+			.includes('let swiftArray = array.map { (currentCType: LDKRouteHop) -> RouteHop in');
 			chai.expect(vectorOutput).includes('RouteHop(cType: currentCType, anchor: self).dangle()');
 		});
 
@@ -197,7 +201,8 @@ describe('Generator Tests', () => {
 			chai.expect(monitorUpdateStatusOutput).includes('internal init (value: LDKChannelMonitorUpdateStatus) {');
 			chai.expect(monitorUpdateStatusOutput).includes('self = .PermanentFailure');
 			chai.expect(monitorUpdateStatusOutput).includes('case LDKChannelMonitorUpdateStatus_Completed:');
-			chai.expect(monitorUpdateStatusOutput).includes('internal func getCValue() -> LDKChannelMonitorUpdateStatus {');
+			chai.expect(monitorUpdateStatusOutput)
+			.includes('internal func getCValue() -> LDKChannelMonitorUpdateStatus {');
 			chai.expect(monitorUpdateStatusOutput).includes('case .Completed:');
 			chai.expect(monitorUpdateStatusOutput).includes('return LDKChannelMonitorUpdateStatus_Completed');
 		});
@@ -296,7 +301,8 @@ describe('Generator Tests', () => {
 			chai.expect(output).includes('public init() {');
 			chai.expect(output).includes('self.cType = LDKFeeEstimator(');
 			chai.expect(output).includes('get_est_sat_per_1000_weight: getEstSatPer1000WeightLambda,');
-			chai.expect(output).includes('open func getEstSatPer1000Weight(confirmationTarget: ConfirmationTarget) -> UInt32 {');
+			chai.expect(output)
+			.includes('open func getEstSatPer1000Weight(confirmationTarget: ConfirmationTarget) -> UInt32 {');
 		});
 		it('should generate BaseSign completely', () => {
 			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -307,6 +313,48 @@ describe('Generator Tests', () => {
 			const generator = new TraitGenerator(config, new AuxiliaryArtifacts());
 			const baseSign = <RustTrait>parser.glossary['LDKBaseSign'];
 			const output = generator.generateFileContents(baseSign);
+		});
+
+		it('should generate EntropySource completely', () => {
+			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_02.h`);
+			const parser = new Parser(config);
+			parser.parse();
+
+			const generator = new TraitGenerator(config, new AuxiliaryArtifacts());
+			const entropySource = <RustTrait>parser.glossary['LDKEntropySource'];
+			const output = generator.generateFileContents(entropySource);
+			chai.expect(output).includes('open class EntropySource:');
+			chai.expect(output).includes('func getSecureRandomBytesLambda(this_arg: UnsafeRawPointer?) -> LDKThirtyTwoBytes {');
+			chai.expect(output).includes('public override func getSecureRandomBytes() -> [UInt8] {');
+		});
+
+		it('should generate NodeSigner completely', () => {
+			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_02.h`);
+			const parser = new Parser(config);
+			parser.parse();
+
+			const generator = new TraitGenerator(config, new AuxiliaryArtifacts());
+			const entropySource = <RustTrait>parser.glossary['LDKNodeSigner'];
+			const output = generator.generateFileContents(entropySource);
+			chai.expect(output).includes('open class NodeSigner:');
+			chai.expect(output).includes('func getNodeIdLambda(this_arg: UnsafeRawPointer?, recipient: LDKRecipient) -> LDKCResult_PublicKeyNoneZ {');
+			chai.expect(output).includes('open func ecdh(recipient: Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Result_SharedSecretNoneZ {');
+		});
+
+		it('should generate SignerProvider completely', () => {
+			const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+			const config = new TestConfig(`${__dirname}/fixtures/lightning_02.h`);
+			const parser = new Parser(config);
+			parser.parse();
+
+			const generator = new TraitGenerator(config, new AuxiliaryArtifacts());
+			const entropySource = <RustTrait>parser.glossary['LDKSignerProvider'];
+			const output = generator.generateFileContents(entropySource);
+			chai.expect(output).includes('open class SignerProvider:');
+			chai.expect(output).includes('func deriveChannelSignerLambda(this_arg: UnsafeRawPointer?, channel_value_satoshis: UInt64, channel_keys_id: LDKThirtyTwoBytes) -> LDKWriteableEcdsaChannelSigner {');
+			chai.expect(output).includes('open func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> WriteableEcdsaChannelSigner {');
 		});
 
 		it('should generate Router completely', () => {

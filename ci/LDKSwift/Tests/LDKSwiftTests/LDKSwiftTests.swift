@@ -244,6 +244,7 @@ class LDKSwiftTests: XCTestCase {
         let channelOpenError = channelOpenResult.getError()!
         print("error type: \(channelOpenError.getValueType())")
         
+        // verify that error details can be accessed without memory access issues
         if let misuseError = channelOpenError.getValueAsApiMisuseError() {
             print("misuse error: \(misuseError.getErr())")
         } else if let unavailableError = channelOpenError.getValueAsChannelUnavailable() {

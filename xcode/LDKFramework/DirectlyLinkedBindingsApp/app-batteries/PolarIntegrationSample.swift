@@ -43,8 +43,6 @@ public class PolarIntegrationSample {
         let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
         let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
         let keysManager = KeysManager(seed: seed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-
-        
         
         let logger = LDKTraitImplementations.PolarLogger()
         let config = UserConfig.initWithDefault()

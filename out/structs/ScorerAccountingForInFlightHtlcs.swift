@@ -76,7 +76,11 @@
 						
 
 						// native method call
-						let nativeCallResult = ScorerAccountingForInFlightHtlcs_new(scorer.activate().cType!, inflightHtlcs.dynamicallyDangledClone().cType!)
+						let nativeCallResult = 
+						withUnsafePointer(to: inflightHtlcs.cType!) { (inflightHtlcsPointer: UnsafePointer<LDKInFlightHtlcs>) in
+				ScorerAccountingForInFlightHtlcs_new(scorer.activate().cType!, inflightHtlcsPointer)
+						}
+				
 
 						// cleanup
 						

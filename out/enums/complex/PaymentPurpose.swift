@@ -161,6 +161,34 @@
 						return returnValue
 					}
 		
+					/// Checks if two PaymentPurposes contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					public class func eq(a: PaymentPurpose, b: PaymentPurpose) -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKPaymentPurpose>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKPaymentPurpose>) in
+				PaymentPurpose_eq(aPointer, bPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
 					/// Serialize the PaymentPurpose object into a byte array which can be read by PaymentPurpose_read
 					public func write() -> [UInt8] {
 						// native call variable prep

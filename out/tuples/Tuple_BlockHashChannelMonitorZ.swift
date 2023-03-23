@@ -117,7 +117,7 @@
 					}
 		
 					/// Read a C2Tuple_BlockHashChannelMonitorZ from a byte array, created by C2Tuple_BlockHashChannelMonitorZ_write
-					public class func read(ser: [UInt8], arg: KeysInterface) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
+					public class func read(ser: [UInt8], argA: EntropySource, argB: SignerProvider) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 						// native call variable prep
 						
 						let serPrimitiveWrapper = u8slice(value: ser)
@@ -125,8 +125,12 @@
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: arg.activate().cType!) { (argPointer: UnsafePointer<LDKKeysInterface>) in
-				C2Tuple_BlockHashChannelMonitorZ_read(serPrimitiveWrapper.cType!, argPointer)
+						withUnsafePointer(to: argA.activate().cType!) { (argAPointer: UnsafePointer<LDKEntropySource>) in
+				
+						withUnsafePointer(to: argB.activate().cType!) { (argBPointer: UnsafePointer<LDKSignerProvider>) in
+				C2Tuple_BlockHashChannelMonitorZ_read(serPrimitiveWrapper.cType!, argAPointer, argBPointer)
+						}
+				
 						}
 				
 

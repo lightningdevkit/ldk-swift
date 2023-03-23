@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A closing_signed message to be sent or received from a peer
+			/// A [`closing_signed`] message to be sent to or received from a peer.
+			/// 
+			/// [`closing_signed`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#closing-negotiation-closing_signed
 			public typealias ClosingSigned = Bindings.ClosingSigned
 
 			extension Bindings {
 		
 
-				/// A closing_signed message to be sent or received from a peer
+				/// A [`closing_signed`] message to be sent to or received from a peer.
+				/// 
+				/// [`closing_signed`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#closing-negotiation-closing_signed
 				public class ClosingSigned: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

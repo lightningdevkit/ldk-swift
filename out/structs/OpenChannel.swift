@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// An open_channel message to be sent or received from a peer
+			/// An [`open_channel`] message to be sent to or received from a peer.
+			/// 
+			/// [`open_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel-message
 			public typealias OpenChannel = Bindings.OpenChannel
 
 			extension Bindings {
 		
 
-				/// An open_channel message to be sent or received from a peer
+				/// An [`open_channel`] message to be sent to or received from a peer.
+				/// 
+				/// [`open_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-open_channel-message
 				public class OpenChannel: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -446,7 +450,8 @@
 						return returnValue
 					}
 		
-					/// The feerate per 1000-weight of sender generated transactions, until updated by update_fee
+					/// The feerate per 1000-weight of sender generated transactions, until updated by
+					/// [`UpdateFee`]
 					public func getFeeratePerKw() -> UInt32 {
 						// native call variable prep
 						
@@ -469,7 +474,8 @@
 						return returnValue
 					}
 		
-					/// The feerate per 1000-weight of sender generated transactions, until updated by update_fee
+					/// The feerate per 1000-weight of sender generated transactions, until updated by
+					/// [`UpdateFee`]
 					public func setFeeratePerKw(val: UInt32) {
 						// native call variable prep
 						
@@ -492,7 +498,8 @@
 						return returnValue
 					}
 		
-					/// The number of blocks which the counterparty will have to wait to claim on-chain funds if they broadcast a commitment transaction
+					/// The number of blocks which the counterparty will have to wait to claim on-chain funds if
+					/// they broadcast a commitment transaction
 					public func getToSelfDelay() -> UInt16 {
 						// native call variable prep
 						
@@ -515,7 +522,8 @@
 						return returnValue
 					}
 		
-					/// The number of blocks which the counterparty will have to wait to claim on-chain funds if they broadcast a commitment transaction
+					/// The number of blocks which the counterparty will have to wait to claim on-chain funds if
+					/// they broadcast a commitment transaction
 					public func setToSelfDelay(val: UInt16) {
 						// native call variable prep
 						
@@ -890,7 +898,7 @@
 						return returnValue
 					}
 		
-					/// Channel flags
+					/// The channel flags to be used
 					public func getChannelFlags() -> UInt8 {
 						// native call variable prep
 						
@@ -913,7 +921,7 @@
 						return returnValue
 					}
 		
-					/// Channel flags
+					/// The channel flags to be used
 					public func setChannelFlags(val: UInt8) {
 						// native call variable prep
 						
@@ -936,9 +944,10 @@
 						return returnValue
 					}
 		
-					/// The channel type that this channel will represent. If none is set, we derive the channel
-					/// type from the intersection of our feature bits with our counterparty's feature bits from
-					/// the Init message.
+					/// The channel type that this channel will represent
+					/// 
+					/// If this is `None`, we derive the channel type from the intersection of our
+					/// feature bits with our counterparty's feature bits from the [`Init`] message.
 					/// 
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
 					public func getChannelType() -> ChannelTypeFeatures? {
@@ -976,9 +985,10 @@
 						return returnValue
 					}
 		
-					/// The channel type that this channel will represent. If none is set, we derive the channel
-					/// type from the intersection of our feature bits with our counterparty's feature bits from
-					/// the Init message.
+					/// The channel type that this channel will represent
+					/// 
+					/// If this is `None`, we derive the channel type from the intersection of our
+					/// feature bits with our counterparty's feature bits from the [`Init`] message.
 					/// 
 					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
 					public func setChannelType(val: ChannelTypeFeatures) {

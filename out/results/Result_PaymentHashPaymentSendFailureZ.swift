@@ -4,14 +4,14 @@
 			#endif
 
 			/// A CResult_PaymentHashPaymentSendFailureZ represents the result of a fallible operation,
-			/// containing a crate::c_types::ThirtyTwoBytes on success and a crate::lightning::ln::channelmanager::PaymentSendFailure on failure.
+			/// containing a crate::c_types::ThirtyTwoBytes on success and a crate::lightning::ln::outbound_payment::PaymentSendFailure on failure.
 			/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 			public typealias Result_PaymentHashPaymentSendFailureZ = Bindings.Result_PaymentHashPaymentSendFailureZ
 
 			extension Bindings {
 
 				/// A CResult_PaymentHashPaymentSendFailureZ represents the result of a fallible operation,
-				/// containing a crate::c_types::ThirtyTwoBytes on success and a crate::lightning::ln::channelmanager::PaymentSendFailure on failure.
+				/// containing a crate::c_types::ThirtyTwoBytes on success and a crate::lightning::ln::outbound_payment::PaymentSendFailure on failure.
 				/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 				public class Result_PaymentHashPaymentSendFailureZ: NativeTypeWrapper {
 

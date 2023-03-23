@@ -310,7 +310,7 @@
 						return returnValue
 					}
 		
-					/// Arbitrary identification information returned by a call to [`BaseSign::channel_keys_id`].
+					/// Arbitrary identification information returned by a call to [`ChannelSigner::channel_keys_id`].
 					/// This may be useful in re-deriving keys used in the channel to spend the output.
 					public func getChannelKeysId() -> [UInt8]? {
 						// native call variable prep
@@ -338,7 +338,7 @@
 						return returnValue
 					}
 		
-					/// Arbitrary identification information returned by a call to [`BaseSign::channel_keys_id`].
+					/// Arbitrary identification information returned by a call to [`ChannelSigner::channel_keys_id`].
 					/// This may be useful in re-deriving keys used in the channel to spend the output.
 					public func setChannelKeysId(val: [UInt8]) {
 						// native call variable prep

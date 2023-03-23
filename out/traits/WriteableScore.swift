@@ -45,7 +45,7 @@
 					}
 		
 
-					public init(LockableScore: LockableScore) {
+					public init(lockableScore: LockableScore) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -94,7 +94,7 @@
 
 						self.cType = LDKWriteableScore(							
 							this_arg: thisArg,
-							LockableScore: LockableScore.activate().cType!,
+							LockableScore: lockableScore.activate().cType!,
 							write: writeLambda,
 							free: freeLambda
 						)

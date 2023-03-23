@@ -41,24 +41,27 @@
 					public enum DecodeErrorType {
 						
 						/// A version byte specified something we don't know how to handle.
-						/// Includes unknown realm byte in an OnionHopData packet
+						/// 
+						/// Includes unknown realm byte in an onion hop data packet.
 						case UnknownVersion
 			
-						/// Unknown feature mandating we fail to parse message (eg TLV with an even, unknown type)
+						/// Unknown feature mandating we fail to parse message (e.g., TLV with an even, unknown type)
 						case UnknownRequiredFeature
 			
-						/// Value was invalid, eg a byte which was supposed to be a bool was something other than a 0
+						/// Value was invalid.
+						/// 
+						/// For example, a byte which was supposed to be a bool was something other than a 0
 						/// or 1, a public key/private key/signature was invalid, text wasn't UTF-8, TLV was
-						/// syntactically incorrect, etc
+						/// syntactically incorrect, etc.
 						case InvalidValue
 			
-						/// Buffer too short
+						/// The buffer to be read was too short.
 						case ShortRead
 			
-						/// A length descriptor in the packet didn't describe the later data correctly
+						/// A length descriptor in the packet didn't describe the later data correctly.
 						case BadLengthDescriptor
 			
-						/// Error from std::io
+						/// Error from [`std::io`].
 						case Io
 			
 						/// The message included zlib-compressed values, which we don't support.

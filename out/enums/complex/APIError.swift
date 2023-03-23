@@ -69,13 +69,13 @@
 						/// [`ChannelMonitorUpdateStatus::InProgress`]: crate::chain::ChannelMonitorUpdateStatus::InProgress
 						case MonitorUpdateInProgress
 			
-						/// [`KeysInterface::get_shutdown_scriptpubkey`] returned a shutdown scriptpubkey incompatible
+						/// [`SignerProvider::get_shutdown_scriptpubkey`] returned a shutdown scriptpubkey incompatible
 						/// with the channel counterparty as negotiated in [`InitFeatures`].
 						/// 
 						/// Using a SegWit v0 script should resolve this issue. If you cannot, you won't be able to open
 						/// a channel or cooperatively close one with this peer (and will have to force-close instead).
 						/// 
-						/// [`KeysInterface::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::KeysInterface::get_shutdown_scriptpubkey
+						/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::SignerProvider::get_shutdown_scriptpubkey
 						/// [`InitFeatures`]: crate::ln::features::InitFeatures
 						case IncompatibleShutdownScript
 			
@@ -308,6 +308,53 @@
 						
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Serialize the APIError object into a byte array which can be read by APIError_read
+					public func write() -> [UInt8] {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKAPIError>) in
+				APIError_write(objPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						
+
+						return returnValue
+					}
+		
+					/// Read a APIError from a byte array, created by APIError_write
+					public class func read(ser: [UInt8]) -> Result_COption_APIErrorZDecodeErrorZ {
+						// native call variable prep
+						
+						let serPrimitiveWrapper = u8slice(value: ser)
+				
+
+						// native method call
+						let nativeCallResult = APIError_read(serPrimitiveWrapper.cType!)
+
+						// cleanup
+						
+						// for elided types, we need this
+						serPrimitiveWrapper.noOpRetain()
+				
+
+						
+						// return value (do some wrapping)
+						let returnValue = Result_COption_APIErrorZDecodeErrorZ(cType: nativeCallResult)
 						
 
 						return returnValue

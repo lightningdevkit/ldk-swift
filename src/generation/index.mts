@@ -33,6 +33,8 @@ export default class Generator {
 		);
 		if (capitalizeFirst) {
 			output = output.charAt(0).toUpperCase() + output.substring(1);
+		} else {
+			output = output.charAt(0).toLowerCase() + output.substring(1);
 		}
 		return output;
 	}
@@ -219,11 +221,11 @@ export default class Generator {
 			const fileContents = fs.readFileSync(currentPath).toString('utf-8');
 			// remove all leading trailing whitespaces from every line, as well as any repetition of new lines
 			const canonicalFileContents = fileContents
-				.replaceAll(/^\s*/mg, '') // leading spaces
-				.replaceAll(/\s*$/mg, '') // trailing spaces
-				.replaceAll(/\n+/g, '\n') // multiple newlines
-				.replaceAll(/\s*\/\/.*/g, '') // comment lines
-				.replaceAll(/;+$/g, '') // trailing semicolons
+			.replaceAll(/^\s*/mg, '') // leading spaces
+			.replaceAll(/\s*$/mg, '') // trailing spaces
+			.replaceAll(/\n+/g, '\n') // multiple newlines
+			.replaceAll(/\s*\/\/.*/g, '') // comment lines
+			.replaceAll(/;+$/g, ''); // trailing semicolons
 			// remove all whitespace so it produces the same output regardless of whether it got linted
 			// const dewhitespacedContents = fileContents.replaceAll(whitespaceRegex, '');
 			const hash = crypto.createHash('sha256').update(canonicalFileContents).digest('hex');

@@ -89,7 +89,7 @@
 					/// will be the destination node.
 					/// 
 					/// Errors if less than two hops are provided or if `node_pk`(s) are invalid.
-					public class func new(nodePks: [[UInt8]], keysManager: KeysInterface) -> Result_BlindedPathNoneZ {
+					public class func new(nodePks: [[UInt8]], entropySource: EntropySource) -> Result_BlindedPathNoneZ {
 						// native call variable prep
 						
 						let nodePksVector = Vec_PublicKeyZ(array: nodePks).dangle()
@@ -97,8 +97,8 @@
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: keysManager.activate().cType!) { (keysManagerPointer: UnsafePointer<LDKKeysInterface>) in
-				BlindedPath_new(nodePksVector.cType!, keysManagerPointer)
+						withUnsafePointer(to: entropySource.activate().cType!) { (entropySourcePointer: UnsafePointer<LDKEntropySource>) in
+				BlindedPath_new(nodePksVector.cType!, entropySourcePointer)
 						}
 				
 

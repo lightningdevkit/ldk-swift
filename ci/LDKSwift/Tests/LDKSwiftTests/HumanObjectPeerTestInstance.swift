@@ -12,34 +12,34 @@ import LDKHeaders
 import XCTest
 
 public class HumanObjectPeerTestInstance {
-    
+
     private let configuration: Configuration
-    
+
     public class Configuration {
 //
         public var useFilter: Bool = false;
         public var useRouter: Bool = false;
         public var shouldRecipientRejectPayment: Bool = false;
-        
+
         // public var nice_close: Bool = false;
         // public var use_km_wrapper: Bool = false;
         // public var use_manual_watch: Bool = false;
         // public var reload_peers: Bool = false;
         // public var break_cross_peer_refs: Bool = false;
         // public var use_nio_peer_handler: Bool = false;
-        
+
         private class func listCustomizeableProperties() -> [String] {
             return ["useFilter", "useRouter", "shouldRecipientRejectPayment"]
         }
-        
+
         public class func combinationCount() -> UInt {
             return 1 << self.listCustomizeableProperties().count
         }
-        
+
     }
-    
-    
-    
+
+
+
     public init(configuration: Configuration) {
         self.configuration = configuration
     }
@@ -54,8 +54,7 @@ public class HumanObjectPeerTestInstance {
         var filterAdditions: Set<String>
         let monitors: [String: ChannelMonitor]
         private(set) var filter: Filter?
-        private(set) var keysInterface: KeysInterface!
-        private(set) var explicitKeysManager: KeysManager?
+        private(set) var explicitKeysManager: KeysManager!
         private(set) var router: GossipSync!
         private(set) var channelManager: ChannelManager!
         private(set) var peerManager: PeerManager!
@@ -196,18 +195,18 @@ public class HumanObjectPeerTestInstance {
             }
         }
 
-        fileprivate class TestKeysInterface: KeysInterface {
+        fileprivate class TestKeysInterface: SignerProvider {
 
             weak var master: Peer!
-            let interface: KeysInterface
+            let interface: SignerProvider
 
-            fileprivate init(master: Peer, underlyingInterface: KeysInterface) {
+            fileprivate init(master: Peer, underlyingInterface: SignerProvider) {
                 self.master = master
                 self.interface = underlyingInterface
                 super.init()
             }
-            
-			override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.Sign {
+
+			override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.WriteableEcdsaChannelSigner {
                 let ck = self.interface.deriveChannelSigner(channelValueSatoshis: channelValueSatoshis, channelKeysId: channelKeysId)
                 return ck
             }
@@ -230,17 +229,18 @@ public class HumanObjectPeerTestInstance {
                     await master.pendingEventTracker.addEvent(event: event)
                 }
             }
-            
+
             override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneErrorZ {
                 .initWithOk()
             }
-            
+
             override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
                 .initWithOk()
             }
-            
+
             override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneErrorZ {
-                .initWithOk()
+                let writtenGraph = networkGraph.write();
+                return Result_NoneErrorZ.initWithOk()
             }
 
         }
@@ -284,13 +284,11 @@ public class HumanObjectPeerTestInstance {
             let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
             let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
             let keysManager = KeysManager(seed: keySeed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-            
-            self.keysInterface = keysManager.asKeysInterface()
             self.explicitKeysManager = keysManager
 
             if master.configuration.useRouter {
-                let networkGraph = NetworkGraph(genesisHash: [UInt8](repeating: 0, count: 32), logger: self.logger)
-                self.router = GossipSync.initWithP2P(a: P2PGossipSync(networkGraph: networkGraph, chainAccess: nil, logger: self.logger))
+                let networkGraph = NetworkGraph(network: .Regtest, logger: self.logger)
+                self.router = GossipSync.initWithP2P(a: P2PGossipSync(networkGraph: networkGraph, utxoLookup: nil, logger: self.logger))
             }else{
                 self.router = GossipSync.none()
             }
@@ -302,16 +300,27 @@ public class HumanObjectPeerTestInstance {
             do {
                 // channel manager constructor is mandatory
 
-                let graph = NetworkGraph(genesisHash: [UInt8](repeating: 0, count: 32), logger: self.logger)
-
-                self.constructor = ChannelManagerConstructor(network: .Bitcoin, userConfig: UserConfig.initWithDefault(), currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, keysInterface: self.keysInterface, feeEstimator: self.feeEstimator, chainMonitor: self.chainMonitor!, netGraph: graph, txBroadcaster: self.txBroadcaster, logger: self.logger)
+                let graph = NetworkGraph(network: .Regtest, logger: self.logger)
 
                 let scoringParams = ProbabilisticScoringParameters.initWithDefault()
                 let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: graph, logger: self.logger)
                 let score = probabalisticScorer.asScore()
                 let multiThreadedScorer = MultiThreadedLockableScore(score: score)
+                
+                let constructionParameters = ChannelManagerConstructionParameters(
+                    config: UserConfig.initWithDefault(),
+                    entropySource: self.explicitKeysManager.asEntropySource(),
+                    nodeSigner: self.explicitKeysManager.asNodeSigner(),
+                    signerProvider: self.explicitKeysManager.asSignerProvider(),
+                    feeEstimator: self.feeEstimator,
+                    chainMonitor: self.chainMonitor!,
+                    txBroadcaster: self.txBroadcaster,
+                    logger: self.logger,
+                    scorer: multiThreadedScorer
+                )
+                self.constructor = ChannelManagerConstructor(network: .Bitcoin, currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, netGraph: graph, params: constructionParameters)
 
-                self.constructor?.chainSyncCompleted(persister: TestChannelManagerPersister(master: self), scorer: multiThreadedScorer)
+                self.constructor?.chainSyncCompleted(persister: TestChannelManagerPersister(master: self))
                 self.channelManager = self.constructor!.channelManager
                 self.peerManager = self.constructor!.peerManager
             }
@@ -324,9 +333,20 @@ public class HumanObjectPeerTestInstance {
 
             do {
                 // channel manager constructor is mandatory
-                let graph = NetworkGraph(genesisHash: [UInt8](repeating: 0, count: 32), logger: self.logger)
-                self.constructor = ChannelManagerConstructor(network: .Bitcoin, userConfig: UserConfig.initWithDefault(), currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, keysInterface: self.keysInterface, feeEstimator: self.feeEstimator, chainMonitor: self.chainMonitor!, netGraph: graph, txBroadcaster: self.txBroadcaster, logger: self.logger)
-                self.constructor?.chainSyncCompleted(persister: TestChannelManagerPersister(master: self), scorer: nil)
+                let graph = NetworkGraph(network: .Bitcoin, logger: self.logger)
+                
+                let constructionParameters = ChannelManagerConstructionParameters(
+                    config: UserConfig.initWithDefault(),
+                    entropySource: self.explicitKeysManager.asEntropySource(),
+                    nodeSigner: self.explicitKeysManager.asNodeSigner(),
+                    signerProvider: self.explicitKeysManager.asSignerProvider(),
+                    feeEstimator: self.feeEstimator,
+                    chainMonitor: self.chainMonitor!,
+                    txBroadcaster: self.txBroadcaster,
+                    logger: self.logger
+                )
+                self.constructor = ChannelManagerConstructor(network: .Bitcoin, currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, netGraph: graph, params: constructionParameters)
+                self.constructor?.chainSyncCompleted(persister: TestChannelManagerPersister(master: self))
                 self.channelManager = self.constructor!.channelManager
                 Task {
                     let events = await original.pendingEventTracker.getEvents()
@@ -400,7 +420,7 @@ public class HumanObjectPeerTestInstance {
                 let blockHeader = block.calculateHeader()
                 self.channelManager.asConfirm().transactionsConfirmed(header: blockHeader, txdata: transactionTuples, height: height)
                 self.channelManager.asConfirm().bestBlockUpdated(header: blockHeader, height: height)
-                
+
                 for (_, monitor) in self.monitors {
                     let connectionResult = monitor.blockConnected(header: blockHeader, txdata: transactionTuples, height: height, broadcaster: self.txBroadcaster, feeEstimator: self.feeEstimator, logger: self.logger)
                     XCTAssertEqual(connectionResult.count, expectedMonitorUpdateLength)
@@ -422,10 +442,10 @@ public class HumanObjectPeerTestInstance {
 
 
     fileprivate func connectPeers(peerA: Peer, peerB: Peer) {
-        
+
         let connectionResult = peerA.tcpSocketHandler?.connect(address: "127.0.0.1", port: peerB.tcpPort!, theirNodeId: peerB.nodeId!)
         print("connection result: \(connectionResult)")
-        
+
     }
 
     func test_multiple_peer_connections() async {
@@ -619,13 +639,17 @@ public class HumanObjectPeerTestInstance {
         let originalChannelBalanceBToA = channelBToA.getBalanceMsat()
         print("original balance A->B mSats: \(originalChannelBalanceAToB)")
         print("original balance B->A mSats: \(originalChannelBalanceBToA)")
-        
+
         let logger = TestLogger()
 
         do {
             // create invoice for 10k satoshis to pay to peer2
 
-            let invoiceResult = Bindings.swiftCreateInvoiceFromChannelmanager(channelmanager: peer2.channelManager, keysManager: peer2.keysInterface, logger: logger, network: .Bitcoin, amtMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description", invoiceExpiryDeltaSecs: 60)
+            let invoiceResult = Bindings.createInvoiceFromChannelmanager(channelmanager: peer2.channelManager, nodeSigner: peer2.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
+            if let invoiceError = invoiceResult.getError(){
+                let creationError = invoiceError.getValueAsCreationError()
+                print("creation error: \(creationError)")
+            }
             let invoice = invoiceResult.getValue()!
             print("Invoice: \(invoice.toStr())")
 
@@ -633,8 +657,7 @@ public class HumanObjectPeerTestInstance {
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let channelManagerConstructor = peer1.constructor!
-            let invoicePayer = channelManagerConstructor.payer!
-            let invoicePaymentResult = invoicePayer.payInvoice(invoice: invoice)
+            let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: Bindings.Retry.initWithAttempts(a: 3), channelmanager: channelManagerConstructor.channelManager)
             XCTAssertTrue(invoicePaymentResult.isOk())
 
             do {
@@ -693,13 +716,14 @@ public class HumanObjectPeerTestInstance {
                     "payment_failed_permanently": paymentPathFailed.getPaymentFailedPermanently(),
                     "short_channel_id": paymentPathFailed.getShortChannelId(),
                     "path": paymentPathFailed.getPath().map { $0.getShortChannelId() },
-                    "network_update": paymentPathFailed.getNetworkUpdate().debugDescription
+                    "retry": paymentPathFailed.getRetry(),
+                    "failure": paymentPathFailed.getFailure()
                 ]
-                
+
                 print("payent path failure: \(failureDescriptor)")
                 print("here")
                 return
-                
+
             } else {
                 // process payment
                 let peer1Events = try! await peer1.getManagerEvents(expectedCount: 2)
@@ -743,7 +767,7 @@ public class HumanObjectPeerTestInstance {
             print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
             print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
 
-            let invoiceResult = Bindings.swiftCreateInvoiceFromChannelmanager(channelmanager: peer1.channelManager, keysManager: peer1.keysInterface, logger: logger, network: .Bitcoin, amtMsat: nil, description: "Second invoice description", invoiceExpiryDeltaSecs: 60)
+            let invoiceResult = Bindings.createInvoiceFromChannelmanager(channelmanager: peer1.channelManager, nodeSigner: peer1.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: nil, description: "Second invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
             let invoice = invoiceResult.getValue()!
             print("Implicit amount invoice: \(invoice.toStr())")
 
@@ -751,11 +775,11 @@ public class HumanObjectPeerTestInstance {
             let recreatedInvoice = Invoice.fromStr(s: invoiceString)
             XCTAssertTrue(recreatedInvoice.isOk())
 
-            let invoicePaymentResult = peer2.constructor!.payer!.payZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A)
+            let invoicePaymentResult = Bindings.payZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A, retryStrategy: Retry.initWithAttempts(a: 3), channelmanager: peer2.channelManager)
             if let error = invoicePaymentResult.getError() {
                 print("value type: \(error.getValueType())")
-                if let routingError = error.getValueAsRouting() {
-                    print("routing error: \(routingError.getErr())")
+                if let routingError = error.getValueAsSending() {
+                    print("sending error: \(routingError)")
                 }
             }
             XCTAssertTrue(invoicePaymentResult.isOk())

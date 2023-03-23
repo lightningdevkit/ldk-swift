@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// An init message to be sent or received from a peer
+			/// An [`init`] message to be sent to or received from a peer.
+			/// 
+			/// [`init`]: https://github.com/lightning/bolts/blob/master/01-messaging.md#the-init-message
 			public typealias BindingsInit = Bindings.BindingsInit
 
 			extension Bindings {
 		
 
-				/// An init message to be sent or received from a peer
+				/// An [`init`] message to be sent to or received from a peer.
+				/// 
+				/// [`init`]: https://github.com/lightning/bolts/blob/master/01-messaging.md#the-init-message
 				public class BindingsInit: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -60,7 +64,7 @@
 						return returnValue
 					}
 		
-					/// The relevant features which the sender supports
+					/// The relevant features which the sender supports.
 					public func getFeatures() -> InitFeatures {
 						// native call variable prep
 						
@@ -83,7 +87,7 @@
 						return returnValue
 					}
 		
-					/// The relevant features which the sender supports
+					/// The relevant features which the sender supports.
 					public func setFeatures(val: InitFeatures) {
 						// native call variable prep
 						
@@ -106,10 +110,12 @@
 						return returnValue
 					}
 		
-					/// The receipient's network address. This adds the option to report a remote IP address
-					/// back to a connecting peer using the init message. A node can decide to use that information
-					/// to discover a potential update to its public IPv4 address (NAT) and use
-					/// that for a node_announcement update message containing the new address.
+					/// The receipient's network address.
+					/// 
+					/// This adds the option to report a remote IP address back to a connecting peer using the init
+					/// message. A node can decide to use that information to discover a potential update to its
+					/// public IPv4 address (NAT) and use that for a [`NodeAnnouncement`] update message containing
+					/// the new address.
 					public func getRemoteNetworkAddress() -> NetAddress? {
 						// native call variable prep
 						
@@ -132,10 +138,12 @@
 						return returnValue
 					}
 		
-					/// The receipient's network address. This adds the option to report a remote IP address
-					/// back to a connecting peer using the init message. A node can decide to use that information
-					/// to discover a potential update to its public IPv4 address (NAT) and use
-					/// that for a node_announcement update message containing the new address.
+					/// The receipient's network address.
+					/// 
+					/// This adds the option to report a remote IP address back to a connecting peer using the init
+					/// message. A node can decide to use that information to discover a potential update to its
+					/// public IPv4 address (NAT) and use that for a [`NodeAnnouncement`] update message containing
+					/// the new address.
 					public func setRemoteNetworkAddress(val: NetAddress?) {
 						// native call variable prep
 						

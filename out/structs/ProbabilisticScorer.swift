@@ -216,6 +216,53 @@
 						return returnValue
 					}
 		
+					/// Query the historical estimated minimum and maximum liquidity available for sending a
+					/// payment over the channel with `scid` towards the given `target` node.
+					/// 
+					/// Returns two sets of 8 buckets. The first set describes the octiles for lower-bound
+					/// liquidity estimates, the second set describes the octiles for upper-bound liquidity
+					/// estimates. Each bucket describes the relative frequency at which we've seen a liquidity
+					/// bound in the octile relative to the channel's total capacity, on an arbitrary scale.
+					/// Because the values are slowly decayed, more recent data points are weighted more heavily
+					/// than older datapoints.
+					/// 
+					/// When scoring, the estimated probability that an upper-/lower-bound lies in a given octile
+					/// relative to the channel's total capacity is calculated by dividing that bucket's value with
+					/// the total of all buckets for the given bound.
+					/// 
+					/// For example, a value of `[0, 0, 0, 0, 0, 0, 32]` indicates that we believe the probability
+					/// of a bound being in the top octile to be 100%, and have never (recently) seen it in any
+					/// other octiles. A value of `[31, 0, 0, 0, 0, 0, 0, 32]` indicates we've seen the bound being
+					/// both in the top and bottom octile, and roughly with similar (recent) frequency.
+					/// 
+					/// Because the datapoints are decayed slowly over time, values will eventually return to
+					/// `Some(([0; 8], [0; 8]))`.
+					public func historicalEstimatedChannelLiquidityProbabilities(scid: UInt64, target: NodeId) -> ([UInt16], [UInt16])? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKProbabilisticScorer>) in
+				
+						withUnsafePointer(to: target.cType!) { (targetPointer: UnsafePointer<LDKNodeId>) in
+				ProbabilisticScorer_historical_estimated_channel_liquidity_probabilities(thisArgPointer, scid, targetPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Option_C2Tuple_EightU16sEightU16sZZ(cType: nativeCallResult, anchor: self).getValue()
+						
+
+						return returnValue
+					}
+		
 					/// Marks the node with the given `node_id` as banned, i.e.,
 					/// it will be avoided during path finding.
 					public func addBanned(nodeId: NodeId) {

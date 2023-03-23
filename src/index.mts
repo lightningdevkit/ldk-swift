@@ -12,7 +12,7 @@ import Generator from './generation/index.mjs';
 	const generator = new Generator(parser);
 
 	// optional, only if we wanna remove existing artifacts
-	// generator.initializeOutputDirectory();
+	generator.initializeOutputDirectory();
 
 	const serializationHashTree = generator.calculateSerializationHash();
 

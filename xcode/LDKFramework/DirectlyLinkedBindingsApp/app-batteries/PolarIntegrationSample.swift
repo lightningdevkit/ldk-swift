@@ -43,8 +43,7 @@ public class PolarIntegrationSample {
         let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
         let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
         let keysManager = KeysManager(seed: seed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-        let keysInterface = keysManager.asKeysInterface()
-
+        
         let logger = LDKTraitImplementations.PolarLogger()
         let config = UserConfig.initWithDefault()
         let lightningNetwork = Bindings.Network.Regtest
@@ -53,7 +52,7 @@ public class PolarIntegrationSample {
         let chaintipHash = try await rpcInterface.getChaintipHash()
         let reversedChaintipHash = [UInt8](chaintipHash.reversed())
         let chaintipHeight = try await rpcInterface.getChaintipHeight()
-        let networkGraph = NetworkGraph(genesisHash: reversedGenesisHash, logger: logger)
+        let networkGraph = NetworkGraph(network: lightningNetwork, logger: logger)
 
         let scoringParams = ProbabilisticScoringParameters.initWithDefault()
         let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
@@ -73,7 +72,17 @@ public class PolarIntegrationSample {
         let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
         let chainMonitor = ChainMonitor(chainSource: nil, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-        let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
+        let constructionParameters = ChannelManagerConstructionParameters(
+            config: config,
+            entropySource: keysManager.asEntropySource(),
+            nodeSigner: keysManager.asNodeSigner(),
+            signerProvider: keysManager.asSignerProvider(),
+            feeEstimator: feeEstimator,
+            chainMonitor: chainMonitor,
+            txBroadcaster: broadcaster,
+            logger: logger
+        )
+        let channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), netGraph: networkGraph, params: constructionParameters)
         let channelManager = channelManagerConstructor.channelManager
         let peerManager = channelManagerConstructor.peerManager
         let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
@@ -107,7 +116,7 @@ public class PolarIntegrationSample {
         let listener = Listener(channelManager: channelManager, chainMonitor: chainMonitor)
         rpcInterface.registerListener(listener);
         async let monitor = try rpcInterface.monitorBlockchain()
-        channelManagerConstructor.chainSyncCompleted(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
+        channelManagerConstructor.chainSyncCompleted(persister: channelManagerAndNetworkGraphPersisterAndEventHandler)
 
         guard let lndPubkey = PolarIntegrationSample.hexStringToBytes(hexString: PolarIntegrationSample.POLAR_LND_PEER_PUBKEY_HEX) else {
             throw TestFlowExceptions.hexParsingError
@@ -186,10 +195,6 @@ public class PolarIntegrationSample {
             // sleep for 100ms
             try await Task.sleep(nanoseconds: 0_100_000_000)
         }
-
-        guard let invoicePayer = channelManagerConstructor.payer else {
-            throw TestFlowExceptions.missingInvoicePayer
-        }
         let invoiceResult = Invoice.fromStr(s: PolarIntegrationSample.POLAR_LND_PEER_INVOICE)
 
         guard let invoice = invoiceResult.getValue() else {
@@ -200,7 +205,7 @@ public class PolarIntegrationSample {
         // channelManagerConstructor.interrupt(tcpPeerHandler: tcpPeerHandler)
         // return
         
-        let invoicePaymentResult = invoicePayer.payInvoice(invoice: invoice)
+        let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: constructionParameters.payerRetries, channelmanager: channelManager)
 
         do {
             // process payment
@@ -411,7 +416,6 @@ public class PolarIntegrationSample {
         private var rpcInterface: BlockchainObserver!
         
         private var keysManager: KeysManager!
-        private var keysInterface: KeysInterface!
         private var config: UserConfig!
         // private var networkGraph: NetworkGraph!
         // private var multiThreadedScorer: MultiThreadedLockableScore!
@@ -439,7 +443,6 @@ public class PolarIntegrationSample {
             let timestamp_seconds = UInt64(NSDate().timeIntervalSince1970)
             let timestamp_nanos = UInt32(truncating: NSNumber(value: timestamp_seconds * 1000 * 1000))
             keysManager = KeysManager(seed: seed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-            keysInterface = keysManager.asKeysInterface()
 
             config = UserConfig.initWithDefault()
             let logger = LDKTraitImplementations.MuteLogger()
@@ -455,7 +458,7 @@ public class PolarIntegrationSample {
             let reversedGenesisHash = PolarIntegrationSample.hexStringToBytes(hexString: reversedGenesisHashHex)!
             let chaintipHeight = 0
             let reversedChaintipHash = reversedGenesisHash
-            let networkGraph = NetworkGraph(genesisHash: reversedGenesisHash, logger: logger)
+            let networkGraph = NetworkGraph(network: lightningNetwork, logger: logger)
             
             print("Genesis hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedGenesisHash))")
 
@@ -473,12 +476,22 @@ public class PolarIntegrationSample {
             let channelManagerAndNetworkGraphPersisterAndEventHandler = LDKTraitImplementations.PolarChannelManagerAndNetworkGraphPersisterAndEventHandler()
             let chainMonitor = ChainMonitor(chainSource: nil, broadcaster: broadcaster, logger: logger, feeest: feeEstimator, persister: channelMonitorPersister)
 
-            channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, userConfig: config, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), keysInterface: keysInterface, feeEstimator: feeEstimator, chainMonitor: chainMonitor, netGraph: networkGraph, txBroadcaster: broadcaster, logger: logger)
+            let constructionParameters = ChannelManagerConstructionParameters(
+                config: config,
+                entropySource: keysManager.asEntropySource(),
+                nodeSigner: keysManager.asNodeSigner(),
+                signerProvider: keysManager.asSignerProvider(),
+                feeEstimator: feeEstimator,
+                chainMonitor: chainMonitor,
+                txBroadcaster: broadcaster,
+                logger: logger
+            )
+            self.channelManagerConstructor = ChannelManagerConstructor(network: lightningNetwork, currentBlockchainTipHash: reversedChaintipHash, currentBlockchainTipHeight: UInt32(chaintipHeight), netGraph: networkGraph, params: constructionParameters)
             let channelManager = channelManagerConstructor.channelManager
             let peerManager = channelManagerConstructor.peerManager
             let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
             
-            channelManagerConstructor.chainSyncCompleted(persister: channelManagerAndNetworkGraphPersisterAndEventHandler, scorer: multiThreadedScorer)
+            self.channelManagerConstructor.chainSyncCompleted(persister: channelManagerAndNetworkGraphPersisterAndEventHandler)
             
             let interPeerConnectionInterval = 0
             let pauseForNextPeer = { () async in

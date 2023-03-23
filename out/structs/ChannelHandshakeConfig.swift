@@ -512,11 +512,11 @@
 					/// any attacker who is able to take control of a channel can just as easily send the funds via
 					/// lightning payments, so we never require that our counterparties support this option.
 					/// 
-					/// The upfront key committed is provided from [`KeysInterface::get_shutdown_scriptpubkey`].
+					/// The upfront key committed is provided from [`SignerProvider::get_shutdown_scriptpubkey`].
 					/// 
 					/// Default value: true.
 					/// 
-					/// [`KeysInterface::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::KeysInterface::get_shutdown_scriptpubkey
+					/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::SignerProvider::get_shutdown_scriptpubkey
 					public func getCommitUpfrontShutdownPubkey() -> Bool {
 						// native call variable prep
 						
@@ -547,11 +547,11 @@
 					/// any attacker who is able to take control of a channel can just as easily send the funds via
 					/// lightning payments, so we never require that our counterparties support this option.
 					/// 
-					/// The upfront key committed is provided from [`KeysInterface::get_shutdown_scriptpubkey`].
+					/// The upfront key committed is provided from [`SignerProvider::get_shutdown_scriptpubkey`].
 					/// 
 					/// Default value: true.
 					/// 
-					/// [`KeysInterface::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::KeysInterface::get_shutdown_scriptpubkey
+					/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::SignerProvider::get_shutdown_scriptpubkey
 					public func setCommitUpfrontShutdownPubkey(val: Bool) {
 						// native call variable prep
 						

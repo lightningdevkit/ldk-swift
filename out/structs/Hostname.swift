@@ -8,7 +8,9 @@
 			/// Only the character set and length will be validated.
 			/// The character set consists of ASCII alphanumeric characters, hyphens, and periods.
 			/// Its length is guaranteed to be representable by a single byte.
-			/// This serialization is used by BOLT 7 hostnames.
+			/// This serialization is used by [`BOLT 7`] hostnames.
+			/// 
+			/// [`BOLT 7`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md
 			public typealias Hostname = Bindings.Hostname
 
 			extension Bindings {
@@ -18,7 +20,9 @@
 				/// Only the character set and length will be validated.
 				/// The character set consists of ASCII alphanumeric characters, hyphens, and periods.
 				/// Its length is guaranteed to be representable by a single byte.
-				/// This serialization is used by BOLT 7 hostnames.
+				/// This serialization is used by [`BOLT 7`] hostnames.
+				/// 
+				/// [`BOLT 7`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md
 				public class Hostname: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

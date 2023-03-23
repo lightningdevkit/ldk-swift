@@ -4,25 +4,33 @@
 			import LDKHeaders
 			#endif
 
-			/// A reply_channel_range message is a reply to a query_channel_range
-			/// message. Multiple reply_channel_range messages can be sent in reply
-			/// to a single query_channel_range message. The query recipient makes a
+			/// A [`reply_channel_range`] message is a reply to a [`QueryChannelRange`]
+			/// message.
+			/// 
+			/// Multiple `reply_channel_range` messages can be sent in reply
+			/// to a single [`QueryChannelRange`] message. The query recipient makes a
 			/// best effort to respond based on their local network view which may
-			/// not be a perfect view of the network. The short_channel_ids in the
-			/// reply are encoded. We only support encoding_type=0 uncompressed
-			/// serialization and do not support encoding_type=1 zlib serialization.
+			/// not be a perfect view of the network. The `short_channel_id`s in the
+			/// reply are encoded. We only support `encoding_type=0` uncompressed
+			/// serialization and do not support `encoding_type=1` zlib serialization.
+			/// 
+			/// [`reply_channel_range`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-query_channel_range-and-reply_channel_range-messages
 			public typealias ReplyChannelRange = Bindings.ReplyChannelRange
 
 			extension Bindings {
 		
 
-				/// A reply_channel_range message is a reply to a query_channel_range
-				/// message. Multiple reply_channel_range messages can be sent in reply
-				/// to a single query_channel_range message. The query recipient makes a
+				/// A [`reply_channel_range`] message is a reply to a [`QueryChannelRange`]
+				/// message.
+				/// 
+				/// Multiple `reply_channel_range` messages can be sent in reply
+				/// to a single [`QueryChannelRange`] message. The query recipient makes a
 				/// best effort to respond based on their local network view which may
-				/// not be a perfect view of the network. The short_channel_ids in the
-				/// reply are encoded. We only support encoding_type=0 uncompressed
-				/// serialization and do not support encoding_type=1 zlib serialization.
+				/// not be a perfect view of the network. The `short_channel_id`s in the
+				/// reply are encoded. We only support `encoding_type=0` uncompressed
+				/// serialization and do not support `encoding_type=1` zlib serialization.
+				/// 
+				/// [`reply_channel_range`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-query_channel_range-and-reply_channel_range-messages
 				public class ReplyChannelRange: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -265,7 +273,7 @@
 						return returnValue
 					}
 		
-					/// The short_channel_ids in the channel range
+					/// The `short_channel_id`s in the channel range
 					/// 
 					/// Returns a copy of the field.
 					public func getShortChannelIds() -> [UInt64] {
@@ -290,7 +298,7 @@
 						return returnValue
 					}
 		
-					/// The short_channel_ids in the channel range
+					/// The `short_channel_id`s in the channel range
 					public func setShortChannelIds(val: [UInt64]) {
 						// native call variable prep
 						

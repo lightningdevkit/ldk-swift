@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A node_announcement message to be sent or received from a peer
+			/// A [`node_announcement`] message to be sent to or received from a peer.
+			/// 
+			/// [`node_announcement`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-node_announcement-message
 			public typealias NodeAnnouncement = Bindings.NodeAnnouncement
 
 			extension Bindings {
 		
 
-				/// A node_announcement message to be sent or received from a peer
+				/// A [`node_announcement`] message to be sent to or received from a peer.
+				/// 
+				/// [`node_announcement`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-node_announcement-message
 				public class NodeAnnouncement: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

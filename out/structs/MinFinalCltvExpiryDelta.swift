@@ -4,14 +4,14 @@
 			import LDKHeaders
 			#endif
 
-			/// `min_final_cltv_expiry` to use for the last HTLC in the route
-			public typealias MinFinalCltvExpiry = Bindings.MinFinalCltvExpiry
+			/// `min_final_cltv_expiry_delta` to use for the last HTLC in the route
+			public typealias MinFinalCltvExpiryDelta = Bindings.MinFinalCltvExpiryDelta
 
 			extension Bindings {
 		
 
-				/// `min_final_cltv_expiry` to use for the last HTLC in the route
-				public class MinFinalCltvExpiry: NativeTypeWrapper {
+				/// `min_final_cltv_expiry_delta` to use for the last HTLC in the route
+				public class MinFinalCltvExpiryDelta: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
 
@@ -19,9 +19,9 @@
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKMinFinalCltvExpiry?
+					internal var cType: LDKMinFinalCltvExpiryDelta?
 
-					internal init(cType: LDKMinFinalCltvExpiry) {
+					internal init(cType: LDKMinFinalCltvExpiryDelta) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -29,7 +29,7 @@
 						super.init(conflictAvoidingVariableName: 0)
 					}
 
-					internal init(cType: LDKMinFinalCltvExpiry, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKMinFinalCltvExpiryDelta, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -41,13 +41,13 @@
 		
 
 					
-					/// Frees any resources used by the MinFinalCltvExpiry, if is_owned is set and inner is non-NULL.
+					/// Frees any resources used by the MinFinalCltvExpiryDelta, if is_owned is set and inner is non-NULL.
 					internal func free() {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = MinFinalCltvExpiry_free(self.cType!)
+						let nativeCallResult = MinFinalCltvExpiryDelta_free(self.cType!)
 
 						// cleanup
 						
@@ -67,8 +67,8 @@
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-				MinFinalCltvExpiry_get_a(thisPtrPointer)
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKMinFinalCltvExpiryDelta>) in
+				MinFinalCltvExpiryDelta_get_a(thisPtrPointer)
 						}
 				
 
@@ -90,8 +90,8 @@
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKMinFinalCltvExpiry>) in
-				MinFinalCltvExpiry_set_a(thisPtrPointer, val)
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKMinFinalCltvExpiryDelta>) in
+				MinFinalCltvExpiryDelta_set_a(thisPtrPointer, val)
 						}
 				
 
@@ -106,13 +106,13 @@
 						return returnValue
 					}
 		
-					/// Constructs a new MinFinalCltvExpiry given each field
+					/// Constructs a new MinFinalCltvExpiryDelta given each field
 					public init(aArg: UInt64) {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = MinFinalCltvExpiry_new(aArg)
+						let nativeCallResult = MinFinalCltvExpiryDelta_new(aArg)
 
 						// cleanup
 						
@@ -121,7 +121,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = MinFinalCltvExpiry(cType: nativeCallResult)
+						let returnValue = MinFinalCltvExpiryDelta(cType: nativeCallResult)
 						*/
 
 						
@@ -133,15 +133,15 @@
 			
 					}
 		
-					/// Creates a copy of the MinFinalCltvExpiry
-					internal func clone() -> MinFinalCltvExpiry {
+					/// Creates a copy of the MinFinalCltvExpiryDelta
+					internal func clone() -> MinFinalCltvExpiryDelta {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-				MinFinalCltvExpiry_clone(origPointer)
+						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKMinFinalCltvExpiryDelta>) in
+				MinFinalCltvExpiryDelta_clone(origPointer)
 						}
 				
 
@@ -150,21 +150,21 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MinFinalCltvExpiry(cType: nativeCallResult)
+						let returnValue = MinFinalCltvExpiryDelta(cType: nativeCallResult)
 						
 
 						return returnValue
 					}
 		
-					/// Checks if two MinFinalCltvExpirys contain equal inner contents.
+					/// Checks if two MinFinalCltvExpiryDeltas contain equal inner contents.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-				MinFinalCltvExpiry_hash(oPointer)
+						withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKMinFinalCltvExpiryDelta>) in
+				MinFinalCltvExpiryDelta_hash(oPointer)
 						}
 				
 
@@ -179,19 +179,19 @@
 						return returnValue
 					}
 		
-					/// Checks if two MinFinalCltvExpirys contain equal inner contents.
+					/// Checks if two MinFinalCltvExpiryDeltas contain equal inner contents.
 					/// This ignores pointers and is_owned flags and looks at the values in fields.
 					/// Two objects with NULL inner values will be considered "equal" here.
-					public class func eq(a: MinFinalCltvExpiry, b: MinFinalCltvExpiry) -> Bool {
+					public class func eq(a: MinFinalCltvExpiryDelta, b: MinFinalCltvExpiryDelta) -> Bool {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKMinFinalCltvExpiryDelta>) in
 				
-						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKMinFinalCltvExpiry>) in
-				MinFinalCltvExpiry_eq(aPointer, bPointer)
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKMinFinalCltvExpiryDelta>) in
+				MinFinalCltvExpiryDelta_eq(aPointer, bPointer)
 						}
 				
 						}
@@ -221,31 +221,31 @@
 					}
 		
 
-					internal func dangle(_ shouldDangle: Bool = true) -> MinFinalCltvExpiry {
+					internal func dangle(_ shouldDangle: Bool = true) -> MinFinalCltvExpiryDelta {
 						self.dangling = shouldDangle
 						return self
 					}
 
 					
-					internal func danglingClone() -> MinFinalCltvExpiry {
+					internal func danglingClone() -> MinFinalCltvExpiryDelta {
 						let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
 					}
 			
-						internal func dynamicallyDangledClone() -> MinFinalCltvExpiry {
+						internal func dynamicallyDangledClone() -> MinFinalCltvExpiryDelta {
 							let dangledClone = self.clone()
 							// if it's owned, i. e. controlled by Rust, it should dangle on our end
 							dangledClone.dangling = dangledClone.cType!.is_owned
 							return dangledClone
 						}
 					
-					internal func setCFreeability(freeable: Bool) -> MinFinalCltvExpiry {
+					internal func setCFreeability(freeable: Bool) -> MinFinalCltvExpiryDelta {
 						self.cType!.is_owned = freeable
 						return self
 					}
 
-					internal func dynamicDangle() -> MinFinalCltvExpiry {
+					internal func dynamicDangle() -> MinFinalCltvExpiryDelta {
 						self.dangling = self.cType!.is_owned
 						return self
 					}
@@ -256,11 +256,11 @@
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing MinFinalCltvExpiry \(self.instanceNumber).")
+							Bindings.print("Freeing MinFinalCltvExpiryDelta \(self.instanceNumber).")
 							
 							self.free()
 						} else {
-							Bindings.print("Not freeing MinFinalCltvExpiry \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing MinFinalCltvExpiryDelta \(self.instanceNumber) due to dangle.")
 						}
 					}
 			

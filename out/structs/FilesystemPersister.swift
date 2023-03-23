@@ -139,14 +139,18 @@
 					}
 		
 					/// Read `ChannelMonitor`s from disk.
-					public func readChannelmonitors(keysManager: KeysInterface) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
+					public func readChannelmonitors(entropySource: EntropySource, signerProvider: SignerProvider) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKFilesystemPersister>) in
-				FilesystemPersister_read_channelmonitors(thisArgPointer, keysManager.activate().cType!)
+				
+						withUnsafePointer(to: signerProvider.activate().cType!) { (signerProviderPointer: UnsafePointer<LDKSignerProvider>) in
+				FilesystemPersister_read_channelmonitors(thisArgPointer, entropySource.activate().cType!, signerProviderPointer)
+						}
+				
 						}
 				
 

@@ -4,7 +4,7 @@
 			import LDKHeaders
 			#endif
 
-			/// A simple implementation of [`Sign`] that just keeps the private keys in memory.
+			/// A simple implementation of [`WriteableEcdsaChannelSigner`] that just keeps the private keys in memory.
 			/// 
 			/// This implementation performs no policy checks and is insufficient by itself as
 			/// a secure external signer.
@@ -13,7 +13,7 @@
 			extension Bindings {
 		
 
-				/// A simple implementation of [`Sign`] that just keeps the private keys in memory.
+				/// A simple implementation of [`WriteableEcdsaChannelSigner`] that just keeps the private keys in memory.
 				/// 
 				/// This implementation performs no policy checks and is insufficient by itself as
 				/// a secure external signer.
@@ -422,11 +422,9 @@
 					}
 		
 					/// Creates a new [`InMemorySigner`].
-					public init(nodeSecret: [UInt8], fundingKey: [UInt8], revocationBaseKey: [UInt8], paymentKey: [UInt8], delayedPaymentBaseKey: [UInt8], htlcBaseKey: [UInt8], commitmentSeed: [UInt8], channelValueSatoshis: UInt64, channelKeysId: [UInt8]) {
+					public init(fundingKey: [UInt8], revocationBaseKey: [UInt8], paymentKey: [UInt8], delayedPaymentBaseKey: [UInt8], htlcBaseKey: [UInt8], commitmentSeed: [UInt8], channelValueSatoshis: UInt64, channelKeysId: [UInt8]) {
 						// native call variable prep
 						
-						let nodeSecretPrimitiveWrapper = SecretKey(value: nodeSecret)
-				
 						let fundingKeyPrimitiveWrapper = SecretKey(value: fundingKey)
 				
 						let revocationBaseKeyPrimitiveWrapper = SecretKey(value: revocationBaseKey)
@@ -443,13 +441,10 @@
 				
 
 						// native method call
-						let nativeCallResult = InMemorySigner_new(nodeSecretPrimitiveWrapper.cType!, fundingKeyPrimitiveWrapper.cType!, revocationBaseKeyPrimitiveWrapper.cType!, paymentKeyPrimitiveWrapper.cType!, delayedPaymentBaseKeyPrimitiveWrapper.cType!, htlcBaseKeyPrimitiveWrapper.cType!, commitmentSeedPrimitiveWrapper.cType!, channelValueSatoshis, channelKeysIdPrimitiveWrapper.cType!)
+						let nativeCallResult = InMemorySigner_new(fundingKeyPrimitiveWrapper.cType!, revocationBaseKeyPrimitiveWrapper.cType!, paymentKeyPrimitiveWrapper.cType!, delayedPaymentBaseKeyPrimitiveWrapper.cType!, htlcBaseKeyPrimitiveWrapper.cType!, commitmentSeedPrimitiveWrapper.cType!, channelValueSatoshis, channelKeysIdPrimitiveWrapper.cType!)
 
 						// cleanup
 						
-						// for elided types, we need this
-						nodeSecretPrimitiveWrapper.noOpRetain()
-				
 						// for elided types, we need this
 						fundingKeyPrimitiveWrapper.noOpRetain()
 				
@@ -490,7 +485,7 @@
 		
 					/// Returns the counterparty's pubkeys.
 					/// 
-					/// Will panic if [`BaseSign::provide_channel_parameters`] has not been called before.
+					/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
 					public func counterpartyPubkeys() -> ChannelPublicKeys {
 						// native call variable prep
 						
@@ -517,7 +512,7 @@
 					/// transactions, i.e., the amount of time that we have to wait to recover our funds if we
 					/// broadcast a transaction.
 					/// 
-					/// Will panic if [`BaseSign::provide_channel_parameters`] has not been called before.
+					/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
 					public func counterpartySelectedContestDelay() -> UInt16 {
 						// native call variable prep
 						
@@ -544,7 +539,7 @@
 					/// by our counterparty, i.e., the amount of time that they have to wait to recover their funds
 					/// if they broadcast a transaction.
 					/// 
-					/// Will panic if [`BaseSign::provide_channel_parameters`] has not been called before.
+					/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
 					public func holderSelectedContestDelay() -> UInt16 {
 						// native call variable prep
 						
@@ -569,7 +564,7 @@
 		
 					/// Returns whether the holder is the initiator.
 					/// 
-					/// Will panic if [`BaseSign::provide_channel_parameters`] has not been called before.
+					/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
 					public func isOutbound() -> Bool {
 						// native call variable prep
 						
@@ -594,7 +589,7 @@
 		
 					/// Funding outpoint
 					/// 
-					/// Will panic if [`BaseSign::provide_channel_parameters`] has not been called before.
+					/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
 					public func fundingOutpoint() -> OutPoint {
 						// native call variable prep
 						
@@ -620,7 +615,7 @@
 					/// Returns a [`ChannelTransactionParameters`] for this channel, to be used when verifying or
 					/// building transactions.
 					/// 
-					/// Will panic if [`BaseSign::provide_channel_parameters`] has not been called before.
+					/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
 					public func getChannelParameters() -> ChannelTransactionParameters {
 						// native call variable prep
 						
@@ -645,7 +640,7 @@
 		
 					/// Returns whether anchors should be used.
 					/// 
-					/// Will panic if [`BaseSign::provide_channel_parameters`] has not been called before.
+					/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
 					public func optAnchors() -> Bool {
 						// native call variable prep
 						
@@ -748,16 +743,16 @@
 						return returnValue
 					}
 		
-					/// Constructs a new BaseSign which calls the relevant methods on this_arg.
-					/// This copies the `inner` pointer in this_arg and thus the returned BaseSign must be freed before this_arg is
-					public func asBaseSign() -> BaseSign {
+					/// Constructs a new ChannelSigner which calls the relevant methods on this_arg.
+					/// This copies the `inner` pointer in this_arg and thus the returned ChannelSigner must be freed before this_arg is
+					public func asChannelSigner() -> ChannelSigner {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInMemorySigner>) in
-				InMemorySigner_as_BaseSign(thisArgPointer)
+				InMemorySigner_as_ChannelSigner(thisArgPointer)
 						}
 				
 
@@ -766,22 +761,22 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedBaseSign(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedChannelSigner(cType: nativeCallResult, anchor: self)
 						
 
 						return returnValue
 					}
 		
-					/// Constructs a new Sign which calls the relevant methods on this_arg.
-					/// This copies the `inner` pointer in this_arg and thus the returned Sign must be freed before this_arg is
-					public func asSign() -> Sign {
+					/// Constructs a new EcdsaChannelSigner which calls the relevant methods on this_arg.
+					/// This copies the `inner` pointer in this_arg and thus the returned EcdsaChannelSigner must be freed before this_arg is
+					public func asEcdsaChannelSigner() -> EcdsaChannelSigner {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInMemorySigner>) in
-				InMemorySigner_as_Sign(thisArgPointer)
+				InMemorySigner_as_EcdsaChannelSigner(thisArgPointer)
 						}
 				
 
@@ -790,7 +785,31 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedSign(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: nativeCallResult, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// Constructs a new WriteableEcdsaChannelSigner which calls the relevant methods on this_arg.
+					/// This copies the `inner` pointer in this_arg and thus the returned WriteableEcdsaChannelSigner must be freed before this_arg is
+					public func asWriteableEcdsaChannelSigner() -> WriteableEcdsaChannelSigner {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInMemorySigner>) in
+				InMemorySigner_as_WriteableEcdsaChannelSigner(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, anchor: self)
 						
 
 						return returnValue
@@ -820,24 +839,19 @@
 					}
 		
 					/// Read a InMemorySigner from a byte array, created by InMemorySigner_write
-					public class func read(ser: [UInt8], arg: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
+					public class func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
 						// native call variable prep
 						
 						let serPrimitiveWrapper = u8slice(value: ser)
 				
-						let argPrimitiveWrapper = SecretKey(value: arg)
-				
 
 						// native method call
-						let nativeCallResult = InMemorySigner_read(serPrimitiveWrapper.cType!, argPrimitiveWrapper.cType!)
+						let nativeCallResult = InMemorySigner_read(serPrimitiveWrapper.cType!)
 
 						// cleanup
 						
 						// for elided types, we need this
 						serPrimitiveWrapper.noOpRetain()
-				
-						// for elided types, we need this
-						argPrimitiveWrapper.noOpRetain()
 				
 
 						

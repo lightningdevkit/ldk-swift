@@ -70,19 +70,18 @@
 		
 					/// Creates a new tracker of the actual state of the network of channels and nodes,
 					/// assuming an existing Network Graph.
-					/// Chain monitor is used to make sure announced channels exist on-chain,
-					/// channel data is correct, and that the announcement is signed with
-					/// channel owners' keys.
-					public init(networkGraph: NetworkGraph, chainAccess: Access?, logger: Logger) {
+					/// UTXO lookup is used to make sure announced channels exist on-chain, channel data is
+					/// correct, and the announcement is signed with channel owners' keys.
+					public init(networkGraph: NetworkGraph, utxoLookup: UtxoLookup?, logger: Logger) {
 						// native call variable prep
 						
-						let chainAccessOption = Option_AccessZ(some: chainAccess).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
 				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: networkGraph.cType!) { (networkGraphPointer: UnsafePointer<LDKNetworkGraph>) in
-				P2PGossipSync_new(networkGraphPointer, chainAccessOption.cType!, logger.activate().cType!)
+				P2PGossipSync_new(networkGraphPointer, utxoLookupOption.cType!, logger.activate().cType!)
 						}
 				
 
@@ -108,16 +107,16 @@
 					/// Adds a provider used to check new announcements. Does not affect
 					/// existing announcements unless they are updated.
 					/// Add, update or remove the provider would replace the current one.
-					public func addChainAccess(chainAccess: Access?) {
+					public func addUtxoLookup(utxoLookup: UtxoLookup?) {
 						// native call variable prep
 						
-						let chainAccessOption = Option_AccessZ(some: chainAccess).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
 				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKP2PGossipSync>) in
-				P2PGossipSync_add_chain_access(thisArgPointer, chainAccessOption.cType!)
+				P2PGossipSync_add_utxo_lookup(thisArgPointer, utxoLookupOption.cType!)
 						}
 				
 

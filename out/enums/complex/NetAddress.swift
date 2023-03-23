@@ -10,7 +10,7 @@
 
 			extension Bindings {
 
-				/// An address which can be used to connect to a remote peer
+				/// An address which can be used to connect to a remote peer.
 				public class NetAddress: NativeTypeWrapper {
 
 					
@@ -53,7 +53,8 @@
 						case OnionV2
 			
 						/// A new-style Tor onion address/port on which the peer is listening.
-						/// To create the human-readable \"hostname\", concatenate ed25519_pubkey, checksum, and version,
+						/// 
+						/// To create the human-readable \"hostname\", concatenate the ED25519 pubkey, checksum, and version,
 						/// wrap as base32 and append \".onion\".
 						case OnionV3
 			

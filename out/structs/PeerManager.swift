@@ -105,26 +105,21 @@
 					/// timestamp, however if it is not available a persistent counter that increases once per
 					/// minute should suffice.
 					@available(*, deprecated, message: "This method passes the following non-cloneable, but freeable objects by value: `messageHandler`.")
-					public init(messageHandler: MessageHandler, ourNodeSecret: [UInt8], currentTime: UInt32, ephemeralRandomData: [UInt8], logger: Logger, customMessageHandler: CustomMessageHandler) {
+					public init(messageHandler: MessageHandler, currentTime: UInt32, ephemeralRandomData: [UInt8], logger: Logger, customMessageHandler: CustomMessageHandler, nodeSigner: NodeSigner) {
 						// native call variable prep
 						
-						let ourNodeSecretPrimitiveWrapper = SecretKey(value: ourNodeSecret)
-				
 						let tupledEphemeralRandomData = Bindings.arrayToUInt8Tuple32(array: ephemeralRandomData)
 					
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: tupledEphemeralRandomData) { (tupledEphemeralRandomDataPointer: UnsafePointer<UInt8Tuple32>) in
-				PeerManager_new(messageHandler.dangle().cType!, ourNodeSecretPrimitiveWrapper.cType!, currentTime, tupledEphemeralRandomDataPointer, logger.activate().cType!, customMessageHandler.activate().cType!)
+				PeerManager_new(messageHandler.dangle().cType!, currentTime, tupledEphemeralRandomDataPointer, logger.activate().cType!, customMessageHandler.activate().cType!, nodeSigner.activate().cType!)
 						}
 				
 
 						// cleanup
 						
-						// for elided types, we need this
-						ourNodeSecretPrimitiveWrapper.noOpRetain()
-				
 				self.initialCFreeability = nativeCallResult.is_owned
 			
 
@@ -142,12 +137,17 @@
 			
 					}
 		
-					/// Get the list of node ids for peers which have completed the initial handshake.
+					/// Get a list of tuples mapping from node id to network addresses for peers which have
+					/// completed the initial handshake.
 					/// 
-					/// For outbound connections, this will be the same as the their_node_id parameter passed in to
-					/// new_outbound_connection, however entries will only appear once the initial handshake has
-					/// completed and we are sure the remote peer has the private key for the given node_id.
-					public func getPeerNodeIds() -> [[UInt8]] {
+					/// For outbound connections, the [`PublicKey`] will be the same as the `their_node_id` parameter
+					/// passed in to [`Self::new_outbound_connection`], however entries will only appear once the initial
+					/// handshake has completed and we are sure the remote peer has the private key for the given
+					/// [`PublicKey`].
+					/// 
+					/// The returned `Option`s will only be `Some` if an address had been previously given via
+					/// [`Self::new_outbound_connection`] or [`Self::new_inbound_connection`].
+					public func getPeerNodeIds() -> [([UInt8], NetAddress?)] {
 						// native call variable prep
 						
 
@@ -163,13 +163,13 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_PublicKeyZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(cType: nativeCallResult, anchor: self).getValue()
 						
 
 						return returnValue
 					}
 		
-					/// Indicates a new outbound connection has been established to a node with the given node_id
+					/// Indicates a new outbound connection has been established to a node with the given `node_id`
 					/// and an optional remote network address.
 					/// 
 					/// The remote network address adds the option to report a remote IP address back to a connecting
@@ -302,6 +302,9 @@
 					/// [`send_data`] call on this descriptor has `resume_read` set (preventing DoS issues in the
 					/// send buffer).
 					/// 
+					/// In order to avoid processing too many messages at once per peer, `data` should be on the
+					/// order of 4KiB.
+					/// 
 					/// [`send_data`]: SocketDescriptor::send_data
 					/// [`process_events`]: PeerManager::process_events
 					public func readEvent(peerDescriptor: SocketDescriptor, data: [UInt8]) -> Result_boolPeerHandleErrorZ {
@@ -403,14 +406,11 @@
 		
 					/// Disconnect a peer given its node id.
 					/// 
-					/// Set `no_connection_possible` to true to prevent any further connection with this peer,
-					/// force-closing any channels we have with it.
-					/// 
 					/// If a peer is connected, this will call [`disconnect_socket`] on the descriptor for the
 					/// peer. Thus, be very careful about reentrancy issues.
 					/// 
 					/// [`disconnect_socket`]: SocketDescriptor::disconnect_socket
-					public func disconnectByNodeId(nodeId: [UInt8], noConnectionPossible: Bool) {
+					public func disconnectByNodeId(nodeId: [UInt8]) {
 						// native call variable prep
 						
 						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
@@ -419,7 +419,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPeerManager>) in
-				PeerManager_disconnect_by_node_id(thisArgPointer, nodeIdPrimitiveWrapper.cType!, noConnectionPossible)
+				PeerManager_disconnect_by_node_id(thisArgPointer, nodeIdPrimitiveWrapper.cType!)
 						}
 				
 

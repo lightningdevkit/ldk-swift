@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// The unsigned part of a node_announcement
+			/// The unsigned part of a [`node_announcement`] message.
+			/// 
+			/// [`node_announcement`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-node_announcement-message
 			public typealias UnsignedNodeAnnouncement = Bindings.UnsignedNodeAnnouncement
 
 			extension Bindings {
 		
 
-				/// The unsigned part of a node_announcement
+				/// The unsigned part of a [`node_announcement`] message.
+				/// 
+				/// [`node_announcement`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-node_announcement-message
 				public class UnsignedNodeAnnouncement: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -152,9 +156,9 @@
 						return returnValue
 					}
 		
-					/// The node_id this announcement originated from (don't rebroadcast the node_announcement back
+					/// The `node_id` this announcement originated from (don't rebroadcast the `node_announcement` back
 					/// to this node).
-					public func getNodeId() -> [UInt8] {
+					public func getNodeId() -> NodeId {
 						// native call variable prep
 						
 
@@ -170,32 +174,27 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = NodeId(cType: nativeCallResult, anchor: self).dangle(false)
 						
 
 						return returnValue
 					}
 		
-					/// The node_id this announcement originated from (don't rebroadcast the node_announcement back
+					/// The `node_id` this announcement originated from (don't rebroadcast the `node_announcement` back
 					/// to this node).
-					public func setNodeId(val: [UInt8]) {
+					public func setNodeId(val: NodeId) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
-				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>) in
-				UnsignedNodeAnnouncement_set_node_id(thisPtrPointer, valPrimitiveWrapper.cType!)
+				UnsignedNodeAnnouncement_set_node_id(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 						}
 				
 
 						// cleanup
 						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)
@@ -260,8 +259,9 @@
 						return returnValue
 					}
 		
-					/// An alias, for UI purposes.  This should be sanitized before use.  There is no guarantee
-					/// of uniqueness.
+					/// An alias, for UI purposes.
+					/// 
+					/// This should be sanitized before use. There is no guarantee of uniqueness.
 					public func getAlias() -> [UInt8]? {
 						// native call variable prep
 						
@@ -288,8 +288,9 @@
 						return returnValue
 					}
 		
-					/// An alias, for UI purposes.  This should be sanitized before use.  There is no guarantee
-					/// of uniqueness.
+					/// An alias, for UI purposes.
+					/// 
+					/// This should be sanitized before use. There is no guarantee of uniqueness.
 					public func setAlias(val: [UInt8]) {
 						// native call variable prep
 						

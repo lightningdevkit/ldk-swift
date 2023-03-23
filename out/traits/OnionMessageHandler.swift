@@ -39,7 +39,7 @@
 					}
 		
 
-					public init(OnionMessageProvider: OnionMessageProvider) {
+					public init(onionMessageProvider: OnionMessageProvider) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -67,14 +67,14 @@
 							return returnValue
 						}
 		
-						func peerConnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, initArgument: UnsafePointer<LDKInit>) -> LDKCResult_NoneNoneZ {
+						func peerConnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, initArgument: UnsafePointer<LDKInit>, inbound: Bool) -> LDKCResult_NoneNoneZ {
 							let instance: OnionMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "OnionMessageHandler::peerConnectedLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), initArgument: BindingsInit(cType: initArgument.pointee).dangle().clone())
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), initArgument: BindingsInit(cType: initArgument.pointee).dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -85,14 +85,14 @@
 							return returnValue
 						}
 		
-						func peerDisconnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, no_connection_possible: Bool) -> Void {
+						func peerDisconnectedLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey) -> Void {
 							let instance: OnionMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "OnionMessageHandler::peerDisconnectedLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), noConnectionPossible: no_connection_possible)
+							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id).getValue())
 
 							// cleanup
 							
@@ -165,13 +165,13 @@
 							peer_disconnected: peerDisconnectedLambda,
 							provided_node_features: providedNodeFeaturesLambda,
 							provided_init_features: providedInitFeaturesLambda,
-							OnionMessageProvider: OnionMessageProvider.activate().cType!,
+							OnionMessageProvider: onionMessageProvider.activate().cType!,
 							free: freeLambda
 						)
 					}
 
 					
-					/// Handle an incoming onion_message message from the given peer.
+					/// Handle an incoming `onion_message` message from the given peer.
 					open func handleOnionMessage(peerNodeId: [UInt8], msg: OnionMessage) -> Void {
 						
 						Bindings.print("Error: OnionMessageHandler::handleOnionMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
@@ -184,7 +184,7 @@
 					/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
 					/// with us. Implementors should be somewhat conservative about doing so, however, as other
 					/// message handlers may still wish to communicate with this peer.
-					open func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit) -> Result_NoneNoneZ {
+					open func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						
 						Bindings.print("Error: OnionMessageHandler::peerConnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
@@ -192,10 +192,7 @@
 		
 					/// Indicates a connection to the peer failed/an existing connection was lost. Allows handlers to
 					/// drop and refuse to forward onion messages to this peer.
-					/// 
-					/// Note that in some rare cases this may be called without a corresponding
-					/// [`Self::peer_connected`].
-					open func peerDisconnected(theirNodeId: [UInt8], noConnectionPossible: Bool) -> Void {
+					open func peerDisconnected(theirNodeId: [UInt8]) -> Void {
 						
 						Bindings.print("Error: OnionMessageHandler::peerDisconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
@@ -266,7 +263,7 @@
 
 				internal class NativelyImplementedOnionMessageHandler: OnionMessageHandler {
 					
-					/// Handle an incoming onion_message message from the given peer.
+					/// Handle an incoming `onion_message` message from the given peer.
 					public override func handleOnionMessage(peerNodeId: [UInt8], msg: OnionMessage) {
 						// native call variable prep
 						
@@ -300,7 +297,7 @@
 					/// May return an `Err(())` if the features the peer supports are not sufficient to communicate
 					/// with us. Implementors should be somewhat conservative about doing so, however, as other
 					/// message handlers may still wish to communicate with this peer.
-					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit) -> Result_NoneNoneZ {
+					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -311,7 +308,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: initArgument.cType!) { (initArgumentPointer: UnsafePointer<LDKInit>) in
-				self.cType!.peer_connected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, initArgumentPointer)
+				self.cType!.peer_connected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, initArgumentPointer, inbound)
 						}
 				
 
@@ -329,10 +326,7 @@
 		
 					/// Indicates a connection to the peer failed/an existing connection was lost. Allows handlers to
 					/// drop and refuse to forward onion messages to this peer.
-					/// 
-					/// Note that in some rare cases this may be called without a corresponding
-					/// [`Self::peer_connected`].
-					public override func peerDisconnected(theirNodeId: [UInt8], noConnectionPossible: Bool) {
+					public override func peerDisconnected(theirNodeId: [UInt8]) {
 						// native call variable prep
 						
 						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
@@ -341,7 +335,7 @@
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.peer_disconnected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, noConnectionPossible)
+						let nativeCallResult = self.cType!.peer_disconnected(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!)
 
 						// cleanup
 						

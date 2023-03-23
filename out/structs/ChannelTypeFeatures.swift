@@ -313,6 +313,98 @@
 					}
 		
 					/// Set this feature as optional.
+					public func setAnchorsZeroFeeHtlcTxOptional() {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKChannelTypeFeatures>) in
+				ChannelTypeFeatures_set_anchors_zero_fee_htlc_tx_optional(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Set this feature as required.
+					public func setAnchorsZeroFeeHtlcTxRequired() {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKChannelTypeFeatures>) in
+				ChannelTypeFeatures_set_anchors_zero_fee_htlc_tx_required(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Checks if this feature is supported.
+					public func supportsAnchorsZeroFeeHtlcTx() -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+				ChannelTypeFeatures_supports_anchors_zero_fee_htlc_tx(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Checks if this feature is required.
+					public func requiresAnchorsZeroFeeHtlcTx() -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+				ChannelTypeFeatures_requires_anchors_zero_fee_htlc_tx(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Set this feature as optional.
 					public func setScidPrivacyOptional() {
 						// native call variable prep
 						

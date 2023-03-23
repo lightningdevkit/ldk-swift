@@ -504,8 +504,54 @@
 						return returnValue
 					}
 		
+					/// The minimum CLTV delta at the end of the route. This value must not be zero.
+					public func getFinalCltvExpiryDelta() -> UInt32 {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPaymentParameters>) in
+				PaymentParameters_get_final_cltv_expiry_delta(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The minimum CLTV delta at the end of the route. This value must not be zero.
+					public func setFinalCltvExpiryDelta(val: UInt32) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
+				PaymentParameters_set_final_cltv_expiry_delta(thisPtrPointer, val)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
 					/// Constructs a new PaymentParameters given each field
-					public init(payeePubkeyArg: [UInt8], featuresArg: InvoiceFeatures, routeHintsArg: [RouteHint], expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8, maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64]) {
+					public init(payeePubkeyArg: [UInt8], featuresArg: InvoiceFeatures, routeHintsArg: [RouteHint], expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8, maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64], finalCltvExpiryDeltaArg: UInt32) {
 						// native call variable prep
 						
 						let payeePubkeyArgPrimitiveWrapper = PublicKey(value: payeePubkeyArg)
@@ -518,7 +564,7 @@
 				
 
 						// native method call
-						let nativeCallResult = PaymentParameters_new(payeePubkeyArgPrimitiveWrapper.cType!, featuresArg.dynamicallyDangledClone().cType!, routeHintsArgVector.cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg, maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!)
+						let nativeCallResult = PaymentParameters_new(payeePubkeyArgPrimitiveWrapper.cType!, featuresArg.dynamicallyDangledClone().cType!, routeHintsArgVector.cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg, maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!, finalCltvExpiryDeltaArg)
 
 						// cleanup
 						
@@ -645,14 +691,14 @@
 					}
 		
 					/// Read a PaymentParameters from a byte array, created by PaymentParameters_write
-					public class func read(ser: [UInt8]) -> Result_PaymentParametersDecodeErrorZ {
+					public class func read(ser: [UInt8], arg: UInt32) -> Result_PaymentParametersDecodeErrorZ {
 						// native call variable prep
 						
 						let serPrimitiveWrapper = u8slice(value: ser)
 				
 
 						// native method call
-						let nativeCallResult = PaymentParameters_read(serPrimitiveWrapper.cType!)
+						let nativeCallResult = PaymentParameters_read(serPrimitiveWrapper.cType!, arg)
 
 						// cleanup
 						
@@ -669,14 +715,17 @@
 					}
 		
 					/// Creates a payee with the node id of the given `pubkey`.
-					public class func initWithNodeId(payeePubkey: [UInt8]) -> PaymentParameters {
+					/// 
+					/// The `final_cltv_expiry_delta` should match the expected final CLTV delta the recipient has
+					/// provided.
+					public class func initWithNodeId(payeePubkey: [UInt8], finalCltvExpiryDelta: UInt32) -> PaymentParameters {
 						// native call variable prep
 						
 						let payeePubkeyPrimitiveWrapper = PublicKey(value: payeePubkey)
 				
 
 						// native method call
-						let nativeCallResult = PaymentParameters_from_node_id(payeePubkeyPrimitiveWrapper.cType!)
+						let nativeCallResult = PaymentParameters_from_node_id(payeePubkeyPrimitiveWrapper.cType!, finalCltvExpiryDelta)
 
 						// cleanup
 						
@@ -693,14 +742,17 @@
 					}
 		
 					/// Creates a payee with the node id of the given `pubkey` to use for keysend payments.
-					public class func initForKeysend(payeePubkey: [UInt8]) -> PaymentParameters {
+					/// 
+					/// The `final_cltv_expiry_delta` should match the expected final CLTV delta the recipient has
+					/// provided.
+					public class func initForKeysend(payeePubkey: [UInt8], finalCltvExpiryDelta: UInt32) -> PaymentParameters {
 						// native call variable prep
 						
 						let payeePubkeyPrimitiveWrapper = PublicKey(value: payeePubkey)
 				
 
 						// native method call
-						let nativeCallResult = PaymentParameters_for_keysend(payeePubkeyPrimitiveWrapper.cType!)
+						let nativeCallResult = PaymentParameters_for_keysend(payeePubkeyPrimitiveWrapper.cType!, finalCltvExpiryDelta)
 
 						// cleanup
 						

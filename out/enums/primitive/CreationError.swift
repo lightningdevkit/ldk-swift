@@ -32,6 +32,11 @@
 					/// [phantom invoices]: crate::utils::create_phantom_invoice
 					case MissingRouteHints
 			
+					/// The provided `min_final_cltv_expiry_delta` was less than [`MIN_FINAL_CLTV_EXPIRY_DELTA`].
+					/// 
+					/// [`MIN_FINAL_CLTV_EXPIRY_DELTA`]: lightning::ln::channelmanager::MIN_FINAL_CLTV_EXPIRY_DELTA
+					case MinFinalCltvExpiryDeltaTooShort
+			
 
 					internal init (value: LDKCreationError) {
 						switch value {
@@ -50,6 +55,9 @@
 			
 							case LDKCreationError_MissingRouteHints:
 								self = .MissingRouteHints
+			
+							case LDKCreationError_MinFinalCltvExpiryDeltaTooShort:
+								self = .MinFinalCltvExpiryDeltaTooShort
 			
 							default:
 								Bindings.print("Error: Invalid value type for CreationError! Aborting.", severity: .ERROR)
@@ -75,6 +83,9 @@
 			
 							case .MissingRouteHints:
 								return LDKCreationError_MissingRouteHints
+			
+							case .MinFinalCltvExpiryDeltaTooShort:
+								return LDKCreationError_MinFinalCltvExpiryDeltaTooShort
 			
 						}
 					}

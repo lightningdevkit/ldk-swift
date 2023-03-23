@@ -97,6 +97,9 @@
 						/// Used to indicate that a channel_update should be broadcast to all peers.
 						case BroadcastChannelUpdate
 			
+						/// Used to indicate that a node_announcement should be broadcast to all peers.
+						case BroadcastNodeAnnouncement
+			
 						/// Used to indicate that a channel_update should be sent to a single peer.
 						/// In contrast to [`Self::BroadcastChannelUpdate`], this is used when the channel is a
 						/// private channel and we shouldn't be informing all of our peers of channel parameters.
@@ -165,6 +168,9 @@
 			
 							case LDKMessageSendEvent_BroadcastChannelUpdate:
 								return .BroadcastChannelUpdate
+			
+							case LDKMessageSendEvent_BroadcastNodeAnnouncement:
+								return .BroadcastNodeAnnouncement
 			
 							case LDKMessageSendEvent_SendChannelUpdate:
 								return .SendChannelUpdate
@@ -560,6 +566,25 @@
 						return returnValue
 					}
 		
+					/// Utility method to constructs a new BroadcastNodeAnnouncement-variant MessageSendEvent
+					public class func initWithBroadcastNodeAnnouncement(msg: Bindings.NodeAnnouncement) -> MessageSendEvent {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = MessageSendEvent_broadcast_node_announcement(msg.dynamicallyDangledClone().cType!)
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = MessageSendEvent(cType: nativeCallResult)
+						
+
+						return returnValue
+					}
+		
 					/// Utility method to constructs a new SendChannelUpdate-variant MessageSendEvent
 					public class func initWithSendChannelUpdate(nodeId: [UInt8], msg: Bindings.ChannelUpdate) -> MessageSendEvent {
 						// native call variable prep
@@ -816,6 +841,14 @@
 						}
 
 						return MessageSendEvent_LDKBroadcastChannelUpdate_Body(cType: self.cType!.broadcast_channel_update, anchor: self)
+					}
+			
+					public func getValueAsBroadcastNodeAnnouncement() -> BroadcastNodeAnnouncement? {
+						if self.cType?.tag != LDKMessageSendEvent_BroadcastNodeAnnouncement {
+							return nil
+						}
+
+						return MessageSendEvent_LDKBroadcastNodeAnnouncement_Body(cType: self.cType!.broadcast_node_announcement, anchor: self)
 					}
 			
 					public func getValueAsSendChannelUpdate() -> SendChannelUpdate? {
@@ -1742,6 +1775,8 @@
 						}
 		
 						/// The followup channel_update which should be sent.
+						/// 
+						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getUpdateMsg() -> Bindings.ChannelUpdate {
 							// return value (do some wrapping)
 							let returnValue = Bindings.ChannelUpdate(cType: self.cType!.update_msg, anchor: self)
@@ -1809,6 +1844,64 @@
 		
 
 						internal func dangle(_ shouldDangle: Bool = true) -> BroadcastChannelUpdate {
+							self.dangling = shouldDangle
+							return self
+						}
+
+											
+
+					}
+
+					
+		
+					
+					/// 
+					internal typealias MessageSendEvent_LDKBroadcastNodeAnnouncement_Body = BroadcastNodeAnnouncement
+			
+
+					/// 
+					public class BroadcastNodeAnnouncement: NativeTypeWrapper {
+
+						
+
+						
+						private static var instanceCounter: UInt = 0
+						internal let instanceNumber: UInt
+
+						internal var cType: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body?
+
+						internal init(cType: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0)
+						}
+
+						internal init(cType: LDKMessageSendEvent_LDKBroadcastNodeAnnouncement_Body, anchor: NativeTypeWrapper) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0)
+							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+		
+
+						
+
+						
+						/// The node_announcement which should be sent.
+						public func getMsg() -> Bindings.NodeAnnouncement {
+							// return value (do some wrapping)
+							let returnValue = Bindings.NodeAnnouncement(cType: self.cType!.msg, anchor: self)
+
+							return returnValue;
+						}
+		
+
+						internal func dangle(_ shouldDangle: Bool = true) -> BroadcastNodeAnnouncement {
 							self.dangling = shouldDangle
 							return self
 						}

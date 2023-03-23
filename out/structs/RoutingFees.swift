@@ -60,7 +60,7 @@
 						return returnValue
 					}
 		
-					/// Flat routing fee in satoshis
+					/// Flat routing fee in millisatoshis.
 					public func getBaseMsat() -> UInt32 {
 						// native call variable prep
 						
@@ -83,7 +83,7 @@
 						return returnValue
 					}
 		
-					/// Flat routing fee in satoshis
+					/// Flat routing fee in millisatoshis.
 					public func setBaseMsat(val: UInt32) {
 						// native call variable prep
 						

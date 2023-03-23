@@ -103,14 +103,14 @@
 							return returnValue
 						}
 		
-						func updateChannelLambda(this_arg: UnsafeRawPointer?, funding_txo: LDKOutPoint, update: LDKChannelMonitorUpdate) -> LDKChannelMonitorUpdateStatus {
+						func updateChannelLambda(this_arg: UnsafeRawPointer?, funding_txo: LDKOutPoint, update: UnsafePointer<LDKChannelMonitorUpdate>) -> LDKChannelMonitorUpdateStatus {
 							let instance: Watch = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Watch::updateChannelLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo), update: ChannelMonitorUpdate(cType: update))
+							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo), update: ChannelMonitorUpdate(cType: update.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -293,7 +293,11 @@
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.update_channel(self.cType!.this_arg, fundingTxo.dynamicallyDangledClone().cType!, update.dynamicallyDangledClone().cType!)
+						let nativeCallResult = 
+						withUnsafePointer(to: update.cType!) { (updatePointer: UnsafePointer<LDKChannelMonitorUpdate>) in
+				self.cType!.update_channel(self.cType!.this_arg, fundingTxo.dynamicallyDangledClone().cType!, updatePointer)
+						}
+				
 
 						// cleanup
 						

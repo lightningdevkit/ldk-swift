@@ -5,8 +5,9 @@
 			#endif
 
 			/// Proof that the sender knows the per-commitment secret of the previous commitment transaction.
+			/// 
 			/// This is used to convince the recipient that the channel is at a certain commitment
-			/// number even if they lost that data due to a local failure.  Of course, the peer may lie
+			/// number even if they lost that data due to a local failure. Of course, the peer may lie
 			/// and even later commitments may have been revoked.
 			public typealias DataLossProtect = Bindings.DataLossProtect
 
@@ -14,8 +15,9 @@
 		
 
 				/// Proof that the sender knows the per-commitment secret of the previous commitment transaction.
+				/// 
 				/// This is used to convince the recipient that the channel is at a certain commitment
-				/// number even if they lost that data due to a local failure.  Of course, the peer may lie
+				/// number even if they lost that data due to a local failure. Of course, the peer may lie
 				/// and even later commitments may have been revoked.
 				public class DataLossProtect: NativeTypeWrapper {
 

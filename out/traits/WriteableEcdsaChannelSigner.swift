@@ -13,7 +13,7 @@
 			/// 
 			/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 			/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
-			public typealias Sign = Bindings.Sign
+			public typealias WriteableEcdsaChannelSigner = Bindings.WriteableEcdsaChannelSigner
 
 			extension Bindings {
 
@@ -24,15 +24,15 @@
 				/// 
 				/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 				/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
-				open class Sign: NativeTraitWrapper {
+				open class WriteableEcdsaChannelSigner: NativeTraitWrapper {
 
 					
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKSign?
+					internal var cType: LDKWriteableEcdsaChannelSigner?
 
-					internal init(cType: LDKSign) {
+					internal init(cType: LDKWriteableEcdsaChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -40,7 +40,7 @@
 						super.init(conflictAvoidingVariableName: 0)
 					}
 
-					internal init(cType: LDKSign, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKWriteableEcdsaChannelSigner, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -51,7 +51,7 @@
 					}
 		
 
-					public init(BaseSign: BaseSign) {
+					public init(ecdsaChannelSigner: EcdsaChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0)
@@ -62,7 +62,7 @@
 
 						
 						func writeLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_u8Z {
-							let instance: Sign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Sign::writeLambda")
+							let instance: WriteableEcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "WriteableEcdsaChannelSigner::writeLambda")
 
 							// Swift callback variable prep
 											
@@ -80,7 +80,7 @@
 						}
 		
 						func freeLambda(this_arg: UnsafeMutableRawPointer?) -> Void {
-							let instance: Sign = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Sign::freeLambda")
+							let instance: WriteableEcdsaChannelSigner = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "WriteableEcdsaChannelSigner::freeLambda")
 
 							// Swift callback variable prep
 											
@@ -98,9 +98,9 @@
 						}
 		
 
-						self.cType = LDKSign(							
+						self.cType = LDKWriteableEcdsaChannelSigner(							
 							this_arg: thisArg,
-							BaseSign: BaseSign.activate().cType!,
+							EcdsaChannelSigner: ecdsaChannelSigner.activate().cType!,
 							write: writeLambda,
 							cloned: nil,
 							free: freeLambda
@@ -111,7 +111,7 @@
 					/// Serialize the object into a byte array
 					open func write() -> [UInt8] {
 						
-						Bindings.print("Error: Sign::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: WriteableEcdsaChannelSigner::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
@@ -122,21 +122,21 @@
 				// TODO: figure out something smarter
 				return; // the semicolon is necessary because Swift is whitespace-agnostic
 			
-						Bindings.print("Error: Sign::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+						Bindings.print("Error: WriteableEcdsaChannelSigner::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
 
 					
-					/// Creates a copy of a Sign
-					internal func clone() -> Sign {
+					/// Creates a copy of a WriteableEcdsaChannelSigner
+					internal func clone() -> WriteableEcdsaChannelSigner {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKSign>) in
-				Sign_clone(origPointer)
+						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKWriteableEcdsaChannelSigner>) in
+				WriteableEcdsaChannelSigner_clone(origPointer)
 						}
 				
 
@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedSign(cType: nativeCallResult)
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult)
 						
 
 						return returnValue
@@ -153,16 +153,16 @@
 		
 
 					
-					/// Implementation of BaseSign for this object.
-					public func getBaseSign() -> BaseSign {
+					/// Implementation of EcdsaChannelSigner for this object.
+					public func getEcdsaChannelSigner() -> EcdsaChannelSigner {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedBaseSign(cType: self.cType!.BaseSign, anchor: self)
+						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: self.cType!.EcdsaChannelSigner, anchor: self)
 
 						return returnValue;
 					}
 		
 
-					internal func dangle(_ shouldDangle: Bool = true) -> Sign {
+					internal func dangle(_ shouldDangle: Bool = true) -> WriteableEcdsaChannelSigner {
         				self.dangling = shouldDangle
 						return self
 					}
@@ -173,15 +173,15 @@
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Sign \(self.instanceNumber).")
+							Bindings.print("Freeing WriteableEcdsaChannelSigner \(self.instanceNumber).")
 							self.free()
 						} else {
-							Bindings.print("Not freeing Sign \(self.instanceNumber) due to dangle.")
+							Bindings.print("Not freeing WriteableEcdsaChannelSigner \(self.instanceNumber) due to dangle.")
 						}
 					}
 				}
 
-				internal class NativelyImplementedSign: Sign {
+				internal class NativelyImplementedWriteableEcdsaChannelSigner: WriteableEcdsaChannelSigner {
 					
 					/// Serialize the object into a byte array
 					public override func write() -> [UInt8] {

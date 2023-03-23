@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A funding_created message to be sent or received from a peer
+			/// A [`funding_created`] message to be sent to or received from a peer.
+			/// 
+			/// [`funding_created`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-funding_created-message
 			public typealias FundingCreated = Bindings.FundingCreated
 
 			extension Bindings {
 		
 
-				/// A funding_created message to be sent or received from a peer
+				/// A [`funding_created`] message to be sent to or received from a peer.
+				/// 
+				/// [`funding_created`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-funding_created-message
 				public class FundingCreated: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

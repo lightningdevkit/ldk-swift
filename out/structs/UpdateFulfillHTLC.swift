@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// An update_fulfill_htlc message to be sent or received from a peer
+			/// An [`update_fulfill_htlc`] message to be sent to or received from a peer.
+			/// 
+			/// [`update_fulfill_htlc`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#removing-an-htlc-update_fulfill_htlc-update_fail_htlc-and-update_fail_malformed_htlc
 			public typealias UpdateFulfillHTLC = Bindings.UpdateFulfillHTLC
 
 			extension Bindings {
 		
 
-				/// An update_fulfill_htlc message to be sent or received from a peer
+				/// An [`update_fulfill_htlc`] message to be sent to or received from a peer.
+				/// 
+				/// [`update_fulfill_htlc`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#removing-an-htlc-update_fulfill_htlc-update_fail_htlc-and-update_fail_malformed_htlc
 				public class UpdateFulfillHTLC: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

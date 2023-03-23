@@ -58,10 +58,10 @@
 						/// [`ChannelManager::claim_funds`] with the preimage given in [`PaymentPurpose`].
 						/// 
 						/// Note that if the preimage is not known, you should call
-						/// [`ChannelManager::fail_htlc_backwards`] to free up resources for this HTLC and avoid
-						/// network congestion.
-						/// If you fail to call either [`ChannelManager::claim_funds`] or
-						/// [`ChannelManager::fail_htlc_backwards`] within the HTLC's timeout, the HTLC will be
+						/// [`ChannelManager::fail_htlc_backwards`] or [`ChannelManager::fail_htlc_backwards_with_reason`]
+						/// to free up resources for this HTLC and avoid network congestion.
+						/// If you fail to call either [`ChannelManager::claim_funds`], [`ChannelManager::fail_htlc_backwards`],
+						/// or [`ChannelManager::fail_htlc_backwards_with_reason`] within the HTLC's timeout, the HTLC will be
 						/// automatically failed.
 						/// 
 						/// # Note
@@ -73,6 +73,7 @@
 						/// 
 						/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
 						/// [`ChannelManager::fail_htlc_backwards`]: crate::ln::channelmanager::ChannelManager::fail_htlc_backwards
+						/// [`ChannelManager::fail_htlc_backwards_with_reason`]: crate::ln::channelmanager::ChannelManager::fail_htlc_backwards_with_reason
 						case PaymentClaimable
 			
 						/// Indicates a payment has been claimed and we've received money!
@@ -99,12 +100,13 @@
 						case PaymentSent
 			
 						/// Indicates an outbound payment failed. Individual [`Event::PaymentPathFailed`] events
-						/// provide failure information for each MPP part in the payment.
+						/// provide failure information for each path attempt in the payment, including retries.
 						/// 
 						/// This event is provided once there are no further pending HTLCs for the payment and the
-						/// payment is no longer retryable due to [`ChannelManager::abandon_payment`] having been
-						/// called for the corresponding payment.
+						/// payment is no longer retryable, due either to the [`Retry`] provided or
+						/// [`ChannelManager::abandon_payment`] having been called for the corresponding payment.
 						/// 
+						/// [`Retry`]: crate::ln::channelmanager::Retry
 						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 						case PaymentFailed
 			
@@ -114,18 +116,16 @@
 						/// [`Event::PaymentSent`] for obtaining the payment preimage.
 						case PaymentPathSuccessful
 			
-						/// Indicates an outbound HTLC we sent failed. Probably some intermediary node dropped
-						/// something. You may wish to retry with a different route.
-						/// 
-						/// If you have given up retrying this payment and wish to fail it, you MUST call
-						/// [`ChannelManager::abandon_payment`] at least once for a given [`PaymentId`] or memory
-						/// related to payment tracking will leak.
+						/// Indicates an outbound HTLC we sent failed, likely due to an intermediary node being unable to
+						/// handle the HTLC.
 						/// 
 						/// Note that this does *not* indicate that all paths for an MPP payment have failed, see
-						/// [`Event::PaymentFailed`] and [`all_paths_failed`].
+						/// [`Event::PaymentFailed`].
+						/// 
+						/// See [`ChannelManager::abandon_payment`] for giving up on this payment before its retries have
+						/// been exhausted.
 						/// 
 						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
-						/// [`all_paths_failed`]: Self::PaymentPathFailed::all_paths_failed
 						case PaymentPathFailed
 			
 						/// Indicates that a probe payment we sent returned successful, i.e., only failed at the destination.
@@ -516,14 +516,12 @@
 					}
 		
 					/// Utility method to constructs a new PaymentPathFailed-variant Event
-					public class func initWithPaymentPathFailed(paymentId: [UInt8], paymentHash: [UInt8], paymentFailedPermanently: Bool, networkUpdate: NetworkUpdate?, allPathsFailed: Bool, path: [RouteHop], shortChannelId: UInt64?, retry: Bindings.RouteParameters) -> Event {
+					public class func initWithPaymentPathFailed(paymentId: [UInt8], paymentHash: [UInt8], paymentFailedPermanently: Bool, failure: PathFailure, path: [RouteHop], shortChannelId: UInt64?, retry: Bindings.RouteParameters) -> Event {
 						// native call variable prep
 						
 						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
 				
 						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
-				
-						let networkUpdateOption = Option_NetworkUpdateZ(some: networkUpdate).danglingClone()
 				
 						let pathVector = Vec_RouteHopZ(array: path).dangle()
 				
@@ -531,7 +529,7 @@
 				
 
 						// native method call
-						let nativeCallResult = Event_payment_path_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, paymentFailedPermanently, networkUpdateOption.cType!, allPathsFailed, pathVector.cType!, shortChannelIdOption.cType!, retry.dynamicallyDangledClone().cType!)
+						let nativeCallResult = Event_payment_path_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, paymentFailedPermanently, failure.danglingClone().cType!, pathVector.cType!, shortChannelIdOption.cType!, retry.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						
@@ -862,6 +860,34 @@
 						
 						// return value (do some wrapping)
 						let returnValue = Event(cType: nativeCallResult)
+						
+
+						return returnValue
+					}
+		
+					/// Checks if two Events contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					public class func eq(a: Event, b: Event) -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKEvent>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKEvent>) in
+				Event_eq(aPointer, bPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
 						
 
 						return returnValue
@@ -1427,11 +1453,9 @@
 						
 
 						
-						/// The id returned by [`ChannelManager::send_payment`] and used with
-						/// [`ChannelManager::retry_payment`].
+						/// The id returned by [`ChannelManager::send_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
-						/// [`ChannelManager::retry_payment`]: crate::ln::channelmanager::ChannelManager::retry_payment
 						/// 
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentId() -> [UInt8] {
@@ -1528,10 +1552,9 @@
 
 						
 						/// The id returned by [`ChannelManager::send_payment`] and used with
-						/// [`ChannelManager::retry_payment`] and [`ChannelManager::abandon_payment`].
+						/// [`ChannelManager::abandon_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
-						/// [`ChannelManager::retry_payment`]: crate::ln::channelmanager::ChannelManager::retry_payment
 						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
@@ -1600,11 +1623,9 @@
 						
 
 						
-						/// The id returned by [`ChannelManager::send_payment`] and used with
-						/// [`ChannelManager::retry_payment`].
+						/// The id returned by [`ChannelManager::send_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
-						/// [`ChannelManager::retry_payment`]: crate::ln::channelmanager::ChannelManager::retry_payment
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
 							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
@@ -1685,10 +1706,9 @@
 
 						
 						/// The id returned by [`ChannelManager::send_payment`] and used with
-						/// [`ChannelManager::retry_payment`] and [`ChannelManager::abandon_payment`].
+						/// [`ChannelManager::abandon_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
-						/// [`ChannelManager::retry_payment`]: crate::ln::channelmanager::ChannelManager::retry_payment
 						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 						/// 
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
@@ -1710,8 +1730,8 @@
 						}
 		
 						/// Indicates the payment was rejected for some reason by the recipient. This implies that
-						/// the payment has failed, not just the route in question. If this is not set, you may
-						/// retry the payment via a different route.
+						/// the payment has failed, not just the route in question. If this is not set, the payment may
+						/// be retried via a different route.
 						public func getPaymentFailedPermanently() -> Bool {
 							// return value (do some wrapping)
 							let returnValue = self.cType!.payment_failed_permanently
@@ -1719,40 +1739,13 @@
 							return returnValue;
 						}
 		
-						/// Any failure information conveyed via the Onion return packet by a node along the failed
-						/// payment route.
-						/// 
-						/// Should be applied to the [`NetworkGraph`] so that routing decisions can take into
-						/// account the update.
+						/// Extra error details based on the failure type. May contain an update that needs to be
+						/// applied to the [`NetworkGraph`].
 						/// 
 						/// [`NetworkGraph`]: crate::routing::gossip::NetworkGraph
-						public func getNetworkUpdate() -> NetworkUpdate? {
+						public func getFailure() -> PathFailure {
 							// return value (do some wrapping)
-							let returnValue = Option_NetworkUpdateZ(cType: self.cType!.network_update, anchor: self).getValue()
-
-							return returnValue;
-						}
-		
-						/// For both single-path and multi-path payments, this is set if all paths of the payment have
-						/// failed. This will be set to false if (1) this is an MPP payment and (2) other parts of the
-						/// larger MPP payment were still in flight when this event was generated.
-						/// 
-						/// Note that if you are retrying individual MPP parts, using this value to determine if a
-						/// payment has fully failed is race-y. Because multiple failures can happen prior to events
-						/// being processed, you may retry in response to a first failure, with a second failure
-						/// (with `all_paths_failed` set) still pending. Then, when the second failure is processed
-						/// you will see `all_paths_failed` set even though the retry of the first failure still
-						/// has an associated in-flight HTLC. See (1) for an example of such a failure.
-						/// 
-						/// If you wish to retry individual MPP parts and learn when a payment has failed, you must
-						/// call [`ChannelManager::abandon_payment`] and wait for a [`Event::PaymentFailed`] event.
-						/// 
-						/// (1) <https://github.com/lightningdevkit/rust-lightning/issues/1164>
-						/// 
-						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
-						public func getAllPathsFailed() -> Bool {
-							// return value (do some wrapping)
-							let returnValue = self.cType!.all_paths_failed
+							let returnValue = PathFailure(cType: self.cType!.failure, anchor: self)
 
 							return returnValue;
 						}
@@ -1780,12 +1773,9 @@
 							return returnValue;
 						}
 		
-						/// Parameters needed to compute a new [`Route`] when retrying the failed payment path.
-						/// 
-						/// See [`find_route`] for details.
+						/// Parameters used by LDK to compute a new [`Route`] when retrying the failed payment path.
 						/// 
 						/// [`Route`]: crate::routing::router::Route
-						/// [`find_route`]: crate::routing::router::find_route
 						/// 
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getRetry() -> Bindings.RouteParameters {

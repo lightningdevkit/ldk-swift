@@ -4,7 +4,7 @@
 			import LDKHeaders
 			#endif
 
-			/// Lightning TLV uses a custom variable-length integer called BigSize. It is similar to Bitcoin's
+			/// Lightning TLV uses a custom variable-length integer called `BigSize`. It is similar to Bitcoin's
 			/// variable-length integers except that it is serialized in big-endian instead of little-endian.
 			/// 
 			/// Like Bitcoin's variable-length integer, it exhibits ambiguity in that certain values can be
@@ -16,7 +16,7 @@
 			extension Bindings {
 		
 
-				/// Lightning TLV uses a custom variable-length integer called BigSize. It is similar to Bitcoin's
+				/// Lightning TLV uses a custom variable-length integer called `BigSize`. It is similar to Bitcoin's
 				/// variable-length integers except that it is serialized in big-endian instead of little-endian.
 				/// 
 				/// Like Bitcoin's variable-length integer, it exhibits ambiguity in that certain values can be

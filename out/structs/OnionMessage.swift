@@ -4,13 +4,13 @@
 			import LDKHeaders
 			#endif
 
-			/// An onion message to be sent or received from a peer
+			/// An onion message to be sent to or received from a peer.
 			public typealias OnionMessage = Bindings.OnionMessage
 
 			extension Bindings {
 		
 
-				/// An onion message to be sent or received from a peer
+				/// An onion message to be sent to or received from a peer.
 				public class OnionMessage: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

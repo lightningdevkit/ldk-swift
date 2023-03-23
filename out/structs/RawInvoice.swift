@@ -393,14 +393,14 @@
 					}
 		
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public func minFinalCltvExpiry() -> MinFinalCltvExpiry? {
+					public func minFinalCltvExpiryDelta() -> MinFinalCltvExpiryDelta? {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRawInvoice>) in
-				RawInvoice_min_final_cltv_expiry(thisArgPointer)
+				RawInvoice_min_final_cltv_expiry_delta(thisArgPointer)
 						}
 				
 
@@ -408,7 +408,7 @@
 						
 				// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
 				// Type group: RustStruct
-				// Type: LDKMinFinalCltvExpiry
+				// Type: LDKMinFinalCltvExpiryDelta
 			
 					if nativeCallResult.inner == nil {
 						return nil
@@ -422,7 +422,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MinFinalCltvExpiry(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = MinFinalCltvExpiryDelta(cType: nativeCallResult, anchor: self).dangle(false)
 						
 
 						return returnValue

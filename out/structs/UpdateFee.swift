@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// An update_fee message to be sent or received from a peer
+			/// An [`update_fee`] message to be sent to or received from a peer
+			/// 
+			/// [`update_fee`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#updating-fees-update_fee
 			public typealias UpdateFee = Bindings.UpdateFee
 
 			extension Bindings {
 		
 
-				/// An update_fee message to be sent or received from a peer
+				/// An [`update_fee`] message to be sent to or received from a peer
+				/// 
+				/// [`update_fee`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#updating-fees-update_fee
 				public class UpdateFee: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

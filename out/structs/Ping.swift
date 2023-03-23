@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A ping message to be sent or received from a peer
+			/// A [`ping`] message to be sent to or received from a peer.
+			/// 
+			/// [`ping`]: https://github.com/lightning/bolts/blob/master/01-messaging.md#the-ping-and-pong-messages
 			public typealias Ping = Bindings.Ping
 
 			extension Bindings {
 		
 
-				/// A ping message to be sent or received from a peer
+				/// A [`ping`] message to be sent to or received from a peer.
+				/// 
+				/// [`ping`]: https://github.com/lightning/bolts/blob/master/01-messaging.md#the-ping-and-pong-messages
 				public class Ping: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -60,7 +64,7 @@
 						return returnValue
 					}
 		
-					/// The desired response length
+					/// The desired response length.
 					public func getPonglen() -> UInt16 {
 						// native call variable prep
 						
@@ -83,7 +87,7 @@
 						return returnValue
 					}
 		
-					/// The desired response length
+					/// The desired response length.
 					public func setPonglen(val: UInt16) {
 						// native call variable prep
 						
@@ -107,6 +111,7 @@
 					}
 		
 					/// The ping packet size.
+					/// 
 					/// This field is not sent on the wire. byteslen zeros are sent.
 					public func getByteslen() -> UInt16 {
 						// native call variable prep
@@ -131,6 +136,7 @@
 					}
 		
 					/// The ping packet size.
+					/// 
 					/// This field is not sent on the wire. byteslen zeros are sent.
 					public func setByteslen(val: UInt16) {
 						// native call variable prep

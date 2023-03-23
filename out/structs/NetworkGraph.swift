@@ -137,20 +137,15 @@
 					}
 		
 					/// Creates a new, empty, network graph.
-					public init(genesisHash: [UInt8], logger: Logger) {
+					public init(network: Network, logger: Logger) {
 						// native call variable prep
 						
-						let genesisHashPrimitiveWrapper = ThirtyTwoBytes(value: genesisHash)
-				
 
 						// native method call
-						let nativeCallResult = NetworkGraph_new(genesisHashPrimitiveWrapper.cType!, logger.activate().cType!)
+						let nativeCallResult = NetworkGraph_new(network.getCValue(), logger.activate().cType!)
 
 						// cleanup
 						
-						// for elided types, we need this
-						genesisHashPrimitiveWrapper.noOpRetain()
-				
 				self.initialCFreeability = nativeCallResult.is_owned
 			
 
@@ -307,12 +302,12 @@
 					/// RoutingMessageHandler implementation to call it indirectly. This may be useful to accept
 					/// routing messages from a source using a protocol other than the lightning P2P protocol.
 					/// 
-					/// If a `chain::Access` object is provided via `chain_access`, it will be called to verify
+					/// If a [`UtxoLookup`] object is provided via `utxo_lookup`, it will be called to verify
 					/// the corresponding UTXO exists on chain and is correctly-formatted.
-					public func updateChannelFromAnnouncement(msg: ChannelAnnouncement, chainAccess: Access?) -> Result_NoneLightningErrorZ {
+					public func updateChannelFromAnnouncement(msg: ChannelAnnouncement, utxoLookup: UtxoLookup?) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let chainAccessOption = Option_AccessZ(some: chainAccess).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
 				
 
 						// native method call
@@ -320,7 +315,7 @@
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
 				
 						withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKChannelAnnouncement>) in
-				NetworkGraph_update_channel_from_announcement(thisArgPointer, msgPointer, chainAccessOption.cType!)
+				NetworkGraph_update_channel_from_announcement(thisArgPointer, msgPointer, utxoLookupOption.cType!)
 						}
 				
 						}
@@ -341,12 +336,12 @@
 					/// signatures. Because we aren't given the associated signatures here we cannot relay the
 					/// channel announcement to any of our peers.
 					/// 
-					/// If a `chain::Access` object is provided via `chain_access`, it will be called to verify
+					/// If a [`UtxoLookup`] object is provided via `utxo_lookup`, it will be called to verify
 					/// the corresponding UTXO exists on chain and is correctly-formatted.
-					public func updateChannelFromUnsignedAnnouncement(msg: UnsignedChannelAnnouncement, chainAccess: Access?) -> Result_NoneLightningErrorZ {
+					public func updateChannelFromUnsignedAnnouncement(msg: UnsignedChannelAnnouncement, utxoLookup: UtxoLookup?) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let chainAccessOption = Option_AccessZ(some: chainAccess).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
 				
 
 						// native method call
@@ -354,7 +349,7 @@
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
 				
 						withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
-				NetworkGraph_update_channel_from_unsigned_announcement(thisArgPointer, msgPointer, chainAccessOption.cType!)
+				NetworkGraph_update_channel_from_unsigned_announcement(thisArgPointer, msgPointer, utxoLookupOption.cType!)
 						}
 				
 						}

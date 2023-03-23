@@ -122,17 +122,15 @@
 						return returnValue
 					}
 		
-					/// The keys provider which will give us relevant keys. Some keys will be loaded during
-					/// deserialization and KeysInterface::read_chan_signer will be used to read per-Channel
-					/// signing data.
-					public func getKeysManager() -> KeysInterface? {
+					/// A cryptographically secure source of entropy.
+					public func getEntropySource() -> EntropySource? {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
-				ChannelManagerReadArgs_get_keys_manager(thisPtrPointer)
+				ChannelManagerReadArgs_get_entropy_source(thisPtrPointer)
 						}
 				
 
@@ -145,7 +143,80 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedKeysInterface(cType: nativeCallResult.pointee, anchor: self)
+						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult.pointee, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// A cryptographically secure source of entropy.
+					public func setEntropySource(val: EntropySource) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelManagerReadArgs>) in
+				ChannelManagerReadArgs_set_entropy_source(thisPtrPointer, val.activate().cType!)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// A signer that is able to perform node-scoped cryptographic operations.
+					public func getNodeSigner() -> NodeSigner? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+				ChannelManagerReadArgs_get_node_signer(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+						guard let nativeCallResult = nativeCallResult else {
+							return nil
+						}
+			
+
+						
+						// return value (do some wrapping)
+						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult.pointee, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// A signer that is able to perform node-scoped cryptographic operations.
+					public func setNodeSigner(val: NodeSigner) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelManagerReadArgs>) in
+				ChannelManagerReadArgs_set_node_signer(thisPtrPointer, val.activate().cType!)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
 						
 
 						return returnValue
@@ -154,14 +225,43 @@
 					/// The keys provider which will give us relevant keys. Some keys will be loaded during
 					/// deserialization and KeysInterface::read_chan_signer will be used to read per-Channel
 					/// signing data.
-					public func setKeysManager(val: KeysInterface) {
+					public func getSignerProvider() -> SignerProvider? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+				ChannelManagerReadArgs_get_signer_provider(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+						guard let nativeCallResult = nativeCallResult else {
+							return nil
+						}
+			
+
+						
+						// return value (do some wrapping)
+						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult.pointee, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// The keys provider which will give us relevant keys. Some keys will be loaded during
+					/// deserialization and KeysInterface::read_chan_signer will be used to read per-Channel
+					/// signing data.
+					public func setSignerProvider(val: SignerProvider) {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelManagerReadArgs>) in
-				ChannelManagerReadArgs_set_keys_manager(thisPtrPointer, val.activate().cType!)
+				ChannelManagerReadArgs_set_signer_provider(thisPtrPointer, val.activate().cType!)
 						}
 				
 
@@ -342,6 +442,62 @@
 						return returnValue
 					}
 		
+					/// The router which will be used in the ChannelManager in the future for finding routes
+					/// on-the-fly for trampoline payments. Absent in private nodes that don't support forwarding.
+					/// 
+					/// No calls to the router will be made during deserialization.
+					public func getRouter() -> Router? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelManagerReadArgs>) in
+				ChannelManagerReadArgs_get_router(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+						guard let nativeCallResult = nativeCallResult else {
+							return nil
+						}
+			
+
+						
+						// return value (do some wrapping)
+						let returnValue = NativelyImplementedRouter(cType: nativeCallResult.pointee, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// The router which will be used in the ChannelManager in the future for finding routes
+					/// on-the-fly for trampoline payments. Absent in private nodes that don't support forwarding.
+					/// 
+					/// No calls to the router will be made during deserialization.
+					public func setRouter(val: Router) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelManagerReadArgs>) in
+				ChannelManagerReadArgs_set_router(thisPtrPointer, val.activate().cType!)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
 					/// The Logger for use in the ChannelManager and which may be used to log information during
 					/// deserialization.
 					public func getLogger() -> Logger? {
@@ -445,14 +601,14 @@
 					/// Simple utility function to create a ChannelManagerReadArgs which creates the monitor
 					/// HashMap for you. This is primarily useful for C bindings where it is not practical to
 					/// populate a HashMap directly from C.
-					public init(keysManager: KeysInterface, feeEstimator: FeeEstimator, chainMonitor: Watch, txBroadcaster: BroadcasterInterface, logger: Logger, defaultConfig: UserConfig, channelMonitors: [ChannelMonitor]) {
+					public init(entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: Watch, txBroadcaster: BroadcasterInterface, router: Router, logger: Logger, defaultConfig: UserConfig, channelMonitors: [ChannelMonitor]) {
 						// native call variable prep
 						
 						let channelMonitorsVector = Vec_ChannelMonitorZ(array: channelMonitors).dangle()
 				
 
 						// native method call
-						let nativeCallResult = ChannelManagerReadArgs_new(keysManager.activate().cType!, feeEstimator.activate().cType!, chainMonitor.activate().cType!, txBroadcaster.activate().cType!, logger.activate().cType!, defaultConfig.dynamicallyDangledClone().cType!, channelMonitorsVector.cType!)
+						let nativeCallResult = ChannelManagerReadArgs_new(entropySource.activate().cType!, nodeSigner.activate().cType!, signerProvider.activate().cType!, feeEstimator.activate().cType!, chainMonitor.activate().cType!, txBroadcaster.activate().cType!, router.activate().cType!, logger.activate().cType!, defaultConfig.dynamicallyDangledClone().cType!, channelMonitorsVector.cType!)
 
 						// cleanup
 						

@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// An accept_channel message to be sent or received from a peer
+			/// An [`accept_channel`] message to be sent to or received from a peer.
+			/// 
+			/// [`accept_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-accept_channel-message
 			public typealias AcceptChannel = Bindings.AcceptChannel
 
 			extension Bindings {
 		
 
-				/// An accept_channel message to be sent or received from a peer
+				/// An [`accept_channel`] message to be sent to or received from a peer.
+				/// 
+				/// [`accept_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-accept_channel-message
 				public class AcceptChannel: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -743,10 +747,10 @@
 						return returnValue
 					}
 		
-					/// The channel type that this channel will represent. If none is set, we derive the channel
-					/// type from the intersection of our feature bits with our counterparty's feature bits from
-					/// the Init message.
+					/// The channel type that this channel will represent.
 					/// 
+					/// If this is `None`, we derive the channel type from the intersection of
+					/// our feature bits with our counterparty's feature bits from the [`Init`] message.
 					/// This is required to match the equivalent field in [`OpenChannel::channel_type`].
 					/// 
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
@@ -785,10 +789,10 @@
 						return returnValue
 					}
 		
-					/// The channel type that this channel will represent. If none is set, we derive the channel
-					/// type from the intersection of our feature bits with our counterparty's feature bits from
-					/// the Init message.
+					/// The channel type that this channel will represent.
 					/// 
+					/// If this is `None`, we derive the channel type from the intersection of
+					/// our feature bits with our counterparty's feature bits from the [`Init`] message.
 					/// This is required to match the equivalent field in [`OpenChannel::channel_type`].
 					/// 
 					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None

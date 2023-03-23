@@ -4,13 +4,17 @@
 			import LDKHeaders
 			#endif
 
-			/// A commitment_signed message to be sent or received from a peer
+			/// A [`commitment_signed`] message to be sent to or received from a peer.
+			/// 
+			/// [`commitment_signed`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#committing-updates-so-far-commitment_signed
 			public typealias CommitmentSigned = Bindings.CommitmentSigned
 
 			extension Bindings {
 		
 
-				/// A commitment_signed message to be sent or received from a peer
+				/// A [`commitment_signed`] message to be sent to or received from a peer.
+				/// 
+				/// [`commitment_signed`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#committing-updates-so-far-commitment_signed
 				public class CommitmentSigned: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

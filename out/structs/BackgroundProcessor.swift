@@ -182,7 +182,10 @@
 						let returnValue = BackgroundProcessor(cType: nativeCallResult)
 						
 
-						return returnValue
+						try! returnValue.addAnchor(anchor: chainMonitor)
+						try! returnValue.addAnchor(anchor: channelManager)
+						try! returnValue.addAnchor(anchor: peerManager)
+return returnValue
 					}
 		
 					/// Join `BackgroundProcessor`'s thread, returning any error that occurred while persisting

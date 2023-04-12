@@ -109,7 +109,8 @@
 						let returnValue = GossipSync(cType: nativeCallResult)
 						
 
-						return returnValue
+						try! returnValue.addAnchor(anchor: a)
+return returnValue
 					}
 		
 					/// Utility method to constructs a new Rapid-variant GossipSync
@@ -132,7 +133,8 @@
 						let returnValue = GossipSync(cType: nativeCallResult)
 						
 
-						return returnValue
+						try! returnValue.addAnchor(anchor: a)
+return returnValue
 					}
 		
 					/// Utility method to constructs a new None-variant GossipSync

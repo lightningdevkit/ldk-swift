@@ -57,6 +57,7 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 				}
 			} else {
 				// currentField is definitely instanceof ContextualRustType
+				console.log(currentField.contextualName);
 				const swiftArgumentName = Generator.snakeCaseToCamelCase(currentField.contextualName);
 				let initializationValue = swiftArgumentName;
 
@@ -352,7 +353,8 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 			methodCallWrapperPrefix: '',
 			methodCallWrapperSuffix: '',
 
-			deferredCleanup: ''
+			deferredCleanup: '',
+			requiresAnchoring: false
 		};
 
 		if (argumentType.contextualName === 'init') {

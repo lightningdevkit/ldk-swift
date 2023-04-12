@@ -102,6 +102,7 @@
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
 				super.init(conflictAvoidingVariableName: 0)
+				
 			
 					}
 		

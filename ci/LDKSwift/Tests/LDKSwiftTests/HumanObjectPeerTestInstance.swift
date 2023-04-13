@@ -303,7 +303,7 @@ public class HumanObjectPeerTestInstance {
 
                 let graph = NetworkGraph(network: .Regtest, logger: self.logger)
                 var scorerGraph = graph
-                if(master.configuration.ephemeralNetworkGraphForScorer) {
+                if master.configuration.ephemeralNetworkGraphForScorer {
                     scorerGraph = NetworkGraph(network: .Regtest, logger: self.logger)
                 }
 

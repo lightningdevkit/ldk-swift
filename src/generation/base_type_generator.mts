@@ -815,6 +815,22 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 						}
 				`;
 
+				/**
+				 * When an argument is an asterisk-based pointer, we usually simply create the
+				 * pointer-related handling like we do above, and nothing beyond that. However,
+				 * when the method taking that pointer is a constructor, it is likely that the
+				 * pointed-to argument will need to live well beyond the conclusion of the method
+				 * call. Specifically, it is likely a requirement of the instantiated object
+				 * that the argument is kept around for as long as necessary. We do that by
+				 * tethering the argument to the returned object. It's nothing but a reference
+				 * that will have Swift delay deallocation.
+				 *
+				 * If the reference is an elided type, such as an array, a nullable, or a tuple,
+				 * we, for the time being, just pretend that no anchoring is necessary. In reality,
+				 * we simply haven't encountered such a case yet, and until we do, it's a bit too
+				 * complicated to handle, because doing it blindly will probably only lead us to
+				 * introduce some new memory bugs.
+				 */
 				if(memoryContext && memoryContext.isConstructor && (argument.type instanceof RustStruct || argument.type instanceof RustTaggedValueEnum || argument.type instanceof RustResult)){
 					preparedArgument.requiresAnchoring = true;
 				}
@@ -1298,7 +1314,11 @@ export interface PreparedArgument {
 	deferredCleanup: string
 
 	/**
-	 * If true (only applicable in constructors), add a `self.addAnchor` call after super.init()
+	 * If true (only applicable in constructors), add a `self.addAnchor` call after super.init().
+	 * For anchoring that doesn't immediately succeed object instantiation, or that can happen
+	 * outside the initializer method, we have other mechanisms. This particular mechanism is,
+	 * strictly speaking, somewhat of a workaround, but one that is necessary due to Swift's
+	 * constraints surrounding when calls to `self` can be made.
 	 */
 	requiresAnchoring: boolean
 }

@@ -456,6 +456,10 @@ class LDKSwiftTests: XCTestCase {
             print("Running test with flags \(i)");
 
             let config = HumanObjectPeerTestInstance.Configuration()
+            
+            // We have a set of configuration properties. We run through all possible
+            // combinations, and set each individual property depending on whether
+            // its bit is set.
 
             config.shouldRecipientRejectPayment = (i & (1 << 0)) != 0
             print("shouldRecipientRejectPayment: \(config.shouldRecipientRejectPayment)")
@@ -468,26 +472,6 @@ class LDKSwiftTests: XCTestCase {
             
             config.ephemeralNetworkGraphForScorer = (i & (1 << 3)) != 0
             print("ephemeralNetworkGraphForScorer: \(config.ephemeralNetworkGraphForScorer)")
-
-            /*
-            config.nice_close = (i & (1 << 0)) != 0;
-            config.use_km_wrapper = (i & (1 << 1)) != 0;
-            config.use_manual_watch = (i & (1 << 2)) != 0;
-            config.reload_peers = (i & (1 << 3)) != 0;
-            config.break_cross_peer_refs = (i & (1 << 4)) != 0;
-            config.use_nio_peer_handler = true // (i & (1 << 5)) != 0;
-            config.useChannelManagerConstructor = true //  (i & (1 << 6)) != 0;
-
-            if (config.break_cross_peer_refs && !config.reload_peers) {
-				// There are no cross refs to break without reloading peers.
-				continue;
-			}
-
-            if (config.useChannelManagerConstructor && (config.use_manual_watch || !config.use_nio_peer_handler)) {
-				// ChannelManagerConstructor requires a ChainMonitor as the Watch and creates a NioPeerHandler for us.
-				continue;
-			}
-            */
 
             let instance = HumanObjectPeerTestInstance(configuration: config)
             await instance.testMessageHandling()

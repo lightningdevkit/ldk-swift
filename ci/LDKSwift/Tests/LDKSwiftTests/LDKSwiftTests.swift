@@ -465,6 +465,9 @@ class LDKSwiftTests: XCTestCase {
 
             config.useRouter = (i & (1 << 2)) != 0
             print("useRouter: \(config.useRouter)")
+            
+            config.ephemeralNetworkGraphForScorer = (i & (1 << 3)) != 0
+            print("ephemeralNetworkGraphForScorer: \(config.ephemeralNetworkGraphForScorer)")
 
             /*
             config.nice_close = (i & (1 << 0)) != 0;

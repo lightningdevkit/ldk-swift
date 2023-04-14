@@ -201,7 +201,16 @@ let seed = [UInt8](keyData)
 let timestampSeconds = UInt64(NSDate().timeIntervalSince1970)
 let timestampNanos = UInt32.init(truncating: NSNumber(value: timestampSeconds * 1000 * 1000))
 let keysManager = KeysManager(seed: seed, startingTimeSecs: timestampSeconds, startingTimeNanos: timestampNanos)
-let keysInterface = keysManager.asKeysInterface()
+```
+### NetworkGraph
+
+If you intend to use the LDK's built-in routing algorithm, you will need to instantiate
+a `NetworkGraph` that can later be passed to the `ChannelManagerConstructor`:
+
+```swift
+// main context (continued)
+
+let networkGraph = NetworkGraph(network: .Regtest, logger: logger)
 ```
 
 ### ChannelManager
@@ -213,7 +222,7 @@ a random block at a height that does not exist at the time of this writing.
 
 ```swift
 let latestBlockHash = [UInt8](Data(base64Encoded: "AAAAAAAAAAAABe5Xh25D12zkQuLAJQbBeLoF1tEQqR8=")!)
-let latestBlockHeight = 700123
+let latestBlockHeight = UInt32(700123)
 ```
 
 Second, we also need to initialize a default user config, which we simply do like this:
@@ -222,39 +231,17 @@ Second, we also need to initialize a default user config, which we simply do lik
 let userConfig = UserConfig.initWithDefault()
 ```
 
-Finally, we can proceed by instantiating the `ChannelManager` using `ChannelManagerConstructor`.
+Finally, we can proceed by instantiating the `ChannelManager` using `ChannelManagerConstructor`, for which we need `ChannelManagerConstructionParameters`.
 
 ```swift
 // main context (continued)
 
-let channelManagerConstructor = ChannelManagerConstructor(
-    network: Network.Bitcoin,
-    config: userConfig,
-    currentBlockchainTipHash: latestBlockHash,
-    currentBlockchainTipHeight: latestBlockHeight,
-    keysInterface: keysInterface,
-    feeEstimator: feeEstimator,
-    chainMonitor: chainMonitor,
-    netGraph: nil, // see `NetworkGraph`
-    txBroadcaster: broadcaster,
-    logger: logger
-)
+let cmcParams = ChannelManagerConstructionParameters(config: userConfig, entropySource: keysManager.asEntropySource(), nodeSigner: keysManager.asNodeSigner(), signerProvider: keysManager.asSignerProvider(), feeEstimator: feeEstimator, chainMonitor: chainMonitor, txBroadcaster: broadcaster, logger: logger, enableP2PGossip: true)
+
+let channelManagerConstructor = ChannelManagerConstructor(network: .Regtest, currentBlockchainTipHash: latestBlockHash, currentBlockchainTipHeight: latestBlockHeight, netGraph: networkGraph, params: cmcParams)
 
 let channelManager = channelManagerConstructor.channelManager
 ```
-
-### NetworkGraph
-
-If you intend to use the LDK's built-in routing algorithm, you will need to instantiate
-a `NetworkGraph` that can later be passed to the `ChannelManagerConstructor`:
-
-```swift
-// main context (continued)
-
-let networkGraph = NetworkGraph(genesisHash: [UInt8](Data(base64Encoded: "AAAAAAAZ1micCFrhZYMek0/3Y65GoqbBcrPxtgqM4m8=")!), logger: logger)
-```
-
-Note that a network graph instance needs to be provided upon initialization, which in turn requires the genesis block hash.
 
 #### Serializing and restoring a ChannelManager
 
@@ -272,13 +259,9 @@ let serializedChannelMonitors: [[UInt8]] = []
 let channelManagerConstructor = try ChannelManagerConstructor(
     channelManagerSerialized: serializedChannelManager,
     channelMonitorsSerialized: serializedChannelMonitors,
-    keysInterface: keysInterface,
-    feeEstimator: feeEstimator,
-    chainMonitor: chainMonitor,
-    filter: filter,
     netGraphSerialized: nil, // or networkGraph
-    txBroadcaster: broadcaster,
-    logger: logger
+    filter: filter,
+    params: cmcParams,
 )
 
 let channelManager = channelManagerConstructor.channelManager
@@ -292,7 +275,6 @@ Finally, let's get the peer handler. It has conveniently already been instantiat
 // main context (continued)
 
 let peerManager = channelManagerConstructor.peerManager
+let tcpPeerHandler = channelManagerConstructor.getTCPPeerHandler()
+tcpPeerHandler.connect(address: "...", port: "...", theirNodeId: [..])
 ```
-
-Now, all that remains is setting up the actual syscalls that are necessary within
-the host environment, and route them to the appropriate LDK objects.

@@ -557,7 +557,9 @@
 						let returnValue = TxCreationKeys(cType: nativeCallResult)
 						
 
-						return returnValue
+						try! returnValue.addAnchor(anchor: broadcasterKeys)
+						try! returnValue.addAnchor(anchor: countersignatoryKeys)
+return returnValue
 					}
 		
 

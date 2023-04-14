@@ -150,6 +150,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		let nativeCallPrefix = '';
 		let nativeCallWrapperPrefix = '', nativeCallWrapperSuffix = '';
 		let nativeCallSuffix = '';
+		const anchors = [];
 
 		const semantics = this.methodSemantics(method, containerType);
 		if (semantics.isConstructor && forceStaticConstructor) {
@@ -193,6 +194,9 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			nativeCallWrapperSuffix += preparedArgument.methodCallWrapperSuffix;
 			nativeCallValueAccessors.push(preparedArgument.accessor);
 			nativeCallSuffix += preparedArgument.deferredCleanup;
+			if(preparedArgument.requiresAnchoring){
+				anchors.push(swiftArgumentName);
+			}
 		}
 
 		let cloneabilityDeprecationWarning = '';
@@ -226,11 +230,13 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			visibility = 'internal';
 		}
 
+		let anchoringCommand = anchors.map(a => `try! returnValue.addAnchor(anchor: ${a})\n`).join('\t\t\t\t\t\t');
 		let methodDeclarationKeywords = `${visibility} ${staticInfix}func`;
-		let returnCommand = 'return returnValue';
+		let returnCommand = `${anchoringCommand}return returnValue`;
 		let returnValueHandlingPrefix = '';
 		let returnValueHandlingSuffix = '';
 		if (swiftMethodName === 'init') {
+			anchoringCommand = anchoringCommand.replaceAll('returnValue.addAnchor(', 'self.addAnchor(')
 			// it's a constructor
 			methodDeclarationKeywords = visibility;
 			returnCommand = `
@@ -239,6 +245,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
 				super.init(conflictAvoidingVariableName: 0)
+				${anchoringCommand}
 			`;
 
 			returnValueHandlingPrefix = '/*';
@@ -625,7 +632,8 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			methodCallWrapperPrefix: '',
 			methodCallWrapperSuffix: '',
 
-			deferredCleanup: ''
+			deferredCleanup: '',
+			requiresAnchoring: false
 		};
 
 		// this argument is the content of an elided container, like the iteratee of a Vec
@@ -806,6 +814,26 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				preparedArgument.methodCallWrapperSuffix += `
 						}
 				`;
+
+				/**
+				 * When an argument is an asterisk-based pointer, we usually simply create the
+				 * pointer-related handling like we do above, and nothing beyond that. However,
+				 * when the method taking that pointer is a constructor, it is likely that the
+				 * pointed-to argument will need to live well beyond the conclusion of the method
+				 * call. Specifically, it is likely a requirement of the instantiated object
+				 * that the argument is kept around for as long as necessary. We do that by
+				 * tethering the argument to the returned object. It's nothing but a reference
+				 * that will have Swift delay deallocation.
+				 *
+				 * If the reference is an elided type, such as an array, a nullable, or a tuple,
+				 * we, for the time being, just pretend that no anchoring is necessary. In reality,
+				 * we simply haven't encountered such a case yet, and until we do, it's a bit too
+				 * complicated to handle, because doing it blindly will probably only lead us to
+				 * introduce some new memory bugs.
+				 */
+				if(memoryContext && memoryContext.isConstructor && (argument.type instanceof RustStruct || argument.type instanceof RustTaggedValueEnum || argument.type instanceof RustResult)){
+					preparedArgument.requiresAnchoring = true;
+				}
 
 				// the wrapper accesses the variable normally, and introduces a new variable name by which to refer to the value
 				preparedArgument.accessor = preparedArgument.name;
@@ -1284,6 +1312,15 @@ export interface PreparedArgument {
 	 * memory deallocation or, ironically, retention beyond the call site
 	 */
 	deferredCleanup: string
+
+	/**
+	 * If true (only applicable in constructors), add a `self.addAnchor` call after super.init().
+	 * For anchoring that doesn't immediately succeed object instantiation, or that can happen
+	 * outside the initializer method, we have other mechanisms. This particular mechanism is,
+	 * strictly speaking, somewhat of a workaround, but one that is necessary due to Swift's
+	 * constraints surrounding when calls to `self` can be made.
+	 */
+	requiresAnchoring: boolean
 }
 
 export interface PreparedReturnValue {

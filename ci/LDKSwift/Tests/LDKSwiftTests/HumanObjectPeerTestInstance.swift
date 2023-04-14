@@ -20,6 +20,7 @@ public class HumanObjectPeerTestInstance {
         public var useFilter: Bool = false;
         public var useRouter: Bool = false;
         public var shouldRecipientRejectPayment: Bool = false;
+        public var ephemeralNetworkGraphForScorer: Bool = false
 
         // public var nice_close: Bool = false;
         // public var use_km_wrapper: Bool = false;
@@ -29,7 +30,7 @@ public class HumanObjectPeerTestInstance {
         // public var use_nio_peer_handler: Bool = false;
 
         private class func listCustomizeableProperties() -> [String] {
-            return ["useFilter", "useRouter", "shouldRecipientRejectPayment"]
+            return ["useFilter", "useRouter", "shouldRecipientRejectPayment", "ephemeralNetworkGraphForScorer"]
         }
 
         public class func combinationCount() -> UInt {
@@ -301,9 +302,13 @@ public class HumanObjectPeerTestInstance {
                 // channel manager constructor is mandatory
 
                 let graph = NetworkGraph(network: .Regtest, logger: self.logger)
+                var scorerGraph = graph
+                if master.configuration.ephemeralNetworkGraphForScorer {
+                    scorerGraph = NetworkGraph(network: .Regtest, logger: self.logger)
+                }
 
                 let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-                let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: graph, logger: self.logger)
+                let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: scorerGraph, logger: self.logger)
                 let score = probabalisticScorer.asScore()
                 let multiThreadedScorer = MultiThreadedLockableScore(score: score)
                 

@@ -44,7 +44,7 @@
 						/// 
 						/// Each attempt may be multiple HTLCs along multiple paths if the router decides to split up a
 						/// retry, and may retry multiple failed HTLCs at once if they failed around the same time and
-						/// were retried along a route from a single call to [`Router::find_route`].
+						/// were retried along a route from a single call to [`Router::find_route_with_id`].
 						case Attempts
 			
 						/// Time elapsed before abandoning retries for a payment. At least one attempt at payment is made;

@@ -7,7 +7,7 @@ Automatic Swift bindings generation for [`rust-lightning`](https://github.com/li
 ### Swift Package Manager
 To install using Swift Package Manager, add the following line to the depedencies array of your `Package.swift`:
 ```
-.package(url: "https://github.com/lightningdevkit/ldk-swift/", exact: "0.0.114")
+.package(url: "https://github.com/lightningdevkit/ldk-swift/", exact: "0.0.115")
 ```
 Be sure to also include "LightningDevKit" into your packages target like so:
 
@@ -95,11 +95,11 @@ folder due to the previous `genbindings.sh` step. As Docker won't have access to
 replace those lines with the following:
 
 ```yaml
-lightning = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-02-0.0.114-java-bindings", default-features = false }
-lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-02-0.0.114-java-bindings", default-features = false }
-lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-02-0.0.114-java-bindings", default-features = false }
-lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-02-0.0.114-java-bindings", default-features = false }
-lightning-rapid-gossip-sync = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-02-0.0.114-java-bindings", default-features = false }
+lightning = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-04-0.0.115-java-bindings", default-features = false }
+lightning-persister = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-04-0.0.115-java-bindings", default-features = false }
+lightning-invoice = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-05-0.0.115-java-bindings", default-features = false }
+lightning-background-processor = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-04-0.0.115-java-bindings", default-features = false }
+lightning-rapid-gossip-sync = { git = "https://github.com/thebluematt/rust-lightning", branch = "2023-04-0.0.115-java-bindings", default-features = false }
 ```
 
 You will note that the revision is unspecified and is currently just placeholder `xxx`s. To obtain the revision,

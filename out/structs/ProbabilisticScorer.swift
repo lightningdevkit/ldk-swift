@@ -469,7 +469,8 @@
 						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult)
 						
 
-						return returnValue
+						try! returnValue.addAnchor(anchor: argB)
+return returnValue
 					}
 		
 

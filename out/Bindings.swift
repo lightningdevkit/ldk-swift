@@ -392,7 +392,8 @@
 					let returnValue = InitFeatures(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: config)
+return returnValue
 				}
 		
 				/// Equivalent to [`crate::ln::channelmanager::ChannelManager::create_inbound_payment`], but no
@@ -437,7 +438,8 @@
 					let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: keys)
+return returnValue
 				}
 		
 				/// Equivalent to [`crate::ln::channelmanager::ChannelManager::create_inbound_payment_for_hash`],
@@ -478,7 +480,8 @@
 					let returnValue = Result_PaymentSecretNoneZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: keys)
+return returnValue
 				}
 		
 				/// Gets the weight for an HTLC-Success transaction.
@@ -1079,7 +1082,9 @@
 					let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: routeParams)
+					try! returnValue.addAnchor(anchor: networkGraph)
+return returnValue
 				}
 		
 				/// Construct a route from us (payer) to the target node (payee) via the given hops (which should
@@ -1124,7 +1129,9 @@
 					let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: routeParams)
+					try! returnValue.addAnchor(anchor: networkGraph)
+return returnValue
 				}
 		
 				/// Pays the given [`Invoice`], retrying if needed based on [`Retry`].
@@ -1157,7 +1164,9 @@
 					let returnValue = Result_PaymentIdPaymentErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: invoice)
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// Pays the given [`Invoice`] with a custom idempotency key, retrying if needed based on [`Retry`].
@@ -1197,7 +1206,9 @@
 					let returnValue = Result_NonePaymentErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: invoice)
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// Pays the given zero-value [`Invoice`] using the given amount, retrying if needed based on
@@ -1232,7 +1243,9 @@
 					let returnValue = Result_PaymentIdPaymentErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: invoice)
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// Pays the given zero-value [`Invoice`] using the given amount and custom idempotency key,
@@ -1274,7 +1287,9 @@
 					let returnValue = Result_NonePaymentErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: invoice)
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// Utility to create an invoice that can be paid to one of multiple nodes, or a \"phantom invoice.\"
@@ -1467,7 +1482,8 @@
 					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// Utility to construct an invoice. Generally, unless you want to do something like a custom
@@ -1509,7 +1525,8 @@
 					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// See [`create_invoice_from_channelmanager_with_description_hash`]
@@ -1538,7 +1555,8 @@
 					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// See [`create_invoice_from_channelmanager`]
@@ -1572,7 +1590,8 @@
 					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// See [`create_invoice_from_channelmanager_and_duration_since_epoch`]
@@ -1612,7 +1631,8 @@
 					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult)
 					
 
-					return returnValue
+					try! returnValue.addAnchor(anchor: channelmanager)
+return returnValue
 				}
 		
 				/// Read a C2Tuple_BlockHashChannelMonitorZ from a byte array, created by C2Tuple_BlockHashChannelMonitorZ_write

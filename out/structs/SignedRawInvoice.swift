@@ -4,21 +4,21 @@
 			import LDKHeaders
 			#endif
 
-			/// Represents a signed `RawInvoice` with cached hash. The signature is not checked and may be
+			/// Represents a signed [`RawInvoice`] with cached hash. The signature is not checked and may be
 			/// invalid.
 			/// 
 			/// # Invariants
-			/// The hash has to be either from the deserialized invoice or from the serialized `raw_invoice`.
+			/// The hash has to be either from the deserialized invoice or from the serialized [`RawInvoice`].
 			public typealias SignedRawInvoice = Bindings.SignedRawInvoice
 
 			extension Bindings {
 		
 
-				/// Represents a signed `RawInvoice` with cached hash. The signature is not checked and may be
+				/// Represents a signed [`RawInvoice`] with cached hash. The signature is not checked and may be
 				/// invalid.
 				/// 
 				/// # Invariants
-				/// The hash has to be either from the deserialized invoice or from the serialized `raw_invoice`.
+				/// The hash has to be either from the deserialized invoice or from the serialized [`RawInvoice`].
 				public class SignedRawInvoice: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -120,7 +120,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two SignedRawInvoices contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the SignedRawInvoice.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
@@ -165,7 +165,7 @@
 						return returnValue
 					}
 		
-					/// The `RawInvoice` which was signed.
+					/// The [`RawInvoice`] which was signed.
 					public func rawInvoice() -> RawInvoice {
 						// native call variable prep
 						
@@ -188,7 +188,7 @@
 						return returnValue
 					}
 		
-					/// The hash of the `RawInvoice` that was signed.
+					/// The hash of the [`RawInvoice`] that was signed.
 					public func signableHash() -> [UInt8]? {
 						// native call variable prep
 						
@@ -215,7 +215,7 @@
 						return returnValue
 					}
 		
-					/// InvoiceSignature for the invoice.
+					/// Signature for the invoice.
 					public func signature() -> InvoiceSignature {
 						// native call variable prep
 						

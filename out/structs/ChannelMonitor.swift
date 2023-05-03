@@ -304,7 +304,7 @@
 					/// This is called by the [`EventsProvider::process_pending_events`] implementation for
 					/// [`ChainMonitor`].
 					/// 
-					/// [`EventsProvider::process_pending_events`]: crate::util::events::EventsProvider::process_pending_events
+					/// [`EventsProvider::process_pending_events`]: crate::events::EventsProvider::process_pending_events
 					/// [`ChainMonitor`]: crate::chain::chainmonitor::ChainMonitor
 					public func getAndClearPendingEvents() -> [Event] {
 						// native call variable prep
@@ -628,6 +628,33 @@
 						
 						// return value (do some wrapping)
 						let returnValue = BestBlock(cType: nativeCallResult, anchor: self).dangle(false)
+						
+
+						return returnValue
+					}
+		
+					/// Triggers rebroadcasts/fee-bumps of pending claims from a force-closed channel. This is
+					/// crucial in preventing certain classes of pinning attacks, detecting substantial mempool
+					/// feerate changes between blocks, and ensuring reliability if broadcasting fails. We recommend
+					/// invoking this every 30 seconds, or lower if running in an environment with spotty
+					/// connections, like on mobile.
+					public func rebroadcastPendingClaims(broadcaster: BroadcasterInterface, feeEstimator: FeeEstimator, logger: Logger) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
+				ChannelMonitor_rebroadcast_pending_claims(thisArgPointer, broadcaster.activate().cType!, feeEstimator.activate().cType!, logger.activate().cType!)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
 						
 
 						return returnValue

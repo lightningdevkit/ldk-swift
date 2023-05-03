@@ -4,14 +4,14 @@
 			#endif
 
 			/// A CResult_BlindedPathDecodeErrorZ represents the result of a fallible operation,
-			/// containing a crate::lightning::onion_message::blinded_path::BlindedPath on success and a crate::lightning::ln::msgs::DecodeError on failure.
+			/// containing a crate::lightning::blinded_path::BlindedPath on success and a crate::lightning::ln::msgs::DecodeError on failure.
 			/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 			public typealias Result_BlindedPathDecodeErrorZ = Bindings.Result_BlindedPathDecodeErrorZ
 
 			extension Bindings {
 
 				/// A CResult_BlindedPathDecodeErrorZ represents the result of a fallible operation,
-				/// containing a crate::lightning::onion_message::blinded_path::BlindedPath on success and a crate::lightning::ln::msgs::DecodeError on failure.
+				/// containing a crate::lightning::blinded_path::BlindedPath on success and a crate::lightning::ln::msgs::DecodeError on failure.
 				/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 				public class Result_BlindedPathDecodeErrorZ: NativeTypeWrapper {
 

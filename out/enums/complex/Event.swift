@@ -66,7 +66,9 @@
 						/// 
 						/// # Note
 						/// LDK will not stop an inbound payment from being paid multiple times, so multiple
-						/// `PaymentClaimable` events may be generated for the same payment.
+						/// `PaymentClaimable` events may be generated for the same payment. In such a case it is
+						/// polite (and required in the lightning specification) to fail the payment the second time
+						/// and give the sender their money back rather than accepting double payment.
 						/// 
 						/// # Note
 						/// This event used to be called `PaymentReceived` in LDK versions 0.0.112 and earlier.
@@ -165,6 +167,14 @@
 						/// forwarding fee earned.
 						case PaymentForwarded
 			
+						/// Used to indicate that a channel with the given `channel_id` is being opened and pending
+						/// confirmation on-chain.
+						/// 
+						/// This event is emitted when the funding transaction has been signed and is broadcast to the
+						/// network. For 0conf channels it will be immediately followed by the corresponding
+						/// [`Event::ChannelReady`] event.
+						case ChannelPending
+			
 						/// Used to indicate that a channel with the given `channel_id` is ready to
 						/// be used. This event is emitted either when the funding transaction has been confirmed
 						/// on-chain, or, in case of a 0conf channel, when both parties have confirmed the channel
@@ -199,7 +209,7 @@
 						/// * Insufficient capacity in the outbound channel
 						/// * While waiting to forward the HTLC, the channel it is meant to be forwarded through closes
 						/// * When an unknown SCID is requested for forwarding a payment.
-						/// * Claiming an amount for an MPP payment that exceeds the HTLC total
+						/// * Expected MPP amount has already been reached
 						/// * The HTLC has timed out
 						/// 
 						/// This event, however, does not get generated if an HTLC fails to meet the forwarding
@@ -248,6 +258,9 @@
 			
 							case LDKEvent_PaymentForwarded:
 								return .PaymentForwarded
+			
+							case LDKEvent_ChannelPending:
+								return .ChannelPending
 			
 							case LDKEvent_ChannelReady:
 								return .ChannelReady
@@ -353,7 +366,7 @@
 					}
 		
 					/// Utility method to constructs a new PaymentClaimable-variant Event
-					public class func initWithPaymentClaimable(receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8], viaUserChannelId: [UInt8]?) -> Event {
+					public class func initWithPaymentClaimable(receiverNodeId: [UInt8], paymentHash: [UInt8], onionFields: Bindings.RecipientOnionFields, amountMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8], viaUserChannelId: [UInt8]?, claimDeadline: UInt32?) -> Event {
 						// native call variable prep
 						
 						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId)
@@ -364,9 +377,11 @@
 				
 						let viaUserChannelIdOption = Option_u128Z(some: viaUserChannelId).danglingClone()
 				
+						let claimDeadlineOption = Option_u32Z(some: claimDeadline).danglingClone()
+				
 
 						// native method call
-						let nativeCallResult = Event_payment_claimable(receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, amountMsat, purpose.danglingClone().cType!, viaChannelIdPrimitiveWrapper.cType!, viaUserChannelIdOption.cType!)
+						let nativeCallResult = Event_payment_claimable(receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, onionFields.dynamicallyDangledClone().cType!, amountMsat, purpose.danglingClone().cType!, viaChannelIdPrimitiveWrapper.cType!, viaUserChannelIdOption.cType!, claimDeadlineOption.cType!)
 
 						// cleanup
 						
@@ -454,16 +469,18 @@
 					}
 		
 					/// Utility method to constructs a new PaymentFailed-variant Event
-					public class func initWithPaymentFailed(paymentId: [UInt8], paymentHash: [UInt8]) -> Event {
+					public class func initWithPaymentFailed(paymentId: [UInt8], paymentHash: [UInt8], reason: PaymentFailureReason?) -> Event {
 						// native call variable prep
 						
 						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
 				
 						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
 				
+						let reasonOption = Option_PaymentFailureReasonZ(some: reason).danglingClone()
+				
 
 						// native method call
-						let nativeCallResult = Event_payment_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!)
+						let nativeCallResult = Event_payment_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, reasonOption.cType!)
 
 						// cleanup
 						
@@ -483,18 +500,16 @@
 					}
 		
 					/// Utility method to constructs a new PaymentPathSuccessful-variant Event
-					public class func initWithPaymentPathSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop]) -> Event {
+					public class func initWithPaymentPathSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: Bindings.Path) -> Event {
 						// native call variable prep
 						
 						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
 				
 						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 
 						// native method call
-						let nativeCallResult = Event_payment_path_successful(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, pathVector.cType!)
+						let nativeCallResult = Event_payment_path_successful(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, path.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						
@@ -503,8 +518,6 @@
 				
 						// for elided types, we need this
 						paymentHashPrimitiveWrapper.noOpRetain()
-				
-						// pathVector.noOpRetain()
 				
 
 						
@@ -516,20 +529,18 @@
 					}
 		
 					/// Utility method to constructs a new PaymentPathFailed-variant Event
-					public class func initWithPaymentPathFailed(paymentId: [UInt8], paymentHash: [UInt8], paymentFailedPermanently: Bool, failure: PathFailure, path: [RouteHop], shortChannelId: UInt64?, retry: Bindings.RouteParameters) -> Event {
+					public class func initWithPaymentPathFailed(paymentId: [UInt8], paymentHash: [UInt8], paymentFailedPermanently: Bool, failure: PathFailure, path: Bindings.Path, shortChannelId: UInt64?) -> Event {
 						// native call variable prep
 						
 						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
 				
 						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 						let shortChannelIdOption = Option_u64Z(some: shortChannelId).danglingClone()
 				
 
 						// native method call
-						let nativeCallResult = Event_payment_path_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, paymentFailedPermanently, failure.danglingClone().cType!, pathVector.cType!, shortChannelIdOption.cType!, retry.dynamicallyDangledClone().cType!)
+						let nativeCallResult = Event_payment_path_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, paymentFailedPermanently, failure.danglingClone().cType!, path.dynamicallyDangledClone().cType!, shortChannelIdOption.cType!)
 
 						// cleanup
 						
@@ -538,8 +549,6 @@
 				
 						// for elided types, we need this
 						paymentHashPrimitiveWrapper.noOpRetain()
-				
-						// pathVector.noOpRetain()
 				
 
 						
@@ -551,18 +560,16 @@
 					}
 		
 					/// Utility method to constructs a new ProbeSuccessful-variant Event
-					public class func initWithProbeSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop]) -> Event {
+					public class func initWithProbeSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: Bindings.Path) -> Event {
 						// native call variable prep
 						
 						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
 				
 						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 
 						// native method call
-						let nativeCallResult = Event_probe_successful(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, pathVector.cType!)
+						let nativeCallResult = Event_probe_successful(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, path.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						
@@ -571,8 +578,6 @@
 				
 						// for elided types, we need this
 						paymentHashPrimitiveWrapper.noOpRetain()
-				
-						// pathVector.noOpRetain()
 				
 
 						
@@ -584,20 +589,18 @@
 					}
 		
 					/// Utility method to constructs a new ProbeFailed-variant Event
-					public class func initWithProbeFailed(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop], shortChannelId: UInt64?) -> Event {
+					public class func initWithProbeFailed(paymentId: [UInt8], paymentHash: [UInt8], path: Bindings.Path, shortChannelId: UInt64?) -> Event {
 						// native call variable prep
 						
 						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
 				
 						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 						let shortChannelIdOption = Option_u64Z(some: shortChannelId).danglingClone()
 				
 
 						// native method call
-						let nativeCallResult = Event_probe_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, pathVector.cType!, shortChannelIdOption.cType!)
+						let nativeCallResult = Event_probe_failed(paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, path.dynamicallyDangledClone().cType!, shortChannelIdOption.cType!)
 
 						// cleanup
 						
@@ -606,8 +609,6 @@
 				
 						// for elided types, we need this
 						paymentHashPrimitiveWrapper.noOpRetain()
-				
-						// pathVector.noOpRetain()
 				
 
 						
@@ -690,7 +691,7 @@
 					}
 		
 					/// Utility method to constructs a new PaymentForwarded-variant Event
-					public class func initWithPaymentForwarded(prevChannelId: [UInt8], nextChannelId: [UInt8], feeEarnedMsat: UInt64?, claimFromOnchainTx: Bool) -> Event {
+					public class func initWithPaymentForwarded(prevChannelId: [UInt8], nextChannelId: [UInt8], feeEarnedMsat: UInt64?, claimFromOnchainTx: Bool, outboundAmountForwardedMsat: UInt64?) -> Event {
 						// native call variable prep
 						
 						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId)
@@ -699,9 +700,11 @@
 				
 						let feeEarnedMsatOption = Option_u64Z(some: feeEarnedMsat).danglingClone()
 				
+						let outboundAmountForwardedMsatOption = Option_u64Z(some: outboundAmountForwardedMsat).danglingClone()
+				
 
 						// native method call
-						let nativeCallResult = Event_payment_forwarded(prevChannelIdPrimitiveWrapper.cType!, nextChannelIdPrimitiveWrapper.cType!, feeEarnedMsatOption.cType!, claimFromOnchainTx)
+						let nativeCallResult = Event_payment_forwarded(prevChannelIdPrimitiveWrapper.cType!, nextChannelIdPrimitiveWrapper.cType!, feeEarnedMsatOption.cType!, claimFromOnchainTx, outboundAmountForwardedMsatOption.cType!)
 
 						// cleanup
 						
@@ -710,6 +713,45 @@
 				
 						// for elided types, we need this
 						nextChannelIdPrimitiveWrapper.noOpRetain()
+				
+
+						
+						// return value (do some wrapping)
+						let returnValue = Event(cType: nativeCallResult)
+						
+
+						return returnValue
+					}
+		
+					/// Utility method to constructs a new ChannelPending-variant Event
+					public class func initWithChannelPending(channelId: [UInt8], userChannelId: [UInt8], formerTemporaryChannelId: [UInt8], counterpartyNodeId: [UInt8], fundingTxo: Bindings.OutPoint) -> Event {
+						// native call variable prep
+						
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+				
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+				
+						let formerTemporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: formerTemporaryChannelId)
+				
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+				
+
+						// native method call
+						let nativeCallResult = Event_channel_pending(channelIdPrimitiveWrapper.cType!, userChannelIdPrimitiveWrapper.cType!, formerTemporaryChannelIdPrimitiveWrapper.cType!, counterpartyNodeIdPrimitiveWrapper.cType!, fundingTxo.dynamicallyDangledClone().cType!)
+
+						// cleanup
+						
+						// for elided types, we need this
+						channelIdPrimitiveWrapper.noOpRetain()
+				
+						// for elided types, we need this
+						userChannelIdPrimitiveWrapper.noOpRetain()
+				
+						// for elided types, we need this
+						formerTemporaryChannelIdPrimitiveWrapper.noOpRetain()
+				
+						// for elided types, we need this
+						counterpartyNodeIdPrimitiveWrapper.noOpRetain()
 				
 
 						
@@ -1046,6 +1088,14 @@
 						return Event_LDKPaymentForwarded_Body(cType: self.cType!.payment_forwarded, anchor: self)
 					}
 			
+					public func getValueAsChannelPending() -> ChannelPending? {
+						if self.cType?.tag != LDKEvent_ChannelPending {
+							return nil
+						}
+
+						return Event_LDKChannelPending_Body(cType: self.cType!.channel_pending, anchor: self)
+					}
+			
 					public func getValueAsChannelReady() -> ChannelReady? {
 						if self.cType?.tag != LDKEvent_ChannelReady {
 							return nil
@@ -1277,6 +1327,19 @@
 							return returnValue;
 						}
 		
+						/// The fields in the onion which were received with each HTLC. Only fields which were
+						/// identical in each HTLC involved in the payment will be included here.
+						/// 
+						/// Payments received on LDK versions prior to 0.0.115 will have this field unset.
+						/// 
+						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+						public func getOnionFields() -> Bindings.RecipientOnionFields {
+							// return value (do some wrapping)
+							let returnValue = Bindings.RecipientOnionFields(cType: self.cType!.onion_fields, anchor: self)
+
+							return returnValue;
+						}
+		
 						/// The value, in thousandths of a satoshi, that this payment is for.
 						public func getAmountMsat() -> UInt64 {
 							// return value (do some wrapping)
@@ -1308,6 +1371,20 @@
 						public func getViaUserChannelId() -> [UInt8]? {
 							// return value (do some wrapping)
 							let returnValue = Option_u128Z(cType: self.cType!.via_user_channel_id, anchor: self).getValue()
+
+							return returnValue;
+						}
+		
+						/// The block height at which this payment will be failed back and will no longer be
+						/// eligible for claiming.
+						/// 
+						/// Prior to this height, a call to [`ChannelManager::claim_funds`] is guaranteed to
+						/// succeed, however you should wait for [`Event::PaymentClaimed`] to be sure.
+						/// 
+						/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
+						public func getClaimDeadline() -> UInt32? {
+							// return value (do some wrapping)
+							let returnValue = Option_u32Z(cType: self.cType!.claim_deadline, anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1453,7 +1530,7 @@
 						
 
 						
-						/// The id returned by [`ChannelManager::send_payment`].
+						/// The `payment_id` passed to [`ChannelManager::send_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						/// 
@@ -1551,11 +1628,9 @@
 						
 
 						
-						/// The id returned by [`ChannelManager::send_payment`] and used with
-						/// [`ChannelManager::abandon_payment`].
+						/// The `payment_id` passed to [`ChannelManager::send_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
-						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
 							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
@@ -1569,6 +1644,15 @@
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
 							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+
+							return returnValue;
+						}
+		
+						/// The reason the payment failed. This is only `None` for events generated or serialized
+						/// by versions prior to 0.0.115.
+						public func getReason() -> PaymentFailureReason? {
+							// return value (do some wrapping)
+							let returnValue = Option_PaymentFailureReasonZ(cType: self.cType!.reason, anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1623,7 +1707,7 @@
 						
 
 						
-						/// The id returned by [`ChannelManager::send_payment`].
+						/// The `payment_id` passed to [`ChannelManager::send_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentId() -> [UInt8] {
@@ -1648,9 +1732,9 @@
 						/// The payment path that was successful.
 						/// 
 						/// May contain a closed channel if the HTLC sent along the path was fulfilled on chain.
-						public func getPath() -> [RouteHop] {
+						public func getPath() -> Bindings.Path {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Bindings.Path(cType: self.cType!.path, anchor: self)
 
 							return returnValue;
 						}
@@ -1705,8 +1789,7 @@
 						
 
 						
-						/// The id returned by [`ChannelManager::send_payment`] and used with
-						/// [`ChannelManager::abandon_payment`].
+						/// The `payment_id` passed to [`ChannelManager::send_payment`].
 						/// 
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
@@ -1751,9 +1834,9 @@
 						}
 		
 						/// The payment path that failed.
-						public func getPath() -> [RouteHop] {
+						public func getPath() -> Bindings.Path {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Bindings.Path(cType: self.cType!.path, anchor: self)
 
 							return returnValue;
 						}
@@ -1769,18 +1852,6 @@
 						public func getShortChannelId() -> UInt64? {
 							// return value (do some wrapping)
 							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, anchor: self).getValue()
-
-							return returnValue;
-						}
-		
-						/// Parameters used by LDK to compute a new [`Route`] when retrying the failed payment path.
-						/// 
-						/// [`Route`]: crate::routing::router::Route
-						/// 
-						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-						public func getRetry() -> Bindings.RouteParameters {
-							// return value (do some wrapping)
-							let returnValue = Bindings.RouteParameters(cType: self.cType!.retry, anchor: self)
 
 							return returnValue;
 						}
@@ -1856,9 +1927,9 @@
 						}
 		
 						/// The payment path that was successful.
-						public func getPath() -> [RouteHop] {
+						public func getPath() -> Bindings.Path {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Bindings.Path(cType: self.cType!.path, anchor: self)
 
 							return returnValue;
 						}
@@ -1934,9 +2005,9 @@
 						}
 		
 						/// The payment path that failed.
-						public func getPath() -> [RouteHop] {
+						public func getPath() -> Bindings.Path {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Bindings.Path(cType: self.cType!.path, anchor: self)
 
 							return returnValue;
 						}
@@ -2271,8 +2342,119 @@
 							return returnValue;
 						}
 		
+						/// The final amount forwarded, in milli-satoshis, after the fee is deducted.
+						/// 
+						/// The caveat described above the `fee_earned_msat` field applies here as well.
+						public func getOutboundAmountForwardedMsat() -> UInt64? {
+							// return value (do some wrapping)
+							let returnValue = Option_u64Z(cType: self.cType!.outbound_amount_forwarded_msat, anchor: self).getValue()
+
+							return returnValue;
+						}
+		
 
 						internal func dangle(_ shouldDangle: Bool = true) -> PaymentForwarded {
+							self.dangling = shouldDangle
+							return self
+						}
+
+											
+
+					}
+
+					
+		
+					
+					/// 
+					internal typealias Event_LDKChannelPending_Body = ChannelPending
+			
+
+					/// 
+					public class ChannelPending: NativeTypeWrapper {
+
+						
+
+						
+						private static var instanceCounter: UInt = 0
+						internal let instanceNumber: UInt
+
+						internal var cType: LDKEvent_LDKChannelPending_Body?
+
+						internal init(cType: LDKEvent_LDKChannelPending_Body) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0)
+						}
+
+						internal init(cType: LDKEvent_LDKChannelPending_Body, anchor: NativeTypeWrapper) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0)
+							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+		
+
+						
+
+						
+						/// The `channel_id` of the channel that is pending confirmation.
+						public func getChannelId() -> [UInt8] {
+							// return value (do some wrapping)
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, anchor: self).getValue()
+
+							return returnValue;
+						}
+		
+						/// The `user_channel_id` value passed in to [`ChannelManager::create_channel`] for outbound
+						/// channels, or to [`ChannelManager::accept_inbound_channel`] for inbound channels if
+						/// [`UserConfig::manually_accept_inbound_channels`] config flag is set to true. Otherwise
+						/// `user_channel_id` will be randomized for an inbound channel.
+						/// 
+						/// [`ChannelManager::create_channel`]: crate::ln::channelmanager::ChannelManager::create_channel
+						/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
+						/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
+						public func getUserChannelId() -> [UInt8] {
+							// return value (do some wrapping)
+							let returnValue = U128(cType: self.cType!.user_channel_id, anchor: self).getValue()
+
+							return returnValue;
+						}
+		
+						/// The `temporary_channel_id` this channel used to be known by during channel establishment.
+						/// 
+						/// Will be `None` for channels created prior to LDK version 0.0.115.
+						/// 
+						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+						public func getFormerTemporaryChannelId() -> [UInt8] {
+							// return value (do some wrapping)
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.former_temporary_channel_id, anchor: self).getValue()
+
+							return returnValue;
+						}
+		
+						/// The `node_id` of the channel counterparty.
+						public func getCounterpartyNodeId() -> [UInt8] {
+							// return value (do some wrapping)
+							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, anchor: self).getValue()
+
+							return returnValue;
+						}
+		
+						/// The outpoint of the channel's funding transaction.
+						public func getFundingTxo() -> Bindings.OutPoint {
+							// return value (do some wrapping)
+							let returnValue = Bindings.OutPoint(cType: self.cType!.funding_txo, anchor: self)
+
+							return returnValue;
+						}
+		
+
+						internal func dangle(_ shouldDangle: Bool = true) -> ChannelPending {
 							self.dangling = shouldDangle
 							return self
 						}
@@ -2321,7 +2503,7 @@
 						
 
 						
-						/// The channel_id of the channel that is ready.
+						/// The `channel_id` of the channel that is ready.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
 							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, anchor: self).getValue()
@@ -2344,7 +2526,7 @@
 							return returnValue;
 						}
 		
-						/// The node_id of the channel counterparty.
+						/// The `node_id` of the channel counterparty.
 						public func getCounterpartyNodeId() -> [UInt8] {
 							// return value (do some wrapping)
 							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, anchor: self).getValue()
@@ -2410,7 +2592,7 @@
 						
 
 						
-						/// The channel_id of the channel which has been closed. Note that on-chain transactions
+						/// The `channel_id` of the channel which has been closed. Note that on-chain transactions
 						/// resolving the channel are likely still awaiting confirmation.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)

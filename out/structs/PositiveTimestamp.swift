@@ -122,7 +122,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two PositiveTimestamps contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the PositiveTimestamp.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

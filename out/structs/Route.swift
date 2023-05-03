@@ -62,12 +62,10 @@
 						return returnValue
 					}
 		
-					/// The list of routes taken for a single (potentially-)multi-part payment. The pubkey of the
-					/// last RouteHop in each path must be the same. Each entry represents a list of hops, NOT
-					/// INCLUDING our own, where the last hop is the destination. Thus, this must always be at
-					/// least length one. While the maximum length of any given path is variable, keeping the length
-					/// of any path less or equal to 19 should currently ensure it is viable.
-					public func getPaths() -> [[RouteHop]] {
+					/// The list of [`Path`]s taken for a single (potentially-)multi-part payment. If no
+					/// [`BlindedTail`]s are present, then the pubkey of the last [`RouteHop`] in each path must be
+					/// the same.
+					public func getPaths() -> [Path] {
 						// native call variable prep
 						
 
@@ -83,21 +81,19 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_CVec_RouteHopZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_PathZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
 					}
 		
-					/// The list of routes taken for a single (potentially-)multi-part payment. The pubkey of the
-					/// last RouteHop in each path must be the same. Each entry represents a list of hops, NOT
-					/// INCLUDING our own, where the last hop is the destination. Thus, this must always be at
-					/// least length one. While the maximum length of any given path is variable, keeping the length
-					/// of any path less or equal to 19 should currently ensure it is viable.
-					public func setPaths(val: [[RouteHop]]) {
+					/// The list of [`Path`]s taken for a single (potentially-)multi-part payment. If no
+					/// [`BlindedTail`]s are present, then the pubkey of the last [`RouteHop`] in each path must be
+					/// the same.
+					public func setPaths(val: [Path]) {
 						// native call variable prep
 						
-						let valVector = Vec_CVec_RouteHopZZ(array: val).dangle()
+						let valVector = Vec_PathZ(array: val).dangle()
 				
 
 						// native method call
@@ -124,7 +120,7 @@
 					/// This is used by `ChannelManager` to track information which may be required for retries,
 					/// provided back to you via [`Event::PaymentPathFailed`].
 					/// 
-					/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
+					/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
 					/// 
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
 					public func getPaymentParams() -> PaymentParameters? {
@@ -166,7 +162,7 @@
 					/// This is used by `ChannelManager` to track information which may be required for retries,
 					/// provided back to you via [`Event::PaymentPathFailed`].
 					/// 
-					/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
+					/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
 					/// 
 					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
 					public func setPaymentParams(val: PaymentParameters) {
@@ -192,10 +188,10 @@
 					}
 		
 					/// Constructs a new Route given each field
-					public init(pathsArg: [[RouteHop]], paymentParamsArg: PaymentParameters) {
+					public init(pathsArg: [Path], paymentParamsArg: PaymentParameters) {
 						// native call variable prep
 						
-						let pathsArgVector = Vec_CVec_RouteHopZZ(array: pathsArg).dangle()
+						let pathsArgVector = Vec_PathZ(array: pathsArg).dangle()
 				
 
 						// native method call
@@ -246,7 +242,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two Routes contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the Route.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
@@ -324,7 +320,8 @@
 						return returnValue
 					}
 		
-					/// Returns the total amount paid on this [`Route`], excluding the fees.
+					/// Returns the total amount paid on this [`Route`], excluding the fees. Might be more than
+					/// requested if we had to reach htlc_minimum_msat.
 					public func getTotalAmount() -> UInt64 {
 						// native call variable prep
 						

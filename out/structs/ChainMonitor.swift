@@ -11,8 +11,15 @@
 			/// or used independently to monitor channels remotely. See the [module-level documentation] for
 			/// details.
 			/// 
+			/// Note that `ChainMonitor` should regularly trigger rebroadcasts/fee bumps of pending claims from
+			/// a force-closed channel. This is crucial in preventing certain classes of pinning attacks,
+			/// detecting substantial mempool feerate changes between blocks, and ensuring reliability if
+			/// broadcasting fails. We recommend invoking this every 30 seconds, or lower if running in an
+			/// environment with spotty connections, like on mobile.
+			/// 
 			/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 			/// [module-level documentation]: crate::chain::chainmonitor
+			/// [`rebroadcast_pending_claims`]: Self::rebroadcast_pending_claims
 			public typealias ChainMonitor = Bindings.ChainMonitor
 
 			extension Bindings {
@@ -25,8 +32,15 @@
 				/// or used independently to monitor channels remotely. See the [module-level documentation] for
 				/// details.
 				/// 
+				/// Note that `ChainMonitor` should regularly trigger rebroadcasts/fee bumps of pending claims from
+				/// a force-closed channel. This is crucial in preventing certain classes of pinning attacks,
+				/// detecting substantial mempool feerate changes between blocks, and ensuring reliability if
+				/// broadcasting fails. We recommend invoking this every 30 seconds, or lower if running in an
+				/// environment with spotty connections, like on mobile.
+				/// 
 				/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 				/// [module-level documentation]: crate::chain::chainmonitor
+				/// [`rebroadcast_pending_claims`]: Self::rebroadcast_pending_claims
 				public class ChainMonitor: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -253,6 +267,63 @@
 						
 						// return value (do some wrapping)
 						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// Gets a [`Future`] that completes when an event is available either via
+					/// [`chain::Watch::release_pending_monitor_events`] or
+					/// [`EventsProvider::process_pending_events`].
+					/// 
+					/// Note that callbacks registered on the [`Future`] MUST NOT call back into this
+					/// [`ChainMonitor`] and should instead register actions to be taken later.
+					/// 
+					/// [`EventsProvider::process_pending_events`]: crate::events::EventsProvider::process_pending_events
+					public func getUpdateFuture() -> Future {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChainMonitor>) in
+				ChainMonitor_get_update_future(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Future(cType: nativeCallResult, anchor: self).dangle(false)
+						
+
+						return returnValue
+					}
+		
+					/// Triggers rebroadcasts/fee-bumps of pending claims from a force-closed channel. This is
+					/// crucial in preventing certain classes of pinning attacks, detecting substantial mempool
+					/// feerate changes between blocks, and ensuring reliability if broadcasting fails. We recommend
+					/// invoking this every 30 seconds, or lower if running in an environment with spotty
+					/// connections, like on mobile.
+					public func rebroadcastPendingClaims() {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChainMonitor>) in
+				ChainMonitor_rebroadcast_pending_claims(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
 						
 
 						return returnValue

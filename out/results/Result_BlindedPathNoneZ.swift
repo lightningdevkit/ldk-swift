@@ -4,14 +4,14 @@
 			#endif
 
 			/// A CResult_BlindedPathNoneZ represents the result of a fallible operation,
-			/// containing a crate::lightning::onion_message::blinded_path::BlindedPath on success and a () on failure.
+			/// containing a crate::lightning::blinded_path::BlindedPath on success and a () on failure.
 			/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 			public typealias Result_BlindedPathNoneZ = Bindings.Result_BlindedPathNoneZ
 
 			extension Bindings {
 
 				/// A CResult_BlindedPathNoneZ represents the result of a fallible operation,
-				/// containing a crate::lightning::onion_message::blinded_path::BlindedPath on success and a () on failure.
+				/// containing a crate::lightning::blinded_path::BlindedPath on success and a () on failure.
 				/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 				public class Result_BlindedPathNoneZ: NativeTypeWrapper {
 

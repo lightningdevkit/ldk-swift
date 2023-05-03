@@ -4,13 +4,15 @@
 			import LDKHeaders
 			#endif
 
-			/// A hop in a route
+			/// A hop in a route, and additional metadata about it. \"Hop\" is defined as a node and the channel
+			/// that leads to it.
 			public typealias RouteHop = Bindings.RouteHop
 
 			extension Bindings {
 		
 
-				/// A hop in a route
+				/// A hop in a route, and additional metadata about it. \"Hop\" is defined as a node and the channel
+				/// that leads to it.
 				public class RouteHop: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -254,8 +256,11 @@
 					}
 		
 					/// The fee taken on this hop (for paying for the use of the *next* channel in the path).
-					/// For the last hop, this should be the full value of the payment (might be more than
-					/// requested if we had to match htlc_minimum_msat).
+					/// If this is the last hop in [`Path::hops`]:
+					/// * if we're sending to a [`BlindedPath`], this is the fee paid for use of the entire blinded path
+					/// * otherwise, this is the full value of this [`Path`]'s part of the payment
+					/// 
+					/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 					public func getFeeMsat() -> UInt64 {
 						// native call variable prep
 						
@@ -279,8 +284,11 @@
 					}
 		
 					/// The fee taken on this hop (for paying for the use of the *next* channel in the path).
-					/// For the last hop, this should be the full value of the payment (might be more than
-					/// requested if we had to match htlc_minimum_msat).
+					/// If this is the last hop in [`Path::hops`]:
+					/// * if we're sending to a [`BlindedPath`], this is the fee paid for use of the entire blinded path
+					/// * otherwise, this is the full value of this [`Path`]'s part of the payment
+					/// 
+					/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 					public func setFeeMsat(val: UInt64) {
 						// native call variable prep
 						
@@ -303,8 +311,12 @@
 						return returnValue
 					}
 		
-					/// The CLTV delta added for this hop. For the last hop, this should be the full CLTV value
-					/// expected at the destination, in excess of the current block height.
+					/// The CLTV delta added for this hop.
+					/// If this is the last hop in [`Path::hops`]:
+					/// * if we're sending to a [`BlindedPath`], this is the CLTV delta for the entire blinded path
+					/// * otherwise, this is the CLTV delta expected at the destination
+					/// 
+					/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 					public func getCltvExpiryDelta() -> UInt32 {
 						// native call variable prep
 						
@@ -327,8 +339,12 @@
 						return returnValue
 					}
 		
-					/// The CLTV delta added for this hop. For the last hop, this should be the full CLTV value
-					/// expected at the destination, in excess of the current block height.
+					/// The CLTV delta added for this hop.
+					/// If this is the last hop in [`Path::hops`]:
+					/// * if we're sending to a [`BlindedPath`], this is the CLTV delta for the entire blinded path
+					/// * otherwise, this is the CLTV delta expected at the destination
+					/// 
+					/// [`BlindedPath`]: crate::blinded_path::BlindedPath
 					public func setCltvExpiryDelta(val: UInt32) {
 						// native call variable prep
 						
@@ -407,7 +423,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two RouteHops contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the RouteHop.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

@@ -262,7 +262,7 @@
 					/// An alias, for UI purposes.
 					/// 
 					/// This should be sanitized before use. There is no guarantee of uniqueness.
-					public func getAlias() -> [UInt8]? {
+					public func getAlias() -> NodeAlias {
 						// native call variable prep
 						
 
@@ -275,14 +275,10 @@
 
 						// cleanup
 						
-						guard let nativeCallResult = nativeCallResult else {
-							return nil
-						}
-			
 
 						
 						// return value (do some wrapping)
-						let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
+						let returnValue = NodeAlias(cType: nativeCallResult, anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -291,24 +287,19 @@
 					/// An alias, for UI purposes.
 					/// 
 					/// This should be sanitized before use. There is no guarantee of uniqueness.
-					public func setAlias(val: [UInt8]) {
+					public func setAlias(val: NodeAlias) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
-				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUnsignedNodeAnnouncement>) in
-				UnsignedNodeAnnouncement_set_alias(thisPtrPointer, valPrimitiveWrapper.cType!)
+				UnsignedNodeAnnouncement_set_alias(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 						}
 				
 
 						// cleanup
 						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)

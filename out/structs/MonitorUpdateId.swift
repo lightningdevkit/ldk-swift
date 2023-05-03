@@ -83,7 +83,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two MonitorUpdateIds contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the MonitorUpdateId.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

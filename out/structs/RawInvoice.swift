@@ -4,21 +4,21 @@
 			import LDKHeaders
 			#endif
 
-			/// Represents an syntactically correct Invoice for a payment on the lightning network,
+			/// Represents an syntactically correct [`Invoice`] for a payment on the lightning network,
 			/// but without the signature information.
-			/// De- and encoding should not lead to information loss but may lead to different hashes.
+			/// Decoding and encoding should not lead to information loss but may lead to different hashes.
 			/// 
-			/// For methods without docs see the corresponding methods in `Invoice`.
+			/// For methods without docs see the corresponding methods in [`Invoice`].
 			public typealias RawInvoice = Bindings.RawInvoice
 
 			extension Bindings {
 		
 
-				/// Represents an syntactically correct Invoice for a payment on the lightning network,
+				/// Represents an syntactically correct [`Invoice`] for a payment on the lightning network,
 				/// but without the signature information.
-				/// De- and encoding should not lead to information loss but may lead to different hashes.
+				/// Decoding and encoding should not lead to information loss but may lead to different hashes.
 				/// 
-				/// For methods without docs see the corresponding methods in `Invoice`.
+				/// For methods without docs see the corresponding methods in [`Invoice`].
 				public class RawInvoice: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -166,7 +166,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two RawInvoices contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the RawInvoice.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
@@ -454,6 +454,29 @@
 						
 						// return value (do some wrapping)
 						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						
+
+						return returnValue
+					}
+		
+					/// 
+					public func paymentMetadata() -> [UInt8]? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRawInvoice>) in
+				RawInvoice_payment_metadata(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Option_CVec_u8ZZ(cType: nativeCallResult, anchor: self).getValue()
 						
 
 						return returnValue

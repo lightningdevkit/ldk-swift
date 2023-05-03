@@ -11,8 +11,8 @@
 			/// * Monitoring whether the [`ChannelManager`] needs to be re-persisted to disk, and if so,
 			/// writing it to disk/backups by invoking the callback given to it at startup.
 			/// [`ChannelManager`] persistence should be done in the background.
-			/// * Calling [`ChannelManager::timer_tick_occurred`] and [`PeerManager::timer_tick_occurred`]
-			/// at the appropriate intervals.
+			/// * Calling [`ChannelManager::timer_tick_occurred`], [`ChainMonitor::rebroadcast_pending_claims`]
+			/// and [`PeerManager::timer_tick_occurred`] at the appropriate intervals.
 			/// * Calling [`NetworkGraph::remove_stale_channels_and_tracking`] (if a [`GossipSync`] with a
 			/// [`NetworkGraph`] is provided to [`BackgroundProcessor::start`]).
 			/// 
@@ -27,7 +27,7 @@
 			/// unilateral chain closure fees are at risk.
 			/// 
 			/// [`ChannelMonitor`]: lightning::chain::channelmonitor::ChannelMonitor
-			/// [`Event`]: lightning::util::events::Event
+			/// [`Event`]: lightning::events::Event
 			/// BackgroundProcessor will immediately stop on drop. It should be stored until shutdown.
 			public typealias BackgroundProcessor = Bindings.BackgroundProcessor
 
@@ -41,8 +41,8 @@
 				/// * Monitoring whether the [`ChannelManager`] needs to be re-persisted to disk, and if so,
 				/// writing it to disk/backups by invoking the callback given to it at startup.
 				/// [`ChannelManager`] persistence should be done in the background.
-				/// * Calling [`ChannelManager::timer_tick_occurred`] and [`PeerManager::timer_tick_occurred`]
-				/// at the appropriate intervals.
+				/// * Calling [`ChannelManager::timer_tick_occurred`], [`ChainMonitor::rebroadcast_pending_claims`]
+				/// and [`PeerManager::timer_tick_occurred`] at the appropriate intervals.
 				/// * Calling [`NetworkGraph::remove_stale_channels_and_tracking`] (if a [`GossipSync`] with a
 				/// [`NetworkGraph`] is provided to [`BackgroundProcessor::start`]).
 				/// 
@@ -57,7 +57,7 @@
 				/// unilateral chain closure fees are at risk.
 				/// 
 				/// [`ChannelMonitor`]: lightning::chain::channelmonitor::ChannelMonitor
-				/// [`Event`]: lightning::util::events::Event
+				/// [`Event`]: lightning::events::Event
 				/// BackgroundProcessor will immediately stop on drop. It should be stored until shutdown.
 				public class BackgroundProcessor: NativeTypeWrapper {
 

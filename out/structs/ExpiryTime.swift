@@ -85,7 +85,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two ExpiryTimes contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the ExpiryTime.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
@@ -156,7 +156,7 @@
 						return returnValue
 					}
 		
-					/// Construct an `ExpiryTime` from a `Duration`, dropping the sub-second part.
+					/// Construct an `ExpiryTime` from a [`Duration`], dropping the sub-second part.
 					public class func initWithDuration(duration: UInt64) -> ExpiryTime {
 						// native call variable prep
 						
@@ -198,7 +198,7 @@
 						return returnValue
 					}
 		
-					/// Returns a reference to the underlying `Duration` (=expiry time)
+					/// Returns a reference to the underlying [`Duration`] (=expiry time)
 					public func asDuration() -> UInt64 {
 						// native call variable prep
 						

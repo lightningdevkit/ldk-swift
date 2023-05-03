@@ -488,6 +488,35 @@
 						return returnValue
 					}
 		
+					/// Checks if two ChannelTransactionParameterss contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					/// Two objects with NULL inner values will be considered "equal" here.
+					public class func eq(a: ChannelTransactionParameters, b: ChannelTransactionParameters) -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+				ChannelTransactionParameters_eq(aPointer, bPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
 					/// Whether the late bound parameters are populated.
 					public func isPopulated() -> Bool {
 						// native call variable prep

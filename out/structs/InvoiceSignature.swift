@@ -83,7 +83,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two InvoiceSignatures contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the InvoiceSignature.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

@@ -1029,7 +1029,7 @@ return returnValue
 				/// [`ChannelManager::list_usable_channels`] will never include such channels.
 				/// 
 				/// [`ChannelManager::list_usable_channels`]: crate::ln::channelmanager::ChannelManager::list_usable_channels
-				/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
+				/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
 				/// [`NetworkGraph`]: crate::routing::gossip::NetworkGraph
 				/// 
 				/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None

@@ -113,6 +113,38 @@
 			
 					}
 		
+					/// Takes in a path with payer's node id and adds the path's details to `InFlightHtlcs`.
+					public func processPath(path: Path, payerNodeId: [UInt8]) {
+						// native call variable prep
+						
+						let payerNodeIdPrimitiveWrapper = PublicKey(value: payerNodeId)
+				
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKInFlightHtlcs>) in
+				
+						withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
+				InFlightHtlcs_process_path(thisArgPointer, pathPointer, payerNodeIdPrimitiveWrapper.cType!)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+						// for elided types, we need this
+						payerNodeIdPrimitiveWrapper.noOpRetain()
+				
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
 					/// Returns liquidity in msat given the public key of the HTLC source, target, and short channel
 					/// id.
 					public func usedLiquidityMsat(source: NodeId, target: NodeId, channelScid: UInt64) -> UInt64? {

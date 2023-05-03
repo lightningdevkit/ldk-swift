@@ -234,7 +234,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two RoutingFeess contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the RoutingFees.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

@@ -478,6 +478,98 @@
 						return returnValue
 					}
 		
+					/// Set this feature as optional.
+					public func setPaymentMetadataOptional() {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKInvoiceFeatures>) in
+				InvoiceFeatures_set_payment_metadata_optional(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Set this feature as required.
+					public func setPaymentMetadataRequired() {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKInvoiceFeatures>) in
+				InvoiceFeatures_set_payment_metadata_required(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Checks if this feature is supported.
+					public func supportsPaymentMetadata() -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceFeatures>) in
+				InvoiceFeatures_supports_payment_metadata(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Checks if this feature is required.
+					public func requiresPaymentMetadata() -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceFeatures>) in
+				InvoiceFeatures_requires_payment_metadata(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
 
 					
 					/// Indicates that this is the only struct which contains the same pointer.

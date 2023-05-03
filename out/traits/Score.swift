@@ -71,14 +71,14 @@
 							return returnValue
 						}
 		
-						func paymentPathFailedLambda(this_arg: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
+						func paymentPathFailedLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64) -> Void {
 							let instance: Score = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Score::paymentPathFailedLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.paymentPathFailed(path: Path(cType: path.pointee).dangle().clone(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -89,14 +89,14 @@
 							return returnValue
 						}
 		
-						func paymentPathSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
+						func paymentPathSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>) -> Void {
 							let instance: Score = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Score::paymentPathSuccessfulLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
+							let swiftCallbackResult = instance.paymentPathSuccessful(path: Path(cType: path.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -107,14 +107,14 @@
 							return returnValue
 						}
 		
-						func probeFailedLambda(this_arg: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ, short_channel_id: UInt64) -> Void {
+						func probeFailedLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64) -> Void {
 							let instance: Score = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Score::probeFailedLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.probeFailed(path: Path(cType: path.pointee).dangle().clone(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -125,14 +125,14 @@
 							return returnValue
 						}
 		
-						func probeSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: LDKCVec_RouteHopZ) -> Void {
+						func probeSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>) -> Void {
 							let instance: Score = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Score::probeSuccessfulLambda")
 
 							// Swift callback variable prep
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
+							let swiftCallbackResult = instance.probeSuccessful(path: Path(cType: path.pointee).dangle().clone())
 
 							// cleanup
 							
@@ -208,28 +208,28 @@
 					}
 		
 					/// Handles updating channel penalties after failing to route through a channel.
-					open func paymentPathFailed(path: [RouteHop], shortChannelId: UInt64) -> Void {
+					open func paymentPathFailed(path: Path, shortChannelId: UInt64) -> Void {
 						
 						Bindings.print("Error: Score::paymentPathFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
 					/// Handles updating channel penalties after successfully routing along a path.
-					open func paymentPathSuccessful(path: [RouteHop]) -> Void {
+					open func paymentPathSuccessful(path: Path) -> Void {
 						
 						Bindings.print("Error: Score::paymentPathSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
 					/// Handles updating channel penalties after a probe over the given path failed.
-					open func probeFailed(path: [RouteHop], shortChannelId: UInt64) -> Void {
+					open func probeFailed(path: Path, shortChannelId: UInt64) -> Void {
 						
 						Bindings.print("Error: Score::probeFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
 					}
 		
 					/// Handles updating channel penalties after a probe over the given path succeeded.
-					open func probeSuccessful(path: [RouteHop]) -> Void {
+					open func probeSuccessful(path: Path) -> Void {
 						
 						Bindings.print("Error: Score::probeSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
 						abort()
@@ -314,21 +314,21 @@
 					}
 		
 					/// Handles updating channel penalties after failing to route through a channel.
-					public override func paymentPathFailed(path: [RouteHop], shortChannelId: UInt64) {
+					public override func paymentPathFailed(path: Path, shortChannelId: UInt64) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.payment_path_failed(self.cType!.this_arg, pathVector.cType!, shortChannelId)
+						let nativeCallResult = 
+						withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
+				self.cType!.payment_path_failed(self.cType!.this_arg, pathPointer, shortChannelId)
+						}
+				
 
 						// cleanup
 						
-						// pathVector.noOpRetain()
-				
 
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
@@ -337,21 +337,21 @@
 					}
 		
 					/// Handles updating channel penalties after successfully routing along a path.
-					public override func paymentPathSuccessful(path: [RouteHop]) {
+					public override func paymentPathSuccessful(path: Path) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.payment_path_successful(self.cType!.this_arg, pathVector.cType!)
+						let nativeCallResult = 
+						withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
+				self.cType!.payment_path_successful(self.cType!.this_arg, pathPointer)
+						}
+				
 
 						// cleanup
 						
-						// pathVector.noOpRetain()
-				
 
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
@@ -360,21 +360,21 @@
 					}
 		
 					/// Handles updating channel penalties after a probe over the given path failed.
-					public override func probeFailed(path: [RouteHop], shortChannelId: UInt64) {
+					public override func probeFailed(path: Path, shortChannelId: UInt64) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.probe_failed(self.cType!.this_arg, pathVector.cType!, shortChannelId)
+						let nativeCallResult = 
+						withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
+				self.cType!.probe_failed(self.cType!.this_arg, pathPointer, shortChannelId)
+						}
+				
 
 						// cleanup
 						
-						// pathVector.noOpRetain()
-				
 
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
@@ -383,21 +383,21 @@
 					}
 		
 					/// Handles updating channel penalties after a probe over the given path succeeded.
-					public override func probeSuccessful(path: [RouteHop]) {
+					public override func probeSuccessful(path: Path) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
-				
 
 						
 
 						// native method call
-						let nativeCallResult = self.cType!.probe_successful(self.cType!.this_arg, pathVector.cType!)
+						let nativeCallResult = 
+						withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
+				self.cType!.probe_successful(self.cType!.this_arg, pathPointer)
+						}
+				
 
 						// cleanup
 						
-						// pathVector.noOpRetain()
-				
 
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult

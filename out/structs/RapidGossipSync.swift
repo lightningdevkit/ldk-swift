@@ -105,37 +105,6 @@
 					/// Returns the last sync timestamp to be used the next time rapid sync data is queried.
 					/// 
 					/// `update_data`: `&[u8]` binary stream that comprises the update data
-					public func updateNetworkGraph(updateData: [UInt8]) -> Result_u32GraphSyncErrorZ {
-						// native call variable prep
-						
-						let updateDataPrimitiveWrapper = u8slice(value: updateData)
-				
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRapidGossipSync>) in
-				RapidGossipSync_update_network_graph(thisArgPointer, updateDataPrimitiveWrapper.cType!)
-						}
-				
-
-						// cleanup
-						
-						// for elided types, we need this
-						updateDataPrimitiveWrapper.noOpRetain()
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, anchor: self)
-						
-
-						return returnValue
-					}
-		
-					/// Update network graph from binary data.
-					/// Returns the last sync timestamp to be used the next time rapid sync data is queried.
-					/// 
-					/// `update_data`: `&[u8]` binary stream that comprises the update data
 					/// `current_time_unix`: `Option<u64>` optional current timestamp to verify data age
 					public func updateNetworkGraphNoStd(updateData: [UInt8], currentTimeUnix: UInt64?) -> Result_u32GraphSyncErrorZ {
 						// native call variable prep

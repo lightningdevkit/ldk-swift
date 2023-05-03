@@ -74,15 +74,17 @@
 		
 					/// The sequence number of this update. Updates *must* be replayed in-order according to this
 					/// sequence number (and updates may panic if they are not). The update_id values are strictly
-					/// increasing and increase by one for each new update, with one exception specified below.
+					/// increasing and increase by one for each new update, with two exceptions specified below.
 					/// 
 					/// This sequence number is also used to track up to which points updates which returned
 					/// [`ChannelMonitorUpdateStatus::InProgress`] have been applied to all copies of a given
 					/// ChannelMonitor when ChannelManager::channel_monitor_updated is called.
 					/// 
-					/// The only instance where update_id values are not strictly increasing is the case where we
-					/// allow post-force-close updates with a special update ID of [`CLOSED_CHANNEL_UPDATE_ID`]. See
-					/// its docs for more details.
+					/// The only instances we allow where update_id values are not strictly increasing have a
+					/// special update ID of [`CLOSED_CHANNEL_UPDATE_ID`]. This update ID is used for updates that
+					/// will force close the channel by broadcasting the latest commitment transaction or
+					/// special post-force-close updates, like providing preimages necessary to claim outputs on the
+					/// broadcast commitment transaction. See its docs for more details.
 					/// 
 					/// [`ChannelMonitorUpdateStatus::InProgress`]: super::ChannelMonitorUpdateStatus::InProgress
 					public func getUpdateId() -> UInt64 {
@@ -109,15 +111,17 @@
 		
 					/// The sequence number of this update. Updates *must* be replayed in-order according to this
 					/// sequence number (and updates may panic if they are not). The update_id values are strictly
-					/// increasing and increase by one for each new update, with one exception specified below.
+					/// increasing and increase by one for each new update, with two exceptions specified below.
 					/// 
 					/// This sequence number is also used to track up to which points updates which returned
 					/// [`ChannelMonitorUpdateStatus::InProgress`] have been applied to all copies of a given
 					/// ChannelMonitor when ChannelManager::channel_monitor_updated is called.
 					/// 
-					/// The only instance where update_id values are not strictly increasing is the case where we
-					/// allow post-force-close updates with a special update ID of [`CLOSED_CHANNEL_UPDATE_ID`]. See
-					/// its docs for more details.
+					/// The only instances we allow where update_id values are not strictly increasing have a
+					/// special update ID of [`CLOSED_CHANNEL_UPDATE_ID`]. This update ID is used for updates that
+					/// will force close the channel by broadcasting the latest commitment transaction or
+					/// special post-force-close updates, like providing preimages necessary to claim outputs on the
+					/// broadcast commitment transaction. See its docs for more details.
 					/// 
 					/// [`ChannelMonitorUpdateStatus::InProgress`]: super::ChannelMonitorUpdateStatus::InProgress
 					public func setUpdateId(val: UInt64) {
@@ -160,6 +164,35 @@
 						
 						// return value (do some wrapping)
 						let returnValue = ChannelMonitorUpdate(cType: nativeCallResult)
+						
+
+						return returnValue
+					}
+		
+					/// Checks if two ChannelMonitorUpdates contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					/// Two objects with NULL inner values will be considered "equal" here.
+					public class func eq(a: ChannelMonitorUpdate, b: ChannelMonitorUpdate) -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKChannelMonitorUpdate>) in
+				ChannelMonitorUpdate_eq(aPointer, bPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
 						
 
 						return returnValue

@@ -310,9 +310,8 @@
 						return returnValue
 					}
 		
-					/// Sign a transaction, either because we are counter-signing the counterparty's transaction or
-					/// because we are about to broadcast a holder transaction.
-					public func sign(fundingKey: [UInt8], fundingRedeemscript: [UInt8], channelValueSatoshis: UInt64) -> [UInt8] {
+					/// Signs the counterparty's commitment transaction.
+					public func signCounterpartyCommitment(fundingKey: [UInt8], fundingRedeemscript: [UInt8], channelValueSatoshis: UInt64) -> [UInt8] {
 						// native call variable prep
 						
 						let tupledFundingKey = Bindings.arrayToUInt8Tuple32(array: fundingKey)
@@ -325,7 +324,45 @@
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
 				
 						withUnsafePointer(to: tupledFundingKey) { (tupledFundingKeyPointer: UnsafePointer<UInt8Tuple32>) in
-				BuiltCommitmentTransaction_sign(thisArgPointer, tupledFundingKeyPointer, fundingRedeemscriptPrimitiveWrapper.cType!, channelValueSatoshis)
+				BuiltCommitmentTransaction_sign_counterparty_commitment(thisArgPointer, tupledFundingKeyPointer, fundingRedeemscriptPrimitiveWrapper.cType!, channelValueSatoshis)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+						// for elided types, we need this
+						fundingRedeemscriptPrimitiveWrapper.noOpRetain()
+				
+
+						
+						// return value (do some wrapping)
+						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						
+
+						return returnValue
+					}
+		
+					/// Signs the holder commitment transaction because we are about to broadcast it.
+					public func signHolderCommitment(fundingKey: [UInt8], fundingRedeemscript: [UInt8], channelValueSatoshis: UInt64, entropySource: EntropySource) -> [UInt8] {
+						// native call variable prep
+						
+						let tupledFundingKey = Bindings.arrayToUInt8Tuple32(array: fundingKey)
+					
+						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript)
+				
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBuiltCommitmentTransaction>) in
+				
+						withUnsafePointer(to: tupledFundingKey) { (tupledFundingKeyPointer: UnsafePointer<UInt8Tuple32>) in
+				
+						withUnsafePointer(to: entropySource.activate().cType!) { (entropySourcePointer: UnsafePointer<LDKEntropySource>) in
+				BuiltCommitmentTransaction_sign_holder_commitment(thisArgPointer, tupledFundingKeyPointer, fundingRedeemscriptPrimitiveWrapper.cType!, channelValueSatoshis, entropySourcePointer)
+						}
+				
 						}
 				
 						}

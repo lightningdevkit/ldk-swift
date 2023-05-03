@@ -83,7 +83,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two Sha256s contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the Sha256.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
@@ -130,6 +130,32 @@
 						
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Constructs a new [`Sha256`] from the given bytes, which are assumed to be the output of a
+					/// single sha256 hash.
+					public class func initWithBytes(bytes: [UInt8]) -> Sha256 {
+						// native call variable prep
+						
+						let tupledBytes = Bindings.arrayToUInt8Tuple32(array: bytes)
+					
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: tupledBytes) { (tupledBytesPointer: UnsafePointer<UInt8Tuple32>) in
+				Sha256_from_bytes(tupledBytesPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Sha256(cType: nativeCallResult)
 						
 
 						return returnValue

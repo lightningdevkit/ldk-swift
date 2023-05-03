@@ -56,8 +56,11 @@
 						/// 
 						/// Some of the reasons may include:
 						/// * HTLC Timeouts
-						/// * Expected MPP amount to claim does not equal HTLC total
-						/// * Claimable amount does not match expected amount
+						/// * Excess HTLCs for a payment that we have already fully received, over-paying for the
+						/// payment,
+						/// * The counterparty node modified the HTLC in transit,
+						/// * A probing attack where an intermediary node is trying to detect if we are the ultimate
+						/// recipient for a payment.
 						case FailedPayment
 			
 					}

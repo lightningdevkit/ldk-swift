@@ -4,15 +4,15 @@
 			import LDKHeaders
 			#endif
 
-			/// Onion messages can be sent and received to blinded paths, which serve to hide the identity of
-			/// the recipient.
+			/// Onion messages and payments can be sent and received to blinded paths, which serve to hide the
+			/// identity of the recipient.
 			public typealias BlindedPath = Bindings.BlindedPath
 
 			extension Bindings {
 		
 
-				/// Onion messages can be sent and received to blinded paths, which serve to hide the identity of
-				/// the recipient.
+				/// Onion messages and payments can be sent and received to blinded paths, which serve to hide the
+				/// identity of the recipient.
 				public class BlindedPath: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -85,11 +85,63 @@
 						return returnValue
 					}
 		
-					/// Create a blinded path to be forwarded along `node_pks`. The last node pubkey in `node_pks`
-					/// will be the destination node.
+					/// Generates a non-cryptographic 64-bit hash of the BlindedPath.
+					public func hash() -> UInt64 {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKBlindedPath>) in
+				BlindedPath_hash(oPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Checks if two BlindedPaths contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					/// Two objects with NULL inner values will be considered "equal" here.
+					public class func eq(a: BlindedPath, b: BlindedPath) -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKBlindedPath>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKBlindedPath>) in
+				BlindedPath_eq(aPointer, bPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Create a blinded path for an onion message, to be forwarded along `node_pks`. The last node
+					/// pubkey in `node_pks` will be the destination node.
 					/// 
 					/// Errors if less than two hops are provided or if `node_pk`(s) are invalid.
-					public class func new(nodePks: [[UInt8]], entropySource: EntropySource) -> Result_BlindedPathNoneZ {
+					public class func newForMessage(nodePks: [[UInt8]], entropySource: EntropySource) -> Result_BlindedPathNoneZ {
 						// native call variable prep
 						
 						let nodePksVector = Vec_PublicKeyZ(array: nodePks).dangle()
@@ -98,7 +150,7 @@
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: entropySource.activate().cType!) { (entropySourcePointer: UnsafePointer<LDKEntropySource>) in
-				BlindedPath_new(nodePksVector.cType!, entropySourcePointer)
+				BlindedPath_new_for_message(nodePksVector.cType!, entropySourcePointer)
 						}
 				
 

@@ -194,7 +194,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			nativeCallWrapperSuffix += preparedArgument.methodCallWrapperSuffix;
 			nativeCallValueAccessors.push(preparedArgument.accessor);
 			nativeCallSuffix += preparedArgument.deferredCleanup;
-			if(preparedArgument.requiresAnchoring){
+			if (preparedArgument.requiresAnchoring && this.isAnchorableType(method.returnValue.type)) {
 				anchors.push(swiftArgumentName);
 			}
 		}
@@ -236,7 +236,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		let returnValueHandlingPrefix = '';
 		let returnValueHandlingSuffix = '';
 		if (swiftMethodName === 'init') {
-			anchoringCommand = anchoringCommand.replaceAll('returnValue.addAnchor(', 'self.addAnchor(')
+			anchoringCommand = anchoringCommand.replaceAll('returnValue.addAnchor(', 'self.addAnchor(');
 			// it's a constructor
 			methodDeclarationKeywords = visibility;
 			returnCommand = `
@@ -441,6 +441,21 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		}
 
 		return false;
+	}
+
+	/**
+	 * This is a return type that may have anchors attached.
+	 * @param type
+	 * @protected
+	 */
+	protected isAnchorableType(type: RustType): boolean {
+		if (this.isElidedType(type)) {
+			return false;
+		}
+		if (type instanceof RustPrimitive || type instanceof RustArray) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -831,7 +846,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				 * complicated to handle, because doing it blindly will probably only lead us to
 				 * introduce some new memory bugs.
 				 */
-				if(memoryContext && memoryContext.isConstructor && (argument.type instanceof RustStruct || argument.type instanceof RustTaggedValueEnum || argument.type instanceof RustResult)){
+				if (memoryContext && (memoryContext.isStatic || memoryContext.isConstructor) && /*argument.type !== containerType &&*/ !(argument.type instanceof RustTrait) && (argument.type instanceof RustStruct || argument.type instanceof RustTaggedValueEnum || argument.type instanceof RustResult)) {
 					preparedArgument.requiresAnchoring = true;
 				}
 

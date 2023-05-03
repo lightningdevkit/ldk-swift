@@ -17,10 +17,11 @@ public class HumanObjectPeerTestInstance {
 
     public class Configuration {
 //
-        public var useFilter: Bool = false;
-        public var useRouter: Bool = false;
-        public var shouldRecipientRejectPayment: Bool = false;
+        public var useFilter: Bool = false
+        public var useRouter: Bool = false
+        public var shouldRecipientRejectPayment: Bool = false
         public var ephemeralNetworkGraphForScorer: Bool = false
+        public var reserializedProbabilisticScorer: Bool = false
 
         // public var nice_close: Bool = false;
         // public var use_km_wrapper: Bool = false;
@@ -30,7 +31,7 @@ public class HumanObjectPeerTestInstance {
         // public var use_nio_peer_handler: Bool = false;
 
         private class func listCustomizeableProperties() -> [String] {
-            return ["useFilter", "useRouter", "shouldRecipientRejectPayment", "ephemeralNetworkGraphForScorer"]
+            return ["useFilter", "useRouter", "shouldRecipientRejectPayment", "ephemeralNetworkGraphForScorer", "reserializedProbabilisticScorer"]
         }
 
         public class func combinationCount() -> UInt {
@@ -308,7 +309,12 @@ public class HumanObjectPeerTestInstance {
                 }
 
                 let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-                let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: scorerGraph, logger: self.logger)
+                var probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: scorerGraph, logger: self.logger)
+                if master.configuration.reserializedProbabilisticScorer {
+                    let serializedScorer = probabalisticScorer.write()
+                    let probabalisticScorerResult = ProbabilisticScorer.read(ser: serializedScorer, argA: scoringParams, argB: scorerGraph, argC: self.logger)
+                    probabalisticScorer = probabalisticScorerResult.getValue()!
+                }
                 let score = probabalisticScorer.asScore()
                 let multiThreadedScorer = MultiThreadedLockableScore(score: score)
                 

@@ -36,17 +36,17 @@
 					}
 		
 
-					internal convenience init(tuple: ([UInt8], ChannelManager)) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt8], ChannelManager), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
 					/// Creates a new C2Tuple_BlockHashChannelManagerZ from the contained elements.
 					@available(*, deprecated, message: "This method passes the following non-cloneable, but freeable objects by value: `b`.")
-					public init(a: [UInt8], b: ChannelManager) {
+					public init(a: [UInt8], b: ChannelManager, instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = ThirtyTwoBytes(value: a)
+						let aPrimitiveWrapper = ThirtyTwoBytes(value: a, instantiationContext: "Tuple_BlockHashChannelManagerZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -68,7 +68,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_BlockHashChannelManagerZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}
@@ -97,7 +97,7 @@
 					public class func read(ser: [UInt8], arg: ChannelManagerReadArgs) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Tuple_BlockHashChannelManagerZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

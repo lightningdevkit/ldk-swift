@@ -46,13 +46,13 @@
 					}
 		
 
-					internal init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKU128(le_bytes: Bindings.arrayToUInt8Tuple16(array: value))
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "U128.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					
@@ -76,10 +76,10 @@
 					}
 		
 					/// Constructs a new U128 from 16 little-endian bytes
-					public init(leBytes: [UInt8]) {
+					public init(leBytes: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let leBytesPrimitiveWrapper = SixteenBytes(value: leBytes)
+						let leBytesPrimitiveWrapper = SixteenBytes(value: leBytes, instantiationContext: "U128.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -101,7 +101,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "U128.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

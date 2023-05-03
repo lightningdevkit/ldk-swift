@@ -188,9 +188,9 @@
 					public func newOutboundConnection(theirNodeId: [UInt8], descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?) -> Result_CVec_u8ZPeerHandleErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
-						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress).danglingClone()
+						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress, instantiationContext: "PeerManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -232,7 +232,7 @@
 					public func newInboundConnection(descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?) -> Result_NonePeerHandleErrorZ {
 						// native call variable prep
 						
-						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress).danglingClone()
+						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress, instantiationContext: "PeerManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -311,7 +311,7 @@
 					public func readEvent(peerDescriptor: SocketDescriptor, data: [UInt8]) -> Result_boolPeerHandleErrorZ {
 						// native call variable prep
 						
-						let dataPrimitiveWrapper = u8slice(value: data)
+						let dataPrimitiveWrapper = u8slice(value: data, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -414,7 +414,7 @@
 					public func disconnectByNodeId(nodeId: [UInt8]) {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -514,11 +514,11 @@
 					public func broadcastNodeAnnouncement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) {
 						// native call variable prep
 						
-						let rgbPrimitiveWrapper = ThreeBytes(value: rgb)
+						let rgbPrimitiveWrapper = ThreeBytes(value: rgb, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
-						let aliasPrimitiveWrapper = ThirtyTwoBytes(value: alias)
+						let aliasPrimitiveWrapper = ThirtyTwoBytes(value: alias, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
-						let addressesVector = Vec_NetAddressZ(array: addresses).dangle()
+						let addressesVector = Vec_NetAddressZ(array: addresses, instantiationContext: "PeerManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

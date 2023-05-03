@@ -108,7 +108,7 @@
 					public func updateNetworkGraph(updateData: [UInt8]) -> Result_u32GraphSyncErrorZ {
 						// native call variable prep
 						
-						let updateDataPrimitiveWrapper = u8slice(value: updateData)
+						let updateDataPrimitiveWrapper = u8slice(value: updateData, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -140,9 +140,9 @@
 					public func updateNetworkGraphNoStd(updateData: [UInt8], currentTimeUnix: UInt64?) -> Result_u32GraphSyncErrorZ {
 						// native call variable prep
 						
-						let updateDataPrimitiveWrapper = u8slice(value: updateData)
+						let updateDataPrimitiveWrapper = u8slice(value: updateData, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 				
-						let currentTimeUnixOption = Option_u64Z(some: currentTimeUnix).danglingClone()
+						let currentTimeUnixOption = Option_u64Z(some: currentTimeUnix, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

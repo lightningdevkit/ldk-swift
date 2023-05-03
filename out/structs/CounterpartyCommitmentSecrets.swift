@@ -148,7 +148,7 @@
 					public func provideSecret(idx: UInt64, secret: [UInt8]) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let secretPrimitiveWrapper = ThirtyTwoBytes(value: secret)
+						let secretPrimitiveWrapper = ThirtyTwoBytes(value: secret, instantiationContext: "CounterpartyCommitmentSecrets.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -233,7 +233,7 @@
 					public class func read(ser: [UInt8]) -> Result_CounterpartyCommitmentSecretsDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "CounterpartyCommitmentSecrets.swift::\(#function):\(#line)")
 				
 
 						// native method call

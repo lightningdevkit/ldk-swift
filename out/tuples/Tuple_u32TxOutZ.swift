@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: (UInt32, TxOut)) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: (UInt32, TxOut), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,7 +66,7 @@
 					}
 		
 					/// Creates a new C2Tuple_u32TxOutZ from the contained elements.
-					public init(a: UInt32, b: TxOut) {
+					public init(a: UInt32, b: TxOut, instantiationContext: String) {
 						// native call variable prep
 						
 
@@ -86,7 +86,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

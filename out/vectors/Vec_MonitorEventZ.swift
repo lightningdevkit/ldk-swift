@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [MonitorEvent]) {
+					internal init(array: [MonitorEvent], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_MonitorEventZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: MonitorEvent) -> LDKMonitorEvent in

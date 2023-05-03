@@ -45,7 +45,7 @@
 					public class func initWithOk(o: PathFailure?) -> Result_COption_PathFailureZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_PathFailureZ(some: o).danglingClone()
+						let oOption = Option_PathFailureZ(some: o, instantiationContext: "Result_COption_PathFailureZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

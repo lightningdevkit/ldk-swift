@@ -38,15 +38,15 @@
 					}
 		
 
-					internal init(array: [(OutPoint, [MonitorEvent], [UInt8])]) {
+					internal init(array: [(OutPoint, [MonitorEvent], [UInt8])], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: (OutPoint, [MonitorEvent], [UInt8])) -> LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ in
 							
-						let currentValueDepth1Tuple = Tuple_OutPointCVec_MonitorEventZPublicKeyZ(tuple: currentValueDepth1).danglingClone()
+						let currentValueDepth1Tuple = Tuple_OutPointCVec_MonitorEventZPublicKeyZ(tuple: currentValueDepth1, instantiationContext: "Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ.swift::\(#function):\(#line)").danglingClone()
 				
 							return currentValueDepth1Tuple.cType!
 						}

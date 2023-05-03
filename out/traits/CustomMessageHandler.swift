@@ -94,7 +94,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(array: swiftCallbackResult, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -197,7 +197,7 @@
 					public override func handleCustomMessage(msg: BindingsType, senderNodeId: [UInt8]) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let senderNodeIdPrimitiveWrapper = PublicKey(value: senderNodeId)
+						let senderNodeIdPrimitiveWrapper = PublicKey(value: senderNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 				
 
 						

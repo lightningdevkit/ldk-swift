@@ -45,7 +45,7 @@
 					public class func initWithOk(o: BindingsType?) -> Result_COption_TypeZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_TypeZ(some: o).danglingClone()
+						let oOption = Option_TypeZ(some: o, instantiationContext: "Result_COption_TypeZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

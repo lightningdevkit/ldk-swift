@@ -45,7 +45,7 @@
 					public class func initWithOk(o: HTLCDestination?) -> Result_COption_HTLCDestinationZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_HTLCDestinationZ(some: o).danglingClone()
+						let oOption = Option_HTLCDestinationZ(some: o, instantiationContext: "Result_COption_HTLCDestinationZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

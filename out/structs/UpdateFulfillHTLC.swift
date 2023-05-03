@@ -95,7 +95,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "UpdateFulfillHTLC.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -196,7 +196,7 @@
 					public func setPaymentPreimage(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "UpdateFulfillHTLC.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -224,9 +224,9 @@
 					public init(channelIdArg: [UInt8], htlcIdArg: UInt64, paymentPreimageArg: [UInt8]) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "UpdateFulfillHTLC.swift::\(#function):\(#line)")
 				
-						let paymentPreimageArgPrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimageArg)
+						let paymentPreimageArgPrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimageArg, instantiationContext: "UpdateFulfillHTLC.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -337,7 +337,7 @@
 					public class func read(ser: [UInt8]) -> Result_UpdateFulfillHTLCDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "UpdateFulfillHTLC.swift::\(#function):\(#line)")
 				
 
 						// native method call

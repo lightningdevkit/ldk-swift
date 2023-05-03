@@ -45,7 +45,7 @@
 					public class func initWithOk(o: ([UInt8], ChannelMonitor)) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 						// native call variable prep
 						
-						let oTuple = Tuple_BlockHashChannelMonitorZ(tuple: o).danglingClone()
+						let oTuple = Tuple_BlockHashChannelMonitorZ(tuple: o, instantiationContext: "Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

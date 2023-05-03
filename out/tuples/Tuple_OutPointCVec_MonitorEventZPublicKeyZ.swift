@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: (OutPoint, [MonitorEvent], [UInt8])) {
-						self.init(a: tuple.0, b: tuple.1, c: tuple.2)
+					internal convenience init(tuple: (OutPoint, [MonitorEvent], [UInt8]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, c: tuple.2, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,12 +66,12 @@
 					}
 		
 					/// Creates a new C3Tuple_OutPointCVec_MonitorEventZPublicKeyZ from the contained elements.
-					public init(a: OutPoint, b: [MonitorEvent], c: [UInt8]) {
+					public init(a: OutPoint, b: [MonitorEvent], c: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let bVector = Vec_MonitorEventZ(array: b).dangle()
+						let bVector = Vec_MonitorEventZ(array: b, instantiationContext: "Tuple_OutPointCVec_MonitorEventZPublicKeyZ.swift::\(#function):\(#line)").dangle()
 				
-						let cPrimitiveWrapper = PublicKey(value: c)
+						let cPrimitiveWrapper = PublicKey(value: c, instantiationContext: "Tuple_OutPointCVec_MonitorEventZPublicKeyZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -95,7 +95,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_OutPointCVec_MonitorEventZPublicKeyZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

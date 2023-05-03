@@ -42,13 +42,13 @@
 					}
 		
 
-					internal init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKRecoverableSignature(serialized_form: Bindings.arrayToUInt8Tuple68(array: value))
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "RecoverableSignature.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

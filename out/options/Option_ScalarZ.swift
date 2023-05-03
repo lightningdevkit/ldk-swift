@@ -36,20 +36,20 @@
 					}
 		
 
-					internal init(some: [UInt8]?) {
+					internal init(some: [UInt8]?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 							
-							let somePrimitiveWrapper = BigEndianScalar(value: some)
+							let somePrimitiveWrapper = BigEndianScalar(value: some, instantiationContext: "Option_ScalarZ.swift::\(#function):\(#line)")
 				
 							self.cType = COption_ScalarZ_some(somePrimitiveWrapper.cType!)
 						} else {
 							self.cType = COption_ScalarZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_ScalarZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

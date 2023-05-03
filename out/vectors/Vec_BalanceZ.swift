@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [Balance]) {
+					internal init(array: [Balance], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_BalanceZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: Balance) -> LDKBalance in

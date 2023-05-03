@@ -36,20 +36,20 @@
 					}
 		
 
-					internal init(some: ([UInt16], [UInt16])?) {
+					internal init(some: ([UInt16], [UInt16])?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 							
-							let someTuple = Tuple__u168_u168Z(tuple: some).danglingClone()
+							let someTuple = Tuple__u168_u168Z(tuple: some, instantiationContext: "Option_C2Tuple_EightU16sEightU16sZZ.swift::\(#function):\(#line)").danglingClone()
 				
 							self.cType = COption_C2Tuple_EightU16sEightU16sZZ_some(someTuple.cType!)
 						} else {
 							self.cType = COption_C2Tuple_EightU16sEightU16sZZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_C2Tuple_EightU16sEightU16sZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

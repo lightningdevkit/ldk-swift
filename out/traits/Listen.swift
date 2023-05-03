@@ -235,7 +235,7 @@
 						tupledHeaderPointer!.initialize(to: tupledHeader)
 					}
 				
-						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata).dangle()
+						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata, instantiationContext: "Listen.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -258,7 +258,7 @@
 					public override func blockConnected(block: [UInt8], height: UInt32) {
 						// native call variable prep
 						
-						let blockPrimitiveWrapper = u8slice(value: block)
+						let blockPrimitiveWrapper = u8slice(value: block, instantiationContext: "Listen.swift::\(#function):\(#line)")
 				
 
 						

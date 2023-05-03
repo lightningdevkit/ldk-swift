@@ -318,13 +318,13 @@
 					public class func initWithFundingGenerationReady(temporaryChannelId: [UInt8], counterpartyNodeId: [UInt8], channelValueSatoshis: UInt64, outputScript: [UInt8], userChannelId: [UInt8]) -> Event {
 						// native call variable prep
 						
-						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId)
+						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let outputScriptVector = Vec_u8Z(array: outputScript).dangle()
+						let outputScriptVector = Vec_u8Z(array: outputScript, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -356,13 +356,13 @@
 					public class func initWithPaymentClaimable(receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8], viaUserChannelId: [UInt8]?) -> Event {
 						// native call variable prep
 						
-						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId)
+						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let viaChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: viaChannelId)
+						let viaChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: viaChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let viaUserChannelIdOption = Option_u128Z(some: viaUserChannelId).danglingClone()
+						let viaUserChannelIdOption = Option_u128Z(some: viaUserChannelId, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -392,9 +392,9 @@
 					public class func initWithPaymentClaimed(receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose) -> Event {
 						// native call variable prep
 						
-						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId)
+						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -421,13 +421,13 @@
 					public class func initWithPaymentSent(paymentId: [UInt8], paymentPreimage: [UInt8], paymentHash: [UInt8], feePaidMsat: UInt64?) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let feePaidMsatOption = Option_u64Z(some: feePaidMsat).danglingClone()
+						let feePaidMsatOption = Option_u64Z(some: feePaidMsat, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -457,9 +457,9 @@
 					public class func initWithPaymentFailed(paymentId: [UInt8], paymentHash: [UInt8]) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -486,11 +486,11 @@
 					public class func initWithPaymentPathSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop]) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -519,13 +519,13 @@
 					public class func initWithPaymentPathFailed(paymentId: [UInt8], paymentHash: [UInt8], paymentFailedPermanently: Bool, failure: PathFailure, path: [RouteHop], shortChannelId: UInt64?, retry: Bindings.RouteParameters) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
-						let shortChannelIdOption = Option_u64Z(some: shortChannelId).danglingClone()
+						let shortChannelIdOption = Option_u64Z(some: shortChannelId, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -554,11 +554,11 @@
 					public class func initWithProbeSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop]) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -587,13 +587,13 @@
 					public class func initWithProbeFailed(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop], shortChannelId: UInt64?) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
-						let shortChannelIdOption = Option_u64Z(some: shortChannelId).danglingClone()
+						let shortChannelIdOption = Option_u64Z(some: shortChannelId, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -641,9 +641,9 @@
 					public class func initWithHtlcintercepted(interceptId: [UInt8], requestedNextHopScid: UInt64, paymentHash: [UInt8], inboundAmountMsat: UInt64, expectedOutboundAmountMsat: UInt64) -> Event {
 						// native call variable prep
 						
-						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId)
+						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -670,7 +670,7 @@
 					public class func initWithSpendableOutputs(outputs: [SpendableOutputDescriptor]) -> Event {
 						// native call variable prep
 						
-						let outputsVector = Vec_SpendableOutputDescriptorZ(array: outputs).dangle()
+						let outputsVector = Vec_SpendableOutputDescriptorZ(array: outputs, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -693,11 +693,11 @@
 					public class func initWithPaymentForwarded(prevChannelId: [UInt8], nextChannelId: [UInt8], feeEarnedMsat: UInt64?, claimFromOnchainTx: Bool) -> Event {
 						// native call variable prep
 						
-						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId)
+						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let nextChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: nextChannelId)
+						let nextChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: nextChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let feeEarnedMsatOption = Option_u64Z(some: feeEarnedMsat).danglingClone()
+						let feeEarnedMsatOption = Option_u64Z(some: feeEarnedMsat, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -724,11 +724,11 @@
 					public class func initWithChannelReady(channelId: [UInt8], userChannelId: [UInt8], counterpartyNodeId: [UInt8], channelType: Bindings.ChannelTypeFeatures) -> Event {
 						// native call variable prep
 						
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -758,9 +758,9 @@
 					public class func initWithChannelClosed(channelId: [UInt8], userChannelId: [UInt8], reason: ClosureReason) -> Event {
 						// native call variable prep
 						
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -787,9 +787,9 @@
 					public class func initWithDiscardFunding(channelId: [UInt8], transaction: [UInt8]) -> Event {
 						// native call variable prep
 						
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let transactionPrimitiveWrapper = Transaction(value: transaction).dangle()
+						let transactionPrimitiveWrapper = Transaction(value: transaction, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -816,9 +816,9 @@
 					public class func initWithOpenChannelRequest(temporaryChannelId: [UInt8], counterpartyNodeId: [UInt8], fundingSatoshis: UInt64, pushMsat: UInt64, channelType: Bindings.ChannelTypeFeatures) -> Event {
 						// native call variable prep
 						
-						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId)
+						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -845,7 +845,7 @@
 					public class func initWithHtlchandlingFailed(prevChannelId: [UInt8], failedNextDestination: HTLCDestination) -> Event {
 						// native call variable prep
 						
-						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId)
+						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -920,7 +920,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_EventZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call

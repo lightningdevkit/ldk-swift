@@ -87,7 +87,7 @@
 					public func setA(val: [RouteHintHop]) {
 						// native call variable prep
 						
-						let valVector = Vec_RouteHintHopZ(array: val).dangle()
+						let valVector = Vec_RouteHintHopZ(array: val, instantiationContext: "RouteHint.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -114,7 +114,7 @@
 					public init(aArg: [RouteHintHop]) {
 						// native call variable prep
 						
-						let aArgVector = Vec_RouteHintHopZ(array: aArg).dangle()
+						let aArgVector = Vec_RouteHintHopZ(array: aArg, instantiationContext: "RouteHint.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -244,7 +244,7 @@
 					public class func read(ser: [UInt8]) -> Result_RouteHintDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "RouteHint.swift::\(#function):\(#line)")
 				
 
 						// native method call

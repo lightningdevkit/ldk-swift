@@ -75,7 +75,7 @@
 					public init(networkGraph: NetworkGraph, utxoLookup: UtxoLookup?, logger: Logger) {
 						// native call variable prep
 						
-						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup, instantiationContext: "P2PGossipSync.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -112,7 +112,7 @@
 					public func addUtxoLookup(utxoLookup: UtxoLookup?) {
 						// native call variable prep
 						
-						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup, instantiationContext: "P2PGossipSync.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

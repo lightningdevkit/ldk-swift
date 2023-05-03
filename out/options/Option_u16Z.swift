@@ -36,7 +36,7 @@
 					}
 		
 
-					internal init(some: UInt16?) {
+					internal init(some: UInt16?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_u16Z_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_u16Z.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

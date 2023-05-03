@@ -95,7 +95,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -242,7 +242,7 @@
 					public func setPaymentHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -391,7 +391,7 @@
 					public class func read(ser: [UInt8]) -> Result_UpdateAddHTLCDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)")
 				
 
 						// native method call

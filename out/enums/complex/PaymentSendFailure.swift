@@ -194,7 +194,7 @@
 					public class func initWithPathParameterError(a: [Result_NoneAPIErrorZ]) -> PaymentSendFailure {
 						// native call variable prep
 						
-						let aVector = Vec_CResult_NoneAPIErrorZZ(array: a).dangle()
+						let aVector = Vec_CResult_NoneAPIErrorZZ(array: a, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -217,7 +217,7 @@
 					public class func initWithAllFailedResendSafe(a: [APIError]) -> PaymentSendFailure {
 						// native call variable prep
 						
-						let aVector = Vec_APIErrorZ(array: a).dangle()
+						let aVector = Vec_APIErrorZ(array: a, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -259,9 +259,9 @@
 					public class func initWithPartialFailure(results: [Result_NoneAPIErrorZ], failedPathsRetry: Bindings.RouteParameters, paymentId: [UInt8]) -> PaymentSendFailure {
 						// native call variable prep
 						
-						let resultsVector = Vec_CResult_NoneAPIErrorZZ(array: results).dangle()
+						let resultsVector = Vec_CResult_NoneAPIErrorZZ(array: results, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)").dangle()
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)")
 				
 
 						// native method call

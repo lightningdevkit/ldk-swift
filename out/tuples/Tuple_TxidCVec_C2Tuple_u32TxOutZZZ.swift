@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: ([UInt8], [(UInt32, TxOut)])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt8], [(UInt32, TxOut)]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,12 +66,12 @@
 					}
 		
 					/// Creates a new C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ from the contained elements.
-					public init(a: [UInt8], b: [(UInt32, TxOut)]) {
+					public init(a: [UInt8], b: [(UInt32, TxOut)], instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = ThirtyTwoBytes(value: a)
+						let aPrimitiveWrapper = ThirtyTwoBytes(value: a, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32TxOutZZZ.swift::\(#function):\(#line)")
 				
-						let bVector = Vec_C2Tuple_u32TxOutZZ(array: b).dangle()
+						let bVector = Vec_C2Tuple_u32TxOutZZ(array: b, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32TxOutZZZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -95,7 +95,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32TxOutZZZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

@@ -185,12 +185,12 @@
 					public override func findRoute(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs) -> Result_RouteLightningErrorZ {
 						// native call variable prep
 						
-						let payerPrimitiveWrapper = PublicKey(value: payer)
+						let payerPrimitiveWrapper = PublicKey(value: payer, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 					var firstHopsVectorPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
 					if let firstHops = firstHops {
 						
-						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops)
+						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 						firstHopsVectorPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
 						firstHopsVectorPointer!.initialize(to: firstHopsVector.cType!)
@@ -231,20 +231,20 @@
 					public override func findRouteWithId(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs, paymentHash: [UInt8], paymentId: [UInt8]) -> Result_RouteLightningErrorZ {
 						// native call variable prep
 						
-						let payerPrimitiveWrapper = PublicKey(value: payer)
+						let payerPrimitiveWrapper = PublicKey(value: payer, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 					var firstHopsVectorPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
 					if let firstHops = firstHops {
 						
-						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops)
+						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 						firstHopsVectorPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
 						firstHopsVectorPointer!.initialize(to: firstHopsVector.cType!)
 					}
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 
 						

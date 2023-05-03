@@ -36,20 +36,20 @@
 					}
 		
 
-					internal init(some: [NetAddress]?) {
+					internal init(some: [NetAddress]?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 							
-							let someVector = Vec_NetAddressZ(array: some).dangle()
+							let someVector = Vec_NetAddressZ(array: some, instantiationContext: "Option_CVec_NetAddressZZ.swift::\(#function):\(#line)").dangle()
 				
 							self.cType = COption_CVec_NetAddressZZ_some(someVector.cType!)
 						} else {
 							self.cType = COption_CVec_NetAddressZZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_CVec_NetAddressZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

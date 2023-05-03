@@ -237,7 +237,7 @@
 					public func setPaymentHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "HTLCOutputInCommitment.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -292,7 +292,7 @@
 					public func setTransactionOutputIndex(val: UInt32?) {
 						// native call variable prep
 						
-						let valOption = Option_u32Z(some: val).danglingClone()
+						let valOption = Option_u32Z(some: val, instantiationContext: "HTLCOutputInCommitment.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -317,9 +317,9 @@
 					public init(offeredArg: Bool, amountMsatArg: UInt64, cltvExpiryArg: UInt32, paymentHashArg: [UInt8], transactionOutputIndexArg: UInt32?) {
 						// native call variable prep
 						
-						let paymentHashArgPrimitiveWrapper = ThirtyTwoBytes(value: paymentHashArg)
+						let paymentHashArgPrimitiveWrapper = ThirtyTwoBytes(value: paymentHashArg, instantiationContext: "HTLCOutputInCommitment.swift::\(#function):\(#line)")
 				
-						let transactionOutputIndexArgOption = Option_u32Z(some: transactionOutputIndexArg).danglingClone()
+						let transactionOutputIndexArgOption = Option_u32Z(some: transactionOutputIndexArg, instantiationContext: "HTLCOutputInCommitment.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -427,7 +427,7 @@
 					public class func read(ser: [UInt8]) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "HTLCOutputInCommitment.swift::\(#function):\(#line)")
 				
 
 						// native method call

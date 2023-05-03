@@ -154,10 +154,10 @@ export default class VectorGenerator extends BaseTypeGenerator<RustVector> {
 
 					${this.inheritedInits(type)}
 
-					internal init(array: ${swiftPublicType}) {
+					internal init(array: ${swiftPublicType}, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "${swiftTypeName}.swift::\\(#function):\\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						${swiftArrayToRustArrayMapper}
 

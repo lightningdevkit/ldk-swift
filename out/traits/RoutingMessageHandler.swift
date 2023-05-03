@@ -128,7 +128,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(some: swiftCallbackResult).dangle().cType!
+							let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(some: swiftCallbackResult, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -632,7 +632,7 @@
 					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -662,7 +662,7 @@
 					public override func handleReplyChannelRange(theirNodeId: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -689,7 +689,7 @@
 					public override func handleReplyShortChannelIdsEnd(theirNodeId: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -714,7 +714,7 @@
 					public override func handleQueryChannelRange(theirNodeId: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -739,7 +739,7 @@
 					public override func handleQueryShortChannelIds(theirNodeId: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -810,7 +810,7 @@
 					public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						

@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [[UInt8]]) -> Result_CVec_SignatureZNoneZ {
 						// native call variable prep
 						
-						let oVector = Vec_SignatureZ(array: o).dangle()
+						let oVector = Vec_SignatureZ(array: o, instantiationContext: "Result_CVec_SignatureZNoneZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

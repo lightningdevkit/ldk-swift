@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: ([UInt8], [[UInt8]])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt8], [[UInt8]]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,12 +66,12 @@
 					}
 		
 					/// Creates a new C2Tuple_SignatureCVec_SignatureZZ from the contained elements.
-					public init(a: [UInt8], b: [[UInt8]]) {
+					public init(a: [UInt8], b: [[UInt8]], instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = Signature(value: a)
+						let aPrimitiveWrapper = Signature(value: a, instantiationContext: "Tuple_SignatureCVec_SignatureZZ.swift::\(#function):\(#line)")
 				
-						let bVector = Vec_SignatureZ(array: b).dangle()
+						let bVector = Vec_SignatureZ(array: b, instantiationContext: "Tuple_SignatureCVec_SignatureZZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -95,7 +95,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_SignatureCVec_SignatureZZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

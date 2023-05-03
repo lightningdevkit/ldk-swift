@@ -45,7 +45,7 @@
 					public class func initWithOk(o: Event?) -> Result_COption_EventZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_EventZ(some: o).danglingClone()
+						let oOption = Option_EventZ(some: o, instantiationContext: "Result_COption_EventZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

@@ -87,7 +87,7 @@
 					public func setBlindingPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "OnionMessage.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -167,7 +167,7 @@
 					public class func read(ser: [UInt8]) -> Result_OnionMessageDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "OnionMessage.swift::\(#function):\(#line)")
 				
 
 						// native method call

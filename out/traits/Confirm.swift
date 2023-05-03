@@ -201,7 +201,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_C2Tuple_TxidBlockHashZZ(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_C2Tuple_TxidBlockHashZZ(array: swiftCallbackResult, instantiationContext: "Confirm.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -369,7 +369,7 @@
 						tupledHeaderPointer!.initialize(to: tupledHeader)
 					}
 				
-						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata).dangle()
+						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata, instantiationContext: "Confirm.swift::\(#function):\(#line)").dangle()
 				
 
 						

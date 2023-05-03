@@ -146,7 +146,7 @@
 					public override func nextOnionMessageForPeer(peerNodeId: [UInt8]) -> OnionMessage {
 						// native call variable prep
 						
-						let peerNodeIdPrimitiveWrapper = PublicKey(value: peerNodeId)
+						let peerNodeIdPrimitiveWrapper = PublicKey(value: peerNodeId, instantiationContext: "OnionMessageProvider.swift::\(#function):\(#line)")
 				
 
 						

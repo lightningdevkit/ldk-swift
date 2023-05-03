@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result__u832APIErrorZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = ThirtyTwoBytes(value: o)
+						let oPrimitiveWrapper = ThirtyTwoBytes(value: o, instantiationContext: "Result__u832APIErrorZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

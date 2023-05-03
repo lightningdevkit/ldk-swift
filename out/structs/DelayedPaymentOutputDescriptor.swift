@@ -137,7 +137,7 @@
 					public func setPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -286,7 +286,7 @@
 					public func setRevocationPubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -343,7 +343,7 @@
 					public func setChannelKeysId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -417,11 +417,11 @@
 					public init(outpointArg: OutPoint, perCommitmentPointArg: [UInt8], toSelfDelayArg: UInt16, outputArg: TxOut, revocationPubkeyArg: [UInt8], channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64) {
 						// native call variable prep
 						
-						let perCommitmentPointArgPrimitiveWrapper = PublicKey(value: perCommitmentPointArg)
+						let perCommitmentPointArgPrimitiveWrapper = PublicKey(value: perCommitmentPointArg, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
-						let revocationPubkeyArgPrimitiveWrapper = PublicKey(value: revocationPubkeyArg)
+						let revocationPubkeyArgPrimitiveWrapper = PublicKey(value: revocationPubkeyArg, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
-						let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysIdArg)
+						let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysIdArg, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -535,7 +535,7 @@
 					public class func read(ser: [UInt8]) -> Result_DelayedPaymentOutputDescriptorDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "DelayedPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call

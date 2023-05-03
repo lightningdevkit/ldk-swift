@@ -112,9 +112,9 @@
 					public class func initWithInvoicePayment(paymentPreimage: [UInt8], paymentSecret: [UInt8]) -> PaymentPurpose {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -141,7 +141,7 @@
 					public class func initWithSpontaneousPayment(a: [UInt8]) -> PaymentPurpose {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = ThirtyTwoBytes(value: a)
+						let aPrimitiveWrapper = ThirtyTwoBytes(value: a, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -216,7 +216,7 @@
 					public class func read(ser: [UInt8]) -> Result_PaymentPurposeDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
 
 						// native method call

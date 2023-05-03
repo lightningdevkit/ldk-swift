@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result_PaymentSecretNoneZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = ThirtyTwoBytes(value: o)
+						let oPrimitiveWrapper = ThirtyTwoBytes(value: o, instantiationContext: "Result_PaymentSecretNoneZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -36,7 +36,7 @@
 					}
 		
 
-					internal init(some: UtxoLookup?) {
+					internal init(some: UtxoLookup?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_UtxoLookupZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_UtxoLookupZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

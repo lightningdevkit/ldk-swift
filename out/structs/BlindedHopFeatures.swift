@@ -182,7 +182,7 @@
 					public class func read(ser: [UInt8]) -> Result_BlindedHopFeaturesDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "BlindedHopFeatures.swift::\(#function):\(#line)")
 				
 
 						// native method call

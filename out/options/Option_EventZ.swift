@@ -36,7 +36,7 @@
 					}
 		
 
-					internal init(some: Event?) {
+					internal init(some: Event?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_EventZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_EventZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

@@ -147,7 +147,7 @@
 					public func setRemoteNetworkAddress(val: NetAddress?) {
 						// native call variable prep
 						
-						let valOption = Option_NetAddressZ(some: val).danglingClone()
+						let valOption = Option_NetAddressZ(some: val, instantiationContext: "BindingsInit.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -172,7 +172,7 @@
 					public init(featuresArg: InitFeatures, remoteNetworkAddressArg: NetAddress?) {
 						// native call variable prep
 						
-						let remoteNetworkAddressArgOption = Option_NetAddressZ(some: remoteNetworkAddressArg).danglingClone()
+						let remoteNetworkAddressArgOption = Option_NetAddressZ(some: remoteNetworkAddressArg, instantiationContext: "BindingsInit.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -277,7 +277,7 @@
 					public class func read(ser: [UInt8]) -> Result_InitDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "BindingsInit.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -36,20 +36,20 @@
 					}
 		
 
-					internal init(some: (ChannelAnnouncement, ChannelUpdate, ChannelUpdate)?) {
+					internal init(some: (ChannelAnnouncement, ChannelUpdate, ChannelUpdate)?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 							
-							let someTuple = Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(tuple: some).danglingClone()
+							let someTuple = Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(tuple: some, instantiationContext: "Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ.swift::\(#function):\(#line)").danglingClone()
 				
 							self.cType = COption_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_some(someTuple.cType!)
 						} else {
 							self.cType = COption_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

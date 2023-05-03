@@ -40,13 +40,13 @@
 					}
 		
 
-					internal init(value: [UInt16]) {
+					internal init(value: [UInt16], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKEightU16s(data: Bindings.arrayToUInt16Tuple8(array: value))
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "EightU16s.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

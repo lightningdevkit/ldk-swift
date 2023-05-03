@@ -91,7 +91,7 @@
 					public func setSignature(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "NodeAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -165,7 +165,7 @@
 					public init(signatureArg: [UInt8], contentsArg: UnsignedNodeAnnouncement) {
 						// native call variable prep
 						
-						let signatureArgPrimitiveWrapper = Signature(value: signatureArg)
+						let signatureArgPrimitiveWrapper = Signature(value: signatureArg, instantiationContext: "NodeAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -273,7 +273,7 @@
 					public class func read(ser: [UInt8]) -> Result_NodeAnnouncementDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call

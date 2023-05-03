@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [[UInt8]]) {
+					internal init(array: [[UInt8]], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_CVec_u8ZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 
@@ -49,7 +49,7 @@
 						var lowerDimension = [LDKCVec_u8Z]()
 						for currentEntry in array {
 							
-						let currentEntryVector = Vec_u8Z(array: currentEntry).dangle()
+						let currentEntryVector = Vec_u8Z(array: currentEntry, instantiationContext: "Vec_CVec_u8ZZ.swift::\(#function):\(#line)").dangle()
 				
 							lowerDimension.append(currentEntryVector.cType!)
 							try! self.addAnchor(anchor: currentEntryVector)

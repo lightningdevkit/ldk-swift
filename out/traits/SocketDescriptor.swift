@@ -302,7 +302,7 @@
 					public override func sendData(data: [UInt8], resumeRead: Bool) -> UInt {
 						// native call variable prep
 						
-						let dataPrimitiveWrapper = u8slice(value: data)
+						let dataPrimitiveWrapper = u8slice(value: data, instantiationContext: "SocketDescriptor.swift::\(#function):\(#line)")
 				
 
 						

@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [MessageSendEvent]) {
+					internal init(array: [MessageSendEvent], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_MessageSendEventZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: MessageSendEvent) -> LDKMessageSendEvent in

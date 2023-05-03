@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result_CVec_u8ZPeerHandleErrorZ {
 						// native call variable prep
 						
-						let oVector = Vec_u8Z(array: o).dangle()
+						let oVector = Vec_u8Z(array: o, instantiationContext: "Result_CVec_u8ZPeerHandleErrorZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

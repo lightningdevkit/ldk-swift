@@ -45,7 +45,7 @@
 					public class func initWithOk(o: NetworkUpdate?) -> Result_COption_NetworkUpdateZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_NetworkUpdateZ(some: o).danglingClone()
+						let oOption = Option_NetworkUpdateZ(some: o, instantiationContext: "Result_COption_NetworkUpdateZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

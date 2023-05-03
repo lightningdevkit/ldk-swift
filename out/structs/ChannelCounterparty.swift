@@ -89,7 +89,7 @@
 					public func setNodeId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelCounterparty.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -317,7 +317,7 @@
 					public func setOutboundHtlcMinimumMsat(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelCounterparty.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -365,7 +365,7 @@
 					public func setOutboundHtlcMaximumMsat(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelCounterparty.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -390,11 +390,11 @@
 					public init(nodeIdArg: [UInt8], featuresArg: InitFeatures, unspendablePunishmentReserveArg: UInt64, forwardingInfoArg: CounterpartyForwardingInfo, outboundHtlcMinimumMsatArg: UInt64?, outboundHtlcMaximumMsatArg: UInt64?) {
 						// native call variable prep
 						
-						let nodeIdArgPrimitiveWrapper = PublicKey(value: nodeIdArg)
+						let nodeIdArgPrimitiveWrapper = PublicKey(value: nodeIdArg, instantiationContext: "ChannelCounterparty.swift::\(#function):\(#line)")
 				
-						let outboundHtlcMinimumMsatArgOption = Option_u64Z(some: outboundHtlcMinimumMsatArg).danglingClone()
+						let outboundHtlcMinimumMsatArgOption = Option_u64Z(some: outboundHtlcMinimumMsatArg, instantiationContext: "ChannelCounterparty.swift::\(#function):\(#line)").danglingClone()
 				
-						let outboundHtlcMaximumMsatArgOption = Option_u64Z(some: outboundHtlcMaximumMsatArg).danglingClone()
+						let outboundHtlcMaximumMsatArgOption = Option_u64Z(some: outboundHtlcMaximumMsatArg, instantiationContext: "ChannelCounterparty.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -473,7 +473,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelCounterpartyDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelCounterparty.swift::\(#function):\(#line)")
 				
 
 						// native method call

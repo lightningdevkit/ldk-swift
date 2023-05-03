@@ -42,7 +42,7 @@
 					}
 		
 
-					internal init(value: String) {
+					internal init(value: String, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -50,7 +50,7 @@
 							self.initialCFreeability = self.cType!.chars_is_owned
 			
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Str.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

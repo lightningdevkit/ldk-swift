@@ -40,13 +40,13 @@
 					}
 		
 
-					internal init(value: UInt8) {
+					internal init(value: UInt8, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKWitnessVersion(_0: value)
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "WitnessVersion.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

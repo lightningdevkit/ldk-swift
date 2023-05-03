@@ -111,7 +111,7 @@
 					public func setChainHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "QueryShortChannelIds.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -164,7 +164,7 @@
 					public func setShortChannelIds(val: [UInt64]) {
 						// native call variable prep
 						
-						let valVector = Vec_u64Z(array: val).dangle()
+						let valVector = Vec_u64Z(array: val, instantiationContext: "QueryShortChannelIds.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -191,9 +191,9 @@
 					public init(chainHashArg: [UInt8], shortChannelIdsArg: [UInt64]) {
 						// native call variable prep
 						
-						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg)
+						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg, instantiationContext: "QueryShortChannelIds.swift::\(#function):\(#line)")
 				
-						let shortChannelIdsArgVector = Vec_u64Z(array: shortChannelIdsArg).dangle()
+						let shortChannelIdsArgVector = Vec_u64Z(array: shortChannelIdsArg, instantiationContext: "QueryShortChannelIds.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -280,7 +280,7 @@
 					public class func read(ser: [UInt8]) -> Result_QueryShortChannelIdsDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "QueryShortChannelIds.swift::\(#function):\(#line)")
 				
 
 						// native method call

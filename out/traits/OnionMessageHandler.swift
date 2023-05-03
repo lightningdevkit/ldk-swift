@@ -267,7 +267,7 @@
 					public override func handleOnionMessage(peerNodeId: [UInt8], msg: OnionMessage) {
 						// native call variable prep
 						
-						let peerNodeIdPrimitiveWrapper = PublicKey(value: peerNodeId)
+						let peerNodeIdPrimitiveWrapper = PublicKey(value: peerNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -300,7 +300,7 @@
 					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -329,7 +329,7 @@
 					public override func peerDisconnected(theirNodeId: [UInt8]) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -378,7 +378,7 @@
 					public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						

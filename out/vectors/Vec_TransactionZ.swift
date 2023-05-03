@@ -38,15 +38,15 @@
 					}
 		
 
-					internal init(array: [[UInt8]]) {
+					internal init(array: [[UInt8]], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_TransactionZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: [UInt8]) -> LDKTransaction in
 							
-						let currentValueDepth1PrimitiveWrapper = Transaction(value: currentValueDepth1).dangle()
+						let currentValueDepth1PrimitiveWrapper = Transaction(value: currentValueDepth1, instantiationContext: "Vec_TransactionZ.swift::\(#function):\(#line)").dangle()
 				
 							return currentValueDepth1PrimitiveWrapper.cType!
 						}

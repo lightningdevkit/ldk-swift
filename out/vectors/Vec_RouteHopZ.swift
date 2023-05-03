@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [RouteHop]) {
+					internal init(array: [RouteHop], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_RouteHopZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: RouteHop) -> LDKRouteHop in

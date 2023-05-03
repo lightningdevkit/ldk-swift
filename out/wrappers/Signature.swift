@@ -40,13 +40,13 @@
 					}
 		
 
-					internal init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKSignature(compact_form: Bindings.arrayToUInt8Tuple64(array: value))
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Signature.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

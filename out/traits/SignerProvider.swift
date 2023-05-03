@@ -62,7 +62,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -116,7 +116,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_u8Z(array: swiftCallbackResult, instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -279,7 +279,7 @@
 					public override func generateChannelKeysId(inbound: Bool, channelValueSatoshis: UInt64, userChannelId: [UInt8]) -> [UInt8] {
 						// native call variable prep
 						
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 				
 
 						
@@ -308,7 +308,7 @@
 					public override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> WriteableEcdsaChannelSigner {
 						// native call variable prep
 						
-						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId)
+						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 				
 
 						
@@ -344,7 +344,7 @@
 					public override func readChanSigner(reader: [UInt8]) -> Result_WriteableEcdsaChannelSignerDecodeErrorZ {
 						// native call variable prep
 						
-						let readerPrimitiveWrapper = u8slice(value: reader)
+						let readerPrimitiveWrapper = u8slice(value: reader, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 				
 
 						

@@ -148,7 +148,7 @@
 					public class func new(description: String) -> Result_DescriptionCreationErrorZ {
 						// native call variable prep
 						
-						let descriptionPrimitiveWrapper = Str(value: description).dangle()
+						let descriptionPrimitiveWrapper = Str(value: description, instantiationContext: "Description.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

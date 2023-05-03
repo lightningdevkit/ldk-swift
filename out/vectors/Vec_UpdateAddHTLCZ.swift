@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [UpdateAddHTLC]) {
+					internal init(array: [UpdateAddHTLC], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_UpdateAddHTLCZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: UpdateAddHTLC) -> LDKUpdateAddHTLC in

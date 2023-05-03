@@ -284,7 +284,7 @@
 					public class func read(ser: [UInt8]) -> Result_RoutingFeesDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "RoutingFees.swift::\(#function):\(#line)")
 				
 
 						// native method call

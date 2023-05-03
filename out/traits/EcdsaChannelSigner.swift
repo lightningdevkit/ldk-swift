@@ -485,7 +485,7 @@
 					public override func signCounterpartyCommitment(commitmentTx: CommitmentTransaction, preimages: [[UInt8]]) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 						// native call variable prep
 						
-						let preimagesVector = Vec_PaymentPreimageZ(array: preimages).dangle()
+						let preimagesVector = Vec_PaymentPreimageZ(array: preimages, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -593,7 +593,7 @@
 					public override func signJusticeRevokedOutput(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx).dangle()
+						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 					var tupledPerCommitmentKeyPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
 					if let perCommitmentKey = perCommitmentKey {
@@ -643,7 +643,7 @@
 					public override func signJusticeRevokedHtlc(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx).dangle()
+						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 					var tupledPerCommitmentKeyPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
 					if let perCommitmentKey = perCommitmentKey {
@@ -696,9 +696,9 @@
 					public override func signCounterpartyHtlcTransaction(htlcTx: [UInt8], input: UInt, amount: UInt64, perCommitmentPoint: [UInt8], htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let htlcTxPrimitiveWrapper = Transaction(value: htlcTx).dangle()
+						let htlcTxPrimitiveWrapper = Transaction(value: htlcTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
-						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 				
 
 						
@@ -756,7 +756,7 @@
 					public override func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let anchorTxPrimitiveWrapper = Transaction(value: anchorTx).dangle()
+						let anchorTxPrimitiveWrapper = Transaction(value: anchorTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						

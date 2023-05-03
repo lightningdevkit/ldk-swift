@@ -89,7 +89,7 @@
 					public func setA(val: String) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Str(value: val).dangle()
+						let valPrimitiveWrapper = Str(value: val, instantiationContext: "PrintableString.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -117,7 +117,7 @@
 					public init(aArg: String) {
 						// native call variable prep
 						
-						let aArgPrimitiveWrapper = Str(value: aArg).dangle()
+						let aArgPrimitiveWrapper = Str(value: aArg, instantiationContext: "PrintableString.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

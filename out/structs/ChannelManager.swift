@@ -238,9 +238,9 @@
 					public func createChannel(theirNetworkKey: [UInt8], channelValueSatoshis: UInt64, pushMsat: UInt64, userChannelId: [UInt8], overrideConfig: UserConfig) -> Result__u832APIErrorZ {
 						// native call variable prep
 						
-						let theirNetworkKeyPrimitiveWrapper = PublicKey(value: theirNetworkKey)
+						let theirNetworkKeyPrimitiveWrapper = PublicKey(value: theirNetworkKey, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -371,7 +371,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -423,7 +423,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -460,7 +460,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -499,7 +499,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -642,11 +642,11 @@
 					public func sendPayment(route: Route, paymentHash: [UInt8], paymentSecret: [UInt8], paymentId: [UInt8]) -> Result_NonePaymentSendFailureZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -687,11 +687,11 @@
 					public func sendPaymentWithRetry(paymentHash: [UInt8], paymentSecret: [UInt8], paymentId: [UInt8], routeParams: RouteParameters, retryStrategy: Retry) -> Result_NoneRetryableSendFailureZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -740,7 +740,7 @@
 					public func abandonPayment(paymentId: [UInt8]) {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -784,9 +784,9 @@
 					public func sendSpontaneousPayment(route: Route, paymentPreimage: [UInt8], paymentId: [UInt8]) -> Result_PaymentHashPaymentSendFailureZ {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -829,9 +829,9 @@
 					public func sendSpontaneousPaymentWithRetry(paymentPreimage: [UInt8], paymentId: [UInt8], routeParams: RouteParameters, retryStrategy: Retry) -> Result_PaymentHashRetryableSendFailureZ {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -864,7 +864,7 @@
 					public func sendProbe(hops: [RouteHop]) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
 						// native call variable prep
 						
-						let hopsVector = Vec_RouteHopZ(array: hops).dangle()
+						let hopsVector = Vec_RouteHopZ(array: hops, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -922,9 +922,9 @@
 						
 						let tupledTemporaryChannelId = Bindings.arrayToUInt8Tuple32(array: temporaryChannelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let fundingTransactionPrimitiveWrapper = Transaction(value: fundingTransaction).dangle()
+						let fundingTransactionPrimitiveWrapper = Transaction(value: fundingTransaction, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -980,9 +980,9 @@
 					public func updateChannelConfig(counterpartyNodeId: [UInt8], channelIds: [[UInt8]], config: ChannelConfig) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let channelIdsVector = Vec_ThirtyTwoBytesZ(array: channelIds).dangle()
+						let channelIdsVector = Vec_ThirtyTwoBytesZ(array: channelIds, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -1035,11 +1035,11 @@
 					public func forwardInterceptedHtlc(interceptId: [UInt8], nextHopChannelId: [UInt8], nextNodeId: [UInt8], amtToForwardMsat: UInt64) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
-						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId)
+						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 						let tupledNextHopChannelId = Bindings.arrayToUInt8Tuple32(array: nextHopChannelId)
 					
-						let nextNodeIdPrimitiveWrapper = PublicKey(value: nextNodeId)
+						let nextNodeIdPrimitiveWrapper = PublicKey(value: nextNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1080,7 +1080,7 @@
 					public func failInterceptedHtlc(interceptId: [UInt8]) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
-						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId)
+						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1258,7 +1258,7 @@
 					public func claimFunds(paymentPreimage: [UInt8]) {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1326,9 +1326,9 @@
 						
 						let tupledTemporaryChannelId = Bindings.arrayToUInt8Tuple32(array: temporaryChannelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1382,9 +1382,9 @@
 						
 						let tupledTemporaryChannelId = Bindings.arrayToUInt8Tuple32(array: temporaryChannelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1450,9 +1450,9 @@
 					public func createInboundPayment(minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_C2Tuple_PaymentHashPaymentSecretZNoneZ {
 						// native call variable prep
 						
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
-						let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+						let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1485,7 +1485,7 @@
 					public func createInboundPaymentLegacy(minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32) -> Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ {
 						// native call variable prep
 						
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1555,11 +1555,11 @@
 					public func createInboundPaymentForHash(paymentHash: [UInt8], minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiry: UInt16?) -> Result_PaymentSecretNoneZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
-						let minFinalCltvExpiryOption = Option_u16Z(some: minFinalCltvExpiry).danglingClone()
+						let minFinalCltvExpiryOption = Option_u16Z(some: minFinalCltvExpiry, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1595,9 +1595,9 @@
 					public func createInboundPaymentForHashLegacy(paymentHash: [UInt8], minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32) -> Result_PaymentSecretAPIErrorZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1628,9 +1628,9 @@
 					public func getPaymentPreimage(paymentHash: [UInt8], paymentSecret: [UInt8]) -> Result_PaymentPreimageAPIErrorZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call

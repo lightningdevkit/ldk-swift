@@ -185,7 +185,7 @@
 					public func setRgb(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThreeBytes(value: val)
+						let valPrimitiveWrapper = ThreeBytes(value: val, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -288,7 +288,7 @@
 					public func setAddresses(val: [NetAddress]) {
 						// native call variable prep
 						
-						let valVector = Vec_NetAddressZ(array: val).dangle()
+						let valVector = Vec_NetAddressZ(array: val, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -384,9 +384,9 @@
 					public init(featuresArg: NodeFeatures, lastUpdateArg: UInt32, rgbArg: [UInt8], aliasArg: NodeAlias, addressesArg: [NetAddress], announcementMessageArg: NodeAnnouncement) {
 						// native call variable prep
 						
-						let rgbArgPrimitiveWrapper = ThreeBytes(value: rgbArg)
+						let rgbArgPrimitiveWrapper = ThreeBytes(value: rgbArg, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
 				
-						let addressesArgVector = Vec_NetAddressZ(array: addressesArg).dangle()
+						let addressesArgVector = Vec_NetAddressZ(array: addressesArg, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -496,7 +496,7 @@
 					public class func read(ser: [UInt8]) -> Result_NodeAnnouncementInfoDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
 				
 
 						// native method call

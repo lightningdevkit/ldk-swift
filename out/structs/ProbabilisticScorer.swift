@@ -448,7 +448,7 @@
 					public class func read(ser: [UInt8], argA: ProbabilisticScoringParameters, argB: NetworkGraph, argC: Logger) -> Result_ProbabilisticScorerDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 				
 
 						// native method call

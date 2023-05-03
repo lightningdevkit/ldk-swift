@@ -38,15 +38,15 @@
 					}
 		
 
-					internal init(array: [[UInt8]]) {
+					internal init(array: [[UInt8]], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_PaymentPreimageZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: [UInt8]) -> LDKThirtyTwoBytes in
 							
-						let currentValueDepth1PrimitiveWrapper = ThirtyTwoBytes(value: currentValueDepth1)
+						let currentValueDepth1PrimitiveWrapper = ThirtyTwoBytes(value: currentValueDepth1, instantiationContext: "Vec_PaymentPreimageZ.swift::\(#function):\(#line)")
 				
 							return currentValueDepth1PrimitiveWrapper.cType!
 						}

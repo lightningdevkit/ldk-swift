@@ -167,7 +167,7 @@
 					public class func initWithCounterpartyForceClosed(peerMsg: String) -> ClosureReason {
 						// native call variable prep
 						
-						let peerMsgPrimitiveWrapper = Str(value: peerMsg).dangle()
+						let peerMsgPrimitiveWrapper = Str(value: peerMsg, instantiationContext: "ClosureReason.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -267,7 +267,7 @@
 					public class func initWithProcessingError(err: String) -> ClosureReason {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "ClosureReason.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -380,7 +380,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_ClosureReasonZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ClosureReason.swift::\(#function):\(#line)")
 				
 
 						// native method call

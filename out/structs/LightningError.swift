@@ -87,7 +87,7 @@
 					public func setErr(val: String) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Str(value: val).dangle()
+						let valPrimitiveWrapper = Str(value: val, instantiationContext: "LightningError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -161,7 +161,7 @@
 					public init(errArg: String, actionArg: ErrorAction) {
 						// native call variable prep
 						
-						let errArgPrimitiveWrapper = Str(value: errArg).dangle()
+						let errArgPrimitiveWrapper = Str(value: errArg, instantiationContext: "LightningError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

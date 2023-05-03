@@ -87,7 +87,7 @@
 					public func setA(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "PayeePubKey.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -115,7 +115,7 @@
 					public init(aArg: [UInt8]) {
 						// native call variable prep
 						
-						let aArgPrimitiveWrapper = PublicKey(value: aArg)
+						let aArgPrimitiveWrapper = PublicKey(value: aArg, instantiationContext: "PayeePubKey.swift::\(#function):\(#line)")
 				
 
 						// native method call

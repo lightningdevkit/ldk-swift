@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [RecentPaymentDetails]) {
+					internal init(array: [RecentPaymentDetails], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_RecentPaymentDetailsZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: RecentPaymentDetails) -> LDKRecentPaymentDetails in

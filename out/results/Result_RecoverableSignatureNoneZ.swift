@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result_RecoverableSignatureNoneZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = RecoverableSignature(value: o)
+						let oPrimitiveWrapper = RecoverableSignature(value: o, instantiationContext: "Result_RecoverableSignatureNoneZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

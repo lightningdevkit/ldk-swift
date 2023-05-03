@@ -604,7 +604,7 @@
 					public init(entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: Watch, txBroadcaster: BroadcasterInterface, router: Router, logger: Logger, defaultConfig: UserConfig, channelMonitors: [ChannelMonitor]) {
 						// native call variable prep
 						
-						let channelMonitorsVector = Vec_ChannelMonitorZ(array: channelMonitors).dangle()
+						let channelMonitorsVector = Vec_ChannelMonitorZ(array: channelMonitors, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

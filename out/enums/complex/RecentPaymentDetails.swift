@@ -121,7 +121,7 @@
 					public class func initWithPending(paymentHash: [UInt8], totalMsat: UInt64) -> RecentPaymentDetails {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -145,7 +145,7 @@
 					public class func initWithFulfilled(paymentHash: [UInt8]) -> RecentPaymentDetails {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -169,7 +169,7 @@
 					public class func initWithAbandoned(paymentHash: [UInt8]) -> RecentPaymentDetails {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call

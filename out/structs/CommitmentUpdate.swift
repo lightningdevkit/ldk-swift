@@ -89,7 +89,7 @@
 					public func setUpdateAddHtlcs(val: [UpdateAddHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateAddHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateAddHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -139,7 +139,7 @@
 					public func setUpdateFulfillHtlcs(val: [UpdateFulfillHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateFulfillHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateFulfillHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -189,7 +189,7 @@
 					public func setUpdateFailHtlcs(val: [UpdateFailHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateFailHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateFailHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -239,7 +239,7 @@
 					public func setUpdateFailMalformedHtlcs(val: [UpdateFailMalformedHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateFailMalformedHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateFailMalformedHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -375,13 +375,13 @@
 					public init(updateAddHtlcsArg: [UpdateAddHTLC], updateFulfillHtlcsArg: [UpdateFulfillHTLC], updateFailHtlcsArg: [UpdateFailHTLC], updateFailMalformedHtlcsArg: [UpdateFailMalformedHTLC], updateFeeArg: UpdateFee, commitmentSignedArg: CommitmentSigned) {
 						// native call variable prep
 						
-						let updateAddHtlcsArgVector = Vec_UpdateAddHTLCZ(array: updateAddHtlcsArg).dangle()
+						let updateAddHtlcsArgVector = Vec_UpdateAddHTLCZ(array: updateAddHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
-						let updateFulfillHtlcsArgVector = Vec_UpdateFulfillHTLCZ(array: updateFulfillHtlcsArg).dangle()
+						let updateFulfillHtlcsArgVector = Vec_UpdateFulfillHTLCZ(array: updateFulfillHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
-						let updateFailHtlcsArgVector = Vec_UpdateFailHTLCZ(array: updateFailHtlcsArg).dangle()
+						let updateFailHtlcsArgVector = Vec_UpdateFailHTLCZ(array: updateFailHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
-						let updateFailMalformedHtlcsArgVector = Vec_UpdateFailMalformedHTLCZ(array: updateFailMalformedHtlcsArg).dangle()
+						let updateFailMalformedHtlcsArgVector = Vec_UpdateFailMalformedHTLCZ(array: updateFailMalformedHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

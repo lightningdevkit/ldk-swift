@@ -116,7 +116,7 @@
 					public class func read(ser: [UInt8], arg: Logger) -> Result_NetworkGraphDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -308,7 +308,7 @@
 					public func updateChannelFromAnnouncement(msg: ChannelAnnouncement, utxoLookup: UtxoLookup?) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -342,7 +342,7 @@
 					public func updateChannelFromUnsignedAnnouncement(msg: UnsignedChannelAnnouncement, utxoLookup: UtxoLookup?) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup).dangle()
+						let utxoLookupOption = Option_UtxoLookupZ(some: utxoLookup, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -376,9 +376,9 @@
 					public func addChannelFromPartialAnnouncement(shortChannelId: UInt64, timestamp: UInt64, features: ChannelFeatures, nodeId1: [UInt8], nodeId2: [UInt8]) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let nodeId1PrimitiveWrapper = PublicKey(value: nodeId1)
+						let nodeId1PrimitiveWrapper = PublicKey(value: nodeId1, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)")
 				
-						let nodeId2PrimitiveWrapper = PublicKey(value: nodeId2)
+						let nodeId2PrimitiveWrapper = PublicKey(value: nodeId2, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -436,7 +436,7 @@
 					public func nodeFailedPermanent(nodeId: [UInt8]) {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)")
 				
 
 						// native method call

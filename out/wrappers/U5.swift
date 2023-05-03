@@ -40,13 +40,13 @@
 					}
 		
 
-					internal init(value: UInt8) {
+					internal init(value: UInt8, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKU5(_0: value)
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "U5.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

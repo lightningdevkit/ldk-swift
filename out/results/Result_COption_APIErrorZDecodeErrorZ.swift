@@ -45,7 +45,7 @@
 					public class func initWithOk(o: APIError?) -> Result_COption_APIErrorZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_APIErrorZ(some: o).danglingClone()
+						let oOption = Option_APIErrorZ(some: o, instantiationContext: "Result_COption_APIErrorZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

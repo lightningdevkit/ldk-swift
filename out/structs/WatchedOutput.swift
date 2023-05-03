@@ -119,7 +119,7 @@
 					public func setBlockHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -216,7 +216,7 @@
 					public func setScriptPubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valVector = Vec_u8Z(array: val).dangle()
+						let valVector = Vec_u8Z(array: val, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -243,9 +243,9 @@
 					public init(blockHashArg: [UInt8], outpointArg: OutPoint, scriptPubkeyArg: [UInt8]) {
 						// native call variable prep
 						
-						let blockHashArgPrimitiveWrapper = ThirtyTwoBytes(value: blockHashArg)
+						let blockHashArgPrimitiveWrapper = ThirtyTwoBytes(value: blockHashArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 				
-						let scriptPubkeyArgVector = Vec_u8Z(array: scriptPubkeyArg).dangle()
+						let scriptPubkeyArgVector = Vec_u8Z(array: scriptPubkeyArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

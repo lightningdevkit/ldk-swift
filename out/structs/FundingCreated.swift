@@ -95,7 +95,7 @@
 					public func setTemporaryChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -150,7 +150,7 @@
 					public func setFundingTxid(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -247,7 +247,7 @@
 					public func setSignature(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -275,11 +275,11 @@
 					public init(temporaryChannelIdArg: [UInt8], fundingTxidArg: [UInt8], fundingOutputIndexArg: UInt16, signatureArg: [UInt8]) {
 						// native call variable prep
 						
-						let temporaryChannelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelIdArg)
+						let temporaryChannelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelIdArg, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 				
-						let fundingTxidArgPrimitiveWrapper = ThirtyTwoBytes(value: fundingTxidArg)
+						let fundingTxidArgPrimitiveWrapper = ThirtyTwoBytes(value: fundingTxidArg, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 				
-						let signatureArgPrimitiveWrapper = Signature(value: signatureArg)
+						let signatureArgPrimitiveWrapper = Signature(value: signatureArg, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -393,7 +393,7 @@
 					public class func read(ser: [UInt8]) -> Result_FundingCreatedDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 				
 
 						// native method call

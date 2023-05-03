@@ -92,7 +92,7 @@
 					public class func new(nodePks: [[UInt8]], entropySource: EntropySource) -> Result_BlindedPathNoneZ {
 						// native call variable prep
 						
-						let nodePksVector = Vec_PublicKeyZ(array: nodePks).dangle()
+						let nodePksVector = Vec_PublicKeyZ(array: nodePks, instantiationContext: "BlindedPath.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -142,7 +142,7 @@
 					public class func read(ser: [UInt8]) -> Result_BlindedPathDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
 				
 
 						// native method call

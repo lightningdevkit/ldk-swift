@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: (UInt64, UInt64)) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: (UInt64, UInt64), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,7 +66,7 @@
 					}
 		
 					/// Creates a new C2Tuple_u64u64Z from the contained elements.
-					public init(a: UInt64, b: UInt64) {
+					public init(a: UInt64, b: UInt64, instantiationContext: String) {
 						// native call variable prep
 						
 
@@ -86,7 +86,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_u64u64Z.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

@@ -227,7 +227,7 @@
 						tupledTxidPointer!.initialize(to: tupledTxid)
 					}
 				
-						let scriptPubkeyPrimitiveWrapper = u8slice(value: scriptPubkey)
+						let scriptPubkeyPrimitiveWrapper = u8slice(value: scriptPubkey, instantiationContext: "Filter.swift::\(#function):\(#line)")
 				
 
 						

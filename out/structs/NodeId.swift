@@ -87,7 +87,7 @@
 					public class func initWithPubkey(pubkey: [UInt8]) -> NodeId {
 						// native call variable prep
 						
-						let pubkeyPrimitiveWrapper = PublicKey(value: pubkey)
+						let pubkeyPrimitiveWrapper = PublicKey(value: pubkey, instantiationContext: "NodeId.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -180,7 +180,7 @@
 					public class func read(ser: [UInt8]) -> Result_NodeIdDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeId.swift::\(#function):\(#line)")
 				
 
 						// native method call

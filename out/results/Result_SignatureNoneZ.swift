@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = Signature(value: o)
+						let oPrimitiveWrapper = Signature(value: o, instantiationContext: "Result_SignatureNoneZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

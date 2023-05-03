@@ -107,7 +107,7 @@
 					public func setPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -162,7 +162,7 @@
 					public func setRevocationKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -213,7 +213,7 @@
 					public func setBroadcasterHtlcKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -264,7 +264,7 @@
 					public func setCountersignatoryHtlcKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -315,7 +315,7 @@
 					public func setBroadcasterDelayedPaymentKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -343,15 +343,15 @@
 					public class func initWith(perCommitmentPointArg: [UInt8], revocationKeyArg: [UInt8], broadcasterHtlcKeyArg: [UInt8], countersignatoryHtlcKeyArg: [UInt8], broadcasterDelayedPaymentKeyArg: [UInt8]) -> TxCreationKeys {
 						// native call variable prep
 						
-						let perCommitmentPointArgPrimitiveWrapper = PublicKey(value: perCommitmentPointArg)
+						let perCommitmentPointArgPrimitiveWrapper = PublicKey(value: perCommitmentPointArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let revocationKeyArgPrimitiveWrapper = PublicKey(value: revocationKeyArg)
+						let revocationKeyArgPrimitiveWrapper = PublicKey(value: revocationKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterHtlcKeyArgPrimitiveWrapper = PublicKey(value: broadcasterHtlcKeyArg)
+						let broadcasterHtlcKeyArgPrimitiveWrapper = PublicKey(value: broadcasterHtlcKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let countersignatoryHtlcKeyArgPrimitiveWrapper = PublicKey(value: countersignatoryHtlcKeyArg)
+						let countersignatoryHtlcKeyArgPrimitiveWrapper = PublicKey(value: countersignatoryHtlcKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterDelayedPaymentKeyArgPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKeyArg)
+						let broadcasterDelayedPaymentKeyArgPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -462,7 +462,7 @@
 					public class func read(ser: [UInt8]) -> Result_TxCreationKeysDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -487,15 +487,15 @@
 					public class func initWithDeriveNew(perCommitmentPoint: [UInt8], broadcasterDelayedPaymentBase: [UInt8], broadcasterHtlcBase: [UInt8], countersignatoryRevocationBase: [UInt8], countersignatoryHtlcBase: [UInt8]) -> TxCreationKeys {
 						// native call variable prep
 						
-						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterDelayedPaymentBasePrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentBase)
+						let broadcasterDelayedPaymentBasePrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterHtlcBasePrimitiveWrapper = PublicKey(value: broadcasterHtlcBase)
+						let broadcasterHtlcBasePrimitiveWrapper = PublicKey(value: broadcasterHtlcBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let countersignatoryRevocationBasePrimitiveWrapper = PublicKey(value: countersignatoryRevocationBase)
+						let countersignatoryRevocationBasePrimitiveWrapper = PublicKey(value: countersignatoryRevocationBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let countersignatoryHtlcBasePrimitiveWrapper = PublicKey(value: countersignatoryHtlcBase)
+						let countersignatoryHtlcBasePrimitiveWrapper = PublicKey(value: countersignatoryHtlcBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -532,7 +532,7 @@
 					public class func initWithChannelStaticKeys(perCommitmentPoint: [UInt8], broadcasterKeys: ChannelPublicKeys, countersignatoryKeys: ChannelPublicKeys) -> TxCreationKeys {
 						// native call variable prep
 						
-						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call

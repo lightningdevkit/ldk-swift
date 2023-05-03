@@ -87,7 +87,7 @@
 					public func setPayeePubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -211,7 +211,7 @@
 					public func setRouteHints(val: [RouteHint]) {
 						// native call variable prep
 						
-						let valVector = Vec_RouteHintZ(array: val).dangle()
+						let valVector = Vec_RouteHintZ(array: val, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -261,7 +261,7 @@
 					public func setExpiryTime(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -481,7 +481,7 @@
 					public func setPreviouslyFailedChannels(val: [UInt64]) {
 						// native call variable prep
 						
-						let valVector = Vec_u64Z(array: val).dangle()
+						let valVector = Vec_u64Z(array: val, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -554,13 +554,13 @@
 					public init(payeePubkeyArg: [UInt8], featuresArg: InvoiceFeatures, routeHintsArg: [RouteHint], expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8, maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64], finalCltvExpiryDeltaArg: UInt32) {
 						// native call variable prep
 						
-						let payeePubkeyArgPrimitiveWrapper = PublicKey(value: payeePubkeyArg)
+						let payeePubkeyArgPrimitiveWrapper = PublicKey(value: payeePubkeyArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
 				
-						let routeHintsArgVector = Vec_RouteHintZ(array: routeHintsArg).dangle()
+						let routeHintsArgVector = Vec_RouteHintZ(array: routeHintsArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").dangle()
 				
-						let expiryTimeArgOption = Option_u64Z(some: expiryTimeArg).danglingClone()
+						let expiryTimeArgOption = Option_u64Z(some: expiryTimeArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").danglingClone()
 				
-						let previouslyFailedChannelsArgVector = Vec_u64Z(array: previouslyFailedChannelsArg).dangle()
+						let previouslyFailedChannelsArgVector = Vec_u64Z(array: previouslyFailedChannelsArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -695,7 +695,7 @@
 					public class func read(ser: [UInt8], arg: UInt32) -> Result_PaymentParametersDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -722,7 +722,7 @@
 					public class func initWithNodeId(payeePubkey: [UInt8], finalCltvExpiryDelta: UInt32) -> PaymentParameters {
 						// native call variable prep
 						
-						let payeePubkeyPrimitiveWrapper = PublicKey(value: payeePubkey)
+						let payeePubkeyPrimitiveWrapper = PublicKey(value: payeePubkey, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -749,7 +749,7 @@
 					public class func initForKeysend(payeePubkey: [UInt8], finalCltvExpiryDelta: UInt32) -> PaymentParameters {
 						// native call variable prep
 						
-						let payeePubkeyPrimitiveWrapper = PublicKey(value: payeePubkey)
+						let payeePubkeyPrimitiveWrapper = PublicKey(value: payeePubkey, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
 				
 
 						// native method call

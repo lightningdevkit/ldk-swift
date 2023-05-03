@@ -101,7 +101,7 @@
 					public func setYourLastPerCommitmentSecret(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "DataLossProtect.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -152,7 +152,7 @@
 					public func setMyCurrentPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "DataLossProtect.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -180,9 +180,9 @@
 					public init(yourLastPerCommitmentSecretArg: [UInt8], myCurrentPerCommitmentPointArg: [UInt8]) {
 						// native call variable prep
 						
-						let yourLastPerCommitmentSecretArgPrimitiveWrapper = ThirtyTwoBytes(value: yourLastPerCommitmentSecretArg)
+						let yourLastPerCommitmentSecretArgPrimitiveWrapper = ThirtyTwoBytes(value: yourLastPerCommitmentSecretArg, instantiationContext: "DataLossProtect.swift::\(#function):\(#line)")
 				
-						let myCurrentPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: myCurrentPerCommitmentPointArg)
+						let myCurrentPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: myCurrentPerCommitmentPointArg, instantiationContext: "DataLossProtect.swift::\(#function):\(#line)")
 				
 
 						// native method call

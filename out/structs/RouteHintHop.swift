@@ -87,7 +87,7 @@
 					public func setSrcNodeId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -276,7 +276,7 @@
 					public func setHtlcMinimumMsat(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -324,7 +324,7 @@
 					public func setHtlcMaximumMsat(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -349,11 +349,11 @@
 					public init(srcNodeIdArg: [UInt8], shortChannelIdArg: UInt64, feesArg: RoutingFees, cltvExpiryDeltaArg: UInt16, htlcMinimumMsatArg: UInt64?, htlcMaximumMsatArg: UInt64?) {
 						// native call variable prep
 						
-						let srcNodeIdArgPrimitiveWrapper = PublicKey(value: srcNodeIdArg)
+						let srcNodeIdArgPrimitiveWrapper = PublicKey(value: srcNodeIdArg, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)")
 				
-						let htlcMinimumMsatArgOption = Option_u64Z(some: htlcMinimumMsatArg).danglingClone()
+						let htlcMinimumMsatArgOption = Option_u64Z(some: htlcMinimumMsatArg, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)").danglingClone()
 				
-						let htlcMaximumMsatArgOption = Option_u64Z(some: htlcMaximumMsatArg).danglingClone()
+						let htlcMaximumMsatArgOption = Option_u64Z(some: htlcMaximumMsatArg, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -484,7 +484,7 @@
 					public class func read(ser: [UInt8]) -> Result_RouteHintHopDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "RouteHintHop.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -50,8 +50,8 @@ export default class TupleGenerator extends BaseTypeGenerator<RustTuple> {
 
 					${this.inheritedInits(type)}
 
-					internal convenience init(tuple: ${swiftReturnType}) {
-						self.init(${initializer.join(', ')})
+					internal convenience init(tuple: ${swiftReturnType}, instantiationContext: String) {
+						self.init(${initializer.join(', ')}, instantiationContext: instantiationContext)
 					}
 
 					${generatedMethods}

@@ -156,7 +156,7 @@
 					public class func start(persister: Persister, eventHandler: EventHandler, chainMonitor: ChainMonitor, channelManager: ChannelManager, gossipSync: GossipSync, peerManager: PeerManager, logger: Logger, scorer: WriteableScore?) -> BackgroundProcessor {
 						// native call variable prep
 						
-						let scorerOption = Option_WriteableScoreZ(some: scorer).dangle()
+						let scorerOption = Option_WriteableScoreZ(some: scorer, instantiationContext: "BackgroundProcessor.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

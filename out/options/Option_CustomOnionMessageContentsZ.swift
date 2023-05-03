@@ -36,7 +36,7 @@
 					}
 		
 
-					internal init(some: CustomOnionMessageContents?) {
+					internal init(some: CustomOnionMessageContents?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_CustomOnionMessageContentsZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_CustomOnionMessageContentsZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

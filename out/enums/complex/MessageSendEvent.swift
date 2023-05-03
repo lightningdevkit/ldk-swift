@@ -244,7 +244,7 @@
 					public class func initWithSendAcceptChannel(nodeId: [UInt8], msg: Bindings.AcceptChannel) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -268,7 +268,7 @@
 					public class func initWithSendOpenChannel(nodeId: [UInt8], msg: Bindings.OpenChannel) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -292,7 +292,7 @@
 					public class func initWithSendFundingCreated(nodeId: [UInt8], msg: Bindings.FundingCreated) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -316,7 +316,7 @@
 					public class func initWithSendFundingSigned(nodeId: [UInt8], msg: Bindings.FundingSigned) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -340,7 +340,7 @@
 					public class func initWithSendChannelReady(nodeId: [UInt8], msg: Bindings.ChannelReady) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -364,7 +364,7 @@
 					public class func initWithSendAnnouncementSignatures(nodeId: [UInt8], msg: Bindings.AnnouncementSignatures) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -388,7 +388,7 @@
 					public class func initWithUpdateHtlcs(nodeId: [UInt8], updates: Bindings.CommitmentUpdate) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -412,7 +412,7 @@
 					public class func initWithSendRevokeAndAck(nodeId: [UInt8], msg: Bindings.RevokeAndACK) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -436,7 +436,7 @@
 					public class func initWithSendClosingSigned(nodeId: [UInt8], msg: Bindings.ClosingSigned) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -460,7 +460,7 @@
 					public class func initWithSendShutdown(nodeId: [UInt8], msg: Bindings.Shutdown) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -484,7 +484,7 @@
 					public class func initWithSendChannelReestablish(nodeId: [UInt8], msg: Bindings.ChannelReestablish) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -508,7 +508,7 @@
 					public class func initWithSendChannelAnnouncement(nodeId: [UInt8], msg: Bindings.ChannelAnnouncement, updateMsg: Bindings.ChannelUpdate) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -589,7 +589,7 @@
 					public class func initWithSendChannelUpdate(nodeId: [UInt8], msg: Bindings.ChannelUpdate) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -613,7 +613,7 @@
 					public class func initWithHandleError(nodeId: [UInt8], action: ErrorAction) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -637,7 +637,7 @@
 					public class func initWithSendChannelRangeQuery(nodeId: [UInt8], msg: Bindings.QueryChannelRange) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -661,7 +661,7 @@
 					public class func initWithSendShortIdsQuery(nodeId: [UInt8], msg: Bindings.QueryShortChannelIds) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -685,7 +685,7 @@
 					public class func initWithSendReplyChannelRange(nodeId: [UInt8], msg: Bindings.ReplyChannelRange) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -709,7 +709,7 @@
 					public class func initWithSendGossipTimestampFilter(nodeId: [UInt8], msg: Bindings.GossipTimestampFilter) -> MessageSendEvent {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
 				
 
 						// native method call

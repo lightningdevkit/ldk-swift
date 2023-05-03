@@ -40,13 +40,13 @@
 					}
 		
 
-					internal init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKSecretKey(bytes: Bindings.arrayToUInt8Tuple32(array: value))
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "SecretKey.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

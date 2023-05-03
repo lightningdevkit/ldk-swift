@@ -147,9 +147,9 @@
 					public init(toHolderValueSat: UInt64, toCounterpartyValueSat: UInt64, toHolderScript: [UInt8], toCounterpartyScript: [UInt8], fundingOutpoint: OutPoint) {
 						// native call variable prep
 						
-						let toHolderScriptVector = Vec_u8Z(array: toHolderScript).dangle()
+						let toHolderScriptVector = Vec_u8Z(array: toHolderScript, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)").dangle()
 				
-						let toCounterpartyScriptVector = Vec_u8Z(array: toCounterpartyScript).dangle()
+						let toCounterpartyScriptVector = Vec_u8Z(array: toCounterpartyScript, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

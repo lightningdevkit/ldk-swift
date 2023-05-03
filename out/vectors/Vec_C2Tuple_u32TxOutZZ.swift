@@ -38,15 +38,15 @@
 					}
 		
 
-					internal init(array: [(UInt32, TxOut)]) {
+					internal init(array: [(UInt32, TxOut)], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_C2Tuple_u32TxOutZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: (UInt32, TxOut)) -> LDKC2Tuple_u32TxOutZ in
 							
-						let currentValueDepth1Tuple = Tuple_u32TxOutZ(tuple: currentValueDepth1).danglingClone()
+						let currentValueDepth1Tuple = Tuple_u32TxOutZ(tuple: currentValueDepth1, instantiationContext: "Vec_C2Tuple_u32TxOutZZ.swift::\(#function):\(#line)").danglingClone()
 				
 							return currentValueDepth1Tuple.cType!
 						}

@@ -89,7 +89,7 @@
 					public func setChannels(val: [UInt64]) {
 						// native call variable prep
 						
-						let valVector = Vec_u64Z(array: val).dangle()
+						let valVector = Vec_u64Z(array: val, instantiationContext: "NodeInfo.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -183,7 +183,7 @@
 					public init(channelsArg: [UInt64], announcementInfoArg: NodeAnnouncementInfo) {
 						// native call variable prep
 						
-						let channelsArgVector = Vec_u64Z(array: channelsArg).dangle()
+						let channelsArgVector = Vec_u64Z(array: channelsArg, instantiationContext: "NodeInfo.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -290,7 +290,7 @@
 					public class func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
 				
 
 						// native method call

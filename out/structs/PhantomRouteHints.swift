@@ -91,7 +91,7 @@
 					public func setChannels(val: [ChannelDetails]) {
 						// native call variable prep
 						
-						let valVector = Vec_ChannelDetailsZ(array: val).dangle()
+						let valVector = Vec_ChannelDetailsZ(array: val, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -189,7 +189,7 @@
 					public func setRealNodePubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -217,9 +217,9 @@
 					public init(channelsArg: [ChannelDetails], phantomScidArg: UInt64, realNodePubkeyArg: [UInt8]) {
 						// native call variable prep
 						
-						let channelsArgVector = Vec_ChannelDetailsZ(array: channelsArg).dangle()
+						let channelsArgVector = Vec_ChannelDetailsZ(array: channelsArg, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)").dangle()
 				
-						let realNodePubkeyArgPrimitiveWrapper = PublicKey(value: realNodePubkeyArg)
+						let realNodePubkeyArgPrimitiveWrapper = PublicKey(value: realNodePubkeyArg, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -300,7 +300,7 @@
 					public class func read(ser: [UInt8]) -> Result_PhantomRouteHintsDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
 				
 
 						// native method call

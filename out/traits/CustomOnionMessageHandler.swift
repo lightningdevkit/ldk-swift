@@ -207,7 +207,7 @@
 					public override func readCustomMessage(messageType: UInt64, buffer: [UInt8]) -> Result_COption_CustomOnionMessageContentsZDecodeErrorZ {
 						// native call variable prep
 						
-						let bufferPrimitiveWrapper = u8slice(value: buffer)
+						let bufferPrimitiveWrapper = u8slice(value: buffer, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						

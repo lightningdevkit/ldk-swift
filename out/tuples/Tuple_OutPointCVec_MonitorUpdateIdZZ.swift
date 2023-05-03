@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: (OutPoint, [MonitorUpdateId])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: (OutPoint, [MonitorUpdateId]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,10 +66,10 @@
 					}
 		
 					/// Creates a new C2Tuple_OutPointCVec_MonitorUpdateIdZZ from the contained elements.
-					public init(a: OutPoint, b: [MonitorUpdateId]) {
+					public init(a: OutPoint, b: [MonitorUpdateId], instantiationContext: String) {
 						// native call variable prep
 						
-						let bVector = Vec_MonitorUpdateIdZ(array: b).dangle()
+						let bVector = Vec_MonitorUpdateIdZ(array: b, instantiationContext: "Tuple_OutPointCVec_MonitorUpdateIdZZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -90,7 +90,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_OutPointCVec_MonitorUpdateIdZZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

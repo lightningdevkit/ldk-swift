@@ -45,7 +45,7 @@
 					public class func initWithOk(o: ClosureReason?) -> Result_COption_ClosureReasonZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_ClosureReasonZ(some: o).danglingClone()
+						let oOption = Option_ClosureReasonZ(some: o, instantiationContext: "Result_COption_ClosureReasonZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

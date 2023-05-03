@@ -134,7 +134,7 @@
 					public class func initWithOnPath(networkUpdate: NetworkUpdate?) -> PathFailure {
 						// native call variable prep
 						
-						let networkUpdateOption = Option_NetworkUpdateZ(some: networkUpdate).danglingClone()
+						let networkUpdateOption = Option_NetworkUpdateZ(some: networkUpdate, instantiationContext: "PathFailure.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -206,7 +206,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_PathFailureZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -353,7 +353,7 @@
 					public func setCapacitySats(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -560,7 +560,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelInfoDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)")
 				
 
 						// native method call

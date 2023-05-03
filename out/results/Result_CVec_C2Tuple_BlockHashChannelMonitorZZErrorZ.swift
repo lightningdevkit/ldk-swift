@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [([UInt8], ChannelMonitor)]) -> Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ {
 						// native call variable prep
 						
-						let oVector = Vec_C2Tuple_BlockHashChannelMonitorZZ(array: o).dangle()
+						let oVector = Vec_C2Tuple_BlockHashChannelMonitorZZ(array: o, instantiationContext: "Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

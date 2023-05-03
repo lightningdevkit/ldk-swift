@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result_PublicKeyNoneZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = PublicKey(value: o)
+						let oPrimitiveWrapper = PublicKey(value: o, instantiationContext: "Result_PublicKeyNoneZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

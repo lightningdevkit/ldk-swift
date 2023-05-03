@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [ChannelMonitor]) {
+					internal init(array: [ChannelMonitor], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_ChannelMonitorZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: ChannelMonitor) -> LDKChannelMonitor in

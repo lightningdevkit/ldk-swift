@@ -45,7 +45,7 @@
 					public class func initWithOk(o: ([UInt8], [UInt8])) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
 						// native call variable prep
 						
-						let oTuple = Tuple_PaymentHashPaymentIdZ(tuple: o).danglingClone()
+						let oTuple = Tuple_PaymentHashPaymentIdZ(tuple: o, instantiationContext: "Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

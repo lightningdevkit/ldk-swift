@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: (RawInvoice, [UInt8], InvoiceSignature)) {
-						self.init(a: tuple.0, b: tuple.1, c: tuple.2)
+					internal convenience init(tuple: (RawInvoice, [UInt8], InvoiceSignature), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, c: tuple.2, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,10 +66,10 @@
 					}
 		
 					/// Creates a new C3Tuple_RawInvoice_u832InvoiceSignatureZ from the contained elements.
-					public init(a: RawInvoice, b: [UInt8], c: InvoiceSignature) {
+					public init(a: RawInvoice, b: [UInt8], c: InvoiceSignature, instantiationContext: String) {
 						// native call variable prep
 						
-						let bPrimitiveWrapper = ThirtyTwoBytes(value: b)
+						let bPrimitiveWrapper = ThirtyTwoBytes(value: b, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -91,7 +91,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

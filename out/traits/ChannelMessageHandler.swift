@@ -713,7 +713,7 @@
 					public override func handleOpenChannel(theirNodeId: [UInt8], msg: OpenChannel) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -741,7 +741,7 @@
 					public override func handleAcceptChannel(theirNodeId: [UInt8], msg: AcceptChannel) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -769,7 +769,7 @@
 					public override func handleFundingCreated(theirNodeId: [UInt8], msg: FundingCreated) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -797,7 +797,7 @@
 					public override func handleFundingSigned(theirNodeId: [UInt8], msg: FundingSigned) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -825,7 +825,7 @@
 					public override func handleChannelReady(theirNodeId: [UInt8], msg: ChannelReady) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -853,7 +853,7 @@
 					public override func handleShutdown(theirNodeId: [UInt8], msg: Shutdown) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -881,7 +881,7 @@
 					public override func handleClosingSigned(theirNodeId: [UInt8], msg: ClosingSigned) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -909,7 +909,7 @@
 					public override func handleUpdateAddHtlc(theirNodeId: [UInt8], msg: UpdateAddHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -937,7 +937,7 @@
 					public override func handleUpdateFulfillHtlc(theirNodeId: [UInt8], msg: UpdateFulfillHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -965,7 +965,7 @@
 					public override func handleUpdateFailHtlc(theirNodeId: [UInt8], msg: UpdateFailHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -993,7 +993,7 @@
 					public override func handleUpdateFailMalformedHtlc(theirNodeId: [UInt8], msg: UpdateFailMalformedHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1021,7 +1021,7 @@
 					public override func handleCommitmentSigned(theirNodeId: [UInt8], msg: CommitmentSigned) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1049,7 +1049,7 @@
 					public override func handleRevokeAndAck(theirNodeId: [UInt8], msg: RevokeAndACK) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1077,7 +1077,7 @@
 					public override func handleUpdateFee(theirNodeId: [UInt8], msg: UpdateFee) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1105,7 +1105,7 @@
 					public override func handleAnnouncementSignatures(theirNodeId: [UInt8], msg: AnnouncementSignatures) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1133,7 +1133,7 @@
 					public override func peerDisconnected(theirNodeId: [UInt8]) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1161,7 +1161,7 @@
 					public override func peerConnected(theirNodeId: [UInt8], msg: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1189,7 +1189,7 @@
 					public override func handleChannelReestablish(theirNodeId: [UInt8], msg: ChannelReestablish) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1217,7 +1217,7 @@
 					public override func handleChannelUpdate(theirNodeId: [UInt8], msg: ChannelUpdate) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1245,7 +1245,7 @@
 					public override func handleError(theirNodeId: [UInt8], msg: ErrorMessage) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1298,7 +1298,7 @@
 					public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						

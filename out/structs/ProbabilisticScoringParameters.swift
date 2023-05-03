@@ -802,7 +802,7 @@
 					public func addBannedFromList(nodeIds: [NodeId]) {
 						// native call variable prep
 						
-						let nodeIdsVector = Vec_NodeIdZ(array: nodeIds).dangle()
+						let nodeIdsVector = Vec_NodeIdZ(array: nodeIds, instantiationContext: "ProbabilisticScoringParameters.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

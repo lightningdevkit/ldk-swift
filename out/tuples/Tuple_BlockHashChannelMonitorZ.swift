@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: ([UInt8], ChannelMonitor)) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt8], ChannelMonitor), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,10 +66,10 @@
 					}
 		
 					/// Creates a new C2Tuple_BlockHashChannelMonitorZ from the contained elements.
-					public init(a: [UInt8], b: ChannelMonitor) {
+					public init(a: [UInt8], b: ChannelMonitor, instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = ThirtyTwoBytes(value: a)
+						let aPrimitiveWrapper = ThirtyTwoBytes(value: a, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -93,7 +93,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}
@@ -121,7 +121,7 @@
 					public class func read(ser: [UInt8], argA: EntropySource, argB: SignerProvider) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

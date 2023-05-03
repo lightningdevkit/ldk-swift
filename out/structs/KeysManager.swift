@@ -201,11 +201,11 @@
 					public func spendSpendableOutputs(descriptors: [SpendableOutputDescriptor], outputs: [TxOut], changeDestinationScript: [UInt8], feerateSatPer1000Weight: UInt32) -> Result_TransactionNoneZ {
 						// native call variable prep
 						
-						let descriptorsVector = Vec_SpendableOutputDescriptorZ(array: descriptors).dangle()
+						let descriptorsVector = Vec_SpendableOutputDescriptorZ(array: descriptors, instantiationContext: "KeysManager.swift::\(#function):\(#line)").dangle()
 				
-						let outputsVector = Vec_TxOutZ(array: outputs).dangle()
+						let outputsVector = Vec_TxOutZ(array: outputs, instantiationContext: "KeysManager.swift::\(#function):\(#line)").dangle()
 				
-						let changeDestinationScriptVector = Vec_u8Z(array: changeDestinationScript).dangle()
+						let changeDestinationScriptVector = Vec_u8Z(array: changeDestinationScript, instantiationContext: "KeysManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

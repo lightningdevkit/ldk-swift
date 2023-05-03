@@ -116,9 +116,9 @@
 					public class func initWithSegWitProgram(version: UInt8, program: [UInt8]) -> Fallback {
 						// native call variable prep
 						
-						let versionPrimitiveWrapper = U5(value: version)
+						let versionPrimitiveWrapper = U5(value: version, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 				
-						let programVector = Vec_u8Z(array: program).dangle()
+						let programVector = Vec_u8Z(array: program, instantiationContext: "Fallback.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -144,7 +144,7 @@
 					public class func initWithPubKeyHash(a: [UInt8]) -> Fallback {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = TwentyBytes(value: a)
+						let aPrimitiveWrapper = TwentyBytes(value: a, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -168,7 +168,7 @@
 					public class func initWithScriptHash(a: [UInt8]) -> Fallback {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = TwentyBytes(value: a)
+						let aPrimitiveWrapper = TwentyBytes(value: a, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 				
 
 						// native method call

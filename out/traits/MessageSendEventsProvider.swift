@@ -62,7 +62,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_MessageSendEventZ(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_MessageSendEventZ(array: swiftCallbackResult, instantiationContext: "MessageSendEventsProvider.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}

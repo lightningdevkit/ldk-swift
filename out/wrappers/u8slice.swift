@@ -42,7 +42,7 @@
 					}
 		
 
-					internal init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -52,7 +52,7 @@
 						self.cType = LDKu8slice(data: dataContainer, datalen: UInt(value.count))
 				
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "u8slice.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

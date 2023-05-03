@@ -192,7 +192,7 @@
 					public func getAddresses(pubkey: [UInt8]) -> [NetAddress]? {
 						// native call variable prep
 						
-						let pubkeyPrimitiveWrapper = PublicKey(value: pubkey)
+						let pubkeyPrimitiveWrapper = PublicKey(value: pubkey, instantiationContext: "ReadOnlyNetworkGraph.swift::\(#function):\(#line)")
 				
 
 						// native method call

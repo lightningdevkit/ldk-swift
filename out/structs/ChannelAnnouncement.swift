@@ -91,7 +91,7 @@
 					public func setNodeSignature1(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -142,7 +142,7 @@
 					public func setNodeSignature2(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -193,7 +193,7 @@
 					public func setBitcoinSignature1(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -244,7 +244,7 @@
 					public func setBitcoinSignature2(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -318,13 +318,13 @@
 					public init(nodeSignature1Arg: [UInt8], nodeSignature2Arg: [UInt8], bitcoinSignature1Arg: [UInt8], bitcoinSignature2Arg: [UInt8], contentsArg: UnsignedChannelAnnouncement) {
 						// native call variable prep
 						
-						let nodeSignature1ArgPrimitiveWrapper = Signature(value: nodeSignature1Arg)
+						let nodeSignature1ArgPrimitiveWrapper = Signature(value: nodeSignature1Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
-						let nodeSignature2ArgPrimitiveWrapper = Signature(value: nodeSignature2Arg)
+						let nodeSignature2ArgPrimitiveWrapper = Signature(value: nodeSignature2Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
-						let bitcoinSignature1ArgPrimitiveWrapper = Signature(value: bitcoinSignature1Arg)
+						let bitcoinSignature1ArgPrimitiveWrapper = Signature(value: bitcoinSignature1Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
-						let bitcoinSignature2ArgPrimitiveWrapper = Signature(value: bitcoinSignature2Arg)
+						let bitcoinSignature2ArgPrimitiveWrapper = Signature(value: bitcoinSignature2Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -441,7 +441,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelAnnouncementDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -97,7 +97,7 @@
 					public func setPaths(val: [[RouteHop]]) {
 						// native call variable prep
 						
-						let valVector = Vec_CVec_RouteHopZZ(array: val).dangle()
+						let valVector = Vec_CVec_RouteHopZZ(array: val, instantiationContext: "Route.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -195,7 +195,7 @@
 					public init(pathsArg: [[RouteHop]], paymentParamsArg: PaymentParameters) {
 						// native call variable prep
 						
-						let pathsArgVector = Vec_CVec_RouteHopZZ(array: pathsArg).dangle()
+						let pathsArgVector = Vec_CVec_RouteHopZZ(array: pathsArg, instantiationContext: "Route.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -374,7 +374,7 @@
 					public class func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Route.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -289,7 +289,7 @@
 					public class func fromStr(s: String) -> Result_SignedRawInvoiceParseErrorZ {
 						// native call variable prep
 						
-						let sPrimitiveWrapper = Str(value: s).dangle()
+						let sPrimitiveWrapper = Str(value: s, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

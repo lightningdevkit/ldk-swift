@@ -134,7 +134,7 @@
 					public class func initWithIpv4(addr: [UInt8], port: UInt16) -> NetAddress {
 						// native call variable prep
 						
-						let addrPrimitiveWrapper = FourBytes(value: addr)
+						let addrPrimitiveWrapper = FourBytes(value: addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -158,7 +158,7 @@
 					public class func initWithIpv6(addr: [UInt8], port: UInt16) -> NetAddress {
 						// native call variable prep
 						
-						let addrPrimitiveWrapper = SixteenBytes(value: addr)
+						let addrPrimitiveWrapper = SixteenBytes(value: addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -182,7 +182,7 @@
 					public class func initWithOnionV2(a: [UInt8]) -> NetAddress {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = TwelveBytes(value: a)
+						let aPrimitiveWrapper = TwelveBytes(value: a, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -206,7 +206,7 @@
 					public class func initWithOnionV3(ed25519Pubkey: [UInt8], checksum: UInt16, version: UInt8, port: UInt16) -> NetAddress {
 						// native call variable prep
 						
-						let ed25519PubkeyPrimitiveWrapper = ThirtyTwoBytes(value: ed25519Pubkey)
+						let ed25519PubkeyPrimitiveWrapper = ThirtyTwoBytes(value: ed25519Pubkey, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -300,7 +300,7 @@
 					public class func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call

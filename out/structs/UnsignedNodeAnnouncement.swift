@@ -235,7 +235,7 @@
 					public func setRgb(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThreeBytes(value: val)
+						let valPrimitiveWrapper = ThreeBytes(value: val, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -294,7 +294,7 @@
 					public func setAlias(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -347,7 +347,7 @@
 					public func setAddresses(val: [NetAddress]) {
 						// native call variable prep
 						
-						let valVector = Vec_NetAddressZ(array: val).dangle()
+						let valVector = Vec_NetAddressZ(array: val, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -449,7 +449,7 @@
 					public class func read(ser: [UInt8]) -> Result_UnsignedNodeAnnouncementDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call

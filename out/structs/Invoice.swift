@@ -609,7 +609,7 @@
 					public class func fromStr(s: String) -> Result_InvoiceParseOrSemanticErrorZ {
 						// native call variable prep
 						
-						let sPrimitiveWrapper = Str(value: s).dangle()
+						let sPrimitiveWrapper = Str(value: s, instantiationContext: "Invoice.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

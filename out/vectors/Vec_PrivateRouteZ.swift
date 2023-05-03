@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [PrivateRoute]) {
+					internal init(array: [PrivateRoute], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_PrivateRouteZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: PrivateRoute) -> LDKPrivateRoute in

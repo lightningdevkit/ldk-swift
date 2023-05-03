@@ -143,7 +143,7 @@
 					public class func read(ser: [UInt8]) -> Result_ShutdownScriptDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ShutdownScript.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -224,9 +224,9 @@
 					public class func newWitnessProgram(version: UInt8, program: [UInt8]) -> Result_ShutdownScriptInvalidShutdownScriptZ {
 						// native call variable prep
 						
-						let versionPrimitiveWrapper = WitnessVersion(value: version)
+						let versionPrimitiveWrapper = WitnessVersion(value: version, instantiationContext: "ShutdownScript.swift::\(#function):\(#line)")
 				
-						let programPrimitiveWrapper = u8slice(value: program)
+						let programPrimitiveWrapper = u8slice(value: program, instantiationContext: "ShutdownScript.swift::\(#function):\(#line)")
 				
 
 						// native method call

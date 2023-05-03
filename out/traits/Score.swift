@@ -156,7 +156,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_u8Z(array: swiftCallbackResult, instantiationContext: "Score.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -317,7 +317,7 @@
 					public override func paymentPathFailed(path: [RouteHop], shortChannelId: UInt64) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -340,7 +340,7 @@
 					public override func paymentPathSuccessful(path: [RouteHop]) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -363,7 +363,7 @@
 					public override func probeFailed(path: [RouteHop], shortChannelId: UInt64) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -386,7 +386,7 @@
 					public override func probeSuccessful(path: [RouteHop]) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						

@@ -95,7 +95,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -146,7 +146,7 @@
 					public func setNextPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -203,7 +203,7 @@
 					public func setShortChannelIdAlias(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelReady.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -228,11 +228,11 @@
 					public init(channelIdArg: [UInt8], nextPerCommitmentPointArg: [UInt8], shortChannelIdAliasArg: UInt64?) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
-						let nextPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: nextPerCommitmentPointArg)
+						let nextPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: nextPerCommitmentPointArg, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
-						let shortChannelIdAliasArgOption = Option_u64Z(some: shortChannelIdAliasArg).danglingClone()
+						let shortChannelIdAliasArgOption = Option_u64Z(some: shortChannelIdAliasArg, instantiationContext: "ChannelReady.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -343,7 +343,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelReadyDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
 
 						// native method call

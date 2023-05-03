@@ -64,7 +64,7 @@
 					}
 		
 
-					internal init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -76,7 +76,7 @@
 							self.initialCFreeability = self.cType!.data_is_owned
 			
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Transaction.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: ([UInt8], [UInt8])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt8], [UInt8]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,12 +66,12 @@
 					}
 		
 					/// Creates a new C2Tuple_PaymentHashPaymentIdZ from the contained elements.
-					public init(a: [UInt8], b: [UInt8]) {
+					public init(a: [UInt8], b: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = ThirtyTwoBytes(value: a)
+						let aPrimitiveWrapper = ThirtyTwoBytes(value: a, instantiationContext: "Tuple_PaymentHashPaymentIdZ.swift::\(#function):\(#line)")
 				
-						let bPrimitiveWrapper = ThirtyTwoBytes(value: b)
+						let bPrimitiveWrapper = ThirtyTwoBytes(value: b, instantiationContext: "Tuple_PaymentHashPaymentIdZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -96,7 +96,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_PaymentHashPaymentIdZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

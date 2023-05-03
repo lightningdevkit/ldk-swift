@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [APIError]) {
+					internal init(array: [APIError], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_APIErrorZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: APIError) -> LDKAPIError in

@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result_SharedSecretNoneZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = ThirtyTwoBytes(value: o)
+						let oPrimitiveWrapper = ThirtyTwoBytes(value: o, instantiationContext: "Result_SharedSecretNoneZ.swift::\(#function):\(#line)")
 				
 
 						// native method call

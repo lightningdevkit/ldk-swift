@@ -97,7 +97,7 @@
 					public func setTxid(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "OutPoint.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -171,7 +171,7 @@
 					public init(txidArg: [UInt8], indexArg: UInt16) {
 						// native call variable prep
 						
-						let txidArgPrimitiveWrapper = ThirtyTwoBytes(value: txidArg)
+						let txidArgPrimitiveWrapper = ThirtyTwoBytes(value: txidArg, instantiationContext: "OutPoint.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -325,7 +325,7 @@
 					public class func read(ser: [UInt8]) -> Result_OutPointDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "OutPoint.swift::\(#function):\(#line)")
 				
 
 						// native method call

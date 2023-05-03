@@ -45,7 +45,7 @@
 					public class func initWithOk(o: ([UInt8], [[UInt8]])) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 						// native call variable prep
 						
-						let oTuple = Tuple_SignatureCVec_SignatureZZ(tuple: o).danglingClone()
+						let oTuple = Tuple_SignatureCVec_SignatureZZ(tuple: o, instantiationContext: "Result_C2Tuple_SignatureCVec_SignatureZZNoneZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

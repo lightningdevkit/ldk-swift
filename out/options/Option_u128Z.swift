@@ -36,20 +36,20 @@
 					}
 		
 
-					internal init(some: [UInt8]?) {
+					internal init(some: [UInt8]?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 							
-							let somePrimitiveWrapper = U128(value: some)
+							let somePrimitiveWrapper = U128(value: some, instantiationContext: "Option_u128Z.swift::\(#function):\(#line)")
 				
 							self.cType = COption_u128Z_some(somePrimitiveWrapper.cType!)
 						} else {
 							self.cType = COption_u128Z_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_u128Z.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

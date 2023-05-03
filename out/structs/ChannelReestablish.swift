@@ -95,7 +95,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -290,7 +290,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelReestablishDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
 				
 
 						// native method call

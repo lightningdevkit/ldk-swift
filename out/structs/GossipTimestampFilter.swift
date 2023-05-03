@@ -99,7 +99,7 @@
 					public func setChainHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "GossipTimestampFilter.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -219,7 +219,7 @@
 					public init(chainHashArg: [UInt8], firstTimestampArg: UInt32, timestampRangeArg: UInt32) {
 						// native call variable prep
 						
-						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg)
+						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg, instantiationContext: "GossipTimestampFilter.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -327,7 +327,7 @@
 					public class func read(ser: [UInt8]) -> Result_GossipTimestampFilterDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "GossipTimestampFilter.swift::\(#function):\(#line)")
 				
 
 						// native method call

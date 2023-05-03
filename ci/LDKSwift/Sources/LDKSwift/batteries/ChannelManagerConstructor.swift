@@ -445,7 +445,7 @@ public class TCPPeerHandler {
         addressObject.sin_addr.s_addr = inet_addr(address)
 
         let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
-        let publicKey = PublicKey(value: theirNodeId).cType!
+        let publicKey = PublicKey(value: theirNodeId, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)").cType!
 
         let result = withUnsafePointer(to: &addressObject, { addressPointer in
 

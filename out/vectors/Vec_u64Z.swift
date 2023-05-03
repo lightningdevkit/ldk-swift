@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [UInt64]) {
+					internal init(array: [UInt64], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_u64Z.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 

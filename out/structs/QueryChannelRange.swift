@@ -101,7 +101,7 @@
 					public func setChainHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "QueryChannelRange.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -221,7 +221,7 @@
 					public init(chainHashArg: [UInt8], firstBlocknumArg: UInt32, numberOfBlocksArg: UInt32) {
 						// native call variable prep
 						
-						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg)
+						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg, instantiationContext: "QueryChannelRange.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -354,7 +354,7 @@
 					public class func read(ser: [UInt8]) -> Result_QueryChannelRangeDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "QueryChannelRange.swift::\(#function):\(#line)")
 				
 
 						// native method call

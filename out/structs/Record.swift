@@ -135,7 +135,7 @@
 					public func setArgs(val: String) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Str(value: val).dangle()
+						let valPrimitiveWrapper = Str(value: val, instantiationContext: "Record.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -186,7 +186,7 @@
 					public func setModulePath(val: String) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Str(value: val).dangle()
+						let valPrimitiveWrapper = Str(value: val, instantiationContext: "Record.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -237,7 +237,7 @@
 					public func setFile(val: String) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Str(value: val).dangle()
+						let valPrimitiveWrapper = Str(value: val, instantiationContext: "Record.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

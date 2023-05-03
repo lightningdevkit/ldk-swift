@@ -142,7 +142,7 @@
 					public override func broadcastTransaction(tx: [UInt8]) {
 						// native call variable prep
 						
-						let txPrimitiveWrapper = Transaction(value: tx).dangle()
+						let txPrimitiveWrapper = Transaction(value: tx, instantiationContext: "BroadcasterInterface.swift::\(#function):\(#line)").dangle()
 				
 
 						

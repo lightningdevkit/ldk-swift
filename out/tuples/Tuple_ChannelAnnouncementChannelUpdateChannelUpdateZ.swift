@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: (ChannelAnnouncement, ChannelUpdate, ChannelUpdate)) {
-						self.init(a: tuple.0, b: tuple.1, c: tuple.2)
+					internal convenience init(tuple: (ChannelAnnouncement, ChannelUpdate, ChannelUpdate), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, c: tuple.2, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,7 +66,7 @@
 					}
 		
 					/// Creates a new C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ from the contained elements.
-					public init(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate) {
+					public init(a: ChannelAnnouncement, b: ChannelUpdate, c: ChannelUpdate, instantiationContext: String) {
 						// native call variable prep
 						
 
@@ -86,7 +86,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

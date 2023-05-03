@@ -150,7 +150,7 @@
 					public override func read(messageType: UInt16, buffer: [UInt8]) -> Result_COption_TypeZDecodeErrorZ {
 						// native call variable prep
 						
-						let bufferPrimitiveWrapper = u8slice(value: buffer)
+						let bufferPrimitiveWrapper = u8slice(value: buffer, instantiationContext: "CustomMessageReader.swift::\(#function):\(#line)")
 				
 
 						

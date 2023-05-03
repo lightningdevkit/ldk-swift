@@ -111,7 +111,7 @@
 					public func setChainHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "ReplyChannelRange.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -302,7 +302,7 @@
 					public func setShortChannelIds(val: [UInt64]) {
 						// native call variable prep
 						
-						let valVector = Vec_u64Z(array: val).dangle()
+						let valVector = Vec_u64Z(array: val, instantiationContext: "ReplyChannelRange.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -329,9 +329,9 @@
 					public init(chainHashArg: [UInt8], firstBlocknumArg: UInt32, numberOfBlocksArg: UInt32, syncCompleteArg: Bool, shortChannelIdsArg: [UInt64]) {
 						// native call variable prep
 						
-						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg)
+						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg, instantiationContext: "ReplyChannelRange.swift::\(#function):\(#line)")
 				
-						let shortChannelIdsArgVector = Vec_u64Z(array: shortChannelIdsArg).dangle()
+						let shortChannelIdsArgVector = Vec_u64Z(array: shortChannelIdsArg, instantiationContext: "ReplyChannelRange.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -418,7 +418,7 @@
 					public class func read(ser: [UInt8]) -> Result_ReplyChannelRangeDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ReplyChannelRange.swift::\(#function):\(#line)")
 				
 
 						// native method call

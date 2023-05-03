@@ -136,7 +136,7 @@
 					public init(blockHash: [UInt8], height: UInt32) {
 						// native call variable prep
 						
-						let blockHashPrimitiveWrapper = ThirtyTwoBytes(value: blockHash)
+						let blockHashPrimitiveWrapper = ThirtyTwoBytes(value: blockHash, instantiationContext: "BestBlock.swift::\(#function):\(#line)")
 				
 
 						// native method call

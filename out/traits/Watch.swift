@@ -134,7 +134,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(array: swiftCallbackResult, instantiationContext: "Watch.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}

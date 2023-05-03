@@ -40,21 +40,21 @@
 					}
 		
 
-					internal init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKBigEndianScalar(big_endian_bytes: Bindings.arrayToUInt8Tuple32(array: value))
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "BigEndianScalar.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					
 					/// Convenience function for constructing a new BigEndianScalar
-					public init(bigEndianBytes: [UInt8]) {
+					public init(bigEndianBytes: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let bigEndianBytesPrimitiveWrapper = ThirtyTwoBytes(value: bigEndianBytes)
+						let bigEndianBytesPrimitiveWrapper = ThirtyTwoBytes(value: bigEndianBytes, instantiationContext: "BigEndianScalar.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -76,7 +76,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "BigEndianScalar.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

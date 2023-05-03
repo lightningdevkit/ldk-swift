@@ -95,7 +95,7 @@
 					public func setChainHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "UnsignedChannelUpdate.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -540,7 +540,7 @@
 					public func setExcessData(val: [UInt8]) {
 						// native call variable prep
 						
-						let valVector = Vec_u8Z(array: val).dangle()
+						let valVector = Vec_u8Z(array: val, instantiationContext: "UnsignedChannelUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -567,9 +567,9 @@
 					public init(chainHashArg: [UInt8], shortChannelIdArg: UInt64, timestampArg: UInt32, flagsArg: UInt8, cltvExpiryDeltaArg: UInt16, htlcMinimumMsatArg: UInt64, htlcMaximumMsatArg: UInt64, feeBaseMsatArg: UInt32, feeProportionalMillionthsArg: UInt32, excessDataArg: [UInt8]) {
 						// native call variable prep
 						
-						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg)
+						let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(value: chainHashArg, instantiationContext: "UnsignedChannelUpdate.swift::\(#function):\(#line)")
 				
-						let excessDataArgVector = Vec_u8Z(array: excessDataArg).dangle()
+						let excessDataArgVector = Vec_u8Z(array: excessDataArg, instantiationContext: "UnsignedChannelUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -679,7 +679,7 @@
 					public class func read(ser: [UInt8]) -> Result_UnsignedChannelUpdateDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "UnsignedChannelUpdate.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -45,7 +45,7 @@
 					public class func initWithOk(o: CustomOnionMessageContents?) -> Result_COption_CustomOnionMessageContentsZDecodeErrorZ {
 						// native call variable prep
 						
-						let oOption = Option_CustomOnionMessageContentsZ(some: o).danglingClone()
+						let oOption = Option_CustomOnionMessageContentsZ(some: o, instantiationContext: "Result_COption_CustomOnionMessageContentsZDecodeErrorZ.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call

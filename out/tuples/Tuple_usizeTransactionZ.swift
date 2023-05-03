@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: (UInt, [UInt8])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: (UInt, [UInt8]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,10 +66,10 @@
 					}
 		
 					/// Creates a new C2Tuple_usizeTransactionZ from the contained elements.
-					public init(a: UInt, b: [UInt8]) {
+					public init(a: UInt, b: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let bPrimitiveWrapper = Transaction(value: b).dangle()
+						let bPrimitiveWrapper = Transaction(value: b, instantiationContext: "Tuple_usizeTransactionZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -91,7 +91,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_usizeTransactionZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

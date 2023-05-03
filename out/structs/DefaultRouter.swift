@@ -64,7 +64,7 @@
 					public init(networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8], scorer: LockableScore) {
 						// native call variable prep
 						
-						let randomSeedBytesPrimitiveWrapper = ThirtyTwoBytes(value: randomSeedBytes)
+						let randomSeedBytesPrimitiveWrapper = ThirtyTwoBytes(value: randomSeedBytes, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -512,7 +512,7 @@
 					public class func initWithInvalidSliceLength(a: String) -> ParseError {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = Str(value: a).dangle()
+						let aPrimitiveWrapper = Str(value: a, instantiationContext: "ParseError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

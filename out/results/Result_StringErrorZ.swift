@@ -45,7 +45,7 @@
 					public class func initWithOk(o: String) -> Result_StringErrorZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = Str(value: o).dangle()
+						let oPrimitiveWrapper = Str(value: o, instantiationContext: "Result_StringErrorZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

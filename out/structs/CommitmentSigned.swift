@@ -95,7 +95,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -146,7 +146,7 @@
 					public func setSignature(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -199,7 +199,7 @@
 					public func setHtlcSignatures(val: [[UInt8]]) {
 						// native call variable prep
 						
-						let valVector = Vec_SignatureZ(array: val).dangle()
+						let valVector = Vec_SignatureZ(array: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -226,11 +226,11 @@
 					public init(channelIdArg: [UInt8], signatureArg: [UInt8], htlcSignaturesArg: [[UInt8]]) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
-						let signatureArgPrimitiveWrapper = Signature(value: signatureArg)
+						let signatureArgPrimitiveWrapper = Signature(value: signatureArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
-						let htlcSignaturesArgVector = Vec_SignatureZ(array: htlcSignaturesArg).dangle()
+						let htlcSignaturesArgVector = Vec_SignatureZ(array: htlcSignaturesArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -343,7 +343,7 @@
 					public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 
 						// native method call

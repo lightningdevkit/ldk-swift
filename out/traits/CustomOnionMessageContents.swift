@@ -80,7 +80,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_u8Z(array: swiftCallbackResult, instantiationContext: "CustomOnionMessageContents.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}

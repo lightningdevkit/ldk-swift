@@ -258,7 +258,7 @@
 				public class func swiftSign(msg: [UInt8], sk: [UInt8]) -> Result_StringErrorZ {
 					// native call variable prep
 					
-					let msgPrimitiveWrapper = u8slice(value: msg)
+					let msgPrimitiveWrapper = u8slice(value: msg, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 					let tupledSk = Bindings.arrayToUInt8Tuple32(array: sk)
 				
@@ -288,9 +288,9 @@
 				public class func recoverPk(msg: [UInt8], sig: String) -> Result_PublicKeyErrorZ {
 					// native call variable prep
 					
-					let msgPrimitiveWrapper = u8slice(value: msg)
+					let msgPrimitiveWrapper = u8slice(value: msg, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let sigPrimitiveWrapper = Str(value: sig).dangle()
+					let sigPrimitiveWrapper = Str(value: sig, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
 
 					// native method call
@@ -318,11 +318,11 @@
 				public class func swiftVerify(msg: [UInt8], sig: String, pk: [UInt8]) -> Bool {
 					// native call variable prep
 					
-					let msgPrimitiveWrapper = u8slice(value: msg)
+					let msgPrimitiveWrapper = u8slice(value: msg, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let sigPrimitiveWrapper = Str(value: sig).dangle()
+					let sigPrimitiveWrapper = Str(value: sig, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let pkPrimitiveWrapper = PublicKey(value: pk)
+					let pkPrimitiveWrapper = PublicKey(value: pk, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -352,9 +352,9 @@
 				public class func constructInvoicePreimage(hrpBytes: [UInt8], dataWithoutSignature: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let hrpBytesPrimitiveWrapper = u8slice(value: hrpBytes)
+					let hrpBytesPrimitiveWrapper = u8slice(value: hrpBytes, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let dataWithoutSignatureVector = Vec_U5Z(array: dataWithoutSignature).dangle()
+					let dataWithoutSignatureVector = Vec_U5Z(array: dataWithoutSignature, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
 
 					// native method call
@@ -419,9 +419,9 @@ return returnValue
 				public class func swiftCreate(keys: ExpandedKey, minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, entropySource: EntropySource, currentTime: UInt64, minFinalCltvExpiryDelta: UInt16?) -> Result_C2Tuple_PaymentHashPaymentSecretZNoneZ {
 					// native call variable prep
 					
-					let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+					let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -460,11 +460,11 @@ return returnValue
 				public class func createFromHash(keys: ExpandedKey, minValueMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32, currentTime: UInt64, minFinalCltvExpiryDelta: UInt16?) -> Result_PaymentSecretNoneZ {
 					// native call variable prep
 					
-					let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+					let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -556,9 +556,9 @@ return returnValue
 				public class func buildClosingTransaction(toHolderValueSat: UInt64, toCounterpartyValueSat: UInt64, toHolderScript: [UInt8], toCounterpartyScript: [UInt8], fundingOutpoint: OutPoint) -> [UInt8] {
 					// native call variable prep
 					
-					let toHolderScriptVector = Vec_u8Z(array: toHolderScript).dangle()
+					let toHolderScriptVector = Vec_u8Z(array: toHolderScript, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let toCounterpartyScriptVector = Vec_u8Z(array: toCounterpartyScript).dangle()
+					let toCounterpartyScriptVector = Vec_u8Z(array: toCounterpartyScript, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
 
 					// native method call
@@ -584,7 +584,7 @@ return returnValue
 				public class func derivePrivateKey(perCommitmentPoint: [UInt8], baseSecret: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 					let tupledBaseSecret = Bindings.arrayToUInt8Tuple32(array: baseSecret)
 				
@@ -616,9 +616,9 @@ return returnValue
 				public class func derivePublicKey(perCommitmentPoint: [UInt8], basePoint: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let basePointPrimitiveWrapper = PublicKey(value: basePoint)
+					let basePointPrimitiveWrapper = PublicKey(value: basePoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -691,9 +691,9 @@ return returnValue
 				public class func derivePublicRevocationKey(perCommitmentPoint: [UInt8], countersignatoryRevocationBasePoint: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+					let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let countersignatoryRevocationBasePointPrimitiveWrapper = PublicKey(value: countersignatoryRevocationBasePoint)
+					let countersignatoryRevocationBasePointPrimitiveWrapper = PublicKey(value: countersignatoryRevocationBasePoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -722,9 +722,9 @@ return returnValue
 				public class func getRevokeableRedeemscript(revocationKey: [UInt8], contestDelay: UInt16, broadcasterDelayedPaymentKey: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let revocationKeyPrimitiveWrapper = PublicKey(value: revocationKey)
+					let revocationKeyPrimitiveWrapper = PublicKey(value: revocationKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let broadcasterDelayedPaymentKeyPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKey)
+					let broadcasterDelayedPaymentKeyPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -780,9 +780,9 @@ return returnValue
 				public class func makeFundingRedeemscript(broadcaster: [UInt8], countersignatory: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let broadcasterPrimitiveWrapper = PublicKey(value: broadcaster)
+					let broadcasterPrimitiveWrapper = PublicKey(value: broadcaster, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let countersignatoryPrimitiveWrapper = PublicKey(value: countersignatory)
+					let countersignatoryPrimitiveWrapper = PublicKey(value: countersignatory, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -817,9 +817,9 @@ return returnValue
 					
 					let tupledCommitmentTxid = Bindings.arrayToUInt8Tuple32(array: commitmentTxid)
 				
-					let broadcasterDelayedPaymentKeyPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKey)
+					let broadcasterDelayedPaymentKeyPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let revocationKeyPrimitiveWrapper = PublicKey(value: revocationKey)
+					let revocationKeyPrimitiveWrapper = PublicKey(value: revocationKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -856,13 +856,13 @@ return returnValue
 				public class func buildHtlcInputWitness(localSig: [UInt8], remoteSig: [UInt8], preimage: [UInt8], redeemScript: [UInt8], optAnchors: Bool) -> [UInt8] {
 					// native call variable prep
 					
-					let localSigPrimitiveWrapper = Signature(value: localSig)
+					let localSigPrimitiveWrapper = Signature(value: localSig, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let remoteSigPrimitiveWrapper = Signature(value: remoteSig)
+					let remoteSigPrimitiveWrapper = Signature(value: remoteSig, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let preimagePrimitiveWrapper = ThirtyTwoBytes(value: preimage)
+					let preimagePrimitiveWrapper = ThirtyTwoBytes(value: preimage, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let redeemScriptPrimitiveWrapper = u8slice(value: redeemScript)
+					let redeemScriptPrimitiveWrapper = u8slice(value: redeemScript, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -895,7 +895,7 @@ return returnValue
 				public class func getToCountersignatoryWithAnchorsRedeemscript(paymentPoint: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let paymentPointPrimitiveWrapper = PublicKey(value: paymentPoint)
+					let paymentPointPrimitiveWrapper = PublicKey(value: paymentPoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -924,7 +924,7 @@ return returnValue
 				public class func getAnchorRedeemscript(fundingPubkey: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let fundingPubkeyPrimitiveWrapper = PublicKey(value: fundingPubkey)
+					let fundingPubkeyPrimitiveWrapper = PublicKey(value: fundingPubkey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -948,9 +948,9 @@ return returnValue
 				public class func buildAnchorInputWitness(fundingKey: [UInt8], fundingSig: [UInt8]) -> [UInt8] {
 					// native call variable prep
 					
-					let fundingKeyPrimitiveWrapper = PublicKey(value: fundingKey)
+					let fundingKeyPrimitiveWrapper = PublicKey(value: fundingKey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let fundingSigPrimitiveWrapper = Signature(value: fundingSig)
+					let fundingSigPrimitiveWrapper = Signature(value: fundingSig, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -982,9 +982,9 @@ return returnValue
 				public class func getCommitmentTransactionNumberObscureFactor(broadcasterPaymentBasepoint: [UInt8], countersignatoryPaymentBasepoint: [UInt8], outboundFromBroadcaster: Bool) -> UInt64 {
 					// native call variable prep
 					
-					let broadcasterPaymentBasepointPrimitiveWrapper = PublicKey(value: broadcasterPaymentBasepoint)
+					let broadcasterPaymentBasepointPrimitiveWrapper = PublicKey(value: broadcasterPaymentBasepoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let countersignatoryPaymentBasepointPrimitiveWrapper = PublicKey(value: countersignatoryPaymentBasepoint)
+					let countersignatoryPaymentBasepointPrimitiveWrapper = PublicKey(value: countersignatoryPaymentBasepoint, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -1041,12 +1041,12 @@ return returnValue
 				public class func findRoute(ourNodePubkey: [UInt8], routeParams: RouteParameters, networkGraph: NetworkGraph, firstHops: [ChannelDetails]?, logger: Logger, scorer: Score, randomSeedBytes: [UInt8]) -> Result_RouteLightningErrorZ {
 					// native call variable prep
 					
-					let ourNodePubkeyPrimitiveWrapper = PublicKey(value: ourNodePubkey)
+					let ourNodePubkeyPrimitiveWrapper = PublicKey(value: ourNodePubkey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 				var firstHopsVectorPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
 				if let firstHops = firstHops {
 					
-					let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops)
+					let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 					firstHopsVectorPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
 					firstHopsVectorPointer!.initialize(to: firstHopsVector.cType!)
@@ -1099,9 +1099,9 @@ return returnValue
 				public class func buildRouteFromHops(ourNodePubkey: [UInt8], hops: [[UInt8]], routeParams: RouteParameters, networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8]) -> Result_RouteLightningErrorZ {
 					// native call variable prep
 					
-					let ourNodePubkeyPrimitiveWrapper = PublicKey(value: ourNodePubkey)
+					let ourNodePubkeyPrimitiveWrapper = PublicKey(value: ourNodePubkey, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let hopsVector = Vec_PublicKeyZ(array: hops).dangle()
+					let hopsVector = Vec_PublicKeyZ(array: hops, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
 					let tupledRandomSeedBytes = Bindings.arrayToUInt8Tuple32(array: randomSeedBytes)
 				
@@ -1186,7 +1186,7 @@ return returnValue
 				public class func payInvoiceWithId(invoice: Invoice, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager) -> Result_NonePaymentErrorZ {
 					// native call variable prep
 					
-					let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+					let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -1267,7 +1267,7 @@ return returnValue
 				public class func payZeroValueInvoiceWithId(invoice: Invoice, amountMsats: UInt64, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager) -> Result_NonePaymentErrorZ {
 					// native call variable prep
 					
-					let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+					let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -1342,15 +1342,15 @@ return returnValue
 				public class func createPhantomInvoice(amtMsat: UInt64?, paymentHash: [UInt8], description: String, invoiceExpiryDeltaSecs: UInt32, phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
-					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
+					let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let descriptionPrimitiveWrapper = Str(value: description).dangle()
+					let descriptionPrimitiveWrapper = Str(value: description, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let phantomRouteHintsVector = Vec_PhantomRouteHintsZ(array: phantomRouteHints).dangle()
+					let phantomRouteHintsVector = Vec_PhantomRouteHintsZ(array: phantomRouteHints, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -1416,13 +1416,13 @@ return returnValue
 				public class func createPhantomInvoiceWithDescriptionHash(amtMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32, descriptionHash: Sha256, phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
-					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
+					let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let phantomRouteHintsVector = Vec_PhantomRouteHintsZ(array: phantomRouteHints).dangle()
+					let phantomRouteHintsVector = Vec_PhantomRouteHintsZ(array: phantomRouteHints, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -1462,11 +1462,11 @@ return returnValue
 				public class func createInvoiceFromChannelmanager(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
-					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
+					let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let descriptionPrimitiveWrapper = Str(value: description).dangle()
+					let descriptionPrimitiveWrapper = Str(value: description, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -1510,9 +1510,9 @@ return returnValue
 				public class func createInvoiceFromChannelmanagerWithDescriptionHash(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, descriptionHash: Sha256, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
-					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
+					let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -1540,9 +1540,9 @@ return returnValue
 				public class func createInvoiceFromChannelmanagerWithDescriptionHashAndDurationSinceEpoch(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, descriptionHash: Sha256, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
-					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
+					let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -1570,11 +1570,11 @@ return returnValue
 				public class func createInvoiceFromChannelmanagerAndDurationSinceEpoch(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
-					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
+					let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let descriptionPrimitiveWrapper = Str(value: description).dangle()
+					let descriptionPrimitiveWrapper = Str(value: description, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -1606,13 +1606,13 @@ return returnValue
 				public class func createInvoiceFromChannelmanagerAndDurationSinceEpochWithPaymentHash(channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?, description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, paymentHash: [UInt8], minFinalCltvExpiryDelta: UInt16?) -> Result_InvoiceSignOrCreationErrorZ {
 					// native call variable prep
 					
-					let amtMsatOption = Option_u64Z(some: amtMsat).danglingClone()
+					let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
-					let descriptionPrimitiveWrapper = Str(value: description).dangle()
+					let descriptionPrimitiveWrapper = Str(value: description, instantiationContext: "Bindings.swift::\(#function):\(#line)").dangle()
 				
-					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+					let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
-					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+					let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "Bindings.swift::\(#function):\(#line)").danglingClone()
 				
 
 					// native method call
@@ -1644,7 +1644,7 @@ return returnValue
 				public class func readBlockHashChannelMonitor(ser: [UInt8], argA: EntropySource, argB: SignerProvider) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 					// native call variable prep
 					
-					let serPrimitiveWrapper = u8slice(value: ser)
+					let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call
@@ -1677,7 +1677,7 @@ return returnValue
 				public class func readBlockHashChannelManager(ser: [UInt8], arg: ChannelManagerReadArgs) -> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ {
 					// native call variable prep
 					
-					let serPrimitiveWrapper = u8slice(value: ser)
+					let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 				
 
 					// native method call

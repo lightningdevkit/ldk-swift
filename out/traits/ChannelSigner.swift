@@ -64,7 +64,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = PublicKey(value: swiftCallbackResult).dangle().cType!
+							let returnValue = PublicKey(value: swiftCallbackResult, instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -82,7 +82,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -118,7 +118,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -348,7 +348,7 @@
 					public override func validateHolderCommitment(holderTx: HolderCommitmentTransaction, preimages: [[UInt8]]) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let preimagesVector = Vec_PaymentPreimageZ(array: preimages).dangle()
+						let preimagesVector = Vec_PaymentPreimageZ(array: preimages, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						

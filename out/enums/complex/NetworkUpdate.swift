@@ -160,7 +160,7 @@
 					public class func initWithNodeFailure(nodeId: [UInt8], isPermanent: Bool) -> NetworkUpdate {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -235,7 +235,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_NetworkUpdateZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
 				
 
 						// native method call

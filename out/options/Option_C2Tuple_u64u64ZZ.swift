@@ -36,20 +36,20 @@
 					}
 		
 
-					internal init(some: (UInt64, UInt64)?) {
+					internal init(some: (UInt64, UInt64)?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 							
-							let someTuple = Tuple_u64u64Z(tuple: some).danglingClone()
+							let someTuple = Tuple_u64u64Z(tuple: some, instantiationContext: "Option_C2Tuple_u64u64ZZ.swift::\(#function):\(#line)").danglingClone()
 				
 							self.cType = COption_C2Tuple_u64u64ZZ_some(someTuple.cType!)
 						} else {
 							self.cType = COption_C2Tuple_u64u64ZZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_C2Tuple_u64u64ZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					

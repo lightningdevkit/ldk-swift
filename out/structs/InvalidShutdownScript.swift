@@ -91,7 +91,7 @@
 					public func setScript(val: [UInt8]) {
 						// native call variable prep
 						
-						let valVector = Vec_u8Z(array: val).dangle()
+						let valVector = Vec_u8Z(array: val, instantiationContext: "InvalidShutdownScript.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -118,7 +118,7 @@
 					public init(scriptArg: [UInt8]) {
 						// native call variable prep
 						
-						let scriptArgVector = Vec_u8Z(array: scriptArg).dangle()
+						let scriptArgVector = Vec_u8Z(array: scriptArg, instantiationContext: "InvalidShutdownScript.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

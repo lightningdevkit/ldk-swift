@@ -89,7 +89,7 @@
 					public func setFundingPubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -146,7 +146,7 @@
 					public func setRevocationBasepoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -201,7 +201,7 @@
 					public func setPaymentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -256,7 +256,7 @@
 					public func setDelayedPaymentBasepoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -309,7 +309,7 @@
 					public func setHtlcBasepoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -337,15 +337,15 @@
 					public init(fundingPubkeyArg: [UInt8], revocationBasepointArg: [UInt8], paymentPointArg: [UInt8], delayedPaymentBasepointArg: [UInt8], htlcBasepointArg: [UInt8]) {
 						// native call variable prep
 						
-						let fundingPubkeyArgPrimitiveWrapper = PublicKey(value: fundingPubkeyArg)
+						let fundingPubkeyArgPrimitiveWrapper = PublicKey(value: fundingPubkeyArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
-						let revocationBasepointArgPrimitiveWrapper = PublicKey(value: revocationBasepointArg)
+						let revocationBasepointArgPrimitiveWrapper = PublicKey(value: revocationBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
-						let paymentPointArgPrimitiveWrapper = PublicKey(value: paymentPointArg)
+						let paymentPointArgPrimitiveWrapper = PublicKey(value: paymentPointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
-						let delayedPaymentBasepointArgPrimitiveWrapper = PublicKey(value: delayedPaymentBasepointArg)
+						let delayedPaymentBasepointArgPrimitiveWrapper = PublicKey(value: delayedPaymentBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
-						let htlcBasepointArgPrimitiveWrapper = PublicKey(value: htlcBasepointArg)
+						let htlcBasepointArgPrimitiveWrapper = PublicKey(value: htlcBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -465,7 +465,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelPublicKeysDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call

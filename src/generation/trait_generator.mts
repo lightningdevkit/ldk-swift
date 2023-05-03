@@ -458,17 +458,19 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 			wrapperSuffix: ''
 		};
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::init()::\\(#function):\\(#line)"'
+
 		// these type elision helpers only apply outside the context of the very eliding type
 		let type = returnType.type;
 		if (type instanceof RustVector) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(array: `;
-			preparedReturnValue.wrapperSuffix = `).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
 		} else if (type instanceof RustPrimitiveWrapper) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(value: `;
-			preparedReturnValue.wrapperSuffix = `).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
 		} else if (type instanceof RustNullableOption) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(some: `;
-			preparedReturnValue.wrapperSuffix = `).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
 		} else if (type instanceof RustTaggedValueEnum || type instanceof RustResult) {
 			preparedReturnValue.wrapperSuffix = '.cType!';
 		} else if (type instanceof RustTrait) {

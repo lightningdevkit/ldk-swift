@@ -87,7 +87,7 @@
 					public func setPubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "RouteHop.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -355,7 +355,7 @@
 					public init(pubkeyArg: [UInt8], nodeFeaturesArg: NodeFeatures, shortChannelIdArg: UInt64, channelFeaturesArg: ChannelFeatures, feeMsatArg: UInt64, cltvExpiryDeltaArg: UInt32) {
 						// native call variable prep
 						
-						let pubkeyArgPrimitiveWrapper = PublicKey(value: pubkeyArg)
+						let pubkeyArgPrimitiveWrapper = PublicKey(value: pubkeyArg, instantiationContext: "RouteHop.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -486,7 +486,7 @@
 					public class func read(ser: [UInt8]) -> Result_RouteHopDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "RouteHop.swift::\(#function):\(#line)")
 				
 
 						// native method call

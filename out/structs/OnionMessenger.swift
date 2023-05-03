@@ -240,7 +240,7 @@
 					public func sendOnionMessage(intermediateNodes: [[UInt8]], destination: Destination, message: OnionMessageContents, replyPath: BlindedPath) -> Result_NoneSendErrorZ {
 						// native call variable prep
 						
-						let intermediateNodesVector = Vec_PublicKeyZ(array: intermediateNodes).dangle()
+						let intermediateNodesVector = Vec_PublicKeyZ(array: intermediateNodes, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

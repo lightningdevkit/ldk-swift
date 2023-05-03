@@ -201,6 +201,12 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			}
 		}
 
+		let instantiationContext = '"#{swift_class_name}::\\(#function):\\(#line)"';
+		if(semantics.isConstructor && containerType && this.isElidedType(containerType)){
+			swiftMethodArguments.push('instantiationContext: String');
+			instantiationContext = 'instantiationContext';
+		}
+
 		let cloneabilityDeprecationWarning = '';
 		if (nonCloneableArguments.length > 0) {
 			// not true yet
@@ -246,7 +252,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: ${instantiationContext})
 				${anchoringCommand}
 			`;
 
@@ -653,6 +659,8 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			requiresAnchoring: false
 		};
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)"';
+
 		// this argument is the content of an elided container, like the iteratee of a Vec
 		let isElidedContainerContent = false;
 		if (containerType && this.isElidedType(containerType)) {
@@ -741,19 +749,19 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				preparedArgument.name += 'Option';
 				// TODO: figure out when label should be `some: `
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(some: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(some: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				preparedArgument.accessor = preparedArgument.name + '.cType!';
 			} else if (argument.type instanceof RustTuple) {
 				preparedArgument.name += 'Tuple';
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(tuple: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(tuple: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				preparedArgument.accessor = preparedArgument.name + '.cType!';
 			} else if (argument.type instanceof RustPrimitiveWrapper) {
 				preparedArgument.name += 'PrimitiveWrapper';
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(value: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(value: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				if (argument.type.ownershipField) {
 					/* preparedArgument.conversion += `
@@ -768,7 +776,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			} else if (argument.type instanceof RustVector) {
 				preparedArgument.name += 'Vector';
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(array: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(array: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				// figure out when it needs to be dangled
 				preparedArgument.accessor = preparedArgument.name + '.cType!';

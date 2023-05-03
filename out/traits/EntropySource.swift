@@ -62,7 +62,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "EntropySource.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}

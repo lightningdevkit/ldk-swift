@@ -95,7 +95,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "RevokeAndACK.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -150,7 +150,7 @@
 					public func setPerCommitmentSecret(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "RevokeAndACK.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -201,7 +201,7 @@
 					public func setNextPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "RevokeAndACK.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -229,11 +229,11 @@
 					public init(channelIdArg: [UInt8], perCommitmentSecretArg: [UInt8], nextPerCommitmentPointArg: [UInt8]) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "RevokeAndACK.swift::\(#function):\(#line)")
 				
-						let perCommitmentSecretArgPrimitiveWrapper = ThirtyTwoBytes(value: perCommitmentSecretArg)
+						let perCommitmentSecretArgPrimitiveWrapper = ThirtyTwoBytes(value: perCommitmentSecretArg, instantiationContext: "RevokeAndACK.swift::\(#function):\(#line)")
 				
-						let nextPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: nextPerCommitmentPointArg)
+						let nextPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: nextPerCommitmentPointArg, instantiationContext: "RevokeAndACK.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -347,7 +347,7 @@
 					public class func read(ser: [UInt8]) -> Result_RevokeAndACKDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "RevokeAndACK.swift::\(#function):\(#line)")
 				
 
 						// native method call

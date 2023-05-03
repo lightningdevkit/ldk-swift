@@ -87,7 +87,7 @@
 					public func setTransaction(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Transaction(value: val).dangle()
+						let valPrimitiveWrapper = Transaction(value: val, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -148,7 +148,7 @@
 					public func setTxid(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -176,9 +176,9 @@
 					public init(transactionArg: [UInt8], txidArg: [UInt8]) {
 						// native call variable prep
 						
-						let transactionArgPrimitiveWrapper = Transaction(value: transactionArg).dangle()
+						let transactionArgPrimitiveWrapper = Transaction(value: transactionArg, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)").dangle()
 				
-						let txidArgPrimitiveWrapper = ThirtyTwoBytes(value: txidArg)
+						let txidArgPrimitiveWrapper = ThirtyTwoBytes(value: txidArg, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -260,7 +260,7 @@
 					public class func read(ser: [UInt8]) -> Result_BuiltCommitmentTransactionDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -286,7 +286,7 @@
 					public func getSighashAll(fundingRedeemscript: [UInt8], channelValueSatoshis: UInt64) -> [UInt8] {
 						// native call variable prep
 						
-						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript)
+						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -317,7 +317,7 @@
 						
 						let tupledFundingKey = Bindings.arrayToUInt8Tuple32(array: fundingKey)
 					
-						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript)
+						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call

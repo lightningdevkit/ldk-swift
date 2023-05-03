@@ -95,7 +95,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "Shutdown.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -150,7 +150,7 @@
 					public func setScriptpubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valVector = Vec_u8Z(array: val).dangle()
+						let valVector = Vec_u8Z(array: val, instantiationContext: "Shutdown.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -177,9 +177,9 @@
 					public init(channelIdArg: [UInt8], scriptpubkeyArg: [UInt8]) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "Shutdown.swift::\(#function):\(#line)")
 				
-						let scriptpubkeyArgVector = Vec_u8Z(array: scriptpubkeyArg).dangle()
+						let scriptpubkeyArgVector = Vec_u8Z(array: scriptpubkeyArg, instantiationContext: "Shutdown.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -289,7 +289,7 @@
 					public class func read(ser: [UInt8]) -> Result_ShutdownDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Shutdown.swift::\(#function):\(#line)")
 				
 
 						// native method call

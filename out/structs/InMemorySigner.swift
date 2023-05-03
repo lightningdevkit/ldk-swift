@@ -99,7 +99,7 @@
 					public func setFundingKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -154,7 +154,7 @@
 					public func setRevocationBaseKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -209,7 +209,7 @@
 					public func setPaymentKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -264,7 +264,7 @@
 					public func setDelayedPaymentBaseKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -319,7 +319,7 @@
 					public func setHtlcBaseKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -374,7 +374,7 @@
 					public func setCommitmentSeed(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -425,19 +425,19 @@
 					public init(fundingKey: [UInt8], revocationBaseKey: [UInt8], paymentKey: [UInt8], delayedPaymentBaseKey: [UInt8], htlcBaseKey: [UInt8], commitmentSeed: [UInt8], channelValueSatoshis: UInt64, channelKeysId: [UInt8]) {
 						// native call variable prep
 						
-						let fundingKeyPrimitiveWrapper = SecretKey(value: fundingKey)
+						let fundingKeyPrimitiveWrapper = SecretKey(value: fundingKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let revocationBaseKeyPrimitiveWrapper = SecretKey(value: revocationBaseKey)
+						let revocationBaseKeyPrimitiveWrapper = SecretKey(value: revocationBaseKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let paymentKeyPrimitiveWrapper = SecretKey(value: paymentKey)
+						let paymentKeyPrimitiveWrapper = SecretKey(value: paymentKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let delayedPaymentBaseKeyPrimitiveWrapper = SecretKey(value: delayedPaymentBaseKey)
+						let delayedPaymentBaseKeyPrimitiveWrapper = SecretKey(value: delayedPaymentBaseKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let htlcBaseKeyPrimitiveWrapper = SecretKey(value: htlcBaseKey)
+						let htlcBaseKeyPrimitiveWrapper = SecretKey(value: htlcBaseKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let commitmentSeedPrimitiveWrapper = ThirtyTwoBytes(value: commitmentSeed)
+						let commitmentSeedPrimitiveWrapper = ThirtyTwoBytes(value: commitmentSeed, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId)
+						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -675,7 +675,7 @@
 					public func signCounterpartyPaymentInput(spendTx: [UInt8], inputIdx: UInt, descriptor: StaticPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
 						// native call variable prep
 						
-						let spendTxPrimitiveWrapper = Transaction(value: spendTx).dangle()
+						let spendTxPrimitiveWrapper = Transaction(value: spendTx, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -716,7 +716,7 @@
 					public func signDynamicP2wshInput(spendTx: [UInt8], inputIdx: UInt, descriptor: DelayedPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
 						// native call variable prep
 						
-						let spendTxPrimitiveWrapper = Transaction(value: spendTx).dangle()
+						let spendTxPrimitiveWrapper = Transaction(value: spendTx, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -843,7 +843,7 @@
 					public class func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call

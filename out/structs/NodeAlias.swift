@@ -97,7 +97,7 @@
 					public func setA(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "NodeAlias.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -125,7 +125,7 @@
 					public init(aArg: [UInt8]) {
 						// native call variable prep
 						
-						let aArgPrimitiveWrapper = ThirtyTwoBytes(value: aArg)
+						let aArgPrimitiveWrapper = ThirtyTwoBytes(value: aArg, instantiationContext: "NodeAlias.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -233,7 +233,7 @@
 					public class func read(ser: [UInt8]) -> Result_NodeAliasDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeAlias.swift::\(#function):\(#line)")
 				
 
 						// native method call

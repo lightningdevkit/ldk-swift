@@ -38,15 +38,15 @@
 					}
 		
 
-					internal init(array: [(UInt, [UInt8])]) {
+					internal init(array: [(UInt, [UInt8])], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_C2Tuple_usizeTransactionZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: (UInt, [UInt8])) -> LDKC2Tuple_usizeTransactionZ in
 							
-						let currentValueDepth1Tuple = Tuple_usizeTransactionZ(tuple: currentValueDepth1).danglingClone()
+						let currentValueDepth1Tuple = Tuple_usizeTransactionZ(tuple: currentValueDepth1, instantiationContext: "Vec_C2Tuple_usizeTransactionZZ.swift::\(#function):\(#line)").danglingClone()
 				
 							return currentValueDepth1Tuple.cType!
 						}

@@ -62,7 +62,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -339,9 +339,9 @@
 					public override func ecdh(recipient: Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Result_SharedSecretNoneZ {
 						// native call variable prep
 						
-						let otherKeyPrimitiveWrapper = PublicKey(value: otherKey)
+						let otherKeyPrimitiveWrapper = PublicKey(value: otherKey, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 				
-						let tweakOption = Option_ScalarZ(some: tweak).dangle()
+						let tweakOption = Option_ScalarZ(some: tweak, instantiationContext: "NodeSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -375,9 +375,9 @@
 					public override func signInvoice(hrpBytes: [UInt8], invoiceData: [UInt8], recipient: Recipient) -> Result_RecoverableSignatureNoneZ {
 						// native call variable prep
 						
-						let hrpBytesPrimitiveWrapper = u8slice(value: hrpBytes)
+						let hrpBytesPrimitiveWrapper = u8slice(value: hrpBytes, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 				
-						let invoiceDataVector = Vec_U5Z(array: invoiceData).dangle()
+						let invoiceDataVector = Vec_U5Z(array: invoiceData, instantiationContext: "NodeSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						

@@ -91,7 +91,7 @@
 					public func setCounterpartySig(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -144,7 +144,7 @@
 					public func setCounterpartyHtlcSigs(val: [[UInt8]]) {
 						// native call variable prep
 						
-						let valVector = Vec_SignatureZ(array: val).dangle()
+						let valVector = Vec_SignatureZ(array: val, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -217,7 +217,7 @@
 					public class func read(ser: [UInt8]) -> Result_HolderCommitmentTransactionDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -242,13 +242,13 @@
 					public init(commitmentTx: CommitmentTransaction, counterpartySig: [UInt8], counterpartyHtlcSigs: [[UInt8]], holderFundingKey: [UInt8], counterpartyFundingKey: [UInt8]) {
 						// native call variable prep
 						
-						let counterpartySigPrimitiveWrapper = Signature(value: counterpartySig)
+						let counterpartySigPrimitiveWrapper = Signature(value: counterpartySig, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)")
 				
-						let counterpartyHtlcSigsVector = Vec_SignatureZ(array: counterpartyHtlcSigs).dangle()
+						let counterpartyHtlcSigsVector = Vec_SignatureZ(array: counterpartyHtlcSigs, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)").dangle()
 				
-						let holderFundingKeyPrimitiveWrapper = PublicKey(value: holderFundingKey)
+						let holderFundingKeyPrimitiveWrapper = PublicKey(value: holderFundingKey, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)")
 				
-						let counterpartyFundingKeyPrimitiveWrapper = PublicKey(value: counterpartyFundingKey)
+						let counterpartyFundingKeyPrimitiveWrapper = PublicKey(value: counterpartyFundingKey, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -38,10 +38,10 @@
 					}
 		
 
-					internal init(array: [[RouteHop]]) {
+					internal init(array: [[RouteHop]], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_CVec_RouteHopZZ.swift::\(#function):\(#line)")
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 
@@ -49,7 +49,7 @@
 						var lowerDimension = [LDKCVec_RouteHopZ]()
 						for currentEntry in array {
 							
-						let currentEntryVector = Vec_RouteHopZ(array: currentEntry).dangle()
+						let currentEntryVector = Vec_RouteHopZ(array: currentEntry, instantiationContext: "Vec_CVec_RouteHopZZ.swift::\(#function):\(#line)").dangle()
 				
 							lowerDimension.append(currentEntryVector.cType!)
 							try! self.addAnchor(anchor: currentEntryVector)

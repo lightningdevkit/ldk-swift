@@ -87,7 +87,7 @@
 					public init(pathToChannelData: String) {
 						// native call variable prep
 						
-						let pathToChannelDataPrimitiveWrapper = Str(value: pathToChannelData).dangle()
+						let pathToChannelDataPrimitiveWrapper = Str(value: pathToChannelData, instantiationContext: "FilesystemPersister.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

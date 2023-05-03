@@ -84,7 +84,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Str(value: swiftCallbackResult).dangle().cType!
+							let returnValue = Str(value: swiftCallbackResult, instantiationContext: "BindingsType.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -102,7 +102,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_u8Z(array: swiftCallbackResult, instantiationContext: "BindingsType.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}

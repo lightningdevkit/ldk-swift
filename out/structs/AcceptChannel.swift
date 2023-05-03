@@ -95,7 +95,7 @@
 					public func setTemporaryChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -468,7 +468,7 @@
 					public func setFundingPubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -519,7 +519,7 @@
 					public func setRevocationBasepoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -570,7 +570,7 @@
 					public func setPaymentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -621,7 +621,7 @@
 					public func setDelayedPaymentBasepoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -672,7 +672,7 @@
 					public func setHtlcBasepoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -723,7 +723,7 @@
 					public func setFirstPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -897,7 +897,7 @@
 					public class func read(ser: [UInt8]) -> Result_AcceptChannelDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 				
 
 						// native method call

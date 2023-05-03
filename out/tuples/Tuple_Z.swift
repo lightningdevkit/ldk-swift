@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: ([UInt16], [UInt16])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt16], [UInt16]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,12 +66,12 @@
 					}
 		
 					/// Creates a new C2Tuple_Z from the contained elements.
-					public init(a: [UInt16], b: [UInt16]) {
+					public init(a: [UInt16], b: [UInt16], instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = EightU16s(value: a)
+						let aPrimitiveWrapper = EightU16s(value: a, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 				
-						let bPrimitiveWrapper = EightU16s(value: b)
+						let bPrimitiveWrapper = EightU16s(value: b, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -96,7 +96,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

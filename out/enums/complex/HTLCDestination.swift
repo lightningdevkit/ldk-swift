@@ -130,9 +130,9 @@
 					public class func initWithNextHopChannel(nodeId: [UInt8], channelId: [UInt8]) -> HTLCDestination {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -197,7 +197,7 @@
 					public class func initWithFailedPayment(paymentHash: [UInt8]) -> HTLCDestination {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -272,7 +272,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_HTLCDestinationZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
 
 						// native method call

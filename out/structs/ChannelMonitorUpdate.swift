@@ -192,7 +192,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelMonitorUpdateDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelMonitorUpdate.swift::\(#function):\(#line)")
 				
 
 						// native method call

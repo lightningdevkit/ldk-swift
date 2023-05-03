@@ -110,7 +110,7 @@
 					public class func initWithNode(a: [UInt8]) -> Destination {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = PublicKey(value: a)
+						let aPrimitiveWrapper = PublicKey(value: a, instantiationContext: "Destination.swift::\(#function):\(#line)")
 				
 
 						// native method call

@@ -45,7 +45,7 @@
 					public class func initWithOk(o: [UInt8]) -> Result_TransactionNoneZ {
 						// native call variable prep
 						
-						let oPrimitiveWrapper = Transaction(value: o).dangle()
+						let oPrimitiveWrapper = Transaction(value: o, instantiationContext: "Result_TransactionNoneZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call

@@ -36,8 +36,8 @@
 					}
 		
 
-					internal convenience init(tuple: ([UInt8], BindingsType)) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt8], BindingsType), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -66,10 +66,10 @@
 					}
 		
 					/// Creates a new C2Tuple_PublicKeyTypeZ from the contained elements.
-					public init(a: [UInt8], b: BindingsType) {
+					public init(a: [UInt8], b: BindingsType, instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = PublicKey(value: a)
+						let aPrimitiveWrapper = PublicKey(value: a, instantiationContext: "Tuple_PublicKeyTypeZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -91,7 +91,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_PublicKeyTypeZ.swift::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

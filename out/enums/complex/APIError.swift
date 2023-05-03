@@ -155,7 +155,7 @@
 					public class func initWithApimisuseError(err: String) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -179,7 +179,7 @@
 					public class func initWithFeeRateTooHigh(err: String, feerate: UInt32) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -203,7 +203,7 @@
 					public class func initWithInvalidRoute(err: String) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -227,7 +227,7 @@
 					public class func initWithChannelUnavailable(err: String) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -340,7 +340,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_APIErrorZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "APIError.swift::\(#function):\(#line)")
 				
 
 						// native method call

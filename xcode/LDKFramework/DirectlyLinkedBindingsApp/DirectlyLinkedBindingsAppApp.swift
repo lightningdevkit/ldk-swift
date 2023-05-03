@@ -13,8 +13,16 @@ struct DirectlyLinkedBindingsAppApp: App {
     init() {
         print("Directly linked bindings app is initialized")
         
-        let compiledVersion = Bindings.getLDKSwiftBindingsSerializationHash()
-        print("Compiled version: \(compiledVersion)")
+        func printCompiledVersion() {
+            let compiledVersion = Bindings.getLDKSwiftBindingsSerializationHash()
+            print("Compiled version: \(compiledVersion)\n\(#file)::\(#function):\(#line)")
+        }
+        printCompiledVersion()
+        
+        do {
+            let thing = Bindings.Fallback.initWithSegWitProgram(version: 255, program: [])
+        }
+        // let tx = BuiltCommitmentTransaction(transactionArg: [], txidArg: [UInt8](repeating: 0, count: 32))
         
         let nativeNetwork = LDKNetwork_Regtest
         let swiftNetwork = Bindings.Network.Bitcoin

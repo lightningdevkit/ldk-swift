@@ -186,7 +186,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             }
         }
 
-        super.init(conflictAvoidingVariableName: 0)
+        super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
         // try! self.peerManager.addAnchor(anchor: self)
         // try! self.channelManager.addAnchor(anchor: self)
 
@@ -225,7 +225,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
         self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, customMessageHandler: noCustomMessages.asCustomMessageHandler(), nodeSigner: params.nodeSigner)
 
-        super.init(conflictAvoidingVariableName: 0)
+        super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
         // try! self.peerManager.addAnchor(anchor: self)
         // try! self.channelManager.addAnchor(anchor: self)
     }

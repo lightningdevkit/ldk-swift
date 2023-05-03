@@ -118,7 +118,7 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 					public init(${constructorArguments.join(', ')}) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "${swiftTypeName}.swift::\\(#function):\\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -368,6 +368,8 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 		let needsUnwrapping = argumentType.isAsteriskPointer && !argumentType.isNonnullablePointer;
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::init()::\\(#function):\\(#line)"'
+
 		let memoryManagementInfix = '';
 		if (!(type instanceof RustTrait) && this.hasFreeMethod(type) && argumentType.isAsteriskPointer) {
 			// we wanna dangle this value no matter what, because we don't know the longevity
@@ -396,13 +398,13 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 		if (type instanceof RustVector || type instanceof RustPrimitiveWrapper || type instanceof RustNullableOption) {
 			preparedArgument.methodCallWrapperPrefix += `${this.swiftTypeName(type)}(cType: `;
-			preparedArgument.methodCallWrapperSuffix += `)${memoryManagementInfix}.getValue()`;
+			preparedArgument.methodCallWrapperSuffix += `${instantiationContextInfixTemplate})${memoryManagementInfix}.getValue()`;
 		} else if (type instanceof RustTrait) {
 			preparedArgument.methodCallWrapperPrefix += `NativelyImplemented${this.swiftTypeName(type)}(cType: `;
-			preparedArgument.methodCallWrapperSuffix += `)`;
+			preparedArgument.methodCallWrapperSuffix += `${instantiationContextInfixTemplate})`;
 		} else if (type instanceof RustStruct || type instanceof RustResult || type instanceof RustTaggedValueEnum) {
 			preparedArgument.methodCallWrapperPrefix += `${this.swiftTypeName(type)}(cType: `;
-			preparedArgument.methodCallWrapperSuffix += `)${memoryManagementInfix}`;
+			preparedArgument.methodCallWrapperSuffix += `${instantiationContextInfixTemplate})${memoryManagementInfix}`;
 		} else if (type instanceof RustPrimitive) {
 			// nothing to do here
 		} else if (type instanceof RustArray) {

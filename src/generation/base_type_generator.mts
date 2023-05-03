@@ -244,7 +244,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)")
 				${anchoringCommand}
 			`;
 
@@ -875,6 +875,8 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		 */
 		const hasRecursiveOwnershipFlags = this.isRecursivelyPerpetuallySafelyFreeable(returnType.type);
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)"'
+
 		/**
 		 * The returned object cannot live on its own. It needs the container to stick around.
 		 * Should not be used for elided types, however, because that will make even the Swift
@@ -1010,14 +1012,14 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 					dangleSuffix = '.dangle()';
 				}
 			}
-			preparedReturnValue.wrapperSuffix += `${anchorInfix})${dangleSuffix}`;
+			preparedReturnValue.wrapperSuffix += `${instantiationContextInfixTemplate}${anchorInfix})${dangleSuffix}`;
 			if (returnType.type !== containerType) {
 				// it's an elided type, so we pass it through
 				preparedReturnValue.wrapperSuffix += '.getValue()';
 			}
 		} else if (returnType.type instanceof RustTrait) {
 			preparedReturnValue.wrapperPrefix += `NativelyImplemented${this.swiftTypeName(returnType.type)}(cType: `;
-			preparedReturnValue.wrapperSuffix += `${anchorInfix})${dangleSuffix}`;
+			preparedReturnValue.wrapperSuffix += `${instantiationContextInfixTemplate}${anchorInfix})${dangleSuffix}`;
 		} else if (returnType.type instanceof RustStruct || returnType.type instanceof RustResult || returnType.type instanceof RustTaggedValueEnum) {
 			// basically all the non-elided types
 			if (!this.isElidedType(returnType.type) && returnType.type instanceof RustStruct && containerType instanceof RustStruct && containerType.parentType instanceof RustTaggedValueEnum) {
@@ -1025,7 +1027,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				preparedReturnValue.wrapperPrefix += 'Bindings.';
 			}
 			preparedReturnValue.wrapperPrefix += `${this.swiftTypeName(returnType.type)}(cType: `;
-			preparedReturnValue.wrapperSuffix += `${anchorInfix})${dangleSuffix}`;
+			preparedReturnValue.wrapperSuffix += `${instantiationContextInfixTemplate}${anchorInfix})${dangleSuffix}`;
 		} else if (returnType.type instanceof RustPrimitive) {
 			// nothing to do here
 			return preparedReturnValue;
@@ -1065,20 +1067,20 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 
 					internal var cType: ${typeName}?
 
-					internal init(cType: ${typeName}) {
+					internal init(cType: ${typeName}, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						${initialCFreeabilityInfix}
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: ${typeName}, anchor: NativeTypeWrapper) {
+					internal init(cType: ${typeName}, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						${initialCFreeabilityInfix}
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}

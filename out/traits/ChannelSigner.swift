@@ -22,20 +22,20 @@
 
 					internal var cType: LDKChannelSigner?
 
-					internal init(cType: LDKChannelSigner) {
+					internal init(cType: LDKChannelSigner, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelSigner, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelSigner, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -44,7 +44,7 @@
 					public init(pubkeys: ChannelPublicKeys) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -94,7 +94,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.validateHolderCommitment(holderTx: HolderCommitmentTransaction(cType: holder_tx.pointee).dangle().clone(), preimages: Vec_PaymentPreimageZ(cType: preimages).getValue())
+							let swiftCallbackResult = instance.validateHolderCommitment(holderTx: HolderCommitmentTransaction(cType: holder_tx.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), preimages: Vec_PaymentPreimageZ(cType: preimages, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -130,7 +130,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.provideChannelParameters(channelParameters: ChannelTransactionParameters(cType: channel_parameters.pointee).dangle().clone())
+							let swiftCallbackResult = instance.provideChannelParameters(channelParameters: ChannelTransactionParameters(cType: channel_parameters.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -258,7 +258,7 @@
 					/// Returns the holder's channel public keys and basepoints.
 					public func getPubkeys() -> ChannelPublicKeys {
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: self.cType!.pubkeys, anchor: self)
+						let returnValue = ChannelPublicKeys(cType: self.cType!.pubkeys, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -301,7 +301,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -327,7 +327,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -366,7 +366,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -387,7 +387,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

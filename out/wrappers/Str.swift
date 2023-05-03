@@ -23,26 +23,26 @@
 
 					internal var cType: LDKStr?
 
-					internal init(cType: LDKStr) {
+					internal init(cType: LDKStr, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.chars_is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKStr, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKStr, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.chars_is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: String) {
+					internal init(value: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -50,7 +50,7 @@
 							self.initialCFreeability = self.cType!.chars_is_owned
 			
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Str.swift::\(#function):\(#line)")
 					}
 
 					

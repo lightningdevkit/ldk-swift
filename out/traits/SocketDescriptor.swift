@@ -42,20 +42,20 @@
 
 					internal var cType: LDKSocketDescriptor?
 
-					internal init(cType: LDKSocketDescriptor) {
+					internal init(cType: LDKSocketDescriptor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKSocketDescriptor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKSocketDescriptor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -64,7 +64,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "SocketDescriptor.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -78,7 +78,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.sendData(data: u8slice(cType: data).dangle().getValue(), resumeRead: resume_read)
+							let swiftCallbackResult = instance.sendData(data: u8slice(cType: data, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue(), resumeRead: resume_read)
 
 							// cleanup
 							
@@ -114,7 +114,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.eq(otherArg: NativelyImplementedSocketDescriptor(cType: other_arg.pointee))
+							let swiftCallbackResult = instance.eq(otherArg: NativelyImplementedSocketDescriptor(cType: other_arg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -252,7 +252,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedSocketDescriptor(cType: nativeCallResult)
+						let returnValue = NativelyImplementedSocketDescriptor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

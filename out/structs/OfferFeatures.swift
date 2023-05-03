@@ -21,20 +21,20 @@
 
 					internal var cType: LDKOfferFeatures?
 
-					internal init(cType: LDKOfferFeatures) {
+					internal init(cType: LDKOfferFeatures, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKOfferFeatures, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKOfferFeatures, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OfferFeatures(cType: nativeCallResult)
+						let returnValue = OfferFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -125,7 +125,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OfferFeatures(cType: nativeCallResult)
+						let returnValue = OfferFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

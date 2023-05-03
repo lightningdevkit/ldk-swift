@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_ScalarZ?
 
-					internal init(cType: LDKCOption_ScalarZ) {
+					internal init(cType: LDKCOption_ScalarZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_ScalarZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_ScalarZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: [UInt8]?) {
+					internal init(some: [UInt8]?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -49,7 +49,7 @@
 							self.cType = COption_ScalarZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_ScalarZ.swift::\(#function):\(#line)")
 					}
 
 					
@@ -78,7 +78,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_ScalarZ_Some {
-							return BigEndianScalar(cType: self.cType!.some, anchor: self).dangle().getValue()
+							return BigEndianScalar(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

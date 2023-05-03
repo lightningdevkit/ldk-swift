@@ -24,20 +24,20 @@
 
 					internal var cType: LDKScore?
 
-					internal init(cType: LDKScore) {
+					internal init(cType: LDKScore, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKScore, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKScore, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -46,7 +46,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Score.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -60,7 +60,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.channelPenaltyMsat(shortChannelId: short_channel_id, source: NodeId(cType: source.pointee).dangle().clone(), target: NodeId(cType: target.pointee).dangle().clone(), usage: ChannelUsage(cType: usage))
+							let swiftCallbackResult = instance.channelPenaltyMsat(shortChannelId: short_channel_id, source: NodeId(cType: source.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), target: NodeId(cType: target.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), usage: ChannelUsage(cType: usage, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -78,7 +78,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.paymentPathFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -96,7 +96,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
+							let swiftCallbackResult = instance.paymentPathSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -114,7 +114,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.probeFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -132,7 +132,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
+							let swiftCallbackResult = instance.probeSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -419,7 +419,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

@@ -21,20 +21,20 @@
 
 					internal var cType: LDKCResult_boolLightningErrorZ?
 
-					internal init(cType: LDKCResult_boolLightningErrorZ) {
+					internal init(cType: LDKCResult_boolLightningErrorZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCResult_boolLightningErrorZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCResult_boolLightningErrorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -130,7 +130,7 @@
 					
 					public func getError() -> LightningError? {
 						if self.cType?.result_ok == false {
-							return LightningError(cType: self.cType!.contents.err.pointee, anchor: self)
+							return LightningError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

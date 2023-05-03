@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_CResult_NoneAPIErrorZZ?
 
-					internal init(cType: LDKCVec_CResult_NoneAPIErrorZZ) {
+					internal init(cType: LDKCVec_CResult_NoneAPIErrorZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_CResult_NoneAPIErrorZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_CResult_NoneAPIErrorZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [Result_NoneAPIErrorZ]) {
+					internal init(array: [Result_NoneAPIErrorZ]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_CResult_NoneAPIErrorZZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: Result_NoneAPIErrorZ) -> LDKCResult_NoneAPIErrorZ in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKCResult_NoneAPIErrorZ) -> Result_NoneAPIErrorZ in
-Result_NoneAPIErrorZ(cType: currentCType, anchor: self).dangle()
+Result_NoneAPIErrorZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

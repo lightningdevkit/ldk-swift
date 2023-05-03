@@ -22,20 +22,20 @@
 
 					internal var cType: LDKNetworkUpdate?
 
-					internal init(cType: LDKNetworkUpdate) {
+					internal init(cType: LDKNetworkUpdate, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKNetworkUpdate, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKNetworkUpdate, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -112,7 +112,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult)
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -131,7 +131,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult)
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -150,7 +150,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult)
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -174,7 +174,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult)
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -225,7 +225,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -249,7 +249,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_NetworkUpdateZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_NetworkUpdateZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -262,7 +262,7 @@
 							return nil
 						}
 
-						return NetworkUpdate_LDKChannelUpdateMessage_Body(cType: self.cType!.channel_update_message, anchor: self)
+						return NetworkUpdate_LDKChannelUpdateMessage_Body(cType: self.cType!.channel_update_message, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelFailure() -> ChannelFailure? {
@@ -270,7 +270,7 @@
 							return nil
 						}
 
-						return NetworkUpdate_LDKChannelFailure_Body(cType: self.cType!.channel_failure, anchor: self)
+						return NetworkUpdate_LDKChannelFailure_Body(cType: self.cType!.channel_failure, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsNodeFailure() -> NodeFailure? {
@@ -278,7 +278,7 @@
 							return nil
 						}
 
-						return NetworkUpdate_LDKNodeFailure_Body(cType: self.cType!.node_failure, anchor: self)
+						return NetworkUpdate_LDKNodeFailure_Body(cType: self.cType!.node_failure, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -326,20 +326,20 @@
 
 						internal var cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body?
 
-						internal init(cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body) {
+						internal init(cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKNetworkUpdate_LDKChannelUpdateMessage_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -351,7 +351,7 @@
 						/// The update to apply via [`NetworkGraph::update_channel`].
 						public func getMsg() -> Bindings.ChannelUpdate {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ChannelUpdate(cType: self.cType!.msg, anchor: self)
+							let returnValue = Bindings.ChannelUpdate(cType: self.cType!.msg, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -384,20 +384,20 @@
 
 						internal var cType: LDKNetworkUpdate_LDKChannelFailure_Body?
 
-						internal init(cType: LDKNetworkUpdate_LDKChannelFailure_Body) {
+						internal init(cType: LDKNetworkUpdate_LDKChannelFailure_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKNetworkUpdate_LDKChannelFailure_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKNetworkUpdate_LDKChannelFailure_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -451,20 +451,20 @@
 
 						internal var cType: LDKNetworkUpdate_LDKNodeFailure_Body?
 
-						internal init(cType: LDKNetworkUpdate_LDKNodeFailure_Body) {
+						internal init(cType: LDKNetworkUpdate_LDKNodeFailure_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKNetworkUpdate_LDKNodeFailure_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKNetworkUpdate_LDKNodeFailure_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -476,7 +476,7 @@
 						/// The node id of the failed node.
 						public func getNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.node_id, anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

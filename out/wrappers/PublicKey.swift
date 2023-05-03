@@ -21,32 +21,32 @@
 
 					internal var cType: LDKPublicKey?
 
-					internal init(cType: LDKPublicKey) {
+					internal init(cType: LDKPublicKey, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKPublicKey, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKPublicKey, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt8]) {
+					internal init(value: [UInt8]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKPublicKey(compressed_form: Bindings.arrayToUInt8Tuple33(array: value))
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "PublicKey.swift::\(#function):\(#line)")
 					}
 
 					

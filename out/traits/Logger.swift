@@ -20,20 +20,20 @@
 
 					internal var cType: LDKLogger?
 
-					internal init(cType: LDKLogger) {
+					internal init(cType: LDKLogger, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKLogger, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKLogger, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -42,7 +42,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Logger.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.log(record: Record(cType: record.pointee).dangle().clone())
+							let swiftCallbackResult = instance.log(record: Record(cType: record.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							

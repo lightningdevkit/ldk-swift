@@ -23,20 +23,20 @@
 
 					internal var cType: LDKTxOut?
 
-					internal init(cType: LDKTxOut) {
+					internal init(cType: LDKTxOut, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKTxOut, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKTxOut, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -60,7 +60,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: nativeCallResult)
+						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -68,7 +68,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -109,7 +109,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: nativeCallResult)
+						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -120,7 +120,7 @@
 					/// The script_pubkey in this output
 					public func getScriptPubkey() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: self.cType!.script_pubkey, anchor: self).getValue()
+						let returnValue = Vec_u8Z(cType: self.cType!.script_pubkey, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 
 						return returnValue;
 					}

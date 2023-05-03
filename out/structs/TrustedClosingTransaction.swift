@@ -31,20 +31,20 @@
 
 					internal var cType: LDKTrustedClosingTransaction?
 
-					internal init(cType: LDKTrustedClosingTransaction) {
+					internal init(cType: LDKTrustedClosingTransaction, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKTrustedClosingTransaction, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKTrustedClosingTransaction, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Transaction(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -117,7 +117,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -152,7 +152,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

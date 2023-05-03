@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_MonitorUpdateIdZ?
 
-					internal init(cType: LDKCVec_MonitorUpdateIdZ) {
+					internal init(cType: LDKCVec_MonitorUpdateIdZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_MonitorUpdateIdZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_MonitorUpdateIdZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [MonitorUpdateId]) {
+					internal init(array: [MonitorUpdateId]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_MonitorUpdateIdZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: MonitorUpdateId) -> LDKMonitorUpdateId in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKMonitorUpdateId) -> MonitorUpdateId in
-MonitorUpdateId(cType: currentCType, anchor: self).dangle()
+MonitorUpdateId(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

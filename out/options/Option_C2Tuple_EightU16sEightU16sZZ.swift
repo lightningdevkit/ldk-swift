@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_C2Tuple_EightU16sEightU16sZZ?
 
-					internal init(cType: LDKCOption_C2Tuple_EightU16sEightU16sZZ) {
+					internal init(cType: LDKCOption_C2Tuple_EightU16sEightU16sZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_C2Tuple_EightU16sEightU16sZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_C2Tuple_EightU16sEightU16sZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: ([UInt16], [UInt16])?) {
+					internal init(some: ([UInt16], [UInt16])?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -49,7 +49,7 @@
 							self.cType = COption_C2Tuple_EightU16sEightU16sZZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_C2Tuple_EightU16sEightU16sZZ.swift::\(#function):\(#line)")
 					}
 
 					
@@ -90,7 +90,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_C2Tuple_EightU16sEightU16sZZ(cType: nativeCallResult)
+						let returnValue = Option_C2Tuple_EightU16sEightU16sZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_C2Tuple_EightU16sEightU16sZZ_Some {
-							return Tuple__u168_u168Z(cType: self.cType!.some, anchor: self).dangle().getValue()
+							return Tuple__u168_u168Z(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

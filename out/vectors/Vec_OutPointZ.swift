@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_OutPointZ?
 
-					internal init(cType: LDKCVec_OutPointZ) {
+					internal init(cType: LDKCVec_OutPointZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_OutPointZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_OutPointZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [OutPoint]) {
+					internal init(array: [OutPoint]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_OutPointZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: OutPoint) -> LDKOutPoint in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKOutPoint) -> OutPoint in
-OutPoint(cType: currentCType, anchor: self).dangle()
+OutPoint(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

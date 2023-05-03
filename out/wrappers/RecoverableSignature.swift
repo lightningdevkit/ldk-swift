@@ -23,32 +23,32 @@
 
 					internal var cType: LDKRecoverableSignature?
 
-					internal init(cType: LDKRecoverableSignature) {
+					internal init(cType: LDKRecoverableSignature, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRecoverableSignature, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRecoverableSignature, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt8]) {
+					internal init(value: [UInt8]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKRecoverableSignature(serialized_form: Bindings.arrayToUInt8Tuple68(array: value))
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "RecoverableSignature.swift::\(#function):\(#line)")
 					}
 
 					

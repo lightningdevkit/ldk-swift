@@ -21,32 +21,32 @@
 
 					internal var cType: LDKU5?
 
-					internal init(cType: LDKU5) {
+					internal init(cType: LDKU5, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKU5, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKU5, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: UInt8) {
+					internal init(value: UInt8) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKU5(_0: value)
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "U5.swift::\(#function):\(#line)")
 					}
 
 					

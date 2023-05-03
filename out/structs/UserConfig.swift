@@ -27,20 +27,20 @@
 
 					internal var cType: LDKUserConfig?
 
-					internal init(cType: LDKUserConfig) {
+					internal init(cType: LDKUserConfig, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKUserConfig, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKUserConfig, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -83,7 +83,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelHandshakeConfig(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelHandshakeConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -129,7 +129,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelHandshakeLimits(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelHandshakeLimits(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -175,7 +175,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelConfig(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -477,7 +477,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = UserConfig(cType: nativeCallResult)
+						let returnValue = UserConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -485,7 +485,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -507,7 +507,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UserConfig(cType: nativeCallResult)
+						let returnValue = UserConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -526,7 +526,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UserConfig(cType: nativeCallResult)
+						let returnValue = UserConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

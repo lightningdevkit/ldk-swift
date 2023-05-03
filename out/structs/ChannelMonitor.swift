@@ -51,20 +51,20 @@
 
 					internal var cType: LDKChannelMonitor?
 
-					internal init(cType: LDKChannelMonitor) {
+					internal init(cType: LDKChannelMonitor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelMonitor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelMonitor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -107,7 +107,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelMonitor(cType: nativeCallResult)
+						let returnValue = ChannelMonitor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -130,7 +130,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -168,7 +168,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -215,7 +215,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -239,7 +239,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -292,7 +292,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_MonitorEventZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_MonitorEventZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -322,7 +322,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_EventZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_EventZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -358,7 +358,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -399,7 +399,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_TransactionZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -442,7 +442,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -511,7 +511,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -580,7 +580,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -603,7 +603,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -627,7 +627,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BestBlock(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = BestBlock(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -664,7 +664,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_BalanceZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue

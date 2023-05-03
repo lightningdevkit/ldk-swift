@@ -38,20 +38,20 @@
 
 					internal var cType: LDKCustomOnionMessageHandler?
 
-					internal init(cType: LDKCustomOnionMessageHandler) {
+					internal init(cType: LDKCustomOnionMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCustomOnionMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCustomOnionMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -60,7 +60,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -74,7 +74,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedCustomOnionMessageContents(cType: msg))
+							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedCustomOnionMessageContents(cType: msg, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.readCustomMessage(messageType: message_type, buffer: u8slice(cType: buffer).dangle().getValue())
+							let swiftCallbackResult = instance.readCustomMessage(messageType: message_type, buffer: u8slice(cType: buffer, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -222,7 +222,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_COption_CustomOnionMessageContentsZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_CustomOnionMessageContentsZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}

@@ -21,20 +21,20 @@
 
 					internal var cType: LDKUtxoResult?
 
-					internal init(cType: LDKUtxoResult) {
+					internal init(cType: LDKUtxoResult, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKUtxoResult, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKUtxoResult, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -109,7 +109,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UtxoResult(cType: nativeCallResult)
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -128,7 +128,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UtxoResult(cType: nativeCallResult)
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -147,7 +147,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UtxoResult(cType: nativeCallResult)
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -160,7 +160,7 @@
 							return nil
 						}
 
-						return Result_TxOutUtxoLookupErrorZ(cType: self.cType!.sync, anchor: self)
+						return Result_TxOutUtxoLookupErrorZ(cType: self.cType!.sync, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsAsync() -> Bindings.UtxoFuture? {
@@ -168,7 +168,7 @@
 							return nil
 						}
 
-						return UtxoFuture(cType: self.cType!.async, anchor: self)
+						return UtxoFuture(cType: self.cType!.async, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 

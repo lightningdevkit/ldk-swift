@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_C2Tuple_TxidBlockHashZZ?
 
-					internal init(cType: LDKCVec_C2Tuple_TxidBlockHashZZ) {
+					internal init(cType: LDKCVec_C2Tuple_TxidBlockHashZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_C2Tuple_TxidBlockHashZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_C2Tuple_TxidBlockHashZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [([UInt8], [UInt8])]) {
+					internal init(array: [([UInt8], [UInt8])]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_C2Tuple_TxidBlockHashZZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: ([UInt8], [UInt8])) -> LDKC2Tuple_TxidBlockHashZ in
@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_TxidBlockHashZ) -> ([UInt8], [UInt8]) in
-Tuple_TxidBlockHashZ(cType: currentCType).dangle().getValue()
+Tuple_TxidBlockHashZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

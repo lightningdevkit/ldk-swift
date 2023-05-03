@@ -20,20 +20,20 @@
 
 					internal var cType: LDKNodeSigner?
 
-					internal init(cType: LDKNodeSigner) {
+					internal init(cType: LDKNodeSigner, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKNodeSigner, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKNodeSigner, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -42,7 +42,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.ecdh(recipient: Recipient(value: recipient), otherKey: PublicKey(cType: other_key).getValue(), tweak: Option_ScalarZ(cType: tweak).getValue())
+							let swiftCallbackResult = instance.ecdh(recipient: Recipient(value: recipient), otherKey: PublicKey(cType: other_key, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), tweak: Option_ScalarZ(cType: tweak, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -110,7 +110,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signInvoice(hrpBytes: u8slice(cType: hrp_bytes).dangle().getValue(), invoiceData: Vec_U5Z(cType: invoice_data).getValue(), recipient: Recipient(value: recipient))
+							let swiftCallbackResult = instance.signInvoice(hrpBytes: u8slice(cType: hrp_bytes, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue(), invoiceData: Vec_U5Z(cType: invoice_data, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), recipient: Recipient(value: recipient))
 
 							// cleanup
 							
@@ -128,7 +128,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signGossipMessage(msg: UnsignedGossipMessage(cType: msg))
+							let swiftCallbackResult = instance.signGossipMessage(msg: UnsignedGossipMessage(cType: msg, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -299,7 +299,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -323,7 +323,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_PublicKeyNoneZ(cType: nativeCallResult)
+						let returnValue = Result_PublicKeyNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -356,7 +356,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_SharedSecretNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SharedSecretNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -394,7 +394,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_RecoverableSignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_RecoverableSignatureNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -418,7 +418,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}

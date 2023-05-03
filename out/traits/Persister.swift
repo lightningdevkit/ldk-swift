@@ -20,20 +20,20 @@
 
 					internal var cType: LDKPersister?
 
-					internal init(cType: LDKPersister) {
+					internal init(cType: LDKPersister, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKPersister, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKPersister, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -42,7 +42,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistManager(channelManager: ChannelManager(cType: channel_manager.pointee).dangle())
+							let swiftCallbackResult = instance.persistManager(channelManager: ChannelManager(cType: channel_manager.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle())
 
 							// cleanup
 							
@@ -74,7 +74,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistGraph(networkGraph: NetworkGraph(cType: network_graph.pointee).dangle())
+							let swiftCallbackResult = instance.persistGraph(networkGraph: NetworkGraph(cType: network_graph.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle())
 
 							// cleanup
 							
@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistScorer(scorer: NativelyImplementedWriteableScore(cType: scorer.pointee))
+							let swiftCallbackResult = instance.persistScorer(scorer: NativelyImplementedWriteableScore(cType: scorer.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -208,7 +208,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -231,7 +231,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -254,7 +254,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}

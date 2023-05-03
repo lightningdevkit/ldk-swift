@@ -23,26 +23,26 @@
 
 					internal var cType: LDKu8slice?
 
-					internal init(cType: LDKu8slice) {
+					internal init(cType: LDKu8slice, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKu8slice, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKu8slice, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt8]) {
+					internal init(value: [UInt8]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -52,7 +52,7 @@
 						self.cType = LDKu8slice(data: dataContainer, datalen: UInt(value.count))
 				
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "u8slice.swift::\(#function):\(#line)")
 					}
 
 					

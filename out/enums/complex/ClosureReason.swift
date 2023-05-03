@@ -19,20 +19,20 @@
 
 					internal var cType: LDKClosureReason?
 
-					internal init(cType: LDKClosureReason) {
+					internal init(cType: LDKClosureReason, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKClosureReason, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKClosureReason, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -157,7 +157,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -181,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -200,7 +200,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -219,7 +219,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -238,7 +238,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -257,7 +257,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -281,7 +281,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -300,7 +300,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -319,7 +319,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosureReason(cType: nativeCallResult)
+						let returnValue = ClosureReason(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -370,7 +370,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -394,7 +394,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_ClosureReasonZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_ClosureReasonZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -407,7 +407,7 @@
 							return nil
 						}
 
-						return ClosureReason_LDKCounterpartyForceClosed_Body(cType: self.cType!.counterparty_force_closed, anchor: self)
+						return ClosureReason_LDKCounterpartyForceClosed_Body(cType: self.cType!.counterparty_force_closed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsProcessingError() -> ProcessingError? {
@@ -415,7 +415,7 @@
 							return nil
 						}
 
-						return ClosureReason_LDKProcessingError_Body(cType: self.cType!.processing_error, anchor: self)
+						return ClosureReason_LDKProcessingError_Body(cType: self.cType!.processing_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -463,20 +463,20 @@
 
 						internal var cType: LDKClosureReason_LDKCounterpartyForceClosed_Body?
 
-						internal init(cType: LDKClosureReason_LDKCounterpartyForceClosed_Body) {
+						internal init(cType: LDKClosureReason_LDKCounterpartyForceClosed_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKClosureReason_LDKCounterpartyForceClosed_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKClosureReason_LDKCounterpartyForceClosed_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -492,7 +492,7 @@
 						/// a security vulnerability in the terminal emulator or the logging subsystem.
 						public func getPeerMsg() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.peer_msg, anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.peer_msg, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -525,20 +525,20 @@
 
 						internal var cType: LDKClosureReason_LDKProcessingError_Body?
 
-						internal init(cType: LDKClosureReason_LDKProcessingError_Body) {
+						internal init(cType: LDKClosureReason_LDKProcessingError_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKClosureReason_LDKProcessingError_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKClosureReason_LDKProcessingError_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -550,7 +550,7 @@
 						/// A developer-readable error message which we generated.
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

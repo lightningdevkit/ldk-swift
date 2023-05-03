@@ -56,20 +56,20 @@
 
 					internal var cType: LDKWatch?
 
-					internal init(cType: LDKWatch) {
+					internal init(cType: LDKWatch, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKWatch, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKWatch, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -78,7 +78,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Watch.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.watchChannel(fundingTxo: OutPoint(cType: funding_txo), monitor: ChannelMonitor(cType: monitor))
+							let swiftCallbackResult = instance.watchChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), monitor: ChannelMonitor(cType: monitor, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -110,7 +110,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo), update: ChannelMonitorUpdate(cType: update.pointee).dangle().clone())
+							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), update: ChannelMonitorUpdate(cType: update.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -330,7 +330,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(cType: nativeCallResult).getValue()
+						let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

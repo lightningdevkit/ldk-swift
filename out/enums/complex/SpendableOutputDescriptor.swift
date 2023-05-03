@@ -27,20 +27,20 @@
 
 					internal var cType: LDKSpendableOutputDescriptor?
 
-					internal init(cType: LDKSpendableOutputDescriptor) {
+					internal init(cType: LDKSpendableOutputDescriptor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKSpendableOutputDescriptor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKSpendableOutputDescriptor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -166,7 +166,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult)
+						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -185,7 +185,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult)
+						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -204,7 +204,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult)
+						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -223,7 +223,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult)
+						let returnValue = SpendableOutputDescriptor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -274,7 +274,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -298,7 +298,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_SpendableOutputDescriptorDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_SpendableOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -311,7 +311,7 @@
 							return nil
 						}
 
-						return SpendableOutputDescriptor_LDKStaticOutput_Body(cType: self.cType!.static_output, anchor: self)
+						return SpendableOutputDescriptor_LDKStaticOutput_Body(cType: self.cType!.static_output, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsDelayedPaymentOutput() -> Bindings.DelayedPaymentOutputDescriptor? {
@@ -319,7 +319,7 @@
 							return nil
 						}
 
-						return DelayedPaymentOutputDescriptor(cType: self.cType!.delayed_payment_output, anchor: self)
+						return DelayedPaymentOutputDescriptor(cType: self.cType!.delayed_payment_output, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsStaticPaymentOutput() -> Bindings.StaticPaymentOutputDescriptor? {
@@ -327,7 +327,7 @@
 							return nil
 						}
 
-						return StaticPaymentOutputDescriptor(cType: self.cType!.static_payment_output, anchor: self)
+						return StaticPaymentOutputDescriptor(cType: self.cType!.static_payment_output, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -375,20 +375,20 @@
 
 						internal var cType: LDKSpendableOutputDescriptor_LDKStaticOutput_Body?
 
-						internal init(cType: LDKSpendableOutputDescriptor_LDKStaticOutput_Body) {
+						internal init(cType: LDKSpendableOutputDescriptor_LDKStaticOutput_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKSpendableOutputDescriptor_LDKStaticOutput_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKSpendableOutputDescriptor_LDKStaticOutput_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -400,7 +400,7 @@
 						/// The outpoint which is spendable.
 						public func getOutpoint() -> Bindings.OutPoint {
 							// return value (do some wrapping)
-							let returnValue = Bindings.OutPoint(cType: self.cType!.outpoint, anchor: self)
+							let returnValue = Bindings.OutPoint(cType: self.cType!.outpoint, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -408,7 +408,7 @@
 						/// The output which is referenced by the given outpoint.
 						public func getOutput() -> Bindings.TxOut {
 							// return value (do some wrapping)
-							let returnValue = Bindings.TxOut(cType: self.cType!.output, anchor: self)
+							let returnValue = Bindings.TxOut(cType: self.cType!.output, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

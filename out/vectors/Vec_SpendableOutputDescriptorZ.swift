@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_SpendableOutputDescriptorZ?
 
-					internal init(cType: LDKCVec_SpendableOutputDescriptorZ) {
+					internal init(cType: LDKCVec_SpendableOutputDescriptorZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_SpendableOutputDescriptorZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_SpendableOutputDescriptorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [SpendableOutputDescriptor]) {
+					internal init(array: [SpendableOutputDescriptor]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_SpendableOutputDescriptorZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: SpendableOutputDescriptor) -> LDKSpendableOutputDescriptor in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKSpendableOutputDescriptor) -> SpendableOutputDescriptor in
-SpendableOutputDescriptor(cType: currentCType, anchor: self).dangle()
+SpendableOutputDescriptor(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

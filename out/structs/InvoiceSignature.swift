@@ -21,20 +21,20 @@
 
 					internal var cType: LDKInvoiceSignature?
 
-					internal init(cType: LDKInvoiceSignature) {
+					internal init(cType: LDKInvoiceSignature, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKInvoiceSignature, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKInvoiceSignature, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceSignature(cType: nativeCallResult)
+						let returnValue = InvoiceSignature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

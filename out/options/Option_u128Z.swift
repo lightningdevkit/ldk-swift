@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_u128Z?
 
-					internal init(cType: LDKCOption_u128Z) {
+					internal init(cType: LDKCOption_u128Z, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_u128Z, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_u128Z, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: [UInt8]?) {
+					internal init(some: [UInt8]?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -49,7 +49,7 @@
 							self.cType = COption_u128Z_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_u128Z.swift::\(#function):\(#line)")
 					}
 
 					
@@ -90,7 +90,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u128Z(cType: nativeCallResult)
+						let returnValue = Option_u128Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_u128Z_Some {
-							return U128(cType: self.cType!.some, anchor: self).dangle().getValue()
+							return U128(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

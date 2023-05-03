@@ -21,32 +21,32 @@
 
 					internal var cType: LDKTwentyBytes?
 
-					internal init(cType: LDKTwentyBytes) {
+					internal init(cType: LDKTwentyBytes, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKTwentyBytes, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKTwentyBytes, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt8]) {
+					internal init(value: [UInt8]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKTwentyBytes(data: Bindings.arrayToUInt8Tuple20(array: value))
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "TwentyBytes.swift::\(#function):\(#line)")
 					}
 
 					

@@ -20,20 +20,20 @@
 
 					internal var cType: LDKParseError?
 
-					internal init(cType: LDKParseError) {
+					internal init(cType: LDKParseError, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKParseError, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKParseError, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -198,7 +198,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -217,7 +217,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -236,7 +236,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -255,7 +255,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -274,7 +274,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -293,7 +293,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -312,7 +312,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -331,7 +331,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -350,7 +350,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -369,7 +369,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -388,7 +388,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -407,7 +407,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -426,7 +426,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -445,7 +445,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -464,7 +464,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -483,7 +483,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -502,7 +502,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -526,7 +526,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -545,7 +545,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseError(cType: nativeCallResult)
+						let returnValue = ParseError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -596,7 +596,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -609,7 +609,7 @@
 							return nil
 						}
 
-						return Bech32Error(cType: self.cType!.bech32_error, anchor: self)
+						return Bech32Error(cType: self.cType!.bech32_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsParseAmountError() -> Bindings.BindingsError? {
@@ -617,7 +617,7 @@
 							return nil
 						}
 
-						return BindingsError(cType: self.cType!.parse_amount_error, anchor: self)
+						return BindingsError(cType: self.cType!.parse_amount_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsMalformedSignature() -> Secp256k1Error? {
@@ -633,7 +633,7 @@
 							return nil
 						}
 
-						return BindingsError(cType: self.cType!.description_decode_error, anchor: self)
+						return BindingsError(cType: self.cType!.description_decode_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsInvalidSliceLength() -> String? {
@@ -641,7 +641,7 @@
 							return nil
 						}
 
-						return Str(cType: self.cType!.invalid_slice_length, anchor: self).getValue()
+						return Str(cType: self.cType!.invalid_slice_length, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 

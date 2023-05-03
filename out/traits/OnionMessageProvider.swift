@@ -20,20 +20,20 @@
 
 					internal var cType: LDKOnionMessageProvider?
 
-					internal init(cType: LDKOnionMessageProvider) {
+					internal init(cType: LDKOnionMessageProvider, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKOnionMessageProvider, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKOnionMessageProvider, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -42,7 +42,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "OnionMessageProvider.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.nextOnionMessageForPeer(peerNodeId: PublicKey(cType: peer_node_id).getValue())
+							let swiftCallbackResult = instance.nextOnionMessageForPeer(peerNodeId: PublicKey(cType: peer_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -161,7 +161,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = OnionMessage(cType: nativeCallResult)
+						let returnValue = OnionMessage(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}

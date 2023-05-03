@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_UpdateFulfillHTLCZ?
 
-					internal init(cType: LDKCVec_UpdateFulfillHTLCZ) {
+					internal init(cType: LDKCVec_UpdateFulfillHTLCZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_UpdateFulfillHTLCZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_UpdateFulfillHTLCZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [UpdateFulfillHTLC]) {
+					internal init(array: [UpdateFulfillHTLC]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_UpdateFulfillHTLCZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: UpdateFulfillHTLC) -> LDKUpdateFulfillHTLC in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKUpdateFulfillHTLC) -> UpdateFulfillHTLC in
-UpdateFulfillHTLC(cType: currentCType, anchor: self).dangle()
+UpdateFulfillHTLC(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

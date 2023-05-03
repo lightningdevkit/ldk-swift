@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_C2Tuple_usizeTransactionZZ?
 
-					internal init(cType: LDKCVec_C2Tuple_usizeTransactionZZ) {
+					internal init(cType: LDKCVec_C2Tuple_usizeTransactionZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_C2Tuple_usizeTransactionZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_C2Tuple_usizeTransactionZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [(UInt, [UInt8])]) {
+					internal init(array: [(UInt, [UInt8])]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_C2Tuple_usizeTransactionZZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: (UInt, [UInt8])) -> LDKC2Tuple_usizeTransactionZ in
@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_usizeTransactionZ) -> (UInt, [UInt8]) in
-Tuple_usizeTransactionZ(cType: currentCType).dangle().getValue()
+Tuple_usizeTransactionZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ?
 
-					internal init(cType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ) {
+					internal init(cType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_C2Tuple_BlockHashChannelMonitorZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [([UInt8], ChannelMonitor)]) {
+					internal init(array: [([UInt8], ChannelMonitor)]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_C2Tuple_BlockHashChannelMonitorZZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: ([UInt8], ChannelMonitor)) -> LDKC2Tuple_BlockHashChannelMonitorZ in
@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_BlockHashChannelMonitorZ) -> ([UInt8], ChannelMonitor) in
-Tuple_BlockHashChannelMonitorZ(cType: currentCType).dangle().getValue()
+Tuple_BlockHashChannelMonitorZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

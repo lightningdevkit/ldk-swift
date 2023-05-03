@@ -90,20 +90,20 @@
 
 					internal var cType: LDKEventsProvider?
 
-					internal init(cType: LDKEventsProvider) {
+					internal init(cType: LDKEventsProvider, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKEventsProvider, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKEventsProvider, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -112,7 +112,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "EventsProvider.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -126,7 +126,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.processPendingEvents(handler: NativelyImplementedEventHandler(cType: handler))
+							let swiftCallbackResult = instance.processPendingEvents(handler: NativelyImplementedEventHandler(cType: handler, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							

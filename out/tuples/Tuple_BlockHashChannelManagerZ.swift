@@ -17,20 +17,20 @@
 
 					internal var cType: LDKC2Tuple_BlockHashChannelManagerZ?
 
-					internal init(cType: LDKC2Tuple_BlockHashChannelManagerZ) {
+					internal init(cType: LDKC2Tuple_BlockHashChannelManagerZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC2Tuple_BlockHashChannelManagerZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC2Tuple_BlockHashChannelManagerZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -60,7 +60,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_BlockHashChannelManagerZ(cType: nativeCallResult)
+						let returnValue = Tuple_BlockHashChannelManagerZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -68,7 +68,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -111,7 +111,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -126,7 +126,7 @@
 					/// The element at position 0
 					public func getA() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: self.cType!.a, anchor: self).dangle().getValue()
+						let returnValue = ThirtyTwoBytes(cType: self.cType!.a, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -134,7 +134,7 @@
 					/// The element at position 1
 					public func getB() -> ChannelManager {
 						// return value (do some wrapping)
-						let returnValue = ChannelManager(cType: self.cType!.b, anchor: self).dangle()
+						let returnValue = ChannelManager(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}

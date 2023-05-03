@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_HTLCClaimZ?
 
-					internal init(cType: LDKCOption_HTLCClaimZ) {
+					internal init(cType: LDKCOption_HTLCClaimZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_HTLCClaimZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_HTLCClaimZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: HTLCClaim?) {
+					internal init(some: HTLCClaim?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_HTLCClaimZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_HTLCClaimZ.swift::\(#function):\(#line)")
 					}
 
 					

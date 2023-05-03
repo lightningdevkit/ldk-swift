@@ -90,20 +90,20 @@
 
 					internal var cType: LDKConfirm?
 
-					internal init(cType: LDKConfirm) {
+					internal init(cType: LDKConfirm, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKConfirm, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKConfirm, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -112,7 +112,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Confirm.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -131,7 +131,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.transactionsConfirmed(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata).getValue(), height: height)
+							let swiftCallbackResult = instance.transactionsConfirmed(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), height: height)
 
 							// cleanup
 							
@@ -489,7 +489,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult).getValue()
+						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

@@ -27,20 +27,20 @@
 
 					internal var cType: LDKExpandedKey?
 
-					internal init(cType: LDKExpandedKey) {
+					internal init(cType: LDKExpandedKey, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKExpandedKey, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKExpandedKey, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -89,7 +89,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ExpandedKey(cType: nativeCallResult)
+						let returnValue = ExpandedKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -97,7 +97,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}

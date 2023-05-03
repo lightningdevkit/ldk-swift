@@ -20,20 +20,20 @@
 
 					internal var cType: LDKSignerProvider?
 
-					internal init(cType: LDKSignerProvider) {
+					internal init(cType: LDKSignerProvider, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKSignerProvider, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKSignerProvider, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -42,7 +42,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.generateChannelKeysId(inbound: inbound, channelValueSatoshis: channel_value_satoshis, userChannelId: U128(cType: user_channel_id).getValue())
+							let swiftCallbackResult = instance.generateChannelKeysId(inbound: inbound, channelValueSatoshis: channel_value_satoshis, userChannelId: U128(cType: user_channel_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -74,7 +74,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.deriveChannelSigner(channelValueSatoshis: channel_value_satoshis, channelKeysId: ThirtyTwoBytes(cType: channel_keys_id).getValue())
+							let swiftCallbackResult = instance.deriveChannelSigner(channelValueSatoshis: channel_value_satoshis, channelKeysId: ThirtyTwoBytes(cType: channel_keys_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.readChanSigner(reader: u8slice(cType: reader).dangle().getValue())
+							let swiftCallbackResult = instance.readChanSigner(reader: u8slice(cType: reader, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -294,7 +294,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -323,7 +323,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 						return returnValue
 					}
@@ -359,7 +359,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_WriteableEcdsaChannelSignerDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_WriteableEcdsaChannelSignerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -381,7 +381,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -403,7 +403,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = ShutdownScript(cType: nativeCallResult)
+						let returnValue = ShutdownScript(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}

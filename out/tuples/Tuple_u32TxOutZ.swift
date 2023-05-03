@@ -17,20 +17,20 @@
 
 					internal var cType: LDKC2Tuple_u32TxOutZ?
 
-					internal init(cType: LDKC2Tuple_u32TxOutZ) {
+					internal init(cType: LDKC2Tuple_u32TxOutZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC2Tuple_u32TxOutZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC2Tuple_u32TxOutZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult)
+						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -78,7 +78,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult)
+						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -86,7 +86,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -127,7 +127,7 @@
 					/// The element at position 1
 					public func getB() -> TxOut {
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: self.cType!.b, anchor: self).dangle()
+						let returnValue = TxOut(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}

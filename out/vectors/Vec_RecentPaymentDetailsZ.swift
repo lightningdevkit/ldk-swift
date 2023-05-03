@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_RecentPaymentDetailsZ?
 
-					internal init(cType: LDKCVec_RecentPaymentDetailsZ) {
+					internal init(cType: LDKCVec_RecentPaymentDetailsZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_RecentPaymentDetailsZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_RecentPaymentDetailsZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [RecentPaymentDetails]) {
+					internal init(array: [RecentPaymentDetails]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_RecentPaymentDetailsZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: RecentPaymentDetails) -> LDKRecentPaymentDetails in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKRecentPaymentDetails) -> RecentPaymentDetails in
-RecentPaymentDetails(cType: currentCType, anchor: self).dangle()
+RecentPaymentDetails(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

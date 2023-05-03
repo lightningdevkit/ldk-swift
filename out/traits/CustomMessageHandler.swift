@@ -34,20 +34,20 @@
 
 					internal var cType: LDKCustomMessageHandler?
 
-					internal init(cType: LDKCustomMessageHandler) {
+					internal init(cType: LDKCustomMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCustomMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCustomMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -56,7 +56,7 @@
 					public init(customMessageReader: CustomMessageReader) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -70,7 +70,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedBindingsType(cType: msg), senderNodeId: PublicKey(cType: sender_node_id).getValue())
+							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedBindingsType(cType: msg, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), senderNodeId: PublicKey(cType: sender_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -164,7 +164,7 @@
 					/// Implementation of CustomMessageReader for this object.
 					public func getCustomMessageReader() -> CustomMessageReader {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageReader(cType: self.cType!.CustomMessageReader, anchor: self)
+						let returnValue = NativelyImplementedCustomMessageReader(cType: self.cType!.CustomMessageReader, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -212,7 +212,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -233,7 +233,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(cType: nativeCallResult).getValue()
+						let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

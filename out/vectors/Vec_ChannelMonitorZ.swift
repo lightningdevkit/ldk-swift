@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_ChannelMonitorZ?
 
-					internal init(cType: LDKCVec_ChannelMonitorZ) {
+					internal init(cType: LDKCVec_ChannelMonitorZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_ChannelMonitorZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_ChannelMonitorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [ChannelMonitor]) {
+					internal init(array: [ChannelMonitor]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_ChannelMonitorZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: ChannelMonitor) -> LDKChannelMonitor in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKChannelMonitor) -> ChannelMonitor in
-ChannelMonitor(cType: currentCType, anchor: self).dangle()
+ChannelMonitor(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

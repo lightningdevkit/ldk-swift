@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_WriteableScoreZ?
 
-					internal init(cType: LDKCOption_WriteableScoreZ) {
+					internal init(cType: LDKCOption_WriteableScoreZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_WriteableScoreZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_WriteableScoreZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: WriteableScore?) {
+					internal init(some: WriteableScore?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_WriteableScoreZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_WriteableScoreZ.swift::\(#function):\(#line)")
 					}
 
 					
@@ -76,7 +76,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_WriteableScoreZ_Some {
-							return NativelyImplementedWriteableScore(cType: self.cType!.some, anchor: self).dangle()
+							return NativelyImplementedWriteableScore(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						assert(false, "invalid option enum value")
 						return nil

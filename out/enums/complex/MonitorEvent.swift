@@ -19,20 +19,20 @@
 
 					internal var cType: LDKMonitorEvent?
 
-					internal init(cType: LDKMonitorEvent) {
+					internal init(cType: LDKMonitorEvent, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKMonitorEvent, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKMonitorEvent, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -118,7 +118,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult)
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -137,7 +137,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult)
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult)
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -175,7 +175,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult)
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -194,7 +194,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult)
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -245,7 +245,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -269,7 +269,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_MonitorEventZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_MonitorEventZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -282,7 +282,7 @@
 							return nil
 						}
 
-						return HTLCUpdate(cType: self.cType!.htlc_event, anchor: self)
+						return HTLCUpdate(cType: self.cType!.htlc_event, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsCommitmentTxConfirmed() -> Bindings.OutPoint? {
@@ -290,7 +290,7 @@
 							return nil
 						}
 
-						return OutPoint(cType: self.cType!.commitment_tx_confirmed, anchor: self)
+						return OutPoint(cType: self.cType!.commitment_tx_confirmed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsCompleted() -> Completed? {
@@ -298,7 +298,7 @@
 							return nil
 						}
 
-						return MonitorEvent_LDKCompleted_Body(cType: self.cType!.completed, anchor: self)
+						return MonitorEvent_LDKCompleted_Body(cType: self.cType!.completed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsUpdateFailed() -> Bindings.OutPoint? {
@@ -306,7 +306,7 @@
 							return nil
 						}
 
-						return OutPoint(cType: self.cType!.update_failed, anchor: self)
+						return OutPoint(cType: self.cType!.update_failed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -354,20 +354,20 @@
 
 						internal var cType: LDKMonitorEvent_LDKCompleted_Body?
 
-						internal init(cType: LDKMonitorEvent_LDKCompleted_Body) {
+						internal init(cType: LDKMonitorEvent_LDKCompleted_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKMonitorEvent_LDKCompleted_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKMonitorEvent_LDKCompleted_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -379,7 +379,7 @@
 						/// The funding outpoint of the [`ChannelMonitor`] that was updated
 						public func getFundingTxo() -> Bindings.OutPoint {
 							// return value (do some wrapping)
-							let returnValue = Bindings.OutPoint(cType: self.cType!.funding_txo, anchor: self)
+							let returnValue = Bindings.OutPoint(cType: self.cType!.funding_txo, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

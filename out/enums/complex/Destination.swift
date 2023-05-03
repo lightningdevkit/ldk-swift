@@ -19,20 +19,20 @@
 
 					internal var cType: LDKDestination?
 
-					internal init(cType: LDKDestination) {
+					internal init(cType: LDKDestination, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKDestination, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKDestination, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -100,7 +100,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Destination(cType: nativeCallResult)
+						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -124,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Destination(cType: nativeCallResult)
+						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -143,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Destination(cType: nativeCallResult)
+						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 							return nil
 						}
 
-						return PublicKey(cType: self.cType!.node, anchor: self).getValue()
+						return PublicKey(cType: self.cType!.node, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsBlindedPath() -> Bindings.BlindedPath? {
@@ -164,7 +164,7 @@
 							return nil
 						}
 
-						return BlindedPath(cType: self.cType!.blinded_path, anchor: self)
+						return BlindedPath(cType: self.cType!.blinded_path, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 

@@ -27,32 +27,32 @@
 
 					internal var cType: LDKU128?
 
-					internal init(cType: LDKU128) {
+					internal init(cType: LDKU128, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKU128, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKU128, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt8]) {
+					internal init(value: [UInt8]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKU128(le_bytes: Bindings.arrayToUInt8Tuple16(array: value))
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "U128.swift::\(#function):\(#line)")
 					}
 
 					
@@ -69,7 +69,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SixteenBytes(cType: nativeCallResult).getValue()
+						let returnValue = SixteenBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 						
 
 						return returnValue
@@ -93,7 +93,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = U128(cType: nativeCallResult)
+						let returnValue = U128(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -101,7 +101,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}

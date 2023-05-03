@@ -21,20 +21,20 @@
 
 					internal var cType: LDKRouteHint?
 
-					internal init(cType: LDKRouteHint) {
+					internal init(cType: LDKRouteHint, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRouteHint, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRouteHint, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_RouteHintHopZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_RouteHintHopZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -129,7 +129,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = RouteHint(cType: nativeCallResult)
+						let returnValue = RouteHint(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -137,7 +137,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -159,7 +159,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RouteHint(cType: nativeCallResult)
+						let returnValue = RouteHint(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -234,7 +234,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -258,7 +258,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_RouteHintDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_RouteHintDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

@@ -58,20 +58,20 @@
 
 					internal var cType: LDKFilter?
 
-					internal init(cType: LDKFilter) {
+					internal init(cType: LDKFilter, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKFilter, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKFilter, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -80,7 +80,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Filter.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -99,7 +99,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.registerTx(txid: txidPointee, scriptPubkey: u8slice(cType: script_pubkey).dangle().getValue())
+							let swiftCallbackResult = instance.registerTx(txid: txidPointee, scriptPubkey: u8slice(cType: script_pubkey, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -117,7 +117,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.registerOutput(output: WatchedOutput(cType: output))
+							let swiftCallbackResult = instance.registerOutput(output: WatchedOutput(cType: output, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							

@@ -17,20 +17,20 @@
 
 					internal var cType: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ?
 
-					internal init(cType: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ) {
+					internal init(cType: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointCVec_MonitorEventZPublicKeyZ(cType: nativeCallResult)
+						let returnValue = Tuple_OutPointCVec_MonitorEventZPublicKeyZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -87,7 +87,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointCVec_MonitorEventZPublicKeyZ(cType: nativeCallResult)
+						let returnValue = Tuple_OutPointCVec_MonitorEventZPublicKeyZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -95,7 +95,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -128,7 +128,7 @@
 					/// The element at position 0
 					public func getA() -> OutPoint {
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: self.cType!.a, anchor: self).dangle()
+						let returnValue = OutPoint(cType: self.cType!.a, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -136,7 +136,7 @@
 					/// The element at position 1
 					public func getB() -> [MonitorEvent] {
 						// return value (do some wrapping)
-						let returnValue = Vec_MonitorEventZ(cType: self.cType!.b, anchor: self).dangle().getValue()
+						let returnValue = Vec_MonitorEventZ(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -144,7 +144,7 @@
 					/// The element at position 2
 					public func getC() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: self.cType!.c, anchor: self).dangle().getValue()
+						let returnValue = PublicKey(cType: self.cType!.c, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}

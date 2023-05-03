@@ -17,20 +17,20 @@
 
 					internal var cType: LDKC2Tuple_PublicKeyCOption_NetAddressZZ?
 
-					internal init(cType: LDKC2Tuple_PublicKeyCOption_NetAddressZZ) {
+					internal init(cType: LDKC2Tuple_PublicKeyCOption_NetAddressZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC2Tuple_PublicKeyCOption_NetAddressZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC2Tuple_PublicKeyCOption_NetAddressZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_PublicKeyCOption_NetAddressZZ(cType: nativeCallResult)
+						let returnValue = Tuple_PublicKeyCOption_NetAddressZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -85,7 +85,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_PublicKeyCOption_NetAddressZZ(cType: nativeCallResult)
+						let returnValue = Tuple_PublicKeyCOption_NetAddressZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -93,7 +93,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -126,7 +126,7 @@
 					/// The element at position 0
 					public func getA() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: self.cType!.a, anchor: self).dangle().getValue()
+						let returnValue = PublicKey(cType: self.cType!.a, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -134,7 +134,7 @@
 					/// The element at position 1
 					public func getB() -> NetAddress? {
 						// return value (do some wrapping)
-						let returnValue = Option_NetAddressZ(cType: self.cType!.b, anchor: self).dangle().getValue()
+						let returnValue = Option_NetAddressZ(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}

@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_PrivateRouteZ?
 
-					internal init(cType: LDKCVec_PrivateRouteZ) {
+					internal init(cType: LDKCVec_PrivateRouteZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_PrivateRouteZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_PrivateRouteZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [PrivateRoute]) {
+					internal init(array: [PrivateRoute]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_PrivateRouteZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: PrivateRoute) -> LDKPrivateRoute in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKPrivateRoute) -> PrivateRoute in
-PrivateRoute(cType: currentCType, anchor: self).dangle()
+PrivateRoute(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

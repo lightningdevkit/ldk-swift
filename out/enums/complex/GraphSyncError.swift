@@ -19,20 +19,20 @@
 
 					internal var cType: LDKGraphSyncError?
 
-					internal init(cType: LDKGraphSyncError) {
+					internal init(cType: LDKGraphSyncError, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKGraphSyncError, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKGraphSyncError, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -102,7 +102,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GraphSyncError(cType: nativeCallResult)
+						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -121,7 +121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GraphSyncError(cType: nativeCallResult)
+						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -140,7 +140,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GraphSyncError(cType: nativeCallResult)
+						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -153,7 +153,7 @@
 							return nil
 						}
 
-						return DecodeError(cType: self.cType!.decode_error, anchor: self)
+						return DecodeError(cType: self.cType!.decode_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsLightningError() -> Bindings.LightningError? {
@@ -161,7 +161,7 @@
 							return nil
 						}
 
-						return LightningError(cType: self.cType!.lightning_error, anchor: self)
+						return LightningError(cType: self.cType!.lightning_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 

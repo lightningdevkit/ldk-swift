@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_U5Z?
 
-					internal init(cType: LDKCVec_U5Z) {
+					internal init(cType: LDKCVec_U5Z, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_U5Z, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_U5Z, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [UInt8]) {
+					internal init(array: [UInt8]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_U5Z.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: UInt8) -> LDKU5 in
@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKU5) -> UInt8 in
-U5(cType: currentCType).dangle().getValue()
+U5(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_PaymentPreimageZ?
 
-					internal init(cType: LDKCVec_PaymentPreimageZ) {
+					internal init(cType: LDKCVec_PaymentPreimageZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_PaymentPreimageZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_PaymentPreimageZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [[UInt8]]) {
+					internal init(array: [[UInt8]]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_PaymentPreimageZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: [UInt8]) -> LDKThirtyTwoBytes in
@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKThirtyTwoBytes) -> [UInt8] in
-ThirtyTwoBytes(cType: currentCType).dangle().getValue()
+ThirtyTwoBytes(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

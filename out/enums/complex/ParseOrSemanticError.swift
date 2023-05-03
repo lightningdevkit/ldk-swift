@@ -21,20 +21,20 @@
 
 					internal var cType: LDKParseOrSemanticError?
 
-					internal init(cType: LDKParseOrSemanticError) {
+					internal init(cType: LDKParseOrSemanticError, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKParseOrSemanticError, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKParseOrSemanticError, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -102,7 +102,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseOrSemanticError(cType: nativeCallResult)
+						let returnValue = ParseOrSemanticError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -121,7 +121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseOrSemanticError(cType: nativeCallResult)
+						let returnValue = ParseOrSemanticError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -140,7 +140,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ParseOrSemanticError(cType: nativeCallResult)
+						let returnValue = ParseOrSemanticError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -191,7 +191,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -204,7 +204,7 @@
 							return nil
 						}
 
-						return ParseError(cType: self.cType!.parse_error, anchor: self)
+						return ParseError(cType: self.cType!.parse_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsSemanticError() -> SemanticError? {

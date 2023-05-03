@@ -21,20 +21,20 @@
 
 					internal var cType: LDKCResult_u32GraphSyncErrorZ?
 
-					internal init(cType: LDKCResult_u32GraphSyncErrorZ) {
+					internal init(cType: LDKCResult_u32GraphSyncErrorZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCResult_u32GraphSyncErrorZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCResult_u32GraphSyncErrorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -106,7 +106,7 @@
 					
 					public func getError() -> GraphSyncError? {
 						if self.cType?.result_ok == false {
-							return GraphSyncError(cType: self.cType!.contents.err.pointee, anchor: self)
+							return GraphSyncError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

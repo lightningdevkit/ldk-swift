@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_C2Tuple_u32ScriptZZ?
 
-					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ) {
+					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [(UInt32, [UInt8])]) {
+					internal init(array: [(UInt32, [UInt8])]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_C2Tuple_u32ScriptZZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: (UInt32, [UInt8])) -> LDKC2Tuple_u32ScriptZ in
@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_u32ScriptZ) -> (UInt32, [UInt8]) in
-Tuple_u32ScriptZ(cType: currentCType).dangle().getValue()
+Tuple_u32ScriptZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

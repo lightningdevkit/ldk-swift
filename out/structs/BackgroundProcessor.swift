@@ -69,20 +69,20 @@
 
 					internal var cType: LDKBackgroundProcessor?
 
-					internal init(cType: LDKBackgroundProcessor) {
+					internal init(cType: LDKBackgroundProcessor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKBackgroundProcessor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKBackgroundProcessor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -179,7 +179,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BackgroundProcessor(cType: nativeCallResult)
+						let returnValue = BackgroundProcessor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: chainMonitor)
@@ -210,7 +210,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -238,7 +238,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

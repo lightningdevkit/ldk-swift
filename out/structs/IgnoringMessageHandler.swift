@@ -23,20 +23,20 @@
 
 					internal var cType: LDKIgnoringMessageHandler?
 
-					internal init(cType: LDKIgnoringMessageHandler) {
+					internal init(cType: LDKIgnoringMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKIgnoringMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKIgnoringMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -77,7 +77,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = IgnoringMessageHandler(cType: nativeCallResult)
+						let returnValue = IgnoringMessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -85,7 +85,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -108,7 +108,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -132,7 +132,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedRoutingMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedRoutingMessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -180,7 +180,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -204,7 +204,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomOnionMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedCustomOnionMessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -228,7 +228,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageReader(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedCustomMessageReader(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -252,7 +252,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedCustomMessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

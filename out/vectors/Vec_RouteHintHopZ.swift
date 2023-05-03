@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_RouteHintHopZ?
 
-					internal init(cType: LDKCVec_RouteHintHopZ) {
+					internal init(cType: LDKCVec_RouteHintHopZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_RouteHintHopZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_RouteHintHopZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [RouteHintHop]) {
+					internal init(array: [RouteHintHop]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_RouteHintHopZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: RouteHintHop) -> LDKRouteHintHop in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKRouteHintHop) -> RouteHintHop in
-RouteHintHop(cType: currentCType, anchor: self).dangle()
+RouteHintHop(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

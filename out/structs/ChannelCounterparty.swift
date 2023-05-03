@@ -23,20 +23,20 @@
 
 					internal var cType: LDKChannelCounterparty?
 
-					internal init(cType: LDKChannelCounterparty) {
+					internal init(cType: LDKChannelCounterparty, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelCounterparty, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelCounterparty, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -79,7 +79,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -132,7 +132,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -254,7 +254,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = CounterpartyForwardingInfo(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = CounterpartyForwardingInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -305,7 +305,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -355,7 +355,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -410,7 +410,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelCounterparty(cType: nativeCallResult)
+						let returnValue = ChannelCounterparty(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -418,7 +418,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -440,7 +440,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelCounterparty(cType: nativeCallResult)
+						let returnValue = ChannelCounterparty(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -463,7 +463,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -487,7 +487,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelCounterpartyDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_ChannelCounterpartyDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

@@ -19,29 +19,29 @@
 
 					internal var cType: LDKCVec_PhantomRouteHintsZ?
 
-					internal init(cType: LDKCVec_PhantomRouteHintsZ) {
+					internal init(cType: LDKCVec_PhantomRouteHintsZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_PhantomRouteHintsZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_PhantomRouteHintsZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [PhantomRouteHints]) {
+					internal init(array: [PhantomRouteHints]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Vec_PhantomRouteHintsZ.swift::\(#function):\(#line)")
 
 						
 						let rustArray = array.map { (currentValueDepth1: PhantomRouteHints) -> LDKPhantomRouteHints in
@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKPhantomRouteHints) -> PhantomRouteHints in
-PhantomRouteHints(cType: currentCType, anchor: self).dangle()
+PhantomRouteHints(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

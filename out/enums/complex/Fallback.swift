@@ -19,20 +19,20 @@
 
 					internal var cType: LDKFallback?
 
-					internal init(cType: LDKFallback) {
+					internal init(cType: LDKFallback, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKFallback, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKFallback, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -106,7 +106,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult)
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -134,7 +134,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult)
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -158,7 +158,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult)
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -182,7 +182,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult)
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -246,7 +246,7 @@
 							return nil
 						}
 
-						return Fallback_LDKSegWitProgram_Body(cType: self.cType!.seg_wit_program, anchor: self)
+						return Fallback_LDKSegWitProgram_Body(cType: self.cType!.seg_wit_program, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPubKeyHash() -> [UInt8]? {
@@ -254,7 +254,7 @@
 							return nil
 						}
 
-						return TwentyBytes(cType: self.cType!.pub_key_hash, anchor: self).getValue()
+						return TwentyBytes(cType: self.cType!.pub_key_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsScriptHash() -> [UInt8]? {
@@ -262,7 +262,7 @@
 							return nil
 						}
 
-						return TwentyBytes(cType: self.cType!.script_hash, anchor: self).getValue()
+						return TwentyBytes(cType: self.cType!.script_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 
@@ -310,20 +310,20 @@
 
 						internal var cType: LDKFallback_LDKSegWitProgram_Body?
 
-						internal init(cType: LDKFallback_LDKSegWitProgram_Body) {
+						internal init(cType: LDKFallback_LDKSegWitProgram_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKFallback_LDKSegWitProgram_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKFallback_LDKSegWitProgram_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
 							try! self.addAnchor(anchor: anchor)
 						}
@@ -335,7 +335,7 @@
 						/// 
 						public func getVersion() -> UInt8 {
 							// return value (do some wrapping)
-							let returnValue = U5(cType: self.cType!.version, anchor: self).getValue()
+							let returnValue = U5(cType: self.cType!.version, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -343,7 +343,7 @@
 						/// 
 						public func getProgram() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(cType: self.cType!.program, anchor: self).getValue()
+							let returnValue = Vec_u8Z(cType: self.cType!.program, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

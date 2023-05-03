@@ -21,32 +21,32 @@
 
 					internal var cType: LDKEightU16s?
 
-					internal init(cType: LDKEightU16s) {
+					internal init(cType: LDKEightU16s, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKEightU16s, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKEightU16s, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt16]) {
+					internal init(value: [UInt16]) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKEightU16s(data: Bindings.arrayToUInt16Tuple8(array: value))
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "EightU16s.swift::\(#function):\(#line)")
 					}
 
 					

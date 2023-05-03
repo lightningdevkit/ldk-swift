@@ -27,20 +27,20 @@
 
 					internal var cType: LDKDescription?
 
-					internal init(cType: LDKDescription) {
+					internal init(cType: LDKDescription, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKDescription, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKDescription, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -83,7 +83,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Description(cType: nativeCallResult)
+						let returnValue = Description(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -162,7 +162,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_DescriptionCreationErrorZ(cType: nativeCallResult)
+						let returnValue = Result_DescriptionCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -181,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 						
 
 						return returnValue

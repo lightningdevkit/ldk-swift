@@ -58,20 +58,20 @@
 
 					internal var cType: LDKPersist?
 
-					internal init(cType: LDKPersist) {
+					internal init(cType: LDKPersist, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKPersist, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKPersist, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -80,7 +80,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Persist.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -94,7 +94,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistNewChannel(channelId: OutPoint(cType: channel_id), data: ChannelMonitor(cType: data.pointee).dangle().clone(), updateId: MonitorUpdateId(cType: update_id))
+							let swiftCallbackResult = instance.persistNewChannel(channelId: OutPoint(cType: channel_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), data: ChannelMonitor(cType: data.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), updateId: MonitorUpdateId(cType: update_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -112,7 +112,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.updatePersistedChannel(channelId: OutPoint(cType: channel_id), update: ChannelMonitorUpdate(cType: update), data: ChannelMonitor(cType: data.pointee).dangle().clone(), updateId: MonitorUpdateId(cType: update_id))
+							let swiftCallbackResult = instance.updatePersistedChannel(channelId: OutPoint(cType: channel_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), update: ChannelMonitorUpdate(cType: update, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), data: ChannelMonitor(cType: data.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), updateId: MonitorUpdateId(cType: update_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
 
 							// cleanup
 							

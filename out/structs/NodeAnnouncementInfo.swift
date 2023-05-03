@@ -21,20 +21,20 @@
 
 					internal var cType: LDKNodeAnnouncementInfo?
 
-					internal init(cType: LDKNodeAnnouncementInfo) {
+					internal init(cType: LDKNodeAnnouncementInfo, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKNodeAnnouncementInfo, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKNodeAnnouncementInfo, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -228,7 +228,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeAlias(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = NodeAlias(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -278,7 +278,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -346,7 +346,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeAnnouncement(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = NodeAnnouncement(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -404,7 +404,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult)
+						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -412,7 +412,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -434,7 +434,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult)
+						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -486,7 +486,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -510,7 +510,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NodeAnnouncementInfoDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NodeAnnouncementInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue

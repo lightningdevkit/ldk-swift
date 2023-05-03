@@ -37,20 +37,20 @@
 
 					internal var cType: LDKChainMonitor?
 
-					internal init(cType: LDKChainMonitor) {
+					internal init(cType: LDKChainMonitor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChainMonitor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChainMonitor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -99,7 +99,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChainMonitor(cType: nativeCallResult)
+						let returnValue = ChainMonitor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -107,7 +107,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -141,7 +141,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_BalanceZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -168,7 +168,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -194,7 +194,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_OutPointZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_OutPointZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -217,7 +217,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -252,7 +252,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -276,7 +276,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedListen(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedListen(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -300,7 +300,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -324,7 +324,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWatch(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedWatch(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -348,7 +348,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_CVec_NetAddressZZ?
 
-					internal init(cType: LDKCOption_CVec_NetAddressZZ) {
+					internal init(cType: LDKCOption_CVec_NetAddressZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_CVec_NetAddressZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_CVec_NetAddressZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: [NetAddress]?) {
+					internal init(some: [NetAddress]?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -49,7 +49,7 @@
 							self.cType = COption_CVec_NetAddressZZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_CVec_NetAddressZZ.swift::\(#function):\(#line)")
 					}
 
 					
@@ -90,7 +90,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_CVec_NetAddressZZ(cType: nativeCallResult)
+						let returnValue = Option_CVec_NetAddressZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_CVec_NetAddressZZ_Some {
-							return Vec_NetAddressZ(cType: self.cType!.some, anchor: self).dangle().getValue()
+							return Vec_NetAddressZ(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

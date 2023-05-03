@@ -40,20 +40,20 @@
 
 					internal var cType: LDKListen?
 
-					internal init(cType: LDKListen) {
+					internal init(cType: LDKListen, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKListen, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKListen, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -62,7 +62,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Listen.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -81,7 +81,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.filteredBlockConnected(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata).getValue(), height: height)
+							let swiftCallbackResult = instance.filteredBlockConnected(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), height: height)
 
 							// cleanup
 							
@@ -99,7 +99,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.blockConnected(block: u8slice(cType: block).dangle().getValue(), height: height)
+							let swiftCallbackResult = instance.blockConnected(block: u8slice(cType: block, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue(), height: height)
 
 							// cleanup
 							

@@ -21,20 +21,20 @@
 
 					internal var cType: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ?
 
-					internal init(cType: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ) {
+					internal init(cType: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCResult_C2Tuple_BlockHashChannelManagerZDecodeErrorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -56,7 +56,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -75,7 +75,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -108,7 +108,7 @@
 					
 					public func getError() -> DecodeError? {
 						if self.cType?.result_ok == false {
-							return DecodeError(cType: self.cType!.contents.err.pointee, anchor: self)
+							return DecodeError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}
@@ -117,7 +117,7 @@
 					
 					public func getValue() -> ([UInt8], ChannelManager)? {
 						if self.cType?.result_ok == true {
-							return Tuple_BlockHashChannelManagerZ(cType: self.cType!.contents.result.pointee, anchor: self).getValue()
+							return Tuple_BlockHashChannelManagerZ(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
 						}
 						return nil
 					}

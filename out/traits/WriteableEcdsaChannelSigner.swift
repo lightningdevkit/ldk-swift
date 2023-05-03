@@ -32,20 +32,20 @@
 
 					internal var cType: LDKWriteableEcdsaChannelSigner?
 
-					internal init(cType: LDKWriteableEcdsaChannelSigner) {
+					internal init(cType: LDKWriteableEcdsaChannelSigner, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKWriteableEcdsaChannelSigner, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKWriteableEcdsaChannelSigner, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -54,7 +54,7 @@
 					public init(ecdsaChannelSigner: EcdsaChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "WriteableEcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult)
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 					/// Implementation of EcdsaChannelSigner for this object.
 					public func getEcdsaChannelSigner() -> EcdsaChannelSigner {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: self.cType!.EcdsaChannelSigner, anchor: self)
+						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: self.cType!.EcdsaChannelSigner, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -197,7 +197,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

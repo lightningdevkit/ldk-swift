@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_CustomOnionMessageContentsZ?
 
-					internal init(cType: LDKCOption_CustomOnionMessageContentsZ) {
+					internal init(cType: LDKCOption_CustomOnionMessageContentsZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_CustomOnionMessageContentsZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_CustomOnionMessageContentsZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: CustomOnionMessageContents?) {
+					internal init(some: CustomOnionMessageContents?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_CustomOnionMessageContentsZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_CustomOnionMessageContentsZ.swift::\(#function):\(#line)")
 					}
 
 					
@@ -88,7 +88,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_CustomOnionMessageContentsZ(cType: nativeCallResult)
+						let returnValue = Option_CustomOnionMessageContentsZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -100,7 +100,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_CustomOnionMessageContentsZ_Some {
-							return NativelyImplementedCustomOnionMessageContents(cType: self.cType!.some, anchor: self).dangle()
+							return NativelyImplementedCustomOnionMessageContents(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						assert(false, "invalid option enum value")
 						return nil

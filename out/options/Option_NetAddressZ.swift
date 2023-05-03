@@ -17,26 +17,26 @@
 
 					internal var cType: LDKCOption_NetAddressZ?
 
-					internal init(cType: LDKCOption_NetAddressZ) {
+					internal init(cType: LDKCOption_NetAddressZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_NetAddressZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_NetAddressZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: NetAddress?) {
+					internal init(some: NetAddress?) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -47,7 +47,7 @@
 							self.cType = COption_NetAddressZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Option_NetAddressZ.swift::\(#function):\(#line)")
 					}
 
 					
@@ -88,7 +88,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_NetAddressZ(cType: nativeCallResult)
+						let returnValue = Option_NetAddressZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -100,7 +100,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_NetAddressZ_Some {
-							return NetAddress(cType: self.cType!.some, anchor: self).dangle()
+							return NetAddress(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
 						}
 						assert(false, "invalid option enum value")
 						return nil

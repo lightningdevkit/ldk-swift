@@ -29,20 +29,20 @@
 
 					internal var cType: LDKDirectedChannelTransactionParameters?
 
-					internal init(cType: LDKDirectedChannelTransactionParameters) {
+					internal init(cType: LDKDirectedChannelTransactionParameters, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKDirectedChannelTransactionParameters, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKDirectedChannelTransactionParameters, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -85,7 +85,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -108,7 +108,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -181,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

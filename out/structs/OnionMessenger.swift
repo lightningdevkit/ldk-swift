@@ -165,20 +165,20 @@
 
 					internal var cType: LDKOnionMessenger?
 
-					internal init(cType: LDKOnionMessenger) {
+					internal init(cType: LDKOnionMessenger, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKOnionMessenger, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKOnionMessenger, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -220,7 +220,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = OnionMessenger(cType: nativeCallResult)
+						let returnValue = OnionMessenger(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						*/
 
 						
@@ -228,7 +228,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 				
 			
 					}
@@ -257,7 +257,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -281,7 +281,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -305,7 +305,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

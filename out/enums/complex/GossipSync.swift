@@ -19,20 +19,20 @@
 
 					internal var cType: LDKGossipSync?
 
-					internal init(cType: LDKGossipSync) {
+					internal init(cType: LDKGossipSync, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKGossipSync, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKGossipSync, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
@@ -106,7 +106,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult)
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: a)
@@ -130,7 +130,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult)
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: a)
@@ -150,7 +150,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult)
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -163,7 +163,7 @@ return returnValue
 							return nil
 						}
 
-						return P2PGossipSync(cType: self.cType!.p2p, anchor: self)
+						return P2PGossipSync(cType: self.cType!.p2p, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsRapid() -> Bindings.RapidGossipSync? {
@@ -171,7 +171,7 @@ return returnValue
 							return nil
 						}
 
-						return RapidGossipSync(cType: self.cType!.rapid, anchor: self)
+						return RapidGossipSync(cType: self.cType!.rapid, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
 					}
 			
 

@@ -43,7 +43,9 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 	 * @param type
 	 */
 	generate(type: Type) {
-		const fileContents = this.generateFileContents(type);
+		const fileName = this.swiftTypeName(type) + '.swift';
+		const fileContents = this.generateFileContents(type)
+		.replaceAll('#{swift_class_name}', fileName);
 		this.persist(type, fileContents);
 	}
 
@@ -875,7 +877,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		 */
 		const hasRecursiveOwnershipFlags = this.isRecursivelyPerpetuallySafelyFreeable(returnType.type);
 
-		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)"'
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)"';
 
 		/**
 		 * The returned object cannot live on its own. It needs the container to stick around.

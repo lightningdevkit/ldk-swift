@@ -23,7 +23,8 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 			// this call is the sole reason we need this inheritance
 			const swiftMethodName = this.swiftMethodName(currentMethod.method);
 			const methodCode = this.generateMethod(currentMethod.method);
-			const renamedMethodCode = methodCode.replace(swiftMethodName, currentMethod.swiftName);
+			const renamedMethodCode = methodCode
+			.replace(swiftMethodName, currentMethod.swiftName);
 			generatedMethods += Generator.reindentCode(renamedMethodCode, 4);
 		}
 

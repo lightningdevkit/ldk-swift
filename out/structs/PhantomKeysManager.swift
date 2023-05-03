@@ -106,7 +106,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -130,7 +130,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -154,7 +154,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -197,7 +197,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = PhantomKeysManager(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PhantomKeysManager(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -205,7 +205,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -239,7 +239,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TransactionNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_TransactionNoneZ(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -268,7 +268,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -291,7 +291,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -315,7 +315,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

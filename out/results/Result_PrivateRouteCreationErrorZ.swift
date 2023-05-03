@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "Result_PrivateRouteCreationErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "Result_PrivateRouteCreationErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "Result_PrivateRouteCreationErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -139,7 +139,7 @@
 					
 					public func getValue() -> PrivateRoute? {
 						if self.cType?.result_ok == true {
-							return PrivateRoute(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return PrivateRoute(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_PrivateRouteCreationErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

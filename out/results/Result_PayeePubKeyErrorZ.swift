@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "Result_PayeePubKeyErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "Result_PayeePubKeyErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "Result_PayeePubKeyErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -139,7 +139,7 @@
 					
 					public func getValue() -> PayeePubKey? {
 						if self.cType?.result_ok == true {
-							return PayeePubKey(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return PayeePubKey(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_PayeePubKeyErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

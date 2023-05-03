@@ -55,7 +55,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "Result_LockedChannelMonitorNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -74,7 +74,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "Result_LockedChannelMonitorNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 					
 					public func getValue() -> LockedChannelMonitor? {
 						if self.cType?.result_ok == true {
-							return LockedChannelMonitor(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return LockedChannelMonitor(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_LockedChannelMonitorNoneZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

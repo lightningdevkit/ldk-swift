@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKNetAddress) -> NetAddress in
-NetAddress(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+NetAddress(cType: currentCType, instantiationContext: "Vec_NetAddressZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

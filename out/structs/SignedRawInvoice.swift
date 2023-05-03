@@ -114,7 +114,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SignedRawInvoice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SignedRawInvoice(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -159,7 +159,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)").getValue()
 						
 
 						return returnValue
@@ -182,7 +182,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RawInvoice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = RawInvoice(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -232,7 +232,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceSignature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = InvoiceSignature(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -255,7 +255,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -303,7 +303,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_SignedRawInvoiceParseErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_SignedRawInvoiceParseErrorZ(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -326,7 +326,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

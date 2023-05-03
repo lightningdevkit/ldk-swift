@@ -79,7 +79,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u64Z(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -146,7 +146,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -198,7 +198,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -206,7 +206,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -228,7 +228,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -280,7 +280,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -304,7 +304,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NodeInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NodeInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue

@@ -79,7 +79,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "ExpiryTime.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -150,7 +150,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "ExpiryTime.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -169,7 +169,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "ExpiryTime.swift::\(#function):\(#line)")
 						
 
 						return returnValue

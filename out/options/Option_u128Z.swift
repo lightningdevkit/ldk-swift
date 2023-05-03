@@ -90,7 +90,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u128Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Option_u128Z(cType: nativeCallResult, instantiationContext: "Option_u128Z.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_u128Z_Some {
-							return U128(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+							return U128(cType: self.cType!.some, instantiationContext: "Option_u128Z.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

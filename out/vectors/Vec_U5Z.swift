@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKU5) -> UInt8 in
-U5(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+U5(cType: currentCType, instantiationContext: "Vec_U5Z.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

@@ -83,7 +83,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Description(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Description(cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -162,7 +162,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_DescriptionCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_DescriptionCreationErrorZ(cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -181,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)").getValue()
 						
 
 						return returnValue

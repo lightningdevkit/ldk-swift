@@ -457,7 +457,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "ChannelConfig.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -465,7 +465,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelConfig.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -487,7 +487,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "ChannelConfig.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -535,7 +535,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "ChannelConfig.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -558,7 +558,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelConfig.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -582,7 +582,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelConfigDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ChannelConfigDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelConfig.swift::\(#function):\(#line)")
 						
 
 						return returnValue

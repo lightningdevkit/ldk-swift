@@ -106,7 +106,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -134,7 +134,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -158,7 +158,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -182,7 +182,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Fallback(cType: nativeCallResult, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -246,7 +246,7 @@
 							return nil
 						}
 
-						return Fallback_LDKSegWitProgram_Body(cType: self.cType!.seg_wit_program, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Fallback_LDKSegWitProgram_Body(cType: self.cType!.seg_wit_program, instantiationContext: "Fallback.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPubKeyHash() -> [UInt8]? {
@@ -254,7 +254,7 @@
 							return nil
 						}
 
-						return TwentyBytes(cType: self.cType!.pub_key_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return TwentyBytes(cType: self.cType!.pub_key_hash, instantiationContext: "Fallback.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsScriptHash() -> [UInt8]? {
@@ -262,7 +262,7 @@
 							return nil
 						}
 
-						return TwentyBytes(cType: self.cType!.script_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return TwentyBytes(cType: self.cType!.script_hash, instantiationContext: "Fallback.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 
@@ -335,7 +335,7 @@
 						/// 
 						public func getVersion() -> UInt8 {
 							// return value (do some wrapping)
-							let returnValue = U5(cType: self.cType!.version, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = U5(cType: self.cType!.version, instantiationContext: "Fallback.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -343,7 +343,7 @@
 						/// 
 						public func getProgram() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(cType: self.cType!.program, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_u8Z(cType: self.cType!.program, instantiationContext: "Fallback.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

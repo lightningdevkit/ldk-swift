@@ -228,7 +228,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelReestablish(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelReestablish(cType: nativeCallResult, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -280,7 +280,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -304,7 +304,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelReestablishDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ChannelReestablishDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
 						
 
 						return returnValue

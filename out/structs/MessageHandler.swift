@@ -84,7 +84,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedChannelMessageHandler(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedChannelMessageHandler(cType: nativeCallResult.pointee, instantiationContext: "MessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -140,7 +140,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedRoutingMessageHandler(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedRoutingMessageHandler(cType: nativeCallResult.pointee, instantiationContext: "MessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -194,7 +194,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult.pointee, instantiationContext: "MessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -239,7 +239,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = MessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = MessageHandler(cType: nativeCallResult, instantiationContext: "MessageHandler.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -247,7 +247,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "MessageHandler.swift::\(#function):\(#line)")
 				
 			
 					}

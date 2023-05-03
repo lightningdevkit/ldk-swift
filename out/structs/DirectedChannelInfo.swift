@@ -79,7 +79,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DirectedChannelInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DirectedChannelInfo(cType: nativeCallResult, instantiationContext: "DirectedChannelInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelInfo(cType: nativeCallResult, instantiationContext: "DirectedChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -152,7 +152,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "DirectedChannelInfo.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

@@ -228,7 +228,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UpdateFailMalformedHTLC(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = UpdateFailMalformedHTLC(cType: nativeCallResult, instantiationContext: "UpdateFailMalformedHTLC.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -280,7 +280,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "UpdateFailMalformedHTLC.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -304,7 +304,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_UpdateFailMalformedHTLCDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_UpdateFailMalformedHTLCDecodeErrorZ(cType: nativeCallResult, instantiationContext: "UpdateFailMalformedHTLC.swift::\(#function):\(#line)")
 						
 
 						return returnValue

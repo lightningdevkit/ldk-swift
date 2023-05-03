@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKPrivateRoute) -> PrivateRoute in
-PrivateRoute(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+PrivateRoute(cType: currentCType, instantiationContext: "Vec_PrivateRouteZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

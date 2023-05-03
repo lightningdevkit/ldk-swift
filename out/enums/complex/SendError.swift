@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -164,7 +164,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -183,7 +183,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -202,7 +202,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -221,7 +221,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -240,7 +240,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -259,7 +259,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -278,7 +278,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -297,7 +297,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SendError(cType: nativeCallResult, instantiationContext: "SendError.swift::\(#function):\(#line)")
 						
 
 						return returnValue

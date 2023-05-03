@@ -100,7 +100,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "Destination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -124,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "Destination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -143,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Destination(cType: nativeCallResult, instantiationContext: "Destination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 							return nil
 						}
 
-						return PublicKey(cType: self.cType!.node, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return PublicKey(cType: self.cType!.node, instantiationContext: "Destination.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsBlindedPath() -> Bindings.BlindedPath? {
@@ -164,7 +164,7 @@
 							return nil
 						}
 
-						return BlindedPath(cType: self.cType!.blinded_path, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return BlindedPath(cType: self.cType!.blinded_path, instantiationContext: "Destination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 

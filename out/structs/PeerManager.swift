@@ -125,7 +125,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = PeerManager(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PeerManager(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -133,7 +133,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -164,7 +164,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -208,7 +208,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -247,7 +247,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -285,7 +285,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -333,7 +333,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_boolPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_boolPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

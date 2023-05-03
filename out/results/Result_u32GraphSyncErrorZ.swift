@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "Result_u32GraphSyncErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "Result_u32GraphSyncErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -106,7 +106,7 @@
 					
 					public func getError() -> GraphSyncError? {
 						if self.cType?.result_ok == false {
-							return GraphSyncError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return GraphSyncError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_u32GraphSyncErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

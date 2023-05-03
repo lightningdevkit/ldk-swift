@@ -103,7 +103,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = FilesystemPersister(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = FilesystemPersister(cType: nativeCallResult, instantiationContext: "FilesystemPersister.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -111,7 +111,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "FilesystemPersister.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -133,7 +133,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "FilesystemPersister.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -160,7 +160,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "FilesystemPersister.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

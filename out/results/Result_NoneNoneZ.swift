@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "Result_NoneNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "Result_NoneNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "Result_NoneNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue

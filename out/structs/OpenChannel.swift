@@ -609,7 +609,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -660,7 +660,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -711,7 +711,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -762,7 +762,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -813,7 +813,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -864,7 +864,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -979,7 +979,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelTypeFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelTypeFeatures(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1030,7 +1030,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OpenChannel(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = OpenChannel(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -1082,7 +1082,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -1106,7 +1106,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_OpenChannelDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_OpenChannelDecodeErrorZ(cType: nativeCallResult, instantiationContext: "OpenChannel.swift::\(#function):\(#line)")
 						
 
 						return returnValue

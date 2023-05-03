@@ -92,7 +92,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelInfo(cType: nativeCallResult, instantiationContext: "ReadOnlyNetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -115,7 +115,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u64Z(cType: nativeCallResult, instantiationContext: "ReadOnlyNetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -157,7 +157,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "ReadOnlyNetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -180,7 +180,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_NodeIdZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_NodeIdZ(cType: nativeCallResult, instantiationContext: "ReadOnlyNetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -210,7 +210,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_CVec_NetAddressZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Option_CVec_NetAddressZZ(cType: nativeCallResult, instantiationContext: "ReadOnlyNetworkGraph.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue

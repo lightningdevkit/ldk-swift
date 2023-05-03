@@ -127,7 +127,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -146,7 +146,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -165,7 +165,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -184,7 +184,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -203,7 +203,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -222,7 +222,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -241,7 +241,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -254,7 +254,7 @@
 							return nil
 						}
 
-						return ErrorAction_LDKDisconnectPeer_Body(cType: self.cType!.disconnect_peer, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return ErrorAction_LDKDisconnectPeer_Body(cType: self.cType!.disconnect_peer, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsIgnoreAndLog() -> Level? {
@@ -270,7 +270,7 @@
 							return nil
 						}
 
-						return ErrorAction_LDKSendErrorMessage_Body(cType: self.cType!.send_error_message, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return ErrorAction_LDKSendErrorMessage_Body(cType: self.cType!.send_error_message, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsSendWarningMessage() -> SendWarningMessage? {
@@ -278,7 +278,7 @@
 							return nil
 						}
 
-						return ErrorAction_LDKSendWarningMessage_Body(cType: self.cType!.send_warning_message, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return ErrorAction_LDKSendWarningMessage_Body(cType: self.cType!.send_warning_message, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -353,7 +353,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getMsg() -> Bindings.ErrorMessage {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -411,7 +411,7 @@
 						/// The message to send.
 						public func getMsg() -> Bindings.ErrorMessage {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -469,7 +469,7 @@
 						/// The message to send.
 						public func getMsg() -> Bindings.WarningMessage {
 							// return value (do some wrapping)
-							let returnValue = Bindings.WarningMessage(cType: self.cType!.msg, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.WarningMessage(cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

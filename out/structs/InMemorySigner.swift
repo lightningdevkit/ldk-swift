@@ -415,7 +415,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -471,7 +471,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -479,7 +479,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -503,7 +503,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -607,7 +607,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -633,7 +633,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelTransactionParameters(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelTransactionParameters(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -697,7 +697,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -738,7 +738,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -762,7 +762,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedChannelSigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedChannelSigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -786,7 +786,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -810,7 +810,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -833,7 +833,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -857,7 +857,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_InMemorySignerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_InMemorySignerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 						
 
 						return returnValue

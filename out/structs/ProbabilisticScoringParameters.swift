@@ -791,7 +791,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ProbabilisticScoringParameters(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ProbabilisticScoringParameters(cType: nativeCallResult, instantiationContext: "ProbabilisticScoringParameters.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -838,7 +838,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ProbabilisticScoringParameters(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ProbabilisticScoringParameters(cType: nativeCallResult, instantiationContext: "ProbabilisticScoringParameters.swift::\(#function):\(#line)")
 						
 
 						return returnValue

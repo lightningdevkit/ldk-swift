@@ -111,7 +111,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Bech32Error(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Bech32Error(cType: nativeCallResult, instantiationContext: "Bech32Error.swift::\(#function):\(#line)")
 						
 
 						return returnValue

@@ -102,7 +102,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -131,7 +131,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -155,7 +155,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -206,7 +206,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -230,7 +230,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentPurposeDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PaymentPurposeDecodeErrorZ(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -243,7 +243,7 @@
 							return nil
 						}
 
-						return PaymentPurpose_LDKInvoicePayment_Body(cType: self.cType!.invoice_payment, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return PaymentPurpose_LDKInvoicePayment_Body(cType: self.cType!.invoice_payment, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsSpontaneousPayment() -> [UInt8]? {
@@ -251,7 +251,7 @@
 							return nil
 						}
 
-						return ThirtyTwoBytes(cType: self.cType!.spontaneous_payment, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return ThirtyTwoBytes(cType: self.cType!.spontaneous_payment, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 
@@ -331,7 +331,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentPreimage() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -348,7 +348,7 @@
 						/// [`ChannelManager::create_inbound_payment_for_hash`]: crate::ln::channelmanager::ChannelManager::create_inbound_payment_for_hash
 						public func getPaymentSecret() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_secret, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_secret, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

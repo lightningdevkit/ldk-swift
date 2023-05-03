@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKUpdateFulfillHTLC) -> UpdateFulfillHTLC in
-UpdateFulfillHTLC(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+UpdateFulfillHTLC(cType: currentCType, instantiationContext: "Vec_UpdateFulfillHTLCZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

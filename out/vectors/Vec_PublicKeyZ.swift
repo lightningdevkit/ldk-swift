@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKPublicKey) -> [UInt8] in
-PublicKey(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+PublicKey(cType: currentCType, instantiationContext: "Vec_PublicKeyZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

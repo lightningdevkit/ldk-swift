@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKThirtyTwoBytes) -> [UInt8] in
-ThirtyTwoBytes(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+ThirtyTwoBytes(cType: currentCType, instantiationContext: "Vec_PaymentPreimageZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

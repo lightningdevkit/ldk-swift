@@ -105,7 +105,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -124,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -196,7 +196,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -220,7 +220,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_PathFailureZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_COption_PathFailureZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -233,7 +233,7 @@
 							return nil
 						}
 
-						return PathFailure_LDKInitialSend_Body(cType: self.cType!.initial_send, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return PathFailure_LDKInitialSend_Body(cType: self.cType!.initial_send, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsOnPath() -> OnPath? {
@@ -241,7 +241,7 @@
 							return nil
 						}
 
-						return PathFailure_LDKOnPath_Body(cType: self.cType!.on_path, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return PathFailure_LDKOnPath_Body(cType: self.cType!.on_path, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -314,7 +314,7 @@
 						/// The error surfaced from initial send.
 						public func getErr() -> APIError {
 							// return value (do some wrapping)
-							let returnValue = APIError(cType: self.cType!.err, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = APIError(cType: self.cType!.err, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -376,7 +376,7 @@
 						/// [`NetworkGraph`]: crate::routing::gossip::NetworkGraph
 						public func getNetworkUpdate() -> NetworkUpdate? {
 							// return value (do some wrapping)
-							let returnValue = Option_NetworkUpdateZ(cType: self.cType!.network_update, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Option_NetworkUpdateZ(cType: self.cType!.network_update, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

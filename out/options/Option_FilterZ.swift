@@ -76,7 +76,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_FilterZ_Some {
-							return NativelyImplementedFilter(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+							return NativelyImplementedFilter(cType: self.cType!.some, instantiationContext: "Option_FilterZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						assert(false, "invalid option enum value")
 						return nil

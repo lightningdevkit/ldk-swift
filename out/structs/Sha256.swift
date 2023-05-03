@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "Sha256.swift::\(#function):\(#line)")
 						
 
 						return returnValue

@@ -58,7 +58,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.read(messageType: message_type, buffer: u8slice(cType: buffer, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue())
+							let swiftCallbackResult = instance.read(messageType: message_type, buffer: u8slice(cType: buffer, instantiationContext: "CustomMessageReader.swift::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -165,7 +165,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_COption_TypeZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_COption_TypeZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "CustomMessageReader.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

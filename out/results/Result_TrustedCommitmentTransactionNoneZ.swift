@@ -55,7 +55,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "Result_TrustedCommitmentTransactionNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -74,7 +74,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "Result_TrustedCommitmentTransactionNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 					
 					public func getValue() -> TrustedCommitmentTransaction? {
 						if self.cType?.result_ok == true {
-							return TrustedCommitmentTransaction(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return TrustedCommitmentTransaction(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_TrustedCommitmentTransactionNoneZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

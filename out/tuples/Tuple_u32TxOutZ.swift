@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -78,7 +78,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -86,7 +86,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -127,7 +127,7 @@
 					/// The element at position 1
 					public func getB() -> TxOut {
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+						let returnValue = TxOut(cType: self.cType!.b, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}

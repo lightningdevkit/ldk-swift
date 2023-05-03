@@ -159,7 +159,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelMonitorUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelMonitorUpdate(cType: nativeCallResult, instantiationContext: "ChannelMonitorUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -182,7 +182,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelMonitorUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -206,7 +206,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelMonitorUpdateDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ChannelMonitorUpdateDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelMonitorUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue

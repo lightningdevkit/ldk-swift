@@ -87,7 +87,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = RapidGossipSync(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RapidGossipSync(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -95,7 +95,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 				try! self.addAnchor(anchor: networkGraph)
 
 			
@@ -126,7 +126,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -160,7 +160,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

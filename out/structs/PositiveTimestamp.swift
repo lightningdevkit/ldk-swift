@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PositiveTimestamp(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PositiveTimestamp(cType: nativeCallResult, instantiationContext: "PositiveTimestamp.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -160,7 +160,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PositiveTimestampCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PositiveTimestampCreationErrorZ(cType: nativeCallResult, instantiationContext: "PositiveTimestamp.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -184,7 +184,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PositiveTimestampCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PositiveTimestampCreationErrorZ(cType: nativeCallResult, instantiationContext: "PositiveTimestamp.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -208,7 +208,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PositiveTimestampCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PositiveTimestampCreationErrorZ(cType: nativeCallResult, instantiationContext: "PositiveTimestamp.swift::\(#function):\(#line)")
 						
 
 						return returnValue

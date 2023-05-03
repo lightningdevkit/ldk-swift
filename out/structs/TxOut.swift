@@ -60,7 +60,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "TxOut.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -68,7 +68,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "TxOut.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -109,7 +109,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "TxOut.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -120,7 +120,7 @@
 					/// The script_pubkey in this output
 					public func getScriptPubkey() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: self.cType!.script_pubkey, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_u8Z(cType: self.cType!.script_pubkey, instantiationContext: "TxOut.swift::\(#function):\(#line)", anchor: self).getValue()
 
 						return returnValue;
 					}

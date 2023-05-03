@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.log(record: Record(cType: record.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.log(record: Record(cType: record.pointee, instantiationContext: "Logger.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							

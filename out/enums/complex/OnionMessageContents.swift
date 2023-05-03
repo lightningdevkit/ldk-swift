@@ -95,7 +95,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OnionMessageContents(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = OnionMessageContents(cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -114,7 +114,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OnionMessageContents(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = OnionMessageContents(cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -127,7 +127,7 @@
 							return nil
 						}
 
-						return NativelyImplementedCustomOnionMessageContents(cType: self.cType!.custom, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NativelyImplementedCustomOnionMessageContents(cType: self.cType!.custom, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 

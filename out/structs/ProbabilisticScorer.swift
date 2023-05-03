@@ -150,7 +150,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ProbabilisticScorer(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ProbabilisticScorer(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -158,7 +158,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 				try! self.addAnchor(anchor: networkGraph)
 
 			
@@ -212,7 +212,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_C2Tuple_u64u64ZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Option_C2Tuple_u64u64ZZ(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -259,7 +259,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_C2Tuple_EightU16sEightU16sZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Option_C2Tuple_EightU16sEightU16sZZ(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -415,7 +415,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedScore(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedScore(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -438,7 +438,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -466,7 +466,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: argB)

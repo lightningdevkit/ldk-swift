@@ -118,7 +118,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -137,7 +137,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -175,7 +175,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -194,7 +194,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = MonitorEvent(cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -245,7 +245,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -269,7 +269,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_MonitorEventZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_COption_MonitorEventZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -282,7 +282,7 @@
 							return nil
 						}
 
-						return HTLCUpdate(cType: self.cType!.htlc_event, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return HTLCUpdate(cType: self.cType!.htlc_event, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsCommitmentTxConfirmed() -> Bindings.OutPoint? {
@@ -290,7 +290,7 @@
 							return nil
 						}
 
-						return OutPoint(cType: self.cType!.commitment_tx_confirmed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return OutPoint(cType: self.cType!.commitment_tx_confirmed, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsCompleted() -> Completed? {
@@ -298,7 +298,7 @@
 							return nil
 						}
 
-						return MonitorEvent_LDKCompleted_Body(cType: self.cType!.completed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return MonitorEvent_LDKCompleted_Body(cType: self.cType!.completed, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsUpdateFailed() -> Bindings.OutPoint? {
@@ -306,7 +306,7 @@
 							return nil
 						}
 
-						return OutPoint(cType: self.cType!.update_failed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return OutPoint(cType: self.cType!.update_failed, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -379,7 +379,7 @@
 						/// The funding outpoint of the [`ChannelMonitor`] that was updated
 						public func getFundingTxo() -> Bindings.OutPoint {
 							// return value (do some wrapping)
-							let returnValue = Bindings.OutPoint(cType: self.cType!.funding_txo, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.OutPoint(cType: self.cType!.funding_txo, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

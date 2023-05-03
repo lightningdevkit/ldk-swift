@@ -131,7 +131,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.transactionsConfirmed(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), height: height)
+							let swiftCallbackResult = instance.transactionsConfirmed(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata, instantiationContext: "Confirm.swift::init()::\(#function):\(#line)").getValue(), height: height)
 
 							// cleanup
 							
@@ -489,7 +489,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult, instantiationContext: "Confirm.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

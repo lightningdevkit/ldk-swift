@@ -136,7 +136,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -189,7 +189,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_SignatureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_SignatureZ(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -251,7 +251,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = CommitmentSigned(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = CommitmentSigned(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -259,7 +259,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -281,7 +281,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = CommitmentSigned(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = CommitmentSigned(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -333,7 +333,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -357,7 +357,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CommitmentSignedDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CommitmentSignedDecodeErrorZ(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 						
 
 						return returnValue

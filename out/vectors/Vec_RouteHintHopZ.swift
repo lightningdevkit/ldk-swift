@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKRouteHintHop) -> RouteHintHop in
-RouteHintHop(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+RouteHintHop(cType: currentCType, instantiationContext: "Vec_RouteHintHopZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

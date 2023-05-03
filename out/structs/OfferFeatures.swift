@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OfferFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = OfferFeatures(cType: nativeCallResult, instantiationContext: "OfferFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -125,7 +125,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OfferFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = OfferFeatures(cType: nativeCallResult, instantiationContext: "OfferFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue

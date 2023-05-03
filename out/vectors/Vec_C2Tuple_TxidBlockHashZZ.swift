@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_TxidBlockHashZ) -> ([UInt8], [UInt8]) in
-Tuple_TxidBlockHashZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Tuple_TxidBlockHashZ(cType: currentCType, instantiationContext: "Vec_C2Tuple_TxidBlockHashZZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

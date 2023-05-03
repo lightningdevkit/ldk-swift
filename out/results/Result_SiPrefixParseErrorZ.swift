@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_SiPrefixParseErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_SiPrefixParseErrorZ(cType: nativeCallResult, instantiationContext: "Result_SiPrefixParseErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_SiPrefixParseErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_SiPrefixParseErrorZ(cType: nativeCallResult, instantiationContext: "Result_SiPrefixParseErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_SiPrefixParseErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_SiPrefixParseErrorZ(cType: nativeCallResult, instantiationContext: "Result_SiPrefixParseErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -130,7 +130,7 @@
 					
 					public func getError() -> ParseError? {
 						if self.cType?.result_ok == false {
-							return ParseError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return ParseError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_SiPrefixParseErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

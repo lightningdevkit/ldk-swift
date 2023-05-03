@@ -69,7 +69,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SixteenBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = SixteenBytes(cType: nativeCallResult, instantiationContext: "U128.swift::\(#function):\(#line)").getValue()
 						
 
 						return returnValue
@@ -93,7 +93,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = U128(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = U128(cType: nativeCallResult, instantiationContext: "U128.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -101,7 +101,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "U128.swift::\(#function):\(#line)")
 				
 			
 					}

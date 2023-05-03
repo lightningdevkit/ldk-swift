@@ -136,7 +136,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -155,7 +155,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -174,7 +174,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -193,7 +193,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -212,7 +212,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -231,7 +231,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -250,7 +250,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -269,7 +269,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = DecodeError(cType: nativeCallResult, instantiationContext: "DecodeError.swift::\(#function):\(#line)")
 						
 
 						return returnValue

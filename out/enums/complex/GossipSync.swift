@@ -106,7 +106,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "GossipSync.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: a)
@@ -130,7 +130,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "GossipSync.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: a)
@@ -150,7 +150,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "GossipSync.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -163,7 +163,7 @@ return returnValue
 							return nil
 						}
 
-						return P2PGossipSync(cType: self.cType!.p2p, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return P2PGossipSync(cType: self.cType!.p2p, instantiationContext: "GossipSync.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsRapid() -> Bindings.RapidGossipSync? {
@@ -171,7 +171,7 @@ return returnValue
 							return nil
 						}
 
-						return RapidGossipSync(cType: self.cType!.rapid, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return RapidGossipSync(cType: self.cType!.rapid, instantiationContext: "GossipSync.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 

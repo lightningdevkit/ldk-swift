@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKSignature) -> [UInt8] in
-Signature(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Signature(cType: currentCType, instantiationContext: "Vec_SignatureZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

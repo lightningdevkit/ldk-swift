@@ -309,7 +309,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RoutingFees(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = RoutingFees(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -373,7 +373,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelUpdate(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -422,7 +422,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -430,7 +430,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -452,7 +452,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -504,7 +504,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -528,7 +528,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelUpdateInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ChannelUpdateInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue

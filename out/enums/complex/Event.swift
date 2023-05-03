@@ -308,7 +308,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -346,7 +346,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -382,7 +382,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -411,7 +411,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -447,7 +447,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -476,7 +476,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -509,7 +509,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -544,7 +544,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -577,7 +577,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -612,7 +612,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -631,7 +631,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -660,7 +660,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -683,7 +683,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -714,7 +714,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -748,7 +748,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -777,7 +777,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -806,7 +806,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -835,7 +835,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -859,7 +859,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -910,7 +910,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -934,7 +934,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_EventZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_COption_EventZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -947,7 +947,7 @@
 							return nil
 						}
 
-						return Event_LDKFundingGenerationReady_Body(cType: self.cType!.funding_generation_ready, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKFundingGenerationReady_Body(cType: self.cType!.funding_generation_ready, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentClaimable() -> PaymentClaimable? {
@@ -955,7 +955,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentClaimable_Body(cType: self.cType!.payment_claimable, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPaymentClaimable_Body(cType: self.cType!.payment_claimable, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentClaimed() -> PaymentClaimed? {
@@ -963,7 +963,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentClaimed_Body(cType: self.cType!.payment_claimed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPaymentClaimed_Body(cType: self.cType!.payment_claimed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentSent() -> PaymentSent? {
@@ -971,7 +971,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentSent_Body(cType: self.cType!.payment_sent, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPaymentSent_Body(cType: self.cType!.payment_sent, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentFailed() -> PaymentFailed? {
@@ -979,7 +979,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentFailed_Body(cType: self.cType!.payment_failed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPaymentFailed_Body(cType: self.cType!.payment_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentPathSuccessful() -> PaymentPathSuccessful? {
@@ -987,7 +987,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentPathSuccessful_Body(cType: self.cType!.payment_path_successful, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPaymentPathSuccessful_Body(cType: self.cType!.payment_path_successful, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentPathFailed() -> PaymentPathFailed? {
@@ -995,7 +995,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentPathFailed_Body(cType: self.cType!.payment_path_failed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPaymentPathFailed_Body(cType: self.cType!.payment_path_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsProbeSuccessful() -> ProbeSuccessful? {
@@ -1003,7 +1003,7 @@
 							return nil
 						}
 
-						return Event_LDKProbeSuccessful_Body(cType: self.cType!.probe_successful, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKProbeSuccessful_Body(cType: self.cType!.probe_successful, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsProbeFailed() -> ProbeFailed? {
@@ -1011,7 +1011,7 @@
 							return nil
 						}
 
-						return Event_LDKProbeFailed_Body(cType: self.cType!.probe_failed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKProbeFailed_Body(cType: self.cType!.probe_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPendingHtlcsForwardable() -> PendingHTLCsForwardable? {
@@ -1019,7 +1019,7 @@
 							return nil
 						}
 
-						return Event_LDKPendingHTLCsForwardable_Body(cType: self.cType!.pending_htl_cs_forwardable, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPendingHTLCsForwardable_Body(cType: self.cType!.pending_htl_cs_forwardable, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsHtlcIntercepted() -> HTLCIntercepted? {
@@ -1027,7 +1027,7 @@
 							return nil
 						}
 
-						return Event_LDKHTLCIntercepted_Body(cType: self.cType!.htlc_intercepted, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKHTLCIntercepted_Body(cType: self.cType!.htlc_intercepted, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsSpendableOutputs() -> SpendableOutputs? {
@@ -1035,7 +1035,7 @@
 							return nil
 						}
 
-						return Event_LDKSpendableOutputs_Body(cType: self.cType!.spendable_outputs, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKSpendableOutputs_Body(cType: self.cType!.spendable_outputs, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentForwarded() -> PaymentForwarded? {
@@ -1043,7 +1043,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentForwarded_Body(cType: self.cType!.payment_forwarded, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKPaymentForwarded_Body(cType: self.cType!.payment_forwarded, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelReady() -> ChannelReady? {
@@ -1051,7 +1051,7 @@
 							return nil
 						}
 
-						return Event_LDKChannelReady_Body(cType: self.cType!.channel_ready, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKChannelReady_Body(cType: self.cType!.channel_ready, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelClosed() -> ChannelClosed? {
@@ -1059,7 +1059,7 @@
 							return nil
 						}
 
-						return Event_LDKChannelClosed_Body(cType: self.cType!.channel_closed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKChannelClosed_Body(cType: self.cType!.channel_closed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsDiscardFunding() -> DiscardFunding? {
@@ -1067,7 +1067,7 @@
 							return nil
 						}
 
-						return Event_LDKDiscardFunding_Body(cType: self.cType!.discard_funding, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKDiscardFunding_Body(cType: self.cType!.discard_funding, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsOpenChannelRequest() -> OpenChannelRequest? {
@@ -1075,7 +1075,7 @@
 							return nil
 						}
 
-						return Event_LDKOpenChannelRequest_Body(cType: self.cType!.open_channel_request, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKOpenChannelRequest_Body(cType: self.cType!.open_channel_request, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsHtlcHandlingFailed() -> HTLCHandlingFailed? {
@@ -1083,7 +1083,7 @@
 							return nil
 						}
 
-						return Event_LDKHTLCHandlingFailed_Body(cType: self.cType!.htlc_handling_failed, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Event_LDKHTLCHandlingFailed_Body(cType: self.cType!.htlc_handling_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -1159,7 +1159,7 @@
 						/// [`ChannelManager::funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::funding_transaction_generated
 						public func getTemporaryChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1170,7 +1170,7 @@
 						/// [`ChannelManager::funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::funding_transaction_generated
 						public func getCounterpartyNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1186,7 +1186,7 @@
 						/// The script which should be used in the transaction output.
 						public func getOutputScript() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(cType: self.cType!.output_script, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_u8Z(cType: self.cType!.output_script, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1198,7 +1198,7 @@
 						/// [`ChannelManager::create_channel`]: crate::ln::channelmanager::ChannelManager::create_channel
 						public func getUserChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1263,7 +1263,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getReceiverNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1272,7 +1272,7 @@
 						/// not stop you from registering duplicate payment hashes for inbound payments.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1289,7 +1289,7 @@
 						/// payment is to pay an invoice or to send a spontaneous payment.
 						public func getPurpose() -> PaymentPurpose {
 							// return value (do some wrapping)
-							let returnValue = PaymentPurpose(cType: self.cType!.purpose, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = PaymentPurpose(cType: self.cType!.purpose, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1299,7 +1299,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getViaChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.via_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.via_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1307,7 +1307,7 @@
 						/// The `user_channel_id` indicating over which channel we received the payment.
 						public func getViaUserChannelId() -> [UInt8]? {
 							// return value (do some wrapping)
-							let returnValue = Option_u128Z(cType: self.cType!.via_user_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Option_u128Z(cType: self.cType!.via_user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1372,7 +1372,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getReceiverNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1381,7 +1381,7 @@
 						/// registering duplicate payment hashes for inbound payments.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1398,7 +1398,7 @@
 						/// spontaneous payment.
 						public func getPurpose() -> PaymentPurpose {
 							// return value (do some wrapping)
-							let returnValue = PaymentPurpose(cType: self.cType!.purpose, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = PaymentPurpose(cType: self.cType!.purpose, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1460,7 +1460,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1470,7 +1470,7 @@
 						/// store it somehow!
 						public func getPaymentPreimage() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1480,7 +1480,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1496,7 +1496,7 @@
 						/// [`Route::get_total_fees`]: crate::routing::router::Route::get_total_fees
 						public func getFeePaidMsat() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.fee_paid_msat, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.fee_paid_msat, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1558,7 +1558,7 @@
 						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1568,7 +1568,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1628,7 +1628,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1640,7 +1640,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1650,7 +1650,7 @@
 						/// May contain a closed channel if the HTLC sent along the path was fulfilled on chain.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1714,7 +1714,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1724,7 +1724,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1745,7 +1745,7 @@
 						/// [`NetworkGraph`]: crate::routing::gossip::NetworkGraph
 						public func getFailure() -> PathFailure {
 							// return value (do some wrapping)
-							let returnValue = PathFailure(cType: self.cType!.failure, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = PathFailure(cType: self.cType!.failure, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1753,7 +1753,7 @@
 						/// The payment path that failed.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1768,7 +1768,7 @@
 						/// retried. May be `None` for older [`Event`] serializations.
 						public func getShortChannelId() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1780,7 +1780,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getRetry() -> Bindings.RouteParameters {
 							// return value (do some wrapping)
-							let returnValue = Bindings.RouteParameters(cType: self.cType!.retry, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.RouteParameters(cType: self.cType!.retry, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1840,7 +1840,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1850,7 +1850,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1858,7 +1858,7 @@
 						/// The payment path that was successful.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1918,7 +1918,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1928,7 +1928,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1936,7 +1936,7 @@
 						/// The payment path that failed.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1948,7 +1948,7 @@
 						/// with channels in the public network graph.
 						public func getShortChannelId() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2067,7 +2067,7 @@
 						/// An id to help LDK identify which HTLC is being forwarded or failed.
 						public func getInterceptId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.intercept_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.intercept_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2086,7 +2086,7 @@
 						/// The payment hash used for this HTLC.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2165,7 +2165,7 @@
 						/// The outputs which you should store as spendable by you.
 						public func getOutputs() -> [SpendableOutputDescriptor] {
 							// return value (do some wrapping)
-							let returnValue = Vec_SpendableOutputDescriptorZ(cType: self.cType!.outputs, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_SpendableOutputDescriptorZ(cType: self.cType!.outputs, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2226,7 +2226,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPrevChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2237,7 +2237,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getNextChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.next_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.next_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2257,7 +2257,7 @@
 						/// `None`.
 						public func getFeeEarnedMsat() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.fee_earned_msat, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.fee_earned_msat, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2324,7 +2324,7 @@
 						/// The channel_id of the channel that is ready.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2339,7 +2339,7 @@
 						/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
 						public func getUserChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2347,7 +2347,7 @@
 						/// The node_id of the channel counterparty.
 						public func getCounterpartyNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2355,7 +2355,7 @@
 						/// The features that this channel will operate with.
 						public func getChannelType() -> Bindings.ChannelTypeFeatures {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -2414,7 +2414,7 @@
 						/// resolving the channel are likely still awaiting confirmation.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2431,7 +2431,7 @@
 						/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
 						public func getUserChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2439,7 +2439,7 @@
 						/// The reason the channel was closed.
 						public func getReason() -> ClosureReason {
 							// return value (do some wrapping)
-							let returnValue = ClosureReason(cType: self.cType!.reason, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = ClosureReason(cType: self.cType!.reason, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -2497,7 +2497,7 @@
 						/// The channel_id of the channel which has been closed.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2505,7 +2505,7 @@
 						/// The full transaction received from the user
 						public func getTransaction() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = Transaction(cType: self.cType!.transaction, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Transaction(cType: self.cType!.transaction, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2570,7 +2570,7 @@
 						/// [`ChannelManager::force_close_without_broadcasting_txn`]: crate::ln::channelmanager::ChannelManager::force_close_without_broadcasting_txn
 						public func getTemporaryChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2586,7 +2586,7 @@
 						/// [`ChannelManager::force_close_without_broadcasting_txn`]: crate::ln::channelmanager::ChannelManager::force_close_without_broadcasting_txn
 						public func getCounterpartyNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2624,7 +2624,7 @@
 						/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 						public func getChannelType() -> Bindings.ChannelTypeFeatures {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -2682,7 +2682,7 @@
 						/// The channel over which the HTLC was received.
 						public func getPrevChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2690,7 +2690,7 @@
 						/// Destination of the HTLC that failed to be processed.
 						public func getFailedNextDestination() -> HTLCDestination {
 							// return value (do some wrapping)
-							let returnValue = HTLCDestination(cType: self.cType!.failed_next_destination, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = HTLCDestination(cType: self.cType!.failed_next_destination, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

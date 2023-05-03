@@ -70,7 +70,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedBindingsType(cType: msg, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), senderNodeId: PublicKey(cType: sender_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedBindingsType(cType: msg, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"), senderNodeId: PublicKey(cType: sender_node_id, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -164,7 +164,7 @@
 					/// Implementation of CustomMessageReader for this object.
 					public func getCustomMessageReader() -> CustomMessageReader {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageReader(cType: self.cType!.CustomMessageReader, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedCustomMessageReader(cType: self.cType!.CustomMessageReader, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -212,7 +212,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -233,7 +233,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

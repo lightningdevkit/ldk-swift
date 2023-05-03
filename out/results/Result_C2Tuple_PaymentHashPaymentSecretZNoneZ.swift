@@ -56,7 +56,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "Result_C2Tuple_PaymentHashPaymentSecretZNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -75,7 +75,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "Result_C2Tuple_PaymentHashPaymentSecretZNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -118,7 +118,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "Result_C2Tuple_PaymentHashPaymentSecretZNoneZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -141,7 +141,7 @@
 					
 					public func getValue() -> ([UInt8], [UInt8])? {
 						if self.cType?.result_ok == true {
-							return Tuple_PaymentHashPaymentSecretZ(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							return Tuple_PaymentHashPaymentSecretZ(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_C2Tuple_PaymentHashPaymentSecretZNoneZ.swift::\(#function):\(#line)", anchor: self).getValue()
 						}
 						return nil
 					}

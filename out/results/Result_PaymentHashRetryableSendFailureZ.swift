@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "Result_PaymentHashRetryableSendFailureZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -78,7 +78,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "Result_PaymentHashRetryableSendFailureZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -121,7 +121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "Result_PaymentHashRetryableSendFailureZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -144,7 +144,7 @@
 					
 					public func getValue() -> [UInt8]? {
 						if self.cType?.result_ok == true {
-							return ThirtyTwoBytes(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							return ThirtyTwoBytes(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_PaymentHashRetryableSendFailureZ.swift::\(#function):\(#line)", anchor: self).getValue()
 						}
 						return nil
 					}

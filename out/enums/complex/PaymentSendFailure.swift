@@ -165,7 +165,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -184,7 +184,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -207,7 +207,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -230,7 +230,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -249,7 +249,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -277,7 +277,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentSendFailure(cType: nativeCallResult, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -290,7 +290,7 @@
 							return nil
 						}
 
-						return APIError(cType: self.cType!.parameter_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return APIError(cType: self.cType!.parameter_error, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPathParameterError() -> [Result_NoneAPIErrorZ]? {
@@ -298,7 +298,7 @@
 							return nil
 						}
 
-						return Vec_CResult_NoneAPIErrorZZ(cType: self.cType!.path_parameter_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return Vec_CResult_NoneAPIErrorZZ(cType: self.cType!.path_parameter_error, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsAllFailedResendSafe() -> [APIError]? {
@@ -306,7 +306,7 @@
 							return nil
 						}
 
-						return Vec_APIErrorZ(cType: self.cType!.all_failed_resend_safe, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return Vec_APIErrorZ(cType: self.cType!.all_failed_resend_safe, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsPartialFailure() -> PartialFailure? {
@@ -314,7 +314,7 @@
 							return nil
 						}
 
-						return PaymentSendFailure_LDKPartialFailure_Body(cType: self.cType!.partial_failure, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return PaymentSendFailure_LDKPartialFailure_Body(cType: self.cType!.partial_failure, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -387,7 +387,7 @@
 						/// The errors themselves, in the same order as the paths from the route.
 						public func getResults() -> [Result_NoneAPIErrorZ] {
 							// return value (do some wrapping)
-							let returnValue = Vec_CResult_NoneAPIErrorZZ(cType: self.cType!.results, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Vec_CResult_NoneAPIErrorZZ(cType: self.cType!.results, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -398,7 +398,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getFailedPathsRetry() -> Bindings.RouteParameters {
 							// return value (do some wrapping)
-							let returnValue = Bindings.RouteParameters(cType: self.cType!.failed_paths_retry, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.RouteParameters(cType: self.cType!.failed_paths_retry, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -406,7 +406,7 @@
 						/// The payment id for the payment, which is now at least partially pending.
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "PaymentSendFailure.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

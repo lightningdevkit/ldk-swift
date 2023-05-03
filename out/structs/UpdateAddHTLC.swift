@@ -329,7 +329,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UpdateAddHTLC(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = UpdateAddHTLC(cType: nativeCallResult, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -381,7 +381,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -405,7 +405,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_UpdateAddHTLCDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_UpdateAddHTLCDecodeErrorZ(cType: nativeCallResult, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)")
 						
 
 						return returnValue

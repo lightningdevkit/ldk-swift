@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "TrustedClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -117,7 +117,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "TrustedClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -152,7 +152,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "TrustedClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

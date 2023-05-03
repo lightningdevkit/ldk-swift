@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC3Tuple_OutPointCVec_MonitorEventZPublicKeyZ) -> (OutPoint, [MonitorEvent], [UInt8]) in
-Tuple_OutPointCVec_MonitorEventZPublicKeyZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Tuple_OutPointCVec_MonitorEventZPublicKeyZ(cType: currentCType, instantiationContext: "Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

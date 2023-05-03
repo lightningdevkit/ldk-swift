@@ -144,7 +144,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "WarningMessage.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -207,7 +207,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = WarningMessage(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = WarningMessage(cType: nativeCallResult, instantiationContext: "WarningMessage.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -215,7 +215,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "WarningMessage.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -237,7 +237,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = WarningMessage(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = WarningMessage(cType: nativeCallResult, instantiationContext: "WarningMessage.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -289,7 +289,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "WarningMessage.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -313,7 +313,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_WarningMessageDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_WarningMessageDecodeErrorZ(cType: nativeCallResult, instantiationContext: "WarningMessage.swift::\(#function):\(#line)")
 						
 
 						return returnValue

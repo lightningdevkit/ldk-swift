@@ -88,7 +88,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_PathFailureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Option_PathFailureZ(cType: nativeCallResult, instantiationContext: "Option_PathFailureZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -100,7 +100,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_PathFailureZ_Some {
-							return PathFailure(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+							return PathFailure(cType: self.cType!.some, instantiationContext: "Option_PathFailureZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						assert(false, "invalid option enum value")
 						return nil

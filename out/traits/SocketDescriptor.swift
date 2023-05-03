@@ -78,7 +78,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.sendData(data: u8slice(cType: data, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue(), resumeRead: resume_read)
+							let swiftCallbackResult = instance.sendData(data: u8slice(cType: data, instantiationContext: "SocketDescriptor.swift::init()::\(#function):\(#line)").dangle().getValue(), resumeRead: resume_read)
 
 							// cleanup
 							
@@ -114,7 +114,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.eq(otherArg: NativelyImplementedSocketDescriptor(cType: other_arg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.eq(otherArg: NativelyImplementedSocketDescriptor(cType: other_arg.pointee, instantiationContext: "SocketDescriptor.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -252,7 +252,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedSocketDescriptor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NativelyImplementedSocketDescriptor(cType: nativeCallResult, instantiationContext: "SocketDescriptor.swift::\(#function):\(#line)")
 						
 
 						return returnValue

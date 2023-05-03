@@ -102,7 +102,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "GraphSyncError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -121,7 +121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "GraphSyncError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -140,7 +140,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = GraphSyncError(cType: nativeCallResult, instantiationContext: "GraphSyncError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -153,7 +153,7 @@
 							return nil
 						}
 
-						return DecodeError(cType: self.cType!.decode_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return DecodeError(cType: self.cType!.decode_error, instantiationContext: "GraphSyncError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsLightningError() -> Bindings.LightningError? {
@@ -161,7 +161,7 @@
 							return nil
 						}
 
-						return LightningError(cType: self.cType!.lightning_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return LightningError(cType: self.cType!.lightning_error, instantiationContext: "GraphSyncError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 

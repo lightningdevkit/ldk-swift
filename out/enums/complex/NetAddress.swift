@@ -124,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -148,7 +148,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -172,7 +172,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -196,7 +196,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -220,7 +220,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -239,7 +239,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -290,7 +290,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -314,7 +314,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NetAddressDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NetAddressDecodeErrorZ(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -327,7 +327,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKIPv4_Body(cType: self.cType!.i_pv4, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NetAddress_LDKIPv4_Body(cType: self.cType!.i_pv4, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsIPv6() -> IPv6? {
@@ -335,7 +335,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKIPv6_Body(cType: self.cType!.i_pv6, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NetAddress_LDKIPv6_Body(cType: self.cType!.i_pv6, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsOnionV2() -> [UInt8]? {
@@ -343,7 +343,7 @@
 							return nil
 						}
 
-						return TwelveBytes(cType: self.cType!.onion_v2, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return TwelveBytes(cType: self.cType!.onion_v2, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsOnionV3() -> OnionV3? {
@@ -351,7 +351,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKOnionV3_Body(cType: self.cType!.onion_v3, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NetAddress_LDKOnionV3_Body(cType: self.cType!.onion_v3, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsHostname() -> Hostname? {
@@ -359,7 +359,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKHostname_Body(cType: self.cType!.hostname, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NetAddress_LDKHostname_Body(cType: self.cType!.hostname, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -432,7 +432,7 @@
 						/// The 4-byte IPv4 address
 						public func getAddr() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = FourBytes(cType: self.cType!.addr, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = FourBytes(cType: self.cType!.addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -498,7 +498,7 @@
 						/// The 16-byte IPv6 address
 						public func getAddr() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = SixteenBytes(cType: self.cType!.addr, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = SixteenBytes(cType: self.cType!.addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -564,7 +564,7 @@
 						/// The ed25519 long-term public key of the peer
 						public func getEd25519Pubkey() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.ed25519_pubkey, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.ed25519_pubkey, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -646,7 +646,7 @@
 						/// The hostname on which the node is listening.
 						public func getHostname() -> Bindings.Hostname {
 							// return value (do some wrapping)
-							let returnValue = Bindings.Hostname(cType: self.cType!.hostname, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.Hostname(cType: self.cType!.hostname, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

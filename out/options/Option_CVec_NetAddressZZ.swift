@@ -90,7 +90,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_CVec_NetAddressZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Option_CVec_NetAddressZZ(cType: nativeCallResult, instantiationContext: "Option_CVec_NetAddressZZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_CVec_NetAddressZZ_Some {
-							return Vec_NetAddressZ(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+							return Vec_NetAddressZ(cType: self.cType!.some, instantiationContext: "Option_CVec_NetAddressZZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -169,7 +169,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -193,7 +193,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -217,7 +217,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -241,7 +241,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -260,7 +260,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -279,7 +279,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -330,7 +330,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -354,7 +354,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_APIErrorZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_COption_APIErrorZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -367,7 +367,7 @@
 							return nil
 						}
 
-						return APIError_LDKAPIMisuseError_Body(cType: self.cType!.api_misuse_error, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return APIError_LDKAPIMisuseError_Body(cType: self.cType!.api_misuse_error, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsFeeRateTooHigh() -> FeeRateTooHigh? {
@@ -375,7 +375,7 @@
 							return nil
 						}
 
-						return APIError_LDKFeeRateTooHigh_Body(cType: self.cType!.fee_rate_too_high, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return APIError_LDKFeeRateTooHigh_Body(cType: self.cType!.fee_rate_too_high, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsInvalidRoute() -> InvalidRoute? {
@@ -383,7 +383,7 @@
 							return nil
 						}
 
-						return APIError_LDKInvalidRoute_Body(cType: self.cType!.invalid_route, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return APIError_LDKInvalidRoute_Body(cType: self.cType!.invalid_route, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelUnavailable() -> ChannelUnavailable? {
@@ -391,7 +391,7 @@
 							return nil
 						}
 
-						return APIError_LDKChannelUnavailable_Body(cType: self.cType!.channel_unavailable, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return APIError_LDKChannelUnavailable_Body(cType: self.cType!.channel_unavailable, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsIncompatibleShutdownScript() -> IncompatibleShutdownScript? {
@@ -399,7 +399,7 @@
 							return nil
 						}
 
-						return APIError_LDKIncompatibleShutdownScript_Body(cType: self.cType!.incompatible_shutdown_script, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return APIError_LDKIncompatibleShutdownScript_Body(cType: self.cType!.incompatible_shutdown_script, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -472,7 +472,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -530,7 +530,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -596,7 +596,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -654,7 +654,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -712,7 +712,7 @@
 						/// The incompatible shutdown script.
 						public func getScript() -> Bindings.ShutdownScript {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ShutdownScript(cType: self.cType!.script, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.ShutdownScript(cType: self.cType!.script, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

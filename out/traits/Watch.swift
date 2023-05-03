@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.watchChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), monitor: ChannelMonitor(cType: monitor, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.watchChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "Watch.swift::init()::\(#function):\(#line)"), monitor: ChannelMonitor(cType: monitor, instantiationContext: "Watch.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -110,7 +110,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), update: ChannelMonitorUpdate(cType: update.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "Watch.swift::init()::\(#function):\(#line)"), update: ChannelMonitorUpdate(cType: update.pointee, instantiationContext: "Watch.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -330,7 +330,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(cType: nativeCallResult, instantiationContext: "Watch.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

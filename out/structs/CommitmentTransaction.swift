@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = CommitmentTransaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = CommitmentTransaction(cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -110,7 +110,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -134,7 +134,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CommitmentTransactionDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CommitmentTransactionDecodeErrorZ(cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -254,7 +254,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TrustedCommitmentTransaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = TrustedCommitmentTransaction(cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -294,7 +294,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

@@ -154,7 +154,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_MessageSendEventZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Vec_MessageSendEventZ(cType: nativeCallResult, instantiationContext: "MessageSendEventsProvider.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

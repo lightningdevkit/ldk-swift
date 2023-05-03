@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKChannelMonitor) -> ChannelMonitor in
-ChannelMonitor(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+ChannelMonitor(cType: currentCType, instantiationContext: "Vec_ChannelMonitorZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

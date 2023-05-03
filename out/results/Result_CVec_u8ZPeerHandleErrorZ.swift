@@ -58,7 +58,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "Result_CVec_u8ZPeerHandleErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "Result_CVec_u8ZPeerHandleErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -120,7 +120,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "Result_CVec_u8ZPeerHandleErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -134,7 +134,7 @@
 					
 					public func getError() -> PeerHandleError? {
 						if self.cType?.result_ok == false {
-							return PeerHandleError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return PeerHandleError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_CVec_u8ZPeerHandleErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}
@@ -143,7 +143,7 @@
 					
 					public func getValue() -> [UInt8]? {
 						if self.cType?.result_ok == true {
-							return Vec_u8Z(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							return Vec_u8Z(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_CVec_u8ZPeerHandleErrorZ.swift::\(#function):\(#line)", anchor: self).getValue()
 						}
 						return nil
 					}

@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceSignature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = InvoiceSignature(cType: nativeCallResult, instantiationContext: "InvoiceSignature.swift::\(#function):\(#line)")
 						
 
 						return returnValue

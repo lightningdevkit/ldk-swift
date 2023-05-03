@@ -111,7 +111,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -135,7 +135,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -159,7 +159,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -183,7 +183,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -196,7 +196,7 @@
 							return nil
 						}
 
-						return RecentPaymentDetails_LDKPending_Body(cType: self.cType!.pending, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return RecentPaymentDetails_LDKPending_Body(cType: self.cType!.pending, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsFulfilled() -> Fulfilled? {
@@ -204,7 +204,7 @@
 							return nil
 						}
 
-						return RecentPaymentDetails_LDKFulfilled_Body(cType: self.cType!.fulfilled, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return RecentPaymentDetails_LDKFulfilled_Body(cType: self.cType!.fulfilled, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsAbandoned() -> Abandoned? {
@@ -212,7 +212,7 @@
 							return nil
 						}
 
-						return RecentPaymentDetails_LDKAbandoned_Body(cType: self.cType!.abandoned, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return RecentPaymentDetails_LDKAbandoned_Body(cType: self.cType!.abandoned, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -286,7 +286,7 @@
 						/// abandoned.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -356,7 +356,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -414,7 +414,7 @@
 						/// Hash of the payment that we have given up trying to send.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

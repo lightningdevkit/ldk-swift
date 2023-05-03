@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(cType: nativeCallResult, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32ScriptZZZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -87,7 +87,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_TxidCVec_C2Tuple_u32ScriptZZZ(cType: nativeCallResult, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32ScriptZZZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -95,7 +95,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32ScriptZZZ.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -128,7 +128,7 @@
 					/// The element at position 0
 					public func getA() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: self.cType!.a, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = ThirtyTwoBytes(cType: self.cType!.a, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32ScriptZZZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -136,7 +136,7 @@
 					/// The element at position 1
 					public func getB() -> [(UInt32, [UInt8])] {
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_u32ScriptZZ(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = Vec_C2Tuple_u32ScriptZZ(cType: self.cType!.b, instantiationContext: "Tuple_TxidCVec_C2Tuple_u32ScriptZZZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}

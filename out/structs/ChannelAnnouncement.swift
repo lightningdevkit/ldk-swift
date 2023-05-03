@@ -81,7 +81,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -132,7 +132,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -183,7 +183,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -234,7 +234,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -285,7 +285,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UnsignedChannelAnnouncement(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = UnsignedChannelAnnouncement(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -349,7 +349,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -357,7 +357,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -379,7 +379,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -431,7 +431,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -455,7 +455,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelAnnouncementDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ChannelAnnouncementDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 						
 
 						return returnValue

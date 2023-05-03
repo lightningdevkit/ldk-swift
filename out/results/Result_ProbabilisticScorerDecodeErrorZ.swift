@@ -55,7 +55,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Result_ProbabilisticScorerDecodeErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -74,7 +74,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Result_ProbabilisticScorerDecodeErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -107,7 +107,7 @@
 					
 					public func getError() -> DecodeError? {
 						if self.cType?.result_ok == false {
-							return DecodeError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return DecodeError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_ProbabilisticScorerDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}
@@ -116,7 +116,7 @@
 					
 					public func getValue() -> ProbabilisticScorer? {
 						if self.cType?.result_ok == true {
-							return ProbabilisticScorer(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return ProbabilisticScorer(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_ProbabilisticScorerDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

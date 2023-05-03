@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -130,7 +130,7 @@
 					
 					public func getError() -> DecodeError? {
 						if self.cType?.result_ok == false {
-							return DecodeError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return DecodeError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}
@@ -139,7 +139,7 @@
 					
 					public func getValue() -> StaticPaymentOutputDescriptor? {
 						if self.cType?.result_ok == true {
-							return StaticPaymentOutputDescriptor(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return StaticPaymentOutputDescriptor(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_StaticPaymentOutputDescriptorDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

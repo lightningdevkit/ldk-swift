@@ -227,7 +227,7 @@
 
 					
 					// return value (do some wrapping)
-					let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Str(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -246,7 +246,7 @@
 
 					
 					// return value (do some wrapping)
-					let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Str(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -278,7 +278,7 @@
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_StringErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_StringErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					return returnValue
@@ -307,7 +307,7 @@
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_PublicKeyErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_PublicKeyErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					return returnValue
@@ -370,7 +370,7 @@
 
 					
 					// return value (do some wrapping)
-					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -394,7 +394,7 @@
 
 					
 					// return value (do some wrapping)
-					let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: config)
@@ -440,7 +440,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: keys)
@@ -482,7 +482,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_PaymentSecretNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_PaymentSecretNoneZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: keys)
@@ -546,7 +546,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -573,7 +573,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -604,7 +604,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -635,7 +635,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -671,7 +671,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -710,7 +710,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -741,7 +741,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -769,7 +769,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -799,7 +799,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -844,7 +844,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -885,7 +885,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Witness(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Witness(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -909,7 +909,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -938,7 +938,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -967,7 +967,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Witness(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+					let returnValue = Witness(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)").getValue()
 					
 
 					return returnValue
@@ -1084,7 +1084,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: routeParams)
@@ -1131,7 +1131,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: routeParams)
@@ -1166,7 +1166,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_PaymentIdPaymentErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_PaymentIdPaymentErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: invoice)
@@ -1208,7 +1208,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_NonePaymentErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_NonePaymentErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: invoice)
@@ -1245,7 +1245,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_PaymentIdPaymentErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_PaymentIdPaymentErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: invoice)
@@ -1289,7 +1289,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_NonePaymentErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_NonePaymentErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: invoice)
@@ -1369,7 +1369,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					return returnValue
@@ -1438,7 +1438,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					return returnValue
@@ -1484,7 +1484,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: channelmanager)
@@ -1527,7 +1527,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: channelmanager)
@@ -1557,7 +1557,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: channelmanager)
@@ -1592,7 +1592,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: channelmanager)
@@ -1633,7 +1633,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_InvoiceSignOrCreationErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					try! returnValue.addAnchor(anchor: channelmanager)
@@ -1666,7 +1666,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					return returnValue
@@ -1691,7 +1691,7 @@ return returnValue
 
 					
 					// return value (do some wrapping)
-					let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+					let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 					
 
 					return returnValue

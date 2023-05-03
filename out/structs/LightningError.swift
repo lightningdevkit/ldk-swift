@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "LightningError.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -128,7 +128,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "LightningError.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -177,7 +177,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = LightningError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = LightningError(cType: nativeCallResult, instantiationContext: "LightningError.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -185,7 +185,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "LightningError.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -207,7 +207,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = LightningError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = LightningError(cType: nativeCallResult, instantiationContext: "LightningError.swift::\(#function):\(#line)")
 						
 
 						return returnValue

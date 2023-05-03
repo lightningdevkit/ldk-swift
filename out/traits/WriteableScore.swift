@@ -126,7 +126,7 @@
 					/// Implementation of LockableScore for this object.
 					public func getLockableScore() -> LockableScore {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedLockableScore(cType: self.cType!.LockableScore, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedLockableScore(cType: self.cType!.LockableScore, instantiationContext: "WriteableScore.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -167,7 +167,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "WriteableScore.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

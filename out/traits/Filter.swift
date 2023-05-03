@@ -99,7 +99,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.registerTx(txid: txidPointee, scriptPubkey: u8slice(cType: script_pubkey, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue())
+							let swiftCallbackResult = instance.registerTx(txid: txidPointee, scriptPubkey: u8slice(cType: script_pubkey, instantiationContext: "Filter.swift::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -117,7 +117,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.registerOutput(output: WatchedOutput(cType: output, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.registerOutput(output: WatchedOutput(cType: output, instantiationContext: "Filter.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							

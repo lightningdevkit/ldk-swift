@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKNodeId) -> NodeId in
-NodeId(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+NodeId(cType: currentCType, instantiationContext: "Vec_NodeIdZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

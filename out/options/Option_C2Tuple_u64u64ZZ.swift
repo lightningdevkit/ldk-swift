@@ -90,7 +90,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_C2Tuple_u64u64ZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Option_C2Tuple_u64u64ZZ(cType: nativeCallResult, instantiationContext: "Option_C2Tuple_u64u64ZZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_C2Tuple_u64u64ZZ_Some {
-							return Tuple_u64u64Z(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+							return Tuple_u64u64Z(cType: self.cType!.some, instantiationContext: "Option_C2Tuple_u64u64ZZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

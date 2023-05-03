@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -83,7 +83,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -91,7 +91,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -124,7 +124,7 @@
 					/// The element at position 0
 					public func getA() -> RawInvoice {
 						// return value (do some wrapping)
-						let returnValue = RawInvoice(cType: self.cType!.a, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+						let returnValue = RawInvoice(cType: self.cType!.a, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -132,7 +132,7 @@
 					/// The element at position 1
 					public func getB() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = ThirtyTwoBytes(cType: self.cType!.b, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -140,7 +140,7 @@
 					/// The element at position 2
 					public func getC() -> InvoiceSignature {
 						// return value (do some wrapping)
-						let returnValue = InvoiceSignature(cType: self.cType!.c, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+						let returnValue = InvoiceSignature(cType: self.cType!.c, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}

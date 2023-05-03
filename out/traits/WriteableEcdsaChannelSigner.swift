@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "WriteableEcdsaChannelSigner.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 					/// Implementation of EcdsaChannelSigner for this object.
 					public func getEcdsaChannelSigner() -> EcdsaChannelSigner {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: self.cType!.EcdsaChannelSigner, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: self.cType!.EcdsaChannelSigner, instantiationContext: "WriteableEcdsaChannelSigner.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -197,7 +197,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "WriteableEcdsaChannelSigner.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

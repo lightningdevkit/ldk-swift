@@ -89,7 +89,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Hostname(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Hostname(cType: nativeCallResult, instantiationContext: "Hostname.swift::\(#function):\(#line)")
 						
 
 						return returnValue

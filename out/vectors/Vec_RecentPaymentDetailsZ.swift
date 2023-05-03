@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKRecentPaymentDetails) -> RecentPaymentDetails in
-RecentPaymentDetails(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+RecentPaymentDetails(cType: currentCType, instantiationContext: "Vec_RecentPaymentDetailsZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

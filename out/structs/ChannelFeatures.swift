@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelFeatures(cType: nativeCallResult, instantiationContext: "ChannelFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -125,7 +125,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelFeatures(cType: nativeCallResult, instantiationContext: "ChannelFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -172,7 +172,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelFeatures.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -196,7 +196,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelFeaturesDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ChannelFeaturesDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue

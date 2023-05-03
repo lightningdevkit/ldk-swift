@@ -143,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -193,7 +193,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -245,7 +245,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -299,7 +299,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedFeeEstimator(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedFeeEstimator(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -355,7 +355,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWatch(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedWatch(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -411,7 +411,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedBroadcasterInterface(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedBroadcasterInterface(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -466,7 +466,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedRouter(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedRouter(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -520,7 +520,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedLogger(cType: nativeCallResult.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedLogger(cType: nativeCallResult.pointee, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -568,7 +568,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UserConfig(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = UserConfig(cType: nativeCallResult, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -619,7 +619,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelManagerReadArgs(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelManagerReadArgs(cType: nativeCallResult, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -627,7 +627,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerReadArgs.swift::\(#function):\(#line)")
 				
 			
 					}

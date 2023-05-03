@@ -124,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -143,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -162,7 +162,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -181,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -200,7 +200,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -219,7 +219,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -255,7 +255,7 @@
 							return nil
 						}
 
-						return EffectiveCapacity_LDKExactLiquidity_Body(cType: self.cType!.exact_liquidity, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return EffectiveCapacity_LDKExactLiquidity_Body(cType: self.cType!.exact_liquidity, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsMaximumHtlc() -> MaximumHTLC? {
@@ -263,7 +263,7 @@
 							return nil
 						}
 
-						return EffectiveCapacity_LDKMaximumHTLC_Body(cType: self.cType!.maximum_htlc, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return EffectiveCapacity_LDKMaximumHTLC_Body(cType: self.cType!.maximum_htlc, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsTotal() -> Total? {
@@ -271,7 +271,7 @@
 							return nil
 						}
 
-						return EffectiveCapacity_LDKTotal_Body(cType: self.cType!.total, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return EffectiveCapacity_LDKTotal_Body(cType: self.cType!.total, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 

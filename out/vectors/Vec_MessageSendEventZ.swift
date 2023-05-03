@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKMessageSendEvent) -> MessageSendEvent in
-MessageSendEvent(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+MessageSendEvent(cType: currentCType, instantiationContext: "Vec_MessageSendEventZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

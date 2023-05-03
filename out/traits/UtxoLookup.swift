@@ -174,7 +174,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "UtxoLookup.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKCResult_NoneAPIErrorZ) -> Result_NoneAPIErrorZ in
-Result_NoneAPIErrorZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+Result_NoneAPIErrorZ(cType: currentCType, instantiationContext: "Vec_CResult_NoneAPIErrorZZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

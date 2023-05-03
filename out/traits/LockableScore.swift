@@ -166,7 +166,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedScore(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedScore(cType: nativeCallResult, instantiationContext: "LockableScore.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue
 					}

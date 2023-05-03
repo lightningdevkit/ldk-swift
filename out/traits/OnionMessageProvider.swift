@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.nextOnionMessageForPeer(peerNodeId: PublicKey(cType: peer_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.nextOnionMessageForPeer(peerNodeId: PublicKey(cType: peer_node_id, instantiationContext: "OnionMessageProvider.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -161,7 +161,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = OnionMessage(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = OnionMessage(cType: nativeCallResult, instantiationContext: "OnionMessageProvider.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

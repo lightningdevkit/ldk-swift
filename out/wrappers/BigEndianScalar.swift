@@ -68,7 +68,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = BigEndianScalar(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = BigEndianScalar(cType: nativeCallResult, instantiationContext: "BigEndianScalar.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -76,7 +76,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "BigEndianScalar.swift::\(#function):\(#line)")
 				
 			
 					}

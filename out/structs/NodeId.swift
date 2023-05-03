@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -101,7 +101,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -124,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						
 
 						return returnValue
@@ -170,7 +170,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -194,7 +194,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NodeIdDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NodeIdDecodeErrorZ(cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)")
 						
 
 						return returnValue

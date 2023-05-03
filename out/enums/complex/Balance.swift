@@ -144,7 +144,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "Balance.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -163,7 +163,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "Balance.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -182,7 +182,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "Balance.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -201,7 +201,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "Balance.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -220,7 +220,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "Balance.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -239,7 +239,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "Balance.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -258,7 +258,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Balance(cType: nativeCallResult, instantiationContext: "Balance.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -299,7 +299,7 @@
 							return nil
 						}
 
-						return Balance_LDKClaimableOnChannelClose_Body(cType: self.cType!.claimable_on_channel_close, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Balance_LDKClaimableOnChannelClose_Body(cType: self.cType!.claimable_on_channel_close, instantiationContext: "Balance.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsClaimableAwaitingConfirmations() -> ClaimableAwaitingConfirmations? {
@@ -307,7 +307,7 @@
 							return nil
 						}
 
-						return Balance_LDKClaimableAwaitingConfirmations_Body(cType: self.cType!.claimable_awaiting_confirmations, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Balance_LDKClaimableAwaitingConfirmations_Body(cType: self.cType!.claimable_awaiting_confirmations, instantiationContext: "Balance.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsContentiousClaimable() -> ContentiousClaimable? {
@@ -315,7 +315,7 @@
 							return nil
 						}
 
-						return Balance_LDKContentiousClaimable_Body(cType: self.cType!.contentious_claimable, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Balance_LDKContentiousClaimable_Body(cType: self.cType!.contentious_claimable, instantiationContext: "Balance.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsMaybeTimeoutClaimableHtlc() -> MaybeTimeoutClaimableHTLC? {
@@ -323,7 +323,7 @@
 							return nil
 						}
 
-						return Balance_LDKMaybeTimeoutClaimableHTLC_Body(cType: self.cType!.maybe_timeout_claimable_htlc, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Balance_LDKMaybeTimeoutClaimableHTLC_Body(cType: self.cType!.maybe_timeout_claimable_htlc, instantiationContext: "Balance.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsMaybePreimageClaimableHtlc() -> MaybePreimageClaimableHTLC? {
@@ -331,7 +331,7 @@
 							return nil
 						}
 
-						return Balance_LDKMaybePreimageClaimableHTLC_Body(cType: self.cType!.maybe_preimage_claimable_htlc, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Balance_LDKMaybePreimageClaimableHTLC_Body(cType: self.cType!.maybe_preimage_claimable_htlc, instantiationContext: "Balance.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsCounterpartyRevokedOutputClaimable() -> CounterpartyRevokedOutputClaimable? {
@@ -339,7 +339,7 @@
 							return nil
 						}
 
-						return Balance_LDKCounterpartyRevokedOutputClaimable_Body(cType: self.cType!.counterparty_revoked_output_claimable, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Balance_LDKCounterpartyRevokedOutputClaimable_Body(cType: self.cType!.counterparty_revoked_output_claimable, instantiationContext: "Balance.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 

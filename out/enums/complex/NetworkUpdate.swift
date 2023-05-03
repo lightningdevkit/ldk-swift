@@ -112,7 +112,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -131,7 +131,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -150,7 +150,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -174,7 +174,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NetworkUpdate(cType: nativeCallResult, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -225,7 +225,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -249,7 +249,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_NetworkUpdateZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_COption_NetworkUpdateZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -262,7 +262,7 @@
 							return nil
 						}
 
-						return NetworkUpdate_LDKChannelUpdateMessage_Body(cType: self.cType!.channel_update_message, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NetworkUpdate_LDKChannelUpdateMessage_Body(cType: self.cType!.channel_update_message, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelFailure() -> ChannelFailure? {
@@ -270,7 +270,7 @@
 							return nil
 						}
 
-						return NetworkUpdate_LDKChannelFailure_Body(cType: self.cType!.channel_failure, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NetworkUpdate_LDKChannelFailure_Body(cType: self.cType!.channel_failure, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsNodeFailure() -> NodeFailure? {
@@ -278,7 +278,7 @@
 							return nil
 						}
 
-						return NetworkUpdate_LDKNodeFailure_Body(cType: self.cType!.node_failure, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return NetworkUpdate_LDKNodeFailure_Body(cType: self.cType!.node_failure, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -351,7 +351,7 @@
 						/// The update to apply via [`NetworkGraph::update_channel`].
 						public func getMsg() -> Bindings.ChannelUpdate {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ChannelUpdate(cType: self.cType!.msg, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							let returnValue = Bindings.ChannelUpdate(cType: self.cType!.msg, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -476,7 +476,7 @@
 						/// The node id of the failed node.
 						public func getNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.node_id, instantiationContext: "NetworkUpdate.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

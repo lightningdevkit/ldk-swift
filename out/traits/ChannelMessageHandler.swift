@@ -62,7 +62,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleOpenChannel(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: OpenChannel(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleOpenChannel(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: OpenChannel(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -80,7 +80,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleAcceptChannel(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: AcceptChannel(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleAcceptChannel(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: AcceptChannel(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -98,7 +98,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleFundingCreated(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: FundingCreated(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleFundingCreated(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: FundingCreated(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -116,7 +116,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleFundingSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: FundingSigned(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleFundingSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: FundingSigned(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -134,7 +134,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelReady(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: ChannelReady(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleChannelReady(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ChannelReady(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -152,7 +152,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleShutdown(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: Shutdown(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleShutdown(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: Shutdown(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -170,7 +170,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleClosingSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: ClosingSigned(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleClosingSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ClosingSigned(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -188,7 +188,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateAddHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: UpdateAddHTLC(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateAddHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateAddHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -206,7 +206,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFulfillHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: UpdateFulfillHTLC(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFulfillHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFulfillHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -224,7 +224,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFailHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: UpdateFailHTLC(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFailHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFailHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -242,7 +242,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFailMalformedHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: UpdateFailMalformedHTLC(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFailMalformedHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFailMalformedHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -260,7 +260,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleCommitmentSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: CommitmentSigned(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleCommitmentSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: CommitmentSigned(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -278,7 +278,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleRevokeAndAck(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: RevokeAndACK(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleRevokeAndAck(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: RevokeAndACK(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -296,7 +296,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFee(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: UpdateFee(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFee(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFee(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -314,7 +314,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleAnnouncementSignatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: AnnouncementSignatures(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleAnnouncementSignatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: AnnouncementSignatures(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -332,7 +332,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -350,7 +350,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: BindingsInit(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), inbound: inbound)
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: BindingsInit(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -368,7 +368,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelReestablish(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: ChannelReestablish(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleChannelReestablish(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ChannelReestablish(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -386,7 +386,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelUpdate(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: ChannelUpdate(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleChannelUpdate(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ChannelUpdate(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -404,7 +404,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleError(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: ErrorMessage(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleError(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ErrorMessage(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -440,7 +440,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -682,7 +682,7 @@
 					/// Implementation of MessageSendEventsProvider for this object.
 					public func getMessageSendEventsProvider() -> MessageSendEventsProvider {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: self.cType!.MessageSendEventsProvider, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: self.cType!.MessageSendEventsProvider, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -1180,7 +1180,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -1285,7 +1285,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -1313,7 +1313,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

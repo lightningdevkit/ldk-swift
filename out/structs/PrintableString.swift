@@ -79,7 +79,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "PrintableString.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -133,7 +133,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = PrintableString(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PrintableString(cType: nativeCallResult, instantiationContext: "PrintableString.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -141,7 +141,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "PrintableString.swift::\(#function):\(#line)")
 				
 			
 					}

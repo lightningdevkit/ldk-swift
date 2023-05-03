@@ -107,7 +107,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -160,7 +160,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -206,7 +206,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						
 
 						return returnValue
@@ -263,7 +263,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = WatchedOutput(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = WatchedOutput(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -271,7 +271,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -293,7 +293,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = WatchedOutput(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = WatchedOutput(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 						
 
 						return returnValue

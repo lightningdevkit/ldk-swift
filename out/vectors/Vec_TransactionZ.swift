@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKTransaction) -> [UInt8] in
-Transaction(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Transaction(cType: currentCType, instantiationContext: "Vec_TransactionZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

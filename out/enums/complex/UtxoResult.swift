@@ -109,7 +109,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -128,7 +128,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -147,7 +147,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -160,7 +160,7 @@
 							return nil
 						}
 
-						return Result_TxOutUtxoLookupErrorZ(cType: self.cType!.sync, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return Result_TxOutUtxoLookupErrorZ(cType: self.cType!.sync, instantiationContext: "UtxoResult.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsAsync() -> Bindings.UtxoFuture? {
@@ -168,7 +168,7 @@
 							return nil
 						}
 
-						return UtxoFuture(cType: self.cType!.async, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return UtxoFuture(cType: self.cType!.async, instantiationContext: "UtxoResult.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 

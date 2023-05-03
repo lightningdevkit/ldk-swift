@@ -133,7 +133,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BestBlock(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = BestBlock(cType: nativeCallResult, instantiationContext: "ChainParameters.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -179,7 +179,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChainParameters(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChainParameters(cType: nativeCallResult, instantiationContext: "ChainParameters.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -187,7 +187,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChainParameters.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -209,7 +209,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChainParameters(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChainParameters(cType: nativeCallResult, instantiationContext: "ChainParameters.swift::\(#function):\(#line)")
 						
 
 						return returnValue

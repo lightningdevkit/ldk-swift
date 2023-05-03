@@ -99,7 +99,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChainMonitor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChainMonitor(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -107,7 +107,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -141,7 +141,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -168,7 +168,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -194,7 +194,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_OutPointZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_OutPointZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -217,7 +217,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -252,7 +252,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -276,7 +276,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedListen(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedListen(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -300,7 +300,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -324,7 +324,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWatch(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedWatch(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -348,7 +348,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

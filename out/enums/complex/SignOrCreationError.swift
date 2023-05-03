@@ -101,7 +101,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SignOrCreationError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SignOrCreationError(cType: nativeCallResult, instantiationContext: "SignOrCreationError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -120,7 +120,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SignOrCreationError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SignOrCreationError(cType: nativeCallResult, instantiationContext: "SignOrCreationError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -139,7 +139,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SignOrCreationError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SignOrCreationError(cType: nativeCallResult, instantiationContext: "SignOrCreationError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -190,7 +190,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "SignOrCreationError.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -110,7 +110,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BuiltCommitmentTransaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = BuiltCommitmentTransaction(cType: nativeCallResult, instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -133,7 +133,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -194,7 +194,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_SignatureZNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_SignatureZNoneZ(cType: nativeCallResult, instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

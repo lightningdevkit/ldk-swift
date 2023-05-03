@@ -76,7 +76,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_UtxoLookupZ_Some {
-							return NativelyImplementedUtxoLookup(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+							return NativelyImplementedUtxoLookup(cType: self.cType!.some, instantiationContext: "Option_UtxoLookupZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						assert(false, "invalid option enum value")
 						return nil

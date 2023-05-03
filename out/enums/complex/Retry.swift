@@ -107,7 +107,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Retry(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Retry(cType: nativeCallResult, instantiationContext: "Retry.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -126,7 +126,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Retry(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Retry(cType: nativeCallResult, instantiationContext: "Retry.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Retry(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Retry(cType: nativeCallResult, instantiationContext: "Retry.swift::\(#function):\(#line)")
 						
 
 						return returnValue

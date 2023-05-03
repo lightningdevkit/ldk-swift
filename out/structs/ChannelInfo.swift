@@ -79,7 +79,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelFeatures(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -125,7 +125,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -186,7 +186,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -234,7 +234,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -295,7 +295,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -343,7 +343,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -409,7 +409,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -460,7 +460,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ChannelInfo(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -527,7 +527,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -550,7 +550,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -574,7 +574,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_ChannelInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue

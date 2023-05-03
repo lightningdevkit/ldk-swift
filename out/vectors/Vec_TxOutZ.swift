@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKTxOut) -> TxOut in
-TxOut(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+TxOut(cType: currentCType, instantiationContext: "Vec_TxOutZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

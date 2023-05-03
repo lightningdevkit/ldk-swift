@@ -120,7 +120,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -149,7 +149,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -168,7 +168,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -187,7 +187,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -211,7 +211,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -262,7 +262,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -286,7 +286,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_HTLCDestinationZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_COption_HTLCDestinationZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -299,7 +299,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKNextHopChannel_Body(cType: self.cType!.next_hop_channel, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return HTLCDestination_LDKNextHopChannel_Body(cType: self.cType!.next_hop_channel, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsUnknownNextHop() -> UnknownNextHop? {
@@ -307,7 +307,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKUnknownNextHop_Body(cType: self.cType!.unknown_next_hop, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return HTLCDestination_LDKUnknownNextHop_Body(cType: self.cType!.unknown_next_hop, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsInvalidForward() -> InvalidForward? {
@@ -315,7 +315,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKInvalidForward_Body(cType: self.cType!.invalid_forward, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return HTLCDestination_LDKInvalidForward_Body(cType: self.cType!.invalid_forward, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsFailedPayment() -> FailedPayment? {
@@ -323,7 +323,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKFailedPayment_Body(cType: self.cType!.failed_payment, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						return HTLCDestination_LDKFailedPayment_Body(cType: self.cType!.failed_payment, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -400,7 +400,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.node_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.node_id, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -408,7 +408,7 @@
 						/// The outgoing `channel_id` between us and the next node.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -582,7 +582,7 @@
 						/// The payment hash of the payment we attempted to process.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleOnionMessage(peerNodeId: PublicKey(cType: peer_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), msg: OnionMessage(cType: msg.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.handleOnionMessage(peerNodeId: PublicKey(cType: peer_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: OnionMessage(cType: msg.pointee, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -74,7 +74,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), initArgument: BindingsInit(cType: initArgument.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), inbound: inbound)
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue(), initArgument: BindingsInit(cType: initArgument.pointee, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -128,7 +128,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -236,7 +236,7 @@
 					/// Implementation of OnionMessageProvider for this object.
 					public func getOnionMessageProvider() -> OnionMessageProvider {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageProvider(cType: self.cType!.OnionMessageProvider, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedOnionMessageProvider(cType: self.cType!.OnionMessageProvider, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -319,7 +319,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -365,7 +365,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -393,7 +393,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKOutPoint) -> OutPoint in
-OutPoint(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+OutPoint(cType: currentCType, instantiationContext: "Vec_OutPointZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

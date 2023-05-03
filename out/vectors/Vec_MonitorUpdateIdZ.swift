@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKMonitorUpdateId) -> MonitorUpdateId in
-MonitorUpdateId(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+MonitorUpdateId(cType: currentCType, instantiationContext: "Vec_MonitorUpdateIdZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKChannelDetails) -> ChannelDetails in
-ChannelDetails(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+ChannelDetails(cType: currentCType, instantiationContext: "Vec_ChannelDetailsZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

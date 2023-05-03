@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "Result__u832APIErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -78,7 +78,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "Result__u832APIErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -121,7 +121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "Result__u832APIErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -135,7 +135,7 @@
 					
 					public func getError() -> APIError? {
 						if self.cType?.result_ok == false {
-							return APIError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return APIError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result__u832APIErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}
@@ -144,7 +144,7 @@
 					
 					public func getValue() -> [UInt8]? {
 						if self.cType?.result_ok == true {
-							return ThirtyTwoBytes(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							return ThirtyTwoBytes(cType: self.cType!.contents.result.pointee, instantiationContext: "Result__u832APIErrorZ.swift::\(#function):\(#line)", anchor: self).getValue()
 						}
 						return nil
 					}

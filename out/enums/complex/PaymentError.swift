@@ -100,7 +100,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentError(cType: nativeCallResult, instantiationContext: "PaymentError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -124,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentError(cType: nativeCallResult, instantiationContext: "PaymentError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -143,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentError(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PaymentError(cType: nativeCallResult, instantiationContext: "PaymentError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -156,7 +156,7 @@
 							return nil
 						}
 
-						return Str(cType: self.cType!.invoice, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						return Str(cType: self.cType!.invoice, instantiationContext: "PaymentError.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsSending() -> RetryableSendFailure? {

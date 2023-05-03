@@ -87,7 +87,7 @@
 
 						let swiftArray = array.map { (currentCType: [LDKRouteHop]) -> [RouteHop] in
 							currentCType.map { (currentCType: LDKRouteHop) -> RouteHop in
-RouteHop(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+RouteHop(cType: currentCType, instantiationContext: "Vec_CVec_RouteHopZZ.swift::\(#function):\(#line)", anchor: self).dangle()
 							}
 						}
 						return swiftArray

@@ -64,7 +64,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleEvent(event: Event(cType: event, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.handleEvent(event: Event(cType: event, instantiationContext: "EventHandler.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							

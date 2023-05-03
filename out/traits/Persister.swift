@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistManager(channelManager: ChannelManager(cType: channel_manager.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle())
+							let swiftCallbackResult = instance.persistManager(channelManager: ChannelManager(cType: channel_manager.pointee, instantiationContext: "Persister.swift::init()::\(#function):\(#line)").dangle())
 
 							// cleanup
 							
@@ -74,7 +74,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistGraph(networkGraph: NetworkGraph(cType: network_graph.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle())
+							let swiftCallbackResult = instance.persistGraph(networkGraph: NetworkGraph(cType: network_graph.pointee, instantiationContext: "Persister.swift::init()::\(#function):\(#line)").dangle())
 
 							// cleanup
 							
@@ -92,7 +92,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistScorer(scorer: NativelyImplementedWriteableScore(cType: scorer.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.persistScorer(scorer: NativelyImplementedWriteableScore(cType: scorer.pointee, instantiationContext: "Persister.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -208,7 +208,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -231,7 +231,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -254,7 +254,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

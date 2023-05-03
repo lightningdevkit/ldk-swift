@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKBalance) -> Balance in
-Balance(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+Balance(cType: currentCType, instantiationContext: "Vec_BalanceZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKAPIError) -> APIError in
-APIError(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+APIError(cType: currentCType, instantiationContext: "Vec_APIErrorZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Bolt12InvoiceFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Bolt12InvoiceFeatures(cType: nativeCallResult, instantiationContext: "Bolt12InvoiceFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -125,7 +125,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Bolt12InvoiceFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Bolt12InvoiceFeatures(cType: nativeCallResult, instantiationContext: "Bolt12InvoiceFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue

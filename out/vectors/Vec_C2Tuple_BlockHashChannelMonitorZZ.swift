@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_BlockHashChannelMonitorZ) -> ([UInt8], ChannelMonitor) in
-Tuple_BlockHashChannelMonitorZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Tuple_BlockHashChannelMonitorZ(cType: currentCType, instantiationContext: "Vec_C2Tuple_BlockHashChannelMonitorZZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

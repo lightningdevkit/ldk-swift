@@ -97,7 +97,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -150,7 +150,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -203,7 +203,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -254,7 +254,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -305,7 +305,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -377,7 +377,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -429,7 +429,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -452,7 +452,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -476,7 +476,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TxCreationKeysDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_TxCreationKeysDecodeErrorZ(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -521,7 +521,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -554,7 +554,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: broadcasterKeys)

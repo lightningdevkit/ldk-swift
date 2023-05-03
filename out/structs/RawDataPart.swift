@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PositiveTimestamp(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = PositiveTimestamp(cType: nativeCallResult, instantiationContext: "RawDataPart.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -152,7 +152,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RawDataPart(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RawDataPart(cType: nativeCallResult, instantiationContext: "RawDataPart.swift::\(#function):\(#line)")
 						
 
 						return returnValue

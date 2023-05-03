@@ -83,7 +83,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PrivateRoute(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = PrivateRoute(cType: nativeCallResult, instantiationContext: "PrivateRoute.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -154,7 +154,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_PrivateRouteCreationErrorZ(cType: nativeCallResult, instantiationContext: "PrivateRoute.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -173,7 +173,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RouteHint(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RouteHint(cType: nativeCallResult, instantiationContext: "PrivateRoute.swift::\(#function):\(#line)")
 						
 
 						return returnValue

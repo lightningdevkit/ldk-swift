@@ -179,7 +179,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BackgroundProcessor(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = BackgroundProcessor(cType: nativeCallResult, instantiationContext: "BackgroundProcessor.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: chainMonitor)
@@ -210,7 +210,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "BackgroundProcessor.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -238,7 +238,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "BackgroundProcessor.swift::\(#function):\(#line)")
 						
 
 						return returnValue

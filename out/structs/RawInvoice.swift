@@ -85,7 +85,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RawDataPart(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = RawDataPart(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -160,7 +160,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RawInvoice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = RawInvoice(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -206,7 +206,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -242,7 +242,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -278,7 +278,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Description(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = Description(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -314,7 +314,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PayeePubKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = PayeePubKey(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -350,7 +350,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -386,7 +386,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -422,7 +422,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MinFinalCltvExpiryDelta(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = MinFinalCltvExpiryDelta(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -453,7 +453,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -489,7 +489,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = InvoiceFeatures(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -512,7 +512,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -535,7 +535,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue

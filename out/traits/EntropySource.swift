@@ -154,7 +154,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "EntropySource.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

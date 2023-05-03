@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MonitorUpdateId(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = MonitorUpdateId(cType: nativeCallResult, instantiationContext: "MonitorUpdateId.swift::\(#function):\(#line)")
 						
 
 						return returnValue

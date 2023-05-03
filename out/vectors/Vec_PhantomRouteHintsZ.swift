@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKPhantomRouteHints) -> PhantomRouteHints in
-PhantomRouteHints(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+PhantomRouteHints(cType: currentCType, instantiationContext: "Vec_PhantomRouteHintsZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

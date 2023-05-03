@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_OutPointCVec_MonitorUpdateIdZZ) -> (OutPoint, [MonitorUpdateId]) in
-Tuple_OutPointCVec_MonitorUpdateIdZZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Tuple_OutPointCVec_MonitorUpdateIdZZ(cType: currentCType, instantiationContext: "Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

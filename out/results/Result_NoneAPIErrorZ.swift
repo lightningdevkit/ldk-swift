@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -130,7 +130,7 @@
 					
 					public func getError() -> APIError? {
 						if self.cType?.result_ok == false {
-							return APIError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return APIError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

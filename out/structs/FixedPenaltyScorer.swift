@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = FixedPenaltyScorer(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = FixedPenaltyScorer(cType: nativeCallResult, instantiationContext: "FixedPenaltyScorer.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -96,7 +96,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = FixedPenaltyScorer(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = FixedPenaltyScorer(cType: nativeCallResult, instantiationContext: "FixedPenaltyScorer.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -120,7 +120,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedScore(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedScore(cType: nativeCallResult, instantiationContext: "FixedPenaltyScorer.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -143,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "FixedPenaltyScorer.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -167,7 +167,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_FixedPenaltyScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_FixedPenaltyScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "FixedPenaltyScorer.swift::\(#function):\(#line)")
 						
 
 						return returnValue

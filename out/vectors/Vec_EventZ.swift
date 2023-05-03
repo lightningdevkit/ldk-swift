@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKEvent) -> Event in
-Event(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+Event(cType: currentCType, instantiationContext: "Vec_EventZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

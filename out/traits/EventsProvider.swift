@@ -126,7 +126,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.processPendingEvents(handler: NativelyImplementedEventHandler(cType: handler, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.processPendingEvents(handler: NativelyImplementedEventHandler(cType: handler, instantiationContext: "EventsProvider.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							

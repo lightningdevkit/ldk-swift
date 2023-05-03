@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_u32TxOutZ) -> (UInt32, TxOut) in
-Tuple_u32TxOutZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Tuple_u32TxOutZ(cType: currentCType, instantiationContext: "Vec_C2Tuple_u32TxOutZZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

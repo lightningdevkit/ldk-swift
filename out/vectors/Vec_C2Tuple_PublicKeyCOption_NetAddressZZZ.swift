@@ -73,7 +73,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_PublicKeyCOption_NetAddressZZ) -> ([UInt8], NetAddress?) in
-Tuple_PublicKeyCOption_NetAddressZZ(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").dangle().getValue()
+Tuple_PublicKeyCOption_NetAddressZZ(cType: currentCType, instantiationContext: "Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}

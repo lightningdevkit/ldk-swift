@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKSpendableOutputDescriptor) -> SpendableOutputDescriptor in
-SpendableOutputDescriptor(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+SpendableOutputDescriptor(cType: currentCType, instantiationContext: "Vec_SpendableOutputDescriptorZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

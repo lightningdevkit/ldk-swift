@@ -87,7 +87,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceRequestFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = InvoiceRequestFeatures(cType: nativeCallResult, instantiationContext: "InvoiceRequestFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -125,7 +125,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceRequestFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = InvoiceRequestFeatures(cType: nativeCallResult, instantiationContext: "InvoiceRequestFeatures.swift::\(#function):\(#line)")
 						
 
 						return returnValue

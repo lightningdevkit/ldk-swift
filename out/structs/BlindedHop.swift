@@ -79,7 +79,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BlindedHop(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = BlindedHop(cType: nativeCallResult, instantiationContext: "BlindedHop.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "BlindedHop.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -126,7 +126,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_BlindedHopDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_BlindedHopDecodeErrorZ(cType: nativeCallResult, instantiationContext: "BlindedHop.swift::\(#function):\(#line)")
 						
 
 						return returnValue

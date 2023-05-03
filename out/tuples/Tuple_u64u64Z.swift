@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_u64u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_u64u64Z(cType: nativeCallResult, instantiationContext: "Tuple_u64u64Z.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -78,7 +78,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_u64u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_u64u64Z(cType: nativeCallResult, instantiationContext: "Tuple_u64u64Z.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -86,7 +86,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_u64u64Z.swift::\(#function):\(#line)")
 				
 			
 					}

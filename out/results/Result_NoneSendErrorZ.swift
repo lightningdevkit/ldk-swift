@@ -54,7 +54,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneSendErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -73,7 +73,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneSendErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -106,7 +106,7 @@
 					
 					public func getError() -> SendError? {
 						if self.cType?.result_ok == false {
-							return SendError(cType: self.cType!.contents.err.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+							return SendError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_NoneSendErrorZ.swift::\(#function):\(#line)", anchor: self)
 						}
 						return nil
 					}

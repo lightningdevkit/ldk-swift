@@ -90,7 +90,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(cType: nativeCallResult, instantiationContext: "Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +102,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ_Some {
-							return Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(cType: self.cType!.some, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+							return Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ(cType: self.cType!.some, instantiationContext: "Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil

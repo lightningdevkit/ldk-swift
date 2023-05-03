@@ -56,12 +56,12 @@
 							
 							var first_hopsPointee: [ChannelDetails]? = nil
 							if let first_hopsUnwrapped = first_hops {
-								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue()
+								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().getValue()
 							}
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.findRoute(payer: PublicKey(cType: payer, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), routeParams: RouteParameters(cType: route_params.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone())
+							let swiftCallbackResult = instance.findRoute(payer: PublicKey(cType: payer, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue(), routeParams: RouteParameters(cType: route_params.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -79,12 +79,12 @@
 							
 							var first_hopsPointee: [ChannelDetails]? = nil
 							if let first_hopsUnwrapped = first_hops {
-								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue()
+								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().getValue()
 							}
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), routeParams: RouteParameters(cType: route_params.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), paymentHash: ThirtyTwoBytes(cType: _payment_hash, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), paymentId: ThirtyTwoBytes(cType: _payment_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue(), routeParams: RouteParameters(cType: route_params.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone(), paymentHash: ThirtyTwoBytes(cType: _payment_hash, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue(), paymentId: ThirtyTwoBytes(cType: _payment_id, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -219,7 +219,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "Router.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -275,7 +275,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "Router.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

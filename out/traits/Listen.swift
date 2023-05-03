@@ -81,7 +81,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.filteredBlockConnected(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), height: height)
+							let swiftCallbackResult = instance.filteredBlockConnected(header: headerPointee, txdata: Vec_C2Tuple_usizeTransactionZZ(cType: txdata, instantiationContext: "Listen.swift::init()::\(#function):\(#line)").getValue(), height: height)
 
 							// cleanup
 							
@@ -99,7 +99,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.blockConnected(block: u8slice(cType: block, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().getValue(), height: height)
+							let swiftCallbackResult = instance.blockConnected(block: u8slice(cType: block, instantiationContext: "Listen.swift::init()::\(#function):\(#line)").dangle().getValue(), height: height)
 
 							// cleanup
 							

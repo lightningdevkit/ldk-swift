@@ -220,7 +220,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = OnionMessenger(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = OnionMessenger(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -228,7 +228,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -257,7 +257,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -281,7 +281,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -305,7 +305,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue

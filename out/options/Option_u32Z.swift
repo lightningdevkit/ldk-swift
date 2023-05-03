@@ -88,7 +88,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u32Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Option_u32Z(cType: nativeCallResult, instantiationContext: "Option_u32Z.swift::\(#function):\(#line)")
 						
 
 						return returnValue

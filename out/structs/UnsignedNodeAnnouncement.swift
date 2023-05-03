@@ -81,7 +81,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -174,7 +174,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = NodeId(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -337,7 +337,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -387,7 +387,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UnsignedNodeAnnouncement(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = UnsignedNodeAnnouncement(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -439,7 +439,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -463,7 +463,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_UnsignedNodeAnnouncementDecodeErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_UnsignedNodeAnnouncementDecodeErrorZ(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)")
 						
 
 						return returnValue

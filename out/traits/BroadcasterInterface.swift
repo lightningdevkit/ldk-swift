@@ -56,7 +56,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.broadcastTransaction(tx: Transaction(cType: tx, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.broadcastTransaction(tx: Transaction(cType: tx, instantiationContext: "BroadcasterInterface.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							

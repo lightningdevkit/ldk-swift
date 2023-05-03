@@ -94,7 +94,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistNewChannel(channelId: OutPoint(cType: channel_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), data: ChannelMonitor(cType: data.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), updateId: MonitorUpdateId(cType: update_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.persistNewChannel(channelId: OutPoint(cType: channel_id, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"), data: ChannelMonitor(cType: data.pointee, instantiationContext: "Persist.swift::init()::\(#function):\(#line)").dangle().clone(), updateId: MonitorUpdateId(cType: update_id, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -112,7 +112,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.updatePersistedChannel(channelId: OutPoint(cType: channel_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), update: ChannelMonitorUpdate(cType: update, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"), data: ChannelMonitor(cType: data.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), updateId: MonitorUpdateId(cType: update_id, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.updatePersistedChannel(channelId: OutPoint(cType: channel_id, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"), update: ChannelMonitorUpdate(cType: update, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"), data: ChannelMonitor(cType: data.pointee, instantiationContext: "Persist.swift::init()::\(#function):\(#line)").dangle().clone(), updateId: MonitorUpdateId(cType: update_id, instantiationContext: "Persist.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							

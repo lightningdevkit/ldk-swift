@@ -85,7 +85,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "DirectedChannelTransactionParameters.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -108,7 +108,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "DirectedChannelTransactionParameters.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -181,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "DirectedChannelTransactionParameters.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

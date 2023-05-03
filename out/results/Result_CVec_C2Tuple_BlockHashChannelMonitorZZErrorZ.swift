@@ -58,7 +58,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -77,7 +77,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -120,7 +120,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -143,7 +143,7 @@
 					
 					public func getValue() -> [([UInt8], ChannelMonitor)]? {
 						if self.cType?.result_ok == true {
-							return Vec_C2Tuple_BlockHashChannelMonitorZZ(cType: self.cType!.contents.result.pointee, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+							return Vec_C2Tuple_BlockHashChannelMonitorZZ(cType: self.cType!.contents.result.pointee, instantiationContext: "Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ.swift::\(#function):\(#line)", anchor: self).getValue()
 						}
 						return nil
 					}

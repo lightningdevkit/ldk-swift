@@ -85,7 +85,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosingTransaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ClosingTransaction(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -166,7 +166,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ClosingTransaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = ClosingTransaction(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -174,7 +174,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -201,7 +201,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TrustedClosingTransaction(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = TrustedClosingTransaction(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -229,7 +229,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TrustedClosingTransactionNoneZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_TrustedClosingTransactionNoneZ(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -298,7 +298,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						
 
 						return returnValue
@@ -321,7 +321,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						
 
 						return returnValue

@@ -116,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Invoice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Invoice(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -158,7 +158,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SignedRawInvoice(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = SignedRawInvoice(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -181,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSemanticErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -219,7 +219,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_InvoiceSemanticErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_InvoiceSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -325,7 +325,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -390,7 +390,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceFeatures(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false)
+						let returnValue = InvoiceFeatures(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -413,7 +413,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -530,7 +530,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -553,7 +553,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_RouteHintZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Vec_RouteHintZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -599,7 +599,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -623,7 +623,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_InvoiceParseOrSemanticErrorZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Result_InvoiceParseOrSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -646,7 +646,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

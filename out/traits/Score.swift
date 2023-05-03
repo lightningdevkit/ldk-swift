@@ -60,7 +60,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.channelPenaltyMsat(shortChannelId: short_channel_id, source: NodeId(cType: source.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), target: NodeId(cType: target.pointee, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").dangle().clone(), usage: ChannelUsage(cType: usage, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)"))
+							let swiftCallbackResult = instance.channelPenaltyMsat(shortChannelId: short_channel_id, source: NodeId(cType: source.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)").dangle().clone(), target: NodeId(cType: target.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)").dangle().clone(), usage: ChannelUsage(cType: usage, instantiationContext: "Score.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -78,7 +78,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.paymentPathFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -96,7 +96,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.paymentPathSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -114,7 +114,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.probeFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -132,7 +132,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "#{swift_class_name}::init()::\(#function):\(#line)").getValue())
+							let swiftCallbackResult = instance.probeSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -419,7 +419,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)").getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Score.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

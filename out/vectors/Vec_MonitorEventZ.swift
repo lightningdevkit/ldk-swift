@@ -71,7 +71,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKMonitorEvent) -> MonitorEvent in
-MonitorEvent(cType: currentCType, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+MonitorEvent(cType: currentCType, instantiationContext: "Vec_MonitorEventZ.swift::\(#function):\(#line)", anchor: self).dangle()
 						}
 						return swiftArray
 					}

@@ -59,7 +59,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -82,7 +82,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -90,7 +90,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "#{swift_class_name}::\(#function):\(#line)")
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -123,7 +123,7 @@
 					/// The element at position 0
 					public func getA() -> OutPoint {
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: self.cType!.a, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle()
+						let returnValue = OutPoint(cType: self.cType!.a, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -131,7 +131,7 @@
 					/// The element at position 1
 					public func getB() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: self.cType!.b, instantiationContext: "#{swift_class_name}::\(#function):\(#line)", anchor: self).dangle().getValue()
+						let returnValue = Vec_u8Z(cType: self.cType!.b, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}

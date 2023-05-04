@@ -57,7 +57,7 @@ describe('Generator Tests', () => {
 			chai.expect(output).contains('public func getClaimableBalances() -> [UInt8] {');
 			chai.expect(output).contains('internal func free() {');
 
-			chai.expect(output).contains('let chainSourceOption = Option_FilterZ(some: chainSource)');
+			chai.expect(output).contains('let chainSourceOption = Option_FilterZ(some: chainSource, instantiationContext: "');
 			chai.expect(output).contains('let nativeCallResult = ChainMonitor_free(self.cType!)');
 		});
 
@@ -105,7 +105,7 @@ describe('Generator Tests', () => {
 			const generator = new VectorGenerator(config, new AuxiliaryArtifacts());
 			const vectorVectorOutput = generator.generateFileContents(routeVectorVector);
 
-			chai.expect(vectorVectorOutput).includes('public init(array: [[RouteHop]]) {');
+			chai.expect(vectorVectorOutput).includes('internal init(array: [[RouteHop]], instantiationContext: String) {');
 			chai.expect(vectorVectorOutput)
 			.includes('let dataContainer = UnsafeMutablePointer<LDKCVec_RouteHopZ>.allocate(capacity: array.count)');
 			chai.expect(vectorVectorOutput)
@@ -123,11 +123,11 @@ describe('Generator Tests', () => {
 			chai.expect(vectorVectorOutput)
 			.includes('let swiftArray = array.map { (currentCType: [LDKRouteHop]) -> [RouteHop] in');
 			chai.expect(vectorVectorOutput).includes('currentCType.map { (currentCType: LDKRouteHop) -> RouteHop in');
-			chai.expect(vectorVectorOutput).includes('RouteHop(cType: currentCType, anchor: self).dangle()');
+			chai.expect(vectorVectorOutput).includes('RouteHop(cType: currentCType, instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)", anchor: self).dangle()');
 
 			const routeVector = <RustVector>glossary['LDKCVec_RouteHopZ'];
 			const vectorOutput = generator.generateFileContents(routeVector);
-			chai.expect(vectorOutput).includes('public init(array: [RouteHop]) {');
+			chai.expect(vectorOutput).includes('internal init(array: [RouteHop], instantiationContext: String) {');
 			chai.expect(vectorOutput)
 			.includes('let rustArray = array.map { (currentValueDepth1: RouteHop) -> LDKRouteHop in');
 			chai.expect(vectorOutput).includes('return currentValueDepth1.cType!');
@@ -140,7 +140,7 @@ describe('Generator Tests', () => {
 			chai.expect(vectorOutput).includes('var array = [LDKRouteHop]()');
 			chai.expect(vectorOutput)
 			.includes('let swiftArray = array.map { (currentCType: LDKRouteHop) -> RouteHop in');
-			chai.expect(vectorOutput).includes('RouteHop(cType: currentCType, anchor: self).dangle()');
+			chai.expect(vectorOutput).includes('RouteHop(cType: currentCType, instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)", anchor: self).dangle()');
 		});
 
 		it('should generate Vec<u8>', () => {
@@ -155,7 +155,7 @@ describe('Generator Tests', () => {
 			const generator = new VectorGenerator(config, new AuxiliaryArtifacts());
 			const output = generator.generateFileContents(routeVectorVector);
 
-			chai.expect(output).includes('public init(array: [UInt8]) {');
+			chai.expect(output).includes('internal init(array: [UInt8], instantiationContext: String) {');
 			chai.expect(output)
 			.includes('let dataContainer = UnsafeMutablePointer<UInt8>.allocate(capacity: array.count)');
 			chai.expect(output).includes('dataContainer.initialize(from: array, count: array.count)');
@@ -260,12 +260,12 @@ describe('Generator Tests', () => {
 			const strOutput = generator.generateFileContents(ldkStr);
 			const u5Output = generator.generateFileContents(ldku5);
 
-			chai.expect(transactionOutput).includes('public init(value: [UInt8]) {');
+			chai.expect(transactionOutput).includes('internal init(value: [UInt8], instantiationContext: String) {');
 			chai.expect(transactionOutput).includes('public func getValue() -> [UInt8] {');
 			chai.expect(transactionOutput)
 			.includes('self.cType = LDKTransaction(data: dataContainer, datalen: UInt(value.count), data_is_owned: true)');
 
-			chai.expect(thirtyTwoBytesOutput).includes('public init(value: [UInt8]) {');
+			chai.expect(thirtyTwoBytesOutput).includes('internal init(value: [UInt8], instantiationContext: String) {');
 			chai.expect(thirtyTwoBytesOutput).includes('public func getValue() -> [UInt8] {');
 			chai.expect(thirtyTwoBytesOutput)
 			.includes('self.cType = LDKThirtyTwoBytes(data: Bindings.arrayToUInt8Tuple32(array: value))');
@@ -273,14 +273,14 @@ describe('Generator Tests', () => {
 			chai.expect(thirtyTwoBytesOutput)
 			.includes('return Bindings.UInt8Tuple32ToArray(tuple: self.cType!.data)');
 
-			chai.expect(strOutput).includes('public init(value: String) {');
+			chai.expect(strOutput).includes('internal init(value: String, instantiationContext: String) {');
 			chai.expect(strOutput).includes('public func getValue() -> String {');
 			chai.expect(strOutput)
 			.includes('self.cType = LDKStr(chars: Bindings.string_to_unsafe_uint8_pointer(string: value), len: UInt(value.count), chars_is_owned: true)');
 
 			chai.expect(strOutput).includes('return String(data: data, encoding: .utf8)!');
 
-			chai.expect(u5Output).includes('public init(value: UInt8) {');
+			chai.expect(u5Output).includes('internal init(value: UInt8, instantiationContext: String) {');
 			chai.expect(u5Output).includes('public func getValue() -> UInt8 {');
 			chai.expect(u5Output).includes('self.cType = LDKU5(_0: value)');
 			chai.expect(u5Output).includes('return self.cType!._0');

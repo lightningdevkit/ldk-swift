@@ -23,8 +23,12 @@ enum RouterUnavailableError: Error {
     case channelManagerInitializationMissingScorerOrNetworkGraph
 }
 
+/// Argument used when deserializing ChannelManager instances. If the user has previously already taken it upon themselves to deserialize the NetworkGraph, the `instance`
+/// case may be used. Otherwise, `serialized` may be passed to have the deserializer handle the NetworkGraph, too.
 public enum NetworkGraphArgument {
+    /// Use if you have a serialized NetworkGraph that should be deserialized.
     case serialized([UInt8])
+    /// Use if you have already deserialized a NetworkGraph and wish to pass that instance here.
     case instance(NetworkGraph)
 }
 

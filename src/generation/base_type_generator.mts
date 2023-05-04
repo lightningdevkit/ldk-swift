@@ -45,7 +45,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 	generate(type: Type) {
 		const fileName = this.swiftTypeName(type) + '.swift';
 		const fileContents = this.generateFileContents(type)
-		.replaceAll('#{swift_class_name}', fileName);
+			.replaceAll('#{swift_class_name}', fileName);
 		this.persist(type, fileContents);
 	}
 
@@ -202,7 +202,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		}
 
 		let instantiationContext = '"#{swift_class_name}::\\(#function):\\(#line)"';
-		if(semantics.isConstructor && containerType && this.isElidedType(containerType)){
+		if (semantics.isConstructor && containerType && this.isElidedType(containerType)) {
 			swiftMethodArguments.push('instantiationContext: String');
 			instantiationContext = 'instantiationContext';
 		}
@@ -1072,8 +1072,15 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		}
 
 		return `
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to \`.Debug\`.
 					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
 					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 

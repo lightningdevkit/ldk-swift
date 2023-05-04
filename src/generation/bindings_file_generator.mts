@@ -24,20 +24,20 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 			const swiftMethodName = this.swiftMethodName(currentMethod.method);
 			const methodCode = this.generateMethod(currentMethod.method);
 			const renamedMethodCode = methodCode
-			.replace(swiftMethodName, currentMethod.swiftName);
+				.replace(swiftMethodName, currentMethod.swiftName);
 			generatedMethods += Generator.reindentCode(renamedMethodCode, 4);
 		}
 
 		let generatedTupleTypeAliases = '';
 		let generatedTupleConverters = '';
-		let generatedTupleComparators = ''
+		let generatedTupleComparators = '';
 
 		for (const [rawSwiftTypeSignature, tupleSizes] of Object.entries(this.auxiliaryArtifacts.tuples)) {
 			for (const currentTupleSize of tupleSizes) {
 				const tupleTypeName = `${rawSwiftTypeSignature}Tuple${currentTupleSize}`;
 				generatedTupleTypeAliases += `
 					internal typealias ${tupleTypeName} = (${Array(currentTupleSize).fill(rawSwiftTypeSignature)
-				.join(', ')})
+					.join(', ')})
 				`;
 
 				let tupleResultComponents = [];
@@ -46,7 +46,7 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 				for (let i = 0; i < currentTupleSize; i++) {
 					tupleResultComponents.push(`array[${i}]`);
 					arrayResultComponents.push(`tuple.${i}`);
-					comparator.push(`tupleA.${i} == tupleB.${i}`)
+					comparator.push(`tupleA.${i} == tupleB.${i}`);
 				}
 
 				generatedTupleConverters += `

@@ -141,15 +141,17 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ${swiftTypeName} \\(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ${swiftTypeName} \\(self.instanceNumber). (Origin: \\(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing ${swiftTypeName} \\(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ${swiftTypeName} \\(self.instanceNumber) due to dangle. (Origin: \\(self.instantiationContext))")
 						}
 					}
 				}

@@ -98,9 +98,6 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 				internal private(set) var anchors: Set<NativeTypeWrapper> = []
 				internal var pointerDebugDescription: String? = nil
 
-				@available(*, unavailable, message: "This variable is only available to subclasses.")
-				public static var enableDeinitLogging = true
-
 				init(conflictAvoidingVariableName: UInt, instantiationContext: String) {
 					Self.globalInstanceCounter += 1
 					self.globalInstanceNumber = Self.globalInstanceCounter

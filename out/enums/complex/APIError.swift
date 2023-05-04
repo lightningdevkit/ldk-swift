@@ -15,6 +15,8 @@
 				public class APIError: NativeTypeWrapper {
 
 					
+					public static var enableDeinitLogging = true
+					public static var suspendFreedom = false
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
@@ -416,16 +418,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing APIError \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing APIError \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing APIError \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing APIError \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -442,6 +446,8 @@
 						
 
 						
+						public static var enableDeinitLogging = true
+						public static var suspendFreedom = false
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -500,6 +506,8 @@
 						
 
 						
+						public static var enableDeinitLogging = true
+						public static var suspendFreedom = false
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -566,6 +574,8 @@
 						
 
 						
+						public static var enableDeinitLogging = true
+						public static var suspendFreedom = false
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -624,6 +634,8 @@
 						
 
 						
+						public static var enableDeinitLogging = true
+						public static var suspendFreedom = false
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -682,6 +694,8 @@
 						
 
 						
+						public static var enableDeinitLogging = true
+						public static var suspendFreedom = false
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 

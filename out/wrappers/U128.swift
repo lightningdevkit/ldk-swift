@@ -22,6 +22,8 @@
 					
 
 					
+					public static var enableDeinitLogging = true
+					public static var suspendFreedom = false
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 

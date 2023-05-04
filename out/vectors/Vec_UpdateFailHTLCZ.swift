@@ -14,6 +14,8 @@
 				internal class Vec_UpdateFailHTLCZ: NativeTypeWrapper {
 
 					
+					public static var enableDeinitLogging = true
+					public static var suspendFreedom = false
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
@@ -104,16 +106,18 @@ UpdateFailHTLC(cType: currentCType, instantiationContext: "Vec_UpdateFailHTLCZ.s
 
 					
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Vec_UpdateFailHTLCZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Vec_UpdateFailHTLCZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Vec_UpdateFailHTLCZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Vec_UpdateFailHTLCZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

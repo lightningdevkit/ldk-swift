@@ -18,6 +18,8 @@
 					let initialCFreeability: Bool
 
 					
+					public static var enableDeinitLogging = true
+					public static var suspendFreedom = false
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
@@ -103,12 +105,14 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Str \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Str \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							if !self.initialCFreeability {
 								// only set to freeable if it was originally false
@@ -117,8 +121,8 @@
 							}
 					
 							self.free()
-						} else {
-							Bindings.print("Not freeing Str \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Str \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

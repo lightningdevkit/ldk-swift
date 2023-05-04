@@ -14,6 +14,8 @@
 				internal class Vec_C2Tuple_BlockHashChannelMonitorZZ: NativeTypeWrapper {
 
 					
+					public static var enableDeinitLogging = true
+					public static var suspendFreedom = false
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
@@ -106,16 +108,18 @@ Tuple_BlockHashChannelMonitorZ(cType: currentCType, instantiationContext: "Vec_C
 
 					
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Vec_C2Tuple_BlockHashChannelMonitorZZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Vec_C2Tuple_BlockHashChannelMonitorZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Vec_C2Tuple_BlockHashChannelMonitorZZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Vec_C2Tuple_BlockHashChannelMonitorZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

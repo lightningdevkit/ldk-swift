@@ -118,7 +118,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]
 
 
-    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument?, filter: Filter?, params: ChannelManagerConstructionParameters) throws {
+    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument, filter: Filter?, params: ChannelManagerConstructionParameters) throws {
 
         self.constructionParameters = params
         
@@ -150,18 +150,15 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         print("Collected channel monitors, reading channel manager")
         
-        if let netGraph = networkGraph {
-            switch netGraph {
-            case .instance(let graph):
-                self.netGraph = graph
-            case .serialized(let serializedNetworkGraph):
-                let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph, arg: params.logger)
-                if !netGraphResult.isOk(){
-                    throw InvalidSerializedDataError.invalidSerializedNetworkGraph
-                }
-                self.netGraph = netGraphResult.getValue()
+        switch networkGraph {
+        case .instance(let graph):
+            self.netGraph = graph
+        case .serialized(let serializedNetworkGraph):
+            let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph, arg: params.logger)
+            if !netGraphResult.isOk(){
+                throw InvalidSerializedDataError.invalidSerializedNetworkGraph
             }
-            
+            self.netGraph = netGraphResult.getValue()
         }
         
         // TODO: figure out better way to obtain a router

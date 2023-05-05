@@ -30,6 +30,10 @@ class TestChannelManagerPersister : Persister, ExtendedChannelManagerPersister {
     override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
         .initWithOk()
     }
+    
+    override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneErrorZ {
+        .initWithOk()
+    }
 }
 
 class FloatingChannelManagerPersister : Persister{

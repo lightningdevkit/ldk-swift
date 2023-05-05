@@ -70,7 +70,9 @@ class LDKSwiftTests: XCTestCase {
             txBroadcaster: broadcaster,
             logger: logger
         )
-        let channelManagerConstructor = try ChannelManagerConstructor(channelManagerSerialized: serialized_channel_manager, channelMonitorsSerialized: serializedChannelMonitors, networkGraph: nil, filter: filter, params: constructionParameters)
+        
+        let networkGraph = NetworkGraph(network: .Regtest, logger: logger)
+        let channelManagerConstructor = try ChannelManagerConstructor(channelManagerSerialized: serialized_channel_manager, channelMonitorsSerialized: serializedChannelMonitors, networkGraph: NetworkGraphArgument.instance(networkGraph), filter: filter, params: constructionParameters)
 
         let channelManager = channelManagerConstructor.channelManager;
         let cmPersister = TestChannelManagerPersister(channelManager: channelManager)

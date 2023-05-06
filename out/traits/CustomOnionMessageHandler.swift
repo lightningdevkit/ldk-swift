@@ -33,26 +33,45 @@
 				open class CustomOnionMessageHandler: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCustomOnionMessageHandler?
 
-					internal init(cType: LDKCustomOnionMessageHandler) {
+					internal init(cType: LDKCustomOnionMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCustomOnionMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCustomOnionMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCustomOnionMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -60,7 +79,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -74,7 +93,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedCustomOnionMessageContents(cType: msg))
+							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedCustomOnionMessageContents(cType: msg, instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -92,7 +111,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.readCustomMessage(messageType: message_type, buffer: u8slice(cType: buffer).dangle().getValue())
+							let swiftCallbackResult = instance.readCustomMessage(messageType: message_type, buffer: u8slice(cType: buffer, instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -168,15 +187,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing CustomOnionMessageHandler \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing CustomOnionMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing CustomOnionMessageHandler \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing CustomOnionMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -207,7 +228,7 @@
 					public override func readCustomMessage(messageType: UInt64, buffer: [UInt8]) -> Result_COption_CustomOnionMessageContentsZDecodeErrorZ {
 						// native call variable prep
 						
-						let bufferPrimitiveWrapper = u8slice(value: buffer)
+						let bufferPrimitiveWrapper = u8slice(value: buffer, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -222,7 +243,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_COption_CustomOnionMessageContentsZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_CustomOnionMessageContentsZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

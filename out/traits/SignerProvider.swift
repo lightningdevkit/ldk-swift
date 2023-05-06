@@ -15,26 +15,45 @@
 				open class SignerProvider: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKSignerProvider?
 
-					internal init(cType: LDKSignerProvider) {
+					internal init(cType: LDKSignerProvider, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKSignerProvider, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKSignerProvider, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKSignerProvider, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -42,7 +61,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,13 +75,13 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.generateChannelKeysId(inbound: inbound, channelValueSatoshis: channel_value_satoshis, userChannelId: U128(cType: user_channel_id).getValue())
+							let swiftCallbackResult = instance.generateChannelKeysId(inbound: inbound, channelValueSatoshis: channel_value_satoshis, userChannelId: U128(cType: user_channel_id, instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
 
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -74,7 +93,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.deriveChannelSigner(channelValueSatoshis: channel_value_satoshis, channelKeysId: ThirtyTwoBytes(cType: channel_keys_id).getValue())
+							let swiftCallbackResult = instance.deriveChannelSigner(channelValueSatoshis: channel_value_satoshis, channelKeysId: ThirtyTwoBytes(cType: channel_keys_id, instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -92,7 +111,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.readChanSigner(reader: u8slice(cType: reader).dangle().getValue())
+							let swiftCallbackResult = instance.readChanSigner(reader: u8slice(cType: reader, instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -116,7 +135,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_u8Z(array: swiftCallbackResult, instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -255,15 +274,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing SignerProvider \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing SignerProvider \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing SignerProvider \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing SignerProvider \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -279,7 +300,7 @@
 					public override func generateChannelKeysId(inbound: Bool, channelValueSatoshis: UInt64, userChannelId: [UInt8]) -> [UInt8] {
 						// native call variable prep
 						
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 				
 
 						
@@ -294,7 +315,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -308,7 +329,7 @@
 					public override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> WriteableEcdsaChannelSigner {
 						// native call variable prep
 						
-						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId)
+						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 				
 
 						
@@ -323,7 +344,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue
 					}
@@ -344,7 +365,7 @@
 					public override func readChanSigner(reader: [UInt8]) -> Result_WriteableEcdsaChannelSignerDecodeErrorZ {
 						// native call variable prep
 						
-						let readerPrimitiveWrapper = u8slice(value: reader)
+						let readerPrimitiveWrapper = u8slice(value: reader, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 				
 
 						
@@ -359,7 +380,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_WriteableEcdsaChannelSignerDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_WriteableEcdsaChannelSignerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -381,7 +402,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -403,7 +424,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = ShutdownScript(cType: nativeCallResult)
+						let returnValue = ShutdownScript(cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

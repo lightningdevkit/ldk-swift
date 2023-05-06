@@ -14,39 +14,58 @@
 				internal class Vec_C2Tuple_u32ScriptZZ: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCVec_C2Tuple_u32ScriptZZ?
 
-					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ) {
+					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCVec_C2Tuple_u32ScriptZZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [(UInt32, [UInt8])]) {
+					internal init(array: [(UInt32, [UInt8])], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 						let rustArray = array.map { (currentValueDepth1: (UInt32, [UInt8])) -> LDKC2Tuple_u32ScriptZ in
 							
-						let currentValueDepth1Tuple = Tuple_u32ScriptZ(tuple: currentValueDepth1).danglingClone()
+						let currentValueDepth1Tuple = Tuple_u32ScriptZ(tuple: currentValueDepth1, instantiationContext: "Vec_C2Tuple_u32ScriptZZ.swift::\(#function):\(#line)").danglingClone()
 				
 							return currentValueDepth1Tuple.cType!
 						}
@@ -73,7 +92,7 @@
 		
 
 						let swiftArray = array.map { (currentCType: LDKC2Tuple_u32ScriptZ) -> (UInt32, [UInt8]) in
-Tuple_u32ScriptZ(cType: currentCType).dangle().getValue()
+Tuple_u32ScriptZ(cType: currentCType, instantiationContext: "Vec_C2Tuple_u32ScriptZZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}
@@ -106,16 +125,18 @@ Tuple_u32ScriptZ(cType: currentCType).dangle().getValue()
 
 					
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Vec_C2Tuple_u32ScriptZZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Vec_C2Tuple_u32ScriptZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Vec_C2Tuple_u32ScriptZZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Vec_C2Tuple_u32ScriptZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

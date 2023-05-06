@@ -16,26 +16,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChannelUpdateInfo?
 
-					internal init(cType: LDKChannelUpdateInfo) {
+					internal init(cType: LDKChannelUpdateInfo, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelUpdateInfo, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelUpdateInfo, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChannelUpdateInfo, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -309,7 +328,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RoutingFees(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = RoutingFees(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -373,7 +392,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdate(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelUpdate(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -422,7 +441,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdateInfo(cType: nativeCallResult)
+						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -430,7 +449,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -452,7 +471,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelUpdateInfo(cType: nativeCallResult)
+						let returnValue = ChannelUpdateInfo(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -504,7 +523,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -514,7 +533,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelUpdateInfoDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -528,7 +547,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelUpdateInfoDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_ChannelUpdateInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelUpdateInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -577,16 +596,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChannelUpdateInfo \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChannelUpdateInfo \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChannelUpdateInfo \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChannelUpdateInfo \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

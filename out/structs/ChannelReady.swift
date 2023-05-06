@@ -20,26 +20,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChannelReady?
 
-					internal init(cType: LDKChannelReady) {
+					internal init(cType: LDKChannelReady, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelReady, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelReady, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChannelReady, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -95,7 +114,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -136,7 +155,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelReady.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -146,7 +165,7 @@
 					public func setNextPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -190,7 +209,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelReady.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -203,7 +222,7 @@
 					public func setShortChannelIdAlias(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelReady.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -228,11 +247,11 @@
 					public init(channelIdArg: [UInt8], nextPerCommitmentPointArg: [UInt8], shortChannelIdAliasArg: UInt64?) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
-						let nextPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: nextPerCommitmentPointArg)
+						let nextPerCommitmentPointArgPrimitiveWrapper = PublicKey(value: nextPerCommitmentPointArg, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
-						let shortChannelIdAliasArgOption = Option_u64Z(some: shortChannelIdAliasArg).danglingClone()
+						let shortChannelIdAliasArgOption = Option_u64Z(some: shortChannelIdAliasArg, instantiationContext: "ChannelReady.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -251,7 +270,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelReady(cType: nativeCallResult)
+						let returnValue = ChannelReady(cType: nativeCallResult, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -259,7 +278,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -281,7 +300,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelReady(cType: nativeCallResult)
+						let returnValue = ChannelReady(cType: nativeCallResult, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -333,7 +352,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelReady.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -343,7 +362,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelReadyDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -357,7 +376,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelReadyDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_ChannelReadyDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelReady.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -406,16 +425,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChannelReady \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChannelReady \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChannelReady \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChannelReady \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

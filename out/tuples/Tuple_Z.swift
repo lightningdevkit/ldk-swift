@@ -12,32 +12,51 @@
 				internal class Tuple_Z: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKC2Tuple_Z?
 
-					internal init(cType: LDKC2Tuple_Z) {
+					internal init(cType: LDKC2Tuple_Z, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC2Tuple_Z, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC2Tuple_Z, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKC2Tuple_Z, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					internal convenience init(tuple: ([UInt16], [UInt16])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt16], [UInt16]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -59,19 +78,19 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_Z(cType: nativeCallResult)
+						let returnValue = Tuple_Z(cType: nativeCallResult, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 						
 
 						return returnValue
 					}
 		
 					/// Creates a new C2Tuple_Z from the contained elements.
-					public init(a: [UInt16], b: [UInt16]) {
+					public init(a: [UInt16], b: [UInt16], instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = EightU16s(value: a)
+						let aPrimitiveWrapper = EightU16s(value: a, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 				
-						let bPrimitiveWrapper = EightU16s(value: b)
+						let bPrimitiveWrapper = EightU16s(value: b, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -88,7 +107,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_Z(cType: nativeCallResult)
+						let returnValue = Tuple_Z(cType: nativeCallResult, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -96,7 +115,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}
@@ -129,7 +148,7 @@
 					/// The element at position 0
 					public func getA() -> [UInt16] {
 						// return value (do some wrapping)
-						let returnValue = EightU16s(cType: self.cType!.a, anchor: self).dangle().getValue()
+						let returnValue = EightU16s(cType: self.cType!.a, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -137,7 +156,7 @@
 					/// The element at position 1
 					public func getB() -> [UInt16] {
 						// return value (do some wrapping)
-						let returnValue = EightU16s(cType: self.cType!.b, anchor: self).dangle().getValue()
+						let returnValue = EightU16s(cType: self.cType!.b, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -156,16 +175,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Tuple_Z \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Tuple_Z \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Tuple_Z \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Tuple_Z \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

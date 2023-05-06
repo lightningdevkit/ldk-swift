@@ -59,7 +59,7 @@ export default class NullableOptionGenerator extends BaseTypeGenerator<RustNulla
 
 					${this.inheritedInits(type)}
 
-					public init(${valueArgumentName}: ${swiftReturnType}?) {
+					internal init(${valueArgumentName}: ${swiftReturnType}?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
@@ -70,7 +70,7 @@ export default class NullableOptionGenerator extends BaseTypeGenerator<RustNulla
 							self.cType = ${noneInitializerMethod!.name}()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					${generatedMethods}

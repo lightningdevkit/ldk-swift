@@ -14,26 +14,45 @@
 				public class ErrorAction: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKErrorAction?
 
-					internal init(cType: LDKErrorAction) {
+					internal init(cType: LDKErrorAction, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKErrorAction, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKErrorAction, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKErrorAction, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -127,7 +146,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -146,7 +165,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -165,7 +184,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -184,7 +203,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -203,7 +222,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -222,7 +241,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -241,7 +260,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorAction(cType: nativeCallResult)
+						let returnValue = ErrorAction(cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -254,7 +273,7 @@
 							return nil
 						}
 
-						return ErrorAction_LDKDisconnectPeer_Body(cType: self.cType!.disconnect_peer, anchor: self)
+						return ErrorAction_LDKDisconnectPeer_Body(cType: self.cType!.disconnect_peer, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsIgnoreAndLog() -> Level? {
@@ -270,7 +289,7 @@
 							return nil
 						}
 
-						return ErrorAction_LDKSendErrorMessage_Body(cType: self.cType!.send_error_message, anchor: self)
+						return ErrorAction_LDKSendErrorMessage_Body(cType: self.cType!.send_error_message, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsSendWarningMessage() -> SendWarningMessage? {
@@ -278,7 +297,7 @@
 							return nil
 						}
 
-						return ErrorAction_LDKSendWarningMessage_Body(cType: self.cType!.send_warning_message, anchor: self)
+						return ErrorAction_LDKSendWarningMessage_Body(cType: self.cType!.send_warning_message, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -295,16 +314,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ErrorAction \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ErrorAction \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ErrorAction \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ErrorAction \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -321,26 +342,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKErrorAction_LDKDisconnectPeer_Body?
 
-						internal init(cType: LDKErrorAction_LDKDisconnectPeer_Body) {
+						internal init(cType: LDKErrorAction_LDKDisconnectPeer_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKErrorAction_LDKDisconnectPeer_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKErrorAction_LDKDisconnectPeer_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKErrorAction_LDKDisconnectPeer_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -353,7 +393,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getMsg() -> Bindings.ErrorMessage {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, anchor: self)
+							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -381,26 +421,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKErrorAction_LDKSendErrorMessage_Body?
 
-						internal init(cType: LDKErrorAction_LDKSendErrorMessage_Body) {
+						internal init(cType: LDKErrorAction_LDKSendErrorMessage_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKErrorAction_LDKSendErrorMessage_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKErrorAction_LDKSendErrorMessage_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKErrorAction_LDKSendErrorMessage_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -411,7 +470,7 @@
 						/// The message to send.
 						public func getMsg() -> Bindings.ErrorMessage {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, anchor: self)
+							let returnValue = Bindings.ErrorMessage(cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -439,26 +498,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKErrorAction_LDKSendWarningMessage_Body?
 
-						internal init(cType: LDKErrorAction_LDKSendWarningMessage_Body) {
+						internal init(cType: LDKErrorAction_LDKSendWarningMessage_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKErrorAction_LDKSendWarningMessage_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKErrorAction_LDKSendWarningMessage_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKErrorAction_LDKSendWarningMessage_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -469,7 +547,7 @@
 						/// The message to send.
 						public func getMsg() -> Bindings.WarningMessage {
 							// return value (do some wrapping)
-							let returnValue = Bindings.WarningMessage(cType: self.cType!.msg, anchor: self)
+							let returnValue = Bindings.WarningMessage(cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

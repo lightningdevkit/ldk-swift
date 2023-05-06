@@ -15,26 +15,45 @@
 				public class PaymentPurpose: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKPaymentPurpose?
 
-					internal init(cType: LDKPaymentPurpose) {
+					internal init(cType: LDKPaymentPurpose, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKPaymentPurpose, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKPaymentPurpose, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKPaymentPurpose, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -102,7 +121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentPurpose(cType: nativeCallResult)
+						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -112,9 +131,9 @@
 					public class func initWithInvoicePayment(paymentPreimage: [UInt8], paymentSecret: [UInt8]) -> PaymentPurpose {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -131,7 +150,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentPurpose(cType: nativeCallResult)
+						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -141,7 +160,7 @@
 					public class func initWithSpontaneousPayment(a: [UInt8]) -> PaymentPurpose {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = ThirtyTwoBytes(value: a)
+						let aPrimitiveWrapper = ThirtyTwoBytes(value: a, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -155,7 +174,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentPurpose(cType: nativeCallResult)
+						let returnValue = PaymentPurpose(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -206,7 +225,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -216,7 +235,7 @@
 					public class func read(ser: [UInt8]) -> Result_PaymentPurposeDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -230,7 +249,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentPurposeDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_PaymentPurposeDecodeErrorZ(cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -243,7 +262,7 @@
 							return nil
 						}
 
-						return PaymentPurpose_LDKInvoicePayment_Body(cType: self.cType!.invoice_payment, anchor: self)
+						return PaymentPurpose_LDKInvoicePayment_Body(cType: self.cType!.invoice_payment, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsSpontaneousPayment() -> [UInt8]? {
@@ -251,7 +270,7 @@
 							return nil
 						}
 
-						return ThirtyTwoBytes(cType: self.cType!.spontaneous_payment, anchor: self).getValue()
+						return ThirtyTwoBytes(cType: self.cType!.spontaneous_payment, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 
@@ -268,16 +287,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing PaymentPurpose \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing PaymentPurpose \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing PaymentPurpose \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing PaymentPurpose \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -294,26 +315,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKPaymentPurpose_LDKInvoicePayment_Body?
 
-						internal init(cType: LDKPaymentPurpose_LDKInvoicePayment_Body) {
+						internal init(cType: LDKPaymentPurpose_LDKInvoicePayment_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKPaymentPurpose_LDKInvoicePayment_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKPaymentPurpose_LDKInvoicePayment_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKPaymentPurpose_LDKInvoicePayment_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -331,7 +371,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentPreimage() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -348,7 +388,7 @@
 						/// [`ChannelManager::create_inbound_payment_for_hash`]: crate::ln::channelmanager::ChannelManager::create_inbound_payment_for_hash
 						public func getPaymentSecret() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_secret, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_secret, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

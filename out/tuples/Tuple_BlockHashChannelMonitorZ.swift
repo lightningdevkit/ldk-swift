@@ -12,32 +12,51 @@
 				internal class Tuple_BlockHashChannelMonitorZ: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKC2Tuple_BlockHashChannelMonitorZ?
 
-					internal init(cType: LDKC2Tuple_BlockHashChannelMonitorZ) {
+					internal init(cType: LDKC2Tuple_BlockHashChannelMonitorZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC2Tuple_BlockHashChannelMonitorZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC2Tuple_BlockHashChannelMonitorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKC2Tuple_BlockHashChannelMonitorZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					internal convenience init(tuple: ([UInt8], ChannelMonitor)) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: ([UInt8], ChannelMonitor), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -59,17 +78,17 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_BlockHashChannelMonitorZ(cType: nativeCallResult)
+						let returnValue = Tuple_BlockHashChannelMonitorZ(cType: nativeCallResult, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
 					}
 		
 					/// Creates a new C2Tuple_BlockHashChannelMonitorZ from the contained elements.
-					public init(a: [UInt8], b: ChannelMonitor) {
+					public init(a: [UInt8], b: ChannelMonitor, instantiationContext: String) {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = ThirtyTwoBytes(value: a)
+						let aPrimitiveWrapper = ThirtyTwoBytes(value: a, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -85,7 +104,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_BlockHashChannelMonitorZ(cType: nativeCallResult)
+						let returnValue = Tuple_BlockHashChannelMonitorZ(cType: nativeCallResult, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -93,7 +112,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}
@@ -121,7 +140,7 @@
 					public class func read(ser: [UInt8], argA: EntropySource, argB: SignerProvider) -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -143,7 +162,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -158,7 +177,7 @@
 					/// The element at position 0
 					public func getA() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: self.cType!.a, anchor: self).dangle().getValue()
+						let returnValue = ThirtyTwoBytes(cType: self.cType!.a, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -166,7 +185,7 @@
 					/// The element at position 1
 					public func getB() -> ChannelMonitor {
 						// return value (do some wrapping)
-						let returnValue = ChannelMonitor(cType: self.cType!.b, anchor: self).dangle()
+						let returnValue = ChannelMonitor(cType: self.cType!.b, instantiationContext: "Tuple_BlockHashChannelMonitorZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -185,16 +204,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Tuple_BlockHashChannelMonitorZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Tuple_BlockHashChannelMonitorZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Tuple_BlockHashChannelMonitorZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Tuple_BlockHashChannelMonitorZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

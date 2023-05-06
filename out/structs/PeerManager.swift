@@ -52,26 +52,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKPeerManager?
 
-					internal init(cType: LDKPeerManager) {
+					internal init(cType: LDKPeerManager, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKPeerManager, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKPeerManager, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKPeerManager, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -125,7 +144,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = PeerManager(cType: nativeCallResult)
+						let returnValue = PeerManager(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -133,7 +152,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -164,7 +183,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -188,9 +207,9 @@
 					public func newOutboundConnection(theirNodeId: [UInt8], descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?) -> Result_CVec_u8ZPeerHandleErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
-						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress).danglingClone()
+						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress, instantiationContext: "PeerManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -208,7 +227,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_CVec_u8ZPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -232,7 +251,7 @@
 					public func newInboundConnection(descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?) -> Result_NonePeerHandleErrorZ {
 						// native call variable prep
 						
-						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress).danglingClone()
+						let remoteNetworkAddressOption = Option_NetAddressZ(some: remoteNetworkAddress, instantiationContext: "PeerManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -247,7 +266,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -285,7 +304,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NonePeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -311,7 +330,7 @@
 					public func readEvent(peerDescriptor: SocketDescriptor, data: [UInt8]) -> Result_boolPeerHandleErrorZ {
 						// native call variable prep
 						
-						let dataPrimitiveWrapper = u8slice(value: data)
+						let dataPrimitiveWrapper = u8slice(value: data, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -333,7 +352,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_boolPeerHandleErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_boolPeerHandleErrorZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -414,7 +433,7 @@
 					public func disconnectByNodeId(nodeId: [UInt8]) {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -514,11 +533,11 @@
 					public func broadcastNodeAnnouncement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) {
 						// native call variable prep
 						
-						let rgbPrimitiveWrapper = ThreeBytes(value: rgb)
+						let rgbPrimitiveWrapper = ThreeBytes(value: rgb, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
-						let aliasPrimitiveWrapper = ThirtyTwoBytes(value: alias)
+						let aliasPrimitiveWrapper = ThirtyTwoBytes(value: alias, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 				
-						let addressesVector = Vec_NetAddressZ(array: addresses).dangle()
+						let addressesVector = Vec_NetAddressZ(array: addresses, instantiationContext: "PeerManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -577,16 +596,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing PeerManager \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing PeerManager \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing PeerManager \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing PeerManager \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

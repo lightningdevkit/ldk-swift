@@ -36,26 +36,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKWatchedOutput?
 
-					internal init(cType: LDKWatchedOutput) {
+					internal init(cType: LDKWatchedOutput, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKWatchedOutput, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKWatchedOutput, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKWatchedOutput, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -107,7 +126,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -119,7 +138,7 @@
 					public func setBlockHash(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -160,7 +179,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -206,7 +225,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = u8slice(cType: nativeCallResult, anchor: self).dangle().getValue()
+						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						
 
 						return returnValue
@@ -216,7 +235,7 @@
 					public func setScriptPubkey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valVector = Vec_u8Z(array: val).dangle()
+						let valVector = Vec_u8Z(array: val, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -243,9 +262,9 @@
 					public init(blockHashArg: [UInt8], outpointArg: OutPoint, scriptPubkeyArg: [UInt8]) {
 						// native call variable prep
 						
-						let blockHashArgPrimitiveWrapper = ThirtyTwoBytes(value: blockHashArg)
+						let blockHashArgPrimitiveWrapper = ThirtyTwoBytes(value: blockHashArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 				
-						let scriptPubkeyArgVector = Vec_u8Z(array: scriptPubkeyArg).dangle()
+						let scriptPubkeyArgVector = Vec_u8Z(array: scriptPubkeyArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -263,7 +282,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = WatchedOutput(cType: nativeCallResult)
+						let returnValue = WatchedOutput(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -271,7 +290,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -293,7 +312,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = WatchedOutput(cType: nativeCallResult)
+						let returnValue = WatchedOutput(cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -394,16 +413,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing WatchedOutput \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing WatchedOutput \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing WatchedOutput \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing WatchedOutput \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

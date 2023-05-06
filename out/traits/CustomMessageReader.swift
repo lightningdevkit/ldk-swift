@@ -17,26 +17,45 @@
 				open class CustomMessageReader: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCustomMessageReader?
 
-					internal init(cType: LDKCustomMessageReader) {
+					internal init(cType: LDKCustomMessageReader, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCustomMessageReader, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCustomMessageReader, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCustomMessageReader, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -44,7 +63,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "CustomMessageReader.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -58,7 +77,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.read(messageType: message_type, buffer: u8slice(cType: buffer).dangle().getValue())
+							let swiftCallbackResult = instance.read(messageType: message_type, buffer: u8slice(cType: buffer, instantiationContext: "CustomMessageReader.swift::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -128,15 +147,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing CustomMessageReader \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing CustomMessageReader \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing CustomMessageReader \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing CustomMessageReader \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -150,7 +171,7 @@
 					public override func read(messageType: UInt16, buffer: [UInt8]) -> Result_COption_TypeZDecodeErrorZ {
 						// native call variable prep
 						
-						let bufferPrimitiveWrapper = u8slice(value: buffer)
+						let bufferPrimitiveWrapper = u8slice(value: buffer, instantiationContext: "CustomMessageReader.swift::\(#function):\(#line)")
 				
 
 						
@@ -165,7 +186,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_COption_TypeZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_TypeZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "CustomMessageReader.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

@@ -15,26 +15,45 @@
 				open class OnionMessageHandler: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKOnionMessageHandler?
 
-					internal init(cType: LDKOnionMessageHandler) {
+					internal init(cType: LDKOnionMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKOnionMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKOnionMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKOnionMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -42,7 +61,7 @@
 					public init(onionMessageProvider: OnionMessageProvider) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,7 +75,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleOnionMessage(peerNodeId: PublicKey(cType: peer_node_id).getValue(), msg: OnionMessage(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleOnionMessage(peerNodeId: PublicKey(cType: peer_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: OnionMessage(cType: msg.pointee, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -74,7 +93,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), initArgument: BindingsInit(cType: initArgument.pointee).dangle().clone(), inbound: inbound)
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue(), initArgument: BindingsInit(cType: initArgument.pointee, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -92,7 +111,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id).getValue())
+							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -128,7 +147,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id).getValue())
+							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -236,7 +255,7 @@
 					/// Implementation of OnionMessageProvider for this object.
 					public func getOnionMessageProvider() -> OnionMessageProvider {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageProvider(cType: self.cType!.OnionMessageProvider, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageProvider(cType: self.cType!.OnionMessageProvider, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -248,15 +267,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing OnionMessageHandler \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing OnionMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing OnionMessageHandler \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing OnionMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -267,7 +288,7 @@
 					public override func handleOnionMessage(peerNodeId: [UInt8], msg: OnionMessage) {
 						// native call variable prep
 						
-						let peerNodeIdPrimitiveWrapper = PublicKey(value: peerNodeId)
+						let peerNodeIdPrimitiveWrapper = PublicKey(value: peerNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -300,7 +321,7 @@
 					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -319,7 +340,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -329,7 +350,7 @@
 					public override func peerDisconnected(theirNodeId: [UInt8]) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -365,7 +386,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult)
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -378,7 +399,7 @@
 					public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -393,7 +414,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult)
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

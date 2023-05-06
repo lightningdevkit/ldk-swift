@@ -18,26 +18,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKDirectedChannelInfo?
 
-					internal init(cType: LDKDirectedChannelInfo) {
+					internal init(cType: LDKDirectedChannelInfo, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKDirectedChannelInfo, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKDirectedChannelInfo, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKDirectedChannelInfo, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -79,7 +98,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = DirectedChannelInfo(cType: nativeCallResult)
+						let returnValue = DirectedChannelInfo(cType: nativeCallResult, instantiationContext: "DirectedChannelInfo.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -102,7 +121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelInfo(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelInfo(cType: nativeCallResult, instantiationContext: "DirectedChannelInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -152,7 +171,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult, anchor: self)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "DirectedChannelInfo.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -201,16 +220,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing DirectedChannelInfo \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing DirectedChannelInfo \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing DirectedChannelInfo \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing DirectedChannelInfo \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -21,26 +21,45 @@
 				open class ChannelMessageHandler: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChannelMessageHandler?
 
-					internal init(cType: LDKChannelMessageHandler) {
+					internal init(cType: LDKChannelMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChannelMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -48,7 +67,7 @@
 					public init(messageSendEventsProvider: MessageSendEventsProvider) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -62,7 +81,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleOpenChannel(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: OpenChannel(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleOpenChannel(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: OpenChannel(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -80,7 +99,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleAcceptChannel(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: AcceptChannel(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleAcceptChannel(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: AcceptChannel(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -98,7 +117,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleFundingCreated(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: FundingCreated(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleFundingCreated(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: FundingCreated(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -116,7 +135,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleFundingSigned(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: FundingSigned(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleFundingSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: FundingSigned(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -134,7 +153,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelReady(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: ChannelReady(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleChannelReady(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ChannelReady(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -152,7 +171,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleShutdown(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: Shutdown(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleShutdown(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: Shutdown(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -170,7 +189,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleClosingSigned(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: ClosingSigned(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleClosingSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ClosingSigned(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -188,7 +207,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateAddHtlc(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: UpdateAddHTLC(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateAddHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateAddHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -206,7 +225,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFulfillHtlc(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: UpdateFulfillHTLC(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFulfillHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFulfillHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -224,7 +243,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFailHtlc(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: UpdateFailHTLC(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFailHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFailHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -242,7 +261,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFailMalformedHtlc(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: UpdateFailMalformedHTLC(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFailMalformedHtlc(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFailMalformedHTLC(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -260,7 +279,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleCommitmentSigned(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: CommitmentSigned(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleCommitmentSigned(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: CommitmentSigned(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -278,7 +297,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleRevokeAndAck(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: RevokeAndACK(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleRevokeAndAck(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: RevokeAndACK(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -296,7 +315,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleUpdateFee(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: UpdateFee(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleUpdateFee(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: UpdateFee(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -314,7 +333,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleAnnouncementSignatures(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: AnnouncementSignatures(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleAnnouncementSignatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: AnnouncementSignatures(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -332,7 +351,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id).getValue())
+							let swiftCallbackResult = instance.peerDisconnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -350,7 +369,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: BindingsInit(cType: msg.pointee).dangle().clone(), inbound: inbound)
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: BindingsInit(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -368,7 +387,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelReestablish(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: ChannelReestablish(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleChannelReestablish(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ChannelReestablish(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -386,7 +405,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelUpdate(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: ChannelUpdate(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleChannelUpdate(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ChannelUpdate(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -404,7 +423,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleError(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: ErrorMessage(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleError(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ErrorMessage(cType: msg.pointee, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -440,7 +459,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id).getValue())
+							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -682,7 +701,7 @@
 					/// Implementation of MessageSendEventsProvider for this object.
 					public func getMessageSendEventsProvider() -> MessageSendEventsProvider {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: self.cType!.MessageSendEventsProvider, anchor: self)
+						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: self.cType!.MessageSendEventsProvider, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -694,15 +713,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChannelMessageHandler \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChannelMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChannelMessageHandler \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChannelMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -713,7 +734,7 @@
 					public override func handleOpenChannel(theirNodeId: [UInt8], msg: OpenChannel) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -741,7 +762,7 @@
 					public override func handleAcceptChannel(theirNodeId: [UInt8], msg: AcceptChannel) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -769,7 +790,7 @@
 					public override func handleFundingCreated(theirNodeId: [UInt8], msg: FundingCreated) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -797,7 +818,7 @@
 					public override func handleFundingSigned(theirNodeId: [UInt8], msg: FundingSigned) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -825,7 +846,7 @@
 					public override func handleChannelReady(theirNodeId: [UInt8], msg: ChannelReady) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -853,7 +874,7 @@
 					public override func handleShutdown(theirNodeId: [UInt8], msg: Shutdown) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -881,7 +902,7 @@
 					public override func handleClosingSigned(theirNodeId: [UInt8], msg: ClosingSigned) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -909,7 +930,7 @@
 					public override func handleUpdateAddHtlc(theirNodeId: [UInt8], msg: UpdateAddHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -937,7 +958,7 @@
 					public override func handleUpdateFulfillHtlc(theirNodeId: [UInt8], msg: UpdateFulfillHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -965,7 +986,7 @@
 					public override func handleUpdateFailHtlc(theirNodeId: [UInt8], msg: UpdateFailHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -993,7 +1014,7 @@
 					public override func handleUpdateFailMalformedHtlc(theirNodeId: [UInt8], msg: UpdateFailMalformedHTLC) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1021,7 +1042,7 @@
 					public override func handleCommitmentSigned(theirNodeId: [UInt8], msg: CommitmentSigned) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1049,7 +1070,7 @@
 					public override func handleRevokeAndAck(theirNodeId: [UInt8], msg: RevokeAndACK) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1077,7 +1098,7 @@
 					public override func handleUpdateFee(theirNodeId: [UInt8], msg: UpdateFee) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1105,7 +1126,7 @@
 					public override func handleAnnouncementSignatures(theirNodeId: [UInt8], msg: AnnouncementSignatures) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1133,7 +1154,7 @@
 					public override func peerDisconnected(theirNodeId: [UInt8]) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1161,7 +1182,7 @@
 					public override func peerConnected(theirNodeId: [UInt8], msg: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1180,7 +1201,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -1189,7 +1210,7 @@
 					public override func handleChannelReestablish(theirNodeId: [UInt8], msg: ChannelReestablish) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1217,7 +1238,7 @@
 					public override func handleChannelUpdate(theirNodeId: [UInt8], msg: ChannelUpdate) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1245,7 +1266,7 @@
 					public override func handleError(theirNodeId: [UInt8], msg: ErrorMessage) {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1285,7 +1306,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult)
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -1298,7 +1319,7 @@
 					public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -1313,7 +1334,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult)
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

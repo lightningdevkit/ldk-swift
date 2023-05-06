@@ -24,26 +24,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKRapidGossipSync?
 
-					internal init(cType: LDKRapidGossipSync) {
+					internal init(cType: LDKRapidGossipSync, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRapidGossipSync, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRapidGossipSync, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKRapidGossipSync, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -87,7 +106,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = RapidGossipSync(cType: nativeCallResult)
+						let returnValue = RapidGossipSync(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -95,7 +114,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 				try! self.addAnchor(anchor: networkGraph)
 
 			
@@ -108,7 +127,7 @@
 					public func updateNetworkGraph(updateData: [UInt8]) -> Result_u32GraphSyncErrorZ {
 						// native call variable prep
 						
-						let updateDataPrimitiveWrapper = u8slice(value: updateData)
+						let updateDataPrimitiveWrapper = u8slice(value: updateData, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -126,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -140,9 +159,9 @@
 					public func updateNetworkGraphNoStd(updateData: [UInt8], currentTimeUnix: UInt64?) -> Result_u32GraphSyncErrorZ {
 						// native call variable prep
 						
-						let updateDataPrimitiveWrapper = u8slice(value: updateData)
+						let updateDataPrimitiveWrapper = u8slice(value: updateData, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
 				
-						let currentTimeUnixOption = Option_u64Z(some: currentTimeUnix).danglingClone()
+						let currentTimeUnixOption = Option_u64Z(some: currentTimeUnix, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -160,7 +179,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -219,16 +238,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing RapidGossipSync \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing RapidGossipSync \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing RapidGossipSync \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing RapidGossipSync \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

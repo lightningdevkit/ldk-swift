@@ -20,26 +20,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChannelAnnouncement?
 
-					internal init(cType: LDKChannelAnnouncement) {
+					internal init(cType: LDKChannelAnnouncement, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelAnnouncement, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelAnnouncement, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChannelAnnouncement, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -81,7 +100,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -91,7 +110,7 @@
 					public func setNodeSignature1(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -132,7 +151,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -142,7 +161,7 @@
 					public func setNodeSignature2(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -183,7 +202,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -193,7 +212,7 @@
 					public func setBitcoinSignature1(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -234,7 +253,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -244,7 +263,7 @@
 					public func setBitcoinSignature2(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -285,7 +304,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UnsignedChannelAnnouncement(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = UnsignedChannelAnnouncement(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -318,13 +337,13 @@
 					public init(nodeSignature1Arg: [UInt8], nodeSignature2Arg: [UInt8], bitcoinSignature1Arg: [UInt8], bitcoinSignature2Arg: [UInt8], contentsArg: UnsignedChannelAnnouncement) {
 						// native call variable prep
 						
-						let nodeSignature1ArgPrimitiveWrapper = Signature(value: nodeSignature1Arg)
+						let nodeSignature1ArgPrimitiveWrapper = Signature(value: nodeSignature1Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
-						let nodeSignature2ArgPrimitiveWrapper = Signature(value: nodeSignature2Arg)
+						let nodeSignature2ArgPrimitiveWrapper = Signature(value: nodeSignature2Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
-						let bitcoinSignature1ArgPrimitiveWrapper = Signature(value: bitcoinSignature1Arg)
+						let bitcoinSignature1ArgPrimitiveWrapper = Signature(value: bitcoinSignature1Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
-						let bitcoinSignature2ArgPrimitiveWrapper = Signature(value: bitcoinSignature2Arg)
+						let bitcoinSignature2ArgPrimitiveWrapper = Signature(value: bitcoinSignature2Arg, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -349,7 +368,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelAnnouncement(cType: nativeCallResult)
+						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -357,7 +376,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -379,7 +398,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelAnnouncement(cType: nativeCallResult)
+						let returnValue = ChannelAnnouncement(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -431,7 +450,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -441,7 +460,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelAnnouncementDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -455,7 +474,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelAnnouncementDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_ChannelAnnouncementDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelAnnouncement.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -504,16 +523,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChannelAnnouncement \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChannelAnnouncement \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChannelAnnouncement \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

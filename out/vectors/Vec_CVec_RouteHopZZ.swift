@@ -14,34 +14,53 @@
 				internal class Vec_CVec_RouteHopZZ: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCVec_CVec_RouteHopZZ?
 
-					internal init(cType: LDKCVec_CVec_RouteHopZZ) {
+					internal init(cType: LDKCVec_CVec_RouteHopZZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_CVec_RouteHopZZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_CVec_RouteHopZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCVec_CVec_RouteHopZZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(array: [[RouteHop]]) {
+					internal init(array: [[RouteHop]], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
 
@@ -49,7 +68,7 @@
 						var lowerDimension = [LDKCVec_RouteHopZ]()
 						for currentEntry in array {
 							
-						let currentEntryVector = Vec_RouteHopZ(array: currentEntry).dangle()
+						let currentEntryVector = Vec_RouteHopZ(array: currentEntry, instantiationContext: "Vec_CVec_RouteHopZZ.swift::\(#function):\(#line)").dangle()
 				
 							lowerDimension.append(currentEntryVector.cType!)
 							try! self.addAnchor(anchor: currentEntryVector)
@@ -87,7 +106,7 @@
 
 						let swiftArray = array.map { (currentCType: [LDKRouteHop]) -> [RouteHop] in
 							currentCType.map { (currentCType: LDKRouteHop) -> RouteHop in
-RouteHop(cType: currentCType, anchor: self).dangle()
+RouteHop(cType: currentCType, instantiationContext: "Vec_CVec_RouteHopZZ.swift::\(#function):\(#line)", anchor: self).dangle()
 							}
 						}
 						return swiftArray
@@ -121,16 +140,18 @@ RouteHop(cType: currentCType, anchor: self).dangle()
 
 					
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Vec_CVec_RouteHopZZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Vec_CVec_RouteHopZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Vec_CVec_RouteHopZZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Vec_CVec_RouteHopZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

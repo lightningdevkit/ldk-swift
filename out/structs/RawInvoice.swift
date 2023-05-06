@@ -24,26 +24,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKRawInvoice?
 
-					internal init(cType: LDKRawInvoice) {
+					internal init(cType: LDKRawInvoice, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRawInvoice, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRawInvoice, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKRawInvoice, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -85,7 +104,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RawDataPart(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = RawDataPart(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -160,7 +179,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RawInvoice(cType: nativeCallResult)
+						let returnValue = RawInvoice(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -206,7 +225,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -242,7 +261,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Sha256(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -278,7 +297,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Description(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = Description(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -314,7 +333,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PayeePubKey(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = PayeePubKey(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -350,7 +369,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Sha256(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = Sha256(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -386,7 +405,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ExpiryTime(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ExpiryTime(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -422,7 +441,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = MinFinalCltvExpiryDelta(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = MinFinalCltvExpiryDelta(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -453,7 +472,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -489,7 +508,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = InvoiceFeatures(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -512,7 +531,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -535,7 +554,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "RawInvoice.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -607,16 +626,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing RawInvoice \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing RawInvoice \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing RawInvoice \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing RawInvoice \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

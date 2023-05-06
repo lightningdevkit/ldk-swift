@@ -98,13 +98,13 @@ export default class PrimitiveWrapperGenerator extends BaseTypeGenerator<RustPri
 
 					${this.inheritedInits(type)}
 
-					public init(value: ${swiftReturnType}) {
+					internal init(value: ${swiftReturnType}, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						${initializer}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					${generatedMethods}

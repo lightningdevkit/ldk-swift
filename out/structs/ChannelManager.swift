@@ -104,26 +104,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChannelManager?
 
-					internal init(cType: LDKChannelManager) {
+					internal init(cType: LDKChannelManager, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelManager, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelManager, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChannelManager, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -172,7 +191,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelManager(cType: nativeCallResult)
+						let returnValue = ChannelManager(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -180,7 +199,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -202,7 +221,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UserConfig(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = UserConfig(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -238,9 +257,9 @@
 					public func createChannel(theirNetworkKey: [UInt8], channelValueSatoshis: UInt64, pushMsat: UInt64, userChannelId: [UInt8], overrideConfig: UserConfig) -> Result__u832APIErrorZ {
 						// native call variable prep
 						
-						let theirNetworkKeyPrimitiveWrapper = PublicKey(value: theirNetworkKey)
+						let theirNetworkKeyPrimitiveWrapper = PublicKey(value: theirNetworkKey, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -261,7 +280,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -285,7 +304,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_ChannelDetailsZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_ChannelDetailsZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -313,7 +332,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_ChannelDetailsZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_ChannelDetailsZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -343,7 +362,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_RecentPaymentDetailsZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_RecentPaymentDetailsZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -371,7 +390,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -393,7 +412,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -423,7 +442,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -445,7 +464,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -460,7 +479,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -482,7 +501,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -499,7 +518,7 @@
 						
 						let tupledChannelId = Bindings.arrayToUInt8Tuple32(array: channelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -521,7 +540,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -642,11 +661,11 @@
 					public func sendPayment(route: Route, paymentHash: [UInt8], paymentSecret: [UInt8], paymentId: [UInt8]) -> Result_NonePaymentSendFailureZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -674,7 +693,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NonePaymentSendFailureZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NonePaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -687,11 +706,11 @@
 					public func sendPaymentWithRetry(paymentHash: [UInt8], paymentSecret: [UInt8], paymentId: [UInt8], routeParams: RouteParameters, retryStrategy: Retry) -> Result_NoneRetryableSendFailureZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -715,7 +734,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneRetryableSendFailureZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -740,7 +759,7 @@
 					public func abandonPayment(paymentId: [UInt8]) {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -784,9 +803,9 @@
 					public func sendSpontaneousPayment(route: Route, paymentPreimage: [UInt8], paymentId: [UInt8]) -> Result_PaymentHashPaymentSendFailureZ {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -811,7 +830,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentHashPaymentSendFailureZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_PaymentHashPaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -829,9 +848,9 @@
 					public func sendSpontaneousPaymentWithRetry(paymentPreimage: [UInt8], paymentId: [UInt8], routeParams: RouteParameters, retryStrategy: Retry) -> Result_PaymentHashRetryableSendFailureZ {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -852,7 +871,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -864,7 +883,7 @@
 					public func sendProbe(hops: [RouteHop]) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
 						// native call variable prep
 						
-						let hopsVector = Vec_RouteHopZ(array: hops).dangle()
+						let hopsVector = Vec_RouteHopZ(array: hops, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -881,7 +900,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -922,9 +941,9 @@
 						
 						let tupledTemporaryChannelId = Bindings.arrayToUInt8Tuple32(array: temporaryChannelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let fundingTransactionPrimitiveWrapper = Transaction(value: fundingTransaction).dangle()
+						let fundingTransactionPrimitiveWrapper = Transaction(value: fundingTransaction, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -949,7 +968,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -980,9 +999,9 @@
 					public func updateChannelConfig(counterpartyNodeId: [UInt8], channelIds: [[UInt8]], config: ChannelConfig) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let channelIdsVector = Vec_ThirtyTwoBytesZ(array: channelIds).dangle()
+						let channelIdsVector = Vec_ThirtyTwoBytesZ(array: channelIds, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -1006,7 +1025,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1035,11 +1054,11 @@
 					public func forwardInterceptedHtlc(interceptId: [UInt8], nextHopChannelId: [UInt8], nextNodeId: [UInt8], amtToForwardMsat: UInt64) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
-						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId)
+						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 						let tupledNextHopChannelId = Bindings.arrayToUInt8Tuple32(array: nextHopChannelId)
 					
-						let nextNodeIdPrimitiveWrapper = PublicKey(value: nextNodeId)
+						let nextNodeIdPrimitiveWrapper = PublicKey(value: nextNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1064,7 +1083,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1080,7 +1099,7 @@
 					public func failInterceptedHtlc(interceptId: [UInt8]) -> Result_NoneAPIErrorZ {
 						// native call variable prep
 						
-						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId)
+						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1098,7 +1117,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1258,7 +1277,7 @@
 					public func claimFunds(paymentPreimage: [UInt8]) {
 						// native call variable prep
 						
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1299,7 +1318,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -1326,9 +1345,9 @@
 						
 						let tupledTemporaryChannelId = Bindings.arrayToUInt8Tuple32(array: temporaryChannelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1353,7 +1372,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1382,9 +1401,9 @@
 						
 						let tupledTemporaryChannelId = Bindings.arrayToUInt8Tuple32(array: temporaryChannelId)
 					
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1409,7 +1428,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1450,9 +1469,9 @@
 					public func createInboundPayment(minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?) -> Result_C2Tuple_PaymentHashPaymentSecretZNoneZ {
 						// native call variable prep
 						
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
-						let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta).danglingClone()
+						let minFinalCltvExpiryDeltaOption = Option_u16Z(some: minFinalCltvExpiryDelta, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1467,7 +1486,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1485,7 +1504,7 @@
 					public func createInboundPaymentLegacy(minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32) -> Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ {
 						// native call variable prep
 						
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1500,7 +1519,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1555,11 +1574,11 @@
 					public func createInboundPaymentForHash(paymentHash: [UInt8], minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiry: UInt16?) -> Result_PaymentSecretNoneZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
-						let minFinalCltvExpiryOption = Option_u16Z(some: minFinalCltvExpiry).danglingClone()
+						let minFinalCltvExpiryOption = Option_u16Z(some: minFinalCltvExpiry, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1577,7 +1596,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentSecretNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_PaymentSecretNoneZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1595,9 +1614,9 @@
 					public func createInboundPaymentForHashLegacy(paymentHash: [UInt8], minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32) -> Result_PaymentSecretAPIErrorZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let minValueMsatOption = Option_u64Z(some: minValueMsat).danglingClone()
+						let minValueMsatOption = Option_u64Z(some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1615,7 +1634,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentSecretAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_PaymentSecretAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1628,9 +1647,9 @@
 					public func getPaymentPreimage(paymentHash: [UInt8], paymentSecret: [UInt8]) -> Result_PaymentPreimageAPIErrorZ {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
-						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret)
+						let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(value: paymentSecret, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1651,7 +1670,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentPreimageAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_PaymentPreimageAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1702,7 +1721,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PhantomRouteHints(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = PhantomRouteHints(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1754,7 +1773,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InFlightHtlcs(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = InFlightHtlcs(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1778,7 +1797,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -1802,7 +1821,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -1826,7 +1845,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedListen(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedListen(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -1850,7 +1869,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -1935,7 +1954,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Future(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = Future(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1959,7 +1978,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BestBlock(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = BestBlock(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1983,7 +2002,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -2007,7 +2026,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelFeatures(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -2031,7 +2050,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelTypeFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelTypeFeatures(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -2055,7 +2074,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -2079,7 +2098,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedChannelMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedChannelMessageHandler(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -2102,7 +2121,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -2138,16 +2157,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChannelManager \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChannelManager \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChannelManager \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChannelManager \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

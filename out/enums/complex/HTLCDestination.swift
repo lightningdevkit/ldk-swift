@@ -14,26 +14,45 @@
 				public class HTLCDestination: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKHTLCDestination?
 
-					internal init(cType: LDKHTLCDestination) {
+					internal init(cType: LDKHTLCDestination, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKHTLCDestination, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKHTLCDestination, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKHTLCDestination, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -120,7 +139,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult)
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -130,9 +149,9 @@
 					public class func initWithNextHopChannel(nodeId: [UInt8], channelId: [UInt8]) -> HTLCDestination {
 						// native call variable prep
 						
-						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId)
+						let nodeIdPrimitiveWrapper = PublicKey(value: nodeId, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -149,7 +168,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult)
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -168,7 +187,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult)
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -187,7 +206,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult)
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -197,7 +216,7 @@
 					public class func initWithFailedPayment(paymentHash: [UInt8]) -> HTLCDestination {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -211,7 +230,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = HTLCDestination(cType: nativeCallResult)
+						let returnValue = HTLCDestination(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -262,7 +281,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -272,7 +291,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_HTLCDestinationZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -286,7 +305,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_HTLCDestinationZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_HTLCDestinationZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -299,7 +318,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKNextHopChannel_Body(cType: self.cType!.next_hop_channel, anchor: self)
+						return HTLCDestination_LDKNextHopChannel_Body(cType: self.cType!.next_hop_channel, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsUnknownNextHop() -> UnknownNextHop? {
@@ -307,7 +326,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKUnknownNextHop_Body(cType: self.cType!.unknown_next_hop, anchor: self)
+						return HTLCDestination_LDKUnknownNextHop_Body(cType: self.cType!.unknown_next_hop, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsInvalidForward() -> InvalidForward? {
@@ -315,7 +334,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKInvalidForward_Body(cType: self.cType!.invalid_forward, anchor: self)
+						return HTLCDestination_LDKInvalidForward_Body(cType: self.cType!.invalid_forward, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsFailedPayment() -> FailedPayment? {
@@ -323,7 +342,7 @@
 							return nil
 						}
 
-						return HTLCDestination_LDKFailedPayment_Body(cType: self.cType!.failed_payment, anchor: self)
+						return HTLCDestination_LDKFailedPayment_Body(cType: self.cType!.failed_payment, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -340,16 +359,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing HTLCDestination \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing HTLCDestination \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing HTLCDestination \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing HTLCDestination \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -366,26 +387,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKHTLCDestination_LDKNextHopChannel_Body?
 
-						internal init(cType: LDKHTLCDestination_LDKNextHopChannel_Body) {
+						internal init(cType: LDKHTLCDestination_LDKNextHopChannel_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKHTLCDestination_LDKNextHopChannel_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKHTLCDestination_LDKNextHopChannel_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKHTLCDestination_LDKNextHopChannel_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -400,7 +440,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.node_id, anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.node_id, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -408,7 +448,7 @@
 						/// The outgoing `channel_id` between us and the next node.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -436,26 +476,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKHTLCDestination_LDKUnknownNextHop_Body?
 
-						internal init(cType: LDKHTLCDestination_LDKUnknownNextHop_Body) {
+						internal init(cType: LDKHTLCDestination_LDKUnknownNextHop_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKHTLCDestination_LDKUnknownNextHop_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKHTLCDestination_LDKUnknownNextHop_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKHTLCDestination_LDKUnknownNextHop_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -494,26 +553,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKHTLCDestination_LDKInvalidForward_Body?
 
-						internal init(cType: LDKHTLCDestination_LDKInvalidForward_Body) {
+						internal init(cType: LDKHTLCDestination_LDKInvalidForward_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKHTLCDestination_LDKInvalidForward_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKHTLCDestination_LDKInvalidForward_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKHTLCDestination_LDKInvalidForward_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -552,26 +630,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKHTLCDestination_LDKFailedPayment_Body?
 
-						internal init(cType: LDKHTLCDestination_LDKFailedPayment_Body) {
+						internal init(cType: LDKHTLCDestination_LDKFailedPayment_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKHTLCDestination_LDKFailedPayment_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKHTLCDestination_LDKFailedPayment_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKHTLCDestination_LDKFailedPayment_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -582,7 +679,7 @@
 						/// The payment hash of the payment we attempted to process.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "HTLCDestination.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

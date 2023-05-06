@@ -16,45 +16,64 @@
 					
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKBigEndianScalar?
 
-					internal init(cType: LDKBigEndianScalar) {
+					internal init(cType: LDKBigEndianScalar, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKBigEndianScalar, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKBigEndianScalar, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKBigEndianScalar, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKBigEndianScalar(big_endian_bytes: Bindings.arrayToUInt8Tuple32(array: value))
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					
 					/// Convenience function for constructing a new BigEndianScalar
-					public init(bigEndianBytes: [UInt8]) {
+					public init(bigEndianBytes: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let bigEndianBytesPrimitiveWrapper = ThirtyTwoBytes(value: bigEndianBytes)
+						let bigEndianBytesPrimitiveWrapper = ThirtyTwoBytes(value: bigEndianBytes, instantiationContext: "BigEndianScalar.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -68,7 +87,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = BigEndianScalar(cType: nativeCallResult)
+						let returnValue = BigEndianScalar(cType: nativeCallResult, instantiationContext: "BigEndianScalar.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -76,7 +95,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

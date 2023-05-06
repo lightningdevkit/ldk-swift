@@ -18,26 +18,45 @@
 				public class Event: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKEvent?
 
-					internal init(cType: LDKEvent) {
+					internal init(cType: LDKEvent, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKEvent, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKEvent, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKEvent, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -308,7 +327,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -318,13 +337,13 @@
 					public class func initWithFundingGenerationReady(temporaryChannelId: [UInt8], counterpartyNodeId: [UInt8], channelValueSatoshis: UInt64, outputScript: [UInt8], userChannelId: [UInt8]) -> Event {
 						// native call variable prep
 						
-						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId)
+						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let outputScriptVector = Vec_u8Z(array: outputScript).dangle()
+						let outputScriptVector = Vec_u8Z(array: outputScript, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -346,7 +365,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -356,13 +375,13 @@
 					public class func initWithPaymentClaimable(receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8], viaUserChannelId: [UInt8]?) -> Event {
 						// native call variable prep
 						
-						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId)
+						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let viaChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: viaChannelId)
+						let viaChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: viaChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let viaUserChannelIdOption = Option_u128Z(some: viaUserChannelId).danglingClone()
+						let viaUserChannelIdOption = Option_u128Z(some: viaUserChannelId, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -382,7 +401,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -392,9 +411,9 @@
 					public class func initWithPaymentClaimed(receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose) -> Event {
 						// native call variable prep
 						
-						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId)
+						let receiverNodeIdPrimitiveWrapper = PublicKey(value: receiverNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -411,7 +430,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -421,13 +440,13 @@
 					public class func initWithPaymentSent(paymentId: [UInt8], paymentPreimage: [UInt8], paymentHash: [UInt8], feePaidMsat: UInt64?) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage)
+						let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(value: paymentPreimage, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let feePaidMsatOption = Option_u64Z(some: feePaidMsat).danglingClone()
+						let feePaidMsatOption = Option_u64Z(some: feePaidMsat, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -447,7 +466,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -457,9 +476,9 @@
 					public class func initWithPaymentFailed(paymentId: [UInt8], paymentHash: [UInt8]) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -476,7 +495,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -486,11 +505,11 @@
 					public class func initWithPaymentPathSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop]) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -509,7 +528,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -519,13 +538,13 @@
 					public class func initWithPaymentPathFailed(paymentId: [UInt8], paymentHash: [UInt8], paymentFailedPermanently: Bool, failure: PathFailure, path: [RouteHop], shortChannelId: UInt64?, retry: Bindings.RouteParameters) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
-						let shortChannelIdOption = Option_u64Z(some: shortChannelId).danglingClone()
+						let shortChannelIdOption = Option_u64Z(some: shortChannelId, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -544,7 +563,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -554,11 +573,11 @@
 					public class func initWithProbeSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop]) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -577,7 +596,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -587,13 +606,13 @@
 					public class func initWithProbeFailed(paymentId: [UInt8], paymentHash: [UInt8], path: [RouteHop], shortChannelId: UInt64?) -> Event {
 						// native call variable prep
 						
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
-						let shortChannelIdOption = Option_u64Z(some: shortChannelId).danglingClone()
+						let shortChannelIdOption = Option_u64Z(some: shortChannelId, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -612,7 +631,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -631,7 +650,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -641,9 +660,9 @@
 					public class func initWithHtlcintercepted(interceptId: [UInt8], requestedNextHopScid: UInt64, paymentHash: [UInt8], inboundAmountMsat: UInt64, expectedOutboundAmountMsat: UInt64) -> Event {
 						// native call variable prep
 						
-						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId)
+						let interceptIdPrimitiveWrapper = ThirtyTwoBytes(value: interceptId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -660,7 +679,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -670,7 +689,7 @@
 					public class func initWithSpendableOutputs(outputs: [SpendableOutputDescriptor]) -> Event {
 						// native call variable prep
 						
-						let outputsVector = Vec_SpendableOutputDescriptorZ(array: outputs).dangle()
+						let outputsVector = Vec_SpendableOutputDescriptorZ(array: outputs, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -683,7 +702,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -693,11 +712,11 @@
 					public class func initWithPaymentForwarded(prevChannelId: [UInt8], nextChannelId: [UInt8], feeEarnedMsat: UInt64?, claimFromOnchainTx: Bool) -> Event {
 						// native call variable prep
 						
-						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId)
+						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let nextChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: nextChannelId)
+						let nextChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: nextChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let feeEarnedMsatOption = Option_u64Z(some: feeEarnedMsat).danglingClone()
+						let feeEarnedMsatOption = Option_u64Z(some: feeEarnedMsat, instantiationContext: "Event.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -714,7 +733,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -724,11 +743,11 @@
 					public class func initWithChannelReady(channelId: [UInt8], userChannelId: [UInt8], counterpartyNodeId: [UInt8], channelType: Bindings.ChannelTypeFeatures) -> Event {
 						// native call variable prep
 						
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -748,7 +767,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -758,9 +777,9 @@
 					public class func initWithChannelClosed(channelId: [UInt8], userChannelId: [UInt8], reason: ClosureReason) -> Event {
 						// native call variable prep
 						
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let userChannelIdPrimitiveWrapper = U128(value: userChannelId)
+						let userChannelIdPrimitiveWrapper = U128(value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -777,7 +796,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -787,9 +806,9 @@
 					public class func initWithDiscardFunding(channelId: [UInt8], transaction: [UInt8]) -> Event {
 						// native call variable prep
 						
-						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId)
+						let channelIdPrimitiveWrapper = ThirtyTwoBytes(value: channelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let transactionPrimitiveWrapper = Transaction(value: transaction).dangle()
+						let transactionPrimitiveWrapper = Transaction(value: transaction, instantiationContext: "Event.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -806,7 +825,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -816,9 +835,9 @@
 					public class func initWithOpenChannelRequest(temporaryChannelId: [UInt8], counterpartyNodeId: [UInt8], fundingSatoshis: UInt64, pushMsat: UInt64, channelType: Bindings.ChannelTypeFeatures) -> Event {
 						// native call variable prep
 						
-						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId)
+						let temporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: temporaryChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
-						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId)
+						let counterpartyNodeIdPrimitiveWrapper = PublicKey(value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -835,7 +854,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -845,7 +864,7 @@
 					public class func initWithHtlchandlingFailed(prevChannelId: [UInt8], failedNextDestination: HTLCDestination) -> Event {
 						// native call variable prep
 						
-						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId)
+						let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(value: prevChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -859,7 +878,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Event(cType: nativeCallResult)
+						let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -910,7 +929,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -920,7 +939,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_EventZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Event.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -934,7 +953,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_EventZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_EventZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -947,7 +966,7 @@
 							return nil
 						}
 
-						return Event_LDKFundingGenerationReady_Body(cType: self.cType!.funding_generation_ready, anchor: self)
+						return Event_LDKFundingGenerationReady_Body(cType: self.cType!.funding_generation_ready, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentClaimable() -> PaymentClaimable? {
@@ -955,7 +974,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentClaimable_Body(cType: self.cType!.payment_claimable, anchor: self)
+						return Event_LDKPaymentClaimable_Body(cType: self.cType!.payment_claimable, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentClaimed() -> PaymentClaimed? {
@@ -963,7 +982,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentClaimed_Body(cType: self.cType!.payment_claimed, anchor: self)
+						return Event_LDKPaymentClaimed_Body(cType: self.cType!.payment_claimed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentSent() -> PaymentSent? {
@@ -971,7 +990,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentSent_Body(cType: self.cType!.payment_sent, anchor: self)
+						return Event_LDKPaymentSent_Body(cType: self.cType!.payment_sent, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentFailed() -> PaymentFailed? {
@@ -979,7 +998,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentFailed_Body(cType: self.cType!.payment_failed, anchor: self)
+						return Event_LDKPaymentFailed_Body(cType: self.cType!.payment_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentPathSuccessful() -> PaymentPathSuccessful? {
@@ -987,7 +1006,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentPathSuccessful_Body(cType: self.cType!.payment_path_successful, anchor: self)
+						return Event_LDKPaymentPathSuccessful_Body(cType: self.cType!.payment_path_successful, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentPathFailed() -> PaymentPathFailed? {
@@ -995,7 +1014,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentPathFailed_Body(cType: self.cType!.payment_path_failed, anchor: self)
+						return Event_LDKPaymentPathFailed_Body(cType: self.cType!.payment_path_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsProbeSuccessful() -> ProbeSuccessful? {
@@ -1003,7 +1022,7 @@
 							return nil
 						}
 
-						return Event_LDKProbeSuccessful_Body(cType: self.cType!.probe_successful, anchor: self)
+						return Event_LDKProbeSuccessful_Body(cType: self.cType!.probe_successful, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsProbeFailed() -> ProbeFailed? {
@@ -1011,7 +1030,7 @@
 							return nil
 						}
 
-						return Event_LDKProbeFailed_Body(cType: self.cType!.probe_failed, anchor: self)
+						return Event_LDKProbeFailed_Body(cType: self.cType!.probe_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPendingHtlcsForwardable() -> PendingHTLCsForwardable? {
@@ -1019,7 +1038,7 @@
 							return nil
 						}
 
-						return Event_LDKPendingHTLCsForwardable_Body(cType: self.cType!.pending_htl_cs_forwardable, anchor: self)
+						return Event_LDKPendingHTLCsForwardable_Body(cType: self.cType!.pending_htl_cs_forwardable, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsHtlcIntercepted() -> HTLCIntercepted? {
@@ -1027,7 +1046,7 @@
 							return nil
 						}
 
-						return Event_LDKHTLCIntercepted_Body(cType: self.cType!.htlc_intercepted, anchor: self)
+						return Event_LDKHTLCIntercepted_Body(cType: self.cType!.htlc_intercepted, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsSpendableOutputs() -> SpendableOutputs? {
@@ -1035,7 +1054,7 @@
 							return nil
 						}
 
-						return Event_LDKSpendableOutputs_Body(cType: self.cType!.spendable_outputs, anchor: self)
+						return Event_LDKSpendableOutputs_Body(cType: self.cType!.spendable_outputs, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsPaymentForwarded() -> PaymentForwarded? {
@@ -1043,7 +1062,7 @@
 							return nil
 						}
 
-						return Event_LDKPaymentForwarded_Body(cType: self.cType!.payment_forwarded, anchor: self)
+						return Event_LDKPaymentForwarded_Body(cType: self.cType!.payment_forwarded, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelReady() -> ChannelReady? {
@@ -1051,7 +1070,7 @@
 							return nil
 						}
 
-						return Event_LDKChannelReady_Body(cType: self.cType!.channel_ready, anchor: self)
+						return Event_LDKChannelReady_Body(cType: self.cType!.channel_ready, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelClosed() -> ChannelClosed? {
@@ -1059,7 +1078,7 @@
 							return nil
 						}
 
-						return Event_LDKChannelClosed_Body(cType: self.cType!.channel_closed, anchor: self)
+						return Event_LDKChannelClosed_Body(cType: self.cType!.channel_closed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsDiscardFunding() -> DiscardFunding? {
@@ -1067,7 +1086,7 @@
 							return nil
 						}
 
-						return Event_LDKDiscardFunding_Body(cType: self.cType!.discard_funding, anchor: self)
+						return Event_LDKDiscardFunding_Body(cType: self.cType!.discard_funding, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsOpenChannelRequest() -> OpenChannelRequest? {
@@ -1075,7 +1094,7 @@
 							return nil
 						}
 
-						return Event_LDKOpenChannelRequest_Body(cType: self.cType!.open_channel_request, anchor: self)
+						return Event_LDKOpenChannelRequest_Body(cType: self.cType!.open_channel_request, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsHtlcHandlingFailed() -> HTLCHandlingFailed? {
@@ -1083,7 +1102,7 @@
 							return nil
 						}
 
-						return Event_LDKHTLCHandlingFailed_Body(cType: self.cType!.htlc_handling_failed, anchor: self)
+						return Event_LDKHTLCHandlingFailed_Body(cType: self.cType!.htlc_handling_failed, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -1100,16 +1119,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Event \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Event \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Event \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Event \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -1126,26 +1147,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKFundingGenerationReady_Body?
 
-						internal init(cType: LDKEvent_LDKFundingGenerationReady_Body) {
+						internal init(cType: LDKEvent_LDKFundingGenerationReady_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKFundingGenerationReady_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKFundingGenerationReady_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKFundingGenerationReady_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1159,7 +1199,7 @@
 						/// [`ChannelManager::funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::funding_transaction_generated
 						public func getTemporaryChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1170,7 +1210,7 @@
 						/// [`ChannelManager::funding_transaction_generated`]: crate::ln::channelmanager::ChannelManager::funding_transaction_generated
 						public func getCounterpartyNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1186,7 +1226,7 @@
 						/// The script which should be used in the transaction output.
 						public func getOutputScript() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(cType: self.cType!.output_script, anchor: self).getValue()
+							let returnValue = Vec_u8Z(cType: self.cType!.output_script, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1198,7 +1238,7 @@
 						/// [`ChannelManager::create_channel`]: crate::ln::channelmanager::ChannelManager::create_channel
 						public func getUserChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = U128(cType: self.cType!.user_channel_id, anchor: self).getValue()
+							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1226,26 +1266,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPaymentClaimable_Body?
 
-						internal init(cType: LDKEvent_LDKPaymentClaimable_Body) {
+						internal init(cType: LDKEvent_LDKPaymentClaimable_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPaymentClaimable_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPaymentClaimable_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentClaimable_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1263,7 +1322,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getReceiverNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1272,7 +1331,7 @@
 						/// not stop you from registering duplicate payment hashes for inbound payments.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1289,7 +1348,7 @@
 						/// payment is to pay an invoice or to send a spontaneous payment.
 						public func getPurpose() -> PaymentPurpose {
 							// return value (do some wrapping)
-							let returnValue = PaymentPurpose(cType: self.cType!.purpose, anchor: self)
+							let returnValue = PaymentPurpose(cType: self.cType!.purpose, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1299,7 +1358,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getViaChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.via_channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.via_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1307,7 +1366,7 @@
 						/// The `user_channel_id` indicating over which channel we received the payment.
 						public func getViaUserChannelId() -> [UInt8]? {
 							// return value (do some wrapping)
-							let returnValue = Option_u128Z(cType: self.cType!.via_user_channel_id, anchor: self).getValue()
+							let returnValue = Option_u128Z(cType: self.cType!.via_user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1335,26 +1394,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPaymentClaimed_Body?
 
-						internal init(cType: LDKEvent_LDKPaymentClaimed_Body) {
+						internal init(cType: LDKEvent_LDKPaymentClaimed_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPaymentClaimed_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPaymentClaimed_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentClaimed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1372,7 +1450,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getReceiverNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.receiver_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1381,7 +1459,7 @@
 						/// registering duplicate payment hashes for inbound payments.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1398,7 +1476,7 @@
 						/// spontaneous payment.
 						public func getPurpose() -> PaymentPurpose {
 							// return value (do some wrapping)
-							let returnValue = PaymentPurpose(cType: self.cType!.purpose, anchor: self)
+							let returnValue = PaymentPurpose(cType: self.cType!.purpose, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1426,26 +1504,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPaymentSent_Body?
 
-						internal init(cType: LDKEvent_LDKPaymentSent_Body) {
+						internal init(cType: LDKEvent_LDKPaymentSent_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPaymentSent_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPaymentSent_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentSent_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1460,7 +1557,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1470,7 +1567,7 @@
 						/// store it somehow!
 						public func getPaymentPreimage() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_preimage, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1480,7 +1577,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1496,7 +1593,7 @@
 						/// [`Route::get_total_fees`]: crate::routing::router::Route::get_total_fees
 						public func getFeePaidMsat() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.fee_paid_msat, anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.fee_paid_msat, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1524,26 +1621,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPaymentFailed_Body?
 
-						internal init(cType: LDKEvent_LDKPaymentFailed_Body) {
+						internal init(cType: LDKEvent_LDKPaymentFailed_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPaymentFailed_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPaymentFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1558,7 +1674,7 @@
 						/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1568,7 +1684,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1596,26 +1712,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPaymentPathSuccessful_Body?
 
-						internal init(cType: LDKEvent_LDKPaymentPathSuccessful_Body) {
+						internal init(cType: LDKEvent_LDKPaymentPathSuccessful_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPaymentPathSuccessful_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPaymentPathSuccessful_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentPathSuccessful_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1628,7 +1763,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1640,7 +1775,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1650,7 +1785,7 @@
 						/// May contain a closed channel if the HTLC sent along the path was fulfilled on chain.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1678,26 +1813,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPaymentPathFailed_Body?
 
-						internal init(cType: LDKEvent_LDKPaymentPathFailed_Body) {
+						internal init(cType: LDKEvent_LDKPaymentPathFailed_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPaymentPathFailed_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPaymentPathFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentPathFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1714,7 +1868,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1724,7 +1878,7 @@
 						/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1745,7 +1899,7 @@
 						/// [`NetworkGraph`]: crate::routing::gossip::NetworkGraph
 						public func getFailure() -> PathFailure {
 							// return value (do some wrapping)
-							let returnValue = PathFailure(cType: self.cType!.failure, anchor: self)
+							let returnValue = PathFailure(cType: self.cType!.failure, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1753,7 +1907,7 @@
 						/// The payment path that failed.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1768,7 +1922,7 @@
 						/// retried. May be `None` for older [`Event`] serializations.
 						public func getShortChannelId() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1780,7 +1934,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getRetry() -> Bindings.RouteParameters {
 							// return value (do some wrapping)
-							let returnValue = Bindings.RouteParameters(cType: self.cType!.retry, anchor: self)
+							let returnValue = Bindings.RouteParameters(cType: self.cType!.retry, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -1808,26 +1962,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKProbeSuccessful_Body?
 
-						internal init(cType: LDKEvent_LDKProbeSuccessful_Body) {
+						internal init(cType: LDKEvent_LDKProbeSuccessful_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKProbeSuccessful_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKProbeSuccessful_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKProbeSuccessful_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1840,7 +2013,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1850,7 +2023,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1858,7 +2031,7 @@
 						/// The payment path that was successful.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1886,26 +2059,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKProbeFailed_Body?
 
-						internal init(cType: LDKEvent_LDKProbeFailed_Body) {
+						internal init(cType: LDKEvent_LDKProbeFailed_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKProbeFailed_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKProbeFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKProbeFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1918,7 +2110,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1928,7 +2120,7 @@
 						/// [`ChannelManager::send_probe`]: crate::ln::channelmanager::ChannelManager::send_probe
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1936,7 +2128,7 @@
 						/// The payment path that failed.
 						public func getPath() -> [RouteHop] {
 							// return value (do some wrapping)
-							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, anchor: self).getValue()
+							let returnValue = Vec_RouteHopZ(cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1948,7 +2140,7 @@
 						/// with channels in the public network graph.
 						public func getShortChannelId() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.short_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -1976,26 +2168,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPendingHTLCsForwardable_Body?
 
-						internal init(cType: LDKEvent_LDKPendingHTLCsForwardable_Body) {
+						internal init(cType: LDKEvent_LDKPendingHTLCsForwardable_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPendingHTLCsForwardable_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPendingHTLCsForwardable_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPendingHTLCsForwardable_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2037,26 +2248,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKHTLCIntercepted_Body?
 
-						internal init(cType: LDKEvent_LDKHTLCIntercepted_Body) {
+						internal init(cType: LDKEvent_LDKHTLCIntercepted_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKHTLCIntercepted_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKHTLCIntercepted_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKHTLCIntercepted_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2067,7 +2297,7 @@
 						/// An id to help LDK identify which HTLC is being forwarded or failed.
 						public func getInterceptId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.intercept_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.intercept_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2086,7 +2316,7 @@
 						/// The payment hash used for this HTLC.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2135,26 +2365,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKSpendableOutputs_Body?
 
-						internal init(cType: LDKEvent_LDKSpendableOutputs_Body) {
+						internal init(cType: LDKEvent_LDKSpendableOutputs_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKSpendableOutputs_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKSpendableOutputs_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKSpendableOutputs_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2165,7 +2414,7 @@
 						/// The outputs which you should store as spendable by you.
 						public func getOutputs() -> [SpendableOutputDescriptor] {
 							// return value (do some wrapping)
-							let returnValue = Vec_SpendableOutputDescriptorZ(cType: self.cType!.outputs, anchor: self).getValue()
+							let returnValue = Vec_SpendableOutputDescriptorZ(cType: self.cType!.outputs, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2193,26 +2442,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKPaymentForwarded_Body?
 
-						internal init(cType: LDKEvent_LDKPaymentForwarded_Body) {
+						internal init(cType: LDKEvent_LDKPaymentForwarded_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKPaymentForwarded_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKPaymentForwarded_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentForwarded_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2226,7 +2494,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPrevChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2237,7 +2505,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getNextChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.next_channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.next_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2257,7 +2525,7 @@
 						/// `None`.
 						public func getFeeEarnedMsat() -> UInt64? {
 							// return value (do some wrapping)
-							let returnValue = Option_u64Z(cType: self.cType!.fee_earned_msat, anchor: self).getValue()
+							let returnValue = Option_u64Z(cType: self.cType!.fee_earned_msat, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2294,26 +2562,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKChannelReady_Body?
 
-						internal init(cType: LDKEvent_LDKChannelReady_Body) {
+						internal init(cType: LDKEvent_LDKChannelReady_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKChannelReady_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKChannelReady_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKChannelReady_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2324,7 +2611,7 @@
 						/// The channel_id of the channel that is ready.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2339,7 +2626,7 @@
 						/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
 						public func getUserChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = U128(cType: self.cType!.user_channel_id, anchor: self).getValue()
+							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2347,7 +2634,7 @@
 						/// The node_id of the channel counterparty.
 						public func getCounterpartyNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2355,7 +2642,7 @@
 						/// The features that this channel will operate with.
 						public func getChannelType() -> Bindings.ChannelTypeFeatures {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, anchor: self)
+							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -2383,26 +2670,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKChannelClosed_Body?
 
-						internal init(cType: LDKEvent_LDKChannelClosed_Body) {
+						internal init(cType: LDKEvent_LDKChannelClosed_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKChannelClosed_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKChannelClosed_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKChannelClosed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2414,7 +2720,7 @@
 						/// resolving the channel are likely still awaiting confirmation.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2431,7 +2737,7 @@
 						/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
 						public func getUserChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = U128(cType: self.cType!.user_channel_id, anchor: self).getValue()
+							let returnValue = U128(cType: self.cType!.user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2439,7 +2745,7 @@
 						/// The reason the channel was closed.
 						public func getReason() -> ClosureReason {
 							// return value (do some wrapping)
-							let returnValue = ClosureReason(cType: self.cType!.reason, anchor: self)
+							let returnValue = ClosureReason(cType: self.cType!.reason, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -2467,26 +2773,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKDiscardFunding_Body?
 
-						internal init(cType: LDKEvent_LDKDiscardFunding_Body) {
+						internal init(cType: LDKEvent_LDKDiscardFunding_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKDiscardFunding_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKDiscardFunding_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKDiscardFunding_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2497,7 +2822,7 @@
 						/// The channel_id of the channel which has been closed.
 						public func getChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2505,7 +2830,7 @@
 						/// The full transaction received from the user
 						public func getTransaction() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = Transaction(cType: self.cType!.transaction, anchor: self).getValue()
+							let returnValue = Transaction(cType: self.cType!.transaction, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2533,26 +2858,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKOpenChannelRequest_Body?
 
-						internal init(cType: LDKEvent_LDKOpenChannelRequest_Body) {
+						internal init(cType: LDKEvent_LDKOpenChannelRequest_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKOpenChannelRequest_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKOpenChannelRequest_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKOpenChannelRequest_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2570,7 +2914,7 @@
 						/// [`ChannelManager::force_close_without_broadcasting_txn`]: crate::ln::channelmanager::ChannelManager::force_close_without_broadcasting_txn
 						public func getTemporaryChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.temporary_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2586,7 +2930,7 @@
 						/// [`ChannelManager::force_close_without_broadcasting_txn`]: crate::ln::channelmanager::ChannelManager::force_close_without_broadcasting_txn
 						public func getCounterpartyNodeId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, anchor: self).getValue()
+							let returnValue = PublicKey(cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2624,7 +2968,7 @@
 						/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 						public func getChannelType() -> Bindings.ChannelTypeFeatures {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, anchor: self)
+							let returnValue = Bindings.ChannelTypeFeatures(cType: self.cType!.channel_type, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -2652,26 +2996,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEvent_LDKHTLCHandlingFailed_Body?
 
-						internal init(cType: LDKEvent_LDKHTLCHandlingFailed_Body) {
+						internal init(cType: LDKEvent_LDKHTLCHandlingFailed_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEvent_LDKHTLCHandlingFailed_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEvent_LDKHTLCHandlingFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKHTLCHandlingFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2682,7 +3045,7 @@
 						/// The channel over which the HTLC was received.
 						public func getPrevChannelId() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.prev_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -2690,7 +3053,7 @@
 						/// Destination of the HTLC that failed to be processed.
 						public func getFailedNextDestination() -> HTLCDestination {
 							// return value (do some wrapping)
-							let returnValue = HTLCDestination(cType: self.cType!.failed_next_destination, anchor: self)
+							let returnValue = HTLCDestination(cType: self.cType!.failed_next_destination, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

@@ -20,26 +20,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCommitmentSigned?
 
-					internal init(cType: LDKCommitmentSigned) {
+					internal init(cType: LDKCommitmentSigned, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCommitmentSigned, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCommitmentSigned, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCommitmentSigned, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -95,7 +114,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -136,7 +155,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -146,7 +165,7 @@
 					public func setSignature(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Signature(value: val)
+						let valPrimitiveWrapper = Signature(value: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -189,7 +208,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_SignatureZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_SignatureZ(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -199,7 +218,7 @@
 					public func setHtlcSignatures(val: [[UInt8]]) {
 						// native call variable prep
 						
-						let valVector = Vec_SignatureZ(array: val).dangle()
+						let valVector = Vec_SignatureZ(array: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -226,11 +245,11 @@
 					public init(channelIdArg: [UInt8], signatureArg: [UInt8], htlcSignaturesArg: [[UInt8]]) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
-						let signatureArgPrimitiveWrapper = Signature(value: signatureArg)
+						let signatureArgPrimitiveWrapper = Signature(value: signatureArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
-						let htlcSignaturesArgVector = Vec_SignatureZ(array: htlcSignaturesArg).dangle()
+						let htlcSignaturesArgVector = Vec_SignatureZ(array: htlcSignaturesArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -251,7 +270,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = CommitmentSigned(cType: nativeCallResult)
+						let returnValue = CommitmentSigned(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -259,7 +278,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -281,7 +300,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = CommitmentSigned(cType: nativeCallResult)
+						let returnValue = CommitmentSigned(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -333,7 +352,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -343,7 +362,7 @@
 					public class func read(ser: [UInt8]) -> Result_CommitmentSignedDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -357,7 +376,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CommitmentSignedDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_CommitmentSignedDecodeErrorZ(cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -406,16 +425,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing CommitmentSigned \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing CommitmentSigned \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing CommitmentSigned \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing CommitmentSigned \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -12,32 +12,51 @@
 				internal class Tuple_u32TxOutZ: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKC2Tuple_u32TxOutZ?
 
-					internal init(cType: LDKC2Tuple_u32TxOutZ) {
+					internal init(cType: LDKC2Tuple_u32TxOutZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC2Tuple_u32TxOutZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC2Tuple_u32TxOutZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKC2Tuple_u32TxOutZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					internal convenience init(tuple: (UInt32, TxOut)) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: (UInt32, TxOut), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -59,14 +78,14 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult)
+						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
 					}
 		
 					/// Creates a new C2Tuple_u32TxOutZ from the contained elements.
-					public init(a: UInt32, b: TxOut) {
+					public init(a: UInt32, b: TxOut, instantiationContext: String) {
 						// native call variable prep
 						
 
@@ -78,7 +97,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult)
+						let returnValue = Tuple_u32TxOutZ(cType: nativeCallResult, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -86,7 +105,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}
@@ -127,7 +146,7 @@
 					/// The element at position 1
 					public func getB() -> TxOut {
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: self.cType!.b, anchor: self).dangle()
+						let returnValue = TxOut(cType: self.cType!.b, instantiationContext: "Tuple_u32TxOutZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -146,16 +165,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Tuple_u32TxOutZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Tuple_u32TxOutZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Tuple_u32TxOutZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Tuple_u32TxOutZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

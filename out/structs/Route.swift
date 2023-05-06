@@ -18,26 +18,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKRoute?
 
-					internal init(cType: LDKRoute) {
+					internal init(cType: LDKRoute, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRoute, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRoute, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKRoute, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -83,7 +102,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_CVec_RouteHopZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_CVec_RouteHopZZ(cType: nativeCallResult, instantiationContext: "Route.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -97,7 +116,7 @@
 					public func setPaths(val: [[RouteHop]]) {
 						// native call variable prep
 						
-						let valVector = Vec_CVec_RouteHopZZ(array: val).dangle()
+						let valVector = Vec_CVec_RouteHopZZ(array: val, instantiationContext: "Route.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -156,7 +175,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PaymentParameters(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = PaymentParameters(cType: nativeCallResult, instantiationContext: "Route.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -195,7 +214,7 @@
 					public init(pathsArg: [[RouteHop]], paymentParamsArg: PaymentParameters) {
 						// native call variable prep
 						
-						let pathsArgVector = Vec_CVec_RouteHopZZ(array: pathsArg).dangle()
+						let pathsArgVector = Vec_CVec_RouteHopZZ(array: pathsArg, instantiationContext: "Route.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -210,7 +229,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Route(cType: nativeCallResult)
+						let returnValue = Route(cType: nativeCallResult, instantiationContext: "Route.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -218,7 +237,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "Route.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -240,7 +259,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Route(cType: nativeCallResult)
+						let returnValue = Route(cType: nativeCallResult, instantiationContext: "Route.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -364,7 +383,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Route.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -374,7 +393,7 @@
 					public class func read(ser: [UInt8]) -> Result_RouteDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Route.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -388,7 +407,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_RouteDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_RouteDecodeErrorZ(cType: nativeCallResult, instantiationContext: "Route.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -437,16 +456,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Route \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Route \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Route \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Route \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -12,44 +12,63 @@
 				internal class Option_ScalarZ: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCOption_ScalarZ?
 
-					internal init(cType: LDKCOption_ScalarZ) {
+					internal init(cType: LDKCOption_ScalarZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_ScalarZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_ScalarZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCOption_ScalarZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(some: [UInt8]?) {
+					internal init(some: [UInt8]?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
 							
-							let somePrimitiveWrapper = BigEndianScalar(value: some)
+							let somePrimitiveWrapper = BigEndianScalar(value: some, instantiationContext: "Option_ScalarZ.swift::\(#function):\(#line)")
 				
 							self.cType = COption_ScalarZ_some(somePrimitiveWrapper.cType!)
 						} else {
 							self.cType = COption_ScalarZ_none()
 						}
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					
@@ -78,7 +97,7 @@
 							return nil
 						}
 						if self.cType!.tag == LDKCOption_ScalarZ_Some {
-							return BigEndianScalar(cType: self.cType!.some, anchor: self).dangle().getValue()
+							return BigEndianScalar(cType: self.cType!.some, instantiationContext: "Option_ScalarZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						}
 						assert(false, "invalid option enum value")
 						return nil
@@ -91,16 +110,18 @@
 
 					
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Option_ScalarZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Option_ScalarZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Option_ScalarZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Option_ScalarZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

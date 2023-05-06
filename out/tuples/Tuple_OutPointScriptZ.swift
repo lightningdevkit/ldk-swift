@@ -12,32 +12,51 @@
 				internal class Tuple_OutPointScriptZ: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKC2Tuple_OutPointScriptZ?
 
-					internal init(cType: LDKC2Tuple_OutPointScriptZ) {
+					internal init(cType: LDKC2Tuple_OutPointScriptZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC2Tuple_OutPointScriptZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC2Tuple_OutPointScriptZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKC2Tuple_OutPointScriptZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					internal convenience init(tuple: (OutPoint, [UInt8])) {
-						self.init(a: tuple.0, b: tuple.1)
+					internal convenience init(tuple: (OutPoint, [UInt8]), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 					}
 
 					
@@ -59,17 +78,17 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult)
+						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
 					}
 		
 					/// Creates a new C2Tuple_OutPointScriptZ from the contained elements.
-					public init(a: OutPoint, b: [UInt8]) {
+					public init(a: OutPoint, b: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let bVector = Vec_u8Z(array: b).dangle()
+						let bVector = Vec_u8Z(array: b, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -82,7 +101,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult)
+						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -90,7 +109,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}
@@ -123,7 +142,7 @@
 					/// The element at position 0
 					public func getA() -> OutPoint {
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: self.cType!.a, anchor: self).dangle()
+						let returnValue = OutPoint(cType: self.cType!.a, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -131,7 +150,7 @@
 					/// The element at position 1
 					public func getB() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: self.cType!.b, anchor: self).dangle().getValue()
+						let returnValue = Vec_u8Z(cType: self.cType!.b, instantiationContext: "Tuple_OutPointScriptZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -150,16 +169,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Tuple_OutPointScriptZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Tuple_OutPointScriptZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Tuple_OutPointScriptZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Tuple_OutPointScriptZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

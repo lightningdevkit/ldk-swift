@@ -36,26 +36,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKTxCreationKeys?
 
-					internal init(cType: LDKTxCreationKeys) {
+					internal init(cType: LDKTxCreationKeys, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKTxCreationKeys, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKTxCreationKeys, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKTxCreationKeys, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -97,7 +116,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -107,7 +126,7 @@
 					public func setPerCommitmentPoint(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -150,7 +169,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -162,7 +181,7 @@
 					public func setRevocationKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -203,7 +222,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -213,7 +232,7 @@
 					public func setBroadcasterHtlcKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -254,7 +273,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -264,7 +283,7 @@
 					public func setCountersignatoryHtlcKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -305,7 +324,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -315,7 +334,7 @@
 					public func setBroadcasterDelayedPaymentKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = PublicKey(value: val)
+						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -343,15 +362,15 @@
 					public class func initWith(perCommitmentPointArg: [UInt8], revocationKeyArg: [UInt8], broadcasterHtlcKeyArg: [UInt8], countersignatoryHtlcKeyArg: [UInt8], broadcasterDelayedPaymentKeyArg: [UInt8]) -> TxCreationKeys {
 						// native call variable prep
 						
-						let perCommitmentPointArgPrimitiveWrapper = PublicKey(value: perCommitmentPointArg)
+						let perCommitmentPointArgPrimitiveWrapper = PublicKey(value: perCommitmentPointArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let revocationKeyArgPrimitiveWrapper = PublicKey(value: revocationKeyArg)
+						let revocationKeyArgPrimitiveWrapper = PublicKey(value: revocationKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterHtlcKeyArgPrimitiveWrapper = PublicKey(value: broadcasterHtlcKeyArg)
+						let broadcasterHtlcKeyArgPrimitiveWrapper = PublicKey(value: broadcasterHtlcKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let countersignatoryHtlcKeyArgPrimitiveWrapper = PublicKey(value: countersignatoryHtlcKeyArg)
+						let countersignatoryHtlcKeyArgPrimitiveWrapper = PublicKey(value: countersignatoryHtlcKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterDelayedPaymentKeyArgPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKeyArg)
+						let broadcasterDelayedPaymentKeyArgPrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -377,7 +396,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult)
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -429,7 +448,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult)
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -452,7 +471,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -462,7 +481,7 @@
 					public class func read(ser: [UInt8]) -> Result_TxCreationKeysDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -476,7 +495,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TxCreationKeysDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_TxCreationKeysDecodeErrorZ(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -487,15 +506,15 @@
 					public class func initWithDeriveNew(perCommitmentPoint: [UInt8], broadcasterDelayedPaymentBase: [UInt8], broadcasterHtlcBase: [UInt8], countersignatoryRevocationBase: [UInt8], countersignatoryHtlcBase: [UInt8]) -> TxCreationKeys {
 						// native call variable prep
 						
-						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterDelayedPaymentBasePrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentBase)
+						let broadcasterDelayedPaymentBasePrimitiveWrapper = PublicKey(value: broadcasterDelayedPaymentBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let broadcasterHtlcBasePrimitiveWrapper = PublicKey(value: broadcasterHtlcBase)
+						let broadcasterHtlcBasePrimitiveWrapper = PublicKey(value: broadcasterHtlcBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let countersignatoryRevocationBasePrimitiveWrapper = PublicKey(value: countersignatoryRevocationBase)
+						let countersignatoryRevocationBasePrimitiveWrapper = PublicKey(value: countersignatoryRevocationBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
-						let countersignatoryHtlcBasePrimitiveWrapper = PublicKey(value: countersignatoryHtlcBase)
+						let countersignatoryHtlcBasePrimitiveWrapper = PublicKey(value: countersignatoryHtlcBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -521,7 +540,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult)
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -532,7 +551,7 @@
 					public class func initWithChannelStaticKeys(perCommitmentPoint: [UInt8], broadcasterKeys: ChannelPublicKeys, countersignatoryKeys: ChannelPublicKeys) -> TxCreationKeys {
 						// native call variable prep
 						
-						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -554,7 +573,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxCreationKeys(cType: nativeCallResult)
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: broadcasterKeys)
@@ -605,16 +624,18 @@ return returnValue
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing TxCreationKeys \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing TxCreationKeys \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing TxCreationKeys \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -19,26 +19,45 @@
 				open class Score: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKScore?
 
-					internal init(cType: LDKScore) {
+					internal init(cType: LDKScore, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKScore, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKScore, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKScore, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -46,7 +65,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Score.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -60,7 +79,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.channelPenaltyMsat(shortChannelId: short_channel_id, source: NodeId(cType: source.pointee).dangle().clone(), target: NodeId(cType: target.pointee).dangle().clone(), usage: ChannelUsage(cType: usage))
+							let swiftCallbackResult = instance.channelPenaltyMsat(shortChannelId: short_channel_id, source: NodeId(cType: source.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)").dangle().clone(), target: NodeId(cType: target.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)").dangle().clone(), usage: ChannelUsage(cType: usage, instantiationContext: "Score.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -78,7 +97,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.paymentPathFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -96,7 +115,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.paymentPathSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
+							let swiftCallbackResult = instance.paymentPathSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -114,7 +133,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeFailed(path: Vec_RouteHopZ(cType: path).getValue(), shortChannelId: short_channel_id)
+							let swiftCallbackResult = instance.probeFailed(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue(), shortChannelId: short_channel_id)
 
 							// cleanup
 							
@@ -132,7 +151,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.probeSuccessful(path: Vec_RouteHopZ(cType: path).getValue())
+							let swiftCallbackResult = instance.probeSuccessful(path: Vec_RouteHopZ(cType: path, instantiationContext: "Score.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -156,7 +175,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_u8Z(array: swiftCallbackResult, instantiationContext: "Score.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -264,15 +283,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Score \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Score \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing Score \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Score \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -317,7 +338,7 @@
 					public override func paymentPathFailed(path: [RouteHop], shortChannelId: UInt64) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -340,7 +361,7 @@
 					public override func paymentPathSuccessful(path: [RouteHop]) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -363,7 +384,7 @@
 					public override func probeFailed(path: [RouteHop], shortChannelId: UInt64) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -386,7 +407,7 @@
 					public override func probeSuccessful(path: [RouteHop]) {
 						// native call variable prep
 						
-						let pathVector = Vec_RouteHopZ(array: path).dangle()
+						let pathVector = Vec_RouteHopZ(array: path, instantiationContext: "Score.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -419,7 +440,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "Score.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

@@ -53,26 +53,45 @@
 				open class Filter: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKFilter?
 
-					internal init(cType: LDKFilter) {
+					internal init(cType: LDKFilter, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKFilter, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKFilter, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKFilter, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -80,7 +99,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Filter.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -99,7 +118,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.registerTx(txid: txidPointee, scriptPubkey: u8slice(cType: script_pubkey).dangle().getValue())
+							let swiftCallbackResult = instance.registerTx(txid: txidPointee, scriptPubkey: u8slice(cType: script_pubkey, instantiationContext: "Filter.swift::init()::\(#function):\(#line)").dangle().getValue())
 
 							// cleanup
 							
@@ -117,7 +136,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.registerOutput(output: WatchedOutput(cType: output))
+							let swiftCallbackResult = instance.registerOutput(output: WatchedOutput(cType: output, instantiationContext: "Filter.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -198,15 +217,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Filter \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Filter \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing Filter \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Filter \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -227,7 +248,7 @@
 						tupledTxidPointer!.initialize(to: tupledTxid)
 					}
 				
-						let scriptPubkeyPrimitiveWrapper = u8slice(value: scriptPubkey)
+						let scriptPubkeyPrimitiveWrapper = u8slice(value: scriptPubkey, instantiationContext: "Filter.swift::\(#function):\(#line)")
 				
 
 						

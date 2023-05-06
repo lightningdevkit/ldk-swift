@@ -51,26 +51,45 @@
 				open class Watch: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKWatch?
 
-					internal init(cType: LDKWatch) {
+					internal init(cType: LDKWatch, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKWatch, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKWatch, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKWatch, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -78,7 +97,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Watch.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -92,7 +111,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.watchChannel(fundingTxo: OutPoint(cType: funding_txo), monitor: ChannelMonitor(cType: monitor))
+							let swiftCallbackResult = instance.watchChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "Watch.swift::init()::\(#function):\(#line)"), monitor: ChannelMonitor(cType: monitor, instantiationContext: "Watch.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -110,7 +129,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo), update: ChannelMonitorUpdate(cType: update.pointee).dangle().clone())
+							let swiftCallbackResult = instance.updateChannel(fundingTxo: OutPoint(cType: funding_txo, instantiationContext: "Watch.swift::init()::\(#function):\(#line)"), update: ChannelMonitorUpdate(cType: update.pointee, instantiationContext: "Watch.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -134,7 +153,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(array: swiftCallbackResult, instantiationContext: "Watch.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -235,15 +254,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Watch \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Watch \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing Watch \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Watch \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -330,7 +351,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(cType: nativeCallResult).getValue()
+						let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(cType: nativeCallResult, instantiationContext: "Watch.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

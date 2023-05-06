@@ -26,26 +26,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKInvoice?
 
-					internal init(cType: LDKInvoice) {
+					internal init(cType: LDKInvoice, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKInvoice, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKInvoice, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKInvoice, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -116,7 +135,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Invoice(cType: nativeCallResult)
+						let returnValue = Invoice(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -158,7 +177,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SignedRawInvoice(cType: nativeCallResult)
+						let returnValue = SignedRawInvoice(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -181,7 +200,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSemanticErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -219,7 +238,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_InvoiceSemanticErrorZ(cType: nativeCallResult)
+						let returnValue = Result_InvoiceSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -325,7 +344,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -390,7 +409,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InvoiceFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = InvoiceFeatures(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -413,7 +432,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -530,7 +549,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_PrivateRouteZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -553,7 +572,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_RouteHintZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_RouteHintZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -599,7 +618,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -609,7 +628,7 @@
 					public class func fromStr(s: String) -> Result_InvoiceParseOrSemanticErrorZ {
 						// native call variable prep
 						
-						let sPrimitiveWrapper = Str(value: s).dangle()
+						let sPrimitiveWrapper = Str(value: s, instantiationContext: "Invoice.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -623,7 +642,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_InvoiceParseOrSemanticErrorZ(cType: nativeCallResult)
+						let returnValue = Result_InvoiceParseOrSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -646,7 +665,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -695,16 +714,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Invoice \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Invoice \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Invoice \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Invoice \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

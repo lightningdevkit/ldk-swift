@@ -14,26 +14,45 @@
 				public class GossipSync: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKGossipSync?
 
-					internal init(cType: LDKGossipSync) {
+					internal init(cType: LDKGossipSync, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKGossipSync, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKGossipSync, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKGossipSync, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -106,7 +125,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult)
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "GossipSync.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: a)
@@ -130,7 +149,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult)
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "GossipSync.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: a)
@@ -150,7 +169,7 @@ return returnValue
 
 						
 						// return value (do some wrapping)
-						let returnValue = GossipSync(cType: nativeCallResult)
+						let returnValue = GossipSync(cType: nativeCallResult, instantiationContext: "GossipSync.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -163,7 +182,7 @@ return returnValue
 							return nil
 						}
 
-						return P2PGossipSync(cType: self.cType!.p2p, anchor: self)
+						return P2PGossipSync(cType: self.cType!.p2p, instantiationContext: "GossipSync.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsRapid() -> Bindings.RapidGossipSync? {
@@ -171,7 +190,7 @@ return returnValue
 							return nil
 						}
 
-						return RapidGossipSync(cType: self.cType!.rapid, anchor: self)
+						return RapidGossipSync(cType: self.cType!.rapid, instantiationContext: "GossipSync.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -182,16 +201,18 @@ return returnValue
 
 					
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing GossipSync \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing GossipSync \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing GossipSync \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing GossipSync \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

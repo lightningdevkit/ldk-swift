@@ -19,26 +19,45 @@
 				open class BindingsType: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKType?
 
-					internal init(cType: LDKType) {
+					internal init(cType: LDKType, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKType, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKType, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKType, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -46,7 +65,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "BindingsType.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -84,7 +103,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Str(value: swiftCallbackResult).dangle().cType!
+							let returnValue = Str(value: swiftCallbackResult, instantiationContext: "BindingsType.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -102,7 +121,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_u8Z(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_u8Z(array: swiftCallbackResult, instantiationContext: "BindingsType.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -188,7 +207,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedBindingsType(cType: nativeCallResult)
+						let returnValue = NativelyImplementedBindingsType(cType: nativeCallResult, instantiationContext: "BindingsType.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -203,15 +222,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing BindingsType \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing BindingsType \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing BindingsType \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing BindingsType \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -251,7 +272,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "BindingsType.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -270,7 +291,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "BindingsType.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

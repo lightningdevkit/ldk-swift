@@ -15,26 +15,45 @@
 				public class RecentPaymentDetails: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKRecentPaymentDetails?
 
-					internal init(cType: LDKRecentPaymentDetails) {
+					internal init(cType: LDKRecentPaymentDetails, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRecentPaymentDetails, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRecentPaymentDetails, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKRecentPaymentDetails, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -111,7 +130,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult)
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -121,7 +140,7 @@
 					public class func initWithPending(paymentHash: [UInt8], totalMsat: UInt64) -> RecentPaymentDetails {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -135,7 +154,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult)
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -145,7 +164,7 @@
 					public class func initWithFulfilled(paymentHash: [UInt8]) -> RecentPaymentDetails {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -159,7 +178,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult)
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -169,7 +188,7 @@
 					public class func initWithAbandoned(paymentHash: [UInt8]) -> RecentPaymentDetails {
 						// native call variable prep
 						
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -183,7 +202,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = RecentPaymentDetails(cType: nativeCallResult)
+						let returnValue = RecentPaymentDetails(cType: nativeCallResult, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -196,7 +215,7 @@
 							return nil
 						}
 
-						return RecentPaymentDetails_LDKPending_Body(cType: self.cType!.pending, anchor: self)
+						return RecentPaymentDetails_LDKPending_Body(cType: self.cType!.pending, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsFulfilled() -> Fulfilled? {
@@ -204,7 +223,7 @@
 							return nil
 						}
 
-						return RecentPaymentDetails_LDKFulfilled_Body(cType: self.cType!.fulfilled, anchor: self)
+						return RecentPaymentDetails_LDKFulfilled_Body(cType: self.cType!.fulfilled, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsAbandoned() -> Abandoned? {
@@ -212,7 +231,7 @@
 							return nil
 						}
 
-						return RecentPaymentDetails_LDKAbandoned_Body(cType: self.cType!.abandoned, anchor: self)
+						return RecentPaymentDetails_LDKAbandoned_Body(cType: self.cType!.abandoned, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -229,16 +248,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing RecentPaymentDetails \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing RecentPaymentDetails \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing RecentPaymentDetails \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing RecentPaymentDetails \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -255,26 +276,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKRecentPaymentDetails_LDKPending_Body?
 
-						internal init(cType: LDKRecentPaymentDetails_LDKPending_Body) {
+						internal init(cType: LDKRecentPaymentDetails_LDKPending_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKRecentPaymentDetails_LDKPending_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKRecentPaymentDetails_LDKPending_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKRecentPaymentDetails_LDKPending_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -286,7 +326,7 @@
 						/// abandoned.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -323,26 +363,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKRecentPaymentDetails_LDKFulfilled_Body?
 
-						internal init(cType: LDKRecentPaymentDetails_LDKFulfilled_Body) {
+						internal init(cType: LDKRecentPaymentDetails_LDKFulfilled_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKRecentPaymentDetails_LDKFulfilled_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKRecentPaymentDetails_LDKFulfilled_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKRecentPaymentDetails_LDKFulfilled_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -356,7 +415,7 @@
 						/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -384,26 +443,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKRecentPaymentDetails_LDKAbandoned_Body?
 
-						internal init(cType: LDKRecentPaymentDetails_LDKAbandoned_Body) {
+						internal init(cType: LDKRecentPaymentDetails_LDKAbandoned_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKRecentPaymentDetails_LDKAbandoned_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKRecentPaymentDetails_LDKAbandoned_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKRecentPaymentDetails_LDKAbandoned_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -414,7 +492,7 @@
 						/// Hash of the payment that we have given up trying to send.
 						public func getPaymentHash() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.payment_hash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

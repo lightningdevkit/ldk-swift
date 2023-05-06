@@ -16,26 +16,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKBuiltCommitmentTransaction?
 
-					internal init(cType: LDKBuiltCommitmentTransaction) {
+					internal init(cType: LDKBuiltCommitmentTransaction, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKBuiltCommitmentTransaction, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKBuiltCommitmentTransaction, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKBuiltCommitmentTransaction, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -77,7 +96,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Transaction(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Transaction(cType: nativeCallResult, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -87,7 +106,7 @@
 					public func setTransaction(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Transaction(value: val).dangle()
+						let valPrimitiveWrapper = Transaction(value: val, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -148,7 +167,7 @@
 					public func setTxid(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -176,9 +195,9 @@
 					public init(transactionArg: [UInt8], txidArg: [UInt8]) {
 						// native call variable prep
 						
-						let transactionArgPrimitiveWrapper = Transaction(value: transactionArg).dangle()
+						let transactionArgPrimitiveWrapper = Transaction(value: transactionArg, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)").dangle()
 				
-						let txidArgPrimitiveWrapper = ThirtyTwoBytes(value: txidArg)
+						let txidArgPrimitiveWrapper = ThirtyTwoBytes(value: txidArg, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -197,7 +216,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = BuiltCommitmentTransaction(cType: nativeCallResult)
+						let returnValue = BuiltCommitmentTransaction(cType: nativeCallResult, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -205,7 +224,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -227,7 +246,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BuiltCommitmentTransaction(cType: nativeCallResult)
+						let returnValue = BuiltCommitmentTransaction(cType: nativeCallResult, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -250,7 +269,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -260,7 +279,7 @@
 					public class func read(ser: [UInt8]) -> Result_BuiltCommitmentTransactionDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -274,7 +293,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_BuiltCommitmentTransactionDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_BuiltCommitmentTransactionDecodeErrorZ(cType: nativeCallResult, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -286,7 +305,7 @@
 					public func getSighashAll(fundingRedeemscript: [UInt8], channelValueSatoshis: UInt64) -> [UInt8] {
 						// native call variable prep
 						
-						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript)
+						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -304,7 +323,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -317,7 +336,7 @@
 						
 						let tupledFundingKey = Bindings.arrayToUInt8Tuple32(array: fundingKey)
 					
-						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript)
+						let fundingRedeemscriptPrimitiveWrapper = u8slice(value: fundingRedeemscript, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -339,7 +358,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Signature(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Signature(cType: nativeCallResult, instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -388,16 +407,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing BuiltCommitmentTransaction \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing BuiltCommitmentTransaction \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing BuiltCommitmentTransaction \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing BuiltCommitmentTransaction \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -15,26 +15,45 @@
 				open class NodeSigner: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKNodeSigner?
 
-					internal init(cType: LDKNodeSigner) {
+					internal init(cType: LDKNodeSigner, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKNodeSigner, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKNodeSigner, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKNodeSigner, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -42,7 +61,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -62,7 +81,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult).dangle().cType!
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -92,7 +111,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.ecdh(recipient: Recipient(value: recipient), otherKey: PublicKey(cType: other_key).getValue(), tweak: Option_ScalarZ(cType: tweak).getValue())
+							let swiftCallbackResult = instance.ecdh(recipient: Recipient(value: recipient), otherKey: PublicKey(cType: other_key, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)").getValue(), tweak: Option_ScalarZ(cType: tweak, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -110,7 +129,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signInvoice(hrpBytes: u8slice(cType: hrp_bytes).dangle().getValue(), invoiceData: Vec_U5Z(cType: invoice_data).getValue(), recipient: Recipient(value: recipient))
+							let swiftCallbackResult = instance.signInvoice(hrpBytes: u8slice(cType: hrp_bytes, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)").dangle().getValue(), invoiceData: Vec_U5Z(cType: invoice_data, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)").getValue(), recipient: Recipient(value: recipient))
 
 							// cleanup
 							
@@ -128,7 +147,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signGossipMessage(msg: UnsignedGossipMessage(cType: msg))
+							let swiftCallbackResult = instance.signGossipMessage(msg: UnsignedGossipMessage(cType: msg, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -262,15 +281,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing NodeSigner \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing NodeSigner \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing NodeSigner \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing NodeSigner \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -299,7 +320,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: nativeCallResult).getValue()
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -323,7 +344,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_PublicKeyNoneZ(cType: nativeCallResult)
+						let returnValue = Result_PublicKeyNoneZ(cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -339,9 +360,9 @@
 					public override func ecdh(recipient: Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Result_SharedSecretNoneZ {
 						// native call variable prep
 						
-						let otherKeyPrimitiveWrapper = PublicKey(value: otherKey)
+						let otherKeyPrimitiveWrapper = PublicKey(value: otherKey, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 				
-						let tweakOption = Option_ScalarZ(some: tweak).dangle()
+						let tweakOption = Option_ScalarZ(some: tweak, instantiationContext: "NodeSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -356,7 +377,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_SharedSecretNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SharedSecretNoneZ(cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -375,9 +396,9 @@
 					public override func signInvoice(hrpBytes: [UInt8], invoiceData: [UInt8], recipient: Recipient) -> Result_RecoverableSignatureNoneZ {
 						// native call variable prep
 						
-						let hrpBytesPrimitiveWrapper = u8slice(value: hrpBytes)
+						let hrpBytesPrimitiveWrapper = u8slice(value: hrpBytes, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 				
-						let invoiceDataVector = Vec_U5Z(array: invoiceData).dangle()
+						let invoiceDataVector = Vec_U5Z(array: invoiceData, instantiationContext: "NodeSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -394,7 +415,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_RecoverableSignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_RecoverableSignatureNoneZ(cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -418,7 +439,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

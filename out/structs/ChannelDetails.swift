@@ -16,26 +16,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChannelDetails?
 
-					internal init(cType: LDKChannelDetails) {
+					internal init(cType: LDKChannelDetails, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelDetails, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelDetails, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChannelDetails, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -97,7 +116,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -138,7 +157,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelCounterparty(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelCounterparty(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -203,7 +222,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -272,7 +291,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelTypeFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelTypeFeatures(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -335,7 +354,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -358,7 +377,7 @@
 					public func setShortChannelId(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -404,7 +423,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -422,7 +441,7 @@
 					public func setOutboundScidAlias(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -468,7 +487,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -486,7 +505,7 @@
 					public func setInboundScidAlias(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -578,7 +597,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -596,7 +615,7 @@
 					public func setUnspendablePunishmentReserve(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -636,7 +655,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = U128(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = U128(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -648,7 +667,7 @@
 					public func setUserChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = U128(value: val)
+						let valPrimitiveWrapper = U128(value: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -945,7 +964,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u32Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u32Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -965,7 +984,7 @@
 					public func setConfirmationsRequired(val: UInt32?) {
 						// native call variable prep
 						
-						let valOption = Option_u32Z(some: val).danglingClone()
+						let valOption = Option_u32Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1005,7 +1024,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u32Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u32Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -1017,7 +1036,7 @@
 					public func setConfirmations(val: UInt32?) {
 						// native call variable prep
 						
-						let valOption = Option_u32Z(some: val).danglingClone()
+						let valOption = Option_u32Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1061,7 +1080,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u16Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u16Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -1077,7 +1096,7 @@
 					public func setForceCloseSpendDelay(val: UInt16?) {
 						// native call variable prep
 						
-						let valOption = Option_u16Z(some: val).danglingClone()
+						let valOption = Option_u16Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1318,7 +1337,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -1329,7 +1348,7 @@
 					public func setInboundHtlcMinimumMsat(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1367,7 +1386,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -1377,7 +1396,7 @@
 					public func setInboundHtlcMaximumMsat(val: UInt64?) {
 						// native call variable prep
 						
-						let valOption = Option_u64Z(some: val).danglingClone()
+						let valOption = Option_u64Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1432,7 +1451,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelConfig(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelConfig(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1469,27 +1488,27 @@
 					public init(channelIdArg: [UInt8], counterpartyArg: ChannelCounterparty, fundingTxoArg: OutPoint, channelTypeArg: ChannelTypeFeatures, shortChannelIdArg: UInt64?, outboundScidAliasArg: UInt64?, inboundScidAliasArg: UInt64?, channelValueSatoshisArg: UInt64, unspendablePunishmentReserveArg: UInt64?, userChannelIdArg: [UInt8], balanceMsatArg: UInt64, outboundCapacityMsatArg: UInt64, nextOutboundHtlcLimitMsatArg: UInt64, inboundCapacityMsatArg: UInt64, confirmationsRequiredArg: UInt32?, confirmationsArg: UInt32?, forceCloseSpendDelayArg: UInt16?, isOutboundArg: Bool, isChannelReadyArg: Bool, isUsableArg: Bool, isPublicArg: Bool, inboundHtlcMinimumMsatArg: UInt64?, inboundHtlcMaximumMsatArg: UInt64?, configArg: ChannelConfig) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 				
-						let shortChannelIdArgOption = Option_u64Z(some: shortChannelIdArg).danglingClone()
+						let shortChannelIdArgOption = Option_u64Z(some: shortChannelIdArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let outboundScidAliasArgOption = Option_u64Z(some: outboundScidAliasArg).danglingClone()
+						let outboundScidAliasArgOption = Option_u64Z(some: outboundScidAliasArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let inboundScidAliasArgOption = Option_u64Z(some: inboundScidAliasArg).danglingClone()
+						let inboundScidAliasArgOption = Option_u64Z(some: inboundScidAliasArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let unspendablePunishmentReserveArgOption = Option_u64Z(some: unspendablePunishmentReserveArg).danglingClone()
+						let unspendablePunishmentReserveArgOption = Option_u64Z(some: unspendablePunishmentReserveArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let userChannelIdArgPrimitiveWrapper = U128(value: userChannelIdArg)
+						let userChannelIdArgPrimitiveWrapper = U128(value: userChannelIdArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 				
-						let confirmationsRequiredArgOption = Option_u32Z(some: confirmationsRequiredArg).danglingClone()
+						let confirmationsRequiredArgOption = Option_u32Z(some: confirmationsRequiredArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let confirmationsArgOption = Option_u32Z(some: confirmationsArg).danglingClone()
+						let confirmationsArgOption = Option_u32Z(some: confirmationsArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let forceCloseSpendDelayArgOption = Option_u16Z(some: forceCloseSpendDelayArg).danglingClone()
+						let forceCloseSpendDelayArgOption = Option_u16Z(some: forceCloseSpendDelayArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let inboundHtlcMinimumMsatArgOption = Option_u64Z(some: inboundHtlcMinimumMsatArg).danglingClone()
+						let inboundHtlcMinimumMsatArgOption = Option_u64Z(some: inboundHtlcMinimumMsatArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
-						let inboundHtlcMaximumMsatArgOption = Option_u64Z(some: inboundHtlcMaximumMsatArg).danglingClone()
+						let inboundHtlcMaximumMsatArgOption = Option_u64Z(some: inboundHtlcMaximumMsatArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -1508,7 +1527,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChannelDetails(cType: nativeCallResult)
+						let returnValue = ChannelDetails(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -1516,7 +1535,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -1538,7 +1557,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelDetails(cType: nativeCallResult)
+						let returnValue = ChannelDetails(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -1566,7 +1585,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -1594,7 +1613,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_u64Z(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_u64Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -1617,7 +1636,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -1627,7 +1646,7 @@
 					public class func read(ser: [UInt8]) -> Result_ChannelDetailsDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -1641,7 +1660,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ChannelDetailsDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_ChannelDetailsDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -1690,16 +1709,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChannelDetails \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChannelDetails \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChannelDetails \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChannelDetails \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

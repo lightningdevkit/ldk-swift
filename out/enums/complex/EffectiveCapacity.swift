@@ -17,26 +17,45 @@
 				public class EffectiveCapacity: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKEffectiveCapacity?
 
-					internal init(cType: LDKEffectiveCapacity) {
+					internal init(cType: LDKEffectiveCapacity, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKEffectiveCapacity, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKEffectiveCapacity, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKEffectiveCapacity, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -124,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -143,7 +162,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -162,7 +181,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -181,7 +200,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -200,7 +219,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -219,7 +238,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = EffectiveCapacity(cType: nativeCallResult)
+						let returnValue = EffectiveCapacity(cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -255,7 +274,7 @@
 							return nil
 						}
 
-						return EffectiveCapacity_LDKExactLiquidity_Body(cType: self.cType!.exact_liquidity, anchor: self)
+						return EffectiveCapacity_LDKExactLiquidity_Body(cType: self.cType!.exact_liquidity, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsMaximumHtlc() -> MaximumHTLC? {
@@ -263,7 +282,7 @@
 							return nil
 						}
 
-						return EffectiveCapacity_LDKMaximumHTLC_Body(cType: self.cType!.maximum_htlc, anchor: self)
+						return EffectiveCapacity_LDKMaximumHTLC_Body(cType: self.cType!.maximum_htlc, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsTotal() -> Total? {
@@ -271,7 +290,7 @@
 							return nil
 						}
 
-						return EffectiveCapacity_LDKTotal_Body(cType: self.cType!.total, anchor: self)
+						return EffectiveCapacity_LDKTotal_Body(cType: self.cType!.total, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -288,16 +307,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing EffectiveCapacity \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing EffectiveCapacity \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing EffectiveCapacity \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing EffectiveCapacity \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -314,26 +335,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEffectiveCapacity_LDKExactLiquidity_Body?
 
-						internal init(cType: LDKEffectiveCapacity_LDKExactLiquidity_Body) {
+						internal init(cType: LDKEffectiveCapacity_LDKExactLiquidity_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEffectiveCapacity_LDKExactLiquidity_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEffectiveCapacity_LDKExactLiquidity_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEffectiveCapacity_LDKExactLiquidity_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -373,26 +413,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body?
 
-						internal init(cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body) {
+						internal init(cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -431,26 +490,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKEffectiveCapacity_LDKTotal_Body?
 
-						internal init(cType: LDKEffectiveCapacity_LDKTotal_Body) {
+						internal init(cType: LDKEffectiveCapacity_LDKTotal_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKEffectiveCapacity_LDKTotal_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKEffectiveCapacity_LDKTotal_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEffectiveCapacity_LDKTotal_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		

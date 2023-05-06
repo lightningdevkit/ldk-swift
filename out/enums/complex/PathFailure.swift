@@ -18,26 +18,45 @@
 				public class PathFailure: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKPathFailure?
 
-					internal init(cType: LDKPathFailure) {
+					internal init(cType: LDKPathFailure, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKPathFailure, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKPathFailure, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKPathFailure, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -105,7 +124,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PathFailure(cType: nativeCallResult)
+						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -124,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PathFailure(cType: nativeCallResult)
+						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -134,7 +153,7 @@
 					public class func initWithOnPath(networkUpdate: NetworkUpdate?) -> PathFailure {
 						// native call variable prep
 						
-						let networkUpdateOption = Option_NetworkUpdateZ(some: networkUpdate).danglingClone()
+						let networkUpdateOption = Option_NetworkUpdateZ(some: networkUpdate, instantiationContext: "PathFailure.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -145,7 +164,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PathFailure(cType: nativeCallResult)
+						let returnValue = PathFailure(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -196,7 +215,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -206,7 +225,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_PathFailureZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -220,7 +239,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_PathFailureZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_PathFailureZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "PathFailure.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -233,7 +252,7 @@
 							return nil
 						}
 
-						return PathFailure_LDKInitialSend_Body(cType: self.cType!.initial_send, anchor: self)
+						return PathFailure_LDKInitialSend_Body(cType: self.cType!.initial_send, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsOnPath() -> OnPath? {
@@ -241,7 +260,7 @@
 							return nil
 						}
 
-						return PathFailure_LDKOnPath_Body(cType: self.cType!.on_path, anchor: self)
+						return PathFailure_LDKOnPath_Body(cType: self.cType!.on_path, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -258,16 +277,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing PathFailure \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing PathFailure \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing PathFailure \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing PathFailure \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -284,26 +305,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKPathFailure_LDKInitialSend_Body?
 
-						internal init(cType: LDKPathFailure_LDKInitialSend_Body) {
+						internal init(cType: LDKPathFailure_LDKInitialSend_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKPathFailure_LDKInitialSend_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKPathFailure_LDKInitialSend_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKPathFailure_LDKInitialSend_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -314,7 +354,7 @@
 						/// The error surfaced from initial send.
 						public func getErr() -> APIError {
 							// return value (do some wrapping)
-							let returnValue = APIError(cType: self.cType!.err, anchor: self)
+							let returnValue = APIError(cType: self.cType!.err, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}
@@ -342,26 +382,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKPathFailure_LDKOnPath_Body?
 
-						internal init(cType: LDKPathFailure_LDKOnPath_Body) {
+						internal init(cType: LDKPathFailure_LDKOnPath_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKPathFailure_LDKOnPath_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKPathFailure_LDKOnPath_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKPathFailure_LDKOnPath_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -376,7 +435,7 @@
 						/// [`NetworkGraph`]: crate::routing::gossip::NetworkGraph
 						public func getNetworkUpdate() -> NetworkUpdate? {
 							// return value (do some wrapping)
-							let returnValue = Option_NetworkUpdateZ(cType: self.cType!.network_update, anchor: self).getValue()
+							let returnValue = Option_NetworkUpdateZ(cType: self.cType!.network_update, instantiationContext: "PathFailure.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

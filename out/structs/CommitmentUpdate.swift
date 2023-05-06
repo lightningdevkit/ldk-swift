@@ -18,26 +18,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCommitmentUpdate?
 
-					internal init(cType: LDKCommitmentUpdate) {
+					internal init(cType: LDKCommitmentUpdate, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCommitmentUpdate, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCommitmentUpdate, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCommitmentUpdate, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -79,7 +98,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_UpdateAddHTLCZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_UpdateAddHTLCZ(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -89,7 +108,7 @@
 					public func setUpdateAddHtlcs(val: [UpdateAddHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateAddHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateAddHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -129,7 +148,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_UpdateFulfillHTLCZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_UpdateFulfillHTLCZ(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -139,7 +158,7 @@
 					public func setUpdateFulfillHtlcs(val: [UpdateFulfillHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateFulfillHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateFulfillHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -179,7 +198,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_UpdateFailHTLCZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_UpdateFailHTLCZ(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -189,7 +208,7 @@
 					public func setUpdateFailHtlcs(val: [UpdateFailHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateFailHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateFailHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -229,7 +248,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_UpdateFailMalformedHTLCZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_UpdateFailMalformedHTLCZ(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -239,7 +258,7 @@
 					public func setUpdateFailMalformedHtlcs(val: [UpdateFailMalformedHTLC]) {
 						// native call variable prep
 						
-						let valVector = Vec_UpdateFailMalformedHTLCZ(array: val).dangle()
+						let valVector = Vec_UpdateFailMalformedHTLCZ(array: val, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -294,7 +313,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = UpdateFee(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = UpdateFee(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -342,7 +361,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = CommitmentSigned(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = CommitmentSigned(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -375,13 +394,13 @@
 					public init(updateAddHtlcsArg: [UpdateAddHTLC], updateFulfillHtlcsArg: [UpdateFulfillHTLC], updateFailHtlcsArg: [UpdateFailHTLC], updateFailMalformedHtlcsArg: [UpdateFailMalformedHTLC], updateFeeArg: UpdateFee, commitmentSignedArg: CommitmentSigned) {
 						// native call variable prep
 						
-						let updateAddHtlcsArgVector = Vec_UpdateAddHTLCZ(array: updateAddHtlcsArg).dangle()
+						let updateAddHtlcsArgVector = Vec_UpdateAddHTLCZ(array: updateAddHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
-						let updateFulfillHtlcsArgVector = Vec_UpdateFulfillHTLCZ(array: updateFulfillHtlcsArg).dangle()
+						let updateFulfillHtlcsArgVector = Vec_UpdateFulfillHTLCZ(array: updateFulfillHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
-						let updateFailHtlcsArgVector = Vec_UpdateFailHTLCZ(array: updateFailHtlcsArg).dangle()
+						let updateFailHtlcsArgVector = Vec_UpdateFailHTLCZ(array: updateFailHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
-						let updateFailMalformedHtlcsArgVector = Vec_UpdateFailMalformedHTLCZ(array: updateFailMalformedHtlcsArg).dangle()
+						let updateFailMalformedHtlcsArgVector = Vec_UpdateFailMalformedHTLCZ(array: updateFailMalformedHtlcsArg, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -402,7 +421,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = CommitmentUpdate(cType: nativeCallResult)
+						let returnValue = CommitmentUpdate(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -410,7 +429,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -432,7 +451,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = CommitmentUpdate(cType: nativeCallResult)
+						let returnValue = CommitmentUpdate(cType: nativeCallResult, instantiationContext: "CommitmentUpdate.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -510,16 +529,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing CommitmentUpdate \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing CommitmentUpdate \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing CommitmentUpdate \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing CommitmentUpdate \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -32,26 +32,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChainMonitor?
 
-					internal init(cType: LDKChainMonitor) {
+					internal init(cType: LDKChainMonitor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChainMonitor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChainMonitor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChainMonitor, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -86,7 +105,7 @@
 					public init(chainSource: Filter?, broadcaster: BroadcasterInterface, logger: Logger, feeest: FeeEstimator, persister: Persist) {
 						// native call variable prep
 						
-						let chainSourceOption = Option_FilterZ(some: chainSource).dangle()
+						let chainSourceOption = Option_FilterZ(some: chainSource, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -99,7 +118,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ChainMonitor(cType: nativeCallResult)
+						let returnValue = ChainMonitor(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -107,7 +126,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -124,7 +143,7 @@
 					public func getClaimableBalances(ignoredChannels: [ChannelDetails]) -> [Balance] {
 						// native call variable prep
 						
-						let ignoredChannelsVector = Vec_ChannelDetailsZ(array: ignoredChannels).dangle()
+						let ignoredChannelsVector = Vec_ChannelDetailsZ(array: ignoredChannels, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -141,7 +160,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_BalanceZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -168,7 +187,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_LockedChannelMonitorNoneZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -194,7 +213,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_OutPointZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_OutPointZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -217,7 +236,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_OutPointCVec_MonitorUpdateIdZZZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -252,7 +271,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -276,7 +295,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedListen(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedListen(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -300,7 +319,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedConfirm(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -324,7 +343,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWatch(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedWatch(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -348,7 +367,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedEventsProvider(cType: nativeCallResult, instantiationContext: "ChainMonitor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -384,16 +403,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChainMonitor \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChainMonitor \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChainMonitor \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChainMonitor \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

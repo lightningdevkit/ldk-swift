@@ -16,26 +16,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKDefaultRouter?
 
-					internal init(cType: LDKDefaultRouter) {
+					internal init(cType: LDKDefaultRouter, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKDefaultRouter, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKDefaultRouter, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKDefaultRouter, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -64,7 +83,7 @@
 					public init(networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8], scorer: LockableScore) {
 						// native call variable prep
 						
-						let randomSeedBytesPrimitiveWrapper = ThirtyTwoBytes(value: randomSeedBytes)
+						let randomSeedBytesPrimitiveWrapper = ThirtyTwoBytes(value: randomSeedBytes, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -84,7 +103,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = DefaultRouter(cType: nativeCallResult)
+						let returnValue = DefaultRouter(cType: nativeCallResult, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -92,7 +111,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)")
 				try! self.addAnchor(anchor: networkGraph)
 
 			
@@ -116,7 +135,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedRouter(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedRouter(cType: nativeCallResult, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -152,16 +171,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing DefaultRouter \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing DefaultRouter \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing DefaultRouter \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing DefaultRouter \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -118,7 +118,7 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 					public init(${constructorArguments.join(', ')}) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "${swiftTypeName}.swift::\\(#function):\\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -141,15 +141,17 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ${swiftTypeName} \\(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ${swiftTypeName} \\(self.instanceNumber). (Origin: \\(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing ${swiftTypeName} \\(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ${swiftTypeName} \\(self.instanceNumber) due to dangle. (Origin: \\(self.instantiationContext))")
 						}
 					}
 				}
@@ -368,6 +370,8 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 		let needsUnwrapping = argumentType.isAsteriskPointer && !argumentType.isNonnullablePointer;
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::init()::\\(#function):\\(#line)"'
+
 		let memoryManagementInfix = '';
 		if (!(type instanceof RustTrait) && this.hasFreeMethod(type) && argumentType.isAsteriskPointer) {
 			// we wanna dangle this value no matter what, because we don't know the longevity
@@ -396,13 +400,13 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 		if (type instanceof RustVector || type instanceof RustPrimitiveWrapper || type instanceof RustNullableOption) {
 			preparedArgument.methodCallWrapperPrefix += `${this.swiftTypeName(type)}(cType: `;
-			preparedArgument.methodCallWrapperSuffix += `)${memoryManagementInfix}.getValue()`;
+			preparedArgument.methodCallWrapperSuffix += `${instantiationContextInfixTemplate})${memoryManagementInfix}.getValue()`;
 		} else if (type instanceof RustTrait) {
 			preparedArgument.methodCallWrapperPrefix += `NativelyImplemented${this.swiftTypeName(type)}(cType: `;
-			preparedArgument.methodCallWrapperSuffix += `)`;
+			preparedArgument.methodCallWrapperSuffix += `${instantiationContextInfixTemplate})`;
 		} else if (type instanceof RustStruct || type instanceof RustResult || type instanceof RustTaggedValueEnum) {
 			preparedArgument.methodCallWrapperPrefix += `${this.swiftTypeName(type)}(cType: `;
-			preparedArgument.methodCallWrapperSuffix += `)${memoryManagementInfix}`;
+			preparedArgument.methodCallWrapperSuffix += `${instantiationContextInfixTemplate})${memoryManagementInfix}`;
 		} else if (type instanceof RustPrimitive) {
 			// nothing to do here
 		} else if (type instanceof RustArray) {
@@ -456,17 +460,19 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 			wrapperSuffix: ''
 		};
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::init()::\\(#function):\\(#line)"'
+
 		// these type elision helpers only apply outside the context of the very eliding type
 		let type = returnType.type;
 		if (type instanceof RustVector) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(array: `;
-			preparedReturnValue.wrapperSuffix = `).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
 		} else if (type instanceof RustPrimitiveWrapper) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(value: `;
-			preparedReturnValue.wrapperSuffix = `).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
 		} else if (type instanceof RustNullableOption) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(some: `;
-			preparedReturnValue.wrapperSuffix = `).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
 		} else if (type instanceof RustTaggedValueEnum || type instanceof RustResult) {
 			preparedReturnValue.wrapperSuffix = '.cType!';
 		} else if (type instanceof RustTrait) {

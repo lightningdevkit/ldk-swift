@@ -160,26 +160,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKOnionMessenger?
 
-					internal init(cType: LDKOnionMessenger) {
+					internal init(cType: LDKOnionMessenger, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKOnionMessenger, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKOnionMessenger, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKOnionMessenger, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -220,7 +239,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = OnionMessenger(cType: nativeCallResult)
+						let returnValue = OnionMessenger(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -228,7 +247,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -240,7 +259,7 @@
 					public func sendOnionMessage(intermediateNodes: [[UInt8]], destination: Destination, message: OnionMessageContents, replyPath: BlindedPath) -> Result_NoneSendErrorZ {
 						// native call variable prep
 						
-						let intermediateNodesVector = Vec_PublicKeyZ(array: intermediateNodes).dangle()
+						let intermediateNodesVector = Vec_PublicKeyZ(array: intermediateNodes, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -257,7 +276,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -281,7 +300,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -305,7 +324,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -341,16 +360,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing OnionMessenger \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing OnionMessenger \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing OnionMessenger \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing OnionMessenger \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

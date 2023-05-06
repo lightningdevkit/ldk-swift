@@ -24,26 +24,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKClosingTransaction?
 
-					internal init(cType: LDKClosingTransaction) {
+					internal init(cType: LDKClosingTransaction, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKClosingTransaction, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKClosingTransaction, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKClosingTransaction, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -85,7 +104,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ClosingTransaction(cType: nativeCallResult)
+						let returnValue = ClosingTransaction(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -147,9 +166,9 @@
 					public init(toHolderValueSat: UInt64, toCounterpartyValueSat: UInt64, toHolderScript: [UInt8], toCounterpartyScript: [UInt8], fundingOutpoint: OutPoint) {
 						// native call variable prep
 						
-						let toHolderScriptVector = Vec_u8Z(array: toHolderScript).dangle()
+						let toHolderScriptVector = Vec_u8Z(array: toHolderScript, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)").dangle()
 				
-						let toCounterpartyScriptVector = Vec_u8Z(array: toCounterpartyScript).dangle()
+						let toCounterpartyScriptVector = Vec_u8Z(array: toCounterpartyScript, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -166,7 +185,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ClosingTransaction(cType: nativeCallResult)
+						let returnValue = ClosingTransaction(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -174,7 +193,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -201,7 +220,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TrustedClosingTransaction(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = TrustedClosingTransaction(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -229,7 +248,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TrustedClosingTransactionNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_TrustedClosingTransactionNoneZ(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -298,7 +317,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = u8slice(cType: nativeCallResult, anchor: self).dangle().getValue()
+						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						
 
 						return returnValue
@@ -321,7 +340,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = u8slice(cType: nativeCallResult, anchor: self).dangle().getValue()
+						let returnValue = u8slice(cType: nativeCallResult, instantiationContext: "ClosingTransaction.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 						
 
 						return returnValue
@@ -370,16 +389,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ClosingTransaction \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ClosingTransaction \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ClosingTransaction \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ClosingTransaction \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

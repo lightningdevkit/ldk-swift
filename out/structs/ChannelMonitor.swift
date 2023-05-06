@@ -46,26 +46,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKChannelMonitor?
 
-					internal init(cType: LDKChannelMonitor) {
+					internal init(cType: LDKChannelMonitor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKChannelMonitor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKChannelMonitor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKChannelMonitor, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -107,7 +126,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelMonitor(cType: nativeCallResult)
+						let returnValue = ChannelMonitor(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -130,7 +149,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -168,7 +187,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -215,7 +234,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Tuple_OutPointScriptZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -239,7 +258,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -292,7 +311,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_MonitorEventZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_MonitorEventZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -322,7 +341,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_EventZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_EventZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -358,7 +377,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -399,7 +418,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_TransactionZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -421,7 +440,7 @@
 						
 						let tupledHeader = Bindings.arrayToUInt8Tuple80(array: header)
 					
-						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata).dangle()
+						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -442,7 +461,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -490,7 +509,7 @@
 						
 						let tupledHeader = Bindings.arrayToUInt8Tuple80(array: header)
 					
-						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata).dangle()
+						let txdataVector = Vec_C2Tuple_usizeTransactionZZ(array: txdata, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -511,7 +530,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -580,7 +599,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -603,7 +622,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_C2Tuple_TxidBlockHashZZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -627,7 +646,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BestBlock(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = BestBlock(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -664,7 +683,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_BalanceZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -713,16 +732,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ChannelMonitor \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ChannelMonitor \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ChannelMonitor \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ChannelMonitor \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

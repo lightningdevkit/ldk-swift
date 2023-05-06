@@ -22,37 +22,56 @@
 					
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKU128?
 
-					internal init(cType: LDKU128) {
+					internal init(cType: LDKU128, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKU128, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKU128, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKU128, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					public init(value: [UInt8]) {
+					internal init(value: [UInt8], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						self.cType = LDKU128(le_bytes: Bindings.arrayToUInt8Tuple16(array: value))
 
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					
@@ -69,17 +88,17 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SixteenBytes(cType: nativeCallResult).getValue()
+						let returnValue = SixteenBytes(cType: nativeCallResult, instantiationContext: "U128.swift::\(#function):\(#line)").getValue()
 						
 
 						return returnValue
 					}
 		
 					/// Constructs a new U128 from 16 little-endian bytes
-					public init(leBytes: [UInt8]) {
+					public init(leBytes: [UInt8], instantiationContext: String) {
 						// native call variable prep
 						
-						let leBytesPrimitiveWrapper = SixteenBytes(value: leBytes)
+						let leBytesPrimitiveWrapper = SixteenBytes(value: leBytes, instantiationContext: "U128.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -93,7 +112,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = U128(cType: nativeCallResult)
+						let returnValue = U128(cType: nativeCallResult, instantiationContext: "U128.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -101,7 +120,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}

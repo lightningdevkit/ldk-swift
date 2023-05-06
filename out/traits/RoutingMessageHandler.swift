@@ -27,26 +27,45 @@
 				open class RoutingMessageHandler: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKRoutingMessageHandler?
 
-					internal init(cType: LDKRoutingMessageHandler) {
+					internal init(cType: LDKRoutingMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRoutingMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRoutingMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKRoutingMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -54,7 +73,7 @@
 					public init(messageSendEventsProvider: MessageSendEventsProvider) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -68,7 +87,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleNodeAnnouncement(msg: NodeAnnouncement(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleNodeAnnouncement(msg: NodeAnnouncement(cType: msg.pointee, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -86,7 +105,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelAnnouncement(msg: ChannelAnnouncement(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleChannelAnnouncement(msg: ChannelAnnouncement(cType: msg.pointee, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -104,7 +123,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleChannelUpdate(msg: ChannelUpdate(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.handleChannelUpdate(msg: ChannelUpdate(cType: msg.pointee, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -128,7 +147,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(some: swiftCallbackResult).dangle().cType!
+							let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(some: swiftCallbackResult, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -140,7 +159,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.getNextNodeAnnouncement(startingPoint: NodeId(cType: starting_point))
+							let swiftCallbackResult = instance.getNextNodeAnnouncement(startingPoint: NodeId(cType: starting_point, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -158,7 +177,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id).getValue(), initArgument: BindingsInit(cType: initArgument.pointee).dangle().clone(), inbound: inbound)
+							let swiftCallbackResult = instance.peerConnected(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").getValue(), initArgument: BindingsInit(cType: initArgument.pointee, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").dangle().clone(), inbound: inbound)
 
 							// cleanup
 							
@@ -176,7 +195,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleReplyChannelRange(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: ReplyChannelRange(cType: msg))
+							let swiftCallbackResult = instance.handleReplyChannelRange(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ReplyChannelRange(cType: msg, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -194,7 +213,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleReplyShortChannelIdsEnd(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: ReplyShortChannelIdsEnd(cType: msg))
+							let swiftCallbackResult = instance.handleReplyShortChannelIdsEnd(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: ReplyShortChannelIdsEnd(cType: msg, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -212,7 +231,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleQueryChannelRange(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: QueryChannelRange(cType: msg))
+							let swiftCallbackResult = instance.handleQueryChannelRange(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: QueryChannelRange(cType: msg, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -230,7 +249,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleQueryShortChannelIds(theirNodeId: PublicKey(cType: their_node_id).getValue(), msg: QueryShortChannelIds(cType: msg))
+							let swiftCallbackResult = instance.handleQueryShortChannelIds(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").getValue(), msg: QueryShortChannelIds(cType: msg, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -284,7 +303,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id).getValue())
+							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "RoutingMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -477,7 +496,7 @@
 					/// Implementation of MessageSendEventsProvider for this object.
 					public func getMessageSendEventsProvider() -> MessageSendEventsProvider {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: self.cType!.MessageSendEventsProvider, anchor: self)
+						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: self.cType!.MessageSendEventsProvider, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -489,15 +508,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing RoutingMessageHandler \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing RoutingMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing RoutingMessageHandler \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing RoutingMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -523,7 +544,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -547,7 +568,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -571,7 +592,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_boolLightningErrorZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -592,7 +613,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(cType: nativeCallResult).getValue()
+						let returnValue = Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}
@@ -617,7 +638,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = NodeAnnouncement(cType: nativeCallResult)
+						let returnValue = NodeAnnouncement(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -632,7 +653,7 @@
 					public override func peerConnected(theirNodeId: [UInt8], initArgument: BindingsInit, inbound: Bool) -> Result_NoneNoneZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -651,7 +672,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -662,7 +683,7 @@
 					public override func handleReplyChannelRange(theirNodeId: [UInt8], msg: ReplyChannelRange) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -677,7 +698,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -689,7 +710,7 @@
 					public override func handleReplyShortChannelIdsEnd(theirNodeId: [UInt8], msg: ReplyShortChannelIdsEnd) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -704,7 +725,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -714,7 +735,7 @@
 					public override func handleQueryChannelRange(theirNodeId: [UInt8], msg: QueryChannelRange) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -729,7 +750,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -739,7 +760,7 @@
 					public override func handleQueryShortChannelIds(theirNodeId: [UInt8], msg: QueryShortChannelIds) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -754,7 +775,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -797,7 +818,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult)
+						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -810,7 +831,7 @@
 					public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
 						// native call variable prep
 						
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId)
+						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -825,7 +846,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult)
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "RoutingMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

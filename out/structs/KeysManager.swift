@@ -40,26 +40,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKKeysManager?
 
-					internal init(cType: LDKKeysManager) {
+					internal init(cType: LDKKeysManager, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKKeysManager, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKKeysManager, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKKeysManager, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -121,7 +140,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = KeysManager(cType: nativeCallResult)
+						let returnValue = KeysManager(cType: nativeCallResult, instantiationContext: "KeysManager.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -129,7 +148,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "KeysManager.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -151,7 +170,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = SecretKey(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = SecretKey(cType: nativeCallResult, instantiationContext: "KeysManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -180,7 +199,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InMemorySigner(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "KeysManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -201,11 +220,11 @@
 					public func spendSpendableOutputs(descriptors: [SpendableOutputDescriptor], outputs: [TxOut], changeDestinationScript: [UInt8], feerateSatPer1000Weight: UInt32) -> Result_TransactionNoneZ {
 						// native call variable prep
 						
-						let descriptorsVector = Vec_SpendableOutputDescriptorZ(array: descriptors).dangle()
+						let descriptorsVector = Vec_SpendableOutputDescriptorZ(array: descriptors, instantiationContext: "KeysManager.swift::\(#function):\(#line)").dangle()
 				
-						let outputsVector = Vec_TxOutZ(array: outputs).dangle()
+						let outputsVector = Vec_TxOutZ(array: outputs, instantiationContext: "KeysManager.swift::\(#function):\(#line)").dangle()
 				
-						let changeDestinationScriptVector = Vec_u8Z(array: changeDestinationScript).dangle()
+						let changeDestinationScriptVector = Vec_u8Z(array: changeDestinationScript, instantiationContext: "KeysManager.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -226,7 +245,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TransactionNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_TransactionNoneZ(cType: nativeCallResult, instantiationContext: "KeysManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -250,7 +269,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult, instantiationContext: "KeysManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -274,7 +293,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedNodeSigner(cType: nativeCallResult, instantiationContext: "KeysManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -298,7 +317,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedSignerProvider(cType: nativeCallResult, instantiationContext: "KeysManager.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -334,16 +353,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing KeysManager \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing KeysManager \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing KeysManager \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing KeysManager \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

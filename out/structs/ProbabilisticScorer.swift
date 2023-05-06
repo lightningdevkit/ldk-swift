@@ -86,26 +86,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKProbabilisticScorer?
 
-					internal init(cType: LDKProbabilisticScorer) {
+					internal init(cType: LDKProbabilisticScorer, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKProbabilisticScorer, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKProbabilisticScorer, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKProbabilisticScorer, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -150,7 +169,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ProbabilisticScorer(cType: nativeCallResult)
+						let returnValue = ProbabilisticScorer(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -158,7 +177,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 				try! self.addAnchor(anchor: networkGraph)
 
 			
@@ -212,7 +231,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_C2Tuple_u64u64ZZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_C2Tuple_u64u64ZZ(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -259,7 +278,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_C2Tuple_EightU16sEightU16sZZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_C2Tuple_EightU16sEightU16sZZ(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -415,7 +434,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedScore(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedScore(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -438,7 +457,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -448,7 +467,7 @@
 					public class func read(ser: [UInt8], argA: ProbabilisticScoringParameters, argB: NetworkGraph, argC: Logger) -> Result_ProbabilisticScorerDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -466,7 +485,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_ProbabilisticScorerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ProbabilisticScorer.swift::\(#function):\(#line)")
 						
 
 						try! returnValue.addAnchor(anchor: argB)
@@ -503,16 +522,18 @@ return returnValue
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ProbabilisticScorer \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ProbabilisticScorer \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ProbabilisticScorer \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ProbabilisticScorer \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

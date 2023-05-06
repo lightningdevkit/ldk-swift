@@ -23,6 +23,15 @@ enum RouterUnavailableError: Error {
     case channelManagerInitializationMissingScorerOrNetworkGraph
 }
 
+/// Argument used when deserializing ChannelManager instances. If the user has previously already taken it upon themselves to deserialize the NetworkGraph, the `instance`
+/// case may be used. Otherwise, `serialized` may be passed to have the deserializer handle the NetworkGraph, too.
+public enum NetworkGraphArgument {
+    /// Use if you have a serialized NetworkGraph that should be deserialized.
+    case serialized([UInt8])
+    /// Use if you have already deserialized a NetworkGraph and wish to pass that instance here.
+    case instance(NetworkGraph)
+}
+
 public struct ChannelManagerConstructionParameters {
     public var config: UserConfig
     public var entropySource: EntropySource
@@ -109,7 +118,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]
 
 
-    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], netGraphSerialized: [UInt8]?, filter: Filter?, params: ChannelManagerConstructionParameters) throws {
+    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument, filter: Filter?, params: ChannelManagerConstructionParameters) throws {
 
         self.constructionParameters = params
         
@@ -141,7 +150,10 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         print("Collected channel monitors, reading channel manager")
         
-        if let serializedNetworkGraph = netGraphSerialized {
+        switch networkGraph {
+        case .instance(let graph):
+            self.netGraph = graph
+        case .serialized(let serializedNetworkGraph):
             let netGraphResult = NetworkGraph.read(ser: serializedNetworkGraph, arg: params.logger)
             if !netGraphResult.isOk(){
                 throw InvalidSerializedDataError.invalidSerializedNetworkGraph
@@ -170,7 +182,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         let noCustomMessages = IgnoringMessageHandler()
         var messageHandler: MessageHandler!
-        if let netGraph = netGraph, params.enableP2PGossip {
+        if let netGraph = self.netGraph, params.enableP2PGossip {
             let p2pGossipSync = P2PGossipSync(networkGraph: netGraph, utxoLookup: nil, logger: params.logger)
             self.graphMessageHandler = GossipSync.initWithP2P(a: p2pGossipSync)
             messageHandler = MessageHandler(chanHandlerArg: channelManager.asChannelMessageHandler(), routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(), onionMessageHandlerArg: noCustomMessages.asOnionMessageHandler())
@@ -186,7 +198,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             }
         }
 
-        super.init(conflictAvoidingVariableName: 0)
+        super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
         // try! self.peerManager.addAnchor(anchor: self)
         // try! self.channelManager.addAnchor(anchor: self)
 
@@ -225,7 +237,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
         self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, customMessageHandler: noCustomMessages.asCustomMessageHandler(), nodeSigner: params.nodeSigner)
 
-        super.init(conflictAvoidingVariableName: 0)
+        super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
         // try! self.peerManager.addAnchor(anchor: self)
         // try! self.channelManager.addAnchor(anchor: self)
     }
@@ -445,7 +457,7 @@ public class TCPPeerHandler {
         addressObject.sin_addr.s_addr = inet_addr(address)
 
         let sin_length = UInt8(MemoryLayout.size(ofValue: addressObject))
-        let publicKey = PublicKey(value: theirNodeId).cType!
+        let publicKey = PublicKey(value: theirNodeId, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)").cType!
 
         let result = withUnsafePointer(to: &addressObject, { addressPointer in
 

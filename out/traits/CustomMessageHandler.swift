@@ -29,26 +29,45 @@
 				open class CustomMessageHandler: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKCustomMessageHandler?
 
-					internal init(cType: LDKCustomMessageHandler) {
+					internal init(cType: LDKCustomMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCustomMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCustomMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKCustomMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -56,7 +75,7 @@
 					public init(customMessageReader: CustomMessageReader) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -70,7 +89,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedBindingsType(cType: msg), senderNodeId: PublicKey(cType: sender_node_id).getValue())
+							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedBindingsType(cType: msg, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"), senderNodeId: PublicKey(cType: sender_node_id, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -94,7 +113,7 @@
 							
 
 							// return value (do some wrapping)
-							let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(array: swiftCallbackResult).dangle().cType!
+							let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(array: swiftCallbackResult, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)").dangle().cType!
 
 							return returnValue
 						}
@@ -164,7 +183,7 @@
 					/// Implementation of CustomMessageReader for this object.
 					public func getCustomMessageReader() -> CustomMessageReader {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageReader(cType: self.cType!.CustomMessageReader, anchor: self)
+						let returnValue = NativelyImplementedCustomMessageReader(cType: self.cType!.CustomMessageReader, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -176,15 +195,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing CustomMessageHandler \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing CustomMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing CustomMessageHandler \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing CustomMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -197,7 +218,7 @@
 					public override func handleCustomMessage(msg: BindingsType, senderNodeId: [UInt8]) -> Result_NoneLightningErrorZ {
 						// native call variable prep
 						
-						let senderNodeIdPrimitiveWrapper = PublicKey(value: senderNodeId)
+						let senderNodeIdPrimitiveWrapper = PublicKey(value: senderNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 				
 
 						
@@ -212,7 +233,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -233,7 +254,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(cType: nativeCallResult).getValue()
+						let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)").getValue()
 
 						return returnValue
 					}

@@ -27,26 +27,45 @@
 				open class EcdsaChannelSigner: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKEcdsaChannelSigner?
 
-					internal init(cType: LDKEcdsaChannelSigner) {
+					internal init(cType: LDKEcdsaChannelSigner, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKEcdsaChannelSigner, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKEcdsaChannelSigner, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKEcdsaChannelSigner, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -54,7 +73,7 @@
 					public init(channelSigner: ChannelSigner) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -68,7 +87,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signCounterpartyCommitment(commitmentTx: CommitmentTransaction(cType: commitment_tx.pointee).dangle().clone(), preimages: Vec_PaymentPreimageZ(cType: preimages).getValue())
+							let swiftCallbackResult = instance.signCounterpartyCommitment(commitmentTx: CommitmentTransaction(cType: commitment_tx.pointee, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").dangle().clone(), preimages: Vec_PaymentPreimageZ(cType: preimages, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -109,7 +128,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signHolderCommitmentAndHtlcs(commitmentTx: HolderCommitmentTransaction(cType: commitment_tx.pointee).dangle().clone())
+							let swiftCallbackResult = instance.signHolderCommitmentAndHtlcs(commitmentTx: HolderCommitmentTransaction(cType: commitment_tx.pointee, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -132,7 +151,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signJusticeRevokedOutput(justiceTx: Transaction(cType: justice_tx).getValue(), input: input, amount: amount, perCommitmentKey: per_commitment_keyPointee)
+							let swiftCallbackResult = instance.signJusticeRevokedOutput(justiceTx: Transaction(cType: justice_tx, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").getValue(), input: input, amount: amount, perCommitmentKey: per_commitment_keyPointee)
 
 							// cleanup
 							
@@ -155,7 +174,7 @@
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signJusticeRevokedHtlc(justiceTx: Transaction(cType: justice_tx).getValue(), input: input, amount: amount, perCommitmentKey: per_commitment_keyPointee, htlc: HTLCOutputInCommitment(cType: htlc.pointee).dangle().clone())
+							let swiftCallbackResult = instance.signJusticeRevokedHtlc(justiceTx: Transaction(cType: justice_tx, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").getValue(), input: input, amount: amount, perCommitmentKey: per_commitment_keyPointee, htlc: HTLCOutputInCommitment(cType: htlc.pointee, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -173,7 +192,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signCounterpartyHtlcTransaction(htlcTx: Transaction(cType: htlc_tx).getValue(), input: input, amount: amount, perCommitmentPoint: PublicKey(cType: per_commitment_point).getValue(), htlc: HTLCOutputInCommitment(cType: htlc.pointee).dangle().clone())
+							let swiftCallbackResult = instance.signCounterpartyHtlcTransaction(htlcTx: Transaction(cType: htlc_tx, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").getValue(), input: input, amount: amount, perCommitmentPoint: PublicKey(cType: per_commitment_point, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").getValue(), htlc: HTLCOutputInCommitment(cType: htlc.pointee, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -191,7 +210,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signClosingTransaction(closingTx: ClosingTransaction(cType: closing_tx.pointee).dangle().clone())
+							let swiftCallbackResult = instance.signClosingTransaction(closingTx: ClosingTransaction(cType: closing_tx.pointee, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -209,7 +228,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signHolderAnchorInput(anchorTx: Transaction(cType: anchor_tx).getValue(), input: input)
+							let swiftCallbackResult = instance.signHolderAnchorInput(anchorTx: Transaction(cType: anchor_tx, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").getValue(), input: input)
 
 							// cleanup
 							
@@ -227,7 +246,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement(cType: msg.pointee).dangle().clone())
+							let swiftCallbackResult = instance.signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement(cType: msg.pointee, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -442,7 +461,7 @@
 					/// Implementation of ChannelSigner for this object.
 					public func getChannelSigner() -> ChannelSigner {
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedChannelSigner(cType: self.cType!.ChannelSigner, anchor: self)
+						let returnValue = NativelyImplementedChannelSigner(cType: self.cType!.ChannelSigner, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)", anchor: self)
 
 						return returnValue;
 					}
@@ -454,15 +473,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing EcdsaChannelSigner \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing EcdsaChannelSigner \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing EcdsaChannelSigner \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing EcdsaChannelSigner \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -485,7 +506,7 @@
 					public override func signCounterpartyCommitment(commitmentTx: CommitmentTransaction, preimages: [[UInt8]]) -> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ {
 						// native call variable prep
 						
-						let preimagesVector = Vec_PaymentPreimageZ(array: preimages).dangle()
+						let preimagesVector = Vec_PaymentPreimageZ(array: preimages, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -503,7 +524,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(cType: nativeCallResult)
+						let returnValue = Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -534,7 +555,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -571,7 +592,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(cType: nativeCallResult)
+						let returnValue = Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -593,7 +614,7 @@
 					public override func signJusticeRevokedOutput(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx).dangle()
+						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 					var tupledPerCommitmentKeyPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
 					if let perCommitmentKey = perCommitmentKey {
@@ -617,7 +638,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -643,7 +664,7 @@
 					public override func signJusticeRevokedHtlc(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?, htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx).dangle()
+						let justiceTxPrimitiveWrapper = Transaction(value: justiceTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 					var tupledPerCommitmentKeyPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
 					if let perCommitmentKey = perCommitmentKey {
@@ -671,7 +692,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -696,9 +717,9 @@
 					public override func signCounterpartyHtlcTransaction(htlcTx: [UInt8], input: UInt, amount: UInt64, perCommitmentPoint: [UInt8], htlc: HTLCOutputInCommitment) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let htlcTxPrimitiveWrapper = Transaction(value: htlcTx).dangle()
+						let htlcTxPrimitiveWrapper = Transaction(value: htlcTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
-						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint)
+						let perCommitmentPointPrimitiveWrapper = PublicKey(value: perCommitmentPoint, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 				
 
 						
@@ -720,7 +741,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -746,7 +767,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -756,7 +777,7 @@
 					public override func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_SignatureNoneZ {
 						// native call variable prep
 						
-						let anchorTxPrimitiveWrapper = Transaction(value: anchorTx).dangle()
+						let anchorTxPrimitiveWrapper = Transaction(value: anchorTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)").dangle()
 				
 
 						
@@ -771,7 +792,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -802,7 +823,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult)
+						let returnValue = Result_SignatureNoneZ(cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

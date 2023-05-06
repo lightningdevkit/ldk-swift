@@ -20,26 +20,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKInit?
 
-					internal init(cType: LDKInit) {
+					internal init(cType: LDKInit, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKInit, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKInit, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKInit, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -81,7 +100,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InitFeatures(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -132,7 +151,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_NetAddressZ(cType: nativeCallResult, anchor: self).getValue()
+						let returnValue = Option_NetAddressZ(cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)", anchor: self).getValue()
 						
 
 						return returnValue
@@ -147,7 +166,7 @@
 					public func setRemoteNetworkAddress(val: NetAddress?) {
 						// native call variable prep
 						
-						let valOption = Option_NetAddressZ(some: val).danglingClone()
+						let valOption = Option_NetAddressZ(some: val, instantiationContext: "BindingsInit.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -172,7 +191,7 @@
 					public init(featuresArg: InitFeatures, remoteNetworkAddressArg: NetAddress?) {
 						// native call variable prep
 						
-						let remoteNetworkAddressArgOption = Option_NetAddressZ(some: remoteNetworkAddressArg).danglingClone()
+						let remoteNetworkAddressArgOption = Option_NetAddressZ(some: remoteNetworkAddressArg, instantiationContext: "BindingsInit.swift::\(#function):\(#line)").danglingClone()
 				
 
 						// native method call
@@ -185,7 +204,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = BindingsInit(cType: nativeCallResult)
+						let returnValue = BindingsInit(cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -193,7 +212,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "BindingsInit.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -215,7 +234,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = BindingsInit(cType: nativeCallResult)
+						let returnValue = BindingsInit(cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -267,7 +286,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -277,7 +296,7 @@
 					public class func read(ser: [UInt8]) -> Result_InitDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "BindingsInit.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -291,7 +310,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_InitDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_InitDecodeErrorZ(cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -340,16 +359,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing BindingsInit \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing BindingsInit \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing BindingsInit \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing BindingsInit \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

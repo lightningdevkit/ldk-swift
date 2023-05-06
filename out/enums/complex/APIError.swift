@@ -15,26 +15,45 @@
 				public class APIError: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKAPIError?
 
-					internal init(cType: LDKAPIError) {
+					internal init(cType: LDKAPIError, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKAPIError, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKAPIError, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKAPIError, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -145,7 +164,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult)
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -155,7 +174,7 @@
 					public class func initWithApimisuseError(err: String) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -169,7 +188,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult)
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -179,7 +198,7 @@
 					public class func initWithFeeRateTooHigh(err: String, feerate: UInt32) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -193,7 +212,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult)
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -203,7 +222,7 @@
 					public class func initWithInvalidRoute(err: String) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -217,7 +236,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult)
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -227,7 +246,7 @@
 					public class func initWithChannelUnavailable(err: String) -> APIError {
 						// native call variable prep
 						
-						let errPrimitiveWrapper = Str(value: err).dangle()
+						let errPrimitiveWrapper = Str(value: err, instantiationContext: "APIError.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -241,7 +260,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult)
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -260,7 +279,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult)
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -279,7 +298,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = APIError(cType: nativeCallResult)
+						let returnValue = APIError(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -330,7 +349,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -340,7 +359,7 @@
 					public class func read(ser: [UInt8]) -> Result_COption_APIErrorZDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "APIError.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -354,7 +373,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_COption_APIErrorZDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_COption_APIErrorZDecodeErrorZ(cType: nativeCallResult, instantiationContext: "APIError.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -367,7 +386,7 @@
 							return nil
 						}
 
-						return APIError_LDKAPIMisuseError_Body(cType: self.cType!.api_misuse_error, anchor: self)
+						return APIError_LDKAPIMisuseError_Body(cType: self.cType!.api_misuse_error, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsFeeRateTooHigh() -> FeeRateTooHigh? {
@@ -375,7 +394,7 @@
 							return nil
 						}
 
-						return APIError_LDKFeeRateTooHigh_Body(cType: self.cType!.fee_rate_too_high, anchor: self)
+						return APIError_LDKFeeRateTooHigh_Body(cType: self.cType!.fee_rate_too_high, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsInvalidRoute() -> InvalidRoute? {
@@ -383,7 +402,7 @@
 							return nil
 						}
 
-						return APIError_LDKInvalidRoute_Body(cType: self.cType!.invalid_route, anchor: self)
+						return APIError_LDKInvalidRoute_Body(cType: self.cType!.invalid_route, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsChannelUnavailable() -> ChannelUnavailable? {
@@ -391,7 +410,7 @@
 							return nil
 						}
 
-						return APIError_LDKChannelUnavailable_Body(cType: self.cType!.channel_unavailable, anchor: self)
+						return APIError_LDKChannelUnavailable_Body(cType: self.cType!.channel_unavailable, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsIncompatibleShutdownScript() -> IncompatibleShutdownScript? {
@@ -399,7 +418,7 @@
 							return nil
 						}
 
-						return APIError_LDKIncompatibleShutdownScript_Body(cType: self.cType!.incompatible_shutdown_script, anchor: self)
+						return APIError_LDKIncompatibleShutdownScript_Body(cType: self.cType!.incompatible_shutdown_script, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -416,16 +435,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing APIError \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing APIError \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing APIError \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing APIError \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -442,26 +463,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKAPIError_LDKAPIMisuseError_Body?
 
-						internal init(cType: LDKAPIError_LDKAPIMisuseError_Body) {
+						internal init(cType: LDKAPIError_LDKAPIMisuseError_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKAPIError_LDKAPIMisuseError_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKAPIError_LDKAPIMisuseError_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKAPIError_LDKAPIMisuseError_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -472,7 +512,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -500,26 +540,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKAPIError_LDKFeeRateTooHigh_Body?
 
-						internal init(cType: LDKAPIError_LDKFeeRateTooHigh_Body) {
+						internal init(cType: LDKAPIError_LDKFeeRateTooHigh_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKAPIError_LDKFeeRateTooHigh_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKAPIError_LDKFeeRateTooHigh_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKAPIError_LDKFeeRateTooHigh_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -530,7 +589,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -566,26 +625,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKAPIError_LDKInvalidRoute_Body?
 
-						internal init(cType: LDKAPIError_LDKInvalidRoute_Body) {
+						internal init(cType: LDKAPIError_LDKInvalidRoute_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKAPIError_LDKInvalidRoute_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKAPIError_LDKInvalidRoute_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKAPIError_LDKInvalidRoute_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -596,7 +674,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -624,26 +702,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKAPIError_LDKChannelUnavailable_Body?
 
-						internal init(cType: LDKAPIError_LDKChannelUnavailable_Body) {
+						internal init(cType: LDKAPIError_LDKChannelUnavailable_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKAPIError_LDKChannelUnavailable_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKAPIError_LDKChannelUnavailable_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKAPIError_LDKChannelUnavailable_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -654,7 +751,7 @@
 						/// A human-readable error message
 						public func getErr() -> String {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.err, anchor: self).getValue()
+							let returnValue = Str(cType: self.cType!.err, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -682,26 +779,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKAPIError_LDKIncompatibleShutdownScript_Body?
 
-						internal init(cType: LDKAPIError_LDKIncompatibleShutdownScript_Body) {
+						internal init(cType: LDKAPIError_LDKIncompatibleShutdownScript_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKAPIError_LDKIncompatibleShutdownScript_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKAPIError_LDKIncompatibleShutdownScript_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKAPIError_LDKIncompatibleShutdownScript_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -712,7 +828,7 @@
 						/// The incompatible shutdown script.
 						public func getScript() -> Bindings.ShutdownScript {
 							// return value (do some wrapping)
-							let returnValue = Bindings.ShutdownScript(cType: self.cType!.script, anchor: self)
+							let returnValue = Bindings.ShutdownScript(cType: self.cType!.script, instantiationContext: "APIError.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

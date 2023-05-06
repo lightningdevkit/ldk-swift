@@ -22,26 +22,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKInMemorySigner?
 
-					internal init(cType: LDKInMemorySigner) {
+					internal init(cType: LDKInMemorySigner, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKInMemorySigner, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKInMemorySigner, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKInMemorySigner, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -99,7 +118,7 @@
 					public func setFundingKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -154,7 +173,7 @@
 					public func setRevocationBaseKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -209,7 +228,7 @@
 					public func setPaymentKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -264,7 +283,7 @@
 					public func setDelayedPaymentBaseKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -319,7 +338,7 @@
 					public func setHtlcBaseKey(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = SecretKey(value: val)
+						let valPrimitiveWrapper = SecretKey(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -374,7 +393,7 @@
 					public func setCommitmentSeed(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -415,7 +434,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = InMemorySigner(cType: nativeCallResult)
+						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -425,19 +444,19 @@
 					public init(fundingKey: [UInt8], revocationBaseKey: [UInt8], paymentKey: [UInt8], delayedPaymentBaseKey: [UInt8], htlcBaseKey: [UInt8], commitmentSeed: [UInt8], channelValueSatoshis: UInt64, channelKeysId: [UInt8]) {
 						// native call variable prep
 						
-						let fundingKeyPrimitiveWrapper = SecretKey(value: fundingKey)
+						let fundingKeyPrimitiveWrapper = SecretKey(value: fundingKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let revocationBaseKeyPrimitiveWrapper = SecretKey(value: revocationBaseKey)
+						let revocationBaseKeyPrimitiveWrapper = SecretKey(value: revocationBaseKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let paymentKeyPrimitiveWrapper = SecretKey(value: paymentKey)
+						let paymentKeyPrimitiveWrapper = SecretKey(value: paymentKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let delayedPaymentBaseKeyPrimitiveWrapper = SecretKey(value: delayedPaymentBaseKey)
+						let delayedPaymentBaseKeyPrimitiveWrapper = SecretKey(value: delayedPaymentBaseKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let htlcBaseKeyPrimitiveWrapper = SecretKey(value: htlcBaseKey)
+						let htlcBaseKeyPrimitiveWrapper = SecretKey(value: htlcBaseKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let commitmentSeedPrimitiveWrapper = ThirtyTwoBytes(value: commitmentSeed)
+						let commitmentSeedPrimitiveWrapper = ThirtyTwoBytes(value: commitmentSeed, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
-						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId)
+						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -471,7 +490,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = InMemorySigner(cType: nativeCallResult)
+						let returnValue = InMemorySigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -479,7 +498,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -503,7 +522,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -607,7 +626,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -633,7 +652,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ChannelTransactionParameters(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = ChannelTransactionParameters(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -675,7 +694,7 @@
 					public func signCounterpartyPaymentInput(spendTx: [UInt8], inputIdx: UInt, descriptor: StaticPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
 						// native call variable prep
 						
-						let spendTxPrimitiveWrapper = Transaction(value: spendTx).dangle()
+						let spendTxPrimitiveWrapper = Transaction(value: spendTx, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -697,7 +716,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -716,7 +735,7 @@
 					public func signDynamicP2wshInput(spendTx: [UInt8], inputIdx: UInt, descriptor: DelayedPaymentOutputDescriptor) -> Result_CVec_CVec_u8ZZNoneZ {
 						// native call variable prep
 						
-						let spendTxPrimitiveWrapper = Transaction(value: spendTx).dangle()
+						let spendTxPrimitiveWrapper = Transaction(value: spendTx, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -738,7 +757,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, anchor: self)
+						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -762,7 +781,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedChannelSigner(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedChannelSigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -786,7 +805,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -810,7 +829,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedWriteableEcdsaChannelSigner(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -833,7 +852,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -843,7 +862,7 @@
 					public class func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -857,7 +876,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_InMemorySignerDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_InMemorySignerDecodeErrorZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -906,16 +925,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing InMemorySigner \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing InMemorySigner \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing InMemorySigner \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing InMemorySigner \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

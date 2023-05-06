@@ -20,26 +20,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKStaticPaymentOutputDescriptor?
 
-					internal init(cType: LDKStaticPaymentOutputDescriptor) {
+					internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKStaticPaymentOutputDescriptor, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -81,7 +100,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = OutPoint(cType: nativeCallResult, anchor: self).dangle(false)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -129,7 +148,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = TxOut(cType: nativeCallResult, anchor: self)
+						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -191,7 +210,7 @@
 					public func setChannelKeysId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -265,7 +284,7 @@
 					public init(outpointArg: OutPoint, outputArg: TxOut, channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64) {
 						// native call variable prep
 						
-						let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysIdArg)
+						let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysIdArg, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -281,7 +300,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = StaticPaymentOutputDescriptor(cType: nativeCallResult)
+						let returnValue = StaticPaymentOutputDescriptor(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -289,7 +308,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -311,7 +330,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = StaticPaymentOutputDescriptor(cType: nativeCallResult)
+						let returnValue = StaticPaymentOutputDescriptor(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -363,7 +382,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -373,7 +392,7 @@
 					public class func read(ser: [UInt8]) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -387,7 +406,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -436,16 +455,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing StaticPaymentOutputDescriptor \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing StaticPaymentOutputDescriptor \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

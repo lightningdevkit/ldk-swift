@@ -12,32 +12,51 @@
 				internal class Tuple_RawInvoice_u832InvoiceSignatureZ: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ?
 
-					internal init(cType: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ) {
+					internal init(cType: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKC3Tuple_RawInvoice_u832InvoiceSignatureZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
 
-					internal convenience init(tuple: (RawInvoice, [UInt8], InvoiceSignature)) {
-						self.init(a: tuple.0, b: tuple.1, c: tuple.2)
+					internal convenience init(tuple: (RawInvoice, [UInt8], InvoiceSignature), instantiationContext: String) {
+						self.init(a: tuple.0, b: tuple.1, c: tuple.2, instantiationContext: instantiationContext)
 					}
 
 					
@@ -59,17 +78,17 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult)
+						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
 					}
 		
 					/// Creates a new C3Tuple_RawInvoice_u832InvoiceSignatureZ from the contained elements.
-					public init(a: RawInvoice, b: [UInt8], c: InvoiceSignature) {
+					public init(a: RawInvoice, b: [UInt8], c: InvoiceSignature, instantiationContext: String) {
 						// native call variable prep
 						
-						let bPrimitiveWrapper = ThirtyTwoBytes(value: b)
+						let bPrimitiveWrapper = ThirtyTwoBytes(value: b, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -83,7 +102,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult)
+						let returnValue = Tuple_RawInvoice_u832InvoiceSignatureZ(cType: nativeCallResult, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -91,7 +110,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 				
 			
 					}
@@ -124,7 +143,7 @@
 					/// The element at position 0
 					public func getA() -> RawInvoice {
 						// return value (do some wrapping)
-						let returnValue = RawInvoice(cType: self.cType!.a, anchor: self).dangle()
+						let returnValue = RawInvoice(cType: self.cType!.a, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -132,7 +151,7 @@
 					/// The element at position 1
 					public func getB() -> [UInt8] {
 						// return value (do some wrapping)
-						let returnValue = ThirtyTwoBytes(cType: self.cType!.b, anchor: self).dangle().getValue()
+						let returnValue = ThirtyTwoBytes(cType: self.cType!.b, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
 
 						return returnValue;
 					}
@@ -140,7 +159,7 @@
 					/// The element at position 2
 					public func getC() -> InvoiceSignature {
 						// return value (do some wrapping)
-						let returnValue = InvoiceSignature(cType: self.cType!.c, anchor: self).dangle()
+						let returnValue = InvoiceSignature(cType: self.cType!.c, instantiationContext: "Tuple_RawInvoice_u832InvoiceSignatureZ.swift::\(#function):\(#line)", anchor: self).dangle()
 
 						return returnValue;
 					}
@@ -159,16 +178,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Tuple_RawInvoice_u832InvoiceSignatureZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

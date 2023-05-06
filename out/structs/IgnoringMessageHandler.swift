@@ -18,26 +18,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKIgnoringMessageHandler?
 
-					internal init(cType: LDKIgnoringMessageHandler) {
+					internal init(cType: LDKIgnoringMessageHandler, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKIgnoringMessageHandler, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKIgnoringMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKIgnoringMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -77,7 +96,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = IgnoringMessageHandler(cType: nativeCallResult)
+						let returnValue = IgnoringMessageHandler(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -85,7 +104,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -108,7 +127,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedMessageSendEventsProvider(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -132,7 +151,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedRoutingMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedRoutingMessageHandler(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -156,7 +175,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageProvider(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -180,7 +199,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedOnionMessageHandler(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -204,7 +223,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomOnionMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedCustomOnionMessageHandler(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -228,7 +247,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageReader(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedCustomMessageReader(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -252,7 +271,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageHandler(cType: nativeCallResult, anchor: self)
+						let returnValue = NativelyImplementedCustomMessageHandler(cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
@@ -288,16 +307,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing IgnoringMessageHandler \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing IgnoringMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing IgnoringMessageHandler \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing IgnoringMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -14,26 +14,45 @@
 				public class NetAddress: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKNetAddress?
 
-					internal init(cType: LDKNetAddress) {
+					internal init(cType: LDKNetAddress, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKNetAddress, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKNetAddress, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKNetAddress, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -124,7 +143,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult)
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -134,7 +153,7 @@
 					public class func initWithIpv4(addr: [UInt8], port: UInt16) -> NetAddress {
 						// native call variable prep
 						
-						let addrPrimitiveWrapper = FourBytes(value: addr)
+						let addrPrimitiveWrapper = FourBytes(value: addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -148,7 +167,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult)
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -158,7 +177,7 @@
 					public class func initWithIpv6(addr: [UInt8], port: UInt16) -> NetAddress {
 						// native call variable prep
 						
-						let addrPrimitiveWrapper = SixteenBytes(value: addr)
+						let addrPrimitiveWrapper = SixteenBytes(value: addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -172,7 +191,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult)
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -182,7 +201,7 @@
 					public class func initWithOnionV2(a: [UInt8]) -> NetAddress {
 						// native call variable prep
 						
-						let aPrimitiveWrapper = TwelveBytes(value: a)
+						let aPrimitiveWrapper = TwelveBytes(value: a, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -196,7 +215,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult)
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -206,7 +225,7 @@
 					public class func initWithOnionV3(ed25519Pubkey: [UInt8], checksum: UInt16, version: UInt8, port: UInt16) -> NetAddress {
 						// native call variable prep
 						
-						let ed25519PubkeyPrimitiveWrapper = ThirtyTwoBytes(value: ed25519Pubkey)
+						let ed25519PubkeyPrimitiveWrapper = ThirtyTwoBytes(value: ed25519Pubkey, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -220,7 +239,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult)
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -239,7 +258,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = NetAddress(cType: nativeCallResult)
+						let returnValue = NetAddress(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -290,7 +309,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -300,7 +319,7 @@
 					public class func read(ser: [UInt8]) -> Result_NetAddressDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -314,7 +333,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NetAddressDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NetAddressDecodeErrorZ(cType: nativeCallResult, instantiationContext: "NetAddress.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -327,7 +346,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKIPv4_Body(cType: self.cType!.i_pv4, anchor: self)
+						return NetAddress_LDKIPv4_Body(cType: self.cType!.i_pv4, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsIPv6() -> IPv6? {
@@ -335,7 +354,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKIPv6_Body(cType: self.cType!.i_pv6, anchor: self)
+						return NetAddress_LDKIPv6_Body(cType: self.cType!.i_pv6, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsOnionV2() -> [UInt8]? {
@@ -343,7 +362,7 @@
 							return nil
 						}
 
-						return TwelveBytes(cType: self.cType!.onion_v2, anchor: self).getValue()
+						return TwelveBytes(cType: self.cType!.onion_v2, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 					}
 			
 					public func getValueAsOnionV3() -> OnionV3? {
@@ -351,7 +370,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKOnionV3_Body(cType: self.cType!.onion_v3, anchor: self)
+						return NetAddress_LDKOnionV3_Body(cType: self.cType!.onion_v3, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 					public func getValueAsHostname() -> Hostname? {
@@ -359,7 +378,7 @@
 							return nil
 						}
 
-						return NetAddress_LDKHostname_Body(cType: self.cType!.hostname, anchor: self)
+						return NetAddress_LDKHostname_Body(cType: self.cType!.hostname, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 					}
 			
 
@@ -376,16 +395,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing NetAddress \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing NetAddress \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing NetAddress \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing NetAddress \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			
@@ -402,26 +423,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKNetAddress_LDKIPv4_Body?
 
-						internal init(cType: LDKNetAddress_LDKIPv4_Body) {
+						internal init(cType: LDKNetAddress_LDKIPv4_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKNetAddress_LDKIPv4_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKNetAddress_LDKIPv4_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKNetAddress_LDKIPv4_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -432,7 +472,7 @@
 						/// The 4-byte IPv4 address
 						public func getAddr() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = FourBytes(cType: self.cType!.addr, anchor: self).getValue()
+							let returnValue = FourBytes(cType: self.cType!.addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -468,26 +508,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKNetAddress_LDKIPv6_Body?
 
-						internal init(cType: LDKNetAddress_LDKIPv6_Body) {
+						internal init(cType: LDKNetAddress_LDKIPv6_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKNetAddress_LDKIPv6_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKNetAddress_LDKIPv6_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKNetAddress_LDKIPv6_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -498,7 +557,7 @@
 						/// The 16-byte IPv6 address
 						public func getAddr() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = SixteenBytes(cType: self.cType!.addr, anchor: self).getValue()
+							let returnValue = SixteenBytes(cType: self.cType!.addr, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -534,26 +593,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKNetAddress_LDKOnionV3_Body?
 
-						internal init(cType: LDKNetAddress_LDKOnionV3_Body) {
+						internal init(cType: LDKNetAddress_LDKOnionV3_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKNetAddress_LDKOnionV3_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKNetAddress_LDKOnionV3_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKNetAddress_LDKOnionV3_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -564,7 +642,7 @@
 						/// The ed25519 long-term public key of the peer
 						public func getEd25519Pubkey() -> [UInt8] {
 							// return value (do some wrapping)
-							let returnValue = ThirtyTwoBytes(cType: self.cType!.ed25519_pubkey, anchor: self).getValue()
+							let returnValue = ThirtyTwoBytes(cType: self.cType!.ed25519_pubkey, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}
@@ -616,26 +694,45 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
+						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
+						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
 						internal var cType: LDKNetAddress_LDKHostname_Body?
 
-						internal init(cType: LDKNetAddress_LDKHostname_Body) {
+						internal init(cType: LDKNetAddress_LDKHostname_Body, instantiationContext: String) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						}
 
-						internal init(cType: LDKNetAddress_LDKHostname_Body, anchor: NativeTypeWrapper) {
+						internal init(cType: LDKNetAddress_LDKHostname_Body, instantiationContext: String, anchor: NativeTypeWrapper) {
 							Self.instanceCounter += 1
 							self.instanceNumber = Self.instanceCounter
 							self.cType = cType
 							
-							super.init(conflictAvoidingVariableName: 0)
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKNetAddress_LDKHostname_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -646,7 +743,7 @@
 						/// The hostname on which the node is listening.
 						public func getHostname() -> Bindings.Hostname {
 							// return value (do some wrapping)
-							let returnValue = Bindings.Hostname(cType: self.cType!.hostname, anchor: self)
+							let returnValue = Bindings.Hostname(cType: self.cType!.hostname, instantiationContext: "NetAddress.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

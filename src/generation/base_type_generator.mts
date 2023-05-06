@@ -43,7 +43,9 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 	 * @param type
 	 */
 	generate(type: Type) {
-		const fileContents = this.generateFileContents(type);
+		const fileName = this.swiftTypeName(type) + '.swift';
+		const fileContents = this.generateFileContents(type)
+			.replaceAll('#{swift_class_name}', fileName);
 		this.persist(type, fileContents);
 	}
 
@@ -199,6 +201,12 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			}
 		}
 
+		let instantiationContext = '"#{swift_class_name}::\\(#function):\\(#line)"';
+		if (semantics.isConstructor && containerType && this.isElidedType(containerType)) {
+			swiftMethodArguments.push('instantiationContext: String');
+			instantiationContext = 'instantiationContext';
+		}
+
 		let cloneabilityDeprecationWarning = '';
 		if (nonCloneableArguments.length > 0) {
 			// not true yet
@@ -244,7 +252,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: ${instantiationContext})
 				${anchoringCommand}
 			`;
 
@@ -651,6 +659,8 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			requiresAnchoring: false
 		};
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)"';
+
 		// this argument is the content of an elided container, like the iteratee of a Vec
 		let isElidedContainerContent = false;
 		if (containerType && this.isElidedType(containerType)) {
@@ -739,19 +749,19 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				preparedArgument.name += 'Option';
 				// TODO: figure out when label should be `some: `
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(some: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(some: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				preparedArgument.accessor = preparedArgument.name + '.cType!';
 			} else if (argument.type instanceof RustTuple) {
 				preparedArgument.name += 'Tuple';
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(tuple: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(tuple: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				preparedArgument.accessor = preparedArgument.name + '.cType!';
 			} else if (argument.type instanceof RustPrimitiveWrapper) {
 				preparedArgument.name += 'PrimitiveWrapper';
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(value: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(value: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				if (argument.type.ownershipField) {
 					/* preparedArgument.conversion += `
@@ -766,7 +776,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			} else if (argument.type instanceof RustVector) {
 				preparedArgument.name += 'Vector';
 				preparedArgument.conversion += `
-						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(array: ${publicName})${memoryManagementInfix}
+						let ${preparedArgument.name} = ${this.swiftTypeName(argument.type)}(array: ${publicName}${instantiationContextInfixTemplate})${memoryManagementInfix}
 				`;
 				// figure out when it needs to be dangled
 				preparedArgument.accessor = preparedArgument.name + '.cType!';
@@ -875,6 +885,8 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		 */
 		const hasRecursiveOwnershipFlags = this.isRecursivelyPerpetuallySafelyFreeable(returnType.type);
 
+		const instantiationContextInfixTemplate = ', instantiationContext: "#{swift_class_name}::\\(#function):\\(#line)"';
+
 		/**
 		 * The returned object cannot live on its own. It needs the container to stick around.
 		 * Should not be used for elided types, however, because that will make even the Swift
@@ -971,8 +983,10 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				 * In this peculiar condition where an instance pointer needs to be passed, we
 				 * actually can still free the returned object – we simply need to make sure that
 				 * the returned object doesn't outlive its creating object.
+				 *
+				 * The same exception also applies if the return type is a vector.
 				 */
-				if (hasRecursiveOwnershipFlags) {
+				if (hasRecursiveOwnershipFlags || returnType.type instanceof RustVector || returnType.type instanceof RustResult) {
 					dangleSuffix = '.dangle(false)';
 				}
 
@@ -1010,14 +1024,14 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 					dangleSuffix = '.dangle()';
 				}
 			}
-			preparedReturnValue.wrapperSuffix += `${anchorInfix})${dangleSuffix}`;
+			preparedReturnValue.wrapperSuffix += `${instantiationContextInfixTemplate}${anchorInfix})${dangleSuffix}`;
 			if (returnType.type !== containerType) {
 				// it's an elided type, so we pass it through
 				preparedReturnValue.wrapperSuffix += '.getValue()';
 			}
 		} else if (returnType.type instanceof RustTrait) {
 			preparedReturnValue.wrapperPrefix += `NativelyImplemented${this.swiftTypeName(returnType.type)}(cType: `;
-			preparedReturnValue.wrapperSuffix += `${anchorInfix})${dangleSuffix}`;
+			preparedReturnValue.wrapperSuffix += `${instantiationContextInfixTemplate}${anchorInfix})${dangleSuffix}`;
 		} else if (returnType.type instanceof RustStruct || returnType.type instanceof RustResult || returnType.type instanceof RustTaggedValueEnum) {
 			// basically all the non-elided types
 			if (!this.isElidedType(returnType.type) && returnType.type instanceof RustStruct && containerType instanceof RustStruct && containerType.parentType instanceof RustTaggedValueEnum) {
@@ -1025,7 +1039,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				preparedReturnValue.wrapperPrefix += 'Bindings.';
 			}
 			preparedReturnValue.wrapperPrefix += `${this.swiftTypeName(returnType.type)}(cType: `;
-			preparedReturnValue.wrapperSuffix += `${anchorInfix})${dangleSuffix}`;
+			preparedReturnValue.wrapperSuffix += `${instantiationContextInfixTemplate}${anchorInfix})${dangleSuffix}`;
 		} else if (returnType.type instanceof RustPrimitive) {
 			// nothing to do here
 			return preparedReturnValue;
@@ -1060,26 +1074,45 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		}
 
 		return `
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to \`.Debug\`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: ${typeName}?
 
-					internal init(cType: ${typeName}) {
+					internal init(cType: ${typeName}, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						${initialCFreeabilityInfix}
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: ${typeName}, anchor: NativeTypeWrapper) {
+					internal init(cType: ${typeName}, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						${initialCFreeabilityInfix}
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: ${typeName}, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						${initialCFreeabilityInfix}
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		`;
@@ -1144,16 +1177,18 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 		if (this.hasFreeMethod(type)) {
 			freeCode = `
 				deinit {
-					if Bindings.suspendFreedom {
+					if Bindings.suspendFreedom || Self.suspendFreedom {
 						return
 					}
 
 					if !self.dangling {
-						Bindings.print("Freeing ${swiftTypeName} \\(self.instanceNumber).")
+						if Self.enableDeinitLogging {
+							Bindings.print("Freeing ${swiftTypeName} \\(self.instanceNumber). (Origin: \\(self.instantiationContext))")
+						}
 						${freeabilityOverrideInfix}
 						self.free()
-					} else {
-						Bindings.print("Not freeing ${swiftTypeName} \\(self.instanceNumber) due to dangle.")
+					} else if Self.enableDeinitLogging {
+						Bindings.print("Not freeing ${swiftTypeName} \\(self.instanceNumber) due to dangle. (Origin: \\(self.instantiationContext))")
 					}
 				}
 			`;

@@ -375,7 +375,7 @@ public class HumanObjectPeerTestInstance {
                 let port = UInt16(i)
                 let bound = self.tcpSocketHandler!.bind(address: "127.0.0.1", port: port)
                 if bound {
-                    print("Bound socket to port \(port) on attempt \(i)")
+                    print("Bound socket to port \(port) on attempt \(i-9999)")
                     self.tcpPort = port
                     return
                 }

@@ -15,26 +15,45 @@
 				open class Persister: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKPersister?
 
-					internal init(cType: LDKPersister) {
+					internal init(cType: LDKPersister, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKPersister, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKPersister, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKPersister, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -42,7 +61,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,7 +75,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistManager(channelManager: ChannelManager(cType: channel_manager.pointee).dangle())
+							let swiftCallbackResult = instance.persistManager(channelManager: ChannelManager(cType: channel_manager.pointee, instantiationContext: "Persister.swift::init()::\(#function):\(#line)").dangle())
 
 							// cleanup
 							
@@ -74,7 +93,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistGraph(networkGraph: NetworkGraph(cType: network_graph.pointee).dangle())
+							let swiftCallbackResult = instance.persistGraph(networkGraph: NetworkGraph(cType: network_graph.pointee, instantiationContext: "Persister.swift::init()::\(#function):\(#line)").dangle())
 
 							// cleanup
 							
@@ -92,7 +111,7 @@
 											
 
 							// Swift callback call
-							let swiftCallbackResult = instance.persistScorer(scorer: NativelyImplementedWriteableScore(cType: scorer.pointee))
+							let swiftCallbackResult = instance.persistScorer(scorer: NativelyImplementedWriteableScore(cType: scorer.pointee, instantiationContext: "Persister.swift::init()::\(#function):\(#line)"))
 
 							// cleanup
 							
@@ -175,15 +194,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Persister \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Persister \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing Persister \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Persister \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -208,7 +229,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -231,7 +252,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -254,7 +275,7 @@
 						
 
 						// return value (do some wrapping)
-						let returnValue = Result_NoneErrorZ(cType: nativeCallResult)
+						let returnValue = Result_NoneErrorZ(cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

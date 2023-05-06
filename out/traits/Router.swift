@@ -15,26 +15,45 @@
 				open class Router: NativeTraitWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKRouter?
 
-					internal init(cType: LDKRouter) {
+					internal init(cType: LDKRouter, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKRouter, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKRouter, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKRouter, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -42,7 +61,7 @@
 					public init() {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "Router.swift::\(#function):\(#line)")
 
 						let thisArg = Bindings.instanceToPointer(instance: self)
 
@@ -56,12 +75,12 @@
 							
 							var first_hopsPointee: [ChannelDetails]? = nil
 							if let first_hopsUnwrapped = first_hops {
-								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee).dangle().getValue()
+								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().getValue()
 							}
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.findRoute(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee).dangle().clone())
+							let swiftCallbackResult = instance.findRoute(payer: PublicKey(cType: payer, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue(), routeParams: RouteParameters(cType: route_params.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone())
 
 							// cleanup
 							
@@ -79,12 +98,12 @@
 							
 							var first_hopsPointee: [ChannelDetails]? = nil
 							if let first_hopsUnwrapped = first_hops {
-								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee).dangle().getValue()
+								first_hopsPointee = Vec_ChannelDetailsZ(cType: first_hopsUnwrapped.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().getValue()
 							}
 						
 
 							// Swift callback call
-							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer).getValue(), routeParams: RouteParameters(cType: route_params.pointee).dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee).dangle().clone(), paymentHash: ThirtyTwoBytes(cType: _payment_hash).getValue(), paymentId: ThirtyTwoBytes(cType: _payment_id).getValue())
+							let swiftCallbackResult = instance.findRouteWithId(payer: PublicKey(cType: payer, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue(), routeParams: RouteParameters(cType: route_params.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone(), firstHops: first_hopsPointee, inflightHtlcs: InFlightHtlcs(cType: inflight_htlcs.pointee, instantiationContext: "Router.swift::init()::\(#function):\(#line)").dangle().clone(), paymentHash: ThirtyTwoBytes(cType: _payment_hash, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue(), paymentId: ThirtyTwoBytes(cType: _payment_id, instantiationContext: "Router.swift::init()::\(#function):\(#line)").getValue())
 
 							// cleanup
 							
@@ -164,15 +183,17 @@
 					}
 
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing Router \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing Router \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							self.free()
-						} else {
-							Bindings.print("Not freeing Router \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing Router \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 				}
@@ -185,12 +206,12 @@
 					public override func findRoute(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs) -> Result_RouteLightningErrorZ {
 						// native call variable prep
 						
-						let payerPrimitiveWrapper = PublicKey(value: payer)
+						let payerPrimitiveWrapper = PublicKey(value: payer, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 					var firstHopsVectorPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
 					if let firstHops = firstHops {
 						
-						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops)
+						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 						firstHopsVectorPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
 						firstHopsVectorPointer!.initialize(to: firstHopsVector.cType!)
@@ -219,7 +240,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "Router.swift::\(#function):\(#line)")
 
 						return returnValue
 					}
@@ -231,20 +252,20 @@
 					public override func findRouteWithId(payer: [UInt8], routeParams: RouteParameters, firstHops: [ChannelDetails]?, inflightHtlcs: InFlightHtlcs, paymentHash: [UInt8], paymentId: [UInt8]) -> Result_RouteLightningErrorZ {
 						// native call variable prep
 						
-						let payerPrimitiveWrapper = PublicKey(value: payer)
+						let payerPrimitiveWrapper = PublicKey(value: payer, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 					var firstHopsVectorPointer: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>? = nil
 					if let firstHops = firstHops {
 						
-						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops)
+						let firstHopsVector = Vec_ChannelDetailsZ(array: firstHops, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 						firstHopsVectorPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
 						firstHopsVectorPointer!.initialize(to: firstHopsVector.cType!)
 					}
 				
-						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash)
+						let paymentHashPrimitiveWrapper = ThirtyTwoBytes(value: paymentHash, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
-						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId)
+						let paymentIdPrimitiveWrapper = ThirtyTwoBytes(value: paymentId, instantiationContext: "Router.swift::\(#function):\(#line)")
 				
 
 						
@@ -275,7 +296,7 @@
 				
 
 						// return value (do some wrapping)
-						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult)
+						let returnValue = Result_RouteLightningErrorZ(cType: nativeCallResult, instantiationContext: "Router.swift::\(#function):\(#line)")
 
 						return returnValue
 					}

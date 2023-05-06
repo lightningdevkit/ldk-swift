@@ -23,20 +23,21 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 			// this call is the sole reason we need this inheritance
 			const swiftMethodName = this.swiftMethodName(currentMethod.method);
 			const methodCode = this.generateMethod(currentMethod.method);
-			const renamedMethodCode = methodCode.replace(swiftMethodName, currentMethod.swiftName);
+			const renamedMethodCode = methodCode
+				.replace(swiftMethodName, currentMethod.swiftName);
 			generatedMethods += Generator.reindentCode(renamedMethodCode, 4);
 		}
 
 		let generatedTupleTypeAliases = '';
 		let generatedTupleConverters = '';
-		let generatedTupleComparators = ''
+		let generatedTupleComparators = '';
 
 		for (const [rawSwiftTypeSignature, tupleSizes] of Object.entries(this.auxiliaryArtifacts.tuples)) {
 			for (const currentTupleSize of tupleSizes) {
 				const tupleTypeName = `${rawSwiftTypeSignature}Tuple${currentTupleSize}`;
 				generatedTupleTypeAliases += `
 					internal typealias ${tupleTypeName} = (${Array(currentTupleSize).fill(rawSwiftTypeSignature)
-				.join(', ')})
+					.join(', ')})
 				`;
 
 				let tupleResultComponents = [];
@@ -45,7 +46,7 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 				for (let i = 0; i < currentTupleSize; i++) {
 					tupleResultComponents.push(`array[${i}]`);
 					arrayResultComponents.push(`tuple.${i}`);
-					comparator.push(`tupleA.${i} == tupleB.${i}`)
+					comparator.push(`tupleA.${i} == tupleB.${i}`);
 				}
 
 				generatedTupleConverters += `
@@ -92,13 +93,15 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 
 				private static var globalInstanceCounter: UInt = 0
 				internal let globalInstanceNumber: UInt
+				internal let instantiationContext: String
 				internal var dangling = false
 				internal private(set) var anchors: Set<NativeTypeWrapper> = []
 				internal var pointerDebugDescription: String? = nil
 
-				init(conflictAvoidingVariableName: UInt) {
+				init(conflictAvoidingVariableName: UInt, instantiationContext: String) {
 					Self.globalInstanceCounter += 1
 					self.globalInstanceNumber = Self.globalInstanceCounter
+					self.instantiationContext = instantiationContext
 				}
 
 				internal func addAnchor(anchor: NativeTypeWrapper) throws {
@@ -289,7 +292,7 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 			public class InstanceCrashSimulator: NativeTraitWrapper {
 
 				public init() {
-					super.init(conflictAvoidingVariableName: 0)
+					super.init(conflictAvoidingVariableName: 0, instantiationContext: "Bindings.swift::\\(#function):\\(#line)")
 				}
 
 				public func getPointer() -> UnsafeMutableRawPointer {

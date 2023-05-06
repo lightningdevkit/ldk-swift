@@ -20,26 +20,45 @@
 					let initialCFreeability: Bool
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
 					internal var cType: LDKErrorMessage?
 
-					internal init(cType: LDKErrorMessage) {
+					internal init(cType: LDKErrorMessage, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKErrorMessage, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKErrorMessage, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
 						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0)
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKErrorMessage, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -101,7 +120,7 @@
 					public func setChannelId(val: [UInt8]) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = ThirtyTwoBytes(value: val)
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -146,7 +165,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Str(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -160,7 +179,7 @@
 					public func setData(val: String) {
 						// native call variable prep
 						
-						let valPrimitiveWrapper = Str(value: val).dangle()
+						let valPrimitiveWrapper = Str(value: val, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -188,9 +207,9 @@
 					public init(channelIdArg: [UInt8], dataArg: String) {
 						// native call variable prep
 						
-						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg)
+						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)")
 				
-						let dataArgPrimitiveWrapper = Str(value: dataArg).dangle()
+						let dataArgPrimitiveWrapper = Str(value: dataArg, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)").dangle()
 				
 
 						// native method call
@@ -209,7 +228,7 @@
 
 						/*
 						// return value (do some wrapping)
-						let returnValue = ErrorMessage(cType: nativeCallResult)
+						let returnValue = ErrorMessage(cType: nativeCallResult, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)")
 						*/
 
 						
@@ -217,7 +236,7 @@
 
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0)
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)")
 				
 			
 					}
@@ -239,7 +258,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = ErrorMessage(cType: nativeCallResult)
+						let returnValue = ErrorMessage(cType: nativeCallResult, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -291,7 +310,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, anchor: self).dangle(false).getValue()
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -301,7 +320,7 @@
 					public class func read(ser: [UInt8]) -> Result_ErrorMessageDecodeErrorZ {
 						// native call variable prep
 						
-						let serPrimitiveWrapper = u8slice(value: ser)
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)")
 				
 
 						// native method call
@@ -315,7 +334,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_ErrorMessageDecodeErrorZ(cType: nativeCallResult)
+						let returnValue = Result_ErrorMessageDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ErrorMessage.swift::\(#function):\(#line)")
 						
 
 						return returnValue
@@ -364,16 +383,18 @@
 					}
 			
 					deinit {
-						if Bindings.suspendFreedom {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
 						}
 
 						if !self.dangling {
-							Bindings.print("Freeing ErrorMessage \(self.instanceNumber).")
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing ErrorMessage \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
 							
 							self.free()
-						} else {
-							Bindings.print("Not freeing ErrorMessage \(self.instanceNumber) due to dangle.")
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing ErrorMessage \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -278,58 +278,6 @@
 						return returnValue
 					}
 		
-					/// Internet-level addresses via which one can connect to the node
-					/// 
-					/// Returns a copy of the field.
-					public func getAddresses() -> [NetAddress] {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_get_addresses(thisPtrPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
-
-						return returnValue
-					}
-		
-					/// Internet-level addresses via which one can connect to the node
-					public func setAddresses(val: [NetAddress]) {
-						// native call variable prep
-						
-						let valVector = Vec_NetAddressZ(array: val, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)").dangle()
-				
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_set_addresses(thisPtrPointer, valVector.cType!)
-						}
-				
-
-						// cleanup
-						
-						// valVector.noOpRetain()
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
 					/// An initial announcement of the node
 					/// Mostly redundant with the data we store in fields explicitly.
 					/// Everything else is useful only for sending out for initial routing sync.
@@ -400,23 +348,19 @@
 					}
 		
 					/// Constructs a new NodeAnnouncementInfo given each field
-					public init(featuresArg: NodeFeatures, lastUpdateArg: UInt32, rgbArg: [UInt8], aliasArg: NodeAlias, addressesArg: [NetAddress], announcementMessageArg: NodeAnnouncement) {
+					public init(featuresArg: NodeFeatures, lastUpdateArg: UInt32, rgbArg: [UInt8], aliasArg: NodeAlias, announcementMessageArg: NodeAnnouncement) {
 						// native call variable prep
 						
 						let rgbArgPrimitiveWrapper = ThreeBytes(value: rgbArg, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
 				
-						let addressesArgVector = Vec_NetAddressZ(array: addressesArg, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)").dangle()
-				
 
 						// native method call
-						let nativeCallResult = NodeAnnouncementInfo_new(featuresArg.dynamicallyDangledClone().cType!, lastUpdateArg, rgbArgPrimitiveWrapper.cType!, aliasArg.dynamicallyDangledClone().cType!, addressesArgVector.cType!, announcementMessageArg.dynamicallyDangledClone().cType!)
+						let nativeCallResult = NodeAnnouncementInfo_new(featuresArg.dynamicallyDangledClone().cType!, lastUpdateArg, rgbArgPrimitiveWrapper.cType!, aliasArg.dynamicallyDangledClone().cType!, announcementMessageArg.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						
 						// for elided types, we need this
 						rgbArgPrimitiveWrapper.noOpRetain()
-				
-						// addressesArgVector.noOpRetain()
 				
 				self.initialCFreeability = nativeCallResult.is_owned
 			
@@ -483,6 +427,29 @@
 						
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Internet-level addresses via which one can connect to the node
+					public func addresses() -> [NetAddress] {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+				NodeAnnouncementInfo_addresses(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

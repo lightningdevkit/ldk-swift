@@ -149,7 +149,30 @@
 						return returnValue
 					}
 		
-					/// Checks if two NodeIds contain equal inner contents.
+					/// Get the public key from this NodeId
+					public func asPubkey() -> Result_PublicKeyErrorZ {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNodeId>) in
+				NodeId_as_pubkey(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Result_PublicKeyErrorZ(cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)", anchor: self).dangle(false)
+						
+
+						return returnValue
+					}
+		
+					/// Generates a non-cryptographic 64-bit hash of the NodeId.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

@@ -4,14 +4,14 @@
 			#endif
 
 			/// A CResult_PaymentPurposeDecodeErrorZ represents the result of a fallible operation,
-			/// containing a crate::lightning::util::events::PaymentPurpose on success and a crate::lightning::ln::msgs::DecodeError on failure.
+			/// containing a crate::lightning::events::PaymentPurpose on success and a crate::lightning::ln::msgs::DecodeError on failure.
 			/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 			public typealias Result_PaymentPurposeDecodeErrorZ = Bindings.Result_PaymentPurposeDecodeErrorZ
 
 			extension Bindings {
 
 				/// A CResult_PaymentPurposeDecodeErrorZ represents the result of a fallible operation,
-				/// containing a crate::lightning::util::events::PaymentPurpose on success and a crate::lightning::ln::msgs::DecodeError on failure.
+				/// containing a crate::lightning::events::PaymentPurpose on success and a crate::lightning::ln::msgs::DecodeError on failure.
 				/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 				public class Result_PaymentPurposeDecodeErrorZ: NativeTypeWrapper {
 

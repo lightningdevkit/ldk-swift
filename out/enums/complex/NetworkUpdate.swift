@@ -67,7 +67,7 @@
 						case ChannelUpdateMessage
 			
 						/// An error indicating that a channel failed to route a payment, which should be applied via
-						/// [`NetworkGraph::channel_failed`].
+						/// [`NetworkGraph::channel_failed_permanent`] if permanent.
 						case ChannelFailure
 			
 						/// An error indicating that a node failed to route a payment, which should be applied via

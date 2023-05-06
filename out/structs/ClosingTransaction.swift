@@ -110,7 +110,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two ClosingTransactions contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the ClosingTransaction.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

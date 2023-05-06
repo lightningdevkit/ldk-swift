@@ -9,7 +9,7 @@
 			/// Passed to [`find_route`] and [`build_route_from_hops`], but also provided in
 			/// [`Event::PaymentPathFailed`].
 			/// 
-			/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
+			/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
 			public typealias RouteParameters = Bindings.RouteParameters
 
 			extension Bindings {
@@ -20,7 +20,7 @@
 				/// Passed to [`find_route`] and [`build_route_from_hops`], but also provided in
 				/// [`Event::PaymentPathFailed`].
 				/// 
-				/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
+				/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
 				public class RouteParameters: NativeTypeWrapper {
 
 					let initialCFreeability: Bool

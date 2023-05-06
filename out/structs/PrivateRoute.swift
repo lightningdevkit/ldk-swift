@@ -108,7 +108,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two PrivateRoutes contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the PrivateRoute.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

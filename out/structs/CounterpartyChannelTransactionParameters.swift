@@ -222,6 +222,35 @@
 						return returnValue
 					}
 		
+					/// Checks if two CounterpartyChannelTransactionParameterss contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					/// Two objects with NULL inner values will be considered "equal" here.
+					public class func eq(a: CounterpartyChannelTransactionParameters, b: CounterpartyChannelTransactionParameters) -> Bool {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKCounterpartyChannelTransactionParameters>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKCounterpartyChannelTransactionParameters>) in
+				CounterpartyChannelTransactionParameters_eq(aPointer, bPointer)
+						}
+				
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
 					/// Serialize the CounterpartyChannelTransactionParameters object into a byte array which can be read by CounterpartyChannelTransactionParameters_read
 					public func write() -> [UInt8] {
 						// native call variable prep

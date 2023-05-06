@@ -8,7 +8,7 @@
 
 			extension Bindings {
 
-				/// An enum which can either contain a crate::lightning::util::events::ClosureReason or not
+				/// An enum which can either contain a crate::lightning::events::ClosureReason or not
 				internal class Option_ClosureReasonZ: NativeTypeWrapper {
 
 					
@@ -70,7 +70,7 @@
 					}
 
 					
-					/// Frees any resources associated with the crate::lightning::util::events::ClosureReason, if we are in the Some state
+					/// Frees any resources associated with the crate::lightning::events::ClosureReason, if we are in the Some state
 					internal func free() {
 						// native call variable prep
 						

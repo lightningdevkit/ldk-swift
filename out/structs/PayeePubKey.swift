@@ -186,7 +186,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two PayeePubKeys contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the PayeePubKey.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

@@ -681,13 +681,79 @@
 						return returnValue
 					}
 		
-					/// Constructs a new ChannelHandshakeConfig given each field
-					public init(minimumDepthArg: UInt32, ourToSelfDelayArg: UInt16, ourHtlcMinimumMsatArg: UInt64, maxInboundHtlcValueInFlightPercentOfChannelArg: UInt8, negotiateScidPrivacyArg: Bool, announcedChannelArg: Bool, commitUpfrontShutdownPubkeyArg: Bool, theirChannelReserveProportionalMillionthsArg: UInt32) {
+					/// The maximum number of HTLCs in-flight from our counterparty towards us at the same time.
+					/// 
+					/// Increasing the value can help improve liquidity and stability in
+					/// routing at the cost of higher long term disk / DB usage.
+					/// 
+					/// Note: Versions of LDK earlier than v0.0.115 will fail to read channels with a configuration
+					/// other than the default value.
+					/// 
+					/// Default value: 50
+					/// Maximum value: 483, any values larger will be treated as 483.
+					/// This is the BOLT #2 spec limit on `max_accepted_htlcs`.
+					public func getOurMaxAcceptedHtlcs() -> UInt16 {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = ChannelHandshakeConfig_new(minimumDepthArg, ourToSelfDelayArg, ourHtlcMinimumMsatArg, maxInboundHtlcValueInFlightPercentOfChannelArg, negotiateScidPrivacyArg, announcedChannelArg, commitUpfrontShutdownPubkeyArg, theirChannelReserveProportionalMillionthsArg)
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+				ChannelHandshakeConfig_get_our_max_accepted_htlcs(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The maximum number of HTLCs in-flight from our counterparty towards us at the same time.
+					/// 
+					/// Increasing the value can help improve liquidity and stability in
+					/// routing at the cost of higher long term disk / DB usage.
+					/// 
+					/// Note: Versions of LDK earlier than v0.0.115 will fail to read channels with a configuration
+					/// other than the default value.
+					/// 
+					/// Default value: 50
+					/// Maximum value: 483, any values larger will be treated as 483.
+					/// This is the BOLT #2 spec limit on `max_accepted_htlcs`.
+					public func setOurMaxAcceptedHtlcs(val: UInt16) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
+				ChannelHandshakeConfig_set_our_max_accepted_htlcs(thisPtrPointer, val)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Constructs a new ChannelHandshakeConfig given each field
+					public init(minimumDepthArg: UInt32, ourToSelfDelayArg: UInt16, ourHtlcMinimumMsatArg: UInt64, maxInboundHtlcValueInFlightPercentOfChannelArg: UInt8, negotiateScidPrivacyArg: Bool, announcedChannelArg: Bool, commitUpfrontShutdownPubkeyArg: Bool, theirChannelReserveProportionalMillionthsArg: UInt32, ourMaxAcceptedHtlcsArg: UInt16) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = ChannelHandshakeConfig_new(minimumDepthArg, ourToSelfDelayArg, ourHtlcMinimumMsatArg, maxInboundHtlcValueInFlightPercentOfChannelArg, negotiateScidPrivacyArg, announcedChannelArg, commitUpfrontShutdownPubkeyArg, theirChannelReserveProportionalMillionthsArg, ourMaxAcceptedHtlcsArg)
 
 						// cleanup
 						

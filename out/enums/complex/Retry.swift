@@ -198,7 +198,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two Retrys contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the Retry.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

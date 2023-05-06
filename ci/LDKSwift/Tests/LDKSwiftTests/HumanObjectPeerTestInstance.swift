@@ -627,12 +627,12 @@ public class HumanObjectPeerTestInstance {
         XCTAssertEqual(usableChannelsA.count, 1)
         XCTAssertEqual(usableChannelsB.count, 1)
 
-		let peer1Event = try! await peer1.getManagerEvents(expectedCount: 1)[0]
+		let peer1Event = try! await peer1.getManagerEvents(expectedCount: 2)[1]
 		guard case .ChannelReady = peer1Event.getValueType() else {
 			return XCTAssert(false, "Expected .ChannelReady, got \(peer1Event.getValueType())")
 		}
 
-		let peer2Event = try! await peer2.getManagerEvents(expectedCount: 1)[0]
+		let peer2Event = try! await peer2.getManagerEvents(expectedCount: 2)[1]
 		guard case .ChannelReady = peer2Event.getValueType() else {
 			return XCTAssert(false, "Expected .ChannelReady, got \(peer2Event.getValueType())")
 		}

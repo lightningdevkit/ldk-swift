@@ -150,6 +150,7 @@
 				public class func instanceToPointer(instance: NativeTraitWrapper) -> UnsafeMutableRawPointer {
 					let key = instance.globalInstanceNumber
 					let pointer = UnsafeMutableRawPointer(bitPattern: key)!
+					print("Caching instance \(key) -> \(pointer)", severity: .DEBUG)
 					// don't automatically cache the trait instance
 					Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
 					return pointer
@@ -157,6 +158,7 @@
 
 				public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
 					let key = UInt(bitPattern: pointer)
+					print("Looking up instance \(pointer) -> \(key)", severity: .DEBUG)
 					let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
 					if referenceCount < 1 {
 						print("Bad lookup: non-positive reference count for instance \(key): \(referenceCount)!", severity: .ERROR)

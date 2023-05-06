@@ -362,7 +362,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_RecentPaymentDetailsZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_RecentPaymentDetailsZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

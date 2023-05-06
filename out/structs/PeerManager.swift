@@ -183,7 +183,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

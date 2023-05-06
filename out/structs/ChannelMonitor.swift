@@ -311,7 +311,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_MonitorEventZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_MonitorEventZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -341,7 +341,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_EventZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_EventZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -461,7 +461,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -530,7 +530,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -599,7 +599,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_TransactionOutputsZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -683,7 +683,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_BalanceZ(cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

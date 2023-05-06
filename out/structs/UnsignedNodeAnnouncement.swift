@@ -356,7 +356,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)", anchor: self).getValue()
+						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

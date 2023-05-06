@@ -983,8 +983,10 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				 * In this peculiar condition where an instance pointer needs to be passed, we
 				 * actually can still free the returned object – we simply need to make sure that
 				 * the returned object doesn't outlive its creating object.
+				 *
+				 * The same exception also applies if the return type is a vector.
 				 */
-				if (hasRecursiveOwnershipFlags) {
+				if (hasRecursiveOwnershipFlags || returnType.type instanceof RustVector) {
 					dangleSuffix = '.dangle(false)';
 				}
 

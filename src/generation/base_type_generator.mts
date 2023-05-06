@@ -1103,6 +1103,16 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 						self.dangling = true
 						try! self.addAnchor(anchor: anchor)
 					}
+
+					internal init(cType: ${typeName}, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						${initialCFreeabilityInfix}
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
+						try! self.addAnchor(anchor: anchor)
+					}
 		`;
 	}
 

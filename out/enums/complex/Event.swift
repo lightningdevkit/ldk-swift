@@ -18,8 +18,15 @@
 				public class Event: NativeTypeWrapper {
 
 					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
 					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
 					public static var suspendFreedom = false
+
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
@@ -40,6 +47,16 @@
 						
 						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKEvent, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
 						try! self.addAnchor(anchor: anchor)
 					}
 		
@@ -1130,8 +1147,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1152,6 +1176,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKFundingGenerationReady_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1232,8 +1266,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1254,6 +1295,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentClaimable_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1343,8 +1394,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1365,6 +1423,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentClaimed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1436,8 +1504,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1458,6 +1533,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentSent_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1536,8 +1621,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1558,6 +1650,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1610,8 +1712,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1632,6 +1741,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentPathSuccessful_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1694,8 +1813,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1716,6 +1842,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentPathFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1826,8 +1962,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1848,6 +1991,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKProbeSuccessful_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1906,8 +2059,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -1928,6 +2088,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKProbeFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -1998,8 +2168,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2020,6 +2197,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPendingHTLCsForwardable_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2061,8 +2248,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2083,6 +2277,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKHTLCIntercepted_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2161,8 +2365,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2183,6 +2394,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKSpendableOutputs_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2221,8 +2442,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2243,6 +2471,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKPaymentForwarded_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2324,8 +2562,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2346,6 +2591,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKChannelReady_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2415,8 +2670,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2437,6 +2699,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKChannelClosed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2501,8 +2773,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2523,6 +2802,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKDiscardFunding_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2569,8 +2858,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2591,6 +2887,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKOpenChannelRequest_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		
@@ -2690,8 +2996,15 @@
 						
 
 						
+						/// Set to false to suppress an individual type's deinit log statements.
+						/// Only applicable when log threshold is set to `.Debug`.
 						public static var enableDeinitLogging = true
+
+						/// Set to true to suspend the freeing of this type's associated Rust memory.
+						/// Should only ever be used for debugging purposes, and will likely be
+						/// deprecated soon.
 						public static var suspendFreedom = false
+
 						private static var instanceCounter: UInt = 0
 						internal let instanceNumber: UInt
 
@@ -2712,6 +3025,16 @@
 							
 							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 							self.dangling = true
+							try! self.addAnchor(anchor: anchor)
+						}
+
+						internal init(cType: LDKEvent_LDKHTLCHandlingFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+							Self.instanceCounter += 1
+							self.instanceNumber = Self.instanceCounter
+							self.cType = cType
+							
+							super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+							self.dangling = dangle
 							try! self.addAnchor(anchor: anchor)
 						}
 		

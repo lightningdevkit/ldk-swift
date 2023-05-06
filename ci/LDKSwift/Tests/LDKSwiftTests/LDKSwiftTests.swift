@@ -346,7 +346,7 @@ class LDKSwiftTests: XCTestCase {
             cltvExpiryDeltaArg: finalCltvValue
         )
 
-        var path: [RouteHop] = [routeHop]
+        var hops: [RouteHop] = [routeHop]
 
         for _ in 0..<3 {
 
@@ -358,10 +358,12 @@ class LDKSwiftTests: XCTestCase {
                 feeMsatArg: paymentValueMsat,
                 cltvExpiryDeltaArg: finalCltvValue
             )
-            path.append(extraHop)
+            hops.append(extraHop)
         }
 
         let paymentParams = PaymentParameters.initForKeysend(payeePubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!, finalCltvExpiryDelta: 3)
+        let blindedTail = BlindedTail(hopsArg: [], blindingPointArg: [], excessFinalCltvExpiryDeltaArg: 0, finalValueMsatArg: 0)
+        let path = Path(hopsArg: hops, blindedTailArg: blindedTail)
         let route = Route(pathsArg: [path], paymentParamsArg: paymentParams)
     }
 
@@ -388,7 +390,7 @@ class LDKSwiftTests: XCTestCase {
 		let gossipDataRaw = [UInt8](data)
 		print("Applying rapid sync data…")
 		let startB = DispatchTime.now()
-		let timestamp = rapidSync.updateNetworkGraph(updateData: gossipDataRaw)
+		let timestamp = rapidSync.updateNetworkGraphNoStd(updateData: gossipDataRaw, currentTimeUnix: nil)
 		if let error = timestamp.getError() {
 			print("error! type: \(error.getValueType())")
 			let specificError = error.getValueAsLightningError()
@@ -441,7 +443,7 @@ class LDKSwiftTests: XCTestCase {
             print("found route with \(paths.count) paths!")
             for currentPath in paths {
                 print("\nPath Option:")
-                for currentHop in currentPath {
+                for currentHop in currentPath.getHops() {
                     print("scid: \(currentHop.getShortChannelId()), pubkey: \(currentHop.getPubkey()), fee (msat): \(currentHop.getFeeMsat()), CLTV delta: \(currentHop.getCltvExpiryDelta())")
                 }
             }

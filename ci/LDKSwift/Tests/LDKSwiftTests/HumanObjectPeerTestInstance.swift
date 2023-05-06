@@ -726,8 +726,7 @@ public class HumanObjectPeerTestInstance {
                     "payment_hash": paymentPathFailed.getPaymentHash(),
                     "payment_failed_permanently": paymentPathFailed.getPaymentFailedPermanently(),
                     "short_channel_id": paymentPathFailed.getShortChannelId(),
-                    "path": paymentPathFailed.getPath().map { $0.getShortChannelId() },
-                    "retry": paymentPathFailed.getRetry(),
+                    "path": paymentPathFailed.getPath().getHops().map { $0.getShortChannelId() },
                     "failure": paymentPathFailed.getFailure()
                 ]
 
@@ -748,7 +747,7 @@ public class HumanObjectPeerTestInstance {
                 }
                 let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
                 let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
-                print("sent payment \(paymentSent.getPaymentId()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().map { h in h.getShortChannelId() })")
+                print("sent payment \(paymentSent.getPaymentId()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().getHops().map { h in h.getShortChannelId() })")
             }
 
             var currentChannelABalance = originalChannelBalanceAToB
@@ -846,7 +845,7 @@ public class HumanObjectPeerTestInstance {
                 let paymentClaimed = paymentClaimedEvent.getValueAsPaymentClaimed()!
                 let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
                 let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
-                print("sent payment \(paymentSent.getPaymentId()) worth \(paymentClaimed.getAmountMsat()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().map { h in h.getShortChannelId() })")
+                print("sent payment \(paymentSent.getPaymentId()) worth \(paymentClaimed.getAmountMsat()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().getHops().map { h in h.getShortChannelId() })")
             }
 
             var currentChannelABalance = prePaymentBalanceAToB

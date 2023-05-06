@@ -28,8 +28,12 @@
 				internal var pointerDebugDescription: String? = nil
 
 				init(conflictAvoidingVariableName: UInt, instantiationContext: String) {
-					Self.globalInstanceCounter += 1
-					self.globalInstanceNumber = Self.globalInstanceCounter
+					var instanceIndex: UInt! = nil
+                    Bindings.instanceIndexQueue.sync {
+                        Self.globalInstanceCounter += 1
+                        instanceIndex = Self.globalInstanceCounter
+                    }
+                    self.globalInstanceNumber = instanceIndex
 					self.instantiationContext = instantiationContext
 				}
 
@@ -85,6 +89,10 @@
 
 			public class Bindings {
 
+                fileprivate static let instanceIndexQueue = DispatchQueue(label: "org.lightningdevkit.Bindings.instanceIndexQueue")
+                static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
+                static var nativelyExposedInstanceReferenceCounter = [UInt: Int]()
+
 				internal static var suspendFreedom = false
 
 				internal static var minimumPrintSeverity: PrintSeverity = .WARNING
@@ -108,13 +116,13 @@
 						// if #available(iOS 14.0, *) {
 						// 	#if canImport(os)
 						// 	if severity == Self.PrintSeverity.DEBUG {
-						// 		logger.debug("\(string)")
+						// 		logger.debug("(string)")
 						// 	}else if severity == Self.PrintSeverity.WARNING {
-						// 		logger.warning("\(string)")
+						// 		logger.warning("(string)")
 						// 	}else if severity == Self.PrintSeverity.ERROR {
-						// 		logger.error("\(string)")
+						// 		logger.error("(string)")
 						// 	}else {
-						// 		logger.log("\(string)")
+						// 		logger.log("(string)")
 						// 	}
 						// 	#else
 						// 	Swift.print(string)
@@ -130,56 +138,48 @@
 					Self.minimumPrintSeverity = severity
 				}
 
-				static var nativelyExposedInstances = [UInt: NativeTraitWrapper]()
-				static var nativelyExposedInstanceReferenceCounter = [UInt: Int]()
-
 				public class func cacheInstance(instance: NativeTraitWrapper, countIdempotently: Bool = false) {
 					let key = instance.globalInstanceNumber
-					let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) + 1
-					if (!countIdempotently || referenceCount == 1){
-						// if we count non-idempotently, always update the counter
-						// otherwise, only update the counter the first time
-						Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
-					}
-					if referenceCount == 1 {
-						print("Caching global instance \(key). Cached instance count: \(nativelyExposedInstanceReferenceCounter.count)")
-						Self.nativelyExposedInstances[key] = instance
-					}
+
+                    Bindings.instanceIndexQueue.sync {
+                        let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) + 1
+                        if (!countIdempotently || referenceCount == 1){
+                            // if we count non-idempotently, always update the counter
+                            // otherwise, only update the counter the first time
+                            Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
+                        }
+                        if referenceCount == 1 {
+                            print("Caching global instance (key). Cached instance count: (nativelyExposedInstanceReferenceCounter.count)")
+                            Self.nativelyExposedInstances[key] = instance
+                        }
+                    }
 				}
 
 				public class func instanceToPointer(instance: NativeTraitWrapper) -> UnsafeMutableRawPointer {
 					let key = instance.globalInstanceNumber
 					let pointer = UnsafeMutableRawPointer(bitPattern: key)!
-					print("Caching instance \(key) -> \(pointer)", severity: .DEBUG)
+					print("Caching instance (key) -> (pointer)", severity: .DEBUG)
 					// don't automatically cache the trait instance
-					Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+                    Bindings.instanceIndexQueue.sync {
+                        Self.nativelyExposedInstances[instance.globalInstanceNumber] = instance
+                    }
 					return pointer
 				}
 
 				public class func pointerToInstance<T: NativeTraitWrapper>(pointer: UnsafeRawPointer, sourceMarker: String?) -> T{
 					let key = UInt(bitPattern: pointer)
-					print("Looking up instance \(pointer) -> \(key)", severity: .DEBUG)
-					let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
-					if referenceCount < 1 {
-						print("Bad lookup: non-positive reference count for instance \(key): \(referenceCount)!", severity: .ERROR)
-					}
-					let value = Self.nativelyExposedInstances[key] as! T
-					return value
-				}
+					print("Looking up instance (pointer) -> (key)", severity: .DEBUG)
 
-				public class func removeInstancePointer(instance: NativeTraitWrapper) -> Bool {
-					let key = instance.globalInstanceNumber
-					let referenceCount = (Self.nativelyExposedInstanceReferenceCounter[key] ?? 0) - 1
-					Self.nativelyExposedInstanceReferenceCounter[key] = referenceCount
-					if referenceCount == 0 {
-						print("Uncaching global instance \(key)")
-						// TODO: fix counting
-						// Self.nativelyExposedInstances.removeValue(forKey: key)
-						// instance.pointerDebugDescription = nil
-					} else if referenceCount < 0 {
-						print("Bad uncache: negative reference count (\(referenceCount)) for instance \(key)!", severity: .ERROR)
-					}
-					return true
+                    var rawValue: NativeTraitWrapper! = nil
+                    Bindings.instanceIndexQueue.sync {
+                        let referenceCount = Self.nativelyExposedInstanceReferenceCounter[key] ?? 0
+                        if referenceCount < 1 {
+                            print("Bad lookup: non-positive reference count for instance (key): (referenceCount)!", severity: .ERROR)
+                        }
+                        rawValue = Self.nativelyExposedInstances[key]
+                    }
+                    let value = rawValue as! T
+					return value
 				}
 
 				/*

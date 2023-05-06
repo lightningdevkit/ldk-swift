@@ -361,8 +361,9 @@ class LDKSwiftTests: XCTestCase {
             hops.append(extraHop)
         }
 
-        let paymentParams = PaymentParameters.initForKeysend(payeePubkey: Self.hexStringToBytes(hexString: destPubkeyHex)!, finalCltvExpiryDelta: 3)
-        let blindedTail = BlindedTail(hopsArg: [], blindingPointArg: [], excessFinalCltvExpiryDeltaArg: 0, finalValueMsatArg: 0)
+        let pubkeyBytes = Self.hexStringToBytes(hexString: destPubkeyHex)!
+        let paymentParams = PaymentParameters.initForKeysend(payeePubkey: pubkeyBytes, finalCltvExpiryDelta: 3)
+        let blindedTail = BlindedTail(hopsArg: [], blindingPointArg: pubkeyBytes, excessFinalCltvExpiryDeltaArg: 0, finalValueMsatArg: 0)
         let path = Path(hopsArg: hops, blindedTailArg: blindedTail)
         let route = Route(pathsArg: [path], paymentParamsArg: paymentParams)
     }

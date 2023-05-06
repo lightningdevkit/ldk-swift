@@ -274,7 +274,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_PayeePubKeyErrorZ(cType: nativeCallResult, instantiationContext: "SignedRawInvoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

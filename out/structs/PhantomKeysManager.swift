@@ -258,7 +258,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TransactionNoneZ(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_TransactionNoneZ(cType: nativeCallResult, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

@@ -716,7 +716,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -757,7 +757,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_CVec_u8ZZNoneZ(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

@@ -185,7 +185,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "CounterpartyCommitmentSecrets.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneNoneZ(cType: nativeCallResult, instantiationContext: "CounterpartyCommitmentSecrets.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

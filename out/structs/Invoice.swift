@@ -200,7 +200,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneSemanticErrorZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

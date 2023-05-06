@@ -986,7 +986,7 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 				 *
 				 * The same exception also applies if the return type is a vector.
 				 */
-				if (hasRecursiveOwnershipFlags || returnType.type instanceof RustVector) {
+				if (hasRecursiveOwnershipFlags || returnType.type instanceof RustVector || returnType.type instanceof RustResult) {
 					dangleSuffix = '.dangle(false)';
 				}
 

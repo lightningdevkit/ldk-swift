@@ -313,7 +313,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_TrustedCommitmentTransactionNoneZ(cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

@@ -280,7 +280,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result__u832APIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -412,7 +412,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -464,7 +464,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -501,7 +501,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -540,7 +540,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -693,7 +693,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NonePaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NonePaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -734,7 +734,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -830,7 +830,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentHashPaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_PaymentHashPaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -871,7 +871,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_PaymentHashRetryableSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -900,7 +900,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -968,7 +968,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1025,7 +1025,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1083,7 +1083,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1117,7 +1117,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1372,7 +1372,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1428,7 +1428,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1486,7 +1486,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1519,7 +1519,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1596,7 +1596,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentSecretNoneZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_PaymentSecretNoneZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1634,7 +1634,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentSecretAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_PaymentSecretAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -1670,7 +1670,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_PaymentPreimageAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_PaymentPreimageAPIErrorZ(cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

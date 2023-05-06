@@ -276,7 +276,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneSendErrorZ(cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

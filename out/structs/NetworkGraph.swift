@@ -280,7 +280,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -310,7 +310,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -346,7 +346,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -380,7 +380,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -418,7 +418,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -581,7 +581,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -613,7 +613,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

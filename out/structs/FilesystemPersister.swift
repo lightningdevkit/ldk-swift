@@ -179,7 +179,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "FilesystemPersister.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_CVec_C2Tuple_BlockHashChannelMonitorZZErrorZ(cType: nativeCallResult, instantiationContext: "FilesystemPersister.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

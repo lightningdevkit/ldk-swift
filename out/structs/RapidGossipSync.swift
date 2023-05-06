@@ -145,7 +145,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue
@@ -179,7 +179,7 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self)
+						let returnValue = Result_u32GraphSyncErrorZ(cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)", anchor: self).dangle(false)
 						
 
 						return returnValue

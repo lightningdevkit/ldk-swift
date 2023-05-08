@@ -441,7 +441,7 @@
 					}
 		
 					/// Creates a new [`InMemorySigner`].
-					public init(fundingKey: [UInt8], revocationBaseKey: [UInt8], paymentKey: [UInt8], delayedPaymentBaseKey: [UInt8], htlcBaseKey: [UInt8], commitmentSeed: [UInt8], channelValueSatoshis: UInt64, channelKeysId: [UInt8]) {
+					public init(fundingKey: [UInt8], revocationBaseKey: [UInt8], paymentKey: [UInt8], delayedPaymentBaseKey: [UInt8], htlcBaseKey: [UInt8], commitmentSeed: [UInt8], channelValueSatoshis: UInt64, channelKeysId: [UInt8], randBytesUniqueStart: [UInt8]) {
 						// native call variable prep
 						
 						let fundingKeyPrimitiveWrapper = SecretKey(value: fundingKey, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
@@ -458,9 +458,11 @@
 				
 						let channelKeysIdPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysId, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
+						let randBytesUniqueStartPrimitiveWrapper = ThirtyTwoBytes(value: randBytesUniqueStart, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
+				
 
 						// native method call
-						let nativeCallResult = InMemorySigner_new(fundingKeyPrimitiveWrapper.cType!, revocationBaseKeyPrimitiveWrapper.cType!, paymentKeyPrimitiveWrapper.cType!, delayedPaymentBaseKeyPrimitiveWrapper.cType!, htlcBaseKeyPrimitiveWrapper.cType!, commitmentSeedPrimitiveWrapper.cType!, channelValueSatoshis, channelKeysIdPrimitiveWrapper.cType!)
+						let nativeCallResult = InMemorySigner_new(fundingKeyPrimitiveWrapper.cType!, revocationBaseKeyPrimitiveWrapper.cType!, paymentKeyPrimitiveWrapper.cType!, delayedPaymentBaseKeyPrimitiveWrapper.cType!, htlcBaseKeyPrimitiveWrapper.cType!, commitmentSeedPrimitiveWrapper.cType!, channelValueSatoshis, channelKeysIdPrimitiveWrapper.cType!, randBytesUniqueStartPrimitiveWrapper.cType!)
 
 						// cleanup
 						
@@ -484,6 +486,9 @@
 				
 						// for elided types, we need this
 						channelKeysIdPrimitiveWrapper.noOpRetain()
+				
+						// for elided types, we need this
+						randBytesUniqueStartPrimitiveWrapper.noOpRetain()
 				
 				self.initialCFreeability = nativeCallResult.is_owned
 			
@@ -763,6 +768,30 @@
 						return returnValue
 					}
 		
+					/// Constructs a new EntropySource which calls the relevant methods on this_arg.
+					/// This copies the `inner` pointer in this_arg and thus the returned EntropySource must be freed before this_arg is
+					public func asEntropySource() -> EntropySource {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInMemorySigner>) in
+				InMemorySigner_as_EntropySource(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = NativelyImplementedEntropySource(cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)", anchor: self)
+						
+
+						return returnValue
+					}
+		
 					/// Constructs a new ChannelSigner which calls the relevant methods on this_arg.
 					/// This copies the `inner` pointer in this_arg and thus the returned ChannelSigner must be freed before this_arg is
 					public func asChannelSigner() -> ChannelSigner {
@@ -859,14 +888,14 @@
 					}
 		
 					/// Read a InMemorySigner from a byte array, created by InMemorySigner_write
-					public class func read(ser: [UInt8]) -> Result_InMemorySignerDecodeErrorZ {
+					public class func read(ser: [UInt8], arg: EntropySource) -> Result_InMemorySignerDecodeErrorZ {
 						// native call variable prep
 						
 						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)")
 				
 
 						// native method call
-						let nativeCallResult = InMemorySigner_read(serPrimitiveWrapper.cType!)
+						let nativeCallResult = InMemorySigner_read(serPrimitiveWrapper.cType!, arg.activate().cType!)
 
 						// cleanup
 						

@@ -187,7 +187,7 @@
 					/// The returned Vec has one entry for each HTLC, and in the same order.
 					/// 
 					/// This function is only valid in the holder commitment context, it always uses EcdsaSighashType::All.
-					public func getHtlcSigs(htlcBaseKey: [UInt8], channelParameters: DirectedChannelTransactionParameters) -> Result_CVec_SignatureZNoneZ {
+					public func getHtlcSigs(htlcBaseKey: [UInt8], channelParameters: DirectedChannelTransactionParameters, entropySource: EntropySource) -> Result_CVec_SignatureZNoneZ {
 						// native call variable prep
 						
 						let tupledHtlcBaseKey = Bindings.arrayToUInt8Tuple32(array: htlcBaseKey)
@@ -200,7 +200,11 @@
 						withUnsafePointer(to: tupledHtlcBaseKey) { (tupledHtlcBaseKeyPointer: UnsafePointer<UInt8Tuple32>) in
 				
 						withUnsafePointer(to: channelParameters.cType!) { (channelParametersPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
-				TrustedCommitmentTransaction_get_htlc_sigs(thisArgPointer, tupledHtlcBaseKeyPointer, channelParametersPointer)
+				
+						withUnsafePointer(to: entropySource.activate().cType!) { (entropySourcePointer: UnsafePointer<LDKEntropySource>) in
+				TrustedCommitmentTransaction_get_htlc_sigs(thisArgPointer, tupledHtlcBaseKeyPointer, channelParametersPointer, entropySourcePointer)
+						}
+				
 						}
 				
 						}

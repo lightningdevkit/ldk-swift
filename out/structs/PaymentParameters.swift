@@ -204,7 +204,7 @@
 					}
 		
 					/// Hints for routing to the payee, containing channels connecting the payee to public nodes.
-					public func getRouteHints() -> [RouteHint] {
+					public func getRouteHints() -> Hints {
 						// native call variable prep
 						
 
@@ -220,30 +220,26 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Vec_RouteHintZ(cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						let returnValue = Hints(cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)", anchor: self)
 						
 
 						return returnValue
 					}
 		
 					/// Hints for routing to the payee, containing channels connecting the payee to public nodes.
-					public func setRouteHints(val: [RouteHint]) {
+					public func setRouteHints(val: Hints) {
 						// native call variable prep
 						
-						let valVector = Vec_RouteHintZ(array: val, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").dangle()
-				
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
-				PaymentParameters_set_route_hints(thisPtrPointer, valVector.cType!)
+				PaymentParameters_set_route_hints(thisPtrPointer, val.danglingClone().cType!)
 						}
 				
 
 						// cleanup
 						
-						// valVector.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)
@@ -570,12 +566,10 @@
 					}
 		
 					/// Constructs a new PaymentParameters given each field
-					public init(payeePubkeyArg: [UInt8], featuresArg: InvoiceFeatures, routeHintsArg: [RouteHint], expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8, maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64], finalCltvExpiryDeltaArg: UInt32) {
+					public init(payeePubkeyArg: [UInt8], featuresArg: InvoiceFeatures, routeHintsArg: Hints, expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8, maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64], finalCltvExpiryDeltaArg: UInt32) {
 						// native call variable prep
 						
 						let payeePubkeyArgPrimitiveWrapper = PublicKey(value: payeePubkeyArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
-				
-						let routeHintsArgVector = Vec_RouteHintZ(array: routeHintsArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").dangle()
 				
 						let expiryTimeArgOption = Option_u64Z(some: expiryTimeArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)").danglingClone()
 				
@@ -583,14 +577,12 @@
 				
 
 						// native method call
-						let nativeCallResult = PaymentParameters_new(payeePubkeyArgPrimitiveWrapper.cType!, featuresArg.dynamicallyDangledClone().cType!, routeHintsArgVector.cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg, maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!, finalCltvExpiryDeltaArg)
+						let nativeCallResult = PaymentParameters_new(payeePubkeyArgPrimitiveWrapper.cType!, featuresArg.dynamicallyDangledClone().cType!, routeHintsArg.danglingClone().cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg, maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!, finalCltvExpiryDeltaArg)
 
 						// cleanup
 						
 						// for elided types, we need this
 						payeePubkeyArgPrimitiveWrapper.noOpRetain()
-				
-						// routeHintsArgVector.noOpRetain()
 				
 						// previouslyFailedChannelsArgVector.noOpRetain()
 				
@@ -635,7 +627,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two PaymentParameterss contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the PaymentParameters.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

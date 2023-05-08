@@ -4,13 +4,13 @@
 			import LDKHeaders
 			#endif
 
-			/// Details of a channel, as returned by ChannelManager::list_channels and ChannelManager::list_usable_channels
+			/// Details of a channel, as returned by [`ChannelManager::list_channels`] and [`ChannelManager::list_usable_channels`]
 			public typealias ChannelDetails = Bindings.ChannelDetails
 
 			extension Bindings {
 		
 
-				/// Details of a channel, as returned by ChannelManager::list_channels and ChannelManager::list_usable_channels
+				/// Details of a channel, as returned by [`ChannelManager::list_channels`] and [`ChannelManager::list_usable_channels`]
 				public class ChannelDetails: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -682,6 +682,60 @@
 						// for elided types, we need this
 						valPrimitiveWrapper.noOpRetain()
 				
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The currently negotiated fee rate denominated in satoshi per 1000 weight units,
+					/// which is applied to commitment and HTLC transactions.
+					/// 
+					/// This value will be `None` for objects serialized with LDK versions prior to 0.0.115.
+					public func getFeerateSatPer1000Weight() -> UInt32? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelDetails>) in
+				ChannelDetails_get_feerate_sat_per_1000_weight(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Option_u32Z(cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)", anchor: self).getValue()
+						
+
+						return returnValue
+					}
+		
+					/// The currently negotiated fee rate denominated in satoshi per 1000 weight units,
+					/// which is applied to commitment and HTLC transactions.
+					/// 
+					/// This value will be `None` for objects serialized with LDK versions prior to 0.0.115.
+					public func setFeerateSatPer1000Weight(val: UInt32?) {
+						// native call variable prep
+						
+						let valOption = Option_u32Z(some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
+				
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
+				ChannelDetails_set_feerate_sat_per_1000_weight(thisPtrPointer, valOption.cType!)
+						}
+				
+
+						// cleanup
+						
 
 						
 						// return value (do some wrapping)
@@ -1485,7 +1539,7 @@
 					}
 		
 					/// Constructs a new ChannelDetails given each field
-					public init(channelIdArg: [UInt8], counterpartyArg: ChannelCounterparty, fundingTxoArg: OutPoint, channelTypeArg: ChannelTypeFeatures, shortChannelIdArg: UInt64?, outboundScidAliasArg: UInt64?, inboundScidAliasArg: UInt64?, channelValueSatoshisArg: UInt64, unspendablePunishmentReserveArg: UInt64?, userChannelIdArg: [UInt8], balanceMsatArg: UInt64, outboundCapacityMsatArg: UInt64, nextOutboundHtlcLimitMsatArg: UInt64, inboundCapacityMsatArg: UInt64, confirmationsRequiredArg: UInt32?, confirmationsArg: UInt32?, forceCloseSpendDelayArg: UInt16?, isOutboundArg: Bool, isChannelReadyArg: Bool, isUsableArg: Bool, isPublicArg: Bool, inboundHtlcMinimumMsatArg: UInt64?, inboundHtlcMaximumMsatArg: UInt64?, configArg: ChannelConfig) {
+					public init(channelIdArg: [UInt8], counterpartyArg: ChannelCounterparty, fundingTxoArg: OutPoint, channelTypeArg: ChannelTypeFeatures, shortChannelIdArg: UInt64?, outboundScidAliasArg: UInt64?, inboundScidAliasArg: UInt64?, channelValueSatoshisArg: UInt64, unspendablePunishmentReserveArg: UInt64?, userChannelIdArg: [UInt8], feerateSatPer1000WeightArg: UInt32?, balanceMsatArg: UInt64, outboundCapacityMsatArg: UInt64, nextOutboundHtlcLimitMsatArg: UInt64, inboundCapacityMsatArg: UInt64, confirmationsRequiredArg: UInt32?, confirmationsArg: UInt32?, forceCloseSpendDelayArg: UInt16?, isOutboundArg: Bool, isChannelReadyArg: Bool, isUsableArg: Bool, isPublicArg: Bool, inboundHtlcMinimumMsatArg: UInt64?, inboundHtlcMaximumMsatArg: UInt64?, configArg: ChannelConfig) {
 						// native call variable prep
 						
 						let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelIdArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
@@ -1500,6 +1554,8 @@
 				
 						let userChannelIdArgPrimitiveWrapper = U128(value: userChannelIdArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)")
 				
+						let feerateSatPer1000WeightArgOption = Option_u32Z(some: feerateSatPer1000WeightArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
+				
 						let confirmationsRequiredArgOption = Option_u32Z(some: confirmationsRequiredArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
 				
 						let confirmationsArgOption = Option_u32Z(some: confirmationsArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)").danglingClone()
@@ -1512,7 +1568,7 @@
 				
 
 						// native method call
-						let nativeCallResult = ChannelDetails_new(channelIdArgPrimitiveWrapper.cType!, counterpartyArg.dynamicallyDangledClone().cType!, fundingTxoArg.dynamicallyDangledClone().cType!, channelTypeArg.dynamicallyDangledClone().cType!, shortChannelIdArgOption.cType!, outboundScidAliasArgOption.cType!, inboundScidAliasArgOption.cType!, channelValueSatoshisArg, unspendablePunishmentReserveArgOption.cType!, userChannelIdArgPrimitiveWrapper.cType!, balanceMsatArg, outboundCapacityMsatArg, nextOutboundHtlcLimitMsatArg, inboundCapacityMsatArg, confirmationsRequiredArgOption.cType!, confirmationsArgOption.cType!, forceCloseSpendDelayArgOption.cType!, isOutboundArg, isChannelReadyArg, isUsableArg, isPublicArg, inboundHtlcMinimumMsatArgOption.cType!, inboundHtlcMaximumMsatArgOption.cType!, configArg.dynamicallyDangledClone().cType!)
+						let nativeCallResult = ChannelDetails_new(channelIdArgPrimitiveWrapper.cType!, counterpartyArg.dynamicallyDangledClone().cType!, fundingTxoArg.dynamicallyDangledClone().cType!, channelTypeArg.dynamicallyDangledClone().cType!, shortChannelIdArgOption.cType!, outboundScidAliasArgOption.cType!, inboundScidAliasArgOption.cType!, channelValueSatoshisArg, unspendablePunishmentReserveArgOption.cType!, userChannelIdArgPrimitiveWrapper.cType!, feerateSatPer1000WeightArgOption.cType!, balanceMsatArg, outboundCapacityMsatArg, nextOutboundHtlcLimitMsatArg, inboundCapacityMsatArg, confirmationsRequiredArgOption.cType!, confirmationsArgOption.cType!, forceCloseSpendDelayArgOption.cType!, isOutboundArg, isChannelReadyArg, isUsableArg, isPublicArg, inboundHtlcMinimumMsatArgOption.cType!, inboundHtlcMaximumMsatArgOption.cType!, configArg.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						

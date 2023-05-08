@@ -4,13 +4,13 @@
 			import LDKHeaders
 			#endif
 
-			/// Data of the `RawInvoice` that is encoded in the data part
+			/// Data of the [`RawInvoice`] that is encoded in the data part
 			public typealias RawDataPart = Bindings.RawDataPart
 
 			extension Bindings {
 		
 
-				/// Data of the `RawInvoice` that is encoded in the data part
+				/// Data of the [`RawInvoice`] that is encoded in the data part
 				public class RawDataPart: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -177,7 +177,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two RawDataParts contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the RawDataPart.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

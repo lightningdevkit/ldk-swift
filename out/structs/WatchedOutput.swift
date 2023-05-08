@@ -347,7 +347,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two WatchedOutputs contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the WatchedOutput.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						

@@ -5,16 +5,16 @@
 
 			import Foundation
 
-			/// Errors that may occur when constructing a new `RawInvoice` or `Invoice`
+			/// Errors that may occur when constructing a new [`RawInvoice`] or [`Invoice`]
 			public typealias CreationError = Bindings.CreationError
 
 			extension Bindings {
 
-				/// Errors that may occur when constructing a new `RawInvoice` or `Invoice`
+				/// Errors that may occur when constructing a new [`RawInvoice`] or [`Invoice`]
 				public enum CreationError {
 
 					
-					/// The supplied description string was longer than 639 __bytes__ (see [`Description::new(…)`](./struct.Description.html#method.new))
+					/// The supplied description string was longer than 639 __bytes__ (see [`Description::new`])
 					case DescriptionTooLong
 			
 					/// The specified route has too many hops and can't be encoded

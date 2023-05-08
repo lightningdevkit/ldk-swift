@@ -7,9 +7,11 @@
 			/// Represents a syntactically and semantically correct lightning BOLT11 invoice.
 			/// 
 			/// There are three ways to construct an `Invoice`:
-			/// 1. using `InvoiceBuilder`
-			/// 2. using `Invoice::from_signed(SignedRawInvoice)`
-			/// 3. using `str::parse::<Invoice>(&str)`
+			/// 1. using [`InvoiceBuilder`]
+			/// 2. using [`Invoice::from_signed`]
+			/// 3. using `str::parse::<Invoice>(&str)` (see [`Invoice::from_str`])
+			/// 
+			/// [`Invoice::from_str`]: crate::Invoice#impl-FromStr
 			public typealias Invoice = Bindings.Invoice
 
 			extension Bindings {
@@ -18,9 +20,11 @@
 				/// Represents a syntactically and semantically correct lightning BOLT11 invoice.
 				/// 
 				/// There are three ways to construct an `Invoice`:
-				/// 1. using `InvoiceBuilder`
-				/// 2. using `Invoice::from_signed(SignedRawInvoice)`
-				/// 3. using `str::parse::<Invoice>(&str)`
+				/// 1. using [`InvoiceBuilder`]
+				/// 2. using [`Invoice::from_signed`]
+				/// 3. using `str::parse::<Invoice>(&str)` (see [`Invoice::from_str`])
+				/// 
+				/// [`Invoice::from_str`]: crate::Invoice#impl-FromStr
 				public class Invoice: NativeTypeWrapper {
 
 					let initialCFreeability: Bool
@@ -141,7 +145,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two Invoices contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the Invoice.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
@@ -159,6 +163,29 @@
 						
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The hash of the [`RawInvoice`] that was signed.
+					public func signableHash() -> [UInt8] {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
+				Invoice_signable_hash(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue
@@ -206,7 +233,7 @@
 						return returnValue
 					}
 		
-					/// Constructs an `Invoice` from a `SignedRawInvoice` by checking all its invariants.
+					/// Constructs an `Invoice` from a [`SignedRawInvoice`] by checking all its invariants.
 					/// ```
 					/// use lightning_invoice::*;
 					/// 
@@ -377,6 +404,29 @@
 						return returnValue
 					}
 		
+					/// Get the payment metadata blob if one was included in the invoice
+					public func paymentMetadata() -> [UInt8]? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
+				Invoice_payment_metadata(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Option_CVec_u8ZZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).getValue()
+						
+
+						return returnValue
+					}
+		
 					/// Get the invoice features if they were included in the invoice
 					/// 
 					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
@@ -438,6 +488,30 @@
 						return returnValue
 					}
 		
+					/// Returns the Duration since the Unix epoch at which the invoice expires.
+					/// Returning None if overflow occurred.
+					public func expiresAt() -> UInt64? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
+				Invoice_expires_at(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Option_DurationZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).getValue()
+						
+
+						return returnValue
+					}
+		
 					/// Returns the invoice's expiry time, if present, otherwise [`DEFAULT_EXPIRY_TIME`].
 					public func expiryTime() -> UInt64 {
 						// native call variable prep
@@ -470,6 +544,53 @@
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
 				Invoice_is_expired(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Returns the Duration remaining until the invoice expires.
+					public func durationUntilExpiry() -> UInt64 {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
+				Invoice_duration_until_expiry(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Returns the Duration remaining until the invoice expires given the current time.
+					/// `time` is the timestamp as a duration since the Unix epoch.
+					public func expirationRemainingFromEpoch(time: UInt64) -> UInt64 {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
+				Invoice_expiration_remaining_from_epoch(thisArgPointer, time)
 						}
 				
 
@@ -527,6 +648,29 @@
 						
 						// return value (do some wrapping)
 						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Returns a list of all fallback addresses as [`Address`]es
+					public func fallbackAddresses() -> [String] {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoice>) in
+				Invoice_fallback_addresses(thisArgPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = Vec_AddressZ(cType: nativeCallResult, instantiationContext: "Invoice.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
 						
 
 						return returnValue

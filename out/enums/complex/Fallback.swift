@@ -135,7 +135,7 @@
 					public class func initWithSegWitProgram(version: UInt8, program: [UInt8]) -> Fallback {
 						// native call variable prep
 						
-						let versionPrimitiveWrapper = U5(value: version, instantiationContext: "Fallback.swift::\(#function):\(#line)")
+						let versionPrimitiveWrapper = WitnessVersion(value: version, instantiationContext: "Fallback.swift::\(#function):\(#line)")
 				
 						let programVector = Vec_u8Z(array: program, instantiationContext: "Fallback.swift::\(#function):\(#line)").dangle()
 				
@@ -207,7 +207,7 @@
 						return returnValue
 					}
 		
-					/// Checks if two Fallbacks contain equal inner contents.
+					/// Generates a non-cryptographic 64-bit hash of the Fallback.
 					public func hash() -> UInt64 {
 						// native call variable prep
 						
@@ -375,7 +375,7 @@
 						/// 
 						public func getVersion() -> UInt8 {
 							// return value (do some wrapping)
-							let returnValue = U5(cType: self.cType!.version, instantiationContext: "Fallback.swift::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = WitnessVersion(cType: self.cType!.version, instantiationContext: "Fallback.swift::\(#function):\(#line)", anchor: self).getValue()
 
 							return returnValue;
 						}

@@ -81,7 +81,7 @@
 		
 					/// Handles any network updates originating from [`Event`]s.
 					/// 
-					/// [`Event`]: crate::util::events::Event
+					/// [`Event`]: crate::events::Event
 					public func handleNetworkUpdate(networkUpdate: NetworkUpdate) {
 						// native call variable prep
 						
@@ -424,18 +424,17 @@
 						return returnValue
 					}
 		
-					/// Marks a channel in the graph as failed if a corresponding HTLC fail was sent.
-					/// If permanent, removes a channel from the local storage.
-					/// May cause the removal of nodes too, if this was their last channel.
-					/// If not permanent, makes channels unavailable for routing.
-					public func channelFailed(shortChannelId: UInt64, isPermanent: Bool) {
+					/// Marks a channel in the graph as failed permanently.
+					/// 
+					/// The channel and any node for which this was their last channel are removed from the graph.
+					public func channelFailedPermanent(shortChannelId: UInt64) {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
 						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
-				NetworkGraph_channel_failed(thisArgPointer, shortChannelId, isPermanent)
+				NetworkGraph_channel_failed_permanent(thisArgPointer, shortChannelId)
 						}
 				
 

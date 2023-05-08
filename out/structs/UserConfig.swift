@@ -357,7 +357,7 @@
 					/// 
 					/// Default value: false.
 					/// 
-					/// [`Event::OpenChannelRequest`]: crate::util::events::Event::OpenChannelRequest
+					/// [`Event::OpenChannelRequest`]: crate::events::Event::OpenChannelRequest
 					/// [`msgs::OpenChannel`]: crate::ln::msgs::OpenChannel
 					/// [`msgs::AcceptChannel`]: crate::ln::msgs::AcceptChannel
 					public func getManuallyAcceptInboundChannels() -> Bool {
@@ -392,7 +392,7 @@
 					/// 
 					/// Default value: false.
 					/// 
-					/// [`Event::OpenChannelRequest`]: crate::util::events::Event::OpenChannelRequest
+					/// [`Event::OpenChannelRequest`]: crate::events::Event::OpenChannelRequest
 					/// [`msgs::OpenChannel`]: crate::ln::msgs::OpenChannel
 					/// [`msgs::AcceptChannel`]: crate::ln::msgs::AcceptChannel
 					public func setManuallyAcceptInboundChannels(val: Bool) {
@@ -426,7 +426,7 @@
 					/// Default value: false.
 					/// 
 					/// [`ChannelManager::get_intercept_scid`]: crate::ln::channelmanager::ChannelManager::get_intercept_scid
-					/// [`Event::HTLCIntercepted`]: crate::util::events::Event::HTLCIntercepted
+					/// [`Event::HTLCIntercepted`]: crate::events::Event::HTLCIntercepted
 					public func getAcceptInterceptHtlcs() -> Bool {
 						// native call variable prep
 						
@@ -458,7 +458,7 @@
 					/// Default value: false.
 					/// 
 					/// [`ChannelManager::get_intercept_scid`]: crate::ln::channelmanager::ChannelManager::get_intercept_scid
-					/// [`Event::HTLCIntercepted`]: crate::util::events::Event::HTLCIntercepted
+					/// [`Event::HTLCIntercepted`]: crate::events::Event::HTLCIntercepted
 					public func setAcceptInterceptHtlcs(val: Bool) {
 						// native call variable prep
 						

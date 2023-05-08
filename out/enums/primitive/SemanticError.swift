@@ -5,13 +5,13 @@
 
 			import Foundation
 
-			/// Errors that may occur when converting a `RawInvoice` to an `Invoice`. They relate to the
+			/// Errors that may occur when converting a [`RawInvoice`] to an [`Invoice`]. They relate to the
 			/// requirements sections in BOLT #11
 			public typealias SemanticError = Bindings.SemanticError
 
 			extension Bindings {
 
-				/// Errors that may occur when converting a `RawInvoice` to an `Invoice`. They relate to the
+				/// Errors that may occur when converting a [`RawInvoice`] to an [`Invoice`]. They relate to the
 				/// requirements sections in BOLT #11
 				public enum SemanticError {
 

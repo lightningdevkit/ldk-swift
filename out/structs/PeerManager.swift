@@ -16,10 +16,10 @@
 			/// [`PeerManager`] functions related to the same connection must occur only in serial, making new
 			/// calls only after previous ones have returned.
 			/// 
-			/// Rather than using a plain PeerManager, it is preferable to use either a SimpleArcPeerManager
-			/// a SimpleRefPeerManager, for conciseness. See their documentation for more details, but
-			/// essentially you should default to using a SimpleRefPeerManager, and use a
-			/// SimpleArcPeerManager when you require a PeerManager with a static lifetime, such as when
+			/// Rather than using a plain [`PeerManager`], it is preferable to use either a [`SimpleArcPeerManager`]
+			/// a [`SimpleRefPeerManager`], for conciseness. See their documentation for more details, but
+			/// essentially you should default to using a [`SimpleRefPeerManager`], and use a
+			/// [`SimpleArcPeerManager`] when you require a `PeerManager` with a static lifetime, such as when
 			/// you're using lightning-net-tokio.
 			/// 
 			/// [`read_event`]: PeerManager::read_event
@@ -40,10 +40,10 @@
 				/// [`PeerManager`] functions related to the same connection must occur only in serial, making new
 				/// calls only after previous ones have returned.
 				/// 
-				/// Rather than using a plain PeerManager, it is preferable to use either a SimpleArcPeerManager
-				/// a SimpleRefPeerManager, for conciseness. See their documentation for more details, but
-				/// essentially you should default to using a SimpleRefPeerManager, and use a
-				/// SimpleArcPeerManager when you require a PeerManager with a static lifetime, such as when
+				/// Rather than using a plain [`PeerManager`], it is preferable to use either a [`SimpleArcPeerManager`]
+				/// a [`SimpleRefPeerManager`], for conciseness. See their documentation for more details, but
+				/// essentially you should default to using a [`SimpleRefPeerManager`], and use a
+				/// [`SimpleArcPeerManager`] when you require a `PeerManager` with a static lifetime, such as when
 				/// you're using lightning-net-tokio.
 				/// 
 				/// [`read_event`]: PeerManager::read_event
@@ -115,8 +115,9 @@
 						return returnValue
 					}
 		
-					/// Constructs a new PeerManager with the given message handlers and node_id secret key
-					/// ephemeral_random_data is used to derive per-connection ephemeral keys and must be
+					/// Constructs a new `PeerManager` with the given message handlers.
+					/// 
+					/// `ephemeral_random_data` is used to derive per-connection ephemeral keys and must be
 					/// cryptographically secure random bytes.
 					/// 
 					/// `current_time` is used as an always-increasing counter that survives across restarts and is
@@ -201,9 +202,9 @@
 					/// Returns a small number of bytes to send to the remote node (currently always 50).
 					/// 
 					/// Panics if descriptor is duplicative with some other descriptor which has not yet been
-					/// [`socket_disconnected()`].
+					/// [`socket_disconnected`].
 					/// 
-					/// [`socket_disconnected()`]: PeerManager::socket_disconnected
+					/// [`socket_disconnected`]: PeerManager::socket_disconnected
 					public func newOutboundConnection(theirNodeId: [UInt8], descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?) -> Result_CVec_u8ZPeerHandleErrorZ {
 						// native call variable prep
 						
@@ -245,9 +246,9 @@
 					/// the connection immediately.
 					/// 
 					/// Panics if descriptor is duplicative with some other descriptor which has not yet been
-					/// [`socket_disconnected()`].
+					/// [`socket_disconnected`].
 					/// 
-					/// [`socket_disconnected()`]: PeerManager::socket_disconnected
+					/// [`socket_disconnected`]: PeerManager::socket_disconnected
 					public func newInboundConnection(descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?) -> Result_NonePeerHandleErrorZ {
 						// native call variable prep
 						
@@ -279,7 +280,7 @@
 					/// May call [`send_data`] on the descriptor passed in (or an equal descriptor) before
 					/// returning. Thus, be very careful with reentrancy issues! The invariants around calling
 					/// [`write_buffer_space_avail`] in case a write did not fully complete must still hold - be
-					/// ready to call `[write_buffer_space_avail`] again if a write call generated here isn't
+					/// ready to call [`write_buffer_space_avail`] again if a write call generated here isn't
 					/// sufficient!
 					/// 
 					/// [`send_data`]: SocketDescriptor::send_data

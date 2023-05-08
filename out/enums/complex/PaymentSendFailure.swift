@@ -10,11 +10,11 @@
 
 			extension Bindings {
 
-				/// If a payment fails to send with [`ChannelManager::send_payment`], it can be in one of several
-				/// states. This enum is returned as the Err() type describing which state the payment is in, see
-				/// the description of individual enum states for more.
+				/// If a payment fails to send with [`ChannelManager::send_payment_with_route`], it can be in one
+				/// of several states. This enum is returned as the Err() type describing which state the payment
+				/// is in, see the description of individual enum states for more.
 				/// 
-				/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
+				/// [`ChannelManager::send_payment_with_route`]: crate::ln::channelmanager::ChannelManager::send_payment_with_route
 				public class PaymentSendFailure: NativeTypeWrapper {
 
 					
@@ -71,8 +71,8 @@
 						/// Because the payment failed outright, no payment tracking is done and no
 						/// [`Event::PaymentPathFailed`] or [`Event::PaymentFailed`] events will be generated.
 						/// 
-						/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
-						/// [`Event::PaymentFailed`]: crate::util::events::Event::PaymentFailed
+						/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
+						/// [`Event::PaymentFailed`]: crate::events::Event::PaymentFailed
 						case ParameterError
 			
 						/// A parameter in a single path which was passed to send_payment was invalid, preventing us
@@ -86,8 +86,8 @@
 						/// The results here are ordered the same as the paths in the route object which was passed to
 						/// send_payment.
 						/// 
-						/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
-						/// [`Event::PaymentFailed`]: crate::util::events::Event::PaymentFailed
+						/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
+						/// [`Event::PaymentFailed`]: crate::events::Event::PaymentFailed
 						case PathParameterError
 			
 						/// All paths which were attempted failed to send, with no channel state change taking place.
@@ -97,16 +97,16 @@
 						/// Because the payment failed outright, no payment tracking is done and no
 						/// [`Event::PaymentPathFailed`] or [`Event::PaymentFailed`] events will be generated.
 						/// 
-						/// [`Event::PaymentPathFailed`]: crate::util::events::Event::PaymentPathFailed
-						/// [`Event::PaymentFailed`]: crate::util::events::Event::PaymentFailed
+						/// [`Event::PaymentPathFailed`]: crate::events::Event::PaymentPathFailed
+						/// [`Event::PaymentFailed`]: crate::events::Event::PaymentFailed
 						case AllFailedResendSafe
 			
 						/// Indicates that a payment for the provided [`PaymentId`] is already in-flight and has not
 						/// yet completed (i.e. generated an [`Event::PaymentSent`] or [`Event::PaymentFailed`]).
 						/// 
 						/// [`PaymentId`]: crate::ln::channelmanager::PaymentId
-						/// [`Event::PaymentSent`]: crate::util::events::Event::PaymentSent
-						/// [`Event::PaymentFailed`]: crate::util::events::Event::PaymentFailed
+						/// [`Event::PaymentSent`]: crate::events::Event::PaymentSent
+						/// [`Event::PaymentFailed`]: crate::events::Event::PaymentFailed
 						case DuplicatePayment
 			
 						/// Some paths that were attempted failed to send, though some paths may have succeeded. At least

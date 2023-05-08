@@ -183,20 +183,15 @@
 					}
 		
 					/// Utility method to constructs a new CounterpartyForceClosed-variant ClosureReason
-					public class func initWithCounterpartyForceClosed(peerMsg: String) -> ClosureReason {
+					public class func initWithCounterpartyForceClosed(peerMsg: Bindings.UntrustedString) -> ClosureReason {
 						// native call variable prep
 						
-						let peerMsgPrimitiveWrapper = Str(value: peerMsg, instantiationContext: "ClosureReason.swift::\(#function):\(#line)").dangle()
-				
 
 						// native method call
-						let nativeCallResult = ClosureReason_counterparty_force_closed(peerMsgPrimitiveWrapper.cType!)
+						let nativeCallResult = ClosureReason_counterparty_force_closed(peerMsg.dynamicallyDangledClone().cType!)
 
 						// cleanup
 						
-						// for elided types, we need this
-						peerMsgPrimitiveWrapper.noOpRetain()
-				
 
 						
 						// return value (do some wrapping)
@@ -527,12 +522,14 @@
 						
 						/// The error which the peer sent us.
 						/// 
-						/// The string should be sanitized before it is used (e.g emitted to logs
-						/// or printed to stdout). Otherwise, a well crafted error message may exploit
+						/// Be careful about printing the peer_msg, a well-crafted message could exploit
 						/// a security vulnerability in the terminal emulator or the logging subsystem.
-						public func getPeerMsg() -> String {
+						/// To be safe, use `Display` on `UntrustedString`
+						/// 
+						/// [`UntrustedString`]: crate::util::string::UntrustedString
+						public func getPeerMsg() -> Bindings.UntrustedString {
 							// return value (do some wrapping)
-							let returnValue = Str(cType: self.cType!.peer_msg, instantiationContext: "ClosureReason.swift::\(#function):\(#line)", anchor: self).getValue()
+							let returnValue = Bindings.UntrustedString(cType: self.cType!.peer_msg, instantiationContext: "ClosureReason.swift::\(#function):\(#line)", anchor: self)
 
 							return returnValue;
 						}

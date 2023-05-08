@@ -3,15 +3,15 @@
 			import LDKHeaders
 			#endif
 
-			/// A dynamically-allocated array of crate::c_types::derived::CVec_RouteHopZs of arbitrary size.
+			/// A dynamically-allocated array of crate::c_types::Strs of arbitrary size.
 			/// This corresponds to std::vector in C++
-			internal typealias Vec_CVec_RouteHopZZ = Bindings.Vec_CVec_RouteHopZZ
+			internal typealias Vec_AddressZ = Bindings.Vec_AddressZ
 
 			extension Bindings {
 
-				/// A dynamically-allocated array of crate::c_types::derived::CVec_RouteHopZs of arbitrary size.
+				/// A dynamically-allocated array of crate::c_types::Strs of arbitrary size.
 				/// This corresponds to std::vector in C++
-				internal class Vec_CVec_RouteHopZZ: NativeTypeWrapper {
+				internal class Vec_AddressZ: NativeTypeWrapper {
 
 					
 					/// Set to false to suppress an individual type's deinit log statements.
@@ -26,9 +26,9 @@
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKCVec_CVec_RouteHopZZ?
+					internal var cType: LDKCVec_AddressZ?
 
-					internal init(cType: LDKCVec_CVec_RouteHopZZ, instantiationContext: String) {
+					internal init(cType: LDKCVec_AddressZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -36,7 +36,7 @@
 						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCVec_CVec_RouteHopZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCVec_AddressZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -46,7 +46,7 @@
 						try! self.addAnchor(anchor: anchor)
 					}
 
-					internal init(cType: LDKCVec_CVec_RouteHopZZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+					internal init(cType: LDKCVec_AddressZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -57,57 +57,42 @@
 					}
 		
 
-					internal init(array: [[RouteHop]], instantiationContext: String) {
+					internal init(array: [String], instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 						
+						let rustArray = array.map { (currentValueDepth1: String) -> LDKStr in
+							
+						let currentValueDepth1PrimitiveWrapper = Str(value: currentValueDepth1, instantiationContext: "Vec_AddressZ.swift::\(#function):\(#line)").dangle()
+				
+							return currentValueDepth1PrimitiveWrapper.cType!
+						}
+				
 
 						
-						var lowerDimension = [LDKCVec_RouteHopZ]()
-						for currentEntry in array {
-							
-						let currentEntryVector = Vec_RouteHopZ(array: currentEntry, instantiationContext: "Vec_CVec_RouteHopZZ.swift::\(#function):\(#line)").dangle()
-				
-							lowerDimension.append(currentEntryVector.cType!)
-							try! self.addAnchor(anchor: currentEntryVector)
-						}
-			
 
-						let dataContainer = UnsafeMutablePointer<LDKCVec_RouteHopZ>.allocate(capacity: array.count)
-						dataContainer.initialize(from: lowerDimension, count: array.count)
+						let dataContainer = UnsafeMutablePointer<LDKStr>.allocate(capacity: array.count)
+						dataContainer.initialize(from: rustArray, count: array.count)
 
-        				let vector = LDKCVec_CVec_RouteHopZZ(data: dataContainer, datalen: UInt(array.count))
+        				let vector = LDKCVec_AddressZ(data: dataContainer, datalen: UInt(array.count))
         				self.cType = vector
 					}
 
-					public func getValue() -> [[RouteHop]] {
+					public func getValue() -> [String] {
 
-						var array = [[LDKRouteHop]]()
+						var array = [LDKStr]()
 
 						
 						for index1 in 0..<Int(self.cType!.datalen) {
 							let currentEntry1 = self.cType!.data[index1]
-							
-							var convertedEntry1 = [LDKRouteHop]()
-
-							
-							for index2 in 0..<Int(currentEntry1.datalen) {
-								let currentEntry2 = currentEntry1.data[index2]
-								convertedEntry1.append(currentEntry2)
-							}
-		
-
-							array.append(convertedEntry1)
-			
+							array.append(currentEntry1)
 						}
 		
 
-						let swiftArray = array.map { (currentCType: [LDKRouteHop]) -> [RouteHop] in
-							currentCType.map { (currentCType: LDKRouteHop) -> RouteHop in
-RouteHop(cType: currentCType, instantiationContext: "Vec_CVec_RouteHopZZ.swift::\(#function):\(#line)", anchor: self).dangle()
-							}
+						let swiftArray = array.map { (currentCType: LDKStr) -> String in
+Str(cType: currentCType, instantiationContext: "Vec_AddressZ.swift::\(#function):\(#line)").dangle().getValue()
 						}
 						return swiftArray
 					}
@@ -119,7 +104,7 @@ RouteHop(cType: currentCType, instantiationContext: "Vec_CVec_RouteHopZZ.swift::
 						
 
 						// native method call
-						let nativeCallResult = CVec_CVec_RouteHopZZ_free(self.cType!)
+						let nativeCallResult = CVec_AddressZ_free(self.cType!)
 
 						// cleanup
 						
@@ -133,7 +118,7 @@ RouteHop(cType: currentCType, instantiationContext: "Vec_CVec_RouteHopZZ.swift::
 					}
 		
 
-					internal func dangle(_ shouldDangle: Bool = true) -> Vec_CVec_RouteHopZZ {
+					internal func dangle(_ shouldDangle: Bool = true) -> Vec_AddressZ {
         				self.dangling = shouldDangle
 						return self
 					}
@@ -146,12 +131,12 @@ RouteHop(cType: currentCType, instantiationContext: "Vec_CVec_RouteHopZZ.swift::
 
 						if !self.dangling {
 							if Self.enableDeinitLogging {
-								Bindings.print("Freeing Vec_CVec_RouteHopZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+								Bindings.print("Freeing Vec_AddressZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 							}
 							
 							self.free()
 						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing Vec_CVec_RouteHopZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
+							Bindings.print("Not freeing Vec_AddressZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

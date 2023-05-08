@@ -179,29 +179,8 @@ export default class BindingsFileGenerator extends BaseTypeGenerator<GlobalBindi
 
 				internal class func print(_ string: String, severity: PrintSeverity = .DEBUG) {
 					if severity.rawValue >= Self.minimumPrintSeverity.rawValue {
-
-						// Swift.print(string)
 						NSLog(string)
 						fflush(stdout)
-
-						// if #available(iOS 14.0, *) {
-						// 	#if canImport(os)
-						// 	if severity == Self.PrintSeverity.DEBUG {
-						// 		logger.debug("\(string)")
-						// 	}else if severity == Self.PrintSeverity.WARNING {
-						// 		logger.warning("\(string)")
-						// 	}else if severity == Self.PrintSeverity.ERROR {
-						// 		logger.error("\(string)")
-						// 	}else {
-						// 		logger.log("\(string)")
-						// 	}
-						// 	#else
-						// 	Swift.print(string)
-						// 	#endif
-						// } else {
-						// 	// Fallback on earlier versions
-						// 	Swift.print(string)
-						// }
 					}
 				}
 

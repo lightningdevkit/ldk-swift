@@ -30,7 +30,7 @@ export default class Config {
 		return outputDirectoryPath;
 	}
 
-	getSwiftFormatterBinaryPath(): string {
+	getSwiftFormatterBinaryPath(): string | null {
 		let swiftformatPath = process.env['SWIFT_FORMAT_PATH'];
 		if (!swiftformatPath) {
 			debug('SWIFT_FORMAT_PATH not defined, looking up PATH');
@@ -40,8 +40,8 @@ export default class Config {
 				try {
 					swiftformatPath = child_process.execSync('which swiftformat').toString('utf-8').trim();
 				} catch (e) {
-					debug('swift[-]format not found in PATH, aborting!');
-					throw new Error('Swift formatter not defined in PATH or in environment! See https://github.com/apple/swift-format#getting-swift-format for installation instructions.')
+					debug('swift[-]format not found in PATH! See https://github.com/apple/swift-format#getting-swift-format for installation instructions.');
+					return null;
 				}
 			}
 		}

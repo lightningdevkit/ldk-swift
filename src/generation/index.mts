@@ -15,6 +15,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as child_process from 'child_process';
 import * as crypto from 'crypto';
+import url from 'url';
 
 export default class Generator {
 	private parser: Parser;
@@ -28,8 +29,8 @@ export default class Generator {
 	static snakeCaseToCamelCase(input: string, capitalizeFirst: boolean = false): string {
 		let output = input.replace(/([_][a-zA-Z0-9])/g, group =>
 			group
-			.toUpperCase()
-			.replace('_', '')
+				.toUpperCase()
+				.replace('_', '')
 		);
 		if (capitalizeFirst) {
 			output = output.charAt(0).toUpperCase() + output.substring(1);
@@ -148,17 +149,22 @@ export default class Generator {
 		const bindingsFileGenerator = new BindingsFileGenerator(this.parser.config, this.auxiliaryArtifacts);
 		bindingsFileGenerator.generate(bindingsStruct);
 
-		// after all is generated, we generate the version file
-		this.generateVersionFile();
+		if (!this.parser.config.getSwiftFormatterBinaryPath()) {
+			this.generateVersionFile();
+		}
 	}
 
 	async runFormatter() {
 		const configFilePath = url.fileURLToPath(new URL('.', import.meta.url)) + '../../.swift-format';
 		const outputDirectory = this.parser.config.getOutputBaseDirectoryPath();
 		const swiftFormatterBinary = this.parser.config.getSwiftFormatterBinaryPath();
+		if (!swiftFormatterBinary) {
+			return;
+		}
+
 		try {
 			const command = `${swiftFormatterBinary} --configuration ${configFilePath} --recursive --in-place ./ `;
-			console.log(command)
+			console.log(command);
 			child_process.execSync(command, {
 				cwd: outputDirectory
 			}).toString('utf-8');
@@ -166,6 +172,22 @@ export default class Generator {
 			const errorOutput = e.stderr.toString('utf-8').trim();
 			console.error('Failed to format Swift output:', errorOutput);
 		}
+
+		// after all is generated and formatted, we generate the version file
+		this.generateVersionFile();
+
+		const versionOutputPath = path.join(this.parser.config.getOutputBaseDirectoryPath(), 'VersionDescriptor.swift');
+
+		try {
+			const command = `${swiftFormatterBinary} --configuration ${configFilePath} --in-place ${versionOutputPath}`;
+			console.log(command);
+			child_process.execSync(command).toString('utf-8');
+		} catch (e) {
+			const errorOutput = e.stderr.toString('utf-8').trim();
+			console.error('Failed to format Swift output:', errorOutput);
+		}
+
+		// and then we format everything once again
 		debugger
 	}
 
@@ -173,7 +195,7 @@ export default class Generator {
 
 		const serializationHash = this.calculateSerializationHash();
 		const gitDirtyTagDescription = child_process.execSync('git describe --tag --dirty --always').toString('utf-8')
-		.trim();
+			.trim();
 		const gitCommitHash = child_process.execSync('git rev-parse HEAD').toString('utf-8').trim();
 
 		const versionFileContents = `
@@ -233,20 +255,30 @@ export default class Generator {
 
 		const whitespaceRegex = /\s+/gm;
 
+		const hasFormatter = !!this.parser.config.getSwiftFormatterBinaryPath();
+
 		for (const currentSwiftFileName of childSwiftFiles) {
 			const currentPath = path.join(directoryPath, currentSwiftFileName);
 			const fileContents = fs.readFileSync(currentPath).toString('utf-8');
-			// remove all leading trailing whitespaces from every line, as well as any repetition of new lines
-			const canonicalFileContents = fileContents
-			.replaceAll(/^\s*/mg, '') // leading spaces
-			.replaceAll(/\s*$/mg, '') // trailing spaces
-			.replaceAll(/\n+/g, '\n') // multiple newlines
-			.replaceAll(/\s*\/\/.*/g, '') // comment lines
-			.replaceAll(/;+$/g, ''); // trailing semicolons
-			// remove all whitespace so it produces the same output regardless of whether it got linted
-			// const dewhitespacedContents = fileContents.replaceAll(whitespaceRegex, '');
-			const hash = crypto.createHash('sha256').update(canonicalFileContents).digest('hex');
-			tree.push([currentSwiftFileName, hash]);
+
+			if (hasFormatter) {
+				// now that we have deterministic formatters, artificial canonicalization is unnecessary
+				const hash = crypto.createHash('sha256').update(fileContents).digest('hex');
+				tree.push([currentSwiftFileName, hash]);
+			} else {
+				// remove all leading trailing whitespaces from every line, as well as any repetition of new lines
+				const canonicalFileContents = fileContents
+					.replaceAll(/^\s*/mg, '') // leading spaces
+					.replaceAll(/\s*$/mg, '') // trailing spaces
+					.replaceAll(/\n+/g, '\n') // multiple newlines
+					.replaceAll(/\s*\/\/.*/g, '') // comment lines
+					.replaceAll(/;+$/g, ''); // trailing semicolons
+				// remove all whitespace so it produces the same output regardless of whether it got linted
+				// const dewhitespacedContents = fileContents.replaceAll(whitespaceRegex, '');
+				const hash = crypto.createHash('sha256').update(canonicalFileContents).digest('hex');
+				tree.push([currentSwiftFileName, hash]);
+			}
+
 		}
 		return tree;
 	}

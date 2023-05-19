@@ -152,6 +152,23 @@ export default class Generator {
 		this.generateVersionFile();
 	}
 
+	async runFormatter() {
+		const configFilePath = url.fileURLToPath(new URL('.', import.meta.url)) + '../../.swift-format';
+		const outputDirectory = this.parser.config.getOutputBaseDirectoryPath();
+		const swiftFormatterBinary = this.parser.config.getSwiftFormatterBinaryPath();
+		try {
+			const command = `${swiftFormatterBinary} --configuration ${configFilePath} --recursive --in-place ./ `;
+			console.log(command)
+			child_process.execSync(command, {
+				cwd: outputDirectory
+			}).toString('utf-8');
+		} catch (e) {
+			const errorOutput = e.stderr.toString('utf-8').trim();
+			console.error('Failed to format Swift output:', errorOutput);
+		}
+		debugger
+	}
+
 	private generateVersionFile() {
 
 		const serializationHash = this.calculateSerializationHash();

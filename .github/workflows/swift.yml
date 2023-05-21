@@ -63,7 +63,7 @@ jobs:
                 run: |
                     git clone https://github.com/apple/swift-format.git
                     cd swift-format
-                    git checkout "tags/$VERSION"
+                    # git checkout "tags/$VERSION"
                     swift build -c release
                 env:
                     VERSION: 0.50700.1

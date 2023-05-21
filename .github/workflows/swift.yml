@@ -15,7 +15,7 @@ jobs:
         steps:
             -   name: Checkout source code
                 uses: actions/checkout@v3
-            -   name: Install native Rust toolchain, Valgrind, and build utilities
+            -   name: Install native Rust toolchain and build utilities
                 run: |
                     # sudo apt-get purge grub\*
                     # sudo apt-get --only-upgrade install grub-efi-amd64-signed
@@ -23,7 +23,7 @@ jobs:
                     # sudo update-grub
                     sudo apt-get update
                     # sudo apt-get -y upgrade
-                    sudo apt-get -y install cargo valgrind lld git g++ clang curl
+                    sudo apt-get -y install cargo lld git g++ clang curl
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:
@@ -59,6 +59,17 @@ jobs:
                     tar xvvf swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
                 env:
                     EXPECTED_SWIFT_SHASUM: e729912846b0cff98bf8e0e5ede2e17bc2d1098de3cdb6fa13b3ff52c36ee5d6
+            -   name: Install Swift Formatter
+                run: |
+                    git clone https://github.com/apple/swift-format.git
+                    cd swift-format
+                    git checkout "tags/$VERSION"
+                    swift build -c release
+                env:
+                    VERSION: 0.50700.1
+            -   name: Verify generated output recency
+                run: |
+
             -   name: Build Swift bindings package
                 run: |
                     cd ci/LDKSwift

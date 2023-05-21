@@ -38,15 +38,6 @@ jobs:
                     LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
                     H_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-swift/ldk-swift/ci/LDKSwift/Sources/LDKHeaders/include
                     C_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-swift/ldk-swift/ci/LDKSwift/Sources/LDKHeaders
-            -   name: Check that the latest auto-generated Swift files are in the repo
-                run: |
-                    npm install
-                    npm run tsc
-                    node ./src/index.mjs
-                env:
-                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
-            -   name: Test bindings parsing and generation
-                run: npm test
             -   name: Install Swift Toolchain
                 run: |
                     curl --verbose -L -o swift-5.7.2-RELEASE-ubuntu22.04.tar.gz https://download.swift.org/swift-5.7.2-release/ubuntu2204/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
@@ -63,13 +54,23 @@ jobs:
                 run: |
                     git clone https://github.com/apple/swift-format.git
                     cd swift-format
-                    # git checkout "tags/$VERSION"
+                    git checkout "tags/$VERSION"
                     swift build -c release
                 env:
-                    VERSION: 0.50700.1
+                    VERSION: 508.0.1
+            -   name: Regenerate Swift files
+                run: |
+                    npm install
+                    npm run tsc
+                    node ./src/index.mjs
+                env:
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
+                    SWIFT_FORMAT_PATH: /home/runner/work/ldk-swift/swift-format/.build/release/swift-format
+            -   name: Test bindings parsing and generation
+                run: npm test
             -   name: Verify generated output recency
                 run: |
-
+                    git diff --exit-code out/ ':(exclude)out/VersionDescriptor.swift'
             -   name: Build Swift bindings package
                 run: |
                     cd ci/LDKSwift

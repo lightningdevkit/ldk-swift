@@ -52,6 +52,7 @@ jobs:
                     EXPECTED_SWIFT_SHASUM: e729912846b0cff98bf8e0e5ede2e17bc2d1098de3cdb6fa13b3ff52c36ee5d6
             -   name: Install Swift Formatter
                 run: |
+                    cd ../
                     git clone https://github.com/apple/swift-format.git
                     cd swift-format
                     git checkout "tags/$VERSION"

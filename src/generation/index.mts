@@ -171,6 +171,7 @@ export default class Generator {
 		} catch (e) {
 			const errorOutput = e.stderr.toString('utf-8').trim();
 			console.error('Failed to format Swift output:', errorOutput);
+			throw new Error(errorOutput)
 		}
 
 		// after all is generated and formatted, we generate the version file
@@ -185,10 +186,8 @@ export default class Generator {
 		} catch (e) {
 			const errorOutput = e.stderr.toString('utf-8').trim();
 			console.error('Failed to format Swift output:', errorOutput);
+			throw new Error(errorOutput)
 		}
-
-		// and then we format everything once again
-		debugger
 	}
 
 	private generateVersionFile() {

@@ -49,22 +49,3 @@ runs:
                 pushd ${{ inputs.destination }}/ldk-c-bindings
                 ./genbindings.sh ../rust-lightning true
                 popd
-        -   name: Install Swift Formatter
-            shell: bash
-            run: |
-                git clone https://github.com/apple/swift-format.git
-                cd swift-format
-                git checkout "tags/$VERSION"
-                swift build -c release
-            env:
-                VERSION: 508.0.1
-        -   name: Generate Swift Bindings
-            shell: bash
-            run: |
-                npm install
-                # python3 ./
-                npm run tsc
-                node ./src/index.mjs
-            env:
-                LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ${{ inputs.destination }}/ldk-c-bindings/lightning-c-bindings/include/lightning.h
-                SWIFT_FORMAT_PATH: ${{ github.workspace }}/swift-format/.build/release/swift-format

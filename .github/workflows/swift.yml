@@ -24,18 +24,6 @@ jobs:
                     sudo apt-get update
                     # sudo apt-get -y upgrade
                     sudo apt-get -y install cargo lld git g++ clang curl
-            -   name: Install Swift Toolchain
-                run: |
-                    curl --verbose -L -o swift-5.7.2-RELEASE-ubuntu22.04.tar.gz https://download.swift.org/swift-5.7.2-release/ubuntu2204/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
-                    echo "Sha sum: $(sha256sum swift-5.7.2-RELEASE-ubuntu22.04.tar.gz | awk '{ print $1 }')"
-                    if [ "$(sha256sum swift-5.7.2-RELEASE-ubuntu22.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
-                      echo "Bad hash"
-                      echo "Contents: \n$(cat swift-5.7.2-RELEASE-ubuntu22.04.tar.gz)"
-                      exit 1
-                    fi
-                    tar xvvf swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
-                env:
-                    EXPECTED_SWIFT_SHASUM: e729912846b0cff98bf8e0e5ede2e17bc2d1098de3cdb6fa13b3ff52c36ee5d6
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:
@@ -50,6 +38,34 @@ jobs:
                     LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
                     H_FILE_OUTPUT_DIRECTORY: ${{ github.workspace }}/ci/LDKSwift/Sources/LDKHeaders/include
                     C_FILE_OUTPUT_DIRECTORY: ${{ github.workspace }}/ci/LDKSwift/Sources/LDKHeaders
+            -   name: Install Swift Toolchain
+                run: |
+                    curl --verbose -L -o swift-5.7.2-RELEASE-ubuntu22.04.tar.gz https://download.swift.org/swift-5.7.2-release/ubuntu2204/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
+                    echo "Sha sum: $(sha256sum swift-5.7.2-RELEASE-ubuntu22.04.tar.gz | awk '{ print $1 }')"
+                    if [ "$(sha256sum swift-5.7.2-RELEASE-ubuntu22.04.tar.gz | awk '{ print $1 }')" != "${EXPECTED_SWIFT_SHASUM}" ]; then
+                      echo "Bad hash"
+                      echo "Contents: \n$(cat swift-5.7.2-RELEASE-ubuntu22.04.tar.gz)"
+                      exit 1
+                    fi
+                    tar xvvf swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
+                env:
+                    EXPECTED_SWIFT_SHASUM: e729912846b0cff98bf8e0e5ede2e17bc2d1098de3cdb6fa13b3ff52c36ee5d6
+            -   name: Install Swift Formatter
+                run: |
+                    git clone https://github.com/apple/swift-format.git
+                    cd swift-format
+                    git checkout "tags/$VERSION"
+                    swift build -c release
+                env:
+                    VERSION: 508.0.1
+            -   name: Regenerate Swift files
+                run: |
+                    npm install
+                    npm run tsc
+                    node ./src/index.mjs
+                env:
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
+                    SWIFT_FORMAT_PATH: ${{ github.workspace }}/swift-format/.build/release/swift-format
             -   name: Test bindings parsing and generation
                 run: npm test
             -   name: Verify generated output recency

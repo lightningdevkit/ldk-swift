@@ -37,12 +37,8 @@ export default class Config {
 			try {
 				swiftformatPath = child_process.execSync('which swift-format').toString('utf-8').trim();
 			} catch (e) {
-				try {
-					swiftformatPath = child_process.execSync('which swiftformat').toString('utf-8').trim();
-				} catch (e) {
-					debug('swift[-]format not found in PATH! See https://github.com/apple/swift-format#getting-swift-format for installation instructions.');
-					return null;
-				}
+				debug('swift-format not found in PATH! See https://github.com/apple/swift-format#getting-swift-format for installation instructions.');
+				return null;
 			}
 		}
 

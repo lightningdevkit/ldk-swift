@@ -31,8 +31,8 @@ jobs:
                         human_readable_platform: 'catalyst'
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
-            LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
-            LDK_C_BINDINGS_BINARY_DIRECTORY: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/bin
+            LDK_C_BINDINGS_BASE: ${{ github.workspace }}/bindings/artifacts/ldk-c-bindings
+            LDK_C_BINDINGS_BINARY_DIRECTORY: ${{ github.workspace }}/bindings/artifacts/bin
         steps:
             -   name: Configure Xcode
                 uses: maxim-lobanov/setup-xcode@v1
@@ -64,7 +64,7 @@ jobs:
         needs: [ build-xcarchives ]
         env:
             DEVELOPER_DIR: /Applications/Xcode_13.2.1.app/Contents/Developer
-            LDK_C_BINDINGS_BASE: /Users/runner/work/ldk-swift/ldk-swift/bindings/artifacts/ldk-c-bindings
+            LDK_C_BINDINGS_BASE: ${{ github.workspace }}/bindings/artifacts/ldk-c-bindings
         steps:
             -   name: Configure Xcode
                 uses: maxim-lobanov/setup-xcode@v1

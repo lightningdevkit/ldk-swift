@@ -1,571 +1,608 @@
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-				
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+/// One counterparty's public keys which do not change over the life of a channel.
+public typealias ChannelPublicKeys = Bindings.ChannelPublicKeys
 
-			/// One counterparty's public keys which do not change over the life of a channel.
-			public typealias ChannelPublicKeys = Bindings.ChannelPublicKeys
+extension Bindings {
 
-			extension Bindings {
-		
 
-				/// One counterparty's public keys which do not change over the life of a channel.
-				public class ChannelPublicKeys: NativeTypeWrapper {
+	/// One counterparty's public keys which do not change over the life of a channel.
+	public class ChannelPublicKeys: NativeTypeWrapper {
 
-					let initialCFreeability: Bool
+		let initialCFreeability: Bool
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKChannelPublicKeys?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKChannelPublicKeys, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKChannelPublicKeys?
 
-					internal init(cType: LDKChannelPublicKeys, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKChannelPublicKeys, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					internal init(cType: LDKChannelPublicKeys, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+		internal init(cType: LDKChannelPublicKeys, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-					
-					/// Frees any resources used by the ChannelPublicKeys, if is_owned is set and inner is non-NULL.
-					internal func free() {
-						// native call variable prep
-						
+		internal init(
+			cType: LDKChannelPublicKeys, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						// native method call
-						let nativeCallResult = ChannelPublicKeys_free(self.cType!)
 
-						// cleanup
-						
+		/// Frees any resources used by the ChannelPublicKeys, if is_owned is set and inner is non-NULL.
+		internal func free() {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// The public key which is used to sign all commitment transactions, as it appears in the
-					/// on-chain channel lock-in 2-of-2 multisig output.
-					public func getFundingPubkey() -> [UInt8] {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult = ChannelPublicKeys_free(self.cType!)
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_get_funding_pubkey(thisPtrPointer)
-						}
-				
+			// cleanup
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						return returnValue
-					}
-		
-					/// The public key which is used to sign all commitment transactions, as it appears in the
-					/// on-chain channel lock-in 2-of-2 multisig output.
-					public func setFundingPubkey(val: [UInt8]) {
-						// native call variable prep
-						
-						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_set_funding_pubkey(thisPtrPointer, valPrimitiveWrapper.cType!)
-						}
-				
+			return returnValue
+		}
 
-						// cleanup
-						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
+		/// The public key which is used to sign all commitment transactions, as it appears in the
+		/// on-chain channel lock-in 2-of-2 multisig output.
+		public func getFundingPubkey() -> [UInt8] {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// The base point which is used (with derive_public_revocation_key) to derive per-commitment
-					/// revocation keys. This is combined with the per-commitment-secret generated by the
-					/// counterparty to create a secret which the counterparty can reveal to revoke previous
-					/// states.
-					public func getRevocationBasepoint() -> [UInt8] {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_get_funding_pubkey(thisPtrPointer)
+				}
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_get_revocation_basepoint(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
+			// cleanup
 
-						
-						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
 
-						return returnValue
-					}
-		
-					/// The base point which is used (with derive_public_revocation_key) to derive per-commitment
-					/// revocation keys. This is combined with the per-commitment-secret generated by the
-					/// counterparty to create a secret which the counterparty can reveal to revoke previous
-					/// states.
-					public func setRevocationBasepoint(val: [UInt8]) {
-						// native call variable prep
-						
-						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_set_revocation_basepoint(thisPtrPointer, valPrimitiveWrapper.cType!)
-						}
-				
 
-						// cleanup
-						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
+			return returnValue
+		}
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+		/// The public key which is used to sign all commitment transactions, as it appears in the
+		/// on-chain channel lock-in 2-of-2 multisig output.
+		public func setFundingPubkey(val: [UInt8]) {
+			// native call variable prep
 
-						return returnValue
-					}
-		
-					/// The public key on which the non-broadcaster (ie the countersignatory) receives an immediately
-					/// spendable primary channel balance on the broadcaster's commitment transaction. This key is
-					/// static across every commitment transaction.
-					public func getPaymentPoint() -> [UInt8] {
-						// native call variable prep
-						
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_get_payment_point(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_set_funding_pubkey(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
 
-						
-						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
 
-						return returnValue
-					}
-		
-					/// The public key on which the non-broadcaster (ie the countersignatory) receives an immediately
-					/// spendable primary channel balance on the broadcaster's commitment transaction. This key is
-					/// static across every commitment transaction.
-					public func setPaymentPoint(val: [UInt8]) {
-						// native call variable prep
-						
-						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
+			// cleanup
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_set_payment_point(thisPtrPointer, valPrimitiveWrapper.cType!)
-						}
-				
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
 
-						// cleanup
-						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						return returnValue
-					}
-		
-					/// The base point which is used (with derive_public_key) to derive a per-commitment payment
-					/// public key which receives non-HTLC-encumbered funds which are only available for spending
-					/// after some delay (or can be claimed via the revocation path).
-					public func getDelayedPaymentBasepoint() -> [UInt8] {
-						// native call variable prep
-						
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_get_delayed_payment_basepoint(thisPtrPointer)
-						}
-				
+			return returnValue
+		}
 
-						// cleanup
-						
+		/// The base point which is used (with derive_public_revocation_key) to derive per-commitment
+		/// revocation keys. This is combined with the per-commitment-secret generated by the
+		/// counterparty to create a secret which the counterparty can reveal to revoke previous
+		/// states.
+		public func getRevocationBasepoint() -> [UInt8] {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
 
-						return returnValue
-					}
-		
-					/// The base point which is used (with derive_public_key) to derive a per-commitment payment
-					/// public key which receives non-HTLC-encumbered funds which are only available for spending
-					/// after some delay (or can be claimed via the revocation path).
-					public func setDelayedPaymentBasepoint(val: [UInt8]) {
-						// native call variable prep
-						
-						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_get_revocation_basepoint(thisPtrPointer)
+				}
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_set_delayed_payment_basepoint(thisPtrPointer, valPrimitiveWrapper.cType!)
-						}
-				
 
-						// cleanup
-						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
+			// cleanup
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// The base point which is used (with derive_public_key) to derive a per-commitment public key
-					/// which is used to encumber HTLC-in-flight outputs.
-					public func getHtlcBasepoint() -> [UInt8] {
-						// native call variable prep
-						
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_get_htlc_basepoint(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
+			return returnValue
+		}
 
-						
-						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
+		/// The base point which is used (with derive_public_revocation_key) to derive per-commitment
+		/// revocation keys. This is combined with the per-commitment-secret generated by the
+		/// counterparty to create a secret which the counterparty can reveal to revoke previous
+		/// states.
+		public func setRevocationBasepoint(val: [UInt8]) {
+			// native call variable prep
 
-						return returnValue
-					}
-		
-					/// The base point which is used (with derive_public_key) to derive a per-commitment public key
-					/// which is used to encumber HTLC-in-flight outputs.
-					public func setHtlcBasepoint(val: [UInt8]) {
-						// native call variable prep
-						
-						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_set_htlc_basepoint(thisPtrPointer, valPrimitiveWrapper.cType!)
-						}
-				
 
-						// cleanup
-						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_set_revocation_basepoint(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// Constructs a new ChannelPublicKeys given each field
-					public init(fundingPubkeyArg: [UInt8], revocationBasepointArg: [UInt8], paymentPointArg: [UInt8], delayedPaymentBasepointArg: [UInt8], htlcBasepointArg: [UInt8]) {
-						// native call variable prep
-						
-						let fundingPubkeyArgPrimitiveWrapper = PublicKey(value: fundingPubkeyArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
-						let revocationBasepointArgPrimitiveWrapper = PublicKey(value: revocationBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
-						let paymentPointArgPrimitiveWrapper = PublicKey(value: paymentPointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
-						let delayedPaymentBasepointArgPrimitiveWrapper = PublicKey(value: delayedPaymentBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
-						let htlcBasepointArgPrimitiveWrapper = PublicKey(value: htlcBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
+			// cleanup
 
-						// native method call
-						let nativeCallResult = ChannelPublicKeys_new(fundingPubkeyArgPrimitiveWrapper.cType!, revocationBasepointArgPrimitiveWrapper.cType!, paymentPointArgPrimitiveWrapper.cType!, delayedPaymentBasepointArgPrimitiveWrapper.cType!, htlcBasepointArgPrimitiveWrapper.cType!)
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
 
-						// cleanup
-						
-						// for elided types, we need this
-						fundingPubkeyArgPrimitiveWrapper.noOpRetain()
-				
-						// for elided types, we need this
-						revocationBasepointArgPrimitiveWrapper.noOpRetain()
-				
-						// for elided types, we need this
-						paymentPointArgPrimitiveWrapper.noOpRetain()
-				
-						// for elided types, we need this
-						delayedPaymentBasepointArgPrimitiveWrapper.noOpRetain()
-				
-						// for elided types, we need this
-						htlcBasepointArgPrimitiveWrapper.noOpRetain()
-				
-				self.initialCFreeability = nativeCallResult.is_owned
-			
 
-						/*
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The public key on which the non-broadcaster (ie the countersignatory) receives an immediately
+		/// spendable primary channel balance on the broadcaster's commitment transaction. This key is
+		/// static across every commitment transaction.
+		public func getPaymentPoint() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_get_payment_point(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The public key on which the non-broadcaster (ie the countersignatory) receives an immediately
+		/// spendable primary channel balance on the broadcaster's commitment transaction. This key is
+		/// static across every commitment transaction.
+		public func setPaymentPoint(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_set_payment_point(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The base point which is used (with derive_public_key) to derive a per-commitment payment
+		/// public key which receives non-HTLC-encumbered funds which are only available for spending
+		/// after some delay (or can be claimed via the revocation path).
+		public func getDelayedPaymentBasepoint() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_get_delayed_payment_basepoint(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The base point which is used (with derive_public_key) to derive a per-commitment payment
+		/// public key which receives non-HTLC-encumbered funds which are only available for spending
+		/// after some delay (or can be claimed via the revocation path).
+		public func setDelayedPaymentBasepoint(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_set_delayed_payment_basepoint(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The base point which is used (with derive_public_key) to derive a per-commitment public key
+		/// which is used to encumber HTLC-in-flight outputs.
+		public func getHtlcBasepoint() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_get_htlc_basepoint(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The base point which is used (with derive_public_key) to derive a per-commitment public key
+		/// which is used to encumber HTLC-in-flight outputs.
+		public func setHtlcBasepoint(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_set_htlc_basepoint(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new ChannelPublicKeys given each field
+		public init(
+			fundingPubkeyArg: [UInt8], revocationBasepointArg: [UInt8], paymentPointArg: [UInt8],
+			delayedPaymentBasepointArg: [UInt8], htlcBasepointArg: [UInt8]
+		) {
+			// native call variable prep
+
+			let fundingPubkeyArgPrimitiveWrapper = PublicKey(
+				value: fundingPubkeyArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+			let revocationBasepointArgPrimitiveWrapper = PublicKey(
+				value: revocationBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+			let paymentPointArgPrimitiveWrapper = PublicKey(
+				value: paymentPointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+			let delayedPaymentBasepointArgPrimitiveWrapper = PublicKey(
+				value: delayedPaymentBasepointArg,
+				instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+			let htlcBasepointArgPrimitiveWrapper = PublicKey(
+				value: htlcBasepointArg, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = ChannelPublicKeys_new(
+				fundingPubkeyArgPrimitiveWrapper.cType!, revocationBasepointArgPrimitiveWrapper.cType!,
+				paymentPointArgPrimitiveWrapper.cType!, delayedPaymentBasepointArgPrimitiveWrapper.cType!,
+				htlcBasepointArgPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			fundingPubkeyArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			revocationBasepointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			paymentPointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			delayedPaymentBasepointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			htlcBasepointArgPrimitiveWrapper.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
 						// return value (do some wrapping)
 						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
 						*/
 
-						
-				self.cType = nativeCallResult
 
-				Self.instanceCounter += 1
-				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
-			
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+		}
+
+		/// Creates a copy of the ChannelPublicKeys
+		internal func clone() -> ChannelPublicKeys {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ChannelPublicKeys(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Checks if two ChannelPublicKeyss contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		/// Two objects with NULL inner values will be considered "equal" here.
+		public class func eq(a: ChannelPublicKeys, b: ChannelPublicKeys) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKChannelPublicKeys>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKChannelPublicKeys>) in
+						ChannelPublicKeys_eq(aPointer, bPointer)
 					}
-		
-					/// Creates a copy of the ChannelPublicKeys
-					internal func clone() -> ChannelPublicKeys {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_clone(origPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = ChannelPublicKeys(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-					/// Checks if two ChannelPublicKeyss contain equal inner contents.
-					/// This ignores pointers and is_owned flags and looks at the values in fields.
-					/// Two objects with NULL inner values will be considered "equal" here.
-					public class func eq(a: ChannelPublicKeys, b: ChannelPublicKeys) -> Bool {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				
-						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_eq(aPointer, bPointer)
-						}
-				
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
-					/// Serialize the ChannelPublicKeys object into a byte array which can be read by ChannelPublicKeys_read
-					public func write() -> [UInt8] {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKChannelPublicKeys>) in
-				ChannelPublicKeys_write(objPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
-
-						return returnValue
-					}
-		
-					/// Read a ChannelPublicKeys from a byte array, created by ChannelPublicKeys_write
-					public class func read(ser: [UInt8]) -> Result_ChannelPublicKeysDecodeErrorZ {
-						// native call variable prep
-						
-						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-				
-
-						// native method call
-						let nativeCallResult = ChannelPublicKeys_read(serPrimitiveWrapper.cType!)
-
-						// cleanup
-						
-						// for elided types, we need this
-						serPrimitiveWrapper.noOpRetain()
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = Result_ChannelPublicKeysDecodeErrorZ(cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-
-					
-					/// Indicates that this is the only struct which contains the same pointer.
-					/// Rust functions which take ownership of an object provided via an argument require
-					/// this to be true and invalidate the object pointed to by inner.
-					public func isOwned() -> Bool {
-						// return value (do some wrapping)
-						let returnValue = self.cType!.is_owned
-
-						return returnValue;
-					}
-		
-
-					internal func dangle(_ shouldDangle: Bool = true) -> ChannelPublicKeys {
-						self.dangling = shouldDangle
-						return self
-					}
-
-					
-					internal func danglingClone() -> ChannelPublicKeys {
-						let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-			
-						internal func dynamicallyDangledClone() -> ChannelPublicKeys {
-							let dangledClone = self.clone()
-							// if it's owned, i. e. controlled by Rust, it should dangle on our end
-							dangledClone.dangling = dangledClone.cType!.is_owned
-							return dangledClone
-						}
-					
-					internal func setCFreeability(freeable: Bool) -> ChannelPublicKeys {
-						self.cType!.is_owned = freeable
-						return self
-					}
-
-					internal func dynamicDangle() -> ChannelPublicKeys {
-						self.dangling = self.cType!.is_owned
-						return self
-					}
-			
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
-
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing ChannelPublicKeys \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing ChannelPublicKeys \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-			
 
 				}
 
-				
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Serialize the ChannelPublicKeys object into a byte array which can be read by ChannelPublicKeys_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a ChannelPublicKeys from a byte array, created by ChannelPublicKeys_write
+		public class func read(ser: [UInt8]) -> Result_ChannelPublicKeysDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = ChannelPublicKeys_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_ChannelPublicKeysDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelPublicKeys.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		/// Indicates that this is the only struct which contains the same pointer.
+		/// Rust functions which take ownership of an object provided via an argument require
+		/// this to be true and invalidate the object pointed to by inner.
+		public func isOwned() -> Bool {
+			// return value (do some wrapping)
+			let returnValue = self.cType!.is_owned
+
+			return returnValue
+		}
+
+
+		internal func dangle(_ shouldDangle: Bool = true) -> ChannelPublicKeys {
+			self.dangling = shouldDangle
+			return self
+		}
+
+
+		internal func danglingClone() -> ChannelPublicKeys {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> ChannelPublicKeys {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.is_owned
+			return dangledClone
+		}
+
+		internal func setCFreeability(freeable: Bool) -> ChannelPublicKeys {
+			self.cType!.is_owned = freeable
+			return self
+		}
+
+		internal func dynamicDangle() -> ChannelPublicKeys {
+			self.dangling = self.cType!.is_owned
+			return self
+		}
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
 			}
-		
-		
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing ChannelPublicKeys \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+				}
+
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing ChannelPublicKeys \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
+			}
+		}
+
+
+	}
+
+
+}
+

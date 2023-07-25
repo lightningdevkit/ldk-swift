@@ -1028,7 +1028,7 @@ export default class Parser {
 			}
 		}
 
-		console.error(`Method ${name} cannot finds its associated type!\n>`, methodLine);
+		console.error(`Method ${name} cannot find its associated type!\n>`, methodLine);
 		process.exit(1);
 	}
 

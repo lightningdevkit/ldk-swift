@@ -180,17 +180,21 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let random_data = params.entropySource.getSecureRandomBytes();
 
 
-        let noCustomMessages = IgnoringMessageHandler()
+        let channelMessageHandler = channelManager.asChannelMessageHandler()
+        let noCustomMessages = IgnoringMessageHandler().asCustomMessageHandler()
+        let noOnionMessages = IgnoringMessageHandler().asOnionMessageHandler()
+        let noRoutingMessages = IgnoringMessageHandler().asRoutingMessageHandler()
+
         var messageHandler: MessageHandler!
         if let netGraph = self.netGraph, params.enableP2PGossip {
             let p2pGossipSync = P2PGossipSync(networkGraph: netGraph, utxoLookup: nil, logger: params.logger)
             self.graphMessageHandler = GossipSync.initWithP2P(a: p2pGossipSync)
-            messageHandler = MessageHandler(chanHandlerArg: channelManager.asChannelMessageHandler(), routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(), onionMessageHandlerArg: noCustomMessages.asOnionMessageHandler())
+            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(), onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
         } else {
-            messageHandler = MessageHandler(chanHandlerArg: channelManager.asChannelMessageHandler(), routeHandlerArg: noCustomMessages.asRoutingMessageHandler(), onionMessageHandlerArg: noCustomMessages.asOnionMessageHandler())
+            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: noRoutingMessages, onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
         }
         let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
-        self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, customMessageHandler: IgnoringMessageHandler().asCustomMessageHandler(), nodeSigner: params.nodeSigner)
+        self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, nodeSigner: params.nodeSigner)
 
         if let filter = filter {
             for (currentMonitor, _) in self.channel_monitors {
@@ -222,20 +226,24 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         let router = params.router(networkGraph: self.netGraph)
         self.channelManager = ChannelManager(feeEst: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(), txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider, config: params.config, params: chainParameters)
         
-        let noCustomMessages = IgnoringMessageHandler()
+        let channelMessageHandler = channelManager.asChannelMessageHandler()
+        let noCustomMessages = IgnoringMessageHandler().asCustomMessageHandler()
+        let noOnionMessages = IgnoringMessageHandler().asOnionMessageHandler()
+        let noRoutingMessages = IgnoringMessageHandler().asRoutingMessageHandler()
+
         var messageHandler: MessageHandler!
         if let netGraph = netGraph, params.enableP2PGossip {
             let p2pGossipSync = P2PGossipSync(networkGraph: netGraph, utxoLookup: nil, logger: params.logger)
             self.graphMessageHandler = GossipSync.initWithP2P(a: p2pGossipSync)
-            messageHandler = MessageHandler(chanHandlerArg: channelManager.asChannelMessageHandler(), routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(), onionMessageHandlerArg: noCustomMessages.asOnionMessageHandler())
+            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: p2pGossipSync.asRoutingMessageHandler(), onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
         } else {
-            messageHandler = MessageHandler(chanHandlerArg: channelManager.asChannelMessageHandler(), routeHandlerArg: noCustomMessages.asRoutingMessageHandler(), onionMessageHandlerArg: noCustomMessages.asOnionMessageHandler())
+            messageHandler = MessageHandler(chanHandlerArg: channelMessageHandler, routeHandlerArg: noRoutingMessages, onionMessageHandlerArg: noOnionMessages, customMessageHandlerArg: noCustomMessages)
         }
         
         let random_data = params.entropySource.getSecureRandomBytes();
 
         let timestampSeconds = UInt32(NSDate().timeIntervalSince1970)
-        self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, customMessageHandler: noCustomMessages.asCustomMessageHandler(), nodeSigner: params.nodeSigner)
+        self.peerManager = PeerManager(messageHandler: messageHandler, currentTime: timestampSeconds, ephemeralRandomData: random_data, logger: params.logger, nodeSigner: params.nodeSigner)
 
         super.init(conflictAvoidingVariableName: 0, instantiationContext: "ChannelManagerConstructor.swift::\(#function):\(#line)")
         // try! self.peerManager.addAnchor(anchor: self)

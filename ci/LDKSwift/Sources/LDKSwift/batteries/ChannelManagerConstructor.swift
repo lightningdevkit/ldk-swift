@@ -42,10 +42,11 @@ public struct ChannelManagerConstructionParameters {
     public var txBroadcaster: BroadcasterInterface
     public var enableP2PGossip: Bool = false
     public var scorer: MultiThreadedLockableScore?
+    public var scoreParams: ProbabilisticScoringFeeParameters?
     public var payerRetries: Retry = Retry.initWithAttempts(a: UInt(3))
     public var logger: Logger
     
-    public init (config: UserConfig, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, scorer: MultiThreadedLockableScore? = nil, payerRetries: Retry = Retry.initWithAttempts(a: UInt(3))) {
+    public init (config: UserConfig, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, scorer: MultiThreadedLockableScore? = nil, scoreParams: ProbabilisticScoringFeeParameters? = nil, payerRetries: Retry = Retry.initWithAttempts(a: UInt(3))) {
         self.config = config
         self.entropySource = entropySource
         self.nodeSigner = nodeSigner
@@ -57,6 +58,11 @@ public struct ChannelManagerConstructionParameters {
         
         self.enableP2PGossip = enableP2PGossip
         self.scorer = scorer
+        if scorer != nil && scoreParams == nil {
+            self.scoreParams = ProbabilisticScoringFeeParameters.initWithDefault()
+        } else {
+            self.scoreParams = scoreParams
+        }
         self.payerRetries = payerRetries
     }
     
@@ -74,8 +80,8 @@ public struct ChannelManagerConstructionParameters {
     }
     
     fileprivate func router(networkGraph: NetworkGraph?) -> Router {
-        if let netGraph = networkGraph, let scorer = self.scorer {
-            return DefaultRouter(networkGraph: netGraph, logger: self.logger, randomSeedBytes: self.entropySource.getSecureRandomBytes(), scorer: scorer.asLockableScore()).asRouter()
+        if let netGraph = networkGraph, let scorer = self.scorer, let scoreParams = self.scoreParams {
+            return DefaultRouter(networkGraph: netGraph, logger: self.logger, randomSeedBytes: self.entropySource.getSecureRandomBytes(), scorer: scorer.asLockableScore(), scoreParams: scoreParams).asRouter()
         }
         return CMCRouter()
     }

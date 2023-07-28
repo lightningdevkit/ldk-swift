@@ -316,11 +316,11 @@ public class HumanObjectPeerTestInstance {
                     scorerGraph = NetworkGraph(network: .Regtest, logger: self.logger)
                 }
 
-                let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-                var probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: scorerGraph, logger: self.logger)
+                let decayParams = ProbabilisticScoringDecayParameters.initWithDefault()
+                var probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: scorerGraph, logger: self.logger)
                 if master.configuration.reserializedProbabilisticScorer {
                     let serializedScorer = probabalisticScorer.write()
-                    let probabalisticScorerResult = ProbabilisticScorer.read(ser: serializedScorer, argA: scoringParams, argB: scorerGraph, argC: self.logger)
+                    let probabalisticScorerResult = ProbabilisticScorer.read(ser: serializedScorer, argA: decayParams, argB: scorerGraph, argC: self.logger)
                     probabalisticScorer = probabalisticScorerResult.getValue()!
                 }
                 let score = probabalisticScorer.asScore()

@@ -164,8 +164,8 @@ class LDKSwiftTests: XCTestCase {
         let config = UserConfig.initWithDefault()
         let networkGraph = NetworkGraph(network: .Bitcoin, logger: logger)
 
-        let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+        let decayParams = ProbabilisticScoringDecayParameters.initWithDefault()
+        let probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
         let score = probabalisticScorer.asScore()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -212,8 +212,8 @@ class LDKSwiftTests: XCTestCase {
         let lightningNetwork = LDKNetwork_Bitcoin
         let networkGraph = NetworkGraph(network: .Bitcoin, logger: logger)
 
-        let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+        let decayParams = ProbabilisticScoringDecayParameters.initWithDefault()
+        let probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
         let score = probabalisticScorer.asScore()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -270,8 +270,8 @@ class LDKSwiftTests: XCTestCase {
         let lightningNetwork: Bindings.Network = .Bitcoin
         let networkGraph = NetworkGraph(network: .Bitcoin, logger: logger)
 
-        let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+        let decayParams = ProbabilisticScoringDecayParameters.initWithDefault()
+        let probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
         let score = probabalisticScorer.asScore()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -410,8 +410,8 @@ class LDKSwiftTests: XCTestCase {
 		print("Network graph size: \(graphBytes.count)! Time: \(elapsedC)s")
         */
 
-        let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-        let scorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+        let decayParams = ProbabilisticScoringDecayParameters.initWithDefault()
+        let scorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
         let score = scorer.asScore()
         // let lockableScore = LockableScore()
         // let defaultRouter = DefaultRouter(network_graph: networkGraph, logger: logger, random_seed_bytes: [UInt8](repeating: 0, count: 32), scorer: lockableScore)
@@ -432,7 +432,8 @@ class LDKSwiftTests: XCTestCase {
 		let firstHops: [ChannelDetails]? = nil
 		print("STEP B")
         let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
-        let foundRoute = Bindings.findRoute(ourNodePubkey: payerPubkey, routeParams: routeParameters, networkGraph: networkGraph, firstHops: [], logger: logger, scorer: score, randomSeedBytes: randomSeedBytes)
+        let scoreParams = ProbabilisticScoringFeeParameters.initWithDefault();
+        let foundRoute = Bindings.findRoute(ourNodePubkey: payerPubkey, routeParams: routeParameters, networkGraph: networkGraph, firstHops: [], logger: logger, scorer: score, scoreParams: scoreParams, randomSeedBytes: randomSeedBytes)
 //        let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, inflight_htlcs: <#T##InFlightHtlcs#>)
 
         if let routeError = foundRoute.getError() {

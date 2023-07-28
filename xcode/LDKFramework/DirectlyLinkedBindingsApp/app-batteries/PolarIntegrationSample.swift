@@ -54,8 +54,8 @@ public class PolarIntegrationSample {
         let chaintipHeight = try await rpcInterface.getChaintipHeight()
         let networkGraph = NetworkGraph(network: lightningNetwork, logger: logger)
 
-        let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+        let decayParams = ProbabilisticScoringDecayParameters.initWithDefault();
+        let probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
         let score = probabalisticScorer.asScore()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -464,8 +464,8 @@ public class PolarIntegrationSample {
             
             print("Genesis hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedGenesisHash))")
 
-            let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-            let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+            let decayParams = ProbabilisticScoringDecayParameters.initWithDefault();
+            let probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
             let score = probabalisticScorer.asScore()
             let multiThreadedScorer = MultiThreadedLockableScore(score: score)
             

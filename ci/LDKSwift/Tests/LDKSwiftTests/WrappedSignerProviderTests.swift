@@ -50,8 +50,8 @@ class WrappedSignerProviderTests: XCTestCase {
         let network = Network.Testnet
         let netGraph = NetworkGraph(network: network, logger: logger)
 
-        let params = ProbabilisticScoringParameters.initWithDefault()
-        let probabilisticScorer = ProbabilisticScorer(params: params, networkGraph: netGraph, logger: logger)
+        let decayParams = ProbabilisticScoringDecayParameters.initWithDefault()
+        let probabilisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: netGraph, logger: logger)
         let score = probabilisticScorer.asScore()
         let scorer = MultiThreadedLockableScore(score: score)
 

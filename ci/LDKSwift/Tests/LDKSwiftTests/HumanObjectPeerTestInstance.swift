@@ -674,7 +674,7 @@ public class HumanObjectPeerTestInstance {
             let invoice = invoiceResult.getValue()!
             print("Invoice: \(invoice.toStr())")
 
-            let recreatedInvoice = Invoice.fromStr(s: invoice.toStr())
+            let recreatedInvoice = Bolt11Invoice.fromStr(s: invoice.toStr())
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let channelManagerConstructor = peer1.constructor!
@@ -792,7 +792,7 @@ public class HumanObjectPeerTestInstance {
             print("Implicit amount invoice: \(invoice.toStr())")
 
 			let invoiceString = invoice.toStr()
-            let recreatedInvoice = Invoice.fromStr(s: invoiceString)
+            let recreatedInvoice = Bolt11Invoice.fromStr(s: invoiceString)
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let invoicePaymentResult = Bindings.payZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A, retryStrategy: Retry.initWithAttempts(a: 3), channelmanager: peer2.channelManager)

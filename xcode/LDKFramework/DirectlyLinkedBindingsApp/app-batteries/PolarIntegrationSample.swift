@@ -195,7 +195,7 @@ public class PolarIntegrationSample {
             // sleep for 100ms
             try await Task.sleep(nanoseconds: 0_100_000_000)
         }
-        let invoiceResult = Invoice.fromStr(s: PolarIntegrationSample.POLAR_LND_PEER_INVOICE)
+        let invoiceResult = Bolt11Invoice.fromStr(s: PolarIntegrationSample.POLAR_LND_PEER_INVOICE)
 
         guard let invoice = invoiceResult.getValue() else {
             throw TestFlowExceptions.invoiceParsingError(invoiceResult.getError()!)

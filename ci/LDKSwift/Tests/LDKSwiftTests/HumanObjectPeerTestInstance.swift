@@ -707,7 +707,7 @@ public class HumanObjectPeerTestInstance {
                     return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
                 }
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
-                let preimage = invoicePayment.getPaymentPreimage()
+                let preimage = invoicePayment.getPaymentPreimage()!
                 let secret = invoicePayment.getPaymentSecret()
                 if self.configuration.shouldRecipientRejectPayment {
                     print("about to fail payment because shouldRecipientRejectPayment flag is set")
@@ -830,7 +830,7 @@ public class HumanObjectPeerTestInstance {
                     return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
                 }
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
-                let preimage = invoicePayment.getPaymentPreimage()
+                let preimage = invoicePayment.getPaymentPreimage()!
                 let secret = invoicePayment.getPaymentSecret()
                 peer1.channelManager.claimFunds(paymentPreimage: preimage)
                 print("claimed payment with secret \(secret) using preimage \(preimage)")

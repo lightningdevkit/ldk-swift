@@ -294,15 +294,17 @@ public class PolarIntegrationSample {
                 super.init()
             }
 
-            override func broadcastTransaction(tx: [UInt8]) {
-                Task {
-                    try? await self.rpcInterface.submitTransaction(transaction: tx)
+            override func broadcastTransactions(txs: [[UInt8]]) {
+                for tx in txs {
+                    Task {
+                        try? await self.rpcInterface.submitTransaction(transaction: tx)
+                    }
                 }
             }
         }
         
         class MuteBroadcaster: BroadcasterInterface {
-            override func broadcastTransaction(tx: [UInt8]) {
+            override func broadcastTransactions(txs: [[UInt8]]) {
                 // do nothing
             }
         }

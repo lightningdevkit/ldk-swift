@@ -173,9 +173,11 @@ public class HumanObjectPeerTestInstance {
                 super.init()
             }
 
-            override func broadcastTransaction(tx: [UInt8]) {
-                Task {
-                    await self.master.pendingBroadcastTracker.addTransaction(tx: tx)
+            override func broadcastTransactions(txs: [[UInt8]]) {
+                for tx in txs {
+                    Task {
+                        await self.master.pendingBroadcastTracker.addTransaction(tx: tx)
+                    }
                 }
             }
         }

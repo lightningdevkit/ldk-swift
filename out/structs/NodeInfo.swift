@@ -1,396 +1,399 @@
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-				
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+/// Details about a node in the network, known from the network announcement.
+public typealias NodeInfo = Bindings.NodeInfo
 
-			/// Details about a node in the network, known from the network announcement.
-			public typealias NodeInfo = Bindings.NodeInfo
+extension Bindings {
 
-			extension Bindings {
-		
 
-				/// Details about a node in the network, known from the network announcement.
-				public class NodeInfo: NativeTypeWrapper {
+	/// Details about a node in the network, known from the network announcement.
+	public class NodeInfo: NativeTypeWrapper {
 
-					let initialCFreeability: Bool
+		let initialCFreeability: Bool
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKNodeInfo?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKNodeInfo, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKNodeInfo?
 
-					internal init(cType: LDKNodeInfo, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKNodeInfo, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					internal init(cType: LDKNodeInfo, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+		internal init(cType: LDKNodeInfo, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-					
-					/// Frees any resources used by the NodeInfo, if is_owned is set and inner is non-NULL.
-					internal func free() {
-						// native call variable prep
-						
+		internal init(cType: LDKNodeInfo, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false)
+		{
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						// native method call
-						let nativeCallResult = NodeInfo_free(self.cType!)
 
-						// cleanup
-						
+		/// Frees any resources used by the NodeInfo, if is_owned is set and inner is non-NULL.
+		internal func free() {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// All valid channels a node has announced
-					/// 
-					/// Returns a copy of the field.
-					public func getChannels() -> [UInt64] {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult = NodeInfo_free(self.cType!)
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeInfo>) in
-				NodeInfo_get_channels(thisPtrPointer)
-						}
-				
+			// cleanup
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_u64Z(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						return returnValue
-					}
-		
-					/// All valid channels a node has announced
-					public func setChannels(val: [UInt64]) {
-						// native call variable prep
-						
-						let valVector = Vec_u64Z(array: val, instantiationContext: "NodeInfo.swift::\(#function):\(#line)").dangle()
-				
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeInfo>) in
-				NodeInfo_set_channels(thisPtrPointer, valVector.cType!)
-						}
-				
+			return returnValue
+		}
 
-						// cleanup
-						
-						// valVector.noOpRetain()
-				
+		/// All valid channels a node has announced
+		///
+		/// Returns a copy of the field.
+		public func getChannels() -> [UInt64] {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// More information about a node from node_announcement.
-					/// Optional because we store a Node entry after learning about it from
-					/// a channel announcement, but before receiving a node announcement.
-					/// 
-					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public func getAnnouncementInfo() -> NodeAnnouncementInfo? {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeInfo>) in
+					NodeInfo_get_channels(thisPtrPointer)
+				}
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeInfo>) in
-				NodeInfo_get_announcement_info(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
-				// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
-				// Type group: RustStruct
-				// Type: LDKNodeAnnouncementInfo
-			
-					if nativeCallResult.inner == nil {
-						return nil
-					}
+			// cleanup
 
-					let pointerValue = UInt(bitPattern: nativeCallResult.inner)
-					if pointerValue == 0 {
-						return nil
-					}
-				
 
-						
-						// return value (do some wrapping)
-						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
-						
+			// return value (do some wrapping)
+			let returnValue = Vec_u64Z(
+				cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
 
-						return returnValue
-					}
-		
-					/// More information about a node from node_announcement.
-					/// Optional because we store a Node entry after learning about it from
-					/// a channel announcement, but before receiving a node announcement.
-					/// 
-					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public func setAnnouncementInfo(val: NodeAnnouncementInfo) {
-						// native call variable prep
-						
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeInfo>) in
-				NodeInfo_set_announcement_info(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-						}
-				
+			return returnValue
+		}
 
-						// cleanup
-						
+		/// All valid channels a node has announced
+		public func setChannels(val: [UInt64]) {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+			let valVector = Vec_u64Z(array: val, instantiationContext: "NodeInfo.swift::\(#function):\(#line)").dangle()
 
-						return returnValue
-					}
-		
-					/// Constructs a new NodeInfo given each field
-					public init(channelsArg: [UInt64], announcementInfoArg: NodeAnnouncementInfo) {
-						// native call variable prep
-						
-						let channelsArgVector = Vec_u64Z(array: channelsArg, instantiationContext: "NodeInfo.swift::\(#function):\(#line)").dangle()
-				
 
-						// native method call
-						let nativeCallResult = NodeInfo_new(channelsArgVector.cType!, announcementInfoArg.dynamicallyDangledClone().cType!)
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeInfo>) in
+					NodeInfo_set_channels(thisPtrPointer, valVector.cType!)
+				}
 
-						// cleanup
-						
-						// channelsArgVector.noOpRetain()
-				
-				self.initialCFreeability = nativeCallResult.is_owned
-			
 
-						/*
+			// cleanup
+
+			// valVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// More information about a node from node_announcement.
+		/// Optional because we store a Node entry after learning about it from
+		/// a channel announcement, but before receiving a node announcement.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func getAnnouncementInfo() -> NodeAnnouncementInfo? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeInfo>) in
+					NodeInfo_get_announcement_info(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKNodeAnnouncementInfo
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeAnnouncementInfo(
+				cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// More information about a node from node_announcement.
+		/// Optional because we store a Node entry after learning about it from
+		/// a channel announcement, but before receiving a node announcement.
+		///
+		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func setAnnouncementInfo(val: NodeAnnouncementInfo) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeInfo>) in
+					NodeInfo_set_announcement_info(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new NodeInfo given each field
+		public init(channelsArg: [UInt64], announcementInfoArg: NodeAnnouncementInfo) {
+			// native call variable prep
+
+			let channelsArgVector = Vec_u64Z(
+				array: channelsArg, instantiationContext: "NodeInfo.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = NodeInfo_new(
+				channelsArgVector.cType!, announcementInfoArg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// channelsArgVector.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
 						// return value (do some wrapping)
 						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
 						*/
 
-						
-				self.cType = nativeCallResult
 
-				Self.instanceCounter += 1
-				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
-				
-			
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
+
+
+		}
+
+		/// Creates a copy of the NodeInfo
+		internal func clone() -> NodeInfo {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKNodeInfo>) in
+					NodeInfo_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeInfo(
+				cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Checks if two NodeInfos contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		/// Two objects with NULL inner values will be considered "equal" here.
+		public class func eq(a: NodeInfo, b: NodeInfo) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKNodeInfo>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKNodeInfo>) in
+						NodeInfo_eq(aPointer, bPointer)
 					}
-		
-					/// Creates a copy of the NodeInfo
-					internal func clone() -> NodeInfo {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKNodeInfo>) in
-				NodeInfo_clone(origPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = NodeInfo(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-					/// Checks if two NodeInfos contain equal inner contents.
-					/// This ignores pointers and is_owned flags and looks at the values in fields.
-					/// Two objects with NULL inner values will be considered "equal" here.
-					public class func eq(a: NodeInfo, b: NodeInfo) -> Bool {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKNodeInfo>) in
-				
-						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKNodeInfo>) in
-				NodeInfo_eq(aPointer, bPointer)
-						}
-				
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
-					/// Serialize the NodeInfo object into a byte array which can be read by NodeInfo_read
-					public func write() -> [UInt8] {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKNodeInfo>) in
-				NodeInfo_write(objPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
-
-						return returnValue
-					}
-		
-					/// Read a NodeInfo from a byte array, created by NodeInfo_write
-					public class func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {
-						// native call variable prep
-						
-						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
-				
-
-						// native method call
-						let nativeCallResult = NodeInfo_read(serPrimitiveWrapper.cType!)
-
-						// cleanup
-						
-						// for elided types, we need this
-						serPrimitiveWrapper.noOpRetain()
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = Result_NodeInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-
-					
-					/// Indicates that this is the only struct which contains the same pointer.
-					/// Rust functions which take ownership of an object provided via an argument require
-					/// this to be true and invalidate the object pointed to by inner.
-					public func isOwned() -> Bool {
-						// return value (do some wrapping)
-						let returnValue = self.cType!.is_owned
-
-						return returnValue;
-					}
-		
-
-					internal func dangle(_ shouldDangle: Bool = true) -> NodeInfo {
-						self.dangling = shouldDangle
-						return self
-					}
-
-					
-					internal func danglingClone() -> NodeInfo {
-						let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-			
-						internal func dynamicallyDangledClone() -> NodeInfo {
-							let dangledClone = self.clone()
-							// if it's owned, i. e. controlled by Rust, it should dangle on our end
-							dangledClone.dangling = dangledClone.cType!.is_owned
-							return dangledClone
-						}
-					
-					internal func setCFreeability(freeable: Bool) -> NodeInfo {
-						self.cType!.is_owned = freeable
-						return self
-					}
-
-					internal func dynamicDangle() -> NodeInfo {
-						self.dangling = self.cType!.is_owned
-						return self
-					}
-			
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
-
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing NodeInfo \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing NodeInfo \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-			
 
 				}
 
-				
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Serialize the NodeInfo object into a byte array which can be read by NodeInfo_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKNodeInfo>) in
+					NodeInfo_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a NodeInfo from a byte array, created by NodeInfo_write
+		public class func read(ser: [UInt8]) -> Result_NodeInfoDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = NodeInfo_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NodeInfoDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "NodeInfo.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		/// Indicates that this is the only struct which contains the same pointer.
+		/// Rust functions which take ownership of an object provided via an argument require
+		/// this to be true and invalidate the object pointed to by inner.
+		public func isOwned() -> Bool {
+			// return value (do some wrapping)
+			let returnValue = self.cType!.is_owned
+
+			return returnValue
+		}
+
+
+		internal func dangle(_ shouldDangle: Bool = true) -> NodeInfo {
+			self.dangling = shouldDangle
+			return self
+		}
+
+
+		internal func danglingClone() -> NodeInfo {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> NodeInfo {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.is_owned
+			return dangledClone
+		}
+
+		internal func setCFreeability(freeable: Bool) -> NodeInfo {
+			self.cType!.is_owned = freeable
+			return self
+		}
+
+		internal func dynamicDangle() -> NodeInfo {
+			self.dangling = self.cType!.is_owned
+			return self
+		}
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
 			}
-		
-		
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print("Freeing NodeInfo \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+				}
+
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing NodeInfo \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
+			}
+		}
+
+
+	}
+
+
+}
+

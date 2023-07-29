@@ -1,569 +1,592 @@
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-				
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+/// Information received in the latest node_announcement from this node.
+public typealias NodeAnnouncementInfo = Bindings.NodeAnnouncementInfo
 
-			/// Information received in the latest node_announcement from this node.
-			public typealias NodeAnnouncementInfo = Bindings.NodeAnnouncementInfo
+extension Bindings {
 
-			extension Bindings {
-		
 
-				/// Information received in the latest node_announcement from this node.
-				public class NodeAnnouncementInfo: NativeTypeWrapper {
+	/// Information received in the latest node_announcement from this node.
+	public class NodeAnnouncementInfo: NativeTypeWrapper {
 
-					let initialCFreeability: Bool
+		let initialCFreeability: Bool
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKNodeAnnouncementInfo?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKNodeAnnouncementInfo, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKNodeAnnouncementInfo?
 
-					internal init(cType: LDKNodeAnnouncementInfo, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKNodeAnnouncementInfo, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					internal init(cType: LDKNodeAnnouncementInfo, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+		internal init(cType: LDKNodeAnnouncementInfo, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-					
-					/// Frees any resources used by the NodeAnnouncementInfo, if is_owned is set and inner is non-NULL.
-					internal func free() {
-						// native call variable prep
-						
+		internal init(
+			cType: LDKNodeAnnouncementInfo, instantiationContext: String, anchor: NativeTypeWrapper,
+			dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						// native method call
-						let nativeCallResult = NodeAnnouncementInfo_free(self.cType!)
 
-						// cleanup
-						
+		/// Frees any resources used by the NodeAnnouncementInfo, if is_owned is set and inner is non-NULL.
+		internal func free() {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// Protocol features the node announced support for
-					public func getFeatures() -> NodeFeatures {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult = NodeAnnouncementInfo_free(self.cType!)
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_get_features(thisPtrPointer)
-						}
-				
+			// cleanup
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						return returnValue
-					}
-		
-					/// Protocol features the node announced support for
-					public func setFeatures(val: NodeFeatures) {
-						// native call variable prep
-						
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_set_features(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-						}
-				
+			return returnValue
+		}
 
-						// cleanup
-						
+		/// Protocol features the node announced support for
+		public func getFeatures() -> NodeFeatures {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// When the last known update to the node state was issued.
-					/// Value is opaque, as set in the announcement.
-					public func getLastUpdate() -> UInt32 {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_get_features(thisPtrPointer)
+				}
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_get_last_update(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
+			// cleanup
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// When the last known update to the node state was issued.
-					/// Value is opaque, as set in the announcement.
-					public func setLastUpdate(val: UInt32) {
-						// native call variable prep
-						
+			// return value (do some wrapping)
+			let returnValue = NodeFeatures(
+				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_set_last_update(thisPtrPointer, val)
-						}
-				
 
-						// cleanup
-						
+			return returnValue
+		}
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+		/// Protocol features the node announced support for
+		public func setFeatures(val: NodeFeatures) {
+			// native call variable prep
 
-						return returnValue
-					}
-		
-					/// Color assigned to the node
-					public func getRgb() -> [UInt8]? {
-						// native call variable prep
-						
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_get_rgb(thisPtrPointer)
-						}
-				
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_set_features(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
 
-						// cleanup
-						
-						guard let nativeCallResult = nativeCallResult else {
-							return nil
-						}
-			
 
-						
-						// return value (do some wrapping)
-						let returnValue = Bindings.UInt8Tuple3ToArray(tuple: nativeCallResult.pointee)
-						
+			// cleanup
 
-						return returnValue
-					}
-		
-					/// Color assigned to the node
-					public func setRgb(val: [UInt8]) {
-						// native call variable prep
-						
-						let valPrimitiveWrapper = ThreeBytes(value: val, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
-				
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_set_rgb(thisPtrPointer, valPrimitiveWrapper.cType!)
-						}
-				
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						// cleanup
-						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+			return returnValue
+		}
 
-						return returnValue
-					}
-		
-					/// Moniker assigned to the node.
-					/// May be invalid or malicious (eg control chars),
-					/// should not be exposed to the user.
-					public func getAlias() -> NodeAlias {
-						// native call variable prep
-						
+		/// When the last known update to the node state was issued.
+		/// Value is opaque, as set in the announcement.
+		public func getLastUpdate() -> UInt32 {
+			// native call variable prep
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_get_alias(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_get_last_update(thisPtrPointer)
+				}
 
-						
-						// return value (do some wrapping)
-						let returnValue = NodeAlias(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
-						
 
-						return returnValue
-					}
-		
-					/// Moniker assigned to the node.
-					/// May be invalid or malicious (eg control chars),
-					/// should not be exposed to the user.
-					public func setAlias(val: NodeAlias) {
-						// native call variable prep
-						
+			// cleanup
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_set_alias(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-						}
-				
 
-						// cleanup
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// An initial announcement of the node
-					/// Mostly redundant with the data we store in fields explicitly.
-					/// Everything else is useful only for sending out for initial routing sync.
-					/// Not stored if contains excess data to prevent DoS.
-					/// 
-					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public func getAnnouncementMessage() -> NodeAnnouncement? {
-						// native call variable prep
-						
+			return returnValue
+		}
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_get_announcement_message(thisPtrPointer)
-						}
-				
+		/// When the last known update to the node state was issued.
+		/// Value is opaque, as set in the announcement.
+		public func setLastUpdate(val: UInt32) {
+			// native call variable prep
 
-						// cleanup
-						
-				// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
-				// Type group: RustStruct
-				// Type: LDKNodeAnnouncement
-			
-					if nativeCallResult.inner == nil {
-						return nil
-					}
 
-					let pointerValue = UInt(bitPattern: nativeCallResult.inner)
-					if pointerValue == 0 {
-						return nil
-					}
-				
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_set_last_update(thisPtrPointer, val)
+				}
 
-						
-						// return value (do some wrapping)
-						let returnValue = NodeAnnouncement(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)", anchor: self).dangle(false)
-						
 
-						return returnValue
-					}
-		
-					/// An initial announcement of the node
-					/// Mostly redundant with the data we store in fields explicitly.
-					/// Everything else is useful only for sending out for initial routing sync.
-					/// Not stored if contains excess data to prevent DoS.
-					/// 
-					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-					public func setAnnouncementMessage(val: NodeAnnouncement) {
-						// native call variable prep
-						
+			// cleanup
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_set_announcement_message(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-						}
-				
 
-						// cleanup
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// Constructs a new NodeAnnouncementInfo given each field
-					public init(featuresArg: NodeFeatures, lastUpdateArg: UInt32, rgbArg: [UInt8], aliasArg: NodeAlias, announcementMessageArg: NodeAnnouncement) {
-						// native call variable prep
-						
-						let rgbArgPrimitiveWrapper = ThreeBytes(value: rgbArg, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
-				
+			return returnValue
+		}
 
-						// native method call
-						let nativeCallResult = NodeAnnouncementInfo_new(featuresArg.dynamicallyDangledClone().cType!, lastUpdateArg, rgbArgPrimitiveWrapper.cType!, aliasArg.dynamicallyDangledClone().cType!, announcementMessageArg.dynamicallyDangledClone().cType!)
+		/// Color assigned to the node
+		public func getRgb() -> [UInt8]? {
+			// native call variable prep
 
-						// cleanup
-						
-						// for elided types, we need this
-						rgbArgPrimitiveWrapper.noOpRetain()
-				
-				self.initialCFreeability = nativeCallResult.is_owned
-			
 
-						/*
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_get_rgb(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			guard let nativeCallResult = nativeCallResult else {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = Bindings.UInt8Tuple3ToArray(tuple: nativeCallResult.pointee)
+
+
+			return returnValue
+		}
+
+		/// Color assigned to the node
+		public func setRgb(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = ThreeBytes(
+				value: val, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_set_rgb(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Moniker assigned to the node.
+		/// May be invalid or malicious (eg control chars),
+		/// should not be exposed to the user.
+		public func getAlias() -> NodeAlias {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_get_alias(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeAlias(
+				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Moniker assigned to the node.
+		/// May be invalid or malicious (eg control chars),
+		/// should not be exposed to the user.
+		public func setAlias(val: NodeAlias) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_set_alias(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// An initial announcement of the node
+		/// Mostly redundant with the data we store in fields explicitly.
+		/// Everything else is useful only for sending out for initial routing sync.
+		/// Not stored if contains excess data to prevent DoS.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func getAnnouncementMessage() -> NodeAnnouncement? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_get_announcement_message(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKNodeAnnouncement
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeAnnouncement(
+				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// An initial announcement of the node
+		/// Mostly redundant with the data we store in fields explicitly.
+		/// Everything else is useful only for sending out for initial routing sync.
+		/// Not stored if contains excess data to prevent DoS.
+		///
+		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func setAnnouncementMessage(val: NodeAnnouncement) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_set_announcement_message(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new NodeAnnouncementInfo given each field
+		public init(
+			featuresArg: NodeFeatures, lastUpdateArg: UInt32, rgbArg: [UInt8], aliasArg: NodeAlias,
+			announcementMessageArg: NodeAnnouncement
+		) {
+			// native call variable prep
+
+			let rgbArgPrimitiveWrapper = ThreeBytes(
+				value: rgbArg, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = NodeAnnouncementInfo_new(
+				featuresArg.dynamicallyDangledClone().cType!, lastUpdateArg, rgbArgPrimitiveWrapper.cType!,
+				aliasArg.dynamicallyDangledClone().cType!, announcementMessageArg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			rgbArgPrimitiveWrapper.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
 						// return value (do some wrapping)
 						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
 						*/
 
-						
-				self.cType = nativeCallResult
 
-				Self.instanceCounter += 1
-				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
-				
-			
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
+
+
+		}
+
+		/// Creates a copy of the NodeAnnouncementInfo
+		internal func clone() -> NodeAnnouncementInfo {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeAnnouncementInfo(
+				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Checks if two NodeAnnouncementInfos contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		/// Two objects with NULL inner values will be considered "equal" here.
+		public class func eq(a: NodeAnnouncementInfo, b: NodeAnnouncementInfo) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+						NodeAnnouncementInfo_eq(aPointer, bPointer)
 					}
-		
-					/// Creates a copy of the NodeAnnouncementInfo
-					internal func clone() -> NodeAnnouncementInfo {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_clone(origPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = NodeAnnouncementInfo(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-					/// Checks if two NodeAnnouncementInfos contain equal inner contents.
-					/// This ignores pointers and is_owned flags and looks at the values in fields.
-					/// Two objects with NULL inner values will be considered "equal" here.
-					public class func eq(a: NodeAnnouncementInfo, b: NodeAnnouncementInfo) -> Bool {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				
-						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_eq(aPointer, bPointer)
-						}
-				
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
-					/// Internet-level addresses via which one can connect to the node
-					public func addresses() -> [NetAddress] {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_addresses(thisArgPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_NetAddressZ(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
-
-						return returnValue
-					}
-		
-					/// Serialize the NodeAnnouncementInfo object into a byte array which can be read by NodeAnnouncementInfo_read
-					public func write() -> [UInt8] {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
-				NodeAnnouncementInfo_write(objPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
-
-						return returnValue
-					}
-		
-					/// Read a NodeAnnouncementInfo from a byte array, created by NodeAnnouncementInfo_write
-					public class func read(ser: [UInt8]) -> Result_NodeAnnouncementInfoDecodeErrorZ {
-						// native call variable prep
-						
-						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
-				
-
-						// native method call
-						let nativeCallResult = NodeAnnouncementInfo_read(serPrimitiveWrapper.cType!)
-
-						// cleanup
-						
-						// for elided types, we need this
-						serPrimitiveWrapper.noOpRetain()
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = Result_NodeAnnouncementInfoDecodeErrorZ(cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-
-					
-					/// Indicates that this is the only struct which contains the same pointer.
-					/// Rust functions which take ownership of an object provided via an argument require
-					/// this to be true and invalidate the object pointed to by inner.
-					public func isOwned() -> Bool {
-						// return value (do some wrapping)
-						let returnValue = self.cType!.is_owned
-
-						return returnValue;
-					}
-		
-
-					internal func dangle(_ shouldDangle: Bool = true) -> NodeAnnouncementInfo {
-						self.dangling = shouldDangle
-						return self
-					}
-
-					
-					internal func danglingClone() -> NodeAnnouncementInfo {
-						let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-			
-						internal func dynamicallyDangledClone() -> NodeAnnouncementInfo {
-							let dangledClone = self.clone()
-							// if it's owned, i. e. controlled by Rust, it should dangle on our end
-							dangledClone.dangling = dangledClone.cType!.is_owned
-							return dangledClone
-						}
-					
-					internal func setCFreeability(freeable: Bool) -> NodeAnnouncementInfo {
-						self.cType!.is_owned = freeable
-						return self
-					}
-
-					internal func dynamicDangle() -> NodeAnnouncementInfo {
-						self.dangling = self.cType!.is_owned
-						return self
-					}
-			
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
-
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing NodeAnnouncementInfo \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing NodeAnnouncementInfo \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-			
 
 				}
 
-				
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Internet-level addresses via which one can connect to the node
+		public func addresses() -> [NetAddress] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_addresses(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_NetAddressZ(
+				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Serialize the NodeAnnouncementInfo object into a byte array which can be read by NodeAnnouncementInfo_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKNodeAnnouncementInfo>) in
+					NodeAnnouncementInfo_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a NodeAnnouncementInfo from a byte array, created by NodeAnnouncementInfo_write
+		public class func read(ser: [UInt8]) -> Result_NodeAnnouncementInfoDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = NodeAnnouncementInfo_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NodeAnnouncementInfoDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		/// Indicates that this is the only struct which contains the same pointer.
+		/// Rust functions which take ownership of an object provided via an argument require
+		/// this to be true and invalidate the object pointed to by inner.
+		public func isOwned() -> Bool {
+			// return value (do some wrapping)
+			let returnValue = self.cType!.is_owned
+
+			return returnValue
+		}
+
+
+		internal func dangle(_ shouldDangle: Bool = true) -> NodeAnnouncementInfo {
+			self.dangling = shouldDangle
+			return self
+		}
+
+
+		internal func danglingClone() -> NodeAnnouncementInfo {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> NodeAnnouncementInfo {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.is_owned
+			return dangledClone
+		}
+
+		internal func setCFreeability(freeable: Bool) -> NodeAnnouncementInfo {
+			self.cType!.is_owned = freeable
+			return self
+		}
+
+		internal func dynamicDangle() -> NodeAnnouncementInfo {
+			self.dangling = self.cType!.is_owned
+			return self
+		}
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
 			}
-		
-		
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing NodeAnnouncementInfo \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+				}
+
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing NodeAnnouncementInfo \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
+			}
+		}
+
+
+	}
+
+
+}
+

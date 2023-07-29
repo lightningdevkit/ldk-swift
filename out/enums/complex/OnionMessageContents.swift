@@ -1,187 +1,190 @@
+import Foundation
 
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-			import Foundation
 
-			/// 
-			public typealias OnionMessageContents = Bindings.OnionMessageContents
+///
+public typealias OnionMessageContents = Bindings.OnionMessageContents
 
-			extension Bindings {
+extension Bindings {
 
-				/// The contents of an onion message. In the context of offers, this would be the invoice, invoice
-				/// request, or invoice error.
-				public class OnionMessageContents: NativeTypeWrapper {
+	/// The contents of an onion message. In the context of offers, this would be the invoice, invoice
+	/// request, or invoice error.
+	public class OnionMessageContents: NativeTypeWrapper {
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKOnionMessageContents?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKOnionMessageContents, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKOnionMessageContents?
 
-					internal init(cType: LDKOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKOnionMessageContents, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					internal init(cType: LDKOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					public enum OnionMessageContentsType {
-						
-						/// A custom onion message specified by the user.
-						case Custom
-			
-					}
+		internal init(cType: LDKOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					public func getValueType() -> OnionMessageContentsType {
-						switch self.cType!.tag {
-							case LDKOnionMessageContents_Custom:
-								return .Custom
-			
-							default:
-								Bindings.print("Error: Invalid value type for OnionMessageContents! Aborting.", severity: .ERROR)
-								abort()
-						}
-		
-					}
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-					
-					/// Frees any resources used by the OnionMessageContents
-					internal func free() {
-						// native call variable prep
-						
+		internal init(
+			cType: LDKOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper,
+			dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-						// native method call
-						let nativeCallResult = OnionMessageContents_free(self.cType!)
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+		public enum OnionMessageContentsType {
 
-						return returnValue
-					}
-		
-					/// Creates a copy of the OnionMessageContents
-					internal func clone() -> OnionMessageContents {
-						// native call variable prep
-						
+			/// A custom onion message specified by the user.
+			case Custom
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKOnionMessageContents>) in
-				OnionMessageContents_clone(origPointer)
-						}
-				
+		}
 
-						// cleanup
-						
+		public func getValueType() -> OnionMessageContentsType {
+			switch self.cType!.tag {
+				case LDKOnionMessageContents_Custom:
+					return .Custom
 
-						
-						// return value (do some wrapping)
-						let returnValue = OnionMessageContents(cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
-						
+				default:
+					Bindings.print("Error: Invalid value type for OnionMessageContents! Aborting.", severity: .ERROR)
+					abort()
+			}
 
-						return returnValue
-					}
-		
-					/// Utility method to constructs a new Custom-variant OnionMessageContents
-					public class func initWithCustom(a: Bindings.CustomOnionMessageContents) -> OnionMessageContents {
-						// native call variable prep
-						
+		}
 
-						// native method call
-						let nativeCallResult = OnionMessageContents_custom(a.activate().cType!)
 
-						// cleanup
-						
+		/// Frees any resources used by the OnionMessageContents
+		internal func free() {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = OnionMessageContents(cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
-						
 
-						return returnValue
-					}
-		
+			// native method call
+			let nativeCallResult = OnionMessageContents_free(self.cType!)
 
-					
-					public func getValueAsCustom() -> Bindings.CustomOnionMessageContents? {
-						if self.cType?.tag != LDKOnionMessageContents_Custom {
-							return nil
-						}
+			// cleanup
 
-						return NativelyImplementedCustomOnionMessageContents(cType: self.cType!.custom, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)", anchor: self)
-					}
-			
 
-					internal func dangle(_ shouldDangle: Bool = true) -> OnionMessageContents {
-        				self.dangling = shouldDangle
-						return self
-					}
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-					
-					internal func danglingClone() -> OnionMessageContents {
-						let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-			
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
 
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing OnionMessageContents \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing OnionMessageContents \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-			
+			return returnValue
+		}
 
-					
+		/// Creates a copy of the OnionMessageContents
+		internal func clone() -> OnionMessageContents {
+			// native call variable prep
 
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKOnionMessageContents>) in
+					OnionMessageContents_clone(origPointer)
 				}
 
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OnionMessageContents(
+				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new Custom-variant OnionMessageContents
+		public class func initWithCustom(a: Bindings.CustomOnionMessageContents) -> OnionMessageContents {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = OnionMessageContents_custom(a.activate().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OnionMessageContents(
+				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		public func getValueAsCustom() -> Bindings.CustomOnionMessageContents? {
+			if self.cType?.tag != LDKOnionMessageContents_Custom {
+				return nil
 			}
-		
+
+			return NativelyImplementedCustomOnionMessageContents(
+				cType: self.cType!.custom, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+
+		internal func dangle(_ shouldDangle: Bool = true) -> OnionMessageContents {
+			self.dangling = shouldDangle
+			return self
+		}
+
+
+		internal func danglingClone() -> OnionMessageContents {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
+			}
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing OnionMessageContents \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+				}
+
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing OnionMessageContents \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
+			}
+		}
+
+
+	}
+
+}

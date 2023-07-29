@@ -15,7 +15,7 @@ jobs:
         steps:
             -   name: Checkout source code
                 uses: actions/checkout@v3
-            -   name: Install native Rust toolchain, Valgrind, and build utilities
+            -   name: Install native Rust toolchain and build utilities
                 run: |
                     # sudo apt-get purge grub\*
                     # sudo apt-get --only-upgrade install grub-efi-amd64-signed
@@ -23,7 +23,7 @@ jobs:
                     # sudo update-grub
                     sudo apt-get update
                     # sudo apt-get -y upgrade
-                    sudo apt-get -y install cargo valgrind lld git g++ clang curl
+                    sudo apt-get -y install cargo lld git g++ clang curl
             -   name: Install Dependencies
                 uses: ./.github/actions/install-dependencies
                 with:
@@ -35,18 +35,9 @@ jobs:
                 run: |
                     python3 ./scripts/copy_c_files.py
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
-                    H_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-swift/ldk-swift/ci/LDKSwift/Sources/LDKHeaders/include
-                    C_FILE_OUTPUT_DIRECTORY: /home/runner/work/ldk-swift/ldk-swift/ci/LDKSwift/Sources/LDKHeaders
-            -   name: Check that the latest auto-generated Swift files are in the repo
-                run: |
-                    npm install
-                    npm run tsc
-                    node ./src/index.mjs
-                env:
-                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
-            -   name: Test bindings parsing and generation
-                run: npm test
+                    LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
+                    H_FILE_OUTPUT_DIRECTORY: ${{ github.workspace }}/ci/LDKSwift/Sources/LDKHeaders/include
+                    C_FILE_OUTPUT_DIRECTORY: ${{ github.workspace }}/ci/LDKSwift/Sources/LDKHeaders
             -   name: Install Swift Toolchain
                 run: |
                     curl --verbose -L -o swift-5.7.2-RELEASE-ubuntu22.04.tar.gz https://download.swift.org/swift-5.7.2-release/ubuntu2204/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
@@ -59,12 +50,33 @@ jobs:
                     tar xvvf swift-5.7.2-RELEASE-ubuntu22.04.tar.gz
                 env:
                     EXPECTED_SWIFT_SHASUM: e729912846b0cff98bf8e0e5ede2e17bc2d1098de3cdb6fa13b3ff52c36ee5d6
+            -   name: Install Swift Formatter
+                run: |
+                    git clone https://github.com/apple/swift-format.git
+                    cd swift-format
+                    git checkout "tags/$VERSION"
+                    swift build -c release
+                env:
+                    VERSION: 508.0.1
+            -   name: Regenerate Swift files
+                run: |
+                    npm install
+                    npm run tsc
+                    node ./src/index.mjs
+                env:
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
+                    SWIFT_FORMAT_PATH: ${{ github.workspace }}/swift-format/.build/release/swift-format
+            -   name: Test bindings parsing and generation
+                run: npm test
+            -   name: Verify generated output recency
+                run: |
+                    git diff --exit-code out/ ':(exclude)out/VersionDescriptor.swift'
             -   name: Build Swift bindings package
                 run: |
                     cd ci/LDKSwift
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift build
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1
             -   name: Test Swift bindings package without address sanitizer
@@ -72,7 +84,7 @@ jobs:
                     cd ci/LDKSwift
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
                     RUST_BACKTRACE: 1
             -   name: Test Swift bindings package with address sanitizer
                 continue-on-error: true
@@ -80,6 +92,6 @@ jobs:
                     cd ci/LDKSwift
                     ../../swift-5.7.2-RELEASE-ubuntu22.04/usr/bin/swift test -v
                 env:
-                    LDK_C_BINDINGS_BASE: /home/runner/work/ldk-swift/ldk-swift/ci/ldk-c-bindings
+                    LDK_C_BINDINGS_BASE: ${{ github.workspace }}/ci/ldk-c-bindings
                     LLVM_CLANG_ASAN_PATH: /usr/lib/llvm-14/lib/clang/14.0.0/lib/linux/libclang_rt.asan-x86_64.a
                     RUST_BACKTRACE: 1

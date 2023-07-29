@@ -1,5 +1,6 @@
 import {default as debugModule} from 'debug';
 import url from 'url';
+import child_process from 'child_process';
 
 const debug = debugModule('ldk-parser:config');
 
@@ -27,5 +28,20 @@ export default class Config {
 		const outputDirectoryPath = `${__dirname}/../out`;
 		debug('Output directory path: "%s"', outputDirectoryPath);
 		return outputDirectoryPath;
+	}
+
+	getSwiftFormatterBinaryPath(): string | null {
+		let swiftformatPath = process.env['SWIFT_FORMAT_PATH'];
+		if (!swiftformatPath) {
+			debug('SWIFT_FORMAT_PATH not defined, looking up PATH');
+			try {
+				swiftformatPath = child_process.execSync('which swift-format').toString('utf-8').trim();
+			} catch (e) {
+				debug('swift-format not found in PATH! See https://github.com/apple/swift-format#getting-swift-format for installation instructions.');
+				return null;
+			}
+		}
+
+		return swiftformatPath;
 	}
 }

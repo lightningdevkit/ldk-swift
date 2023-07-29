@@ -92,6 +92,30 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Creates a new COption_ScalarZ which has the same data as `orig`
+		/// but with all dynamically-allocated buffers duplicated in new buffers.
+		internal func clone() -> Option_ScalarZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCOption_ScalarZ>) in
+					COption_ScalarZ_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_ScalarZ(
+				cType: nativeCallResult, instantiationContext: "Option_ScalarZ.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 
 		public func getValue() -> [UInt8]? {
 			if self.cType!.tag == LDKCOption_ScalarZ_None {
@@ -113,6 +137,12 @@ extension Bindings {
 			return self
 		}
 
+
+		internal func danglingClone() -> Option_ScalarZ {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
 
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {

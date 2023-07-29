@@ -413,7 +413,7 @@ extension Bindings {
 			let tweakOption = Option_ScalarZ(
 				some: tweak, instantiationContext: "NodeSigner.swift::\(#function):\(#line)"
 			)
-			.dangle()
+			.danglingClone()
 
 
 			// native method call

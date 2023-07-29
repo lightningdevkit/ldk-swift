@@ -474,7 +474,7 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(some: `;
 			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
 		} else if (type instanceof RustTaggedValueEnum || type instanceof RustResult) {
-			preparedReturnValue.wrapperSuffix = '.cType!';
+			preparedReturnValue.wrapperSuffix = '.dangle().cType!';
 		} else if (type instanceof RustTrait) {
 			preparedReturnValue.wrapperSuffix = '.activate().cType!';
 		} else if (type instanceof RustStruct) {

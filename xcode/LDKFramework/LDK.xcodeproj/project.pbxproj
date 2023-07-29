@@ -13,6 +13,8 @@
 		07012EA2287753D000148346 /* ldk_ver.h in Headers */ = {isa = PBXBuildFile; fileRef = 07012E9C287753D000148346 /* ldk_ver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07012EA3287753D000148346 /* ldk_rust_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 07012E9D287753D000148346 /* ldk_rust_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07012EA4287753D000148346 /* lightning.h in Headers */ = {isa = PBXBuildFile; fileRef = 07012E9E287753D000148346 /* lightning.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		071223672A74FA1200DFEF2E /* WrappedSignerProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071223662A74FA1200DFEF2E /* WrappedSignerProviderTests.swift */; };
+		071223682A74FA1200DFEF2E /* WrappedSignerProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071223662A74FA1200DFEF2E /* WrappedSignerProviderTests.swift */; };
 		072B062D2941CFF80007BC53 /* ChannelManagerConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DF14AF29412AF900531169 /* ChannelManagerConstructor.swift */; };
 		072B063129431EA50007BC53 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072B063029431EA00007BC53 /* libldk.a */; };
 		072B063229431EAA0007BC53 /* libldk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 072B063029431EA00007BC53 /* libldk.a */; };
@@ -2126,6 +2128,7 @@
 		07012E9C287753D000148346 /* ldk_ver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ldk_ver.h; path = headers/ldk_ver.h; sourceTree = SOURCE_ROOT; };
 		07012E9D287753D000148346 /* ldk_rust_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ldk_rust_types.h; path = headers/ldk_rust_types.h; sourceTree = SOURCE_ROOT; };
 		07012E9E287753D000148346 /* lightning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightning.h; path = headers/lightning.h; sourceTree = SOURCE_ROOT; };
+		071223662A74FA1200DFEF2E /* WrappedSignerProviderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WrappedSignerProviderTests.swift; path = ../../../ci/LDKSwift/Tests/LDKSwiftTests/WrappedSignerProviderTests.swift; sourceTree = "<group>"; };
 		072B063029431EA00007BC53 /* libldk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libldk.a; path = binary/libldk.a; sourceTree = "<group>"; };
 		07344C54264277EC001CD90E /* LightningDevKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LightningDevKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07344C57264277ED001CD90E /* Framework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Framework.h; path = Framework/Framework.h; sourceTree = SOURCE_ROOT; };
@@ -3440,6 +3443,7 @@
 				07CE1EA528E767DB00BB37E4 /* TestFilter.swift */,
 				07CE1EA428E767DB00BB37E4 /* TestLogger.swift */,
 				07CE1EA228E767DA00BB37E4 /* TestPersister.swift */,
+				071223662A74FA1200DFEF2E /* WrappedSignerProviderTests.swift */,
 			);
 			path = DirectlyLinkedBindingsAppTests;
 			sourceTree = "<group>";
@@ -4247,6 +4251,7 @@
 				078AAB212A06C7BA00838F50 /* RapidGossipSync.swift in Sources */,
 				078AAA112A06C7B900838F50 /* Result_u32GraphSyncErrorZ.swift in Sources */,
 				078AAB452A06C7BA00838F50 /* Sleeper.swift in Sources */,
+				071223672A74FA1200DFEF2E /* WrappedSignerProviderTests.swift in Sources */,
 				078AAA812A06C7B900838F50 /* Result_COption_HTLCDestinationZDecodeErrorZ.swift in Sources */,
 				078AA6212A06C7B600838F50 /* Logger.swift in Sources */,
 				078AAB152A06C7BA00838F50 /* WarningMessage.swift in Sources */,
@@ -5489,6 +5494,7 @@
 				078AA7672A06C7B700838F50 /* Secp256k1Error.swift in Sources */,
 				078AA5932A06C7B600838F50 /* TwelveBytes.swift in Sources */,
 				078AA80B2A06C7B700838F50 /* Vec_MonitorEventZ.swift in Sources */,
+				071223682A74FA1200DFEF2E /* WrappedSignerProviderTests.swift in Sources */,
 				078AAB632A06C7BA00838F50 /* UpdateFulfillHTLC.swift in Sources */,
 				078AAC2B2A06C7BB00838F50 /* ExpiryTime.swift in Sources */,
 				078AAB8F2A06C7BA00838F50 /* Quantity.swift in Sources */,

@@ -475,10 +475,13 @@ class LDKSwiftTests: XCTestCase {
             config.useRouter = (i & (1 << 2)) != 0
             print("useRouter: \(config.useRouter)")
             
-            config.ephemeralNetworkGraphForScorer = (i & (1 << 3)) != 0
+            config.useWrappedSignerProvider = (i & (1 << 3)) != 0
+            print("useWrappedSignerProvider: \(config.useWrappedSignerProvider)")
+            
+            config.ephemeralNetworkGraphForScorer = (i & (1 << 4)) != 0
             print("ephemeralNetworkGraphForScorer: \(config.ephemeralNetworkGraphForScorer)")
             
-            config.reserializedProbabilisticScorer = (i & (1 << 4)) != 0
+            config.reserializedProbabilisticScorer = (i & (1 << 5)) != 0
             print("reserializedProbabilisticScorer: \(config.reserializedProbabilisticScorer)")
 
             let instance = HumanObjectPeerTestInstance(configuration: config)

@@ -478,7 +478,7 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 		} else if (type instanceof RustTrait) {
 			preparedReturnValue.wrapperSuffix = '.activate().cType!';
 		} else if (type instanceof RustStruct) {
-			preparedReturnValue.wrapperSuffix = '.cType!';
+			preparedReturnValue.wrapperSuffix = '.dangle().cType!';
 		} else if (type instanceof RustPrimitive) {
 			// nothing to do here
 		} else if (type instanceof RustPrimitiveEnum) {

@@ -206,7 +206,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.cType!
+				let returnValue = swiftCallbackResult.dangle().cType!
 
 				return returnValue
 			}
@@ -388,7 +388,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.cType!
+				let returnValue = swiftCallbackResult.dangle().cType!
 
 				return returnValue
 			}
@@ -413,7 +413,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.cType!
+				let returnValue = swiftCallbackResult.dangle().cType!
 
 				return returnValue
 			}

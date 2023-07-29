@@ -19,6 +19,7 @@ public class HumanObjectPeerTestInstance {
 //
         public var useFilter: Bool = false
         public var useRouter: Bool = false
+        public var useWrappedSignerProvider: Bool = false
         public var shouldRecipientRejectPayment: Bool = false
         public var ephemeralNetworkGraphForScorer: Bool = false
         public var reserializedProbabilisticScorer: Bool = false
@@ -31,7 +32,7 @@ public class HumanObjectPeerTestInstance {
         // public var use_nio_peer_handler: Bool = false;
 
         private class func listCustomizeableProperties() -> [String] {
-            return ["useFilter", "useRouter", "shouldRecipientRejectPayment", "ephemeralNetworkGraphForScorer", "reserializedProbabilisticScorer"]
+            return ["useFilter", "useRouter", "useWrappedSignerProvider", "shouldRecipientRejectPayment", "ephemeralNetworkGraphForScorer", "reserializedProbabilisticScorer"]
         }
 
         public class func combinationCount() -> UInt {
@@ -57,6 +58,7 @@ public class HumanObjectPeerTestInstance {
         let monitors: [String: ChannelMonitor]
         private(set) var filter: Filter?
         private(set) var explicitKeysManager: KeysManager!
+        private(set) var wrappedSignerProvider: SignerProvider?
         private(set) var router: GossipSync!
         private(set) var channelManager: ChannelManager!
         private(set) var peerManager: PeerManager!
@@ -288,10 +290,15 @@ public class HumanObjectPeerTestInstance {
             let keysManager = KeysManager(seed: keySeed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
             self.explicitKeysManager = keysManager
 
+            if master.configuration.useWrappedSignerProvider {
+                let keysManager = WrappedSignerProviderTests.MyKeysManager(seed: keySeed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
+                self.wrappedSignerProvider = keysManager.signerProvider;
+            }
+
             if master.configuration.useRouter {
                 let networkGraph = NetworkGraph(network: .Regtest, logger: self.logger)
                 self.router = GossipSync.initWithP2P(a: P2PGossipSync(networkGraph: networkGraph, utxoLookup: nil, logger: self.logger))
-            }else{
+            } else {
                 self.router = GossipSync.none()
             }
         }
@@ -317,18 +324,20 @@ public class HumanObjectPeerTestInstance {
                 }
                 let score = probabalisticScorer.asScore()
                 let multiThreadedScorer = MultiThreadedLockableScore(score: score)
-                
+
+                let signerProvider = master.configuration.useWrappedSignerProvider ? self.wrappedSignerProvider! : self.explicitKeysManager.asSignerProvider()
                 let constructionParameters = ChannelManagerConstructionParameters(
                     config: UserConfig.initWithDefault(),
                     entropySource: self.explicitKeysManager.asEntropySource(),
                     nodeSigner: self.explicitKeysManager.asNodeSigner(),
-                    signerProvider: self.explicitKeysManager.asSignerProvider(),
+                    signerProvider: signerProvider,
                     feeEstimator: self.feeEstimator,
                     chainMonitor: self.chainMonitor!,
                     txBroadcaster: self.txBroadcaster,
                     logger: self.logger,
                     scorer: multiThreadedScorer
                 )
+
                 self.constructor = ChannelManagerConstructor(network: .Bitcoin, currentBlockchainTipHash: [UInt8](repeating: 0, count: 32), currentBlockchainTipHeight: 0, netGraph: graph, params: constructionParameters)
 
                 self.constructor?.chainSyncCompleted(persister: TestChannelManagerPersister(master: self))
@@ -345,7 +354,7 @@ public class HumanObjectPeerTestInstance {
             do {
                 // channel manager constructor is mandatory
                 let graph = NetworkGraph(network: .Bitcoin, logger: self.logger)
-                
+
                 let constructionParameters = ChannelManagerConstructionParameters(
                     config: UserConfig.initWithDefault(),
                     entropySource: self.explicitKeysManager.asEntropySource(),

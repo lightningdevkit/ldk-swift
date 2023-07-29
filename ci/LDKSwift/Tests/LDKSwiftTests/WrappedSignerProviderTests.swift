@@ -60,7 +60,9 @@ class WrappedSignerProviderTests: XCTestCase {
         let reversedGenesisHashHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
         let reversedGenesisHash = LDKSwiftTests.hexStringToBytes(hexString: reversedGenesisHashHex)!
         let latestBlockHash = reversedGenesisHash
-        let channelManager = ChannelManagerConstructor(network: network, currentBlockchainTipHash: latestBlockHash, currentBlockchainTipHeight: 0, netGraph: netGraph, params: channelManagerConstructionParameters)
+        let channelManagerConstructor = ChannelManagerConstructor(network: network, currentBlockchainTipHash: latestBlockHash, currentBlockchainTipHeight: 0, netGraph: netGraph, params: channelManagerConstructionParameters)
+        
+        let channelManager = channelManagerConstructor.channelManager
     }
 
     class MyKeysManager {
@@ -83,29 +85,28 @@ class WrappedSignerProviderTests: XCTestCase {
     class MyNodeSigner: NodeSigner {
         var myKeysManager: MyKeysManager?
         override func ecdh(recipient: Bindings.Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Bindings.Result_SharedSecretNoneZ {
-            print("Getting ecdh")
+            print("entering wrapper: ecdh()")
             return myKeysManager!.keysManager.asNodeSigner().ecdh(recipient: recipient, otherKey: otherKey, tweak: tweak)
         }
 
         override func getNodeId(recipient: Bindings.Recipient) -> Bindings.Result_PublicKeyNoneZ {
-            print("Getting getNodeId")
-            let nodeIdOption = myKeysManager!.keysManager.asNodeSigner().getNodeId(recipient: recipient)
-            let nodeId = nodeIdOption.getValue()!
-            return .initWithOk(o: nodeId)
+            print("entering wrapper: getNodeId()")
+            let nodeId = myKeysManager!.keysManager.asNodeSigner().getNodeId(recipient: recipient)
+            return nodeId
         }
 
         override func getInboundPaymentKeyMaterial() -> [UInt8] {
-            print("Getting getInboundPaymentKeyMaterial")
+            print("entering wrapper: getInboundPaymentKeyMaterial()")
             return myKeysManager!.keysManager.asNodeSigner().getInboundPaymentKeyMaterial()
         }
 
         override func signGossipMessage(msg: Bindings.UnsignedGossipMessage) -> Bindings.Result_SignatureNoneZ {
-            print("Getting signGossipMessage")
+            print("entering wrapper: signGossipMessage()")
             return myKeysManager!.keysManager.asNodeSigner().signGossipMessage(msg: msg)
         }
 
         override func signInvoice(hrpBytes: [UInt8], invoiceData: [UInt8], recipient: Bindings.Recipient) -> Bindings.Result_RecoverableSignatureNoneZ {
-            print("Getting signInvoice")
+            print("entering wrapper: signInvoice()")
             return myKeysManager!.keysManager.asNodeSigner().signInvoice(hrpBytes: hrpBytes, invoiceData: invoiceData, recipient: recipient)
         }
     }
@@ -113,7 +114,7 @@ class WrappedSignerProviderTests: XCTestCase {
     class MyEntropySource: EntropySource {
         var myKeysManager: MyKeysManager?
         override func getSecureRandomBytes() -> [UInt8] {
-            print("Getting getSecureRandomBytes")
+            print("entering wrapper: getSecureRandomBytes()")
             return myKeysManager!.keysManager.asEntropySource().getSecureRandomBytes()
         }
     }
@@ -121,22 +122,29 @@ class WrappedSignerProviderTests: XCTestCase {
     class MySignerProvider: SignerProvider {
         var myKeysManager: MyKeysManager?
         override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.WriteableEcdsaChannelSigner {
+            print("entering wrapper: deriveChannelSigner()")
             return myKeysManager!.keysManager.asSignerProvider().deriveChannelSigner(channelValueSatoshis: channelValueSatoshis, channelKeysId: channelKeysId)
         }
 
         override func generateChannelKeysId(inbound: Bool, channelValueSatoshis: UInt64, userChannelId: [UInt8]) -> [UInt8] {
+            print("entering wrapper: generateChannelKeysId()")
             return myKeysManager!.keysManager.asSignerProvider().generateChannelKeysId(inbound: inbound, channelValueSatoshis: channelValueSatoshis, userChannelId: userChannelId)
         }
 
         override func readChanSigner(reader: [UInt8]) -> Bindings.Result_WriteableEcdsaChannelSignerDecodeErrorZ {
+            print("entering wrapper: readChanSigner()")
             return myKeysManager!.keysManager.asSignerProvider().readChanSigner(reader: reader)
         }
 
         override func getDestinationScript() -> [UInt8] {
+            print("entering wrapper: getDestinationScript()")
             return myKeysManager!.keysManager.asSignerProvider().getDestinationScript()
         }
 
-        override func getShutdownScriptpubkey() -> Bindings.ShutdownScript {return myKeysManager!.keysManager.asSignerProvider().getShutdownScriptpubkey()
+        override func getShutdownScriptpubkey() -> Bindings.ShutdownScript {
+            print("entering wrapper: getShutdownScriptpubkey()")
+            let scriptPubkey = myKeysManager!.keysManager.asSignerProvider().getShutdownScriptpubkey()
+            return scriptPubkey
         }
     }
 

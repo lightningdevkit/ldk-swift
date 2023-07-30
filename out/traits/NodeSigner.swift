@@ -104,7 +104,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -134,7 +134,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -163,7 +163,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -186,7 +186,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}

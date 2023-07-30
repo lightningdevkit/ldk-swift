@@ -459,21 +459,22 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 		// these type elision helpers only apply outside the context of the very eliding type
 		let type = returnType.type;
+		const dangleInfix = this.hasCloneMethod(type) ? 'danglingClone()' : 'dangleRecursively()';
 		if (type instanceof RustVector) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(array: `;
-			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangleRecursively().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).${dangleInfix}.cType!`;
 		} else if (type instanceof RustPrimitiveWrapper) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(value: `;
-			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangleRecursively().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).${dangleInfix}.cType!`;
 		} else if (type instanceof RustNullableOption) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(some: `;
-			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangleRecursively().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).${dangleInfix}.cType!`;
 		} else if (type instanceof RustTaggedValueEnum || type instanceof RustResult) {
-			preparedReturnValue.wrapperSuffix = '.dangleRecursively().cType!';
+			preparedReturnValue.wrapperSuffix = `.${dangleInfix}.cType!`;
 		} else if (type instanceof RustTrait) {
 			preparedReturnValue.wrapperSuffix = '.activate().cType!';
 		} else if (type instanceof RustStruct) {
-			preparedReturnValue.wrapperSuffix = '.dangleRecursively().cType!';
+			preparedReturnValue.wrapperSuffix = `.${dangleInfix}.cType!`;
 		} else if (type instanceof RustPrimitive) {
 			// nothing to do here
 		} else if (type instanceof RustPrimitiveEnum) {

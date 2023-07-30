@@ -125,6 +125,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Vec_UpdateFailMalformedHTLCZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {

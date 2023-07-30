@@ -75,6 +75,14 @@ export default class StructGenerator extends BaseTypeGenerator<RustStruct> {
 						return self
 					}
 
+					internal func dangleRecursively() -> ${swiftTypeName} {
+						self.dangling = true
+						for currentAnchor in self.anchors {
+							currentAnchor.dangleRecursively()
+						}
+						return self
+					}
+
 					${this.renderDanglingCloneAndDeinitMethods(type)}
 
 				}

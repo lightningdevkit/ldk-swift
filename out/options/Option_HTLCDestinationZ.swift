@@ -135,6 +135,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Option_HTLCDestinationZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Option_HTLCDestinationZ {
 			let dangledClone = self.clone()

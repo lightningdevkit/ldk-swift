@@ -255,6 +255,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> PayeePubKey {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> PayeePubKey {
 			let dangledClone = self.clone()

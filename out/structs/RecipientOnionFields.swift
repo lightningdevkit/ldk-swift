@@ -461,6 +461,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> RecipientOnionFields {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> RecipientOnionFields {
 			let dangledClone = self.clone()

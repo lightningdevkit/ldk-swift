@@ -339,6 +339,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> CounterpartyChannelTransactionParameters {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> CounterpartyChannelTransactionParameters {
 			let dangledClone = self.clone()

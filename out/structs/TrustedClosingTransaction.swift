@@ -209,6 +209,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> TrustedClosingTransaction {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func setCFreeability(freeable: Bool) -> TrustedClosingTransaction {
 			self.cType!.is_owned = freeable

@@ -292,6 +292,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> PaymentPurpose {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> PaymentPurpose {
 			let dangledClone = self.clone()
@@ -418,6 +426,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> InvoicePayment {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> InvoicePayment {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 

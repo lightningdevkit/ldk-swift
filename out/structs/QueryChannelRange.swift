@@ -413,6 +413,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> QueryChannelRange {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> QueryChannelRange {
 			let dangledClone = self.clone()

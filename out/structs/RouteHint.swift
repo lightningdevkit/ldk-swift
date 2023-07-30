@@ -306,6 +306,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> RouteHint {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> RouteHint {
 			let dangledClone = self.clone()

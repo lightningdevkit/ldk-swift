@@ -267,6 +267,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> ReadOnlyNetworkGraph {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func setCFreeability(freeable: Bool) -> ReadOnlyNetworkGraph {
 			self.cType!.is_owned = freeable

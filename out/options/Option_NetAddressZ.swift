@@ -134,6 +134,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Option_NetAddressZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Option_NetAddressZ {
 			let dangledClone = self.clone()

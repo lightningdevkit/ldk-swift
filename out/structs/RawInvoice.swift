@@ -643,6 +643,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> RawInvoice {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> RawInvoice {
 			let dangledClone = self.clone()

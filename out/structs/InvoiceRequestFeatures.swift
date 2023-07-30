@@ -188,6 +188,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> InvoiceRequestFeatures {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> InvoiceRequestFeatures {
 			let dangledClone = self.clone()

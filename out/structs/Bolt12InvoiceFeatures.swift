@@ -278,6 +278,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Bolt12InvoiceFeatures {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Bolt12InvoiceFeatures {
 			let dangledClone = self.clone()

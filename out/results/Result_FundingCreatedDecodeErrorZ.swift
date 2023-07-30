@@ -180,6 +180,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Result_FundingCreatedDecodeErrorZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Result_FundingCreatedDecodeErrorZ {
 			let dangledClone = self.clone()

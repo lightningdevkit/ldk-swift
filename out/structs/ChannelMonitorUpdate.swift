@@ -282,6 +282,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> ChannelMonitorUpdate {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> ChannelMonitorUpdate {
 			let dangledClone = self.clone()

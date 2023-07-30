@@ -183,6 +183,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
 			let dangledClone = self.clone()

@@ -373,6 +373,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> SpendableOutputDescriptor {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> SpendableOutputDescriptor {
 			let dangledClone = self.clone()
@@ -481,6 +489,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> StaticOutput {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> StaticOutput {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 

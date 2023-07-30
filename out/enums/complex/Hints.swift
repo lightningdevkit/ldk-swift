@@ -249,6 +249,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Hints {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Hints {
 			let dangledClone = self.clone()

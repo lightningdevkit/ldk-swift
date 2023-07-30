@@ -140,6 +140,14 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 						return self
 					}
 
+					internal func dangleRecursively() -> ${swiftTypeName} {
+						self.dangling = true
+						for currentAnchor in self.anchors {
+							currentAnchor.dangleRecursively()
+						}
+						return self
+					}
+
 					deinit {
 						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return

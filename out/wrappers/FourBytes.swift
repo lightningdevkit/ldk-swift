@@ -78,6 +78,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> FourBytes {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 	}
 

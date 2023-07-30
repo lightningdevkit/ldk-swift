@@ -313,6 +313,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> ErrorAction {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> ErrorAction {
 			let dangledClone = self.clone()
@@ -413,6 +421,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> DisconnectPeer {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -486,6 +502,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> SendErrorMessage {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> SendErrorMessage {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 
@@ -573,6 +597,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> SendWarningMessage {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> SendWarningMessage {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 

@@ -193,6 +193,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> GraphSyncError {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> GraphSyncError {
 			let dangledClone = self.clone()

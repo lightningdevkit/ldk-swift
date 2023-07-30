@@ -202,6 +202,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
 			let dangledClone = self.clone()

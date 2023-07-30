@@ -179,6 +179,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Result_PaymentSecretNoneZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Result_PaymentSecretNoneZ {
 			let dangledClone = self.clone()

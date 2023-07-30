@@ -111,6 +111,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Str {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func setCFreeability(freeable: Bool) -> Str {
 			self.cType!.chars_is_owned = freeable

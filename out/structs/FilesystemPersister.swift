@@ -216,6 +216,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> FilesystemPersister {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func setCFreeability(freeable: Bool) -> FilesystemPersister {
 			self.cType!.is_owned = freeable

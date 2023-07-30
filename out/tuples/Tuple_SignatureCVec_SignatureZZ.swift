@@ -183,6 +183,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Tuple_SignatureCVec_SignatureZZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Tuple_SignatureCVec_SignatureZZ {
 			let dangledClone = self.clone()

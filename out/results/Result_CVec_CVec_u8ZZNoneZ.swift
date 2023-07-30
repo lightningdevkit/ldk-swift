@@ -183,6 +183,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Result_CVec_CVec_u8ZZNoneZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Result_CVec_CVec_u8ZZNoneZ {
 			let dangledClone = self.clone()

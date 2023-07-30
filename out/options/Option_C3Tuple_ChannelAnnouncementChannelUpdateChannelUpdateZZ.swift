@@ -155,6 +155,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Option_C3Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZZ {
 			let dangledClone = self.clone()

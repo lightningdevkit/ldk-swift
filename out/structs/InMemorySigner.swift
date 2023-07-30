@@ -978,6 +978,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> InMemorySigner {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> InMemorySigner {
 			let dangledClone = self.clone()

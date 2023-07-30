@@ -135,6 +135,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Option_MonitorEventZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Option_MonitorEventZ {
 			let dangledClone = self.clone()

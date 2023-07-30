@@ -179,6 +179,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Bech32Error {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Bech32Error {
 			let dangledClone = self.clone()

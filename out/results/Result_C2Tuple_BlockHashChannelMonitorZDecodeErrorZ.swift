@@ -196,6 +196,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ {
 			let dangledClone = self.clone()

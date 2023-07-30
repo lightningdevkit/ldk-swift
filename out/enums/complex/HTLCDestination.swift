@@ -369,6 +369,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> HTLCDestination {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> HTLCDestination {
 			let dangledClone = self.clone()
@@ -487,6 +495,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> NextHopChannel {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -559,6 +575,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> UnknownNextHop {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> UnknownNextHop {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 
@@ -637,6 +661,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> InvalidForward {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -712,6 +744,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> FailedPayment {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> FailedPayment {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 

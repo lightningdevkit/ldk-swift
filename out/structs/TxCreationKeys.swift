@@ -651,6 +651,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> TxCreationKeys {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> TxCreationKeys {
 			let dangledClone = self.clone()

@@ -173,6 +173,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Result_boolLightningErrorZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Result_boolLightningErrorZ {
 			let dangledClone = self.clone()

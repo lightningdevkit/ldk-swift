@@ -140,6 +140,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Option_CustomOnionMessageContentsZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Option_CustomOnionMessageContentsZ {
 			let dangledClone = self.clone()

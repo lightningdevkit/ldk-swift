@@ -160,6 +160,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Tuple_u32TxOutZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Tuple_u32TxOutZ {
 			let dangledClone = self.clone()

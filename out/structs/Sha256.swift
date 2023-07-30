@@ -191,6 +191,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Sha256 {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Sha256 {
 			let dangledClone = self.clone()

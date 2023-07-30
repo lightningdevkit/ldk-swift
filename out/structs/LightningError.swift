@@ -260,6 +260,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> LightningError {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> LightningError {
 			let dangledClone = self.clone()

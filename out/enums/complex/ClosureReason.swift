@@ -448,6 +448,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> ClosureReason {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> ClosureReason {
 			let dangledClone = self.clone()
@@ -554,6 +562,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> CounterpartyForceClosed {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -629,6 +645,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> ProcessingError {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> ProcessingError {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 

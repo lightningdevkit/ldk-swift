@@ -692,6 +692,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> ChannelManagerReadArgs {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func setCFreeability(freeable: Bool) -> ChannelManagerReadArgs {
 			self.cType!.is_owned = freeable

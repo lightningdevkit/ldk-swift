@@ -163,6 +163,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> FeeEstimator {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

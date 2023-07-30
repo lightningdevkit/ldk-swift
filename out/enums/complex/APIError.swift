@@ -441,6 +441,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> APIError {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> APIError {
 			let dangledClone = self.clone()
@@ -539,6 +547,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> APIMisuseError {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -624,6 +640,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> FeeRateTooHigh {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -698,6 +722,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> InvalidRoute {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> InvalidRoute {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 
@@ -778,6 +810,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> ChannelUnavailable {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -852,6 +892,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> IncompatibleShutdownScript {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> IncompatibleShutdownScript {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 

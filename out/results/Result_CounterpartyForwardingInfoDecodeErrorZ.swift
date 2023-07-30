@@ -181,6 +181,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> Result_CounterpartyForwardingInfoDecodeErrorZ {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> Result_CounterpartyForwardingInfoDecodeErrorZ {
 			let dangledClone = self.clone()

@@ -359,6 +359,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> KeysManager {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func setCFreeability(freeable: Bool) -> KeysManager {
 			self.cType!.is_owned = freeable

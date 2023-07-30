@@ -304,6 +304,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> EffectiveCapacity {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> EffectiveCapacity {
 			let dangledClone = self.clone()
@@ -403,6 +411,14 @@ extension Bindings {
 				return self
 			}
 
+			internal func dangleRecursively() -> ExactLiquidity {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
+				return self
+			}
+
 
 		}
 
@@ -474,6 +490,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> MaximumHTLC {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> MaximumHTLC {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 
@@ -556,6 +580,14 @@ extension Bindings {
 
 			internal func dangle(_ shouldDangle: Bool = true) -> Total {
 				self.dangling = shouldDangle
+				return self
+			}
+
+			internal func dangleRecursively() -> Total {
+				self.dangling = true
+				for currentAnchor in self.anchors {
+					currentAnchor.dangleRecursively()
+				}
 				return self
 			}
 

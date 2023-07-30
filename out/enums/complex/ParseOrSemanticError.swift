@@ -245,6 +245,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> ParseOrSemanticError {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> ParseOrSemanticError {
 			let dangledClone = self.clone()

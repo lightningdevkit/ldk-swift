@@ -251,6 +251,14 @@ extension Bindings {
 			return self
 		}
 
+		internal func dangleRecursively() -> ExpiryTime {
+			self.dangling = true
+			for currentAnchor in self.anchors {
+				currentAnchor.dangleRecursively()
+			}
+			return self
+		}
+
 
 		internal func danglingClone() -> ExpiryTime {
 			let dangledClone = self.clone()

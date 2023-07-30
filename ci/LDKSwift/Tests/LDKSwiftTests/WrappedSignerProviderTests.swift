@@ -143,8 +143,13 @@ class WrappedSignerProviderTests: XCTestCase {
 
         override func getShutdownScriptpubkey() -> Bindings.ShutdownScript {
             print("entering wrapper: getShutdownScriptpubkey()")
-            let scriptPubkey = myKeysManager!.keysManager.asSignerProvider().getShutdownScriptpubkey()
-            return scriptPubkey
+            
+            let randomHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
+            let randomHexBytes = LDKSwiftTests.hexStringToBytes(hexString: randomHex)!
+            let witnessProgram = ShutdownScript.newWitnessProgram(version: 1, program: randomHexBytes)
+            let witnessBasedScript = witnessProgram.getValue()!
+            
+            return witnessBasedScript
         }
     }
 

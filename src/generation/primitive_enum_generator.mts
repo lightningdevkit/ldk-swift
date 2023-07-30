@@ -41,10 +41,10 @@ export default class PrimitiveEnumGenerator extends BaseTypeGenerator<RustPrimit
 		}
 
 		swiftValueInitializer += `
-							default:
-								Bindings.print("Error: Invalid value type for ${swiftTypeName}! Aborting.", severity: .ERROR)
-								abort()
-				`;
+			default:
+				Bindings.print("Error: Invalid value type for ${swiftTypeName}! Aborting.", severity: .ERROR)
+				abort()
+		`;
 
 		return `
 			#if SWIFT_PACKAGE

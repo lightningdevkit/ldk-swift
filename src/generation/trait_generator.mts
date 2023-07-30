@@ -228,17 +228,17 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 		if (isFreeCallback) {
 			isFreeBody = `
 				// TODO: figure out something smarter
-				return; // the semicolon is necessary because Swift is whitespace-agnostic
+				return () // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
 			`;
 		}
 
 		return `
-					${this.renderDocComment(lambda.documentation, 5)}
-					${visibility} func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) -> ${swiftReturnType} {
-						${isFreeBody}
-						Bindings.print("Error: ${swiftTypeName}::${swiftMethodName} MUST be overridden! Offending class: \\(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
+			${this.renderDocComment(lambda.documentation, 5)}
+			${visibility} func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) -> ${swiftReturnType} {
+				${isFreeBody}
+				Bindings.print("Error: ${swiftTypeName}::${swiftMethodName} MUST be overridden! Offending class: \\(String(describing: self)). Aborting.", severity: .ERROR)
+				abort()
+			}
 		`;
 	}
 
@@ -296,24 +296,24 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 		}
 
 		return `
-					${this.renderDocComment(lambda.documentation, 5)}
-					public override func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) ${returnTypeInfix}{
-						// native call variable prep
-						${nativeCallPrefix}
+			${this.renderDocComment(lambda.documentation, 5)}
+			public override func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) ${returnTypeInfix}{
+				// native call variable prep
+				${nativeCallPrefix}
 
-						${freeBody}
+				${freeBody}
 
-						// native method call
-						let nativeCallResult = ${nativeCallWrapperPrefix}self.cType!.${lambda.name}(${nativeCallValueAccessors.join(', ')})${nativeCallWrapperSuffix}
+				// native method call
+				let nativeCallResult = ${nativeCallWrapperPrefix}self.cType!.${lambda.name}(${nativeCallValueAccessors.join(', ')})${nativeCallWrapperSuffix}
 
-						// cleanup
-						${nativeCallSuffix}
+				// cleanup
+				${nativeCallSuffix}
 
-						// return value (do some wrapping)
-						let returnValue = ${preparedReturnValue.wrapperPrefix}nativeCallResult${preparedReturnValue.wrapperSuffix}
+				// return value (do some wrapping)
+				let returnValue = ${preparedReturnValue.wrapperPrefix}nativeCallResult${preparedReturnValue.wrapperSuffix}
 
-						return returnValue
-					}
+				return returnValue
+			}
 		`;
 	}
 

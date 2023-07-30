@@ -59,6 +59,19 @@ open class NativeTypeWrapper: Hashable {
 		return false
 	}
 
+	internal func dangle(_ shouldDangle: Bool = true) -> Self {
+		self.dangling = shouldDangle
+		return self
+	}
+
+	internal func dangleRecursively() -> Self {
+		self.dangling = true
+		for currentAnchor in self.anchors {
+			currentAnchor.dangleRecursively()
+		}
+		return self
+	}
+
 	internal func noOpRetain() {
 		/* there to make sure object gets retained until after this call */
 	}

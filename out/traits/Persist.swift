@@ -280,19 +280,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Persist {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> Persist {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

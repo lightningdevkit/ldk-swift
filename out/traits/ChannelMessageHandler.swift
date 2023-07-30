@@ -1018,19 +1018,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ChannelMessageHandler {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> ChannelMessageHandler {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

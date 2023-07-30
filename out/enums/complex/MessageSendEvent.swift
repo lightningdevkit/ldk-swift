@@ -1016,20 +1016,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> MessageSendEvent {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> MessageSendEvent {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> MessageSendEvent {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -1136,20 +1122,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendAcceptChannel {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendAcceptChannel {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -1230,20 +1202,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendOpenChannel {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendOpenChannel {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -1330,20 +1288,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendFundingCreated {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendFundingCreated {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -1424,20 +1368,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendFundingSigned {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendFundingSigned {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -1524,20 +1454,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelReady {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendChannelReady {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -1621,20 +1537,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendAnnouncementSignatures {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendAnnouncementSignatures {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -1714,20 +1616,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> UpdateHTLCs {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> UpdateHTLCs {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -1814,20 +1702,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendRevokeAndACK {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendRevokeAndACK {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -1908,20 +1782,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendClosingSigned {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendClosingSigned {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2007,20 +1867,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendShutdown {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendShutdown {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2101,20 +1947,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelReestablish {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendChannelReestablish {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2211,20 +2043,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelAnnouncement {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendChannelAnnouncement {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2309,20 +2127,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> BroadcastChannelAnnouncement {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> BroadcastChannelAnnouncement {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2394,20 +2198,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> BroadcastChannelUpdate {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> BroadcastChannelUpdate {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2476,20 +2266,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> BroadcastNodeAnnouncement {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> BroadcastNodeAnnouncement {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2576,20 +2352,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelUpdate {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendChannelUpdate {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2669,20 +2431,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> HandleError {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> HandleError {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2769,20 +2517,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelRangeQuery {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendChannelRangeQuery {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2863,20 +2597,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendShortIdsQuery {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendShortIdsQuery {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2963,20 +2683,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendReplyChannelRange {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendReplyChannelRange {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -3057,20 +2763,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendGossipTimestampFilter {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SendGossipTimestampFilter {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

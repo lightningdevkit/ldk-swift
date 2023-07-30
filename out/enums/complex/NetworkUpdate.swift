@@ -311,20 +311,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> NetworkUpdate {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> NetworkUpdate {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> NetworkUpdate {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -419,20 +405,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelUpdateMessage {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ChannelUpdateMessage {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -507,20 +479,6 @@ extension Bindings {
 				let returnValue = self.cType!.is_permanent
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelFailure {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ChannelFailure {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -602,20 +560,6 @@ extension Bindings {
 				let returnValue = self.cType!.is_permanent
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> NodeFailure {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> NodeFailure {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

@@ -162,20 +162,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> InvoiceSignature {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> InvoiceSignature {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> InvoiceSignature {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

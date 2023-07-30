@@ -239,20 +239,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> MinFinalCltvExpiryDelta {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> MinFinalCltvExpiryDelta {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> MinFinalCltvExpiryDelta {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

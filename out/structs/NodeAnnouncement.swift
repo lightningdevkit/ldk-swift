@@ -337,20 +337,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> NodeAnnouncement {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> NodeAnnouncement {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> NodeAnnouncement {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

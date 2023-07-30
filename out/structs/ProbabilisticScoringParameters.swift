@@ -882,20 +882,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ProbabilisticScoringParameters {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> ProbabilisticScoringParameters {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> ProbabilisticScoringParameters {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

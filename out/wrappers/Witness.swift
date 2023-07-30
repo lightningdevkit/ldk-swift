@@ -106,19 +106,6 @@ extension Bindings {
 
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Witness {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> Witness {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 
 		internal func setCFreeability(freeable: Bool) -> Witness {
 			self.cType!.data_is_owned = freeable

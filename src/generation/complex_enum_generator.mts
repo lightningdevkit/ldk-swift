@@ -140,19 +140,6 @@ export default class ComplexEnumGenerator extends BaseTypeGenerator<RustTaggedVa
 
 					${polymorphicAccessors}
 
-					internal func dangle(_ shouldDangle: Bool = true) -> ${swiftTypeName} {
-        				self.dangling = shouldDangle
-						return self
-					}
-
-					internal func dangleRecursively() -> ${swiftTypeName} {
-						self.dangling = true
-						for currentAnchor in self.anchors {
-							currentAnchor.dangleRecursively()
-						}
-						return self
-					}
-
 					${this.renderDanglingCloneAndDeinitMethods(type)}
 
 					${renderedChildStructs}

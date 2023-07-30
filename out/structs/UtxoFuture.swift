@@ -222,20 +222,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> UtxoFuture {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> UtxoFuture {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> UtxoFuture {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

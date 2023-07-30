@@ -344,20 +344,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> CommitmentTransaction {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> CommitmentTransaction {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> CommitmentTransaction {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

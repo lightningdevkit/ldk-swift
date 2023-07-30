@@ -176,20 +176,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Tuple_PublicKeyCOption_NetAddressZZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> Tuple_PublicKeyCOption_NetAddressZZ {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> Tuple_PublicKeyCOption_NetAddressZZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

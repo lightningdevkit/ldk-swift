@@ -593,20 +593,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> InvoiceFeatures {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> InvoiceFeatures {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> InvoiceFeatures {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

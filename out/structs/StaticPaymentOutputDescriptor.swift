@@ -444,20 +444,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> StaticPaymentOutputDescriptor {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> StaticPaymentOutputDescriptor {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> StaticPaymentOutputDescriptor {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

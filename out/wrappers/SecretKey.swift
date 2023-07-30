@@ -73,19 +73,6 @@ extension Bindings {
 			return Bindings.UInt8Tuple32ToArray(tuple: self.cType!.bytes)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> SecretKey {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> SecretKey {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 
 	}
 

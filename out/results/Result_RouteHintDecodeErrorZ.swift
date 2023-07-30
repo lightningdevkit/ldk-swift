@@ -171,20 +171,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_RouteHintDecodeErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> Result_RouteHintDecodeErrorZ {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_RouteHintDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

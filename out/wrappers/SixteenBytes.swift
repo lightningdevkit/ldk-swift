@@ -73,19 +73,6 @@ extension Bindings {
 			return Bindings.UInt8Tuple16ToArray(tuple: self.cType!.data)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> SixteenBytes {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> SixteenBytes {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 
 	}
 

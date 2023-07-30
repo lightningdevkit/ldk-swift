@@ -273,20 +273,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> PathFailure {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> PathFailure {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> PathFailure {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -379,20 +365,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> InitialSend {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> InitialSend {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -465,20 +437,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> OnPath {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> OnPath {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

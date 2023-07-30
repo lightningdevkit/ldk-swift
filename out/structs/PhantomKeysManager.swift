@@ -385,20 +385,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> PhantomKeysManager {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> PhantomKeysManager {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> PhantomKeysManager {
 			self.cType!.is_owned = freeable
 			return self

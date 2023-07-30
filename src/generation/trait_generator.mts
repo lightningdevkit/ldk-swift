@@ -135,19 +135,6 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 					${fieldAccessors}
 
-					internal func dangle(_ shouldDangle: Bool = true) -> ${swiftTypeName} {
-        				self.dangling = shouldDangle
-						return self
-					}
-
-					internal func dangleRecursively() -> ${swiftTypeName} {
-						self.dangling = true
-						for currentAnchor in self.anchors {
-							currentAnchor.dangleRecursively()
-						}
-						return self
-					}
-
 					deinit {
 						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return

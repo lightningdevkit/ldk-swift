@@ -364,20 +364,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> HTLCDestination {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> HTLCDestination {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> HTLCDestination {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -490,20 +476,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> NextHopChannel {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> NextHopChannel {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -570,20 +542,6 @@ extension Bindings {
 				let returnValue = self.cType!.requested_forward_scid
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> UnknownNextHop {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> UnknownNextHop {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -656,20 +614,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> InvalidForward {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> InvalidForward {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -739,20 +683,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> FailedPayment {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> FailedPayment {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

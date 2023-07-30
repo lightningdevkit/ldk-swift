@@ -287,20 +287,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> UntrustedString {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> UntrustedString {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> UntrustedString {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

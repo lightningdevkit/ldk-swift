@@ -73,19 +73,6 @@ extension Bindings {
 			return Bindings.UInt8Tuple64ToArray(tuple: self.cType!.compact_form)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Signature {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> Signature {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 
 	}
 

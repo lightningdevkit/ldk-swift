@@ -85,19 +85,6 @@ extension Bindings {
 
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> u8slice {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> u8slice {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 
 		deinit {
 			if !self.dangling {

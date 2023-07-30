@@ -73,19 +73,6 @@ extension Bindings {
 			return self.cType!._0
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> WitnessVersion {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> WitnessVersion {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 
 	}
 

@@ -211,20 +211,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> InvalidShutdownScript {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> InvalidShutdownScript {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> InvalidShutdownScript {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

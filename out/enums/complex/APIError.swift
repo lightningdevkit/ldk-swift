@@ -436,20 +436,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> APIError {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> APIError {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> APIError {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -542,20 +528,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> APIMisuseError {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> APIMisuseError {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -635,20 +607,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> FeeRateTooHigh {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> FeeRateTooHigh {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -717,20 +675,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> InvalidRoute {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> InvalidRoute {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -805,20 +749,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelUnavailable {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ChannelUnavailable {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -887,20 +817,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> IncompatibleShutdownScript {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> IncompatibleShutdownScript {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

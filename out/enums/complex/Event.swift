@@ -1317,20 +1317,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Event {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> Event {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> Event {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -1475,20 +1461,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> FundingGenerationReady {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> FundingGenerationReady {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -1662,20 +1634,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> PaymentClaimable {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PaymentClaimable {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -1784,20 +1742,6 @@ extension Bindings {
 				)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> PaymentClaimed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PaymentClaimed {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -1924,20 +1868,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> PaymentSent {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PaymentSent {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2035,20 +1965,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> PaymentFailed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PaymentFailed {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2150,20 +2066,6 @@ extension Bindings {
 					cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> PaymentPathSuccessful {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PaymentPathSuccessful {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2309,20 +2211,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> PaymentPathFailed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PaymentPathFailed {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2417,20 +2305,6 @@ extension Bindings {
 					cType: self.cType!.path, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> ProbeSuccessful {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ProbeSuccessful {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2546,20 +2420,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ProbeFailed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ProbeFailed {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2628,20 +2488,6 @@ extension Bindings {
 				let returnValue = self.cType!.time_forwardable
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> PendingHTLCsForwardable {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PendingHTLCsForwardable {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2761,20 +2607,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> HTLCIntercepted {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> HTLCIntercepted {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -2843,20 +2675,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SpendableOutputs {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SpendableOutputs {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -2997,20 +2815,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> PaymentForwarded {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> PaymentForwarded {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -3140,20 +2944,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelPending {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ChannelPending {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -3266,20 +3056,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelReady {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ChannelReady {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -3383,20 +3159,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelClosed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ChannelClosed {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -3478,20 +3240,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> DiscardFunding {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> DiscardFunding {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -3634,20 +3382,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> OpenChannelRequest {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> OpenChannelRequest {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -3727,20 +3461,6 @@ extension Bindings {
 					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> HTLCHandlingFailed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> HTLCHandlingFailed {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

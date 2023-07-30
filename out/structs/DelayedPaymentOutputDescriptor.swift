@@ -623,20 +623,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> DelayedPaymentOutputDescriptor {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> DelayedPaymentOutputDescriptor {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> DelayedPaymentOutputDescriptor {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

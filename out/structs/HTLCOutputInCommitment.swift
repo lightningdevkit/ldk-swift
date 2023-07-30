@@ -496,20 +496,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> HTLCOutputInCommitment {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> HTLCOutputInCommitment {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> HTLCOutputInCommitment {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

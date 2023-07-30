@@ -460,20 +460,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ClosingSigned {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> ClosingSigned {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> ClosingSigned {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

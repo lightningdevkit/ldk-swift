@@ -294,20 +294,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Fallback {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> Fallback {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> Fallback {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -410,20 +396,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SegWitProgram {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> SegWitProgram {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

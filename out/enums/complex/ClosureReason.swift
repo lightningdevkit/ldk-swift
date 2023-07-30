@@ -443,20 +443,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ClosureReason {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> ClosureReason {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> ClosureReason {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -557,20 +543,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> CounterpartyForceClosed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> CounterpartyForceClosed {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -640,20 +612,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> ProcessingError {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> ProcessingError {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

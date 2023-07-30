@@ -243,20 +243,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> OnionMessage {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> OnionMessage {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> OnionMessage {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

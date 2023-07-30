@@ -294,20 +294,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> BackgroundProcessor {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> BackgroundProcessor {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> BackgroundProcessor {
 			self.cType!.is_owned = freeable
 			return self

@@ -146,19 +146,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> BroadcasterInterface {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> BroadcasterInterface {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

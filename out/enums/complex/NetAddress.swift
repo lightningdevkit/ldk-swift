@@ -400,20 +400,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> NetAddress {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> NetAddress {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func danglingClone() -> NetAddress {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -514,20 +500,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> IPv4 {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> IPv4 {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -603,20 +575,6 @@ extension Bindings {
 				let returnValue = self.cType!.port
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> IPv6 {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> IPv6 {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 
@@ -715,20 +673,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> OnionV3 {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> OnionV3 {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
-			}
-
-
 		}
 
 
@@ -804,20 +748,6 @@ extension Bindings {
 				let returnValue = self.cType!.port
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> Hostname {
-				self.dangling = shouldDangle
-				return self
-			}
-
-			internal func dangleRecursively() -> Hostname {
-				self.dangling = true
-				for currentAnchor in self.anchors {
-					currentAnchor.dangleRecursively()
-				}
-				return self
 			}
 
 

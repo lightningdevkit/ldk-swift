@@ -96,20 +96,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> LockedChannelMonitor {
-			self.dangling = shouldDangle
-			return self
-		}
-
-		internal func dangleRecursively() -> LockedChannelMonitor {
-			self.dangling = true
-			for currentAnchor in self.anchors {
-				currentAnchor.dangleRecursively()
-			}
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> LockedChannelMonitor {
 			self.cType!.is_owned = freeable
 			return self

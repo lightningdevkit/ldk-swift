@@ -236,7 +236,7 @@ extension Bindings {
 				let returnValue = Vec_C2Tuple_TxidBlockHashZZ(
 					array: swiftCallbackResult, instantiationContext: "Confirm.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

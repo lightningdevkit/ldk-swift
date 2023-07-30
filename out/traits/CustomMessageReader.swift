@@ -94,7 +94,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.dangle().cType!
+				let returnValue = swiftCallbackResult.dangleRecursively().cType!
 
 				return returnValue
 			}

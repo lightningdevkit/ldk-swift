@@ -207,7 +207,7 @@ extension Bindings {
 				let returnValue = Vec_u8Z(
 					array: swiftCallbackResult, instantiationContext: "Score.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

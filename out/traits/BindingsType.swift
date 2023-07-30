@@ -109,7 +109,7 @@ extension Bindings {
 					value: swiftCallbackResult,
 					instantiationContext: "BindingsType.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}
@@ -132,7 +132,7 @@ extension Bindings {
 					array: swiftCallbackResult,
 					instantiationContext: "BindingsType.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

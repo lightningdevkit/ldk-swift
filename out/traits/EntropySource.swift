@@ -88,7 +88,7 @@ extension Bindings {
 					value: swiftCallbackResult,
 					instantiationContext: "EntropySource.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

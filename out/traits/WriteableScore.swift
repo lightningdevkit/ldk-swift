@@ -95,7 +95,7 @@ extension Bindings {
 					array: swiftCallbackResult,
 					instantiationContext: "WriteableScore.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

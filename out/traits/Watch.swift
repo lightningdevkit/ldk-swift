@@ -173,7 +173,7 @@ extension Bindings {
 				let returnValue = Vec_C3Tuple_OutPointCVec_MonitorEventZPublicKeyZZ(
 					array: swiftCallbackResult, instantiationContext: "Watch.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

@@ -102,7 +102,7 @@ extension Bindings {
 					array: swiftCallbackResult,
 					instantiationContext: "WriteableEcdsaChannelSigner.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

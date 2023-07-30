@@ -109,7 +109,7 @@ extension Bindings {
 					array: swiftCallbackResult,
 					instantiationContext: "CustomOnionMessageContents.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

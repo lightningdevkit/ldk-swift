@@ -90,7 +90,7 @@ extension Bindings {
 					array: swiftCallbackResult,
 					instantiationContext: "MessageSendEventsProvider.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}

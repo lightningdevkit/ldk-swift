@@ -76,6 +76,29 @@ extension Bindings {
 		}
 
 
+		/// Creates a new Witness which has the same data as `orig` but with a new buffer.
+		internal func clone() -> Witness {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKWitness>) in
+					Witness_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Witness(
+				cType: nativeCallResult, instantiationContext: "Witness.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Frees the data pointed to by data
 		internal func free() {
 			// native call variable prep
@@ -106,6 +129,19 @@ extension Bindings {
 
 		}
 
+
+		internal func danglingClone() -> Witness {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> Witness {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.data_is_owned
+			return dangledClone
+		}
 
 		internal func setCFreeability(freeable: Bool) -> Witness {
 			self.cType!.data_is_owned = freeable

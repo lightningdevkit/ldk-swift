@@ -2,24 +2,24 @@
 	import LDKHeaders
 #endif
 
-/// An `InvoiceRequest` is a request for an [`Invoice`] formulated from an [`Offer`].
+/// An `InvoiceRequest` is a request for a [`Bolt12Invoice`] formulated from an [`Offer`].
 ///
 /// An offer may provide choices such as quantity, amount, chain, features, etc. An invoice request
 /// specifies these such that its recipient can send an invoice for payment.
 ///
-/// [`Invoice`]: crate::offers::invoice::Invoice
+/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 /// [`Offer`]: crate::offers::offer::Offer
 public typealias InvoiceRequest = Bindings.InvoiceRequest
 
 extension Bindings {
 
 
-	/// An `InvoiceRequest` is a request for an [`Invoice`] formulated from an [`Offer`].
+	/// An `InvoiceRequest` is a request for a [`Bolt12Invoice`] formulated from an [`Offer`].
 	///
 	/// An offer may provide choices such as quantity, amount, chain, features, etc. An invoice request
 	/// specifies these such that its recipient can send an invoice for payment.
 	///
-	/// [`Invoice`]: crate::offers::invoice::Invoice
+	/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 	/// [`Offer`]: crate::offers::offer::Offer
 	public class InvoiceRequest: NativeTypeWrapper {
 
@@ -307,6 +307,40 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = PrintableString(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Verifies that the request was for an offer created using the given key. Returns the derived
+		/// keys need to sign an [`Bolt12Invoice`] for the request if they could be extracted from the
+		/// metadata.
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+		public func verify(key: ExpandedKey) -> Result_COption_KeyPairZNoneZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+
+					withUnsafePointer(to: key.cType!) { (keyPointer: UnsafePointer<LDKExpandedKey>) in
+						InvoiceRequest_verify(thisArgPointer, keyPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_COption_KeyPairZNoneZ(
 				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
 				anchor: self
 			)

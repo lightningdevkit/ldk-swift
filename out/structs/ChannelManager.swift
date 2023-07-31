@@ -181,6 +181,8 @@ extension Bindings {
 
 		/// Constructs a new `ChannelManager` to hold several channels and route between them.
 		///
+		/// The current time or latest block header time can be provided as the `current_timestamp`.
+		///
 		/// This is the main \"logic hub\" for all channel-related actions, and implements
 		/// [`ChannelMessageHandler`].
 		///
@@ -197,7 +199,7 @@ extension Bindings {
 		public init(
 			feeEst: FeeEstimator, chainMonitor: Watch, txBroadcaster: BroadcasterInterface, router: Router,
 			logger: Logger, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider,
-			config: UserConfig, params: ChainParameters
+			config: UserConfig, params: ChainParameters, currentTimestamp: UInt32
 		) {
 			// native call variable prep
 
@@ -207,7 +209,7 @@ extension Bindings {
 				feeEst.activate().cType!, chainMonitor.activate().cType!, txBroadcaster.activate().cType!,
 				router.activate().cType!, logger.activate().cType!, entropySource.activate().cType!,
 				nodeSigner.activate().cType!, signerProvider.activate().cType!, config.dynamicallyDangledClone().cType!,
-				params.dynamicallyDangledClone().cType!)
+				params.dynamicallyDangledClone().cType!, currentTimestamp)
 
 			// cleanup
 
@@ -268,6 +270,10 @@ extension Bindings {
 		///
 		/// Raises [`APIError::APIMisuseError`] when `channel_value_satoshis` > 2**24 or `push_msat` is
 		/// greater than `channel_value_satoshis * 1k` or `channel_value_satoshis < 1000`.
+		///
+		/// Raises [`APIError::ChannelUnavailable`] if the channel cannot be opened due to failing to
+		/// generate a shutdown scriptpubkey or destination script set by
+		/// [`SignerProvider::get_shutdown_scriptpubkey`] or [`SignerProvider::get_destination_script`].
 		///
 		/// Note that we do not check if you are currently connected to the given peer. If no
 		/// connection is available, the outbound `open_channel` message may fail to send, resulting in
@@ -465,6 +471,11 @@ extension Bindings {
 		///
 		/// May generate a [`SendShutdown`] message event on success, which should be relayed.
 		///
+		/// Raises [`APIError::ChannelUnavailable`] if the channel cannot be closed due to failing to
+		/// generate a shutdown scriptpubkey or destination script set by
+		/// [`SignerProvider::get_shutdown_scriptpubkey`]. A force-closure may be needed to close the
+		/// channel.
+		///
 		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`]: crate::util::config::ChannelConfig::force_close_avoidance_max_fee_satoshis
 		/// [`Background`]: crate::chain::chaininterface::ConfirmationTarget::Background
 		/// [`Normal`]: crate::chain::chaininterface::ConfirmationTarget::Normal
@@ -521,14 +532,27 @@ extension Bindings {
 		/// transaction feerate below `target_feerate_sat_per_1000_weight` (or the feerate which
 		/// will appear on a force-closure transaction, whichever is lower).
 		///
+		/// The `shutdown_script` provided  will be used as the `scriptPubKey` for the closing transaction.
+		/// Will fail if a shutdown script has already been set for this channel by
+		/// ['ChannelHandshakeConfig::commit_upfront_shutdown_pubkey`]. The given shutdown script must
+		/// also be compatible with our and the counterparty's features.
+		///
 		/// May generate a [`SendShutdown`] message event on success, which should be relayed.
+		///
+		/// Raises [`APIError::ChannelUnavailable`] if the channel cannot be closed due to failing to
+		/// generate a shutdown scriptpubkey or destination script set by
+		/// [`SignerProvider::get_shutdown_scriptpubkey`]. A force-closure may be needed to close the
+		/// channel.
 		///
 		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`]: crate::util::config::ChannelConfig::force_close_avoidance_max_fee_satoshis
 		/// [`Background`]: crate::chain::chaininterface::ConfirmationTarget::Background
 		/// [`Normal`]: crate::chain::chaininterface::ConfirmationTarget::Normal
 		/// [`SendShutdown`]: crate::events::MessageSendEvent::SendShutdown
-		public func closeChannelWithTargetFeerate(
-			channelId: [UInt8], counterpartyNodeId: [UInt8], targetFeerateSatsPer1000Weight: UInt32
+		///
+		/// Note that shutdown_script (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func closeChannelWithFeerateAndScript(
+			channelId: [UInt8], counterpartyNodeId: [UInt8], targetFeerateSatsPer1000Weight: UInt32?,
+			shutdownScript: ShutdownScript
 		) -> Result_NoneAPIErrorZ {
 			// native call variable prep
 
@@ -537,15 +561,22 @@ extension Bindings {
 			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
 				value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 
+			let targetFeerateSatsPer1000WeightOption = Option_u32Z(
+				some: targetFeerateSatsPer1000Weight,
+				instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
 
 					withUnsafePointer(to: tupledChannelId) { (tupledChannelIdPointer: UnsafePointer<UInt8Tuple32>) in
-						ChannelManager_close_channel_with_target_feerate(
+						ChannelManager_close_channel_with_feerate_and_script(
 							thisArgPointer, tupledChannelIdPointer, counterpartyNodeIdPrimitiveWrapper.cType!,
-							targetFeerateSatsPer1000Weight)
+							targetFeerateSatsPer1000WeightOption.cType!, shutdownScript.dynamicallyDangledClone().cType!
+						)
 					}
 
 				}
@@ -750,6 +781,7 @@ extension Bindings {
 		/// irrevocably committed to on our end. In such a case, do NOT retry the payment with a
 		/// different route unless you intend to pay twice!
 		///
+		/// [`RouteHop`]: crate::routing::router::RouteHop
 		/// [`Event::PaymentSent`]: events::Event::PaymentSent
 		/// [`Event::PaymentFailed`]: events::Event::PaymentFailed
 		/// [`UpdateHTLCs`]: events::MessageSendEvent::UpdateHTLCs
@@ -800,7 +832,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Similar to [`ChannelManager::send_payment`], but will automatically find a route based on
+		/// Similar to [`ChannelManager::send_payment_with_route`], but will automatically find a route based on
 		/// `route_params` and retry failed payment paths based on `retry_strategy`.
 		public func sendPayment(
 			paymentHash: [UInt8], recipientOnion: RecipientOnionFields, paymentId: [UInt8],
@@ -900,18 +932,16 @@ extension Bindings {
 		/// Similar to regular payments, you MUST NOT reuse a `payment_preimage` value. See
 		/// [`send_payment`] for more information about the risks of duplicate preimage usage.
 		///
-		/// Note that `route` must have exactly one path.
-		///
 		/// [`send_payment`]: Self::send_payment
-		///
-		/// Note that payment_preimage (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public func sendSpontaneousPayment(
-			route: Route, paymentPreimage: [UInt8], recipientOnion: RecipientOnionFields, paymentId: [UInt8]
+			route: Route, paymentPreimage: [UInt8]?, recipientOnion: RecipientOnionFields, paymentId: [UInt8]
 		) -> Result_PaymentHashPaymentSendFailureZ {
 			// native call variable prep
 
-			let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+			let paymentPreimageOption = Option_PaymentPreimageZ(
+				some: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
@@ -923,7 +953,7 @@ extension Bindings {
 
 					withUnsafePointer(to: route.cType!) { (routePointer: UnsafePointer<LDKRoute>) in
 						ChannelManager_send_spontaneous_payment(
-							thisArgPointer, routePointer, paymentPreimagePrimitiveWrapper.cType!,
+							thisArgPointer, routePointer, paymentPreimageOption.cType!,
 							recipientOnion.dynamicallyDangledClone().cType!, paymentIdPrimitiveWrapper.cType!)
 					}
 
@@ -931,9 +961,6 @@ extension Bindings {
 
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentPreimagePrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			paymentIdPrimitiveWrapper.noOpRetain()
@@ -957,16 +984,16 @@ extension Bindings {
 		/// payments.
 		///
 		/// [`PaymentParameters::for_keysend`]: crate::routing::router::PaymentParameters::for_keysend
-		///
-		/// Note that payment_preimage (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public func sendSpontaneousPaymentWithRetry(
-			paymentPreimage: [UInt8], recipientOnion: RecipientOnionFields, paymentId: [UInt8],
+			paymentPreimage: [UInt8]?, recipientOnion: RecipientOnionFields, paymentId: [UInt8],
 			routeParams: RouteParameters, retryStrategy: Retry
 		) -> Result_PaymentHashRetryableSendFailureZ {
 			// native call variable prep
 
-			let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+			let paymentPreimageOption = Option_PaymentPreimageZ(
+				some: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
@@ -976,16 +1003,13 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
 					ChannelManager_send_spontaneous_payment_with_retry(
-						thisArgPointer, paymentPreimagePrimitiveWrapper.cType!,
-						recipientOnion.dynamicallyDangledClone().cType!, paymentIdPrimitiveWrapper.cType!,
-						routeParams.dynamicallyDangledClone().cType!, retryStrategy.danglingClone().cType!)
+						thisArgPointer, paymentPreimageOption.cType!, recipientOnion.dynamicallyDangledClone().cType!,
+						paymentIdPrimitiveWrapper.cType!, routeParams.dynamicallyDangledClone().cType!,
+						retryStrategy.danglingClone().cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentPreimagePrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			paymentIdPrimitiveWrapper.noOpRetain()
@@ -1110,6 +1134,75 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Atomically applies partial updates to the [`ChannelConfig`] of the given channels.
+		///
+		/// Once the updates are applied, each eligible channel (advertised with a known short channel
+		/// ID and a change in [`forwarding_fee_proportional_millionths`], [`forwarding_fee_base_msat`],
+		/// or [`cltv_expiry_delta`]) has a [`BroadcastChannelUpdate`] event message generated
+		/// containing the new [`ChannelUpdate`] message which should be broadcast to the network.
+		///
+		/// Returns [`ChannelUnavailable`] when a channel is not found or an incorrect
+		/// `counterparty_node_id` is provided.
+		///
+		/// Returns [`APIMisuseError`] when a [`cltv_expiry_delta`] update is to be applied with a value
+		/// below [`MIN_CLTV_EXPIRY_DELTA`].
+		///
+		/// If an error is returned, none of the updates should be considered applied.
+		///
+		/// [`forwarding_fee_proportional_millionths`]: ChannelConfig::forwarding_fee_proportional_millionths
+		/// [`forwarding_fee_base_msat`]: ChannelConfig::forwarding_fee_base_msat
+		/// [`cltv_expiry_delta`]: ChannelConfig::cltv_expiry_delta
+		/// [`BroadcastChannelUpdate`]: events::MessageSendEvent::BroadcastChannelUpdate
+		/// [`ChannelUpdate`]: msgs::ChannelUpdate
+		/// [`ChannelUnavailable`]: APIError::ChannelUnavailable
+		/// [`APIMisuseError`]: APIError::APIMisuseError
+		public func updatePartialChannelConfig(
+			counterpartyNodeId: [UInt8], channelIds: [[UInt8]], configUpdate: ChannelConfigUpdate
+		) -> Result_NoneAPIErrorZ {
+			// native call variable prep
+
+			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
+				value: counterpartyNodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+			let channelIdsVector = Vec_ThirtyTwoBytesZ(
+				array: channelIds, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+
+					withUnsafePointer(to: configUpdate.cType!) {
+						(configUpdatePointer: UnsafePointer<LDKChannelConfigUpdate>) in
+						ChannelManager_update_partial_channel_config(
+							thisArgPointer, counterpartyNodeIdPrimitiveWrapper.cType!, channelIdsVector.cType!,
+							configUpdatePointer)
+					}
+
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
+
+			// channelIdsVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneAPIErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
 		/// Atomically updates the [`ChannelConfig`] for the given channels.
 		///
 		/// Once the updates are applied, each eligible channel (advertised with a known short channel
@@ -1191,13 +1284,16 @@ extension Bindings {
 		/// [`ChannelManager::fail_intercepted_htlc`] MUST be called in response to the event.
 		///
 		/// Note that LDK does not enforce fee requirements in `amt_to_forward_msat`, and will not stop
-		/// you from forwarding more than you received.
+		/// you from forwarding more than you received. See
+		/// [`HTLCIntercepted::expected_outbound_amount_msat`] for more on forwarding a different amount
+		/// than expected.
 		///
 		/// Errors if the event was not handled in time, in which case the HTLC was automatically failed
 		/// backwards.
 		///
 		/// [`UserConfig::accept_intercept_htlcs`]: crate::util::config::UserConfig::accept_intercept_htlcs
 		/// [`HTLCIntercepted`]: events::Event::HTLCIntercepted
+		/// [`HTLCIntercepted::expected_outbound_amount_msat`]: events::Event::HTLCIntercepted::expected_outbound_amount_msat
 		public func forwardInterceptedHtlc(
 			interceptId: [UInt8], nextHopChannelId: [UInt8], nextNodeId: [UInt8], amtToForwardMsat: UInt64
 		) -> Result_NoneAPIErrorZ {
@@ -1319,6 +1415,7 @@ extension Bindings {
 		/// * Expiring a channel's previous [`ChannelConfig`] if necessary to only allow forwarding HTLCs
 		/// with the current [`ChannelConfig`].
 		/// * Removing peers which have disconnected but and no longer have any channels.
+		/// * Force-closing and removing channels which have not completed establishment in a timely manner.
 		///
 		/// Note that this may cause reentrancy through [`chain::Watch::update_channel`] calls or feerate
 		/// estimate fetches.
@@ -1693,48 +1790,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Legacy version of [`create_inbound_payment`]. Use this method if you wish to share
-		/// serialized state with LDK node(s) running 0.0.103 and earlier.
-		///
-		/// May panic if `invoice_expiry_delta_secs` is greater than one year.
-		///
-		/// # Note
-		/// This method is deprecated and will be removed soon.
-		///
-		/// [`create_inbound_payment`]: Self::create_inbound_payment
-		public func createInboundPaymentLegacy(minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32)
-			-> Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ
-		{
-			// native call variable prep
-
-			let minValueMsatOption = Option_u64Z(
-				some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
-			)
-			.danglingClone()
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_create_inbound_payment_legacy(
-						thisArgPointer, minValueMsatOption.cType!, invoiceExpiryDeltaSecs)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZAPIErrorZ(
-				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
 		/// Gets a [`PaymentSecret`] for a given [`PaymentHash`], for which the payment preimage is
 		/// stored external to LDK.
 		///
@@ -1826,55 +1881,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Legacy version of [`create_inbound_payment_for_hash`]. Use this method if you wish to share
-		/// serialized state with LDK node(s) running 0.0.103 and earlier.
-		///
-		/// May panic if `invoice_expiry_delta_secs` is greater than one year.
-		///
-		/// # Note
-		/// This method is deprecated and will be removed soon.
-		///
-		/// [`create_inbound_payment_for_hash`]: Self::create_inbound_payment_for_hash
-		public func createInboundPaymentForHashLegacy(
-			paymentHash: [UInt8], minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32
-		) -> Result_PaymentSecretAPIErrorZ {
-			// native call variable prep
-
-			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentHash, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
-
-			let minValueMsatOption = Option_u64Z(
-				some: minValueMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
-			)
-			.danglingClone()
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_create_inbound_payment_for_hash_legacy(
-						thisArgPointer, paymentHashPrimitiveWrapper.cType!, minValueMsatOption.cType!,
-						invoiceExpiryDeltaSecs)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			paymentHashPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_PaymentSecretAPIErrorZ(
-				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
 		/// Gets an LDK-generated payment preimage from a payment hash and payment secret that were
 		/// previously returned from [`create_inbound_payment`].
 		///
@@ -1921,7 +1927,7 @@ extension Bindings {
 		/// Gets a fake short channel id for use in receiving [phantom node payments]. These fake scids
 		/// are used when constructing the phantom invoice's route hints.
 		///
-		/// [phantom node payments]: crate::chain::keysinterface::PhantomKeysManager
+		/// [phantom node payments]: crate::sign::PhantomKeysManager
 		public func getPhantomScid() -> UInt64 {
 			// native call variable prep
 
@@ -1945,7 +1951,7 @@ extension Bindings {
 
 		/// Gets route hints for use in receiving [phantom node payments].
 		///
-		/// [phantom node payments]: crate::chain::keysinterface::PhantomKeysManager
+		/// [phantom node payments]: crate::sign::PhantomKeysManager
 		public func getPhantomRouteHints() -> PhantomRouteHints {
 			// native call variable prep
 

@@ -64,6 +64,9 @@ extension Bindings {
 			/// The peer took some action which made us think they were useless. Disconnect them.
 			case DisconnectPeer
 
+			/// The peer did something incorrect. Tell them without closing any channels and disconnect them.
+			case DisconnectPeerWithWarning
+
 			/// The peer did something harmless that we weren't able to process, just log and ignore
 			case IgnoreError
 
@@ -88,6 +91,9 @@ extension Bindings {
 			switch self.cType!.tag {
 				case LDKErrorAction_DisconnectPeer:
 					return .DisconnectPeer
+
+				case LDKErrorAction_DisconnectPeerWithWarning:
+					return .DisconnectPeerWithWarning
 
 				case LDKErrorAction_IgnoreError:
 					return .IgnoreError
@@ -160,6 +166,25 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = ErrorAction_disconnect_peer(msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ErrorAction(
+				cType: nativeCallResult, instantiationContext: "ErrorAction.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new DisconnectPeerWithWarning-variant ErrorAction
+		public class func initWithDisconnectPeerWithWarning(msg: Bindings.WarningMessage) -> ErrorAction {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ErrorAction_disconnect_peer_with_warning(msg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -279,6 +304,16 @@ extension Bindings {
 				anchor: self)
 		}
 
+		public func getValueAsDisconnectPeerWithWarning() -> DisconnectPeerWithWarning? {
+			if self.cType?.tag != LDKErrorAction_DisconnectPeerWithWarning {
+				return nil
+			}
+
+			return ErrorAction_LDKDisconnectPeerWithWarning_Body(
+				cType: self.cType!.disconnect_peer_with_warning,
+				instantiationContext: "ErrorAction.swift::\(#function):\(#line)", anchor: self)
+		}
+
 		public func getValueAsIgnoreAndLog() -> Level? {
 			if self.cType?.tag != LDKErrorAction_IgnoreAndLog {
 				return nil
@@ -395,6 +430,77 @@ extension Bindings {
 			public func getMsg() -> Bindings.ErrorMessage {
 				// return value (do some wrapping)
 				let returnValue = Bindings.ErrorMessage(
+					cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias ErrorAction_LDKDisconnectPeerWithWarning_Body = DisconnectPeerWithWarning
+
+
+		///
+		public class DisconnectPeerWithWarning: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKErrorAction_LDKDisconnectPeerWithWarning_Body?
+
+			internal init(cType: LDKErrorAction_LDKDisconnectPeerWithWarning_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKErrorAction_LDKDisconnectPeerWithWarning_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKErrorAction_LDKDisconnectPeerWithWarning_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// A warning message which we should make an effort to send before we disconnect.
+			public func getMsg() -> Bindings.WarningMessage {
+				// return value (do some wrapping)
+				let returnValue = Bindings.WarningMessage(
 					cType: self.cType!.msg, instantiationContext: "ErrorAction.swift::\(#function):\(#line)",
 					anchor: self)
 

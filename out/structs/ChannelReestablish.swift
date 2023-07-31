@@ -226,6 +226,235 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Proof that the sender knows the per-commitment secret of a specific commitment transaction
+		/// belonging to the recipient
+		public func getYourLastPerCommitmentSecret() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelReestablish>) in
+					ChannelReestablish_get_your_last_per_commitment_secret(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			guard let nativeCallResult = nativeCallResult else {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
+
+
+			return returnValue
+		}
+
+		/// Proof that the sender knows the per-commitment secret of a specific commitment transaction
+		/// belonging to the recipient
+		public func setYourLastPerCommitmentSecret(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = ThirtyTwoBytes(
+				value: val, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelReestablish>) in
+					ChannelReestablish_set_your_last_per_commitment_secret(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The sender's per-commitment point for their current commitment transaction
+		public func getMyCurrentPerCommitmentPoint() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelReestablish>) in
+					ChannelReestablish_get_my_current_per_commitment_point(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The sender's per-commitment point for their current commitment transaction
+		public func setMyCurrentPerCommitmentPoint(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelReestablish>) in
+					ChannelReestablish_set_my_current_per_commitment_point(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The next funding transaction ID
+		public func getNextFundingTxid() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelReestablish>) in
+					ChannelReestablish_get_next_funding_txid(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_TxidZ(
+				cType: nativeCallResult, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The next funding transaction ID
+		public func setNextFundingTxid(val: [UInt8]?) {
+			// native call variable prep
+
+			let valOption = Option_TxidZ(
+				some: val, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelReestablish>) in
+					ChannelReestablish_set_next_funding_txid(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new ChannelReestablish given each field
+		public init(
+			channelIdArg: [UInt8], nextLocalCommitmentNumberArg: UInt64, nextRemoteCommitmentNumberArg: UInt64,
+			yourLastPerCommitmentSecretArg: [UInt8], myCurrentPerCommitmentPointArg: [UInt8],
+			nextFundingTxidArg: [UInt8]?
+		) {
+			// native call variable prep
+
+			let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(
+				value: channelIdArg, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
+
+			let yourLastPerCommitmentSecretArgPrimitiveWrapper = ThirtyTwoBytes(
+				value: yourLastPerCommitmentSecretArg,
+				instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
+
+			let myCurrentPerCommitmentPointArgPrimitiveWrapper = PublicKey(
+				value: myCurrentPerCommitmentPointArg,
+				instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
+
+			let nextFundingTxidArgOption = Option_TxidZ(
+				some: nextFundingTxidArg, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult = ChannelReestablish_new(
+				channelIdArgPrimitiveWrapper.cType!, nextLocalCommitmentNumberArg, nextRemoteCommitmentNumberArg,
+				yourLastPerCommitmentSecretArgPrimitiveWrapper.cType!,
+				myCurrentPerCommitmentPointArgPrimitiveWrapper.cType!, nextFundingTxidArgOption.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			channelIdArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			yourLastPerCommitmentSecretArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			myCurrentPerCommitmentPointArgPrimitiveWrapper.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = ChannelReestablish(cType: nativeCallResult, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
+
+
+		}
+
 		/// Creates a copy of the ChannelReestablish
 		internal func clone() -> ChannelReestablish {
 			// native call variable prep

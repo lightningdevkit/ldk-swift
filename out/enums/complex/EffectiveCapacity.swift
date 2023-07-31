@@ -69,7 +69,7 @@ extension Bindings {
 			case ExactLiquidity
 
 			/// The maximum HTLC amount in one direction as advertised on the gossip network.
-			case MaximumHTLC
+			case AdvertisedMaxHTLC
 
 			/// The total capacity of the channel as determined by the funding transaction.
 			case Total
@@ -77,6 +77,9 @@ extension Bindings {
 			/// A capacity sufficient to route any payment, typically used for private channels provided by
 			/// an invoice.
 			case Infinite
+
+			/// The maximum HTLC amount as provided by an invoice route hint.
+			case HintMaxHTLC
 
 			/// A capacity that is unknown possibly because either the chain state is unavailable to know
 			/// the total capacity or the `htlc_maximum_msat` was not advertised on the gossip network.
@@ -89,14 +92,17 @@ extension Bindings {
 				case LDKEffectiveCapacity_ExactLiquidity:
 					return .ExactLiquidity
 
-				case LDKEffectiveCapacity_MaximumHTLC:
-					return .MaximumHTLC
+				case LDKEffectiveCapacity_AdvertisedMaxHTLC:
+					return .AdvertisedMaxHTLC
 
 				case LDKEffectiveCapacity_Total:
 					return .Total
 
 				case LDKEffectiveCapacity_Infinite:
 					return .Infinite
+
+				case LDKEffectiveCapacity_HintMaxHTLC:
+					return .HintMaxHTLC
 
 				case LDKEffectiveCapacity_Unknown:
 					return .Unknown
@@ -169,13 +175,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Utility method to constructs a new MaximumHTLC-variant EffectiveCapacity
-		public class func initWithMaximumHtlc(amountMsat: UInt64) -> EffectiveCapacity {
+		/// Utility method to constructs a new AdvertisedMaxHTLC-variant EffectiveCapacity
+		public class func initWithAdvertisedMaxHtlc(amountMsat: UInt64) -> EffectiveCapacity {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = EffectiveCapacity_maximum_htlc(amountMsat)
+			let nativeCallResult = EffectiveCapacity_advertised_max_htlc(amountMsat)
 
 			// cleanup
 
@@ -214,6 +220,25 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = EffectiveCapacity_infinite()
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = EffectiveCapacity(
+				cType: nativeCallResult, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new HintMaxHTLC-variant EffectiveCapacity
+		public class func initWithHintMaxHtlc(amountMsat: UInt64) -> EffectiveCapacity {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = EffectiveCapacity_hint_max_htlc(amountMsat)
 
 			// cleanup
 
@@ -278,14 +303,14 @@ extension Bindings {
 				instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 		}
 
-		public func getValueAsMaximumHtlc() -> MaximumHTLC? {
-			if self.cType?.tag != LDKEffectiveCapacity_MaximumHTLC {
+		public func getValueAsAdvertisedMaxHtlc() -> AdvertisedMaxHTLC? {
+			if self.cType?.tag != LDKEffectiveCapacity_AdvertisedMaxHTLC {
 				return nil
 			}
 
-			return EffectiveCapacity_LDKMaximumHTLC_Body(
-				cType: self.cType!.maximum_htlc, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)",
-				anchor: self)
+			return EffectiveCapacity_LDKAdvertisedMaxHTLC_Body(
+				cType: self.cType!.advertised_max_htlc,
+				instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 		}
 
 		public func getValueAsTotal() -> Total? {
@@ -296,6 +321,16 @@ extension Bindings {
 			return EffectiveCapacity_LDKTotal_Body(
 				cType: self.cType!.total, instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)",
 				anchor: self)
+		}
+
+		public func getValueAsHintMaxHtlc() -> HintMaxHTLC? {
+			if self.cType?.tag != LDKEffectiveCapacity_HintMaxHTLC {
+				return nil
+			}
+
+			return EffectiveCapacity_LDKHintMaxHTLC_Body(
+				cType: self.cType!.hint_max_htlc,
+				instantiationContext: "EffectiveCapacity.swift::\(#function):\(#line)", anchor: self)
 		}
 
 
@@ -396,11 +431,11 @@ extension Bindings {
 
 
 		///
-		internal typealias EffectiveCapacity_LDKMaximumHTLC_Body = MaximumHTLC
+		internal typealias EffectiveCapacity_LDKAdvertisedMaxHTLC_Body = AdvertisedMaxHTLC
 
 
 		///
-		public class MaximumHTLC: NativeTypeWrapper {
+		public class AdvertisedMaxHTLC: NativeTypeWrapper {
 
 
 			/// Set to false to suppress an individual type's deinit log statements.
@@ -415,9 +450,9 @@ extension Bindings {
 			private static var instanceCounter: UInt = 0
 			internal let instanceNumber: UInt
 
-			internal var cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body?
+			internal var cType: LDKEffectiveCapacity_LDKAdvertisedMaxHTLC_Body?
 
-			internal init(cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body, instantiationContext: String) {
+			internal init(cType: LDKEffectiveCapacity_LDKAdvertisedMaxHTLC_Body, instantiationContext: String) {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
 				self.cType = cType
@@ -426,7 +461,8 @@ extension Bindings {
 			}
 
 			internal init(
-				cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body, instantiationContext: String, anchor: NativeTypeWrapper
+				cType: LDKEffectiveCapacity_LDKAdvertisedMaxHTLC_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
 			) {
 				Self.instanceCounter += 1
 				self.instanceNumber = Self.instanceCounter
@@ -438,7 +474,7 @@ extension Bindings {
 			}
 
 			internal init(
-				cType: LDKEffectiveCapacity_LDKMaximumHTLC_Body, instantiationContext: String,
+				cType: LDKEffectiveCapacity_LDKAdvertisedMaxHTLC_Body, instantiationContext: String,
 				anchor: NativeTypeWrapper, dangle: Bool = false
 			) {
 				Self.instanceCounter += 1
@@ -531,6 +567,74 @@ extension Bindings {
 			public func getHtlcMaximumMsat() -> UInt64 {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.htlc_maximum_msat
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias EffectiveCapacity_LDKHintMaxHTLC_Body = HintMaxHTLC
+
+
+		///
+		public class HintMaxHTLC: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKEffectiveCapacity_LDKHintMaxHTLC_Body?
+
+			internal init(cType: LDKEffectiveCapacity_LDKHintMaxHTLC_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKEffectiveCapacity_LDKHintMaxHTLC_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKEffectiveCapacity_LDKHintMaxHTLC_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The maximum HTLC amount denominated in millisatoshi.
+			public func getAmountMsat() -> UInt64 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.amount_msat
 
 				return returnValue
 			}

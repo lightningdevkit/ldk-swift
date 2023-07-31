@@ -528,7 +528,7 @@ extension Bindings {
 		///
 		/// Default value: true.
 		///
-		/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::SignerProvider::get_shutdown_scriptpubkey
+		/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::sign::SignerProvider::get_shutdown_scriptpubkey
 		public func getCommitUpfrontShutdownPubkey() -> Bool {
 			// native call variable prep
 
@@ -562,7 +562,7 @@ extension Bindings {
 		///
 		/// Default value: true.
 		///
-		/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::chain::keysinterface::SignerProvider::get_shutdown_scriptpubkey
+		/// [`SignerProvider::get_shutdown_scriptpubkey`]: crate::sign::SignerProvider::get_shutdown_scriptpubkey
 		public func setCommitUpfrontShutdownPubkey(val: Bool) {
 			// native call variable prep
 
@@ -672,6 +672,105 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// If set, we attempt to negotiate the `anchors_zero_fee_htlc_tx`option for all future
+		/// channels. This feature requires having a reserve of onchain funds readily available to bump
+		/// transactions in the event of a channel force close to avoid the possibility of losing funds.
+		///
+		/// Note that if you wish accept inbound channels with anchor outputs, you must enable
+		/// [`UserConfig::manually_accept_inbound_channels`] and manually accept them with
+		/// [`ChannelManager::accept_inbound_channel`]. This is done to give you the chance to check
+		/// whether your reserve of onchain funds is enough to cover the fees for all existing and new
+		/// channels featuring anchor outputs in the event of a force close.
+		///
+		/// If this option is set, channels may be created that will not be readable by LDK versions
+		/// prior to 0.0.116, causing [`ChannelManager`]'s read method to return a
+		/// [`DecodeError::InvalidValue`].
+		///
+		/// Note that setting this to true does *not* prevent us from opening channels with
+		/// counterparties that do not support the `anchors_zero_fee_htlc_tx` option; we will simply
+		/// fall back to a `static_remote_key` channel.
+		///
+		/// LDK will not support the legacy `option_anchors` commitment version due to a discovered
+		/// vulnerability after its deployment. For more context, see the [`SIGHASH_SINGLE + update_fee
+		/// Considered Harmful`] mailing list post.
+		///
+		/// Default value: false. This value is likely to change to true in the future.
+		///
+		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
+		/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
+		/// [`DecodeError::InvalidValue`]: crate::ln::msgs::DecodeError::InvalidValue
+		/// [`SIGHASH_SINGLE + update_fee Considered Harmful`]: https://lists.linuxfoundation.org/pipermail/lightning-dev/2020-September/002796.html
+		public func getNegotiateAnchorsZeroFeeHtlcTx() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelHandshakeConfig>) in
+					ChannelHandshakeConfig_get_negotiate_anchors_zero_fee_htlc_tx(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// If set, we attempt to negotiate the `anchors_zero_fee_htlc_tx`option for all future
+		/// channels. This feature requires having a reserve of onchain funds readily available to bump
+		/// transactions in the event of a channel force close to avoid the possibility of losing funds.
+		///
+		/// Note that if you wish accept inbound channels with anchor outputs, you must enable
+		/// [`UserConfig::manually_accept_inbound_channels`] and manually accept them with
+		/// [`ChannelManager::accept_inbound_channel`]. This is done to give you the chance to check
+		/// whether your reserve of onchain funds is enough to cover the fees for all existing and new
+		/// channels featuring anchor outputs in the event of a force close.
+		///
+		/// If this option is set, channels may be created that will not be readable by LDK versions
+		/// prior to 0.0.116, causing [`ChannelManager`]'s read method to return a
+		/// [`DecodeError::InvalidValue`].
+		///
+		/// Note that setting this to true does *not* prevent us from opening channels with
+		/// counterparties that do not support the `anchors_zero_fee_htlc_tx` option; we will simply
+		/// fall back to a `static_remote_key` channel.
+		///
+		/// LDK will not support the legacy `option_anchors` commitment version due to a discovered
+		/// vulnerability after its deployment. For more context, see the [`SIGHASH_SINGLE + update_fee
+		/// Considered Harmful`] mailing list post.
+		///
+		/// Default value: false. This value is likely to change to true in the future.
+		///
+		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
+		/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
+		/// [`DecodeError::InvalidValue`]: crate::ln::msgs::DecodeError::InvalidValue
+		/// [`SIGHASH_SINGLE + update_fee Considered Harmful`]: https://lists.linuxfoundation.org/pipermail/lightning-dev/2020-September/002796.html
+		public func setNegotiateAnchorsZeroFeeHtlcTx(val: Bool) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelHandshakeConfig>) in
+					ChannelHandshakeConfig_set_negotiate_anchors_zero_fee_htlc_tx(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// The maximum number of HTLCs in-flight from our counterparty towards us at the same time.
 		///
 		/// Increasing the value can help improve liquidity and stability in
@@ -742,7 +841,8 @@ extension Bindings {
 			minimumDepthArg: UInt32, ourToSelfDelayArg: UInt16, ourHtlcMinimumMsatArg: UInt64,
 			maxInboundHtlcValueInFlightPercentOfChannelArg: UInt8, negotiateScidPrivacyArg: Bool,
 			announcedChannelArg: Bool, commitUpfrontShutdownPubkeyArg: Bool,
-			theirChannelReserveProportionalMillionthsArg: UInt32, ourMaxAcceptedHtlcsArg: UInt16
+			theirChannelReserveProportionalMillionthsArg: UInt32, negotiateAnchorsZeroFeeHtlcTxArg: Bool,
+			ourMaxAcceptedHtlcsArg: UInt16
 		) {
 			// native call variable prep
 
@@ -751,7 +851,8 @@ extension Bindings {
 			let nativeCallResult = ChannelHandshakeConfig_new(
 				minimumDepthArg, ourToSelfDelayArg, ourHtlcMinimumMsatArg,
 				maxInboundHtlcValueInFlightPercentOfChannelArg, negotiateScidPrivacyArg, announcedChannelArg,
-				commitUpfrontShutdownPubkeyArg, theirChannelReserveProportionalMillionthsArg, ourMaxAcceptedHtlcsArg)
+				commitUpfrontShutdownPubkeyArg, theirChannelReserveProportionalMillionthsArg,
+				negotiateAnchorsZeroFeeHtlcTxArg, ourMaxAcceptedHtlcsArg)
 
 			// cleanup
 

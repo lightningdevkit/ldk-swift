@@ -906,7 +906,8 @@ extension Bindings {
 		/// the current state and per-HTLC limit(s). This is intended for use when routing, allowing us
 		/// to use a limit as close as possible to the HTLC limit we can currently send.
 		///
-		/// See also [`ChannelDetails::balance_msat`] and [`ChannelDetails::outbound_capacity_msat`].
+		/// See also [`ChannelDetails::next_outbound_htlc_minimum_msat`],
+		/// [`ChannelDetails::balance_msat`], and [`ChannelDetails::outbound_capacity_msat`].
 		public func getNextOutboundHtlcLimitMsat() -> UInt64 {
 			// native call variable prep
 
@@ -933,7 +934,8 @@ extension Bindings {
 		/// the current state and per-HTLC limit(s). This is intended for use when routing, allowing us
 		/// to use a limit as close as possible to the HTLC limit we can currently send.
 		///
-		/// See also [`ChannelDetails::balance_msat`] and [`ChannelDetails::outbound_capacity_msat`].
+		/// See also [`ChannelDetails::next_outbound_htlc_minimum_msat`],
+		/// [`ChannelDetails::balance_msat`], and [`ChannelDetails::outbound_capacity_msat`].
 		public func setNextOutboundHtlcLimitMsat(val: UInt64) {
 			// native call variable prep
 
@@ -943,6 +945,57 @@ extension Bindings {
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
 					ChannelDetails_set_next_outbound_htlc_limit_msat(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The minimum value for sending a single HTLC to the remote peer. This is the equivalent of
+		/// [`ChannelDetails::next_outbound_htlc_limit_msat`] but represents a lower-bound, rather than
+		/// an upper-bound. This is intended for use when routing, allowing us to ensure we pick a
+		/// route which is valid.
+		public func getNextOutboundHtlcMinimumMsat() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelDetails>) in
+					ChannelDetails_get_next_outbound_htlc_minimum_msat(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The minimum value for sending a single HTLC to the remote peer. This is the equivalent of
+		/// [`ChannelDetails::next_outbound_htlc_limit_msat`] but represents a lower-bound, rather than
+		/// an upper-bound. This is intended for use when routing, allowing us to ensure we pick a
+		/// route which is valid.
+		public func setNextOutboundHtlcMinimumMsat(val: UInt64) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
+					ChannelDetails_set_next_outbound_htlc_minimum_msat(thisPtrPointer, val)
 				}
 
 
@@ -1311,6 +1364,64 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The stage of the channel's shutdown.
+		/// `None` for `ChannelDetails` serialized on LDK versions prior to 0.0.116.
+		///
+		/// Returns a copy of the field.
+		public func getChannelShutdownState() -> ChannelShutdownState? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKChannelDetails>) in
+					ChannelDetails_get_channel_shutdown_state(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_ChannelShutdownStateZ(
+				cType: nativeCallResult, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The stage of the channel's shutdown.
+		/// `None` for `ChannelDetails` serialized on LDK versions prior to 0.0.116.
+		public func setChannelShutdownState(val: ChannelShutdownState?) {
+			// native call variable prep
+
+			let valOption = Option_ChannelShutdownStateZ(
+				some: val, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKChannelDetails>) in
+					ChannelDetails_set_channel_shutdown_state(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// True if the channel is (a) confirmed and channel_ready messages have been exchanged, (b)
 		/// the peer is connected, and (c) the channel is not currently negotiating a shutdown.
 		///
@@ -1589,9 +1700,10 @@ extension Bindings {
 			channelTypeArg: ChannelTypeFeatures, shortChannelIdArg: UInt64?, outboundScidAliasArg: UInt64?,
 			inboundScidAliasArg: UInt64?, channelValueSatoshisArg: UInt64, unspendablePunishmentReserveArg: UInt64?,
 			userChannelIdArg: [UInt8], feerateSatPer1000WeightArg: UInt32?, balanceMsatArg: UInt64,
-			outboundCapacityMsatArg: UInt64, nextOutboundHtlcLimitMsatArg: UInt64, inboundCapacityMsatArg: UInt64,
-			confirmationsRequiredArg: UInt32?, confirmationsArg: UInt32?, forceCloseSpendDelayArg: UInt16?,
-			isOutboundArg: Bool, isChannelReadyArg: Bool, isUsableArg: Bool, isPublicArg: Bool,
+			outboundCapacityMsatArg: UInt64, nextOutboundHtlcLimitMsatArg: UInt64,
+			nextOutboundHtlcMinimumMsatArg: UInt64, inboundCapacityMsatArg: UInt64, confirmationsRequiredArg: UInt32?,
+			confirmationsArg: UInt32?, forceCloseSpendDelayArg: UInt16?, isOutboundArg: Bool, isChannelReadyArg: Bool,
+			channelShutdownStateArg: ChannelShutdownState?, isUsableArg: Bool, isPublicArg: Bool,
 			inboundHtlcMinimumMsatArg: UInt64?, inboundHtlcMaximumMsatArg: UInt64?, configArg: ChannelConfig
 		) {
 			// native call variable prep
@@ -1643,6 +1755,11 @@ extension Bindings {
 			)
 			.danglingClone()
 
+			let channelShutdownStateArgOption = Option_ChannelShutdownStateZ(
+				some: channelShutdownStateArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 			let inboundHtlcMinimumMsatArgOption = Option_u64Z(
 				some: inboundHtlcMinimumMsatArg, instantiationContext: "ChannelDetails.swift::\(#function):\(#line)"
 			)
@@ -1661,11 +1778,11 @@ extension Bindings {
 				shortChannelIdArgOption.cType!, outboundScidAliasArgOption.cType!, inboundScidAliasArgOption.cType!,
 				channelValueSatoshisArg, unspendablePunishmentReserveArgOption.cType!,
 				userChannelIdArgPrimitiveWrapper.cType!, feerateSatPer1000WeightArgOption.cType!, balanceMsatArg,
-				outboundCapacityMsatArg, nextOutboundHtlcLimitMsatArg, inboundCapacityMsatArg,
-				confirmationsRequiredArgOption.cType!, confirmationsArgOption.cType!,
-				forceCloseSpendDelayArgOption.cType!, isOutboundArg, isChannelReadyArg, isUsableArg, isPublicArg,
-				inboundHtlcMinimumMsatArgOption.cType!, inboundHtlcMaximumMsatArgOption.cType!,
-				configArg.dynamicallyDangledClone().cType!)
+				outboundCapacityMsatArg, nextOutboundHtlcLimitMsatArg, nextOutboundHtlcMinimumMsatArg,
+				inboundCapacityMsatArg, confirmationsRequiredArgOption.cType!, confirmationsArgOption.cType!,
+				forceCloseSpendDelayArgOption.cType!, isOutboundArg, isChannelReadyArg,
+				channelShutdownStateArgOption.cType!, isUsableArg, isPublicArg, inboundHtlcMinimumMsatArgOption.cType!,
+				inboundHtlcMaximumMsatArgOption.cType!, configArg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 

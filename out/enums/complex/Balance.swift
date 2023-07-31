@@ -170,12 +170,12 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ClaimableOnChannelClose-variant Balance
-		public class func initWithClaimableOnChannelClose(claimableAmountSatoshis: UInt64) -> Balance {
+		public class func initWithClaimableOnChannelClose(amountSatoshis: UInt64) -> Balance {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = Balance_claimable_on_channel_close(claimableAmountSatoshis)
+			let nativeCallResult = Balance_claimable_on_channel_close(amountSatoshis)
 
 			// cleanup
 
@@ -189,14 +189,14 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ClaimableAwaitingConfirmations-variant Balance
-		public class func initWithClaimableAwaitingConfirmations(
-			claimableAmountSatoshis: UInt64, confirmationHeight: UInt32
-		) -> Balance {
+		public class func initWithClaimableAwaitingConfirmations(amountSatoshis: UInt64, confirmationHeight: UInt32)
+			-> Balance
+		{
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = Balance_claimable_awaiting_confirmations(claimableAmountSatoshis, confirmationHeight)
+			let nativeCallResult = Balance_claimable_awaiting_confirmations(amountSatoshis, confirmationHeight)
 
 			// cleanup
 
@@ -210,16 +210,30 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ContentiousClaimable-variant Balance
-		public class func initWithContentiousClaimable(claimableAmountSatoshis: UInt64, timeoutHeight: UInt32)
-			-> Balance
-		{
+		public class func initWithContentiousClaimable(
+			amountSatoshis: UInt64, timeoutHeight: UInt32, paymentHash: [UInt8], paymentPreimage: [UInt8]
+		) -> Balance {
 			// native call variable prep
+
+			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentHash, instantiationContext: "Balance.swift::\(#function):\(#line)")
+
+			let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentPreimage, instantiationContext: "Balance.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = Balance_contentious_claimable(claimableAmountSatoshis, timeoutHeight)
+			let nativeCallResult = Balance_contentious_claimable(
+				amountSatoshis, timeoutHeight, paymentHashPrimitiveWrapper.cType!,
+				paymentPreimagePrimitiveWrapper.cType!)
 
 			// cleanup
+
+			// for elided types, we need this
+			paymentHashPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			paymentPreimagePrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -231,16 +245,23 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new MaybeTimeoutClaimableHTLC-variant Balance
-		public class func initWithMaybeTimeoutClaimableHtlc(claimableAmountSatoshis: UInt64, claimableHeight: UInt32)
-			-> Balance
-		{
+		public class func initWithMaybeTimeoutClaimableHtlc(
+			amountSatoshis: UInt64, claimableHeight: UInt32, paymentHash: [UInt8]
+		) -> Balance {
 			// native call variable prep
+
+			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentHash, instantiationContext: "Balance.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = Balance_maybe_timeout_claimable_htlc(claimableAmountSatoshis, claimableHeight)
+			let nativeCallResult = Balance_maybe_timeout_claimable_htlc(
+				amountSatoshis, claimableHeight, paymentHashPrimitiveWrapper.cType!)
 
 			// cleanup
+
+			// for elided types, we need this
+			paymentHashPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -252,16 +273,23 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new MaybePreimageClaimableHTLC-variant Balance
-		public class func initWithMaybePreimageClaimableHtlc(claimableAmountSatoshis: UInt64, expiryHeight: UInt32)
-			-> Balance
-		{
+		public class func initWithMaybePreimageClaimableHtlc(
+			amountSatoshis: UInt64, expiryHeight: UInt32, paymentHash: [UInt8]
+		) -> Balance {
 			// native call variable prep
+
+			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentHash, instantiationContext: "Balance.swift::\(#function):\(#line)")
 
 
 			// native method call
-			let nativeCallResult = Balance_maybe_preimage_claimable_htlc(claimableAmountSatoshis, expiryHeight)
+			let nativeCallResult = Balance_maybe_preimage_claimable_htlc(
+				amountSatoshis, expiryHeight, paymentHashPrimitiveWrapper.cType!)
 
 			// cleanup
+
+			// for elided types, we need this
+			paymentHashPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -273,12 +301,12 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new CounterpartyRevokedOutputClaimable-variant Balance
-		public class func initWithCounterpartyRevokedOutputClaimable(claimableAmountSatoshis: UInt64) -> Balance {
+		public class func initWithCounterpartyRevokedOutputClaimable(amountSatoshis: UInt64) -> Balance {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = Balance_counterparty_revoked_output_claimable(claimableAmountSatoshis)
+			let nativeCallResult = Balance_counterparty_revoked_output_claimable(amountSatoshis)
 
 			// cleanup
 
@@ -305,6 +333,33 @@ extension Bindings {
 						Balance_eq(aPointer, bPointer)
 					}
 
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The amount claimable, in satoshis. This excludes balances that we are unsure if we are able
+		/// to claim, this is because we are waiting for a preimage or for a timeout to expire. For more
+		/// information on these balances see [`Balance::MaybeTimeoutClaimableHTLC`] and
+		/// [`Balance::MaybePreimageClaimableHTLC`].
+		///
+		/// On-chain fees required to claim the balance are not included in this amount.
+		public func claimableAmountSatoshis() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKBalance>) in
+					Balance_claimable_amount_satoshis(thisArgPointer)
 				}
 
 
@@ -463,9 +518,9 @@ extension Bindings {
 
 			/// The amount available to claim, in satoshis, excluding the on-chain fees which will be
 			/// required to do so.
-			public func getClaimableAmountSatoshis() -> UInt64 {
+			public func getAmountSatoshis() -> UInt64 {
 				// return value (do some wrapping)
-				let returnValue = self.cType!.claimable_amount_satoshis
+				let returnValue = self.cType!.amount_satoshis
 
 				return returnValue
 			}
@@ -533,9 +588,9 @@ extension Bindings {
 
 			/// The amount available to claim, in satoshis, possibly excluding the on-chain fees which
 			/// were spent in broadcasting the transaction.
-			public func getClaimableAmountSatoshis() -> UInt64 {
+			public func getAmountSatoshis() -> UInt64 {
 				// return value (do some wrapping)
-				let returnValue = self.cType!.claimable_amount_satoshis
+				let returnValue = self.cType!.amount_satoshis
 
 				return returnValue
 			}
@@ -611,9 +666,9 @@ extension Bindings {
 
 			/// The amount available to claim, in satoshis, excluding the on-chain fees which will be
 			/// required to do so.
-			public func getClaimableAmountSatoshis() -> UInt64 {
+			public func getAmountSatoshis() -> UInt64 {
 				// return value (do some wrapping)
-				let returnValue = self.cType!.claimable_amount_satoshis
+				let returnValue = self.cType!.amount_satoshis
 
 				return returnValue
 			}
@@ -623,6 +678,30 @@ extension Bindings {
 			public func getTimeoutHeight() -> UInt32 {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.timeout_height
+
+				return returnValue
+			}
+
+			/// The payment hash that locks this HTLC.
+			public func getPaymentHash() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(
+					cType: self.cType!.payment_hash, instantiationContext: "Balance.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The preimage that can be used to claim this HTLC.
+			public func getPaymentPreimage() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(
+					cType: self.cType!.payment_preimage, instantiationContext: "Balance.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
 
 				return returnValue
 			}
@@ -690,9 +769,9 @@ extension Bindings {
 
 			/// The amount potentially available to claim, in satoshis, excluding the on-chain fees
 			/// which will be required to do so.
-			public func getClaimableAmountSatoshis() -> UInt64 {
+			public func getAmountSatoshis() -> UInt64 {
 				// return value (do some wrapping)
-				let returnValue = self.cType!.claimable_amount_satoshis
+				let returnValue = self.cType!.amount_satoshis
 
 				return returnValue
 			}
@@ -702,6 +781,18 @@ extension Bindings {
 			public func getClaimableHeight() -> UInt32 {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.claimable_height
+
+				return returnValue
+			}
+
+			/// The payment hash whose preimage our counterparty needs to claim this HTLC.
+			public func getPaymentHash() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(
+					cType: self.cType!.payment_hash, instantiationContext: "Balance.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
 
 				return returnValue
 			}
@@ -769,9 +860,9 @@ extension Bindings {
 
 			/// The amount potentially available to claim, in satoshis, excluding the on-chain fees
 			/// which will be required to do so.
-			public func getClaimableAmountSatoshis() -> UInt64 {
+			public func getAmountSatoshis() -> UInt64 {
 				// return value (do some wrapping)
-				let returnValue = self.cType!.claimable_amount_satoshis
+				let returnValue = self.cType!.amount_satoshis
 
 				return returnValue
 			}
@@ -781,6 +872,18 @@ extension Bindings {
 			public func getExpiryHeight() -> UInt32 {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.expiry_height
+
+				return returnValue
+			}
+
+			/// The payment hash whose preimage we need to claim this HTLC.
+			public func getPaymentHash() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(
+					cType: self.cType!.payment_hash, instantiationContext: "Balance.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
 
 				return returnValue
 			}
@@ -850,9 +953,9 @@ extension Bindings {
 			///
 			/// Note that for outputs from HTLC balances this may be excluding some on-chain fees that
 			/// were already spent.
-			public func getClaimableAmountSatoshis() -> UInt64 {
+			public func getAmountSatoshis() -> UInt64 {
 				// return value (do some wrapping)
-				let returnValue = self.cType!.claimable_amount_satoshis
+				let returnValue = self.cType!.amount_satoshis
 
 				return returnValue
 			}

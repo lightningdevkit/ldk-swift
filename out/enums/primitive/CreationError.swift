@@ -5,12 +5,12 @@ import Foundation
 #endif
 
 
-/// Errors that may occur when constructing a new [`RawInvoice`] or [`Invoice`]
+/// Errors that may occur when constructing a new [`RawBolt11Invoice`] or [`Bolt11Invoice`]
 public typealias CreationError = Bindings.CreationError
 
 extension Bindings {
 
-	/// Errors that may occur when constructing a new [`RawInvoice`] or [`Invoice`]
+	/// Errors that may occur when constructing a new [`RawBolt11Invoice`] or [`Bolt11Invoice`]
 	public enum CreationError {
 
 

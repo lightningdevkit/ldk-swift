@@ -78,7 +78,10 @@ extension Bindings {
 		}
 
 		/// Creates a new router.
-		public init(networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8], scorer: LockableScore) {
+		public init(
+			networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8], scorer: LockableScore,
+			scoreParams: ProbabilisticScoringFeeParameters
+		) {
 			// native call variable prep
 
 			let randomSeedBytesPrimitiveWrapper = ThirtyTwoBytes(
@@ -90,7 +93,7 @@ extension Bindings {
 				withUnsafePointer(to: networkGraph.cType!) { (networkGraphPointer: UnsafePointer<LDKNetworkGraph>) in
 					DefaultRouter_new(
 						networkGraphPointer, logger.activate().cType!, randomSeedBytesPrimitiveWrapper.cType!,
-						scorer.activate().cType!)
+						scorer.activate().cType!, scoreParams.dynamicallyDangledClone().cType!)
 				}
 
 

@@ -164,6 +164,38 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Adds a known HTLC given the public key of the HTLC source, target, and short channel
+		/// id.
+		public func addInflightHtlc(source: NodeId, target: NodeId, channelScid: UInt64, usedMsat: UInt64) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKInFlightHtlcs>) in
+
+					withUnsafePointer(to: source.cType!) { (sourcePointer: UnsafePointer<LDKNodeId>) in
+
+						withUnsafePointer(to: target.cType!) { (targetPointer: UnsafePointer<LDKNodeId>) in
+							InFlightHtlcs_add_inflight_htlc(
+								thisArgPointer, sourcePointer, targetPointer, channelScid, usedMsat)
+						}
+
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Returns liquidity in msat given the public key of the HTLC source, target, and short channel
 		/// id.
 		public func usedLiquidityMsat(source: NodeId, target: NodeId, channelScid: UInt64) -> UInt64? {

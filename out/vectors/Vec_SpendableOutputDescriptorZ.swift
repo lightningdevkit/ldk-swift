@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::lightning::chain::keysinterface::SpendableOutputDescriptors of arbitrary size.
+/// A dynamically-allocated array of crate::lightning::sign::SpendableOutputDescriptors of arbitrary size.
 /// This corresponds to std::vector in C++
 internal typealias Vec_SpendableOutputDescriptorZ = Bindings.Vec_SpendableOutputDescriptorZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::lightning::chain::keysinterface::SpendableOutputDescriptors of arbitrary size.
+	/// A dynamically-allocated array of crate::lightning::sign::SpendableOutputDescriptors of arbitrary size.
 	/// This corresponds to std::vector in C++
 	internal class Vec_SpendableOutputDescriptorZ: NativeTypeWrapper {
 

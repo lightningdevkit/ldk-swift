@@ -321,6 +321,63 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The extra fee skimmed by the sender of this message. See
+		/// [`ChannelConfig::accept_underpaying_htlcs`].
+		///
+		/// [`ChannelConfig::accept_underpaying_htlcs`]: crate::util::config::ChannelConfig::accept_underpaying_htlcs
+		public func getSkimmedFeeMsat() -> UInt64? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUpdateAddHTLC>) in
+					UpdateAddHTLC_get_skimmed_fee_msat(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_u64Z(
+				cType: nativeCallResult, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The extra fee skimmed by the sender of this message. See
+		/// [`ChannelConfig::accept_underpaying_htlcs`].
+		///
+		/// [`ChannelConfig::accept_underpaying_htlcs`]: crate::util::config::ChannelConfig::accept_underpaying_htlcs
+		public func setSkimmedFeeMsat(val: UInt64?) {
+			// native call variable prep
+
+			let valOption = Option_u64Z(some: val, instantiationContext: "UpdateAddHTLC.swift::\(#function):\(#line)")
+				.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUpdateAddHTLC>) in
+					UpdateAddHTLC_set_skimmed_fee_msat(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Creates a copy of the UpdateAddHTLC
 		internal func clone() -> UpdateAddHTLC {
 			// native call variable prep

@@ -85,7 +85,7 @@ extension Bindings {
 
 			/// Failed to retrieve our node id from the provided [`NodeSigner`].
 			///
-			/// [`NodeSigner`]: crate::chain::keysinterface::NodeSigner
+			/// [`NodeSigner`]: crate::sign::NodeSigner
 			case GetNodeIdFailed
 
 			/// We attempted to send to a blinded path where we are the introduction node, and failed to

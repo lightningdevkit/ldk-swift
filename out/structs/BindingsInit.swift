@@ -126,6 +126,64 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Indicates chains the sender is interested in.
+		///
+		/// If there are no common chains, the connection will be closed.
+		///
+		/// Returns a copy of the field.
+		public func getNetworks() -> [[UInt8]]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKInit>) in
+					Init_get_networks(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_CVec_ChainHashZZ(
+				cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)", anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// Indicates chains the sender is interested in.
+		///
+		/// If there are no common chains, the connection will be closed.
+		public func setNetworks(val: [[UInt8]]?) {
+			// native call variable prep
+
+			let valOption = Option_CVec_ChainHashZZ(
+				some: val, instantiationContext: "BindingsInit.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKInit>) in
+					Init_set_networks(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// The receipient's network address.
 		///
 		/// This adds the option to report a remote IP address back to a connecting peer using the init
@@ -189,8 +247,13 @@ extension Bindings {
 		}
 
 		/// Constructs a new Init given each field
-		public init(featuresArg: InitFeatures, remoteNetworkAddressArg: NetAddress?) {
+		public init(featuresArg: InitFeatures, networksArg: [[UInt8]]?, remoteNetworkAddressArg: NetAddress?) {
 			// native call variable prep
+
+			let networksArgOption = Option_CVec_ChainHashZZ(
+				some: networksArg, instantiationContext: "BindingsInit.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let remoteNetworkAddressArgOption = Option_NetAddressZ(
 				some: remoteNetworkAddressArg, instantiationContext: "BindingsInit.swift::\(#function):\(#line)"
@@ -200,7 +263,8 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = Init_new(
-				featuresArg.dynamicallyDangledClone().cType!, remoteNetworkAddressArgOption.cType!)
+				featuresArg.dynamicallyDangledClone().cType!, networksArgOption.cType!,
+				remoteNetworkAddressArgOption.cType!)
 
 			// cleanup
 

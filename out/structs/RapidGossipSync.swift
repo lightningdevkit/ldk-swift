@@ -121,6 +121,80 @@ extension Bindings {
 
 		}
 
+		/// Sync gossip data from a file.
+		/// Returns the last sync timestamp to be used the next time rapid sync data is queried.
+		///
+		/// `network_graph`: The network graph to apply the updates to
+		///
+		/// `sync_path`: Path to the file where the gossip update data is located
+		public func syncNetworkGraphWithFilePath(syncPath: String) -> Result_u32GraphSyncErrorZ {
+			// native call variable prep
+
+			let syncPathPrimitiveWrapper = Str(
+				value: syncPath, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRapidGossipSync>) in
+					RapidGossipSync_sync_network_graph_with_file_path(thisArgPointer, syncPathPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			syncPathPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_u32GraphSyncErrorZ(
+				cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Update network graph from binary data.
+		/// Returns the last sync timestamp to be used the next time rapid sync data is queried.
+		///
+		/// `update_data`: `&[u8]` binary stream that comprises the update data
+		public func updateNetworkGraph(updateData: [UInt8]) -> Result_u32GraphSyncErrorZ {
+			// native call variable prep
+
+			let updateDataPrimitiveWrapper = u8slice(
+				value: updateData, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRapidGossipSync>) in
+					RapidGossipSync_update_network_graph(thisArgPointer, updateDataPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			updateDataPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_u32GraphSyncErrorZ(
+				cType: nativeCallResult, instantiationContext: "RapidGossipSync.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
 		/// Update network graph from binary data.
 		/// Returns the last sync timestamp to be used the next time rapid sync data is queried.
 		///

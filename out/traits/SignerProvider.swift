@@ -154,7 +154,7 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getDestinationScriptLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_u8Z {
+			func getDestinationScriptLambda(this_arg: UnsafeRawPointer?) -> LDKCResult_ScriptNoneZ {
 				let instance: SignerProvider = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "SignerProvider::getDestinationScriptLambda")
 
@@ -168,16 +168,12 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Vec_u8Z(
-					array: swiftCallbackResult,
-					instantiationContext: "SignerProvider.swift::init()::\(#function):\(#line)"
-				)
-				.dangleRecursively().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
 
-			func getShutdownScriptpubkeyLambda(this_arg: UnsafeRawPointer?) -> LDKShutdownScript {
+			func getShutdownScriptpubkeyLambda(this_arg: UnsafeRawPointer?) -> LDKCResult_ShutdownScriptNoneZ {
 				let instance: SignerProvider = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "SignerProvider::getShutdownScriptpubkeyLambda")
 
@@ -282,9 +278,11 @@ extension Bindings {
 
 		/// Get a script pubkey which we send funds to when claiming on-chain contestable outputs.
 		///
+		/// If this function returns an error, this will result in a channel failing to open.
+		///
 		/// This method should return a different value each time it is called, to avoid linking
 		/// on-chain funds across channels as controlled to the same user.
-		open func getDestinationScript() -> [UInt8] {
+		open func getDestinationScript() -> Result_ScriptNoneZ {
 
 			Bindings.print(
 				"Error: SignerProvider::getDestinationScript MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -294,9 +292,13 @@ extension Bindings {
 
 		/// Get a script pubkey which we will send funds to when closing a channel.
 		///
+		/// If this function returns an error, this will result in a channel failing to open or close.
+		/// In the event of a failure when the counterparty is initiating a close, this can result in a
+		/// channel force close.
+		///
 		/// This method should return a different value each time it is called, to avoid linking
 		/// on-chain funds across channels as controlled to the same user.
-		open func getShutdownScriptpubkey() -> ShutdownScript {
+		open func getShutdownScriptpubkey() -> Result_ShutdownScriptNoneZ {
 
 			Bindings.print(
 				"Error: SignerProvider::getShutdownScriptpubkey MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -445,9 +447,11 @@ extension Bindings {
 
 		/// Get a script pubkey which we send funds to when claiming on-chain contestable outputs.
 		///
+		/// If this function returns an error, this will result in a channel failing to open.
+		///
 		/// This method should return a different value each time it is called, to avoid linking
 		/// on-chain funds across channels as controlled to the same user.
-		public override func getDestinationScript() -> [UInt8] {
+		public override func getDestinationScript() -> Result_ScriptNoneZ {
 			// native call variable prep
 
 
@@ -458,19 +462,21 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)"
-			)
-			.getValue()
+			let returnValue = Result_ScriptNoneZ(
+				cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 			return returnValue
 		}
 
 		/// Get a script pubkey which we will send funds to when closing a channel.
 		///
+		/// If this function returns an error, this will result in a channel failing to open or close.
+		/// In the event of a failure when the counterparty is initiating a close, this can result in a
+		/// channel force close.
+		///
 		/// This method should return a different value each time it is called, to avoid linking
 		/// on-chain funds across channels as controlled to the same user.
-		public override func getShutdownScriptpubkey() -> ShutdownScript {
+		public override func getShutdownScriptpubkey() -> Result_ShutdownScriptNoneZ {
 			// native call variable prep
 
 
@@ -481,7 +487,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = ShutdownScript(
+			let returnValue = Result_ShutdownScriptNoneZ(
 				cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 			return returnValue

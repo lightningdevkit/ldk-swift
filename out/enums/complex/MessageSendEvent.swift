@@ -67,15 +67,50 @@ extension Bindings {
 			/// message provided to the given peer.
 			case SendAcceptChannel
 
+			/// Used to indicate that we've accepted a V2 channel open and should send the accept_channel2
+			/// message provided to the given peer.
+			case SendAcceptChannelV2
+
 			/// Used to indicate that we've initiated a channel open and should send the open_channel
 			/// message provided to the given peer.
 			case SendOpenChannel
+
+			/// Used to indicate that we've initiated a V2 channel open and should send the open_channel2
+			/// message provided to the given peer.
+			case SendOpenChannelV2
 
 			/// Used to indicate that a funding_created message should be sent to the peer with the given node_id.
 			case SendFundingCreated
 
 			/// Used to indicate that a funding_signed message should be sent to the peer with the given node_id.
 			case SendFundingSigned
+
+			/// Used to indicate that a tx_add_input message should be sent to the peer with the given node_id.
+			case SendTxAddInput
+
+			/// Used to indicate that a tx_add_output message should be sent to the peer with the given node_id.
+			case SendTxAddOutput
+
+			/// Used to indicate that a tx_remove_input message should be sent to the peer with the given node_id.
+			case SendTxRemoveInput
+
+			/// Used to indicate that a tx_remove_output message should be sent to the peer with the given node_id.
+			case SendTxRemoveOutput
+
+			/// Used to indicate that a tx_complete message should be sent to the peer with the given node_id.
+			case SendTxComplete
+
+			/// Used to indicate that a tx_signatures message should be sent to the peer with the given node_id.
+			case SendTxSignatures
+
+			/// Used to indicate that a tx_init_rbf message should be sent to the peer with the given node_id.
+			case SendTxInitRbf
+
+			/// Used to indicate that a tx_ack_rbf message should be sent to the peer with the given node_id.
+			case SendTxAckRbf
+
+			/// Used to indicate that a tx_abort message should be sent to the peer with the given node_id.
+			case SendTxAbort
 
 			/// Used to indicate that a channel_ready message should be sent to the peer with the given node_id.
 			case SendChannelReady
@@ -151,14 +186,47 @@ extension Bindings {
 				case LDKMessageSendEvent_SendAcceptChannel:
 					return .SendAcceptChannel
 
+				case LDKMessageSendEvent_SendAcceptChannelV2:
+					return .SendAcceptChannelV2
+
 				case LDKMessageSendEvent_SendOpenChannel:
 					return .SendOpenChannel
+
+				case LDKMessageSendEvent_SendOpenChannelV2:
+					return .SendOpenChannelV2
 
 				case LDKMessageSendEvent_SendFundingCreated:
 					return .SendFundingCreated
 
 				case LDKMessageSendEvent_SendFundingSigned:
 					return .SendFundingSigned
+
+				case LDKMessageSendEvent_SendTxAddInput:
+					return .SendTxAddInput
+
+				case LDKMessageSendEvent_SendTxAddOutput:
+					return .SendTxAddOutput
+
+				case LDKMessageSendEvent_SendTxRemoveInput:
+					return .SendTxRemoveInput
+
+				case LDKMessageSendEvent_SendTxRemoveOutput:
+					return .SendTxRemoveOutput
+
+				case LDKMessageSendEvent_SendTxComplete:
+					return .SendTxComplete
+
+				case LDKMessageSendEvent_SendTxSignatures:
+					return .SendTxSignatures
+
+				case LDKMessageSendEvent_SendTxInitRbf:
+					return .SendTxInitRbf
+
+				case LDKMessageSendEvent_SendTxAckRbf:
+					return .SendTxAckRbf
+
+				case LDKMessageSendEvent_SendTxAbort:
+					return .SendTxAbort
 
 				case LDKMessageSendEvent_SendChannelReady:
 					return .SendChannelReady
@@ -286,6 +354,34 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Utility method to constructs a new SendAcceptChannelV2-variant MessageSendEvent
+		public class func initWithSendAcceptChannelV2(nodeId: [UInt8], msg: Bindings.AcceptChannelV2)
+			-> MessageSendEvent
+		{
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_accept_channel_v2(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Utility method to constructs a new SendOpenChannel-variant MessageSendEvent
 		public class func initWithSendOpenChannel(nodeId: [UInt8], msg: Bindings.OpenChannel) -> MessageSendEvent {
 			// native call variable prep
@@ -296,6 +392,32 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = MessageSendEvent_send_open_channel(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendOpenChannelV2-variant MessageSendEvent
+		public class func initWithSendOpenChannelV2(nodeId: [UInt8], msg: Bindings.OpenChannelV2) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_open_channel_v2(
 				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
 
 			// cleanup
@@ -349,6 +471,241 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = MessageSendEvent_send_funding_signed(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxAddInput-variant MessageSendEvent
+		public class func initWithSendTxAddInput(nodeId: [UInt8], msg: Bindings.TxAddInput) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_add_input(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxAddOutput-variant MessageSendEvent
+		public class func initWithSendTxAddOutput(nodeId: [UInt8], msg: Bindings.TxAddOutput) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_add_output(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxRemoveInput-variant MessageSendEvent
+		public class func initWithSendTxRemoveInput(nodeId: [UInt8], msg: Bindings.TxRemoveInput) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_remove_input(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxRemoveOutput-variant MessageSendEvent
+		public class func initWithSendTxRemoveOutput(nodeId: [UInt8], msg: Bindings.TxRemoveOutput) -> MessageSendEvent
+		{
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_remove_output(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxComplete-variant MessageSendEvent
+		public class func initWithSendTxComplete(nodeId: [UInt8], msg: Bindings.TxComplete) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_complete(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxSignatures-variant MessageSendEvent
+		public class func initWithSendTxSignatures(nodeId: [UInt8], msg: Bindings.TxSignatures) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_signatures(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxInitRbf-variant MessageSendEvent
+		public class func initWithSendTxInitRbf(nodeId: [UInt8], msg: Bindings.TxInitRbf) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_init_rbf(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxAckRbf-variant MessageSendEvent
+		public class func initWithSendTxAckRbf(nodeId: [UInt8], msg: Bindings.TxAckRbf) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_ack_rbf(
+				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = MessageSendEvent(
+				cType: nativeCallResult, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new SendTxAbort-variant MessageSendEvent
+		public class func initWithSendTxAbort(nodeId: [UInt8], msg: Bindings.TxAddInput) -> MessageSendEvent {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = MessageSendEvent_send_tx_abort(
 				nodeIdPrimitiveWrapper.cType!, msg.dynamicallyDangledClone().cType!)
 
 			// cleanup
@@ -815,6 +1172,16 @@ extension Bindings {
 				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
 		}
 
+		public func getValueAsSendAcceptChannelV2() -> SendAcceptChannelV2? {
+			if self.cType?.tag != LDKMessageSendEvent_SendAcceptChannelV2 {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendAcceptChannelV2_Body(
+				cType: self.cType!.send_accept_channel_v2,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
 		public func getValueAsSendOpenChannel() -> SendOpenChannel? {
 			if self.cType?.tag != LDKMessageSendEvent_SendOpenChannel {
 				return nil
@@ -822,6 +1189,16 @@ extension Bindings {
 
 			return MessageSendEvent_LDKSendOpenChannel_Body(
 				cType: self.cType!.send_open_channel,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendOpenChannelV2() -> SendOpenChannelV2? {
+			if self.cType?.tag != LDKMessageSendEvent_SendOpenChannelV2 {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendOpenChannelV2_Body(
+				cType: self.cType!.send_open_channel_v2,
 				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
 		}
 
@@ -843,6 +1220,96 @@ extension Bindings {
 			return MessageSendEvent_LDKSendFundingSigned_Body(
 				cType: self.cType!.send_funding_signed,
 				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxAddInput() -> SendTxAddInput? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxAddInput {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxAddInput_Body(
+				cType: self.cType!.send_tx_add_input,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxAddOutput() -> SendTxAddOutput? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxAddOutput {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxAddOutput_Body(
+				cType: self.cType!.send_tx_add_output,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxRemoveInput() -> SendTxRemoveInput? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxRemoveInput {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxRemoveInput_Body(
+				cType: self.cType!.send_tx_remove_input,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxRemoveOutput() -> SendTxRemoveOutput? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxRemoveOutput {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxRemoveOutput_Body(
+				cType: self.cType!.send_tx_remove_output,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxComplete() -> SendTxComplete? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxComplete {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxComplete_Body(
+				cType: self.cType!.send_tx_complete,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxSignatures() -> SendTxSignatures? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxSignatures {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxSignatures_Body(
+				cType: self.cType!.send_tx_signatures,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxInitRbf() -> SendTxInitRbf? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxInitRbf {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxInitRbf_Body(
+				cType: self.cType!.send_tx_init_rbf,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxAckRbf() -> SendTxAckRbf? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxAckRbf {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxAckRbf_Body(
+				cType: self.cType!.send_tx_ack_rbf,
+				instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)", anchor: self)
+		}
+
+		public func getValueAsSendTxAbort() -> SendTxAbort? {
+			if self.cType?.tag != LDKMessageSendEvent_SendTxAbort {
+				return nil
+			}
+
+			return MessageSendEvent_LDKSendTxAbort_Body(
+				cType: self.cType!.send_tx_abort, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+				anchor: self)
 		}
 
 		public func getValueAsSendChannelReady() -> SendChannelReady? {
@@ -1126,6 +1593,89 @@ extension Bindings {
 
 
 		///
+		internal typealias MessageSendEvent_LDKSendAcceptChannelV2_Body = SendAcceptChannelV2
+
+
+		///
+		public class SendAcceptChannelV2: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendAcceptChannelV2_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendAcceptChannelV2_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendAcceptChannelV2_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendAcceptChannelV2_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.AcceptChannelV2 {
+				// return value (do some wrapping)
+				let returnValue = Bindings.AcceptChannelV2(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
 		internal typealias MessageSendEvent_LDKSendOpenChannel_Body = SendOpenChannel
 
 
@@ -1198,6 +1748,89 @@ extension Bindings {
 			public func getMsg() -> Bindings.OpenChannel {
 				// return value (do some wrapping)
 				let returnValue = Bindings.OpenChannel(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendOpenChannelV2_Body = SendOpenChannelV2
+
+
+		///
+		public class SendOpenChannelV2: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendOpenChannelV2_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendOpenChannelV2_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendOpenChannelV2_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendOpenChannelV2_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.OpenChannelV2 {
+				// return value (do some wrapping)
+				let returnValue = Bindings.OpenChannelV2(
 					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
 					anchor: self)
 
@@ -1364,6 +1997,751 @@ extension Bindings {
 			public func getMsg() -> Bindings.FundingSigned {
 				// return value (do some wrapping)
 				let returnValue = Bindings.FundingSigned(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxAddInput_Body = SendTxAddInput
+
+
+		///
+		public class SendTxAddInput: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxAddInput_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxAddInput_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAddInput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAddInput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxAddInput {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxAddInput(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxAddOutput_Body = SendTxAddOutput
+
+
+		///
+		public class SendTxAddOutput: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxAddOutput_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxAddOutput_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAddOutput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAddOutput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxAddOutput {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxAddOutput(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxRemoveInput_Body = SendTxRemoveInput
+
+
+		///
+		public class SendTxRemoveInput: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxRemoveInput_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxRemoveInput_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxRemoveInput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxRemoveInput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxRemoveInput {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxRemoveInput(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxRemoveOutput_Body = SendTxRemoveOutput
+
+
+		///
+		public class SendTxRemoveOutput: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxRemoveOutput_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxRemoveOutput_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxRemoveOutput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxRemoveOutput_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxRemoveOutput {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxRemoveOutput(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxComplete_Body = SendTxComplete
+
+
+		///
+		public class SendTxComplete: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxComplete_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxComplete_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxComplete_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxComplete_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxComplete {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxComplete(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxSignatures_Body = SendTxSignatures
+
+
+		///
+		public class SendTxSignatures: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxSignatures_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxSignatures_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxSignatures_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxSignatures_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxSignatures {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxSignatures(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxInitRbf_Body = SendTxInitRbf
+
+
+		///
+		public class SendTxInitRbf: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxInitRbf_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxInitRbf_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxInitRbf_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxInitRbf_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxInitRbf {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxInitRbf(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxAckRbf_Body = SendTxAckRbf
+
+
+		///
+		public class SendTxAckRbf: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxAckRbf_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxAckRbf_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAckRbf_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAckRbf_Body, instantiationContext: String,
+				anchor: NativeTypeWrapper, dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxAckRbf {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxAckRbf(
+					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self)
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias MessageSendEvent_LDKSendTxAbort_Body = SendTxAbort
+
+
+		///
+		public class SendTxAbort: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKMessageSendEvent_LDKSendTxAbort_Body?
+
+			internal init(cType: LDKMessageSendEvent_LDKSendTxAbort_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAbort_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKMessageSendEvent_LDKSendTxAbort_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The node_id of the node which should receive this message
+			public func getNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.node_id, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The message which should be sent.
+			public func getMsg() -> Bindings.TxAddInput {
+				// return value (do some wrapping)
+				let returnValue = Bindings.TxAddInput(
 					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
 					anchor: self)
 

@@ -4,6 +4,8 @@
 
 /// An [`accept_channel`] message to be sent to or received from a peer.
 ///
+/// Used in V1 channel establishment
+///
 /// [`accept_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-accept_channel-message
 public typealias AcceptChannel = Bindings.AcceptChannel
 
@@ -11,6 +13,8 @@ extension Bindings {
 
 
 	/// An [`accept_channel`] message to be sent to or received from a peer.
+	///
+	/// Used in V1 channel establishment
 	///
 	/// [`accept_channel`]: https://github.com/lightning/bolts/blob/master/02-peer-protocol.md#the-accept_channel-message
 	public class AcceptChannel: NativeTypeWrapper {
@@ -767,6 +771,59 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// A request to pre-set the to-sender output's scriptPubkey for when we collaboratively close
+		public func getShutdownScriptpubkey() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKAcceptChannel>) in
+					AcceptChannel_get_shutdown_scriptpubkey(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_ScriptZ(
+				cType: nativeCallResult, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// A request to pre-set the to-sender output's scriptPubkey for when we collaboratively close
+		public func setShutdownScriptpubkey(val: [UInt8]?) {
+			// native call variable prep
+
+			let valOption = Option_ScriptZ(
+				some: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKAcceptChannel>) in
+					AcceptChannel_set_shutdown_scriptpubkey(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// The channel type that this channel will represent.
 		///
 		/// If this is `None`, we derive the channel type from the intersection of
@@ -838,6 +895,96 @@ extension Bindings {
 
 
 			return returnValue
+		}
+
+		/// Constructs a new AcceptChannel given each field
+		public init(
+			temporaryChannelIdArg: [UInt8], dustLimitSatoshisArg: UInt64, maxHtlcValueInFlightMsatArg: UInt64,
+			channelReserveSatoshisArg: UInt64, htlcMinimumMsatArg: UInt64, minimumDepthArg: UInt32,
+			toSelfDelayArg: UInt16, maxAcceptedHtlcsArg: UInt16, fundingPubkeyArg: [UInt8],
+			revocationBasepointArg: [UInt8], paymentPointArg: [UInt8], delayedPaymentBasepointArg: [UInt8],
+			htlcBasepointArg: [UInt8], firstPerCommitmentPointArg: [UInt8], shutdownScriptpubkeyArg: [UInt8]?,
+			channelTypeArg: ChannelTypeFeatures
+		) {
+			// native call variable prep
+
+			let temporaryChannelIdArgPrimitiveWrapper = ThirtyTwoBytes(
+				value: temporaryChannelIdArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+			let fundingPubkeyArgPrimitiveWrapper = PublicKey(
+				value: fundingPubkeyArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+			let revocationBasepointArgPrimitiveWrapper = PublicKey(
+				value: revocationBasepointArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+			let paymentPointArgPrimitiveWrapper = PublicKey(
+				value: paymentPointArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+			let delayedPaymentBasepointArgPrimitiveWrapper = PublicKey(
+				value: delayedPaymentBasepointArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+			let htlcBasepointArgPrimitiveWrapper = PublicKey(
+				value: htlcBasepointArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+			let firstPerCommitmentPointArgPrimitiveWrapper = PublicKey(
+				value: firstPerCommitmentPointArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+			let shutdownScriptpubkeyArgOption = Option_ScriptZ(
+				some: shutdownScriptpubkeyArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult = AcceptChannel_new(
+				temporaryChannelIdArgPrimitiveWrapper.cType!, dustLimitSatoshisArg, maxHtlcValueInFlightMsatArg,
+				channelReserveSatoshisArg, htlcMinimumMsatArg, minimumDepthArg, toSelfDelayArg, maxAcceptedHtlcsArg,
+				fundingPubkeyArgPrimitiveWrapper.cType!, revocationBasepointArgPrimitiveWrapper.cType!,
+				paymentPointArgPrimitiveWrapper.cType!, delayedPaymentBasepointArgPrimitiveWrapper.cType!,
+				htlcBasepointArgPrimitiveWrapper.cType!, firstPerCommitmentPointArgPrimitiveWrapper.cType!,
+				shutdownScriptpubkeyArgOption.cType!, channelTypeArg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			temporaryChannelIdArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			fundingPubkeyArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			revocationBasepointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			paymentPointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			delayedPaymentBasepointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			htlcBasepointArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			firstPerCommitmentPointArgPrimitiveWrapper.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = AcceptChannel(cType: nativeCallResult, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
+
+
 		}
 
 		/// Creates a copy of the AcceptChannel

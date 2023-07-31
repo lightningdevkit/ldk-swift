@@ -3,7 +3,7 @@
 #endif
 
 /// A CResult_StaticPaymentOutputDescriptorDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::chain::keysinterface::StaticPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning::sign::StaticPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_StaticPaymentOutputDescriptorDecodeErrorZ = Bindings
 	.Result_StaticPaymentOutputDescriptorDecodeErrorZ
@@ -11,7 +11,7 @@ public typealias Result_StaticPaymentOutputDescriptorDecodeErrorZ = Bindings
 extension Bindings {
 
 	/// A CResult_StaticPaymentOutputDescriptorDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::chain::keysinterface::StaticPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning::sign::StaticPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_StaticPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrapper {
 

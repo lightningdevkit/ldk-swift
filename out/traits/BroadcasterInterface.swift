@@ -72,17 +72,17 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func broadcastTransactionLambda(this_arg: UnsafeRawPointer?, tx: LDKTransaction) {
+			func broadcastTransactionsLambda(this_arg: UnsafeRawPointer?, txs: LDKCVec_TransactionZ) {
 				let instance: BroadcasterInterface = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "BroadcasterInterface::broadcastTransactionLambda")
+					pointer: this_arg!, sourceMarker: "BroadcasterInterface::broadcastTransactionsLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.broadcastTransaction(
-					tx: Transaction(
-						cType: tx, instantiationContext: "BroadcasterInterface.swift::init()::\(#function):\(#line)"
+				let swiftCallbackResult = instance.broadcastTransactions(
+					txs: Vec_TransactionZ(
+						cType: txs, instantiationContext: "BroadcasterInterface.swift::init()::\(#function):\(#line)"
 					)
 					.getValue())
 
@@ -117,17 +117,29 @@ extension Bindings {
 
 			self.cType = LDKBroadcasterInterface(
 				this_arg: thisArg,
-				broadcast_transaction: broadcastTransactionLambda,
+				broadcast_transactions: broadcastTransactionsLambda,
 				free: freeLambda
 			)
 		}
 
 
-		/// Sends a transaction out to (hopefully) be mined.
-		open func broadcastTransaction(tx: [UInt8]) {
+		/// Sends a list of transactions out to (hopefully) be mined.
+		/// This only needs to handle the actual broadcasting of transactions, LDK will automatically
+		/// rebroadcast transactions that haven't made it into a block.
+		///
+		/// In some cases LDK may attempt to broadcast a transaction which double-spends another
+		/// and this isn't a bug and can be safely ignored.
+		///
+		/// If more than one transaction is given, these transactions should be considered to be a
+		/// package and broadcast together. Some of the transactions may or may not depend on each other,
+		/// be sure to manage both cases correctly.
+		///
+		/// Bitcoin transaction packages are defined in BIP 331 and here:
+		/// https://github.com/bitcoin/bitcoin/blob/master/doc/policy/packages.md
+		open func broadcastTransactions(txs: [[UInt8]]) {
 
 			Bindings.print(
-				"Error: BroadcasterInterface::broadcastTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: BroadcasterInterface::broadcastTransactions MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -167,23 +179,34 @@ extension Bindings {
 
 	internal class NativelyImplementedBroadcasterInterface: BroadcasterInterface {
 
-		/// Sends a transaction out to (hopefully) be mined.
-		public override func broadcastTransaction(tx: [UInt8]) {
+		/// Sends a list of transactions out to (hopefully) be mined.
+		/// This only needs to handle the actual broadcasting of transactions, LDK will automatically
+		/// rebroadcast transactions that haven't made it into a block.
+		///
+		/// In some cases LDK may attempt to broadcast a transaction which double-spends another
+		/// and this isn't a bug and can be safely ignored.
+		///
+		/// If more than one transaction is given, these transactions should be considered to be a
+		/// package and broadcast together. Some of the transactions may or may not depend on each other,
+		/// be sure to manage both cases correctly.
+		///
+		/// Bitcoin transaction packages are defined in BIP 331 and here:
+		/// https://github.com/bitcoin/bitcoin/blob/master/doc/policy/packages.md
+		public override func broadcastTransactions(txs: [[UInt8]]) {
 			// native call variable prep
 
-			let txPrimitiveWrapper = Transaction(
-				value: tx, instantiationContext: "BroadcasterInterface.swift::\(#function):\(#line)"
+			let txsVector = Vec_TransactionZ(
+				array: txs, instantiationContext: "BroadcasterInterface.swift::\(#function):\(#line)"
 			)
 			.dangle()
 
 
 			// native method call
-			let nativeCallResult = self.cType!.broadcast_transaction(self.cType!.this_arg, txPrimitiveWrapper.cType!)
+			let nativeCallResult = self.cType!.broadcast_transactions(self.cType!.this_arg, txsVector.cType!)
 
 			// cleanup
 
-			// for elided types, we need this
-			txPrimitiveWrapper.noOpRetain()
+			// txsVector.noOpRetain()
 
 
 			// return value (do some wrapping)

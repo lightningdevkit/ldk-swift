@@ -336,6 +336,72 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Creates an unsigned [`PartiallySignedTransaction`] which spends the given descriptors to
+		/// the given outputs, plus an output to the given change destination (if sufficient
+		/// change value remains). The PSBT will have a feerate, at least, of the given value.
+		///
+		/// The `locktime` argument is used to set the transaction's locktime. If `None`, the
+		/// transaction will have a locktime of 0. It it recommended to set this to the current block
+		/// height to avoid fee sniping, unless you have some specific reason to use a different
+		/// locktime.
+		///
+		/// Returns the PSBT and expected max transaction weight.
+		///
+		/// Returns `Err(())` if the output value is greater than the input value minus required fee,
+		/// if a descriptor was duplicated, or if an output descriptor `script_pubkey`
+		/// does not match the one we can spend.
+		///
+		/// We do not enforce that outputs meet the dust limit or that any output scripts are standard.
+		public class func createSpendableOutputsPsbt(
+			descriptors: [SpendableOutputDescriptor], outputs: [TxOut], changeDestinationScript: [UInt8],
+			feerateSatPer1000Weight: UInt32, locktime: UInt32?
+		) -> Result_C2Tuple_PartiallySignedTransactionusizeZNoneZ {
+			// native call variable prep
+
+			let descriptorsVector = Vec_SpendableOutputDescriptorZ(
+				array: descriptors, instantiationContext: "SpendableOutputDescriptor.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let outputsVector = Vec_TxOutZ(
+				array: outputs, instantiationContext: "SpendableOutputDescriptor.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let changeDestinationScriptVector = Vec_u8Z(
+				array: changeDestinationScript,
+				instantiationContext: "SpendableOutputDescriptor.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let locktimeOption = Option_PackedLockTimeZ(
+				some: locktime, instantiationContext: "SpendableOutputDescriptor.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult = SpendableOutputDescriptor_create_spendable_outputs_psbt(
+				descriptorsVector.cType!, outputsVector.cType!, changeDestinationScriptVector.cType!,
+				feerateSatPer1000Weight, locktimeOption.cType!)
+
+			// cleanup
+
+			// descriptorsVector.noOpRetain()
+
+			// outputsVector.noOpRetain()
+
+			// changeDestinationScriptVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_C2Tuple_PartiallySignedTransactionusizeZNoneZ(
+				cType: nativeCallResult, instantiationContext: "SpendableOutputDescriptor.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 
 		public func getValueAsStaticOutput() -> StaticOutput? {
 			if self.cType?.tag != LDKSpendableOutputDescriptor_StaticOutput {

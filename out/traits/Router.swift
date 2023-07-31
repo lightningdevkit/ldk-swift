@@ -68,8 +68,7 @@ extension Bindings {
 
 			func findRouteLambda(
 				this_arg: UnsafeRawPointer?, payer: LDKPublicKey, route_params: UnsafePointer<LDKRouteParameters>,
-				first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?,
-				inflight_htlcs: UnsafePointer<LDKInFlightHtlcs>
+				first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, inflight_htlcs: LDKInFlightHtlcs
 			) -> LDKCResult_RouteLightningErrorZ {
 				let instance: Router = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Router::findRouteLambda")
@@ -95,10 +94,7 @@ extension Bindings {
 					)
 					.dangle().clone(), firstHops: first_hopsPointee,
 					inflightHtlcs: InFlightHtlcs(
-						cType: inflight_htlcs.pointee,
-						instantiationContext: "Router.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone())
+						cType: inflight_htlcs, instantiationContext: "Router.swift::init()::\(#function):\(#line)"))
 
 				// cleanup
 
@@ -111,9 +107,8 @@ extension Bindings {
 
 			func findRouteWithIdLambda(
 				this_arg: UnsafeRawPointer?, payer: LDKPublicKey, route_params: UnsafePointer<LDKRouteParameters>,
-				first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?,
-				inflight_htlcs: UnsafePointer<LDKInFlightHtlcs>, _payment_hash: LDKThirtyTwoBytes,
-				_payment_id: LDKThirtyTwoBytes
+				first_hops: UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>?, inflight_htlcs: LDKInFlightHtlcs,
+				_payment_hash: LDKThirtyTwoBytes, _payment_id: LDKThirtyTwoBytes
 			) -> LDKCResult_RouteLightningErrorZ {
 				let instance: Router = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Router::findRouteWithIdLambda")
@@ -139,10 +134,7 @@ extension Bindings {
 					)
 					.dangle().clone(), firstHops: first_hopsPointee,
 					inflightHtlcs: InFlightHtlcs(
-						cType: inflight_htlcs.pointee,
-						instantiationContext: "Router.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone(),
+						cType: inflight_htlcs, instantiationContext: "Router.swift::init()::\(#function):\(#line)"),
 					paymentHash: ThirtyTwoBytes(
 						cType: _payment_hash, instantiationContext: "Router.swift::init()::\(#function):\(#line)"
 					)
@@ -190,7 +182,10 @@ extension Bindings {
 		}
 
 
-		/// Finds a [`Route`] between `payer` and `payee` for a payment with the given values.
+		/// Finds a [`Route`] for a payment between the given `payer` and a payee.
+		///
+		/// The `payee` and the payment's value are given in [`RouteParameters::payment_params`]
+		/// and [`RouteParameters::final_value_msat`], respectively.
 		///
 		/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
 		open func findRoute(
@@ -203,8 +198,13 @@ extension Bindings {
 			abort()
 		}
 
-		/// Finds a [`Route`] between `payer` and `payee` for a payment with the given values. Includes
-		/// `PaymentHash` and `PaymentId` to be able to correlate the request with a specific payment.
+		/// Finds a [`Route`] for a payment between the given `payer` and a payee.
+		///
+		/// The `payee` and the payment's value are given in [`RouteParameters::payment_params`]
+		/// and [`RouteParameters::final_value_msat`], respectively.
+		///
+		/// Includes a [`PaymentHash`] and a [`PaymentId`] to be able to correlate the request with a specific
+		/// payment.
 		///
 		/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
 		open func findRouteWithId(
@@ -251,7 +251,10 @@ extension Bindings {
 
 	internal class NativelyImplementedRouter: Router {
 
-		/// Finds a [`Route`] between `payer` and `payee` for a payment with the given values.
+		/// Finds a [`Route`] for a payment between the given `payer` and a payee.
+		///
+		/// The `payee` and the payment's value are given in [`RouteParameters::payment_params`]
+		/// and [`RouteParameters::final_value_msat`], respectively.
 		///
 		/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public override func findRoute(
@@ -276,15 +279,10 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: routeParams.cType!) { (routeParamsPointer: UnsafePointer<LDKRouteParameters>) in
-
-					withUnsafePointer(to: inflightHtlcs.cType!) {
-						(inflightHtlcsPointer: UnsafePointer<LDKInFlightHtlcs>) in
-						self.cType!
-							.find_route(
-								self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer,
-								firstHopsVectorPointer, inflightHtlcsPointer)
-					}
-
+					self.cType!
+						.find_route(
+							self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer,
+							firstHopsVectorPointer, inflightHtlcs.dynamicallyDangledClone().cType!)
 				}
 
 
@@ -303,8 +301,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Finds a [`Route`] between `payer` and `payee` for a payment with the given values. Includes
-		/// `PaymentHash` and `PaymentId` to be able to correlate the request with a specific payment.
+		/// Finds a [`Route`] for a payment between the given `payer` and a payee.
+		///
+		/// The `payee` and the payment's value are given in [`RouteParameters::payment_params`]
+		/// and [`RouteParameters::final_value_msat`], respectively.
+		///
+		/// Includes a [`PaymentHash`] and a [`PaymentId`] to be able to correlate the request with a specific
+		/// payment.
 		///
 		/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public override func findRouteWithId(
@@ -336,16 +339,11 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: routeParams.cType!) { (routeParamsPointer: UnsafePointer<LDKRouteParameters>) in
-
-					withUnsafePointer(to: inflightHtlcs.cType!) {
-						(inflightHtlcsPointer: UnsafePointer<LDKInFlightHtlcs>) in
-						self.cType!
-							.find_route_with_id(
-								self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer,
-								firstHopsVectorPointer, inflightHtlcsPointer, paymentHashPrimitiveWrapper.cType!,
-								paymentIdPrimitiveWrapper.cType!)
-					}
-
+					self.cType!
+						.find_route_with_id(
+							self.cType!.this_arg, payerPrimitiveWrapper.cType!, routeParamsPointer,
+							firstHopsVectorPointer, inflightHtlcs.dynamicallyDangledClone().cType!,
+							paymentHashPrimitiveWrapper.cType!, paymentIdPrimitiveWrapper.cType!)
 				}
 
 

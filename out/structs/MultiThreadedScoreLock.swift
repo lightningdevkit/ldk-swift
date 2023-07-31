@@ -78,31 +78,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Constructs a new Score which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned Score must be freed before this_arg is
-		public func asScore() -> Score {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKMultiThreadedScoreLock>) in
-					MultiThreadedScoreLock_as_Score(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedScore(
-				cType: nativeCallResult, instantiationContext: "MultiThreadedScoreLock.swift::\(#function):\(#line)",
-				anchor: self)
-
-
-			return returnValue
-		}
-
 		/// Serialize the MultiThreadedScoreLock object into a byte array which can be read by MultiThreadedScoreLock_read
 		public func write() -> [UInt8] {
 			// native call variable prep
@@ -124,6 +99,31 @@ extension Bindings {
 				anchor: self
 			)
 			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Constructs a new Score which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned Score must be freed before this_arg is
+		public func asScore() -> Score {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKMultiThreadedScoreLock>) in
+					MultiThreadedScoreLock_as_Score(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedScore(
+				cType: nativeCallResult, instantiationContext: "MultiThreadedScoreLock.swift::\(#function):\(#line)",
+				anchor: self)
 
 
 			return returnValue

@@ -137,6 +137,50 @@ extension Bindings {
 				return returnValue
 			}
 
+			func providedNodeFeaturesLambda(this_arg: UnsafeRawPointer?) -> LDKNodeFeatures {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::providedNodeFeaturesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.providedNodeFeatures()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
+			func providedInitFeaturesLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey) -> LDKInitFeatures
+			{
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::providedInitFeaturesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.providedInitFeatures(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: CustomMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "CustomMessageHandler::freeLambda")
@@ -161,6 +205,8 @@ extension Bindings {
 				this_arg: thisArg,
 				handle_custom_message: handleCustomMessageLambda,
 				get_and_clear_pending_msg: getAndClearPendingMsgLambda,
+				provided_node_features: providedNodeFeaturesLambda,
+				provided_init_features: providedInitFeaturesLambda,
 				CustomMessageReader: customMessageReader.activate().cType!,
 				free: freeLambda
 			)
@@ -185,6 +231,32 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: CustomMessageHandler::getAndClearPendingMsg MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Gets the node feature flags which this handler itself supports. All available handlers are
+		/// queried similarly and their feature flags are OR'd together to form the [`NodeFeatures`]
+		/// which are broadcasted in our [`NodeAnnouncement`] message.
+		///
+		/// [`NodeAnnouncement`]: crate::ln::msgs::NodeAnnouncement
+		open func providedNodeFeatures() -> NodeFeatures {
+
+			Bindings.print(
+				"Error: CustomMessageHandler::providedNodeFeatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Gets the init feature flags which should be sent to the given peer. All available handlers
+		/// are queried similarly and their feature flags are OR'd together to form the [`InitFeatures`]
+		/// which are sent in our [`Init`] message.
+		///
+		/// [`Init`]: crate::ln::msgs::Init
+		open func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
+
+			Bindings.print(
+				"Error: CustomMessageHandler::providedInitFeatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -281,6 +353,57 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()
+
+			return returnValue
+		}
+
+		/// Gets the node feature flags which this handler itself supports. All available handlers are
+		/// queried similarly and their feature flags are OR'd together to form the [`NodeFeatures`]
+		/// which are broadcasted in our [`NodeAnnouncement`] message.
+		///
+		/// [`NodeAnnouncement`]: crate::ln::msgs::NodeAnnouncement
+		public override func providedNodeFeatures() -> NodeFeatures {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.provided_node_features(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeFeatures(
+				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Gets the init feature flags which should be sent to the given peer. All available handlers
+		/// are queried similarly and their feature flags are OR'd together to form the [`InitFeatures`]
+		/// which are sent in our [`Init`] message.
+		///
+		/// [`Init`]: crate::ln::msgs::Init
+		public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.provided_init_features(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = InitFeatures(
+				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
 			return returnValue
 		}

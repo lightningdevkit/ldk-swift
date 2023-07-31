@@ -3,18 +3,18 @@
 #endif
 
 /// The blinded portion of a [`Path`], if we're routing to a recipient who provided blinded paths in
-/// their BOLT12 [`Invoice`].
+/// their [`Bolt12Invoice`].
 ///
-/// [`Invoice`]: crate::offers::invoice::Invoice
+/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 public typealias BlindedTail = Bindings.BlindedTail
 
 extension Bindings {
 
 
 	/// The blinded portion of a [`Path`], if we're routing to a recipient who provided blinded paths in
-	/// their BOLT12 [`Invoice`].
+	/// their [`Bolt12Invoice`].
 	///
-	/// [`Invoice`]: crate::offers::invoice::Invoice
+	/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 	public class BlindedTail: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

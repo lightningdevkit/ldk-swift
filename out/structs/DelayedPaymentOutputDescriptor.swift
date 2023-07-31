@@ -238,8 +238,6 @@ extension Bindings {
 		}
 
 		/// The output which is referenced by the given outpoint.
-		///
-		/// Returns a copy of the field.
 		public func getOutput() -> TxOut {
 			// native call variable prep
 

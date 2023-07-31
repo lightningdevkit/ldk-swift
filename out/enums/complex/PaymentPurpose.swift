@@ -129,11 +129,13 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new InvoicePayment-variant PaymentPurpose
-		public class func initWithInvoicePayment(paymentPreimage: [UInt8], paymentSecret: [UInt8]) -> PaymentPurpose {
+		public class func initWithInvoicePayment(paymentPreimage: [UInt8]?, paymentSecret: [UInt8]) -> PaymentPurpose {
 			// native call variable prep
 
-			let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentPreimage, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
+			let paymentPreimageOption = Option_PaymentPreimageZ(
+				some: paymentPreimage, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let paymentSecretPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentSecret, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)")
@@ -141,12 +143,9 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = PaymentPurpose_invoice_payment(
-				paymentPreimagePrimitiveWrapper.cType!, paymentSecretPrimitiveWrapper.cType!)
+				paymentPreimageOption.cType!, paymentSecretPrimitiveWrapper.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentPreimagePrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			paymentSecretPrimitiveWrapper.noOpRetain()
@@ -375,11 +374,9 @@ extension Bindings {
 			///
 			/// [`ChannelManager::create_inbound_payment`]: crate::ln::channelmanager::ChannelManager::create_inbound_payment
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getPaymentPreimage() -> [UInt8] {
+			public func getPaymentPreimage() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_PaymentPreimageZ(
 					cType: self.cType!.payment_preimage,
 					instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self
 				)

@@ -33,11 +33,11 @@
 /// behavior.
 ///
 /// [1]: https://arxiv.org/abs/2107.05322
-/// [`liquidity_penalty_multiplier_msat`]: ProbabilisticScoringParameters::liquidity_penalty_multiplier_msat
-/// [`liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringParameters::liquidity_penalty_amount_multiplier_msat
-/// [`liquidity_offset_half_life`]: ProbabilisticScoringParameters::liquidity_offset_half_life
-/// [`historical_liquidity_penalty_multiplier_msat`]: ProbabilisticScoringParameters::historical_liquidity_penalty_multiplier_msat
-/// [`historical_liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringParameters::historical_liquidity_penalty_amount_multiplier_msat
+/// [`liquidity_penalty_multiplier_msat`]: ProbabilisticScoringFeeParameters::liquidity_penalty_multiplier_msat
+/// [`liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringFeeParameters::liquidity_penalty_amount_multiplier_msat
+/// [`liquidity_offset_half_life`]: ProbabilisticScoringDecayParameters::liquidity_offset_half_life
+/// [`historical_liquidity_penalty_multiplier_msat`]: ProbabilisticScoringFeeParameters::historical_liquidity_penalty_multiplier_msat
+/// [`historical_liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringFeeParameters::historical_liquidity_penalty_amount_multiplier_msat
 public typealias ProbabilisticScorer = Bindings.ProbabilisticScorer
 
 extension Bindings {
@@ -74,11 +74,11 @@ extension Bindings {
 	/// behavior.
 	///
 	/// [1]: https://arxiv.org/abs/2107.05322
-	/// [`liquidity_penalty_multiplier_msat`]: ProbabilisticScoringParameters::liquidity_penalty_multiplier_msat
-	/// [`liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringParameters::liquidity_penalty_amount_multiplier_msat
-	/// [`liquidity_offset_half_life`]: ProbabilisticScoringParameters::liquidity_offset_half_life
-	/// [`historical_liquidity_penalty_multiplier_msat`]: ProbabilisticScoringParameters::historical_liquidity_penalty_multiplier_msat
-	/// [`historical_liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringParameters::historical_liquidity_penalty_amount_multiplier_msat
+	/// [`liquidity_penalty_multiplier_msat`]: ProbabilisticScoringFeeParameters::liquidity_penalty_multiplier_msat
+	/// [`liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringFeeParameters::liquidity_penalty_amount_multiplier_msat
+	/// [`liquidity_offset_half_life`]: ProbabilisticScoringDecayParameters::liquidity_offset_half_life
+	/// [`historical_liquidity_penalty_multiplier_msat`]: ProbabilisticScoringFeeParameters::historical_liquidity_penalty_multiplier_msat
+	/// [`historical_liquidity_penalty_amount_multiplier_msat`]: ProbabilisticScoringFeeParameters::historical_liquidity_penalty_amount_multiplier_msat
 	public class ProbabilisticScorer: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -149,7 +149,7 @@ extension Bindings {
 
 		/// Creates a new scorer using the given scoring parameters for sending payments from a node
 		/// through a network graph.
-		public init(params: ProbabilisticScoringParameters, networkGraph: NetworkGraph, logger: Logger) {
+		public init(decayParams: ProbabilisticScoringDecayParameters, networkGraph: NetworkGraph, logger: Logger) {
 			// native call variable prep
 
 
@@ -157,7 +157,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: networkGraph.cType!) { (networkGraphPointer: UnsafePointer<LDKNetworkGraph>) in
 					ProbabilisticScorer_new(
-						params.dynamicallyDangledClone().cType!, networkGraphPointer, logger.activate().cType!)
+						decayParams.dynamicallyDangledClone().cType!, networkGraphPointer, logger.activate().cType!)
 				}
 
 
@@ -294,138 +294,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Marks the node with the given `node_id` as banned, i.e.,
-		/// it will be avoided during path finding.
-		public func addBanned(nodeId: NodeId) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisArgPointer: UnsafeMutablePointer<LDKProbabilisticScorer>) in
-
-					withUnsafePointer(to: nodeId.cType!) { (nodeIdPointer: UnsafePointer<LDKNodeId>) in
-						ProbabilisticScorer_add_banned(thisArgPointer, nodeIdPointer)
-					}
-
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Removes the node with the given `node_id` from the list of nodes to avoid.
-		public func removeBanned(nodeId: NodeId) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisArgPointer: UnsafeMutablePointer<LDKProbabilisticScorer>) in
-
-					withUnsafePointer(to: nodeId.cType!) { (nodeIdPointer: UnsafePointer<LDKNodeId>) in
-						ProbabilisticScorer_remove_banned(thisArgPointer, nodeIdPointer)
-					}
-
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Sets a manual penalty for the given node.
-		public func setManualPenalty(nodeId: NodeId, penalty: UInt64) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisArgPointer: UnsafeMutablePointer<LDKProbabilisticScorer>) in
-
-					withUnsafePointer(to: nodeId.cType!) { (nodeIdPointer: UnsafePointer<LDKNodeId>) in
-						ProbabilisticScorer_set_manual_penalty(thisArgPointer, nodeIdPointer, penalty)
-					}
-
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Removes the node with the given `node_id` from the list of manual penalties.
-		public func removeManualPenalty(nodeId: NodeId) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisArgPointer: UnsafeMutablePointer<LDKProbabilisticScorer>) in
-
-					withUnsafePointer(to: nodeId.cType!) { (nodeIdPointer: UnsafePointer<LDKNodeId>) in
-						ProbabilisticScorer_remove_manual_penalty(thisArgPointer, nodeIdPointer)
-					}
-
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Clears the list of manual penalties that are applied during path finding.
-		public func clearManualPenalties() {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisArgPointer: UnsafeMutablePointer<LDKProbabilisticScorer>) in
-					ProbabilisticScorer_clear_manual_penalties(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// Constructs a new Score which calls the relevant methods on this_arg.
 		/// This copies the `inner` pointer in this_arg and thus the returned Score must be freed before this_arg is
 		public func asScore() -> Score {
@@ -478,9 +346,9 @@ extension Bindings {
 		}
 
 		/// Read a ProbabilisticScorer from a byte array, created by ProbabilisticScorer_write
-		public class func read(ser: [UInt8], argA: ProbabilisticScoringParameters, argB: NetworkGraph, argC: Logger)
-			-> Result_ProbabilisticScorerDecodeErrorZ
-		{
+		public class func read(
+			ser: [UInt8], argA: ProbabilisticScoringDecayParameters, argB: NetworkGraph, argC: Logger
+		) -> Result_ProbabilisticScorerDecodeErrorZ {
 			// native call variable prep
 
 			let serPrimitiveWrapper = u8slice(

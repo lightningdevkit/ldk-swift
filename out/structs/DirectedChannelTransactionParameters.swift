@@ -254,12 +254,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> DirectedChannelTransactionParameters {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> DirectedChannelTransactionParameters {
 			self.cType!.is_owned = freeable
 			return self

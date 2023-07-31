@@ -178,12 +178,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Tuple_TxidCVec_C2Tuple_u32TxOutZZZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

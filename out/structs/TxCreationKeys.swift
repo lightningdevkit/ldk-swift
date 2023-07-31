@@ -646,12 +646,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> TxCreationKeys {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> TxCreationKeys {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

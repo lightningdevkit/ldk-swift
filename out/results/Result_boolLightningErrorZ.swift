@@ -168,12 +168,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_boolLightningErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_boolLightningErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

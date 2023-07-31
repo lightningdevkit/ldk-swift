@@ -64,12 +64,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> BindingsError {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 	}
 
 

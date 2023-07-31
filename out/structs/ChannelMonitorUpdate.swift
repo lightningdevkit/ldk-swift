@@ -277,12 +277,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ChannelMonitorUpdate {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ChannelMonitorUpdate {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

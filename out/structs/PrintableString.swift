@@ -187,12 +187,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> PrintableString {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> PrintableString {
 			self.cType!.is_owned = freeable
 			return self

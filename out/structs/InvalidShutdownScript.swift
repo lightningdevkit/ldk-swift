@@ -211,12 +211,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> InvalidShutdownScript {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> InvalidShutdownScript {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

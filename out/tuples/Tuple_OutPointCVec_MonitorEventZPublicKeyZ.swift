@@ -197,12 +197,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Tuple_OutPointCVec_MonitorEventZPublicKeyZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

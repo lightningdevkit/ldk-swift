@@ -2352,12 +2352,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ChannelManager {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> ChannelManager {
 			self.cType!.is_owned = freeable
 			return self

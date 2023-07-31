@@ -459,12 +459,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> AnnouncementSignatures {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> AnnouncementSignatures {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

@@ -125,12 +125,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Vec_C2Tuple_TxidBlockHashZZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

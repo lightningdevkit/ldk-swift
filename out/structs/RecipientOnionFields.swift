@@ -456,12 +456,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> RecipientOnionFields {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> RecipientOnionFields {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

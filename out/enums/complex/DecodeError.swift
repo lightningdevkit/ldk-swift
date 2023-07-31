@@ -332,12 +332,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> DecodeError {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> DecodeError {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

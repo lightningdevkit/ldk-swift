@@ -188,12 +188,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> GraphSyncError {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> GraphSyncError {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

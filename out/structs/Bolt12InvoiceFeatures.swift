@@ -273,12 +273,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Bolt12InvoiceFeatures {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Bolt12InvoiceFeatures {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

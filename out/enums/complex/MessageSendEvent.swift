@@ -1016,12 +1016,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> MessageSendEvent {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> MessageSendEvent {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -1128,12 +1122,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendAcceptChannel {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -1214,12 +1202,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendOpenChannel {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -1306,12 +1288,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendFundingCreated {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -1392,12 +1368,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendFundingSigned {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -1484,12 +1454,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelReady {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -1573,12 +1537,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendAnnouncementSignatures {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -1658,12 +1616,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> UpdateHTLCs {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -1750,12 +1702,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendRevokeAndACK {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -1836,12 +1782,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendClosingSigned {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -1927,12 +1867,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendShutdown {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -2013,12 +1947,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelReestablish {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -2115,12 +2043,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelAnnouncement {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -2205,12 +2127,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> BroadcastChannelAnnouncement {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -2282,12 +2198,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> BroadcastChannelUpdate {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -2356,12 +2266,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> BroadcastNodeAnnouncement {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -2448,12 +2352,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelUpdate {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -2533,12 +2431,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> HandleError {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -2625,12 +2517,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendChannelRangeQuery {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -2711,12 +2597,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendShortIdsQuery {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -2803,12 +2683,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> SendReplyChannelRange {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -2889,12 +2763,6 @@ extension Bindings {
 					anchor: self)
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> SendGossipTimestampFilter {
-				self.dangling = shouldDangle
-				return self
 			}
 
 

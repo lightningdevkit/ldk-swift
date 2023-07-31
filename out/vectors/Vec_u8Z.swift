@@ -105,12 +105,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Vec_u8Z {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

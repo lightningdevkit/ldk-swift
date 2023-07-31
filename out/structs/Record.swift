@@ -359,12 +359,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Record {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Record {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

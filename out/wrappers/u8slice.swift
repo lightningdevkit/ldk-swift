@@ -85,11 +85,6 @@ extension Bindings {
 
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> u8slice {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		deinit {
 			if !self.dangling {

@@ -443,12 +443,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ClosureReason {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ClosureReason {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -549,12 +543,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> CounterpartyForceClosed {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -624,12 +612,6 @@ extension Bindings {
 				.getValue()
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> ProcessingError {
-				self.dangling = shouldDangle
-				return self
 			}
 
 

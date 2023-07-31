@@ -365,12 +365,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> WarningMessage {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> WarningMessage {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

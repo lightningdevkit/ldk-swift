@@ -176,12 +176,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_HTLCOutputInCommitmentDecodeErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_HTLCOutputInCommitmentDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

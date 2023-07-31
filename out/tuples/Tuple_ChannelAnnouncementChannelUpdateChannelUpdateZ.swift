@@ -187,12 +187,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Tuple_ChannelAnnouncementChannelUpdateChannelUpdateZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

@@ -182,12 +182,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_COption_PathFailureZDecodeErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_COption_PathFailureZDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

@@ -129,11 +129,6 @@ extension Bindings {
 			return nil
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Option_TypeZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		internal func danglingClone() -> Option_TypeZ {
 			let dangledClone = self.clone()

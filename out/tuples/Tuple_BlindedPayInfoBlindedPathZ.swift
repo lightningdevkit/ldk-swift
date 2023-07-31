@@ -166,12 +166,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Tuple_BlindedPayInfoBlindedPathZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Tuple_BlindedPayInfoBlindedPathZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

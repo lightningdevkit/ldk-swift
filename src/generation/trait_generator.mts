@@ -135,11 +135,6 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 					${fieldAccessors}
 
-					internal func dangle(_ shouldDangle: Bool = true) -> ${swiftTypeName} {
-        				self.dangling = shouldDangle
-						return self
-					}
-
 					deinit {
 						if Bindings.suspendFreedom || Self.suspendFreedom {
 							return
@@ -233,17 +228,17 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 		if (isFreeCallback) {
 			isFreeBody = `
 				// TODO: figure out something smarter
-				return; // the semicolon is necessary because Swift is whitespace-agnostic
+				return () // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
 			`;
 		}
 
 		return `
-					${this.renderDocComment(lambda.documentation, 5)}
-					${visibility} func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) -> ${swiftReturnType} {
-						${isFreeBody}
-						Bindings.print("Error: ${swiftTypeName}::${swiftMethodName} MUST be overridden! Offending class: \\(String(describing: self)). Aborting.", severity: .ERROR)
-						abort()
-					}
+			${this.renderDocComment(lambda.documentation, 5)}
+			${visibility} func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) -> ${swiftReturnType} {
+				${isFreeBody}
+				Bindings.print("Error: ${swiftTypeName}::${swiftMethodName} MUST be overridden! Offending class: \\(String(describing: self)). Aborting.", severity: .ERROR)
+				abort()
+			}
 		`;
 	}
 
@@ -301,24 +296,24 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 		}
 
 		return `
-					${this.renderDocComment(lambda.documentation, 5)}
-					public override func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) ${returnTypeInfix}{
-						// native call variable prep
-						${nativeCallPrefix}
+			${this.renderDocComment(lambda.documentation, 5)}
+			public override func ${swiftMethodName}(${swiftMethodArguments.join(', ')}) ${returnTypeInfix}{
+				// native call variable prep
+				${nativeCallPrefix}
 
-						${freeBody}
+				${freeBody}
 
-						// native method call
-						let nativeCallResult = ${nativeCallWrapperPrefix}self.cType!.${lambda.name}(${nativeCallValueAccessors.join(', ')})${nativeCallWrapperSuffix}
+				// native method call
+				let nativeCallResult = ${nativeCallWrapperPrefix}self.cType!.${lambda.name}(${nativeCallValueAccessors.join(', ')})${nativeCallWrapperSuffix}
 
-						// cleanup
-						${nativeCallSuffix}
+				// cleanup
+				${nativeCallSuffix}
 
-						// return value (do some wrapping)
-						let returnValue = ${preparedReturnValue.wrapperPrefix}nativeCallResult${preparedReturnValue.wrapperSuffix}
+				// return value (do some wrapping)
+				let returnValue = ${preparedReturnValue.wrapperPrefix}nativeCallResult${preparedReturnValue.wrapperSuffix}
 
-						return returnValue
-					}
+				return returnValue
+			}
 		`;
 	}
 
@@ -464,21 +459,22 @@ export default class TraitGenerator extends BaseTypeGenerator<RustTrait> {
 
 		// these type elision helpers only apply outside the context of the very eliding type
 		let type = returnType.type;
+		const dangleInfix = this.hasCloneMethod(type) ? 'danglingClone()' : 'dangleRecursively()';
 		if (type instanceof RustVector) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(array: `;
-			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).${dangleInfix}.cType!`;
 		} else if (type instanceof RustPrimitiveWrapper) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(value: `;
-			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).${dangleInfix}.cType!`;
 		} else if (type instanceof RustNullableOption) {
 			preparedReturnValue.wrapperPrefix = `${this.swiftTypeName(type)}(some: `;
-			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).dangle().cType!`;
+			preparedReturnValue.wrapperSuffix = `${instantiationContextInfixTemplate}).${dangleInfix}.cType!`;
 		} else if (type instanceof RustTaggedValueEnum || type instanceof RustResult) {
-			preparedReturnValue.wrapperSuffix = '.dangle().cType!';
+			preparedReturnValue.wrapperSuffix = `.${dangleInfix}.cType!`;
 		} else if (type instanceof RustTrait) {
 			preparedReturnValue.wrapperSuffix = '.activate().cType!';
 		} else if (type instanceof RustStruct) {
-			preparedReturnValue.wrapperSuffix = '.dangle().cType!';
+			preparedReturnValue.wrapperSuffix = `.${dangleInfix}.cType!`;
 		} else if (type instanceof RustPrimitive) {
 			// nothing to do here
 		} else if (type instanceof RustPrimitiveEnum) {

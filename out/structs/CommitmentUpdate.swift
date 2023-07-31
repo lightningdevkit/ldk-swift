@@ -548,12 +548,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> CommitmentUpdate {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> CommitmentUpdate {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

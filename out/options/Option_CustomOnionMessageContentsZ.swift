@@ -135,11 +135,6 @@ extension Bindings {
 			return nil
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Option_CustomOnionMessageContentsZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		internal func danglingClone() -> Option_CustomOnionMessageContentsZ {
 			let dangledClone = self.clone()

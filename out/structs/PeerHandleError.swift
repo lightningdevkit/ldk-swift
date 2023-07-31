@@ -147,12 +147,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> PeerHandleError {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> PeerHandleError {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

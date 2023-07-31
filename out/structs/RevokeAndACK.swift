@@ -405,12 +405,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> RevokeAndACK {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> RevokeAndACK {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

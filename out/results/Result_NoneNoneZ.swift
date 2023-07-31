@@ -163,11 +163,6 @@ extension Bindings {
 					}
 					*/
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_NoneNoneZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		internal func danglingClone() -> Result_NoneNoneZ {
 			let dangledClone = self.clone()

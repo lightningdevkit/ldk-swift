@@ -170,11 +170,6 @@ extension Bindings {
 					}
 					*/
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_NoneRetryableSendFailureZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		internal func danglingClone() -> Result_NoneRetryableSendFailureZ {
 			let dangledClone = self.clone()

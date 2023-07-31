@@ -58,7 +58,7 @@ public class HumanObjectPeerTestInstance {
         let monitors: [String: ChannelMonitor]
         private(set) var filter: Filter?
         private(set) var explicitKeysManager: KeysManager!
-        private(set) var wrappedSignerProvider: SignerProvider?
+        private(set) var wrappedKeysManager: WrappedSignerProviderTests.MyKeysManager?
         private(set) var router: GossipSync!
         private(set) var channelManager: ChannelManager!
         private(set) var peerManager: PeerManager!
@@ -291,8 +291,7 @@ public class HumanObjectPeerTestInstance {
             self.explicitKeysManager = keysManager
 
             if master.configuration.useWrappedSignerProvider {
-                let keysManager = WrappedSignerProviderTests.MyKeysManager(seed: keySeed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
-                self.wrappedSignerProvider = keysManager.signerProvider;
+                self.wrappedKeysManager = WrappedSignerProviderTests.MyKeysManager(seed: keySeed, startingTimeSecs: timestamp_seconds, startingTimeNanos: timestamp_nanos)
             }
 
             if master.configuration.useRouter {
@@ -325,7 +324,7 @@ public class HumanObjectPeerTestInstance {
                 let score = probabalisticScorer.asScore()
                 let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
-                let signerProvider = master.configuration.useWrappedSignerProvider ? self.wrappedSignerProvider! : self.explicitKeysManager.asSignerProvider()
+                let signerProvider = master.configuration.useWrappedSignerProvider ? self.wrappedKeysManager!.signerProvider : self.explicitKeysManager.asSignerProvider()
                 let constructionParameters = ChannelManagerConstructionParameters(
                     config: UserConfig.initWithDefault(),
                     entropySource: self.explicitKeysManager.asEntropySource(),

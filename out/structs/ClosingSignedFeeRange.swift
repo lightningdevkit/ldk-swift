@@ -323,12 +323,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ClosingSignedFeeRange {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ClosingSignedFeeRange {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

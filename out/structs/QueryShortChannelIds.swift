@@ -370,12 +370,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> QueryShortChannelIds {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> QueryShortChannelIds {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

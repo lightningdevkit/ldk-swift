@@ -180,12 +180,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_COption_TypeZDecodeErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_COption_TypeZDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

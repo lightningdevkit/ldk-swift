@@ -190,12 +190,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ScorerAccountingForInFlightHtlcs {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> ScorerAccountingForInFlightHtlcs {
 			self.cType!.is_owned = freeable
 			return self

@@ -120,12 +120,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Vec_TransactionZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

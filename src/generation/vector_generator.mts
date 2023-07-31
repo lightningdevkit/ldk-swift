@@ -182,11 +182,6 @@ export default class VectorGenerator extends BaseTypeGenerator<RustVector> {
 
 					${generatedMethods}
 
-					internal func dangle(_ shouldDangle: Bool = true) -> ${swiftTypeName} {
-        				self.dangling = shouldDangle
-						return self
-					}
-
 					${this.renderDanglingCloneAndDeinitMethods(type)}
 
 				}

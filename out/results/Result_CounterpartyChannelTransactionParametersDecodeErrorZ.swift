@@ -188,13 +188,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ
-		{
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_CounterpartyChannelTransactionParametersDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

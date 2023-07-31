@@ -73,11 +73,6 @@ extension Bindings {
 			return Bindings.UInt16Tuple8ToArray(tuple: self.cType!.data)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> EightU16s {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 	}
 

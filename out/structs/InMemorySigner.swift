@@ -973,12 +973,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> InMemorySigner {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> InMemorySigner {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

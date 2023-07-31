@@ -543,12 +543,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> UnsignedChannelAnnouncement {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> UnsignedChannelAnnouncement {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

@@ -506,12 +506,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ReplyChannelRange {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ReplyChannelRange {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

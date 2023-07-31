@@ -459,12 +459,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> FundingCreated {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> FundingCreated {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

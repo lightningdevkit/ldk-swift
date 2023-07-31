@@ -131,12 +131,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Vec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

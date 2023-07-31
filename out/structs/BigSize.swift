@@ -172,12 +172,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> BigSize {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> BigSize {
 			self.cType!.is_owned = freeable
 			return self

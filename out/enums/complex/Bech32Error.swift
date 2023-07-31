@@ -174,12 +174,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Bech32Error {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Bech32Error {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

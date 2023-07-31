@@ -299,12 +299,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> EffectiveCapacity {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> EffectiveCapacity {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -398,12 +392,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ExactLiquidity {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -469,12 +457,6 @@ extension Bindings {
 				let returnValue = self.cType!.amount_msat
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> MaximumHTLC {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -551,12 +533,6 @@ extension Bindings {
 				let returnValue = self.cType!.htlc_maximum_msat
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> Total {
-				self.dangling = shouldDangle
-				return self
 			}
 
 

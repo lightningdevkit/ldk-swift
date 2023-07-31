@@ -354,12 +354,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> KeysManager {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> KeysManager {
 			self.cType!.is_owned = freeable
 			return self

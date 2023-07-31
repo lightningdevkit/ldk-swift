@@ -341,12 +341,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ReplyShortChannelIdsEnd {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ReplyShortChannelIdsEnd {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

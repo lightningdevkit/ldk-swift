@@ -118,12 +118,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Vec_APIErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return

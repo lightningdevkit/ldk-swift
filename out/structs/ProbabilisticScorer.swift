@@ -523,12 +523,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ProbabilisticScorer {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> ProbabilisticScorer {
 			self.cType!.is_owned = freeable
 			return self

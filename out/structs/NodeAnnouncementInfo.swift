@@ -536,12 +536,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> NodeAnnouncementInfo {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> NodeAnnouncementInfo {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

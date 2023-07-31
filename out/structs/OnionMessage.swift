@@ -243,12 +243,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> OnionMessage {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> OnionMessage {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

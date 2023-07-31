@@ -219,12 +219,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> P2PGossipSync {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> P2PGossipSync {
 			self.cType!.is_owned = freeable
 			return self

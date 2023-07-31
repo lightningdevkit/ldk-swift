@@ -173,12 +173,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_ChannelConfigDecodeErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_ChannelConfigDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

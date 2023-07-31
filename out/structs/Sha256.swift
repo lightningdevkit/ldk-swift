@@ -186,12 +186,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Sha256 {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Sha256 {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

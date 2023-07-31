@@ -311,12 +311,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> NetworkUpdate {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> NetworkUpdate {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -411,12 +405,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelUpdateMessage {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -491,12 +479,6 @@ extension Bindings {
 				let returnValue = self.cType!.is_permanent
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> ChannelFailure {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -578,12 +560,6 @@ extension Bindings {
 				let returnValue = self.cType!.is_permanent
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> NodeFailure {
-				self.dangling = shouldDangle
-				return self
 			}
 
 

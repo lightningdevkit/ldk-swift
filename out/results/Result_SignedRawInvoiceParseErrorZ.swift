@@ -175,12 +175,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_SignedRawInvoiceParseErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_SignedRawInvoiceParseErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

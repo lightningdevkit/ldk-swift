@@ -73,11 +73,6 @@ extension Bindings {
 			return self.cType!._0
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> WitnessVersion {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 	}
 

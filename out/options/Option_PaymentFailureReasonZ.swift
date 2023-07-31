@@ -128,11 +128,6 @@ extension Bindings {
 			return nil
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Option_PaymentFailureReasonZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		internal func danglingClone() -> Option_PaymentFailureReasonZ {
 			let dangledClone = self.clone()

@@ -172,12 +172,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Tuple__u168_u168Z {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Tuple__u168_u168Z {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

@@ -75,11 +75,6 @@ extension Bindings {
 			return Bindings.UInt8Tuple32ToArray(tuple: self.cType!.data)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ThirtyTwoBytes {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 	}
 

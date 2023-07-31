@@ -130,11 +130,6 @@ extension Bindings {
 			return nil
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Option_NetworkUpdateZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		internal func danglingClone() -> Option_NetworkUpdateZ {
 			let dangledClone = self.clone()

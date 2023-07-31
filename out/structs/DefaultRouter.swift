@@ -157,12 +157,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> DefaultRouter {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> DefaultRouter {
 			self.cType!.is_owned = freeable
 			return self

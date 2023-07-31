@@ -252,12 +252,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> TrustedCommitmentTransaction {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> TrustedCommitmentTransaction {
 			self.cType!.is_owned = freeable
 			return self

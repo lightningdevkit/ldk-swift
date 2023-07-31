@@ -95,7 +95,7 @@ extension Bindings {
 					array: swiftCallbackResult,
 					instantiationContext: "WriteableScore.swift::init()::\(#function):\(#line)"
 				)
-				.dangle().cType!
+				.dangleRecursively().cType!
 
 				return returnValue
 			}
@@ -143,7 +143,7 @@ extension Bindings {
 		internal func free() {
 
 			// TODO: figure out something smarter
-			return  // the semicolon is necessary because Swift is whitespace-agnostic
+			return ()  // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
 
 			Bindings.print(
 				"Error: WriteableScore::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -162,11 +162,6 @@ extension Bindings {
 			return returnValue
 		}
 
-
-		internal func dangle(_ shouldDangle: Bool = true) -> WriteableScore {
-			self.dangling = shouldDangle
-			return self
-		}
 
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {

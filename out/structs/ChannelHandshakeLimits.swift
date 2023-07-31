@@ -747,12 +747,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ChannelHandshakeLimits {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ChannelHandshakeLimits {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

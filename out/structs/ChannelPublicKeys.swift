@@ -552,12 +552,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ChannelPublicKeys {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ChannelPublicKeys {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

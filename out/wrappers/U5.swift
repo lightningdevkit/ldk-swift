@@ -71,11 +71,6 @@ extension Bindings {
 			return self.cType!._0
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> U5 {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 	}
 

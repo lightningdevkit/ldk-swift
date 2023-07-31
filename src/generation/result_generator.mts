@@ -92,11 +92,6 @@ export default class ResultGenerator extends BaseTypeGenerator<RustResult> {
 					}
 					${successBlockCommentSuffix}
 
-					internal func dangle(_ shouldDangle: Bool = true) -> ${swiftTypeName} {
-        				self.dangling = shouldDangle
-						return self
-					}
-
 					${this.renderDanglingCloneAndDeinitMethods(type)}
 
 				}

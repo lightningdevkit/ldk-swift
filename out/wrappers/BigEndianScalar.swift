@@ -106,11 +106,6 @@ extension Bindings {
 			return Bindings.UInt8Tuple32ToArray(tuple: self.cType!.big_endian_bytes)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> BigEndianScalar {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 	}
 

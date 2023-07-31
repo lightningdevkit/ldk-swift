@@ -222,12 +222,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> UtxoFuture {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> UtxoFuture {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

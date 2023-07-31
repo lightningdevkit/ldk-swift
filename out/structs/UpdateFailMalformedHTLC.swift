@@ -341,12 +341,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> UpdateFailMalformedHTLC {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> UpdateFailMalformedHTLC {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

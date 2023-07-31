@@ -93,7 +93,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.dangle().cType!
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -142,7 +142,7 @@ extension Bindings {
 		internal func free() {
 
 			// TODO: figure out something smarter
-			return  // the semicolon is necessary because Swift is whitespace-agnostic
+			return ()  // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
 
 			Bindings.print(
 				"Error: OnionMessageProvider::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -150,11 +150,6 @@ extension Bindings {
 			abort()
 		}
 
-
-		internal func dangle(_ shouldDangle: Bool = true) -> OnionMessageProvider {
-			self.dangling = shouldDangle
-			return self
-		}
 
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {

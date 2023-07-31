@@ -383,12 +383,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> GossipTimestampFilter {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> GossipTimestampFilter {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

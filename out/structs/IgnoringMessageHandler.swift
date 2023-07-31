@@ -298,12 +298,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> IgnoringMessageHandler {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> IgnoringMessageHandler {
 			self.cType!.is_owned = freeable
 			return self

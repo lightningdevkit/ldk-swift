@@ -197,12 +197,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> MultiThreadedLockableScore {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> MultiThreadedLockableScore {
 			self.cType!.is_owned = freeable
 			return self

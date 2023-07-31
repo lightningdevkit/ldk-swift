@@ -228,12 +228,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> SignOrCreationError {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> SignOrCreationError {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

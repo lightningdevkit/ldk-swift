@@ -210,12 +210,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Sleeper {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> Sleeper {
 			self.cType!.is_owned = freeable
 			return self

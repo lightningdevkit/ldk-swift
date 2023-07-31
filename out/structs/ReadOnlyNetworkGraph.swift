@@ -262,12 +262,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ReadOnlyNetworkGraph {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> ReadOnlyNetworkGraph {
 			self.cType!.is_owned = freeable
 			return self

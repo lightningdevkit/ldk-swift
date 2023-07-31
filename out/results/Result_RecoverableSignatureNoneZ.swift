@@ -180,12 +180,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_RecoverableSignatureNoneZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_RecoverableSignatureNoneZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

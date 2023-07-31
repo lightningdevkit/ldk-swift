@@ -378,12 +378,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> ClosingTransaction {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> ClosingTransaction {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

@@ -175,12 +175,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_InvoiceSignOrCreationErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_InvoiceSignOrCreationErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

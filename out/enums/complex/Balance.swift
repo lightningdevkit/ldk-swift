@@ -380,12 +380,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Balance {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Balance {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
@@ -477,12 +471,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ClaimableOnChannelClose {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -562,12 +550,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> ClaimableAwaitingConfirmations {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -643,12 +625,6 @@ extension Bindings {
 				let returnValue = self.cType!.timeout_height
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> ContentiousClaimable {
-				self.dangling = shouldDangle
-				return self
 			}
 
 
@@ -731,12 +707,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> MaybeTimeoutClaimableHTLC {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -816,12 +786,6 @@ extension Bindings {
 			}
 
 
-			internal func dangle(_ shouldDangle: Bool = true) -> MaybePreimageClaimableHTLC {
-				self.dangling = shouldDangle
-				return self
-			}
-
-
 		}
 
 
@@ -891,12 +855,6 @@ extension Bindings {
 				let returnValue = self.cType!.claimable_amount_satoshis
 
 				return returnValue
-			}
-
-
-			internal func dangle(_ shouldDangle: Bool = true) -> CounterpartyRevokedOutputClaimable {
-				self.dangling = shouldDangle
-				return self
 			}
 
 

@@ -115,12 +115,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> UnsignedInvoice {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> UnsignedInvoice {
 			self.cType!.is_owned = freeable
 			return self

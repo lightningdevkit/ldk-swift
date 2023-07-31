@@ -135,11 +135,6 @@ extension Bindings {
 			return nil
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Option_CVec_NetAddressZZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		internal func danglingClone() -> Option_CVec_NetAddressZZ {
 			let dangledClone = self.clone()

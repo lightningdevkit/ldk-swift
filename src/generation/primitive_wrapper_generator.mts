@@ -113,11 +113,6 @@ export default class PrimitiveWrapperGenerator extends BaseTypeGenerator<RustPri
 						${valueAccessor}
 					}
 
-					internal func dangle(_ shouldDangle: Bool = true) -> ${swiftTypeName} {
-        				self.dangling = shouldDangle
-						return self
-					}
-
 					${this.renderDanglingCloneAndDeinitMethods(type)}
 
 				}

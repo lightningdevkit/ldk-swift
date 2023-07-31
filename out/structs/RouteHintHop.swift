@@ -551,12 +551,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> RouteHintHop {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> RouteHintHop {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

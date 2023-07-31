@@ -248,12 +248,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> BlindedPath {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> BlindedPath {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

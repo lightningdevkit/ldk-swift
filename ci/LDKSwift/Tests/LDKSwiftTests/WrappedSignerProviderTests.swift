@@ -83,7 +83,7 @@ class WrappedSignerProviderTests: XCTestCase {
     }
 
     class MyNodeSigner: NodeSigner {
-        var myKeysManager: MyKeysManager?
+        weak var myKeysManager: MyKeysManager?
         override func ecdh(recipient: Bindings.Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Bindings.Result_SharedSecretNoneZ {
             print("entering wrapper: ecdh()")
             return myKeysManager!.keysManager.asNodeSigner().ecdh(recipient: recipient, otherKey: otherKey, tweak: tweak)
@@ -112,7 +112,7 @@ class WrappedSignerProviderTests: XCTestCase {
     }
 
     class MyEntropySource: EntropySource {
-        var myKeysManager: MyKeysManager?
+        weak var myKeysManager: MyKeysManager?
         override func getSecureRandomBytes() -> [UInt8] {
             print("entering wrapper: getSecureRandomBytes()")
             return myKeysManager!.keysManager.asEntropySource().getSecureRandomBytes()
@@ -120,7 +120,7 @@ class WrappedSignerProviderTests: XCTestCase {
     }
 
     class MySignerProvider: SignerProvider {
-        var myKeysManager: MyKeysManager?
+        weak var myKeysManager: MyKeysManager?
         override func deriveChannelSigner(channelValueSatoshis: UInt64, channelKeysId: [UInt8]) -> Bindings.WriteableEcdsaChannelSigner {
             print("entering wrapper: deriveChannelSigner()")
             return myKeysManager!.keysManager.asSignerProvider().deriveChannelSigner(channelValueSatoshis: channelValueSatoshis, channelKeysId: channelKeysId)
@@ -143,8 +143,13 @@ class WrappedSignerProviderTests: XCTestCase {
 
         override func getShutdownScriptpubkey() -> Bindings.ShutdownScript {
             print("entering wrapper: getShutdownScriptpubkey()")
-            let scriptPubkey = myKeysManager!.keysManager.asSignerProvider().getShutdownScriptpubkey()
-            return scriptPubkey
+            
+            let randomHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
+            let randomHexBytes = LDKSwiftTests.hexStringToBytes(hexString: randomHex)!
+            let witnessProgram = ShutdownScript.newWitnessProgram(version: 1, program: randomHexBytes)
+            let witnessBasedScript = witnessProgram.getValue()!
+            
+            return witnessBasedScript
         }
     }
 

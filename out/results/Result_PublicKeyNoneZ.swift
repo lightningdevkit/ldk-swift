@@ -174,12 +174,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_PublicKeyNoneZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_PublicKeyNoneZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

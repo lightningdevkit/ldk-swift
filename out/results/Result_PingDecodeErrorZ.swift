@@ -167,12 +167,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_PingDecodeErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_PingDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

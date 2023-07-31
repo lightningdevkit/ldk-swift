@@ -190,12 +190,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> DirectedChannelInfo {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> DirectedChannelInfo {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

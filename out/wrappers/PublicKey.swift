@@ -73,11 +73,6 @@ extension Bindings {
 			return Bindings.UInt8Tuple33ToArray(tuple: self.cType!.compressed_form)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> PublicKey {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 	}
 

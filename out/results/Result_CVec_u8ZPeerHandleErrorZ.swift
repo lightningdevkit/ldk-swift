@@ -182,12 +182,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_CVec_u8ZPeerHandleErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_CVec_u8ZPeerHandleErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

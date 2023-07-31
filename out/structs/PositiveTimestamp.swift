@@ -307,12 +307,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> PositiveTimestamp {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> PositiveTimestamp {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

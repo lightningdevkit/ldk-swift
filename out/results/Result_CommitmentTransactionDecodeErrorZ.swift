@@ -175,12 +175,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Result_CommitmentTransactionDecodeErrorZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> Result_CommitmentTransactionDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

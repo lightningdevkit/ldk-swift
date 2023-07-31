@@ -211,12 +211,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> FilesystemPersister {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func setCFreeability(freeable: Bool) -> FilesystemPersister {
 			self.cType!.is_owned = freeable
 			return self

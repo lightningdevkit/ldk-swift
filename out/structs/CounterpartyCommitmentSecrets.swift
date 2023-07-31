@@ -302,12 +302,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> CounterpartyCommitmentSecrets {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> CounterpartyCommitmentSecrets {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

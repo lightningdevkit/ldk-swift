@@ -105,11 +105,6 @@ extension Bindings {
 			return nil
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Option_UtxoLookupZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {

@@ -537,12 +537,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> BlindedPayInfo {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> BlindedPayInfo {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

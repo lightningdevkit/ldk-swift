@@ -101,11 +101,6 @@ extension Bindings {
 			return nil
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> Option_HTLCClaimZ {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {

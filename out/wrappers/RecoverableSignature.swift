@@ -76,11 +76,6 @@ extension Bindings {
 			return Bindings.UInt8Tuple68ToArray(tuple: self.cType!.serialized_form)
 		}
 
-		internal func dangle(_ shouldDangle: Bool = true) -> RecoverableSignature {
-			self.dangling = shouldDangle
-			return self
-		}
-
 
 	}
 

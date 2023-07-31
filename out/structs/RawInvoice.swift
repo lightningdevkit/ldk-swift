@@ -638,12 +638,6 @@ extension Bindings {
 		}
 
 
-		internal func dangle(_ shouldDangle: Bool = true) -> RawInvoice {
-			self.dangling = shouldDangle
-			return self
-		}
-
-
 		internal func danglingClone() -> RawInvoice {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true

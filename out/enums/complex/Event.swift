@@ -235,6 +235,16 @@ extension Bindings {
 			/// requirements (i.e. insufficient fees paid, or a CLTV that is too soon).
 			case HTLCHandlingFailed
 
+			/// Indicates that a transaction originating from LDK needs to have its fee bumped. This event
+			/// requires confirmed external funds to be readily available to spend.
+			///
+			/// LDK does not currently generate this event unless the
+			/// [`ChannelHandshakeConfig::negotiate_anchors_zero_fee_htlc_tx`] config flag is set to true.
+			/// It is limited to the scope of channels with anchor outputs.
+			///
+			/// [`ChannelHandshakeConfig::negotiate_anchors_zero_fee_htlc_tx`]: crate::util::config::ChannelHandshakeConfig::negotiate_anchors_zero_fee_htlc_tx
+			case BumpTransaction
+
 		}
 
 		public func getValueType() -> EventType {
@@ -295,6 +305,9 @@ extension Bindings {
 
 				case LDKEvent_HTLCHandlingFailed:
 					return .HTLCHandlingFailed
+
+				case LDKEvent_BumpTransaction:
+					return .BumpTransaction
 
 				default:
 					Bindings.print("Error: Invalid value type for Event! Aborting.", severity: .ERROR)
@@ -395,8 +408,8 @@ extension Bindings {
 		/// Utility method to constructs a new PaymentClaimable-variant Event
 		public class func initWithPaymentClaimable(
 			receiverNodeId: [UInt8], paymentHash: [UInt8], onionFields: Bindings.RecipientOnionFields,
-			amountMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8], viaUserChannelId: [UInt8]?,
-			claimDeadline: UInt32?
+			amountMsat: UInt64, counterpartySkimmedFeeMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8],
+			viaUserChannelId: [UInt8]?, claimDeadline: UInt32?
 		) -> Event {
 			// native call variable prep
 
@@ -423,8 +436,9 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = Event_payment_claimable(
 				receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!,
-				onionFields.dynamicallyDangledClone().cType!, amountMsat, purpose.danglingClone().cType!,
-				viaChannelIdPrimitiveWrapper.cType!, viaUserChannelIdOption.cType!, claimDeadlineOption.cType!)
+				onionFields.dynamicallyDangledClone().cType!, amountMsat, counterpartySkimmedFeeMsat,
+				purpose.danglingClone().cType!, viaChannelIdPrimitiveWrapper.cType!, viaUserChannelIdOption.cType!,
+				claimDeadlineOption.cType!)
 
 			// cleanup
 
@@ -481,12 +495,14 @@ extension Bindings {
 
 		/// Utility method to constructs a new PaymentSent-variant Event
 		public class func initWithPaymentSent(
-			paymentId: [UInt8], paymentPreimage: [UInt8], paymentHash: [UInt8], feePaidMsat: UInt64?
+			paymentId: [UInt8]?, paymentPreimage: [UInt8], paymentHash: [UInt8], feePaidMsat: UInt64?
 		) -> Event {
 			// native call variable prep
 
-			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let paymentIdOption = Option_PaymentIdZ(
+				some: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentPreimage, instantiationContext: "Event.swift::\(#function):\(#line)")
@@ -502,13 +518,10 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = Event_payment_sent(
-				paymentIdPrimitiveWrapper.cType!, paymentPreimagePrimitiveWrapper.cType!,
-				paymentHashPrimitiveWrapper.cType!, feePaidMsatOption.cType!)
+				paymentIdOption.cType!, paymentPreimagePrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!,
+				feePaidMsatOption.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentIdPrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			paymentPreimagePrimitiveWrapper.noOpRetain()
@@ -563,7 +576,7 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new PaymentPathSuccessful-variant Event
-		public class func initWithPaymentPathSuccessful(paymentId: [UInt8], paymentHash: [UInt8], path: Bindings.Path)
+		public class func initWithPaymentPathSuccessful(paymentId: [UInt8], paymentHash: [UInt8]?, path: Bindings.Path)
 			-> Event
 		{
 			// native call variable prep
@@ -571,22 +584,20 @@ extension Bindings {
 			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 
-			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let paymentHashOption = Option_PaymentHashZ(
+				some: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
 			let nativeCallResult = Event_payment_path_successful(
-				paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!,
-				path.dynamicallyDangledClone().cType!)
+				paymentIdPrimitiveWrapper.cType!, paymentHashOption.cType!, path.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
 			// for elided types, we need this
 			paymentIdPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			paymentHashPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -598,13 +609,15 @@ extension Bindings {
 
 		/// Utility method to constructs a new PaymentPathFailed-variant Event
 		public class func initWithPaymentPathFailed(
-			paymentId: [UInt8], paymentHash: [UInt8], paymentFailedPermanently: Bool, failure: PathFailure,
+			paymentId: [UInt8]?, paymentHash: [UInt8], paymentFailedPermanently: Bool, failure: PathFailure,
 			path: Bindings.Path, shortChannelId: UInt64?
 		) -> Event {
 			// native call variable prep
 
-			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let paymentIdOption = Option_PaymentIdZ(
+				some: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
@@ -617,13 +630,10 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = Event_payment_path_failed(
-				paymentIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, paymentFailedPermanently,
+				paymentIdOption.cType!, paymentHashPrimitiveWrapper.cType!, paymentFailedPermanently,
 				failure.danglingClone().cType!, path.dynamicallyDangledClone().cType!, shortChannelIdOption.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentIdPrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			paymentHashPrimitiveWrapper.noOpRetain()
@@ -1049,6 +1059,24 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Utility method to constructs a new BumpTransaction-variant Event
+		public class func initWithBumpTransaction(a: BumpTransactionEvent) -> Event {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = Event_bump_transaction(a.danglingClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Checks if two Events contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		public class func eq(a: Event, b: Event) -> Bool {
@@ -1316,6 +1344,16 @@ extension Bindings {
 				anchor: self)
 		}
 
+		public func getValueAsBumpTransaction() -> BumpTransactionEvent? {
+			if self.cType?.tag != LDKEvent_BumpTransaction {
+				return nil
+			}
+
+			return BumpTransactionEvent(
+				cType: self.cType!.bump_transaction, instantiationContext: "Event.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
 
 		internal func danglingClone() -> Event {
 			let dangledClone = self.clone()
@@ -1528,7 +1566,7 @@ extension Bindings {
 			/// This field will always be filled in when the event was generated by LDK versions
 			/// 0.0.113 and above.
 			///
-			/// [phantom nodes]: crate::chain::keysinterface::PhantomKeysManager
+			/// [phantom nodes]: crate::sign::PhantomKeysManager
 			///
 			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 			public func getReceiverNodeId() -> [UInt8] {
@@ -1570,10 +1608,33 @@ extension Bindings {
 				return returnValue
 			}
 
-			/// The value, in thousandths of a satoshi, that this payment is for.
+			/// The value, in thousandths of a satoshi, that this payment is claimable for. May be greater
+			/// than the invoice amount.
+			///
+			/// May be less than the invoice amount if [`ChannelConfig::accept_underpaying_htlcs`] is set
+			/// and the previous hop took an extra fee.
+			///
+			/// # Note
+			/// If [`ChannelConfig::accept_underpaying_htlcs`] is set and you claim without verifying this
+			/// field, you may lose money!
+			///
+			/// [`ChannelConfig::accept_underpaying_htlcs`]: crate::util::config::ChannelConfig::accept_underpaying_htlcs
 			public func getAmountMsat() -> UInt64 {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.amount_msat
+
+				return returnValue
+			}
+
+			/// The value, in thousands of a satoshi, that was skimmed off of this payment as an extra fee
+			/// taken by our channel counterparty.
+			///
+			/// Will always be 0 unless [`ChannelConfig::accept_underpaying_htlcs`] is set.
+			///
+			/// [`ChannelConfig::accept_underpaying_htlcs`]: crate::util::config::ChannelConfig::accept_underpaying_htlcs
+			public func getCounterpartySkimmedFeeMsat() -> UInt64 {
+				// return value (do some wrapping)
+				let returnValue = self.cType!.counterparty_skimmed_fee_msat
 
 				return returnValue
 			}
@@ -1698,7 +1759,7 @@ extension Bindings {
 			/// This field will always be filled in when the event was generated by LDK versions
 			/// 0.0.113 and above.
 			///
-			/// [phantom nodes]: crate::chain::keysinterface::PhantomKeysManager
+			/// [phantom nodes]: crate::sign::PhantomKeysManager
 			///
 			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
 			public func getReceiverNodeId() -> [UInt8] {
@@ -1725,7 +1786,8 @@ extension Bindings {
 				return returnValue
 			}
 
-			/// The value, in thousandths of a satoshi, that this payment is for.
+			/// The value, in thousandths of a satoshi, that this payment is for. May be greater than the
+			/// invoice amount.
 			public func getAmountMsat() -> UInt64 {
 				// return value (do some wrapping)
 				let returnValue = self.cType!.amount_msat
@@ -1806,11 +1868,9 @@ extension Bindings {
 			/// The `payment_id` passed to [`ChannelManager::send_payment`].
 			///
 			/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getPaymentId() -> [UInt8] {
+			public func getPaymentId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_PaymentIdZ(
 					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2043,12 +2103,12 @@ extension Bindings {
 
 			/// The hash that was given to [`ChannelManager::send_payment`].
 			///
-			/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
+			/// This will be `Some` for all payments which completed on LDK 0.0.104 or later.
 			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getPaymentHash() -> [UInt8] {
+			/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
+			public func getPaymentHash() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_PaymentHashZ(
 					cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2130,13 +2190,13 @@ extension Bindings {
 
 			/// The `payment_id` passed to [`ChannelManager::send_payment`].
 			///
+			/// This will be `Some` for all payment paths which failed on LDK 0.0.103 or later.
+			///
 			/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getPaymentId() -> [UInt8] {
+			public func getPaymentId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_PaymentIdZ(
 					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2595,6 +2655,7 @@ extension Bindings {
 
 			/// How many msats the payer intended to route to the next node. Depending on the reason you are
 			/// intercepting this payment, you might take a fee by forwarding less than this amount.
+			/// Forwarding less than this amount may break compatibility with LDK versions prior to 0.0.116.
 			///
 			/// Note that LDK will NOT check that expected fees were factored into this value. You MUST
 			/// check that whatever fee you want has been included here or subtract it as required. Further,

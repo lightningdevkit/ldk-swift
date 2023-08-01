@@ -167,14 +167,14 @@ extension Bindings {
 		}
 
 		/// Should anchors be used.
-		public func optAnchors() -> Bool {
+		public func channelTypeFeatures() -> ChannelTypeFeatures {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
-					TrustedCommitmentTransaction_opt_anchors(thisArgPointer)
+					TrustedCommitmentTransaction_channel_type_features(thisArgPointer)
 				}
 
 
@@ -182,7 +182,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = ChannelTypeFeatures(
+				cType: nativeCallResult,
+				instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
 
 
 			return returnValue

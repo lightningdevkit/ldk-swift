@@ -5,8 +5,8 @@
 /// An `Offer` is a potentially long-lived proposal for payment of a good or service.
 ///
 /// An offer is a precursor to an [`InvoiceRequest`]. A merchant publishes an offer from which a
-/// customer may request an [`Invoice`] for a specific quantity and using an amount sufficient to
-/// cover that quantity (i.e., at least `quantity * amount`). See [`Offer::amount`].
+/// customer may request an [`Bolt12Invoice`] for a specific quantity and using an amount sufficient
+/// to cover that quantity (i.e., at least `quantity * amount`). See [`Offer::amount`].
 ///
 /// Offers may be denominated in currency other than bitcoin but are ultimately paid using the
 /// latter.
@@ -14,7 +14,7 @@
 /// Through the use of [`BlindedPath`]s, offers provide recipient privacy.
 ///
 /// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
-/// [`Invoice`]: crate::offers::invoice::Invoice
+/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 public typealias Offer = Bindings.Offer
 
 extension Bindings {
@@ -23,8 +23,8 @@ extension Bindings {
 	/// An `Offer` is a potentially long-lived proposal for payment of a good or service.
 	///
 	/// An offer is a precursor to an [`InvoiceRequest`]. A merchant publishes an offer from which a
-	/// customer may request an [`Invoice`] for a specific quantity and using an amount sufficient to
-	/// cover that quantity (i.e., at least `quantity * amount`). See [`Offer::amount`].
+	/// customer may request an [`Bolt12Invoice`] for a specific quantity and using an amount sufficient
+	/// to cover that quantity (i.e., at least `quantity * amount`). See [`Offer::amount`].
 	///
 	/// Offers may be denominated in currency other than bitcoin but are ultimately paid using the
 	/// latter.
@@ -32,7 +32,7 @@ extension Bindings {
 	/// Through the use of [`BlindedPath`]s, offers provide recipient privacy.
 	///
 	/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
-	/// [`Invoice`]: crate::offers::invoice::Invoice
+	/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 	public class Offer: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -525,6 +525,30 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a Offer object from a string
+		public class func fromStr(s: String) -> Result_OfferBolt12ParseErrorZ {
+			// native call variable prep
+
+			let sPrimitiveWrapper = Str(value: s, instantiationContext: "Offer.swift::\(#function):\(#line)").dangle()
+
+
+			// native method call
+			let nativeCallResult = Offer_from_str(sPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			sPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_OfferBolt12ParseErrorZ(
+				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)")
 
 
 			return returnValue

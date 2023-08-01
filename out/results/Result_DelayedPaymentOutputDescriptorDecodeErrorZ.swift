@@ -3,7 +3,7 @@
 #endif
 
 /// A CResult_DelayedPaymentOutputDescriptorDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::chain::keysinterface::DelayedPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning::sign::DelayedPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_DelayedPaymentOutputDescriptorDecodeErrorZ = Bindings
 	.Result_DelayedPaymentOutputDescriptorDecodeErrorZ
@@ -11,7 +11,7 @@ public typealias Result_DelayedPaymentOutputDescriptorDecodeErrorZ = Bindings
 extension Bindings {
 
 	/// A CResult_DelayedPaymentOutputDescriptorDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::chain::keysinterface::DelayedPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning::sign::DelayedPaymentOutputDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_DelayedPaymentOutputDescriptorDecodeErrorZ: NativeTypeWrapper {
 

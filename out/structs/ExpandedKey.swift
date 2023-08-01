@@ -5,7 +5,7 @@
 /// A set of keys that were HKDF-expanded from an initial call to
 /// [`NodeSigner::get_inbound_payment_key_material`].
 ///
-/// [`NodeSigner::get_inbound_payment_key_material`]: crate::chain::keysinterface::NodeSigner::get_inbound_payment_key_material
+/// [`NodeSigner::get_inbound_payment_key_material`]: crate::sign::NodeSigner::get_inbound_payment_key_material
 public typealias ExpandedKey = Bindings.ExpandedKey
 
 extension Bindings {
@@ -14,7 +14,7 @@ extension Bindings {
 	/// A set of keys that were HKDF-expanded from an initial call to
 	/// [`NodeSigner::get_inbound_payment_key_material`].
 	///
-	/// [`NodeSigner::get_inbound_payment_key_material`]: crate::chain::keysinterface::NodeSigner::get_inbound_payment_key_material
+	/// [`NodeSigner::get_inbound_payment_key_material`]: crate::sign::NodeSigner::get_inbound_payment_key_material
 	public class ExpandedKey: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

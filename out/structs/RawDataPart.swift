@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// Data of the [`RawInvoice`] that is encoded in the data part
+/// Data of the [`RawBolt11Invoice`] that is encoded in the data part
 public typealias RawDataPart = Bindings.RawDataPart
 
 extension Bindings {
 
 
-	/// Data of the [`RawInvoice`] that is encoded in the data part
+	/// Data of the [`RawBolt11Invoice`] that is encoded in the data part
 	public class RawDataPart: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

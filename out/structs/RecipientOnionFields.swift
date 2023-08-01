@@ -92,11 +92,9 @@ extension Bindings {
 		/// If you do not have one, the [`Route`] you pay over must not contain multiple paths as
 		/// multi-path payments require a recipient-provided secret.
 		///
-		/// Note that for spontaneous payments most lightning nodes do not currently support MPP
-		/// receives, thus you should generally never be providing a secret here for spontaneous
-		/// payments.
-		///
-		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Some implementations may reject spontaneous payments with payment secrets, so you may only
+		/// want to provide a secret for a spontaneous payment if MPP is needed and you know your
+		/// recipient will not reject it.
 		public func getPaymentSecret() -> [UInt8]? {
 			// native call variable prep
 
@@ -110,21 +108,13 @@ extension Bindings {
 
 			// cleanup
 
-			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
-			// Type group: RustPrimitiveWrapper
-			// Type: LDKThirtyTwoBytes
-
-			if nativeCallResult.data == Bindings.arrayToUInt8Tuple32(array: [UInt8](repeating: 0, count: 32)) {
-				return nil
-			}
-
 
 			// return value (do some wrapping)
-			let returnValue = ThirtyTwoBytes(
+			let returnValue = Option_PaymentSecretZ(
 				cType: nativeCallResult, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle(false).getValue()
+			.getValue()
 
 
 			return returnValue
@@ -138,30 +128,27 @@ extension Bindings {
 		/// If you do not have one, the [`Route`] you pay over must not contain multiple paths as
 		/// multi-path payments require a recipient-provided secret.
 		///
-		/// Note that for spontaneous payments most lightning nodes do not currently support MPP
-		/// receives, thus you should generally never be providing a secret here for spontaneous
-		/// payments.
-		///
-		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func setPaymentSecret(val: [UInt8]) {
+		/// Some implementations may reject spontaneous payments with payment secrets, so you may only
+		/// want to provide a secret for a spontaneous payment if MPP is needed and you know your
+		/// recipient will not reject it.
+		public func setPaymentSecret(val: [UInt8]?) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = ThirtyTwoBytes(
-				value: val, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)")
+			let valOption = Option_PaymentSecretZ(
+				some: val, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKRecipientOnionFields>) in
-					RecipientOnionFields_set_payment_secret(thisPtrPointer, valPrimitiveWrapper.cType!)
+					RecipientOnionFields_set_payment_secret(thisPtrPointer, valOption.cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -250,11 +237,13 @@ extension Bindings {
 		}
 
 		/// Constructs a new RecipientOnionFields given each field
-		public init(paymentSecretArg: [UInt8], paymentMetadataArg: [UInt8]?) {
+		public init(paymentSecretArg: [UInt8]?, paymentMetadataArg: [UInt8]?) {
 			// native call variable prep
 
-			let paymentSecretArgPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentSecretArg, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)")
+			let paymentSecretArgOption = Option_PaymentSecretZ(
+				some: paymentSecretArg, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let paymentMetadataArgOption = Option_CVec_u8ZZ(
 				some: paymentMetadataArg, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)"
@@ -264,12 +253,9 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = RecipientOnionFields_new(
-				paymentSecretArgPrimitiveWrapper.cType!, paymentMetadataArgOption.cType!)
+				paymentSecretArgOption.cType!, paymentMetadataArgOption.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentSecretArgPrimitiveWrapper.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 
@@ -422,10 +408,13 @@ extension Bindings {
 		}
 
 		/// Creates a new [`RecipientOnionFields`] with no fields. This generally does not create
-		/// payable HTLCs except for spontaneous payments, i.e. this should generally only be used for
-		/// calls to [`ChannelManager::send_spontaneous_payment`].
+		/// payable HTLCs except for single-path spontaneous payments, i.e. this should generally
+		/// only be used for calls to [`ChannelManager::send_spontaneous_payment`]. If you are sending
+		/// a spontaneous MPP this will not work as all MPP require payment secrets; you may
+		/// instead want to use [`RecipientOnionFields::secret_only`].
 		///
 		/// [`ChannelManager::send_spontaneous_payment`]: super::channelmanager::ChannelManager::send_spontaneous_payment
+		/// [`RecipientOnionFields::secret_only`]: RecipientOnionFields::secret_only
 		public class func initWithSpontaneousEmpty() -> RecipientOnionFields {
 			// native call variable prep
 

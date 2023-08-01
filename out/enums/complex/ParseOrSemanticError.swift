@@ -130,7 +130,7 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ParseError-variant ParseOrSemanticError
-		public class func initWithParseError(a: ParseError) -> ParseOrSemanticError {
+		public class func initWithParseError(a: Bolt11ParseError) -> ParseOrSemanticError {
 			// native call variable prep
 
 
@@ -149,7 +149,7 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new SemanticError-variant ParseOrSemanticError
-		public class func initWithSemanticError(a: SemanticError) -> ParseOrSemanticError {
+		public class func initWithSemanticError(a: Bolt11SemanticError) -> ParseOrSemanticError {
 			// native call variable prep
 
 
@@ -221,22 +221,22 @@ extension Bindings {
 		}
 
 
-		public func getValueAsParseError() -> ParseError? {
+		public func getValueAsParseError() -> Bolt11ParseError? {
 			if self.cType?.tag != LDKParseOrSemanticError_ParseError {
 				return nil
 			}
 
-			return ParseError(
+			return Bolt11ParseError(
 				cType: self.cType!.parse_error,
 				instantiationContext: "ParseOrSemanticError.swift::\(#function):\(#line)", anchor: self)
 		}
 
-		public func getValueAsSemanticError() -> SemanticError? {
+		public func getValueAsSemanticError() -> Bolt11SemanticError? {
 			if self.cType?.tag != LDKParseOrSemanticError_SemanticError {
 				return nil
 			}
 
-			return SemanticError(value: self.cType!.semantic_error)
+			return Bolt11SemanticError(value: self.cType!.semantic_error)
 		}
 
 

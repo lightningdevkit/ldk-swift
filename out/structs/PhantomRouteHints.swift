@@ -4,7 +4,7 @@
 
 /// Route hints used in constructing invoices for [phantom node payents].
 ///
-/// [phantom node payments]: crate::chain::keysinterface::PhantomKeysManager
+/// [phantom node payments]: crate::sign::PhantomKeysManager
 public typealias PhantomRouteHints = Bindings.PhantomRouteHints
 
 extension Bindings {
@@ -12,7 +12,7 @@ extension Bindings {
 
 	/// Route hints used in constructing invoices for [phantom node payents].
 	///
-	/// [phantom node payments]: crate::chain::keysinterface::PhantomKeysManager
+	/// [phantom node payments]: crate::sign::PhantomKeysManager
 	public class PhantomRouteHints: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

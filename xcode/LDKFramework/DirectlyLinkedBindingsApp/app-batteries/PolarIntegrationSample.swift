@@ -54,8 +54,8 @@ public class PolarIntegrationSample {
         let chaintipHeight = try await rpcInterface.getChaintipHeight()
         let networkGraph = NetworkGraph(network: lightningNetwork, logger: logger)
 
-        let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-        let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+        let decayParams = ProbabilisticScoringDecayParameters.initWithDefault();
+        let probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
         let score = probabalisticScorer.asScore()
         let multiThreadedScorer = MultiThreadedLockableScore(score: score)
 
@@ -195,7 +195,7 @@ public class PolarIntegrationSample {
             // sleep for 100ms
             try await Task.sleep(nanoseconds: 0_100_000_000)
         }
-        let invoiceResult = Invoice.fromStr(s: PolarIntegrationSample.POLAR_LND_PEER_INVOICE)
+        let invoiceResult = Bolt11Invoice.fromStr(s: PolarIntegrationSample.POLAR_LND_PEER_INVOICE)
 
         guard let invoice = invoiceResult.getValue() else {
             throw TestFlowExceptions.invoiceParsingError(invoiceResult.getError()!)
@@ -294,15 +294,17 @@ public class PolarIntegrationSample {
                 super.init()
             }
 
-            override func broadcastTransaction(tx: [UInt8]) {
-                Task {
-                    try? await self.rpcInterface.submitTransaction(transaction: tx)
+            override func broadcastTransactions(txs: [[UInt8]]) {
+                for tx in txs {
+                    Task {
+                        try? await self.rpcInterface.submitTransaction(transaction: tx)
+                    }
                 }
             }
         }
         
         class MuteBroadcaster: BroadcasterInterface {
-            override func broadcastTransaction(tx: [UInt8]) {
+            override func broadcastTransactions(txs: [[UInt8]]) {
                 // do nothing
             }
         }
@@ -462,8 +464,8 @@ public class PolarIntegrationSample {
             
             print("Genesis hash reversed: \(PolarIntegrationSample.bytesToHexString(bytes: reversedGenesisHash))")
 
-            let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-            let probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: networkGraph, logger: logger)
+            let decayParams = ProbabilisticScoringDecayParameters.initWithDefault();
+            let probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: networkGraph, logger: logger)
             let score = probabalisticScorer.asScore()
             let multiThreadedScorer = MultiThreadedLockableScore(score: score)
             

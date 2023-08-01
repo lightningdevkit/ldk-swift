@@ -98,8 +98,6 @@ extension Bindings {
 		}
 
 		/// First block where the transaction output may have been spent.
-		///
-		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public func getBlockHash() -> [UInt8]? {
 			// native call variable prep
 
@@ -113,47 +111,36 @@ extension Bindings {
 
 			// cleanup
 
-			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
-			// Type group: RustPrimitiveWrapper
-			// Type: LDKThirtyTwoBytes
-
-			if nativeCallResult.data == Bindings.arrayToUInt8Tuple32(array: [UInt8](repeating: 0, count: 32)) {
-				return nil
-			}
-
 
 			// return value (do some wrapping)
-			let returnValue = ThirtyTwoBytes(
+			let returnValue = Option_BlockHashZ(
 				cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle(false).getValue()
+			.getValue()
 
 
 			return returnValue
 		}
 
 		/// First block where the transaction output may have been spent.
-		///
-		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func setBlockHash(val: [UInt8]) {
+		public func setBlockHash(val: [UInt8]?) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = ThirtyTwoBytes(
-				value: val, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
+			let valOption = Option_BlockHashZ(
+				some: val, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKWatchedOutput>) in
-					WatchedOutput_set_block_hash(thisPtrPointer, valPrimitiveWrapper.cType!)
+					WatchedOutput_set_block_hash(thisPtrPointer, valOption.cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -265,11 +252,13 @@ extension Bindings {
 		}
 
 		/// Constructs a new WatchedOutput given each field
-		public init(blockHashArg: [UInt8], outpointArg: OutPoint, scriptPubkeyArg: [UInt8]) {
+		public init(blockHashArg: [UInt8]?, outpointArg: OutPoint, scriptPubkeyArg: [UInt8]) {
 			// native call variable prep
 
-			let blockHashArgPrimitiveWrapper = ThirtyTwoBytes(
-				value: blockHashArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)")
+			let blockHashArgOption = Option_BlockHashZ(
+				some: blockHashArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let scriptPubkeyArgVector = Vec_u8Z(
 				array: scriptPubkeyArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)"
@@ -279,13 +268,9 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = WatchedOutput_new(
-				blockHashArgPrimitiveWrapper.cType!, outpointArg.dynamicallyDangledClone().cType!,
-				scriptPubkeyArgVector.cType!)
+				blockHashArgOption.cType!, outpointArg.dynamicallyDangledClone().cType!, scriptPubkeyArgVector.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			blockHashArgPrimitiveWrapper.noOpRetain()
 
 			// scriptPubkeyArgVector.noOpRetain()
 

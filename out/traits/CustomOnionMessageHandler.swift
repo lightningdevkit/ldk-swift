@@ -90,7 +90,9 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func handleCustomMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKCustomOnionMessageContents) {
+			func handleCustomMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKCustomOnionMessageContents)
+				-> LDKCOption_CustomOnionMessageContentsZ
+			{
 				let instance: CustomOnionMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "CustomOnionMessageHandler::handleCustomMessageLambda")
 
@@ -107,7 +109,11 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
+				let returnValue = Option_CustomOnionMessageContentsZ(
+					some: swiftCallbackResult,
+					instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"
+				)
+				.danglingClone().cType!
 
 				return returnValue
 			}
@@ -168,8 +174,8 @@ extension Bindings {
 		}
 
 
-		/// Called with the custom message that was received.
-		open func handleCustomMessage(msg: CustomOnionMessageContents) {
+		/// Called with the custom message that was received, returning a response to send, if any.
+		open func handleCustomMessage(msg: CustomOnionMessageContents) -> CustomOnionMessageContents? {
 
 			Bindings.print(
 				"Error: CustomOnionMessageHandler::handleCustomMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -225,8 +231,8 @@ extension Bindings {
 
 	internal class NativelyImplementedCustomOnionMessageHandler: CustomOnionMessageHandler {
 
-		/// Called with the custom message that was received.
-		public override func handleCustomMessage(msg: CustomOnionMessageContents) {
+		/// Called with the custom message that was received, returning a response to send, if any.
+		public override func handleCustomMessage(msg: CustomOnionMessageContents) -> CustomOnionMessageContents? {
 			// native call variable prep
 
 
@@ -237,7 +243,10 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = Option_CustomOnionMessageContentsZ(
+				cType: nativeCallResult, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)"
+			)
+			.getValue()
 
 			return returnValue
 		}

@@ -128,7 +128,7 @@ extension Bindings {
 		)
 		public init(
 			messageHandler: MessageHandler, currentTime: UInt32, ephemeralRandomData: [UInt8], logger: Logger,
-			customMessageHandler: CustomMessageHandler, nodeSigner: NodeSigner
+			nodeSigner: NodeSigner
 		) {
 			// native call variable prep
 
@@ -141,7 +141,7 @@ extension Bindings {
 					(tupledEphemeralRandomDataPointer: UnsafePointer<UInt8Tuple32>) in
 					PeerManager_new(
 						messageHandler.dangle().cType!, currentTime, tupledEphemeralRandomDataPointer,
-						logger.activate().cType!, customMessageHandler.activate().cType!, nodeSigner.activate().cType!)
+						logger.activate().cType!, nodeSigner.activate().cType!)
 				}
 
 

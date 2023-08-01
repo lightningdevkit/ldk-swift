@@ -2,26 +2,26 @@
 	import LDKHeaders
 #endif
 
-/// A `Refund` is a request to send an [`Invoice`] without a preceding [`Offer`].
+/// A `Refund` is a request to send an [`Bolt12Invoice`] without a preceding [`Offer`].
 ///
 /// Typically, after an invoice is paid, the recipient may publish a refund allowing the sender to
 /// recoup their funds. A refund may be used more generally as an \"offer for money\", such as with a
 /// bitcoin ATM.
 ///
-/// [`Invoice`]: crate::offers::invoice::Invoice
+/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 /// [`Offer`]: crate::offers::offer::Offer
 public typealias Refund = Bindings.Refund
 
 extension Bindings {
 
 
-	/// A `Refund` is a request to send an [`Invoice`] without a preceding [`Offer`].
+	/// A `Refund` is a request to send an [`Bolt12Invoice`] without a preceding [`Offer`].
 	///
 	/// Typically, after an invoice is paid, the recipient may publish a refund allowing the sender to
 	/// recoup their funds. A refund may be used more generally as an \"offer for money\", such as with a
 	/// bitcoin ATM.
 	///
-	/// [`Invoice`]: crate::offers::invoice::Invoice
+	/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 	/// [`Offer`]: crate::offers::offer::Offer
 	public class Refund: NativeTypeWrapper {
 
@@ -469,6 +469,30 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "Refund.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a Refund object from a string
+		public class func fromStr(s: String) -> Result_RefundBolt12ParseErrorZ {
+			// native call variable prep
+
+			let sPrimitiveWrapper = Str(value: s, instantiationContext: "Refund.swift::\(#function):\(#line)").dangle()
+
+
+			// native method call
+			let nativeCallResult = Refund_from_str(sPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			sPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_RefundBolt12ParseErrorZ(
+				cType: nativeCallResult, instantiationContext: "Refund.swift::\(#function):\(#line)")
 
 
 			return returnValue

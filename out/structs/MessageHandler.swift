@@ -191,8 +191,10 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A message handler which handles onion messages. For now, this can only be an
-		/// [`IgnoringMessageHandler`].
+		/// A message handler which handles onion messages. This should generally be an
+		/// [`OnionMessenger`], but can also be an [`IgnoringMessageHandler`].
+		///
+		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
 		public func getOnionMessageHandler() -> OnionMessageHandler? {
 			// native call variable prep
 
@@ -220,8 +222,10 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A message handler which handles onion messages. For now, this can only be an
-		/// [`IgnoringMessageHandler`].
+		/// A message handler which handles onion messages. This should generally be an
+		/// [`OnionMessenger`], but can also be an [`IgnoringMessageHandler`].
+		///
+		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
 		public func setOnionMessageHandler(val: OnionMessageHandler) {
 			// native call variable prep
 
@@ -244,10 +248,63 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// A message handler which handles custom messages. The only LDK-provided implementation is
+		/// [`IgnoringMessageHandler`].
+		public func getCustomMessageHandler() -> CustomMessageHandler? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKMessageHandler>) in
+					MessageHandler_get_custom_message_handler(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			guard let nativeCallResult = nativeCallResult else {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedCustomMessageHandler(
+				cType: nativeCallResult.pointee, instantiationContext: "MessageHandler.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
+		/// A message handler which handles custom messages. The only LDK-provided implementation is
+		/// [`IgnoringMessageHandler`].
+		public func setCustomMessageHandler(val: CustomMessageHandler) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKMessageHandler>) in
+					MessageHandler_set_custom_message_handler(thisPtrPointer, val.activate().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new MessageHandler given each field
 		public init(
 			chanHandlerArg: ChannelMessageHandler, routeHandlerArg: RoutingMessageHandler,
-			onionMessageHandlerArg: OnionMessageHandler
+			onionMessageHandlerArg: OnionMessageHandler, customMessageHandlerArg: CustomMessageHandler
 		) {
 			// native call variable prep
 
@@ -255,7 +312,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = MessageHandler_new(
 				chanHandlerArg.activate().cType!, routeHandlerArg.activate().cType!,
-				onionMessageHandlerArg.activate().cType!)
+				onionMessageHandlerArg.activate().cType!, customMessageHandlerArg.activate().cType!)
 
 			// cleanup
 

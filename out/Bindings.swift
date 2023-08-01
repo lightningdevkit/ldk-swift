@@ -416,8 +416,8 @@ public class Bindings {
 	/// Note that if `min_final_cltv_expiry_delta` is set to some value, then the payment will not be receivable
 	/// on versions of LDK prior to 0.0.114.
 	///
-	/// [phantom node payments]: crate::chain::keysinterface::PhantomKeysManager
-	/// [`NodeSigner::get_inbound_payment_key_material`]: crate::chain::keysinterface::NodeSigner::get_inbound_payment_key_material
+	/// [phantom node payments]: crate::sign::PhantomKeysManager
+	/// [`NodeSigner::get_inbound_payment_key_material`]: crate::sign::NodeSigner::get_inbound_payment_key_material
 	public class func swiftCreate(
 		keys: ExpandedKey, minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, entropySource: EntropySource,
 		currentTime: UInt64, minFinalCltvExpiryDelta: UInt16?
@@ -470,7 +470,7 @@ public class Bindings {
 	/// Note that if `min_final_cltv_expiry_delta` is set to some value, then the payment will not be receivable
 	/// on versions of LDK prior to 0.0.114.
 	///
-	/// [phantom node payments]: crate::chain::keysinterface::PhantomKeysManager
+	/// [phantom node payments]: crate::sign::PhantomKeysManager
 	public class func createFromHash(
 		keys: ExpandedKey, minValueMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32,
 		currentTime: UInt64, minFinalCltvExpiryDelta: UInt16?
@@ -516,12 +516,17 @@ public class Bindings {
 	}
 
 	/// Gets the weight for an HTLC-Success transaction.
-	public class func htlcSuccessTxWeight(optAnchors: Bool) -> UInt64 {
+	public class func htlcSuccessTxWeight(channelTypeFeatures: ChannelTypeFeatures) -> UInt64 {
 		// native call variable prep
 
 
 		// native method call
-		let nativeCallResult = htlc_success_tx_weight(optAnchors)
+		let nativeCallResult =
+			withUnsafePointer(to: channelTypeFeatures.cType!) {
+				(channelTypeFeaturesPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+				htlc_success_tx_weight(channelTypeFeaturesPointer)
+			}
+
 
 		// cleanup
 
@@ -534,12 +539,17 @@ public class Bindings {
 	}
 
 	/// Gets the weight for an HTLC-Timeout transaction.
-	public class func htlcTimeoutTxWeight(optAnchors: Bool) -> UInt64 {
+	public class func htlcTimeoutTxWeight(channelTypeFeatures: ChannelTypeFeatures) -> UInt64 {
 		// native call variable prep
 
 
 		// native method call
-		let nativeCallResult = htlc_timeout_tx_weight(optAnchors)
+		let nativeCallResult =
+			withUnsafePointer(to: channelTypeFeatures.cType!) {
+				(channelTypeFeaturesPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+				htlc_timeout_tx_weight(channelTypeFeaturesPointer)
+			}
+
 
 		// cleanup
 
@@ -818,9 +828,9 @@ public class Bindings {
 
 	/// Gets the witness redeemscript for an HTLC output in a commitment transaction. Note that htlc
 	/// does not need to have its previous_output_index filled.
-	public class func getHtlcRedeemscript(htlc: HTLCOutputInCommitment, optAnchors: Bool, keys: TxCreationKeys)
-		-> [UInt8]
-	{
+	public class func getHtlcRedeemscript(
+		htlc: HTLCOutputInCommitment, channelTypeFeatures: ChannelTypeFeatures, keys: TxCreationKeys
+	) -> [UInt8] {
 		// native call variable prep
 
 
@@ -828,8 +838,13 @@ public class Bindings {
 		let nativeCallResult =
 			withUnsafePointer(to: htlc.cType!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
 
-				withUnsafePointer(to: keys.cType!) { (keysPointer: UnsafePointer<LDKTxCreationKeys>) in
-					get_htlc_redeemscript(htlcPointer, optAnchors, keysPointer)
+				withUnsafePointer(to: channelTypeFeatures.cType!) {
+					(channelTypeFeaturesPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+
+					withUnsafePointer(to: keys.cType!) { (keysPointer: UnsafePointer<LDKTxCreationKeys>) in
+						get_htlc_redeemscript(htlcPointer, channelTypeFeaturesPointer, keysPointer)
+					}
+
 				}
 
 			}
@@ -892,7 +907,7 @@ public class Bindings {
 	/// commitment transaction).
 	public class func buildHtlcTransaction(
 		commitmentTxid: [UInt8], feeratePerKw: UInt32, contestDelay: UInt16, htlc: HTLCOutputInCommitment,
-		optAnchors: Bool, useNonZeroFeeAnchors: Bool, broadcasterDelayedPaymentKey: [UInt8], revocationKey: [UInt8]
+		channelTypeFeatures: ChannelTypeFeatures, broadcasterDelayedPaymentKey: [UInt8], revocationKey: [UInt8]
 	) -> [UInt8] {
 		// native call variable prep
 
@@ -910,10 +925,15 @@ public class Bindings {
 			withUnsafePointer(to: tupledCommitmentTxid) { (tupledCommitmentTxidPointer: UnsafePointer<UInt8Tuple32>) in
 
 				withUnsafePointer(to: htlc.cType!) { (htlcPointer: UnsafePointer<LDKHTLCOutputInCommitment>) in
-					build_htlc_transaction(
-						tupledCommitmentTxidPointer, feeratePerKw, contestDelay, htlcPointer, optAnchors,
-						useNonZeroFeeAnchors, broadcasterDelayedPaymentKeyPrimitiveWrapper.cType!,
-						revocationKeyPrimitiveWrapper.cType!)
+
+					withUnsafePointer(to: channelTypeFeatures.cType!) {
+						(channelTypeFeaturesPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+						build_htlc_transaction(
+							tupledCommitmentTxidPointer, feeratePerKw, contestDelay, htlcPointer,
+							channelTypeFeaturesPointer, broadcasterDelayedPaymentKeyPrimitiveWrapper.cType!,
+							revocationKeyPrimitiveWrapper.cType!)
+					}
+
 				}
 
 			}
@@ -939,10 +959,9 @@ public class Bindings {
 	}
 
 	/// Returns the witness required to satisfy and spend a HTLC input.
-	///
-	/// Note that preimage (or a relevant inner pointer) may be NULL or all-0s to represent None
 	public class func buildHtlcInputWitness(
-		localSig: [UInt8], remoteSig: [UInt8], preimage: [UInt8], redeemScript: [UInt8], optAnchors: Bool
+		localSig: [UInt8], remoteSig: [UInt8], preimage: [UInt8]?, redeemScript: [UInt8],
+		channelTypeFeatures: ChannelTypeFeatures
 	) -> [UInt8] {
 		// native call variable prep
 
@@ -952,17 +971,24 @@ public class Bindings {
 		let remoteSigPrimitiveWrapper = Signature(
 			value: remoteSig, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
-		let preimagePrimitiveWrapper = ThirtyTwoBytes(
-			value: preimage, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+		let preimageOption = Option_PaymentPreimageZ(
+			some: preimage, instantiationContext: "Bindings.swift::\(#function):\(#line)"
+		)
+		.danglingClone()
 
 		let redeemScriptPrimitiveWrapper = u8slice(
 			value: redeemScript, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
 		// native method call
-		let nativeCallResult = build_htlc_input_witness(
-			localSigPrimitiveWrapper.cType!, remoteSigPrimitiveWrapper.cType!, preimagePrimitiveWrapper.cType!,
-			redeemScriptPrimitiveWrapper.cType!, optAnchors)
+		let nativeCallResult =
+			withUnsafePointer(to: channelTypeFeatures.cType!) {
+				(channelTypeFeaturesPointer: UnsafePointer<LDKChannelTypeFeatures>) in
+				build_htlc_input_witness(
+					localSigPrimitiveWrapper.cType!, remoteSigPrimitiveWrapper.cType!, preimageOption.cType!,
+					redeemScriptPrimitiveWrapper.cType!, channelTypeFeaturesPointer)
+			}
+
 
 		// cleanup
 
@@ -971,9 +997,6 @@ public class Bindings {
 
 		// for elided types, we need this
 		remoteSigPrimitiveWrapper.noOpRetain()
-
-		// for elided types, we need this
-		preimagePrimitiveWrapper.noOpRetain()
 
 		// for elided types, we need this
 		redeemScriptPrimitiveWrapper.noOpRetain()
@@ -1121,12 +1144,66 @@ public class Bindings {
 		return returnValue
 	}
 
+	/// Verifies the signature of a [`NodeAnnouncement`].
+	///
+	/// Returns an error if it is invalid.
+	public class func verifyNodeAnnouncement(msg: NodeAnnouncement) -> Result_NoneLightningErrorZ {
+		// native call variable prep
+
+
+		// native method call
+		let nativeCallResult =
+			withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKNodeAnnouncement>) in
+				verify_node_announcement(msgPointer)
+			}
+
+
+		// cleanup
+
+
+		// return value (do some wrapping)
+		let returnValue = Result_NoneLightningErrorZ(
+			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+
+
+		try! returnValue.addAnchor(anchor: msg)
+		return returnValue
+	}
+
+	/// Verifies all signatures included in a [`ChannelAnnouncement`].
+	///
+	/// Returns an error if one of the signatures is invalid.
+	public class func verifyChannelAnnouncement(msg: ChannelAnnouncement) -> Result_NoneLightningErrorZ {
+		// native call variable prep
+
+
+		// native method call
+		let nativeCallResult =
+			withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKChannelAnnouncement>) in
+				verify_channel_announcement(msgPointer)
+			}
+
+
+		// cleanup
+
+
+		// return value (do some wrapping)
+		let returnValue = Result_NoneLightningErrorZ(
+			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+
+
+		try! returnValue.addAnchor(anchor: msg)
+		return returnValue
+	}
+
 	/// Finds a route from us (payer) to the given target node (payee).
 	///
-	/// If the payee provided features in their invoice, they should be provided via `params.payee`.
+	/// If the payee provided features in their invoice, they should be provided via the `payee` field
+	/// in the given [`RouteParameters::payment_params`].
 	/// Without this, MPP will only be used if the payee's features are available in the network graph.
 	///
-	/// Private routing paths between a public node and the target may be included in `params.payee`.
+	/// Private routing paths between a public node and the target may be included in the `payee` field
+	/// of [`RouteParameters::payment_params`].
 	///
 	/// If some channels aren't announced, it may be useful to fill in `first_hops` with the results
 	/// from [`ChannelManager::list_usable_channels`]. If it is filled in, the view of these channels
@@ -1136,15 +1213,9 @@ public class Bindings {
 	/// However, the enabled/disabled bit on such channels as well as the `htlc_minimum_msat` /
 	/// `htlc_maximum_msat` *are* checked as they may change based on the receiving node.
 	///
-	/// # Note
-	///
-	/// May be used to re-compute a [`Route`] when handling a [`Event::PaymentPathFailed`]. Any
-	/// adjustments to the [`NetworkGraph`] and channel scores should be made prior to calling this
-	/// function.
-	///
 	/// # Panics
 	///
-	/// Panics if first_hops contains channels without short_channel_ids;
+	/// Panics if first_hops contains channels without `short_channel_id`s;
 	/// [`ChannelManager::list_usable_channels`] will never include such channels.
 	///
 	/// [`ChannelManager::list_usable_channels`]: crate::ln::channelmanager::ChannelManager::list_usable_channels
@@ -1154,7 +1225,7 @@ public class Bindings {
 	/// Note that first_hops (or a relevant inner pointer) may be NULL or all-0s to represent None
 	public class func findRoute(
 		ourNodePubkey: [UInt8], routeParams: RouteParameters, networkGraph: NetworkGraph, firstHops: [ChannelDetails]?,
-		logger: Logger, scorer: Score, randomSeedBytes: [UInt8]
+		logger: Logger, scorer: Score, scoreParams: ProbabilisticScoringFeeParameters, randomSeedBytes: [UInt8]
 	) -> Result_RouteLightningErrorZ {
 		// native call variable prep
 
@@ -1182,12 +1253,17 @@ public class Bindings {
 
 					withUnsafePointer(to: scorer.activate().cType!) { (scorerPointer: UnsafePointer<LDKScore>) in
 
-						withUnsafePointer(to: tupledRandomSeedBytes) {
-							(tupledRandomSeedBytesPointer: UnsafePointer<UInt8Tuple32>) in
-							find_route(
-								ourNodePubkeyPrimitiveWrapper.cType!, routeParamsPointer, networkGraphPointer,
-								firstHopsVectorPointer, logger.activate().cType!, scorerPointer,
-								tupledRandomSeedBytesPointer)
+						withUnsafePointer(to: scoreParams.cType!) {
+							(scoreParamsPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
+
+							withUnsafePointer(to: tupledRandomSeedBytes) {
+								(tupledRandomSeedBytesPointer: UnsafePointer<UInt8Tuple32>) in
+								find_route(
+									ourNodePubkeyPrimitiveWrapper.cType!, routeParamsPointer, networkGraphPointer,
+									firstHopsVectorPointer, logger.activate().cType!, scorerPointer, scoreParamsPointer,
+									tupledRandomSeedBytesPointer)
+							}
+
 						}
 
 					}
@@ -1212,6 +1288,7 @@ public class Bindings {
 
 		try! returnValue.addAnchor(anchor: routeParams)
 		try! returnValue.addAnchor(anchor: networkGraph)
+		try! returnValue.addAnchor(anchor: scoreParams)
 		return returnValue
 	}
 
@@ -1270,14 +1347,14 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Pays the given [`Invoice`], retrying if needed based on [`Retry`].
+	/// Pays the given [`Bolt11Invoice`], retrying if needed based on [`Retry`].
 	///
-	/// [`Invoice::payment_hash`] is used as the [`PaymentId`], which ensures idempotency as long
-	/// as the payment is still pending. Once the payment completes or fails, you must ensure that
-	/// a second payment with the same [`PaymentHash`] is never sent.
+	/// [`Bolt11Invoice::payment_hash`] is used as the [`PaymentId`], which ensures idempotency as long
+	/// as the payment is still pending. If the payment succeeds, you must ensure that a second payment
+	/// with the same [`PaymentHash`] is never sent.
 	///
 	/// If you wish to use a different payment idempotency token, see [`pay_invoice_with_id`].
-	public class func payInvoice(invoice: Invoice, retryStrategy: Retry, channelmanager: ChannelManager)
+	public class func payInvoice(invoice: Bolt11Invoice, retryStrategy: Retry, channelmanager: ChannelManager)
 		-> Result_PaymentIdPaymentErrorZ
 	{
 		// native call variable prep
@@ -1285,7 +1362,7 @@ public class Bindings {
 
 		// native method call
 		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKInvoice>) in
+			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
 
 				withUnsafePointer(to: channelmanager.cType!) {
 					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
@@ -1308,17 +1385,18 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Pays the given [`Invoice`] with a custom idempotency key, retrying if needed based on [`Retry`].
+	/// Pays the given [`Bolt11Invoice`] with a custom idempotency key, retrying if needed based on
+	/// [`Retry`].
 	///
 	/// Note that idempotency is only guaranteed as long as the payment is still pending. Once the
 	/// payment completes or fails, no idempotency guarantees are made.
 	///
-	/// You should ensure that the [`Invoice::payment_hash`] is unique and the same [`PaymentHash`]
-	/// has never been paid before.
+	/// You should ensure that the [`Bolt11Invoice::payment_hash`] is unique and the same
+	/// [`PaymentHash`] has never been paid before.
 	///
 	/// See [`pay_invoice`] for a variant which uses the [`PaymentHash`] for the idempotency token.
 	public class func payInvoiceWithId(
-		invoice: Invoice, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager
+		invoice: Bolt11Invoice, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager
 	) -> Result_NonePaymentErrorZ {
 		// native call variable prep
 
@@ -1328,7 +1406,7 @@ public class Bindings {
 
 		// native method call
 		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKInvoice>) in
+			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
 
 				withUnsafePointer(to: channelmanager.cType!) {
 					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
@@ -1356,24 +1434,24 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Pays the given zero-value [`Invoice`] using the given amount, retrying if needed based on
+	/// Pays the given zero-value [`Bolt11Invoice`] using the given amount, retrying if needed based on
 	/// [`Retry`].
 	///
-	/// [`Invoice::payment_hash`] is used as the [`PaymentId`], which ensures idempotency as long
-	/// as the payment is still pending. Once the payment completes or fails, you must ensure that
-	/// a second payment with the same [`PaymentHash`] is never sent.
+	/// [`Bolt11Invoice::payment_hash`] is used as the [`PaymentId`], which ensures idempotency as long
+	/// as the payment is still pending. If the payment succeeds, you must ensure that a second payment
+	/// with the same [`PaymentHash`] is never sent.
 	///
 	/// If you wish to use a different payment idempotency token, see
 	/// [`pay_zero_value_invoice_with_id`].
 	public class func payZeroValueInvoice(
-		invoice: Invoice, amountMsats: UInt64, retryStrategy: Retry, channelmanager: ChannelManager
+		invoice: Bolt11Invoice, amountMsats: UInt64, retryStrategy: Retry, channelmanager: ChannelManager
 	) -> Result_PaymentIdPaymentErrorZ {
 		// native call variable prep
 
 
 		// native method call
 		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKInvoice>) in
+			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
 
 				withUnsafePointer(to: channelmanager.cType!) {
 					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
@@ -1397,19 +1475,20 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Pays the given zero-value [`Invoice`] using the given amount and custom idempotency key,
-	/// , retrying if needed based on [`Retry`].
+	/// Pays the given zero-value [`Bolt11Invoice`] using the given amount and custom idempotency key,
+	/// retrying if needed based on [`Retry`].
 	///
 	/// Note that idempotency is only guaranteed as long as the payment is still pending. Once the
 	/// payment completes or fails, no idempotency guarantees are made.
 	///
-	/// You should ensure that the [`Invoice::payment_hash`] is unique and the same [`PaymentHash`]
-	/// has never been paid before.
+	/// You should ensure that the [`Bolt11Invoice::payment_hash`] is unique and the same
+	/// [`PaymentHash`] has never been paid before.
 	///
 	/// See [`pay_zero_value_invoice`] for a variant which uses the [`PaymentHash`] for the
 	/// idempotency token.
 	public class func payZeroValueInvoiceWithId(
-		invoice: Invoice, amountMsats: UInt64, paymentId: [UInt8], retryStrategy: Retry, channelmanager: ChannelManager
+		invoice: Bolt11Invoice, amountMsats: UInt64, paymentId: [UInt8], retryStrategy: Retry,
+		channelmanager: ChannelManager
 	) -> Result_NonePaymentErrorZ {
 		// native call variable prep
 
@@ -1419,7 +1498,7 @@ public class Bindings {
 
 		// native method call
 		let nativeCallResult =
-			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKInvoice>) in
+			withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt11Invoice>) in
 
 				withUnsafePointer(to: channelmanager.cType!) {
 					(channelmanagerPointer: UnsafePointer<LDKChannelManager>) in
@@ -1478,7 +1557,7 @@ public class Bindings {
 	/// invoices in its `sign_invoice` implementation ([`PhantomKeysManager`] satisfies this
 	/// requirement).
 	///
-	/// [`PhantomKeysManager`]: lightning::chain::keysinterface::PhantomKeysManager
+	/// [`PhantomKeysManager`]: lightning::sign::PhantomKeysManager
 	/// [`ChannelManager::get_phantom_route_hints`]: lightning::ln::channelmanager::ChannelManager::get_phantom_route_hints
 	/// [`ChannelManager::create_inbound_payment`]: lightning::ln::channelmanager::ChannelManager::create_inbound_payment
 	/// [`ChannelManager::create_inbound_payment_for_hash`]: lightning::ln::channelmanager::ChannelManager::create_inbound_payment_for_hash
@@ -1487,20 +1566,20 @@ public class Bindings {
 	///
 	/// This can be used in a `no_std` environment, where [`std::time::SystemTime`] is not
 	/// available and the current time is supplied by the caller.
-	///
-	/// Note that payment_hash (or a relevant inner pointer) may be NULL or all-0s to represent None
 	public class func createPhantomInvoice(
-		amtMsat: UInt64?, paymentHash: [UInt8], description: String, invoiceExpiryDeltaSecs: UInt32,
+		amtMsat: UInt64?, paymentHash: [UInt8]?, description: String, invoiceExpiryDeltaSecs: UInt32,
 		phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger,
 		network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64
-	) -> Result_InvoiceSignOrCreationErrorZ {
+	) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
 		// native call variable prep
 
 		let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 			.danglingClone()
 
-		let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
-			value: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+		let paymentHashOption = Option_PaymentHashZ(
+			some: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)"
+		)
+		.danglingClone()
 
 		let descriptionPrimitiveWrapper = Str(
 			value: description, instantiationContext: "Bindings.swift::\(#function):\(#line)"
@@ -1520,15 +1599,11 @@ public class Bindings {
 
 		// native method call
 		let nativeCallResult = create_phantom_invoice(
-			amtMsatOption.cType!, paymentHashPrimitiveWrapper.cType!, descriptionPrimitiveWrapper.cType!,
-			invoiceExpiryDeltaSecs, phantomRouteHintsVector.cType!, entropySource.activate().cType!,
-			nodeSigner.activate().cType!, logger.activate().cType!, network.getCValue(),
-			minFinalCltvExpiryDeltaOption.cType!, durationSinceEpoch)
+			amtMsatOption.cType!, paymentHashOption.cType!, descriptionPrimitiveWrapper.cType!, invoiceExpiryDeltaSecs,
+			phantomRouteHintsVector.cType!, entropySource.activate().cType!, nodeSigner.activate().cType!,
+			logger.activate().cType!, network.getCValue(), minFinalCltvExpiryDeltaOption.cType!, durationSinceEpoch)
 
 		// cleanup
-
-		// for elided types, we need this
-		paymentHashPrimitiveWrapper.noOpRetain()
 
 		// for elided types, we need this
 		descriptionPrimitiveWrapper.noOpRetain()
@@ -1537,7 +1612,7 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_InvoiceSignOrCreationErrorZ(
+		let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
@@ -1553,9 +1628,11 @@ public class Bindings {
 	/// participating node
 	/// * It is fine to cache `phantom_route_hints` and reuse it across invoices, as long as the data is
 	/// updated when a channel becomes disabled or closes
-	/// * Note that if too many channels are included in [`PhantomRouteHints::channels`], the invoice
-	/// may be too long for QR code scanning. To fix this, `PhantomRouteHints::channels` may be pared
-	/// down
+	/// * Note that the route hints generated from `phantom_route_hints` will be limited to a maximum
+	/// of 3 hints to ensure that the invoice can be scanned in a QR code. These hints are selected
+	/// in the order that the nodes in `PhantomRouteHints` are specified, selecting one hint per node
+	/// until the maximum is hit. Callers may provide as many `PhantomRouteHints::channels` as
+	/// desired, but note that some nodes will be trimmed if more than 3 nodes are provided.
 	///
 	/// `description_hash` is a SHA-256 hash of the description text
 	///
@@ -1572,7 +1649,7 @@ public class Bindings {
 	/// invoices in its `sign_invoice` implementation ([`PhantomKeysManager`] satisfies this
 	/// requirement).
 	///
-	/// [`PhantomKeysManager`]: lightning::chain::keysinterface::PhantomKeysManager
+	/// [`PhantomKeysManager`]: lightning::sign::PhantomKeysManager
 	/// [`ChannelManager::get_phantom_route_hints`]: lightning::ln::channelmanager::ChannelManager::get_phantom_route_hints
 	/// [`ChannelManager::create_inbound_payment`]: lightning::ln::channelmanager::ChannelManager::create_inbound_payment
 	/// [`ChannelManager::create_inbound_payment_for_hash`]: lightning::ln::channelmanager::ChannelManager::create_inbound_payment_for_hash
@@ -1580,20 +1657,20 @@ public class Bindings {
 	///
 	/// This can be used in a `no_std` environment, where [`std::time::SystemTime`] is not
 	/// available and the current time is supplied by the caller.
-	///
-	/// Note that payment_hash (or a relevant inner pointer) may be NULL or all-0s to represent None
 	public class func createPhantomInvoiceWithDescriptionHash(
-		amtMsat: UInt64?, paymentHash: [UInt8], invoiceExpiryDeltaSecs: UInt32, descriptionHash: Sha256,
+		amtMsat: UInt64?, paymentHash: [UInt8]?, invoiceExpiryDeltaSecs: UInt32, descriptionHash: Sha256,
 		phantomRouteHints: [PhantomRouteHints], entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger,
 		network: Currency, minFinalCltvExpiryDelta: UInt16?, durationSinceEpoch: UInt64
-	) -> Result_InvoiceSignOrCreationErrorZ {
+	) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
 		// native call variable prep
 
 		let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 			.danglingClone()
 
-		let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
-			value: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+		let paymentHashOption = Option_PaymentHashZ(
+			some: paymentHash, instantiationContext: "Bindings.swift::\(#function):\(#line)"
+		)
+		.danglingClone()
 
 		let phantomRouteHintsVector = Vec_PhantomRouteHintsZ(
 			array: phantomRouteHints, instantiationContext: "Bindings.swift::\(#function):\(#line)"
@@ -1608,21 +1685,18 @@ public class Bindings {
 
 		// native method call
 		let nativeCallResult = create_phantom_invoice_with_description_hash(
-			amtMsatOption.cType!, paymentHashPrimitiveWrapper.cType!, invoiceExpiryDeltaSecs,
+			amtMsatOption.cType!, paymentHashOption.cType!, invoiceExpiryDeltaSecs,
 			descriptionHash.dynamicallyDangledClone().cType!, phantomRouteHintsVector.cType!,
 			entropySource.activate().cType!, nodeSigner.activate().cType!, logger.activate().cType!,
 			network.getCValue(), minFinalCltvExpiryDeltaOption.cType!, durationSinceEpoch)
 
 		// cleanup
 
-		// for elided types, we need this
-		paymentHashPrimitiveWrapper.noOpRetain()
-
 		// phantomRouteHintsVector.noOpRetain()
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_InvoiceSignOrCreationErrorZ(
+		let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
@@ -1647,7 +1721,7 @@ public class Bindings {
 	public class func createInvoiceFromChannelmanager(
 		channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?,
 		description: String, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?
-	) -> Result_InvoiceSignOrCreationErrorZ {
+	) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
 		// native call variable prep
 
 		let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)")
@@ -1681,7 +1755,7 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_InvoiceSignOrCreationErrorZ(
+		let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
@@ -1708,7 +1782,7 @@ public class Bindings {
 	public class func createInvoiceFromChannelmanagerWithDescriptionHash(
 		channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?,
 		descriptionHash: Sha256, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?
-	) -> Result_InvoiceSignOrCreationErrorZ {
+	) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
 		// native call variable prep
 
 		let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)")
@@ -1734,7 +1808,7 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_InvoiceSignOrCreationErrorZ(
+		let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
@@ -1749,7 +1823,7 @@ public class Bindings {
 		channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?,
 		descriptionHash: Sha256, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32,
 		minFinalCltvExpiryDelta: UInt16?
-	) -> Result_InvoiceSignOrCreationErrorZ {
+	) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
 		// native call variable prep
 
 		let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)")
@@ -1775,7 +1849,7 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_InvoiceSignOrCreationErrorZ(
+		let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
@@ -1790,7 +1864,7 @@ public class Bindings {
 		channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?,
 		description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32,
 		minFinalCltvExpiryDelta: UInt16?
-	) -> Result_InvoiceSignOrCreationErrorZ {
+	) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
 		// native call variable prep
 
 		let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)")
@@ -1824,7 +1898,7 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_InvoiceSignOrCreationErrorZ(
+		let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
@@ -1840,7 +1914,7 @@ public class Bindings {
 		channelmanager: ChannelManager, nodeSigner: NodeSigner, logger: Logger, network: Currency, amtMsat: UInt64?,
 		description: String, durationSinceEpoch: UInt64, invoiceExpiryDeltaSecs: UInt32, paymentHash: [UInt8],
 		minFinalCltvExpiryDelta: UInt16?
-	) -> Result_InvoiceSignOrCreationErrorZ {
+	) -> Result_Bolt11InvoiceSignOrCreationErrorZ {
 		// native call variable prep
 
 		let amtMsatOption = Option_u64Z(some: amtMsat, instantiationContext: "Bindings.swift::\(#function):\(#line)")
@@ -1880,11 +1954,40 @@ public class Bindings {
 
 
 		// return value (do some wrapping)
-		let returnValue = Result_InvoiceSignOrCreationErrorZ(
+		let returnValue = Result_Bolt11InvoiceSignOrCreationErrorZ(
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
 		try! returnValue.addAnchor(anchor: channelmanager)
+		return returnValue
+	}
+
+	/// Read a C2Tuple_BlockHashChannelManagerZ from a byte array, created by C2Tuple_BlockHashChannelManagerZ_write
+	@available(
+		*, deprecated, message: "This method passes the following non-cloneable, but freeable objects by value: `arg`."
+	)
+	public class func readBlockHashChannelManager(ser: [UInt8], arg: ChannelManagerReadArgs)
+		-> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ
+	{
+		// native call variable prep
+
+		let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+
+
+		// native method call
+		let nativeCallResult = C2Tuple_BlockHashChannelManagerZ_read(serPrimitiveWrapper.cType!, arg.dangle().cType!)
+
+		// cleanup
+
+		// for elided types, we need this
+		serPrimitiveWrapper.noOpRetain()
+
+
+		// return value (do some wrapping)
+		let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(
+			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+
+
 		return returnValue
 	}
 
@@ -1922,35 +2025,6 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Read a C2Tuple_BlockHashChannelManagerZ from a byte array, created by C2Tuple_BlockHashChannelManagerZ_write
-	@available(
-		*, deprecated, message: "This method passes the following non-cloneable, but freeable objects by value: `arg`."
-	)
-	public class func readBlockHashChannelManager(ser: [UInt8], arg: ChannelManagerReadArgs)
-		-> Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ
-	{
-		// native call variable prep
-
-		let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		// native method call
-		let nativeCallResult = C2Tuple_BlockHashChannelManagerZ_read(serPrimitiveWrapper.cType!, arg.dangle().cType!)
-
-		// cleanup
-
-		// for elided types, we need this
-		serPrimitiveWrapper.noOpRetain()
-
-
-		// return value (do some wrapping)
-		let returnValue = Result_C2Tuple_BlockHashChannelManagerZDecodeErrorZ(
-			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
-
-
-		return returnValue
-	}
-
 
 	internal typealias UInt8Tuple16 = (
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8
@@ -1979,14 +2053,6 @@ public class Bindings {
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8
 	)
 
-	internal typealias UInt8Tuple4 = (UInt8, UInt8, UInt8, UInt8)
-
-	internal typealias UInt8Tuple12 = (
-		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8
-	)
-
-	internal typealias UInt8Tuple3 = (UInt8, UInt8, UInt8)
-
 	internal typealias UInt8Tuple68 = (
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -1994,6 +2060,14 @@ public class Bindings {
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
 		UInt8, UInt8, UInt8, UInt8
 	)
+
+	internal typealias UInt8Tuple4 = (UInt8, UInt8, UInt8, UInt8)
+
+	internal typealias UInt8Tuple12 = (
+		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8
+	)
+
+	internal typealias UInt8Tuple3 = (UInt8, UInt8, UInt8)
 
 	internal typealias UInt8Tuple80 = (
 		UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
@@ -2094,6 +2168,31 @@ public class Bindings {
 		]
 	}
 
+	internal class func arrayToUInt8Tuple68(array: [UInt8]) -> UInt8Tuple68 {
+		return (
+			array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9],
+			array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18],
+			array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27],
+			array[28], array[29], array[30], array[31], array[32], array[33], array[34], array[35], array[36],
+			array[37], array[38], array[39], array[40], array[41], array[42], array[43], array[44], array[45],
+			array[46], array[47], array[48], array[49], array[50], array[51], array[52], array[53], array[54],
+			array[55], array[56], array[57], array[58], array[59], array[60], array[61], array[62], array[63],
+			array[64], array[65], array[66], array[67]
+		)
+	}
+
+	internal class func UInt8Tuple68ToArray(tuple: UInt8Tuple68) -> [UInt8] {
+		return [
+			tuple.0, tuple.1, tuple.2, tuple.3, tuple.4, tuple.5, tuple.6, tuple.7, tuple.8, tuple.9, tuple.10,
+			tuple.11, tuple.12, tuple.13, tuple.14, tuple.15, tuple.16, tuple.17, tuple.18, tuple.19, tuple.20,
+			tuple.21, tuple.22, tuple.23, tuple.24, tuple.25, tuple.26, tuple.27, tuple.28, tuple.29, tuple.30,
+			tuple.31, tuple.32, tuple.33, tuple.34, tuple.35, tuple.36, tuple.37, tuple.38, tuple.39, tuple.40,
+			tuple.41, tuple.42, tuple.43, tuple.44, tuple.45, tuple.46, tuple.47, tuple.48, tuple.49, tuple.50,
+			tuple.51, tuple.52, tuple.53, tuple.54, tuple.55, tuple.56, tuple.57, tuple.58, tuple.59, tuple.60,
+			tuple.61, tuple.62, tuple.63, tuple.64, tuple.65, tuple.66, tuple.67,
+		]
+	}
+
 	internal class func arrayToUInt8Tuple4(array: [UInt8]) -> UInt8Tuple4 {
 		return (array[0], array[1], array[2], array[3])
 	}
@@ -2122,31 +2221,6 @@ public class Bindings {
 
 	internal class func UInt8Tuple3ToArray(tuple: UInt8Tuple3) -> [UInt8] {
 		return [tuple.0, tuple.1, tuple.2]
-	}
-
-	internal class func arrayToUInt8Tuple68(array: [UInt8]) -> UInt8Tuple68 {
-		return (
-			array[0], array[1], array[2], array[3], array[4], array[5], array[6], array[7], array[8], array[9],
-			array[10], array[11], array[12], array[13], array[14], array[15], array[16], array[17], array[18],
-			array[19], array[20], array[21], array[22], array[23], array[24], array[25], array[26], array[27],
-			array[28], array[29], array[30], array[31], array[32], array[33], array[34], array[35], array[36],
-			array[37], array[38], array[39], array[40], array[41], array[42], array[43], array[44], array[45],
-			array[46], array[47], array[48], array[49], array[50], array[51], array[52], array[53], array[54],
-			array[55], array[56], array[57], array[58], array[59], array[60], array[61], array[62], array[63],
-			array[64], array[65], array[66], array[67]
-		)
-	}
-
-	internal class func UInt8Tuple68ToArray(tuple: UInt8Tuple68) -> [UInt8] {
-		return [
-			tuple.0, tuple.1, tuple.2, tuple.3, tuple.4, tuple.5, tuple.6, tuple.7, tuple.8, tuple.9, tuple.10,
-			tuple.11, tuple.12, tuple.13, tuple.14, tuple.15, tuple.16, tuple.17, tuple.18, tuple.19, tuple.20,
-			tuple.21, tuple.22, tuple.23, tuple.24, tuple.25, tuple.26, tuple.27, tuple.28, tuple.29, tuple.30,
-			tuple.31, tuple.32, tuple.33, tuple.34, tuple.35, tuple.36, tuple.37, tuple.38, tuple.39, tuple.40,
-			tuple.41, tuple.42, tuple.43, tuple.44, tuple.45, tuple.46, tuple.47, tuple.48, tuple.49, tuple.50,
-			tuple.51, tuple.52, tuple.53, tuple.54, tuple.55, tuple.56, tuple.57, tuple.58, tuple.59, tuple.60,
-			tuple.61, tuple.62, tuple.63, tuple.64, tuple.65, tuple.66, tuple.67,
-		]
 	}
 
 	internal class func arrayToUInt8Tuple80(array: [UInt8]) -> UInt8Tuple80 {
@@ -2258,12 +2332,6 @@ func == (tupleA: Bindings.UInt8Tuple64, tupleB: Bindings.UInt8Tuple64) -> Bool {
 		&& tupleA.60 == tupleB.60 && tupleA.61 == tupleB.61 && tupleA.62 == tupleB.62 && tupleA.63 == tupleB.63
 }
 
-func == (tupleA: Bindings.UInt8Tuple12, tupleB: Bindings.UInt8Tuple12) -> Bool {
-	return tupleA.0 == tupleB.0 && tupleA.1 == tupleB.1 && tupleA.2 == tupleB.2 && tupleA.3 == tupleB.3
-		&& tupleA.4 == tupleB.4 && tupleA.5 == tupleB.5 && tupleA.6 == tupleB.6 && tupleA.7 == tupleB.7
-		&& tupleA.8 == tupleB.8 && tupleA.9 == tupleB.9 && tupleA.10 == tupleB.10 && tupleA.11 == tupleB.11
-}
-
 func == (tupleA: Bindings.UInt8Tuple68, tupleB: Bindings.UInt8Tuple68) -> Bool {
 	return tupleA.0 == tupleB.0 && tupleA.1 == tupleB.1 && tupleA.2 == tupleB.2 && tupleA.3 == tupleB.3
 		&& tupleA.4 == tupleB.4 && tupleA.5 == tupleB.5 && tupleA.6 == tupleB.6 && tupleA.7 == tupleB.7
@@ -2282,6 +2350,12 @@ func == (tupleA: Bindings.UInt8Tuple68, tupleB: Bindings.UInt8Tuple68) -> Bool {
 		&& tupleA.56 == tupleB.56 && tupleA.57 == tupleB.57 && tupleA.58 == tupleB.58 && tupleA.59 == tupleB.59
 		&& tupleA.60 == tupleB.60 && tupleA.61 == tupleB.61 && tupleA.62 == tupleB.62 && tupleA.63 == tupleB.63
 		&& tupleA.64 == tupleB.64 && tupleA.65 == tupleB.65 && tupleA.66 == tupleB.66 && tupleA.67 == tupleB.67
+}
+
+func == (tupleA: Bindings.UInt8Tuple12, tupleB: Bindings.UInt8Tuple12) -> Bool {
+	return tupleA.0 == tupleB.0 && tupleA.1 == tupleB.1 && tupleA.2 == tupleB.2 && tupleA.3 == tupleB.3
+		&& tupleA.4 == tupleB.4 && tupleA.5 == tupleB.5 && tupleA.6 == tupleB.6 && tupleA.7 == tupleB.7
+		&& tupleA.8 == tupleB.8 && tupleA.9 == tupleB.9 && tupleA.10 == tupleB.10 && tupleA.11 == tupleB.11
 }
 
 func == (tupleA: Bindings.UInt8Tuple80, tupleB: Bindings.UInt8Tuple80) -> Bool {

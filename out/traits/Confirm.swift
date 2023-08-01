@@ -219,7 +219,7 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getRelevantTxidsLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_C2Tuple_TxidBlockHashZZ {
+			func getRelevantTxidsLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_C2Tuple_TxidCOption_BlockHashZZZ {
 				let instance: Confirm = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Confirm::getRelevantTxidsLambda")
 
@@ -233,7 +233,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Vec_C2Tuple_TxidBlockHashZZ(
+				let returnValue = Vec_C2Tuple_TxidCOption_BlockHashZZZ(
 					array: swiftCallbackResult, instantiationContext: "Confirm.swift::init()::\(#function):\(#line)"
 				)
 				.dangleRecursively().cType!
@@ -343,7 +343,7 @@ extension Bindings {
 		///
 		/// [`transactions_confirmed`]: Self::transactions_confirmed
 		/// [`transaction_unconfirmed`]: Self::transaction_unconfirmed
-		open func getRelevantTxids() -> [([UInt8], [UInt8])] {
+		open func getRelevantTxids() -> [([UInt8], [UInt8]?)] {
 
 			Bindings.print(
 				"Error: Confirm::getRelevantTxids MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -514,7 +514,7 @@ extension Bindings {
 		///
 		/// [`transactions_confirmed`]: Self::transactions_confirmed
 		/// [`transaction_unconfirmed`]: Self::transaction_unconfirmed
-		public override func getRelevantTxids() -> [([UInt8], [UInt8])] {
+		public override func getRelevantTxids() -> [([UInt8], [UInt8]?)] {
 			// native call variable prep
 
 
@@ -525,7 +525,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_TxidBlockHashZZ(
+			let returnValue = Vec_C2Tuple_TxidCOption_BlockHashZZZ(
 				cType: nativeCallResult, instantiationContext: "Confirm.swift::\(#function):\(#line)"
 			)
 			.getValue()

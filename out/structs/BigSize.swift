@@ -160,6 +160,128 @@ extension Bindings {
 
 		}
 
+		/// Creates a copy of the BigSize
+		internal func clone() -> BigSize {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKBigSize>) in
+					BigSize_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = BigSize(
+				cType: nativeCallResult, instantiationContext: "BigSize.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Generates a non-cryptographic 64-bit hash of the BigSize.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKBigSize>) in
+					BigSize_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Checks if two BigSizes contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		/// Two objects with NULL inner values will be considered "equal" here.
+		public class func eq(a: BigSize, b: BigSize) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKBigSize>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKBigSize>) in
+						BigSize_eq(aPointer, bPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Serialize the BigSize object into a byte array which can be read by BigSize_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKBigSize>) in
+					BigSize_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "BigSize.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a BigSize from a byte array, created by BigSize_write
+		public class func read(ser: [UInt8]) -> Result_BigSizeDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "BigSize.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = BigSize_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_BigSizeDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "BigSize.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require
@@ -171,6 +293,19 @@ extension Bindings {
 			return returnValue
 		}
 
+
+		internal func danglingClone() -> BigSize {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> BigSize {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.is_owned
+			return dangledClone
+		}
 
 		internal func setCFreeability(freeable: Bool) -> BigSize {
 			self.cType!.is_owned = freeable

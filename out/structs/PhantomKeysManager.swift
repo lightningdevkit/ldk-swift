@@ -238,7 +238,7 @@ extension Bindings {
 		/// See [`KeysManager::spend_spendable_outputs`] for documentation on this method.
 		public func spendSpendableOutputs(
 			descriptors: [SpendableOutputDescriptor], outputs: [TxOut], changeDestinationScript: [UInt8],
-			feerateSatPer1000Weight: UInt32
+			feerateSatPer1000Weight: UInt32, locktime: UInt32?
 		) -> Result_TransactionNoneZ {
 			// native call variable prep
 
@@ -257,13 +257,18 @@ extension Bindings {
 			)
 			.dangle()
 
+			let locktimeOption = Option_PackedLockTimeZ(
+				some: locktime, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPhantomKeysManager>) in
 					PhantomKeysManager_spend_spendable_outputs(
 						thisArgPointer, descriptorsVector.cType!, outputsVector.cType!,
-						changeDestinationScriptVector.cType!, feerateSatPer1000Weight)
+						changeDestinationScriptVector.cType!, feerateSatPer1000Weight, locktimeOption.cType!)
 				}
 
 

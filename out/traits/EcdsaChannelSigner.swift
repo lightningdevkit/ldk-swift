@@ -236,6 +236,37 @@ extension Bindings {
 				return returnValue
 			}
 
+			func signHolderHtlcTransactionLambda(
+				this_arg: UnsafeRawPointer?, htlc_tx: LDKTransaction, input: UInt,
+				htlc_descriptor: UnsafePointer<LDKHTLCDescriptor>
+			) -> LDKCResult_SignatureNoneZ {
+				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderHtlcTransactionLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.signHolderHtlcTransaction(
+					htlcTx: Transaction(
+						cType: htlc_tx, instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(), input: input,
+					htlcDescriptor: HTLCDescriptor(
+						cType: htlc_descriptor.pointee,
+						instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func signCounterpartyHtlcTransactionLambda(
 				this_arg: UnsafeRawPointer?, htlc_tx: LDKTransaction, input: UInt, amount: UInt64,
 				per_commitment_point: LDKPublicKey, htlc: UnsafePointer<LDKHTLCOutputInCommitment>
@@ -377,6 +408,7 @@ extension Bindings {
 				sign_holder_commitment_and_htlcs: signHolderCommitmentAndHtlcsLambda,
 				sign_justice_revoked_output: signJusticeRevokedOutputLambda,
 				sign_justice_revoked_htlc: signJusticeRevokedHtlcLambda,
+				sign_holder_htlc_transaction: signHolderHtlcTransactionLambda,
 				sign_counterparty_htlc_transaction: signCounterpartyHtlcTransactionLambda,
 				sign_closing_transaction: signClosingTransactionLambda,
 				sign_holder_anchor_input: signHolderAnchorInputLambda,
@@ -495,6 +527,23 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signJusticeRevokedHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Computes the signature for a commitment transaction's HTLC output used as an input within
+		/// `htlc_tx`, which spends the commitment transaction at index `input`. The signature returned
+		/// must be be computed using [`EcdsaSighashType::All`]. Note that this should only be used to
+		/// sign HTLC transactions from channels supporting anchor outputs after all additional
+		/// inputs/outputs have been added to the transaction.
+		///
+		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
+		open func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
+			-> Result_SignatureNoneZ
+		{
+
+			Bindings.print(
+				"Error: EcdsaChannelSigner::signHolderHtlcTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -831,6 +880,47 @@ extension Bindings {
 
 			// for elided types, we need this
 			justiceTxPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_SignatureNoneZ(
+				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Computes the signature for a commitment transaction's HTLC output used as an input within
+		/// `htlc_tx`, which spends the commitment transaction at index `input`. The signature returned
+		/// must be be computed using [`EcdsaSighashType::All`]. Note that this should only be used to
+		/// sign HTLC transactions from channels supporting anchor outputs after all additional
+		/// inputs/outputs have been added to the transaction.
+		///
+		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
+		public override func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
+			-> Result_SignatureNoneZ
+		{
+			// native call variable prep
+
+			let htlcTxPrimitiveWrapper = Transaction(
+				value: htlcTx, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: htlcDescriptor.cType!) {
+					(htlcDescriptorPointer: UnsafePointer<LDKHTLCDescriptor>) in
+					self.cType!
+						.sign_holder_htlc_transaction(
+							self.cType!.this_arg, htlcTxPrimitiveWrapper.cType!, input, htlcDescriptorPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			htlcTxPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)

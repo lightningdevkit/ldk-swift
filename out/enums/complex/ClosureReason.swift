@@ -10,7 +10,7 @@ public typealias ClosureReason = Bindings.ClosureReason
 
 extension Bindings {
 
-	/// The reason the channel was closed. See individual variants more details.
+	/// The reason the channel was closed. See individual variants for more details.
 	public class ClosureReason: NativeTypeWrapper {
 
 
@@ -106,6 +106,10 @@ extension Bindings {
 			/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 			case OutdatedChannelManager
 
+			/// The counterparty requested a cooperative close of a channel that had not been funded yet.
+			/// The channel has been immediately closed.
+			case CounterpartyCoopClosedUnfundedChannel
+
 		}
 
 		public func getValueType() -> ClosureReasonType {
@@ -133,6 +137,9 @@ extension Bindings {
 
 				case LDKClosureReason_OutdatedChannelManager:
 					return .OutdatedChannelManager
+
+				case LDKClosureReason_CounterpartyCoopClosedUnfundedChannel:
+					return .CounterpartyCoopClosedUnfundedChannel
 
 				default:
 					Bindings.print("Error: Invalid value type for ClosureReason! Aborting.", severity: .ERROR)
@@ -331,6 +338,25 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = ClosureReason_outdated_channel_manager()
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ClosureReason(
+				cType: nativeCallResult, instantiationContext: "ClosureReason.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new CounterpartyCoopClosedUnfundedChannel-variant ClosureReason
+		public class func initWithCounterpartyCoopClosedUnfundedChannel() -> ClosureReason {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ClosureReason_counterparty_coop_closed_unfunded_channel()
 
 			// cleanup
 

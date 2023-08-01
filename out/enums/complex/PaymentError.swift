@@ -61,7 +61,7 @@ extension Bindings {
 
 		public enum PaymentErrorType {
 
-			/// An error resulting from the provided [`Invoice`] or payment hash.
+			/// An error resulting from the provided [`Bolt11Invoice`] or payment hash.
 			case Invoice
 
 			/// An error occurring when sending a payment.
@@ -165,6 +165,33 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = PaymentError(
 				cType: nativeCallResult, instantiationContext: "PaymentError.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Checks if two PaymentErrors contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		public class func eq(a: PaymentError, b: PaymentError) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKPaymentError>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKPaymentError>) in
+						PaymentError_eq(aPointer, bPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
 
 			return returnValue

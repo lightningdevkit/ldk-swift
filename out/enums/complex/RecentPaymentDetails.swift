@@ -164,20 +164,19 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new Fulfilled-variant RecentPaymentDetails
-		public class func initWithFulfilled(paymentHash: [UInt8]) -> RecentPaymentDetails {
+		public class func initWithFulfilled(paymentHash: [UInt8]?) -> RecentPaymentDetails {
 			// native call variable prep
 
-			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
-				value: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)")
+			let paymentHashOption = Option_PaymentHashZ(
+				some: paymentHash, instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 
 			// native method call
-			let nativeCallResult = RecentPaymentDetails_fulfilled(paymentHashPrimitiveWrapper.cType!)
+			let nativeCallResult = RecentPaymentDetails_fulfilled(paymentHashOption.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			paymentHashPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -412,11 +411,9 @@ extension Bindings {
 
 			/// Hash of the payment that was claimed. `None` for serializations of [`ChannelManager`]
 			/// made before LDK version 0.0.104.
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getPaymentHash() -> [UInt8] {
+			public func getPaymentHash() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_PaymentHashZ(
 					cType: self.cType!.payment_hash,
 					instantiationContext: "RecentPaymentDetails.swift::\(#function):\(#line)", anchor: self
 				)

@@ -220,7 +220,7 @@ extension Bindings {
 		}
 
 		/// Whether to use anchors for this channel
-		public func optAnchors() -> Bool {
+		public func channelTypeFeatures() -> ChannelTypeFeatures {
 			// native call variable prep
 
 
@@ -228,7 +228,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) {
 					(thisArgPointer: UnsafePointer<LDKDirectedChannelTransactionParameters>) in
-					DirectedChannelTransactionParameters_opt_anchors(thisArgPointer)
+					DirectedChannelTransactionParameters_channel_type_features(thisArgPointer)
 				}
 
 
@@ -236,7 +236,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = ChannelTypeFeatures(
+				cType: nativeCallResult,
+				instantiationContext: "DirectedChannelTransactionParameters.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
 
 
 			return returnValue

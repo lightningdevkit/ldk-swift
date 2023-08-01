@@ -474,11 +474,73 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// If this is set to false, when receiving a keysend payment we'll fail it if it has multiple
+		/// parts. If this is set to true, we'll accept the payment.
+		///
+		/// Setting this to true will break backwards compatibility upon downgrading to an LDK
+		/// version < 0.0.116 while receiving an MPP keysend. If we have already received an MPP
+		/// keysend, downgrading will cause us to fail to deserialize [`ChannelManager`].
+		///
+		/// Default value: false.
+		///
+		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
+		public func getAcceptMppKeysend() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUserConfig>) in
+					UserConfig_get_accept_mpp_keysend(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// If this is set to false, when receiving a keysend payment we'll fail it if it has multiple
+		/// parts. If this is set to true, we'll accept the payment.
+		///
+		/// Setting this to true will break backwards compatibility upon downgrading to an LDK
+		/// version < 0.0.116 while receiving an MPP keysend. If we have already received an MPP
+		/// keysend, downgrading will cause us to fail to deserialize [`ChannelManager`].
+		///
+		/// Default value: false.
+		///
+		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
+		public func setAcceptMppKeysend(val: Bool) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUserConfig>) in
+					UserConfig_set_accept_mpp_keysend(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new UserConfig given each field
 		public init(
 			channelHandshakeConfigArg: ChannelHandshakeConfig, channelHandshakeLimitsArg: ChannelHandshakeLimits,
 			channelConfigArg: ChannelConfig, acceptForwardsToPrivChannelsArg: Bool, acceptInboundChannelsArg: Bool,
-			manuallyAcceptInboundChannelsArg: Bool, acceptInterceptHtlcsArg: Bool
+			manuallyAcceptInboundChannelsArg: Bool, acceptInterceptHtlcsArg: Bool, acceptMppKeysendArg: Bool
 		) {
 			// native call variable prep
 
@@ -488,7 +550,8 @@ extension Bindings {
 				channelHandshakeConfigArg.dynamicallyDangledClone().cType!,
 				channelHandshakeLimitsArg.dynamicallyDangledClone().cType!,
 				channelConfigArg.dynamicallyDangledClone().cType!, acceptForwardsToPrivChannelsArg,
-				acceptInboundChannelsArg, manuallyAcceptInboundChannelsArg, acceptInterceptHtlcsArg)
+				acceptInboundChannelsArg, manuallyAcceptInboundChannelsArg, acceptInterceptHtlcsArg, acceptMppKeysendArg
+			)
 
 			// cleanup
 

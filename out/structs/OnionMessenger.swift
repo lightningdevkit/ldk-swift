@@ -13,9 +13,9 @@
 /// # use bitcoin::hashes::_export::_core::time::Duration;
 /// # use bitcoin::secp256k1::{PublicKey, Secp256k1, SecretKey};
 /// # use lightning::blinded_path::BlindedPath;
-/// # use lightning::chain::keysinterface::KeysManager;
+/// # use lightning::sign::KeysManager;
 /// # use lightning::ln::peer_handler::IgnoringMessageHandler;
-/// # use lightning::onion_message::messenger::{Destination, OnionMessenger};
+/// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessenger, OnionMessagePath};
 /// # use lightning::onion_message::packet::{CustomOnionMessageContents, OnionMessageContents};
 /// # use lightning::util::logger::{Logger, Record};
 /// # use lightning::util::ser::{Writeable, Writer};
@@ -24,6 +24,12 @@
 /// # struct FakeLogger;
 /// # impl Logger for FakeLogger {
 /// #     fn log(&self, record: &Record) { unimplemented!() }
+/// # }
+/// # struct FakeMessageRouter {}
+/// # impl MessageRouter for FakeMessageRouter {
+/// #     fn find_path(&self, sender: PublicKey, peers: Vec<PublicKey>, destination: Destination) -> Result<OnionMessagePath, ()> {
+/// #         unimplemented!()
+/// #     }
 /// # }
 /// # let seed = [42u8; 32];
 /// # let time = Duration::from_secs(123456);
@@ -34,10 +40,15 @@
 /// # let hop_node_id1 = PublicKey::from_secret_key(&secp_ctx, &node_secret);
 /// # let (hop_node_id2, hop_node_id3, hop_node_id4) = (hop_node_id1, hop_node_id1, hop_node_id1);
 /// # let destination_node_id = hop_node_id1;
-/// # let your_custom_message_handler = IgnoringMessageHandler {};
+/// # let message_router = Arc::new(FakeMessageRouter {});
+/// # let custom_message_handler = IgnoringMessageHandler {};
+/// # let offers_message_handler = IgnoringMessageHandler {};
 /// // Create the onion messenger. This must use the same `keys_manager` as is passed to your
 /// // ChannelManager.
-/// let onion_messenger = OnionMessenger::new(&keys_manager, &keys_manager, logger, &your_custom_message_handler);
+/// let onion_messenger = OnionMessenger::new(
+/// &keys_manager, &keys_manager, logger, message_router, &offers_message_handler,
+/// &custom_message_handler
+/// );
 ///
 /// # #[derive(Clone)]
 /// # struct YourCustomMessage {}
@@ -54,11 +65,14 @@
 /// \t}
 /// }
 /// // Send a custom onion message to a node id.
-/// let intermediate_hops = [hop_node_id1, hop_node_id2];
+/// let path = OnionMessagePath {
+/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
+/// \tdestination: Destination::Node(destination_node_id),
+/// };
 /// let reply_path = None;
 /// # let your_custom_message = YourCustomMessage {};
 /// let message = OnionMessageContents::Custom(your_custom_message);
-/// onion_messenger.send_onion_message(&intermediate_hops, Destination::Node(destination_node_id), message, reply_path);
+/// onion_messenger.send_onion_message(path, message, reply_path);
 ///
 /// // Create a blinded path to yourself, for someone to send an onion message to.
 /// # let your_node_id = hop_node_id1;
@@ -66,11 +80,14 @@
 /// let blinded_path = BlindedPath::new_for_message(&hops, &keys_manager, &secp_ctx).unwrap();
 ///
 /// // Send a custom onion message to a blinded path.
-/// # let intermediate_hops = [hop_node_id1, hop_node_id2];
+/// let path = OnionMessagePath {
+/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
+/// \tdestination: Destination::BlindedPath(blinded_path),
+/// };
 /// let reply_path = None;
 /// # let your_custom_message = YourCustomMessage {};
 /// let message = OnionMessageContents::Custom(your_custom_message);
-/// onion_messenger.send_onion_message(&intermediate_hops, Destination::BlindedPath(blinded_path), message, reply_path);
+/// onion_messenger.send_onion_message(path, message, reply_path);
 /// ```
 ///
 /// [offers]: <https://github.com/lightning/bolts/pull/798>
@@ -91,9 +108,9 @@ extension Bindings {
 	/// # use bitcoin::hashes::_export::_core::time::Duration;
 	/// # use bitcoin::secp256k1::{PublicKey, Secp256k1, SecretKey};
 	/// # use lightning::blinded_path::BlindedPath;
-	/// # use lightning::chain::keysinterface::KeysManager;
+	/// # use lightning::sign::KeysManager;
 	/// # use lightning::ln::peer_handler::IgnoringMessageHandler;
-	/// # use lightning::onion_message::messenger::{Destination, OnionMessenger};
+	/// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessenger, OnionMessagePath};
 	/// # use lightning::onion_message::packet::{CustomOnionMessageContents, OnionMessageContents};
 	/// # use lightning::util::logger::{Logger, Record};
 	/// # use lightning::util::ser::{Writeable, Writer};
@@ -102,6 +119,12 @@ extension Bindings {
 	/// # struct FakeLogger;
 	/// # impl Logger for FakeLogger {
 	/// #     fn log(&self, record: &Record) { unimplemented!() }
+	/// # }
+	/// # struct FakeMessageRouter {}
+	/// # impl MessageRouter for FakeMessageRouter {
+	/// #     fn find_path(&self, sender: PublicKey, peers: Vec<PublicKey>, destination: Destination) -> Result<OnionMessagePath, ()> {
+	/// #         unimplemented!()
+	/// #     }
 	/// # }
 	/// # let seed = [42u8; 32];
 	/// # let time = Duration::from_secs(123456);
@@ -112,10 +135,15 @@ extension Bindings {
 	/// # let hop_node_id1 = PublicKey::from_secret_key(&secp_ctx, &node_secret);
 	/// # let (hop_node_id2, hop_node_id3, hop_node_id4) = (hop_node_id1, hop_node_id1, hop_node_id1);
 	/// # let destination_node_id = hop_node_id1;
-	/// # let your_custom_message_handler = IgnoringMessageHandler {};
+	/// # let message_router = Arc::new(FakeMessageRouter {});
+	/// # let custom_message_handler = IgnoringMessageHandler {};
+	/// # let offers_message_handler = IgnoringMessageHandler {};
 	/// // Create the onion messenger. This must use the same `keys_manager` as is passed to your
 	/// // ChannelManager.
-	/// let onion_messenger = OnionMessenger::new(&keys_manager, &keys_manager, logger, &your_custom_message_handler);
+	/// let onion_messenger = OnionMessenger::new(
+	/// &keys_manager, &keys_manager, logger, message_router, &offers_message_handler,
+	/// &custom_message_handler
+	/// );
 	///
 	/// # #[derive(Clone)]
 	/// # struct YourCustomMessage {}
@@ -132,11 +160,14 @@ extension Bindings {
 	/// \t}
 	/// }
 	/// // Send a custom onion message to a node id.
-	/// let intermediate_hops = [hop_node_id1, hop_node_id2];
+	/// let path = OnionMessagePath {
+	/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
+	/// \tdestination: Destination::Node(destination_node_id),
+	/// };
 	/// let reply_path = None;
 	/// # let your_custom_message = YourCustomMessage {};
 	/// let message = OnionMessageContents::Custom(your_custom_message);
-	/// onion_messenger.send_onion_message(&intermediate_hops, Destination::Node(destination_node_id), message, reply_path);
+	/// onion_messenger.send_onion_message(path, message, reply_path);
 	///
 	/// // Create a blinded path to yourself, for someone to send an onion message to.
 	/// # let your_node_id = hop_node_id1;
@@ -144,11 +175,14 @@ extension Bindings {
 	/// let blinded_path = BlindedPath::new_for_message(&hops, &keys_manager, &secp_ctx).unwrap();
 	///
 	/// // Send a custom onion message to a blinded path.
-	/// # let intermediate_hops = [hop_node_id1, hop_node_id2];
+	/// let path = OnionMessagePath {
+	/// \tintermediate_nodes: vec![hop_node_id1, hop_node_id2],
+	/// \tdestination: Destination::BlindedPath(blinded_path),
+	/// };
 	/// let reply_path = None;
 	/// # let your_custom_message = YourCustomMessage {};
 	/// let message = OnionMessageContents::Custom(your_custom_message);
-	/// onion_messenger.send_onion_message(&intermediate_hops, Destination::BlindedPath(blinded_path), message, reply_path);
+	/// onion_messenger.send_onion_message(path, message, reply_path);
 	/// ```
 	///
 	/// [offers]: <https://github.com/lightning/bolts/pull/798>
@@ -224,8 +258,8 @@ extension Bindings {
 		/// Constructs a new `OnionMessenger` to send, forward, and delegate received onion messages to
 		/// their respective handlers.
 		public init(
-			entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger,
-			customHandler: CustomOnionMessageHandler
+			entropySource: EntropySource, nodeSigner: NodeSigner, logger: Logger, messageRouter: MessageRouter,
+			offersHandler: OffersMessageHandler, customHandler: CustomOnionMessageHandler
 		) {
 			// native call variable prep
 
@@ -233,7 +267,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = OnionMessenger_new(
 				entropySource.activate().cType!, nodeSigner.activate().cType!, logger.activate().cType!,
-				customHandler.activate().cType!)
+				messageRouter.activate().cType!, offersHandler.activate().cType!, customHandler.activate().cType!)
 
 			// cleanup
 
@@ -258,34 +292,27 @@ extension Bindings {
 
 		}
 
-		/// Send an onion message with contents `message` to `destination`, routing it through `intermediate_nodes`.
+		/// Send an onion message with contents `message` to the destination of `path`.
+		///
 		/// See [`OnionMessenger`] for example usage.
 		///
 		/// Note that reply_path (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func sendOnionMessage(
-			intermediateNodes: [[UInt8]], destination: Destination, message: OnionMessageContents,
-			replyPath: BlindedPath
-		) -> Result_NoneSendErrorZ {
+		public func sendOnionMessage(path: OnionMessagePath, message: OnionMessageContents, replyPath: BlindedPath)
+			-> Result_NoneSendErrorZ
+		{
 			// native call variable prep
-
-			let intermediateNodesVector = Vec_PublicKeyZ(
-				array: intermediateNodes, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)"
-			)
-			.dangle()
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOnionMessenger>) in
 					OnionMessenger_send_onion_message(
-						thisArgPointer, intermediateNodesVector.cType!, destination.danglingClone().cType!,
-						message.danglingClone().cType!, replyPath.dynamicallyDangledClone().cType!)
+						thisArgPointer, path.dynamicallyDangledClone().cType!, message.danglingClone().cType!,
+						replyPath.dynamicallyDangledClone().cType!)
 				}
 
 
 			// cleanup
-
-			// intermediateNodesVector.noOpRetain()
 
 
 			// return value (do some wrapping)

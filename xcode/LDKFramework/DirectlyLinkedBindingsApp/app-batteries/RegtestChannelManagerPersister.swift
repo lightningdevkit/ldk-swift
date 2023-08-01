@@ -30,7 +30,7 @@ class RegtestChannelManagerPersister : Persister, ExtendedChannelManagerPersiste
             let fastFeerate = 7500
             let destinationScriptHardcoded: [UInt8] = [118,169,20,25,18,157,83,230,49,155,175,25,219,160,89,190,173,22,109,249,10,184,245,136,172]
             
-            guard let result = self.keysManager?.spendSpendableOutputs(descriptors: outputs, outputs: [], changeDestinationScript: destinationScriptHardcoded, feerateSatPer1000Weight: UInt32(fastFeerate)) else {
+            guard let result = self.keysManager?.spendSpendableOutputs(descriptors: outputs, outputs: [], changeDestinationScript: destinationScriptHardcoded, feerateSatPer1000Weight: UInt32(fastFeerate), locktime: nil) else {
                 return
             }
             

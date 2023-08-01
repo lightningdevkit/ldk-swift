@@ -106,6 +106,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Gets the genesis hash for this network graph.
+		public func getGenesisHash() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
+					NetworkGraph_get_genesis_hash(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ThirtyTwoBytes(
+				cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Serialize the NetworkGraph object into a byte array which can be read by NetworkGraph_read
 		public func write() -> [UInt8] {
 			// native call variable prep
@@ -328,8 +353,8 @@ extension Bindings {
 
 		/// Store or update channel info from a channel announcement.
 		///
-		/// You probably don't want to call this directly, instead relying on a P2PGossipSync's
-		/// RoutingMessageHandler implementation to call it indirectly. This may be useful to accept
+		/// You probably don't want to call this directly, instead relying on a [`P2PGossipSync`]'s
+		/// [`RoutingMessageHandler`] implementation to call it indirectly. This may be useful to accept
 		/// routing messages from a source using a protocol other than the lightning P2P protocol.
 		///
 		/// If a [`UtxoLookup`] object is provided via `utxo_lookup`, it will be called to verify
@@ -352,6 +377,41 @@ extension Bindings {
 					withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKChannelAnnouncement>) in
 						NetworkGraph_update_channel_from_announcement(
 							thisArgPointer, msgPointer, utxoLookupOption.cType!)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneLightningErrorZ(
+				cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Store or update channel info from a channel announcement.
+		///
+		/// You probably don't want to call this directly, instead relying on a [`P2PGossipSync`]'s
+		/// [`RoutingMessageHandler`] implementation to call it indirectly. This may be useful to accept
+		/// routing messages from a source using a protocol other than the lightning P2P protocol.
+		///
+		/// This will skip verification of if the channel is actually on-chain.
+		public func updateChannelFromAnnouncementNoLookup(msg: ChannelAnnouncement) -> Result_NoneLightningErrorZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
+
+					withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKChannelAnnouncement>) in
+						NetworkGraph_update_channel_from_announcement_no_lookup(thisArgPointer, msgPointer)
 					}
 
 				}

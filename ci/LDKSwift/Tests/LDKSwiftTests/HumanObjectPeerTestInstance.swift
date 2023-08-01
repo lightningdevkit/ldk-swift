@@ -173,9 +173,11 @@ public class HumanObjectPeerTestInstance {
                 super.init()
             }
 
-            override func broadcastTransaction(tx: [UInt8]) {
-                Task {
-                    await self.master.pendingBroadcastTracker.addTransaction(tx: tx)
+            override func broadcastTransactions(txs: [[UInt8]]) {
+                for tx in txs {
+                    Task {
+                        await self.master.pendingBroadcastTracker.addTransaction(tx: tx)
+                    }
                 }
             }
         }
@@ -314,11 +316,11 @@ public class HumanObjectPeerTestInstance {
                     scorerGraph = NetworkGraph(network: .Regtest, logger: self.logger)
                 }
 
-                let scoringParams = ProbabilisticScoringParameters.initWithDefault()
-                var probabalisticScorer = ProbabilisticScorer(params: scoringParams, networkGraph: scorerGraph, logger: self.logger)
+                let decayParams = ProbabilisticScoringDecayParameters.initWithDefault()
+                var probabalisticScorer = ProbabilisticScorer(decayParams: decayParams, networkGraph: scorerGraph, logger: self.logger)
                 if master.configuration.reserializedProbabilisticScorer {
                     let serializedScorer = probabalisticScorer.write()
-                    let probabalisticScorerResult = ProbabilisticScorer.read(ser: serializedScorer, argA: scoringParams, argB: scorerGraph, argC: self.logger)
+                    let probabalisticScorerResult = ProbabilisticScorer.read(ser: serializedScorer, argA: decayParams, argB: scorerGraph, argC: self.logger)
                     probabalisticScorer = probabalisticScorerResult.getValue()!
                 }
                 let score = probabalisticScorer.asScore()
@@ -672,7 +674,7 @@ public class HumanObjectPeerTestInstance {
             let invoice = invoiceResult.getValue()!
             print("Invoice: \(invoice.toStr())")
 
-            let recreatedInvoice = Invoice.fromStr(s: invoice.toStr())
+            let recreatedInvoice = Bolt11Invoice.fromStr(s: invoice.toStr())
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let channelManagerConstructor = peer1.constructor!
@@ -705,7 +707,7 @@ public class HumanObjectPeerTestInstance {
                     return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
                 }
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
-                let preimage = invoicePayment.getPaymentPreimage()
+                let preimage = invoicePayment.getPaymentPreimage()!
                 let secret = invoicePayment.getPaymentSecret()
                 if self.configuration.shouldRecipientRejectPayment {
                     print("about to fail payment because shouldRecipientRejectPayment flag is set")
@@ -790,7 +792,7 @@ public class HumanObjectPeerTestInstance {
             print("Implicit amount invoice: \(invoice.toStr())")
 
 			let invoiceString = invoice.toStr()
-            let recreatedInvoice = Invoice.fromStr(s: invoiceString)
+            let recreatedInvoice = Bolt11Invoice.fromStr(s: invoiceString)
             XCTAssertTrue(recreatedInvoice.isOk())
 
             let invoicePaymentResult = Bindings.payZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A, retryStrategy: Retry.initWithAttempts(a: 3), channelmanager: peer2.channelManager)
@@ -828,7 +830,7 @@ public class HumanObjectPeerTestInstance {
                     return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
                 }
                 let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
-                let preimage = invoicePayment.getPaymentPreimage()
+                let preimage = invoicePayment.getPaymentPreimage()!
                 let secret = invoicePayment.getPaymentSecret()
                 peer1.channelManager.claimFunds(paymentPreimage: preimage)
                 print("claimed payment with secret \(secret) using preimage \(preimage)")

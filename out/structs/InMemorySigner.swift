@@ -686,17 +686,18 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Returns whether anchors should be used.
+		/// Returns the channel type features of the channel parameters. Should be helpful for
+		/// determining a channel's category, i. e. legacy/anchors/taproot/etc.
 		///
 		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func optAnchors() -> Bool {
+		public func channelTypeFeatures() -> ChannelTypeFeatures {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInMemorySigner>) in
-					InMemorySigner_opt_anchors(thisArgPointer)
+					InMemorySigner_channel_type_features(thisArgPointer)
 				}
 
 
@@ -704,7 +705,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = ChannelTypeFeatures(
+				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
 
 
 			return returnValue

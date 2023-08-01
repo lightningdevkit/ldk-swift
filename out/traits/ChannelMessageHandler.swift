@@ -109,6 +109,37 @@ extension Bindings {
 				return returnValue
 			}
 
+			func handleOpenChannelV2Lambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKOpenChannelV2>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleOpenChannelV2Lambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleOpenChannelV2(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: OpenChannelV2(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
 			func handleAcceptChannelLambda(
 				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKAcceptChannel>
 			) {
@@ -126,6 +157,37 @@ extension Bindings {
 					)
 					.getValue(),
 					msg: AcceptChannel(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleAcceptChannelV2Lambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKAcceptChannelV2>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleAcceptChannelV2Lambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleAcceptChannelV2(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: AcceptChannelV2(
 						cType: msg.pointee,
 						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
 					)
@@ -281,6 +343,285 @@ extension Bindings {
 					)
 					.getValue(),
 					msg: ClosingSigned(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxAddInputLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxAddInput>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxAddInputLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxAddInput(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxAddInput(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxAddOutputLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxAddOutput>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxAddOutputLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxAddOutput(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxAddOutput(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxRemoveInputLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxRemoveInput>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxRemoveInputLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxRemoveInput(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxRemoveInput(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxRemoveOutputLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxRemoveOutput>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxRemoveOutputLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxRemoveOutput(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxRemoveOutput(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxCompleteLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxComplete>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxCompleteLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxComplete(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxComplete(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxSignaturesLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxSignatures>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxSignaturesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxSignatures(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxSignatures(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxInitRbfLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxInitRbf>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxInitRbfLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxInitRbf(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxInitRbf(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxAckRbfLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxAckRbf>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxAckRbfLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxAckRbf(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxAckRbf(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleTxAbortLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxAbort>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleTxAbortLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleTxAbort(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: TxAbort(
 						cType: msg.pointee,
 						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
 					)
@@ -735,6 +1076,29 @@ extension Bindings {
 				return returnValue
 			}
 
+			func getGenesisHashesLambda(this_arg: UnsafeRawPointer?) -> LDKCOption_CVec_ChainHashZZ {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::getGenesisHashesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.getGenesisHashes()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = Option_CVec_ChainHashZZ(
+					some: swiftCallbackResult,
+					instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+				)
+				.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::freeLambda")
@@ -758,12 +1122,23 @@ extension Bindings {
 			self.cType = LDKChannelMessageHandler(
 				this_arg: thisArg,
 				handle_open_channel: handleOpenChannelLambda,
+				handle_open_channel_v2: handleOpenChannelV2Lambda,
 				handle_accept_channel: handleAcceptChannelLambda,
+				handle_accept_channel_v2: handleAcceptChannelV2Lambda,
 				handle_funding_created: handleFundingCreatedLambda,
 				handle_funding_signed: handleFundingSignedLambda,
 				handle_channel_ready: handleChannelReadyLambda,
 				handle_shutdown: handleShutdownLambda,
 				handle_closing_signed: handleClosingSignedLambda,
+				handle_tx_add_input: handleTxAddInputLambda,
+				handle_tx_add_output: handleTxAddOutputLambda,
+				handle_tx_remove_input: handleTxRemoveInputLambda,
+				handle_tx_remove_output: handleTxRemoveOutputLambda,
+				handle_tx_complete: handleTxCompleteLambda,
+				handle_tx_signatures: handleTxSignaturesLambda,
+				handle_tx_init_rbf: handleTxInitRbfLambda,
+				handle_tx_ack_rbf: handleTxAckRbfLambda,
+				handle_tx_abort: handleTxAbortLambda,
 				handle_update_add_htlc: handleUpdateAddHtlcLambda,
 				handle_update_fulfill_htlc: handleUpdateFulfillHtlcLambda,
 				handle_update_fail_htlc: handleUpdateFailHtlcLambda,
@@ -779,6 +1154,7 @@ extension Bindings {
 				handle_error: handleErrorLambda,
 				provided_node_features: providedNodeFeaturesLambda,
 				provided_init_features: providedInitFeaturesLambda,
+				get_genesis_hashes: getGenesisHashesLambda,
 				MessageSendEventsProvider: messageSendEventsProvider.activate().cType!,
 				free: freeLambda
 			)
@@ -794,11 +1170,29 @@ extension Bindings {
 			abort()
 		}
 
+		/// Handle an incoming `open_channel2` message from the given peer.
+		open func handleOpenChannelV2(theirNodeId: [UInt8], msg: OpenChannelV2) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleOpenChannelV2 MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
 		/// Handle an incoming `accept_channel` message from the given peer.
 		open func handleAcceptChannel(theirNodeId: [UInt8], msg: AcceptChannel) {
 
 			Bindings.print(
 				"Error: ChannelMessageHandler::handleAcceptChannel MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `accept_channel2` message from the given peer.
+		open func handleAcceptChannelV2(theirNodeId: [UInt8], msg: AcceptChannelV2) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleAcceptChannelV2 MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -844,6 +1238,87 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: ChannelMessageHandler::handleClosingSigned MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_add_input message` from the given peer.
+		open func handleTxAddInput(theirNodeId: [UInt8], msg: TxAddInput) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxAddInput MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_add_output` message from the given peer.
+		open func handleTxAddOutput(theirNodeId: [UInt8], msg: TxAddOutput) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxAddOutput MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_remove_input` message from the given peer.
+		open func handleTxRemoveInput(theirNodeId: [UInt8], msg: TxRemoveInput) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxRemoveInput MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_remove_output` message from the given peer.
+		open func handleTxRemoveOutput(theirNodeId: [UInt8], msg: TxRemoveOutput) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxRemoveOutput MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_complete message` from the given peer.
+		open func handleTxComplete(theirNodeId: [UInt8], msg: TxComplete) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxComplete MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_signatures` message from the given peer.
+		open func handleTxSignatures(theirNodeId: [UInt8], msg: TxSignatures) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxSignatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_init_rbf` message from the given peer.
+		open func handleTxInitRbf(theirNodeId: [UInt8], msg: TxInitRbf) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxInitRbf MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_ack_rbf` message from the given peer.
+		open func handleTxAckRbf(theirNodeId: [UInt8], msg: TxAckRbf) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxAckRbf MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `tx_abort message` from the given peer.
+		open func handleTxAbort(theirNodeId: [UInt8], msg: TxAbort) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleTxAbort MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -993,6 +1468,18 @@ extension Bindings {
 			abort()
 		}
 
+		/// Gets the genesis hashes for this `ChannelMessageHandler` indicating which chains it supports.
+		///
+		/// If it's `None`, then no particular network chain hash compatibility will be enforced when
+		/// connecting to peers.
+		open func getGenesisHashes() -> [[UInt8]]? {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::getGenesisHashes MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
 		/// Frees any resources associated with this object given its this_arg pointer.
 		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
 		internal func free() {
@@ -1067,6 +1554,34 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Handle an incoming `open_channel2` message from the given peer.
+		public override func handleOpenChannelV2(theirNodeId: [UInt8], msg: OpenChannelV2) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKOpenChannelV2>) in
+					self.cType!
+						.handle_open_channel_v2(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
 		/// Handle an incoming `accept_channel` message from the given peer.
 		public override func handleAcceptChannel(theirNodeId: [UInt8], msg: AcceptChannel) {
 			// native call variable prep
@@ -1080,6 +1595,34 @@ extension Bindings {
 				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKAcceptChannel>) in
 					self.cType!
 						.handle_accept_channel(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `accept_channel2` message from the given peer.
+		public override func handleAcceptChannelV2(theirNodeId: [UInt8], msg: AcceptChannelV2) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKAcceptChannelV2>) in
+					self.cType!
+						.handle_accept_channel_v2(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
 				}
 
 
@@ -1219,6 +1762,254 @@ extension Bindings {
 				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKClosingSigned>) in
 					self.cType!
 						.handle_closing_signed(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_add_input message` from the given peer.
+		public override func handleTxAddInput(theirNodeId: [UInt8], msg: TxAddInput) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxAddInput>) in
+					self.cType!
+						.handle_tx_add_input(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_add_output` message from the given peer.
+		public override func handleTxAddOutput(theirNodeId: [UInt8], msg: TxAddOutput) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxAddOutput>) in
+					self.cType!
+						.handle_tx_add_output(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_remove_input` message from the given peer.
+		public override func handleTxRemoveInput(theirNodeId: [UInt8], msg: TxRemoveInput) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxRemoveInput>) in
+					self.cType!
+						.handle_tx_remove_input(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_remove_output` message from the given peer.
+		public override func handleTxRemoveOutput(theirNodeId: [UInt8], msg: TxRemoveOutput) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxRemoveOutput>) in
+					self.cType!
+						.handle_tx_remove_output(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_complete message` from the given peer.
+		public override func handleTxComplete(theirNodeId: [UInt8], msg: TxComplete) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxComplete>) in
+					self.cType!.handle_tx_complete(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_signatures` message from the given peer.
+		public override func handleTxSignatures(theirNodeId: [UInt8], msg: TxSignatures) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxSignatures>) in
+					self.cType!
+						.handle_tx_signatures(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_init_rbf` message from the given peer.
+		public override func handleTxInitRbf(theirNodeId: [UInt8], msg: TxInitRbf) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxInitRbf>) in
+					self.cType!.handle_tx_init_rbf(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_ack_rbf` message from the given peer.
+		public override func handleTxAckRbf(theirNodeId: [UInt8], msg: TxAckRbf) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxAckRbf>) in
+					self.cType!.handle_tx_ack_rbf(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `tx_abort message` from the given peer.
+		public override func handleTxAbort(theirNodeId: [UInt8], msg: TxAbort) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKTxAbort>) in
+					self.cType!.handle_tx_abort(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
 				}
 
 
@@ -1646,6 +2437,29 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = InitFeatures(
 				cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Gets the genesis hashes for this `ChannelMessageHandler` indicating which chains it supports.
+		///
+		/// If it's `None`, then no particular network chain hash compatibility will be enforced when
+		/// connecting to peers.
+		public override func getGenesisHashes() -> [[UInt8]]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.get_genesis_hashes(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_CVec_ChainHashZZ(
+				cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)"
+			)
+			.getValue()
 
 			return returnValue
 		}

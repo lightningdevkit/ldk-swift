@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// The recipient of a payment.
+/// Information used to route a payment.
 public typealias PaymentParameters = Bindings.PaymentParameters
 
 extension Bindings {
 
 
-	/// The recipient of a payment.
+	/// Information used to route a payment.
 	public class PaymentParameters: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -77,15 +77,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The node id of the payee.
-		public func getPayeePubkey() -> [UInt8] {
+		/// Information about the payee, such as their features and route hints for their channels.
+		public func getPayee() -> Payee {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPaymentParameters>) in
-					PaymentParameters_get_payee_pubkey(thisPtrPointer)
+					PaymentParameters_get_payee(thisPtrPointer)
 				}
 
 
@@ -93,138 +93,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
-				cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// The node id of the payee.
-		public func setPayeePubkey(val: [UInt8]) {
-			// native call variable prep
-
-			let valPrimitiveWrapper = PublicKey(
-				value: val, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
-					PaymentParameters_set_payee_pubkey(thisPtrPointer, valPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Features supported by the payee.
-		///
-		/// May be set from the payee's invoice or via [`for_keysend`]. May be `None` if the invoice
-		/// does not contain any features.
-		///
-		/// [`for_keysend`]: Self::for_keysend
-		///
-		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func getFeatures() -> InvoiceFeatures? {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPaymentParameters>) in
-					PaymentParameters_get_features(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
-			// Type group: RustStruct
-			// Type: LDKInvoiceFeatures
-
-			if nativeCallResult.inner == nil {
-				return nil
-			}
-
-			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
-			if pointerValue == 0 {
-				return nil
-			}
-
-
-			// return value (do some wrapping)
-			let returnValue = InvoiceFeatures(
-				cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// Features supported by the payee.
-		///
-		/// May be set from the payee's invoice or via [`for_keysend`]. May be `None` if the invoice
-		/// does not contain any features.
-		///
-		/// [`for_keysend`]: Self::for_keysend
-		///
-		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func setFeatures(val: InvoiceFeatures) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
-					PaymentParameters_set_features(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Hints for routing to the payee, containing channels connecting the payee to public nodes.
-		public func getRouteHints() -> Hints {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPaymentParameters>) in
-					PaymentParameters_get_route_hints(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Hints(
+			let returnValue = Payee(
 				cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)",
 				anchor: self)
 
@@ -232,8 +101,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Hints for routing to the payee, containing channels connecting the payee to public nodes.
-		public func setRouteHints(val: Hints) {
+		/// Information about the payee, such as their features and route hints for their channels.
+		public func setPayee(val: Payee) {
 			// native call variable prep
 
 
@@ -241,7 +110,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
-					PaymentParameters_set_route_hints(thisPtrPointer, val.danglingClone().cType!)
+					PaymentParameters_set_payee(thisPtrPointer, val.danglingClone().cType!)
 				}
 
 
@@ -532,61 +401,12 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The minimum CLTV delta at the end of the route. This value must not be zero.
-		public func getFinalCltvExpiryDelta() -> UInt32 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPaymentParameters>) in
-					PaymentParameters_get_final_cltv_expiry_delta(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The minimum CLTV delta at the end of the route. This value must not be zero.
-		public func setFinalCltvExpiryDelta(val: UInt32) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
-					PaymentParameters_set_final_cltv_expiry_delta(thisPtrPointer, val)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// Constructs a new PaymentParameters given each field
 		public init(
-			payeePubkeyArg: [UInt8], featuresArg: InvoiceFeatures, routeHintsArg: Hints, expiryTimeArg: UInt64?,
-			maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8, maxChannelSaturationPowerOfHalfArg: UInt8,
-			previouslyFailedChannelsArg: [UInt64], finalCltvExpiryDeltaArg: UInt32
+			payeeArg: Payee, expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8,
+			maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64]
 		) {
 			// native call variable prep
-
-			let payeePubkeyArgPrimitiveWrapper = PublicKey(
-				value: payeePubkeyArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
 
 			let expiryTimeArgOption = Option_u64Z(
 				some: expiryTimeArg, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)"
@@ -602,15 +422,10 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = PaymentParameters_new(
-				payeePubkeyArgPrimitiveWrapper.cType!, featuresArg.dynamicallyDangledClone().cType!,
-				routeHintsArg.danglingClone().cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg,
-				maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!,
-				finalCltvExpiryDeltaArg)
+				payeeArg.danglingClone().cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg,
+				maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			payeePubkeyArgPrimitiveWrapper.noOpRetain()
 
 			// previouslyFailedChannelsArgVector.noOpRetain()
 
@@ -792,7 +607,16 @@ extension Bindings {
 		///
 		/// The `final_cltv_expiry_delta` should match the expected final CLTV delta the recipient has
 		/// provided.
-		public class func initForKeysend(payeePubkey: [UInt8], finalCltvExpiryDelta: UInt32) -> PaymentParameters {
+		///
+		/// Note that MPP keysend is not widely supported yet. The `allow_mpp` lets you choose
+		/// whether your router will be allowed to find a multi-part route for this payment. If you
+		/// set `allow_mpp` to true, you should ensure a payment secret is set on send, likely via
+		/// [`RecipientOnionFields::secret_only`].
+		///
+		/// [`RecipientOnionFields::secret_only`]: crate::ln::channelmanager::RecipientOnionFields::secret_only
+		public class func initForKeysend(payeePubkey: [UInt8], finalCltvExpiryDelta: UInt32, allowMpp: Bool)
+			-> PaymentParameters
+		{
 			// native call variable prep
 
 			let payeePubkeyPrimitiveWrapper = PublicKey(
@@ -801,7 +625,7 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = PaymentParameters_for_keysend(
-				payeePubkeyPrimitiveWrapper.cType!, finalCltvExpiryDelta)
+				payeePubkeyPrimitiveWrapper.cType!, finalCltvExpiryDelta, allowMpp)
 
 			// cleanup
 
@@ -814,6 +638,32 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
 
 
+			return returnValue
+		}
+
+		/// Creates parameters for paying to a blinded payee from the provided invoice. Sets
+		/// [`Payee::Blinded::route_hints`], [`Payee::Blinded::features`], and
+		/// [`PaymentParameters::expiry_time`].
+		public class func initWithBolt12Invoice(invoice: Bolt12Invoice) -> PaymentParameters {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKBolt12Invoice>) in
+					PaymentParameters_from_bolt12_invoice(invoicePointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PaymentParameters(
+				cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
+
+
+			try! returnValue.addAnchor(anchor: invoice)
 			return returnValue
 		}
 

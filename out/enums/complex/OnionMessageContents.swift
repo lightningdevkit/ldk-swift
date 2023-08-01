@@ -63,6 +63,9 @@ extension Bindings {
 
 		public enum OnionMessageContentsType {
 
+			/// A message related to BOLT 12 Offers.
+			case Offers
+
 			/// A custom onion message specified by the user.
 			case Custom
 
@@ -70,6 +73,9 @@ extension Bindings {
 
 		public func getValueType() -> OnionMessageContentsType {
 			switch self.cType!.tag {
+				case LDKOnionMessageContents_Offers:
+					return .Offers
+
 				case LDKOnionMessageContents_Custom:
 					return .Custom
 
@@ -122,6 +128,25 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Utility method to constructs a new Offers-variant OnionMessageContents
+		public class func initWithOffers(a: OffersMessage) -> OnionMessageContents {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = OnionMessageContents_offers(a.danglingClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OnionMessageContents(
+				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Utility method to constructs a new Custom-variant OnionMessageContents
 		public class func initWithCustom(a: Bindings.CustomOnionMessageContents) -> OnionMessageContents {
 			// native call variable prep
@@ -141,6 +166,16 @@ extension Bindings {
 			return returnValue
 		}
 
+
+		public func getValueAsOffers() -> OffersMessage? {
+			if self.cType?.tag != LDKOnionMessageContents_Offers {
+				return nil
+			}
+
+			return OffersMessage(
+				cType: self.cType!.offers, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)",
+				anchor: self)
+		}
 
 		public func getValueAsCustom() -> Bindings.CustomOnionMessageContents? {
 			if self.cType?.tag != LDKOnionMessageContents_Custom {

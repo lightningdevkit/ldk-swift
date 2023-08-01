@@ -689,6 +689,46 @@ export default class Parser {
 				rustType.swiftRawSignature = 'UInt64';
 				rustType.kind = RustKind.Primitive;
 			}
+		} else if (relevantTypeLine.startsWith('int8_t')) {
+			rustType = new RustPrimitive();
+			typelessLineRemainder = relevantTypeLine.substring('int8_t'.length).trim();
+			if (rustType instanceof RustPrimitive) {
+				rustType.cSignature = 'int8_t';
+				rustType.swiftRawSignature = 'Int8';
+				rustType.kind = RustKind.Primitive;
+			}
+		} else if (relevantTypeLine.startsWith('intptr_t')) {
+			rustType = new RustPrimitive();
+			typelessLineRemainder = relevantTypeLine.substring('intptr_t'.length).trim();
+			if (rustType instanceof RustPrimitive) {
+				rustType.cSignature = 'intptr_t';
+				rustType.swiftRawSignature = 'Int';
+				rustType.kind = RustKind.Primitive;
+			}
+		} else if (relevantTypeLine.startsWith('int16_t')) {
+			rustType = new RustPrimitive();
+			typelessLineRemainder = relevantTypeLine.substring('int16_t'.length).trim();
+			if (rustType instanceof RustPrimitive) {
+				rustType.cSignature = 'int16_t';
+				rustType.swiftRawSignature = 'Int16';
+				rustType.kind = RustKind.Primitive;
+			}
+		} else if (relevantTypeLine.startsWith('int32_t')) {
+			rustType = new RustPrimitive();
+			typelessLineRemainder = relevantTypeLine.substring('int32_t'.length).trim();
+			if (rustType instanceof RustPrimitive) {
+				rustType.cSignature = 'int32_t';
+				rustType.swiftRawSignature = 'Int32';
+				rustType.kind = RustKind.Primitive;
+			}
+		} else if (relevantTypeLine.startsWith('int64_t')) {
+			rustType = new RustPrimitive();
+			typelessLineRemainder = relevantTypeLine.substring('int64_t'.length).trim();
+			if (rustType instanceof RustPrimitive) {
+				rustType.cSignature = 'int64_t';
+				rustType.swiftRawSignature = 'Int64';
+				rustType.kind = RustKind.Primitive;
+			}
 		} else if (relevantTypeLine.startsWith('bool')) {
 			rustType = new RustPrimitive();
 			typelessLineRemainder = relevantTypeLine.substring('bool'.length).trim();
@@ -960,7 +1000,7 @@ export default class Parser {
 		 *
 		 */
 
-		const METHOD_TYPE_ASSOCIATION_PREFIX_REGEX = /^([A-Z][a-zA-Z0-9]*)(_([A-Z_][a-zA-Z0-9]*))*(_(u5|u8|u16|u32|u64|u128|usize|bool)[a-zA-Z0-9]+)?/;
+		const METHOD_TYPE_ASSOCIATION_PREFIX_REGEX = /^([A-Z][a-zA-Z0-9]*)(_([A-Z_][a-zA-Z0-9]*))*(_(i5|i8|i16|i32|i64|i128|u5|u8|u16|u32|u64|u128|usize|bool)[a-zA-Z0-9]+)?/;
 		const prefixMatches = METHOD_TYPE_ASSOCIATION_PREFIX_REGEX.exec(name);
 		if (!prefixMatches) {
 			// debug('object-unassociated method name: %s', name);
@@ -988,7 +1028,7 @@ export default class Parser {
 			}
 		}
 
-		console.error(`Method ${name} cannot finds its associated type!\n>`, methodLine);
+		console.error(`Method ${name} cannot find its associated type!\n>`, methodLine);
 		process.exit(1);
 	}
 

@@ -12,7 +12,7 @@ import LDKHeaders
 
 class TestBroadcasterInterface: BroadcasterInterface {
     
-    override func broadcastTransaction(tx: [UInt8]) {
+    override func broadcastTransactions(txs: [[UInt8]]) {
         // insert code to broadcast transaction
     }
     

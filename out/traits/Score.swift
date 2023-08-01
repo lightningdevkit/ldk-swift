@@ -72,7 +72,8 @@ extension Bindings {
 
 			func channelPenaltyMsatLambda(
 				this_arg: UnsafeRawPointer?, short_channel_id: UInt64, source: UnsafePointer<LDKNodeId>,
-				target: UnsafePointer<LDKNodeId>, usage: LDKChannelUsage
+				target: UnsafePointer<LDKNodeId>, usage: LDKChannelUsage,
+				score_params: UnsafePointer<LDKProbabilisticScoringFeeParameters>
 			) -> UInt64 {
 				let instance: Score = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Score::channelPenaltyMsatLambda")
@@ -92,7 +93,11 @@ extension Bindings {
 					)
 					.dangle().clone(),
 					usage: ChannelUsage(
-						cType: usage, instantiationContext: "Score.swift::init()::\(#function):\(#line)"))
+						cType: usage, instantiationContext: "Score.swift::init()::\(#function):\(#line)"),
+					scoreParams: ProbabilisticScoringFeeParameters(
+						cType: score_params.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
 
 				// cleanup
 
@@ -252,9 +257,10 @@ extension Bindings {
 		/// such as a chain data, network gossip, or invoice hints. For invoice hints, a capacity near
 		/// [`u64::max_value`] is given to indicate sufficient capacity for the invoice's full amount.
 		/// Thus, implementations should be overflow-safe.
-		open func channelPenaltyMsat(shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage)
-			-> UInt64
-		{
+		open func channelPenaltyMsat(
+			shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage,
+			scoreParams: ProbabilisticScoringFeeParameters
+		) -> UInt64 {
 
 			Bindings.print(
 				"Error: Score::channelPenaltyMsat MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -349,7 +355,8 @@ extension Bindings {
 		/// [`u64::max_value`] is given to indicate sufficient capacity for the invoice's full amount.
 		/// Thus, implementations should be overflow-safe.
 		public override func channelPenaltyMsat(
-			shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage
+			shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage,
+			scoreParams: ProbabilisticScoringFeeParameters
 		) -> UInt64 {
 			// native call variable prep
 
@@ -359,10 +366,15 @@ extension Bindings {
 				withUnsafePointer(to: source.cType!) { (sourcePointer: UnsafePointer<LDKNodeId>) in
 
 					withUnsafePointer(to: target.cType!) { (targetPointer: UnsafePointer<LDKNodeId>) in
-						self.cType!
-							.channel_penalty_msat(
-								self.cType!.this_arg, shortChannelId, sourcePointer, targetPointer,
-								usage.dynamicallyDangledClone().cType!)
+
+						withUnsafePointer(to: scoreParams.cType!) {
+							(scoreParamsPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
+							self.cType!
+								.channel_penalty_msat(
+									self.cType!.this_arg, shortChannelId, sourcePointer, targetPointer,
+									usage.dynamicallyDangledClone().cType!, scoreParamsPointer)
+						}
+
 					}
 
 				}

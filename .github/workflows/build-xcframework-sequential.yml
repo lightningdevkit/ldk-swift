@@ -13,6 +13,10 @@ on:
         branches:
             - "*"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
     generate-sequential:
         name: Build libldks, build xcarchives, and combine into xcframework

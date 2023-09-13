@@ -735,6 +735,13 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 					// memoryManagementInfix = ''
 					// }
 				}
+			} else if (argument.isAsteriskPointer && this.isPointerArgumentNullable(argument, containerType)) {
+				// if we're taking a nullable argument that needs to be passed to Rust as a nullable pointer,
+				// the initialization of the argument will occur inside an if let block, and the value
+				// to which the pointer will later refer must not get immediately cleaned up.
+				// It is not quite clear to me how to determine when to, eventually, clear that memory,
+				// which is why for the time being, this actually results in some additional direct leaks.
+				memoryManagementInfix = '.dangle()';
 			}
 		} else if (argument.type instanceof RustPrimitiveWrapper && argument.type.isDeallocatable()) {
 			// memoryManagementInfix = '.dangle()';

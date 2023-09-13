@@ -676,6 +676,39 @@ public class HumanObjectPeerTestInstance {
 
             let recreatedInvoice = Bolt11Invoice.fromStr(s: invoice.toStr())
             XCTAssertTrue(recreatedInvoice.isOk())
+            
+            // find route
+            
+            do {
+                let payerPubkey = peer1.channelManager.getOurNodeId()
+                let payeePubkey = peer2.channelManager.getOurNodeId()
+                let paymentParameters = PaymentParameters.initForKeysend(payeePubkey: payeePubkey, finalCltvExpiryDelta: 3, allowMpp: false)
+                
+                let amount = invoice.amountMilliSatoshis()!
+                let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: amount)
+                let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
+                let scoringParams = ProbabilisticScoringDecayParameters.initWithDefault()
+                let networkGraph = peer1.constructor!.netGraph!
+                let scorer = ProbabilisticScorer(decayParams: scoringParams, networkGraph: networkGraph, logger: logger)
+                let score = scorer.asScore()
+                
+                let scoreParams = ProbabilisticScoringFeeParameters.initWithDefault()
+                
+                let foundRoute = Bindings.findRoute(
+                    ourNodePubkey: payerPubkey,
+                    routeParams: routeParameters,
+                    networkGraph: networkGraph,
+                    firstHops: usableChannelsA,
+                    logger: logger,
+                    scorer: score,
+                    scoreParams: scoreParams,
+                    randomSeedBytes: randomSeedBytes
+                )
+                
+                let route = foundRoute.getValue()!
+                let fees = route.getTotalFees()
+                print("found route fees: \(fees)")
+            }
 
             let channelManagerConstructor = peer1.constructor!
             let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: Bindings.Retry.initWithAttempts(a: 3), channelmanager: channelManagerConstructor.channelManager)

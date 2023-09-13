@@ -1236,7 +1236,9 @@ public class Bindings {
 		if let firstHops = firstHops {
 
 			let firstHopsVector = Vec_ChannelDetailsZ(
-				array: firstHops, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+				array: firstHops, instantiationContext: "Bindings.swift::\(#function):\(#line)"
+			)
+			.dangle()
 
 			firstHopsVectorPointer = UnsafeMutablePointer<LDKCVec_ChannelDetailsZ>.allocate(capacity: 1)
 			firstHopsVectorPointer!.initialize(to: firstHopsVector.cType!)

@@ -353,15 +353,15 @@ public class PolarIntegrationSample {
                 }
             }
             
-            override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneErrorZ {
+            override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
                 .initWithOk()
             }
             
-            override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneErrorZ {
+            override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
                 .initWithOk()
             }
             
-            override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
+            override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
                 .initWithOk()
             }
 

@@ -83,7 +83,7 @@ class RegtestChannelManagerPersister : Persister, ExtendedChannelManagerPersiste
         }
     }
     
-    override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneErrorZ {
+    override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
         .initWithOk()
     }
 }

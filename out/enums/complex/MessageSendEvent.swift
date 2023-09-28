@@ -697,7 +697,7 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new SendTxAbort-variant MessageSendEvent
-		public class func initWithSendTxAbort(nodeId: [UInt8], msg: Bindings.TxAddInput) -> MessageSendEvent {
+		public class func initWithSendTxAbort(nodeId: [UInt8], msg: Bindings.TxAbort) -> MessageSendEvent {
 			// native call variable prep
 
 			let nodeIdPrimitiveWrapper = PublicKey(
@@ -2739,9 +2739,9 @@ extension Bindings {
 			}
 
 			/// The message which should be sent.
-			public func getMsg() -> Bindings.TxAddInput {
+			public func getMsg() -> Bindings.TxAbort {
 				// return value (do some wrapping)
-				let returnValue = Bindings.TxAddInput(
+				let returnValue = Bindings.TxAbort(
 					cType: self.cType!.msg, instantiationContext: "MessageSendEvent.swift::\(#function):\(#line)",
 					anchor: self)
 

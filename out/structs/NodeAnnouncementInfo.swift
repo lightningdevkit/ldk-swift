@@ -448,7 +448,7 @@ extension Bindings {
 		}
 
 		/// Internet-level addresses via which one can connect to the node
-		public func addresses() -> [NetAddress] {
+		public func addresses() -> [SocketAddress] {
 			// native call variable prep
 
 
@@ -463,7 +463,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_NetAddressZ(
+			let returnValue = Vec_SocketAddressZ(
 				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)",
 				anchor: self
 			)

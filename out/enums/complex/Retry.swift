@@ -131,7 +131,7 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new Attempts-variant Retry
-		public class func initWithAttempts(a: UInt) -> Retry {
+		public class func initWithAttempts(a: UInt32) -> Retry {
 			// native call variable prep
 
 
@@ -215,8 +215,57 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Serialize the Retry object into a byte array which can be read by Retry_read
+		public func write() -> [UInt8] {
+			// native call variable prep
 
-		public func getValueAsAttempts() -> UInt? {
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKRetry>) in
+					Retry_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "Retry.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a Retry from a byte array, created by Retry_write
+		public class func read(ser: [UInt8]) -> Result_RetryDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "Retry.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Retry_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_RetryDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "Retry.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		public func getValueAsAttempts() -> UInt32? {
 			if self.cType?.tag != LDKRetry_Attempts {
 				return nil
 			}

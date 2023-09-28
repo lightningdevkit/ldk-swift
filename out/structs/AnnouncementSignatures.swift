@@ -198,7 +198,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult, instantiationContext: "AnnouncementSignatures.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -212,7 +212,7 @@ extension Bindings {
 		public func setNodeSignature(val: [UInt8]) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = Signature(
+			let valPrimitiveWrapper = ECDSASignature(
 				value: val, instantiationContext: "AnnouncementSignatures.swift::\(#function):\(#line)")
 
 
@@ -253,7 +253,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult, instantiationContext: "AnnouncementSignatures.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -267,7 +267,7 @@ extension Bindings {
 		public func setBitcoinSignature(val: [UInt8]) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = Signature(
+			let valPrimitiveWrapper = ECDSASignature(
 				value: val, instantiationContext: "AnnouncementSignatures.swift::\(#function):\(#line)")
 
 
@@ -301,10 +301,10 @@ extension Bindings {
 			let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(
 				value: channelIdArg, instantiationContext: "AnnouncementSignatures.swift::\(#function):\(#line)")
 
-			let nodeSignatureArgPrimitiveWrapper = Signature(
+			let nodeSignatureArgPrimitiveWrapper = ECDSASignature(
 				value: nodeSignatureArg, instantiationContext: "AnnouncementSignatures.swift::\(#function):\(#line)")
 
-			let bitcoinSignatureArgPrimitiveWrapper = Signature(
+			let bitcoinSignatureArgPrimitiveWrapper = ECDSASignature(
 				value: bitcoinSignatureArg, instantiationContext: "AnnouncementSignatures.swift::\(#function):\(#line)")
 
 

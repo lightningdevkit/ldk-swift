@@ -110,8 +110,9 @@ extension Bindings {
 			}
 
 			func ecdhLambda(
-				this_arg: UnsafeRawPointer?, recipient: LDKRecipient, other_key: LDKPublicKey, tweak: LDKCOption_ScalarZ
-			) -> LDKCResult_SharedSecretNoneZ {
+				this_arg: UnsafeRawPointer?, recipient: LDKRecipient, other_key: LDKPublicKey,
+				tweak: LDKCOption_BigEndianScalarZ
+			) -> LDKCResult_ThirtyTwoBytesNoneZ {
 				let instance: NodeSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "NodeSigner::ecdhLambda")
 
@@ -125,7 +126,7 @@ extension Bindings {
 						cType: other_key, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
 					)
 					.getValue(),
-					tweak: Option_ScalarZ(
+					tweak: Option_BigEndianScalarZ(
 						cType: tweak, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
 					)
 					.getValue())
@@ -168,8 +169,59 @@ extension Bindings {
 				return returnValue
 			}
 
+			func signBolt12InvoiceRequestLambda(
+				this_arg: UnsafeRawPointer?, invoice_request: UnsafePointer<LDKUnsignedInvoiceRequest>
+			) -> LDKCResult_SchnorrSignatureNoneZ {
+				let instance: NodeSigner = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "NodeSigner::signBolt12InvoiceRequestLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.signBolt12InvoiceRequest(
+					invoiceRequest: UnsignedInvoiceRequest(
+						cType: invoice_request.pointee,
+						instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
+					)
+					.dangle())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
+			func signBolt12InvoiceLambda(this_arg: UnsafeRawPointer?, invoice: UnsafePointer<LDKUnsignedBolt12Invoice>)
+				-> LDKCResult_SchnorrSignatureNoneZ
+			{
+				let instance: NodeSigner = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "NodeSigner::signBolt12InvoiceLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.signBolt12Invoice(
+					invoice: UnsignedBolt12Invoice(
+						cType: invoice.pointee, instantiationContext: "NodeSigner.swift::init()::\(#function):\(#line)"
+					)
+					.dangle())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func signGossipMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKUnsignedGossipMessage)
-				-> LDKCResult_SignatureNoneZ
+				-> LDKCResult_ECDSASignatureNoneZ
 			{
 				let instance: NodeSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "NodeSigner::signGossipMessageLambda")
@@ -217,6 +269,8 @@ extension Bindings {
 				get_node_id: getNodeIdLambda,
 				ecdh: ecdhLambda,
 				sign_invoice: signInvoiceLambda,
+				sign_bolt12_invoice_request: signBolt12InvoiceRequestLambda,
+				sign_bolt12_invoice: signBolt12InvoiceLambda,
 				sign_gossip_message: signGossipMessageLambda,
 				free: freeLambda
 			)
@@ -262,7 +316,7 @@ extension Bindings {
 		/// should be resolved to allow LDK to resume forwarding HTLCs.
 		///
 		/// Errors if the [`Recipient`] variant is not supported by the implementation.
-		open func ecdh(recipient: Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Result_SharedSecretNoneZ {
+		open func ecdh(recipient: Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Result_ThirtyTwoBytesNoneZ {
 
 			Bindings.print(
 				"Error: NodeSigner::ecdh MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -291,13 +345,51 @@ extension Bindings {
 			abort()
 		}
 
+		/// Signs the [`TaggedHash`] of a BOLT 12 invoice request.
+		///
+		/// May be called by a function passed to [`UnsignedInvoiceRequest::sign`] where
+		/// `invoice_request` is the callee.
+		///
+		/// Implementors may check that the `invoice_request` is expected rather than blindly signing
+		/// the tagged hash. An `Ok` result should sign `invoice_request.tagged_hash().as_digest()` with
+		/// the node's signing key or an ephemeral key to preserve privacy, whichever is associated with
+		/// [`UnsignedInvoiceRequest::payer_id`].
+		///
+		/// [`TaggedHash`]: crate::offers::merkle::TaggedHash
+		open func signBolt12InvoiceRequest(invoiceRequest: UnsignedInvoiceRequest) -> Result_SchnorrSignatureNoneZ {
+
+			Bindings.print(
+				"Error: NodeSigner::signBolt12InvoiceRequest MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Signs the [`TaggedHash`] of a BOLT 12 invoice.
+		///
+		/// May be called by a function passed to [`UnsignedBolt12Invoice::sign`] where `invoice` is the
+		/// callee.
+		///
+		/// Implementors may check that the `invoice` is expected rather than blindly signing the tagged
+		/// hash. An `Ok` result should sign `invoice.tagged_hash().as_digest()` with the node's signing
+		/// key or an ephemeral key to preserve privacy, whichever is associated with
+		/// [`UnsignedBolt12Invoice::signing_pubkey`].
+		///
+		/// [`TaggedHash`]: crate::offers::merkle::TaggedHash
+		open func signBolt12Invoice(invoice: UnsignedBolt12Invoice) -> Result_SchnorrSignatureNoneZ {
+
+			Bindings.print(
+				"Error: NodeSigner::signBolt12Invoice MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
 		/// Sign a gossip message.
 		///
 		/// Note that if this fails, LDK may panic and the message will not be broadcast to the network
 		/// or a possible channel counterparty. If LDK panics, the error should be resolved to allow the
 		/// message to be broadcast, as otherwise it may prevent one from receiving funds over the
 		/// corresponding channel.
-		open func signGossipMessage(msg: UnsignedGossipMessage) -> Result_SignatureNoneZ {
+		open func signGossipMessage(msg: UnsignedGossipMessage) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
 				"Error: NodeSigner::signGossipMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -398,14 +490,15 @@ extension Bindings {
 		/// should be resolved to allow LDK to resume forwarding HTLCs.
 		///
 		/// Errors if the [`Recipient`] variant is not supported by the implementation.
-		public override func ecdh(recipient: Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Result_SharedSecretNoneZ
+		public override func ecdh(recipient: Recipient, otherKey: [UInt8], tweak: [UInt8]?)
+			-> Result_ThirtyTwoBytesNoneZ
 		{
 			// native call variable prep
 
 			let otherKeyPrimitiveWrapper = PublicKey(
 				value: otherKey, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
-			let tweakOption = Option_ScalarZ(
+			let tweakOption = Option_BigEndianScalarZ(
 				some: tweak, instantiationContext: "NodeSigner.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -422,7 +515,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SharedSecretNoneZ(
+			let returnValue = Result_ThirtyTwoBytesNoneZ(
 				cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -474,13 +567,80 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Signs the [`TaggedHash`] of a BOLT 12 invoice request.
+		///
+		/// May be called by a function passed to [`UnsignedInvoiceRequest::sign`] where
+		/// `invoice_request` is the callee.
+		///
+		/// Implementors may check that the `invoice_request` is expected rather than blindly signing
+		/// the tagged hash. An `Ok` result should sign `invoice_request.tagged_hash().as_digest()` with
+		/// the node's signing key or an ephemeral key to preserve privacy, whichever is associated with
+		/// [`UnsignedInvoiceRequest::payer_id`].
+		///
+		/// [`TaggedHash`]: crate::offers::merkle::TaggedHash
+		public override func signBolt12InvoiceRequest(invoiceRequest: UnsignedInvoiceRequest)
+			-> Result_SchnorrSignatureNoneZ
+		{
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: invoiceRequest.cType!) {
+					(invoiceRequestPointer: UnsafePointer<LDKUnsignedInvoiceRequest>) in
+					self.cType!.sign_bolt12_invoice_request(self.cType!.this_arg, invoiceRequestPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_SchnorrSignatureNoneZ(
+				cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Signs the [`TaggedHash`] of a BOLT 12 invoice.
+		///
+		/// May be called by a function passed to [`UnsignedBolt12Invoice::sign`] where `invoice` is the
+		/// callee.
+		///
+		/// Implementors may check that the `invoice` is expected rather than blindly signing the tagged
+		/// hash. An `Ok` result should sign `invoice.tagged_hash().as_digest()` with the node's signing
+		/// key or an ephemeral key to preserve privacy, whichever is associated with
+		/// [`UnsignedBolt12Invoice::signing_pubkey`].
+		///
+		/// [`TaggedHash`]: crate::offers::merkle::TaggedHash
+		public override func signBolt12Invoice(invoice: UnsignedBolt12Invoice) -> Result_SchnorrSignatureNoneZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: invoice.cType!) { (invoicePointer: UnsafePointer<LDKUnsignedBolt12Invoice>) in
+					self.cType!.sign_bolt12_invoice(self.cType!.this_arg, invoicePointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_SchnorrSignatureNoneZ(
+				cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
 		/// Sign a gossip message.
 		///
 		/// Note that if this fails, LDK may panic and the message will not be broadcast to the network
 		/// or a possible channel counterparty. If LDK panics, the error should be resolved to allow the
 		/// message to be broadcast, as otherwise it may prevent one from receiving funds over the
 		/// corresponding channel.
-		public override func signGossipMessage(msg: UnsignedGossipMessage) -> Result_SignatureNoneZ {
+		public override func signGossipMessage(msg: UnsignedGossipMessage) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
 
@@ -491,7 +651,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "NodeSigner.swift::\(#function):\(#line)")
 
 			return returnValue

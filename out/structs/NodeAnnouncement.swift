@@ -97,7 +97,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult, instantiationContext: "NodeAnnouncement.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -111,7 +111,7 @@ extension Bindings {
 		public func setSignature(val: [UInt8]) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = Signature(
+			let valPrimitiveWrapper = ECDSASignature(
 				value: val, instantiationContext: "NodeAnnouncement.swift::\(#function):\(#line)")
 
 
@@ -189,7 +189,7 @@ extension Bindings {
 		public init(signatureArg: [UInt8], contentsArg: UnsignedNodeAnnouncement) {
 			// native call variable prep
 
-			let signatureArgPrimitiveWrapper = Signature(
+			let signatureArgPrimitiveWrapper = ECDSASignature(
 				value: signatureArg, instantiationContext: "NodeAnnouncement.swift::\(#function):\(#line)")
 
 

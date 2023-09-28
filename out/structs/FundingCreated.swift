@@ -256,7 +256,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult, instantiationContext: "FundingCreated.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -270,7 +270,7 @@ extension Bindings {
 		public func setSignature(val: [UInt8]) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = Signature(
+			let valPrimitiveWrapper = ECDSASignature(
 				value: val, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 
 
@@ -308,7 +308,7 @@ extension Bindings {
 			let fundingTxidArgPrimitiveWrapper = ThirtyTwoBytes(
 				value: fundingTxidArg, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 
-			let signatureArgPrimitiveWrapper = Signature(
+			let signatureArgPrimitiveWrapper = ECDSASignature(
 				value: signatureArg, instantiationContext: "FundingCreated.swift::\(#function):\(#line)")
 
 

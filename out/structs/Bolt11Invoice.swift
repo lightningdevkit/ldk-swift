@@ -517,7 +517,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_DurationZ(
+			let returnValue = Option_u64Z(
 				cType: nativeCallResult, instantiationContext: "Bolt11Invoice.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -678,7 +678,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_AddressZ(
+			let returnValue = Vec_StrZ(
 				cType: nativeCallResult, instantiationContext: "Bolt11Invoice.swift::\(#function):\(#line)",
 				anchor: self
 			)

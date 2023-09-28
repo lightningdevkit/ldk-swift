@@ -120,7 +120,7 @@ extension Bindings {
 
 			func validateHolderCommitmentLambda(
 				this_arg: UnsafeRawPointer?, holder_tx: UnsafePointer<LDKHolderCommitmentTransaction>,
-				preimages: LDKCVec_PaymentPreimageZ
+				preimages: LDKCVec_ThirtyTwoBytesZ
 			) -> LDKCResult_NoneNoneZ {
 				let instance: ChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ChannelSigner::validateHolderCommitmentLambda")
@@ -135,7 +135,7 @@ extension Bindings {
 						instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)"
 					)
 					.dangle().clone(),
-					preimages: Vec_PaymentPreimageZ(
+					preimages: Vec_ThirtyTwoBytesZ(
 						cType: preimages, instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)"
 					)
 					.getValue())
@@ -423,7 +423,7 @@ extension Bindings {
 		{
 			// native call variable prep
 
-			let preimagesVector = Vec_PaymentPreimageZ(
+			let preimagesVector = Vec_ThirtyTwoBytesZ(
 				array: preimages, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)"
 			)
 			.dangle()

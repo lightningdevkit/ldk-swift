@@ -8,10 +8,10 @@ import Foundation
 
 /// A scorer that is accessed under a lock.
 ///
-/// Needed so that calls to [`Score::channel_penalty_msat`] in [`find_route`] can be made while
-/// having shared ownership of a scorer but without requiring internal locking in [`Score`]
+/// Needed so that calls to [`ScoreLookUp::channel_penalty_msat`] in [`find_route`] can be made while
+/// having shared ownership of a scorer but without requiring internal locking in [`ScoreUpdate`]
 /// implementations. Internal locking would be detrimental to route finding performance and could
-/// result in [`Score::channel_penalty_msat`] returning a different value for the same channel.
+/// result in [`ScoreLookUp::channel_penalty_msat`] returning a different value for the same channel.
 ///
 /// [`find_route`]: crate::routing::router::find_route
 public typealias LockableScore = Bindings.LockableScore
@@ -20,10 +20,10 @@ extension Bindings {
 
 	/// A scorer that is accessed under a lock.
 	///
-	/// Needed so that calls to [`Score::channel_penalty_msat`] in [`find_route`] can be made while
-	/// having shared ownership of a scorer but without requiring internal locking in [`Score`]
+	/// Needed so that calls to [`ScoreLookUp::channel_penalty_msat`] in [`find_route`] can be made while
+	/// having shared ownership of a scorer but without requiring internal locking in [`ScoreUpdate`]
 	/// implementations. Internal locking would be detrimental to route finding performance and could
-	/// result in [`Score::channel_penalty_msat`] returning a different value for the same channel.
+	/// result in [`ScoreLookUp::channel_penalty_msat`] returning a different value for the same channel.
 	///
 	/// [`find_route`]: crate::routing::router::find_route
 	open class LockableScore: NativeTraitWrapper {
@@ -84,15 +84,34 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func lockLambda(this_arg: UnsafeRawPointer?) -> LDKScore {
+			func readLockLambda(this_arg: UnsafeRawPointer?) -> LDKScoreLookUp {
 				let instance: LockableScore = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "LockableScore::lockLambda")
+					pointer: this_arg!, sourceMarker: "LockableScore::readLockLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.lock()
+				let swiftCallbackResult = instance.readLock()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.activate().cType!
+
+				return returnValue
+			}
+
+			func writeLockLambda(this_arg: UnsafeRawPointer?) -> LDKScoreUpdate {
+				let instance: LockableScore = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "LockableScore::writeLockLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.writeLock()
 
 				// cleanup
 
@@ -125,17 +144,27 @@ extension Bindings {
 
 			self.cType = LDKLockableScore(
 				this_arg: thisArg,
-				lock: lockLambda,
+				read_lock: readLockLambda,
+				write_lock: writeLockLambda,
 				free: freeLambda
 			)
 		}
 
 
-		/// Returns the locked scorer.
-		open func lock() -> Score {
+		/// Returns read locked scorer.
+		open func readLock() -> ScoreLookUp {
 
 			Bindings.print(
-				"Error: LockableScore::lock MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: LockableScore::readLock MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Returns write locked scorer.
+		open func writeLock() -> ScoreUpdate {
+
+			Bindings.print(
+				"Error: LockableScore::writeLock MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -175,19 +204,38 @@ extension Bindings {
 
 	internal class NativelyImplementedLockableScore: LockableScore {
 
-		/// Returns the locked scorer.
-		public override func lock() -> Score {
+		/// Returns read locked scorer.
+		public override func readLock() -> ScoreLookUp {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = self.cType!.lock(self.cType!.this_arg)
+			let nativeCallResult = self.cType!.read_lock(self.cType!.this_arg)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = NativelyImplementedScore(
+			let returnValue = NativelyImplementedScoreLookUp(
+				cType: nativeCallResult, instantiationContext: "LockableScore.swift::\(#function):\(#line)",
+				anchor: self)
+
+			return returnValue
+		}
+
+		/// Returns write locked scorer.
+		public override func writeLock() -> ScoreUpdate {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.write_lock(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedScoreUpdate(
 				cType: nativeCallResult, instantiationContext: "LockableScore.swift::\(#function):\(#line)",
 				anchor: self)
 

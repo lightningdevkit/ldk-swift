@@ -6,16 +6,22 @@ import Foundation
 #endif
 
 
-/// An interface used to score payment channels for path finding.
+/// A trait defining a scorer which can both be used to score and updated.
 ///
-/// \tScoring is in terms of fees willing to be paid in order to avoid routing through a channel.
+/// This is used in places where both bounds are required and implemented for all types which
+/// implement [`ScoreLookUp`] and [`ScoreUpdate`].
+///
+/// Bindings users may need to manually implement this for their custom scoring implementations.
 public typealias Score = Bindings.Score
 
 extension Bindings {
 
-	/// An interface used to score payment channels for path finding.
+	/// A trait defining a scorer which can both be used to score and updated.
 	///
-	/// \tScoring is in terms of fees willing to be paid in order to avoid routing through a channel.
+	/// This is used in places where both bounds are required and implemented for all types which
+	/// implement [`ScoreLookUp`] and [`ScoreUpdate`].
+	///
+	/// Bindings users may need to manually implement this for their custom scoring implementations.
 	open class Score: NativeTraitWrapper {
 
 
@@ -62,139 +68,13 @@ extension Bindings {
 		}
 
 
-		public init() {
+		public init(scoreLookUp: ScoreLookUp, scoreUpdate: ScoreUpdate) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: "Score.swift::\(#function):\(#line)")
 
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
-
-			func channelPenaltyMsatLambda(
-				this_arg: UnsafeRawPointer?, short_channel_id: UInt64, source: UnsafePointer<LDKNodeId>,
-				target: UnsafePointer<LDKNodeId>, usage: LDKChannelUsage,
-				score_params: UnsafePointer<LDKProbabilisticScoringFeeParameters>
-			) -> UInt64 {
-				let instance: Score = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "Score::channelPenaltyMsatLambda")
-
-				// Swift callback variable prep
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.channelPenaltyMsat(
-					shortChannelId: short_channel_id,
-					source: NodeId(
-						cType: source.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone(),
-					target: NodeId(
-						cType: target.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone(),
-					usage: ChannelUsage(
-						cType: usage, instantiationContext: "Score.swift::init()::\(#function):\(#line)"),
-					scoreParams: ProbabilisticScoringFeeParameters(
-						cType: score_params.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone())
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
-
-				return returnValue
-			}
-
-			func paymentPathFailedLambda(
-				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64
-			) {
-				let instance: Score = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "Score::paymentPathFailedLambda")
-
-				// Swift callback variable prep
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.paymentPathFailed(
-					path: Path(cType: path.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)")
-						.dangle().clone(), shortChannelId: short_channel_id)
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
-
-				return returnValue
-			}
-
-			func paymentPathSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>) {
-				let instance: Score = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "Score::paymentPathSuccessfulLambda")
-
-				// Swift callback variable prep
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.paymentPathSuccessful(
-					path: Path(cType: path.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)")
-						.dangle().clone())
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
-
-				return returnValue
-			}
-
-			func probeFailedLambda(
-				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64
-			) {
-				let instance: Score = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "Score::probeFailedLambda")
-
-				// Swift callback variable prep
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.probeFailed(
-					path: Path(cType: path.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)")
-						.dangle().clone(), shortChannelId: short_channel_id)
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
-
-				return returnValue
-			}
-
-			func probeSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>) {
-				let instance: Score = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "Score::probeSuccessfulLambda")
-
-				// Swift callback variable prep
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.probeSuccessful(
-					path: Path(cType: path.pointee, instantiationContext: "Score.swift::init()::\(#function):\(#line)")
-						.dangle().clone())
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
-
-				return returnValue
-			}
 
 			func writeLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_u8Z {
 				let instance: Score = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Score::writeLambda")
@@ -238,71 +118,13 @@ extension Bindings {
 
 			self.cType = LDKScore(
 				this_arg: thisArg,
-				channel_penalty_msat: channelPenaltyMsatLambda,
-				payment_path_failed: paymentPathFailedLambda,
-				payment_path_successful: paymentPathSuccessfulLambda,
-				probe_failed: probeFailedLambda,
-				probe_successful: probeSuccessfulLambda,
+				ScoreLookUp: scoreLookUp.activate().cType!,
+				ScoreUpdate: scoreUpdate.activate().cType!,
 				write: writeLambda,
 				free: freeLambda
 			)
 		}
 
-
-		/// Returns the fee in msats willing to be paid to avoid routing `send_amt_msat` through the
-		/// given channel in the direction from `source` to `target`.
-		///
-		/// The channel's capacity (less any other MPP parts that are also being considered for use in
-		/// the same payment) is given by `capacity_msat`. It may be determined from various sources
-		/// such as a chain data, network gossip, or invoice hints. For invoice hints, a capacity near
-		/// [`u64::max_value`] is given to indicate sufficient capacity for the invoice's full amount.
-		/// Thus, implementations should be overflow-safe.
-		open func channelPenaltyMsat(
-			shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage,
-			scoreParams: ProbabilisticScoringFeeParameters
-		) -> UInt64 {
-
-			Bindings.print(
-				"Error: Score::channelPenaltyMsat MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
-		/// Handles updating channel penalties after failing to route through a channel.
-		open func paymentPathFailed(path: Path, shortChannelId: UInt64) {
-
-			Bindings.print(
-				"Error: Score::paymentPathFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
-		/// Handles updating channel penalties after successfully routing along a path.
-		open func paymentPathSuccessful(path: Path) {
-
-			Bindings.print(
-				"Error: Score::paymentPathSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
-		/// Handles updating channel penalties after a probe over the given path failed.
-		open func probeFailed(path: Path, shortChannelId: UInt64) {
-
-			Bindings.print(
-				"Error: Score::probeFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
-		/// Handles updating channel penalties after a probe over the given path succeeded.
-		open func probeSuccessful(path: Path) {
-
-			Bindings.print(
-				"Error: Score::probeSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
 
 		/// Serialize the object into a byte array
 		open func write() -> [UInt8] {
@@ -327,6 +149,27 @@ extension Bindings {
 		}
 
 
+		/// Implementation of ScoreLookUp for this object.
+		public func getScoreLookUp() -> ScoreLookUp {
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedScoreLookUp(
+				cType: self.cType!.ScoreLookUp, instantiationContext: "Score.swift::\(#function):\(#line)", anchor: self
+			)
+
+			return returnValue
+		}
+
+		/// Implementation of ScoreUpdate for this object.
+		public func getScoreUpdate() -> ScoreUpdate {
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedScoreUpdate(
+				cType: self.cType!.ScoreUpdate, instantiationContext: "Score.swift::\(#function):\(#line)", anchor: self
+			)
+
+			return returnValue
+		}
+
+
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return
@@ -345,133 +188,6 @@ extension Bindings {
 	}
 
 	internal class NativelyImplementedScore: Score {
-
-		/// Returns the fee in msats willing to be paid to avoid routing `send_amt_msat` through the
-		/// given channel in the direction from `source` to `target`.
-		///
-		/// The channel's capacity (less any other MPP parts that are also being considered for use in
-		/// the same payment) is given by `capacity_msat`. It may be determined from various sources
-		/// such as a chain data, network gossip, or invoice hints. For invoice hints, a capacity near
-		/// [`u64::max_value`] is given to indicate sufficient capacity for the invoice's full amount.
-		/// Thus, implementations should be overflow-safe.
-		public override func channelPenaltyMsat(
-			shortChannelId: UInt64, source: NodeId, target: NodeId, usage: ChannelUsage,
-			scoreParams: ProbabilisticScoringFeeParameters
-		) -> UInt64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: source.cType!) { (sourcePointer: UnsafePointer<LDKNodeId>) in
-
-					withUnsafePointer(to: target.cType!) { (targetPointer: UnsafePointer<LDKNodeId>) in
-
-						withUnsafePointer(to: scoreParams.cType!) {
-							(scoreParamsPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
-							self.cType!
-								.channel_penalty_msat(
-									self.cType!.this_arg, shortChannelId, sourcePointer, targetPointer,
-									usage.dynamicallyDangledClone().cType!, scoreParamsPointer)
-						}
-
-					}
-
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-			return returnValue
-		}
-
-		/// Handles updating channel penalties after failing to route through a channel.
-		public override func paymentPathFailed(path: Path, shortChannelId: UInt64) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.payment_path_failed(self.cType!.this_arg, pathPointer, shortChannelId)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-			return returnValue
-		}
-
-		/// Handles updating channel penalties after successfully routing along a path.
-		public override func paymentPathSuccessful(path: Path) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.payment_path_successful(self.cType!.this_arg, pathPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-			return returnValue
-		}
-
-		/// Handles updating channel penalties after a probe over the given path failed.
-		public override func probeFailed(path: Path, shortChannelId: UInt64) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.probe_failed(self.cType!.this_arg, pathPointer, shortChannelId)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-			return returnValue
-		}
-
-		/// Handles updating channel penalties after a probe over the given path succeeded.
-		public override func probeSuccessful(path: Path) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.probe_successful(self.cType!.this_arg, pathPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-			return returnValue
-		}
 
 		/// Serialize the object into a byte array
 		public override func write() -> [UInt8] {

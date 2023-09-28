@@ -110,7 +110,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_PaymentSecretZ(
+			let returnValue = Option_ThirtyTwoBytesZ(
 				cType: nativeCallResult, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -134,7 +134,7 @@ extension Bindings {
 		public func setPaymentSecret(val: [UInt8]?) {
 			// native call variable prep
 
-			let valOption = Option_PaymentSecretZ(
+			let valOption = Option_ThirtyTwoBytesZ(
 				some: val, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -234,48 +234,6 @@ extension Bindings {
 
 
 			return returnValue
-		}
-
-		/// Constructs a new RecipientOnionFields given each field
-		public init(paymentSecretArg: [UInt8]?, paymentMetadataArg: [UInt8]?) {
-			// native call variable prep
-
-			let paymentSecretArgOption = Option_PaymentSecretZ(
-				some: paymentSecretArg, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)"
-			)
-			.danglingClone()
-
-			let paymentMetadataArgOption = Option_CVec_u8ZZ(
-				some: paymentMetadataArg, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)"
-			)
-			.danglingClone()
-
-
-			// native method call
-			let nativeCallResult = RecipientOnionFields_new(
-				paymentSecretArgOption.cType!, paymentMetadataArgOption.cType!)
-
-			// cleanup
-
-			self.initialCFreeability = nativeCallResult.is_owned
-
-
-			/*
-						// return value (do some wrapping)
-						let returnValue = RecipientOnionFields(cType: nativeCallResult, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)")
-						*/
-
-
-			self.cType = nativeCallResult
-
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			super
-				.init(
-					conflictAvoidingVariableName: 0,
-					instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)")
-
-
 		}
 
 		/// Creates a copy of the RecipientOnionFields
@@ -428,6 +386,76 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = RecipientOnionFields(
 				cType: nativeCallResult, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Creates a new [`RecipientOnionFields`] from an existing one, adding custom TLVs. Each
+		/// TLV is provided as a `(u64, Vec<u8>)` for the type number and serialized value
+		/// respectively. TLV type numbers must be unique and within the range
+		/// reserved for custom types, i.e. >= 2^16, otherwise this method will return `Err(())`.
+		///
+		/// This method will also error for types in the experimental range which have been
+		/// standardized within the protocol, which only includes 5482373484 (keysend) for now.
+		///
+		/// See [`Self::custom_tlvs`] for more info.
+		public func withCustomTlvs(customTlvs: [(UInt64, [UInt8])]) -> Result_RecipientOnionFieldsNoneZ {
+			// native call variable prep
+
+			let customTlvsVector = Vec_C2Tuple_u64CVec_u8ZZZ(
+				array: customTlvs, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = RecipientOnionFields_with_custom_tlvs(
+				self.dynamicallyDangledClone().cType!, customTlvsVector.cType!)
+
+			// cleanup
+
+			// customTlvsVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_RecipientOnionFieldsNoneZ(
+				cType: nativeCallResult, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Gets the custom TLVs that will be sent or have been received.
+		///
+		/// Custom TLVs allow sending extra application-specific data with a payment. They provide
+		/// additional flexibility on top of payment metadata, as while other implementations may
+		/// require `payment_metadata` to reflect metadata provided in an invoice, custom TLVs
+		/// do not have this restriction.
+		///
+		/// Note that if this field is non-empty, it will contain strictly increasing TLVs, each
+		/// represented by a `(u64, Vec<u8>)` for its type number and serialized value respectively.
+		/// This is validated when setting this field using [`Self::with_custom_tlvs`].
+		public func customTlvs() -> [(UInt64, [UInt8])] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRecipientOnionFields>) in
+					RecipientOnionFields_custom_tlvs(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_C2Tuple_u64CVec_u8ZZZ(
+				cType: nativeCallResult, instantiationContext: "RecipientOnionFields.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
 
 			return returnValue

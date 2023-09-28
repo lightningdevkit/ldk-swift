@@ -146,7 +146,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_CVec_ChainHashZZ(
+			let returnValue = Option_CVec_ThirtyTwoBytesZZ(
 				cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)", anchor: self
 			)
 			.getValue()
@@ -161,7 +161,7 @@ extension Bindings {
 		public func setNetworks(val: [[UInt8]]?) {
 			// native call variable prep
 
-			let valOption = Option_CVec_ChainHashZZ(
+			let valOption = Option_CVec_ThirtyTwoBytesZZ(
 				some: val, instantiationContext: "BindingsInit.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -190,7 +190,7 @@ extension Bindings {
 		/// message. A node can decide to use that information to discover a potential update to its
 		/// public IPv4 address (NAT) and use that for a [`NodeAnnouncement`] update message containing
 		/// the new address.
-		public func getRemoteNetworkAddress() -> NetAddress? {
+		public func getRemoteNetworkAddress() -> SocketAddress? {
 			// native call variable prep
 
 
@@ -205,7 +205,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_NetAddressZ(
+			let returnValue = Option_SocketAddressZ(
 				cType: nativeCallResult, instantiationContext: "BindingsInit.swift::\(#function):\(#line)", anchor: self
 			)
 			.getValue()
@@ -220,10 +220,10 @@ extension Bindings {
 		/// message. A node can decide to use that information to discover a potential update to its
 		/// public IPv4 address (NAT) and use that for a [`NodeAnnouncement`] update message containing
 		/// the new address.
-		public func setRemoteNetworkAddress(val: NetAddress?) {
+		public func setRemoteNetworkAddress(val: SocketAddress?) {
 			// native call variable prep
 
-			let valOption = Option_NetAddressZ(
+			let valOption = Option_SocketAddressZ(
 				some: val, instantiationContext: "BindingsInit.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -247,15 +247,15 @@ extension Bindings {
 		}
 
 		/// Constructs a new Init given each field
-		public init(featuresArg: InitFeatures, networksArg: [[UInt8]]?, remoteNetworkAddressArg: NetAddress?) {
+		public init(featuresArg: InitFeatures, networksArg: [[UInt8]]?, remoteNetworkAddressArg: SocketAddress?) {
 			// native call variable prep
 
-			let networksArgOption = Option_CVec_ChainHashZZ(
+			let networksArgOption = Option_CVec_ThirtyTwoBytesZZ(
 				some: networksArg, instantiationContext: "BindingsInit.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
 
-			let remoteNetworkAddressArgOption = Option_NetAddressZ(
+			let remoteNetworkAddressArgOption = Option_SocketAddressZ(
 				some: remoteNetworkAddressArg, instantiationContext: "BindingsInit.swift::\(#function):\(#line)"
 			)
 			.danglingClone()

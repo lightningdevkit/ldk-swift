@@ -200,7 +200,7 @@ extension Bindings {
 		/// This function is only valid in the holder commitment context, it always uses EcdsaSighashType::All.
 		public func getHtlcSigs(
 			htlcBaseKey: [UInt8], channelParameters: DirectedChannelTransactionParameters, entropySource: EntropySource
-		) -> Result_CVec_SignatureZNoneZ {
+		) -> Result_CVec_ECDSASignatureZNoneZ {
 			// native call variable prep
 
 			let tupledHtlcBaseKey = Bindings.arrayToUInt8Tuple32(array: htlcBaseKey)
@@ -234,7 +234,86 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_SignatureZNoneZ(
+			let returnValue = Result_CVec_ECDSASignatureZNoneZ(
+				cType: nativeCallResult,
+				instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Returns the index of the revokeable output, i.e. the `to_local` output sending funds to
+		/// the broadcaster, in the built transaction, if any exists.
+		///
+		/// There are two cases where this may return `None`:
+		/// - The balance of the revokeable output is below the dust limit (only found on commitments
+		/// early in the channel's lifetime, i.e. before the channel reserve is met).
+		/// - This commitment was created before LDK 0.0.117. In this case, the
+		/// commitment transaction previously didn't contain enough information to locate the
+		/// revokeable output.
+		public func revokeableOutputIndex() -> UInt? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
+					TrustedCommitmentTransaction_revokeable_output_index(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_usizeZ(
+				cType: nativeCallResult,
+				instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// Helper method to build an unsigned justice transaction spending the revokeable
+		/// `to_local` output to a destination script. Fee estimation accounts for the expected
+		/// revocation witness data that will be added when signed.
+		///
+		/// This method will error if the given fee rate results in a fee greater than the value
+		/// of the output being spent, or if there exists no revokeable `to_local` output on this
+		/// commitment transaction. See [`Self::revokeable_output_index`] for more details.
+		///
+		/// The built transaction will allow fee bumping with RBF, and this method takes
+		/// `feerate_per_kw` as an input such that multiple copies of a justice transaction at different
+		/// fee rates may be built.
+		public func buildToLocalJusticeTx(feeratePerKw: UInt64, destinationScript: [UInt8]) -> Result_TransactionNoneZ {
+			// native call variable prep
+
+			let destinationScriptVector = Vec_u8Z(
+				array: destinationScript,
+				instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKTrustedCommitmentTransaction>) in
+					TrustedCommitmentTransaction_build_to_local_justice_tx(
+						thisArgPointer, feeratePerKw, destinationScriptVector.cType!)
+				}
+
+
+			// cleanup
+
+			// destinationScriptVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_TransactionNoneZ(
 				cType: nativeCallResult,
 				instantiationContext: "TrustedCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
 			)

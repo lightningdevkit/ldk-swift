@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::c_types::derived::C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZs of arbitrary size.
+/// A dynamically-allocated array of crate::c_types::derived::C2Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZs of arbitrary size.
 /// This corresponds to std::vector in C++
 internal typealias Vec_TransactionOutputsZ = Bindings.Vec_TransactionOutputsZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::c_types::derived::C2Tuple_TxidCVec_C2Tuple_u32TxOutZZZs of arbitrary size.
+	/// A dynamically-allocated array of crate::c_types::derived::C2Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZs of arbitrary size.
 	/// This corresponds to std::vector in C++
 	internal class Vec_TransactionOutputsZ: NativeTypeWrapper {
 
@@ -66,9 +66,10 @@ extension Bindings {
 
 
 			let rustArray = array.map {
-				(currentValueDepth1: ([UInt8], [(UInt32, TxOut)])) -> LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ in
+				(currentValueDepth1: ([UInt8], [(UInt32, TxOut)])) -> LDKC2Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZ
+				in
 
-				let currentValueDepth1Tuple = Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(
+				let currentValueDepth1Tuple = Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZ(
 					tuple: currentValueDepth1,
 					instantiationContext: "Vec_TransactionOutputsZ.swift::\(#function):\(#line)"
 				)
@@ -78,7 +79,7 @@ extension Bindings {
 			}
 
 
-			let dataContainer = UnsafeMutablePointer<LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ>
+			let dataContainer = UnsafeMutablePointer<LDKC2Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZ>
 				.allocate(capacity: array.count)
 			dataContainer.initialize(from: rustArray, count: array.count)
 
@@ -88,7 +89,7 @@ extension Bindings {
 
 		public func getValue() -> [([UInt8], [(UInt32, TxOut)])] {
 
-			var array = [LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ]()
+			var array = [LDKC2Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZ]()
 
 
 			for index1 in 0..<Int(self.cType!.datalen) {
@@ -98,8 +99,8 @@ extension Bindings {
 
 
 			let swiftArray = array.map {
-				(currentCType: LDKC2Tuple_TxidCVec_C2Tuple_u32TxOutZZZ) -> ([UInt8], [(UInt32, TxOut)]) in
-				Tuple_TxidCVec_C2Tuple_u32TxOutZZZ(
+				(currentCType: LDKC2Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZ) -> ([UInt8], [(UInt32, TxOut)]) in
+				Tuple_ThirtyTwoBytesCVec_C2Tuple_u32TxOutZZZ(
 					cType: currentCType, instantiationContext: "Vec_TransactionOutputsZ.swift::\(#function):\(#line)"
 				)
 				.dangle().getValue()

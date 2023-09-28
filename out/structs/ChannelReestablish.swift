@@ -354,7 +354,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_TxidZ(
+			let returnValue = Option_ThirtyTwoBytesZ(
 				cType: nativeCallResult, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -368,7 +368,7 @@ extension Bindings {
 		public func setNextFundingTxid(val: [UInt8]?) {
 			// native call variable prep
 
-			let valOption = Option_TxidZ(
+			let valOption = Option_ThirtyTwoBytesZ(
 				some: val, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -411,7 +411,7 @@ extension Bindings {
 				value: myCurrentPerCommitmentPointArg,
 				instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)")
 
-			let nextFundingTxidArgOption = Option_TxidZ(
+			let nextFundingTxidArgOption = Option_ThirtyTwoBytesZ(
 				some: nextFundingTxidArg, instantiationContext: "ChannelReestablish.swift::\(#function):\(#line)"
 			)
 			.danglingClone()

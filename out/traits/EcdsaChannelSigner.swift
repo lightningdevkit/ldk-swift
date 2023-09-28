@@ -85,8 +85,8 @@ extension Bindings {
 
 			func signCounterpartyCommitmentLambda(
 				this_arg: UnsafeRawPointer?, commitment_tx: UnsafePointer<LDKCommitmentTransaction>,
-				preimages: LDKCVec_PaymentPreimageZ
-			) -> LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+				preimages: LDKCVec_ThirtyTwoBytesZ
+			) -> LDKCResult_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signCounterpartyCommitmentLambda")
 
@@ -100,7 +100,7 @@ extension Bindings {
 						instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
 					)
 					.dangle().clone(),
-					preimages: Vec_PaymentPreimageZ(
+					preimages: Vec_ThirtyTwoBytesZ(
 						cType: preimages,
 						instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
 					)
@@ -143,7 +143,7 @@ extension Bindings {
 
 			func signHolderCommitmentAndHtlcsLambda(
 				this_arg: UnsafeRawPointer?, commitment_tx: UnsafePointer<LDKHolderCommitmentTransaction>
-			) -> LDKCResult_C2Tuple_SignatureCVec_SignatureZZNoneZ {
+			) -> LDKCResult_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderCommitmentAndHtlcsLambda")
 
@@ -170,7 +170,7 @@ extension Bindings {
 			func signJusticeRevokedOutputLambda(
 				this_arg: UnsafeRawPointer?, justice_tx: LDKTransaction, input: UInt, amount: UInt64,
 				per_commitment_key: UnsafePointer<UInt8Tuple32>?
-			) -> LDKCResult_SignatureNoneZ {
+			) -> LDKCResult_ECDSASignatureNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signJusticeRevokedOutputLambda")
 
@@ -202,7 +202,7 @@ extension Bindings {
 			func signJusticeRevokedHtlcLambda(
 				this_arg: UnsafeRawPointer?, justice_tx: LDKTransaction, input: UInt, amount: UInt64,
 				per_commitment_key: UnsafePointer<UInt8Tuple32>?, htlc: UnsafePointer<LDKHTLCOutputInCommitment>
-			) -> LDKCResult_SignatureNoneZ {
+			) -> LDKCResult_ECDSASignatureNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signJusticeRevokedHtlcLambda")
 
@@ -239,7 +239,7 @@ extension Bindings {
 			func signHolderHtlcTransactionLambda(
 				this_arg: UnsafeRawPointer?, htlc_tx: LDKTransaction, input: UInt,
 				htlc_descriptor: UnsafePointer<LDKHTLCDescriptor>
-			) -> LDKCResult_SignatureNoneZ {
+			) -> LDKCResult_ECDSASignatureNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderHtlcTransactionLambda")
 
@@ -270,7 +270,7 @@ extension Bindings {
 			func signCounterpartyHtlcTransactionLambda(
 				this_arg: UnsafeRawPointer?, htlc_tx: LDKTransaction, input: UInt, amount: UInt64,
 				per_commitment_point: LDKPublicKey, htlc: UnsafePointer<LDKHTLCOutputInCommitment>
-			) -> LDKCResult_SignatureNoneZ {
+			) -> LDKCResult_ECDSASignatureNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signCounterpartyHtlcTransactionLambda")
 
@@ -305,7 +305,7 @@ extension Bindings {
 
 			func signClosingTransactionLambda(
 				this_arg: UnsafeRawPointer?, closing_tx: UnsafePointer<LDKClosingTransaction>
-			) -> LDKCResult_SignatureNoneZ {
+			) -> LDKCResult_ECDSASignatureNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signClosingTransactionLambda")
 
@@ -330,7 +330,7 @@ extension Bindings {
 			}
 
 			func signHolderAnchorInputLambda(this_arg: UnsafeRawPointer?, anchor_tx: LDKTransaction, input: UInt)
-				-> LDKCResult_SignatureNoneZ
+				-> LDKCResult_ECDSASignatureNoneZ
 			{
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderAnchorInputLambda")
@@ -357,7 +357,7 @@ extension Bindings {
 
 			func signChannelAnnouncementWithFundingKeyLambda(
 				this_arg: UnsafeRawPointer?, msg: UnsafePointer<LDKUnsignedChannelAnnouncement>
-			) -> LDKCResult_SignatureNoneZ {
+			) -> LDKCResult_ECDSASignatureNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signChannelAnnouncementWithFundingKeyLambda")
 
@@ -433,7 +433,7 @@ extension Bindings {
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
 		open func signCounterpartyCommitment(commitmentTx: CommitmentTransaction, preimages: [[UInt8]])
-			-> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ
+			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
 		{
 
 			Bindings.print(
@@ -470,7 +470,7 @@ extension Bindings {
 		///
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		open func signHolderCommitmentAndHtlcs(commitmentTx: HolderCommitmentTransaction)
-			-> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ
+			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
 		{
 
 			Bindings.print(
@@ -494,7 +494,7 @@ extension Bindings {
 		/// not allow the spending of any funds by itself (you need our holder `revocation_secret` to do
 		/// so).
 		open func signJusticeRevokedOutput(justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?)
-			-> Result_SignatureNoneZ
+			-> Result_ECDSASignatureNoneZ
 		{
 
 			Bindings.print(
@@ -523,7 +523,7 @@ extension Bindings {
 		/// (which is committed to in the BIP 143 signatures).
 		open func signJusticeRevokedHtlc(
 			justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?, htlc: HTLCOutputInCommitment
-		) -> Result_SignatureNoneZ {
+		) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signJusticeRevokedHtlc MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -539,7 +539,7 @@ extension Bindings {
 		///
 		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
 		open func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
-			-> Result_SignatureNoneZ
+			-> Result_ECDSASignatureNoneZ
 		{
 
 			Bindings.print(
@@ -567,7 +567,7 @@ extension Bindings {
 		/// BIP 143 signature.
 		open func signCounterpartyHtlcTransaction(
 			htlcTx: [UInt8], input: UInt, amount: UInt64, perCommitmentPoint: [UInt8], htlc: HTLCOutputInCommitment
-		) -> Result_SignatureNoneZ {
+		) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signCounterpartyHtlcTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -579,7 +579,7 @@ extension Bindings {
 		///
 		/// Note that, due to rounding, there may be one \"missing\" satoshi, and either party may have
 		/// chosen to forgo their output as dust.
-		open func signClosingTransaction(closingTx: ClosingTransaction) -> Result_SignatureNoneZ {
+		open func signClosingTransaction(closingTx: ClosingTransaction) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signClosingTransaction MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -589,7 +589,7 @@ extension Bindings {
 
 		/// Computes the signature for a commitment transaction's anchor output used as an
 		/// input within `anchor_tx`, which spends the commitment transaction, at index `input`.
-		open func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_SignatureNoneZ {
+		open func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signHolderAnchorInput MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -606,7 +606,8 @@ extension Bindings {
 		/// Note that if this fails or is rejected, the channel will not be publicly announced and
 		/// our counterparty may (though likely will not) close the channel on us for violating the
 		/// protocol.
-		open func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement) -> Result_SignatureNoneZ {
+		open func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement) -> Result_ECDSASignatureNoneZ
+		{
 
 			Bindings.print(
 				"Error: EcdsaChannelSigner::signChannelAnnouncementWithFundingKey MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -674,11 +675,11 @@ extension Bindings {
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
 		public override func signCounterpartyCommitment(commitmentTx: CommitmentTransaction, preimages: [[UInt8]])
-			-> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ
+			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
 		{
 			// native call variable prep
 
-			let preimagesVector = Vec_PaymentPreimageZ(
+			let preimagesVector = Vec_ThirtyTwoBytesZ(
 				array: preimages, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)"
 			)
 			.dangle()
@@ -699,7 +700,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(
+			let returnValue = Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -752,7 +753,7 @@ extension Bindings {
 		///
 		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		public override func signHolderCommitmentAndHtlcs(commitmentTx: HolderCommitmentTransaction)
-			-> Result_C2Tuple_SignatureCVec_SignatureZZNoneZ
+			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
 		{
 			// native call variable prep
 
@@ -769,7 +770,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_SignatureCVec_SignatureZZNoneZ(
+			let returnValue = Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -791,7 +792,7 @@ extension Bindings {
 		/// so).
 		public override func signJusticeRevokedOutput(
 			justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?
-		) -> Result_SignatureNoneZ {
+		) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
 			let justiceTxPrimitiveWrapper = Transaction(
@@ -822,7 +823,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -848,7 +849,7 @@ extension Bindings {
 		/// (which is committed to in the BIP 143 signatures).
 		public override func signJusticeRevokedHtlc(
 			justiceTx: [UInt8], input: UInt, amount: UInt64, perCommitmentKey: [UInt8]?, htlc: HTLCOutputInCommitment
-		) -> Result_SignatureNoneZ {
+		) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
 			let justiceTxPrimitiveWrapper = Transaction(
@@ -883,7 +884,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -897,7 +898,7 @@ extension Bindings {
 		///
 		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
 		public override func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
-			-> Result_SignatureNoneZ
+			-> Result_ECDSASignatureNoneZ
 		{
 			// native call variable prep
 
@@ -924,7 +925,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -949,7 +950,7 @@ extension Bindings {
 		/// BIP 143 signature.
 		public override func signCounterpartyHtlcTransaction(
 			htlcTx: [UInt8], input: UInt, amount: UInt64, perCommitmentPoint: [UInt8], htlc: HTLCOutputInCommitment
-		) -> Result_SignatureNoneZ {
+		) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
 			let htlcTxPrimitiveWrapper = Transaction(
@@ -981,7 +982,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -991,7 +992,7 @@ extension Bindings {
 		///
 		/// Note that, due to rounding, there may be one \"missing\" satoshi, and either party may have
 		/// chosen to forgo their output as dust.
-		public override func signClosingTransaction(closingTx: ClosingTransaction) -> Result_SignatureNoneZ {
+		public override func signClosingTransaction(closingTx: ClosingTransaction) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
 
@@ -1006,7 +1007,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -1014,7 +1015,7 @@ extension Bindings {
 
 		/// Computes the signature for a commitment transaction's anchor output used as an
 		/// input within `anchor_tx`, which spends the commitment transaction, at index `input`.
-		public override func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_SignatureNoneZ {
+		public override func signHolderAnchorInput(anchorTx: [UInt8], input: UInt) -> Result_ECDSASignatureNoneZ {
 			// native call variable prep
 
 			let anchorTxPrimitiveWrapper = Transaction(
@@ -1034,7 +1035,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -1050,7 +1051,7 @@ extension Bindings {
 		/// our counterparty may (though likely will not) close the channel on us for violating the
 		/// protocol.
 		public override func signChannelAnnouncementWithFundingKey(msg: UnsignedChannelAnnouncement)
-			-> Result_SignatureNoneZ
+			-> Result_ECDSASignatureNoneZ
 		{
 			// native call variable prep
 
@@ -1066,7 +1067,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_SignatureNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue

@@ -10,21 +10,12 @@ import Foundation
 /// blocks are connected and disconnected.
 ///
 /// Each channel is associated with a [`ChannelMonitor`]. Implementations of this trait are
-/// responsible for maintaining a set of monitors such that they can be updated accordingly as
-/// channel state changes and HTLCs are resolved. See method documentation for specific
-/// requirements.
+/// responsible for maintaining a set of monitors such that they can be updated as channel state
+/// changes. On each update, *all copies* of a [`ChannelMonitor`] must be updated and the update
+/// persisted to disk to ensure that the latest [`ChannelMonitor`] state can be reloaded if the
+/// application crashes.
 ///
-/// Implementations **must** ensure that updates are successfully applied and persisted upon method
-/// completion. If an update fails with a [`PermanentFailure`], then it must immediately shut down
-/// without taking any further action such as persisting the current state.
-///
-/// If an implementation maintains multiple instances of a channel's monitor (e.g., by storing
-/// backup copies), then it must ensure that updates are applied across all instances. Otherwise, it
-/// could result in a revoked transaction being broadcast, allowing the counterparty to claim all
-/// funds in the channel. See [`ChannelMonitorUpdateStatus`] for more details about how to handle
-/// multiple instances.
-///
-/// [`PermanentFailure`]: ChannelMonitorUpdateStatus::PermanentFailure
+/// See method documentation and [`ChannelMonitorUpdateStatus`] for specific requirements.
 public typealias Watch = Bindings.Watch
 
 extension Bindings {
@@ -33,21 +24,12 @@ extension Bindings {
 	/// blocks are connected and disconnected.
 	///
 	/// Each channel is associated with a [`ChannelMonitor`]. Implementations of this trait are
-	/// responsible for maintaining a set of monitors such that they can be updated accordingly as
-	/// channel state changes and HTLCs are resolved. See method documentation for specific
-	/// requirements.
+	/// responsible for maintaining a set of monitors such that they can be updated as channel state
+	/// changes. On each update, *all copies* of a [`ChannelMonitor`] must be updated and the update
+	/// persisted to disk to ensure that the latest [`ChannelMonitor`] state can be reloaded if the
+	/// application crashes.
 	///
-	/// Implementations **must** ensure that updates are successfully applied and persisted upon method
-	/// completion. If an update fails with a [`PermanentFailure`], then it must immediately shut down
-	/// without taking any further action such as persisting the current state.
-	///
-	/// If an implementation maintains multiple instances of a channel's monitor (e.g., by storing
-	/// backup copies), then it must ensure that updates are applied across all instances. Otherwise, it
-	/// could result in a revoked transaction being broadcast, allowing the counterparty to claim all
-	/// funds in the channel. See [`ChannelMonitorUpdateStatus`] for more details about how to handle
-	/// multiple instances.
-	///
-	/// [`PermanentFailure`]: ChannelMonitorUpdateStatus::PermanentFailure
+	/// See method documentation and [`ChannelMonitorUpdateStatus`] for specific requirements.
 	open class Watch: NativeTraitWrapper {
 
 
@@ -103,7 +85,7 @@ extension Bindings {
 
 
 			func watchChannelLambda(this_arg: UnsafeRawPointer?, funding_txo: LDKOutPoint, monitor: LDKChannelMonitor)
-				-> LDKChannelMonitorUpdateStatus
+				-> LDKCResult_ChannelMonitorUpdateStatusNoneZ
 			{
 				let instance: Watch = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Watch::watchChannelLambda")
@@ -122,7 +104,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult.getCValue()
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -213,13 +195,17 @@ extension Bindings {
 		/// with any spends of outputs returned by [`get_outputs_to_watch`]. In practice, this means
 		/// calling [`block_connected`] and [`block_disconnected`] on the monitor.
 		///
-		/// Note: this interface MUST error with [`ChannelMonitorUpdateStatus::PermanentFailure`] if
-		/// the given `funding_txo` has previously been registered via `watch_channel`.
+		/// A return of `Err(())` indicates that the channel should immediately be force-closed without
+		/// broadcasting the funding transaction.
+		///
+		/// If the given `funding_txo` has previously been registered via `watch_channel`, `Err(())`
+		/// must be returned.
 		///
 		/// [`get_outputs_to_watch`]: channelmonitor::ChannelMonitor::get_outputs_to_watch
 		/// [`block_connected`]: channelmonitor::ChannelMonitor::block_connected
 		/// [`block_disconnected`]: channelmonitor::ChannelMonitor::block_disconnected
-		open func watchChannel(fundingTxo: OutPoint, monitor: ChannelMonitor) -> ChannelMonitorUpdateStatus {
+		open func watchChannel(fundingTxo: OutPoint, monitor: ChannelMonitor) -> Result_ChannelMonitorUpdateStatusNoneZ
+		{
 
 			Bindings.print(
 				"Error: Watch::watchChannel MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -229,10 +215,19 @@ extension Bindings {
 
 		/// Updates a channel identified by `funding_txo` by applying `update` to its monitor.
 		///
-		/// Implementations must call [`update_monitor`] with the given update. See
-		/// [`ChannelMonitorUpdateStatus`] for invariants around returning an error.
+		/// Implementations must call [`ChannelMonitor::update_monitor`] with the given update. This
+		/// may fail (returning an `Err(())`), in which case this should return
+		/// [`ChannelMonitorUpdateStatus::InProgress`] (and the update should never complete). This
+		/// generally implies the channel has been closed (either by the funding outpoint being spent
+		/// on-chain or the [`ChannelMonitor`] having decided to do so and broadcasted a transaction),
+		/// and the [`ChannelManager`] state will be updated once it sees the funding spend on-chain.
 		///
-		/// [`update_monitor`]: channelmonitor::ChannelMonitor::update_monitor
+		/// In general, persistence failures should be retried after returning
+		/// [`ChannelMonitorUpdateStatus::InProgress`] and eventually complete. If a failure truly
+		/// cannot be retried, the node should shut down immediately after returning
+		/// [`ChannelMonitorUpdateStatus::UnrecoverableError`], see its documentation for more info.
+		///
+		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		open func updateChannel(fundingTxo: OutPoint, update: ChannelMonitorUpdate) -> ChannelMonitorUpdateStatus {
 
 			Bindings.print(
@@ -297,13 +292,18 @@ extension Bindings {
 		/// with any spends of outputs returned by [`get_outputs_to_watch`]. In practice, this means
 		/// calling [`block_connected`] and [`block_disconnected`] on the monitor.
 		///
-		/// Note: this interface MUST error with [`ChannelMonitorUpdateStatus::PermanentFailure`] if
-		/// the given `funding_txo` has previously been registered via `watch_channel`.
+		/// A return of `Err(())` indicates that the channel should immediately be force-closed without
+		/// broadcasting the funding transaction.
+		///
+		/// If the given `funding_txo` has previously been registered via `watch_channel`, `Err(())`
+		/// must be returned.
 		///
 		/// [`get_outputs_to_watch`]: channelmonitor::ChannelMonitor::get_outputs_to_watch
 		/// [`block_connected`]: channelmonitor::ChannelMonitor::block_connected
 		/// [`block_disconnected`]: channelmonitor::ChannelMonitor::block_disconnected
-		public override func watchChannel(fundingTxo: OutPoint, monitor: ChannelMonitor) -> ChannelMonitorUpdateStatus {
+		public override func watchChannel(fundingTxo: OutPoint, monitor: ChannelMonitor)
+			-> Result_ChannelMonitorUpdateStatusNoneZ
+		{
 			// native call variable prep
 
 
@@ -317,17 +317,27 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = ChannelMonitorUpdateStatus(value: nativeCallResult)
+			let returnValue = Result_ChannelMonitorUpdateStatusNoneZ(
+				cType: nativeCallResult, instantiationContext: "Watch.swift::\(#function):\(#line)")
 
 			return returnValue
 		}
 
 		/// Updates a channel identified by `funding_txo` by applying `update` to its monitor.
 		///
-		/// Implementations must call [`update_monitor`] with the given update. See
-		/// [`ChannelMonitorUpdateStatus`] for invariants around returning an error.
+		/// Implementations must call [`ChannelMonitor::update_monitor`] with the given update. This
+		/// may fail (returning an `Err(())`), in which case this should return
+		/// [`ChannelMonitorUpdateStatus::InProgress`] (and the update should never complete). This
+		/// generally implies the channel has been closed (either by the funding outpoint being spent
+		/// on-chain or the [`ChannelMonitor`] having decided to do so and broadcasted a transaction),
+		/// and the [`ChannelManager`] state will be updated once it sees the funding spend on-chain.
 		///
-		/// [`update_monitor`]: channelmonitor::ChannelMonitor::update_monitor
+		/// In general, persistence failures should be retried after returning
+		/// [`ChannelMonitorUpdateStatus::InProgress`] and eventually complete. If a failure truly
+		/// cannot be retried, the node should shut down immediately after returning
+		/// [`ChannelMonitorUpdateStatus::UnrecoverableError`], see its documentation for more info.
+		///
+		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		public override func updateChannel(fundingTxo: OutPoint, update: ChannelMonitorUpdate)
 			-> ChannelMonitorUpdateStatus
 		{

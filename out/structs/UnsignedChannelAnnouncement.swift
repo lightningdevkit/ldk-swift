@@ -427,6 +427,121 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Excess data which was signed as a part of the message which we do not (yet) understand how
+		/// to decode.
+		///
+		/// This is stored to ensure forward-compatibility as new fields are added to the lightning gossip protocol.
+		///
+		/// Returns a copy of the field.
+		public func getExcessData() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUnsignedChannelAnnouncement>) in
+					UnsignedChannelAnnouncement_get_excess_data(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult,
+				instantiationContext: "UnsignedChannelAnnouncement.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Excess data which was signed as a part of the message which we do not (yet) understand how
+		/// to decode.
+		///
+		/// This is stored to ensure forward-compatibility as new fields are added to the lightning gossip protocol.
+		public func setExcessData(val: [UInt8]) {
+			// native call variable prep
+
+			let valVector = Vec_u8Z(
+				array: val, instantiationContext: "UnsignedChannelAnnouncement.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKUnsignedChannelAnnouncement>) in
+					UnsignedChannelAnnouncement_set_excess_data(thisPtrPointer, valVector.cType!)
+				}
+
+
+			// cleanup
+
+			// valVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new UnsignedChannelAnnouncement given each field
+		public init(
+			featuresArg: ChannelFeatures, chainHashArg: [UInt8], shortChannelIdArg: UInt64, nodeId1Arg: NodeId,
+			nodeId2Arg: NodeId, bitcoinKey1Arg: NodeId, bitcoinKey2Arg: NodeId, excessDataArg: [UInt8]
+		) {
+			// native call variable prep
+
+			let chainHashArgPrimitiveWrapper = ThirtyTwoBytes(
+				value: chainHashArg, instantiationContext: "UnsignedChannelAnnouncement.swift::\(#function):\(#line)")
+
+			let excessDataArgVector = Vec_u8Z(
+				array: excessDataArg, instantiationContext: "UnsignedChannelAnnouncement.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = UnsignedChannelAnnouncement_new(
+				featuresArg.dynamicallyDangledClone().cType!, chainHashArgPrimitiveWrapper.cType!, shortChannelIdArg,
+				nodeId1Arg.dynamicallyDangledClone().cType!, nodeId2Arg.dynamicallyDangledClone().cType!,
+				bitcoinKey1Arg.dynamicallyDangledClone().cType!, bitcoinKey2Arg.dynamicallyDangledClone().cType!,
+				excessDataArgVector.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			chainHashArgPrimitiveWrapper.noOpRetain()
+
+			// excessDataArgVector.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = UnsignedChannelAnnouncement(cType: nativeCallResult, instantiationContext: "UnsignedChannelAnnouncement.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "UnsignedChannelAnnouncement.swift::\(#function):\(#line)")
+
+
+		}
+
 		/// Creates a copy of the UnsignedChannelAnnouncement
 		internal func clone() -> UnsignedChannelAnnouncement {
 			// native call variable prep

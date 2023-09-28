@@ -262,7 +262,7 @@ extension Bindings {
 		}
 
 		/// Recovers the public key used for signing the invoice from the recoverable signature.
-		public func recoverPayeePubKey() -> Result_PayeePubKeyErrorZ {
+		public func recoverPayeePubKey() -> Result_PayeePubKeySecp256k1ErrorZ {
 			// native call variable prep
 
 
@@ -277,7 +277,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_PayeePubKeyErrorZ(
+			let returnValue = Result_PayeePubKeySecp256k1ErrorZ(
 				cType: nativeCallResult, instantiationContext: "SignedRawBolt11Invoice.swift::\(#function):\(#line)",
 				anchor: self
 			)

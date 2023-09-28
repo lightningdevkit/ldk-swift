@@ -787,7 +787,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_ScriptZ(
+			let returnValue = Option_CVec_u8ZZ(
 				cType: nativeCallResult, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -801,7 +801,7 @@ extension Bindings {
 		public func setShutdownScriptpubkey(val: [UInt8]?) {
 			// native call variable prep
 
-			let valOption = Option_ScriptZ(
+			let valOption = Option_CVec_u8ZZ(
 				some: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -929,7 +929,7 @@ extension Bindings {
 			let firstPerCommitmentPointArgPrimitiveWrapper = PublicKey(
 				value: firstPerCommitmentPointArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 
-			let shutdownScriptpubkeyArgOption = Option_ScriptZ(
+			let shutdownScriptpubkeyArgOption = Option_CVec_u8ZZ(
 				some: shutdownScriptpubkeyArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)"
 			)
 			.danglingClone()

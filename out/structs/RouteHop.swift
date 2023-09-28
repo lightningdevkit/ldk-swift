@@ -381,10 +381,69 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Indicates whether this hop is possibly announced in the public network graph.
+		///
+		/// Will be `true` if there is a possibility that the channel is publicly known, i.e., if we
+		/// either know for sure it's announced in the public graph, or if any public channels exist
+		/// for which the given `short_channel_id` could be an alias for. Will be `false` if we believe
+		/// the channel to be unannounced.
+		///
+		/// Will be `true` for objects serialized with LDK version 0.0.116 and before.
+		public func getMaybeAnnouncedChannel() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKRouteHop>) in
+					RouteHop_get_maybe_announced_channel(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Indicates whether this hop is possibly announced in the public network graph.
+		///
+		/// Will be `true` if there is a possibility that the channel is publicly known, i.e., if we
+		/// either know for sure it's announced in the public graph, or if any public channels exist
+		/// for which the given `short_channel_id` could be an alias for. Will be `false` if we believe
+		/// the channel to be unannounced.
+		///
+		/// Will be `true` for objects serialized with LDK version 0.0.116 and before.
+		public func setMaybeAnnouncedChannel(val: Bool) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKRouteHop>) in
+					RouteHop_set_maybe_announced_channel(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new RouteHop given each field
 		public init(
 			pubkeyArg: [UInt8], nodeFeaturesArg: NodeFeatures, shortChannelIdArg: UInt64,
-			channelFeaturesArg: ChannelFeatures, feeMsatArg: UInt64, cltvExpiryDeltaArg: UInt32
+			channelFeaturesArg: ChannelFeatures, feeMsatArg: UInt64, cltvExpiryDeltaArg: UInt32,
+			maybeAnnouncedChannelArg: Bool
 		) {
 			// native call variable prep
 
@@ -395,7 +454,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = RouteHop_new(
 				pubkeyArgPrimitiveWrapper.cType!, nodeFeaturesArg.dynamicallyDangledClone().cType!, shortChannelIdArg,
-				channelFeaturesArg.dynamicallyDangledClone().cType!, feeMsatArg, cltvExpiryDeltaArg)
+				channelFeaturesArg.dynamicallyDangledClone().cType!, feeMsatArg, cltvExpiryDeltaArg,
+				maybeAnnouncedChannelArg)
 
 			// cleanup
 

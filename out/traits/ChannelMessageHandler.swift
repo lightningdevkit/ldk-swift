@@ -1076,7 +1076,7 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getGenesisHashesLambda(this_arg: UnsafeRawPointer?) -> LDKCOption_CVec_ChainHashZZ {
+			func getGenesisHashesLambda(this_arg: UnsafeRawPointer?) -> LDKCOption_CVec_ThirtyTwoBytesZZ {
 				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::getGenesisHashesLambda")
 
@@ -1090,7 +1090,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Option_CVec_ChainHashZZ(
+				let returnValue = Option_CVec_ThirtyTwoBytesZZ(
 					some: swiftCallbackResult,
 					instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
 				)
@@ -2456,7 +2456,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_CVec_ChainHashZZ(
+			let returnValue = Option_CVec_ThirtyTwoBytesZZ(
 				cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()

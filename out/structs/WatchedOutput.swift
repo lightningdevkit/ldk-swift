@@ -113,7 +113,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_BlockHashZ(
+			let returnValue = Option_ThirtyTwoBytesZ(
 				cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -127,7 +127,7 @@ extension Bindings {
 		public func setBlockHash(val: [UInt8]?) {
 			// native call variable prep
 
-			let valOption = Option_BlockHashZ(
+			let valOption = Option_ThirtyTwoBytesZ(
 				some: val, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -255,7 +255,7 @@ extension Bindings {
 		public init(blockHashArg: [UInt8]?, outpointArg: OutPoint, scriptPubkeyArg: [UInt8]) {
 			// native call variable prep
 
-			let blockHashArgOption = Option_BlockHashZ(
+			let blockHashArgOption = Option_ThirtyTwoBytesZ(
 				some: blockHashArg, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)"
 			)
 			.danglingClone()

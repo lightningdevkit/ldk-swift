@@ -14,12 +14,14 @@
 /// called [`funding_transaction_generated`] for outbound channels) being closed.
 ///
 /// Note that you can be a bit lazier about writing out `ChannelManager` than you can be with
-/// [`ChannelMonitor`]. With [`ChannelMonitor`] you MUST write each monitor update out to disk before
-/// returning from [`chain::Watch::watch_channel`]/[`update_channel`], with ChannelManagers, writing updates
-/// happens out-of-band (and will prevent any other `ChannelManager` operations from occurring during
-/// the serialization process). If the deserialized version is out-of-date compared to the
-/// [`ChannelMonitor`] passed by reference to [`read`], those channels will be force-closed based on the
-/// `ChannelMonitor` state and no funds will be lost (mod on-chain transaction fees).
+/// [`ChannelMonitor`]. With [`ChannelMonitor`] you MUST durably write each
+/// [`ChannelMonitorUpdate`] before returning from
+/// [`chain::Watch::watch_channel`]/[`update_channel`] or before completing async writes. With
+/// `ChannelManager`s, writing updates happens out-of-band (and will prevent any other
+/// `ChannelManager` operations from occurring during the serialization process). If the
+/// deserialized version is out-of-date compared to the [`ChannelMonitor`] passed by reference to
+/// [`read`], those channels will be force-closed based on the `ChannelMonitor` state and no funds
+/// will be lost (modulo on-chain transaction fees).
 ///
 /// Note that the deserializer is only implemented for `(`[`BlockHash`]`, `[`ChannelManager`]`)`, which
 /// tells you the last block hash which was connected. You should get the best block tip before using the manager.
@@ -71,12 +73,14 @@ extension Bindings {
 	/// called [`funding_transaction_generated`] for outbound channels) being closed.
 	///
 	/// Note that you can be a bit lazier about writing out `ChannelManager` than you can be with
-	/// [`ChannelMonitor`]. With [`ChannelMonitor`] you MUST write each monitor update out to disk before
-	/// returning from [`chain::Watch::watch_channel`]/[`update_channel`], with ChannelManagers, writing updates
-	/// happens out-of-band (and will prevent any other `ChannelManager` operations from occurring during
-	/// the serialization process). If the deserialized version is out-of-date compared to the
-	/// [`ChannelMonitor`] passed by reference to [`read`], those channels will be force-closed based on the
-	/// `ChannelMonitor` state and no funds will be lost (mod on-chain transaction fees).
+	/// [`ChannelMonitor`]. With [`ChannelMonitor`] you MUST durably write each
+	/// [`ChannelMonitorUpdate`] before returning from
+	/// [`chain::Watch::watch_channel`]/[`update_channel`] or before completing async writes. With
+	/// `ChannelManager`s, writing updates happens out-of-band (and will prevent any other
+	/// `ChannelManager` operations from occurring during the serialization process). If the
+	/// deserialized version is out-of-date compared to the [`ChannelMonitor`] passed by reference to
+	/// [`read`], those channels will be force-closed based on the `ChannelMonitor` state and no funds
+	/// will be lost (modulo on-chain transaction fees).
 	///
 	/// Note that the deserializer is only implemented for `(`[`BlockHash`]`, `[`ChannelManager`]`)`, which
 	/// tells you the last block hash which was connected. You should get the best block tip before using the manager.
@@ -294,7 +298,7 @@ extension Bindings {
 		public func createChannel(
 			theirNetworkKey: [UInt8], channelValueSatoshis: UInt64, pushMsat: UInt64, userChannelId: [UInt8],
 			overrideConfig: UserConfig
-		) -> Result__u832APIErrorZ {
+		) -> Result_ThirtyTwoBytesAPIErrorZ {
 			// native call variable prep
 
 			let theirNetworkKeyPrimitiveWrapper = PublicKey(
@@ -323,7 +327,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result__u832APIErrorZ(
+			let returnValue = Result_ThirtyTwoBytesAPIErrorZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -877,9 +881,11 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Signals that no further retries for the given payment should occur. Useful if you have a
+		/// Signals that no further attempts for the given payment should occur. Useful if you have a
 		/// pending outbound payment with retries remaining, but wish to stop retrying the payment before
 		/// retries are exhausted.
+		///
+		/// # Event Generation
 		///
 		/// If no [`Event::PaymentFailed`] event had been generated before, one will be generated as soon
 		/// as there are no remaining pending HTLCs for this payment.
@@ -888,11 +894,19 @@ extension Bindings {
 		/// wait until you receive either a [`Event::PaymentFailed`] or [`Event::PaymentSent`] event to
 		/// determine the ultimate status of a payment.
 		///
-		/// If an [`Event::PaymentFailed`] event is generated and we restart without this
-		/// [`ChannelManager`] having been persisted, another [`Event::PaymentFailed`] may be generated.
+		/// # Requested Invoices
 		///
-		/// [`Event::PaymentFailed`]: events::Event::PaymentFailed
-		/// [`Event::PaymentSent`]: events::Event::PaymentSent
+		/// In the case of paying a [`Bolt12Invoice`], abandoning the payment prior to receiving the
+		/// invoice will result in an [`Event::InvoiceRequestFailed`] and prevent any attempts at paying
+		/// it once received. The other events may only be generated once the invoice has been received.
+		///
+		/// # Restart Behavior
+		///
+		/// If an [`Event::PaymentFailed`] is generated and we restart without first persisting the
+		/// [`ChannelManager`], another [`Event::PaymentFailed`] may be generated; likewise for
+		/// [`Event::InvoiceRequestFailed`].
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 		public func abandonPayment(paymentId: [UInt8]) {
 			// native call variable prep
 
@@ -935,10 +949,10 @@ extension Bindings {
 		/// [`send_payment`]: Self::send_payment
 		public func sendSpontaneousPayment(
 			route: Route, paymentPreimage: [UInt8]?, recipientOnion: RecipientOnionFields, paymentId: [UInt8]
-		) -> Result_PaymentHashPaymentSendFailureZ {
+		) -> Result_ThirtyTwoBytesPaymentSendFailureZ {
 			// native call variable prep
 
-			let paymentPreimageOption = Option_PaymentPreimageZ(
+			let paymentPreimageOption = Option_ThirtyTwoBytesZ(
 				some: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -967,7 +981,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_PaymentHashPaymentSendFailureZ(
+			let returnValue = Result_ThirtyTwoBytesPaymentSendFailureZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -987,10 +1001,10 @@ extension Bindings {
 		public func sendSpontaneousPaymentWithRetry(
 			paymentPreimage: [UInt8]?, recipientOnion: RecipientOnionFields, paymentId: [UInt8],
 			routeParams: RouteParameters, retryStrategy: Retry
-		) -> Result_PaymentHashRetryableSendFailureZ {
+		) -> Result_ThirtyTwoBytesRetryableSendFailureZ {
 			// native call variable prep
 
-			let paymentPreimageOption = Option_PaymentPreimageZ(
+			let paymentPreimageOption = Option_ThirtyTwoBytesZ(
 				some: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -1016,7 +1030,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_PaymentHashRetryableSendFailureZ(
+			let returnValue = Result_ThirtyTwoBytesRetryableSendFailureZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -1029,7 +1043,7 @@ extension Bindings {
 		/// Send a payment that is probing the given route for liquidity. We calculate the
 		/// [`PaymentHash`] of probes based on a static secret and a random [`PaymentId`], which allows
 		/// us to easily discern them from real payments.
-		public func sendProbe(path: Path) -> Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ {
+		public func sendProbe(path: Path) -> Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZPaymentSendFailureZ {
 			// native call variable prep
 
 
@@ -1044,7 +1058,99 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_PaymentHashPaymentIdZPaymentSendFailureZ(
+			let returnValue = Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZPaymentSendFailureZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Sends payment probes over all paths of a route that would be used to pay the given
+		/// amount to the given `node_id`.
+		///
+		/// See [`ChannelManager::send_preflight_probes`] for more information.
+		public func sendSpontaneousPreflightProbes(
+			nodeId: [UInt8], amountMsat: UInt64, finalCltvExpiryDelta: UInt32, liquidityLimitMultiplier: UInt64?
+		) -> Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbeSendFailureZ {
+			// native call variable prep
+
+			let nodeIdPrimitiveWrapper = PublicKey(
+				value: nodeId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+			let liquidityLimitMultiplierOption = Option_u64Z(
+				some: liquidityLimitMultiplier, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_send_spontaneous_preflight_probes(
+						thisArgPointer, nodeIdPrimitiveWrapper.cType!, amountMsat, finalCltvExpiryDelta,
+						liquidityLimitMultiplierOption.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			nodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbeSendFailureZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Sends payment probes over all paths of a route that would be used to pay a route found
+		/// according to the given [`RouteParameters`].
+		///
+		/// This may be used to send \"pre-flight\" probes, i.e., to train our scorer before conducting
+		/// the actual payment. Note this is only useful if there likely is sufficient time for the
+		/// probe to settle before sending out the actual payment, e.g., when waiting for user
+		/// confirmation in a wallet UI.
+		///
+		/// Otherwise, there is a chance the probe could take up some liquidity needed to complete the
+		/// actual payment. Users should therefore be cautious and might avoid sending probes if
+		/// liquidity is scarce and/or they don't expect the probe to return before they send the
+		/// payment. To mitigate this issue, channels with available liquidity less than the required
+		/// amount times the given `liquidity_limit_multiplier` won't be used to send pre-flight
+		/// probes. If `None` is given as `liquidity_limit_multiplier`, it defaults to `3`.
+		public func sendPreflightProbes(routeParams: RouteParameters, liquidityLimitMultiplier: UInt64?)
+			-> Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbeSendFailureZ
+		{
+			// native call variable prep
+
+			let liquidityLimitMultiplierOption = Option_u64Z(
+				some: liquidityLimitMultiplier, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_send_preflight_probes(
+						thisArgPointer, routeParams.dynamicallyDangledClone().cType!,
+						liquidityLimitMultiplierOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_CVec_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZZProbeSendFailureZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -1118,6 +1224,59 @@ extension Bindings {
 
 			// for elided types, we need this
 			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			fundingTransactionPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneAPIErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Call this upon creation of a batch funding transaction for the given channels.
+		///
+		/// Return values are identical to [`Self::funding_transaction_generated`], respective to
+		/// each individual channel and transaction output.
+		///
+		/// Do NOT broadcast the funding transaction yourself. This batch funding transcaction
+		/// will only be broadcast when we have safely received and persisted the counterparty's
+		/// signature for each channel.
+		///
+		/// If there is an error, all channels in the batch are to be considered closed.
+		public func batchFundingTransactionGenerated(
+			temporaryChannels: [([UInt8], [UInt8])], fundingTransaction: [UInt8]
+		) -> Result_NoneAPIErrorZ {
+			// native call variable prep
+
+			let temporaryChannelsVector = Vec_C2Tuple_ThirtyTwoBytesPublicKeyZZ(
+				array: temporaryChannels, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let fundingTransactionPrimitiveWrapper = Transaction(
+				value: fundingTransaction, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_batch_funding_transaction_generated(
+						thisArgPointer, temporaryChannelsVector.cType!, fundingTransactionPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// temporaryChannelsVector.noOpRetain()
 
 			// for elided types, we need this
 			fundingTransactionPrimitiveWrapper.noOpRetain()
@@ -1501,7 +1660,7 @@ extension Bindings {
 					withUnsafePointer(to: tupledPaymentHash) {
 						(tupledPaymentHashPointer: UnsafePointer<UInt8Tuple32>) in
 						ChannelManager_fail_htlc_backwards_with_reason(
-							thisArgPointer, tupledPaymentHashPointer, failureCode.getCValue())
+							thisArgPointer, tupledPaymentHashPointer, failureCode.danglingClone().cType!)
 					}
 
 				}
@@ -1530,12 +1689,17 @@ extension Bindings {
 		/// event matches your expectation. If you fail to do so and call this method, you may provide
 		/// the sender \"proof-of-payment\" when they did not fulfill the full expected payment.
 		///
+		/// This function will fail the payment if it has custom TLVs with even type numbers, as we
+		/// will assume they are unknown. If you intend to accept even custom TLVs, you should use
+		/// [`claim_funds_with_known_custom_tlvs`].
+		///
 		/// [`Event::PaymentClaimable`]: crate::events::Event::PaymentClaimable
 		/// [`Event::PaymentClaimable::claim_deadline`]: crate::events::Event::PaymentClaimable::claim_deadline
 		/// [`Event::PaymentClaimed`]: crate::events::Event::PaymentClaimed
 		/// [`process_pending_events`]: EventsProvider::process_pending_events
 		/// [`create_inbound_payment`]: Self::create_inbound_payment
 		/// [`create_inbound_payment_for_hash`]: Self::create_inbound_payment_for_hash
+		/// [`claim_funds_with_known_custom_tlvs`]: Self::claim_funds_with_known_custom_tlvs
 		public func claimFunds(paymentPreimage: [UInt8]) {
 			// native call variable prep
 
@@ -1547,6 +1711,43 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
 					ChannelManager_claim_funds(thisArgPointer, paymentPreimagePrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			paymentPreimagePrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// This is a variant of [`claim_funds`] that allows accepting a payment with custom TLVs with
+		/// even type numbers.
+		///
+		/// # Note
+		///
+		/// You MUST check you've understood all even TLVs before using this to
+		/// claim, otherwise you may unintentionally agree to some protocol you do not understand.
+		///
+		/// [`claim_funds`]: Self::claim_funds
+		public func claimFundsWithKnownCustomTlvs(paymentPreimage: [UInt8]) {
+			// native call variable prep
+
+			let paymentPreimagePrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentPreimage, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_claim_funds_with_known_custom_tlvs(
+						thisArgPointer, paymentPreimagePrimitiveWrapper.cType!)
 				}
 
 
@@ -1753,7 +1954,7 @@ extension Bindings {
 		/// [`create_inbound_payment_for_hash`]: Self::create_inbound_payment_for_hash
 		public func createInboundPayment(
 			minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiryDelta: UInt16?
-		) -> Result_C2Tuple_PaymentHashPaymentSecretZNoneZ {
+		) -> Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZNoneZ {
 			// native call variable prep
 
 			let minValueMsatOption = Option_u64Z(
@@ -1780,7 +1981,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_PaymentHashPaymentSecretZNoneZ(
+			let returnValue = Result_C2Tuple_ThirtyTwoBytesThirtyTwoBytesZNoneZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -1838,7 +2039,7 @@ extension Bindings {
 		/// [`PaymentClaimable`]: events::Event::PaymentClaimable
 		public func createInboundPaymentForHash(
 			paymentHash: [UInt8], minValueMsat: UInt64?, invoiceExpiryDeltaSecs: UInt32, minFinalCltvExpiry: UInt16?
-		) -> Result_PaymentSecretNoneZ {
+		) -> Result_ThirtyTwoBytesNoneZ {
 			// native call variable prep
 
 			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
@@ -1871,7 +2072,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_PaymentSecretNoneZ(
+			let returnValue = Result_ThirtyTwoBytesNoneZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -1885,8 +2086,7 @@ extension Bindings {
 		/// previously returned from [`create_inbound_payment`].
 		///
 		/// [`create_inbound_payment`]: Self::create_inbound_payment
-		public func getPaymentPreimage(paymentHash: [UInt8], paymentSecret: [UInt8]) -> Result_PaymentPreimageAPIErrorZ
-		{
+		public func getPaymentPreimage(paymentHash: [UInt8], paymentSecret: [UInt8]) -> Result_ThirtyTwoBytesAPIErrorZ {
 			// native call variable prep
 
 			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
@@ -1914,7 +2114,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_PaymentPreimageAPIErrorZ(
+			let returnValue = Result_ThirtyTwoBytesAPIErrorZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -2131,18 +2331,22 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Gets a [`Future`] that completes when this [`ChannelManager`] needs to be persisted.
+		/// Gets a [`Future`] that completes when this [`ChannelManager`] may need to be persisted or
+		/// may have events that need processing.
+		///
+		/// In order to check if this [`ChannelManager`] needs persisting, call
+		/// [`Self::get_and_clear_needs_persistence`].
 		///
 		/// Note that callbacks registered on the [`Future`] MUST NOT call back into this
 		/// [`ChannelManager`] and should instead register actions to be taken later.
-		public func getPersistableUpdateFuture() -> Future {
+		public func getEventOrPersistenceNeededFuture() -> Future {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
-					ChannelManager_get_persistable_update_future(thisArgPointer)
+					ChannelManager_get_event_or_persistence_needed_future(thisArgPointer)
 				}
 
 
@@ -2155,6 +2359,28 @@ extension Bindings {
 				anchor: self
 			)
 			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Returns true if this [`ChannelManager`] needs to be persisted.
+		public func getAndClearNeedsPersistence() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_get_and_clear_needs_persistence(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
 
 			return returnValue

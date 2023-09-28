@@ -257,7 +257,7 @@ extension Bindings {
 			)
 			.dangle()
 
-			let locktimeOption = Option_PackedLockTimeZ(
+			let locktimeOption = Option_u32Z(
 				some: locktime, instantiationContext: "PhantomKeysManager.swift::\(#function):\(#line)"
 			)
 			.danglingClone()

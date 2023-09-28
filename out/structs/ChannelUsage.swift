@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// Proposed use of a channel passed as a parameter to [`Score::channel_penalty_msat`].
+/// Proposed use of a channel passed as a parameter to [`ScoreLookUp::channel_penalty_msat`].
 public typealias ChannelUsage = Bindings.ChannelUsage
 
 extension Bindings {
 
 
-	/// Proposed use of a channel passed as a parameter to [`Score::channel_penalty_msat`].
+	/// Proposed use of a channel passed as a parameter to [`ScoreLookUp::channel_penalty_msat`].
 	public class ChannelUsage: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

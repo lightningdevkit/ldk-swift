@@ -327,6 +327,58 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Serialize the ChannelDerivationParameters object into a byte array which can be read by ChannelDerivationParameters_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKChannelDerivationParameters>) in
+					ChannelDerivationParameters_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult,
+				instantiationContext: "ChannelDerivationParameters.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a ChannelDerivationParameters from a byte array, created by ChannelDerivationParameters_write
+		public class func read(ser: [UInt8]) -> Result_ChannelDerivationParametersDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "ChannelDerivationParameters.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = ChannelDerivationParameters_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_ChannelDerivationParametersDecodeErrorZ(
+				cType: nativeCallResult,
+				instantiationContext: "ChannelDerivationParameters.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

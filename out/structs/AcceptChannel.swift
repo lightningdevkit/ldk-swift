@@ -898,6 +898,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new AcceptChannel given each field
+		///
+		/// Note that channel_type_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			temporaryChannelIdArg: [UInt8], dustLimitSatoshisArg: UInt64, maxHtlcValueInFlightMsatArg: UInt64,
 			channelReserveSatoshisArg: UInt64, htlcMinimumMsatArg: UInt64, minimumDepthArg: UInt32,

@@ -301,6 +301,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new ClosingSigned given each field
+		///
+		/// Note that fee_range_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			channelIdArg: [UInt8], feeSatoshisArg: UInt64, signatureArg: [UInt8], feeRangeArg: ClosingSignedFeeRange
 		) {

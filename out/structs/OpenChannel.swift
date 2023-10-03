@@ -1078,6 +1078,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new OpenChannel given each field
+		///
+		/// Note that channel_type_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			chainHashArg: [UInt8], temporaryChannelIdArg: [UInt8], fundingSatoshisArg: UInt64, pushMsatArg: UInt64,
 			dustLimitSatoshisArg: UInt64, maxHtlcValueInFlightMsatArg: UInt64, channelReserveSatoshisArg: UInt64,

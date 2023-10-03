@@ -1652,6 +1652,10 @@ extension Bindings {
 		}
 
 		/// Constructs a new ChannelDetails given each field
+		///
+		/// Note that funding_txo_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that channel_type_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that config_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			channelIdArg: [UInt8], counterpartyArg: ChannelCounterparty, fundingTxoArg: OutPoint,
 			channelTypeArg: ChannelTypeFeatures, shortChannelIdArg: UInt64?, outboundScidAliasArg: UInt64?,

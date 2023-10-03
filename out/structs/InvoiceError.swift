@@ -201,6 +201,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new InvoiceError given each field
+		///
+		/// Note that erroneous_field_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(erroneousFieldArg: ErroneousField, messageArg: UntrustedString) {
 			// native call variable prep
 

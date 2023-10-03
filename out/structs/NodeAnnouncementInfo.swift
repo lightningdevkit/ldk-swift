@@ -355,6 +355,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new NodeAnnouncementInfo given each field
+		///
+		/// Note that announcement_message_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			featuresArg: NodeFeatures, lastUpdateArg: UInt32, rgbArg: [UInt8], aliasArg: NodeAlias,
 			announcementMessageArg: NodeAnnouncement

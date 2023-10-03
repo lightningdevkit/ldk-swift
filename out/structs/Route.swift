@@ -205,6 +205,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new Route given each field
+		///
+		/// Note that route_params_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(pathsArg: [Path], routeParamsArg: RouteParameters) {
 			// native call variable prep
 

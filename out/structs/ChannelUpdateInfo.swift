@@ -426,6 +426,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new ChannelUpdateInfo given each field
+		///
+		/// Note that last_update_message_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			lastUpdateArg: UInt32, enabledArg: Bool, cltvExpiryDeltaArg: UInt16, htlcMinimumMsatArg: UInt64,
 			htlcMaximumMsatArg: UInt64, feesArg: RoutingFees, lastUpdateMessageArg: ChannelUpdate

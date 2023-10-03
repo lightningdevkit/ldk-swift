@@ -425,6 +425,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new ChannelCounterparty given each field
+		///
+		/// Note that forwarding_info_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			nodeIdArg: [UInt8], featuresArg: InitFeatures, unspendablePunishmentReserveArg: UInt64,
 			forwardingInfoArg: CounterpartyForwardingInfo, outboundHtlcMinimumMsatArg: UInt64?,

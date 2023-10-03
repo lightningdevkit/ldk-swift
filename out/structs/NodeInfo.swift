@@ -198,6 +198,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new NodeInfo given each field
+		///
+		/// Note that announcement_info_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(channelsArg: [UInt64], announcementInfoArg: NodeAnnouncementInfo) {
 			// native call variable prep
 

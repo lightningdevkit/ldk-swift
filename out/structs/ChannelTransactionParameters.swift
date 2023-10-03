@@ -417,6 +417,9 @@ extension Bindings {
 		}
 
 		/// Constructs a new ChannelTransactionParameters given each field
+		///
+		/// Note that counterparty_parameters_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that funding_outpoint_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			holderPubkeysArg: ChannelPublicKeys, holderSelectedContestDelayArg: UInt16, isOutboundFromHolderArg: Bool,
 			counterpartyParametersArg: CounterpartyChannelTransactionParameters, fundingOutpointArg: OutPoint,

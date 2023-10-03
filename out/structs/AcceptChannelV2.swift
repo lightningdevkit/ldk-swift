@@ -1022,6 +1022,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new AcceptChannelV2 given each field
+		///
+		/// Note that channel_type_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		@available(
 			*, deprecated,
 			message:

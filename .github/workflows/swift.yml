@@ -35,6 +35,10 @@ jobs:
                     configureRustNightly: false
                 env:
                     LDK_SWIFT_GENERATOR_OUTPUT_DIRECTORY_PATH: ci/LDKSwift/Sources/LDKSwift/bindings
+            -   name: Print header file checksum
+                run: sha256sum $LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH
+                env:
+                    LDK_SWIFT_GENERATOR_INPUT_HEADER_PATH: ci/ldk-c-bindings/lightning-c-bindings/include/lightning.h
             -   name: Copy new headers into bindings
                 run: |
                     python3 ./scripts/copy_c_files.py

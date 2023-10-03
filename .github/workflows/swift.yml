@@ -19,6 +19,11 @@ jobs:
         steps:
             -   name: Checkout source code
                 uses: actions/checkout@v3
+            -   name: Print environment versions
+                run: |
+                    node --version
+                    npm --version
+                    yarn --version
             -   name: Install native Rust toolchain and build utilities
                 run: |
                     # sudo apt-get purge grub\*

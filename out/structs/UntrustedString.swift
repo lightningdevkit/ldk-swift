@@ -1,337 +1,324 @@
-#if SWIFT_PACKAGE
-	import LDKHeaders
-#endif
 
-/// Struct to `Display` fields in a safe way using `PrintableString`
-public typealias UntrustedString = Bindings.UntrustedString
+				
+			#if SWIFT_PACKAGE
+			import LDKHeaders
+			#endif
 
-extension Bindings {
+			/// Struct to `Display` fields in a safe way using `PrintableString`
+			public typealias UntrustedString = Bindings.UntrustedString
 
+			extension Bindings {
+		
 
-	/// Struct to `Display` fields in a safe way using `PrintableString`
-	public class UntrustedString: NativeTypeWrapper {
+				/// Struct to `Display` fields in a safe way using `PrintableString`
+				public class UntrustedString: NativeTypeWrapper {
 
-		let initialCFreeability: Bool
+					let initialCFreeability: Bool
 
+					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
 
-		/// Set to false to suppress an individual type's deinit log statements.
-		/// Only applicable when log threshold is set to `.Debug`.
-		public static var enableDeinitLogging = true
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
 
-		/// Set to true to suspend the freeing of this type's associated Rust memory.
-		/// Should only ever be used for debugging purposes, and will likely be
-		/// deprecated soon.
-		public static var suspendFreedom = false
+					private static var instanceCounter: UInt = 0
+					internal let instanceNumber: UInt
 
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
+					internal var cType: LDKUntrustedString?
 
-		internal var cType: LDKUntrustedString?
+					internal init(cType: LDKUntrustedString, instantiationContext: String) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+					}
 
-		internal init(cType: LDKUntrustedString, instantiationContext: String) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
-			self.initialCFreeability = self.cType!.is_owned
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-		}
+					internal init(cType: LDKUntrustedString, instantiationContext: String, anchor: NativeTypeWrapper) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
 
-		internal init(cType: LDKUntrustedString, instantiationContext: String, anchor: NativeTypeWrapper) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
-			self.initialCFreeability = self.cType!.is_owned
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = true
-			try! self.addAnchor(anchor: anchor)
-		}
+					internal init(cType: LDKUntrustedString, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
+						try! self.addAnchor(anchor: anchor)
+					}
+		
 
-		internal init(
-			cType: LDKUntrustedString, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
-		) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
-			self.initialCFreeability = self.cType!.is_owned
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = dangle
-			try! self.addAnchor(anchor: anchor)
-		}
+					
+					/// Frees any resources used by the UntrustedString, if is_owned is set and inner is non-NULL.
+					internal func free() {
+						// native call variable prep
+						
 
+						// native method call
+						let nativeCallResult = UntrustedString_free(self.cType!)
 
-		/// Frees any resources used by the UntrustedString, if is_owned is set and inner is non-NULL.
-		internal func free() {
-			// native call variable prep
+						// cleanup
+						
 
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
 
-			// native method call
-			let nativeCallResult = UntrustedString_free(self.cType!)
+						return returnValue
+					}
+		
+					/// 
+					public func getA() -> String {
+						// native call variable prep
+						
 
-			// cleanup
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUntrustedString>) in
+				UntrustedString_get_a(thisPtrPointer)
+						}
+				
 
+						// cleanup
+						
 
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+						
+						// return value (do some wrapping)
+						let returnValue = Str(cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						
 
+						return returnValue
+					}
+		
+					/// 
+					public func setA(val: String) {
+						// native call variable prep
+						
+						let valPrimitiveWrapper = Str(value: val, instantiationContext: "UntrustedString.swift::\(#function):\(#line)").dangle()
+				
 
-			return returnValue
-		}
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKUntrustedString>) in
+				UntrustedString_set_a(thisPtrPointer, valPrimitiveWrapper.cType!)
+						}
+				
 
-		///
-		public func getA() -> String {
-			// native call variable prep
+						// cleanup
+						
+						// for elided types, we need this
+						valPrimitiveWrapper.noOpRetain()
+				
 
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
 
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKUntrustedString>) in
-					UntrustedString_get_a(thisPtrPointer)
-				}
+						return returnValue
+					}
+		
+					/// Constructs a new UntrustedString given each field
+					public init(aArg: String) {
+						// native call variable prep
+						
+						let aArgPrimitiveWrapper = Str(value: aArg, instantiationContext: "UntrustedString.swift::\(#function):\(#line)").dangle()
+				
 
+						// native method call
+						let nativeCallResult = UntrustedString_new(aArgPrimitiveWrapper.cType!)
 
-			// cleanup
+						// cleanup
+						
+						// for elided types, we need this
+						aArgPrimitiveWrapper.noOpRetain()
+				
+				self.initialCFreeability = nativeCallResult.is_owned
+			
 
-
-			// return value (do some wrapping)
-			let returnValue = Str(
-				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		///
-		public func setA(val: String) {
-			// native call variable prep
-
-			let valPrimitiveWrapper = Str(
-				value: val, instantiationContext: "UntrustedString.swift::\(#function):\(#line)"
-			)
-			.dangle()
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKUntrustedString>) in
-					UntrustedString_set_a(thisPtrPointer, valPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Constructs a new UntrustedString given each field
-		public init(aArg: String) {
-			// native call variable prep
-
-			let aArgPrimitiveWrapper = Str(
-				value: aArg, instantiationContext: "UntrustedString.swift::\(#function):\(#line)"
-			)
-			.dangle()
-
-
-			// native method call
-			let nativeCallResult = UntrustedString_new(aArgPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			aArgPrimitiveWrapper.noOpRetain()
-
-			self.initialCFreeability = nativeCallResult.is_owned
-
-
-			/*
+						/*
 						// return value (do some wrapping)
 						let returnValue = UntrustedString(cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
 						*/
 
+						
+				self.cType = nativeCallResult
 
-			self.cType = nativeCallResult
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+				
+			
+					}
+		
+					/// Creates a copy of the UntrustedString
+					internal func clone() -> UntrustedString {
+						// native call variable prep
+						
 
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			super
-				.init(
-					conflictAvoidingVariableName: 0,
-					instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKUntrustedString>) in
+				UntrustedString_clone(origPointer)
+						}
+				
 
+						// cleanup
+						
 
-		}
+						
+						// return value (do some wrapping)
+						let returnValue = UntrustedString(cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+						
 
-		/// Creates a copy of the UntrustedString
-		internal func clone() -> UntrustedString {
-			// native call variable prep
+						return returnValue
+					}
+		
+					/// Checks if two UntrustedStrings contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					/// Two objects with NULL inner values will be considered "equal" here.
+					public class func eq(a: UntrustedString, b: UntrustedString) -> Bool {
+						// native call variable prep
+						
 
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKUntrustedString>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKUntrustedString>) in
+				UntrustedString_eq(aPointer, bPointer)
+						}
+				
+						}
+				
 
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKUntrustedString>) in
-					UntrustedString_clone(origPointer)
-				}
+						// cleanup
+						
 
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
 
-			// cleanup
+						return returnValue
+					}
+		
+					/// Serialize the UntrustedString object into a byte array which can be read by UntrustedString_read
+					public func write() -> [UInt8] {
+						// native call variable prep
+						
 
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKUntrustedString>) in
+				UntrustedString_write(objPointer)
+						}
+				
 
-			// return value (do some wrapping)
-			let returnValue = UntrustedString(
-				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+						// cleanup
+						
 
+						
+						// return value (do some wrapping)
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						
 
-			return returnValue
-		}
+						return returnValue
+					}
+		
+					/// Read a UntrustedString from a byte array, created by UntrustedString_write
+					public class func read(ser: [UInt8]) -> Result_UntrustedStringDecodeErrorZ {
+						// native call variable prep
+						
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+				
 
-		/// Checks if two UntrustedStrings contain equal inner contents.
-		/// This ignores pointers and is_owned flags and looks at the values in fields.
-		/// Two objects with NULL inner values will be considered "equal" here.
-		public class func eq(a: UntrustedString, b: UntrustedString) -> Bool {
-			// native call variable prep
+						// native method call
+						let nativeCallResult = UntrustedString_read(serPrimitiveWrapper.cType!)
 
+						// cleanup
+						
+						// for elided types, we need this
+						serPrimitiveWrapper.noOpRetain()
+				
 
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKUntrustedString>) in
+						
+						// return value (do some wrapping)
+						let returnValue = Result_UntrustedStringDecodeErrorZ(cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
+						
 
-					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKUntrustedString>) in
-						UntrustedString_eq(aPointer, bPointer)
+						return returnValue
+					}
+		
+
+					
+					/// Indicates that this is the only struct which contains the same pointer.
+					/// Rust functions which take ownership of an object provided via an argument require
+					/// this to be true and invalidate the object pointed to by inner.
+					public func isOwned() -> Bool {
+						// return value (do some wrapping)
+						let returnValue = self.cType!.is_owned
+
+						return returnValue;
+					}
+		
+
+					
+					internal func danglingClone() -> UntrustedString {
+						let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+			
+						internal func dynamicallyDangledClone() -> UntrustedString {
+							let dangledClone = self.clone()
+							// if it's owned, i. e. controlled by Rust, it should dangle on our end
+							dangledClone.dangling = dangledClone.cType!.is_owned
+							return dangledClone
+						}
+					
+					internal func setCFreeability(freeable: Bool) -> UntrustedString {
+						self.cType!.is_owned = freeable
+						return self
 					}
 
+					internal func dynamicDangle() -> UntrustedString {
+						self.dangling = self.cType!.is_owned
+						return self
+					}
+			
+					deinit {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
+							return
+						}
+
+						if !self.dangling {
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing UntrustedString \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
+							
+							self.free()
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing UntrustedString \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
+						}
+					}
+			
+
 				}
 
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Serialize the UntrustedString object into a byte array which can be read by UntrustedString_read
-		public func write() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKUntrustedString>) in
-					UntrustedString_write(objPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Read a UntrustedString from a byte array, created by UntrustedString_write
-		public class func read(ser: [UInt8]) -> Result_UntrustedStringDecodeErrorZ {
-			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = UntrustedString_read(serPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_UntrustedStringDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "UntrustedString.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-
-		/// Indicates that this is the only struct which contains the same pointer.
-		/// Rust functions which take ownership of an object provided via an argument require
-		/// this to be true and invalidate the object pointed to by inner.
-		public func isOwned() -> Bool {
-			// return value (do some wrapping)
-			let returnValue = self.cType!.is_owned
-
-			return returnValue
-		}
-
-
-		internal func danglingClone() -> UntrustedString {
-			let dangledClone = self.clone()
-			dangledClone.dangling = true
-			return dangledClone
-		}
-
-		internal func dynamicallyDangledClone() -> UntrustedString {
-			let dangledClone = self.clone()
-			// if it's owned, i. e. controlled by Rust, it should dangle on our end
-			dangledClone.dangling = dangledClone.cType!.is_owned
-			return dangledClone
-		}
-
-		internal func setCFreeability(freeable: Bool) -> UntrustedString {
-			self.cType!.is_owned = freeable
-			return self
-		}
-
-		internal func dynamicDangle() -> UntrustedString {
-			self.dangling = self.cType!.is_owned
-			return self
-		}
-
-		deinit {
-			if Bindings.suspendFreedom || Self.suspendFreedom {
-				return
+				
 			}
-
-			if !self.dangling {
-				if Self.enableDeinitLogging {
-					Bindings.print(
-						"Freeing UntrustedString \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-				}
-
-				self.free()
-			} else if Self.enableDeinitLogging {
-				Bindings.print(
-					"Not freeing UntrustedString \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
-				)
-			}
-		}
-
-
-	}
-
-
-}
-
+		
+		

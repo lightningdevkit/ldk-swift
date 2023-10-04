@@ -1,216 +1,206 @@
-// necessary for abort() calls
-import Foundation
 
-#if SWIFT_PACKAGE
-	import LDKHeaders
-#endif
+			#if SWIFT_PACKAGE
+			import LDKHeaders
+			#endif
 
+			// necessary for abort() calls
+			import Foundation
 
-/// A trait that describes a source of entropy.
-public typealias EntropySource = Bindings.EntropySource
+			/// A trait that describes a source of entropy.
+			public typealias EntropySource = Bindings.EntropySource
 
-extension Bindings {
+			extension Bindings {
 
-	/// A trait that describes a source of entropy.
-	open class EntropySource: NativeTraitWrapper {
+				/// A trait that describes a source of entropy.
+				open class EntropySource: NativeTraitWrapper {
 
+					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
 
-		/// Set to false to suppress an individual type's deinit log statements.
-		/// Only applicable when log threshold is set to `.Debug`.
-		public static var enableDeinitLogging = true
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
 
-		/// Set to true to suspend the freeing of this type's associated Rust memory.
-		/// Should only ever be used for debugging purposes, and will likely be
-		/// deprecated soon.
-		public static var suspendFreedom = false
+					private static var instanceCounter: UInt = 0
+					internal let instanceNumber: UInt
 
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
+					internal var cType: LDKEntropySource?
 
-		internal var cType: LDKEntropySource?
+					internal init(cType: LDKEntropySource, instantiationContext: String) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+					}
 
-		internal init(cType: LDKEntropySource, instantiationContext: String) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
+					internal init(cType: LDKEntropySource, instantiationContext: String, anchor: NativeTypeWrapper) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
 
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-		}
+					internal init(cType: LDKEntropySource, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
+						try! self.addAnchor(anchor: anchor)
+					}
+		
 
-		internal init(cType: LDKEntropySource, instantiationContext: String, anchor: NativeTypeWrapper) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
+					public init() {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: "EntropySource.swift::\(#function):\(#line)")
 
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = true
-			try! self.addAnchor(anchor: anchor)
-		}
+						let thisArg = Bindings.instanceToPointer(instance: self)
 
-		internal init(
-			cType: LDKEntropySource, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
-		) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
+						
 
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = dangle
-			try! self.addAnchor(anchor: anchor)
-		}
+						
+						func getSecureRandomBytesLambda(this_arg: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
+							let instance: EntropySource = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EntropySource::getSecureRandomBytesLambda")
 
+							// Swift callback variable prep
+											
 
-		public init() {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			super
-				.init(
-					conflictAvoidingVariableName: 0, instantiationContext: "EntropySource.swift::\(#function):\(#line)")
+							// Swift callback call
+							let swiftCallbackResult = instance.getSecureRandomBytes()
 
-			let thisArg = Bindings.instanceToPointer(instance: self)
+							// cleanup
+							
 
+							// return value (do some wrapping)
+							let returnValue = ThirtyTwoBytes(value: swiftCallbackResult, instantiationContext: "EntropySource.swift::init()::\(#function):\(#line)").dangleRecursively().cType!
 
-			func getSecureRandomBytesLambda(this_arg: UnsafeRawPointer?) -> LDKThirtyTwoBytes {
-				let instance: EntropySource = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "EntropySource::getSecureRandomBytesLambda")
+							return returnValue
+						}
+		
+						func freeLambda(this_arg: UnsafeMutableRawPointer?) -> Void {
+							let instance: EntropySource = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "EntropySource::freeLambda")
 
-				// Swift callback variable prep
+							// Swift callback variable prep
+											
 
+							// Swift callback call
+							let swiftCallbackResult = instance.free()
 
-				// Swift callback call
-				let swiftCallbackResult = instance.getSecureRandomBytes()
+							// cleanup
+							
 
-				// cleanup
+							// return value (do some wrapping)
+							let returnValue = swiftCallbackResult
 
+							return returnValue
+						}
+		
 
-				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
-					value: swiftCallbackResult,
-					instantiationContext: "EntropySource.swift::init()::\(#function):\(#line)"
-				)
-				.dangleRecursively().cType!
+						self.cType = LDKEntropySource(							
+							this_arg: thisArg,
+							get_secure_random_bytes: getSecureRandomBytesLambda,
+							free: freeLambda
+						)
+					}
 
-				return returnValue
+					
+			/// Gets a unique, cryptographically-secure, random 32-byte value. This method must return a
+					/// different value each time it is called.
+			open func getSecureRandomBytes() -> [UInt8] {
+				
+				Bindings.print("Error: EntropySource::getSecureRandomBytes MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+				abort()
 			}
-
-			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
-				let instance: EntropySource = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "EntropySource::freeLambda")
-
-				// Swift callback variable prep
-
-
-				// Swift callback call
-				let swiftCallbackResult = instance.free()
-
-				// cleanup
-
-
-				// return value (do some wrapping)
-				let returnValue = swiftCallbackResult
-
-				return returnValue
+		
+			/// Frees any resources associated with this object given its this_arg pointer.
+					/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
+			internal func free() -> Void {
+				
+				// TODO: figure out something smarter
+				return () // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
+			
+				Bindings.print("Error: EntropySource::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
+				abort()
 			}
+		
 
+					
 
-			self.cType = LDKEntropySource(
-				this_arg: thisArg,
-				get_secure_random_bytes: getSecureRandomBytesLambda,
-				free: freeLambda
-			)
-		}
+					
 
+					deinit {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
+							return
+						}
 
-		/// Gets a unique, cryptographically-secure, random 32-byte value. This method must return a
-		/// different value each time it is called.
-		open func getSecureRandomBytes() -> [UInt8] {
-
-			Bindings.print(
-				"Error: EntropySource::getSecureRandomBytes MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
-		/// Frees any resources associated with this object given its this_arg pointer.
-		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
-		internal func free() {
-
-			// TODO: figure out something smarter
-			return ()  // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
-
-			Bindings.print(
-				"Error: EntropySource::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
-				severity: .ERROR)
-			abort()
-		}
-
-
-		deinit {
-			if Bindings.suspendFreedom || Self.suspendFreedom {
-				return
-			}
-
-			if !self.dangling {
-				if Self.enableDeinitLogging {
-					Bindings.print(
-						"Freeing EntropySource \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+						if !self.dangling {
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing EntropySource \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
+							self.free()
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing EntropySource \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
+						}
+					}
 				}
-				self.free()
-			} else if Self.enableDeinitLogging {
-				Bindings.print(
-					"Not freeing EntropySource \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
-				)
+
+				internal class NativelyImplementedEntropySource: EntropySource {
+					
+			/// Gets a unique, cryptographically-secure, random 32-byte value. This method must return a
+					/// different value each time it is called.
+			public override func getSecureRandomBytes() -> [UInt8] {
+				// native call variable prep
+				
+
+				
+
+				// native method call
+				let nativeCallResult = self.cType!.get_secure_random_bytes(self.cType!.this_arg)
+
+				// cleanup
+				
+
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(cType: nativeCallResult, instantiationContext: "EntropySource.swift::\(#function):\(#line)").getValue()
+
+				return returnValue
 			}
-		}
-	}
+		
+			/// Frees any resources associated with this object given its this_arg pointer.
+					/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
+			public override func free() {
+				// native call variable prep
+				
 
-	internal class NativelyImplementedEntropySource: EntropySource {
+				
+				// natively wrapped traits may not necessarily be properly initialized
+				// for now just don't free these things
+				// self.cType?.free(self.cType?.this_arg)
+				return;
+			
 
-		/// Gets a unique, cryptographically-secure, random 32-byte value. This method must return a
-		/// different value each time it is called.
-		public override func getSecureRandomBytes() -> [UInt8] {
-			// native call variable prep
+				// native method call
+				let nativeCallResult = self.cType!.free(self.cType!.this_arg)
 
+				// cleanup
+				
 
-			// native method call
-			let nativeCallResult = self.cType!.get_secure_random_bytes(self.cType!.this_arg)
+				// return value (do some wrapping)
+				let returnValue = nativeCallResult
 
-			// cleanup
+				return returnValue
+			}
+		
+				}
 
-
-			// return value (do some wrapping)
-			let returnValue = ThirtyTwoBytes(
-				cType: nativeCallResult, instantiationContext: "EntropySource.swift::\(#function):\(#line)"
-			)
-			.getValue()
-
-			return returnValue
-		}
-
-		/// Frees any resources associated with this object given its this_arg pointer.
-		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
-		public override func free() {
-			// native call variable prep
-
-
-			// natively wrapped traits may not necessarily be properly initialized
-			// for now just don't free these things
-			// self.cType?.free(self.cType?.this_arg)
-			return
-
-
-			// native method call
-			let nativeCallResult = self.cType!.free(self.cType!.this_arg)
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-			return returnValue
-		}
-
-	}
-
-}
+			}
+		

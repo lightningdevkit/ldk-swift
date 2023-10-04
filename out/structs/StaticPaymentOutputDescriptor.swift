@@ -1,515 +1,617 @@
-#if SWIFT_PACKAGE
-	import LDKHeaders
-#endif
 
-/// Information about a spendable output to our \"payment key\".
-///
-/// See [`SpendableOutputDescriptor::StaticPaymentOutput`] for more details on how to spend this.
-public typealias StaticPaymentOutputDescriptor = Bindings.StaticPaymentOutputDescriptor
-
-extension Bindings {
-
-
-	/// Information about a spendable output to our \"payment key\".
-	///
-	/// See [`SpendableOutputDescriptor::StaticPaymentOutput`] for more details on how to spend this.
-	public class StaticPaymentOutputDescriptor: NativeTypeWrapper {
-
-		let initialCFreeability: Bool
-
-
-		/// Set to false to suppress an individual type's deinit log statements.
-		/// Only applicable when log threshold is set to `.Debug`.
-		public static var enableDeinitLogging = true
-
-		/// Set to true to suspend the freeing of this type's associated Rust memory.
-		/// Should only ever be used for debugging purposes, and will likely be
-		/// deprecated soon.
-		public static var suspendFreedom = false
-
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
-
-		internal var cType: LDKStaticPaymentOutputDescriptor?
-
-		internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
-			self.initialCFreeability = self.cType!.is_owned
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-		}
-
-		internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String, anchor: NativeTypeWrapper)
-		{
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
-			self.initialCFreeability = self.cType!.is_owned
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = true
-			try! self.addAnchor(anchor: anchor)
-		}
-
-		internal init(
-			cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String, anchor: NativeTypeWrapper,
-			dangle: Bool = false
-		) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
-			self.initialCFreeability = self.cType!.is_owned
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = dangle
-			try! self.addAnchor(anchor: anchor)
-		}
-
-
-		/// Frees any resources used by the StaticPaymentOutputDescriptor, if is_owned is set and inner is non-NULL.
-		internal func free() {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = StaticPaymentOutputDescriptor_free(self.cType!)
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The outpoint which is spendable.
-		public func getOutpoint() -> OutPoint {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) {
-					(thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_get_outpoint(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = OutPoint(
-				cType: nativeCallResult,
-				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false)
-
-
-			return returnValue
-		}
-
-		/// The outpoint which is spendable.
-		public func setOutpoint(val: OutPoint) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_set_outpoint(thisPtrPointer, val.dynamicallyDangledClone().cType!)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The output which is referenced by the given outpoint.
-		public func getOutput() -> TxOut {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) {
-					(thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_get_output(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = TxOut(
-				cType: nativeCallResult,
-				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self)
-
-
-			return returnValue
-		}
-
-		/// The output which is referenced by the given outpoint.
-		public func setOutput(val: TxOut) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_set_output(thisPtrPointer, val.danglingClone().cType!)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Arbitrary identification information returned by a call to [`ChannelSigner::channel_keys_id`].
-		/// This may be useful in re-deriving keys used in the channel to spend the output.
-		public func getChannelKeysId() -> [UInt8]? {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) {
-					(thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_get_channel_keys_id(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-			guard let nativeCallResult = nativeCallResult else {
-				return nil
-			}
-
-
-			// return value (do some wrapping)
-			let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
-
-
-			return returnValue
-		}
-
-		/// Arbitrary identification information returned by a call to [`ChannelSigner::channel_keys_id`].
-		/// This may be useful in re-deriving keys used in the channel to spend the output.
-		public func setChannelKeysId(val: [UInt8]) {
-			// native call variable prep
-
-			let valPrimitiveWrapper = ThirtyTwoBytes(
-				value: val, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_set_channel_keys_id(thisPtrPointer, valPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The value of the channel which this transactions spends.
-		public func getChannelValueSatoshis() -> UInt64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) {
-					(thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_get_channel_value_satoshis(thisPtrPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The value of the channel which this transactions spends.
-		public func setChannelValueSatoshis(val: UInt64) {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) {
-					(thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_set_channel_value_satoshis(thisPtrPointer, val)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Constructs a new StaticPaymentOutputDescriptor given each field
-		public init(outpointArg: OutPoint, outputArg: TxOut, channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64)
-		{
-			// native call variable prep
-
-			let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(
-				value: channelKeysIdArg,
-				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = StaticPaymentOutputDescriptor_new(
-				outpointArg.dynamicallyDangledClone().cType!, outputArg.danglingClone().cType!,
-				channelKeysIdArgPrimitiveWrapper.cType!, channelValueSatoshisArg)
-
-			// cleanup
-
-			// for elided types, we need this
-			channelKeysIdArgPrimitiveWrapper.noOpRetain()
-
-			self.initialCFreeability = nativeCallResult.is_owned
-
-
-			/*
+				
+			#if SWIFT_PACKAGE
+			import LDKHeaders
+			#endif
+
+			/// Information about a spendable output to our \"payment key\".
+			/// 
+			/// See [`SpendableOutputDescriptor::StaticPaymentOutput`] for more details on how to spend this.
+			public typealias StaticPaymentOutputDescriptor = Bindings.StaticPaymentOutputDescriptor
+
+			extension Bindings {
+		
+
+				/// Information about a spendable output to our \"payment key\".
+				/// 
+				/// See [`SpendableOutputDescriptor::StaticPaymentOutput`] for more details on how to spend this.
+				public class StaticPaymentOutputDescriptor: NativeTypeWrapper {
+
+					let initialCFreeability: Bool
+
+					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
+
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
+
+					private static var instanceCounter: UInt = 0
+					internal let instanceNumber: UInt
+
+					internal var cType: LDKStaticPaymentOutputDescriptor?
+
+					internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+					}
+
+					internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String, anchor: NativeTypeWrapper) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
+
+					internal init(cType: LDKStaticPaymentOutputDescriptor, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						self.initialCFreeability = self.cType!.is_owned
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
+						try! self.addAnchor(anchor: anchor)
+					}
+		
+
+					
+					/// Frees any resources used by the StaticPaymentOutputDescriptor, if is_owned is set and inner is non-NULL.
+					internal func free() {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = StaticPaymentOutputDescriptor_free(self.cType!)
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The outpoint which is spendable.
+					public func getOutpoint() -> OutPoint {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_get_outpoint(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = OutPoint(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self).dangle(false)
+						
+
+						return returnValue
+					}
+		
+					/// The outpoint which is spendable.
+					public func setOutpoint(val: OutPoint) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_set_outpoint(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The output which is referenced by the given outpoint.
+					public func getOutput() -> TxOut {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_get_output(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self)
+						
+
+						return returnValue
+					}
+		
+					/// The output which is referenced by the given outpoint.
+					public func setOutput(val: TxOut) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_set_output(thisPtrPointer, val.danglingClone().cType!)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Arbitrary identification information returned by a call to [`ChannelSigner::channel_keys_id`].
+					/// This may be useful in re-deriving keys used in the channel to spend the output.
+					public func getChannelKeysId() -> [UInt8]? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_get_channel_keys_id(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+						guard let nativeCallResult = nativeCallResult else {
+							return nil
+						}
+			
+
+						
+						// return value (do some wrapping)
+						let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
+						
+
+						return returnValue
+					}
+		
+					/// Arbitrary identification information returned by a call to [`ChannelSigner::channel_keys_id`].
+					/// This may be useful in re-deriving keys used in the channel to spend the output.
+					public func setChannelKeysId(val: [UInt8]) {
+						// native call variable prep
+						
+						let valPrimitiveWrapper = ThirtyTwoBytes(value: val, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+				
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_set_channel_keys_id(thisPtrPointer, valPrimitiveWrapper.cType!)
+						}
+				
+
+						// cleanup
+						
+						// for elided types, we need this
+						valPrimitiveWrapper.noOpRetain()
+				
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The value of the channel which this transactions spends.
+					public func getChannelValueSatoshis() -> UInt64 {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_get_channel_value_satoshis(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The value of the channel which this transactions spends.
+					public func setChannelValueSatoshis(val: UInt64) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_set_channel_value_satoshis(thisPtrPointer, val)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// The necessary channel parameters that need to be provided to the re-derived signer through
+					/// [`ChannelSigner::provide_channel_parameters`].
+					/// 
+					/// Added as optional, but always `Some` if the descriptor was produced in v0.0.117 or later.
+					/// 
+					/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+					public func getChannelTransactionParameters() -> ChannelTransactionParameters? {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_get_channel_transaction_parameters(thisPtrPointer)
+						}
+				
+
+						// cleanup
+						
+				// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+				// Type group: RustStruct
+				// Type: LDKChannelTransactionParameters
+			
+					if nativeCallResult.inner == nil {
+						return nil
+					}
+
+					let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+					if pointerValue == 0 {
+						return nil
+					}
+				
+
+						
+						// return value (do some wrapping)
+						let returnValue = ChannelTransactionParameters(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self).dangle(false)
+						
+
+						return returnValue
+					}
+		
+					/// The necessary channel parameters that need to be provided to the re-derived signer through
+					/// [`ChannelSigner::provide_channel_parameters`].
+					/// 
+					/// Added as optional, but always `Some` if the descriptor was produced in v0.0.117 or later.
+					/// 
+					/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
+					public func setChannelTransactionParameters(val: ChannelTransactionParameters) {
+						// native call variable prep
+						
+
+						// native method call
+						let nativeCallResult = 
+						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_set_channel_transaction_parameters(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+						}
+				
+
+						// cleanup
+						
+
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
+
+						return returnValue
+					}
+		
+					/// Constructs a new StaticPaymentOutputDescriptor given each field
+					/// 
+					/// Note that channel_transaction_parameters_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+					public init(outpointArg: OutPoint, outputArg: TxOut, channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64, channelTransactionParametersArg: ChannelTransactionParameters) {
+						// native call variable prep
+						
+						let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(value: channelKeysIdArg, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+				
+
+						// native method call
+						let nativeCallResult = StaticPaymentOutputDescriptor_new(outpointArg.dynamicallyDangledClone().cType!, outputArg.danglingClone().cType!, channelKeysIdArgPrimitiveWrapper.cType!, channelValueSatoshisArg, channelTransactionParametersArg.dynamicallyDangledClone().cType!)
+
+						// cleanup
+						
+						// for elided types, we need this
+						channelKeysIdArgPrimitiveWrapper.noOpRetain()
+				
+				self.initialCFreeability = nativeCallResult.is_owned
+			
+
+						/*
 						// return value (do some wrapping)
 						let returnValue = StaticPaymentOutputDescriptor(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
 						*/
 
+						
+				self.cType = nativeCallResult
 
-			self.cType = nativeCallResult
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+				
+			
+					}
+		
+					/// Creates a copy of the StaticPaymentOutputDescriptor
+					internal func clone() -> StaticPaymentOutputDescriptor {
+						// native call variable prep
+						
 
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			super
-				.init(
-					conflictAvoidingVariableName: 0,
-					instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_clone(origPointer)
+						}
+				
 
+						// cleanup
+						
 
-		}
+						
+						// return value (do some wrapping)
+						let returnValue = StaticPaymentOutputDescriptor(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+						
 
-		/// Creates a copy of the StaticPaymentOutputDescriptor
-		internal func clone() -> StaticPaymentOutputDescriptor {
-			// native call variable prep
+						return returnValue
+					}
+		
+					/// Generates a non-cryptographic 64-bit hash of the StaticPaymentOutputDescriptor.
+					public func hash() -> UInt64 {
+						// native call variable prep
+						
 
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_hash(oPointer)
+						}
+				
 
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_clone(origPointer)
-				}
+						// cleanup
+						
 
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
 
-			// cleanup
+						return returnValue
+					}
+		
+					/// Checks if two StaticPaymentOutputDescriptors contain equal inner contents.
+					/// This ignores pointers and is_owned flags and looks at the values in fields.
+					/// Two objects with NULL inner values will be considered "equal" here.
+					public class func eq(a: StaticPaymentOutputDescriptor, b: StaticPaymentOutputDescriptor) -> Bool {
+						// native call variable prep
+						
 
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				
+						withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_eq(aPointer, bPointer)
+						}
+				
+						}
+				
 
-			// return value (do some wrapping)
-			let returnValue = StaticPaymentOutputDescriptor(
-				cType: nativeCallResult,
-				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+						// cleanup
+						
 
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
 
-			return returnValue
-		}
+						return returnValue
+					}
+		
+					/// Returns the `witness_script` of the spendable output.
+					/// 
+					/// Note that this will only return `Some` for [`StaticPaymentOutputDescriptor`]s that
+					/// originated from an anchor outputs channel, as they take the form of a P2WSH script.
+					public func witnessScript() -> [UInt8]? {
+						// native call variable prep
+						
 
-		/// Generates a non-cryptographic 64-bit hash of the StaticPaymentOutputDescriptor.
-		public func hash() -> UInt64 {
-			// native call variable prep
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_witness_script(thisArgPointer)
+						}
+				
 
+						// cleanup
+						
 
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_hash(oPointer)
-				}
+						
+						// return value (do some wrapping)
+						let returnValue = Option_CVec_u8ZZ(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self).getValue()
+						
 
+						return returnValue
+					}
+		
+					/// The maximum length a well-formed witness spending one of these should have.
+					/// Note: If you have the grind_signatures feature enabled, this will be at least 1 byte
+					/// shorter.
+					public func maxWitnessLength() -> UInt {
+						// native call variable prep
+						
 
-			// cleanup
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_max_witness_length(thisArgPointer)
+						}
+				
 
+						// cleanup
+						
 
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
 
+						return returnValue
+					}
+		
+					/// Serialize the StaticPaymentOutputDescriptor object into a byte array which can be read by StaticPaymentOutputDescriptor_read
+					public func write() -> [UInt8] {
+						// native call variable prep
+						
 
-			return returnValue
-		}
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+				StaticPaymentOutputDescriptor_write(objPointer)
+						}
+				
 
-		/// Checks if two StaticPaymentOutputDescriptors contain equal inner contents.
-		/// This ignores pointers and is_owned flags and looks at the values in fields.
-		/// Two objects with NULL inner values will be considered "equal" here.
-		public class func eq(a: StaticPaymentOutputDescriptor, b: StaticPaymentOutputDescriptor) -> Bool {
-			// native call variable prep
+						// cleanup
+						
 
+						
+						// return value (do some wrapping)
+						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
+						
 
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+						return returnValue
+					}
+		
+					/// Read a StaticPaymentOutputDescriptor from a byte array, created by StaticPaymentOutputDescriptor_write
+					public class func read(ser: [UInt8]) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
+						// native call variable prep
+						
+						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+				
 
-					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-						StaticPaymentOutputDescriptor_eq(aPointer, bPointer)
+						// native method call
+						let nativeCallResult = StaticPaymentOutputDescriptor_read(serPrimitiveWrapper.cType!)
+
+						// cleanup
+						
+						// for elided types, we need this
+						serPrimitiveWrapper.noOpRetain()
+				
+
+						
+						// return value (do some wrapping)
+						let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(cType: nativeCallResult, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
+						
+
+						return returnValue
+					}
+		
+
+					
+					/// Indicates that this is the only struct which contains the same pointer.
+					/// Rust functions which take ownership of an object provided via an argument require
+					/// this to be true and invalidate the object pointed to by inner.
+					public func isOwned() -> Bool {
+						// return value (do some wrapping)
+						let returnValue = self.cType!.is_owned
+
+						return returnValue;
+					}
+		
+
+					
+					internal func danglingClone() -> StaticPaymentOutputDescriptor {
+						let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+			
+						internal func dynamicallyDangledClone() -> StaticPaymentOutputDescriptor {
+							let dangledClone = self.clone()
+							// if it's owned, i. e. controlled by Rust, it should dangle on our end
+							dangledClone.dangling = dangledClone.cType!.is_owned
+							return dangledClone
+						}
+					
+					internal func setCFreeability(freeable: Bool) -> StaticPaymentOutputDescriptor {
+						self.cType!.is_owned = freeable
+						return self
 					}
 
+					internal func dynamicDangle() -> StaticPaymentOutputDescriptor {
+						self.dangling = self.cType!.is_owned
+						return self
+					}
+			
+					deinit {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
+							return
+						}
+
+						if !self.dangling {
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing StaticPaymentOutputDescriptor \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
+							
+							self.free()
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
+						}
+					}
+			
+
 				}
 
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// Serialize the StaticPaymentOutputDescriptor object into a byte array which can be read by StaticPaymentOutputDescriptor_read
-		public func write() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
-					StaticPaymentOutputDescriptor_write(objPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult,
-				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Read a StaticPaymentOutputDescriptor from a byte array, created by StaticPaymentOutputDescriptor_write
-		public class func read(ser: [UInt8]) -> Result_StaticPaymentOutputDescriptorDecodeErrorZ {
-			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = StaticPaymentOutputDescriptor_read(serPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_StaticPaymentOutputDescriptorDecodeErrorZ(
-				cType: nativeCallResult,
-				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-
-		/// Indicates that this is the only struct which contains the same pointer.
-		/// Rust functions which take ownership of an object provided via an argument require
-		/// this to be true and invalidate the object pointed to by inner.
-		public func isOwned() -> Bool {
-			// return value (do some wrapping)
-			let returnValue = self.cType!.is_owned
-
-			return returnValue
-		}
-
-
-		internal func danglingClone() -> StaticPaymentOutputDescriptor {
-			let dangledClone = self.clone()
-			dangledClone.dangling = true
-			return dangledClone
-		}
-
-		internal func dynamicallyDangledClone() -> StaticPaymentOutputDescriptor {
-			let dangledClone = self.clone()
-			// if it's owned, i. e. controlled by Rust, it should dangle on our end
-			dangledClone.dangling = dangledClone.cType!.is_owned
-			return dangledClone
-		}
-
-		internal func setCFreeability(freeable: Bool) -> StaticPaymentOutputDescriptor {
-			self.cType!.is_owned = freeable
-			return self
-		}
-
-		internal func dynamicDangle() -> StaticPaymentOutputDescriptor {
-			self.dangling = self.cType!.is_owned
-			return self
-		}
-
-		deinit {
-			if Bindings.suspendFreedom || Self.suspendFreedom {
-				return
+				
 			}
-
-			if !self.dangling {
-				if Self.enableDeinitLogging {
-					Bindings.print(
-						"Freeing StaticPaymentOutputDescriptor \(self.instanceNumber). (Origin: \(self.instantiationContext))"
-					)
-				}
-
-				self.free()
-			} else if Self.enableDeinitLogging {
-				Bindings.print(
-					"Not freeing StaticPaymentOutputDescriptor \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
-				)
-			}
-		}
-
-
-	}
-
-
-}
-
+		
+		

@@ -9,11 +9,11 @@ import Generator from './generation/index.mjs';
 	const parser = new Parser(config);
 	parser.parse();
 
-	console.dir(Object.keys(parser.glossary).filter(s => s.startsWith('LDKCOption_')));
-	console.dir(parser.glossary['LDKCOption_U128Z']);
-	if(1 < 2) {
-		process.exit(1);
-	}
+	// console.dir(Object.keys(parser.glossary).filter(s => s.startsWith('LDKCOption_')));
+	// console.dir(parser.glossary['LDKCOption_U128Z']);
+	// if(1 < 2) {
+	// 	process.exit(1);
+	// }
 
 	const generator = new Generator(parser);
 
@@ -24,7 +24,7 @@ import Generator from './generation/index.mjs';
 
 	await generator.generateTypes();
 	await generator.generateFunctions();
-	await generator.runFormatter();
+	// await generator.runFormatter();
 })();
 
 interface NullTest {

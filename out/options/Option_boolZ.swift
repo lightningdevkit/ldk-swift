@@ -4,12 +4,12 @@
 			#endif
 
 			/// 
-			internal typealias Option_CVec_ThirtyTwoBytesZZ = Bindings.Option_CVec_ThirtyTwoBytesZZ
+			internal typealias Option_boolZ = Bindings.Option_boolZ
 
 			extension Bindings {
 
-				/// An enum which can either contain a crate::c_types::derived::CVec_ThirtyTwoBytesZ or not
-				internal class Option_CVec_ThirtyTwoBytesZZ: NativeTypeWrapper {
+				/// An enum which can either contain a bool or not
+				internal class Option_boolZ: NativeTypeWrapper {
 
 					
 					/// Set to false to suppress an individual type's deinit log statements.
@@ -24,9 +24,9 @@
 					private static var instanceCounter: UInt = 0
 					internal let instanceNumber: UInt
 
-					internal var cType: LDKCOption_CVec_ThirtyTwoBytesZZ?
+					internal var cType: LDKCOption_boolZ?
 
-					internal init(cType: LDKCOption_CVec_ThirtyTwoBytesZZ, instantiationContext: String) {
+					internal init(cType: LDKCOption_boolZ, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -34,7 +34,7 @@
 						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
-					internal init(cType: LDKCOption_CVec_ThirtyTwoBytesZZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+					internal init(cType: LDKCOption_boolZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -44,7 +44,7 @@
 						try! self.addAnchor(anchor: anchor)
 					}
 
-					internal init(cType: LDKCOption_CVec_ThirtyTwoBytesZZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+					internal init(cType: LDKCOption_boolZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 						self.cType = cType
@@ -55,30 +55,28 @@
 					}
 		
 
-					internal init(some: [[UInt8]]?, instantiationContext: String) {
+					internal init(some: Bool?, instantiationContext: String) {
 						Self.instanceCounter += 1
 						self.instanceNumber = Self.instanceCounter
 
 						if let some = some {
-							
-							let someVector = Vec_ThirtyTwoBytesZ(array: some, instantiationContext: "Option_CVec_ThirtyTwoBytesZZ.swift::\(#function):\(#line)").dangle()
-				
-							self.cType = COption_CVec_ThirtyTwoBytesZZ_some(someVector.cType!)
+														
+							self.cType = COption_boolZ_some(some)
 						} else {
-							self.cType = COption_CVec_ThirtyTwoBytesZZ_none()
+							self.cType = COption_boolZ_none()
 						}
 
 						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 					}
 
 					
-					/// Frees any resources associated with the crate::c_types::derived::CVec_ThirtyTwoBytesZ, if we are in the Some state
+					/// Frees any resources associated with the bool, if we are in the Some state
 					internal func free() {
 						// native call variable prep
 						
 
 						// native method call
-						let nativeCallResult = COption_CVec_ThirtyTwoBytesZZ_free(self.cType!)
+						let nativeCallResult = COption_boolZ_free(self.cType!)
 
 						// cleanup
 						
@@ -91,16 +89,16 @@
 						return returnValue
 					}
 		
-					/// Creates a new COption_CVec_ThirtyTwoBytesZZ which has the same data as `orig`
+					/// Creates a new COption_boolZ which has the same data as `orig`
 					/// but with all dynamically-allocated buffers duplicated in new buffers.
-					internal func clone() -> Option_CVec_ThirtyTwoBytesZZ {
+					internal func clone() -> Option_boolZ {
 						// native call variable prep
 						
 
 						// native method call
 						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCOption_CVec_ThirtyTwoBytesZZ>) in
-				COption_CVec_ThirtyTwoBytesZZ_clone(origPointer)
+						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCOption_boolZ>) in
+				COption_boolZ_clone(origPointer)
 						}
 				
 
@@ -109,26 +107,26 @@
 
 						
 						// return value (do some wrapping)
-						let returnValue = Option_CVec_ThirtyTwoBytesZZ(cType: nativeCallResult, instantiationContext: "Option_CVec_ThirtyTwoBytesZZ.swift::\(#function):\(#line)")
+						let returnValue = Option_boolZ(cType: nativeCallResult, instantiationContext: "Option_boolZ.swift::\(#function):\(#line)")
 						
 
 						return returnValue
 					}
 		
 
-					public func getValue() -> [[UInt8]]? {
-						if self.cType!.tag == LDKCOption_CVec_ThirtyTwoBytesZZ_None {
+					public func getValue() -> Bool? {
+						if self.cType!.tag == LDKCOption_boolZ_None {
 							return nil
 						}
-						if self.cType!.tag == LDKCOption_CVec_ThirtyTwoBytesZZ_Some {
-							return Vec_ThirtyTwoBytesZ(cType: self.cType!.some, instantiationContext: "Option_CVec_ThirtyTwoBytesZZ.swift::\(#function):\(#line)", anchor: self).dangle().getValue()
+						if self.cType!.tag == LDKCOption_boolZ_Some {
+							return self.cType!.some
 						}
 						assert(false, "invalid option enum value")
 						return nil
 					}
 
 					
-					internal func danglingClone() -> Option_CVec_ThirtyTwoBytesZZ {
+					internal func danglingClone() -> Option_boolZ {
 						let dangledClone = self.clone()
 						dangledClone.dangling = true
 						return dangledClone
@@ -141,12 +139,12 @@
 
 						if !self.dangling {
 							if Self.enableDeinitLogging {
-								Bindings.print("Freeing Option_CVec_ThirtyTwoBytesZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+								Bindings.print("Freeing Option_boolZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 							}
 							
 							self.free()
 						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing Option_CVec_ThirtyTwoBytesZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
+							Bindings.print("Not freeing Option_boolZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
 						}
 					}
 			

@@ -1,223 +1,223 @@
-import Foundation
 
-#if SWIFT_PACKAGE
-	import LDKHeaders
-#endif
+			#if SWIFT_PACKAGE
+			import LDKHeaders
+			#endif
 
+			import Foundation
 
-///
-public typealias UtxoResult = Bindings.UtxoResult
+			/// 
+			public typealias UtxoResult = Bindings.UtxoResult
 
-extension Bindings {
+			extension Bindings {
 
-	/// The result of a [`UtxoLookup::get_utxo`] call. A call may resolve either synchronously,
-	/// returning the `Sync` variant, or asynchronously, returning an [`UtxoFuture`] in the `Async`
-	/// variant.
-	public class UtxoResult: NativeTypeWrapper {
+				/// The result of a [`UtxoLookup::get_utxo`] call. A call may resolve either synchronously,
+				/// returning the `Sync` variant, or asynchronously, returning an [`UtxoFuture`] in the `Async`
+				/// variant.
+				public class UtxoResult: NativeTypeWrapper {
 
+					
+					/// Set to false to suppress an individual type's deinit log statements.
+					/// Only applicable when log threshold is set to `.Debug`.
+					public static var enableDeinitLogging = true
 
-		/// Set to false to suppress an individual type's deinit log statements.
-		/// Only applicable when log threshold is set to `.Debug`.
-		public static var enableDeinitLogging = true
+					/// Set to true to suspend the freeing of this type's associated Rust memory.
+					/// Should only ever be used for debugging purposes, and will likely be
+					/// deprecated soon.
+					public static var suspendFreedom = false
 
-		/// Set to true to suspend the freeing of this type's associated Rust memory.
-		/// Should only ever be used for debugging purposes, and will likely be
-		/// deprecated soon.
-		public static var suspendFreedom = false
+					private static var instanceCounter: UInt = 0
+					internal let instanceNumber: UInt
 
-		private static var instanceCounter: UInt = 0
-		internal let instanceNumber: UInt
+					internal var cType: LDKUtxoResult?
 
-		internal var cType: LDKUtxoResult?
+					internal init(cType: LDKUtxoResult, instantiationContext: String) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+					}
 
-		internal init(cType: LDKUtxoResult, instantiationContext: String) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
+					internal init(cType: LDKUtxoResult, instantiationContext: String, anchor: NativeTypeWrapper) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = true
+						try! self.addAnchor(anchor: anchor)
+					}
 
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-		}
+					internal init(cType: LDKUtxoResult, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
+						Self.instanceCounter += 1
+						self.instanceNumber = Self.instanceCounter
+						self.cType = cType
+						
+						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+						self.dangling = dangle
+						try! self.addAnchor(anchor: anchor)
+					}
+		
 
-		internal init(cType: LDKUtxoResult, instantiationContext: String, anchor: NativeTypeWrapper) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
+					public enum UtxoResultType {
+						
+						/// A result which was resolved synchronously. It either includes a [`TxOut`] for the output
+						/// requested or a [`UtxoLookupError`].
+						case Sync
+			
+						/// A result which will be resolved asynchronously. It includes a [`UtxoFuture`], a `clone` of
+						/// which you must keep locally and call [`UtxoFuture::resolve`] on once the lookup completes.
+						/// 
+						/// Note that in order to avoid runaway memory usage, the number of parallel checks is limited,
+						/// but only fairly loosely. Because a pending checks block all message processing, leaving
+						/// checks pending for an extended time may cause DoS of other functions. It is recommended you
+						/// keep a tight timeout on lookups, on the order of a few seconds.
+						case Async
+			
+					}
 
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = true
-			try! self.addAnchor(anchor: anchor)
-		}
+					public func getValueType() -> UtxoResultType {
+						switch self.cType!.tag {
+							case LDKUtxoResult_Sync:
+								return .Sync
+			
+							case LDKUtxoResult_Async:
+								return .Async
+			
+							default:
+								Bindings.print("Error: Invalid value type for UtxoResult! Aborting.", severity: .ERROR)
+								abort()
+						}
+		
+					}
 
-		internal init(
-			cType: LDKUtxoResult, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
-		) {
-			Self.instanceCounter += 1
-			self.instanceNumber = Self.instanceCounter
-			self.cType = cType
+					
+					/// Frees any resources used by the UtxoResult
+					internal func free() {
+						// native call variable prep
+						
 
-			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-			self.dangling = dangle
-			try! self.addAnchor(anchor: anchor)
-		}
+						// native method call
+						let nativeCallResult = UtxoResult_free(self.cType!)
 
+						// cleanup
+						
 
-		public enum UtxoResultType {
+						
+						// return value (do some wrapping)
+						let returnValue = nativeCallResult
+						
 
-			/// A result which was resolved synchronously. It either includes a [`TxOut`] for the output
-			/// requested or a [`UtxoLookupError`].
-			case Sync
+						return returnValue
+					}
+		
+					/// Creates a copy of the UtxoResult
+					internal func clone() -> UtxoResult {
+						// native call variable prep
+						
 
-			/// A result which will be resolved asynchronously. It includes a [`UtxoFuture`], a `clone` of
-			/// which you must keep locally and call [`UtxoFuture::resolve`] on once the lookup completes.
-			///
-			/// Note that in order to avoid runaway memory usage, the number of parallel checks is limited,
-			/// but only fairly loosely. Because a pending checks block all message processing, leaving
-			/// checks pending for an extended time may cause DoS of other functions. It is recommended you
-			/// keep a tight timeout on lookups, on the order of a few seconds.
-			case Async
+						// native method call
+						let nativeCallResult = 
+						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKUtxoResult>) in
+				UtxoResult_clone(origPointer)
+						}
+				
 
-		}
+						// cleanup
+						
 
-		public func getValueType() -> UtxoResultType {
-			switch self.cType!.tag {
-				case LDKUtxoResult_Sync:
-					return .Sync
+						
+						// return value (do some wrapping)
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
+						
 
-				case LDKUtxoResult_Async:
-					return .Async
+						return returnValue
+					}
+		
+					/// Utility method to constructs a new Sync-variant UtxoResult
+					public class func initWithSync(a: Result_TxOutUtxoLookupErrorZ) -> UtxoResult {
+						// native call variable prep
+						
 
-				default:
-					Bindings.print("Error: Invalid value type for UtxoResult! Aborting.", severity: .ERROR)
-					abort()
-			}
+						// native method call
+						let nativeCallResult = UtxoResult_sync(a.danglingClone().cType!)
 
-		}
+						// cleanup
+						
 
+						
+						// return value (do some wrapping)
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
+						
 
-		/// Frees any resources used by the UtxoResult
-		internal func free() {
-			// native call variable prep
+						return returnValue
+					}
+		
+					/// Utility method to constructs a new Async-variant UtxoResult
+					public class func initWithAsync(a: Bindings.UtxoFuture) -> UtxoResult {
+						// native call variable prep
+						
 
+						// native method call
+						let nativeCallResult = UtxoResult_async(a.dynamicallyDangledClone().cType!)
 
-			// native method call
-			let nativeCallResult = UtxoResult_free(self.cType!)
+						// cleanup
+						
 
-			// cleanup
+						
+						// return value (do some wrapping)
+						let returnValue = UtxoResult(cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
+						
 
+						return returnValue
+					}
+		
 
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+					
+					public func getValueAsSync() -> Result_TxOutUtxoLookupErrorZ? {
+						if self.cType?.tag != LDKUtxoResult_Sync {
+							return nil
+						}
 
+						return Result_TxOutUtxoLookupErrorZ(cType: self.cType!.sync, instantiationContext: "UtxoResult.swift::\(#function):\(#line)", anchor: self)
+					}
+			
+					public func getValueAsAsync() -> Bindings.UtxoFuture? {
+						if self.cType?.tag != LDKUtxoResult_Async {
+							return nil
+						}
 
-			return returnValue
-		}
+						return UtxoFuture(cType: self.cType!.async, instantiationContext: "UtxoResult.swift::\(#function):\(#line)", anchor: self)
+					}
+			
 
-		/// Creates a copy of the UtxoResult
-		internal func clone() -> UtxoResult {
-			// native call variable prep
+					
+					internal func danglingClone() -> UtxoResult {
+						let dangledClone = self.clone()
+						dangledClone.dangling = true
+						return dangledClone
+					}
+			
+					deinit {
+						if Bindings.suspendFreedom || Self.suspendFreedom {
+							return
+						}
 
+						if !self.dangling {
+							if Self.enableDeinitLogging {
+								Bindings.print("Freeing UtxoResult \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+							}
+							
+							self.free()
+						} else if Self.enableDeinitLogging {
+							Bindings.print("Not freeing UtxoResult \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
+						}
+					}
+			
 
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKUtxoResult>) in
-					UtxoResult_clone(origPointer)
+					
+
 				}
 
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = UtxoResult(
-				cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-		/// Utility method to constructs a new Sync-variant UtxoResult
-		public class func initWithSync(a: Result_TxOutUtxoLookupErrorZ) -> UtxoResult {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = UtxoResult_sync(a.danglingClone().cType!)
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = UtxoResult(
-				cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-		/// Utility method to constructs a new Async-variant UtxoResult
-		public class func initWithAsync(a: Bindings.UtxoFuture) -> UtxoResult {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = UtxoResult_async(a.dynamicallyDangledClone().cType!)
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = UtxoResult(
-				cType: nativeCallResult, instantiationContext: "UtxoResult.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-
-		public func getValueAsSync() -> Result_TxOutUtxoLookupErrorZ? {
-			if self.cType?.tag != LDKUtxoResult_Sync {
-				return nil
 			}
-
-			return Result_TxOutUtxoLookupErrorZ(
-				cType: self.cType!.sync, instantiationContext: "UtxoResult.swift::\(#function):\(#line)", anchor: self)
-		}
-
-		public func getValueAsAsync() -> Bindings.UtxoFuture? {
-			if self.cType?.tag != LDKUtxoResult_Async {
-				return nil
-			}
-
-			return UtxoFuture(
-				cType: self.cType!.async, instantiationContext: "UtxoResult.swift::\(#function):\(#line)", anchor: self)
-		}
-
-
-		internal func danglingClone() -> UtxoResult {
-			let dangledClone = self.clone()
-			dangledClone.dangling = true
-			return dangledClone
-		}
-
-		deinit {
-			if Bindings.suspendFreedom || Self.suspendFreedom {
-				return
-			}
-
-			if !self.dangling {
-				if Self.enableDeinitLogging {
-					Bindings.print("Freeing UtxoResult \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-				}
-
-				self.free()
-			} else if Self.enableDeinitLogging {
-				Bindings.print(
-					"Not freeing UtxoResult \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
-				)
-			}
-		}
-
-
-	}
-
-}
+		

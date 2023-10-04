@@ -1,161 +1,163 @@
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+/// A CResult_NoneAPIErrorZ represents the result of a fallible operation,
+/// containing a () on success and a crate::lightning::util::errors::APIError on failure.
+/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
+public typealias Result_NoneAPIErrorZ = Bindings.Result_NoneAPIErrorZ
 
-			/// A CResult_NoneAPIErrorZ represents the result of a fallible operation,
-			/// containing a () on success and a crate::lightning::util::errors::APIError on failure.
-			/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-			public typealias Result_NoneAPIErrorZ = Bindings.Result_NoneAPIErrorZ
+extension Bindings {
 
-			extension Bindings {
+	/// A CResult_NoneAPIErrorZ represents the result of a fallible operation,
+	/// containing a () on success and a crate::lightning::util::errors::APIError on failure.
+	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
+	public class Result_NoneAPIErrorZ: NativeTypeWrapper {
 
-				/// A CResult_NoneAPIErrorZ represents the result of a fallible operation,
-				/// containing a () on success and a crate::lightning::util::errors::APIError on failure.
-				/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-				public class Result_NoneAPIErrorZ: NativeTypeWrapper {
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal var cType: LDKCResult_NoneAPIErrorZ?
+		internal var cType: LDKCResult_NoneAPIErrorZ?
 
-					internal init(cType: LDKCResult_NoneAPIErrorZ, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal init(cType: LDKCResult_NoneAPIErrorZ, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					internal init(cType: LDKCResult_NoneAPIErrorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					internal init(cType: LDKCResult_NoneAPIErrorZ, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+		internal init(cType: LDKCResult_NoneAPIErrorZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					
-					/// Creates a new CResult_NoneAPIErrorZ in the success state.
-					public class func initWithOk() -> Result_NoneAPIErrorZ {
-						// native call variable prep
-						
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						// native method call
-						let nativeCallResult = CResult_NoneAPIErrorZ_ok()
+		internal init(
+			cType: LDKCResult_NoneAPIErrorZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-						// cleanup
-						
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						
-						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
-						
 
-						return returnValue
-					}
-		
-					/// Creates a new CResult_NoneAPIErrorZ in the error state.
-					public class func initWithErr(e: APIError) -> Result_NoneAPIErrorZ {
-						// native call variable prep
-						
+		/// Creates a new CResult_NoneAPIErrorZ in the success state.
+		public class func initWithOk() -> Result_NoneAPIErrorZ {
+			// native call variable prep
 
-						// native method call
-						let nativeCallResult = CResult_NoneAPIErrorZ_err(e.danglingClone().cType!)
 
-						// cleanup
-						
+			// native method call
+			let nativeCallResult = CResult_NoneAPIErrorZ_ok()
 
-						
-						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
-						
+			// cleanup
 
-						return returnValue
-					}
-		
-					/// Frees any resources used by the CResult_NoneAPIErrorZ.
-					internal func free() {
-						// native call variable prep
-						
 
-						// native method call
-						let nativeCallResult = CResult_NoneAPIErrorZ_free(self.cType!)
+			// return value (do some wrapping)
+			let returnValue = Result_NoneAPIErrorZ(
+				cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+			return returnValue
+		}
 
-						return returnValue
-					}
-		
-					/// Creates a new CResult_NoneAPIErrorZ which has the same data as `orig`
-					/// but with all dynamically-allocated buffers duplicated in new buffers.
-					internal func clone() -> Result_NoneAPIErrorZ {
-						// native call variable prep
-						
+		/// Creates a new CResult_NoneAPIErrorZ in the error state.
+		public class func initWithErr(e: APIError) -> Result_NoneAPIErrorZ {
+			// native call variable prep
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_NoneAPIErrorZ>) in
-				CResult_NoneAPIErrorZ_clone(origPointer)
-						}
-				
 
-						// cleanup
-						
+			// native method call
+			let nativeCallResult = CResult_NoneAPIErrorZ_err(e.danglingClone().cType!)
 
-						
-						// return value (do some wrapping)
-						let returnValue = Result_NoneAPIErrorZ(cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
-						
+			// cleanup
 
-						return returnValue
-					}
-		
 
-					public func isOk() -> Bool {
-						return self.cType?.result_ok == true
-					}
+			// return value (do some wrapping)
+			let returnValue = Result_NoneAPIErrorZ(
+				cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
 
-					
-					public func getError() -> APIError? {
-						if self.cType?.result_ok == false {
-							return APIError(cType: self.cType!.contents.err.pointee, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)", anchor: self)
-						}
-						return nil
-					}
-					
 
-					/*
+			return returnValue
+		}
+
+		/// Frees any resources used by the CResult_NoneAPIErrorZ.
+		internal func free() {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = CResult_NoneAPIErrorZ_free(self.cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Creates a new CResult_NoneAPIErrorZ which has the same data as `orig`
+		/// but with all dynamically-allocated buffers duplicated in new buffers.
+		internal func clone() -> Result_NoneAPIErrorZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_NoneAPIErrorZ>) in
+					CResult_NoneAPIErrorZ_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneAPIErrorZ(
+				cType: nativeCallResult, instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		public func isOk() -> Bool {
+			return self.cType?.result_ok == true
+		}
+
+
+		public func getError() -> APIError? {
+			if self.cType?.result_ok == false {
+				return APIError(
+					cType: self.cType!.contents.err.pointee,
+					instantiationContext: "Result_NoneAPIErrorZ.swift::\(#function):\(#line)", anchor: self)
+			}
+			return nil
+		}
+
+
+		/*
 					public func getValue() -> Void? {
 						if self.cType?.result_ok == true {
 							return self.cType!.contents.result.pointee
@@ -164,31 +166,33 @@
 					}
 					*/
 
-					
-					internal func danglingClone() -> Result_NoneAPIErrorZ {
-						let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-			
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
 
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing Result_NoneAPIErrorZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing Result_NoneAPIErrorZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-			
+		internal func danglingClone() -> Result_NoneAPIErrorZ {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
 
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
+			}
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing Result_NoneAPIErrorZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing Result_NoneAPIErrorZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
 			}
-		
+		}
+
+
+	}
+
+}

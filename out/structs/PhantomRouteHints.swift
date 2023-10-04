@@ -1,401 +1,420 @@
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-				
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+/// Route hints used in constructing invoices for [phantom node payents].
+///
+/// [phantom node payments]: crate::sign::PhantomKeysManager
+public typealias PhantomRouteHints = Bindings.PhantomRouteHints
 
-			/// Route hints used in constructing invoices for [phantom node payents].
-			/// 
-			/// [phantom node payments]: crate::sign::PhantomKeysManager
-			public typealias PhantomRouteHints = Bindings.PhantomRouteHints
+extension Bindings {
 
-			extension Bindings {
-		
 
-				/// Route hints used in constructing invoices for [phantom node payents].
-				/// 
-				/// [phantom node payments]: crate::sign::PhantomKeysManager
-				public class PhantomRouteHints: NativeTypeWrapper {
+	/// Route hints used in constructing invoices for [phantom node payents].
+	///
+	/// [phantom node payments]: crate::sign::PhantomKeysManager
+	public class PhantomRouteHints: NativeTypeWrapper {
 
-					let initialCFreeability: Bool
+		let initialCFreeability: Bool
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKPhantomRouteHints?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKPhantomRouteHints, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKPhantomRouteHints?
 
-					internal init(cType: LDKPhantomRouteHints, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKPhantomRouteHints, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					internal init(cType: LDKPhantomRouteHints, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						self.initialCFreeability = self.cType!.is_owned
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+		internal init(cType: LDKPhantomRouteHints, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-					
-					/// Frees any resources used by the PhantomRouteHints, if is_owned is set and inner is non-NULL.
-					internal func free() {
-						// native call variable prep
-						
+		internal init(
+			cType: LDKPhantomRouteHints, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
+			self.initialCFreeability = self.cType!.is_owned
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						// native method call
-						let nativeCallResult = PhantomRouteHints_free(self.cType!)
 
-						// cleanup
-						
+		/// Frees any resources used by the PhantomRouteHints, if is_owned is set and inner is non-NULL.
+		internal func free() {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// The list of channels to be included in the invoice route hints.
-					public func getChannels() -> [ChannelDetails] {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult = PhantomRouteHints_free(self.cType!)
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_get_channels(thisPtrPointer)
-						}
-				
+			// cleanup
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_ChannelDetailsZ(cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						return returnValue
-					}
-		
-					/// The list of channels to be included in the invoice route hints.
-					public func setChannels(val: [ChannelDetails]) {
-						// native call variable prep
-						
-						let valVector = Vec_ChannelDetailsZ(array: val, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)").dangle()
-				
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_set_channels(thisPtrPointer, valVector.cType!)
-						}
-				
+			return returnValue
+		}
 
-						// cleanup
-						
-						// valVector.noOpRetain()
-				
+		/// The list of channels to be included in the invoice route hints.
+		public func getChannels() -> [ChannelDetails] {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// A fake scid used for representing the phantom node's fake channel in generating the invoice
-					/// route hints.
-					public func getPhantomScid() -> UInt64 {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_get_channels(thisPtrPointer)
+				}
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_get_phantom_scid(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
+			// cleanup
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// A fake scid used for representing the phantom node's fake channel in generating the invoice
-					/// route hints.
-					public func setPhantomScid(val: UInt64) {
-						// native call variable prep
-						
+			// return value (do some wrapping)
+			let returnValue = Vec_ChannelDetailsZ(
+				cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_set_phantom_scid(thisPtrPointer, val)
-						}
-				
 
-						// cleanup
-						
+			return returnValue
+		}
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+		/// The list of channels to be included in the invoice route hints.
+		public func setChannels(val: [ChannelDetails]) {
+			// native call variable prep
 
-						return returnValue
-					}
-		
-					/// The pubkey of the real backing node that would ultimately receive the payment.
-					public func getRealNodePubkey() -> [UInt8] {
-						// native call variable prep
-						
+			let valVector = Vec_ChannelDetailsZ(
+				array: val, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)"
+			)
+			.dangle()
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_get_real_node_pubkey(thisPtrPointer)
-						}
-				
 
-						// cleanup
-						
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_set_channels(thisPtrPointer, valVector.cType!)
+				}
 
-						
-						// return value (do some wrapping)
-						let returnValue = PublicKey(cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
 
-						return returnValue
-					}
-		
-					/// The pubkey of the real backing node that would ultimately receive the payment.
-					public func setRealNodePubkey(val: [UInt8]) {
-						// native call variable prep
-						
-						let valPrimitiveWrapper = PublicKey(value: val, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
-				
+			// cleanup
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_set_real_node_pubkey(thisPtrPointer, valPrimitiveWrapper.cType!)
-						}
-				
+			// valVector.noOpRetain()
 
-						// cleanup
-						
-						// for elided types, we need this
-						valPrimitiveWrapper.noOpRetain()
-				
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						return returnValue
-					}
-		
-					/// Constructs a new PhantomRouteHints given each field
-					public init(channelsArg: [ChannelDetails], phantomScidArg: UInt64, realNodePubkeyArg: [UInt8]) {
-						// native call variable prep
-						
-						let channelsArgVector = Vec_ChannelDetailsZ(array: channelsArg, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)").dangle()
-				
-						let realNodePubkeyArgPrimitiveWrapper = PublicKey(value: realNodePubkeyArg, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
-				
 
-						// native method call
-						let nativeCallResult = PhantomRouteHints_new(channelsArgVector.cType!, phantomScidArg, realNodePubkeyArgPrimitiveWrapper.cType!)
+			return returnValue
+		}
 
-						// cleanup
-						
-						// channelsArgVector.noOpRetain()
-				
-						// for elided types, we need this
-						realNodePubkeyArgPrimitiveWrapper.noOpRetain()
-				
-				self.initialCFreeability = nativeCallResult.is_owned
-			
+		/// A fake scid used for representing the phantom node's fake channel in generating the invoice
+		/// route hints.
+		public func getPhantomScid() -> UInt64 {
+			// native call variable prep
 
-						/*
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_get_phantom_scid(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// A fake scid used for representing the phantom node's fake channel in generating the invoice
+		/// route hints.
+		public func setPhantomScid(val: UInt64) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_set_phantom_scid(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The pubkey of the real backing node that would ultimately receive the payment.
+		public func getRealNodePubkey() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_get_real_node_pubkey(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The pubkey of the real backing node that would ultimately receive the payment.
+		public func setRealNodePubkey(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_set_real_node_pubkey(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new PhantomRouteHints given each field
+		public init(channelsArg: [ChannelDetails], phantomScidArg: UInt64, realNodePubkeyArg: [UInt8]) {
+			// native call variable prep
+
+			let channelsArgVector = Vec_ChannelDetailsZ(
+				array: channelsArg, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+			let realNodePubkeyArgPrimitiveWrapper = PublicKey(
+				value: realNodePubkeyArg, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = PhantomRouteHints_new(
+				channelsArgVector.cType!, phantomScidArg, realNodePubkeyArgPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// channelsArgVector.noOpRetain()
+
+			// for elided types, we need this
+			realNodePubkeyArgPrimitiveWrapper.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
 						// return value (do some wrapping)
 						let returnValue = PhantomRouteHints(cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
 						*/
 
-						
-				self.cType = nativeCallResult
 
-				Self.instanceCounter += 1
-				self.instanceNumber = Self.instanceCounter
-				super.init(conflictAvoidingVariableName: 0, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
-				
-			
-					}
-		
-					/// Creates a copy of the PhantomRouteHints
-					internal func clone() -> PhantomRouteHints {
-						// native call variable prep
-						
+			self.cType = nativeCallResult
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_clone(origPointer)
-						}
-				
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = PhantomRouteHints(cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
-						
+		}
 
-						return returnValue
-					}
-		
-					/// Serialize the PhantomRouteHints object into a byte array which can be read by PhantomRouteHints_read
-					public func write() -> [UInt8] {
-						// native call variable prep
-						
+		/// Creates a copy of the PhantomRouteHints
+		internal func clone() -> PhantomRouteHints {
+			// native call variable prep
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKPhantomRouteHints>) in
-				PhantomRouteHints_write(objPointer)
-						}
-				
 
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
-
-						return returnValue
-					}
-		
-					/// Read a PhantomRouteHints from a byte array, created by PhantomRouteHints_write
-					public class func read(ser: [UInt8]) -> Result_PhantomRouteHintsDecodeErrorZ {
-						// native call variable prep
-						
-						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
-				
-
-						// native method call
-						let nativeCallResult = PhantomRouteHints_read(serPrimitiveWrapper.cType!)
-
-						// cleanup
-						
-						// for elided types, we need this
-						serPrimitiveWrapper.noOpRetain()
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = Result_PhantomRouteHintsDecodeErrorZ(cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-
-					
-					/// Indicates that this is the only struct which contains the same pointer.
-					/// Rust functions which take ownership of an object provided via an argument require
-					/// this to be true and invalidate the object pointed to by inner.
-					public func isOwned() -> Bool {
-						// return value (do some wrapping)
-						let returnValue = self.cType!.is_owned
-
-						return returnValue;
-					}
-		
-
-					
-					internal func danglingClone() -> PhantomRouteHints {
-						let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-			
-						internal func dynamicallyDangledClone() -> PhantomRouteHints {
-							let dangledClone = self.clone()
-							// if it's owned, i. e. controlled by Rust, it should dangle on our end
-							dangledClone.dangling = dangledClone.cType!.is_owned
-							return dangledClone
-						}
-					
-					internal func setCFreeability(freeable: Bool) -> PhantomRouteHints {
-						self.cType!.is_owned = freeable
-						return self
-					}
-
-					internal func dynamicDangle() -> PhantomRouteHints {
-						self.dangling = self.cType!.is_owned
-						return self
-					}
-			
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
-
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing PhantomRouteHints \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing PhantomRouteHints \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-			
-
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_clone(origPointer)
 				}
 
-				
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PhantomRouteHints(
+				cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Serialize the PhantomRouteHints object into a byte array which can be read by PhantomRouteHints_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKPhantomRouteHints>) in
+					PhantomRouteHints_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a PhantomRouteHints from a byte array, created by PhantomRouteHints_write
+		public class func read(ser: [UInt8]) -> Result_PhantomRouteHintsDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = PhantomRouteHints_read(serPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_PhantomRouteHintsDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "PhantomRouteHints.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		/// Indicates that this is the only struct which contains the same pointer.
+		/// Rust functions which take ownership of an object provided via an argument require
+		/// this to be true and invalidate the object pointed to by inner.
+		public func isOwned() -> Bool {
+			// return value (do some wrapping)
+			let returnValue = self.cType!.is_owned
+
+			return returnValue
+		}
+
+
+		internal func danglingClone() -> PhantomRouteHints {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> PhantomRouteHints {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.is_owned
+			return dangledClone
+		}
+
+		internal func setCFreeability(freeable: Bool) -> PhantomRouteHints {
+			self.cType!.is_owned = freeable
+			return self
+		}
+
+		internal func dynamicDangle() -> PhantomRouteHints {
+			self.dangling = self.cType!.is_owned
+			return self
+		}
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
 			}
-		
-		
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing PhantomRouteHints \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+				}
+
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing PhantomRouteHints \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
+			}
+		}
+
+
+	}
+
+
+}
+

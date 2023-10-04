@@ -1,206 +1,219 @@
+// necessary for abort() calls
+import Foundation
 
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-			// necessary for abort() calls
-			import Foundation
 
-			/// A trait indicating an object may generate message send events
-			public typealias MessageSendEventsProvider = Bindings.MessageSendEventsProvider
+/// A trait indicating an object may generate message send events
+public typealias MessageSendEventsProvider = Bindings.MessageSendEventsProvider
 
-			extension Bindings {
+extension Bindings {
 
-				/// A trait indicating an object may generate message send events
-				open class MessageSendEventsProvider: NativeTraitWrapper {
+	/// A trait indicating an object may generate message send events
+	open class MessageSendEventsProvider: NativeTraitWrapper {
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKMessageSendEventsProvider?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKMessageSendEventsProvider, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKMessageSendEventsProvider?
 
-					internal init(cType: LDKMessageSendEventsProvider, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKMessageSendEventsProvider, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					internal init(cType: LDKMessageSendEventsProvider, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					public init() {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "MessageSendEventsProvider.swift::\(#function):\(#line)")
+		internal init(cType: LDKMessageSendEventsProvider, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-						let thisArg = Bindings.instanceToPointer(instance: self)
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						
+		internal init(
+			cType: LDKMessageSendEventsProvider, instantiationContext: String, anchor: NativeTypeWrapper,
+			dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-						
-						func getAndClearPendingMsgEventsLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_MessageSendEventZ {
-							let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "MessageSendEventsProvider::getAndClearPendingMsgEventsLambda")
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-							// Swift callback variable prep
-											
 
-							// Swift callback call
-							let swiftCallbackResult = instance.getAndClearPendingMsgEvents()
+		public init() {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "MessageSendEventsProvider.swift::\(#function):\(#line)")
 
-							// cleanup
-							
+			let thisArg = Bindings.instanceToPointer(instance: self)
 
-							// return value (do some wrapping)
-							let returnValue = Vec_MessageSendEventZ(array: swiftCallbackResult, instantiationContext: "MessageSendEventsProvider.swift::init()::\(#function):\(#line)").dangleRecursively().cType!
 
-							return returnValue
-						}
-		
-						func freeLambda(this_arg: UnsafeMutableRawPointer?) -> Void {
-							let instance: MessageSendEventsProvider = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "MessageSendEventsProvider::freeLambda")
+			func getAndClearPendingMsgEventsLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_MessageSendEventZ {
+				let instance: MessageSendEventsProvider = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "MessageSendEventsProvider::getAndClearPendingMsgEventsLambda")
 
-							// Swift callback variable prep
-											
+				// Swift callback variable prep
 
-							// Swift callback call
-							let swiftCallbackResult = instance.free()
 
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult
-
-							return returnValue
-						}
-		
-
-						self.cType = LDKMessageSendEventsProvider(							
-							this_arg: thisArg,
-							get_and_clear_pending_msg_events: getAndClearPendingMsgEventsLambda,
-							free: freeLambda
-						)
-					}
-
-					
-			/// Gets the list of pending events which were generated by previous actions, clearing the list
-					/// in the process.
-			open func getAndClearPendingMsgEvents() -> [MessageSendEvent] {
-				
-				Bindings.print("Error: MessageSendEventsProvider::getAndClearPendingMsgEvents MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-				abort()
-			}
-		
-			/// Frees any resources associated with this object given its this_arg pointer.
-					/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
-			internal func free() -> Void {
-				
-				// TODO: figure out something smarter
-				return () // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
-			
-				Bindings.print("Error: MessageSendEventsProvider::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-				abort()
-			}
-		
-
-					
-
-					
-
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
-
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing MessageSendEventsProvider \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing MessageSendEventsProvider \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-				}
-
-				internal class NativelyImplementedMessageSendEventsProvider: MessageSendEventsProvider {
-					
-			/// Gets the list of pending events which were generated by previous actions, clearing the list
-					/// in the process.
-			public override func getAndClearPendingMsgEvents() -> [MessageSendEvent] {
-				// native call variable prep
-				
-
-				
-
-				// native method call
-				let nativeCallResult = self.cType!.get_and_clear_pending_msg_events(self.cType!.this_arg)
+				// Swift callback call
+				let swiftCallbackResult = instance.getAndClearPendingMsgEvents()
 
 				// cleanup
-				
+
 
 				// return value (do some wrapping)
-				let returnValue = Vec_MessageSendEventZ(cType: nativeCallResult, instantiationContext: "MessageSendEventsProvider.swift::\(#function):\(#line)").getValue()
+				let returnValue = Vec_MessageSendEventZ(
+					array: swiftCallbackResult,
+					instantiationContext: "MessageSendEventsProvider.swift::init()::\(#function):\(#line)"
+				)
+				.dangleRecursively().cType!
 
 				return returnValue
 			}
-		
-			/// Frees any resources associated with this object given its this_arg pointer.
-					/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
-			public override func free() {
-				// native call variable prep
-				
 
-				
-				// natively wrapped traits may not necessarily be properly initialized
-				// for now just don't free these things
-				// self.cType?.free(self.cType?.this_arg)
-				return;
-			
+			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
+				let instance: MessageSendEventsProvider = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "MessageSendEventsProvider::freeLambda")
 
-				// native method call
-				let nativeCallResult = self.cType!.free(self.cType!.this_arg)
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.free()
 
 				// cleanup
-				
+
 
 				// return value (do some wrapping)
-				let returnValue = nativeCallResult
+				let returnValue = swiftCallbackResult
 
 				return returnValue
 			}
-		
-				}
 
+
+			self.cType = LDKMessageSendEventsProvider(
+				this_arg: thisArg,
+				get_and_clear_pending_msg_events: getAndClearPendingMsgEventsLambda,
+				free: freeLambda
+			)
+		}
+
+
+		/// Gets the list of pending events which were generated by previous actions, clearing the list
+		/// in the process.
+		open func getAndClearPendingMsgEvents() -> [MessageSendEvent] {
+
+			Bindings.print(
+				"Error: MessageSendEventsProvider::getAndClearPendingMsgEvents MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Frees any resources associated with this object given its this_arg pointer.
+		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
+		internal func free() {
+
+			// TODO: figure out something smarter
+			return ()  // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
+
+			Bindings.print(
+				"Error: MessageSendEventsProvider::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
 			}
-		
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing MessageSendEventsProvider \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+					)
+				}
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing MessageSendEventsProvider \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
+			}
+		}
+	}
+
+	internal class NativelyImplementedMessageSendEventsProvider: MessageSendEventsProvider {
+
+		/// Gets the list of pending events which were generated by previous actions, clearing the list
+		/// in the process.
+		public override func getAndClearPendingMsgEvents() -> [MessageSendEvent] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.get_and_clear_pending_msg_events(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_MessageSendEventZ(
+				cType: nativeCallResult, instantiationContext: "MessageSendEventsProvider.swift::\(#function):\(#line)"
+			)
+			.getValue()
+
+			return returnValue
+		}
+
+		/// Frees any resources associated with this object given its this_arg pointer.
+		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
+		public override func free() {
+			// native call variable prep
+
+
+			// natively wrapped traits may not necessarily be properly initialized
+			// for now just don't free these things
+			// self.cType?.free(self.cType?.this_arg)
+			return
+
+
+			// native method call
+			let nativeCallResult = self.cType!.free(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+	}
+
+}

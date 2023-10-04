@@ -1,346 +1,353 @@
+import Foundation
 
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-			import Foundation
 
-			/// 
-			public typealias OffersMessage = Bindings.OffersMessage
+///
+public typealias OffersMessage = Bindings.OffersMessage
 
-			extension Bindings {
+extension Bindings {
 
-				/// Possible BOLT 12 Offers messages sent and received via an [`OnionMessage`].
-				/// 
-				/// [`OnionMessage`]: crate::ln::msgs::OnionMessage
-				public class OffersMessage: NativeTypeWrapper {
+	/// Possible BOLT 12 Offers messages sent and received via an [`OnionMessage`].
+	///
+	/// [`OnionMessage`]: crate::ln::msgs::OnionMessage
+	public class OffersMessage: NativeTypeWrapper {
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKOffersMessage?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKOffersMessage, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKOffersMessage?
 
-					internal init(cType: LDKOffersMessage, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKOffersMessage, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					internal init(cType: LDKOffersMessage, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					public enum OffersMessageType {
-						
-						/// A request for a [`Bolt12Invoice`] for a particular [`Offer`].
-						/// 
-						/// [`Offer`]: crate::offers::offer::Offer
-						case InvoiceRequest
-			
-						/// A [`Bolt12Invoice`] sent in response to an [`InvoiceRequest`] or a [`Refund`].
-						/// 
-						/// [`Refund`]: crate::offers::refund::Refund
-						case Invoice
-			
-						/// An error from handling an [`OffersMessage`].
-						case InvoiceError
-			
-					}
+		internal init(cType: LDKOffersMessage, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					public func getValueType() -> OffersMessageType {
-						switch self.cType!.tag {
-							case LDKOffersMessage_InvoiceRequest:
-								return .InvoiceRequest
-			
-							case LDKOffersMessage_Invoice:
-								return .Invoice
-			
-							case LDKOffersMessage_InvoiceError:
-								return .InvoiceError
-			
-							default:
-								Bindings.print("Error: Invalid value type for OffersMessage! Aborting.", severity: .ERROR)
-								abort()
-						}
-		
-					}
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-					
-					/// Frees any resources used by the OffersMessage
-					internal func free() {
-						// native call variable prep
-						
+		internal init(
+			cType: LDKOffersMessage, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-						// native method call
-						let nativeCallResult = OffersMessage_free(self.cType!)
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
+		public enum OffersMessageType {
 
-						return returnValue
-					}
-		
-					/// Creates a copy of the OffersMessage
-					internal func clone() -> OffersMessage {
-						// native call variable prep
-						
+			/// A request for a [`Bolt12Invoice`] for a particular [`Offer`].
+			///
+			/// [`Offer`]: crate::offers::offer::Offer
+			case InvoiceRequest
 
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKOffersMessage>) in
-				OffersMessage_clone(origPointer)
-						}
-				
+			/// A [`Bolt12Invoice`] sent in response to an [`InvoiceRequest`] or a [`Refund`].
+			///
+			/// [`Refund`]: crate::offers::refund::Refund
+			case Invoice
 
-						// cleanup
-						
+			/// An error from handling an [`OffersMessage`].
+			case InvoiceError
 
-						
-						// return value (do some wrapping)
-						let returnValue = OffersMessage(cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
-						
+		}
 
-						return returnValue
-					}
-		
-					/// Utility method to constructs a new InvoiceRequest-variant OffersMessage
-					public class func initWithInvoiceRequest(a: Bindings.InvoiceRequest) -> OffersMessage {
-						// native call variable prep
-						
+		public func getValueType() -> OffersMessageType {
+			switch self.cType!.tag {
+				case LDKOffersMessage_InvoiceRequest:
+					return .InvoiceRequest
 
-						// native method call
-						let nativeCallResult = OffersMessage_invoice_request(a.dynamicallyDangledClone().cType!)
+				case LDKOffersMessage_Invoice:
+					return .Invoice
 
-						// cleanup
-						
+				case LDKOffersMessage_InvoiceError:
+					return .InvoiceError
 
-						
-						// return value (do some wrapping)
-						let returnValue = OffersMessage(cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
-						
+				default:
+					Bindings.print("Error: Invalid value type for OffersMessage! Aborting.", severity: .ERROR)
+					abort()
+			}
 
-						return returnValue
-					}
-		
-					/// Utility method to constructs a new Invoice-variant OffersMessage
-					public class func initWithInvoice(a: Bindings.Bolt12Invoice) -> OffersMessage {
-						// native call variable prep
-						
+		}
 
-						// native method call
-						let nativeCallResult = OffersMessage_invoice(a.dynamicallyDangledClone().cType!)
 
-						// cleanup
-						
+		/// Frees any resources used by the OffersMessage
+		internal func free() {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = OffersMessage(cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
-						
 
-						return returnValue
-					}
-		
-					/// Utility method to constructs a new InvoiceError-variant OffersMessage
-					public class func initWithInvoiceError(a: Bindings.InvoiceError) -> OffersMessage {
-						// native call variable prep
-						
+			// native method call
+			let nativeCallResult = OffersMessage_free(self.cType!)
 
-						// native method call
-						let nativeCallResult = OffersMessage_invoice_error(a.dynamicallyDangledClone().cType!)
+			// cleanup
 
-						// cleanup
-						
 
-						
-						// return value (do some wrapping)
-						let returnValue = OffersMessage(cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
-						
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
-						return returnValue
-					}
-		
-					/// Returns whether `tlv_type` corresponds to a TLV record for Offers.
-					public class func isKnownType(tlvType: UInt64) -> Bool {
-						// native call variable prep
-						
 
-						// native method call
-						let nativeCallResult = OffersMessage_is_known_type(tlvType)
+			return returnValue
+		}
 
-						// cleanup
-						
+		/// Creates a copy of the OffersMessage
+		internal func clone() -> OffersMessage {
+			// native call variable prep
 
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
 
-						return returnValue
-					}
-		
-					/// The TLV record type for the message as used in an `onionmsg_tlv` TLV stream.
-					public func tlvType() -> UInt64 {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffersMessage>) in
-				OffersMessage_tlv_type(thisArgPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = nativeCallResult
-						
-
-						return returnValue
-					}
-		
-					/// Serialize the OffersMessage object into a byte array which can be read by OffersMessage_read
-					public func write() -> [UInt8] {
-						// native call variable prep
-						
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKOffersMessage>) in
-				OffersMessage_write(objPointer)
-						}
-				
-
-						// cleanup
-						
-
-						
-						// return value (do some wrapping)
-						let returnValue = Vec_u8Z(cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)", anchor: self).dangle(false).getValue()
-						
-
-						return returnValue
-					}
-		
-					/// Read a OffersMessage from a byte array, created by OffersMessage_write
-					public class func read(ser: [UInt8], argA: UInt64, argB: Bindings.Logger) -> Result_OffersMessageDecodeErrorZ {
-						// native call variable prep
-						
-						let serPrimitiveWrapper = u8slice(value: ser, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
-				
-
-						// native method call
-						let nativeCallResult = 
-						withUnsafePointer(to: argB.activate().cType!) { (argBPointer: UnsafePointer<LDKLogger>) in
-				OffersMessage_read(serPrimitiveWrapper.cType!, argA, argBPointer)
-						}
-				
-
-						// cleanup
-						
-						// for elided types, we need this
-						serPrimitiveWrapper.noOpRetain()
-				
-
-						
-						// return value (do some wrapping)
-						let returnValue = Result_OffersMessageDecodeErrorZ(cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
-						
-
-						return returnValue
-					}
-		
-
-					
-					public func getValueAsInvoiceRequest() -> Bindings.InvoiceRequest? {
-						if self.cType?.tag != LDKOffersMessage_InvoiceRequest {
-							return nil
-						}
-
-						return InvoiceRequest(cType: self.cType!.invoice_request, instantiationContext: "OffersMessage.swift::\(#function):\(#line)", anchor: self)
-					}
-			
-					public func getValueAsInvoice() -> Bindings.Bolt12Invoice? {
-						if self.cType?.tag != LDKOffersMessage_Invoice {
-							return nil
-						}
-
-						return Bolt12Invoice(cType: self.cType!.invoice, instantiationContext: "OffersMessage.swift::\(#function):\(#line)", anchor: self)
-					}
-			
-					public func getValueAsInvoiceError() -> Bindings.InvoiceError? {
-						if self.cType?.tag != LDKOffersMessage_InvoiceError {
-							return nil
-						}
-
-						return InvoiceError(cType: self.cType!.invoice_error, instantiationContext: "OffersMessage.swift::\(#function):\(#line)", anchor: self)
-					}
-			
-
-					
-					internal func danglingClone() -> OffersMessage {
-						let dangledClone = self.clone()
-						dangledClone.dangling = true
-						return dangledClone
-					}
-			
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
-
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing OffersMessage \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing OffersMessage \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
-			
-
-					
-
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKOffersMessage>) in
+					OffersMessage_clone(origPointer)
 				}
 
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OffersMessage(
+				cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new InvoiceRequest-variant OffersMessage
+		public class func initWithInvoiceRequest(a: Bindings.InvoiceRequest) -> OffersMessage {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = OffersMessage_invoice_request(a.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OffersMessage(
+				cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new Invoice-variant OffersMessage
+		public class func initWithInvoice(a: Bindings.Bolt12Invoice) -> OffersMessage {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = OffersMessage_invoice(a.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OffersMessage(
+				cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new InvoiceError-variant OffersMessage
+		public class func initWithInvoiceError(a: Bindings.InvoiceError) -> OffersMessage {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = OffersMessage_invoice_error(a.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OffersMessage(
+				cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Returns whether `tlv_type` corresponds to a TLV record for Offers.
+		public class func isKnownType(tlvType: UInt64) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = OffersMessage_is_known_type(tlvType)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The TLV record type for the message as used in an `onionmsg_tlv` TLV stream.
+		public func tlvType() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffersMessage>) in
+					OffersMessage_tlv_type(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Serialize the OffersMessage object into a byte array which can be read by OffersMessage_read
+		public func write() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKOffersMessage>) in
+					OffersMessage_write(objPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Read a OffersMessage from a byte array, created by OffersMessage_write
+		public class func read(ser: [UInt8], argA: UInt64, argB: Bindings.Logger) -> Result_OffersMessageDecodeErrorZ {
+			// native call variable prep
+
+			let serPrimitiveWrapper = u8slice(
+				value: ser, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: argB.activate().cType!) { (argBPointer: UnsafePointer<LDKLogger>) in
+					OffersMessage_read(serPrimitiveWrapper.cType!, argA, argBPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			serPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_OffersMessageDecodeErrorZ(
+				cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+
+		public func getValueAsInvoiceRequest() -> Bindings.InvoiceRequest? {
+			if self.cType?.tag != LDKOffersMessage_InvoiceRequest {
+				return nil
 			}
-		
+
+			return InvoiceRequest(
+				cType: self.cType!.invoice_request, instantiationContext: "OffersMessage.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsInvoice() -> Bindings.Bolt12Invoice? {
+			if self.cType?.tag != LDKOffersMessage_Invoice {
+				return nil
+			}
+
+			return Bolt12Invoice(
+				cType: self.cType!.invoice, instantiationContext: "OffersMessage.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsInvoiceError() -> Bindings.InvoiceError? {
+			if self.cType?.tag != LDKOffersMessage_InvoiceError {
+				return nil
+			}
+
+			return InvoiceError(
+				cType: self.cType!.invoice_error, instantiationContext: "OffersMessage.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+
+		internal func danglingClone() -> OffersMessage {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
+			}
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing OffersMessage \(self.instanceNumber). (Origin: \(self.instantiationContext))")
+				}
+
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing OffersMessage \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
+			}
+		}
+
+
+	}
+
+}

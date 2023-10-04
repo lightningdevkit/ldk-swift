@@ -1,396 +1,437 @@
+// necessary for abort() calls
+import Foundation
 
-			#if SWIFT_PACKAGE
-			import LDKHeaders
-			#endif
+#if SWIFT_PACKAGE
+	import LDKHeaders
+#endif
 
-			// necessary for abort() calls
-			import Foundation
 
-			/// A handler provided to [`PeerManager`] for reading and handling custom messages.
-			/// 
-			/// [BOLT 1] specifies a custom message type range for use with experimental or application-specific
-			/// messages. `CustomMessageHandler` allows for user-defined handling of such types. See the
-			/// [`lightning_custom_message`] crate for tools useful in composing more than one custom handler.
-			/// 
-			/// [BOLT 1]: https://github.com/lightning/bolts/blob/master/01-messaging.md
-			/// [`lightning_custom_message`]: https://docs.rs/lightning_custom_message/latest/lightning_custom_message
-			public typealias CustomMessageHandler = Bindings.CustomMessageHandler
+/// A handler provided to [`PeerManager`] for reading and handling custom messages.
+///
+/// [BOLT 1] specifies a custom message type range for use with experimental or application-specific
+/// messages. `CustomMessageHandler` allows for user-defined handling of such types. See the
+/// [`lightning_custom_message`] crate for tools useful in composing more than one custom handler.
+///
+/// [BOLT 1]: https://github.com/lightning/bolts/blob/master/01-messaging.md
+/// [`lightning_custom_message`]: https://docs.rs/lightning_custom_message/latest/lightning_custom_message
+public typealias CustomMessageHandler = Bindings.CustomMessageHandler
 
-			extension Bindings {
+extension Bindings {
 
-				/// A handler provided to [`PeerManager`] for reading and handling custom messages.
-				/// 
-				/// [BOLT 1] specifies a custom message type range for use with experimental or application-specific
-				/// messages. `CustomMessageHandler` allows for user-defined handling of such types. See the
-				/// [`lightning_custom_message`] crate for tools useful in composing more than one custom handler.
-				/// 
-				/// [BOLT 1]: https://github.com/lightning/bolts/blob/master/01-messaging.md
-				/// [`lightning_custom_message`]: https://docs.rs/lightning_custom_message/latest/lightning_custom_message
-				open class CustomMessageHandler: NativeTraitWrapper {
+	/// A handler provided to [`PeerManager`] for reading and handling custom messages.
+	///
+	/// [BOLT 1] specifies a custom message type range for use with experimental or application-specific
+	/// messages. `CustomMessageHandler` allows for user-defined handling of such types. See the
+	/// [`lightning_custom_message`] crate for tools useful in composing more than one custom handler.
+	///
+	/// [BOLT 1]: https://github.com/lightning/bolts/blob/master/01-messaging.md
+	/// [`lightning_custom_message`]: https://docs.rs/lightning_custom_message/latest/lightning_custom_message
+	open class CustomMessageHandler: NativeTraitWrapper {
 
-					
-					/// Set to false to suppress an individual type's deinit log statements.
-					/// Only applicable when log threshold is set to `.Debug`.
-					public static var enableDeinitLogging = true
 
-					/// Set to true to suspend the freeing of this type's associated Rust memory.
-					/// Should only ever be used for debugging purposes, and will likely be
-					/// deprecated soon.
-					public static var suspendFreedom = false
+		/// Set to false to suppress an individual type's deinit log statements.
+		/// Only applicable when log threshold is set to `.Debug`.
+		public static var enableDeinitLogging = true
 
-					private static var instanceCounter: UInt = 0
-					internal let instanceNumber: UInt
+		/// Set to true to suspend the freeing of this type's associated Rust memory.
+		/// Should only ever be used for debugging purposes, and will likely be
+		/// deprecated soon.
+		public static var suspendFreedom = false
 
-					internal var cType: LDKCustomMessageHandler?
+		private static var instanceCounter: UInt = 0
+		internal let instanceNumber: UInt
 
-					internal init(cType: LDKCustomMessageHandler, instantiationContext: String) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-					}
+		internal var cType: LDKCustomMessageHandler?
 
-					internal init(cType: LDKCustomMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = true
-						try! self.addAnchor(anchor: anchor)
-					}
+		internal init(cType: LDKCustomMessageHandler, instantiationContext: String) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-					internal init(cType: LDKCustomMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper, dangle: Bool = false) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						self.cType = cType
-						
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
-						self.dangling = dangle
-						try! self.addAnchor(anchor: anchor)
-					}
-		
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+		}
 
-					public init(customMessageReader: CustomMessageReader) {
-						Self.instanceCounter += 1
-						self.instanceNumber = Self.instanceCounter
-						super.init(conflictAvoidingVariableName: 0, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+		internal init(cType: LDKCustomMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-						let thisArg = Bindings.instanceToPointer(instance: self)
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = true
+			try! self.addAnchor(anchor: anchor)
+		}
 
-						
+		internal init(
+			cType: LDKCustomMessageHandler, instantiationContext: String, anchor: NativeTypeWrapper,
+			dangle: Bool = false
+		) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			self.cType = cType
 
-						
-						func handleCustomMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKType, sender_node_id: LDKPublicKey) -> LDKCResult_NoneLightningErrorZ {
-							let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "CustomMessageHandler::handleCustomMessageLambda")
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			self.dangling = dangle
+			try! self.addAnchor(anchor: anchor)
+		}
 
-							// Swift callback variable prep
-											
 
-							// Swift callback call
-							let swiftCallbackResult = instance.handleCustomMessage(msg: NativelyImplementedBindingsType(cType: msg, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"), senderNodeId: PublicKey(cType: sender_node_id, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)").getValue())
+		public init(customMessageReader: CustomMessageReader) {
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0,
+					instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
-							// cleanup
-							
+			let thisArg = Bindings.instanceToPointer(instance: self)
 
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult.danglingClone().cType!
 
-							return returnValue
-						}
-		
-						func getAndClearPendingMsgLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_C2Tuple_PublicKeyTypeZZ {
-							let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "CustomMessageHandler::getAndClearPendingMsgLambda")
+			func handleCustomMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKType, sender_node_id: LDKPublicKey)
+				-> LDKCResult_NoneLightningErrorZ
+			{
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::handleCustomMessageLambda")
 
-							// Swift callback variable prep
-											
+				// Swift callback variable prep
 
-							// Swift callback call
-							let swiftCallbackResult = instance.getAndClearPendingMsg()
 
-							// cleanup
-							
+				// Swift callback call
+				let swiftCallbackResult = instance.handleCustomMessage(
+					msg: NativelyImplementedBindingsType(
+						cType: msg, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"),
+					senderNodeId: PublicKey(
+						cType: sender_node_id,
+						instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
 
-							// return value (do some wrapping)
-							let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(array: swiftCallbackResult, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)").dangleRecursively().cType!
+				// cleanup
 
-							return returnValue
-						}
-		
-						func providedNodeFeaturesLambda(this_arg: UnsafeRawPointer?) -> LDKNodeFeatures {
-							let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "CustomMessageHandler::providedNodeFeaturesLambda")
 
-							// Swift callback variable prep
-											
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
-							// Swift callback call
-							let swiftCallbackResult = instance.providedNodeFeatures()
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult.danglingClone().cType!
-
-							return returnValue
-						}
-		
-						func providedInitFeaturesLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey) -> LDKInitFeatures {
-							let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "CustomMessageHandler::providedInitFeaturesLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.providedInitFeatures(theirNodeId: PublicKey(cType: their_node_id, instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)").getValue())
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult.danglingClone().cType!
-
-							return returnValue
-						}
-		
-						func freeLambda(this_arg: UnsafeMutableRawPointer?) -> Void {
-							let instance: CustomMessageHandler = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "CustomMessageHandler::freeLambda")
-
-							// Swift callback variable prep
-											
-
-							// Swift callback call
-							let swiftCallbackResult = instance.free()
-
-							// cleanup
-							
-
-							// return value (do some wrapping)
-							let returnValue = swiftCallbackResult
-
-							return returnValue
-						}
-		
-
-						self.cType = LDKCustomMessageHandler(							
-							this_arg: thisArg,
-							handle_custom_message: handleCustomMessageLambda,
-							get_and_clear_pending_msg: getAndClearPendingMsgLambda,
-							provided_node_features: providedNodeFeaturesLambda,
-							provided_init_features: providedInitFeaturesLambda,
-							CustomMessageReader: customMessageReader.activate().cType!,
-							free: freeLambda
-						)
-					}
-
-					
-			/// Handles the given message sent from `sender_node_id`, possibly producing messages for
-					/// [`CustomMessageHandler::get_and_clear_pending_msg`] to return and thus for [`PeerManager`]
-					/// to send.
-			open func handleCustomMessage(msg: BindingsType, senderNodeId: [UInt8]) -> Result_NoneLightningErrorZ {
-				
-				Bindings.print("Error: CustomMessageHandler::handleCustomMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-				abort()
+				return returnValue
 			}
-		
-			/// Returns the list of pending messages that were generated by the handler, clearing the list
-					/// in the process. Each message is paired with the node id of the intended recipient. If no
-					/// connection to the node exists, then the message is simply not sent.
-			open func getAndClearPendingMsg() -> [([UInt8], BindingsType)] {
-				
-				Bindings.print("Error: CustomMessageHandler::getAndClearPendingMsg MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-				abort()
+
+			func getAndClearPendingMsgLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_C2Tuple_PublicKeyTypeZZ {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::getAndClearPendingMsgLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.getAndClearPendingMsg()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(
+					array: swiftCallbackResult,
+					instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"
+				)
+				.dangleRecursively().cType!
+
+				return returnValue
 			}
-		
-			/// Gets the node feature flags which this handler itself supports. All available handlers are
-					/// queried similarly and their feature flags are OR'd together to form the [`NodeFeatures`]
-					/// which are broadcasted in our [`NodeAnnouncement`] message.
-					/// 
-					/// [`NodeAnnouncement`]: crate::ln::msgs::NodeAnnouncement
-			open func providedNodeFeatures() -> NodeFeatures {
-				
-				Bindings.print("Error: CustomMessageHandler::providedNodeFeatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-				abort()
+
+			func providedNodeFeaturesLambda(this_arg: UnsafeRawPointer?) -> LDKNodeFeatures {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::providedNodeFeaturesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.providedNodeFeatures()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
 			}
-		
-			/// Gets the init feature flags which should be sent to the given peer. All available handlers
-					/// are queried similarly and their feature flags are OR'd together to form the [`InitFeatures`]
-					/// which are sent in our [`Init`] message.
-					/// 
-					/// [`Init`]: crate::ln::msgs::Init
-			open func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
-				
-				Bindings.print("Error: CustomMessageHandler::providedInitFeatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-				abort()
+
+			func providedInitFeaturesLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey) -> LDKInitFeatures
+			{
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::providedInitFeaturesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.providedInitFeatures(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "CustomMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
 			}
-		
-			/// Frees any resources associated with this object given its this_arg pointer.
-					/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
-			internal func free() -> Void {
-				
-				// TODO: figure out something smarter
-				return () // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
-			
-				Bindings.print("Error: CustomMessageHandler::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.", severity: .ERROR)
-				abort()
+
+			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
+				let instance: CustomMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomMessageHandler::freeLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.free()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
 			}
-		
 
-					
 
-					
-					/// Implementation of CustomMessageReader for this object.
-					public func getCustomMessageReader() -> CustomMessageReader {
-						// return value (do some wrapping)
-						let returnValue = NativelyImplementedCustomMessageReader(cType: self.cType!.CustomMessageReader, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)", anchor: self)
+			self.cType = LDKCustomMessageHandler(
+				this_arg: thisArg,
+				handle_custom_message: handleCustomMessageLambda,
+				get_and_clear_pending_msg: getAndClearPendingMsgLambda,
+				provided_node_features: providedNodeFeaturesLambda,
+				provided_init_features: providedInitFeaturesLambda,
+				CustomMessageReader: customMessageReader.activate().cType!,
+				free: freeLambda
+			)
+		}
 
-						return returnValue;
-					}
-		
 
-					deinit {
-						if Bindings.suspendFreedom || Self.suspendFreedom {
-							return
-						}
+		/// Handles the given message sent from `sender_node_id`, possibly producing messages for
+		/// [`CustomMessageHandler::get_and_clear_pending_msg`] to return and thus for [`PeerManager`]
+		/// to send.
+		open func handleCustomMessage(msg: BindingsType, senderNodeId: [UInt8]) -> Result_NoneLightningErrorZ {
 
-						if !self.dangling {
-							if Self.enableDeinitLogging {
-								Bindings.print("Freeing CustomMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
-							}
-							self.free()
-						} else if Self.enableDeinitLogging {
-							Bindings.print("Not freeing CustomMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))")
-						}
-					}
+			Bindings.print(
+				"Error: CustomMessageHandler::handleCustomMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Returns the list of pending messages that were generated by the handler, clearing the list
+		/// in the process. Each message is paired with the node id of the intended recipient. If no
+		/// connection to the node exists, then the message is simply not sent.
+		open func getAndClearPendingMsg() -> [([UInt8], BindingsType)] {
+
+			Bindings.print(
+				"Error: CustomMessageHandler::getAndClearPendingMsg MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Gets the node feature flags which this handler itself supports. All available handlers are
+		/// queried similarly and their feature flags are OR'd together to form the [`NodeFeatures`]
+		/// which are broadcasted in our [`NodeAnnouncement`] message.
+		///
+		/// [`NodeAnnouncement`]: crate::ln::msgs::NodeAnnouncement
+		open func providedNodeFeatures() -> NodeFeatures {
+
+			Bindings.print(
+				"Error: CustomMessageHandler::providedNodeFeatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Gets the init feature flags which should be sent to the given peer. All available handlers
+		/// are queried similarly and their feature flags are OR'd together to form the [`InitFeatures`]
+		/// which are sent in our [`Init`] message.
+		///
+		/// [`Init`]: crate::ln::msgs::Init
+		open func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
+
+			Bindings.print(
+				"Error: CustomMessageHandler::providedInitFeatures MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Frees any resources associated with this object given its this_arg pointer.
+		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
+		internal func free() {
+
+			// TODO: figure out something smarter
+			return ()  // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
+
+			Bindings.print(
+				"Error: CustomMessageHandler::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+
+		/// Implementation of CustomMessageReader for this object.
+		public func getCustomMessageReader() -> CustomMessageReader {
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedCustomMessageReader(
+				cType: self.cType!.CustomMessageReader,
+				instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)", anchor: self)
+
+			return returnValue
+		}
+
+
+		deinit {
+			if Bindings.suspendFreedom || Self.suspendFreedom {
+				return
+			}
+
+			if !self.dangling {
+				if Self.enableDeinitLogging {
+					Bindings.print(
+						"Freeing CustomMessageHandler \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
-
-				internal class NativelyImplementedCustomMessageHandler: CustomMessageHandler {
-					
-			/// Handles the given message sent from `sender_node_id`, possibly producing messages for
-					/// [`CustomMessageHandler::get_and_clear_pending_msg`] to return and thus for [`PeerManager`]
-					/// to send.
-			public override func handleCustomMessage(msg: BindingsType, senderNodeId: [UInt8]) -> Result_NoneLightningErrorZ {
-				// native call variable prep
-				
-						let senderNodeIdPrimitiveWrapper = PublicKey(value: senderNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
-				
-
-				
-
-				// native method call
-				let nativeCallResult = self.cType!.handle_custom_message(self.cType!.this_arg, msg.activate().cType!, senderNodeIdPrimitiveWrapper.cType!)
-
-				// cleanup
-				
-						// for elided types, we need this
-						senderNodeIdPrimitiveWrapper.noOpRetain()
-				
-
-				// return value (do some wrapping)
-				let returnValue = Result_NoneLightningErrorZ(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
-
-				return returnValue
+				self.free()
+			} else if Self.enableDeinitLogging {
+				Bindings.print(
+					"Not freeing CustomMessageHandler \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+				)
 			}
-		
-			/// Returns the list of pending messages that were generated by the handler, clearing the list
-					/// in the process. Each message is paired with the node id of the intended recipient. If no
-					/// connection to the node exists, then the message is simply not sent.
-			public override func getAndClearPendingMsg() -> [([UInt8], BindingsType)] {
-				// native call variable prep
-				
+		}
+	}
 
-				
+	internal class NativelyImplementedCustomMessageHandler: CustomMessageHandler {
 
-				// native method call
-				let nativeCallResult = self.cType!.get_and_clear_pending_msg(self.cType!.this_arg)
+		/// Handles the given message sent from `sender_node_id`, possibly producing messages for
+		/// [`CustomMessageHandler::get_and_clear_pending_msg`] to return and thus for [`PeerManager`]
+		/// to send.
+		public override func handleCustomMessage(msg: BindingsType, senderNodeId: [UInt8]) -> Result_NoneLightningErrorZ
+		{
+			// native call variable prep
 
-				// cleanup
-				
+			let senderNodeIdPrimitiveWrapper = PublicKey(
+				value: senderNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
-				// return value (do some wrapping)
-				let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)").getValue()
 
-				return returnValue
-			}
-		
-			/// Gets the node feature flags which this handler itself supports. All available handlers are
-					/// queried similarly and their feature flags are OR'd together to form the [`NodeFeatures`]
-					/// which are broadcasted in our [`NodeAnnouncement`] message.
-					/// 
-					/// [`NodeAnnouncement`]: crate::ln::msgs::NodeAnnouncement
-			public override func providedNodeFeatures() -> NodeFeatures {
-				// native call variable prep
-				
+			// native method call
+			let nativeCallResult = self.cType!
+				.handle_custom_message(self.cType!.this_arg, msg.activate().cType!, senderNodeIdPrimitiveWrapper.cType!)
 
-				
+			// cleanup
 
-				// native method call
-				let nativeCallResult = self.cType!.provided_node_features(self.cType!.this_arg)
+			// for elided types, we need this
+			senderNodeIdPrimitiveWrapper.noOpRetain()
 
-				// cleanup
-				
 
-				// return value (do some wrapping)
-				let returnValue = NodeFeatures(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+			// return value (do some wrapping)
+			let returnValue = Result_NoneLightningErrorZ(
+				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
 
-				return returnValue
-			}
-		
-			/// Gets the init feature flags which should be sent to the given peer. All available handlers
-					/// are queried similarly and their feature flags are OR'd together to form the [`InitFeatures`]
-					/// which are sent in our [`Init`] message.
-					/// 
-					/// [`Init`]: crate::ln::msgs::Init
-			public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
-				// native call variable prep
-				
-						let theirNodeIdPrimitiveWrapper = PublicKey(value: theirNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
-				
+			return returnValue
+		}
 
-				
+		/// Returns the list of pending messages that were generated by the handler, clearing the list
+		/// in the process. Each message is paired with the node id of the intended recipient. If no
+		/// connection to the node exists, then the message is simply not sent.
+		public override func getAndClearPendingMsg() -> [([UInt8], BindingsType)] {
+			// native call variable prep
 
-				// native method call
-				let nativeCallResult = self.cType!.provided_init_features(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!)
 
-				// cleanup
-				
-						// for elided types, we need this
-						theirNodeIdPrimitiveWrapper.noOpRetain()
-				
+			// native method call
+			let nativeCallResult = self.cType!.get_and_clear_pending_msg(self.cType!.this_arg)
 
-				// return value (do some wrapping)
-				let returnValue = InitFeatures(cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+			// cleanup
 
-				return returnValue
-			}
-		
-			/// Frees any resources associated with this object given its this_arg pointer.
-					/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
-			public override func free() {
-				// native call variable prep
-				
 
-				
-				// natively wrapped traits may not necessarily be properly initialized
-				// for now just don't free these things
-				// self.cType?.free(self.cType?.this_arg)
-				return;
-			
+			// return value (do some wrapping)
+			let returnValue = Vec_C2Tuple_PublicKeyTypeZZ(
+				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)"
+			)
+			.getValue()
 
-				// native method call
-				let nativeCallResult = self.cType!.free(self.cType!.this_arg)
+			return returnValue
+		}
 
-				// cleanup
-				
+		/// Gets the node feature flags which this handler itself supports. All available handlers are
+		/// queried similarly and their feature flags are OR'd together to form the [`NodeFeatures`]
+		/// which are broadcasted in our [`NodeAnnouncement`] message.
+		///
+		/// [`NodeAnnouncement`]: crate::ln::msgs::NodeAnnouncement
+		public override func providedNodeFeatures() -> NodeFeatures {
+			// native call variable prep
 
-				// return value (do some wrapping)
-				let returnValue = nativeCallResult
 
-				return returnValue
-			}
-		
-				}
+			// native method call
+			let nativeCallResult = self.cType!.provided_node_features(self.cType!.this_arg)
 
-			}
-		
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NodeFeatures(
+				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Gets the init feature flags which should be sent to the given peer. All available handlers
+		/// are queried similarly and their feature flags are OR'd together to form the [`InitFeatures`]
+		/// which are sent in our [`Init`] message.
+		///
+		/// [`Init`]: crate::ln::msgs::Init
+		public override func providedInitFeatures(theirNodeId: [UInt8]) -> InitFeatures {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.provided_init_features(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = InitFeatures(
+				cType: nativeCallResult, instantiationContext: "CustomMessageHandler.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Frees any resources associated with this object given its this_arg pointer.
+		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
+		public override func free() {
+			// native call variable prep
+
+
+			// natively wrapped traits may not necessarily be properly initialized
+			// for now just don't free these things
+			// self.cType?.free(self.cType?.this_arg)
+			return
+
+
+			// native method call
+			let nativeCallResult = self.cType!.free(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+	}
+
+}

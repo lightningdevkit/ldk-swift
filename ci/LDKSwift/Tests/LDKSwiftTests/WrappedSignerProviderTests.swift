@@ -84,7 +84,8 @@ class WrappedSignerProviderTests: XCTestCase {
 
     class MyNodeSigner: NodeSigner {
         weak var myKeysManager: MyKeysManager?
-        override func ecdh(recipient: Bindings.Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Bindings.Result_SharedSecretNoneZ {
+        
+        override func ecdh(recipient: Bindings.Recipient, otherKey: [UInt8], tweak: [UInt8]?) -> Bindings.Result_ThirtyTwoBytesNoneZ {
             print("entering wrapper: ecdh()")
             return myKeysManager!.keysManager.asNodeSigner().ecdh(recipient: recipient, otherKey: otherKey, tweak: tweak)
         }
@@ -100,7 +101,7 @@ class WrappedSignerProviderTests: XCTestCase {
             return myKeysManager!.keysManager.asNodeSigner().getInboundPaymentKeyMaterial()
         }
 
-        override func signGossipMessage(msg: Bindings.UnsignedGossipMessage) -> Bindings.Result_SignatureNoneZ {
+        override func signGossipMessage(msg: Bindings.UnsignedGossipMessage) -> Bindings.Result_ECDSASignatureNoneZ {
             print("entering wrapper: signGossipMessage()")
             return myKeysManager!.keysManager.asNodeSigner().signGossipMessage(msg: msg)
         }
@@ -136,7 +137,7 @@ class WrappedSignerProviderTests: XCTestCase {
             return myKeysManager!.keysManager.asSignerProvider().readChanSigner(reader: reader)
         }
 
-        override func getDestinationScript() -> Bindings.Result_ScriptNoneZ {
+        override func getDestinationScript() -> Bindings.Result_CVec_u8ZNoneZ {
             print("entering wrapper: getDestinationScript()")
             return myKeysManager!.keysManager.asSignerProvider().getDestinationScript()
         }

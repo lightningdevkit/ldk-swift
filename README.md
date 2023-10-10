@@ -7,7 +7,7 @@ Automatic Swift bindings generation for [`rust-lightning`](https://github.com/li
 ### Swift Package Manager
 To install using Swift Package Manager, add the following line to the depedencies array of your `Package.swift`:
 ```
-.package(url: "https://github.com/lightningdevkit/ldk-swift/", exact: "0.0.116")
+.package(url: "https://github.com/lightningdevkit/ldk-swift/", exact: "0.0.117")
 ```
 Be sure to also include "LightningDevKit" into your packages target like so:
 
@@ -58,13 +58,13 @@ In order to generate these bindings from scratch, you will need to clone two dep
 **[rust-lightning](https://github.com/lightningdevkit/rust-lightning)**, (a specific branch built for bindings compatibility):
 
 ```shell
-git clone --branch 2023-07-0.0.116-java-bindings https://github.com/TheBlueMatt/rust-lightning /path/to/rust-lightning
+git clone --branch 0.0.117-bindings https://github.com/lightningdevkit/rust-lightning /path/to/rust-lightning
 ```
 
 **[ldk-c-bindings](https://github.com/lightningdevkit/ldk-c-bindings)**:
 
 ```shell
-git clone --branch v0.0.116.0 https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
+git clone --branch main https://github.com/lightningdevkit/ldk-c-bindings /path/to/ldk-c-bindings
 ```
 
 Take note of where you clone these directories, it's best you save the absolute path somewhere handy for the rest of the remaining steps.

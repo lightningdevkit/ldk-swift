@@ -235,16 +235,16 @@ public class HumanObjectPeerTestInstance {
                     await master.pendingEventTracker.addEvent(event: event)
                 }
             }
-            
+
             override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
                 .initWithOk()
             }
-            
+
             override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
                 let writtenGraph = networkGraph.write();
                 return .initWithOk()
             }
-            
+
             override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
                 .initWithOk()
             }
@@ -403,11 +403,12 @@ public class HumanObjectPeerTestInstance {
         }
 
         fileprivate func getManagerEvents(expectedCount: UInt) async throws -> [Event] {
+            print("Awaiting \(expectedCount) manager events…")
             while true {
                 if await self.pendingEventTracker.getCount() >= expectedCount {
-                    print("Found enough events for expected count of \(expectedCount)")
+                    print("Found enough manager events for expected count of \(expectedCount)")
                     let events = await self.pendingEventTracker.getAndClearEvents()
-                    print("Found event count: \(events.count)")
+                    print("Found manager event count: \(events.count)")
                     return events
                 }
                 // sleep for 0.1 seconds
@@ -557,6 +558,9 @@ public class HumanObjectPeerTestInstance {
             XCTAssertNil(fundingTxo)
         }
 
+        let channelsA = peer1.channelManager.listChannels()
+        XCTAssertEqual(channelsA.count, 1)
+
         let managerEvents = try! await peer1.getManagerEvents(expectedCount: 1)
         XCTAssertEqual(managerEvents.count, 1)
 
@@ -607,11 +611,13 @@ public class HumanObjectPeerTestInstance {
         fundingBlock.nonce = 0
         fundingBlock.transactions = [fundingTransaction]
 
+        print("Connecting funding block…")
         peer1.connectBlock(block: fundingBlock, height: 1, expectedMonitorUpdateLength: 0)
         peer2.connectBlock(block: fundingBlock, height: 1, expectedMonitorUpdateLength: 0)
 
+        print("Connecting confirmation blocks…")
         var previousBlock = fundingBlock
-        for height in 2..<10 {
+        for height in 2..<101 {
             let currentBlock = BTCBlock()
             currentBlock.version = 2
             currentBlock.previousBlockHash = previousBlock.calculateHash()
@@ -625,27 +631,31 @@ public class HumanObjectPeerTestInstance {
             previousBlock = currentBlock
         }
 
+        let peer1Events = try! await peer1.getManagerEvents(expectedCount: 2)
+        let peer1ReadyEvent = peer1Events[1]
+        guard case .ChannelReady = peer1ReadyEvent.getValueType() else {
+            return XCTAssert(false, "Expected .ChannelReady, got \(peer1ReadyEvent.getValueType())")
+        }
+
+        let peer2Events = try! await peer2.getManagerEvents(expectedCount: 2)
+        let peer2ReadyEvent = peer2Events[1]
+        guard case .ChannelReady = peer2ReadyEvent.getValueType() else {
+            return XCTAssert(false, "Expected .ChannelReady, got \(peer2ReadyEvent.getValueType())")
+        }
+
         var usableChannelsA = [ChannelDetails]()
         var usableChannelsB = [ChannelDetails]()
+        print("Awaiting usable channels to populate…")
         while (usableChannelsA.isEmpty || usableChannelsB.isEmpty) {
             usableChannelsA = peer1.channelManager.listUsableChannels()
             usableChannelsB = peer2.channelManager.listUsableChannels()
             // sleep for 100ms
             try! await Task.sleep(nanoseconds: 0_100_000_000)
         }
+        print("Usable channels have been populated")
 
         XCTAssertEqual(usableChannelsA.count, 1)
         XCTAssertEqual(usableChannelsB.count, 1)
-
-		let peer1Event = try! await peer1.getManagerEvents(expectedCount: 2)[1]
-		guard case .ChannelReady = peer1Event.getValueType() else {
-			return XCTAssert(false, "Expected .ChannelReady, got \(peer1Event.getValueType())")
-		}
-
-		let peer2Event = try! await peer2.getManagerEvents(expectedCount: 2)[1]
-		guard case .ChannelReady = peer2Event.getValueType() else {
-			return XCTAssert(false, "Expected .ChannelReady, got \(peer2Event.getValueType())")
-		}
 
         let channelAToB = usableChannelsA[0]
         let channelBToA = usableChannelsB[0]
@@ -656,8 +666,8 @@ public class HumanObjectPeerTestInstance {
         XCTAssertEqual(usableChannelsA[0].getChannelId(), fundingTxId)
         XCTAssertEqual(usableChannelsB[0].getChannelId(), fundingTxId)
 
-        let originalChannelBalanceAToB = channelAToB.getOutboundCapacityMsat()
-        let originalChannelBalanceBToA = channelBToA.getOutboundCapacityMsat()
+        let originalChannelBalanceAToB = channelAToB.getBalanceMsat()
+        let originalChannelBalanceBToA = channelBToA.getBalanceMsat()
         print("original balance A->B mSats: \(originalChannelBalanceAToB)")
         print("original balance B->A mSats: \(originalChannelBalanceBToA)")
 
@@ -676,14 +686,14 @@ public class HumanObjectPeerTestInstance {
 
             let recreatedInvoice = Bolt11Invoice.fromStr(s: invoice.toStr())
             XCTAssertTrue(recreatedInvoice.isOk())
-            
+
             // find route
-            
+
             do {
                 let payerPubkey = peer1.channelManager.getOurNodeId()
                 let payeePubkey = peer2.channelManager.getOurNodeId()
                 let paymentParameters = PaymentParameters.initForKeysend(payeePubkey: payeePubkey, finalCltvExpiryDelta: 3, allowMpp: false)
-                
+
                 let amount = invoice.amountMilliSatoshis()!
                 let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: amount, maxTotalRoutingFeeMsatArg: nil)
                 let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
@@ -691,9 +701,9 @@ public class HumanObjectPeerTestInstance {
                 let networkGraph = peer1.constructor!.netGraph!
                 let scorer = ProbabilisticScorer(decayParams: scoringParams, networkGraph: networkGraph, logger: logger)
                 let score = scorer.asScoreLookUp()
-                
+
                 let scoreParams = ProbabilisticScoringFeeParameters.initWithDefault()
-                
+
                 let foundRoute = Bindings.findRoute(
                     ourNodePubkey: payerPubkey,
                     routeParams: routeParameters,
@@ -704,7 +714,7 @@ public class HumanObjectPeerTestInstance {
                     scoreParams: scoreParams,
                     randomSeedBytes: randomSeedBytes
                 )
-                
+
                 let route = foundRoute.getValue()!
                 let fees = route.getTotalFees()
                 print("found route fees: \(fees)")
@@ -798,8 +808,8 @@ public class HumanObjectPeerTestInstance {
             while true {
                 let channelA = peer1.channelManager.listUsableChannels()[0]
                 let channelB = peer2.channelManager.listUsableChannels()[0]
-                currentChannelABalance = channelA.getOutboundCapacityMsat()
-                currentChannelBBalance = channelB.getOutboundCapacityMsat()
+                currentChannelABalance = channelA.getBalanceMsat()
+                currentChannelBBalance = channelB.getBalanceMsat()
                 if currentChannelABalance != originalChannelBalanceAToB && currentChannelBBalance != originalChannelBalanceBToA {
                     break
                 }
@@ -815,8 +825,8 @@ public class HumanObjectPeerTestInstance {
         do {
             // send some money back
             // create invoice for 10k satoshis to pay to peer2
-            let prePaymentBalanceAToB = peer1.channelManager.listUsableChannels()[0].getOutboundCapacityMsat()
-            let prePaymentBalanceBToA = peer2.channelManager.listUsableChannels()[0].getOutboundCapacityMsat()
+            let prePaymentBalanceAToB = peer1.channelManager.listUsableChannels()[0].getBalanceMsat()
+            let prePaymentBalanceBToA = peer2.channelManager.listUsableChannels()[0].getBalanceMsat()
             print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
             print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
 
@@ -896,8 +906,8 @@ public class HumanObjectPeerTestInstance {
             while true {
                 let channelA = peer1.channelManager.listUsableChannels()[0]
                 let channelB = peer2.channelManager.listUsableChannels()[0]
-                currentChannelABalance = channelA.getOutboundCapacityMsat()
-                currentChannelBBalance = channelB.getOutboundCapacityMsat()
+                currentChannelABalance = channelA.getBalanceMsat()
+                currentChannelBBalance = channelB.getBalanceMsat()
                 if currentChannelABalance != prePaymentBalanceAToB && currentChannelBBalance != prePaymentBalanceBToA {
                     break
                 }

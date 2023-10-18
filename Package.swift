@@ -21,8 +21,7 @@ let package = Package(
         .binaryTarget(
             name: "LightningDevKit",
             url: url,
-            checksum: checksum,
-            swiftSettings: [.unsafeFlags(["-suppress-warnings"])]
+            checksum: checksum
         )
     ]
 )

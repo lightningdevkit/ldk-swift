@@ -18,6 +18,12 @@ let package = Package(
         )
     ],
     targets: [
+        .target(
+            name: "LightningDevKitTarget",
+            dependencies: ["LightningDevKit"],
+            path: "./out",
+            swiftSettings: [.unsafeFlags(["-suppress-warnings"])]
+        ),
         .binaryTarget(
             name: "LightningDevKit",
             url: url,

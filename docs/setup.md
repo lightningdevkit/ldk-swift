@@ -30,6 +30,7 @@ First, define an inheriting class called `MyFeeEstimator`:
 //  MyFeeEstimator.swift
 
 import Foundation
+import LightningDevKit
 
 class MyFeeEstimator: FeeEstimator {
 
@@ -57,6 +58,7 @@ Define the inheriting class:
 //  MyLogger.swift
 
 import Foundation
+import LightningDevKit
 
 class MyLogger: Logger {
 
@@ -83,6 +85,7 @@ Define the subclass:
 //  MyBroadcasterInterface.swift
 
 import Foundation
+import LightningDevKit
 
 class MyBroadcasterInterface: BroadcasterInterface {
 
@@ -110,6 +113,7 @@ Define the subclass:
 //  MyPersister.swift
 
 import Foundation
+import LightningDevKit
 
 class MyPersister: Persist {
 
@@ -150,6 +154,7 @@ Define the subclass:
 //  MyFilter.swift
 
 import Foundation
+import LightningDevKit
 
 class MyFilter: Filter {
 

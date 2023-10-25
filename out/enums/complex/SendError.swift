@@ -70,8 +70,8 @@ extension Bindings {
 			/// exceeds 32834 bytes, we refuse to send messages where the packet exceeds this size.
 			case TooBigPacket
 
-			/// The provided [`Destination`] was an invalid [`BlindedPath`], due to having fewer than two
-			/// blinded hops.
+			/// The provided [`Destination`] was an invalid [`BlindedPath`] due to not having any blinded
+			/// hops.
 			case TooFewBlindedHops
 
 			/// Our next-hop peer was offline or does not support onion message forwarding.

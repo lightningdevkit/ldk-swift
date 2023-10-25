@@ -235,6 +235,55 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The feerate to use on the HTLC claiming transaction. This is always `0` for HTLCs
+		/// originating from a channel supporting anchor outputs, otherwise it is the channel's
+		/// negotiated feerate at the time the commitment transaction was built.
+		public func getFeeratePerKw() -> UInt32 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKHTLCDescriptor>) in
+					HTLCDescriptor_get_feerate_per_kw(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The feerate to use on the HTLC claiming transaction. This is always `0` for HTLCs
+		/// originating from a channel supporting anchor outputs, otherwise it is the channel's
+		/// negotiated feerate at the time the commitment transaction was built.
+		public func setFeeratePerKw(val: UInt32) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKHTLCDescriptor>) in
+					HTLCDescriptor_set_feerate_per_kw(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// The details of the HTLC as it appears in the commitment transaction.
 		public func getHtlc() -> HTLCOutputInCommitment {
 			// native call variable prep

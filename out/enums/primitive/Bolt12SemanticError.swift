@@ -77,6 +77,9 @@ extension Bindings {
 		/// A payer id was expected but was missing.
 		case MissingPayerId
 
+		/// The payment id for a refund or request is already in use.
+		case DuplicatePaymentId
+
 		/// Blinded paths were expected but were missing.
 		case MissingPaths
 
@@ -158,6 +161,9 @@ extension Bindings {
 
 				case LDKBolt12SemanticError_MissingPayerId:
 					self = .MissingPayerId
+
+				case LDKBolt12SemanticError_DuplicatePaymentId:
+					self = .DuplicatePaymentId
 
 				case LDKBolt12SemanticError_MissingPaths:
 					self = .MissingPaths
@@ -246,6 +252,9 @@ extension Bindings {
 
 				case .MissingPayerId:
 					return LDKBolt12SemanticError_MissingPayerId
+
+				case .DuplicatePaymentId:
+					return LDKBolt12SemanticError_DuplicatePaymentId
 
 				case .MissingPaths:
 					return LDKBolt12SemanticError_MissingPaths

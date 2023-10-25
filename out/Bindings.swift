@@ -400,7 +400,7 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Fetches the set of [`InitFeatures`] flags which are provided by or required by
+	/// Fetches the set of [`InitFeatures`] flags that are provided by or required by
 	/// [`ChannelManager`].
 	public class func providedInitFeatures(config: UserConfig) -> InitFeatures {
 		// native call variable prep
@@ -1433,12 +1433,14 @@ public class Bindings {
 		return returnValue
 	}
 
-	/// Create an onion message with contents `message` to the destination of `path`.
-	/// Returns (introduction_node_id, onion_msg)
+	/// Creates an [`OnionMessage`] with the given `contents` for sending to the destination of
+	/// `path`.
+	///
+	/// Returns both the node id of the peer to send the message to and the message itself.
 	///
 	/// Note that reply_path (or a relevant inner pointer) may be NULL or all-0s to represent None
 	public class func createOnionMessage(
-		entropySource: EntropySource, nodeSigner: NodeSigner, path: OnionMessagePath, message: OnionMessageContents,
+		entropySource: EntropySource, nodeSigner: NodeSigner, path: OnionMessagePath, contents: OnionMessageContents,
 		replyPath: BlindedPath
 	) -> Result_C2Tuple_PublicKeyOnionMessageZSendErrorZ {
 		// native call variable prep
@@ -1453,7 +1455,7 @@ public class Bindings {
 					(nodeSignerPointer: UnsafePointer<LDKNodeSigner>) in
 					create_onion_message(
 						entropySourcePointer, nodeSignerPointer, path.dynamicallyDangledClone().cType!,
-						message.danglingClone().cType!, replyPath.dynamicallyDangledClone().cType!)
+						contents.activate().cType!, replyPath.dynamicallyDangledClone().cType!)
 				}
 
 			}
@@ -1467,6 +1469,36 @@ public class Bindings {
 			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
 
 
+		return returnValue
+	}
+
+	/// Decode one layer of an incoming [`OnionMessage`].
+	///
+	/// Returns either the next layer of the onion for forwarding or the decrypted content for the
+	/// receiver.
+	public class func peelOnionMessage(
+		msg: OnionMessage, nodeSigner: NodeSigner, logger: Logger, customHandler: CustomOnionMessageHandler
+	) -> Result_PeeledOnionNoneZ {
+		// native call variable prep
+
+
+		// native method call
+		let nativeCallResult =
+			withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKOnionMessage>) in
+				peel_onion_message(
+					msgPointer, nodeSigner.activate().cType!, logger.activate().cType!, customHandler.activate().cType!)
+			}
+
+
+		// cleanup
+
+
+		// return value (do some wrapping)
+		let returnValue = Result_PeeledOnionNoneZ(
+			cType: nativeCallResult, instantiationContext: "Bindings.swift::\(#function):\(#line)")
+
+
+		try! returnValue.addAnchor(anchor: msg)
 		return returnValue
 	}
 

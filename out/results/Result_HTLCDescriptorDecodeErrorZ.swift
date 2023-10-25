@@ -3,14 +3,14 @@
 #endif
 
 /// A CResult_HTLCDescriptorDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::events::bump_transaction::HTLCDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning::sign::HTLCDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_HTLCDescriptorDecodeErrorZ = Bindings.Result_HTLCDescriptorDecodeErrorZ
 
 extension Bindings {
 
 	/// A CResult_HTLCDescriptorDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::events::bump_transaction::HTLCDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning::sign::HTLCDescriptor on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_HTLCDescriptorDecodeErrorZ: NativeTypeWrapper {
 

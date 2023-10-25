@@ -90,8 +90,8 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func handleCustomMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKCustomOnionMessageContents)
-				-> LDKCOption_CustomOnionMessageContentsZ
+			func handleCustomMessageLambda(this_arg: UnsafeRawPointer?, msg: LDKOnionMessageContents)
+				-> LDKCOption_OnionMessageContentsZ
 			{
 				let instance: CustomOnionMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "CustomOnionMessageHandler::handleCustomMessageLambda")
@@ -101,7 +101,7 @@ extension Bindings {
 
 				// Swift callback call
 				let swiftCallbackResult = instance.handleCustomMessage(
-					msg: NativelyImplementedCustomOnionMessageContents(
+					msg: NativelyImplementedOnionMessageContents(
 						cType: msg,
 						instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"))
 
@@ -109,7 +109,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Option_CustomOnionMessageContentsZ(
+				let returnValue = Option_OnionMessageContentsZ(
 					some: swiftCallbackResult,
 					instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"
 				)
@@ -119,7 +119,7 @@ extension Bindings {
 			}
 
 			func readCustomMessageLambda(this_arg: UnsafeRawPointer?, message_type: UInt64, buffer: LDKu8slice)
-				-> LDKCResult_COption_CustomOnionMessageContentsZDecodeErrorZ
+				-> LDKCResult_COption_OnionMessageContentsZDecodeErrorZ
 			{
 				let instance: CustomOnionMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "CustomOnionMessageHandler::readCustomMessageLambda")
@@ -141,6 +141,31 @@ extension Bindings {
 
 				// return value (do some wrapping)
 				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
+			func releasePendingCustomMessagesLambda(this_arg: UnsafeRawPointer?)
+				-> LDKCVec_C3Tuple_OnionMessageContentsDestinationBlindedPathZZ
+			{
+				let instance: CustomOnionMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "CustomOnionMessageHandler::releasePendingCustomMessagesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.releasePendingCustomMessages()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = Vec_C3Tuple_OnionMessageContentsDestinationBlindedPathZZ(
+					array: swiftCallbackResult,
+					instantiationContext: "CustomOnionMessageHandler.swift::init()::\(#function):\(#line)"
+				)
+				.dangleRecursively().cType!
 
 				return returnValue
 			}
@@ -169,13 +194,16 @@ extension Bindings {
 				this_arg: thisArg,
 				handle_custom_message: handleCustomMessageLambda,
 				read_custom_message: readCustomMessageLambda,
+				release_pending_custom_messages: releasePendingCustomMessagesLambda,
 				free: freeLambda
 			)
 		}
 
 
 		/// Called with the custom message that was received, returning a response to send, if any.
-		open func handleCustomMessage(msg: CustomOnionMessageContents) -> CustomOnionMessageContents? {
+		///
+		/// The returned [`Self::CustomMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
+		open func handleCustomMessage(msg: OnionMessageContents) -> OnionMessageContents? {
 
 			Bindings.print(
 				"Error: CustomOnionMessageHandler::handleCustomMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -186,11 +214,23 @@ extension Bindings {
 		/// Read a custom message of type `message_type` from `buffer`, returning `Ok(None)` if the
 		/// message type is unknown.
 		open func readCustomMessage(messageType: UInt64, buffer: [UInt8])
-			-> Result_COption_CustomOnionMessageContentsZDecodeErrorZ
+			-> Result_COption_OnionMessageContentsZDecodeErrorZ
 		{
 
 			Bindings.print(
 				"Error: CustomOnionMessageHandler::readCustomMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Releases any [`Self::CustomMessage`]s that need to be sent.
+		///
+		/// Typically, this is used for messages initiating a message flow rather than in response to
+		/// another message. The latter should use the return value of [`Self::handle_custom_message`].
+		open func releasePendingCustomMessages() -> [(OnionMessageContents, Destination, BlindedPath)] {
+
+			Bindings.print(
+				"Error: CustomOnionMessageHandler::releasePendingCustomMessages MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -232,7 +272,9 @@ extension Bindings {
 	internal class NativelyImplementedCustomOnionMessageHandler: CustomOnionMessageHandler {
 
 		/// Called with the custom message that was received, returning a response to send, if any.
-		public override func handleCustomMessage(msg: CustomOnionMessageContents) -> CustomOnionMessageContents? {
+		///
+		/// The returned [`Self::CustomMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
+		public override func handleCustomMessage(msg: OnionMessageContents) -> OnionMessageContents? {
 			// native call variable prep
 
 
@@ -243,7 +285,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_CustomOnionMessageContentsZ(
+			let returnValue = Option_OnionMessageContentsZ(
 				cType: nativeCallResult, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()
@@ -254,7 +296,7 @@ extension Bindings {
 		/// Read a custom message of type `message_type` from `buffer`, returning `Ok(None)` if the
 		/// message type is unknown.
 		public override func readCustomMessage(messageType: UInt64, buffer: [UInt8])
-			-> Result_COption_CustomOnionMessageContentsZDecodeErrorZ
+			-> Result_COption_OnionMessageContentsZDecodeErrorZ
 		{
 			// native call variable prep
 
@@ -273,8 +315,31 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_COption_CustomOnionMessageContentsZDecodeErrorZ(
+			let returnValue = Result_COption_OnionMessageContentsZDecodeErrorZ(
 				cType: nativeCallResult, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Releases any [`Self::CustomMessage`]s that need to be sent.
+		///
+		/// Typically, this is used for messages initiating a message flow rather than in response to
+		/// another message. The latter should use the return value of [`Self::handle_custom_message`].
+		public override func releasePendingCustomMessages() -> [(OnionMessageContents, Destination, BlindedPath)] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.release_pending_custom_messages(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_C3Tuple_OnionMessageContentsDestinationBlindedPathZZ(
+				cType: nativeCallResult, instantiationContext: "CustomOnionMessageHandler.swift::\(#function):\(#line)"
+			)
+			.getValue()
 
 			return returnValue
 		}

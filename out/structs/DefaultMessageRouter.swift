@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A [`MessageRouter`] that always fails.
+/// A [`MessageRouter`] that can only route to a directly connected [`Destination`].
 public typealias DefaultMessageRouter = Bindings.DefaultMessageRouter
 
 extension Bindings {
 
 
-	/// A [`MessageRouter`] that always fails.
+	/// A [`MessageRouter`] that can only route to a directly connected [`Destination`].
 	public class DefaultMessageRouter: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

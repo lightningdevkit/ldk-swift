@@ -2,9 +2,21 @@
 	import LDKHeaders
 #endif
 
-/// A sender, receiver and forwarder of onion messages. In upcoming releases, this object will be
-/// used to retrieve invoices and fulfill invoice requests from [offers]. Currently, only sending
-/// and receiving custom onion messages is supported.
+/// A sender, receiver and forwarder of [`OnionMessage`]s.
+///
+/// # Handling Messages
+///
+/// `OnionMessenger` implements [`OnionMessageHandler`], making it responsible for either forwarding
+/// messages to peers or delegating to the appropriate handler for the message type. Currently, the
+/// available handlers are:
+/// * [`OffersMessageHandler`], for responding to [`InvoiceRequest`]s and paying [`Bolt12Invoice`]s
+/// * [`CustomOnionMessageHandler`], for handling user-defined message types
+///
+/// # Sending Messages
+///
+/// [`OnionMessage`]s are sent initially using [`OnionMessenger::send_onion_message`]. When handling
+/// a message, the matched handler may return a response message which `OnionMessenger` will send
+/// on its behalf.
 ///
 /// # Example
 ///
@@ -16,7 +28,7 @@
 /// # use lightning::sign::KeysManager;
 /// # use lightning::ln::peer_handler::IgnoringMessageHandler;
 /// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessenger, OnionMessagePath};
-/// # use lightning::onion_message::packet::{CustomOnionMessageContents, OnionMessageContents};
+/// # use lightning::onion_message::packet::OnionMessageContents;
 /// # use lightning::util::logger::{Logger, Record};
 /// # use lightning::util::ser::{Writeable, Writer};
 /// # use lightning::io;
@@ -58,7 +70,7 @@
 /// \t\t// Write your custom onion message to `w`
 /// \t}
 /// }
-/// impl CustomOnionMessageContents for YourCustomMessage {
+/// impl OnionMessageContents for YourCustomMessage {
 /// \tfn tlv_type(&self) -> u64 {
 /// \t\t# let your_custom_message_type = 42;
 /// \t\tyour_custom_message_type
@@ -70,8 +82,7 @@
 /// \tdestination: Destination::Node(destination_node_id),
 /// };
 /// let reply_path = None;
-/// # let your_custom_message = YourCustomMessage {};
-/// let message = OnionMessageContents::Custom(your_custom_message);
+/// # let message = YourCustomMessage {};
 /// onion_messenger.send_onion_message(path, message, reply_path);
 ///
 /// // Create a blinded path to yourself, for someone to send an onion message to.
@@ -85,21 +96,32 @@
 /// \tdestination: Destination::BlindedPath(blinded_path),
 /// };
 /// let reply_path = None;
-/// # let your_custom_message = YourCustomMessage {};
-/// let message = OnionMessageContents::Custom(your_custom_message);
+/// # let message = YourCustomMessage {};
 /// onion_messenger.send_onion_message(path, message, reply_path);
 /// ```
 ///
-/// [offers]: <https://github.com/lightning/bolts/pull/798>
-/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
+/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 public typealias OnionMessenger = Bindings.OnionMessenger
 
 extension Bindings {
 
 
-	/// A sender, receiver and forwarder of onion messages. In upcoming releases, this object will be
-	/// used to retrieve invoices and fulfill invoice requests from [offers]. Currently, only sending
-	/// and receiving custom onion messages is supported.
+	/// A sender, receiver and forwarder of [`OnionMessage`]s.
+	///
+	/// # Handling Messages
+	///
+	/// `OnionMessenger` implements [`OnionMessageHandler`], making it responsible for either forwarding
+	/// messages to peers or delegating to the appropriate handler for the message type. Currently, the
+	/// available handlers are:
+	/// * [`OffersMessageHandler`], for responding to [`InvoiceRequest`]s and paying [`Bolt12Invoice`]s
+	/// * [`CustomOnionMessageHandler`], for handling user-defined message types
+	///
+	/// # Sending Messages
+	///
+	/// [`OnionMessage`]s are sent initially using [`OnionMessenger::send_onion_message`]. When handling
+	/// a message, the matched handler may return a response message which `OnionMessenger` will send
+	/// on its behalf.
 	///
 	/// # Example
 	///
@@ -111,7 +133,7 @@ extension Bindings {
 	/// # use lightning::sign::KeysManager;
 	/// # use lightning::ln::peer_handler::IgnoringMessageHandler;
 	/// # use lightning::onion_message::messenger::{Destination, MessageRouter, OnionMessenger, OnionMessagePath};
-	/// # use lightning::onion_message::packet::{CustomOnionMessageContents, OnionMessageContents};
+	/// # use lightning::onion_message::packet::OnionMessageContents;
 	/// # use lightning::util::logger::{Logger, Record};
 	/// # use lightning::util::ser::{Writeable, Writer};
 	/// # use lightning::io;
@@ -153,7 +175,7 @@ extension Bindings {
 	/// \t\t// Write your custom onion message to `w`
 	/// \t}
 	/// }
-	/// impl CustomOnionMessageContents for YourCustomMessage {
+	/// impl OnionMessageContents for YourCustomMessage {
 	/// \tfn tlv_type(&self) -> u64 {
 	/// \t\t# let your_custom_message_type = 42;
 	/// \t\tyour_custom_message_type
@@ -165,8 +187,7 @@ extension Bindings {
 	/// \tdestination: Destination::Node(destination_node_id),
 	/// };
 	/// let reply_path = None;
-	/// # let your_custom_message = YourCustomMessage {};
-	/// let message = OnionMessageContents::Custom(your_custom_message);
+	/// # let message = YourCustomMessage {};
 	/// onion_messenger.send_onion_message(path, message, reply_path);
 	///
 	/// // Create a blinded path to yourself, for someone to send an onion message to.
@@ -180,13 +201,12 @@ extension Bindings {
 	/// \tdestination: Destination::BlindedPath(blinded_path),
 	/// };
 	/// let reply_path = None;
-	/// # let your_custom_message = YourCustomMessage {};
-	/// let message = OnionMessageContents::Custom(your_custom_message);
+	/// # let message = YourCustomMessage {};
 	/// onion_messenger.send_onion_message(path, message, reply_path);
 	/// ```
 	///
-	/// [offers]: <https://github.com/lightning/bolts/pull/798>
-	/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
+	/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+	/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 	public class OnionMessenger: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -292,12 +312,13 @@ extension Bindings {
 
 		}
 
-		/// Send an onion message with contents `message` to the destination of `path`.
+		/// Sends an [`OnionMessage`] with the given `contents` for sending to the destination of
+		/// `path`.
 		///
 		/// See [`OnionMessenger`] for example usage.
 		///
 		/// Note that reply_path (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func sendOnionMessage(path: OnionMessagePath, message: OnionMessageContents, replyPath: BlindedPath)
+		public func sendOnionMessage(path: OnionMessagePath, contents: OnionMessageContents, replyPath: BlindedPath)
 			-> Result_NoneSendErrorZ
 		{
 			// native call variable prep
@@ -307,7 +328,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOnionMessenger>) in
 					OnionMessenger_send_onion_message(
-						thisArgPointer, path.dynamicallyDangledClone().cType!, message.danglingClone().cType!,
+						thisArgPointer, path.dynamicallyDangledClone().cType!, contents.activate().cType!,
 						replyPath.dynamicallyDangledClone().cType!)
 				}
 
@@ -344,31 +365,6 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedOnionMessageHandler(
-				cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)",
-				anchor: self)
-
-
-			return returnValue
-		}
-
-		/// Constructs a new OnionMessageProvider which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned OnionMessageProvider must be freed before this_arg is
-		public func asOnionMessageProvider() -> OnionMessageProvider {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOnionMessenger>) in
-					OnionMessenger_as_OnionMessageProvider(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedOnionMessageProvider(
 				cType: nativeCallResult, instantiationContext: "OnionMessenger.swift::\(#function):\(#line)",
 				anchor: self)
 

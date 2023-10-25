@@ -132,7 +132,6 @@ extension Bindings {
 			///
 			/// [`EcdsaChannelSigner`]: crate::sign::EcdsaChannelSigner
 			/// [`EcdsaChannelSigner::sign_holder_htlc_transaction`]: crate::sign::EcdsaChannelSigner::sign_holder_htlc_transaction
-			/// [`HTLCDescriptor::tx_input_witness`]: HTLCDescriptor::tx_input_witness
 			case HTLCResolution
 
 		}

@@ -256,6 +256,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Creates an [`InvoiceError`] with the given message.
+		public class func initWithString(s: String) -> InvoiceError {
+			// native call variable prep
+
+			let sPrimitiveWrapper = Str(value: s, instantiationContext: "InvoiceError.swift::\(#function):\(#line)")
+				.dangle()
+
+
+			// native method call
+			let nativeCallResult = InvoiceError_from_string(sPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			sPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = InvoiceError(
+				cType: nativeCallResult, instantiationContext: "InvoiceError.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Serialize the InvoiceError object into a byte array which can be read by InvoiceError_read
 		public func write() -> [UInt8] {
 			// native call variable prep

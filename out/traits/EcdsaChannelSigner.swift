@@ -141,17 +141,17 @@ extension Bindings {
 				return returnValue
 			}
 
-			func signHolderCommitmentAndHtlcsLambda(
+			func signHolderCommitmentLambda(
 				this_arg: UnsafeRawPointer?, commitment_tx: UnsafePointer<LDKHolderCommitmentTransaction>
-			) -> LDKCResult_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ {
+			) -> LDKCResult_ECDSASignatureNoneZ {
 				let instance: EcdsaChannelSigner = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderCommitmentAndHtlcsLambda")
+					pointer: this_arg!, sourceMarker: "EcdsaChannelSigner::signHolderCommitmentLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.signHolderCommitmentAndHtlcs(
+				let swiftCallbackResult = instance.signHolderCommitment(
 					commitmentTx: HolderCommitmentTransaction(
 						cType: commitment_tx.pointee,
 						instantiationContext: "EcdsaChannelSigner.swift::init()::\(#function):\(#line)"
@@ -405,7 +405,7 @@ extension Bindings {
 				this_arg: thisArg,
 				sign_counterparty_commitment: signCounterpartyCommitmentLambda,
 				validate_counterparty_revocation: validateCounterpartyRevocationLambda,
-				sign_holder_commitment_and_htlcs: signHolderCommitmentAndHtlcsLambda,
+				sign_holder_commitment: signHolderCommitmentLambda,
 				sign_justice_revoked_output: signJusticeRevokedOutputLambda,
 				sign_justice_revoked_htlc: signJusticeRevokedHtlcLambda,
 				sign_holder_htlc_transaction: signHolderHtlcTransactionLambda,
@@ -454,27 +454,19 @@ extension Bindings {
 			abort()
 		}
 
-		/// Creates a signature for a holder's commitment transaction and its claiming HTLC transactions.
+		/// Creates a signature for a holder's commitment transaction.
 		///
 		/// This will be called
 		/// - with a non-revoked `commitment_tx`.
 		/// - with the latest `commitment_tx` when we initiate a force-close.
-		/// - with the previous `commitment_tx`, just to get claiming HTLC
-		/// signatures, if we are reacting to a [`ChannelMonitor`]
-		/// [replica](https://github.com/lightningdevkit/rust-lightning/blob/main/GLOSSARY.md#monitor-replicas)
-		/// that decided to broadcast before it had been updated to the latest `commitment_tx`.
 		///
 		/// This may be called multiple times for the same transaction.
 		///
 		/// An external signer implementation should check that the commitment has not been revoked.
-		///
-		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
-		open func signHolderCommitmentAndHtlcs(commitmentTx: HolderCommitmentTransaction)
-			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
-		{
+		open func signHolderCommitment(commitmentTx: HolderCommitmentTransaction) -> Result_ECDSASignatureNoneZ {
 
 			Bindings.print(
-				"Error: EcdsaChannelSigner::signHolderCommitmentAndHtlcs MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: EcdsaChannelSigner::signHolderCommitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -533,11 +525,14 @@ extension Bindings {
 
 		/// Computes the signature for a commitment transaction's HTLC output used as an input within
 		/// `htlc_tx`, which spends the commitment transaction at index `input`. The signature returned
-		/// must be be computed using [`EcdsaSighashType::All`]. Note that this should only be used to
-		/// sign HTLC transactions from channels supporting anchor outputs after all additional
-		/// inputs/outputs have been added to the transaction.
+		/// must be be computed using [`EcdsaSighashType::All`].
+		///
+		/// Note that this may be called for HTLCs in the penultimate commitment transaction if a
+		/// [`ChannelMonitor`] [replica](https://github.com/lightningdevkit/rust-lightning/blob/main/GLOSSARY.md#monitor-replicas)
+		/// broadcasts it before receiving the update for the latest commitment transaction.
 		///
 		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
+		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		open func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
 			-> Result_ECDSASignatureNoneZ
 		{
@@ -737,23 +732,17 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a signature for a holder's commitment transaction and its claiming HTLC transactions.
+		/// Creates a signature for a holder's commitment transaction.
 		///
 		/// This will be called
 		/// - with a non-revoked `commitment_tx`.
 		/// - with the latest `commitment_tx` when we initiate a force-close.
-		/// - with the previous `commitment_tx`, just to get claiming HTLC
-		/// signatures, if we are reacting to a [`ChannelMonitor`]
-		/// [replica](https://github.com/lightningdevkit/rust-lightning/blob/main/GLOSSARY.md#monitor-replicas)
-		/// that decided to broadcast before it had been updated to the latest `commitment_tx`.
 		///
 		/// This may be called multiple times for the same transaction.
 		///
 		/// An external signer implementation should check that the commitment has not been revoked.
-		///
-		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
-		public override func signHolderCommitmentAndHtlcs(commitmentTx: HolderCommitmentTransaction)
-			-> Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ
+		public override func signHolderCommitment(commitmentTx: HolderCommitmentTransaction)
+			-> Result_ECDSASignatureNoneZ
 		{
 			// native call variable prep
 
@@ -762,7 +751,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: commitmentTx.cType!) {
 					(commitmentTxPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
-					self.cType!.sign_holder_commitment_and_htlcs(self.cType!.this_arg, commitmentTxPointer)
+					self.cType!.sign_holder_commitment(self.cType!.this_arg, commitmentTxPointer)
 				}
 
 
@@ -770,7 +759,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_ECDSASignatureCVec_ECDSASignatureZZNoneZ(
+			let returnValue = Result_ECDSASignatureNoneZ(
 				cType: nativeCallResult, instantiationContext: "EcdsaChannelSigner.swift::\(#function):\(#line)")
 
 			return returnValue
@@ -892,11 +881,14 @@ extension Bindings {
 
 		/// Computes the signature for a commitment transaction's HTLC output used as an input within
 		/// `htlc_tx`, which spends the commitment transaction at index `input`. The signature returned
-		/// must be be computed using [`EcdsaSighashType::All`]. Note that this should only be used to
-		/// sign HTLC transactions from channels supporting anchor outputs after all additional
-		/// inputs/outputs have been added to the transaction.
+		/// must be be computed using [`EcdsaSighashType::All`].
+		///
+		/// Note that this may be called for HTLCs in the penultimate commitment transaction if a
+		/// [`ChannelMonitor`] [replica](https://github.com/lightningdevkit/rust-lightning/blob/main/GLOSSARY.md#monitor-replicas)
+		/// broadcasts it before receiving the update for the latest commitment transaction.
 		///
 		/// [`EcdsaSighashType::All`]: bitcoin::blockdata::transaction::EcdsaSighashType::All
+		/// [`ChannelMonitor`]: crate::chain::channelmonitor::ChannelMonitor
 		public override func signHolderHtlcTransaction(htlcTx: [UInt8], input: UInt, htlcDescriptor: HTLCDescriptor)
 			-> Result_ECDSASignatureNoneZ
 		{

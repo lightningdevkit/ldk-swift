@@ -78,6 +78,8 @@ extension Bindings {
 		}
 
 		/// Handles any network updates originating from [`Event`]s.
+		/// Note that this will skip applying any [`NetworkUpdate::ChannelUpdateMessage`] to avoid
+		/// leaking possibly identifying information of the sender to the public network.
 		///
 		/// [`Event`]: crate::events::Event
 		public func handleNetworkUpdate(networkUpdate: NetworkUpdate) {
@@ -106,15 +108,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Gets the genesis hash for this network graph.
-		public func getGenesisHash() -> [UInt8] {
+		/// Gets the chain hash for this network graph.
+		public func getChainHash() -> [UInt8] {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
-					NetworkGraph_get_genesis_hash(thisArgPointer)
+					NetworkGraph_get_chain_hash(thisArgPointer)
 				}
 
 
@@ -645,8 +647,8 @@ extension Bindings {
 		/// For an already known (from announcement) channel, update info about one of the directions
 		/// of the channel.
 		///
-		/// You probably don't want to call this directly, instead relying on a P2PGossipSync's
-		/// RoutingMessageHandler implementation to call it indirectly. This may be useful to accept
+		/// You probably don't want to call this directly, instead relying on a [`P2PGossipSync`]'s
+		/// [`RoutingMessageHandler`] implementation to call it indirectly. This may be useful to accept
 		/// routing messages from a source using a protocol other than the lightning P2P protocol.
 		///
 		/// If built with `no-std`, any updates with a timestamp more than two weeks in the past or
@@ -695,6 +697,40 @@ extension Bindings {
 
 					withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKUnsignedChannelUpdate>) in
 						NetworkGraph_update_channel_unsigned(thisArgPointer, msgPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneLightningErrorZ(
+				cType: nativeCallResult, instantiationContext: "NetworkGraph.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// For an already known (from announcement) channel, verify the given [`ChannelUpdate`].
+		///
+		/// This checks whether the update currently is applicable by [`Self::update_channel`].
+		///
+		/// If built with `no-std`, any updates with a timestamp more than two weeks in the past or
+		/// materially in the future will be rejected.
+		public func verifyChannelUpdate(msg: ChannelUpdate) -> Result_NoneLightningErrorZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNetworkGraph>) in
+
+					withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKChannelUpdate>) in
+						NetworkGraph_verify_channel_update(thisArgPointer, msgPointer)
 					}
 
 				}

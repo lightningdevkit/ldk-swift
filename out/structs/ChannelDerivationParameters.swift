@@ -180,8 +180,6 @@ extension Bindings {
 
 		/// The necessary channel parameters that need to be provided to the re-derived signer through
 		/// [`ChannelSigner::provide_channel_parameters`].
-		///
-		/// [`ChannelSigner::provide_channel_parameters`]: crate::sign::ChannelSigner::provide_channel_parameters
 		public func getTransactionParameters() -> ChannelTransactionParameters {
 			// native call variable prep
 
@@ -209,8 +207,6 @@ extension Bindings {
 
 		/// The necessary channel parameters that need to be provided to the re-derived signer through
 		/// [`ChannelSigner::provide_channel_parameters`].
-		///
-		/// [`ChannelSigner::provide_channel_parameters`]: crate::sign::ChannelSigner::provide_channel_parameters
 		public func setTransactionParameters(val: ChannelTransactionParameters) {
 			// native call variable prep
 

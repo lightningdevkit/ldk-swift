@@ -125,6 +125,16 @@ extension Bindings {
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
 			case PaymentClaimed
 
+			/// Indicates a request for an invoice failed to yield a response in a reasonable amount of time
+			/// or was explicitly abandoned by [`ChannelManager::abandon_payment`]. This may be for an
+			/// [`InvoiceRequest`] sent for an [`Offer`] or for a [`Refund`] that hasn't been redeemed.
+			///
+			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
+			/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+			/// [`Offer`]: crate::offers::offer::Offer
+			/// [`Refund`]: crate::offers::refund::Refund
+			case InvoiceRequestFailed
+
 			/// Indicates an outbound payment we made succeeded (i.e. it made it all the way to its target
 			/// and we got back the payment preimage for it).
 			///
@@ -284,6 +294,9 @@ extension Bindings {
 
 				case LDKEvent_PaymentClaimed:
 					return .PaymentClaimed
+
+				case LDKEvent_InvoiceRequestFailed:
+					return .InvoiceRequestFailed
 
 				case LDKEvent_PaymentSent:
 					return .PaymentSent
@@ -521,6 +534,30 @@ extension Bindings {
 			paymentHashPrimitiveWrapper.noOpRetain()
 
 			// htlcsVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new InvoiceRequestFailed-variant Event
+		public class func initWithInvoiceRequestFailed(paymentId: [UInt8]) -> Event {
+			// native call variable prep
+
+			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Event_invoice_request_failed(paymentIdPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			paymentIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1236,6 +1273,16 @@ extension Bindings {
 				anchor: self)
 		}
 
+		public func getValueAsInvoiceRequestFailed() -> InvoiceRequestFailed? {
+			if self.cType?.tag != LDKEvent_InvoiceRequestFailed {
+				return nil
+			}
+
+			return Event_LDKInvoiceRequestFailed_Body(
+				cType: self.cType!.invoice_request_failed, instantiationContext: "Event.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
 		public func getValueAsPaymentSent() -> PaymentSent? {
 			if self.cType?.tag != LDKEvent_PaymentSent {
 				return nil
@@ -1879,6 +1926,78 @@ extension Bindings {
 				let returnValue = Option_u64Z(
 					cType: self.cType!.sender_intended_total_msat,
 					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias Event_LDKInvoiceRequestFailed_Body = InvoiceRequestFailed
+
+
+		///
+		public class InvoiceRequestFailed: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKEvent_LDKInvoiceRequestFailed_Body?
+
+			internal init(cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The `payment_id` to have been associated with payment for the requested invoice.
+			public func getPaymentId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(
+					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
 				)
 				.getValue()
 

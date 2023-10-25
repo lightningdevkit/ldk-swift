@@ -349,6 +349,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Get the string representation of a SocketAddress object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKSocketAddress>) in
+					SocketAddress_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "SocketAddress.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Read a SocketAddress object from a string
 		public class func fromStr(s: String) -> Result_SocketAddressSocketAddressParseErrorZ {
 			// native call variable prep

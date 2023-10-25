@@ -3,12 +3,12 @@
 #endif
 
 ///
-internal typealias Option_CustomOnionMessageContentsZ = Bindings.Option_CustomOnionMessageContentsZ
+internal typealias Option_OnionMessageContentsZ = Bindings.Option_OnionMessageContentsZ
 
 extension Bindings {
 
-	/// An enum which can either contain a crate::lightning::onion_message::packet::CustomOnionMessageContents or not
-	internal class Option_CustomOnionMessageContentsZ: NativeTypeWrapper {
+	/// An enum which can either contain a crate::lightning::onion_message::packet::OnionMessageContents or not
+	internal class Option_OnionMessageContentsZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -23,9 +23,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCOption_CustomOnionMessageContentsZ?
+		internal var cType: LDKCOption_OnionMessageContentsZ?
 
-		internal init(cType: LDKCOption_CustomOnionMessageContentsZ, instantiationContext: String) {
+		internal init(cType: LDKCOption_OnionMessageContentsZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -33,9 +33,8 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(
-			cType: LDKCOption_CustomOnionMessageContentsZ, instantiationContext: String, anchor: NativeTypeWrapper
-		) {
+		internal init(cType: LDKCOption_OnionMessageContentsZ, instantiationContext: String, anchor: NativeTypeWrapper)
+		{
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -46,7 +45,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCOption_CustomOnionMessageContentsZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			cType: LDKCOption_OnionMessageContentsZ, instantiationContext: String, anchor: NativeTypeWrapper,
 			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -59,28 +58,28 @@ extension Bindings {
 		}
 
 
-		internal init(some: CustomOnionMessageContents?, instantiationContext: String) {
+		internal init(some: OnionMessageContents?, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 
 			if let some = some {
 
-				self.cType = COption_CustomOnionMessageContentsZ_some(some.activate().cType!)
+				self.cType = COption_OnionMessageContentsZ_some(some.activate().cType!)
 			} else {
-				self.cType = COption_CustomOnionMessageContentsZ_none()
+				self.cType = COption_OnionMessageContentsZ_none()
 			}
 
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
 
-		/// Frees any resources associated with the crate::lightning::onion_message::packet::CustomOnionMessageContents, if we are in the Some state
+		/// Frees any resources associated with the crate::lightning::onion_message::packet::OnionMessageContents, if we are in the Some state
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = COption_CustomOnionMessageContentsZ_free(self.cType!)
+			let nativeCallResult = COption_OnionMessageContentsZ_free(self.cType!)
 
 			// cleanup
 
@@ -92,17 +91,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new COption_CustomOnionMessageContentsZ which has the same data as `orig`
+		/// Creates a new COption_OnionMessageContentsZ which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Option_CustomOnionMessageContentsZ {
+		internal func clone() -> Option_OnionMessageContentsZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) {
-					(origPointer: UnsafePointer<LDKCOption_CustomOnionMessageContentsZ>) in
-					COption_CustomOnionMessageContentsZ_clone(origPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCOption_OnionMessageContentsZ>) in
+					COption_OnionMessageContentsZ_clone(origPointer)
 				}
 
 
@@ -110,24 +108,23 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_CustomOnionMessageContentsZ(
+			let returnValue = Option_OnionMessageContentsZ(
 				cType: nativeCallResult,
-				instantiationContext: "Option_CustomOnionMessageContentsZ.swift::\(#function):\(#line)")
+				instantiationContext: "Option_OnionMessageContentsZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
 
-		public func getValue() -> CustomOnionMessageContents? {
-			if self.cType!.tag == LDKCOption_CustomOnionMessageContentsZ_None {
+		public func getValue() -> OnionMessageContents? {
+			if self.cType!.tag == LDKCOption_OnionMessageContentsZ_None {
 				return nil
 			}
-			if self.cType!.tag == LDKCOption_CustomOnionMessageContentsZ_Some {
-				return NativelyImplementedCustomOnionMessageContents(
+			if self.cType!.tag == LDKCOption_OnionMessageContentsZ_Some {
+				return NativelyImplementedOnionMessageContents(
 					cType: self.cType!.some,
-					instantiationContext: "Option_CustomOnionMessageContentsZ.swift::\(#function):\(#line)",
-					anchor: self
+					instantiationContext: "Option_OnionMessageContentsZ.swift::\(#function):\(#line)", anchor: self
 				)
 				.dangle()
 			}
@@ -136,7 +133,7 @@ extension Bindings {
 		}
 
 
-		internal func danglingClone() -> Option_CustomOnionMessageContentsZ {
+		internal func danglingClone() -> Option_OnionMessageContentsZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -150,14 +147,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Option_CustomOnionMessageContentsZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+						"Freeing Option_OnionMessageContentsZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
 					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Option_CustomOnionMessageContentsZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Option_OnionMessageContentsZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

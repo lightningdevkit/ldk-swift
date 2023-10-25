@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A path for sending an [`msgs::OnionMessage`].
+/// A path for sending an [`OnionMessage`].
 public typealias OnionMessagePath = Bindings.OnionMessagePath
 
 extension Bindings {
 
 
-	/// A path for sending an [`msgs::OnionMessage`].
+	/// A path for sending an [`OnionMessage`].
 	public class OnionMessagePath: NativeTypeWrapper {
 
 		let initialCFreeability: Bool

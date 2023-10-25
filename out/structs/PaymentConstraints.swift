@@ -81,8 +81,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The maximum total CLTV delta that is acceptable when relaying a payment over this
-		/// [`BlindedHop`].
+		/// The maximum total CLTV that is acceptable when relaying a payment over this [`BlindedHop`].
 		public func getMaxCltvExpiry() -> UInt32 {
 			// native call variable prep
 
@@ -104,8 +103,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The maximum total CLTV delta that is acceptable when relaying a payment over this
-		/// [`BlindedHop`].
+		/// The maximum total CLTV that is acceptable when relaying a payment over this [`BlindedHop`].
 		public func setMaxCltvExpiry(val: UInt32) {
 			// native call variable prep
 

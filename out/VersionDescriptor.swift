@@ -4,12 +4,12 @@
 
 extension Bindings {
 	public class func getLDKSwiftBindingsSerializationHash() -> String {
-		return "3306eaf9d996970e7040eebe5287b47dc30e5a5e64ae7cd1460768ad62f00a75"
+		return "f648b3a8393e53cb007c6b2d58df2e242a376535e61e428e2994b1f5a137bda7"
 	}
 	public class func getLDKSwiftBindingsVersion() -> String {
-		return "0.0.116-7-ga0e95f8d-dirty"
+		return "0.0.116-24-gf0a2c328-dirty"
 	}
 	public class func getLDKSwiftBindingsCommitHash() -> String {
-		return "a0e95f8d512595f491c48d3860397f7b52be7e4d"
+		return "f0a2c3287f3f8c0061c11c373bbbded2e6cc1009"
 	}
 }

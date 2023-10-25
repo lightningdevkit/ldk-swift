@@ -6,13 +6,13 @@ import Foundation
 #endif
 
 
-/// The contents of a custom onion message.
-public typealias CustomOnionMessageContents = Bindings.CustomOnionMessageContents
+/// The contents of an onion message.
+public typealias OnionMessageContents = Bindings.OnionMessageContents
 
 extension Bindings {
 
-	/// The contents of a custom onion message.
-	open class CustomOnionMessageContents: NativeTraitWrapper {
+	/// The contents of an onion message.
+	open class OnionMessageContents: NativeTraitWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -27,9 +27,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCustomOnionMessageContents?
+		internal var cType: LDKOnionMessageContents?
 
-		internal init(cType: LDKCustomOnionMessageContents, instantiationContext: String) {
+		internal init(cType: LDKOnionMessageContents, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -37,7 +37,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKCustomOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper) {
+		internal init(cType: LDKOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -48,7 +48,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCustomOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper,
+			cType: LDKOnionMessageContents, instantiationContext: String, anchor: NativeTypeWrapper,
 			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -67,14 +67,14 @@ extension Bindings {
 			super
 				.init(
 					conflictAvoidingVariableName: 0,
-					instantiationContext: "CustomOnionMessageContents.swift::\(#function):\(#line)")
+					instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
 
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
 			func tlvTypeLambda(this_arg: UnsafeRawPointer?) -> UInt64 {
-				let instance: CustomOnionMessageContents = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "CustomOnionMessageContents::tlvTypeLambda")
+				let instance: OnionMessageContents = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageContents::tlvTypeLambda")
 
 				// Swift callback variable prep
 
@@ -92,8 +92,8 @@ extension Bindings {
 			}
 
 			func writeLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_u8Z {
-				let instance: CustomOnionMessageContents = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "CustomOnionMessageContents::writeLambda")
+				let instance: OnionMessageContents = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageContents::writeLambda")
 
 				// Swift callback variable prep
 
@@ -107,7 +107,7 @@ extension Bindings {
 				// return value (do some wrapping)
 				let returnValue = Vec_u8Z(
 					array: swiftCallbackResult,
-					instantiationContext: "CustomOnionMessageContents.swift::init()::\(#function):\(#line)"
+					instantiationContext: "OnionMessageContents.swift::init()::\(#function):\(#line)"
 				)
 				.dangleRecursively().cType!
 
@@ -115,8 +115,8 @@ extension Bindings {
 			}
 
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
-				let instance: CustomOnionMessageContents = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "CustomOnionMessageContents::freeLambda")
+				let instance: OnionMessageContents = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageContents::freeLambda")
 
 				// Swift callback variable prep
 
@@ -134,7 +134,7 @@ extension Bindings {
 			}
 
 
-			self.cType = LDKCustomOnionMessageContents(
+			self.cType = LDKOnionMessageContents(
 				this_arg: thisArg,
 				tlv_type: tlvTypeLambda,
 				write: writeLambda,
@@ -148,7 +148,7 @@ extension Bindings {
 		open func tlvType() -> UInt64 {
 
 			Bindings.print(
-				"Error: CustomOnionMessageContents::tlvType MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: OnionMessageContents::tlvType MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -157,7 +157,7 @@ extension Bindings {
 		open func write() -> [UInt8] {
 
 			Bindings.print(
-				"Error: CustomOnionMessageContents::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: OnionMessageContents::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -170,21 +170,21 @@ extension Bindings {
 			return ()  // the empty tuple (aka Void) is necessary because Swift is whitespace-agnostic
 
 			Bindings.print(
-				"Error: CustomOnionMessageContents::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: OnionMessageContents::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
 
 
-		/// Creates a copy of a CustomOnionMessageContents
-		internal func clone() -> CustomOnionMessageContents {
+		/// Creates a copy of a OnionMessageContents
+		internal func clone() -> OnionMessageContents {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCustomOnionMessageContents>) in
-					CustomOnionMessageContents_clone(origPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKOnionMessageContents>) in
+					OnionMessageContents_clone(origPointer)
 				}
 
 
@@ -192,9 +192,8 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = NativelyImplementedCustomOnionMessageContents(
-				cType: nativeCallResult, instantiationContext: "CustomOnionMessageContents.swift::\(#function):\(#line)"
-			)
+			let returnValue = NativelyImplementedOnionMessageContents(
+				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -209,19 +208,18 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing CustomOnionMessageContents \(self.instanceNumber). (Origin: \(self.instantiationContext))"
-					)
+						"Freeing OnionMessageContents \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing CustomOnionMessageContents \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing OnionMessageContents \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}
 	}
 
-	internal class NativelyImplementedCustomOnionMessageContents: CustomOnionMessageContents {
+	internal class NativelyImplementedOnionMessageContents: OnionMessageContents {
 
 		/// Returns the TLV type identifying the message contents. MUST be >= 64.
 		public override func tlvType() -> UInt64 {
@@ -253,7 +251,7 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Vec_u8Z(
-				cType: nativeCallResult, instantiationContext: "CustomOnionMessageContents.swift::\(#function):\(#line)"
+				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)"
 			)
 			.getValue()
 

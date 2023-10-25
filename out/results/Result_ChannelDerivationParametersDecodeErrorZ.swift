@@ -3,7 +3,7 @@
 #endif
 
 /// A CResult_ChannelDerivationParametersDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::events::bump_transaction::ChannelDerivationParameters on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// containing a crate::lightning::sign::ChannelDerivationParameters on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 public typealias Result_ChannelDerivationParametersDecodeErrorZ = Bindings
 	.Result_ChannelDerivationParametersDecodeErrorZ
@@ -11,7 +11,7 @@ public typealias Result_ChannelDerivationParametersDecodeErrorZ = Bindings
 extension Bindings {
 
 	/// A CResult_ChannelDerivationParametersDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::events::bump_transaction::ChannelDerivationParameters on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// containing a crate::lightning::sign::ChannelDerivationParameters on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
 	public class Result_ChannelDerivationParametersDecodeErrorZ: NativeTypeWrapper {
 

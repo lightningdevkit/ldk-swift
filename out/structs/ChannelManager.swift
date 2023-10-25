@@ -465,11 +465,11 @@ extension Bindings {
 		/// will be accepted on the given channel, and after additional timeout/the closing of all
 		/// pending HTLCs, the channel will be closed on chain.
 		///
-		/// * If we are the channel initiator, we will pay between our [`Background`] and
-		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`] plus our [`Normal`] fee
-		/// estimate.
+		/// * If we are the channel initiator, we will pay between our [`ChannelCloseMinimum`] and
+		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`] plus our [`NonAnchorChannelFee`]
+		/// fee estimate.
 		/// * If our counterparty is the channel initiator, we will require a channel closing
-		/// transaction feerate of at least our [`Background`] feerate or the feerate which
+		/// transaction feerate of at least our [`ChannelCloseMinimum`] feerate or the feerate which
 		/// would appear on a force-closure transaction, whichever is lower. We will allow our
 		/// counterparty to pay as much fee as they'd like, however.
 		///
@@ -481,8 +481,8 @@ extension Bindings {
 		/// channel.
 		///
 		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`]: crate::util::config::ChannelConfig::force_close_avoidance_max_fee_satoshis
-		/// [`Background`]: crate::chain::chaininterface::ConfirmationTarget::Background
-		/// [`Normal`]: crate::chain::chaininterface::ConfirmationTarget::Normal
+		/// [`ChannelCloseMinimum`]: crate::chain::chaininterface::ConfirmationTarget::ChannelCloseMinimum
+		/// [`NonAnchorChannelFee`]: crate::chain::chaininterface::ConfirmationTarget::NonAnchorChannelFee
 		/// [`SendShutdown`]: crate::events::MessageSendEvent::SendShutdown
 		public func closeChannel(channelId: [UInt8], counterpartyNodeId: [UInt8]) -> Result_NoneAPIErrorZ {
 			// native call variable prep
@@ -530,8 +530,8 @@ extension Bindings {
 		/// the channel being closed or not:
 		/// * If we are the channel initiator, we will pay at least this feerate on the closing
 		/// transaction. The upper-bound is set by
-		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`] plus our [`Normal`] fee
-		/// estimate (or `target_feerate_sat_per_1000_weight`, if it is greater).
+		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`] plus our [`NonAnchorChannelFee`]
+		/// fee estimate (or `target_feerate_sat_per_1000_weight`, if it is greater).
 		/// * If our counterparty is the channel initiator, we will refuse to accept a channel closure
 		/// transaction feerate below `target_feerate_sat_per_1000_weight` (or the feerate which
 		/// will appear on a force-closure transaction, whichever is lower).
@@ -549,8 +549,7 @@ extension Bindings {
 		/// channel.
 		///
 		/// [`ChannelConfig::force_close_avoidance_max_fee_satoshis`]: crate::util::config::ChannelConfig::force_close_avoidance_max_fee_satoshis
-		/// [`Background`]: crate::chain::chaininterface::ConfirmationTarget::Background
-		/// [`Normal`]: crate::chain::chaininterface::ConfirmationTarget::Normal
+		/// [`NonAnchorChannelFee`]: crate::chain::chaininterface::ConfirmationTarget::NonAnchorChannelFee
 		/// [`SendShutdown`]: crate::events::MessageSendEvent::SendShutdown
 		///
 		/// Note that shutdown_script (or a relevant inner pointer) may be NULL or all-0s to represent None
@@ -893,10 +892,20 @@ extension Bindings {
 		/// wait until you receive either a [`Event::PaymentFailed`] or [`Event::PaymentSent`] event to
 		/// determine the ultimate status of a payment.
 		///
+		/// # Requested Invoices
+		///
+		/// In the case of paying a [`Bolt12Invoice`] via [`ChannelManager::pay_for_offer`], abandoning
+		/// the payment prior to receiving the invoice will result in an [`Event::InvoiceRequestFailed`]
+		/// and prevent any attempts at paying it once received. The other events may only be generated
+		/// once the invoice has been received.
+		///
 		/// # Restart Behavior
 		///
 		/// If an [`Event::PaymentFailed`] is generated and we restart without first persisting the
-		/// [`ChannelManager`], another [`Event::PaymentFailed`] may be generated.
+		/// [`ChannelManager`], another [`Event::PaymentFailed`] may be generated; likewise for
+		/// [`Event::InvoiceRequestFailed`].
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 		public func abandonPayment(paymentId: [UInt8]) {
 			// native call variable prep
 
@@ -1565,6 +1574,10 @@ extension Bindings {
 		/// with the current [`ChannelConfig`].
 		/// * Removing peers which have disconnected but and no longer have any channels.
 		/// * Force-closing and removing channels which have not completed establishment in a timely manner.
+		/// * Forgetting about stale outbound payments, either those that have already been fulfilled
+		/// or those awaiting an invoice that hasn't been delivered in the necessary amount of time.
+		/// The latter is determined using the system clock in `std` and the highest seen block time
+		/// minus two hours in `no-std`.
 		///
 		/// Note that this may cause reentrancy through [`chain::Watch::update_channel`] calls or feerate
 		/// estimate fetches.
@@ -1901,6 +1914,161 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Result_NoneAPIErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Pays for an [`Offer`] using the given parameters by creating an [`InvoiceRequest`] and
+		/// enqueuing it to be sent via an onion message. [`ChannelManager`] will pay the actual
+		/// [`Bolt12Invoice`] once it is received.
+		///
+		/// Uses [`InvoiceRequestBuilder`] such that the [`InvoiceRequest`] it builds is recognized by
+		/// the [`ChannelManager`] when handling a [`Bolt12Invoice`] message in response to the request.
+		/// The optional parameters are used in the builder, if `Some`:
+		/// - `quantity` for [`InvoiceRequest::quantity`] which must be set if
+		/// [`Offer::expects_quantity`] is `true`.
+		/// - `amount_msats` if overpaying what is required for the given `quantity` is desired, and
+		/// - `payer_note` for [`InvoiceRequest::payer_note`].
+		///
+		/// If `max_total_routing_fee_msat` is not specified, The default from
+		/// [`RouteParameters::from_payment_params_and_value`] is applied.
+		///
+		/// # Payment
+		///
+		/// The provided `payment_id` is used to ensure that only one invoice is paid for the request
+		/// when received. See [Avoiding Duplicate Payments] for other requirements once the payment has
+		/// been sent.
+		///
+		/// To revoke the request, use [`ChannelManager::abandon_payment`] prior to receiving the
+		/// invoice. If abandoned, or an invoice isn't received in a reasonable amount of time, the
+		/// payment will fail with an [`Event::InvoiceRequestFailed`].
+		///
+		/// # Privacy
+		///
+		/// Uses a one-hop [`BlindedPath`] for the reply path with [`ChannelManager::get_our_node_id`]
+		/// as the introduction node and a derived payer id for payer privacy. As such, currently, the
+		/// node must be announced. Otherwise, there is no way to find a path to the introduction node
+		/// in order to send the [`Bolt12Invoice`].
+		///
+		/// # Limitations
+		///
+		/// Requires a direct connection to an introduction node in [`Offer::paths`] or to
+		/// [`Offer::signing_pubkey`], if empty. A similar restriction applies to the responding
+		/// [`Bolt12Invoice::payment_paths`].
+		///
+		/// # Errors
+		///
+		/// Errors if a duplicate `payment_id` is provided given the caveats in the aforementioned link
+		/// or if the provided parameters are invalid for the offer.
+		///
+		/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+		/// [`InvoiceRequest::quantity`]: crate::offers::invoice_request::InvoiceRequest::quantity
+		/// [`InvoiceRequest::payer_note`]: crate::offers::invoice_request::InvoiceRequest::payer_note
+		/// [`InvoiceRequestBuilder`]: crate::offers::invoice_request::InvoiceRequestBuilder
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+		/// [`Bolt12Invoice::payment_paths`]: crate::offers::invoice::Bolt12Invoice::payment_paths
+		/// [Avoiding Duplicate Payments]: #avoiding-duplicate-payments
+		public func payForOffer(
+			offer: Offer, quantity: UInt64?, amountMsats: UInt64?, payerNote: String?, paymentId: [UInt8],
+			retryStrategy: Retry, maxTotalRoutingFeeMsat: UInt64?
+		) -> Result_NoneBolt12SemanticErrorZ {
+			// native call variable prep
+
+			let quantityOption = Option_u64Z(
+				some: quantity, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let amountMsatsOption = Option_u64Z(
+				some: amountMsats, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let payerNoteOption = Option_StrZ(
+				some: payerNote, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
+
+			let maxTotalRoutingFeeMsatOption = Option_u64Z(
+				some: maxTotalRoutingFeeMsat, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+
+					withUnsafePointer(to: offer.cType!) { (offerPointer: UnsafePointer<LDKOffer>) in
+						ChannelManager_pay_for_offer(
+							thisArgPointer, offerPointer, quantityOption.cType!, amountMsatsOption.cType!,
+							payerNoteOption.cType!, paymentIdPrimitiveWrapper.cType!,
+							retryStrategy.danglingClone().cType!, maxTotalRoutingFeeMsatOption.cType!)
+					}
+
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			paymentIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneBolt12SemanticErrorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Creates a [`Bolt12Invoice`] for a [`Refund`] and enqueues it to be sent via an onion
+		/// message.
+		///
+		/// The resulting invoice uses a [`PaymentHash`] recognized by the [`ChannelManager`] and a
+		/// [`BlindedPath`] containing the [`PaymentSecret`] needed to reconstruct the corresponding
+		/// [`PaymentPreimage`].
+		///
+		/// # Limitations
+		///
+		/// Requires a direct connection to an introduction node in [`Refund::paths`] or to
+		/// [`Refund::payer_id`], if empty. This request is best effort; an invoice will be sent to each
+		/// node meeting the aforementioned criteria, but there's no guarantee that they will be
+		/// received and no retries will be made.
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+		public func requestRefundPayment(refund: Refund) -> Result_NoneBolt12SemanticErrorZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+
+					withUnsafePointer(to: refund.cType!) { (refundPointer: UnsafePointer<LDKRefund>) in
+						ChannelManager_request_refund_payment(thisArgPointer, refundPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneBolt12SemanticErrorZ(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -2403,7 +2571,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Fetches the set of [`NodeFeatures`] flags which are provided by or required by
+		/// Fetches the set of [`NodeFeatures`] flags that are provided by or required by
 		/// [`ChannelManager`].
 		public func nodeFeatures() -> NodeFeatures {
 			// native call variable prep
@@ -2430,7 +2598,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Fetches the set of [`ChannelFeatures`] flags which are provided by or required by
+		/// Fetches the set of [`ChannelFeatures`] flags that are provided by or required by
 		/// [`ChannelManager`].
 		public func channelFeatures() -> ChannelFeatures {
 			// native call variable prep
@@ -2457,7 +2625,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Fetches the set of [`ChannelTypeFeatures`] flags which are provided by or required by
+		/// Fetches the set of [`ChannelTypeFeatures`] flags that are provided by or required by
 		/// [`ChannelManager`].
 		public func channelTypeFeatures() -> ChannelTypeFeatures {
 			// native call variable prep
@@ -2484,7 +2652,7 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Fetches the set of [`InitFeatures`] flags which are provided by or required by
+		/// Fetches the set of [`InitFeatures`] flags that are provided by or required by
 		/// [`ChannelManager`].
 		public func initFeatures() -> InitFeatures {
 			// native call variable prep
@@ -2529,6 +2697,31 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedChannelMessageHandler(
+				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
+		/// Constructs a new OffersMessageHandler which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned OffersMessageHandler must be freed before this_arg is
+		public func asOffersMessageHandler() -> OffersMessageHandler {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
+					ChannelManager_as_OffersMessageHandler(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedOffersMessageHandler(
 				cType: nativeCallResult, instantiationContext: "ChannelManager.swift::\(#function):\(#line)",
 				anchor: self)
 

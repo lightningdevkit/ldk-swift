@@ -376,10 +376,42 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Create a one-hop blinded path for a message.
+		public class func oneHopForMessage(recipientNodeId: [UInt8], entropySource: EntropySource)
+			-> Result_BlindedPathNoneZ
+		{
+			// native call variable prep
+
+			let recipientNodeIdPrimitiveWrapper = PublicKey(
+				value: recipientNodeId, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: entropySource.activate().cType!) {
+					(entropySourcePointer: UnsafePointer<LDKEntropySource>) in
+					BlindedPath_one_hop_for_message(recipientNodeIdPrimitiveWrapper.cType!, entropySourcePointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			recipientNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_BlindedPathNoneZ(
+				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Create a blinded path for an onion message, to be forwarded along `node_pks`. The last node
 		/// pubkey in `node_pks` will be the destination node.
 		///
-		/// Errors if less than two hops are provided or if `node_pk`(s) are invalid.
+		/// Errors if no hops are provided or if `node_pk`(s) are invalid.
 		public class func newForMessage(nodePks: [[UInt8]], entropySource: EntropySource) -> Result_BlindedPathNoneZ {
 			// native call variable prep
 

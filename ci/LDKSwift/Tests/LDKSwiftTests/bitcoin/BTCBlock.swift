@@ -26,6 +26,7 @@ class BTCBlock: Equatable {
     var timestamp: UInt32 = 0
     var difficultyTarget: UInt32 = 0
     var nonce: UInt32 = 0
+    var height: UInt32 = 0
     
     // each transaction is a uint8 array
     var transactions: [BTCTransaction] = []

@@ -591,7 +591,7 @@ public class HumanObjectPeerTestInstance {
         peerA.connectBlock(block: fundingBlock, height: fundingBlock.height, expectedMonitorUpdateLength: 0)
         peerB.connectBlock(block: fundingBlock, height: fundingBlock.height, expectedMonitorUpdateLength: 0)
         for currentPeer in otherPeers {
-            currentPeer.connectBlock(block: fundingBlock, height: 1, expectedMonitorUpdateLength: 0)
+            currentPeer.connectBlock(block: fundingBlock, height: fundingBlock.height, expectedMonitorUpdateLength: 0)
         }
 
         print("Connecting confirmation blocks…")
@@ -604,6 +604,7 @@ public class HumanObjectPeerTestInstance {
             currentBlock.timestamp = UInt32(42 + height)
             currentBlock.difficultyTarget = 0
             currentBlock.nonce = 0
+            currentBlock.height = height
 
             peerA.connectBlock(block: currentBlock, height: UInt32(height), expectedMonitorUpdateLength: 0)
             peerB.connectBlock(block: currentBlock, height: UInt32(height), expectedMonitorUpdateLength: 0)

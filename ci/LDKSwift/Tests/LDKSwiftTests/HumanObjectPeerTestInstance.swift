@@ -698,10 +698,14 @@ public class HumanObjectPeerTestInstance {
         let usableChannelsB = peer2.channelManager.listUsableChannels()
         let channelAToB = usableChannelsA[0]
         let channelBToA = usableChannelsB[0]
+        
+        // confirmedChannelBlock = await HumanObjectPeerTestInstance.openChannel(peerA: peer2, peerB: peer3, fundingAmount: FUNDING_SATOSHI_AMOUNT, latestBlock: confirmedChannelBlock, otherPeers: [peer1])
+        
         let originalChannelBalanceAToB = channelAToB.getBalanceMsat()
         let originalChannelBalanceBToA = channelBToA.getBalanceMsat()
         
-        confirmedChannelBlock = await HumanObjectPeerTestInstance.openChannel(peerA: peer2, peerB: peer3, fundingAmount: FUNDING_SATOSHI_AMOUNT, latestBlock: confirmedChannelBlock, otherPeers: [peer1])
+        let secondChannelBalanceAToB = channelAToB.getBalanceMsat()
+        let secondChannelBalanceBToA = channelBToA.getBalanceMsat()
         
         let logger = TestLogger()
 
@@ -835,14 +839,14 @@ public class HumanObjectPeerTestInstance {
                 print("sent payment \(paymentSent.getPaymentId()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().getHops().map { h in h.getShortChannelId() })")
             }
 
-            var currentChannelABalance = originalChannelBalanceAToB
-            var currentChannelBBalance = originalChannelBalanceBToA
+            var currentChannelABalance = secondChannelBalanceAToB
+            var currentChannelBBalance = secondChannelBalanceBToA
             while true {
                 let channelA = peer1.channelManager.listUsableChannels()[0]
                 let channelB = peer2.channelManager.listUsableChannels()[0]
                 currentChannelABalance = channelA.getBalanceMsat()
                 currentChannelBBalance = channelB.getBalanceMsat()
-                if currentChannelABalance != originalChannelBalanceAToB && currentChannelBBalance != originalChannelBalanceBToA {
+                if currentChannelABalance != secondChannelBalanceAToB && currentChannelBBalance != secondChannelBalanceBToA {
                     break
                 }
                 // sleep for 100ms
@@ -850,8 +854,8 @@ public class HumanObjectPeerTestInstance {
             }
 
             let invoicePayment = invoicePaymentResult.getValue()!
-            XCTAssertEqual(currentChannelABalance, originalChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B)
-            XCTAssertEqual(currentChannelBBalance, originalChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B)
+            XCTAssertEqual(currentChannelABalance, secondChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B)
+            XCTAssertEqual(currentChannelBBalance, secondChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B)
         }
 
         do {
@@ -950,8 +954,8 @@ public class HumanObjectPeerTestInstance {
             let invoicePayment = invoicePaymentResult.getValue()!
             XCTAssertEqual(currentChannelABalance, prePaymentBalanceAToB + SEND_MSAT_AMOUNT_B_TO_A)
             XCTAssertEqual(currentChannelBBalance, prePaymentBalanceBToA - SEND_MSAT_AMOUNT_B_TO_A)
-            XCTAssertEqual(currentChannelABalance, originalChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B + SEND_MSAT_AMOUNT_B_TO_A)
-            XCTAssertEqual(currentChannelBBalance, originalChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B - SEND_MSAT_AMOUNT_B_TO_A)
+            XCTAssertEqual(currentChannelABalance, secondChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B + SEND_MSAT_AMOUNT_B_TO_A)
+            XCTAssertEqual(currentChannelBBalance, secondChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B - SEND_MSAT_AMOUNT_B_TO_A)
         }
 
 

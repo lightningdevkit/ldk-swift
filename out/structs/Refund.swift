@@ -156,7 +156,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_DurationZ(
+			let returnValue = Option_u64Z(
 				cType: nativeCallResult, instantiationContext: "Refund.swift::\(#function):\(#line)", anchor: self
 			)
 			.getValue()
@@ -258,14 +258,14 @@ extension Bindings {
 		/// [`payer_id`].
 		///
 		/// [`payer_id`]: Self::payer_id
-		public func metadata() -> [UInt8] {
+		public func payerMetadata() -> [UInt8] {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKRefund>) in
-					Refund_metadata(thisArgPointer)
+					Refund_payer_metadata(thisArgPointer)
 				}
 
 

@@ -197,6 +197,72 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Sets a required feature bit. Errors if `bit` is outside the feature range as defined
+		/// by [BOLT 9].
+		///
+		/// Note: Required bits are even. If an odd bit is given, then the corresponding even bit will
+		/// be set instead (i.e., `bit - 1`).
+		///
+		/// [BOLT 9]: https://github.com/lightning/bolts/blob/master/09-features.md
+		public func setRequiredFeatureBit(bit: UInt) -> Result_NoneNoneZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisArgPointer: UnsafeMutablePointer<LDKInvoiceRequestFeatures>) in
+					InvoiceRequestFeatures_set_required_feature_bit(thisArgPointer, bit)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneNoneZ(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequestFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Sets an optional feature bit. Errors if `bit` is outside the feature range as defined
+		/// by [BOLT 9].
+		///
+		/// Note: Optional bits are odd. If an even bit is given, then the corresponding odd bit will be
+		/// set instead (i.e., `bit + 1`).
+		///
+		/// [BOLT 9]: https://github.com/lightning/bolts/blob/master/09-features.md
+		public func setOptionalFeatureBit(bit: UInt) -> Result_NoneNoneZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisArgPointer: UnsafeMutablePointer<LDKInvoiceRequestFeatures>) in
+					InvoiceRequestFeatures_set_optional_feature_bit(thisArgPointer, bit)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneNoneZ(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequestFeatures.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
 		/// Sets a required custom feature bit. Errors if `bit` is outside the custom range as defined
 		/// by [bLIP 2] or if it is a known `T` feature.
 		///

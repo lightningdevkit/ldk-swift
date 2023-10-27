@@ -338,7 +338,7 @@ extension Bindings {
 		/// List of addresses on which this node is reachable
 		///
 		/// Returns a copy of the field.
-		public func getAddresses() -> [NetAddress] {
+		public func getAddresses() -> [SocketAddress] {
 			// native call variable prep
 
 
@@ -353,7 +353,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_NetAddressZ(
+			let returnValue = Vec_SocketAddressZ(
 				cType: nativeCallResult, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -364,10 +364,10 @@ extension Bindings {
 		}
 
 		/// List of addresses on which this node is reachable
-		public func setAddresses(val: [NetAddress]) {
+		public func setAddresses(val: [SocketAddress]) {
 			// native call variable prep
 
-			let valVector = Vec_NetAddressZ(
+			let valVector = Vec_SocketAddressZ(
 				array: val, instantiationContext: "UnsignedNodeAnnouncement.swift::\(#function):\(#line)"
 			)
 			.dangle()

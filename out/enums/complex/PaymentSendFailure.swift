@@ -317,6 +317,33 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Checks if two PaymentSendFailures contain equal inner contents.
+		/// This ignores pointers and is_owned flags and looks at the values in fields.
+		public class func eq(a: PaymentSendFailure, b: PaymentSendFailure) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: a.cType!) { (aPointer: UnsafePointer<LDKPaymentSendFailure>) in
+
+					withUnsafePointer(to: b.cType!) { (bPointer: UnsafePointer<LDKPaymentSendFailure>) in
+						PaymentSendFailure_eq(aPointer, bPointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 
 		public func getValueAsParameterError() -> APIError? {
 			if self.cType?.tag != LDKPaymentSendFailure_ParameterError {

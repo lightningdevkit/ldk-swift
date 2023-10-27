@@ -343,7 +343,7 @@ extension Bindings {
 		public func txInputWitness(signature: [UInt8]) -> [UInt8] {
 			// native call variable prep
 
-			let signaturePrimitiveWrapper = Signature(
+			let signaturePrimitiveWrapper = ECDSASignature(
 				value: signature, instantiationContext: "AnchorDescriptor.swift::\(#function):\(#line)")
 
 

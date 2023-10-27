@@ -176,7 +176,7 @@ extension Bindings {
 		///
 		/// The returned `Option`s will only be `Some` if an address had been previously given via
 		/// [`Self::new_outbound_connection`] or [`Self::new_inbound_connection`].
-		public func getPeerNodeIds() -> [([UInt8], NetAddress?)] {
+		public func getPeerNodeIds() -> [([UInt8], SocketAddress?)] {
 			// native call variable prep
 
 
@@ -191,7 +191,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_PublicKeyCOption_NetAddressZZZ(
+			let returnValue = Vec_C2Tuple_PublicKeyCOption_SocketAddressZZZ(
 				cType: nativeCallResult, instantiationContext: "PeerManager.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false).getValue()
@@ -216,14 +216,14 @@ extension Bindings {
 		///
 		/// [`socket_disconnected`]: PeerManager::socket_disconnected
 		public func newOutboundConnection(
-			theirNodeId: [UInt8], descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?
+			theirNodeId: [UInt8], descriptor: SocketDescriptor, remoteNetworkAddress: SocketAddress?
 		) -> Result_CVec_u8ZPeerHandleErrorZ {
 			// native call variable prep
 
 			let theirNodeIdPrimitiveWrapper = PublicKey(
 				value: theirNodeId, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 
-			let remoteNetworkAddressOption = Option_NetAddressZ(
+			let remoteNetworkAddressOption = Option_SocketAddressZ(
 				some: remoteNetworkAddress, instantiationContext: "PeerManager.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -269,12 +269,12 @@ extension Bindings {
 		/// [`socket_disconnected`].
 		///
 		/// [`socket_disconnected`]: PeerManager::socket_disconnected
-		public func newInboundConnection(descriptor: SocketDescriptor, remoteNetworkAddress: NetAddress?)
+		public func newInboundConnection(descriptor: SocketDescriptor, remoteNetworkAddress: SocketAddress?)
 			-> Result_NonePeerHandleErrorZ
 		{
 			// native call variable prep
 
-			let remoteNetworkAddressOption = Option_NetAddressZ(
+			let remoteNetworkAddressOption = Option_SocketAddressZ(
 				some: remoteNetworkAddress, instantiationContext: "PeerManager.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -563,7 +563,7 @@ extension Bindings {
 		/// Panics if `addresses` is absurdly large (more than 100).
 		///
 		/// [`get_and_clear_pending_msg_events`]: MessageSendEventsProvider::get_and_clear_pending_msg_events
-		public func broadcastNodeAnnouncement(rgb: [UInt8], alias: [UInt8], addresses: [NetAddress]) {
+		public func broadcastNodeAnnouncement(rgb: [UInt8], alias: [UInt8], addresses: [SocketAddress]) {
 			// native call variable prep
 
 			let rgbPrimitiveWrapper = ThreeBytes(
@@ -572,7 +572,7 @@ extension Bindings {
 			let aliasPrimitiveWrapper = ThirtyTwoBytes(
 				value: alias, instantiationContext: "PeerManager.swift::\(#function):\(#line)")
 
-			let addressesVector = Vec_NetAddressZ(
+			let addressesVector = Vec_SocketAddressZ(
 				array: addresses, instantiationContext: "PeerManager.swift::\(#function):\(#line)"
 			)
 			.dangle()

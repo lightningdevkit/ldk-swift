@@ -104,6 +104,31 @@ extension Bindings {
 				return returnValue
 			}
 
+			func releasePendingMessagesLambda(this_arg: UnsafeRawPointer?)
+				-> LDKCVec_C3Tuple_OffersMessageDestinationBlindedPathZZ
+			{
+				let instance: OffersMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OffersMessageHandler::releasePendingMessagesLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.releasePendingMessages()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = Vec_C3Tuple_OffersMessageDestinationBlindedPathZZ(
+					array: swiftCallbackResult,
+					instantiationContext: "OffersMessageHandler.swift::init()::\(#function):\(#line)"
+				)
+				.dangleRecursively().cType!
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: OffersMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "OffersMessageHandler::freeLambda")
@@ -127,6 +152,7 @@ extension Bindings {
 			self.cType = LDKOffersMessageHandler(
 				this_arg: thisArg,
 				handle_message: handleMessageLambda,
+				release_pending_messages: releasePendingMessagesLambda,
 				free: freeLambda
 			)
 		}
@@ -134,10 +160,26 @@ extension Bindings {
 
 		/// Handles the given message by either responding with an [`Bolt12Invoice`], sending a payment,
 		/// or replying with an error.
+		///
+		/// The returned [`OffersMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
+		///
+		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
 		open func handleMessage(message: OffersMessage) -> OffersMessage? {
 
 			Bindings.print(
 				"Error: OffersMessageHandler::handleMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Releases any [`OffersMessage`]s that need to be sent.
+		///
+		/// Typically, this is used for messages initiating a payment flow rather than in response to
+		/// another message. The latter should use the return value of [`Self::handle_message`].
+		open func releasePendingMessages() -> [(OffersMessage, Destination, BlindedPath)] {
+
+			Bindings.print(
+				"Error: OffersMessageHandler::releasePendingMessages MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -179,6 +221,10 @@ extension Bindings {
 
 		/// Handles the given message by either responding with an [`Bolt12Invoice`], sending a payment,
 		/// or replying with an error.
+		///
+		/// The returned [`OffersMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
+		///
+		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
 		public override func handleMessage(message: OffersMessage) -> OffersMessage? {
 			// native call variable prep
 
@@ -191,6 +237,29 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Option_OffersMessageZ(
+				cType: nativeCallResult, instantiationContext: "OffersMessageHandler.swift::\(#function):\(#line)"
+			)
+			.getValue()
+
+			return returnValue
+		}
+
+		/// Releases any [`OffersMessage`]s that need to be sent.
+		///
+		/// Typically, this is used for messages initiating a payment flow rather than in response to
+		/// another message. The latter should use the return value of [`Self::handle_message`].
+		public override func releasePendingMessages() -> [(OffersMessage, Destination, BlindedPath)] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.release_pending_messages(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_C3Tuple_OffersMessageDestinationBlindedPathZZ(
 				cType: nativeCallResult, instantiationContext: "OffersMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()

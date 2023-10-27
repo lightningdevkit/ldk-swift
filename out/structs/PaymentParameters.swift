@@ -667,6 +667,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Creates parameters for paying to a blinded payee from the provided blinded route hints.
+		public class func initWithBlinded(blindedRouteHints: [(BlindedPayInfo, BlindedPath)]) -> PaymentParameters {
+			// native call variable prep
+
+			let blindedRouteHintsVector = Vec_C2Tuple_BlindedPayInfoBlindedPathZZ(
+				array: blindedRouteHints, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = PaymentParameters_blinded(blindedRouteHintsVector.cType!)
+
+			// cleanup
+
+			// blindedRouteHintsVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = PaymentParameters(
+				cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

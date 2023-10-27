@@ -91,7 +91,7 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getChangeScriptLambda(this_arg: UnsafeRawPointer?) -> LDKCResult_ScriptNoneZ {
+			func getChangeScriptLambda(this_arg: UnsafeRawPointer?) -> LDKCResult_CVec_u8ZNoneZ {
 				let instance: WalletSource = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "WalletSource::getChangeScriptLambda")
 
@@ -174,7 +174,7 @@ extension Bindings {
 
 		/// Returns a script to use for change above dust resulting from a successful coin selection
 		/// attempt.
-		open func getChangeScript() -> Result_ScriptNoneZ {
+		open func getChangeScript() -> Result_CVec_u8ZNoneZ {
 
 			Bindings.print(
 				"Error: WalletSource::getChangeScript MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -248,7 +248,7 @@ extension Bindings {
 
 		/// Returns a script to use for change above dust resulting from a successful coin selection
 		/// attempt.
-		public override func getChangeScript() -> Result_ScriptNoneZ {
+		public override func getChangeScript() -> Result_CVec_u8ZNoneZ {
 			// native call variable prep
 
 
@@ -259,7 +259,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_ScriptNoneZ(
+			let returnValue = Result_CVec_u8ZNoneZ(
 				cType: nativeCallResult, instantiationContext: "WalletSource.swift::\(#function):\(#line)")
 
 			return returnValue

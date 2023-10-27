@@ -729,6 +729,14 @@ export default class Parser {
 				rustType.swiftRawSignature = 'Int64';
 				rustType.kind = RustKind.Primitive;
 			}
+		} else if (relevantTypeLine.startsWith('double')) {
+			rustType = new RustPrimitive();
+			typelessLineRemainder = relevantTypeLine.substring('double'.length).trim();
+			if (rustType instanceof RustPrimitive) {
+				rustType.cSignature = 'double';
+				rustType.swiftRawSignature = 'Double';
+				rustType.kind = RustKind.Primitive;
+			}
 		} else if (relevantTypeLine.startsWith('bool')) {
 			rustType = new RustPrimitive();
 			typelessLineRemainder = relevantTypeLine.substring('bool'.length).trim();
@@ -1000,7 +1008,7 @@ export default class Parser {
 		 *
 		 */
 
-		const METHOD_TYPE_ASSOCIATION_PREFIX_REGEX = /^([A-Z][a-zA-Z0-9]*)(_([A-Z_][a-zA-Z0-9]*))*(_(i5|i8|i16|i32|i64|i128|u5|u8|u16|u32|u64|u128|usize|bool)[a-zA-Z0-9]+)?/;
+		const METHOD_TYPE_ASSOCIATION_PREFIX_REGEX = /^([A-Z][a-zA-Z0-9]*)(_([A-Z_][a-zA-Z0-9]*))*(_(f64|i5|i8|i16|i32|i64|i128|u5|u8|u16|u32|u64|u128|usize|bool)[a-zA-Z0-9]+)*/;
 		const prefixMatches = METHOD_TYPE_ASSOCIATION_PREFIX_REGEX.exec(name);
 		if (!prefixMatches) {
 			// debug('object-unassociated method name: %s', name);

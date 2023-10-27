@@ -219,7 +219,7 @@ extension Bindings {
 		/// Get network addresses by node id.
 		/// Returns None if the requested node is completely unknown,
 		/// or if node announcement for the node was never received.
-		public func getAddresses(pubkey: [UInt8]) -> [NetAddress]? {
+		public func getAddresses(pubkey: [UInt8]) -> [SocketAddress]? {
 			// native call variable prep
 
 			let pubkeyPrimitiveWrapper = PublicKey(
@@ -240,7 +240,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_CVec_NetAddressZZ(
+			let returnValue = Option_CVec_SocketAddressZZ(
 				cType: nativeCallResult, instantiationContext: "ReadOnlyNetworkGraph.swift::\(#function):\(#line)",
 				anchor: self
 			)

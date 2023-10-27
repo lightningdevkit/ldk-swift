@@ -161,31 +161,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Constructs a new OnionMessageProvider which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned OnionMessageProvider must be freed before this_arg is
-		public func asOnionMessageProvider() -> OnionMessageProvider {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKIgnoringMessageHandler>) in
-					IgnoringMessageHandler_as_OnionMessageProvider(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedOnionMessageProvider(
-				cType: nativeCallResult, instantiationContext: "IgnoringMessageHandler.swift::\(#function):\(#line)",
-				anchor: self)
-
-
-			return returnValue
-		}
-
 		/// Constructs a new OnionMessageHandler which calls the relevant methods on this_arg.
 		/// This copies the `inner` pointer in this_arg and thus the returned OnionMessageHandler must be freed before this_arg is
 		public func asOnionMessageHandler() -> OnionMessageHandler {

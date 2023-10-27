@@ -461,6 +461,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the ChannelPublicKeys.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKChannelPublicKeys>) in
+					ChannelPublicKeys_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Checks if two ChannelPublicKeyss contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		/// Two objects with NULL inner values will be considered "equal" here.

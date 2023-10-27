@@ -417,6 +417,9 @@ extension Bindings {
 		}
 
 		/// Constructs a new ChannelTransactionParameters given each field
+		///
+		/// Note that counterparty_parameters_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		/// Note that funding_outpoint_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			holderPubkeysArg: ChannelPublicKeys, holderSelectedContestDelayArg: UInt16, isOutboundFromHolderArg: Bool,
 			counterpartyParametersArg: CounterpartyChannelTransactionParameters, fundingOutpointArg: OutPoint,
@@ -474,6 +477,28 @@ extension Bindings {
 			let returnValue = ChannelTransactionParameters(
 				cType: nativeCallResult,
 				instantiationContext: "ChannelTransactionParameters.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Generates a non-cryptographic 64-bit hash of the ChannelTransactionParameters.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKChannelTransactionParameters>) in
+					ChannelTransactionParameters_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
 
 			return returnValue

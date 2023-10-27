@@ -130,6 +130,90 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The full onion packet including hop data, pubkey, and hmac
+		public func getOnionRoutingPacket() -> Packet {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKOnionMessage>) in
+					OnionMessage_get_onion_routing_packet(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Packet(
+				cType: nativeCallResult, instantiationContext: "OnionMessage.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// The full onion packet including hop data, pubkey, and hmac
+		public func setOnionRoutingPacket(val: Packet) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKOnionMessage>) in
+					OnionMessage_set_onion_routing_packet(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new OnionMessage given each field
+		public init(blindingPointArg: [UInt8], onionRoutingPacketArg: Packet) {
+			// native call variable prep
+
+			let blindingPointArgPrimitiveWrapper = PublicKey(
+				value: blindingPointArg, instantiationContext: "OnionMessage.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = OnionMessage_new(
+				blindingPointArgPrimitiveWrapper.cType!, onionRoutingPacketArg.dynamicallyDangledClone().cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			blindingPointArgPrimitiveWrapper.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = OnionMessage(cType: nativeCallResult, instantiationContext: "OnionMessage.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0, instantiationContext: "OnionMessage.swift::\(#function):\(#line)")
+
+
+		}
+
 		/// Creates a copy of the OnionMessage
 		internal func clone() -> OnionMessage {
 			// native call variable prep

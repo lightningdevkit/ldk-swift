@@ -154,7 +154,7 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getDestinationScriptLambda(this_arg: UnsafeRawPointer?) -> LDKCResult_ScriptNoneZ {
+			func getDestinationScriptLambda(this_arg: UnsafeRawPointer?) -> LDKCResult_CVec_u8ZNoneZ {
 				let instance: SignerProvider = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "SignerProvider::getDestinationScriptLambda")
 
@@ -282,7 +282,7 @@ extension Bindings {
 		///
 		/// This method should return a different value each time it is called, to avoid linking
 		/// on-chain funds across channels as controlled to the same user.
-		open func getDestinationScript() -> Result_ScriptNoneZ {
+		open func getDestinationScript() -> Result_CVec_u8ZNoneZ {
 
 			Bindings.print(
 				"Error: SignerProvider::getDestinationScript MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -451,7 +451,7 @@ extension Bindings {
 		///
 		/// This method should return a different value each time it is called, to avoid linking
 		/// on-chain funds across channels as controlled to the same user.
-		public override func getDestinationScript() -> Result_ScriptNoneZ {
+		public override func getDestinationScript() -> Result_CVec_u8ZNoneZ {
 			// native call variable prep
 
 
@@ -462,7 +462,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_ScriptNoneZ(
+			let returnValue = Result_CVec_u8ZNoneZ(
 				cType: nativeCallResult, instantiationContext: "SignerProvider.swift::\(#function):\(#line)")
 
 			return returnValue

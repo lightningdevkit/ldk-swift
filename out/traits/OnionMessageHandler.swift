@@ -6,12 +6,12 @@ import Foundation
 #endif
 
 
-/// A trait to describe an object that can receive onion messages.
+/// A handler for received [`OnionMessage`]s and for providing generated ones to send.
 public typealias OnionMessageHandler = Bindings.OnionMessageHandler
 
 extension Bindings {
 
-	/// A trait to describe an object that can receive onion messages.
+	/// A handler for received [`OnionMessage`]s and for providing generated ones to send.
 	open class OnionMessageHandler: NativeTraitWrapper {
 
 
@@ -60,7 +60,7 @@ extension Bindings {
 		}
 
 
-		public init(onionMessageProvider: OnionMessageProvider) {
+		public init() {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super
@@ -98,6 +98,32 @@ extension Bindings {
 
 				// return value (do some wrapping)
 				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func nextOnionMessageForPeerLambda(this_arg: UnsafeRawPointer?, peer_node_id: LDKPublicKey)
+				-> LDKOnionMessage
+			{
+				let instance: OnionMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageHandler::nextOnionMessageForPeerLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.nextOnionMessageForPeer(
+					peerNodeId: PublicKey(
+						cType: peer_node_id,
+						instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
 
 				return returnValue
 			}
@@ -225,11 +251,11 @@ extension Bindings {
 			self.cType = LDKOnionMessageHandler(
 				this_arg: thisArg,
 				handle_onion_message: handleOnionMessageLambda,
+				next_onion_message_for_peer: nextOnionMessageForPeerLambda,
 				peer_connected: peerConnectedLambda,
 				peer_disconnected: peerDisconnectedLambda,
 				provided_node_features: providedNodeFeaturesLambda,
 				provided_init_features: providedInitFeaturesLambda,
-				OnionMessageProvider: onionMessageProvider.activate().cType!,
 				free: freeLambda
 			)
 		}
@@ -240,6 +266,17 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: OnionMessageHandler::handleOnionMessage MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Returns the next pending onion message for the peer with the given node id.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		open func nextOnionMessageForPeer(peerNodeId: [UInt8]) -> OnionMessage {
+
+			Bindings.print(
+				"Error: OnionMessageHandler::nextOnionMessageForPeer MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -306,17 +343,6 @@ extension Bindings {
 		}
 
 
-		/// Implementation of OnionMessageProvider for this object.
-		public func getOnionMessageProvider() -> OnionMessageProvider {
-			// return value (do some wrapping)
-			let returnValue = NativelyImplementedOnionMessageProvider(
-				cType: self.cType!.OnionMessageProvider,
-				instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)", anchor: self)
-
-			return returnValue
-		}
-
-
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {
 				return
@@ -362,6 +388,33 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Returns the next pending onion message for the peer with the given node id.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public override func nextOnionMessageForPeer(peerNodeId: [UInt8]) -> OnionMessage {
+			// native call variable prep
+
+			let peerNodeIdPrimitiveWrapper = PublicKey(
+				value: peerNodeId, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.next_onion_message_for_peer(self.cType!.this_arg, peerNodeIdPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			peerNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = OnionMessage(
+				cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)")
 
 			return returnValue
 		}

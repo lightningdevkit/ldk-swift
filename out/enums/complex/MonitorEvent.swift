@@ -65,19 +65,13 @@ extension Bindings {
 			case HTLCEvent
 
 			/// A monitor event that the Channel's commitment transaction was confirmed.
-			case CommitmentTxConfirmed
+			case HolderForceClosed
 
 			/// Indicates a [`ChannelMonitor`] update has completed. See
 			/// [`ChannelMonitorUpdateStatus::InProgress`] for more information on how this is used.
 			///
 			/// [`ChannelMonitorUpdateStatus::InProgress`]: super::ChannelMonitorUpdateStatus::InProgress
 			case Completed
-
-			/// Indicates a [`ChannelMonitor`] update has failed. See
-			/// [`ChannelMonitorUpdateStatus::PermanentFailure`] for more information on how this is used.
-			///
-			/// [`ChannelMonitorUpdateStatus::PermanentFailure`]: super::ChannelMonitorUpdateStatus::PermanentFailure
-			case UpdateFailed
 
 		}
 
@@ -86,14 +80,11 @@ extension Bindings {
 				case LDKMonitorEvent_HTLCEvent:
 					return .HTLCEvent
 
-				case LDKMonitorEvent_CommitmentTxConfirmed:
-					return .CommitmentTxConfirmed
+				case LDKMonitorEvent_HolderForceClosed:
+					return .HolderForceClosed
 
 				case LDKMonitorEvent_Completed:
 					return .Completed
-
-				case LDKMonitorEvent_UpdateFailed:
-					return .UpdateFailed
 
 				default:
 					Bindings.print("Error: Invalid value type for MonitorEvent! Aborting.", severity: .ERROR)
@@ -163,13 +154,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Utility method to constructs a new CommitmentTxConfirmed-variant MonitorEvent
-		public class func initWithCommitmentTxConfirmed(a: Bindings.OutPoint) -> MonitorEvent {
+		/// Utility method to constructs a new HolderForceClosed-variant MonitorEvent
+		public class func initWithHolderForceClosed(a: Bindings.OutPoint) -> MonitorEvent {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = MonitorEvent_commitment_tx_confirmed(a.dynamicallyDangledClone().cType!)
+			let nativeCallResult = MonitorEvent_holder_force_closed(a.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -189,25 +180,6 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = MonitorEvent_completed(fundingTxo.dynamicallyDangledClone().cType!, monitorUpdateId)
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = MonitorEvent(
-				cType: nativeCallResult, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
-		/// Utility method to constructs a new UpdateFailed-variant MonitorEvent
-		public class func initWithUpdateFailed(a: Bindings.OutPoint) -> MonitorEvent {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult = MonitorEvent_update_failed(a.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -308,13 +280,13 @@ extension Bindings {
 				anchor: self)
 		}
 
-		public func getValueAsCommitmentTxConfirmed() -> Bindings.OutPoint? {
-			if self.cType?.tag != LDKMonitorEvent_CommitmentTxConfirmed {
+		public func getValueAsHolderForceClosed() -> Bindings.OutPoint? {
+			if self.cType?.tag != LDKMonitorEvent_HolderForceClosed {
 				return nil
 			}
 
 			return OutPoint(
-				cType: self.cType!.commitment_tx_confirmed,
+				cType: self.cType!.holder_force_closed,
 				instantiationContext: "MonitorEvent.swift::\(#function):\(#line)", anchor: self)
 		}
 
@@ -325,16 +297,6 @@ extension Bindings {
 
 			return MonitorEvent_LDKCompleted_Body(
 				cType: self.cType!.completed, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)",
-				anchor: self)
-		}
-
-		public func getValueAsUpdateFailed() -> Bindings.OutPoint? {
-			if self.cType?.tag != LDKMonitorEvent_UpdateFailed {
-				return nil
-			}
-
-			return OutPoint(
-				cType: self.cType!.update_failed, instantiationContext: "MonitorEvent.swift::\(#function):\(#line)",
 				anchor: self)
 		}
 

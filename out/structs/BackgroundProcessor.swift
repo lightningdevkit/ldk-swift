@@ -237,7 +237,7 @@ extension Bindings {
 			*, deprecated,
 			message: "This method passes the following non-cloneable, but freeable objects by value: self."
 		)
-		public func join() -> Result_NoneErrorZ {
+		public func join() -> Result_NoneIOErrorZ {
 			// native call variable prep
 
 
@@ -248,7 +248,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NoneErrorZ(
+			let returnValue = Result_NoneIOErrorZ(
 				cType: nativeCallResult, instantiationContext: "BackgroundProcessor.swift::\(#function):\(#line)")
 
 
@@ -268,7 +268,7 @@ extension Bindings {
 			*, deprecated,
 			message: "This method passes the following non-cloneable, but freeable objects by value: self."
 		)
-		public func stop() -> Result_NoneErrorZ {
+		public func stop() -> Result_NoneIOErrorZ {
 			// native call variable prep
 
 
@@ -279,7 +279,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NoneErrorZ(
+			let returnValue = Result_NoneIOErrorZ(
 				cType: nativeCallResult, instantiationContext: "BackgroundProcessor.swift::\(#function):\(#line)")
 
 

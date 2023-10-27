@@ -194,6 +194,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new Path given each field
+		///
+		/// Note that blinded_tail_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(hopsArg: [RouteHop], blindedTailArg: BlindedTail) {
 			// native call variable prep
 

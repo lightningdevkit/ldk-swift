@@ -355,6 +355,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new NodeAnnouncementInfo given each field
+		///
+		/// Note that announcement_message_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			featuresArg: NodeFeatures, lastUpdateArg: UInt32, rgbArg: [UInt8], aliasArg: NodeAlias,
 			announcementMessageArg: NodeAnnouncement
@@ -448,7 +450,7 @@ extension Bindings {
 		}
 
 		/// Internet-level addresses via which one can connect to the node
-		public func addresses() -> [NetAddress] {
+		public func addresses() -> [SocketAddress] {
 			// native call variable prep
 
 
@@ -463,7 +465,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_NetAddressZ(
+			let returnValue = Vec_SocketAddressZ(
 				cType: nativeCallResult, instantiationContext: "NodeAnnouncementInfo.swift::\(#function):\(#line)",
 				anchor: self
 			)

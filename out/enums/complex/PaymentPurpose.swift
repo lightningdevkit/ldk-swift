@@ -132,7 +132,7 @@ extension Bindings {
 		public class func initWithInvoicePayment(paymentPreimage: [UInt8]?, paymentSecret: [UInt8]) -> PaymentPurpose {
 			// native call variable prep
 
-			let paymentPreimageOption = Option_PaymentPreimageZ(
+			let paymentPreimageOption = Option_ThirtyTwoBytesZ(
 				some: paymentPreimage, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -376,7 +376,7 @@ extension Bindings {
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
 			public func getPaymentPreimage() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = Option_PaymentPreimageZ(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.payment_preimage,
 					instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)", anchor: self
 				)

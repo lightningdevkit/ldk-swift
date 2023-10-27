@@ -149,7 +149,7 @@ extension Bindings {
 		}
 
 		/// Get the public key from this NodeId
-		public func asPubkey() -> Result_PublicKeyErrorZ {
+		public func asPubkey() -> Result_PublicKeySecp256k1ErrorZ {
 			// native call variable prep
 
 
@@ -164,7 +164,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_PublicKeyErrorZ(
+			let returnValue = Result_PublicKeySecp256k1ErrorZ(
 				cType: nativeCallResult, instantiationContext: "NodeId.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false)

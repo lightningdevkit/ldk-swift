@@ -527,8 +527,11 @@ extension Bindings {
 
 		/// Returns the counterparty's pubkeys.
 		///
-		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func counterpartyPubkeys() -> ChannelPublicKeys {
+		/// Will return `None` if [`ChannelSigner::provide_channel_parameters`] has not been called.
+		/// In general, this is safe to `unwrap` only in [`ChannelSigner`] implementation.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func counterpartyPubkeys() -> ChannelPublicKeys? {
 			// native call variable prep
 
 
@@ -540,6 +543,19 @@ extension Bindings {
 
 
 			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKChannelPublicKeys
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
 
 
 			// return value (do some wrapping)
@@ -557,8 +573,9 @@ extension Bindings {
 		/// transactions, i.e., the amount of time that we have to wait to recover our funds if we
 		/// broadcast a transaction.
 		///
-		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func counterpartySelectedContestDelay() -> UInt16 {
+		/// Will return `None` if [`ChannelSigner::provide_channel_parameters`] has not been called.
+		/// In general, this is safe to `unwrap` only in [`ChannelSigner`] implementation.
+		public func counterpartySelectedContestDelay() -> UInt16? {
 			// native call variable prep
 
 
@@ -573,7 +590,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = Option_u16Z(
+				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
 
 
 			return returnValue
@@ -583,8 +604,9 @@ extension Bindings {
 		/// by our counterparty, i.e., the amount of time that they have to wait to recover their funds
 		/// if they broadcast a transaction.
 		///
-		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func holderSelectedContestDelay() -> UInt16 {
+		/// Will return `None` if [`ChannelSigner::provide_channel_parameters`] has not been called.
+		/// In general, this is safe to `unwrap` only in [`ChannelSigner`] implementation.
+		public func holderSelectedContestDelay() -> UInt16? {
 			// native call variable prep
 
 
@@ -599,7 +621,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = Option_u16Z(
+				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
 
 
 			return returnValue
@@ -607,8 +633,9 @@ extension Bindings {
 
 		/// Returns whether the holder is the initiator.
 		///
-		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func isOutbound() -> Bool {
+		/// Will return `None` if [`ChannelSigner::provide_channel_parameters`] has not been called.
+		/// In general, this is safe to `unwrap` only in [`ChannelSigner`] implementation.
+		public func isOutbound() -> Bool? {
 			// native call variable prep
 
 
@@ -623,7 +650,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = nativeCallResult
+			let returnValue = Option_boolZ(
+				cType: nativeCallResult, instantiationContext: "InMemorySigner.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
 
 
 			return returnValue
@@ -631,8 +662,11 @@ extension Bindings {
 
 		/// Funding outpoint
 		///
-		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func fundingOutpoint() -> OutPoint {
+		/// Will return `None` if [`ChannelSigner::provide_channel_parameters`] has not been called.
+		/// In general, this is safe to `unwrap` only in [`ChannelSigner`] implementation.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func fundingOutpoint() -> OutPoint? {
 			// native call variable prep
 
 
@@ -644,6 +678,19 @@ extension Bindings {
 
 
 			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKOutPoint
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
 
 
 			// return value (do some wrapping)
@@ -660,8 +707,11 @@ extension Bindings {
 		/// Returns a [`ChannelTransactionParameters`] for this channel, to be used when verifying or
 		/// building transactions.
 		///
-		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func getChannelParameters() -> ChannelTransactionParameters {
+		/// Will return `None` if [`ChannelSigner::provide_channel_parameters`] has not been called.
+		/// In general, this is safe to `unwrap` only in [`ChannelSigner`] implementation.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func getChannelParameters() -> ChannelTransactionParameters? {
 			// native call variable prep
 
 
@@ -673,6 +723,19 @@ extension Bindings {
 
 
 			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKChannelTransactionParameters
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
 
 
 			// return value (do some wrapping)
@@ -689,8 +752,11 @@ extension Bindings {
 		/// Returns the channel type features of the channel parameters. Should be helpful for
 		/// determining a channel's category, i. e. legacy/anchors/taproot/etc.
 		///
-		/// Will panic if [`ChannelSigner::provide_channel_parameters`] has not been called before.
-		public func channelTypeFeatures() -> ChannelTypeFeatures {
+		/// Will return `None` if [`ChannelSigner::provide_channel_parameters`] has not been called.
+		/// In general, this is safe to `unwrap` only in [`ChannelSigner`] implementation.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func channelTypeFeatures() -> ChannelTypeFeatures? {
 			// native call variable prep
 
 
@@ -702,6 +768,19 @@ extension Bindings {
 
 
 			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKChannelTypeFeatures
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
 
 
 			// return value (do some wrapping)

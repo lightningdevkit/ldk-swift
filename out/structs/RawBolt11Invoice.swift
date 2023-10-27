@@ -483,7 +483,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_PaymentSecretZ(
+			let returnValue = Option_ThirtyTwoBytesZ(
 				cType: nativeCallResult, instantiationContext: "RawBolt11Invoice.swift::\(#function):\(#line)",
 				anchor: self
 			)

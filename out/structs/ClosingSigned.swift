@@ -195,7 +195,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult, instantiationContext: "ClosingSigned.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -209,7 +209,7 @@ extension Bindings {
 		public func setSignature(val: [UInt8]) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = Signature(
+			let valPrimitiveWrapper = ECDSASignature(
 				value: val, instantiationContext: "ClosingSigned.swift::\(#function):\(#line)")
 
 
@@ -301,6 +301,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new ClosingSigned given each field
+		///
+		/// Note that fee_range_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			channelIdArg: [UInt8], feeSatoshisArg: UInt64, signatureArg: [UInt8], feeRangeArg: ClosingSignedFeeRange
 		) {
@@ -309,7 +311,7 @@ extension Bindings {
 			let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(
 				value: channelIdArg, instantiationContext: "ClosingSigned.swift::\(#function):\(#line)")
 
-			let signatureArgPrimitiveWrapper = Signature(
+			let signatureArgPrimitiveWrapper = ECDSASignature(
 				value: signatureArg, instantiationContext: "ClosingSigned.swift::\(#function):\(#line)")
 
 

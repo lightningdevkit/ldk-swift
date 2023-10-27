@@ -69,22 +69,22 @@ extension Bindings {
 
 
 			func getUtxoLambda(
-				this_arg: UnsafeRawPointer?, genesis_hash: UnsafePointer<UInt8Tuple32>?, short_channel_id: UInt64
+				this_arg: UnsafeRawPointer?, chain_hash: UnsafePointer<UInt8Tuple32>?, short_channel_id: UInt64
 			) -> LDKUtxoResult {
 				let instance: UtxoLookup = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "UtxoLookup::getUtxoLambda")
 
 				// Swift callback variable prep
 
-				var genesis_hashPointee: [UInt8]? = nil
-				if let genesis_hashUnwrapped = genesis_hash {
-					genesis_hashPointee = Bindings.UInt8Tuple32ToArray(tuple: genesis_hashUnwrapped.pointee)
+				var chain_hashPointee: [UInt8]? = nil
+				if let chain_hashUnwrapped = chain_hash {
+					chain_hashPointee = Bindings.UInt8Tuple32ToArray(tuple: chain_hashUnwrapped.pointee)
 				}
 
 
 				// Swift callback call
 				let swiftCallbackResult = instance.getUtxo(
-					genesisHash: genesis_hashPointee, shortChannelId: short_channel_id)
+					chainHash: chain_hashPointee, shortChannelId: short_channel_id)
 
 				// cleanup
 
@@ -124,11 +124,11 @@ extension Bindings {
 
 
 		/// Returns the transaction output of a funding transaction encoded by [`short_channel_id`].
-		/// Returns an error if `genesis_hash` is for a different chain or if such a transaction output
-		/// is unknown.
+		/// Returns an error if `chain_hash` is for a different chain or if such a transaction output is
+		/// unknown.
 		///
 		/// [`short_channel_id`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#definition-of-short_channel_id
-		open func getUtxo(genesisHash: [UInt8]?, shortChannelId: UInt64) -> UtxoResult {
+		open func getUtxo(chainHash: [UInt8]?, shortChannelId: UInt64) -> UtxoResult {
 
 			Bindings.print(
 				"Error: UtxoLookup::getUtxo MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -171,25 +171,25 @@ extension Bindings {
 	internal class NativelyImplementedUtxoLookup: UtxoLookup {
 
 		/// Returns the transaction output of a funding transaction encoded by [`short_channel_id`].
-		/// Returns an error if `genesis_hash` is for a different chain or if such a transaction output
-		/// is unknown.
+		/// Returns an error if `chain_hash` is for a different chain or if such a transaction output is
+		/// unknown.
 		///
 		/// [`short_channel_id`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#definition-of-short_channel_id
-		public override func getUtxo(genesisHash: [UInt8]?, shortChannelId: UInt64) -> UtxoResult {
+		public override func getUtxo(chainHash: [UInt8]?, shortChannelId: UInt64) -> UtxoResult {
 			// native call variable prep
 
-			var tupledGenesisHashPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
-			if let genesisHash = genesisHash {
+			var tupledChainHashPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
+			if let chainHash = chainHash {
 
-				let tupledGenesisHash = Bindings.arrayToUInt8Tuple32(array: genesisHash)
+				let tupledChainHash = Bindings.arrayToUInt8Tuple32(array: chainHash)
 
-				tupledGenesisHashPointer = UnsafeMutablePointer<UInt8Tuple32>.allocate(capacity: 1)
-				tupledGenesisHashPointer!.initialize(to: tupledGenesisHash)
+				tupledChainHashPointer = UnsafeMutablePointer<UInt8Tuple32>.allocate(capacity: 1)
+				tupledChainHashPointer!.initialize(to: tupledChainHash)
 			}
 
 
 			// native method call
-			let nativeCallResult = self.cType!.get_utxo(self.cType!.this_arg, tupledGenesisHashPointer, shortChannelId)
+			let nativeCallResult = self.cType!.get_utxo(self.cType!.this_arg, tupledChainHashPointer, shortChannelId)
 
 			// cleanup
 

@@ -182,7 +182,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult, instantiationContext: "TrustedClosingTransaction.swift::\(#function):\(#line)",
 				anchor: self
 			)

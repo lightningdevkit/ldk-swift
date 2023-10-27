@@ -1076,21 +1076,21 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getGenesisHashesLambda(this_arg: UnsafeRawPointer?) -> LDKCOption_CVec_ChainHashZZ {
+			func getChainHashesLambda(this_arg: UnsafeRawPointer?) -> LDKCOption_CVec_ThirtyTwoBytesZZ {
 				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
-					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::getGenesisHashesLambda")
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::getChainHashesLambda")
 
 				// Swift callback variable prep
 
 
 				// Swift callback call
-				let swiftCallbackResult = instance.getGenesisHashes()
+				let swiftCallbackResult = instance.getChainHashes()
 
 				// cleanup
 
 
 				// return value (do some wrapping)
-				let returnValue = Option_CVec_ChainHashZZ(
+				let returnValue = Option_CVec_ThirtyTwoBytesZZ(
 					some: swiftCallbackResult,
 					instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
 				)
@@ -1154,7 +1154,7 @@ extension Bindings {
 				handle_error: handleErrorLambda,
 				provided_node_features: providedNodeFeaturesLambda,
 				provided_init_features: providedInitFeaturesLambda,
-				get_genesis_hashes: getGenesisHashesLambda,
+				get_chain_hashes: getChainHashesLambda,
 				MessageSendEventsProvider: messageSendEventsProvider.activate().cType!,
 				free: freeLambda
 			)
@@ -1468,14 +1468,14 @@ extension Bindings {
 			abort()
 		}
 
-		/// Gets the genesis hashes for this `ChannelMessageHandler` indicating which chains it supports.
+		/// Gets the chain hashes for this `ChannelMessageHandler` indicating which chains it supports.
 		///
 		/// If it's `None`, then no particular network chain hash compatibility will be enforced when
 		/// connecting to peers.
-		open func getGenesisHashes() -> [[UInt8]]? {
+		open func getChainHashes() -> [[UInt8]]? {
 
 			Bindings.print(
-				"Error: ChannelMessageHandler::getGenesisHashes MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				"Error: ChannelMessageHandler::getChainHashes MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -2441,22 +2441,22 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Gets the genesis hashes for this `ChannelMessageHandler` indicating which chains it supports.
+		/// Gets the chain hashes for this `ChannelMessageHandler` indicating which chains it supports.
 		///
 		/// If it's `None`, then no particular network chain hash compatibility will be enforced when
 		/// connecting to peers.
-		public override func getGenesisHashes() -> [[UInt8]]? {
+		public override func getChainHashes() -> [[UInt8]]? {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = self.cType!.get_genesis_hashes(self.cType!.this_arg)
+			let nativeCallResult = self.cType!.get_chain_hashes(self.cType!.this_arg)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_CVec_ChainHashZZ(
+			let returnValue = Option_CVec_ThirtyTwoBytesZZ(
 				cType: nativeCallResult, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)"
 			)
 			.getValue()

@@ -69,7 +69,7 @@ extension Bindings {
 
 
 			func persistManagerLambda(this_arg: UnsafeRawPointer?, channel_manager: UnsafePointer<LDKChannelManager>)
-				-> LDKCResult_NoneErrorZ
+				-> LDKCResult_NoneIOErrorZ
 			{
 				let instance: Persister = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Persister::persistManagerLambda")
@@ -95,7 +95,7 @@ extension Bindings {
 			}
 
 			func persistGraphLambda(this_arg: UnsafeRawPointer?, network_graph: UnsafePointer<LDKNetworkGraph>)
-				-> LDKCResult_NoneErrorZ
+				-> LDKCResult_NoneIOErrorZ
 			{
 				let instance: Persister = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Persister::persistGraphLambda")
@@ -121,7 +121,7 @@ extension Bindings {
 			}
 
 			func persistScorerLambda(this_arg: UnsafeRawPointer?, scorer: UnsafePointer<LDKWriteableScore>)
-				-> LDKCResult_NoneErrorZ
+				-> LDKCResult_NoneIOErrorZ
 			{
 				let instance: Persister = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Persister::persistScorerLambda")
@@ -174,7 +174,7 @@ extension Bindings {
 
 
 		/// Persist the given ['ChannelManager'] to disk, returning an error if persistence failed.
-		open func persistManager(channelManager: ChannelManager) -> Result_NoneErrorZ {
+		open func persistManager(channelManager: ChannelManager) -> Result_NoneIOErrorZ {
 
 			Bindings.print(
 				"Error: Persister::persistManager MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -183,7 +183,7 @@ extension Bindings {
 		}
 
 		/// Persist the given [`NetworkGraph`] to disk, returning an error if persistence failed.
-		open func persistGraph(networkGraph: NetworkGraph) -> Result_NoneErrorZ {
+		open func persistGraph(networkGraph: NetworkGraph) -> Result_NoneIOErrorZ {
 
 			Bindings.print(
 				"Error: Persister::persistGraph MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -192,7 +192,7 @@ extension Bindings {
 		}
 
 		/// Persist the given [`WriteableScore`] to disk, returning an error if persistence failed.
-		open func persistScorer(scorer: WriteableScore) -> Result_NoneErrorZ {
+		open func persistScorer(scorer: WriteableScore) -> Result_NoneIOErrorZ {
 
 			Bindings.print(
 				"Error: Persister::persistScorer MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -235,7 +235,7 @@ extension Bindings {
 	internal class NativelyImplementedPersister: Persister {
 
 		/// Persist the given ['ChannelManager'] to disk, returning an error if persistence failed.
-		public override func persistManager(channelManager: ChannelManager) -> Result_NoneErrorZ {
+		public override func persistManager(channelManager: ChannelManager) -> Result_NoneIOErrorZ {
 			// native call variable prep
 
 
@@ -251,14 +251,14 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NoneErrorZ(
+			let returnValue = Result_NoneIOErrorZ(
 				cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 			return returnValue
 		}
 
 		/// Persist the given [`NetworkGraph`] to disk, returning an error if persistence failed.
-		public override func persistGraph(networkGraph: NetworkGraph) -> Result_NoneErrorZ {
+		public override func persistGraph(networkGraph: NetworkGraph) -> Result_NoneIOErrorZ {
 			// native call variable prep
 
 
@@ -273,14 +273,14 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NoneErrorZ(
+			let returnValue = Result_NoneIOErrorZ(
 				cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 			return returnValue
 		}
 
 		/// Persist the given [`WriteableScore`] to disk, returning an error if persistence failed.
-		public override func persistScorer(scorer: WriteableScore) -> Result_NoneErrorZ {
+		public override func persistScorer(scorer: WriteableScore) -> Result_NoneIOErrorZ {
 			// native call variable prep
 
 
@@ -295,7 +295,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_NoneErrorZ(
+			let returnValue = Result_NoneIOErrorZ(
 				cType: nativeCallResult, instantiationContext: "Persister.swift::\(#function):\(#line)")
 
 			return returnValue

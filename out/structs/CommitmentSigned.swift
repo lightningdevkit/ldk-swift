@@ -152,7 +152,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -166,7 +166,7 @@ extension Bindings {
 		public func setSignature(val: [UInt8]) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = Signature(
+			let valPrimitiveWrapper = ECDSASignature(
 				value: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 
 
@@ -209,7 +209,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_SignatureZ(
+			let returnValue = Vec_ECDSASignatureZ(
 				cType: nativeCallResult, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -223,7 +223,7 @@ extension Bindings {
 		public func setHtlcSignatures(val: [[UInt8]]) {
 			// native call variable prep
 
-			let valVector = Vec_SignatureZ(
+			let valVector = Vec_ECDSASignatureZ(
 				array: val, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)"
 			)
 			.dangle()
@@ -256,10 +256,10 @@ extension Bindings {
 			let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(
 				value: channelIdArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 
-			let signatureArgPrimitiveWrapper = Signature(
+			let signatureArgPrimitiveWrapper = ECDSASignature(
 				value: signatureArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)")
 
-			let htlcSignaturesArgVector = Vec_SignatureZ(
+			let htlcSignaturesArgVector = Vec_ECDSASignatureZ(
 				array: htlcSignaturesArg, instantiationContext: "CommitmentSigned.swift::\(#function):\(#line)"
 			)
 			.dangle()

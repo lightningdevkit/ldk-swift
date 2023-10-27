@@ -184,6 +184,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The per commitment point used by the broadcaster.
+		public func perCommitmentPoint() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKCommitmentTransaction>) in
+					CommitmentTransaction_per_commitment_point(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "CommitmentTransaction.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// The value to be sent to the broadcaster
 		public func toBroadcasterValueSat() -> UInt64 {
 			// native call variable prep

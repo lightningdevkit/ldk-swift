@@ -787,7 +787,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_ScriptZ(
+			let returnValue = Option_CVec_u8ZZ(
 				cType: nativeCallResult, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -801,7 +801,7 @@ extension Bindings {
 		public func setShutdownScriptpubkey(val: [UInt8]?) {
 			// native call variable prep
 
-			let valOption = Option_ScriptZ(
+			let valOption = Option_CVec_u8ZZ(
 				some: val, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -898,6 +898,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new AcceptChannel given each field
+		///
+		/// Note that channel_type_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			temporaryChannelIdArg: [UInt8], dustLimitSatoshisArg: UInt64, maxHtlcValueInFlightMsatArg: UInt64,
 			channelReserveSatoshisArg: UInt64, htlcMinimumMsatArg: UInt64, minimumDepthArg: UInt32,
@@ -929,7 +931,7 @@ extension Bindings {
 			let firstPerCommitmentPointArgPrimitiveWrapper = PublicKey(
 				value: firstPerCommitmentPointArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)")
 
-			let shutdownScriptpubkeyArgOption = Option_ScriptZ(
+			let shutdownScriptpubkeyArgOption = Option_CVec_u8ZZ(
 				some: shutdownScriptpubkeyArg, instantiationContext: "AcceptChannel.swift::\(#function):\(#line)"
 			)
 			.danglingClone()

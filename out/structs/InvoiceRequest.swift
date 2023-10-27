@@ -112,11 +112,37 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// An unpredictable series of bytes, typically containing information about the derivation of
-		/// [`payer_id`].
-		///
-		/// [`payer_id`]: Self::payer_id
-		public func metadata() -> [UInt8] {
+		/// The chains that may be used when paying a requested invoice (e.g., bitcoin mainnet).
+		/// Payments must be denominated in units of the minimal lightning-payable unit (e.g., msats)
+		/// for the selected chain.
+		public func chains() -> [[UInt8]] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_chains(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_ThirtyTwoBytesZ(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Opaque bytes set by the originator. Useful for authentication and validating fields since it
+		/// is reflected in `invoice_request` messages along with all the other fields from the `offer`.
+		public func metadata() -> [UInt8]? {
 			// native call variable prep
 
 
@@ -124,6 +150,278 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
 					InvoiceRequest_metadata(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_CVec_u8ZZ(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The minimum amount required for a successful payment of a single item.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func amount() -> Amount? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_amount(thisArgPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKAmount
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = Amount(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// A complete description of the purpose of the payment. Intended to be displayed to the user
+		/// but with the caveat that it has not been verified in any way.
+		public func description() -> PrintableString {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_description(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PrintableString(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Features pertaining to the offer.
+		public func offerFeatures() -> OfferFeatures {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_offer_features(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = OfferFeatures(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Duration since the Unix epoch when an invoice should no longer be requested.
+		///
+		/// If `None`, the offer does not expire.
+		public func absoluteExpiry() -> UInt64? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_absolute_expiry(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_u64Z(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The issuer of the offer, possibly beginning with `user@domain` or `domain`. Intended to be
+		/// displayed to the user but with the caveat that it has not been verified in any way.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func issuer() -> PrintableString? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_issuer(thisArgPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKPrintableString
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = PrintableString(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Paths to the recipient originating from publicly reachable nodes. Blinded paths provide
+		/// recipient privacy by obfuscating its node id.
+		public func paths() -> [BlindedPath] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_paths(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_BlindedPathZ(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The quantity of items supported.
+		public func supportedQuantity() -> Quantity {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_supported_quantity(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Quantity(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// The public key used by the recipient to sign invoices.
+		public func signingPubkey() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_signing_pubkey(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// An unpredictable series of bytes, typically containing information about the derivation of
+		/// [`payer_id`].
+		///
+		/// [`payer_id`]: Self::payer_id
+		public func payerMetadata() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
+					InvoiceRequest_payer_metadata(thisArgPointer)
 				}
 
 
@@ -197,14 +495,14 @@ extension Bindings {
 		}
 
 		/// Features pertaining to requesting an invoice.
-		public func features() -> InvoiceRequestFeatures {
+		public func invoiceRequestFeatures() -> InvoiceRequestFeatures {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
-					InvoiceRequest_features(thisArgPointer)
+					InvoiceRequest_invoice_request_features(thisArgPointer)
 				}
 
 
@@ -316,23 +614,17 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Verifies that the request was for an offer created using the given key. Returns the derived
-		/// keys need to sign an [`Bolt12Invoice`] for the request if they could be extracted from the
-		/// metadata.
+		/// Signature of the invoice request using [`payer_id`].
 		///
-		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
-		public func verify(key: ExpandedKey) -> Result_COption_KeyPairZNoneZ {
+		/// [`payer_id`]: Self::payer_id
+		public func signature() -> [UInt8] {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKInvoiceRequest>) in
-
-					withUnsafePointer(to: key.cType!) { (keyPointer: UnsafePointer<LDKExpandedKey>) in
-						InvoiceRequest_verify(thisArgPointer, keyPointer)
-					}
-
+					InvoiceRequest_signature(thisArgPointer)
 				}
 
 
@@ -340,11 +632,38 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_COption_KeyPairZNoneZ(
+			let returnValue = SchnorrSignature(
 				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle(false)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Verifies that the request was for an offer created using the given key. Returns the verified
+		/// request which contains the derived keys needed to sign a [`Bolt12Invoice`] for the request
+		/// if they could be extracted from the metadata.
+		///
+		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
+		public func verify(key: ExpandedKey) -> Result_VerifiedInvoiceRequestNoneZ {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: key.cType!) { (keyPointer: UnsafePointer<LDKExpandedKey>) in
+					InvoiceRequest_verify(self.dynamicallyDangledClone().cType!, keyPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_VerifiedInvoiceRequestNoneZ(
+				cType: nativeCallResult, instantiationContext: "InvoiceRequest.swift::\(#function):\(#line)")
 
 
 			return returnValue

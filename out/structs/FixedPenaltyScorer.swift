@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// [`Score`] implementation that uses a fixed penalty.
+/// [`ScoreLookUp`] implementation that uses a fixed penalty.
 public typealias FixedPenaltyScorer = Bindings.FixedPenaltyScorer
 
 extension Bindings {
 
 
-	/// [`Score`] implementation that uses a fixed penalty.
+	/// [`ScoreLookUp`] implementation that uses a fixed penalty.
 	public class FixedPenaltyScorer: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -119,16 +119,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Constructs a new Score which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned Score must be freed before this_arg is
-		public func asScore() -> Score {
+		/// Constructs a new ScoreLookUp which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned ScoreLookUp must be freed before this_arg is
+		public func asScoreLookUp() -> ScoreLookUp {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKFixedPenaltyScorer>) in
-					FixedPenaltyScorer_as_Score(thisArgPointer)
+					FixedPenaltyScorer_as_ScoreLookUp(thisArgPointer)
 				}
 
 
@@ -136,7 +136,32 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = NativelyImplementedScore(
+			let returnValue = NativelyImplementedScoreLookUp(
+				cType: nativeCallResult, instantiationContext: "FixedPenaltyScorer.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
+		/// Constructs a new ScoreUpdate which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned ScoreUpdate must be freed before this_arg is
+		public func asScoreUpdate() -> ScoreUpdate {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKFixedPenaltyScorer>) in
+					FixedPenaltyScorer_as_ScoreUpdate(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedScoreUpdate(
 				cType: nativeCallResult, instantiationContext: "FixedPenaltyScorer.swift::\(#function):\(#line)",
 				anchor: self)
 

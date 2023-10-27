@@ -110,6 +110,10 @@ extension Bindings {
 			/// The channel has been immediately closed.
 			case CounterpartyCoopClosedUnfundedChannel
 
+			/// Another channel in the same funding batch closed before the funding transaction
+			/// was ready to be broadcast.
+			case FundingBatchClosure
+
 		}
 
 		public func getValueType() -> ClosureReasonType {
@@ -140,6 +144,9 @@ extension Bindings {
 
 				case LDKClosureReason_CounterpartyCoopClosedUnfundedChannel:
 					return .CounterpartyCoopClosedUnfundedChannel
+
+				case LDKClosureReason_FundingBatchClosure:
+					return .FundingBatchClosure
 
 				default:
 					Bindings.print("Error: Invalid value type for ClosureReason! Aborting.", severity: .ERROR)
@@ -357,6 +364,25 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = ClosureReason_counterparty_coop_closed_unfunded_channel()
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ClosureReason(
+				cType: nativeCallResult, instantiationContext: "ClosureReason.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new FundingBatchClosure-variant ClosureReason
+		public class func initWithFundingBatchClosure() -> ClosureReason {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = ClosureReason_funding_batch_closure()
 
 			// cleanup
 

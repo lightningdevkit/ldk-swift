@@ -120,15 +120,23 @@ extension Bindings {
 			/// [`chan_utils::get_revokeable_redeemscript`].
 			case DelayedPaymentOutput
 
-			/// An output to a P2WPKH, spendable exclusively by our payment key (i.e., the private key
-			/// which corresponds to the `payment_point` in [`ChannelSigner::pubkeys`]). The witness
-			/// in the spending input is, thus, simply:
+			/// An output spendable exclusively by our payment key (i.e., the private key that corresponds
+			/// to the `payment_point` in [`ChannelSigner::pubkeys`]). The output type depends on the
+			/// channel type negotiated.
+			///
+			/// On an anchor outputs channel, the witness in the spending input is:
+			/// ```bitcoin
+			/// <BIP 143 signature> <witness script>
+			/// ```
+			///
+			/// Otherwise, it is:
 			/// ```bitcoin
 			/// <BIP 143 signature> <payment key>
 			/// ```
 			///
 			/// These are generally the result of our counterparty having broadcast the current state,
-			/// allowing us to claim the non-HTLC-encumbered outputs immediately.
+			/// allowing us to claim the non-HTLC-encumbered outputs immediately, or after one confirmation
+			/// in the case of anchor outputs channels.
 			case StaticPaymentOutput
 
 		}
@@ -258,6 +266,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the SpendableOutputDescriptor.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKSpendableOutputDescriptor>) in
+					SpendableOutputDescriptor_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Checks if two SpendableOutputDescriptors contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		public class func eq(a: SpendableOutputDescriptor, b: SpendableOutputDescriptor) -> Bool {
@@ -355,7 +385,7 @@ extension Bindings {
 		public class func createSpendableOutputsPsbt(
 			descriptors: [SpendableOutputDescriptor], outputs: [TxOut], changeDestinationScript: [UInt8],
 			feerateSatPer1000Weight: UInt32, locktime: UInt32?
-		) -> Result_C2Tuple_PartiallySignedTransactionusizeZNoneZ {
+		) -> Result_C2Tuple_CVec_u8ZusizeZNoneZ {
 			// native call variable prep
 
 			let descriptorsVector = Vec_SpendableOutputDescriptorZ(
@@ -374,7 +404,7 @@ extension Bindings {
 			)
 			.dangle()
 
-			let locktimeOption = Option_PackedLockTimeZ(
+			let locktimeOption = Option_u32Z(
 				some: locktime, instantiationContext: "SpendableOutputDescriptor.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -395,7 +425,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_PartiallySignedTransactionusizeZNoneZ(
+			let returnValue = Result_C2Tuple_CVec_u8ZusizeZNoneZ(
 				cType: nativeCallResult, instantiationContext: "SpendableOutputDescriptor.swift::\(#function):\(#line)")
 
 

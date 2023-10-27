@@ -201,6 +201,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new InvoiceError given each field
+		///
+		/// Note that erroneous_field_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(erroneousFieldArg: ErroneousField, messageArg: UntrustedString) {
 			// native call variable prep
 
@@ -244,6 +246,31 @@ extension Bindings {
 
 
 			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = InvoiceError(
+				cType: nativeCallResult, instantiationContext: "InvoiceError.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Creates an [`InvoiceError`] with the given message.
+		public class func initWithString(s: String) -> InvoiceError {
+			// native call variable prep
+
+			let sPrimitiveWrapper = Str(value: s, instantiationContext: "InvoiceError.swift::\(#function):\(#line)")
+				.dangle()
+
+
+			// native method call
+			let nativeCallResult = InvoiceError_from_string(sPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			sPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)

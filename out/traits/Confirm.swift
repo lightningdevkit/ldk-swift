@@ -219,7 +219,9 @@ extension Bindings {
 				return returnValue
 			}
 
-			func getRelevantTxidsLambda(this_arg: UnsafeRawPointer?) -> LDKCVec_C2Tuple_TxidCOption_BlockHashZZZ {
+			func getRelevantTxidsLambda(this_arg: UnsafeRawPointer?)
+				-> LDKCVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ
+			{
 				let instance: Confirm = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Confirm::getRelevantTxidsLambda")
 
@@ -233,7 +235,7 @@ extension Bindings {
 
 
 				// return value (do some wrapping)
-				let returnValue = Vec_C2Tuple_TxidCOption_BlockHashZZZ(
+				let returnValue = Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ(
 					array: swiftCallbackResult, instantiationContext: "Confirm.swift::init()::\(#function):\(#line)"
 				)
 				.dangleRecursively().cType!
@@ -525,7 +527,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_TxidCOption_BlockHashZZZ(
+			let returnValue = Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ(
 				cType: nativeCallResult, instantiationContext: "Confirm.swift::\(#function):\(#line)"
 			)
 			.getValue()

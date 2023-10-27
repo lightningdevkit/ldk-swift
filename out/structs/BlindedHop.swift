@@ -2,15 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// Used to construct the blinded hops portion of a blinded path. These hops cannot be identified
-/// by outside observers and thus can be used to hide the identity of the recipient.
+/// An encrypted payload and node id corresponding to a hop in a payment or onion message path, to
+/// be encoded in the sender's onion packet. These hops cannot be identified by outside observers
+/// and thus can be used to hide the identity of the recipient.
 public typealias BlindedHop = Bindings.BlindedHop
 
 extension Bindings {
 
 
-	/// Used to construct the blinded hops portion of a blinded path. These hops cannot be identified
-	/// by outside observers and thus can be used to hide the identity of the recipient.
+	/// An encrypted payload and node id corresponding to a hop in a payment or onion message path, to
+	/// be encoded in the sender's onion packet. These hops cannot be identified by outside observers
+	/// and thus can be used to hide the identity of the recipient.
 	public class BlindedHop: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -77,6 +79,155 @@ extension Bindings {
 
 
 			return returnValue
+		}
+
+		/// The blinded node id of this hop in a [`BlindedPath`].
+		public func getBlindedNodeId() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKBlindedHop>) in
+					BlindedHop_get_blinded_node_id(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "BlindedHop.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The blinded node id of this hop in a [`BlindedPath`].
+		public func setBlindedNodeId(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "BlindedHop.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKBlindedHop>) in
+					BlindedHop_set_blinded_node_id(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The encrypted payload intended for this hop in a [`BlindedPath`].
+		///
+		/// Returns a copy of the field.
+		public func getEncryptedPayload() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKBlindedHop>) in
+					BlindedHop_get_encrypted_payload(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "BlindedHop.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The encrypted payload intended for this hop in a [`BlindedPath`].
+		public func setEncryptedPayload(val: [UInt8]) {
+			// native call variable prep
+
+			let valVector = Vec_u8Z(array: val, instantiationContext: "BlindedHop.swift::\(#function):\(#line)")
+				.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKBlindedHop>) in
+					BlindedHop_set_encrypted_payload(thisPtrPointer, valVector.cType!)
+				}
+
+
+			// cleanup
+
+			// valVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new BlindedHop given each field
+		public init(blindedNodeIdArg: [UInt8], encryptedPayloadArg: [UInt8]) {
+			// native call variable prep
+
+			let blindedNodeIdArgPrimitiveWrapper = PublicKey(
+				value: blindedNodeIdArg, instantiationContext: "BlindedHop.swift::\(#function):\(#line)")
+
+			let encryptedPayloadArgVector = Vec_u8Z(
+				array: encryptedPayloadArg, instantiationContext: "BlindedHop.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = BlindedHop_new(
+				blindedNodeIdArgPrimitiveWrapper.cType!, encryptedPayloadArgVector.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			blindedNodeIdArgPrimitiveWrapper.noOpRetain()
+
+			// encryptedPayloadArgVector.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = BlindedHop(cType: nativeCallResult, instantiationContext: "BlindedHop.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super.init(conflictAvoidingVariableName: 0, instantiationContext: "BlindedHop.swift::\(#function):\(#line)")
+
+
 		}
 
 		/// Creates a copy of the BlindedHop

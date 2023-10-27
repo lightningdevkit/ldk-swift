@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::lightning::events::bump_transaction::HTLCDescriptors of arbitrary size.
+/// A dynamically-allocated array of crate::lightning::sign::HTLCDescriptors of arbitrary size.
 /// This corresponds to std::vector in C++
 internal typealias Vec_HTLCDescriptorZ = Bindings.Vec_HTLCDescriptorZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::lightning::events::bump_transaction::HTLCDescriptors of arbitrary size.
+	/// A dynamically-allocated array of crate::lightning::sign::HTLCDescriptors of arbitrary size.
 	/// This corresponds to std::vector in C++
 	internal class Vec_HTLCDescriptorZ: NativeTypeWrapper {
 

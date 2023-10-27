@@ -165,11 +165,16 @@ extension Bindings {
 						withUnsafePointer(to: broadcaster.activate().cType!) {
 							(broadcasterPointer: UnsafePointer<LDKBroadcasterInterface>) in
 
-							withUnsafePointer(to: logger.activate().cType!) {
-								(loggerPointer: UnsafePointer<LDKLogger>) in
-								ChannelMonitor_update_monitor(
-									thisArgPointer, updatesPointer, broadcasterPointer, feeEstimator.activate().cType!,
-									loggerPointer)
+							withUnsafePointer(to: feeEstimator.activate().cType!) {
+								(feeEstimatorPointer: UnsafePointer<LDKFeeEstimator>) in
+
+								withUnsafePointer(to: logger.activate().cType!) {
+									(loggerPointer: UnsafePointer<LDKLogger>) in
+									ChannelMonitor_update_monitor(
+										thisArgPointer, updatesPointer, broadcasterPointer, feeEstimatorPointer,
+										loggerPointer)
+								}
+
 							}
 
 						}
@@ -232,7 +237,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Tuple_OutPointScriptZ(
+			let returnValue = Tuple_OutPointCVec_u8ZZ(
 				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -259,7 +264,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_TxidCVec_C2Tuple_u32ScriptZZZZ(
+			let returnValue = Vec_C2Tuple_ThirtyTwoBytesCVec_C2Tuple_u32CVec_u8ZZZZZ(
 				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -363,6 +368,160 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Gets the counterparty's initial commitment transaction. The returned commitment
+		/// transaction is unsigned. This is intended to be called during the initial persistence of
+		/// the monitor (inside an implementation of [`Persist::persist_new_channel`]), to allow for
+		/// watchtowers in the persistence pipeline to have enough data to form justice transactions.
+		///
+		/// This is similar to [`Self::counterparty_commitment_txs_from_update`], except
+		/// that for the initial commitment transaction, we don't have a corresponding update.
+		///
+		/// This will only return `Some` for channel monitors that have been created after upgrading
+		/// to LDK 0.0.117+.
+		///
+		/// [`Persist::persist_new_channel`]: crate::chain::chainmonitor::Persist::persist_new_channel
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func initialCounterpartyCommitmentTx() -> CommitmentTransaction? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
+					ChannelMonitor_initial_counterparty_commitment_tx(thisArgPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKCommitmentTransaction
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = CommitmentTransaction(
+				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// Gets all of the counterparty commitment transactions provided by the given update. This
+		/// may be empty if the update doesn't include any new counterparty commitments. Returned
+		/// commitment transactions are unsigned.
+		///
+		/// This is provided so that watchtower clients in the persistence pipeline are able to build
+		/// justice transactions for each counterparty commitment upon each update. It's intended to be
+		/// used within an implementation of [`Persist::update_persisted_channel`], which is provided
+		/// with a monitor and an update. Once revoked, signing a justice transaction can be done using
+		/// [`Self::sign_to_local_justice_tx`].
+		///
+		/// It is expected that a watchtower client may use this method to retrieve the latest counterparty
+		/// commitment transaction(s), and then hold the necessary data until a later update in which
+		/// the monitor has been updated with the corresponding revocation data, at which point the
+		/// monitor can sign the justice transaction.
+		///
+		/// This will only return a non-empty list for monitor updates that have been created after
+		/// upgrading to LDK 0.0.117+. Note that no restriction lies on the monitors themselves, which
+		/// may have been created prior to upgrading.
+		///
+		/// [`Persist::update_persisted_channel`]: crate::chain::chainmonitor::Persist::update_persisted_channel
+		public func counterpartyCommitmentTxsFromUpdate(update: ChannelMonitorUpdate) -> [CommitmentTransaction] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
+
+					withUnsafePointer(to: update.cType!) { (updatePointer: UnsafePointer<LDKChannelMonitorUpdate>) in
+						ChannelMonitor_counterparty_commitment_txs_from_update(thisArgPointer, updatePointer)
+					}
+
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_CommitmentTransactionZ(
+				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Wrapper around [`EcdsaChannelSigner::sign_justice_revoked_output`] to make
+		/// signing the justice transaction easier for implementors of
+		/// [`chain::chainmonitor::Persist`]. On success this method returns the provided transaction
+		/// signing the input at `input_idx`. This method will only produce a valid signature for
+		/// a transaction spending the `to_local` output of a commitment transaction, i.e. this cannot
+		/// be used for revoked HTLC outputs.
+		///
+		/// `Value` is the value of the output being spent by the input at `input_idx`, committed
+		/// in the BIP 143 signature.
+		///
+		/// This method will only succeed if this monitor has received the revocation secret for the
+		/// provided `commitment_number`. If a commitment number is provided that does not correspond
+		/// to the commitment transaction being revoked, this will return a signed transaction, but
+		/// the signature will not be valid.
+		///
+		/// [`EcdsaChannelSigner::sign_justice_revoked_output`]: crate::sign::EcdsaChannelSigner::sign_justice_revoked_output
+		/// [`Persist`]: crate::chain::chainmonitor::Persist
+		public func signToLocalJusticeTx(justiceTx: [UInt8], inputIdx: UInt, value: UInt64, commitmentNumber: UInt64)
+			-> Result_TransactionNoneZ
+		{
+			// native call variable prep
+
+			let justiceTxPrimitiveWrapper = Transaction(
+				value: justiceTx, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
+					ChannelMonitor_sign_to_local_justice_tx(
+						thisArgPointer, justiceTxPrimitiveWrapper.cType!, inputIdx, value, commitmentNumber)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			justiceTxPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_TransactionNoneZ(
+				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
 		/// Gets the `node_id` of the counterparty for this channel.
 		///
 		/// Will be `None` for channels constructed on LDK versions prior to 0.0.110 and always `Some`
@@ -403,21 +562,20 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Used by ChannelManager deserialization to broadcast the latest holder state if its copy of
-		/// the Channel was out-of-date.
+		/// Used by [`ChannelManager`] deserialization to broadcast the latest holder state if its copy
+		/// of the channel state was out-of-date.
 		///
 		/// You may also use this to broadcast the latest local commitment transaction, either because
-		/// a monitor update failed with [`ChannelMonitorUpdateStatus::PermanentFailure`] or because we've
-		/// fallen behind (i.e. we've received proof that our counterparty side knows a revocation
-		/// secret we gave them that they shouldn't know).
+		/// a monitor update failed or because we've fallen behind (i.e. we've received proof that our
+		/// counterparty side knows a revocation secret we gave them that they shouldn't know).
 		///
 		/// Broadcasting these transactions in the second case is UNSAFE, as they allow counterparty
 		/// side to punish you. Nevertheless you may want to broadcast them if counterparty doesn't
 		/// close channel with their commitment transaction after a substantial amount of time. Best
 		/// may be to contact the other node operator out-of-band to coordinate other options available
-		/// to you. In any-case, the choice is up to you.
+		/// to you.
 		///
-		/// [`ChannelMonitorUpdateStatus::PermanentFailure`]: super::ChannelMonitorUpdateStatus::PermanentFailure
+		/// [`ChannelManager`]: crate::ln::channelmanager::ChannelManager
 		public func getLatestHolderCommitmentTxn(logger: Logger) -> [[UInt8]] {
 			// native call variable prep
 
@@ -681,7 +839,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_TxidCOption_BlockHashZZZ(
+			let returnValue = Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ(
 				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -748,6 +906,57 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Returns the descriptors for relevant outputs (i.e., those that we can spend) within the
+		/// transaction if they exist and the transaction has at least [`ANTI_REORG_DELAY`]
+		/// confirmations. For [`SpendableOutputDescriptor::DelayedPaymentOutput`] descriptors to be
+		/// returned, the transaction must have at least `max(ANTI_REORG_DELAY, to_self_delay)`
+		/// confirmations.
+		///
+		/// Descriptors returned by this method are primarily exposed via [`Event::SpendableOutputs`]
+		/// once they are no longer under reorg risk. This method serves as a way to retrieve these
+		/// descriptors at a later time, either for historical purposes, or to replay any
+		/// missed/unhandled descriptors. For the purpose of gathering historical records, if the
+		/// channel close has fully resolved (i.e., [`ChannelMonitor::get_claimable_balances`] returns
+		/// an empty set), you can retrieve all spendable outputs by providing all descendant spending
+		/// transactions starting from the channel's funding transaction and going down three levels.
+		///
+		/// `tx` is a transaction we'll scan the outputs of. Any transaction can be provided. If any
+		/// outputs which can be spent by us are found, at least one descriptor is returned.
+		///
+		/// `confirmation_height` must be the height of the block in which `tx` was included in.
+		public func getSpendableOutputs(tx: [UInt8], confirmationHeight: UInt32) -> [SpendableOutputDescriptor] {
+			// native call variable prep
+
+			let txPrimitiveWrapper = Transaction(
+				value: tx, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
+					ChannelMonitor_get_spendable_outputs(thisArgPointer, txPrimitiveWrapper.cType!, confirmationHeight)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			txPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_SpendableOutputDescriptorZ(
+				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 		/// Gets the balances in this channel which are either claimable by us if we were to
 		/// force-close the channel now or which are claimable on-chain (possibly awaiting
 		/// confirmation).
@@ -758,8 +967,7 @@ extension Bindings {
 		/// confirmations on the claim transaction.
 		///
 		/// Note that for `ChannelMonitors` which track a channel which went on-chain with versions of
-		/// LDK prior to 0.0.111, balances may not be fully captured if our counterparty broadcasted
-		/// a revoked state.
+		/// LDK prior to 0.0.111, not all or excess balances may be included.
 		///
 		/// See [`Balance`] for additional details on the types of claimable balances which
 		/// may be returned here and their meanings.

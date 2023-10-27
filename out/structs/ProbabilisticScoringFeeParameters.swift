@@ -142,12 +142,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used with the payment amount to calculate a fixed penalty applied to each
-		/// channel, in excess of the [`base_penalty_msat`].
+		/// A multiplier used with the total amount flowing over a channel to calculate a fixed penalty
+		/// applied to each channel, in excess of the [`base_penalty_msat`].
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^30`ths of the payment amount.
+		/// multiplier and `2^30`ths of the total amount flowing over a channel (i.e. the payment
+		/// amount plus the amount of any other HTLCs flowing we sent over the same channel).
 		///
 		/// ie `base_penalty_amount_multiplier_msat * amount_msat / 2^30`
 		///
@@ -176,12 +177,13 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used with the payment amount to calculate a fixed penalty applied to each
-		/// channel, in excess of the [`base_penalty_msat`].
+		/// A multiplier used with the total amount flowing over a channel to calculate a fixed penalty
+		/// applied to each channel, in excess of the [`base_penalty_msat`].
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^30`ths of the payment amount.
+		/// multiplier and `2^30`ths of the total amount flowing over a channel (i.e. the payment
+		/// amount plus the amount of any other HTLCs flowing we sent over the same channel).
 		///
 		/// ie `base_penalty_amount_multiplier_msat * amount_msat / 2^30`
 		///
@@ -286,14 +288,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with a payment amount and the negative `log10` of the
-		/// channel's success probability for the payment, as determined by our latest estimates of the
-		/// channel's liquidity, to determine the amount penalty.
+		/// A multiplier used in conjunction with the total amount flowing over a channel and the
+		/// negative `log10` of the channel's success probability for the payment, as determined by our
+		/// latest estimates of the channel's liquidity, to determine the amount penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^20`ths of the payment amount, weighted by the negative `log10` of the
-		/// success probability.
+		/// multiplier and `2^20`ths of the amount flowing over this channel, weighted by the negative
+		/// `log10` of the success probability.
 		///
 		/// `-log10(success_probability) * liquidity_penalty_amount_multiplier_msat * amount_msat / 2^20`
 		///
@@ -326,14 +328,14 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with a payment amount and the negative `log10` of the
-		/// channel's success probability for the payment, as determined by our latest estimates of the
-		/// channel's liquidity, to determine the amount penalty.
+		/// A multiplier used in conjunction with the total amount flowing over a channel and the
+		/// negative `log10` of the channel's success probability for the payment, as determined by our
+		/// latest estimates of the channel's liquidity, to determine the amount penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost (i.e.,
 		/// fees plus penalty) for large payments. The penalty is computed as the product of this
-		/// multiplier and `2^20`ths of the payment amount, weighted by the negative `log10` of the
-		/// success probability.
+		/// multiplier and `2^20`ths of the amount flowing over this channel, weighted by the negative
+		/// `log10` of the success probability.
 		///
 		/// `-log10(success_probability) * liquidity_penalty_amount_multiplier_msat * amount_msat / 2^20`
 		///
@@ -439,13 +441,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with the payment amount and the negative `log10` of the
-		/// channel's success probability for the payment, as determined based on the history of our
-		/// estimates of the channel's available liquidity, to determine a penalty.
+		/// A multiplier used in conjunction with the total amount flowing over a channel and the
+		/// negative `log10` of the channel's success probability for the payment, as determined based
+		/// on the history of our estimates of the channel's available liquidity, to determine a
+		/// penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost for
-		/// large payments. The penalty is computed as the product of this multiplier and the `2^20`ths
-		/// of the payment amount, weighted by the negative `log10` of the success probability.
+		/// large payments. The penalty is computed as the product of this multiplier and `2^20`ths
+		/// of the amount flowing over this channel, weighted by the negative `log10` of the success
+		/// probability.
 		///
 		/// This penalty is similar to [`liquidity_penalty_amount_multiplier_msat`], however, instead
 		/// of using only our latest estimate for the current liquidity available in the channel, it
@@ -480,13 +484,15 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// A multiplier used in conjunction with the payment amount and the negative `log10` of the
-		/// channel's success probability for the payment, as determined based on the history of our
-		/// estimates of the channel's available liquidity, to determine a penalty.
+		/// A multiplier used in conjunction with the total amount flowing over a channel and the
+		/// negative `log10` of the channel's success probability for the payment, as determined based
+		/// on the history of our estimates of the channel's available liquidity, to determine a
+		/// penalty.
 		///
 		/// The purpose of the amount penalty is to avoid having fees dominate the channel cost for
-		/// large payments. The penalty is computed as the product of this multiplier and the `2^20`ths
-		/// of the payment amount, weighted by the negative `log10` of the success probability.
+		/// large payments. The penalty is computed as the product of this multiplier and `2^20`ths
+		/// of the amount flowing over this channel, weighted by the negative `log10` of the success
+		/// probability.
 		///
 		/// This penalty is similar to [`liquidity_penalty_amount_multiplier_msat`], however, instead
 		/// of using only our latest estimate for the current liquidity available in the channel, it
@@ -579,8 +585,9 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// This penalty is applied when the amount we're attempting to send over a channel exceeds our
-		/// current estimate of the channel's available liquidity.
+		/// This penalty is applied when the total amount flowing over a channel exceeds our current
+		/// estimate of the channel's available liquidity. The total amount is the amount of the
+		/// current HTLC plus any HTLCs which we've sent over the same channel.
 		///
 		/// Note that in this case all other penalties, including the
 		/// [`liquidity_penalty_multiplier_msat`] and [`liquidity_penalty_amount_multiplier_msat`]-based
@@ -618,8 +625,9 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// This penalty is applied when the amount we're attempting to send over a channel exceeds our
-		/// current estimate of the channel's available liquidity.
+		/// This penalty is applied when the total amount flowing over a channel exceeds our current
+		/// estimate of the channel's available liquidity. The total amount is the amount of the
+		/// current HTLC plus any HTLCs which we've sent over the same channel.
 		///
 		/// Note that in this case all other penalties, including the
 		/// [`liquidity_penalty_multiplier_msat`] and [`liquidity_penalty_amount_multiplier_msat`]-based
@@ -644,6 +652,90 @@ extension Bindings {
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKProbabilisticScoringFeeParameters>) in
 					ProbabilisticScoringFeeParameters_set_considered_impossible_penalty_msat(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// In order to calculate most of the scores above, we must first convert a lower and upper
+		/// bound on the available liquidity in a channel into the probability that we think a payment
+		/// will succeed. That probability is derived from a Probability Density Function for where we
+		/// think the liquidity in a channel likely lies, given such bounds.
+		///
+		/// If this flag is set, that PDF is simply a constant - we assume that the actual available
+		/// liquidity in a channel is just as likely to be at any point between our lower and upper
+		/// bounds.
+		///
+		/// If this flag is *not* set, that PDF is `(x - 0.5*capacity) ^ 2`. That is, we use an
+		/// exponential curve which expects the liquidity of a channel to lie \"at the edges\". This
+		/// matches experimental results - most routing nodes do not aggressively rebalance their
+		/// channels and flows in the network are often unbalanced, leaving liquidity usually
+		/// unavailable.
+		///
+		/// Thus, for the \"best\" routes, leave this flag `false`. However, the flag does imply a number
+		/// of floating-point multiplications in the hottest routing code, which may lead to routing
+		/// performance degradation on some machines.
+		///
+		/// Default value: false
+		public func getLinearSuccessProbability() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) {
+					(thisPtrPointer: UnsafePointer<LDKProbabilisticScoringFeeParameters>) in
+					ProbabilisticScoringFeeParameters_get_linear_success_probability(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// In order to calculate most of the scores above, we must first convert a lower and upper
+		/// bound on the available liquidity in a channel into the probability that we think a payment
+		/// will succeed. That probability is derived from a Probability Density Function for where we
+		/// think the liquidity in a channel likely lies, given such bounds.
+		///
+		/// If this flag is set, that PDF is simply a constant - we assume that the actual available
+		/// liquidity in a channel is just as likely to be at any point between our lower and upper
+		/// bounds.
+		///
+		/// If this flag is *not* set, that PDF is `(x - 0.5*capacity) ^ 2`. That is, we use an
+		/// exponential curve which expects the liquidity of a channel to lie \"at the edges\". This
+		/// matches experimental results - most routing nodes do not aggressively rebalance their
+		/// channels and flows in the network are often unbalanced, leaving liquidity usually
+		/// unavailable.
+		///
+		/// Thus, for the \"best\" routes, leave this flag `false`. However, the flag does imply a number
+		/// of floating-point multiplications in the hottest routing code, which may lead to routing
+		/// performance degradation on some machines.
+		///
+		/// Default value: false
+		public func setLinearSuccessProbability(val: Bool) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKProbabilisticScoringFeeParameters>) in
+					ProbabilisticScoringFeeParameters_set_linear_success_probability(thisPtrPointer, val)
 				}
 
 

@@ -79,6 +79,230 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// To send to a blinded path, the sender first finds a route to the unblinded
+		/// `introduction_node_id`, which can unblind its [`encrypted_payload`] to find out the onion
+		/// message or payment's next hop and forward it along.
+		///
+		/// [`encrypted_payload`]: BlindedHop::encrypted_payload
+		public func getIntroductionNodeId() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKBlindedPath>) in
+					BlindedPath_get_introduction_node_id(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// To send to a blinded path, the sender first finds a route to the unblinded
+		/// `introduction_node_id`, which can unblind its [`encrypted_payload`] to find out the onion
+		/// message or payment's next hop and forward it along.
+		///
+		/// [`encrypted_payload`]: BlindedHop::encrypted_payload
+		public func setIntroductionNodeId(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKBlindedPath>) in
+					BlindedPath_set_introduction_node_id(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Used by the introduction node to decrypt its [`encrypted_payload`] to forward the onion
+		/// message or payment.
+		///
+		/// [`encrypted_payload`]: BlindedHop::encrypted_payload
+		public func getBlindingPoint() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKBlindedPath>) in
+					BlindedPath_get_blinding_point(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Used by the introduction node to decrypt its [`encrypted_payload`] to forward the onion
+		/// message or payment.
+		///
+		/// [`encrypted_payload`]: BlindedHop::encrypted_payload
+		public func setBlindingPoint(val: [UInt8]) {
+			// native call variable prep
+
+			let valPrimitiveWrapper = PublicKey(
+				value: val, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKBlindedPath>) in
+					BlindedPath_set_blinding_point(thisPtrPointer, valPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			valPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The hops composing the blinded path.
+		public func getBlindedHops() -> [BlindedHop] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKBlindedPath>) in
+					BlindedPath_get_blinded_hops(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_BlindedHopZ(
+				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// The hops composing the blinded path.
+		public func setBlindedHops(val: [BlindedHop]) {
+			// native call variable prep
+
+			let valVector = Vec_BlindedHopZ(
+				array: val, instantiationContext: "BlindedPath.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKBlindedPath>) in
+					BlindedPath_set_blinded_hops(thisPtrPointer, valVector.cType!)
+				}
+
+
+			// cleanup
+
+			// valVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new BlindedPath given each field
+		public init(introductionNodeIdArg: [UInt8], blindingPointArg: [UInt8], blindedHopsArg: [BlindedHop]) {
+			// native call variable prep
+
+			let introductionNodeIdArgPrimitiveWrapper = PublicKey(
+				value: introductionNodeIdArg, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+			let blindingPointArgPrimitiveWrapper = PublicKey(
+				value: blindingPointArg, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+			let blindedHopsArgVector = Vec_BlindedHopZ(
+				array: blindedHopsArg, instantiationContext: "BlindedPath.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = BlindedPath_new(
+				introductionNodeIdArgPrimitiveWrapper.cType!, blindingPointArgPrimitiveWrapper.cType!,
+				blindedHopsArgVector.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			introductionNodeIdArgPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			blindingPointArgPrimitiveWrapper.noOpRetain()
+
+			// blindedHopsArgVector.noOpRetain()
+
+			self.initialCFreeability = nativeCallResult.is_owned
+
+
+			/*
+						// return value (do some wrapping)
+						let returnValue = BlindedPath(cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+						*/
+
+
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(conflictAvoidingVariableName: 0, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+		}
+
 		/// Creates a copy of the BlindedPath
 		internal func clone() -> BlindedPath {
 			// native call variable prep
@@ -152,10 +376,42 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Create a one-hop blinded path for a message.
+		public class func oneHopForMessage(recipientNodeId: [UInt8], entropySource: EntropySource)
+			-> Result_BlindedPathNoneZ
+		{
+			// native call variable prep
+
+			let recipientNodeIdPrimitiveWrapper = PublicKey(
+				value: recipientNodeId, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: entropySource.activate().cType!) {
+					(entropySourcePointer: UnsafePointer<LDKEntropySource>) in
+					BlindedPath_one_hop_for_message(recipientNodeIdPrimitiveWrapper.cType!, entropySourcePointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			recipientNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_BlindedPathNoneZ(
+				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
 		/// Create a blinded path for an onion message, to be forwarded along `node_pks`. The last node
 		/// pubkey in `node_pks` will be the destination node.
 		///
-		/// Errors if less than two hops are provided or if `node_pk`(s) are invalid.
+		/// Errors if no hops are provided or if `node_pk`(s) are invalid.
 		public class func newForMessage(nodePks: [[UInt8]], entropySource: EntropySource) -> Result_BlindedPathNoneZ {
 			// native call variable prep
 
@@ -180,6 +436,40 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Result_BlindedPathNoneZ(
+				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Create a one-hop blinded path for a payment.
+		public class func oneHopForPayment(payeeNodeId: [UInt8], payeeTlvs: ReceiveTlvs, entropySource: EntropySource)
+			-> Result_C2Tuple_BlindedPayInfoBlindedPathZNoneZ
+		{
+			// native call variable prep
+
+			let payeeNodeIdPrimitiveWrapper = PublicKey(
+				value: payeeNodeId, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: entropySource.activate().cType!) {
+					(entropySourcePointer: UnsafePointer<LDKEntropySource>) in
+					BlindedPath_one_hop_for_payment(
+						payeeNodeIdPrimitiveWrapper.cType!, payeeTlvs.dynamicallyDangledClone().cType!,
+						entropySourcePointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			payeeNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_C2Tuple_BlindedPayInfoBlindedPathZNoneZ(
 				cType: nativeCallResult, instantiationContext: "BlindedPath.swift::\(#function):\(#line)")
 
 

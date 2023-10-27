@@ -387,7 +387,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult,
 				instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
 			)
@@ -436,7 +436,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult,
 				instantiationContext: "BuiltCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
 			)

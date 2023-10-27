@@ -213,28 +213,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The TLV record type for the message as used in an `onionmsg_tlv` TLV stream.
-		public func tlvType() -> UInt64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffersMessage>) in
-					OffersMessage_tlv_type(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// Serialize the OffersMessage object into a byte array which can be read by OffersMessage_read
 		public func write() -> [UInt8] {
 			// native call variable prep

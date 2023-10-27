@@ -139,38 +139,10 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_ChainHashZ(
+			let returnValue = Vec_ThirtyTwoBytesZ(
 				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Returns whether the given chain is supported by the offer.
-		public func supportsChain(chain: [UInt8]) -> Bool {
-			// native call variable prep
-
-			let chainPrimitiveWrapper = ThirtyTwoBytes(
-				value: chain, instantiationContext: "Offer.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
-					Offer_supports_chain(thisArgPointer, chainPrimitiveWrapper.cType!)
-				}
-
-
-			// cleanup
-
-			// for elided types, we need this
-			chainPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
 
 
 			return returnValue
@@ -269,14 +241,14 @@ extension Bindings {
 		}
 
 		/// Features pertaining to the offer.
-		public func features() -> OfferFeatures {
+		public func offerFeatures() -> OfferFeatures {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
-					Offer_features(thisArgPointer)
+					Offer_offer_features(thisArgPointer)
 				}
 
 
@@ -311,32 +283,10 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Option_DurationZ(
+			let returnValue = Option_u64Z(
 				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)", anchor: self
 			)
 			.getValue()
-
-
-			return returnValue
-		}
-
-		/// Whether the offer has expired.
-		public func isExpired() -> Bool {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
-					Offer_is_expired(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
 
 
 			return returnValue
@@ -434,6 +384,81 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The public key used by the recipient to sign invoices.
+		public func signingPubkey() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
+					Offer_signing_pubkey(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = PublicKey(
+				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Returns whether the given chain is supported by the offer.
+		public func supportsChain(chain: [UInt8]) -> Bool {
+			// native call variable prep
+
+			let chainPrimitiveWrapper = ThirtyTwoBytes(
+				value: chain, instantiationContext: "Offer.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
+					Offer_supports_chain(thisArgPointer, chainPrimitiveWrapper.cType!)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			chainPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Whether the offer has expired.
+		public func isExpired() -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
+					Offer_is_expired(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Returns whether the given quantity is valid for the offer.
 		public func isValidQuantity(quantity: UInt64) -> Bool {
 			// native call variable prep
@@ -475,31 +500,6 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
-		/// The public key used by the recipient to sign invoices.
-		public func signingPubkey() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
-					Offer_signing_pubkey(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = PublicKey(
-				cType: nativeCallResult, instantiationContext: "Offer.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false).getValue()
 
 
 			return returnValue

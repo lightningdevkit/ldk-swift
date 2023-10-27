@@ -22,8 +22,8 @@ runs:
             run: |
                 echo `pwd`
                 mkdir -p ${{ inputs.destination }}/bin
-                git clone --branch 2023-07-0.0.116-java-bindings https://github.com/TheBlueMatt/rust-lightning ${{ inputs.destination }}/rust-lightning
-                git clone --branch v0.0.116.0 https://github.com/lightningdevkit/ldk-c-bindings ${{ inputs.destination }}/ldk-c-bindings
+                git clone --branch 0.0.118-bindings https://github.com/lightningdevkit/rust-lightning ${{ inputs.destination }}/rust-lightning
+                git clone --branch main https://github.com/lightningdevkit/ldk-c-bindings ${{ inputs.destination }}/ldk-c-bindings
         -   name: Install Rust, required targets
             if: ${{ inputs.configureRustNightly == 'true' }}
             shell: bash
@@ -42,6 +42,10 @@ runs:
                     ~/.cargo/git/db/
                     target/
                 key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        -   name: Pin cbindgen v24
+            shell: bash
+            run: |
+                cargo install --version 0.24.5 cbindgen
         -   name: Generate C Bindings
             shell: bash
             run: |

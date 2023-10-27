@@ -419,6 +419,8 @@ extension Bindings {
 		}
 
 		/// Constructs a new CommitmentUpdate given each field
+		///
+		/// Note that update_fee_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public init(
 			updateAddHtlcsArg: [UpdateAddHTLC], updateFulfillHtlcsArg: [UpdateFulfillHTLC],
 			updateFailHtlcsArg: [UpdateFailHTLC], updateFailMalformedHtlcsArg: [UpdateFailMalformedHTLC],

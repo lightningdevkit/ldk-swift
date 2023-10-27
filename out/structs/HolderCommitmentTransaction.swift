@@ -98,7 +98,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Signature(
+			let returnValue = ECDSASignature(
 				cType: nativeCallResult,
 				instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
 			)
@@ -112,7 +112,7 @@ extension Bindings {
 		public func setCounterpartySig(val: [UInt8]) {
 			// native call variable prep
 
-			let valPrimitiveWrapper = Signature(
+			let valPrimitiveWrapper = ECDSASignature(
 				value: val, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)")
 
 
@@ -155,7 +155,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_SignatureZ(
+			let returnValue = Vec_ECDSASignatureZ(
 				cType: nativeCallResult,
 				instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)", anchor: self
 			)
@@ -169,7 +169,7 @@ extension Bindings {
 		public func setCounterpartyHtlcSigs(val: [[UInt8]]) {
 			// native call variable prep
 
-			let valVector = Vec_SignatureZ(
+			let valVector = Vec_ECDSASignatureZ(
 				array: val, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)"
 			)
 			.dangle()
@@ -279,11 +279,11 @@ extension Bindings {
 		) {
 			// native call variable prep
 
-			let counterpartySigPrimitiveWrapper = Signature(
+			let counterpartySigPrimitiveWrapper = ECDSASignature(
 				value: counterpartySig, instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)"
 			)
 
-			let counterpartyHtlcSigsVector = Vec_SignatureZ(
+			let counterpartyHtlcSigsVector = Vec_ECDSASignatureZ(
 				array: counterpartyHtlcSigs,
 				instantiationContext: "HolderCommitmentTransaction.swift::\(#function):\(#line)"
 			)

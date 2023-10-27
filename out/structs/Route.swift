@@ -132,19 +132,21 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The `payment_params` parameter passed via [`RouteParameters`] to [`find_route`].
+		/// The `route_params` parameter passed to [`find_route`].
 		///
 		/// This is used by `ChannelManager` to track information which may be required for retries.
 		///
+		/// Will be `None` for objects serialized with LDK versions prior to 0.0.117.
+		///
 		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func getPaymentParams() -> PaymentParameters? {
+		public func getRouteParams() -> RouteParameters? {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKRoute>) in
-					Route_get_payment_params(thisPtrPointer)
+					Route_get_route_params(thisPtrPointer)
 				}
 
 
@@ -152,7 +154,7 @@ extension Bindings {
 
 			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
 			// Type group: RustStruct
-			// Type: LDKPaymentParameters
+			// Type: LDKRouteParameters
 
 			if nativeCallResult.inner == nil {
 				return nil
@@ -165,7 +167,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PaymentParameters(
+			let returnValue = RouteParameters(
 				cType: nativeCallResult, instantiationContext: "Route.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle(false)
@@ -174,19 +176,21 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// The `payment_params` parameter passed via [`RouteParameters`] to [`find_route`].
+		/// The `route_params` parameter passed to [`find_route`].
 		///
 		/// This is used by `ChannelManager` to track information which may be required for retries.
 		///
+		/// Will be `None` for objects serialized with LDK versions prior to 0.0.117.
+		///
 		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
-		public func setPaymentParams(val: PaymentParameters) {
+		public func setRouteParams(val: RouteParameters) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKRoute>) in
-					Route_set_payment_params(thisPtrPointer, val.dynamicallyDangledClone().cType!)
+					Route_set_route_params(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 				}
 
 
@@ -201,7 +205,9 @@ extension Bindings {
 		}
 
 		/// Constructs a new Route given each field
-		public init(pathsArg: [Path], paymentParamsArg: PaymentParameters) {
+		///
+		/// Note that route_params_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public init(pathsArg: [Path], routeParamsArg: RouteParameters) {
 			// native call variable prep
 
 			let pathsArgVector = Vec_PathZ(array: pathsArg, instantiationContext: "Route.swift::\(#function):\(#line)")
@@ -209,7 +215,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = Route_new(pathsArgVector.cType!, paymentParamsArg.dynamicallyDangledClone().cType!)
+			let nativeCallResult = Route_new(pathsArgVector.cType!, routeParamsArg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -307,8 +313,11 @@ extension Bindings {
 
 		/// Returns the total amount of fees paid on this [`Route`].
 		///
-		/// This doesn't include any extra payment made to the recipient, which can happen in excess of
-		/// the amount passed to [`find_route`]'s `route_params.final_value_msat`.
+		/// For objects serialized with LDK 0.0.117 and after, this includes any extra payment made to
+		/// the recipient, which can happen in excess of the amount passed to [`find_route`] via
+		/// [`RouteParameters::final_value_msat`], if we had to reach the [`htlc_minimum_msat`] limits.
+		///
+		/// [`htlc_minimum_msat`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-channel_update-message
 		public func getTotalFees() -> UInt64 {
 			// native call variable prep
 
@@ -330,8 +339,12 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Returns the total amount paid on this [`Route`], excluding the fees. Might be more than
-		/// requested if we had to reach htlc_minimum_msat.
+		/// Returns the total amount paid on this [`Route`], excluding the fees.
+		///
+		/// Might be more than requested as part of the given [`RouteParameters::final_value_msat`] if
+		/// we had to reach the [`htlc_minimum_msat`] limits.
+		///
+		/// [`htlc_minimum_msat`]: https://github.com/lightning/bolts/blob/master/07-routing-gossip.md#the-channel_update-message
 		public func getTotalAmount() -> UInt64 {
 			// native call variable prep
 

@@ -7,15 +7,11 @@ import Foundation
 
 
 /// A trait defining behavior for routing an [`OnionMessage`].
-///
-/// [`OnionMessage`]: msgs::OnionMessage
 public typealias MessageRouter = Bindings.MessageRouter
 
 extension Bindings {
 
 	/// A trait defining behavior for routing an [`OnionMessage`].
-	///
-	/// [`OnionMessage`]: msgs::OnionMessage
 	open class MessageRouter: NativeTraitWrapper {
 
 
@@ -135,8 +131,6 @@ extension Bindings {
 
 
 		/// Returns a route for sending an [`OnionMessage`] to the given [`Destination`].
-		///
-		/// [`OnionMessage`]: msgs::OnionMessage
 		open func findPath(sender: [UInt8], peers: [[UInt8]], destination: Destination) -> Result_OnionMessagePathNoneZ
 		{
 
@@ -182,8 +176,6 @@ extension Bindings {
 	internal class NativelyImplementedMessageRouter: MessageRouter {
 
 		/// Returns a route for sending an [`OnionMessage`] to the given [`Destination`].
-		///
-		/// [`OnionMessage`]: msgs::OnionMessage
 		public override func findPath(sender: [UInt8], peers: [[UInt8]], destination: Destination)
 			-> Result_OnionMessagePathNoneZ
 		{

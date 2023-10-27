@@ -79,9 +79,19 @@ extension Bindings {
 			/// Note that if the preimage is not known, you should call
 			/// [`ChannelManager::fail_htlc_backwards`] or [`ChannelManager::fail_htlc_backwards_with_reason`]
 			/// to free up resources for this HTLC and avoid network congestion.
-			/// If you fail to call either [`ChannelManager::claim_funds`], [`ChannelManager::fail_htlc_backwards`],
-			/// or [`ChannelManager::fail_htlc_backwards_with_reason`] within the HTLC's timeout, the HTLC will be
-			/// automatically failed.
+			///
+			/// If [`Event::PaymentClaimable::onion_fields`] is `Some`, and includes custom TLVs with even type
+			/// numbers, you should use [`ChannelManager::fail_htlc_backwards_with_reason`] with
+			/// [`FailureCode::InvalidOnionPayload`] if you fail to understand and handle the contents, or
+			/// [`ChannelManager::claim_funds_with_known_custom_tlvs`] upon successful handling.
+			/// If you don't intend to check for custom TLVs, you can simply use
+			/// [`ChannelManager::claim_funds`], which will automatically fail back even custom TLVs.
+			///
+			/// If you fail to call [`ChannelManager::claim_funds`],
+			/// [`ChannelManager::claim_funds_with_known_custom_tlvs`],
+			/// [`ChannelManager::fail_htlc_backwards`], or
+			/// [`ChannelManager::fail_htlc_backwards_with_reason`] within the HTLC's timeout, the HTLC will
+			/// be automatically failed.
 			///
 			/// # Note
 			/// LDK will not stop an inbound payment from being paid multiple times, so multiple
@@ -93,6 +103,8 @@ extension Bindings {
 			/// This event used to be called `PaymentReceived` in LDK versions 0.0.112 and earlier.
 			///
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
+			/// [`ChannelManager::claim_funds_with_known_custom_tlvs`]: crate::ln::channelmanager::ChannelManager::claim_funds_with_known_custom_tlvs
+			/// [`FailureCode::InvalidOnionPayload`]: crate::ln::channelmanager::FailureCode::InvalidOnionPayload
 			/// [`ChannelManager::fail_htlc_backwards`]: crate::ln::channelmanager::ChannelManager::fail_htlc_backwards
 			/// [`ChannelManager::fail_htlc_backwards_with_reason`]: crate::ln::channelmanager::ChannelManager::fail_htlc_backwards_with_reason
 			case PaymentClaimable
@@ -113,6 +125,16 @@ extension Bindings {
 			/// [`ChannelManager::claim_funds`]: crate::ln::channelmanager::ChannelManager::claim_funds
 			case PaymentClaimed
 
+			/// Indicates a request for an invoice failed to yield a response in a reasonable amount of time
+			/// or was explicitly abandoned by [`ChannelManager::abandon_payment`]. This may be for an
+			/// [`InvoiceRequest`] sent for an [`Offer`] or for a [`Refund`] that hasn't been redeemed.
+			///
+			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
+			/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
+			/// [`Offer`]: crate::offers::offer::Offer
+			/// [`Refund`]: crate::offers::refund::Refund
+			case InvoiceRequestFailed
+
 			/// Indicates an outbound payment we made succeeded (i.e. it made it all the way to its target
 			/// and we got back the payment preimage for it).
 			///
@@ -126,6 +148,11 @@ extension Bindings {
 			/// This event is provided once there are no further pending HTLCs for the payment and the
 			/// payment is no longer retryable, due either to the [`Retry`] provided or
 			/// [`ChannelManager::abandon_payment`] having been called for the corresponding payment.
+			///
+			/// In exceedingly rare cases, it is possible that an [`Event::PaymentFailed`] is generated for
+			/// a payment after an [`Event::PaymentSent`] event for this same payment has already been
+			/// received and processed. In this case, the [`Event::PaymentFailed`] event MUST be ignored,
+			/// and the payment MUST be treated as having succeeded.
 			///
 			/// [`Retry`]: crate::ln::channelmanager::Retry
 			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
@@ -202,16 +229,26 @@ extension Bindings {
 
 			/// Used to indicate that a previously opened channel with the given `channel_id` is in the
 			/// process of closure.
+			///
+			/// Note that this event is only triggered for accepted channels: if the
+			/// [`UserConfig::manually_accept_inbound_channels`] config flag is set to true and the channel is
+			/// rejected, no `ChannelClosed` event will be sent.
+			///
+			/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
+			/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
 			case ChannelClosed
 
 			/// Used to indicate to the user that they can abandon the funding transaction and recycle the
 			/// inputs for another purpose.
+			///
+			/// This event is not guaranteed to be generated for channels that are closed due to a restart.
 			case DiscardFunding
 
 			/// Indicates a request to open a new channel by a peer.
 			///
-			/// To accept the request, call [`ChannelManager::accept_inbound_channel`]. To reject the
-			/// request, call [`ChannelManager::force_close_without_broadcasting_txn`].
+			/// To accept the request, call [`ChannelManager::accept_inbound_channel`]. To reject the request,
+			/// call [`ChannelManager::force_close_without_broadcasting_txn`]. Note that a ['ChannelClosed`]
+			/// event will _not_ be triggered if the channel is rejected.
 			///
 			/// The event is only triggered when a new open channel request is received and the
 			/// [`UserConfig::manually_accept_inbound_channels`] config flag is set to true.
@@ -257,6 +294,9 @@ extension Bindings {
 
 				case LDKEvent_PaymentClaimed:
 					return .PaymentClaimed
+
+				case LDKEvent_InvoiceRequestFailed:
+					return .InvoiceRequestFailed
 
 				case LDKEvent_PaymentSent:
 					return .PaymentSent
@@ -408,7 +448,7 @@ extension Bindings {
 		/// Utility method to constructs a new PaymentClaimable-variant Event
 		public class func initWithPaymentClaimable(
 			receiverNodeId: [UInt8], paymentHash: [UInt8], onionFields: Bindings.RecipientOnionFields,
-			amountMsat: UInt64, counterpartySkimmedFeeMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8],
+			amountMsat: UInt64, counterpartySkimmedFeeMsat: UInt64, purpose: PaymentPurpose, viaChannelId: [UInt8]?,
 			viaUserChannelId: [UInt8]?, claimDeadline: UInt32?
 		) -> Event {
 			// native call variable prep
@@ -419,10 +459,12 @@ extension Bindings {
 			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 
-			let viaChannelIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: viaChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let viaChannelIdOption = Option_ThirtyTwoBytesZ(
+				some: viaChannelId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
-			let viaUserChannelIdOption = Option_u128Z(
+			let viaUserChannelIdOption = Option_U128Z(
 				some: viaUserChannelId, instantiationContext: "Event.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -437,7 +479,7 @@ extension Bindings {
 			let nativeCallResult = Event_payment_claimable(
 				receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!,
 				onionFields.dynamicallyDangledClone().cType!, amountMsat, counterpartySkimmedFeeMsat,
-				purpose.danglingClone().cType!, viaChannelIdPrimitiveWrapper.cType!, viaUserChannelIdOption.cType!,
+				purpose.danglingClone().cType!, viaChannelIdOption.cType!, viaUserChannelIdOption.cType!,
 				claimDeadlineOption.cType!)
 
 			// cleanup
@@ -447,9 +489,6 @@ extension Bindings {
 
 			// for elided types, we need this
 			paymentHashPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			viaChannelIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -461,7 +500,8 @@ extension Bindings {
 
 		/// Utility method to constructs a new PaymentClaimed-variant Event
 		public class func initWithPaymentClaimed(
-			receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose
+			receiverNodeId: [UInt8], paymentHash: [UInt8], amountMsat: UInt64, purpose: PaymentPurpose,
+			htlcs: [ClaimedHTLC], senderIntendedTotalMsat: UInt64?
 		) -> Event {
 			// native call variable prep
 
@@ -471,11 +511,19 @@ extension Bindings {
 			let paymentHashPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)")
 
+			let htlcsVector = Vec_ClaimedHTLCZ(array: htlcs, instantiationContext: "Event.swift::\(#function):\(#line)")
+				.dangle()
+
+			let senderIntendedTotalMsatOption = Option_u64Z(
+				some: senderIntendedTotalMsat, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult = Event_payment_claimed(
 				receiverNodeIdPrimitiveWrapper.cType!, paymentHashPrimitiveWrapper.cType!, amountMsat,
-				purpose.danglingClone().cType!)
+				purpose.danglingClone().cType!, htlcsVector.cType!, senderIntendedTotalMsatOption.cType!)
 
 			// cleanup
 
@@ -484,6 +532,32 @@ extension Bindings {
 
 			// for elided types, we need this
 			paymentHashPrimitiveWrapper.noOpRetain()
+
+			// htlcsVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Event(cType: nativeCallResult, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Utility method to constructs a new InvoiceRequestFailed-variant Event
+		public class func initWithInvoiceRequestFailed(paymentId: [UInt8]) -> Event {
+			// native call variable prep
+
+			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
+				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult = Event_invoice_request_failed(paymentIdPrimitiveWrapper.cType!)
+
+			// cleanup
+
+			// for elided types, we need this
+			paymentIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -499,7 +573,7 @@ extension Bindings {
 		) -> Event {
 			// native call variable prep
 
-			let paymentIdOption = Option_PaymentIdZ(
+			let paymentIdOption = Option_ThirtyTwoBytesZ(
 				some: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -584,7 +658,7 @@ extension Bindings {
 			let paymentIdPrimitiveWrapper = ThirtyTwoBytes(
 				value: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)")
 
-			let paymentHashOption = Option_PaymentHashZ(
+			let paymentHashOption = Option_ThirtyTwoBytesZ(
 				some: paymentHash, instantiationContext: "Event.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -614,7 +688,7 @@ extension Bindings {
 		) -> Event {
 			// native call variable prep
 
-			let paymentIdOption = Option_PaymentIdZ(
+			let paymentIdOption = Option_ThirtyTwoBytesZ(
 				some: paymentId, instantiationContext: "Event.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
@@ -773,7 +847,7 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new SpendableOutputs-variant Event
-		public class func initWithSpendableOutputs(outputs: [SpendableOutputDescriptor]) -> Event {
+		public class func initWithSpendableOutputs(outputs: [SpendableOutputDescriptor], channelId: [UInt8]?) -> Event {
 			// native call variable prep
 
 			let outputsVector = Vec_SpendableOutputDescriptorZ(
@@ -781,9 +855,14 @@ extension Bindings {
 			)
 			.dangle()
 
+			let channelIdOption = Option_ThirtyTwoBytesZ(
+				some: channelId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
-			let nativeCallResult = Event_spendable_outputs(outputsVector.cType!)
+			let nativeCallResult = Event_spendable_outputs(outputsVector.cType!, channelIdOption.cType!)
 
 			// cleanup
 
@@ -799,16 +878,20 @@ extension Bindings {
 
 		/// Utility method to constructs a new PaymentForwarded-variant Event
 		public class func initWithPaymentForwarded(
-			prevChannelId: [UInt8], nextChannelId: [UInt8], feeEarnedMsat: UInt64?, claimFromOnchainTx: Bool,
+			prevChannelId: [UInt8]?, nextChannelId: [UInt8]?, feeEarnedMsat: UInt64?, claimFromOnchainTx: Bool,
 			outboundAmountForwardedMsat: UInt64?
 		) -> Event {
 			// native call variable prep
 
-			let prevChannelIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: prevChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let prevChannelIdOption = Option_ThirtyTwoBytesZ(
+				some: prevChannelId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
-			let nextChannelIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: nextChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let nextChannelIdOption = Option_ThirtyTwoBytesZ(
+				some: nextChannelId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let feeEarnedMsatOption = Option_u64Z(
 				some: feeEarnedMsat, instantiationContext: "Event.swift::\(#function):\(#line)"
@@ -823,16 +906,10 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult = Event_payment_forwarded(
-				prevChannelIdPrimitiveWrapper.cType!, nextChannelIdPrimitiveWrapper.cType!, feeEarnedMsatOption.cType!,
-				claimFromOnchainTx, outboundAmountForwardedMsatOption.cType!)
+				prevChannelIdOption.cType!, nextChannelIdOption.cType!, feeEarnedMsatOption.cType!, claimFromOnchainTx,
+				outboundAmountForwardedMsatOption.cType!)
 
 			// cleanup
-
-			// for elided types, we need this
-			prevChannelIdPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			nextChannelIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -844,7 +921,7 @@ extension Bindings {
 
 		/// Utility method to constructs a new ChannelPending-variant Event
 		public class func initWithChannelPending(
-			channelId: [UInt8], userChannelId: [UInt8], formerTemporaryChannelId: [UInt8], counterpartyNodeId: [UInt8],
+			channelId: [UInt8], userChannelId: [UInt8], formerTemporaryChannelId: [UInt8]?, counterpartyNodeId: [UInt8],
 			fundingTxo: Bindings.OutPoint
 		) -> Event {
 			// native call variable prep
@@ -855,8 +932,10 @@ extension Bindings {
 			let userChannelIdPrimitiveWrapper = U128(
 				value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 
-			let formerTemporaryChannelIdPrimitiveWrapper = ThirtyTwoBytes(
-				value: formerTemporaryChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
+			let formerTemporaryChannelIdOption = Option_ThirtyTwoBytesZ(
+				some: formerTemporaryChannelId, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
 
 			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
 				value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
@@ -865,7 +944,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = Event_channel_pending(
 				channelIdPrimitiveWrapper.cType!, userChannelIdPrimitiveWrapper.cType!,
-				formerTemporaryChannelIdPrimitiveWrapper.cType!, counterpartyNodeIdPrimitiveWrapper.cType!,
+				formerTemporaryChannelIdOption.cType!, counterpartyNodeIdPrimitiveWrapper.cType!,
 				fundingTxo.dynamicallyDangledClone().cType!)
 
 			// cleanup
@@ -875,9 +954,6 @@ extension Bindings {
 
 			// for elided types, we need this
 			userChannelIdPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			formerTemporaryChannelIdPrimitiveWrapper.noOpRetain()
 
 			// for elided types, we need this
 			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
@@ -932,9 +1008,10 @@ extension Bindings {
 		}
 
 		/// Utility method to constructs a new ChannelClosed-variant Event
-		public class func initWithChannelClosed(channelId: [UInt8], userChannelId: [UInt8], reason: ClosureReason)
-			-> Event
-		{
+		public class func initWithChannelClosed(
+			channelId: [UInt8], userChannelId: [UInt8], reason: ClosureReason, counterpartyNodeId: [UInt8],
+			channelCapacitySats: UInt64?
+		) -> Event {
 			// native call variable prep
 
 			let channelIdPrimitiveWrapper = ThirtyTwoBytes(
@@ -943,10 +1020,19 @@ extension Bindings {
 			let userChannelIdPrimitiveWrapper = U128(
 				value: userChannelId, instantiationContext: "Event.swift::\(#function):\(#line)")
 
+			let counterpartyNodeIdPrimitiveWrapper = PublicKey(
+				value: counterpartyNodeId, instantiationContext: "Event.swift::\(#function):\(#line)")
+
+			let channelCapacitySatsOption = Option_u64Z(
+				some: channelCapacitySats, instantiationContext: "Event.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult = Event_channel_closed(
-				channelIdPrimitiveWrapper.cType!, userChannelIdPrimitiveWrapper.cType!, reason.danglingClone().cType!)
+				channelIdPrimitiveWrapper.cType!, userChannelIdPrimitiveWrapper.cType!, reason.danglingClone().cType!,
+				counterpartyNodeIdPrimitiveWrapper.cType!, channelCapacitySatsOption.cType!)
 
 			// cleanup
 
@@ -955,6 +1041,9 @@ extension Bindings {
 
 			// for elided types, we need this
 			userChannelIdPrimitiveWrapper.noOpRetain()
+
+			// for elided types, we need this
+			counterpartyNodeIdPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -1181,6 +1270,16 @@ extension Bindings {
 
 			return Event_LDKPaymentClaimed_Body(
 				cType: self.cType!.payment_claimed, instantiationContext: "Event.swift::\(#function):\(#line)",
+				anchor: self)
+		}
+
+		public func getValueAsInvoiceRequestFailed() -> InvoiceRequestFailed? {
+			if self.cType?.tag != LDKEvent_InvoiceRequestFailed {
+				return nil
+			}
+
+			return Event_LDKInvoiceRequestFailed_Body(
+				cType: self.cType!.invoice_request_failed, instantiationContext: "Event.swift::\(#function):\(#line)",
 				anchor: self)
 		}
 
@@ -1485,11 +1584,15 @@ extension Bindings {
 				return returnValue
 			}
 
-			/// The `user_channel_id` value passed in to [`ChannelManager::create_channel`], or a
-			/// random value for an inbound channel. This may be zero for objects serialized with LDK
-			/// versions prior to 0.0.113.
+			/// The `user_channel_id` value passed in to [`ChannelManager::create_channel`] for outbound
+			/// channels, or to [`ChannelManager::accept_inbound_channel`] for inbound channels if
+			/// [`UserConfig::manually_accept_inbound_channels`] config flag is set to true. Otherwise
+			/// `user_channel_id` will be randomized for an inbound channel.  This may be zero for objects
+			/// serialized with LDK versions prior to 0.0.113.
 			///
 			/// [`ChannelManager::create_channel`]: crate::ln::channelmanager::ChannelManager::create_channel
+			/// [`ChannelManager::accept_inbound_channel`]: crate::ln::channelmanager::ChannelManager::accept_inbound_channel
+			/// [`UserConfig::manually_accept_inbound_channels`]: crate::util::config::UserConfig::manually_accept_inbound_channels
 			public func getUserChannelId() -> [UInt8] {
 				// return value (do some wrapping)
 				let returnValue = U128(
@@ -1651,11 +1754,9 @@ extension Bindings {
 			}
 
 			/// The `channel_id` indicating over which channel we received the payment.
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getViaChannelId() -> [UInt8] {
+			public func getViaChannelId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.via_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -1667,7 +1768,7 @@ extension Bindings {
 			/// The `user_channel_id` indicating over which channel we received the payment.
 			public func getViaUserChannelId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = Option_u128Z(
+				let returnValue = Option_U128Z(
 					cType: self.cType!.via_user_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -1806,6 +1907,103 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// The HTLCs that comprise the claimed payment. This will be empty for events serialized prior
+			/// to LDK version 0.0.117.
+			public func getHtlcs() -> [ClaimedHTLC] {
+				// return value (do some wrapping)
+				let returnValue = Vec_ClaimedHTLCZ(
+					cType: self.cType!.htlcs, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// The sender-intended sum total of all the MPP parts. This will be `None` for events
+			/// serialized prior to LDK version 0.0.117.
+			public func getSenderIntendedTotalMsat() -> UInt64? {
+				// return value (do some wrapping)
+				let returnValue = Option_u64Z(
+					cType: self.cType!.sender_intended_total_msat,
+					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+
+		}
+
+
+		///
+		internal typealias Event_LDKInvoiceRequestFailed_Body = InvoiceRequestFailed
+
+
+		///
+		public class InvoiceRequestFailed: NativeTypeWrapper {
+
+
+			/// Set to false to suppress an individual type's deinit log statements.
+			/// Only applicable when log threshold is set to `.Debug`.
+			public static var enableDeinitLogging = true
+
+			/// Set to true to suspend the freeing of this type's associated Rust memory.
+			/// Should only ever be used for debugging purposes, and will likely be
+			/// deprecated soon.
+			public static var suspendFreedom = false
+
+			private static var instanceCounter: UInt = 0
+			internal let instanceNumber: UInt
+
+			internal var cType: LDKEvent_LDKInvoiceRequestFailed_Body?
+
+			internal init(cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = true
+				try! self.addAnchor(anchor: anchor)
+			}
+
+			internal init(
+				cType: LDKEvent_LDKInvoiceRequestFailed_Body, instantiationContext: String, anchor: NativeTypeWrapper,
+				dangle: Bool = false
+			) {
+				Self.instanceCounter += 1
+				self.instanceNumber = Self.instanceCounter
+				self.cType = cType
+
+				super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
+				self.dangling = dangle
+				try! self.addAnchor(anchor: anchor)
+			}
+
+
+			/// The `payment_id` to have been associated with payment for the requested invoice.
+			public func getPaymentId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = ThirtyTwoBytes(
+					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
 
 		}
 
@@ -1870,7 +2068,7 @@ extension Bindings {
 			/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 			public func getPaymentId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = Option_PaymentIdZ(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2108,7 +2306,7 @@ extension Bindings {
 			/// [`ChannelManager::send_payment`]: crate::ln::channelmanager::ChannelManager::send_payment
 			public func getPaymentHash() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = Option_PaymentHashZ(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.payment_hash, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2196,7 +2394,7 @@ extension Bindings {
 			/// [`ChannelManager::abandon_payment`]: crate::ln::channelmanager::ChannelManager::abandon_payment
 			public func getPaymentId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = Option_PaymentIdZ(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.payment_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2738,6 +2936,20 @@ extension Bindings {
 				return returnValue
 			}
 
+			/// The `channel_id` indicating which channel the spendable outputs belong to.
+			///
+			/// This will always be `Some` for events generated by LDK versions 0.0.117 and above.
+			public func getChannelId() -> [UInt8]? {
+				// return value (do some wrapping)
+				let returnValue = Option_ThirtyTwoBytesZ(
+					cType: self.cType!.channel_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
 
 		}
 
@@ -2800,11 +3012,9 @@ extension Bindings {
 
 			/// The incoming channel between the previous node and us. This is only `None` for events
 			/// generated or serialized by versions prior to 0.0.107.
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getPrevChannelId() -> [UInt8] {
+			public func getPrevChannelId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.prev_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2815,11 +3025,9 @@ extension Bindings {
 
 			/// The outgoing channel between the next node and us. This is only `None` for events
 			/// generated or serialized by versions prior to 0.0.107.
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getNextChannelId() -> [UInt8] {
+			public func getNextChannelId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.next_channel_id, instantiationContext: "Event.swift::\(#function):\(#line)",
 					anchor: self
 				)
@@ -2969,11 +3177,9 @@ extension Bindings {
 			/// The `temporary_channel_id` this channel used to be known by during channel establishment.
 			///
 			/// Will be `None` for channels created prior to LDK version 0.0.115.
-			///
-			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
-			public func getFormerTemporaryChannelId() -> [UInt8] {
+			public func getFormerTemporaryChannelId() -> [UInt8]? {
 				// return value (do some wrapping)
-				let returnValue = ThirtyTwoBytes(
+				let returnValue = Option_ThirtyTwoBytesZ(
 					cType: self.cType!.former_temporary_channel_id,
 					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
 				)
@@ -3215,6 +3421,36 @@ extension Bindings {
 				// return value (do some wrapping)
 				let returnValue = ClosureReason(
 					cType: self.cType!.reason, instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self)
+
+				return returnValue
+			}
+
+			/// Counterparty in the closed channel.
+			///
+			/// This field will be `None` for objects serialized prior to LDK 0.0.117.
+			///
+			/// Note that this (or a relevant inner pointer) may be NULL or all-0s to represent None
+			public func getCounterpartyNodeId() -> [UInt8] {
+				// return value (do some wrapping)
+				let returnValue = PublicKey(
+					cType: self.cType!.counterparty_node_id, instantiationContext: "Event.swift::\(#function):\(#line)",
+					anchor: self
+				)
+				.getValue()
+
+				return returnValue
+			}
+
+			/// Channel capacity of the closing channel (sats).
+			///
+			/// This field will be `None` for objects serialized prior to LDK 0.0.117.
+			public func getChannelCapacitySats() -> UInt64? {
+				// return value (do some wrapping)
+				let returnValue = Option_u64Z(
+					cType: self.cType!.channel_capacity_sats,
+					instantiationContext: "Event.swift::\(#function):\(#line)", anchor: self
+				)
+				.getValue()
 
 				return returnValue
 			}

@@ -61,37 +61,15 @@ extension Bindings {
 		}
 
 
-		/// Creates a new tuple which has the same data as `orig`
-		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Tuple_Z {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKC2Tuple_Z>) in
-					C2Tuple_Z_clone(origPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Tuple_Z(
-				cType: nativeCallResult, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
 		/// Creates a new C2Tuple_Z from the contained elements.
 		public init(a: [UInt16], b: [UInt16], instantiationContext: String) {
 			// native call variable prep
 
-			let aPrimitiveWrapper = EightU16s(value: a, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
+			let aPrimitiveWrapper = ThirtyTwoU16s(
+				value: a, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 
-			let bPrimitiveWrapper = EightU16s(value: b, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
+			let bPrimitiveWrapper = ThirtyTwoU16s(
+				value: b, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)")
 
 
 			// native method call
@@ -148,7 +126,7 @@ extension Bindings {
 		/// The element at position 0
 		public func getA() -> [UInt16] {
 			// return value (do some wrapping)
-			let returnValue = EightU16s(
+			let returnValue = ThirtyTwoU16s(
 				cType: self.cType!.a, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle().getValue()
@@ -159,7 +137,7 @@ extension Bindings {
 		/// The element at position 1
 		public func getB() -> [UInt16] {
 			// return value (do some wrapping)
-			let returnValue = EightU16s(
+			let returnValue = ThirtyTwoU16s(
 				cType: self.cType!.b, instantiationContext: "Tuple_Z.swift::\(#function):\(#line)", anchor: self
 			)
 			.dangle().getValue()
@@ -167,12 +145,6 @@ extension Bindings {
 			return returnValue
 		}
 
-
-		internal func danglingClone() -> Tuple_Z {
-			let dangledClone = self.clone()
-			dangledClone.dangling = true
-			return dangledClone
-		}
 
 		deinit {
 			if Bindings.suspendFreedom || Self.suspendFreedom {

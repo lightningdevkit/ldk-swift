@@ -285,9 +285,87 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The necessary channel parameters that need to be provided to the re-derived signer through
+		/// [`ChannelSigner::provide_channel_parameters`].
+		///
+		/// Added as optional, but always `Some` if the descriptor was produced in v0.0.117 or later.
+		///
+		/// Note that the return value (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func getChannelTransactionParameters() -> ChannelTransactionParameters? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) {
+					(thisPtrPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+					StaticPaymentOutputDescriptor_get_channel_transaction_parameters(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+			// COMMENT-DEDUCED OPTIONAL INFERENCE AND HANDLING:
+			// Type group: RustStruct
+			// Type: LDKChannelTransactionParameters
+
+			if nativeCallResult.inner == nil {
+				return nil
+			}
+
+			let pointerValue = UInt(bitPattern: nativeCallResult.inner)
+			if pointerValue == 0 {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = ChannelTransactionParameters(
+				cType: nativeCallResult,
+				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false)
+
+
+			return returnValue
+		}
+
+		/// The necessary channel parameters that need to be provided to the re-derived signer through
+		/// [`ChannelSigner::provide_channel_parameters`].
+		///
+		/// Added as optional, but always `Some` if the descriptor was produced in v0.0.117 or later.
+		///
+		/// Note that val (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public func setChannelTransactionParameters(val: ChannelTransactionParameters) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKStaticPaymentOutputDescriptor>) in
+					StaticPaymentOutputDescriptor_set_channel_transaction_parameters(
+						thisPtrPointer, val.dynamicallyDangledClone().cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new StaticPaymentOutputDescriptor given each field
-		public init(outpointArg: OutPoint, outputArg: TxOut, channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64)
-		{
+		///
+		/// Note that channel_transaction_parameters_arg (or a relevant inner pointer) may be NULL or all-0s to represent None
+		public init(
+			outpointArg: OutPoint, outputArg: TxOut, channelKeysIdArg: [UInt8], channelValueSatoshisArg: UInt64,
+			channelTransactionParametersArg: ChannelTransactionParameters
+		) {
 			// native call variable prep
 
 			let channelKeysIdArgPrimitiveWrapper = ThirtyTwoBytes(
@@ -298,7 +376,8 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = StaticPaymentOutputDescriptor_new(
 				outpointArg.dynamicallyDangledClone().cType!, outputArg.danglingClone().cType!,
-				channelKeysIdArgPrimitiveWrapper.cType!, channelValueSatoshisArg)
+				channelKeysIdArgPrimitiveWrapper.cType!, channelValueSatoshisArg,
+				channelTransactionParametersArg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
@@ -350,6 +429,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the StaticPaymentOutputDescriptor.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+					StaticPaymentOutputDescriptor_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Checks if two StaticPaymentOutputDescriptors contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		/// Two objects with NULL inner values will be considered "equal" here.
@@ -365,6 +466,61 @@ extension Bindings {
 						StaticPaymentOutputDescriptor_eq(aPointer, bPointer)
 					}
 
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Returns the `witness_script` of the spendable output.
+		///
+		/// Note that this will only return `Some` for [`StaticPaymentOutputDescriptor`]s that
+		/// originated from an anchor outputs channel, as they take the form of a P2WSH script.
+		public func witnessScript() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) {
+					(thisArgPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+					StaticPaymentOutputDescriptor_witness_script(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_CVec_u8ZZ(
+				cType: nativeCallResult,
+				instantiationContext: "StaticPaymentOutputDescriptor.swift::\(#function):\(#line)", anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The maximum length a well-formed witness spending one of these should have.
+		/// Note: If you have the grind_signatures feature enabled, this will be at least 1 byte
+		/// shorter.
+		public func maxWitnessLength() -> UInt {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) {
+					(thisArgPointer: UnsafePointer<LDKStaticPaymentOutputDescriptor>) in
+					StaticPaymentOutputDescriptor_max_witness_length(thisArgPointer)
 				}
 
 

@@ -43,10 +43,10 @@ public struct ChannelManagerConstructionParameters {
     public var enableP2PGossip: Bool = false
     public var scorer: MultiThreadedLockableScore?
     public var scoreParams: ProbabilisticScoringFeeParameters?
-    public var payerRetries: Retry = Retry.initWithAttempts(a: UInt(3))
+    public var payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))
     public var logger: Logger
     
-    public init (config: UserConfig, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, scorer: MultiThreadedLockableScore? = nil, scoreParams: ProbabilisticScoringFeeParameters? = nil, payerRetries: Retry = Retry.initWithAttempts(a: UInt(3))) {
+    public init (config: UserConfig, entropySource: EntropySource, nodeSigner: NodeSigner, signerProvider: SignerProvider, feeEstimator: FeeEstimator, chainMonitor: ChainMonitor, txBroadcaster: BroadcasterInterface, logger: Logger, enableP2PGossip: Bool = false, scorer: MultiThreadedLockableScore? = nil, scoreParams: ProbabilisticScoringFeeParameters? = nil, payerRetries: Retry = Retry.initWithAttempts(a: UInt32(3))) {
         self.config = config
         self.entropySource = entropySource
         self.nodeSigner = nodeSigner
@@ -134,7 +134,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         var monitorFundingSet = Set<String>()
 
         for currentSerializedChannelMonitor in channelMonitorsSerialized {
-            let channelMonitorResult: Result_C2Tuple_BlockHashChannelMonitorZDecodeErrorZ = Bindings.readBlockHashChannelMonitor(ser: currentSerializedChannelMonitor, argA: params.entropySource, argB: params.signerProvider)
+            let channelMonitorResult = Bindings.readThirtyTwoBytesChannelMonitor(ser: currentSerializedChannelMonitor, argA: params.entropySource, argB: params.signerProvider)
 
             guard let (blockHash, channelMonitor) = channelMonitorResult.getValue() else {
                 throw InvalidSerializedDataError.invalidSerializedChannelMonitor
@@ -170,8 +170,8 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
         // TODO: figure out better way to obtain a router
         let router = params.router(networkGraph: self.netGraph)
         let channelManagerReadArgs = ChannelManagerReadArgs(entropySource: params.entropySource, nodeSigner: params.nodeSigner, signerProvider: params.signerProvider, feeEstimator: params.feeEstimator, chainMonitor: params.chainMonitor.asWatch(), txBroadcaster: params.txBroadcaster, router: router, logger: params.logger, defaultConfig: params.config, channelMonitors: monitors)
-
-        guard let (latestBlockHash, channelManager) = Bindings.readBlockHashChannelManager(ser: channelManagerSerialized, arg: channelManagerReadArgs).getValue() else {
+        
+        guard let (latestBlockHash, channelManager) = Bindings.readThirtyTwoBytesChannelManager(ser: channelManagerSerialized, arg: channelManagerReadArgs).getValue() else {
             throw InvalidSerializedDataError.invalidSerializedChannelManager
         }
 
@@ -281,7 +281,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
             let (outPoint, _) = currentChannelMonitor.getFundingTxo()
             print("watching channel")
             let monitorWatchResult = chainMonitorWatch.watchChannel(fundingTxo: outPoint, monitor: currentChannelMonitor)
-            if monitorWatchResult != .Completed {
+            if !monitorWatchResult.isOk() || monitorWatchResult.getValue() != .Completed {
                 Bindings.print("Some issue occurred with a chainMonitorWatch.watch_channel call: \(monitorWatchResult)", severity: .WARNING)
             }
             // monitorClone.cType?.is_owned = true
@@ -360,16 +360,16 @@ fileprivate class CustomChannelManagerPersister: Persister {
         self.handler = handler
         super.init()
     }
-
-    override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneErrorZ {
+    
+    override func persistManager(channelManager: Bindings.ChannelManager) -> Bindings.Result_NoneIOErrorZ {
         return self.handler.persistManager(channelManager: channelManager)
     }
-
-    override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneErrorZ {
+    
+    override func persistGraph(networkGraph: Bindings.NetworkGraph) -> Bindings.Result_NoneIOErrorZ {
         return self.handler.persistGraph(networkGraph: networkGraph)
     }
-
-    override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneErrorZ {
+    
+    override func persistScorer(scorer: Bindings.WriteableScore) -> Bindings.Result_NoneIOErrorZ {
         return self.handler.persistScorer(scorer: scorer)
     }
 }

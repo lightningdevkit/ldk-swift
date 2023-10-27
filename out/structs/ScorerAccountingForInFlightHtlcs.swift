@@ -2,23 +2,23 @@
 	import LDKHeaders
 #endif
 
-/// [`Score`] implementation that factors in in-flight HTLC liquidity.
+/// [`ScoreLookUp`] implementation that factors in in-flight HTLC liquidity.
 ///
-/// Useful for custom [`Router`] implementations to wrap their [`Score`] on-the-fly when calling
+/// Useful for custom [`Router`] implementations to wrap their [`ScoreLookUp`] on-the-fly when calling
 /// [`find_route`].
 ///
-/// [`Score`]: crate::routing::scoring::Score
+/// [`ScoreLookUp`]: crate::routing::scoring::ScoreLookUp
 public typealias ScorerAccountingForInFlightHtlcs = Bindings.ScorerAccountingForInFlightHtlcs
 
 extension Bindings {
 
 
-	/// [`Score`] implementation that factors in in-flight HTLC liquidity.
+	/// [`ScoreLookUp`] implementation that factors in in-flight HTLC liquidity.
 	///
-	/// Useful for custom [`Router`] implementations to wrap their [`Score`] on-the-fly when calling
+	/// Useful for custom [`Router`] implementations to wrap their [`ScoreLookUp`] on-the-fly when calling
 	/// [`find_route`].
 	///
-	/// [`Score`]: crate::routing::scoring::Score
+	/// [`ScoreLookUp`]: crate::routing::scoring::ScoreLookUp
 	public class ScorerAccountingForInFlightHtlcs: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -91,7 +91,7 @@ extension Bindings {
 		}
 
 		/// Initialize a new `ScorerAccountingForInFlightHtlcs`.
-		public init(scorer: Score, inflightHtlcs: InFlightHtlcs) {
+		public init(scorer: ScoreLookUp, inflightHtlcs: InFlightHtlcs) {
 			// native call variable prep
 
 
@@ -126,35 +126,9 @@ extension Bindings {
 
 		}
 
-		/// Serialize the ScorerAccountingForInFlightHtlcs object into a byte array which can be read by ScorerAccountingForInFlightHtlcs_read
-		public func write() -> [UInt8] {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (objPointer: UnsafePointer<LDKScorerAccountingForInFlightHtlcs>) in
-					ScorerAccountingForInFlightHtlcs_write(objPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: nativeCallResult,
-				instantiationContext: "ScorerAccountingForInFlightHtlcs.swift::\(#function):\(#line)", anchor: self
-			)
-			.dangle(false).getValue()
-
-
-			return returnValue
-		}
-
-		/// Constructs a new Score which calls the relevant methods on this_arg.
-		/// This copies the `inner` pointer in this_arg and thus the returned Score must be freed before this_arg is
-		public func asScore() -> Score {
+		/// Constructs a new ScoreLookUp which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned ScoreLookUp must be freed before this_arg is
+		public func asScoreLookUp() -> ScoreLookUp {
 			// native call variable prep
 
 
@@ -162,7 +136,7 @@ extension Bindings {
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) {
 					(thisArgPointer: UnsafePointer<LDKScorerAccountingForInFlightHtlcs>) in
-					ScorerAccountingForInFlightHtlcs_as_Score(thisArgPointer)
+					ScorerAccountingForInFlightHtlcs_as_ScoreLookUp(thisArgPointer)
 				}
 
 
@@ -170,7 +144,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = NativelyImplementedScore(
+			let returnValue = NativelyImplementedScoreLookUp(
 				cType: nativeCallResult,
 				instantiationContext: "ScorerAccountingForInFlightHtlcs.swift::\(#function):\(#line)", anchor: self)
 

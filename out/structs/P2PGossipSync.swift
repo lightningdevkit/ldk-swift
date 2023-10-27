@@ -142,7 +142,7 @@ extension Bindings {
 
 			// native method call
 			let nativeCallResult =
-				withUnsafeMutablePointer(to: &self.cType!) { (thisArgPointer: UnsafeMutablePointer<LDKP2PGossipSync>) in
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKP2PGossipSync>) in
 					P2PGossipSync_add_utxo_lookup(thisArgPointer, utxoLookupOption.cType!)
 				}
 

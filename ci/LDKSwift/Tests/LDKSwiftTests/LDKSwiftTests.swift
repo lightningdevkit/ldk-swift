@@ -343,7 +343,8 @@ class LDKSwiftTests: XCTestCase {
             shortChannelIdArg: short_channel_id_arg,
             channelFeaturesArg: ChannelFeatures.initWithEmpty(),
             feeMsatArg: paymentValueMsat,
-            cltvExpiryDeltaArg: finalCltvValue
+            cltvExpiryDeltaArg: finalCltvValue,
+            maybeAnnouncedChannelArg: false
         )
 
         var hops: [RouteHop] = [routeHop]
@@ -356,16 +357,18 @@ class LDKSwiftTests: XCTestCase {
                 shortChannelIdArg: short_channel_id_arg,
                 channelFeaturesArg: ChannelFeatures.initWithEmpty(),
                 feeMsatArg: paymentValueMsat,
-                cltvExpiryDeltaArg: finalCltvValue
+                cltvExpiryDeltaArg: finalCltvValue,
+                maybeAnnouncedChannelArg: false
             )
             hops.append(extraHop)
         }
 
         let pubkeyBytes = Self.hexStringToBytes(hexString: destPubkeyHex)!
         let paymentParams = PaymentParameters.initForKeysend(payeePubkey: pubkeyBytes, finalCltvExpiryDelta: 3, allowMpp: false)
+        let routeParams = RouteParameters.init(paymentParamsArg: paymentParams, finalValueMsatArg: 1_000_000, maxTotalRoutingFeeMsatArg: nil)
         let blindedTail = BlindedTail(hopsArg: [], blindingPointArg: pubkeyBytes, excessFinalCltvExpiryDeltaArg: 0, finalValueMsatArg: 0)
         let path = Path(hopsArg: hops, blindedTailArg: blindedTail)
-        let route = Route(pathsArg: [path], paymentParamsArg: paymentParams)
+        let route = Route(pathsArg: [path], routeParamsArg: routeParams)
     }
 
     #if !SWIFT_PACKAGE
@@ -425,7 +428,7 @@ class LDKSwiftTests: XCTestCase {
         let recipientPubkey = LDKSwiftTests.hexStringToBytes(hexString: "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f")!
 
         let paymentParameters = PaymentParameters.initForKeysend(payeePubkey: recipientPubkey, finalCltvExpiryDelta: 3, allowMpp: false)
-        let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: 500)
+        let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: 500, maxTotalRoutingFeeMsatArg: nil)
 
 		print("STEP A")
 
@@ -433,7 +436,7 @@ class LDKSwiftTests: XCTestCase {
 		print("STEP B")
         let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
         let scoreParams = ProbabilisticScoringFeeParameters.initWithDefault();
-        let foundRoute = Bindings.findRoute(ourNodePubkey: payerPubkey, routeParams: routeParameters, networkGraph: networkGraph, firstHops: [], logger: logger, scorer: score, scoreParams: scoreParams, randomSeedBytes: randomSeedBytes)
+        let foundRoute = Bindings.findRoute(ourNodePubkey: payerPubkey, routeParams: routeParameters, networkGraph: networkGraph, firstHops: [], logger: logger, scorer: score.getScoreLookUp(), scoreParams: scoreParams, randomSeedBytes: randomSeedBytes)
 //        let foundRoute = router.find_route(payer: payerPubkey, route_params: routeParameters, payment_hash: nil, first_hops: firstHops, inflight_htlcs: <#T##InFlightHtlcs#>)
 
         if let routeError = foundRoute.getError() {

@@ -175,14 +175,83 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Constructs a new RouteParameters given each field
-		public init(paymentParamsArg: PaymentParameters, finalValueMsatArg: UInt64) {
+		/// The maximum total fees, in millisatoshi, that may accrue during route finding.
+		///
+		/// This limit also applies to the total fees that may arise while retrying failed payment
+		/// paths.
+		///
+		/// Note that values below a few sats may result in some paths being spuriously ignored.
+		public func getMaxTotalRoutingFeeMsat() -> UInt64? {
 			// native call variable prep
 
 
 			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKRouteParameters>) in
+					RouteParameters_get_max_total_routing_fee_msat(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_u64Z(
+				cType: nativeCallResult, instantiationContext: "RouteParameters.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
+		/// The maximum total fees, in millisatoshi, that may accrue during route finding.
+		///
+		/// This limit also applies to the total fees that may arise while retrying failed payment
+		/// paths.
+		///
+		/// Note that values below a few sats may result in some paths being spuriously ignored.
+		public func setMaxTotalRoutingFeeMsat(val: UInt64?) {
+			// native call variable prep
+
+			let valOption = Option_u64Z(some: val, instantiationContext: "RouteParameters.swift::\(#function):\(#line)")
+				.danglingClone()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKRouteParameters>) in
+					RouteParameters_set_max_total_routing_fee_msat(thisPtrPointer, valOption.cType!)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs a new RouteParameters given each field
+		public init(paymentParamsArg: PaymentParameters, finalValueMsatArg: UInt64, maxTotalRoutingFeeMsatArg: UInt64?)
+		{
+			// native call variable prep
+
+			let maxTotalRoutingFeeMsatArgOption = Option_u64Z(
+				some: maxTotalRoutingFeeMsatArg, instantiationContext: "RouteParameters.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
+
+			// native method call
 			let nativeCallResult = RouteParameters_new(
-				paymentParamsArg.dynamicallyDangledClone().cType!, finalValueMsatArg)
+				paymentParamsArg.dynamicallyDangledClone().cType!, finalValueMsatArg,
+				maxTotalRoutingFeeMsatArgOption.cType!)
 
 			// cleanup
 
@@ -230,6 +299,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the RouteParameters.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKRouteParameters>) in
+					RouteParameters_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Checks if two RouteParameterss contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		/// Two objects with NULL inner values will be considered "equal" here.
@@ -253,6 +344,30 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// Constructs [`RouteParameters`] from the given [`PaymentParameters`] and a payment amount.
+		///
+		/// [`Self::max_total_routing_fee_msat`] defaults to 1% of the payment amount + 50 sats
+		public class func initWithPaymentParamsAndValue(paymentParams: PaymentParameters, finalValueMsat: UInt64)
+			-> RouteParameters
+		{
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = RouteParameters_from_payment_params_and_value(
+				paymentParams.dynamicallyDangledClone().cType!, finalValueMsat)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = RouteParameters(
+				cType: nativeCallResult, instantiationContext: "RouteParameters.swift::\(#function):\(#line)")
 
 
 			return returnValue

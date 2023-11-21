@@ -516,24 +516,33 @@ public class HumanObjectPeerTestInstance {
             peerC.constructor?.interrupt()
         }
     }
-    
+
     fileprivate class func openChannel(peerA: Peer, peerB: Peer, fundingAmount: UInt64, latestBlock: BTCBlock? = nil, otherPeers: [Peer] = []) async -> BTCBlock? {
+        let initialChannelsA = peerA.channelManager.listChannels()
+        let initialChannelsB = peerB.channelManager.listChannels()
+
+        let userChannelId: [UInt8] = [UInt8](repeating: 42, count: 16);
+
         do {
             // initiate channel opening
             let config = UserConfig.initWithDefault()
             let theirNodeId = peerB.channelManager.getOurNodeId()
-            let userChannelId: [UInt8] = [UInt8](repeating: 42, count: 16);
+
             let channelOpenResult = peerA.channelManager.createChannel(theirNetworkKey: theirNodeId, channelValueSatoshis: fundingAmount, pushMsat: 1000, userChannelId: userChannelId, overrideConfig: config)
 
             XCTAssertTrue(channelOpenResult.isOk())
+            let newChannelId = channelOpenResult.getValue()
+
             let channels = peerA.channelManager.listChannels()
-            let firstChannel = channels[0]
-            let fundingTxo = firstChannel.getFundingTxo()
+            let newestChannel = channels.first { details in
+                details.getChannelId() == newChannelId
+            }!
+            let fundingTxo = newestChannel.getFundingTxo()
             XCTAssertNil(fundingTxo)
         }
 
         let channelsA = peerA.channelManager.listChannels()
-        XCTAssertEqual(channelsA.count, 1)
+        XCTAssertEqual(channelsA.count - initialChannelsA.count, 1, "One new channel should have been opened")
 
         let managerEvents = try! await peerA.getManagerEvents(expectedCount: 1)
         XCTAssertEqual(managerEvents.count, 1)
@@ -631,7 +640,7 @@ public class HumanObjectPeerTestInstance {
         var usableChannelsA = [ChannelDetails]()
         var usableChannelsB = [ChannelDetails]()
         print("Awaiting usable channels to populate…")
-        while (usableChannelsA.isEmpty || usableChannelsB.isEmpty) {
+        while (usableChannelsA.count == initialChannelsA.count || usableChannelsB.count == initialChannelsB.count) {
             usableChannelsA = peerA.channelManager.listUsableChannels()
             usableChannelsB = peerB.channelManager.listUsableChannels()
             // sleep for 100ms
@@ -639,30 +648,185 @@ public class HumanObjectPeerTestInstance {
         }
         print("Usable channels have been populated")
 
-        XCTAssertEqual(usableChannelsA.count, 1)
-        XCTAssertEqual(usableChannelsB.count, 1)
+        XCTAssertEqual(usableChannelsA.count - initialChannelsA.count, 1, "The new channel should have activated for A")
+        XCTAssertEqual(usableChannelsB.count - initialChannelsB.count, 1, "The new channel should have activated for B")
 
-        let channelAToB = usableChannelsA[0]
-        let channelBToA = usableChannelsB[0]
+        let channelAToB = usableChannelsA.first { details in
+            details.getUserChannelId() == userChannelId
+        }!
+        let channelBToA = usableChannelsB.first { details in
+            details.getChannelId() == channelAToB.getChannelId()
+        }!
         XCTAssertEqual(channelAToB.getChannelValueSatoshis(), fundingAmount)
         let shortChannelId = channelAToB.getShortChannelId()!
 
         let fundingTxId = fundingTransaction.calculateId()
-        XCTAssertEqual(usableChannelsA[0].getChannelId(), fundingTxId)
-        XCTAssertEqual(usableChannelsB[0].getChannelId(), fundingTxId)
+        XCTAssertEqual(channelAToB.getChannelId(), fundingTxId)
+        XCTAssertEqual(channelBToA.getChannelId(), fundingTxId)
 
         let originalChannelBalanceAToB = channelAToB.getBalanceMsat()
         let originalChannelBalanceBToA = channelBToA.getBalanceMsat()
         print("original balance A->B mSats: \(originalChannelBalanceAToB)")
         print("original balance B->A mSats: \(originalChannelBalanceBToA)")
-        
+
         // return the latest block after activating the channel
         return previousBlock
     }
 
+    fileprivate class func sendMoney(senderPeer: Peer, recipientPeer: Peer, milliSatoshiAmount: UInt64, logger: Logger, useZeroValueInvoice: Bool, networkGraph: NetworkGraph?, configuration: Configuration?) async {
+
+        // STEP 1: CREATE INVOICE FROM RECIPIENT
+        let amtMsat = useZeroValueInvoice ? nil : milliSatoshiAmount
+        let invoiceResult = Bindings.createInvoiceFromChannelmanager(channelmanager: recipientPeer.channelManager, nodeSigner: recipientPeer.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: amtMsat, description: "Invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
+        if let invoiceError = invoiceResult.getError(){
+            let creationError = invoiceError.getValueAsCreationError()
+            print("creation error: \(creationError)")
+        }
+        let invoice = invoiceResult.getValue()!
+        print("Invoice: \(invoice.toStr())")
+
+        let recreatedInvoice = Bolt11Invoice.fromStr(s: invoice.toStr())
+        XCTAssertTrue(recreatedInvoice.isOk())
+
+        if let networkGraph {
+            let payerPubkey = senderPeer.channelManager.getOurNodeId()
+            let payeePubkey = recipientPeer.channelManager.getOurNodeId()
+            let paymentParameters = PaymentParameters.initForKeysend(payeePubkey: payeePubkey, finalCltvExpiryDelta: 3, allowMpp: false)
+
+            let amount = invoice.amountMilliSatoshis()!
+            let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: amount, maxTotalRoutingFeeMsatArg: nil)
+            let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
+            let scoringParams = ProbabilisticScoringDecayParameters.initWithDefault()
+            // let networkGraph = senderPeer.constructor!.netGraph!
+            let scorer = ProbabilisticScorer(decayParams: scoringParams, networkGraph: networkGraph, logger: logger)
+            let score = scorer.asScoreLookUp()
+
+            let scoreParams = ProbabilisticScoringFeeParameters.initWithDefault()
+
+            let usableChannels = senderPeer.channelManager.listUsableChannels()
+
+            let foundRoute = Bindings.findRoute(
+                ourNodePubkey: payerPubkey,
+                routeParams: routeParameters,
+                networkGraph: networkGraph,
+                firstHops: usableChannels,
+                logger: logger,
+                scorer: score,
+                scoreParams: scoreParams,
+                randomSeedBytes: randomSeedBytes
+            )
+
+            let route = foundRoute.getValue()!
+            let fees = route.getTotalFees()
+            print("found route fees: \(fees)")
+        }
+
+        let channelManagerConstructor = senderPeer.constructor!
+
+        let retryStrategy = Bindings.Retry.initWithAttempts(a: 3)
+        let invoicePaymentResult: Result_ThirtyTwoBytesPaymentErrorZ
+        if useZeroValueInvoice {
+            invoicePaymentResult = Bindings.payZeroValueInvoice(invoice: invoice, amountMsats: milliSatoshiAmount, retryStrategy: retryStrategy, channelmanager: channelManagerConstructor.channelManager)
+        } else {
+            invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: retryStrategy, channelmanager: channelManagerConstructor.channelManager)
+        }
+        XCTAssertTrue(invoicePaymentResult.isOk())
+
+
+        do {
+            // process HTLCs
+            let peer2Event = try! await recipientPeer.getManagerEvents(expectedCount: 1)[0]
+            guard case .PendingHTLCsForwardable = peer2Event.getValueType() else {
+                return XCTAssert(false, "Expected .PendingHTLCsForwardable, got \(peer2Event.getValueType())")
+            }
+            let pendingHTLCsForwardable = peer2Event.getValueAsPendingHtlcsForwardable()!
+            print("forwardable time: \(pendingHTLCsForwardable.getTimeForwardable())")
+            recipientPeer.channelManager.processPendingHtlcForwards()
+            print("processed pending HTLC forwards")
+        }
+
+        do {
+            // process payment
+            let peer2Event = try! await recipientPeer.getManagerEvents(expectedCount: 1)[0]
+            guard case .PaymentClaimable = peer2Event.getValueType() else {
+                return XCTAssert(false, "Expected .PaymentReceived, got \(peer2Event.getValueType())")
+            }
+            let paymentClaimable = peer2Event.getValueAsPaymentClaimable()!
+            let paymentHash = paymentClaimable.getPaymentHash()
+            print("received payment of \(paymentClaimable.getAmountMsat()) with hash \(paymentHash)")
+            let paymentPurpose = paymentClaimable.getPurpose()
+            guard case .InvoicePayment = paymentPurpose.getValueType() else {
+                return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
+            }
+            let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
+            let preimage = invoicePayment.getPaymentPreimage()!
+            let secret = invoicePayment.getPaymentSecret()
+            if let configuration = configuration, configuration.shouldRecipientRejectPayment {
+                print("about to fail payment because shouldRecipientRejectPayment flag is set")
+                recipientPeer.channelManager.failHtlcBackwards(paymentHash: paymentHash)
+                print("deliberately failed payment with hash \(paymentHash)")
+                for _ in 0..<10{
+                    // this may have a random delay, run it repeatedly
+                    recipientPeer.channelManager.processPendingHtlcForwards()
+                    try! await Task.sleep(nanoseconds: 0_100_000_000)
+                }
+            } else {
+                recipientPeer.channelManager.claimFunds(paymentPreimage: preimage)
+                print("claimed payment with secret \(secret) using preimage \(preimage)")
+            }
+        }
+
+        if let configuration = configuration, configuration.shouldRecipientRejectPayment {
+            let peer1Events = try! await senderPeer.getManagerEvents(expectedCount: 1)
+            let paymentPathFailedEvent = peer1Events[0]
+            guard case .PaymentPathFailed = paymentPathFailedEvent.getValueType() else {
+                return XCTAssert(false, "Expected .PaymentPathFailed, got \(paymentPathFailedEvent.getValueType())")
+            }
+            let paymentPathFailed = paymentPathFailedEvent.getValueAsPaymentPathFailed()!
+            let failureDescriptor: [String: Any] = [
+                "payment_id": paymentPathFailed.getPaymentId(),
+                "payment_hash": paymentPathFailed.getPaymentHash(),
+                "payment_failed_permanently": paymentPathFailed.getPaymentFailedPermanently(),
+                "short_channel_id": paymentPathFailed.getShortChannelId(),
+                "path": paymentPathFailed.getPath().getHops().map { $0.getShortChannelId() },
+                "failure": paymentPathFailed.getFailure()
+            ]
+
+            print("payent path failure: \(failureDescriptor)")
+            return
+
+        } else {
+            // process payment
+
+            if useZeroValueInvoice {
+                let peer1Events = try! await senderPeer.getManagerEvents(expectedCount: 1)
+                let paymentClaimedEvent = peer1Events[0]
+                guard case .PaymentClaimed = paymentClaimedEvent.getValueType() else {
+                    return XCTAssert(false, "Expected .PaymentClaimed, got \(paymentClaimedEvent.getValueType())")
+                }
+            }
+
+            let peer1Events = try! await senderPeer.getManagerEvents(expectedCount: 2)
+            let paymentSentEvent = peer1Events[0]
+            let paymentPathSuccessfulEvent = peer1Events[1]
+            guard case .PaymentSent = paymentSentEvent.getValueType() else {
+                return XCTAssert(false, "Expected .PaymentSent, got \(paymentSentEvent.getValueType())")
+            }
+            guard case .PaymentPathSuccessful = paymentPathSuccessfulEvent.getValueType() else {
+                return XCTAssert(false, "Expected .PaymentPathSuccessful, got \(paymentPathSuccessfulEvent.getValueType())")
+            }
+            let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
+            let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
+            print("sent payment \(paymentSent.getPaymentId()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().getHops().map { h in h.getShortChannelId() })")
+        }
+
+        let invoicePayment = invoicePaymentResult.getValue()!
+
+    }
+
     func testMessageHandling() async {
 
-        let FUNDING_SATOSHI_AMOUNT: UInt64 = 100_000 // 100k satoshis
+        let FUNDING_SATOSHI_AMOUNT: UInt64 = 100_001 // 100k satoshis (1 sat is taken for the reserve)
         let SEND_MSAT_AMOUNT_A_TO_B: UInt64 = 10_000_000 // 10k satoshis
         let SEND_MSAT_AMOUNT_B_TO_A: UInt64 = 3_000_000 // 3k satoshis
         let SEND_MSAT_AMOUNT_A_TO_C: UInt64 = 5_000_000 // 5k satoshis, with intermediate hop
@@ -693,154 +857,37 @@ public class HumanObjectPeerTestInstance {
         }
 
         var confirmedChannelBlock = await HumanObjectPeerTestInstance.openChannel(peerA: peer1, peerB: peer2, fundingAmount: FUNDING_SATOSHI_AMOUNT, otherPeers: [peer3])
-        
+
         let usableChannelsA = peer1.channelManager.listUsableChannels()
         let usableChannelsB = peer2.channelManager.listUsableChannels()
         let channelAToB = usableChannelsA[0]
         let channelBToA = usableChannelsB[0]
-        
-        // confirmedChannelBlock = await HumanObjectPeerTestInstance.openChannel(peerA: peer2, peerB: peer3, fundingAmount: FUNDING_SATOSHI_AMOUNT, latestBlock: confirmedChannelBlock, otherPeers: [peer1])
-        
+
+        print("opening second channel")
+        confirmedChannelBlock = await HumanObjectPeerTestInstance.openChannel(peerA: peer2, peerB: peer3, fundingAmount: FUNDING_SATOSHI_AMOUNT, latestBlock: confirmedChannelBlock, otherPeers: [peer1])
+        print("second channel opened!")
+
         let originalChannelBalanceAToB = channelAToB.getBalanceMsat()
         let originalChannelBalanceBToA = channelBToA.getBalanceMsat()
-        
+
         let secondChannelBalanceAToB = channelAToB.getBalanceMsat()
         let secondChannelBalanceBToA = channelBToA.getBalanceMsat()
-        
+
         let logger = TestLogger()
 
         do {
-            // create invoice for 10k satoshis to pay to peer2
-
-            let invoiceResult = Bindings.createInvoiceFromChannelmanager(channelmanager: peer2.channelManager, nodeSigner: peer2.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: SEND_MSAT_AMOUNT_A_TO_B, description: "Invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
-            if let invoiceError = invoiceResult.getError(){
-                let creationError = invoiceError.getValueAsCreationError()
-                print("creation error: \(creationError)")
-            }
-            let invoice = invoiceResult.getValue()!
-            print("Invoice: \(invoice.toStr())")
-
-            let recreatedInvoice = Bolt11Invoice.fromStr(s: invoice.toStr())
-            XCTAssertTrue(recreatedInvoice.isOk())
-
-            // find route
-
-            do {
-                let payerPubkey = peer1.channelManager.getOurNodeId()
-                let payeePubkey = peer2.channelManager.getOurNodeId()
-                let paymentParameters = PaymentParameters.initForKeysend(payeePubkey: payeePubkey, finalCltvExpiryDelta: 3, allowMpp: false)
-
-                let amount = invoice.amountMilliSatoshis()!
-                let routeParameters = RouteParameters(paymentParamsArg: paymentParameters, finalValueMsatArg: amount, maxTotalRoutingFeeMsatArg: nil)
-                let randomSeedBytes: [UInt8] = [UInt8](repeating: 0, count: 32)
-                let scoringParams = ProbabilisticScoringDecayParameters.initWithDefault()
-                let networkGraph = peer1.constructor!.netGraph!
-                let scorer = ProbabilisticScorer(decayParams: scoringParams, networkGraph: networkGraph, logger: logger)
-                let score = scorer.asScoreLookUp()
-
-                let scoreParams = ProbabilisticScoringFeeParameters.initWithDefault()
-
-                let foundRoute = Bindings.findRoute(
-                    ourNodePubkey: payerPubkey,
-                    routeParams: routeParameters,
-                    networkGraph: networkGraph,
-                    firstHops: usableChannelsA,
-                    logger: logger,
-                    scorer: score,
-                    scoreParams: scoreParams,
-                    randomSeedBytes: randomSeedBytes
-                )
-
-                let route = foundRoute.getValue()!
-                let fees = route.getTotalFees()
-                print("found route fees: \(fees)")
-            }
-
-            let channelManagerConstructor = peer1.constructor!
-            let invoicePaymentResult = Bindings.payInvoice(invoice: invoice, retryStrategy: Bindings.Retry.initWithAttempts(a: 3), channelmanager: channelManagerConstructor.channelManager)
-            XCTAssertTrue(invoicePaymentResult.isOk())
-
-            do {
-                // process HTLCs
-                let peer2Event = try! await peer2.getManagerEvents(expectedCount: 1)[0]
-                guard case .PendingHTLCsForwardable = peer2Event.getValueType() else {
-                    return XCTAssert(false, "Expected .PendingHTLCsForwardable, got \(peer2Event.getValueType())")
-                }
-                let pendingHTLCsForwardable = peer2Event.getValueAsPendingHtlcsForwardable()!
-                print("forwardable time: \(pendingHTLCsForwardable.getTimeForwardable())")
-                peer2.channelManager.processPendingHtlcForwards()
-                print("processed pending HTLC forwards")
-            }
-
-            do {
-                // process payment
-                let peer2Event = try! await peer2.getManagerEvents(expectedCount: 1)[0]
-                guard case .PaymentClaimable = peer2Event.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentReceived, got \(peer2Event.getValueType())")
-                }
-                let paymentClaimable = peer2Event.getValueAsPaymentClaimable()!
-                let paymentHash = paymentClaimable.getPaymentHash()
-                print("received payment of \(paymentClaimable.getAmountMsat()) with hash \(paymentHash)")
-                let paymentPurpose = paymentClaimable.getPurpose()
-                guard case .InvoicePayment = paymentPurpose.getValueType() else {
-                    return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
-                }
-                let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
-                let preimage = invoicePayment.getPaymentPreimage()!
-                let secret = invoicePayment.getPaymentSecret()
-                if self.configuration.shouldRecipientRejectPayment {
-                    print("about to fail payment because shouldRecipientRejectPayment flag is set")
-                    peer2.channelManager.failHtlcBackwards(paymentHash: paymentHash)
-                    print("deliberately failed payment with hash \(paymentHash)")
-                    for _ in 0..<10{
-                        // this may have a random delay, run it repeatedly
-                        peer2.channelManager.processPendingHtlcForwards()
-                        try! await Task.sleep(nanoseconds: 0_100_000_000)
-                    }
-                } else {
-                    peer2.channelManager.claimFunds(paymentPreimage: preimage)
-                    print("claimed payment with secret \(secret) using preimage \(preimage)")
-                }
-            }
-
-            if self.configuration.shouldRecipientRejectPayment {
-                let peer1Events = try! await peer1.getManagerEvents(expectedCount: 1)
-                let paymentPathFailedEvent = peer1Events[0]
-                guard case .PaymentPathFailed = paymentPathFailedEvent.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentPathFailed, got \(paymentPathFailedEvent.getValueType())")
-                }
-                let paymentPathFailed = paymentPathFailedEvent.getValueAsPaymentPathFailed()!
-                let failureDescriptor: [String: Any] = [
-                    "payment_id": paymentPathFailed.getPaymentId(),
-                    "payment_hash": paymentPathFailed.getPaymentHash(),
-                    "payment_failed_permanently": paymentPathFailed.getPaymentFailedPermanently(),
-                    "short_channel_id": paymentPathFailed.getShortChannelId(),
-                    "path": paymentPathFailed.getPath().getHops().map { $0.getShortChannelId() },
-                    "failure": paymentPathFailed.getFailure()
-                ]
-
-                print("payent path failure: \(failureDescriptor)")
-                print("here")
-                return
-
-            } else {
-                // process payment
-                let peer1Events = try! await peer1.getManagerEvents(expectedCount: 2)
-                let paymentSentEvent = peer1Events[0]
-                let paymentPathSuccessfulEvent = peer1Events[1]
-                guard case .PaymentSent = paymentSentEvent.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentSent, got \(paymentSentEvent.getValueType())")
-                }
-                guard case .PaymentPathSuccessful = paymentPathSuccessfulEvent.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentPathSuccessful, got \(paymentPathSuccessfulEvent.getValueType())")
-                }
-                let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
-                let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
-                print("sent payment \(paymentSent.getPaymentId()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().getHops().map { h in h.getShortChannelId() })")
-            }
-
             var currentChannelABalance = secondChannelBalanceAToB
             var currentChannelBBalance = secondChannelBalanceBToA
+            print("Original balance A->B: \(currentChannelABalance)")
+            print("Original balance B->A: \(currentChannelBBalance)")
+
+            print("Sending \(SEND_MSAT_AMOUNT_A_TO_B) from A->B")
+            await HumanObjectPeerTestInstance.sendMoney(senderPeer: peer1, recipientPeer: peer2, milliSatoshiAmount: SEND_MSAT_AMOUNT_A_TO_B, logger: logger, useZeroValueInvoice: false, networkGraph: peer1.constructor?.netGraph, configuration: self.configuration)
+
+            if self.configuration.shouldRecipientRejectPayment {
+                return
+            }
+            
             while true {
                 let channelA = peer1.channelManager.listUsableChannels()[0]
                 let channelB = peer2.channelManager.listUsableChannels()[0]
@@ -853,89 +900,20 @@ public class HumanObjectPeerTestInstance {
                 try! await Task.sleep(nanoseconds: 0_100_000_000)
             }
 
-            let invoicePayment = invoicePaymentResult.getValue()!
+            print("New balance A->B: \(currentChannelABalance)")
+            print("New balance B->A: \(currentChannelBBalance)")
             XCTAssertEqual(currentChannelABalance, secondChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B)
             XCTAssertEqual(currentChannelBBalance, secondChannelBalanceBToA + SEND_MSAT_AMOUNT_A_TO_B)
         }
 
         do {
-            // send some money back
-            // create invoice for 10k satoshis to pay to peer2
+
             let prePaymentBalanceAToB = peer1.channelManager.listUsableChannels()[0].getBalanceMsat()
             let prePaymentBalanceBToA = peer2.channelManager.listUsableChannels()[0].getBalanceMsat()
             print("pre-payment balance A->B mSats: \(prePaymentBalanceAToB)")
             print("pre-payment balance B->A mSats: \(prePaymentBalanceBToA)")
 
-            let invoiceResult = Bindings.createInvoiceFromChannelmanager(channelmanager: peer1.channelManager, nodeSigner: peer1.explicitKeysManager.asNodeSigner(), logger: logger, network: .Bitcoin, amtMsat: nil, description: "Second invoice description", invoiceExpiryDeltaSecs: 60, minFinalCltvExpiryDelta: 24)
-            let invoice = invoiceResult.getValue()!
-            print("Implicit amount invoice: \(invoice.toStr())")
-
-			let invoiceString = invoice.toStr()
-            let recreatedInvoice = Bolt11Invoice.fromStr(s: invoiceString)
-            XCTAssertTrue(recreatedInvoice.isOk())
-
-            let invoicePaymentResult = Bindings.payZeroValueInvoice(invoice: invoice, amountMsats: SEND_MSAT_AMOUNT_B_TO_A, retryStrategy: Retry.initWithAttempts(a: 3), channelmanager: peer2.channelManager)
-            if let error = invoicePaymentResult.getError() {
-                print("value type: \(error.getValueType())")
-                if let routingError = error.getValueAsSending() {
-                    print("sending error: \(routingError)")
-                }
-            }
-            XCTAssertTrue(invoicePaymentResult.isOk())
-
-            do {
-                // process HTLCs
-                let peer1Event = try! await peer1.getManagerEvents(expectedCount: 1)[0]
-                guard case .PendingHTLCsForwardable = peer1Event.getValueType() else {
-                    return XCTAssert(false, "Expected .PendingHTLCsForwardable, got \(peer1Event.getValueType())")
-                }
-                let pendingHTLCsForwardable = peer1Event.getValueAsPendingHtlcsForwardable()!
-                print("forwardable time: \(pendingHTLCsForwardable.getTimeForwardable())")
-                peer1.channelManager.processPendingHtlcForwards()
-                print("processed pending HTLC forwards")
-            }
-
-            do {
-                // process payment
-                let peer1Event = try! await peer1.getManagerEvents(expectedCount: 1)[0]
-                guard case .PaymentClaimable = peer1Event.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentReceived, got \(peer1Event.getValueType())")
-                }
-                let paymentClaimable = peer1Event.getValueAsPaymentClaimable()!
-                let paymentHash = paymentClaimable.getPaymentHash()
-                print("received payment of \(paymentClaimable.getAmountMsat()) with hash \(paymentHash)")
-                let paymentPurpose = paymentClaimable.getPurpose()
-                guard case .InvoicePayment = paymentPurpose.getValueType() else {
-                    return XCTAssert(false, "Expected .InvoicePayment, got \(paymentPurpose.getValueType())")
-                }
-                let invoicePayment = paymentPurpose.getValueAsInvoicePayment()!
-                let preimage = invoicePayment.getPaymentPreimage()!
-                let secret = invoicePayment.getPaymentSecret()
-                peer1.channelManager.claimFunds(paymentPreimage: preimage)
-                print("claimed payment with secret \(secret) using preimage \(preimage)")
-            }
-
-            do {
-                // process payment
-                let peer2Events = try! await peer2.getManagerEvents(expectedCount: 3)
-                print("received event count: \(peer2Events.count)")
-                let paymentClaimedEvent = peer2Events[0]
-                let paymentSentEvent = peer2Events[1]
-                let paymentPathSuccessfulEvent = peer2Events[2]
-                guard case .PaymentClaimed = paymentClaimedEvent.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentClaimed, got \(paymentClaimedEvent.getValueType())")
-                }
-                guard case .PaymentSent = paymentSentEvent.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentSent, got \(paymentSentEvent.getValueType())")
-                }
-                guard case .PaymentPathSuccessful = paymentPathSuccessfulEvent.getValueType() else {
-                    return XCTAssert(false, "Expected .PaymentPathSuccessful, got \(paymentPathSuccessfulEvent.getValueType())")
-                }
-                let paymentClaimed = paymentClaimedEvent.getValueAsPaymentClaimed()!
-                let paymentSent = paymentSentEvent.getValueAsPaymentSent()!
-                let paymentPathSuccessful = paymentPathSuccessfulEvent.getValueAsPaymentPathSuccessful()!
-                print("sent payment \(paymentSent.getPaymentId()) worth \(paymentClaimed.getAmountMsat()) with fee \(paymentSent.getFeePaidMsat()) via \(paymentPathSuccessful.getPath().getHops().map { h in h.getShortChannelId() })")
-            }
+            await HumanObjectPeerTestInstance.sendMoney(senderPeer: peer2, recipientPeer: peer1, milliSatoshiAmount: SEND_MSAT_AMOUNT_B_TO_A, logger: logger, useZeroValueInvoice: true, networkGraph: nil, configuration: nil)
 
             var currentChannelABalance = prePaymentBalanceAToB
             var currentChannelBBalance = prePaymentBalanceBToA
@@ -951,7 +929,6 @@ public class HumanObjectPeerTestInstance {
                 try! await Task.sleep(nanoseconds: 0_100_000_000)
             }
 
-            let invoicePayment = invoicePaymentResult.getValue()!
             XCTAssertEqual(currentChannelABalance, prePaymentBalanceAToB + SEND_MSAT_AMOUNT_B_TO_A)
             XCTAssertEqual(currentChannelBBalance, prePaymentBalanceBToA - SEND_MSAT_AMOUNT_B_TO_A)
             XCTAssertEqual(currentChannelABalance, secondChannelBalanceAToB - SEND_MSAT_AMOUNT_A_TO_B + SEND_MSAT_AMOUNT_B_TO_A)

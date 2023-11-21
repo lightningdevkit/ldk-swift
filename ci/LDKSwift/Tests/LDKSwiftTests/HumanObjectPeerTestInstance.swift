@@ -884,6 +884,10 @@ public class HumanObjectPeerTestInstance {
             print("Sending \(SEND_MSAT_AMOUNT_A_TO_B) from A->B")
             await HumanObjectPeerTestInstance.sendMoney(senderPeer: peer1, recipientPeer: peer2, milliSatoshiAmount: SEND_MSAT_AMOUNT_A_TO_B, logger: logger, useZeroValueInvoice: false, networkGraph: peer1.constructor?.netGraph, configuration: self.configuration)
 
+            if self.configuration.shouldRecipientRejectPayment {
+                return
+            }
+            
             while true {
                 let channelA = peer1.channelManager.listUsableChannels()[0]
                 let channelB = peer2.channelManager.listUsableChannels()[0]

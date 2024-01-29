@@ -127,6 +127,17 @@ export abstract class BaseTypeGenerator<Type extends RustType> {
 			accessorName = Generator.snakeCaseToCamelCase(field.contextualName);
 		}
 
+		const methodNames = [];
+		for (const currentMethod of containerType.methods) {
+			const swiftMethodName = this.swiftMethodName(currentMethod, containerType);
+			methodNames.push(swiftMethodName);
+		}
+
+		if (methodNames.includes(accessorName)) {
+			console.log('Presumptive redundant accessor:', accessorName);
+			return '';
+		}
+
 		const swiftReturnType = this.getPublicTypeSignature(field.type, containerType);
 		const fieldAccessor = `self.cType!.${field.contextualName}`;
 		const preparedReturnValue = this.prepareRustReturnValueForSwift(field, containerType);

@@ -120,7 +120,7 @@ extension Bindings {
 
 			func validateHolderCommitmentLambda(
 				this_arg: UnsafeRawPointer?, holder_tx: UnsafePointer<LDKHolderCommitmentTransaction>,
-				preimages: LDKCVec_ThirtyTwoBytesZ
+				outbound_htlc_preimages: LDKCVec_ThirtyTwoBytesZ
 			) -> LDKCResult_NoneNoneZ {
 				let instance: ChannelSigner = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ChannelSigner::validateHolderCommitmentLambda")
@@ -135,10 +135,37 @@ extension Bindings {
 						instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)"
 					)
 					.dangle().clone(),
-					preimages: Vec_ThirtyTwoBytesZ(
-						cType: preimages, instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)"
+					outboundHtlcPreimages: Vec_ThirtyTwoBytesZ(
+						cType: outbound_htlc_preimages,
+						instantiationContext: "ChannelSigner.swift::init()::\(#function):\(#line)"
 					)
 					.getValue())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
+			func validateCounterpartyRevocationLambda(
+				this_arg: UnsafeRawPointer?, idx: UInt64, secret: UnsafePointer<UInt8Tuple32>?
+			) -> LDKCResult_NoneNoneZ {
+				let instance: ChannelSigner = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelSigner::validateCounterpartyRevocationLambda")
+
+				// Swift callback variable prep
+
+				var secretPointee: [UInt8]? = nil
+				if let secretUnwrapped = secret {
+					secretPointee = Bindings.UInt8Tuple32ToArray(tuple: secretUnwrapped.pointee)
+				}
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.validateCounterpartyRevocation(idx: idx, secret: secretPointee)
 
 				// cleanup
 
@@ -223,6 +250,7 @@ extension Bindings {
 				get_per_commitment_point: getPerCommitmentPointLambda,
 				release_commitment_secret: releaseCommitmentSecretLambda,
 				validate_holder_commitment: validateHolderCommitmentLambda,
+				validate_counterparty_revocation: validateCounterpartyRevocationLambda,
 				pubkeys: pubkeys.dynamicallyDangledClone().cType!,
 				set_pubkeys: nil,
 				channel_keys_id: channelKeysIdLambda,
@@ -266,18 +294,30 @@ extension Bindings {
 		/// Policy checks should be implemented in this function, including checking the amount
 		/// sent to us and checking the HTLCs.
 		///
-		/// The preimages of outgoing HTLCs that were fulfilled since the last commitment are provided.
+		/// The preimages of outbound HTLCs that were fulfilled since the last commitment are provided.
 		/// A validating signer should ensure that an HTLC output is removed only when the matching
 		/// preimage is provided, or when the value to holder is restored.
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
-		open func validateHolderCommitment(holderTx: HolderCommitmentTransaction, preimages: [[UInt8]])
+		open func validateHolderCommitment(holderTx: HolderCommitmentTransaction, outboundHtlcPreimages: [[UInt8]])
 			-> Result_NoneNoneZ
 		{
 
 			Bindings.print(
 				"Error: ChannelSigner::validateHolderCommitment MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Validate the counterparty's revocation.
+		///
+		/// This is required in order for the signer to make sure that the state has moved
+		/// forward and it is safe to sign the next counterparty commitment.
+		open func validateCounterpartyRevocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
+
+			Bindings.print(
+				"Error: ChannelSigner::validateCounterpartyRevocation MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -412,19 +452,19 @@ extension Bindings {
 		/// Policy checks should be implemented in this function, including checking the amount
 		/// sent to us and checking the HTLCs.
 		///
-		/// The preimages of outgoing HTLCs that were fulfilled since the last commitment are provided.
+		/// The preimages of outbound HTLCs that were fulfilled since the last commitment are provided.
 		/// A validating signer should ensure that an HTLC output is removed only when the matching
 		/// preimage is provided, or when the value to holder is restored.
 		///
 		/// Note that all the relevant preimages will be provided, but there may also be additional
 		/// irrelevant or duplicate preimages.
-		public override func validateHolderCommitment(holderTx: HolderCommitmentTransaction, preimages: [[UInt8]])
-			-> Result_NoneNoneZ
-		{
+		public override func validateHolderCommitment(
+			holderTx: HolderCommitmentTransaction, outboundHtlcPreimages: [[UInt8]]
+		) -> Result_NoneNoneZ {
 			// native call variable prep
 
-			let preimagesVector = Vec_ThirtyTwoBytesZ(
-				array: preimages, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)"
+			let outboundHtlcPreimagesVector = Vec_ThirtyTwoBytesZ(
+				array: outboundHtlcPreimages, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)"
 			)
 			.dangle()
 
@@ -434,13 +474,45 @@ extension Bindings {
 				withUnsafePointer(to: holderTx.cType!) {
 					(holderTxPointer: UnsafePointer<LDKHolderCommitmentTransaction>) in
 					self.cType!
-						.validate_holder_commitment(self.cType!.this_arg, holderTxPointer, preimagesVector.cType!)
+						.validate_holder_commitment(
+							self.cType!.this_arg, holderTxPointer, outboundHtlcPreimagesVector.cType!)
 				}
 
 
 			// cleanup
 
-			// preimagesVector.noOpRetain()
+			// outboundHtlcPreimagesVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_NoneNoneZ(
+				cType: nativeCallResult, instantiationContext: "ChannelSigner.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Validate the counterparty's revocation.
+		///
+		/// This is required in order for the signer to make sure that the state has moved
+		/// forward and it is safe to sign the next counterparty commitment.
+		public override func validateCounterpartyRevocation(idx: UInt64, secret: [UInt8]?) -> Result_NoneNoneZ {
+			// native call variable prep
+
+			var tupledSecretPointer: UnsafeMutablePointer<UInt8Tuple32>? = nil
+			if let secret = secret {
+
+				let tupledSecret = Bindings.arrayToUInt8Tuple32(array: secret)
+
+				tupledSecretPointer = UnsafeMutablePointer<UInt8Tuple32>.allocate(capacity: 1)
+				tupledSecretPointer!.initialize(to: tupledSecret)
+			}
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.validate_counterparty_revocation(self.cType!.this_arg, idx, tupledSecretPointer)
+
+			// cleanup
 
 
 			// return value (do some wrapping)

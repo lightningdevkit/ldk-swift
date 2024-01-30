@@ -155,7 +155,7 @@ extension Bindings {
 		/// The revocation key which is used to allow the broadcaster of the commitment
 		/// transaction to provide their counterparty the ability to punish them if they broadcast
 		/// an old state.
-		public func getRevocationKey() -> [UInt8] {
+		public func getRevocationKey() -> RevocationKey {
 			// native call variable prep
 
 
@@ -170,11 +170,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
+			let returnValue = RevocationKey(
 				cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle(false).getValue()
+			.dangle(false)
 
 
 			return returnValue
@@ -183,25 +183,19 @@ extension Bindings {
 		/// The revocation key which is used to allow the broadcaster of the commitment
 		/// transaction to provide their counterparty the ability to punish them if they broadcast
 		/// an old state.
-		public func setRevocationKey(val: [UInt8]) {
+		public func setRevocationKey(val: RevocationKey) {
 			// native call variable prep
-
-			let valPrimitiveWrapper = PublicKey(
-				value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
-					TxCreationKeys_set_revocation_key(thisPtrPointer, valPrimitiveWrapper.cType!)
+					TxCreationKeys_set_revocation_key(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -212,7 +206,7 @@ extension Bindings {
 		}
 
 		/// Broadcaster's HTLC Key
-		public func getBroadcasterHtlcKey() -> [UInt8] {
+		public func getBroadcasterHtlcKey() -> HtlcKey {
 			// native call variable prep
 
 
@@ -227,36 +221,30 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
+			let returnValue = HtlcKey(
 				cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle(false).getValue()
+			.dangle(false)
 
 
 			return returnValue
 		}
 
 		/// Broadcaster's HTLC Key
-		public func setBroadcasterHtlcKey(val: [UInt8]) {
+		public func setBroadcasterHtlcKey(val: HtlcKey) {
 			// native call variable prep
-
-			let valPrimitiveWrapper = PublicKey(
-				value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
-					TxCreationKeys_set_broadcaster_htlc_key(thisPtrPointer, valPrimitiveWrapper.cType!)
+					TxCreationKeys_set_broadcaster_htlc_key(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -267,7 +255,7 @@ extension Bindings {
 		}
 
 		/// Countersignatory's HTLC Key
-		public func getCountersignatoryHtlcKey() -> [UInt8] {
+		public func getCountersignatoryHtlcKey() -> HtlcKey {
 			// native call variable prep
 
 
@@ -282,36 +270,30 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
+			let returnValue = HtlcKey(
 				cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle(false).getValue()
+			.dangle(false)
 
 
 			return returnValue
 		}
 
 		/// Countersignatory's HTLC Key
-		public func setCountersignatoryHtlcKey(val: [UInt8]) {
+		public func setCountersignatoryHtlcKey(val: HtlcKey) {
 			// native call variable prep
-
-			let valPrimitiveWrapper = PublicKey(
-				value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
-					TxCreationKeys_set_countersignatory_htlc_key(thisPtrPointer, valPrimitiveWrapper.cType!)
+					TxCreationKeys_set_countersignatory_htlc_key(thisPtrPointer, val.dynamicallyDangledClone().cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -322,7 +304,7 @@ extension Bindings {
 		}
 
 		/// Broadcaster's Payment Key (which isn't allowed to be spent from for some delay)
-		public func getBroadcasterDelayedPaymentKey() -> [UInt8] {
+		public func getBroadcasterDelayedPaymentKey() -> DelayedPaymentKey {
 			// native call variable prep
 
 
@@ -337,36 +319,31 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
+			let returnValue = DelayedPaymentKey(
 				cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle(false).getValue()
+			.dangle(false)
 
 
 			return returnValue
 		}
 
 		/// Broadcaster's Payment Key (which isn't allowed to be spent from for some delay)
-		public func setBroadcasterDelayedPaymentKey(val: [UInt8]) {
+		public func setBroadcasterDelayedPaymentKey(val: DelayedPaymentKey) {
 			// native call variable prep
-
-			let valPrimitiveWrapper = PublicKey(
-				value: val, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafeMutablePointer(to: &self.cType!) {
 					(thisPtrPointer: UnsafeMutablePointer<LDKTxCreationKeys>) in
-					TxCreationKeys_set_broadcaster_delayed_payment_key(thisPtrPointer, valPrimitiveWrapper.cType!)
+					TxCreationKeys_set_broadcaster_delayed_payment_key(
+						thisPtrPointer, val.dynamicallyDangledClone().cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			valPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -377,59 +354,47 @@ extension Bindings {
 		}
 
 		/// Constructs a new TxCreationKeys given each field
-		public class func initWith(
-			perCommitmentPointArg: [UInt8], revocationKeyArg: [UInt8], broadcasterHtlcKeyArg: [UInt8],
-			countersignatoryHtlcKeyArg: [UInt8], broadcasterDelayedPaymentKeyArg: [UInt8]
-		) -> TxCreationKeys {
+		public init(
+			perCommitmentPointArg: [UInt8], revocationKeyArg: RevocationKey, broadcasterHtlcKeyArg: HtlcKey,
+			countersignatoryHtlcKeyArg: HtlcKey, broadcasterDelayedPaymentKeyArg: DelayedPaymentKey
+		) {
 			// native call variable prep
 
 			let perCommitmentPointArgPrimitiveWrapper = PublicKey(
 				value: perCommitmentPointArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 
-			let revocationKeyArgPrimitiveWrapper = PublicKey(
-				value: revocationKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
-			let broadcasterHtlcKeyArgPrimitiveWrapper = PublicKey(
-				value: broadcasterHtlcKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
-			let countersignatoryHtlcKeyArgPrimitiveWrapper = PublicKey(
-				value: countersignatoryHtlcKeyArg, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
-			let broadcasterDelayedPaymentKeyArgPrimitiveWrapper = PublicKey(
-				value: broadcasterDelayedPaymentKeyArg,
-				instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
 
 			// native method call
 			let nativeCallResult = TxCreationKeys_new(
-				perCommitmentPointArgPrimitiveWrapper.cType!, revocationKeyArgPrimitiveWrapper.cType!,
-				broadcasterHtlcKeyArgPrimitiveWrapper.cType!, countersignatoryHtlcKeyArgPrimitiveWrapper.cType!,
-				broadcasterDelayedPaymentKeyArgPrimitiveWrapper.cType!)
+				perCommitmentPointArgPrimitiveWrapper.cType!, revocationKeyArg.dynamicallyDangledClone().cType!,
+				broadcasterHtlcKeyArg.dynamicallyDangledClone().cType!,
+				countersignatoryHtlcKeyArg.dynamicallyDangledClone().cType!,
+				broadcasterDelayedPaymentKeyArg.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
 			// for elided types, we need this
 			perCommitmentPointArgPrimitiveWrapper.noOpRetain()
 
-			// for elided types, we need this
-			revocationKeyArgPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			broadcasterHtlcKeyArgPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			countersignatoryHtlcKeyArgPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			broadcasterDelayedPaymentKeyArgPrimitiveWrapper.noOpRetain()
+			self.initialCFreeability = nativeCallResult.is_owned
 
 
-			// return value (do some wrapping)
-			let returnValue = TxCreationKeys(
-				cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
+			/*
+						// return value (do some wrapping)
+						let returnValue = TxCreationKeys(cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
+						*/
 
 
-			return returnValue
+			self.cType = nativeCallResult
+
+			Self.instanceCounter += 1
+			self.instanceNumber = Self.instanceCounter
+			super
+				.init(
+					conflictAvoidingVariableName: 0, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)"
+				)
+
+
 		}
 
 		/// Checks if two TxCreationKeyss contain equal inner contents.
@@ -537,51 +502,46 @@ extension Bindings {
 		/// Create per-state keys from channel base points and the per-commitment point.
 		/// Key set is asymmetric and can't be used as part of counter-signatory set of transactions.
 		public class func initWithDeriveNew(
-			perCommitmentPoint: [UInt8], broadcasterDelayedPaymentBase: [UInt8], broadcasterHtlcBase: [UInt8],
-			countersignatoryRevocationBase: [UInt8], countersignatoryHtlcBase: [UInt8]
+			perCommitmentPoint: [UInt8], broadcasterDelayedPaymentBase: DelayedPaymentBasepoint,
+			broadcasterHtlcBase: HtlcBasepoint, countersignatoryRevocationBase: RevocationBasepoint,
+			countersignatoryHtlcBase: HtlcBasepoint
 		) -> TxCreationKeys {
 			// native call variable prep
 
 			let perCommitmentPointPrimitiveWrapper = PublicKey(
 				value: perCommitmentPoint, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 
-			let broadcasterDelayedPaymentBasePrimitiveWrapper = PublicKey(
-				value: broadcasterDelayedPaymentBase,
-				instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
-			let broadcasterHtlcBasePrimitiveWrapper = PublicKey(
-				value: broadcasterHtlcBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
-			let countersignatoryRevocationBasePrimitiveWrapper = PublicKey(
-				value: countersignatoryRevocationBase,
-				instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
-			let countersignatoryHtlcBasePrimitiveWrapper = PublicKey(
-				value: countersignatoryHtlcBase, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
-
 
 			// native method call
-			let nativeCallResult = TxCreationKeys_derive_new(
-				perCommitmentPointPrimitiveWrapper.cType!, broadcasterDelayedPaymentBasePrimitiveWrapper.cType!,
-				broadcasterHtlcBasePrimitiveWrapper.cType!, countersignatoryRevocationBasePrimitiveWrapper.cType!,
-				countersignatoryHtlcBasePrimitiveWrapper.cType!)
+			let nativeCallResult =
+				withUnsafePointer(to: broadcasterDelayedPaymentBase.cType!) {
+					(broadcasterDelayedPaymentBasePointer: UnsafePointer<LDKDelayedPaymentBasepoint>) in
+
+					withUnsafePointer(to: broadcasterHtlcBase.cType!) {
+						(broadcasterHtlcBasePointer: UnsafePointer<LDKHtlcBasepoint>) in
+
+						withUnsafePointer(to: countersignatoryRevocationBase.cType!) {
+							(countersignatoryRevocationBasePointer: UnsafePointer<LDKRevocationBasepoint>) in
+
+							withUnsafePointer(to: countersignatoryHtlcBase.cType!) {
+								(countersignatoryHtlcBasePointer: UnsafePointer<LDKHtlcBasepoint>) in
+								TxCreationKeys_derive_new(
+									perCommitmentPointPrimitiveWrapper.cType!, broadcasterDelayedPaymentBasePointer,
+									broadcasterHtlcBasePointer, countersignatoryRevocationBasePointer,
+									countersignatoryHtlcBasePointer)
+							}
+
+						}
+
+					}
+
+				}
+
 
 			// cleanup
 
 			// for elided types, we need this
 			perCommitmentPointPrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			broadcasterDelayedPaymentBasePrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			broadcasterHtlcBasePrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			countersignatoryRevocationBasePrimitiveWrapper.noOpRetain()
-
-			// for elided types, we need this
-			countersignatoryHtlcBasePrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
@@ -589,6 +549,10 @@ extension Bindings {
 				cType: nativeCallResult, instantiationContext: "TxCreationKeys.swift::\(#function):\(#line)")
 
 
+			try! returnValue.addAnchor(anchor: broadcasterDelayedPaymentBase)
+			try! returnValue.addAnchor(anchor: broadcasterHtlcBase)
+			try! returnValue.addAnchor(anchor: countersignatoryRevocationBase)
+			try! returnValue.addAnchor(anchor: countersignatoryHtlcBase)
 			return returnValue
 		}
 

@@ -2,17 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A CResult_CVec_CVec_u8ZZNoneZ represents the result of a fallible operation,
-/// containing a crate::c_types::derived::CVec_CVec_u8ZZ on success and a () on failure.
+/// A CResult_WitnessNoneZ represents the result of a fallible operation,
+/// containing a crate::c_types::Witness on success and a () on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-public typealias Result_CVec_CVec_u8ZZNoneZ = Bindings.Result_CVec_CVec_u8ZZNoneZ
+public typealias Result_WitnessNoneZ = Bindings.Result_WitnessNoneZ
 
 extension Bindings {
 
-	/// A CResult_CVec_CVec_u8ZZNoneZ represents the result of a fallible operation,
-	/// containing a crate::c_types::derived::CVec_CVec_u8ZZ on success and a () on failure.
+	/// A CResult_WitnessNoneZ represents the result of a fallible operation,
+	/// containing a crate::c_types::Witness on success and a () on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-	public class Result_CVec_CVec_u8ZZNoneZ: NativeTypeWrapper {
+	public class Result_WitnessNoneZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -27,9 +27,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCResult_CVec_CVec_u8ZZNoneZ?
+		internal var cType: LDKCResult_WitnessNoneZ?
 
-		internal init(cType: LDKCResult_CVec_CVec_u8ZZNoneZ, instantiationContext: String) {
+		internal init(cType: LDKCResult_WitnessNoneZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -37,7 +37,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKCResult_CVec_CVec_u8ZZNoneZ, instantiationContext: String, anchor: NativeTypeWrapper) {
+		internal init(cType: LDKCResult_WitnessNoneZ, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -48,7 +48,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCResult_CVec_CVec_u8ZZNoneZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			cType: LDKCResult_WitnessNoneZ, instantiationContext: String, anchor: NativeTypeWrapper,
 			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -61,60 +61,59 @@ extension Bindings {
 		}
 
 
-		/// Creates a new CResult_CVec_CVec_u8ZZNoneZ in the success state.
-		public class func initWithOk(o: [[UInt8]]) -> Result_CVec_CVec_u8ZZNoneZ {
+		/// Creates a new CResult_WitnessNoneZ in the success state.
+		public class func initWithOk(o: [UInt8]) -> Result_WitnessNoneZ {
 			// native call variable prep
 
-			let oVector = Vec_CVec_u8ZZ(
-				array: o, instantiationContext: "Result_CVec_CVec_u8ZZNoneZ.swift::\(#function):\(#line)"
+			let oPrimitiveWrapper = Witness(
+				value: o, instantiationContext: "Result_WitnessNoneZ.swift::\(#function):\(#line)"
 			)
-			.dangle()
+			.dynamicallyDangledClone()
 
 
 			// native method call
-			let nativeCallResult = CResult_CVec_CVec_u8ZZNoneZ_ok(oVector.cType!)
+			let nativeCallResult = CResult_WitnessNoneZ_ok(oPrimitiveWrapper.cType!)
 
 			// cleanup
 
-			// oVector.noOpRetain()
+			// for elided types, we need this
+			oPrimitiveWrapper.noOpRetain()
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_CVec_u8ZZNoneZ(
-				cType: nativeCallResult, instantiationContext: "Result_CVec_CVec_u8ZZNoneZ.swift::\(#function):\(#line)"
-			)
+			let returnValue = Result_WitnessNoneZ(
+				cType: nativeCallResult, instantiationContext: "Result_WitnessNoneZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Creates a new CResult_CVec_CVec_u8ZZNoneZ in the error state.
-		public class func initWithErr() -> Result_CVec_CVec_u8ZZNoneZ {
+		/// Creates a new CResult_WitnessNoneZ in the error state.
+		public class func initWithErr() -> Result_WitnessNoneZ {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_CVec_CVec_u8ZZNoneZ_err()
+			let nativeCallResult = CResult_WitnessNoneZ_err()
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_CVec_u8ZZNoneZ(
-				cType: nativeCallResult, instantiationContext: "Result_CVec_CVec_u8ZZNoneZ.swift::\(#function):\(#line)"
-			)
+			let returnValue = Result_WitnessNoneZ(
+				cType: nativeCallResult, instantiationContext: "Result_WitnessNoneZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Frees any resources used by the CResult_CVec_CVec_u8ZZNoneZ.
+		/// Frees any resources used by the CResult_WitnessNoneZ.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_CVec_CVec_u8ZZNoneZ_free(self.cType!)
+			let nativeCallResult = CResult_WitnessNoneZ_free(self.cType!)
 
 			// cleanup
 
@@ -126,16 +125,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new CResult_CVec_CVec_u8ZZNoneZ which has the same data as `orig`
+		/// Creates a new CResult_WitnessNoneZ which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Result_CVec_CVec_u8ZZNoneZ {
+		internal func clone() -> Result_WitnessNoneZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_CVec_CVec_u8ZZNoneZ>) in
-					CResult_CVec_CVec_u8ZZNoneZ_clone(origPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_WitnessNoneZ>) in
+					CResult_WitnessNoneZ_clone(origPointer)
 				}
 
 
@@ -143,9 +142,8 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_CVec_CVec_u8ZZNoneZ(
-				cType: nativeCallResult, instantiationContext: "Result_CVec_CVec_u8ZZNoneZ.swift::\(#function):\(#line)"
-			)
+			let returnValue = Result_WitnessNoneZ(
+				cType: nativeCallResult, instantiationContext: "Result_WitnessNoneZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -166,11 +164,11 @@ extension Bindings {
 					*/
 
 
-		public func getValue() -> [[UInt8]]? {
+		public func getValue() -> [UInt8]? {
 			if self.cType?.result_ok == true {
-				return Vec_CVec_u8ZZ(
+				return Witness(
 					cType: self.cType!.contents.result.pointee,
-					instantiationContext: "Result_CVec_CVec_u8ZZNoneZ.swift::\(#function):\(#line)", anchor: self
+					instantiationContext: "Result_WitnessNoneZ.swift::\(#function):\(#line)", anchor: self
 				)
 				.getValue()
 			}
@@ -178,7 +176,7 @@ extension Bindings {
 		}
 
 
-		internal func danglingClone() -> Result_CVec_CVec_u8ZZNoneZ {
+		internal func danglingClone() -> Result_WitnessNoneZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -192,14 +190,13 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
-					)
+						"Freeing Result_WitnessNoneZ \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Result_CVec_CVec_u8ZZNoneZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Result_WitnessNoneZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

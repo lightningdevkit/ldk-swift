@@ -71,6 +71,31 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
+			func getAndClearConnectionsNeededLambda(this_arg: UnsafeRawPointer?)
+				-> LDKCVec_C2Tuple_PublicKeyCVec_SocketAddressZZZ
+			{
+				let instance: OnionMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageHandler::getAndClearConnectionsNeededLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.getAndClearConnectionsNeeded()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = Vec_C2Tuple_PublicKeyCVec_SocketAddressZZZ(
+					array: swiftCallbackResult,
+					instantiationContext: "OnionMessageHandler.swift::init()::\(#function):\(#line)"
+				)
+				.dangleRecursively().cType!
+
+				return returnValue
+			}
+
 			func handleOnionMessageLambda(
 				this_arg: UnsafeRawPointer?, peer_node_id: LDKPublicKey, msg: UnsafePointer<LDKOnionMessage>
 			) {
@@ -184,6 +209,25 @@ extension Bindings {
 				return returnValue
 			}
 
+			func timerTickOccurredLambda(this_arg: UnsafeRawPointer?) {
+				let instance: OnionMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageHandler::timerTickOccurredLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.timerTickOccurred()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
 			func providedNodeFeaturesLambda(this_arg: UnsafeRawPointer?) -> LDKNodeFeatures {
 				let instance: OnionMessageHandler = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "OnionMessageHandler::providedNodeFeaturesLambda")
@@ -250,16 +294,33 @@ extension Bindings {
 
 			self.cType = LDKOnionMessageHandler(
 				this_arg: thisArg,
+				get_and_clear_connections_needed: getAndClearConnectionsNeededLambda,
 				handle_onion_message: handleOnionMessageLambda,
 				next_onion_message_for_peer: nextOnionMessageForPeerLambda,
 				peer_connected: peerConnectedLambda,
 				peer_disconnected: peerDisconnectedLambda,
+				timer_tick_occurred: timerTickOccurredLambda,
 				provided_node_features: providedNodeFeaturesLambda,
 				provided_init_features: providedInitFeaturesLambda,
 				free: freeLambda
 			)
 		}
 
+
+		/// Because much of the lightning network does not yet support forwarding onion messages, we
+		/// may need to directly connect to a node which will forward a message for us. In such a case,
+		/// this method will return the set of nodes which need connection by node_id and the
+		/// corresponding socket addresses where they may accept incoming connections.
+		///
+		/// Thus, this method should be polled regularly to detect messages await such a direct
+		/// connection.
+		open func getAndClearConnectionsNeeded() -> [([UInt8], [SocketAddress])] {
+
+			Bindings.print(
+				"Error: OnionMessageHandler::getAndClearConnectionsNeeded MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
 
 		/// Handle an incoming `onion_message` message from the given peer.
 		open func handleOnionMessage(peerNodeId: [UInt8], msg: OnionMessage) {
@@ -301,6 +362,16 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: OnionMessageHandler::peerDisconnected MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Performs actions that should happen roughly every ten seconds after startup. Allows handlers
+		/// to drop any buffered onion messages intended for prospective peers.
+		open func timerTickOccurred() {
+
+			Bindings.print(
+				"Error: OnionMessageHandler::timerTickOccurred MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -363,6 +434,32 @@ extension Bindings {
 	}
 
 	internal class NativelyImplementedOnionMessageHandler: OnionMessageHandler {
+
+		/// Because much of the lightning network does not yet support forwarding onion messages, we
+		/// may need to directly connect to a node which will forward a message for us. In such a case,
+		/// this method will return the set of nodes which need connection by node_id and the
+		/// corresponding socket addresses where they may accept incoming connections.
+		///
+		/// Thus, this method should be polled regularly to detect messages await such a direct
+		/// connection.
+		public override func getAndClearConnectionsNeeded() -> [([UInt8], [SocketAddress])] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.get_and_clear_connections_needed(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_C2Tuple_PublicKeyCVec_SocketAddressZZZ(
+				cType: nativeCallResult, instantiationContext: "OnionMessageHandler.swift::\(#function):\(#line)"
+			)
+			.getValue()
+
+			return returnValue
+		}
 
 		/// Handle an incoming `onion_message` message from the given peer.
 		public override func handleOnionMessage(peerNodeId: [UInt8], msg: OnionMessage) {
@@ -473,6 +570,24 @@ extension Bindings {
 
 			// for elided types, we need this
 			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Performs actions that should happen roughly every ten seconds after startup. Allows handlers
+		/// to drop any buffered onion messages intended for prospective peers.
+		public override func timerTickOccurred() {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.timer_tick_occurred(self.cType!.this_arg)
+
+			// cleanup
 
 
 			// return value (do some wrapping)

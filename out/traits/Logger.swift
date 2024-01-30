@@ -6,12 +6,12 @@ import Foundation
 #endif
 
 
-/// A trait encapsulating the operations required of a logger
+/// A trait encapsulating the operations required of a logger.
 public typealias Logger = Bindings.Logger
 
 extension Bindings {
 
-	/// A trait encapsulating the operations required of a logger
+	/// A trait encapsulating the operations required of a logger.
 	open class Logger: NativeTraitWrapper {
 
 
@@ -66,7 +66,7 @@ extension Bindings {
 			let thisArg = Bindings.instanceToPointer(instance: self)
 
 
-			func logLambda(this_arg: UnsafeRawPointer?, record: UnsafePointer<LDKRecord>) {
+			func logLambda(this_arg: UnsafeRawPointer?, record: LDKRecord) {
 				let instance: Logger = Bindings.pointerToInstance(pointer: this_arg!, sourceMarker: "Logger::logLambda")
 
 				// Swift callback variable prep
@@ -74,10 +74,7 @@ extension Bindings {
 
 				// Swift callback call
 				let swiftCallbackResult = instance.log(
-					record: Record(
-						cType: record.pointee, instantiationContext: "Logger.swift::init()::\(#function):\(#line)"
-					)
-					.dangle().clone())
+					record: Record(cType: record, instantiationContext: "Logger.swift::init()::\(#function):\(#line)"))
 
 				// cleanup
 
@@ -116,7 +113,7 @@ extension Bindings {
 		}
 
 
-		/// Logs the `Record`
+		/// Logs the [`Record`].
 		open func log(record: Record) {
 
 			Bindings.print(
@@ -158,17 +155,13 @@ extension Bindings {
 
 	internal class NativelyImplementedLogger: Logger {
 
-		/// Logs the `Record`
+		/// Logs the [`Record`].
 		public override func log(record: Record) {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: record.cType!) { (recordPointer: UnsafePointer<LDKRecord>) in
-					self.cType!.log(self.cType!.this_arg, recordPointer)
-				}
-
+			let nativeCallResult = self.cType!.log(self.cType!.this_arg, record.dynamicallyDangledClone().cType!)
 
 			// cleanup
 

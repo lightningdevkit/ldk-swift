@@ -90,6 +90,53 @@ extension Bindings {
 
 		}
 
+		/// Gets the `script_pubkey` in the given `TxOut`.
+		public func getScriptPubkey() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (txoutPointer: UnsafePointer<LDKTxOut>) in
+					TxOut_get_script_pubkey(txoutPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = u8slice(
+				cType: nativeCallResult, instantiationContext: "TxOut.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle().getValue()
+
+
+			return returnValue
+		}
+
+		/// Gets the value in the given `TxOut`.
+		public func getValue() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (txoutPointer: UnsafePointer<LDKTxOut>) in
+					TxOut_get_value(txoutPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Frees the data pointed to by script_pubkey.
 		internal func free() {
 			// native call variable prep
@@ -126,27 +173,6 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = TxOut(cType: nativeCallResult, instantiationContext: "TxOut.swift::\(#function):\(#line)")
 
-
-			return returnValue
-		}
-
-
-		/// The script_pubkey in this output
-		public func getScriptPubkey() -> [UInt8] {
-			// return value (do some wrapping)
-			let returnValue = Vec_u8Z(
-				cType: self.cType!.script_pubkey, instantiationContext: "TxOut.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.getValue()
-
-			return returnValue
-		}
-
-		/// The value, in satoshis, of this output
-		public func getValue() -> UInt64 {
-			// return value (do some wrapping)
-			let returnValue = self.cType!.value
 
 			return returnValue
 		}

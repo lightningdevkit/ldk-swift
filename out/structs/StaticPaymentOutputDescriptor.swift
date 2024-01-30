@@ -512,7 +512,7 @@ extension Bindings {
 		/// The maximum length a well-formed witness spending one of these should have.
 		/// Note: If you have the grind_signatures feature enabled, this will be at least 1 byte
 		/// shorter.
-		public func maxWitnessLength() -> UInt {
+		public func maxWitnessLength() -> UInt64 {
 			// native call variable prep
 
 

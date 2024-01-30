@@ -110,6 +110,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the BlindedHopFeatures.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKBlindedHopFeatures>) in
+					BlindedHopFeatures_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Frees any resources used by the BlindedHopFeatures, if is_owned is set and inner is non-NULL.
 		internal func free() {
 			// native call variable prep

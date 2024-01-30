@@ -2,13 +2,13 @@
 	import LDKHeaders
 #endif
 
-/// An error occurring when converting from [`Script`] to [`ShutdownScript`].
+/// An error occurring when converting from [`ScriptBuf`] to [`ShutdownScript`].
 public typealias InvalidShutdownScript = Bindings.InvalidShutdownScript
 
 extension Bindings {
 
 
-	/// An error occurring when converting from [`Script`] to [`ShutdownScript`].
+	/// An error occurring when converting from [`ScriptBuf`] to [`ShutdownScript`].
 	public class InvalidShutdownScript: NativeTypeWrapper {
 
 		let initialCFreeability: Bool
@@ -96,11 +96,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = u8slice(
+			let returnValue = Vec_u8Z(
 				cType: nativeCallResult, instantiationContext: "InvalidShutdownScript.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle().getValue()
+			.dangle(false).getValue()
 
 
 			return returnValue

@@ -85,6 +85,105 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Creates a copy of the TaggedHash
+		internal func clone() -> TaggedHash {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKTaggedHash>) in
+					TaggedHash_clone(origPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = TaggedHash(
+				cType: nativeCallResult, instantiationContext: "TaggedHash.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Returns the digest to sign.
+		public func asDigest() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKTaggedHash>) in
+					TaggedHash_as_digest(thisArgPointer)
+				}
+
+
+			// cleanup
+
+			guard let nativeCallResult = nativeCallResult else {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = Bindings.UInt8Tuple32ToArray(tuple: nativeCallResult.pointee)
+
+
+			return returnValue
+		}
+
+		/// Returns the tag used in the tagged hash.
+		public func tag() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKTaggedHash>) in
+					TaggedHash_tag(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
+				cType: nativeCallResult, instantiationContext: "TaggedHash.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// Returns the merkle root used in the tagged hash.
+		public func merkleRoot() -> [UInt8] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKTaggedHash>) in
+					TaggedHash_merkle_root(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = ThirtyTwoBytes(
+				cType: nativeCallResult, instantiationContext: "TaggedHash.swift::\(#function):\(#line)", anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require
@@ -96,6 +195,19 @@ extension Bindings {
 			return returnValue
 		}
 
+
+		internal func danglingClone() -> TaggedHash {
+			let dangledClone = self.clone()
+			dangledClone.dangling = true
+			return dangledClone
+		}
+
+		internal func dynamicallyDangledClone() -> TaggedHash {
+			let dangledClone = self.clone()
+			// if it's owned, i. e. controlled by Rust, it should dangle on our end
+			dangledClone.dangling = dangledClone.cType!.is_owned
+			return dangledClone
+		}
 
 		internal func setCFreeability(freeable: Bool) -> TaggedHash {
 			self.cType!.is_owned = freeable

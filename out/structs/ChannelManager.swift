@@ -283,6 +283,9 @@ extension Bindings {
 		/// connection is available, the outbound `open_channel` message may fail to send, resulting in
 		/// the channel eventually being silently forgotten (dropped on reload).
 		///
+		/// If `temporary_channel_id` is specified, it will be used as the temporary channel ID of the
+		/// channel. Otherwise, a random one will be generated for you.
+		///
 		/// Returns the new Channel's temporary `channel_id`. This ID will appear as
 		/// [`Event::FundingGenerationReady::temporary_channel_id`] and in
 		/// [`ChannelDetails::channel_id`] until after
@@ -297,7 +300,7 @@ extension Bindings {
 		/// Note that override_config (or a relevant inner pointer) may be NULL or all-0s to represent None
 		public func createChannel(
 			theirNetworkKey: [UInt8], channelValueSatoshis: UInt64, pushMsat: UInt64, userChannelId: [UInt8],
-			overrideConfig: UserConfig
+			temporaryChannelId: [UInt8]?, overrideConfig: UserConfig
 		) -> Result_ThirtyTwoBytesAPIErrorZ {
 			// native call variable prep
 
@@ -307,13 +310,19 @@ extension Bindings {
 			let userChannelIdPrimitiveWrapper = U128(
 				value: userChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)")
 
+			let temporaryChannelIdOption = Option_ThirtyTwoBytesZ(
+				some: temporaryChannelId, instantiationContext: "ChannelManager.swift::\(#function):\(#line)"
+			)
+			.danglingClone()
+
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelManager>) in
 					ChannelManager_create_channel(
 						thisArgPointer, theirNetworkKeyPrimitiveWrapper.cType!, channelValueSatoshis, pushMsat,
-						userChannelIdPrimitiveWrapper.cType!, overrideConfig.dynamicallyDangledClone().cType!)
+						userChannelIdPrimitiveWrapper.cType!, temporaryChannelIdOption.cType!,
+						overrideConfig.dynamicallyDangledClone().cType!)
 				}
 
 
@@ -1244,7 +1253,7 @@ extension Bindings {
 		/// Return values are identical to [`Self::funding_transaction_generated`], respective to
 		/// each individual channel and transaction output.
 		///
-		/// Do NOT broadcast the funding transaction yourself. This batch funding transcaction
+		/// Do NOT broadcast the funding transaction yourself. This batch funding transaction
 		/// will only be broadcast when we have safely received and persisted the counterparty's
 		/// signature for each channel.
 		///
@@ -1963,8 +1972,11 @@ extension Bindings {
 		///
 		/// # Errors
 		///
-		/// Errors if a duplicate `payment_id` is provided given the caveats in the aforementioned link
-		/// or if the provided parameters are invalid for the offer.
+		/// Errors if:
+		/// - a duplicate `payment_id` is provided given the caveats in the aforementioned link,
+		/// - the provided parameters are invalid for the offer,
+		/// - the parameterized [`Router`] is unable to create a blinded reply path for the invoice
+		/// request.
 		///
 		/// [`InvoiceRequest`]: crate::offers::invoice_request::InvoiceRequest
 		/// [`InvoiceRequest::quantity`]: crate::offers::invoice_request::InvoiceRequest::quantity
@@ -2047,6 +2059,11 @@ extension Bindings {
 		/// [`Refund::payer_id`], if empty. This request is best effort; an invoice will be sent to each
 		/// node meeting the aforementioned criteria, but there's no guarantee that they will be
 		/// received and no retries will be made.
+		///
+		/// # Errors
+		///
+		/// Errors if the parameterized [`Router`] is unable to create a blinded payment path or reply
+		/// path for the invoice.
 		///
 		/// [`Bolt12Invoice`]: crate::offers::invoice::Bolt12Invoice
 		public func requestRefundPayment(refund: Refund) -> Result_NoneBolt12SemanticErrorZ {

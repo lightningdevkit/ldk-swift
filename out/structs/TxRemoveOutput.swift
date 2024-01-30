@@ -237,6 +237,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Generates a non-cryptographic 64-bit hash of the TxRemoveOutput.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKTxRemoveOutput>) in
+					TxRemoveOutput_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Checks if two TxRemoveOutputs contain equal inner contents.
 		/// This ignores pointers and is_owned flags and looks at the values in fields.
 		/// Two objects with NULL inner values will be considered "equal" here.

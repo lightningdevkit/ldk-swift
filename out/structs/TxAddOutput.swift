@@ -237,10 +237,10 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = u8slice(
+			let returnValue = Vec_u8Z(
 				cType: nativeCallResult, instantiationContext: "TxAddOutput.swift::\(#function):\(#line)", anchor: self
 			)
-			.dangle().getValue()
+			.dangle(false).getValue()
 
 
 			return returnValue
@@ -334,6 +334,28 @@ extension Bindings {
 			// return value (do some wrapping)
 			let returnValue = TxAddOutput(
 				cType: nativeCallResult, instantiationContext: "TxAddOutput.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Generates a non-cryptographic 64-bit hash of the TxAddOutput.
+		public func hash() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKTxAddOutput>) in
+					TxAddOutput_hash(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
 
 
 			return returnValue

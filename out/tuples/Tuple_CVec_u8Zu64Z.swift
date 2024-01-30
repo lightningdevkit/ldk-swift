@@ -3,12 +3,12 @@
 #endif
 
 /// A tuple of 2 elements. See the individual fields for the types contained.
-internal typealias Tuple_PublicKeyOnionMessageZ = Bindings.Tuple_PublicKeyOnionMessageZ
+internal typealias Tuple_CVec_u8Zu64Z = Bindings.Tuple_CVec_u8Zu64Z
 
 extension Bindings {
 
 	/// A tuple of 2 elements. See the individual fields for the types contained.
-	internal class Tuple_PublicKeyOnionMessageZ: NativeTypeWrapper {
+	internal class Tuple_CVec_u8Zu64Z: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -23,9 +23,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKC2Tuple_PublicKeyOnionMessageZ?
+		internal var cType: LDKC2Tuple_CVec_u8Zu64Z?
 
-		internal init(cType: LDKC2Tuple_PublicKeyOnionMessageZ, instantiationContext: String) {
+		internal init(cType: LDKC2Tuple_CVec_u8Zu64Z, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -33,8 +33,7 @@ extension Bindings {
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 		}
 
-		internal init(cType: LDKC2Tuple_PublicKeyOnionMessageZ, instantiationContext: String, anchor: NativeTypeWrapper)
-		{
+		internal init(cType: LDKC2Tuple_CVec_u8Zu64Z, instantiationContext: String, anchor: NativeTypeWrapper) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -45,7 +44,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKC2Tuple_PublicKeyOnionMessageZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			cType: LDKC2Tuple_CVec_u8Zu64Z, instantiationContext: String, anchor: NativeTypeWrapper,
 			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -58,21 +57,21 @@ extension Bindings {
 		}
 
 
-		internal convenience init(tuple: ([UInt8], OnionMessage), instantiationContext: String) {
+		internal convenience init(tuple: ([UInt8], UInt64), instantiationContext: String) {
 			self.init(a: tuple.0, b: tuple.1, instantiationContext: instantiationContext)
 		}
 
 
 		/// Creates a new tuple which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Tuple_PublicKeyOnionMessageZ {
+		internal func clone() -> Tuple_CVec_u8Zu64Z {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKC2Tuple_PublicKeyOnionMessageZ>) in
-					C2Tuple_PublicKeyOnionMessageZ_clone(origPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKC2Tuple_CVec_u8Zu64Z>) in
+					C2Tuple_CVec_u8Zu64Z_clone(origPointer)
 				}
 
 
@@ -80,35 +79,32 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Tuple_PublicKeyOnionMessageZ(
-				cType: nativeCallResult,
-				instantiationContext: "Tuple_PublicKeyOnionMessageZ.swift::\(#function):\(#line)")
+			let returnValue = Tuple_CVec_u8Zu64Z(
+				cType: nativeCallResult, instantiationContext: "Tuple_CVec_u8Zu64Z.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Creates a new C2Tuple_PublicKeyOnionMessageZ from the contained elements.
-		public init(a: [UInt8], b: OnionMessage, instantiationContext: String) {
+		/// Creates a new C2Tuple_CVec_u8Zu64Z from the contained elements.
+		public init(a: [UInt8], b: UInt64, instantiationContext: String) {
 			// native call variable prep
 
-			let aPrimitiveWrapper = PublicKey(
-				value: a, instantiationContext: "Tuple_PublicKeyOnionMessageZ.swift::\(#function):\(#line)")
+			let aVector = Vec_u8Z(array: a, instantiationContext: "Tuple_CVec_u8Zu64Z.swift::\(#function):\(#line)")
+				.dangle()
 
 
 			// native method call
-			let nativeCallResult = C2Tuple_PublicKeyOnionMessageZ_new(
-				aPrimitiveWrapper.cType!, b.dynamicallyDangledClone().cType!)
+			let nativeCallResult = C2Tuple_CVec_u8Zu64Z_new(aVector.cType!, b)
 
 			// cleanup
 
-			// for elided types, we need this
-			aPrimitiveWrapper.noOpRetain()
+			// aVector.noOpRetain()
 
 
 			/*
 						// return value (do some wrapping)
-						let returnValue = Tuple_PublicKeyOnionMessageZ(cType: nativeCallResult, instantiationContext: "Tuple_PublicKeyOnionMessageZ.swift::\(#function):\(#line)")
+						let returnValue = Tuple_CVec_u8Zu64Z(cType: nativeCallResult, instantiationContext: "Tuple_CVec_u8Zu64Z.swift::\(#function):\(#line)")
 						*/
 
 
@@ -121,13 +117,13 @@ extension Bindings {
 
 		}
 
-		/// Frees any resources used by the C2Tuple_PublicKeyOnionMessageZ.
+		/// Frees any resources used by the C2Tuple_CVec_u8Zu64Z.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = C2Tuple_PublicKeyOnionMessageZ_free(self.cType!)
+			let nativeCallResult = C2Tuple_CVec_u8Zu64Z_free(self.cType!)
 
 			// cleanup
 
@@ -140,7 +136,7 @@ extension Bindings {
 		}
 
 
-		public func getValue() -> ([UInt8], OnionMessage) {
+		public func getValue() -> ([UInt8], UInt64) {
 			return (self.getA(), self.getB())
 		}
 
@@ -148,8 +144,8 @@ extension Bindings {
 		/// The element at position 0
 		public func getA() -> [UInt8] {
 			// return value (do some wrapping)
-			let returnValue = PublicKey(
-				cType: self.cType!.a, instantiationContext: "Tuple_PublicKeyOnionMessageZ.swift::\(#function):\(#line)",
+			let returnValue = Vec_u8Z(
+				cType: self.cType!.a, instantiationContext: "Tuple_CVec_u8Zu64Z.swift::\(#function):\(#line)",
 				anchor: self
 			)
 			.dangle().getValue()
@@ -158,19 +154,15 @@ extension Bindings {
 		}
 
 		/// The element at position 1
-		public func getB() -> OnionMessage {
+		public func getB() -> UInt64 {
 			// return value (do some wrapping)
-			let returnValue = OnionMessage(
-				cType: self.cType!.b, instantiationContext: "Tuple_PublicKeyOnionMessageZ.swift::\(#function):\(#line)",
-				anchor: self
-			)
-			.dangle()
+			let returnValue = self.cType!.b
 
 			return returnValue
 		}
 
 
-		internal func danglingClone() -> Tuple_PublicKeyOnionMessageZ {
+		internal func danglingClone() -> Tuple_CVec_u8Zu64Z {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -184,14 +176,13 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Tuple_PublicKeyOnionMessageZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
-					)
+						"Freeing Tuple_CVec_u8Zu64Z \(self.instanceNumber). (Origin: \(self.instantiationContext))")
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Tuple_PublicKeyOnionMessageZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Tuple_CVec_u8Zu64Z \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

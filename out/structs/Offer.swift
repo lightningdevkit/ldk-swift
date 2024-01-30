@@ -459,6 +459,28 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Whether the offer has expired given the duration since the Unix epoch.
+		public func isExpiredNoStd(durationSinceEpoch: UInt64) -> Bool {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffer>) in
+					Offer_is_expired_no_std(thisArgPointer, durationSinceEpoch)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Returns whether the given quantity is valid for the offer.
 		public func isValidQuantity(quantity: UInt64) -> Bool {
 			// native call variable prep

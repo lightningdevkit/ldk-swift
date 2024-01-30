@@ -2,17 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A CResult_C2Tuple_CVec_u8ZusizeZNoneZ represents the result of a fallible operation,
-/// containing a crate::c_types::derived::C2Tuple_CVec_u8ZusizeZ on success and a () on failure.
+/// A CResult_C2Tuple_CVec_u8Zu64ZNoneZ represents the result of a fallible operation,
+/// containing a crate::c_types::derived::C2Tuple_CVec_u8Zu64Z on success and a () on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-public typealias Result_C2Tuple_CVec_u8ZusizeZNoneZ = Bindings.Result_C2Tuple_CVec_u8ZusizeZNoneZ
+public typealias Result_C2Tuple_CVec_u8Zu64ZNoneZ = Bindings.Result_C2Tuple_CVec_u8Zu64ZNoneZ
 
 extension Bindings {
 
-	/// A CResult_C2Tuple_CVec_u8ZusizeZNoneZ represents the result of a fallible operation,
-	/// containing a crate::c_types::derived::C2Tuple_CVec_u8ZusizeZ on success and a () on failure.
+	/// A CResult_C2Tuple_CVec_u8Zu64ZNoneZ represents the result of a fallible operation,
+	/// containing a crate::c_types::derived::C2Tuple_CVec_u8Zu64Z on success and a () on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-	public class Result_C2Tuple_CVec_u8ZusizeZNoneZ: NativeTypeWrapper {
+	public class Result_C2Tuple_CVec_u8Zu64ZNoneZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -27,9 +27,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCResult_C2Tuple_CVec_u8ZusizeZNoneZ?
+		internal var cType: LDKCResult_C2Tuple_CVec_u8Zu64ZNoneZ?
 
-		internal init(cType: LDKCResult_C2Tuple_CVec_u8ZusizeZNoneZ, instantiationContext: String) {
+		internal init(cType: LDKCResult_C2Tuple_CVec_u8Zu64ZNoneZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -38,7 +38,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCResult_C2Tuple_CVec_u8ZusizeZNoneZ, instantiationContext: String, anchor: NativeTypeWrapper
+			cType: LDKCResult_C2Tuple_CVec_u8Zu64ZNoneZ, instantiationContext: String, anchor: NativeTypeWrapper
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -50,7 +50,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCResult_C2Tuple_CVec_u8ZusizeZNoneZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			cType: LDKCResult_C2Tuple_CVec_u8Zu64ZNoneZ, instantiationContext: String, anchor: NativeTypeWrapper,
 			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -63,58 +63,58 @@ extension Bindings {
 		}
 
 
-		/// Creates a new CResult_C2Tuple_CVec_u8ZusizeZNoneZ in the success state.
-		public class func initWithOk(o: ([UInt8], UInt)) -> Result_C2Tuple_CVec_u8ZusizeZNoneZ {
+		/// Creates a new CResult_C2Tuple_CVec_u8Zu64ZNoneZ in the success state.
+		public class func initWithOk(o: ([UInt8], UInt64)) -> Result_C2Tuple_CVec_u8Zu64ZNoneZ {
 			// native call variable prep
 
-			let oTuple = Tuple_CVec_u8ZusizeZ(
-				tuple: o, instantiationContext: "Result_C2Tuple_CVec_u8ZusizeZNoneZ.swift::\(#function):\(#line)"
+			let oTuple = Tuple_CVec_u8Zu64Z(
+				tuple: o, instantiationContext: "Result_C2Tuple_CVec_u8Zu64ZNoneZ.swift::\(#function):\(#line)"
 			)
 			.danglingClone()
 
 
 			// native method call
-			let nativeCallResult = CResult_C2Tuple_CVec_u8ZusizeZNoneZ_ok(oTuple.cType!)
+			let nativeCallResult = CResult_C2Tuple_CVec_u8Zu64ZNoneZ_ok(oTuple.cType!)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_CVec_u8ZusizeZNoneZ(
+			let returnValue = Result_C2Tuple_CVec_u8Zu64ZNoneZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_C2Tuple_CVec_u8ZusizeZNoneZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_C2Tuple_CVec_u8Zu64ZNoneZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Creates a new CResult_C2Tuple_CVec_u8ZusizeZNoneZ in the error state.
-		public class func initWithErr() -> Result_C2Tuple_CVec_u8ZusizeZNoneZ {
+		/// Creates a new CResult_C2Tuple_CVec_u8Zu64ZNoneZ in the error state.
+		public class func initWithErr() -> Result_C2Tuple_CVec_u8Zu64ZNoneZ {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_C2Tuple_CVec_u8ZusizeZNoneZ_err()
+			let nativeCallResult = CResult_C2Tuple_CVec_u8Zu64ZNoneZ_err()
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_CVec_u8ZusizeZNoneZ(
+			let returnValue = Result_C2Tuple_CVec_u8Zu64ZNoneZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_C2Tuple_CVec_u8ZusizeZNoneZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_C2Tuple_CVec_u8Zu64ZNoneZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Frees any resources used by the CResult_C2Tuple_CVec_u8ZusizeZNoneZ.
+		/// Frees any resources used by the CResult_C2Tuple_CVec_u8Zu64ZNoneZ.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_C2Tuple_CVec_u8ZusizeZNoneZ_free(self.cType!)
+			let nativeCallResult = CResult_C2Tuple_CVec_u8Zu64ZNoneZ_free(self.cType!)
 
 			// cleanup
 
@@ -126,17 +126,17 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new CResult_C2Tuple_CVec_u8ZusizeZNoneZ which has the same data as `orig`
+		/// Creates a new CResult_C2Tuple_CVec_u8Zu64ZNoneZ which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Result_C2Tuple_CVec_u8ZusizeZNoneZ {
+		internal func clone() -> Result_C2Tuple_CVec_u8Zu64ZNoneZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) {
-					(origPointer: UnsafePointer<LDKCResult_C2Tuple_CVec_u8ZusizeZNoneZ>) in
-					CResult_C2Tuple_CVec_u8ZusizeZNoneZ_clone(origPointer)
+					(origPointer: UnsafePointer<LDKCResult_C2Tuple_CVec_u8Zu64ZNoneZ>) in
+					CResult_C2Tuple_CVec_u8Zu64ZNoneZ_clone(origPointer)
 				}
 
 
@@ -144,9 +144,9 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_C2Tuple_CVec_u8ZusizeZNoneZ(
+			let returnValue = Result_C2Tuple_CVec_u8Zu64ZNoneZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_C2Tuple_CVec_u8ZusizeZNoneZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_C2Tuple_CVec_u8Zu64ZNoneZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -167,12 +167,11 @@ extension Bindings {
 					*/
 
 
-		public func getValue() -> ([UInt8], UInt)? {
+		public func getValue() -> ([UInt8], UInt64)? {
 			if self.cType?.result_ok == true {
-				return Tuple_CVec_u8ZusizeZ(
+				return Tuple_CVec_u8Zu64Z(
 					cType: self.cType!.contents.result.pointee,
-					instantiationContext: "Result_C2Tuple_CVec_u8ZusizeZNoneZ.swift::\(#function):\(#line)",
-					anchor: self
+					instantiationContext: "Result_C2Tuple_CVec_u8Zu64ZNoneZ.swift::\(#function):\(#line)", anchor: self
 				)
 				.getValue()
 			}
@@ -180,7 +179,7 @@ extension Bindings {
 		}
 
 
-		internal func danglingClone() -> Result_C2Tuple_CVec_u8ZusizeZNoneZ {
+		internal func danglingClone() -> Result_C2Tuple_CVec_u8Zu64ZNoneZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -194,14 +193,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Result_C2Tuple_CVec_u8ZusizeZNoneZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+						"Freeing Result_C2Tuple_CVec_u8Zu64ZNoneZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
 					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Result_C2Tuple_CVec_u8ZusizeZNoneZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Result_C2Tuple_CVec_u8Zu64ZNoneZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

@@ -211,6 +211,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Returns the preimage for this payment, if it is known.
+		public func preimage() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKPaymentPurpose>) in
+					PaymentPurpose_preimage(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Option_ThirtyTwoBytesZ(
+				cType: nativeCallResult, instantiationContext: "PaymentPurpose.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.getValue()
+
+
+			return returnValue
+		}
+
 		/// Serialize the PaymentPurpose object into a byte array which can be read by PaymentPurpose_read
 		public func write() -> [UInt8] {
 			// native call variable prep

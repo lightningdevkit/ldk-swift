@@ -128,28 +128,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Returns the maximum HTLC amount allowed over the channel in the direction.
-		public func htlcMaximumMsat() -> UInt64 {
-			// native call variable prep
-
-
-			// native method call
-			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKDirectedChannelInfo>) in
-					DirectedChannelInfo_htlc_maximum_msat(thisArgPointer)
-				}
-
-
-			// cleanup
-
-
-			// return value (do some wrapping)
-			let returnValue = nativeCallResult
-
-
-			return returnValue
-		}
-
 		/// Returns the [`EffectiveCapacity`] of the channel in the direction.
 		///
 		/// This is either the total capacity from the funding transaction, if known, or the

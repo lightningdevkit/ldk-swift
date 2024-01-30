@@ -2,16 +2,16 @@
 	import LDKHeaders
 #endif
 
-/// A dynamically-allocated array of crate::c_types::derived::C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZs of arbitrary size.
+/// A dynamically-allocated array of crate::c_types::derived::C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZs of arbitrary size.
 /// This corresponds to std::vector in C++
-internal typealias Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ = Bindings
-	.Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ
+internal typealias Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ = Bindings
+	.Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ
 
 extension Bindings {
 
-	/// A dynamically-allocated array of crate::c_types::derived::C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZs of arbitrary size.
+	/// A dynamically-allocated array of crate::c_types::derived::C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZs of arbitrary size.
 	/// This corresponds to std::vector in C++
-	internal class Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ: NativeTypeWrapper {
+	internal class Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -26,9 +26,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ?
+		internal var cType: LDKCVec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ?
 
-		internal init(cType: LDKCVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ, instantiationContext: String) {
+		internal init(cType: LDKCVec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -37,7 +37,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ, instantiationContext: String,
+			cType: LDKCVec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ, instantiationContext: String,
 			anchor: NativeTypeWrapper
 		) {
 			Self.instanceCounter += 1
@@ -50,7 +50,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ, instantiationContext: String,
+			cType: LDKCVec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ, instantiationContext: String,
 			anchor: NativeTypeWrapper, dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -63,19 +63,20 @@ extension Bindings {
 		}
 
 
-		internal init(array: [([UInt8], [UInt8]?)], instantiationContext: String) {
+		internal init(array: [([UInt8], UInt32, [UInt8]?)], instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: instantiationContext)
 
 
 			let rustArray = array.map {
-				(currentValueDepth1: ([UInt8], [UInt8]?)) -> LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ in
+				(currentValueDepth1: ([UInt8], UInt32, [UInt8]?))
+					-> LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ in
 
-				let currentValueDepth1Tuple = Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ(
+				let currentValueDepth1Tuple = Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ(
 					tuple: currentValueDepth1,
 					instantiationContext:
-						"Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ.swift::\(#function):\(#line)"
+						"Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ.swift::\(#function):\(#line)"
 				)
 				.danglingClone()
 
@@ -83,18 +84,18 @@ extension Bindings {
 			}
 
 
-			let dataContainer = UnsafeMutablePointer<LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ>
+			let dataContainer = UnsafeMutablePointer<LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ>
 				.allocate(capacity: array.count)
 			dataContainer.initialize(from: rustArray, count: array.count)
 
-			let vector = LDKCVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ(
+			let vector = LDKCVec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ(
 				data: dataContainer, datalen: UInt(array.count))
 			self.cType = vector
 		}
 
-		public func getValue() -> [([UInt8], [UInt8]?)] {
+		public func getValue() -> [([UInt8], UInt32, [UInt8]?)] {
 
-			var array = [LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ]()
+			var array = [LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ]()
 
 
 			for index1 in 0..<Int(self.cType!.datalen) {
@@ -104,11 +105,11 @@ extension Bindings {
 
 
 			let swiftArray = array.map {
-				(currentCType: LDKC2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ) -> ([UInt8], [UInt8]?) in
-				Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZ(
+				(currentCType: LDKC3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ) -> ([UInt8], UInt32, [UInt8]?) in
+				Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZ(
 					cType: currentCType,
 					instantiationContext:
-						"Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ.swift::\(#function):\(#line)"
+						"Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ.swift::\(#function):\(#line)"
 				)
 				.dangle().getValue()
 			}
@@ -122,7 +123,7 @@ extension Bindings {
 
 
 			// native method call
-			let nativeCallResult = CVec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ_free(self.cType!)
+			let nativeCallResult = CVec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ_free(self.cType!)
 
 			// cleanup
 
@@ -143,14 +144,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+						"Freeing Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
 					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

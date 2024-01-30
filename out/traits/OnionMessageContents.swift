@@ -114,6 +114,29 @@ extension Bindings {
 				return returnValue
 			}
 
+			func debugStrLambda(this_arg: UnsafeRawPointer?) -> LDKStr {
+				let instance: OnionMessageContents = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "OnionMessageContents::debugStrLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.debugStr()
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = Str(
+					value: swiftCallbackResult,
+					instantiationContext: "OnionMessageContents.swift::init()::\(#function):\(#line)"
+				)
+				.dangleRecursively().cType!
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: OnionMessageContents = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "OnionMessageContents::freeLambda")
@@ -138,6 +161,7 @@ extension Bindings {
 				this_arg: thisArg,
 				tlv_type: tlvTypeLambda,
 				write: writeLambda,
+				debug_str: debugStrLambda,
 				cloned: nil,
 				free: freeLambda
 			)
@@ -158,6 +182,15 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: OnionMessageContents::write MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Return a human-readable "debug" string describing this object
+		open func debugStr() -> String {
+
+			Bindings.print(
+				"Error: OnionMessageContents::debugStr MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -251,6 +284,26 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Vec_u8Z(
+				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)"
+			)
+			.getValue()
+
+			return returnValue
+		}
+
+		/// Return a human-readable "debug" string describing this object
+		public override func debugStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.debug_str(self.cType!.this_arg)
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Str(
 				cType: nativeCallResult, instantiationContext: "OnionMessageContents.swift::\(#function):\(#line)"
 			)
 			.getValue()

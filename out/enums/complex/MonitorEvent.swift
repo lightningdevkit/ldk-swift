@@ -64,7 +64,8 @@ extension Bindings {
 			/// A monitor event containing an HTLCUpdate.
 			case HTLCEvent
 
-			/// A monitor event that the Channel's commitment transaction was confirmed.
+			/// Indicates we broadcasted the channel's latest commitment transaction and thus closed the
+			/// channel.
 			case HolderForceClosed
 
 			/// Indicates a [`ChannelMonitor`] update has completed. See

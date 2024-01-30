@@ -401,10 +401,71 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// A list of indices corresponding to blinded paths in [`Payee::Blinded::route_hints`] which this
+		/// payment was previously attempted over and which caused the payment to fail. Future attempts
+		/// for the same payment shouldn't be relayed through any of these blinded paths.
+		///
+		/// Returns a copy of the field.
+		public func getPreviouslyFailedBlindedPathIdxs() -> [UInt64] {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKPaymentParameters>) in
+					PaymentParameters_get_previously_failed_blinded_path_idxs(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = Vec_u64Z(
+				cType: nativeCallResult, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)",
+				anchor: self
+			)
+			.dangle(false).getValue()
+
+
+			return returnValue
+		}
+
+		/// A list of indices corresponding to blinded paths in [`Payee::Blinded::route_hints`] which this
+		/// payment was previously attempted over and which caused the payment to fail. Future attempts
+		/// for the same payment shouldn't be relayed through any of these blinded paths.
+		public func setPreviouslyFailedBlindedPathIdxs(val: [UInt64]) {
+			// native call variable prep
+
+			let valVector = Vec_u64Z(array: val, instantiationContext: "PaymentParameters.swift::\(#function):\(#line)")
+				.dangle()
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) {
+					(thisPtrPointer: UnsafeMutablePointer<LDKPaymentParameters>) in
+					PaymentParameters_set_previously_failed_blinded_path_idxs(thisPtrPointer, valVector.cType!)
+				}
+
+
+			// cleanup
+
+			// valVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new PaymentParameters given each field
 		public init(
 			payeeArg: Payee, expiryTimeArg: UInt64?, maxTotalCltvExpiryDeltaArg: UInt32, maxPathCountArg: UInt8,
-			maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64]
+			maxChannelSaturationPowerOfHalfArg: UInt8, previouslyFailedChannelsArg: [UInt64],
+			previouslyFailedBlindedPathIdxsArg: [UInt64]
 		) {
 			// native call variable prep
 
@@ -419,15 +480,24 @@ extension Bindings {
 			)
 			.dangle()
 
+			let previouslyFailedBlindedPathIdxsArgVector = Vec_u64Z(
+				array: previouslyFailedBlindedPathIdxsArg,
+				instantiationContext: "PaymentParameters.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
 
 			// native method call
 			let nativeCallResult = PaymentParameters_new(
 				payeeArg.danglingClone().cType!, expiryTimeArgOption.cType!, maxTotalCltvExpiryDeltaArg,
-				maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!)
+				maxPathCountArg, maxChannelSaturationPowerOfHalfArg, previouslyFailedChannelsArgVector.cType!,
+				previouslyFailedBlindedPathIdxsArgVector.cType!)
 
 			// cleanup
 
 			// previouslyFailedChannelsArgVector.noOpRetain()
+
+			// previouslyFailedBlindedPathIdxsArgVector.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 

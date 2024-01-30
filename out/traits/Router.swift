@@ -58,7 +58,7 @@ extension Bindings {
 		}
 
 
-		public init() {
+		public init(messageRouter: MessageRouter) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			super.init(conflictAvoidingVariableName: 0, instantiationContext: "Router.swift::\(#function):\(#line)")
@@ -153,6 +153,38 @@ extension Bindings {
 				return returnValue
 			}
 
+			func createBlindedPaymentPathsLambda(
+				this_arg: UnsafeRawPointer?, recipient: LDKPublicKey, first_hops: LDKCVec_ChannelDetailsZ,
+				tlvs: LDKReceiveTlvs, amount_msats: UInt64
+			) -> LDKCResult_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ {
+				let instance: Router = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "Router::createBlindedPaymentPathsLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.createBlindedPaymentPaths(
+					recipient: PublicKey(
+						cType: recipient, instantiationContext: "Router.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					firstHops: Vec_ChannelDetailsZ(
+						cType: first_hops, instantiationContext: "Router.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					tlvs: ReceiveTlvs(cType: tlvs, instantiationContext: "Router.swift::init()::\(#function):\(#line)"),
+					amountMsats: amount_msats)
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult.danglingClone().cType!
+
+				return returnValue
+			}
+
 			func freeLambda(this_arg: UnsafeMutableRawPointer?) {
 				let instance: Router = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "Router::freeLambda")
@@ -177,6 +209,8 @@ extension Bindings {
 				this_arg: thisArg,
 				find_route: findRouteLambda,
 				find_route_with_id: findRouteWithIdLambda,
+				create_blinded_payment_paths: createBlindedPaymentPathsLambda,
+				MessageRouter: messageRouter.activate().cType!,
 				free: freeLambda
 			)
 		}
@@ -218,6 +252,19 @@ extension Bindings {
 			abort()
 		}
 
+		/// Creates [`BlindedPath`]s for payment to the `recipient` node. The channels in `first_hops`
+		/// are assumed to be with the `recipient`'s peers. The payment secret and any constraints are
+		/// given in `tlvs`.
+		open func createBlindedPaymentPaths(
+			recipient: [UInt8], firstHops: [ChannelDetails], tlvs: ReceiveTlvs, amountMsats: UInt64
+		) -> Result_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ {
+
+			Bindings.print(
+				"Error: Router::createBlindedPaymentPaths MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
 		/// Frees any resources associated with this object given its this_arg pointer.
 		/// Does not need to free the outer struct containing function pointers and may be NULL is no resources need to be freed.
 		internal func free() {
@@ -229,6 +276,17 @@ extension Bindings {
 				"Error: Router::free MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
+		}
+
+
+		/// Implementation of MessageRouter for this object.
+		public func getMessageRouter() -> MessageRouter {
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedMessageRouter(
+				cType: self.cType!.MessageRouter, instantiationContext: "Router.swift::\(#function):\(#line)",
+				anchor: self)
+
+			return returnValue
 		}
 
 
@@ -367,6 +425,44 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = Result_RouteLightningErrorZ(
+				cType: nativeCallResult, instantiationContext: "Router.swift::\(#function):\(#line)")
+
+			return returnValue
+		}
+
+		/// Creates [`BlindedPath`]s for payment to the `recipient` node. The channels in `first_hops`
+		/// are assumed to be with the `recipient`'s peers. The payment secret and any constraints are
+		/// given in `tlvs`.
+		public override func createBlindedPaymentPaths(
+			recipient: [UInt8], firstHops: [ChannelDetails], tlvs: ReceiveTlvs, amountMsats: UInt64
+		) -> Result_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ {
+			// native call variable prep
+
+			let recipientPrimitiveWrapper = PublicKey(
+				value: recipient, instantiationContext: "Router.swift::\(#function):\(#line)")
+
+			let firstHopsVector = Vec_ChannelDetailsZ(
+				array: firstHops, instantiationContext: "Router.swift::\(#function):\(#line)"
+			)
+			.dangle()
+
+
+			// native method call
+			let nativeCallResult = self.cType!
+				.create_blinded_payment_paths(
+					self.cType!.this_arg, recipientPrimitiveWrapper.cType!, firstHopsVector.cType!,
+					tlvs.dynamicallyDangledClone().cType!, amountMsats)
+
+			// cleanup
+
+			// for elided types, we need this
+			recipientPrimitiveWrapper.noOpRetain()
+
+			// firstHopsVector.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = Result_CVec_C2Tuple_BlindedPayInfoBlindedPathZZNoneZ(
 				cType: nativeCallResult, instantiationContext: "Router.swift::\(#function):\(#line)")
 
 			return returnValue

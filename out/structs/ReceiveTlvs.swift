@@ -264,31 +264,6 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Read a ReceiveTlvs from a byte array, created by ReceiveTlvs_write
-		public class func read(ser: [UInt8]) -> Result_ReceiveTlvsDecodeErrorZ {
-			// native call variable prep
-
-			let serPrimitiveWrapper = u8slice(
-				value: ser, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)")
-
-
-			// native method call
-			let nativeCallResult = ReceiveTlvs_read(serPrimitiveWrapper.cType!)
-
-			// cleanup
-
-			// for elided types, we need this
-			serPrimitiveWrapper.noOpRetain()
-
-
-			// return value (do some wrapping)
-			let returnValue = Result_ReceiveTlvsDecodeErrorZ(
-				cType: nativeCallResult, instantiationContext: "ReceiveTlvs.swift::\(#function):\(#line)")
-
-
-			return returnValue
-		}
-
 
 		/// Indicates that this is the only struct which contains the same pointer.
 		/// Rust functions which take ownership of an object provided via an argument require

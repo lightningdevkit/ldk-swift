@@ -214,11 +214,11 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = u8slice(
+			let returnValue = Vec_u8Z(
 				cType: nativeCallResult, instantiationContext: "WatchedOutput.swift::\(#function):\(#line)",
 				anchor: self
 			)
-			.dangle().getValue()
+			.dangle(false).getValue()
 
 
 			return returnValue

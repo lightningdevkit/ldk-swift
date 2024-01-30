@@ -277,7 +277,7 @@ extension Bindings {
 		/// Loads the funding txo and outputs to watch into the given `chain::Filter` by repeatedly
 		/// calling `chain::Filter::register_output` and `chain::Filter::register_tx` until all outputs
 		/// have been registered.
-		public func loadOutputsToWatch(filter: Filter) {
+		public func loadOutputsToWatch(filter: Filter, logger: Logger) {
 			// native call variable prep
 
 
@@ -286,7 +286,11 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
 
 					withUnsafePointer(to: filter.activate().cType!) { (filterPointer: UnsafePointer<LDKFilter>) in
-						ChannelMonitor_load_outputs_to_watch(thisArgPointer, filterPointer)
+
+						withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+							ChannelMonitor_load_outputs_to_watch(thisArgPointer, filterPointer, loggerPointer)
+						}
+
 					}
 
 				}
@@ -484,7 +488,7 @@ extension Bindings {
 		/// to the commitment transaction being revoked, this will return a signed transaction, but
 		/// the signature will not be valid.
 		///
-		/// [`EcdsaChannelSigner::sign_justice_revoked_output`]: crate::sign::EcdsaChannelSigner::sign_justice_revoked_output
+		/// [`EcdsaChannelSigner::sign_justice_revoked_output`]: crate::sign::ecdsa::EcdsaChannelSigner::sign_justice_revoked_output
 		/// [`Persist`]: crate::chain::chainmonitor::Persist
 		public func signToLocalJusticeTx(justiceTx: [UInt8], inputIdx: UInt, value: UInt64, commitmentNumber: UInt64)
 			-> Result_TransactionNoneZ
@@ -635,9 +639,13 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
 
 					withUnsafePointer(to: tupledHeader) { (tupledHeaderPointer: UnsafePointer<UInt8Tuple80>) in
-						ChannelMonitor_block_connected(
-							thisArgPointer, tupledHeaderPointer, txdataVector.cType!, height,
-							broadcaster.activate().cType!, feeEstimator.activate().cType!, logger.activate().cType!)
+
+						withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+							ChannelMonitor_block_connected(
+								thisArgPointer, tupledHeaderPointer, txdataVector.cType!, height,
+								broadcaster.activate().cType!, feeEstimator.activate().cType!, loggerPointer)
+						}
+
 					}
 
 				}
@@ -675,9 +683,13 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
 
 					withUnsafePointer(to: tupledHeader) { (tupledHeaderPointer: UnsafePointer<UInt8Tuple80>) in
-						ChannelMonitor_block_disconnected(
-							thisArgPointer, tupledHeaderPointer, height, broadcaster.activate().cType!,
-							feeEstimator.activate().cType!, logger.activate().cType!)
+
+						withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+							ChannelMonitor_block_disconnected(
+								thisArgPointer, tupledHeaderPointer, height, broadcaster.activate().cType!,
+								feeEstimator.activate().cType!, loggerPointer)
+						}
+
 					}
 
 				}
@@ -719,9 +731,13 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
 
 					withUnsafePointer(to: tupledHeader) { (tupledHeaderPointer: UnsafePointer<UInt8Tuple80>) in
-						ChannelMonitor_transactions_confirmed(
-							thisArgPointer, tupledHeaderPointer, txdataVector.cType!, height,
-							broadcaster.activate().cType!, feeEstimator.activate().cType!, logger.activate().cType!)
+
+						withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+							ChannelMonitor_transactions_confirmed(
+								thisArgPointer, tupledHeaderPointer, txdataVector.cType!, height,
+								broadcaster.activate().cType!, feeEstimator.activate().cType!, loggerPointer)
+						}
+
 					}
 
 				}
@@ -762,9 +778,13 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
 
 					withUnsafePointer(to: tupledTxid) { (tupledTxidPointer: UnsafePointer<UInt8Tuple32>) in
-						ChannelMonitor_transaction_unconfirmed(
-							thisArgPointer, tupledTxidPointer, broadcaster.activate().cType!,
-							feeEstimator.activate().cType!, logger.activate().cType!)
+
+						withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+							ChannelMonitor_transaction_unconfirmed(
+								thisArgPointer, tupledTxidPointer, broadcaster.activate().cType!,
+								feeEstimator.activate().cType!, loggerPointer)
+						}
+
 					}
 
 				}
@@ -801,9 +821,13 @@ extension Bindings {
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
 
 					withUnsafePointer(to: tupledHeader) { (tupledHeaderPointer: UnsafePointer<UInt8Tuple80>) in
-						ChannelMonitor_best_block_updated(
-							thisArgPointer, tupledHeaderPointer, height, broadcaster.activate().cType!,
-							feeEstimator.activate().cType!, logger.activate().cType!)
+
+						withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+							ChannelMonitor_best_block_updated(
+								thisArgPointer, tupledHeaderPointer, height, broadcaster.activate().cType!,
+								feeEstimator.activate().cType!, loggerPointer)
+						}
+
 					}
 
 				}
@@ -824,7 +848,7 @@ extension Bindings {
 		}
 
 		/// Returns the set of txids that should be monitored for re-organization out of the chain.
-		public func getRelevantTxids() -> [([UInt8], [UInt8]?)] {
+		public func getRelevantTxids() -> [([UInt8], UInt32, [UInt8]?)] {
 			// native call variable prep
 
 
@@ -839,7 +863,7 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Vec_C2Tuple_ThirtyTwoBytesCOption_ThirtyTwoBytesZZZ(
+			let returnValue = Vec_C3Tuple_ThirtyTwoBytesu32COption_ThirtyTwoBytesZZZ(
 				cType: nativeCallResult, instantiationContext: "ChannelMonitor.swift::\(#function):\(#line)",
 				anchor: self
 			)
@@ -890,9 +914,13 @@ extension Bindings {
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKChannelMonitor>) in
-					ChannelMonitor_rebroadcast_pending_claims(
-						thisArgPointer, broadcaster.activate().cType!, feeEstimator.activate().cType!,
-						logger.activate().cType!)
+
+					withUnsafePointer(to: logger.activate().cType!) { (loggerPointer: UnsafePointer<LDKLogger>) in
+						ChannelMonitor_rebroadcast_pending_claims(
+							thisArgPointer, broadcaster.activate().cType!, feeEstimator.activate().cType!, loggerPointer
+						)
+					}
+
 				}
 
 

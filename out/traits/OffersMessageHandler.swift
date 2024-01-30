@@ -163,7 +163,7 @@ extension Bindings {
 		///
 		/// The returned [`OffersMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
 		///
-		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
+		/// [`OnionMessenger`]: crate::onion_message::messenger::OnionMessenger
 		open func handleMessage(message: OffersMessage) -> OffersMessage? {
 
 			Bindings.print(
@@ -224,7 +224,7 @@ extension Bindings {
 		///
 		/// The returned [`OffersMessage`], if any, is enqueued to be sent by [`OnionMessenger`].
 		///
-		/// [`OnionMessenger`]: crate::onion_message::OnionMessenger
+		/// [`OnionMessenger`]: crate::onion_message::messenger::OnionMessenger
 		public override func handleMessage(message: OffersMessage) -> OffersMessage? {
 			// native call variable prep
 

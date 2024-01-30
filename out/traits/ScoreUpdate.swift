@@ -70,7 +70,8 @@ extension Bindings {
 
 
 			func paymentPathFailedLambda(
-				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64
+				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64,
+				duration_since_epoch: UInt64
 			) {
 				let instance: ScoreUpdate = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ScoreUpdate::paymentPathFailedLambda")
@@ -83,7 +84,7 @@ extension Bindings {
 					path: Path(
 						cType: path.pointee, instantiationContext: "ScoreUpdate.swift::init()::\(#function):\(#line)"
 					)
-					.dangle().clone(), shortChannelId: short_channel_id)
+					.dangle().clone(), shortChannelId: short_channel_id, durationSinceEpoch: duration_since_epoch)
 
 				// cleanup
 
@@ -94,7 +95,9 @@ extension Bindings {
 				return returnValue
 			}
 
-			func paymentPathSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>) {
+			func paymentPathSuccessfulLambda(
+				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, duration_since_epoch: UInt64
+			) {
 				let instance: ScoreUpdate = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ScoreUpdate::paymentPathSuccessfulLambda")
 
@@ -106,7 +109,7 @@ extension Bindings {
 					path: Path(
 						cType: path.pointee, instantiationContext: "ScoreUpdate.swift::init()::\(#function):\(#line)"
 					)
-					.dangle().clone())
+					.dangle().clone(), durationSinceEpoch: duration_since_epoch)
 
 				// cleanup
 
@@ -118,7 +121,8 @@ extension Bindings {
 			}
 
 			func probeFailedLambda(
-				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64
+				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, short_channel_id: UInt64,
+				duration_since_epoch: UInt64
 			) {
 				let instance: ScoreUpdate = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ScoreUpdate::probeFailedLambda")
@@ -131,7 +135,7 @@ extension Bindings {
 					path: Path(
 						cType: path.pointee, instantiationContext: "ScoreUpdate.swift::init()::\(#function):\(#line)"
 					)
-					.dangle().clone(), shortChannelId: short_channel_id)
+					.dangle().clone(), shortChannelId: short_channel_id, durationSinceEpoch: duration_since_epoch)
 
 				// cleanup
 
@@ -142,7 +146,9 @@ extension Bindings {
 				return returnValue
 			}
 
-			func probeSuccessfulLambda(this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>) {
+			func probeSuccessfulLambda(
+				this_arg: UnsafeMutableRawPointer?, path: UnsafePointer<LDKPath>, duration_since_epoch: UInt64
+			) {
 				let instance: ScoreUpdate = Bindings.pointerToInstance(
 					pointer: this_arg!, sourceMarker: "ScoreUpdate::probeSuccessfulLambda")
 
@@ -154,7 +160,26 @@ extension Bindings {
 					path: Path(
 						cType: path.pointee, instantiationContext: "ScoreUpdate.swift::init()::\(#function):\(#line)"
 					)
-					.dangle().clone())
+					.dangle().clone(), durationSinceEpoch: duration_since_epoch)
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func timePassedLambda(this_arg: UnsafeMutableRawPointer?, duration_since_epoch: UInt64) {
+				let instance: ScoreUpdate = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ScoreUpdate::timePassedLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.timePassed(durationSinceEpoch: duration_since_epoch)
 
 				// cleanup
 
@@ -191,13 +216,14 @@ extension Bindings {
 				payment_path_successful: paymentPathSuccessfulLambda,
 				probe_failed: probeFailedLambda,
 				probe_successful: probeSuccessfulLambda,
+				time_passed: timePassedLambda,
 				free: freeLambda
 			)
 		}
 
 
 		/// Handles updating channel penalties after failing to route through a channel.
-		open func paymentPathFailed(path: Path, shortChannelId: UInt64) {
+		open func paymentPathFailed(path: Path, shortChannelId: UInt64, durationSinceEpoch: UInt64) {
 
 			Bindings.print(
 				"Error: ScoreUpdate::paymentPathFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -206,7 +232,7 @@ extension Bindings {
 		}
 
 		/// Handles updating channel penalties after successfully routing along a path.
-		open func paymentPathSuccessful(path: Path) {
+		open func paymentPathSuccessful(path: Path, durationSinceEpoch: UInt64) {
 
 			Bindings.print(
 				"Error: ScoreUpdate::paymentPathSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -215,7 +241,7 @@ extension Bindings {
 		}
 
 		/// Handles updating channel penalties after a probe over the given path failed.
-		open func probeFailed(path: Path, shortChannelId: UInt64) {
+		open func probeFailed(path: Path, shortChannelId: UInt64, durationSinceEpoch: UInt64) {
 
 			Bindings.print(
 				"Error: ScoreUpdate::probeFailed MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
@@ -224,10 +250,22 @@ extension Bindings {
 		}
 
 		/// Handles updating channel penalties after a probe over the given path succeeded.
-		open func probeSuccessful(path: Path) {
+		open func probeSuccessful(path: Path, durationSinceEpoch: UInt64) {
 
 			Bindings.print(
 				"Error: ScoreUpdate::probeSuccessful MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Scorers may wish to reduce their certainty of channel liquidity information over time.
+		/// Thus, this method is provided to allow scorers to observe the passage of time - the holder
+		/// of this object should call this method regularly (generally via the
+		/// `lightning-background-processor` crate).
+		open func timePassed(durationSinceEpoch: UInt64) {
+
+			Bindings.print(
+				"Error: ScoreUpdate::timePassed MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -267,14 +305,15 @@ extension Bindings {
 	internal class NativelyImplementedScoreUpdate: ScoreUpdate {
 
 		/// Handles updating channel penalties after failing to route through a channel.
-		public override func paymentPathFailed(path: Path, shortChannelId: UInt64) {
+		public override func paymentPathFailed(path: Path, shortChannelId: UInt64, durationSinceEpoch: UInt64) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.payment_path_failed(self.cType!.this_arg, pathPointer, shortChannelId)
+					self.cType!
+						.payment_path_failed(self.cType!.this_arg, pathPointer, shortChannelId, durationSinceEpoch)
 				}
 
 
@@ -288,14 +327,14 @@ extension Bindings {
 		}
 
 		/// Handles updating channel penalties after successfully routing along a path.
-		public override func paymentPathSuccessful(path: Path) {
+		public override func paymentPathSuccessful(path: Path, durationSinceEpoch: UInt64) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.payment_path_successful(self.cType!.this_arg, pathPointer)
+					self.cType!.payment_path_successful(self.cType!.this_arg, pathPointer, durationSinceEpoch)
 				}
 
 
@@ -309,14 +348,14 @@ extension Bindings {
 		}
 
 		/// Handles updating channel penalties after a probe over the given path failed.
-		public override func probeFailed(path: Path, shortChannelId: UInt64) {
+		public override func probeFailed(path: Path, shortChannelId: UInt64, durationSinceEpoch: UInt64) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.probe_failed(self.cType!.this_arg, pathPointer, shortChannelId)
+					self.cType!.probe_failed(self.cType!.this_arg, pathPointer, shortChannelId, durationSinceEpoch)
 				}
 
 
@@ -330,16 +369,36 @@ extension Bindings {
 		}
 
 		/// Handles updating channel penalties after a probe over the given path succeeded.
-		public override func probeSuccessful(path: Path) {
+		public override func probeSuccessful(path: Path, durationSinceEpoch: UInt64) {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: path.cType!) { (pathPointer: UnsafePointer<LDKPath>) in
-					self.cType!.probe_successful(self.cType!.this_arg, pathPointer)
+					self.cType!.probe_successful(self.cType!.this_arg, pathPointer, durationSinceEpoch)
 				}
 
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Scorers may wish to reduce their certainty of channel liquidity information over time.
+		/// Thus, this method is provided to allow scorers to observe the passage of time - the holder
+		/// of this object should call this method regularly (generally via the
+		/// `lightning-background-processor` crate).
+		public override func timePassed(durationSinceEpoch: UInt64) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult = self.cType!.time_passed(self.cType!.this_arg, durationSinceEpoch)
 
 			// cleanup
 

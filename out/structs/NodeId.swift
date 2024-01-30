@@ -148,6 +148,32 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Get the public key as an array from this NodeId
+		public func asArray() -> [UInt8]? {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKNodeId>) in
+					NodeId_as_array(thisArgPointer)
+				}
+
+
+			// cleanup
+
+			guard let nativeCallResult = nativeCallResult else {
+				return nil
+			}
+
+
+			// return value (do some wrapping)
+			let returnValue = Bindings.UInt8Tuple33ToArray(tuple: nativeCallResult.pointee)
+
+
+			return returnValue
+		}
+
 		/// Get the public key from this NodeId
 		public func asPubkey() -> Result_PublicKeySecp256k1ErrorZ {
 			// native call variable prep

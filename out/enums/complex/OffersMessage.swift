@@ -213,6 +213,31 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// Constructs a new OnionMessageContents which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned OnionMessageContents must be freed before this_arg is
+		public func asOnionMessageContents() -> Bindings.OnionMessageContents {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKOffersMessage>) in
+					OffersMessage_as_OnionMessageContents(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedOnionMessageContents(
+				cType: nativeCallResult, instantiationContext: "OffersMessage.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
 		/// Serialize the OffersMessage object into a byte array which can be read by OffersMessage_read
 		public func write() -> [UInt8] {
 			// native call variable prep

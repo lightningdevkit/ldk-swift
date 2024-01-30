@@ -79,28 +79,22 @@ extension Bindings {
 
 		/// Creates a new router.
 		public init(
-			networkGraph: NetworkGraph, logger: Logger, randomSeedBytes: [UInt8], scorer: LockableScore,
+			networkGraph: NetworkGraph, logger: Logger, entropySource: EntropySource, scorer: LockableScore,
 			scoreParams: ProbabilisticScoringFeeParameters
 		) {
 			// native call variable prep
-
-			let randomSeedBytesPrimitiveWrapper = ThirtyTwoBytes(
-				value: randomSeedBytes, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)")
 
 
 			// native method call
 			let nativeCallResult =
 				withUnsafePointer(to: networkGraph.cType!) { (networkGraphPointer: UnsafePointer<LDKNetworkGraph>) in
 					DefaultRouter_new(
-						networkGraphPointer, logger.activate().cType!, randomSeedBytesPrimitiveWrapper.cType!,
+						networkGraphPointer, logger.activate().cType!, entropySource.activate().cType!,
 						scorer.activate().cType!, scoreParams.dynamicallyDangledClone().cType!)
 				}
 
 
 			// cleanup
-
-			// for elided types, we need this
-			randomSeedBytesPrimitiveWrapper.noOpRetain()
 
 			self.initialCFreeability = nativeCallResult.is_owned
 
@@ -141,6 +135,31 @@ extension Bindings {
 
 			// return value (do some wrapping)
 			let returnValue = NativelyImplementedRouter(
+				cType: nativeCallResult, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)",
+				anchor: self)
+
+
+			return returnValue
+		}
+
+		/// Constructs a new MessageRouter which calls the relevant methods on this_arg.
+		/// This copies the `inner` pointer in this_arg and thus the returned MessageRouter must be freed before this_arg is
+		public func asMessageRouter() -> MessageRouter {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisArgPointer: UnsafePointer<LDKDefaultRouter>) in
+					DefaultRouter_as_MessageRouter(thisArgPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = NativelyImplementedMessageRouter(
 				cType: nativeCallResult, instantiationContext: "DefaultRouter.swift::\(#function):\(#line)",
 				anchor: self)
 

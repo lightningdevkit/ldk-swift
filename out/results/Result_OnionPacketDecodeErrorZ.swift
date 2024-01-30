@@ -2,17 +2,17 @@
 	import LDKHeaders
 #endif
 
-/// A CResult_ReceiveTlvsDecodeErrorZ represents the result of a fallible operation,
-/// containing a crate::lightning::blinded_path::payment::ReceiveTlvs on success and a crate::lightning::ln::msgs::DecodeError on failure.
+/// A CResult_OnionPacketDecodeErrorZ represents the result of a fallible operation,
+/// containing a crate::lightning::ln::msgs::OnionPacket on success and a crate::lightning::ln::msgs::DecodeError on failure.
 /// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-public typealias Result_ReceiveTlvsDecodeErrorZ = Bindings.Result_ReceiveTlvsDecodeErrorZ
+public typealias Result_OnionPacketDecodeErrorZ = Bindings.Result_OnionPacketDecodeErrorZ
 
 extension Bindings {
 
-	/// A CResult_ReceiveTlvsDecodeErrorZ represents the result of a fallible operation,
-	/// containing a crate::lightning::blinded_path::payment::ReceiveTlvs on success and a crate::lightning::ln::msgs::DecodeError on failure.
+	/// A CResult_OnionPacketDecodeErrorZ represents the result of a fallible operation,
+	/// containing a crate::lightning::ln::msgs::OnionPacket on success and a crate::lightning::ln::msgs::DecodeError on failure.
 	/// `result_ok` indicates the overall state, and the contents are provided via `contents`.
-	public class Result_ReceiveTlvsDecodeErrorZ: NativeTypeWrapper {
+	public class Result_OnionPacketDecodeErrorZ: NativeTypeWrapper {
 
 
 		/// Set to false to suppress an individual type's deinit log statements.
@@ -27,9 +27,9 @@ extension Bindings {
 		private static var instanceCounter: UInt = 0
 		internal let instanceNumber: UInt
 
-		internal var cType: LDKCResult_ReceiveTlvsDecodeErrorZ?
+		internal var cType: LDKCResult_OnionPacketDecodeErrorZ?
 
-		internal init(cType: LDKCResult_ReceiveTlvsDecodeErrorZ, instantiationContext: String) {
+		internal init(cType: LDKCResult_OnionPacketDecodeErrorZ, instantiationContext: String) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
 			self.cType = cType
@@ -38,7 +38,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCResult_ReceiveTlvsDecodeErrorZ, instantiationContext: String, anchor: NativeTypeWrapper
+			cType: LDKCResult_OnionPacketDecodeErrorZ, instantiationContext: String, anchor: NativeTypeWrapper
 		) {
 			Self.instanceCounter += 1
 			self.instanceNumber = Self.instanceCounter
@@ -50,7 +50,7 @@ extension Bindings {
 		}
 
 		internal init(
-			cType: LDKCResult_ReceiveTlvsDecodeErrorZ, instantiationContext: String, anchor: NativeTypeWrapper,
+			cType: LDKCResult_OnionPacketDecodeErrorZ, instantiationContext: String, anchor: NativeTypeWrapper,
 			dangle: Bool = false
 		) {
 			Self.instanceCounter += 1
@@ -63,53 +63,53 @@ extension Bindings {
 		}
 
 
-		/// Creates a new CResult_ReceiveTlvsDecodeErrorZ in the success state.
-		public class func initWithOk(o: ReceiveTlvs) -> Result_ReceiveTlvsDecodeErrorZ {
+		/// Creates a new CResult_OnionPacketDecodeErrorZ in the success state.
+		public class func initWithOk(o: OnionPacket) -> Result_OnionPacketDecodeErrorZ {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_ReceiveTlvsDecodeErrorZ_ok(o.dynamicallyDangledClone().cType!)
+			let nativeCallResult = CResult_OnionPacketDecodeErrorZ_ok(o.dynamicallyDangledClone().cType!)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_ReceiveTlvsDecodeErrorZ(
+			let returnValue = Result_OnionPacketDecodeErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_ReceiveTlvsDecodeErrorZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_OnionPacketDecodeErrorZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Creates a new CResult_ReceiveTlvsDecodeErrorZ in the error state.
-		public class func initWithErr(e: DecodeError) -> Result_ReceiveTlvsDecodeErrorZ {
+		/// Creates a new CResult_OnionPacketDecodeErrorZ in the error state.
+		public class func initWithErr(e: DecodeError) -> Result_OnionPacketDecodeErrorZ {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_ReceiveTlvsDecodeErrorZ_err(e.danglingClone().cType!)
+			let nativeCallResult = CResult_OnionPacketDecodeErrorZ_err(e.danglingClone().cType!)
 
 			// cleanup
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_ReceiveTlvsDecodeErrorZ(
+			let returnValue = Result_OnionPacketDecodeErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_ReceiveTlvsDecodeErrorZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_OnionPacketDecodeErrorZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
 		}
 
-		/// Frees any resources used by the CResult_ReceiveTlvsDecodeErrorZ.
+		/// Frees any resources used by the CResult_OnionPacketDecodeErrorZ.
 		internal func free() {
 			// native call variable prep
 
 
 			// native method call
-			let nativeCallResult = CResult_ReceiveTlvsDecodeErrorZ_free(self.cType!)
+			let nativeCallResult = CResult_OnionPacketDecodeErrorZ_free(self.cType!)
 
 			// cleanup
 
@@ -121,16 +121,16 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Creates a new CResult_ReceiveTlvsDecodeErrorZ which has the same data as `orig`
+		/// Creates a new CResult_OnionPacketDecodeErrorZ which has the same data as `orig`
 		/// but with all dynamically-allocated buffers duplicated in new buffers.
-		internal func clone() -> Result_ReceiveTlvsDecodeErrorZ {
+		internal func clone() -> Result_OnionPacketDecodeErrorZ {
 			// native call variable prep
 
 
 			// native method call
 			let nativeCallResult =
-				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_ReceiveTlvsDecodeErrorZ>) in
-					CResult_ReceiveTlvsDecodeErrorZ_clone(origPointer)
+				withUnsafePointer(to: self.cType!) { (origPointer: UnsafePointer<LDKCResult_OnionPacketDecodeErrorZ>) in
+					CResult_OnionPacketDecodeErrorZ_clone(origPointer)
 				}
 
 
@@ -138,9 +138,9 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
-			let returnValue = Result_ReceiveTlvsDecodeErrorZ(
+			let returnValue = Result_OnionPacketDecodeErrorZ(
 				cType: nativeCallResult,
-				instantiationContext: "Result_ReceiveTlvsDecodeErrorZ.swift::\(#function):\(#line)")
+				instantiationContext: "Result_OnionPacketDecodeErrorZ.swift::\(#function):\(#line)")
 
 
 			return returnValue
@@ -156,23 +156,23 @@ extension Bindings {
 			if self.cType?.result_ok == false {
 				return DecodeError(
 					cType: self.cType!.contents.err.pointee,
-					instantiationContext: "Result_ReceiveTlvsDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
+					instantiationContext: "Result_OnionPacketDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
 			}
 			return nil
 		}
 
 
-		public func getValue() -> ReceiveTlvs? {
+		public func getValue() -> OnionPacket? {
 			if self.cType?.result_ok == true {
-				return ReceiveTlvs(
+				return OnionPacket(
 					cType: self.cType!.contents.result.pointee,
-					instantiationContext: "Result_ReceiveTlvsDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
+					instantiationContext: "Result_OnionPacketDecodeErrorZ.swift::\(#function):\(#line)", anchor: self)
 			}
 			return nil
 		}
 
 
-		internal func danglingClone() -> Result_ReceiveTlvsDecodeErrorZ {
+		internal func danglingClone() -> Result_OnionPacketDecodeErrorZ {
 			let dangledClone = self.clone()
 			dangledClone.dangling = true
 			return dangledClone
@@ -186,14 +186,14 @@ extension Bindings {
 			if !self.dangling {
 				if Self.enableDeinitLogging {
 					Bindings.print(
-						"Freeing Result_ReceiveTlvsDecodeErrorZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
+						"Freeing Result_OnionPacketDecodeErrorZ \(self.instanceNumber). (Origin: \(self.instantiationContext))"
 					)
 				}
 
 				self.free()
 			} else if Self.enableDeinitLogging {
 				Bindings.print(
-					"Not freeing Result_ReceiveTlvsDecodeErrorZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
+					"Not freeing Result_OnionPacketDecodeErrorZ \(self.instanceNumber) due to dangle. (Origin: \(self.instantiationContext))"
 				)
 			}
 		}

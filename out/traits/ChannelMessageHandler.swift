@@ -357,6 +357,129 @@ extension Bindings {
 				return returnValue
 			}
 
+			func handleStfuLambda(this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKStfu>)
+			{
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleStfuLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleStfu(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: Stfu(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleSpliceLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKSplice>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleSpliceLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleSplice(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: Splice(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleSpliceAckLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKSpliceAck>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleSpliceAckLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleSpliceAck(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: SpliceAck(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
+			func handleSpliceLockedLambda(
+				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKSpliceLocked>
+			) {
+				let instance: ChannelMessageHandler = Bindings.pointerToInstance(
+					pointer: this_arg!, sourceMarker: "ChannelMessageHandler::handleSpliceLockedLambda")
+
+				// Swift callback variable prep
+
+
+				// Swift callback call
+				let swiftCallbackResult = instance.handleSpliceLocked(
+					theirNodeId: PublicKey(
+						cType: their_node_id,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.getValue(),
+					msg: SpliceLocked(
+						cType: msg.pointee,
+						instantiationContext: "ChannelMessageHandler.swift::init()::\(#function):\(#line)"
+					)
+					.dangle().clone())
+
+				// cleanup
+
+
+				// return value (do some wrapping)
+				let returnValue = swiftCallbackResult
+
+				return returnValue
+			}
+
 			func handleTxAddInputLambda(
 				this_arg: UnsafeRawPointer?, their_node_id: LDKPublicKey, msg: UnsafePointer<LDKTxAddInput>
 			) {
@@ -1130,6 +1253,10 @@ extension Bindings {
 				handle_channel_ready: handleChannelReadyLambda,
 				handle_shutdown: handleShutdownLambda,
 				handle_closing_signed: handleClosingSignedLambda,
+				handle_stfu: handleStfuLambda,
+				handle_splice: handleSpliceLambda,
+				handle_splice_ack: handleSpliceAckLambda,
+				handle_splice_locked: handleSpliceLockedLambda,
 				handle_tx_add_input: handleTxAddInputLambda,
 				handle_tx_add_output: handleTxAddOutputLambda,
 				handle_tx_remove_input: handleTxRemoveInputLambda,
@@ -1238,6 +1365,42 @@ extension Bindings {
 
 			Bindings.print(
 				"Error: ChannelMessageHandler::handleClosingSigned MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `stfu` message from the given peer.
+		open func handleStfu(theirNodeId: [UInt8], msg: Stfu) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleStfu MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `splice` message from the given peer.
+		open func handleSplice(theirNodeId: [UInt8], msg: Splice) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleSplice MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `splice_ack` message from the given peer.
+		open func handleSpliceAck(theirNodeId: [UInt8], msg: SpliceAck) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleSpliceAck MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
+				severity: .ERROR)
+			abort()
+		}
+
+		/// Handle an incoming `splice_locked` message from the given peer.
+		open func handleSpliceLocked(theirNodeId: [UInt8], msg: SpliceLocked) {
+
+			Bindings.print(
+				"Error: ChannelMessageHandler::handleSpliceLocked MUST be overridden! Offending class: \(String(describing: self)). Aborting.",
 				severity: .ERROR)
 			abort()
 		}
@@ -1762,6 +1925,115 @@ extension Bindings {
 				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKClosingSigned>) in
 					self.cType!
 						.handle_closing_signed(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `stfu` message from the given peer.
+		public override func handleStfu(theirNodeId: [UInt8], msg: Stfu) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKStfu>) in
+					self.cType!.handle_stfu(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `splice` message from the given peer.
+		public override func handleSplice(theirNodeId: [UInt8], msg: Splice) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKSplice>) in
+					self.cType!.handle_splice(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `splice_ack` message from the given peer.
+		public override func handleSpliceAck(theirNodeId: [UInt8], msg: SpliceAck) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKSpliceAck>) in
+					self.cType!.handle_splice_ack(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
+				}
+
+
+			// cleanup
+
+			// for elided types, we need this
+			theirNodeIdPrimitiveWrapper.noOpRetain()
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+			return returnValue
+		}
+
+		/// Handle an incoming `splice_locked` message from the given peer.
+		public override func handleSpliceLocked(theirNodeId: [UInt8], msg: SpliceLocked) {
+			// native call variable prep
+
+			let theirNodeIdPrimitiveWrapper = PublicKey(
+				value: theirNodeId, instantiationContext: "ChannelMessageHandler.swift::\(#function):\(#line)")
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: msg.cType!) { (msgPointer: UnsafePointer<LDKSpliceLocked>) in
+					self.cType!
+						.handle_splice_locked(self.cType!.this_arg, theirNodeIdPrimitiveWrapper.cType!, msgPointer)
 				}
 
 

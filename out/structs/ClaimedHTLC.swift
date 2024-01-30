@@ -295,8 +295,61 @@ extension Bindings {
 			return returnValue
 		}
 
+		/// The extra fee our counterparty skimmed off the top of this HTLC, if any.
+		///
+		/// This value will always be 0 for [`ClaimedHTLC`]s serialized with LDK versions prior to
+		/// 0.0.119.
+		public func getCounterpartySkimmedFeeMsat() -> UInt64 {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (thisPtrPointer: UnsafePointer<LDKClaimedHTLC>) in
+					ClaimedHTLC_get_counterparty_skimmed_fee_msat(thisPtrPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
+		/// The extra fee our counterparty skimmed off the top of this HTLC, if any.
+		///
+		/// This value will always be 0 for [`ClaimedHTLC`]s serialized with LDK versions prior to
+		/// 0.0.119.
+		public func setCounterpartySkimmedFeeMsat(val: UInt64) {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafeMutablePointer(to: &self.cType!) { (thisPtrPointer: UnsafeMutablePointer<LDKClaimedHTLC>) in
+					ClaimedHTLC_set_counterparty_skimmed_fee_msat(thisPtrPointer, val)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
+			let returnValue = nativeCallResult
+
+
+			return returnValue
+		}
+
 		/// Constructs a new ClaimedHTLC given each field
-		public init(channelIdArg: [UInt8], userChannelIdArg: [UInt8], cltvExpiryArg: UInt32, valueMsatArg: UInt64) {
+		public init(
+			channelIdArg: [UInt8], userChannelIdArg: [UInt8], cltvExpiryArg: UInt32, valueMsatArg: UInt64,
+			counterpartySkimmedFeeMsatArg: UInt64
+		) {
 			// native call variable prep
 
 			let channelIdArgPrimitiveWrapper = ThirtyTwoBytes(
@@ -309,7 +362,7 @@ extension Bindings {
 			// native method call
 			let nativeCallResult = ClaimedHTLC_new(
 				channelIdArgPrimitiveWrapper.cType!, userChannelIdArgPrimitiveWrapper.cType!, cltvExpiryArg,
-				valueMsatArg)
+				valueMsatArg, counterpartySkimmedFeeMsatArg)
 
 			// cleanup
 

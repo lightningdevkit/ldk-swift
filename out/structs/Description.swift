@@ -186,8 +186,8 @@ extension Bindings {
 			return returnValue
 		}
 
-		/// Returns the underlying description [`String`]
-		public func intoInner() -> String {
+		/// Returns the underlying description [`UntrustedString`]
+		public func intoInner() -> UntrustedString {
 			// native call variable prep
 
 
@@ -198,10 +198,33 @@ extension Bindings {
 
 
 			// return value (do some wrapping)
+			let returnValue = UntrustedString(
+				cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)")
+
+
+			return returnValue
+		}
+
+		/// Get the string representation of a Description object
+		public func toStr() -> String {
+			// native call variable prep
+
+
+			// native method call
+			let nativeCallResult =
+				withUnsafePointer(to: self.cType!) { (oPointer: UnsafePointer<LDKDescription>) in
+					Description_to_str(oPointer)
+				}
+
+
+			// cleanup
+
+
+			// return value (do some wrapping)
 			let returnValue = Str(
-				cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)"
+				cType: nativeCallResult, instantiationContext: "Description.swift::\(#function):\(#line)", anchor: self
 			)
-			.getValue()
+			.dangle(false).getValue()
 
 
 			return returnValue

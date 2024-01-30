@@ -81,9 +81,9 @@ public struct ChannelManagerConstructionParameters {
     
     fileprivate func router(networkGraph: NetworkGraph?) -> Router {
         if let netGraph = networkGraph, let scorer = self.scorer, let scoreParams = self.scoreParams {
-            return DefaultRouter(networkGraph: netGraph, logger: self.logger, randomSeedBytes: self.entropySource.getSecureRandomBytes(), scorer: scorer.asLockableScore(), scoreParams: scoreParams).asRouter()
+            return DefaultRouter(networkGraph: netGraph, logger: self.logger, entropySource: self.entropySource, scorer: scorer.asLockableScore(), scoreParams: scoreParams).asRouter()
         }
-        return CMCRouter()
+        return CMCRouter(messageRouter: MessageRouter())
     }
 }
 
@@ -124,7 +124,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
     public private(set) var channel_monitors: [(ChannelMonitor, [UInt8])]
 
 
-    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument, filter: Filter?, params: ChannelManagerConstructionParameters) throws {
+    public init(channelManagerSerialized: [UInt8], channelMonitorsSerialized: [[UInt8]], networkGraph: NetworkGraphArgument, filter: Filter?, params: ChannelManagerConstructionParameters, logger: Logger) throws {
 
         self.constructionParameters = params
         
@@ -204,7 +204,7 @@ public class ChannelManagerConstructor: NativeTypeWrapper {
 
         if let filter = filter {
             for (currentMonitor, _) in self.channel_monitors {
-                currentMonitor.loadOutputsToWatch(filter: filter)
+                currentMonitor.loadOutputsToWatch(filter: filter, logger: logger)
             }
         }
 

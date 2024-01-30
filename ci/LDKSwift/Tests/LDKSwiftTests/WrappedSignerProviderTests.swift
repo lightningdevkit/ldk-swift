@@ -136,10 +136,10 @@ class WrappedSignerProviderTests: XCTestCase {
             print("entering wrapper: readChanSigner()")
             return myKeysManager!.keysManager.asSignerProvider().readChanSigner(reader: reader)
         }
-
-        override func getDestinationScript() -> Bindings.Result_CVec_u8ZNoneZ {
+        
+        override func getDestinationScript(channelKeysId: [UInt8]) -> Bindings.Result_CVec_u8ZNoneZ {
             print("entering wrapper: getDestinationScript()")
-            return myKeysManager!.keysManager.asSignerProvider().getDestinationScript()
+            return myKeysManager!.keysManager.asSignerProvider().getDestinationScript(channelKeysId: channelKeysId)
         }
 
         override func getShutdownScriptpubkey() -> Bindings.Result_ShutdownScriptNoneZ {
@@ -147,7 +147,7 @@ class WrappedSignerProviderTests: XCTestCase {
             
             let randomHex = "6fe28c0ab6f1b372c1a6a246ae63f74f931e8365e15a089c68d6190000000000"
             let randomHexBytes = LDKSwiftTests.hexStringToBytes(hexString: randomHex)!
-            let witnessProgram = ShutdownScript.newWitnessProgram(version: 1, program: randomHexBytes)
+            let witnessProgram = ShutdownScript.newWitnessProgram(witnessProgram: WitnessProgram(version: 1, program: randomHexBytes))
             let witnessBasedScript = witnessProgram.getValue()!
             
             return Result_ShutdownScriptNoneZ.initWithOk(o: witnessBasedScript)

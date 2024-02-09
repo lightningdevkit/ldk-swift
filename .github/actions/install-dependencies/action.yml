@@ -51,5 +51,9 @@ runs:
             run: |
                 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
                 pushd ${{ inputs.destination }}/ldk-c-bindings
-                ./genbindings.sh ../rust-lightning true
+                if [ "$RUNNER_OS" == "macOS" ]; then
+                    ./genbindings.sh ../rust-lightning true skip-tests
+                else
+                    ./genbindings.sh ../rust-lightning true
+                fi
                 popd

@@ -4,10 +4,10 @@ This project is essentially a set of auto-generated decorators that call the C m
 defined in `lightning.h`. The wrappers for the most part take care of conveniences such
 as conversion of Swift types into C types, and parsing C types back into Swift.
 
-In `Bindings.swift`, there are various additional generic utility methods to aid the 
+In `Bindings.swift`, there are various additional generic utility methods to aid the
 developer in passing data back and forth.
 
-The greatest effort on the part of users of this project comes in when dealing with 
+The greatest effort on the part of users of this project comes in when dealing with
 traits. All files located within `out/traits` are meant to be interpreted as
 abstract classes. However, as Swift does not allow abstract classes, and using protocols
 would shift both implementation and boilerplate burden on developers, I instead recommend
@@ -41,7 +41,7 @@ class MyFeeEstimator: FeeEstimator {
 }
 ```
 
-Second, somewhere within the app initialization context, e.g. the app delegate's 
+Second, somewhere within the app initialization context, e.g. the app delegate's
 `didFinishLaunchingWithOptions` method, instantiate the fee estimator:
 
 ```swift
@@ -89,8 +89,7 @@ import LightningDevKit
 
 class MyBroadcasterInterface: BroadcasterInterface {
 
-    override func broadcastTransaction(tx: [UInt8]) {
-
+    override func broadcastTransactions(txs: [[UInt8]]) {
         // insert code to broadcast transaction
     }
 
@@ -117,22 +116,22 @@ import LightningDevKit
 
 class MyPersister: Persist {
 
-    override func persistNewChannel(channelId: OutPoint, data: ChannelMonitor, updateId: MonitorUpdateId) -> ChannelMonitorUpdateStatus {
+    override func persistNewChannel(channelId: Bindings.OutPoint, data: Bindings.ChannelMonitor, updateId: Bindings.MonitorUpdateId) -> Bindings.ChannelMonitorUpdateStatus {
         let idBytes: [UInt8] = channelId.write()
         let monitorBytes: [UInt8] = data.write()
 
         // persist monitorBytes to disk, keyed by idBytes
 
-        return ChannelMonitorUpdateStatus.Completed
+        return .Completed
     }
 
-    override func updatePersistedChannel(channelId: OutPoint, update: ChannelMonitorUpdate, data: ChannelMonitor, updateId: MonitorUpdateId) -> ChannelMonitorUpdateStatus {
+    override func updatePersistedChannel(channelId: Bindings.OutPoint, update: Bindings.ChannelMonitorUpdate, data: Bindings.ChannelMonitor, updateId: Bindings.MonitorUpdateId) -> Bindings.ChannelMonitorUpdateStatus {
         let idBytes: [UInt8] = channelId.write()
         let monitorBytes: [UInt8] = data.write()
 
         // modify persisted monitorBytes keyed by idBytes on disk
 
-        return ChannelMonitorUpdateStatus.Completed
+        return .Completed
     }
 
 }
@@ -261,12 +260,24 @@ If you have a channel manager you previously serialized, you can restore it like
 ```swift
 let serializedChannelManager: [UInt8] = [1, 1, 111, 226, 140, 10, 182, 241, 179, 114, 193, 166, 162, 70, 174, 99, 247, 79, 147, 30, 131, 101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0, 0, 10, 174, 219, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 238, 87, 135, 110, 67, 215, 108, 228, 66, 226, 192, 37, 6, 193, 120, 186, 5, 214, 209, 16, 169, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 113, 1, 2, 0, 0, 3, 2, 0, 0, 5, 33, 2, 89, 251, 100, 20, 141, 129, 167, 164, 253, 12, 110, 225, 21, 14, 42, 17, 23, 170, 54, 168, 175, 191, 155, 92, 7, 230, 198, 17, 219, 93, 1, 98, 7, 32, 227, 238, 107, 153, 58, 23, 23, 190, 44, 19, 147, 84, 4, 108, 20, 65, 184, 73, 193, 61, 62, 208, 250, 205, 198, 250, 214, 79, 148, 156, 191, 174, 9, 0, 11, 32, 134, 110, 74, 49, 160, 200, 160, 145, 147, 82, 141, 56, 13, 26, 225, 152, 160, 215, 152, 117, 30, 242, 250, 8, 119, 235, 144, 54, 177, 235, 97, 60]
 let serializedChannelMonitors: [[UInt8]] = []
+
+let cmcParams = ChannelManagerConstructionParameters(
+	config: config,
+	entropySource: keysManager.asEntropySource(),
+	nodeSigner: keysManager.asNodeSigner(),
+	signerProvider: keysManager.asSignerProvider(),
+	feeEstimator: feeEstimator,
+	chainMonitor: chainMonitor,
+	txBroadcaster: broadcaster,
+	logger: logger
+)
+
 let channelManagerConstructor = try ChannelManagerConstructor(
-    channelManagerSerialized: serializedChannelManager,
-    channelMonitorsSerialized: serializedChannelMonitors,
-    netGraphSerialized: nil, // or networkGraph
-    filter: filter,
-    params: cmcParams,
+	channelManagerSerialized: serializedChannelManager,
+	channelMonitorsSerialized: serializedChannelMonitors,
+	networkGraph: NetworkGraphArgument.instance(networkGraph),
+	filter: filter,
+	params: cmcParams
 )
 
 let channelManager = channelManagerConstructor.channelManager
